@@ -64,9 +64,9 @@ Finally, the **CMakeLists.txt** is totally equivalent to what we have seen befor
 .. code-block:: cmake
 
    PROJECT(MyHello)
-   cmake_minimum_required(VERSION 2.8)
+   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
    
-   include(conanbuildinfo.cmake)
+   INCLUDE(conanbuildinfo.cmake)
    CONAN_BASIC_SETUP()
    
    ADD_EXECUTABLE(greet main.cpp)

@@ -118,9 +118,9 @@ that we should create inside our example folder:
 .. code-block:: cmake
 
    PROJECT(FoundationTimer)
-   cmake_minimum_required(VERSION 2.8)
+   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
-   include(conanbuildinfo.cmake)
+   INCLUDE(conanbuildinfo.cmake)
    CONAN_BASIC_SETUP()
    
    ADD_EXECUTABLE(timer timer.cpp)
