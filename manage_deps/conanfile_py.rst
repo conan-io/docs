@@ -105,7 +105,7 @@ You only need to include the following lines in your ``CMakeLists.txt``:
 
    # ... 
    
-   include(conanbuildinfo.cmake)
+   INCLUDE(conanbuildinfo.cmake)
    CONAN_BASIC_SETUP()
    
    # ... Your original cmakelists.txt contents ...
@@ -342,17 +342,17 @@ So lets use this option in our CMakeLists.txt
 .. code-block:: cmake
 
    PROJECT(FoundationTimer)
-   cmake_minimum_required(VERSION 2.8)
+   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
    
-   include(conanbuildinfo.cmake)
+   INCLUDE(conanbuildinfo.cmake)
    CONAN_BASIC_SETUP()
    
    # Create a library shared or static
    IF(SHARED)
       MESSAGE("BUILDING SHARED LIBRARY")
-      add_library(mylibrary SHARED lib.cpp)
+      ADD_LIBRARY(mylibrary SHARED lib.cpp)
    ELSE()
-      add_library(mylibrary STATIC lib.cpp)
+      ADD_LIBRARY(mylibrary STATIC lib.cpp)
    ENDIF()
    
    # Link dependencies libraries

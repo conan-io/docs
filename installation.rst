@@ -9,7 +9,7 @@ directly from source code
 Install the binaries
 --------------------
 
-Go to conan website and `download the installer for your platform <https://www.conan.io>`_!
+Go to conan website and `download the installer for your platform <https://www.conan.io/downloads>`_!
 
 Execute the installer. You don't need to install python.
 

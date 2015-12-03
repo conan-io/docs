@@ -140,9 +140,9 @@ has already been invoked and has generated the ``message.pb.cc`` file.
 .. code-block:: cmake
 
    PROJECT(MyHello)
-   cmake_minimum_required(VERSION 3.0)
+   CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
    
-   include(conanbuildinfo.cmake)
+   INCLUDE(conanbuildinfo.cmake)
    CONAN_BASIC_SETUP()
    
    ADD_LIBRARY(message message.pb.cc)
