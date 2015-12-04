@@ -4,7 +4,7 @@ Install
 =======
 
 To install the conan client you can use one of the provided installers, or run it
-directly from source code
+directly from source code.
 
 Install the binaries
 --------------------
@@ -83,4 +83,4 @@ Test your ``conan`` script.
 
     $ conan
 
-You should see the conan commands help
+You should see the conan commands help.
