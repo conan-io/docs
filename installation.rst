@@ -4,7 +4,7 @@ Install
 =======
 
 To install the conan client you can use one of the provided installers, or run it
-directly from source code 
+directly from source code.
 
 Install the binaries
 --------------------
@@ -21,7 +21,7 @@ Lets check that conan is correctly installed. Execute in your console:
 .. code-block:: bash
 
    $ conan
-   
+
 You will see something similar to:
 
 .. code-block:: bash
@@ -59,9 +59,9 @@ Clone (or download and unzip) the git repository and install its requirements:
 
 .. code-block:: bash
 
-    ~$/ git clone
-    ~$/ cd conan
-    ~$/ pip install -r requirements.txt
+    $ git clone https://github.com/conan-io/conan.git
+    $ cd conan
+    $ pip install -r requirements.txt
 
 Create an script to execute conan and add it to your ``PATH``.
 
@@ -81,6 +81,6 @@ Test your ``conan`` script.
 
 .. code-block:: bash
 
-    ~$/ conan
+    $ conan
 
-You should see the conan commands help
+You should see the conan commands help.
