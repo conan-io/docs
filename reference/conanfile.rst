@@ -344,16 +344,16 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 
 .. code-block:: python
 
-   self.includedirs = ['include']  # Ordered list of include paths
-   self.libs = []  # The libs to link against
-   self.libdirs = ['lib']  # Directories to find libraries
-   self.resdirs = ['res']  # Directories to find resources, data, etc
-   self.bindirs = []  # Directories to find executables and shared libs
-   self.defines = []  # preprocessor definitions
-   self.cflags = []  # pure C flags
-   self.cppflags = []  # C++ compilation flags
-   self.sharedlinkflags = []  # linker flags
-   self.exelinkflags = []  # linker flags
+   self.cpp_info.includedirs = ['include']  # Ordered list of include paths
+   self.cpp_info.libs = []  # The libs to link against
+   self.cpp_info.libdirs = ['lib']  # Directories to find libraries
+   self.cpp_info.resdirs = ['res']  # Directories to find resources, data, etc
+   self.cpp_info.bindirs = []  # Directories to find executables and shared libs
+   self.cpp_info.defines = []  # preprocessor definitions
+   self.cpp_info.cflags = []  # pure C flags
+   self.cpp_info.cppflags = []  # C++ compilation flags
+   self.cpp_info.sharedlinkflags = []  # linker flags
+   self.cpp_info.exelinkflags = []  # linker flags
 
 
 * includedirs: list of relative paths (starting from the package root) of directories to find
