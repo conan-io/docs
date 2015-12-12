@@ -7,13 +7,13 @@ This section shows how to use the ``conanfile.txt`` to manage the required libra
 
 .. note::
 
-   Remember, in the :ref:`Getting started<getting_started>` we saw how to use **conan** to download the **POCO** library and compile a program.
+   Remember, in :ref:`Getting started<getting_started>` we saw how to use **conan** to download the **POCO** library and compile a program.
    
 
-But before we start with ``conanfile.txt`` details, lets review the :ref:`getting started <getting_started>` example and see what **conan** is really doing:
+But before we start with ``conanfile.txt`` details, let's review the :ref:`getting started <getting_started>` example and see what **conan** is really doing:
 
    
-   1. We created a ``conanfile.txt``
+   1. We have created a ``conanfile.txt``
    
       .. code-block:: text
       
@@ -32,26 +32,26 @@ But before we start with ``conanfile.txt`` details, lets review the :ref:`gettin
    #. We include the generated file ``conanbuildinfo.cmake`` in our ``CMakeLists.txt`` file.
 
 
-What's is really happening?
+What is really happening?
 
-   - When you execute **conan install**, conan reads current directory  ``conanfile.txt``.
+   - When you execute **conan install**, conan reads ``conanfile.txt`` from the current directory.
    - Conan reads all the **[requires]** entries and installs them (taking care of upstream options/requires override)
        
      So conan will download the requirements (and each requirement's requirements recursively), first looking at your local store (a local cache) and, if its not found, at the remotes.
      
      In this example, conan will download *OpenSSL/1.0.2d@lasote/stable* and *zlib/1.2.8@lasote/stable*.
      
-     Conan also will collect from each requirement needed information: **libs** that has to be **linked**, the **include directories**, **compile flags** etc.
-     See more details in requires_ section.
+     Conan will also collect needed information from each requirement: **libs** that has to be **linked**, the **include directories**, **compile flags** etc.
+     See the requires_ section for more details.
    
    
-   - For each **[generator]** specified, conan will generate a file with mentioned information that will help you to build your project and link with your requirements. See more details in generators_ section.
+   - For each **[generator]** specified, conan will generate a file with mentioned information that will help you to build your project and link with your requirements. The generators_ section contains more details.
 
 .. tip:: **Pro Tip**
 
-   If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.6.1@lasote/stable**, conan will download to your local repository the Poco package and all their dependencies (*OpenSSL/1.0.2d@lasote/stable* and *zlib/1.2.8@lasote/stable*) and will print information about the local directory where there are installed. 
+   If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.6.1@lasote/stable**, conan will download the Poco package and all its dependencies (*OpenSSL/1.0.2d@lasote/stable* and *zlib/1.2.8@lasote/stable*) to your local repository and print information about the local directory where they are installed. 
    
-   You will find a **/lib** and **/include** subfolders with the libraries and include files. You could handle them manually if you want. But we recommend the usage of a ``conanfile.txt`` or ``conanfile.py`` instead of directly install packages.
+   You will find a **/lib** and an **/include** subfolder together with the libraries and include files. You could handle them manually if you want. But we recommend the usage of a ``conanfile.txt`` or ``conanfile.py`` instead of directly installing packages.
    
 
 Now create your ``conanfile.txt`` in your project and start using conan.
@@ -61,7 +61,7 @@ Requires
 ........
 
 We put the requirements in the **[requires]** section. 
-The requirements looks like this:
+The requirements look like this:
 
 .. code-block:: text
 
@@ -74,7 +74,7 @@ Where:
    - ``Poco`` is the name
    - ``1.6.1`` is the version
    - ``lasote`` is the owner
-   - ``stable`` is the channel, could be several channels for develop, testing, etc.
+   - ``stable`` is the channel (there could be several channels for developing, testing, etc.)
 
 
 Overriding requirements
@@ -82,22 +82,22 @@ _______________________
 
 
 You can specify multiple requirements and you can **override** the "require's requirements".
-Lets see an example. 
+Let's see an example. 
 
-At the beginning of this section we saw that when we call **conan install** command, conan install the POCO requirement and all its requirements recursively:
+At the beginning of this section we saw that, when we call the **conan install** command, conan installs the POCO requirement and all its requirements recursively:
 
    * **OpenSSL/1.0.2d@lasote/stable**
    * **zlib/1.2.8@lasote/stable**
    
 .. tip:: 
 
-    This is a good example to explain the requirements overriding. We all know the importance of keep OpenSSL library updated.
+    This is a good example to explain requirements overriding. We all know the importance of keeping the OpenSSL library updated.
 
 So, What happens if a new release of OpenSSL library is out? 
 
-Do we need to wait until **lasote** generates a new package of POCO that includes the new OpenSSL library? It is not necessary.
+Do we need to wait until **lasote** generates a new package of POCO that includes the new OpenSSL library? That is not necessary.
 
-We can do it just writing the new version in **[requires]**:
+We just enter the new version in **[requires]**:
 
 .. code-block:: text
 
@@ -107,7 +107,7 @@ We can do it just writing the new version in **[requires]**:
 
 The second line will override the OpenSSL requirement with the (non-existent yet)  **OpenSSL/1.1.0a**
 
-And, maybe, for try new zlib alpha features, we could replace the Zlib requirement from another user or channel. 
+And, maybe, in order to try out the new zlib alpha features, we could replace the Zlib requirement with one from another user or channel. 
 
 .. code-block:: text
 
@@ -117,7 +117,7 @@ And, maybe, for try new zlib alpha features, we could replace the Zlib requireme
    zlib/1.2.9@otheruser/alpha
 
 
-Handle this task without a package manager in our project could be a nightmare. Don't you think?
+Handling this task without a package manager in our project could be a nightmare. Don't you think?
 
 
 .. _generators:
@@ -125,7 +125,7 @@ Handle this task without a package manager in our project could be a nightmare. 
 Generators
 ..........
 
-Conan reads **[generators]** section from ``conanfile.txt`` and creates one file for each generator with all necessary information to link your program with the specified requirements.
+Conan reads the **[generators]** section from ``conanfile.txt`` and creates one file for each generator with all necessary information to link your program with the specified requirements.
 
 
 .. _cmake_generator:
@@ -133,7 +133,7 @@ Conan reads **[generators]** section from ``conanfile.txt`` and creates one file
 *cmake*
 _______
 
-If you are using *CMake* to build your project, you can use *cmake* generator to manage all your requirements.
+If you are using *CMake* to build your project, you can use the *cmake* generator to manage all your requirements.
 
 
 **conanfile.txt**
@@ -166,7 +166,7 @@ This is the ``CMakeLists.txt`` file we used in the getting started example:
    
 
 - **include(conanbuildinfo.cmake)** will include the file generated by our **cmake** [generator]
-- **CONAN_BASIC_SETUP()** call will asign to **CMake** all the needed variables for link with your requirements. 
+- **CONAN_BASIC_SETUP()** call will asign to **CMake** all the needed variables for linking with our requirements. 
 - **${CONAN_LIBS}** contains the libraries to link with. So TARGET_LINK_LIBRARIES, works just fine.
 
 
@@ -238,14 +238,14 @@ As we can see, conan is preparing some variables:
 * ``CONAN_LIB_DIRS``: The library folders from the requirements.
 * ``CONAN_BIN_DIRS``: The binary folders from the requirements.
 * ``CONAN_LIBS``: The name of the libs we have to link with.
-* ``CONAN_DEFINES``: Defines, observe that are defined two, POCO_STATIC and POCO_NO_AUTOMATIC_LIBS, that correspond to options_.
-* ``CONAN_C_FLAGS``: Flags for C. No specified for Poco nor its requirements.
-* ``CONAN_CXX_FLAGS``: Flags for CXX. No specified for Poco nor its requirements.
-* ``CONAN_SHARED_LINK_FLAGS``: Shared flags for CXX. No specified for Poco nor its requirements.
-* ``CONAN_EXE_LINKER_FLAGS``: Exe linker flags for CXX. No specified for Poco nor its requirements.
+* ``CONAN_DEFINES``: Defines, observe that two are defined, POCO_STATIC and POCO_NO_AUTOMATIC_LIBS, that correspond to options_.
+* ``CONAN_C_FLAGS``: Flags for C. Not specified for Poco nor its requirements.
+* ``CONAN_CXX_FLAGS``: Flags for CXX. Not specified for Poco nor its requirements.
+* ``CONAN_SHARED_LINK_FLAGS``: Shared flags for CXX. Not specified for Poco nor its requirements.
+* ``CONAN_EXE_LINKER_FLAGS``: Exe linker flags for CXX. Not specified for Poco nor its requirements.
 
 
-Conan provides also the same variables isolated for each requirement, so you can handle the requirements individually:  **CONAN_INCLUDE_DIRS_POCO**, **CONAN_INCLUDE_DIRS_OPENSSL**,  etc
+Conan also provides the same variables isolated for each requirement, so you can handle the requirements individually:  **CONAN_INCLUDE_DIRS_POCO**, **CONAN_INCLUDE_DIRS_OPENSSL**,  etc
 
 
 All these variables are 'injected' to corresponding **CMake** functions/variables *(INCLUDE_DIRECTORIES, LINK_DIRECTORIES, ADD_DEFINITIONS, CMAKE_CXX_FLAGS...etc)* when you call **CONAN_BASIC_SETUP()** in your ``CMakeLists.txt`` file.
@@ -255,11 +255,11 @@ All these variables are 'injected' to corresponding **CMake** functions/variable
 *gcc*
 _____
 
-Now we are going to compile the :ref:`getting started<getting_started>` example using **gcc** instead of **cmake** generator.
+Now we are going to compile the :ref:`getting started<getting_started>` example using **gcc** instead of the **cmake** generator.
 
 .. note:: 
    
-   We have only tested gcc generator in linux with gcc compiler. But maybe it works with MinGW in Windows or even clang in OSx. Try it and tell us about. :D
+   We have only tested the gcc generator in linux with the gcc compiler. But maybe it works with MinGW in Windows or even clang in OSx. Try it and let us know. :D
 
 
 Open ``conanfile.txt`` and change (or add) **gcc** generator:
@@ -283,9 +283,9 @@ Install the requirements
 
 .. note::
 
-   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them editing the ``~/.conan/conan.conf`` or override them with "-s" parameters.  
+   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them by editing the ``~/.conan/conan.conf`` or override them with "-s" parameters.  
  
-   So from now type **conan install** and you are done! 
+   So, now type **conan install** and you are done! 
 
 
 Let's take a look to the generated ``conanbuildinfo.gcc``:
@@ -294,9 +294,9 @@ Let's take a look to the generated ``conanbuildinfo.gcc``:
    
    -DPOCO_STATIC=ON -DPOCO_NO_AUTOMATIC_LIBS -I/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include -I/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/include -I/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include -L/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib -L/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib -L/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib -Wl,-rpath=/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib -Wl,-rpath=/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib -Wl,-rpath=/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib -lPocoUtil -lPocoXML -lPocoJSON -lPocoMongoDB -lPocoNet -lPocoCrypto -lPocoData -lPocoDataSQLite -lPocoZip -lPocoFoundation -lpthread -ldl -lrt -lssl -lcrypto -lz    
 
-Wow, its a little hard for reading, but that are just the **gcc** parameters needed to compile our program. But you could recognize **-I** options with headers directories, **-L** for libraries directories... 
+Wow, it's a little hard to read, but those are just the **gcc** parameters needed to compile our program. But you could recognize **-I** options with headers directories, **-L** for libraries directories... 
 
-Its the same information we saw in ``conanbuildinfo.cmake``.
+It's the same information we saw in ``conanbuildinfo.cmake``.
 
 So just execute:
 
@@ -339,7 +339,7 @@ Check the section :ref:`Integrations/XCode <xcode>` to read more about this gene
 _____
 
 
-Maybe you need a more generic ``conanbuildinfo`` file to use it with other build system or script.
+Maybe you need a more generic ``conanbuildinfo`` file to use with another build system or script.
 
 .. note:: 
    
@@ -361,7 +361,7 @@ Install the requirements
 
    $ conan install
 
-And it's the generated file, with the same information that CMake and gcc, but in a generic format:
+And it's the generated file, with the same information as CMake and gcc, but in a generic format:
 
 .. code-block:: text
 
@@ -411,7 +411,7 @@ Options are intended for package specific configurations.
 
 .. note:: 
    
-   You can check a package available options with "conan search -v" command: 
+   You can check the available options for a package with "conan search -v" command: 
       
       $ conan search Poco/1.6.1@lasote/stable -v -r conan.io
       
@@ -446,7 +446,7 @@ Install the requirements and compile
    $ g++ timer.cpp @conanbuildinfo.gcc -o bin/timer
    
 
-What happened? **conan install** command receives the different options and resolve that the right packages to link are the generated with **Poco:poco_static=False** and **OpenSSL:shared=True**
+What happened? The **conan install** command receives the different options and resolves the right packages to link to, meaninng the ones that are the generated with **Poco:poco_static=False** and **OpenSSL:shared=True**
 
 So if we inspect the **objdump** tool (available in linux) we can see in *Dynamic section* that the executable used the shared libraries from POCO and OpenSSL:
 
@@ -483,10 +483,10 @@ Imports
 
 In the options_ section we got shared libraries from Poco and OpenSSL just by changing the value of the options.
 
-These example was run in linux, where libraries can be found by the linker just passing the library paths parameters.
-But there are some differences between shared libraries on linux (\*.so), windows (\*.dll) and Macos (\*.dylib). 
+This example was run in linux, where libraries can be found by the linker just by passing the library paths parameters.
+But there are some differences between shared libraries on linux (\*.so), windows (\*.dll) and MacOS (\*.dylib). 
 
-We can assume, for short, that **\*.dll**  and **\*.dylib** should be copied to the user's binary directory.
+We can assume, for brevity, that **\*.dll**  and **\*.dylib** should be copied to the user's binary directory.
 
 .. note::
    
@@ -518,7 +518,7 @@ Edit the ``conanfile.txt`` file and paste the **[imports]** section
 .. note::
    
     You can explore the package folder in your local storage (printed after the install command) and look where the shared libraries are. It's common that **\*.dll** are copied in **/bin**
-    the rest of libraries should be found in **/lib** folder. But it's just a convention, you can use a different one for your packages if you want.
+    the rest of the libraries should be found in the **/lib** folder. But it's just a convention, you can use a different one for your packages if you want.
 
 
 
@@ -529,13 +529,13 @@ Install the requirements
    $ conan install
    
    
-Now look at the ``lib/`` folder of your project and verify that there are needed shared libraries.
+Now look at the ``lib/`` folder of your project and verify that the needed shared libraries are there.
 
-As you can see, **[imports]** section is a very generic way to import files from your requirements to your project. 
+As you can see, the **[imports]** section is a very generic way to import files from your requirements to your project. 
 
-Maybe conan could be also useful for packaging applications and copy the result executables to your bin folder, or for copying assets, test static files...etc. 
+Maybe conan could also be useful for packaging applications and copying the result executables to your bin folder, or for copying assets, test static files...etc. 
 
-Conan is pretty generic solution for package management, not just C/C++ nor libraries.
+Conan is a pretty generic solution for package management, not just C/C++ or libraries.
 
 
 
@@ -543,11 +543,11 @@ Conan is pretty generic solution for package management, not just C/C++ nor libr
 
 .. tip:: **Pro Tip: Shared libraries & rpaths**
 
-   In **UNIX** based operating system as **Linux** and **OSx** there is something called **rpath** (run-time search path) that is used to locate the **shared libraries** that another library or executable needs for execution.
+   In **UNIX** based operating systems like **Linux** and **OSx** there is something called **rpath** (run-time search path) that is used to locate the **shared libraries** that another library or executable needs for execution.
    
    The **rpath** is encoded inside dynamic libraries and executables and helps the linker to find its required shared libraries.
    
-   Imagine that we have an executable **my_exe** that requires a shared library **shared_lib_1**. And **shared_lib_1**, in turn, requires another **shared_lib_2**.
+   Imagine that we have an executable **my_exe** that requires a shared library **shared_lib_1**, and **shared_lib_1**, in turn, requires another **shared_lib_2**.
    
    So the **rpaths** values could be:
    
@@ -559,15 +559,15 @@ Conan is pretty generic solution for package management, not just C/C++ nor libr
    shared_lib_2 
    ============ =====================
    
-   In **linux** **rpath** is just an option, that means, if the linker doesn't find the library in **rpath** will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
+   In **linux** **rpath** is just an option, which means the, if the linker doesn't find the library in **rpath**, it will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
    
-   But in **OSx** with **dylibs** doesn't work like that. In OSx if the linker detects that an **rpath** is invalid (file not exists there) will fail. In OSx libraries are built with the hard restriction of knowing (before install them) where (in which folder) will be installed.
+   But in **OSx** with **dylibs** it doesn't work like that. In OSx, if the linker detects that an **rpath** is invalid (the file does not exist there), it will fail. In OSx, libraries are built with the hard restriction of knowing (before installing them) where (in which folder) they will be installed.
    
-   Some dependency managers try to ride out this OSx imposition changing the rpaths or making the rpaths relative to the binary.
+   Some dependency managers try to ride out this OSx restriction by changing the rpaths or making the rpaths relative to the binary.
    
-   For **conan** these are not suitable solutions because libraries are not all together in a directory we can refer and we don't want it, its not good at all for package management and reuse.
+   For **conan** these are not suitable solutions because libraries are not all together in a directory we can refer to and we don't want it, because it's not good at all for package management and reuse.
    
-   So for **OSx** conan requires **dylibs** to be built having rpath just with the name of the required library (just the name, without path).
+   So for **OSx** conan requires **dylibs** to be built having an rpath just with the name of the required library (just the name, without path).
    
    With conan, **rpaths** values should be:
    
@@ -579,9 +579,9 @@ Conan is pretty generic solution for package management, not just C/C++ nor libr
    shared_lib_2.dylib 
    ================== =====================
    
-   The only limitation of these convention if that **dylibs** have to be copied to the folder of our executable, just like **dll** files in windows.
+   The only limitation of this convention is that **dylibs** have to be copied to the folder of our executable, just like **dll** files in windows.
    
-   In **linux** you don't need to care about **rpath** but you should know that, by default, current directory (./) is not in the **LD_LIBRARY_PATH** so its useless if you copy ***.so** files in your executable folder unless you modify the LD_LIBRARY_PATH.
+   In **linux** you don't need to care about **rpath** but you should know that, by default, the current directory (./) is not in the **LD_LIBRARY_PATH** so it's useless if you copy ***.so** files in your executable folder, unless you modify the LD_LIBRARY_PATH.
    
-   That's why we import **dll** and **dylib** files to your project with the [imports] section.
+   That's why we import **dll** and **dylib** files to our project with the [imports] section.
   
