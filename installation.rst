@@ -9,14 +9,14 @@ directly from source code.
 Install the binaries
 --------------------
 
-Go to conan website and `download the installer for your platform <https://www.conan.io/downloads>`_!
+Go to the conan website and `download the installer for your platform <https://www.conan.io/downloads>`_!
 
 Execute the installer. You don't need to install python.
 
 Initial configuration
 ---------------------
 
-Lets check that conan is correctly installed. Execute in your console:
+Let's check if conan is correctly installed. Execute in your console:
 
 .. code-block:: bash
 
@@ -43,11 +43,12 @@ You will see something similar to:
    *** You can change them in ~/.conan/conan.conf ***
    *** Or override with -s compiler='other' -s ...s***
 
-As it says, it does a basic detection of your installed tools and saves it in the **conan.conf**
-file (under your user home directory **~/.conan/conan.conf**). This auto-detected settings are
-just a convenience and act as a default for your conan commands. You can change them at any time in such file or
-override them in your commands with new values. You can also delete them from **conan.conf**, so
-you will have to fully specify them for new projects.
+As you can see, on first execution, conan performs a basic detection of your installed tools and
+saves the details in the **conan.conf** file (under your user home directory **~/.conan/conan.conf**).
+These auto-detected settings are just a convenience and act as a default for your conan commands.
+You can change them at any time in this file or override them on the command line with new values.
+You can also delete them from **conan.conf**, in which case you will have to fully specify them for
+new projects.
 
 
 Install from source
@@ -63,7 +64,7 @@ Clone (or download and unzip) the git repository and install its requirements:
     $ cd conan
     $ pip install -r requirements.txt
 
-Create an script to execute conan and add it to your ``PATH``.
+Create a script to execute conan and add it to your ``PATH``.
 
 .. code-block:: text
 

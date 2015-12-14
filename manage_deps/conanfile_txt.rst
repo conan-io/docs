@@ -93,7 +93,7 @@ At the beginning of this section we saw that, when we call the **conan install**
 
     This is a good example to explain requirements overriding. We all know the importance of keeping the OpenSSL library updated.
 
-So, What happens if a new release of OpenSSL library is out? 
+So, what happens if a new release of OpenSSL library is out? 
 
 Do we need to wait until **lasote** generates a new package of POCO that includes the new OpenSSL library? That is not necessary.
 
