@@ -13,6 +13,19 @@ Go to the conan website and `download the installer for your platform <https://w
 
 Execute the installer. You don't need to install python.
 
+
+Install with pip
+-----------------
+
+- Install pip following `pip docs`_
+
+- Install conan:
+
+::
+
+    $ pip install conan
+
+
 Initial configuration
 ---------------------
 
@@ -85,3 +98,6 @@ Test your ``conan`` script.
     $ conan
 
 You should see the conan commands help.
+
+
+.. _`pip docs`: https://pip.pypa.io/en/stable/installing/
