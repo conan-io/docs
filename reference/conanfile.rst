@@ -68,7 +68,7 @@ but you can also use your own code or origin. This is a snippet of the conanfile
 ..  code-block:: python
 
    from conans import ConanFile
-   from conans.tools import download, unzip
+   from conans.tools import download, unzip, check_md5, check_sha1, check_sha256
    import os
    import shutil
 
@@ -79,6 +79,9 @@ but you can also use your own code or origin. This is a snippet of the conanfile
        def source(self):
            zip_name = "poco-1.6.0-release.zip"
            download("https://github.com/pocoproject/poco/archive/poco-1.6.0-release.zip", zip_name)
+           # check_md5(zip_name, "51e11f2c02a36689d6ed655b6fff9ec9")
+           # check_sha1(zip_name, "8d87812ce591ced8ce3a022beec1df1c8b2fac87")
+           # check_sha256(zip_name, "653f983c30974d292de58444626884bee84a2731989ff5a336b93a0fef168d79")
            unzip(zip_name)
            shutil.move("poco-poco-1.6.0-release", "poco")
            os.unlink(zip_name)
@@ -87,6 +90,9 @@ The download, unzip utilities can be imported from conan, but you can also use y
 to retrieve source code from any origin. For pre-compiled libraries you have, even if you
 dont have the source code, you can create the package. You can download the binaries here, skip
 the ``build()`` method and define your ``package()`` and ``package_info()`` accordingly.
+
+You can also use **check_md5**, **check_sha1** and **check_sha256** from module **tools** to verify that package is downloaded right.
+
 
 
 Configuration
