@@ -11,3 +11,4 @@ This section shows how to setup your project and manage your dependencies with c
 
    manage_deps/conanfile_txt
    manage_deps/conanfile_py
+   manage_deps/workflows
