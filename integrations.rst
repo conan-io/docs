@@ -16,3 +16,4 @@ Integrations
    integrations/git
    integrations/travisci
    integrations/appveyor
+   integrations/qmake

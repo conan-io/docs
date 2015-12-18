@@ -20,3 +20,4 @@ Contents:
    reference
    examples
    faq
+   changelog
