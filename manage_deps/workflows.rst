@@ -50,8 +50,9 @@ With this configuration you are typically working in just one configuration of t
 that will be destroyed and create a new build with a new configuration with different settings
 if needed.
 
-.. code-block:: bash
+.. code-block:: bash<
    
+      $ cd example-hello-build
       $ rm -rf *
       $ conan install ../example-hello -s compiler="change compiler" --build=missing
       $ cmake ../example-hello -G ...
