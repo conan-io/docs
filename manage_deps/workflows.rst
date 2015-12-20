@@ -47,7 +47,7 @@ Now you are ready to build:
       $ cmake --build . --config Release
       
 In effect, with this setup, we have created a separate configuration of the project, without
-affecting its default one. The benefit is that we can experiment freely, and even erase it and
+affecting at all the original source directory. The benefit is that we can experiment freely, and even erase it and
 create a new build with a new configuration with different settings, if needed:
 
 .. code-block:: bash<

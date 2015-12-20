@@ -173,7 +173,7 @@ Let's see a more manageable library, `conan's zlib package`_.
 It's not very complex, especially if you are familiar with the CMake **find_path** and **find_library** functions.
 
 We call **find_path**, pointing CMake to search in the **${CONAN_INCLUDE_DIRS_ZLIB** directories, where we know that we have our headers.
-Then we are call **find_library**, passing the library names, **${CONAN_LIBS_ZLIB}**, and the paths where they are located, **${CONAN_LIB_DIRS_ZLIB}**.
+Then we call **find_library**, passing the library names, **${CONAN_LIBS_ZLIB}**, and the paths where they are located, **${CONAN_LIB_DIRS_ZLIB}**.
 
 So, any user could use the zlib library with conan this way:
 

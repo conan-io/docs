@@ -13,13 +13,15 @@ Project layout
 
 It's not required that ``conanfile`` is in your project root folder. You can create it in any directory. It's only needed that you take the place where ``conanbuildinfo.*`` files are generated into account, so that you can use them with your build system. 
 
+Check :ref:`workflows section <workflows>` to know more about project layouts that naturally fit version control system,
+as they locate all generated files in temporary out-of-source folders.
 
 Committed files
 ===============
 
 **Conan** generates some files than should not be committed. These file can change in different computers and should be re-generated with the **conan install** command.
 
-We suggest committing ``conanfile.txt`` and ``conanfile.py`` and ignoring the rest.
+We suggest committing ``conanfile.txt`` or ``conanfile.py`` and ignoring the rest.
 
 So, if you are using **git**, you can append this to your ``.gitignore`` file:
 
