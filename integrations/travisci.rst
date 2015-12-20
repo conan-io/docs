@@ -9,10 +9,10 @@ _________
 .. |travisci_logo| image:: ../images/travisci_logo.jpeg
    
 
-If you handle your project requirements with a *conanfile*, you can easily integrate your project with `Travis CI`_.
+If you are managing your project requirements with a *conanfile*, you can easily integrate your project with `Travis CI`_.
 
 
-We are going to use the :ref:`Google Test example<google_test_example>` now with **Travis CI** support to run the tests.
+We are going to use the :ref:`Google Test example<google_test_example>` now, with **Travis CI** support to run the tests.
 
 
 Clone the project from github:
@@ -23,7 +23,7 @@ Clone the project from github:
    $ git clone https://github.com/lasote/conan-gtest-example
 
 
-Create a ``.travis.yml`` file and paste this code: 
+Create a ``.travis.yml`` file and paste this code in it: 
 
 
 .. code-block:: text
@@ -52,8 +52,8 @@ Create a ``.travis.yml`` file and paste this code:
 	- ./bin/encryption_test
 
 
-Travis will install **conan** tool and will execute **conan install** command.
-Then the **script** section creates the build folder, compiles the project with **cmake** and runs the **tests**
+Travis will install the **conan** tool and will execute the **conan install** command.
+Then, the **script** section creates the build folder, compiles the project with **cmake** and runs the **tests**.
 
 
 

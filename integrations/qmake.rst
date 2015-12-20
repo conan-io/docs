@@ -4,7 +4,7 @@
 QMake
 _____
 
-From 0.5 there is a qmake generator available that can be used as:
+As of version 0.5 of conan, a qmake generator is available that can be configured as follows:
 
 **conanfile.txt**
 
@@ -15,7 +15,7 @@ From 0.5 there is a qmake generator available that can be used as:
    [generators]
    qmake
    
-It will generate a ``conanbuildinfo.pri`` file that could be used for your qmake builds.
+It will generate a ``conanbuildinfo.pri`` file that can be used for your qmake builds.
 
 
 

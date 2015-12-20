@@ -5,10 +5,10 @@ ________
 |appveyor_logo| 
 
 
-If you handle your project requirements with a *conanfile*, you can easily integrate your project with `AppVeyor`_.
+If you are managing your project requirements with a *conanfile*, you can easily integrate your project with `AppVeyor`_.
 
 
-We are going to use the :ref:`Google Test example<google_test_example>` now with **AppVeyor** support to run the tests.
+We are going to use the :ref:`Google Test example<google_test_example>` now, with **AppVeyor** support to run the tests.
 
 
 Clone the project from github:
@@ -19,7 +19,7 @@ Clone the project from github:
    $ git clone https://github.com/lasote/conan-gest-example
 
 
-Create a ``appveyor.yml`` file and paste this code: 
+Create an ``appveyor.yml`` file and paste this code in it: 
 
 
 .. code-block:: text
@@ -47,8 +47,8 @@ Create a ``appveyor.yml`` file and paste this code:
 	  - cmd: encryption_test.exe
 	  
 
-Travis will install **conan** tool and will execute **conan install** command.
-Then the **build_script** section creates the build folder, compiles the project with **cmake** and the section **test_script** runs the **tests**
+Travis will install the **conan** tool and will execute the **conan install** command.
+Then, the **build_script** section creates the build folder, compiles the project with **cmake** and the section **test_script** runs the **tests**.
 
 
 .. |appveyor_logo| image:: ../images/appveyor_logo.png

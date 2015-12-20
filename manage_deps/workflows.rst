@@ -6,7 +6,7 @@ Workflows
 
 This section summarizes some possible layouts and workflows while using conan together with other
 tools, as an end-user, i.e. installing and consuming existing packages. For creating your own
-packages check :ref:`Packaging section <packaging>`
+packages, check the :ref:`Packaging section <packaging>`
 
 
 In both cases, the recommended approach is to have a conanfile (either .py or .txt) at the root of
@@ -14,11 +14,11 @@ your project.
 
 Single configuration (one conf at a time)
 -----------------------------------------
-The single configuration is simple, it is the one that has been used so far for the examples and
-tutorials. In the getting started, we ran the ``conan install`` command in the project root folder,
-and the ``conaninfo.txt`` and ``conanbuildinfo.cmake`` files were generated in such root folder.
+The single configuration is simple. It is the one that has been used so far for the examples and
+tutorials. In :ref:`Getting started<getting_started>`, we ran the ``conan install`` command in the project root folder,
+and the ``conaninfo.txt`` and ``conanbuildinfo.cmake`` files were generated there.
 
-But out-of-source builds are also supported. Lets do it with a simple example:
+But out-of-source builds are also supported. Let's make a simple example:
 
 .. code-block:: bash
    
@@ -39,16 +39,16 @@ So the layout will be:
       main.cpp
 
 
-Now you are ready for building:
+Now you are ready to build:
 
 .. code-block:: bash
    
       $ cmake ../example-hello -G ...
       $ cmake --build . --config Release
       
-With this configuration you are typically working in just one configuration of the project, 
-that will be destroyed and create a new build with a new configuration with different settings
-if needed.
+In effect, with this setup, we have created a separate configuration of the project, without
+affecting its default one. The benefit is that we can experiment freely, and even erase it and
+create a new build with a new configuration with different settings, if needed:
 
 .. code-block:: bash<
    
@@ -62,10 +62,11 @@ if needed.
 
 Multi configuration
 -------------------
-You can also manage different configurations, in-source or out of source, so you can switch
-between them without having to re-issue the command ``conan install`` (not a speed problem,
-the second ``conan install`` with the same parameters will be very fast, as packages are
-installed in the cache, not in the project), so one step less.
+You can also manage different configurations, in-source or out of source, and you can switch
+between them without taking the extra step of re-issuing the ``conan install`` command (even
+though this is not an speed related issue, since the second time ``conan install`` is executed
+with the same parameters, it will run very fast. Packages are installed in the cache, not inside
+the project).
 
 .. code-block:: bash
    
@@ -100,7 +101,7 @@ So the layout will be:
 
 Now you can switch between your build configurations in exactly the same way you do for
 CMake or other build systems, moving to the folder in which the build configuration lives, because
-the conan configuration files for that build configurations will also be there
+the conan configuration files for that build configuration will also be there.
 
 .. code-block:: bash
    
