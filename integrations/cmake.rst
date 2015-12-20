@@ -25,7 +25,7 @@ When **conan install** is executed, a file named ``conanbuildinfo.cmake`` is cre
 We can include ``conanbuildinfo.cmake`` in our project's ``CMakeLists.txt`` to manage our requirements.
 
 
-This is the ``CMakeLists.txt`` file we used in the getting started example:
+This is the ``CMakeLists.txt`` file we used in the :ref:`Getting started<getting_started>` example:
 
 .. code-block:: cmake
 
@@ -44,7 +44,7 @@ This is the ``CMakeLists.txt`` file we used in the getting started example:
 - **${CONAN_LIBS}** contains the libraries to link with. So TARGET_LINK_LIBRARIES, works just fine.
 
 
-Let's take a look to the generated ``conanbuildinfo.cmake`` file:
+Let's take a look at the generated ``conanbuildinfo.cmake`` file:
 
 
 .. code-block:: cmake
@@ -133,11 +133,11 @@ All these variables are 'injected' to corresponding **CMake** functions/variable
 Find Packages
 =============
 
-Conan (from version 0.5) provides support for CMake **find_package**.
+Conan (as of version 0.5) provides support for CMake **find_package**.
 
-If you have a project that uses **Boost** library, you are probably using **find_package(Boost)** or even **find_package(Boost COMPONENTS regex)**. You can keep it as is!
+If you have a project that uses the **Boost** library, you are probably using **find_package(Boost)** or even **find_package(Boost COMPONENTS regex)**. You can keep it as is!
 
-This is possible because `conan's boost package`_ provides a custom **FindBoost.cmake** that prepare the original FindBoost.cmake to find the libraries with the conan's package layout.
+This is possible because `conan's boost package`_ provides a custom **FindBoost.cmake** that prepares the original FindBoost.cmake to find the libraries with conan's package layout.
 
 In the ``conanbuildinfo.cmake`` generated file we can see these lines:
 
@@ -151,11 +151,11 @@ In the ``conanbuildinfo.cmake`` generated file we can see these lines:
   SET(CMAKE_MODULE_PATH ${CONAN_CMAKE_MODULE_PATH} ${CMAKE_MODULE_PATH}) 
 
 
-This is appending to CMAKE_MODULE_PATH all the root folder from our requirements, so if we put a ``FindXXX.cmake`` file in root folder, CMake will be able to find it.
+This is appending to CMAKE_MODULE_PATH all the root folders from our requirements, so if we put a ``FindXXX.cmake`` file in a root folder, CMake will be able to find it.
 
-Boost is a massive and very complex library and ``FindBoost.cmake`` is not a good example to show you how could you generate your own FindXXX.cmake for your conan's packages.
+Boost is a massive and very complex library and ``FindBoost.cmake`` is not a good example to show you how you could generate your own FindXXX.cmake for your conan packages.
 
-Let's see a more manageable library `conan's zlib package`_.
+Let's see a more manageable library, `conan's zlib package`_.
 
 
 .. code-block:: cmake
@@ -170,12 +170,12 @@ Let's see a more manageable library `conan's zlib package`_.
     set(ZLIB_LIBRARIES ${ZLIB_LIBRARY})
     
 
-Its not very complex, specially if you are familiar with CMake **find_path** and **find_library** functions.
+It's not very complex, especially if you are familiar with the CMake **find_path** and **find_library** functions.
 
-We are calling **find_path** pointing CMake to search in **${CONAN_INCLUDE_DIRS_ZLIB** directories, where we know that we have our headers.
-Then we are calling to **find_library** passing the library names **${CONAN_LIBS_ZLIB}** and the paths where they are **${CONAN_LIB_DIRS_ZLIB}**.
+We call **find_path**, pointing CMake to search in the **${CONAN_INCLUDE_DIRS_ZLIB** directories, where we know that we have our headers.
+Then we are call **find_library**, passing the library names, **${CONAN_LIBS_ZLIB}**, and the paths where they are located, **${CONAN_LIB_DIRS_ZLIB}**.
 
-So, any user could use Zlib library with conan this way:
+So, any user could use the zlib library with conan this way:
 
 
 **conanfile.txt**
@@ -220,7 +220,7 @@ The ``CMakeLists.txt`` file is quite generic, surely the two lines that may diff
     CONAN_BASIC_SETUP()
       
       
-You can see the whole example in `conan's zlib package`_ in the folder **"/test"**.
+You can see the whole example in `conan's zlib package`_, in the folder **"/test"**.
 
 
 .. |cmake_logo| image:: ../images/cmake_logo.png
