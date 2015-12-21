@@ -4,14 +4,14 @@ Automatically creating and testing packages
 So in the previous section we created a package that we could consume in new projects just by
 adding a **conanfile.txt** to them and running ``conan install``.
 
-But it is typical that for a given project we want to create different packages, for different
-OSs, or for different settings in general. It turns out that using the same **conanfile.py**
-files, this task is much simpler to automate than if using a plain text **conanfile.txt**.
+But it is common that, for a given project, we may want to create different packages, for different
+OSs, or for different settings in general. It turns out that, using the same **conanfile.py**, rather
+than a plain text **conanfile.txt**, makes this task much simpler to automate.
 
-Let's create inside our ``hellopack`` folder a ``test`` subfolder with the following files:
+Let's create a ``test`` subfolder inside our ``hellopack`` folder with the following files:
          
 
-**main.cpp** is exactly equal to the original one
+**main.cpp** is exactly the same as the original one
 
 .. code-block:: cpp
 
@@ -43,20 +43,20 @@ Let's create inside our ``hellopack`` folder a ``test`` subfolder with the follo
            self.run(os.sep.join([".","bin", "greet"]))
            
 
-This file is very similar to the previous one, the one that generated the packages, but with a few
+This file is very similar to the previous one (the one that generated the packages) but with a few
 differences:
 
-- It doesn't have a name and version, cause we are not creating a package yet, not needed
-- It defines a ``requires`` field, that points to our package
-- It creates a ``cmake`` information file about the requirements (include directories, etc)
-- The ``package()`` and ``package_info()`` methods are not required, as we are not creating a package.
-- The ``test()`` method specifies which binaries have to be run
+- It doesn't have a name and version, because we are not creating a package yet, so it's not necessary.
+- It defines a ``requires`` field, that points to our package.
+- It creates a ``cmake`` information file for the requirements (include directories, etc).
+- The ``package()`` and ``package_info()`` methods are not required, since we are not creating a package.
+- The ``test()`` method specifies which binaries have to be run.
 
 .. note::
 
    These tests are very different from the library unit or integration tests, which should be more
    comprenhensive. These tests are "package" tests, and validate that the package is properly
-   created, and package consumers will be able to link against it and reuse it.
+   created, and that package consumers will be able to link against it and reuse it.
    
 
 Finally, the **CMakeLists.txt** is totally equivalent to what we have seen before:
@@ -99,8 +99,8 @@ its ``build()`` method and run the ``test()`` method:
    ...
    Hello world!
 
-This command uses by default the **--build=Hello** option, i.e. it always re-build the package.
-If you just want to check that the package is properly created, but don't want to re-build it,
+This command uses the **--build=Hello** option by default, i.e. it always re-builds the package.
+If you just want to check if the package is properly created, but don't want to re-build it,
 use the **--build=never** option:
 
 .. code-block:: bash
@@ -111,7 +111,7 @@ use the **--build=never** option:
 
 With some python (or just pure shell or bash) scripting, we could easily automate the whole package creation and testing process,
 for many different configurations.
-For example you could put the following script in the ``hellopack`` folder,  name it ``build.py``:
+For example you could put the following script in the ``hellopack`` folder. Name it ``build.py``:
 
 
 .. code-block:: python
