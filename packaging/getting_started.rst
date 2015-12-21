@@ -29,7 +29,69 @@ It is the script that defines how this package is built and used:
        name = "Hello"
        version = "0.1"
        settings = "os", "compiler", "build_type", "arch"
-:
+       exports = "hello/*"
+   
+       def build(self):
+           cmake = CMake(self.settings)
+           self.run('cd hello && cmake . %s' % cmake.command_line)
+           self.run("cd hello && cmake --build . %s" % cmake.build_config)
+   
+       def package(self):
+           self.copy("*.h", dst="include", src="hello")
+           self.copy("*.lib", dst="lib", src="hello/lib")
+           self.copy("*.a", dst="lib", src="hello/lib")
+   
+       def package_info(self):
+           self.cpp_info.libs = ["hello"]
+           
+ 
+A package ``name`` and ``version`` are always required to create packages. 
+
+The ``settings`` field defines a set of predefined variables that affect the binary package.
+The binary package is actually different for different OSs and compilers, also depending on
+whether the ``build_type`` is Debug or Release, or the architecture is 32 or
+64 bits. The possible values of those settings are also pre-defined.
+
+The ``exports`` field is optional. It defines which auxiliary files will be exported together with
+this **conanfile.py** file. In this particular case, we state that all the files inside the hello subfolder
+will be stored together with the **conanfile.py**. This is not required, since the retrieval of
+source code can be easily defined in an optional ``source()`` method, which can make git clone,
+download & unzip, etc. We use the ``exports`` field here for brevity.
+
+The ``build()`` method just builds the package, invoking CMake. The first line is the project creation
+and configuration, and the second one is the actual build. They are just plain CMake commands, the
+only additional feature being the translation of the ``settings`` field to CMake syntax inside the
+cmake_command_line and cmake_build_config helpers, which just automatically define things like
+the CMake generator or build flags. You can configure your actual build with regular python syntax,
+using the settings, options, requirements, etc of the package as input.
+Also note that **CMake is not strictly required**. You can build packages directly invoking **make**,
+**MSBuild**, **SCons** or any other build system.
+
+Then, the ``package()`` method takes charge of extracting the results of the build from the
+build folder and putting them in another package folder. The ``copy()`` helper allows files
+matching certain patterns to be copied to a package destination (typically folders like
+include, lib, bin) from a source origin within the build folder.
+
+Finally, the ``package_info`` method defines which configuration is needed, in order to 
+actually consume this package. By default the package ``include``, ``lib`` and ``bin`` folders
+are automatically added to their respective ``cpp_info`` paths. One of the most common usages
+of ``cpp_info`` is to define the library names that package consumers should link with. This
+method can also be configured with python scripting, defining for example different names if your
+building process actually outputs different library names (e.g. debug, mt, 32 suffixes).
+
+
+Once we have our **conanfile.py** all we have to do to start using this package in our machine
+is to ``export`` it to the conan local store:
+
+
+.. code-block:: bash
+
+   $ conan export demo/testing
+   
+
+The export takes the name and the version from the conanfile, but it can be exported and 
+afterwards reused under different user names and channels. In this case, the user is *demo* and
+the channel is *testing*. 
 
 .. code-block:: bash
 
