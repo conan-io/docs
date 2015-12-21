@@ -16,13 +16,33 @@ a terminal and type:
 This server is mainly for testing (though it might work fine for small teams), if you want a 
 more stable, responsive and robust server, you should run it from source:
 
-Running from source
--------------------
-First, install the conan repository from source, as indicated in the installation section.
+Running from source (linux)
+---------------------------
 
-.. code:: bash
+Conan installer includes a simple executable **conan_server** for a server quick start.
+But you can use **conan server** trough the WSGI application so you can run the app, for example, with gunicorn.
 
-   $ gunicorn .... TODO
+
+First, install the conan repository from source and install the requirements:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/conan.git
+    $ cd conan
+    $ git checkout master
+    $ pip install -r conans/requirements.txt
+    $ pip install -r conans/requirements_server.txt
+    $ pip install gunicorn
+    
+    
+- Run the server aplication with gunicorn, in the following example we will run server in port 9000 with 4 workers:
+
+
+.. code-block:: bash
+
+    $ gunicorn -b 0.0.0.0:9000 -w 4 conans.server.server_launcher:app
+
+
 
 Server configuration
 --------------------

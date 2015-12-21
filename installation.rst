@@ -100,33 +100,4 @@ Test your ``conan`` script.
 You should see the conan commands help.
 
 
-
-Conan server in production (linux)
-----------------------------------
-
-
-Conan installer includes a simple executable **conan_server** for a server quick start.
-But you can use **conan server** trough the WSGI application so you can run the app, for example, with gunicorn.
-
-
-- Clone the repository and install requirements:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/conan-io/conan.git
-    $ cd conan
-    $ git checkout master
-    $ pip install -r conans/requirements.txt
-    $ pip install -r conans/requirements_server.txt
-    $ pip install gunicorn
-    
-    
-- Run the server aplication with gunicorn, in the following example we will run server in port 9000 with 4 workers:
-
-
-.. code-block:: bash
-
-    $ gunicorn -b 0.0.0.0:9000 -w 4 conans.server.server_launcher:app
-
-
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
