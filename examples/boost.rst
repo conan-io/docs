@@ -55,6 +55,63 @@ If your settings are different, just specify them at the conan install, e.g.:
 In the above case it is important to specify the runtime ``MDd`` to be compatible with the ``Debug`` 
 version we are requesting.
 
+This is the project ``CMakeLists.txt``:
+
+.. code-block:: cmake
+
+   PROJECT(MyRegex)
+   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+   INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   CONAN_BASIC_SETUP()
+
+   # Just comment or uncomment the FindPackage line to use it or not
+   FIND_PACKAGE(Boost 1.60.0 COMPONENTS regex)
+   IF(Boost_FOUND)
+      INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+      ADD_EXECUTABLE(regex main.cpp)
+      TARGET_LINK_LIBRARIES(regex ${Boost_LIBRARIES})
+   ELSE()
+      ADD_EXECUTABLE(regex main.cpp)
+      TARGET_LINK_LIBRARIES(regex ${CONAN_LIBS})
+   ENDIF()
+
+You can see that the traditional ``FIND_PACKAGE()`` approach is supported. It is not strictly
+necessary, as the ``conanbuildinfo.cmake`` already declare all the variables required to build
+your application. But if your project ``CMakeLists.txt`` already uses ``FIND_PACKAGE()`` for Boost,
+it is very easy to maintain the project with or without using conan.
+
+Non CMake projects
+------------------
+If you are not using ``cmake`` in your project it is also possible to use conan. Put the
+following ``conanfile.txt`` in your project root:
+
+.. code-block:: text
+
+   [requires]
+   Boost/1.60.0@lasote/stable
+
+   [generators]
+   visual_studio
+
+   [imports]
+   bin, *.dll -> ./bin
+   lib, *.dylib* -> ./bin
+
+
+Install your requirements as above:
+
+.. code-block:: bash
+
+   $ conan install -s compiler="Visual Studio" -s compiler.version=14 -s arch=x86 -s build_type=Release
+
+Then follow the instructions in :ref:`Visual Studio generator <visual_studio>` to load the generated
+``conanbuildinfo.props`` into your project. Ensure that your project configuration matches the
+installed requirements and build as usual. The above ``conanfile.txt`` assumes that the output
+directory will be the ``bin`` one, and will put the boost dynamic libraries there if needed. You
+can either configure your Visual Studio project or your ``conanfile.txt`` to use the same output
+directory for convenience to launch, debug, etc., your application.
+
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
