@@ -101,8 +101,8 @@ You should see the conan commands help.
 
 
 
-Conan server in production
---------------------------
+Conan server in production (linux)
+----------------------------------
 
 
 Conan installer includes a simple executable **conan_server** for a server quick start.
