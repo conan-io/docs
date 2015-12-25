@@ -13,21 +13,21 @@ conan export
 	$ conan export [--path PATH] user/channel
 
 
-Export a conanfile located in the specified path under an user_name/channel specified.
-By default, the path is the current directory and the channel is ``testing``
+Export a conanfile located in the specified path, under the specified user_name/channel.
+By default, the path is the current directory and the channel is ``testing``.
 
 
 **Examples**
 
 
-Export a conanfile.py from the current directory under ``fenix/testing`` user:
+Export a conanfile.py from the current directory, under the ``fenix/testing`` user:
 
 .. code-block:: bash
 
 	$ conan export fenix
 
 
-Export a conanfile.py from any folder directory under ``fenix/stable`` user:
+Export a conanfile.py from any folder directory, under the ``fenix/stable`` user:
 
 .. code-block:: bash
 
@@ -42,12 +42,12 @@ conan install
 	$ conan install [conanfile_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS]
 
 
-Install a remote package specifying a ``conanfile_ref`` or install the requirements defined in a ``conanfile.py`` or ``conanfile.txt``.
+Install a remote package, specifying a ``conanfile_ref`` or install the requirements defined in a ``conanfile.py`` or ``conanfile.txt``.
 
 
 **Examples**
 
-Install a package requirement from a ``conanfile.txt`` saved in your current directory with one option and setting:
+Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting:
 
 .. code-block:: bash
 
@@ -60,10 +60,10 @@ Install a package requirement from a ``conanfile.txt`` saved in your current dir
    so you don't have to type them again and again in the **conan install** or **conan test**
    commands. 
    
-   But the default **options** are defined in your **conanfile**.
+   However, the default **options** are defined in your **conanfile**.
    If you want to change the default options across all your **conan install** commands, change
-   them in the **conanfile**. If you change the **options** in the command line, they are changed
-   just for one shot, next **conan install** will take **conanfile** options default values if you
+   them in the **conanfile**. When you change the **options** on the command line, they are only changed
+   for one shot. Next time, **conan install** will take the **conanfile** options as default values, if you
    don't specify them again in the command line.
    
 
@@ -77,41 +77,41 @@ Install the **OpenCV/2.4.10@lasote/testing** reference with its default options 
 build options
 +++++++++++++
 
-Both the conan **install** and **test** commands have options to specify whether it should
+Both the conan **install** and **test** commands have options to specify whether conan should
 try to build things or not:
 
-* **--build=never**  This is default option, not necessary to write it explicitely. It will
-  not try to build packages when the requested configuration does not match, and throw an
-  error
-* **--build=missing** It will try to build from source all packages which requested configuration
+* **--build=never**  This is the default option. It is not necessary to write it explicitly. Conan will
+  not try to build packages when the requested configuration does not match, in which case it will
+  throw an error.
+* **--build=missing** Conan will try to build from source, all packages of which the requested configuration
   was not found on any of the active remotes
-* **--build=[pattern]** It will force the build of the packages which name matches the given **pattern**.
-  Several patterns can be specified chaining multiple options **--build=pattern1 --build=pattern2**
-* **--build**. Build always from source, everything. Produces a clean re-build of all packages
+* **--build=[pattern]** Conan will force the build of the packages, the name of which matches the given **pattern**.
+  Several patterns can be specified, chaining multiple options, e.g. **--build=pattern1 --build=pattern2**
+* **--build**. Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
 
 
 conan build
 -----------
 Utility command to run your current project **conanfile.py** ``build()`` method. It doesn't
-work for **conanfile.txt**. It is convenient for automatic translation of conan settings and options
+work for **conanfile.txt**. It is convenient for automatic translation of conan settings and options,
 for example to CMake syntax, as it can be done by the CMake helper. It is also a good starting point
-if you pretend to create a package from your current project.
+if you would like to create a package from your current project.
 
 
 conan test
 ----------
 
 The **test** command looks for a ``test`` subfolder in the current directory, and builds the
-project that is in it. It will typically be a project with a single requirement to the **conanfile.py**
-being developed in the current directory.
+project that is in it. It will typically be a project with a single requirement, pointing to
+the **conanfile.py** being developed in the current directory.
 
-The command line parameters are exactly the same as the **install** command, the settings, options,
-and build parameters, with one small change.
+The command line arguments are exactly the same as the settings, options, and build parameters
+for the **install** command, with one small difference.
 
 In conan test, by default, the **--build=CurrentPackage** pattern is automatically apended for the
-current tested package. You can always manually specify other build options, as **--build=never**
-if you want just to check that the current existing package works for the test subproject without
+current tested package. You can always manually specify other build options, like **--build=never**,
+if you just want to check that the current existing package works for the test subproject, without
 re-building it.
 
 conan search
@@ -121,7 +121,7 @@ conan search
 
 	$ conan search [-r REMOTE] [pattern]
 
-Get a complete information about the specified reference pattern. You can use it to remote or local storage.
+Get complete information about the specified reference pattern. You can use it on remote or local storage.
 
 
 **Example**:
@@ -138,7 +138,7 @@ conan upload
 
 	$ conan upload [--package PACKAGE] [--remote REMOTE] [--all] [--force]
 
-Uploads packages from your local storage to a remote one. If you use ``--force`` variable, it wiil not check the package date, it will be overridden remote with local
+Uploads packages from your local to remote storage. If you use the ``--force`` variable, it wiil not check the package date. It will overridde the remote with the local package.
 
 **Examples**:
 
@@ -162,7 +162,7 @@ conan remove
 
 	$ conan remove [-p [PACKAGES]] [-b [BUILDS]] [-f] [-r REMOTE] pattern
 
-Remove any ``conanfile_ref`` folders specifying a pattern, or their packages and/or build folders.
+Remove any ``conanfile_ref`` folders matching a pattern, or their packages and/or build folders.
 
 **Example**:
 
@@ -178,7 +178,7 @@ conan user
 
 	$ conan user [-p PASSWORD] [--remote REMOTE] [name]
 
-Update your cached user [and your password] to avoid it will be requested later, e.g., while you're uploading a package.
-You can have more than one user, and locally manage all your packages from your different accounts
+Update your cached user name [and password] to avoid it being requested later, e.g. while you're uploading a package.
+You can have more than one users, and locally manage all your packages from your different accounts,
 without having to change user. Just **conan export user/channel** the conanfiles, and develop.
 Changing the user, or introducing the password is only necessary for uploading to the servers.
