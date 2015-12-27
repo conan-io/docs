@@ -3,7 +3,7 @@
 Google Test
 ===========
 
-Google Test is a  framework for writing C++ tests on a variety of platforms.
+Google Test is a framework for writing C++ tests on a variety of platforms.
 We are going to see an example of how to use GTest with conan.
 
 

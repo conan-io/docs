@@ -1,9 +1,9 @@
 Go Programming Language and Conan
 =================================
 
-Conan is a generic package manager. In the :ref:`getting started <getting_started>` section we saw how to use conan and manage a C/C++ library like POCO.
+Conan is a generic package manager. In the :ref:`getting started <getting_started>` section we saw how to use conan and manage a C/C++ library, like POCO.
 
-But conan just provided some tools related with C/C++ (like some generators and the cpp_info) to give better user experience, the general basis of Conan can be used with other programming language.
+But conan just provided some tools, related with C/C++ (like some generators and the cpp_info), to offer a better user experience. The general basis of Conan can be used with other programming languages.
 
 Conan is a generic package manager, so let's see what can we do with Go lang.
 
@@ -17,7 +17,7 @@ You can just clone the following example repository:
 
    $ git clone https://github.com/lasote/conan-goserver-example
 
-Or alternatively, manually create the folder and copy the following files inside:
+Or, alternatively, manually create the folder and copy the following files inside:
 
 .. code-block:: bash
 
@@ -49,7 +49,7 @@ The files are:
 Declaring and installing dependencies
 -------------------------------------
 
-Create also a ``conanfile.txt`` with the following content:
+Create a ``conanfile.txt``, with the following content:
 
 **conanfile.txt**
 
@@ -62,21 +62,21 @@ Create also a ``conanfile.txt`` with the following content:
 	src, * -> ./deps/src 
 
 
-Out project requires a package **go-martini/1.0@lasote/stable** and we indicate that all **src contents** from all our requirements have to be copied to **./deps/src**
+Out project requires a package, **go-martini/1.0@lasote/stable**, and we indicate that all **src contents** from all our requirements have to be copied to **./deps/src**
 
-The package go-martini_ depends on go-inject_, so conan will handle automatically go-inject dependency.
+The package go-martini_ depends on go-inject_, so conan will handle automatically the go-inject dependency.
 
 .. code-block:: bash
 
    $ conan install
 
-This command will download our packages and will copy the contents in **./deps/src** folder
+This command will download our packages and will copy the contents in the **./deps/src** folder.
 
 
 Running our server
 ------------------
 
-Just add **deps** folder to GOPATH:
+Just add the **deps** folder to GOPATH:
 
 .. code-block:: bash
 	
@@ -106,13 +106,13 @@ Open your browser and go to `localhost:3000`__
 Generating Go packages
 ----------------------
 
-Create a *conan* package for a Go library is very simple. In a Go project you compile all the code
-from sources in the project itself, including all its dependencies.
+Creating a *conan* package for a Go library is very simple. In a Go project, you compile all the code
+from sources in the project itself, including all of its dependencies.
 
-So we don't need to take care of settings at all. Architecture, compiler, operating system...
-are only relevant for pre-compiled binaries, source code packages are settings agnostic.
+So we don't need to take care of settings at all. Architecture, compiler, operating system, etc.
+are only relevant for pre-compiled binaries. Source code packages are settings agnostic.
 
-Let's take a look to ``conanfile.py`` of **go inject** library:
+Let's take a look at the ``conanfile.py`` of the **go inject** library:
 
 
 **conanfile.py**
@@ -134,13 +134,13 @@ Let's take a look to ``conanfile.py`` of **go inject** library:
             self.copy(pattern='*', dst='src/github.com/codegangsta/inject', src="inject", keep_path=True)
     
     
-If you have read the :ref:`Building a hello world package <building_hello_world>`, the previous code may look quite simple for you.
+If you have read the :ref:`Building a hello world package <building_hello_world>`, the previous code may look quite simple to you.
 
-We want to pack the **version 1.0** of **go inject** library, so the **version** variable is **"1.0"**
+We want to pack **version 1.0** of the **go inject** library, so the **version** variable is **"1.0"**.
 
-In the **source** method we declare how to obtain the source code of the library, in this case, just cloning the github repository and doing a checkout to **v1.0-rc1** tag.
+In the **source** method, we declare how to obtain the source code of the library, in this case just by cloning the github repository and making a checkout of the **v1.0-rc1** tag.
 
-In the **package** method we are just copying all the sources to a folder named "src/github.com/codegangsta/inject".
+In the **package** method, we are just copying all the sources to a folder named "src/github.com/codegangsta/inject".
 
 This way, we can keep importing the library in the same way:
 
@@ -149,7 +149,7 @@ This way, we can keep importing the library in the same way:
     import "github.com/codegangsta/inject"
     
 
-We can export and upload the package to a **conan server** and we are done with it:
+We can export and upload the package to a **conan server** and we are done:
 
 
 .. code-block:: bash
@@ -179,7 +179,7 @@ Now look at the **go martini** conanfile:
             self.copy(pattern='*', dst='src/github.com/go-martini/martini', src="martini", keep_path=True)
  
  
-It is very similar. The only difference is the **requires** variable. It defines **'go-inject/1.0@lasote/stable'** library as a requirement.
+It is very similar. The only difference is the **requires** variable. It defines the **'go-inject/1.0@lasote/stable'** library, as a requirement.
     
 
 .. code-block:: bash
@@ -188,7 +188,7 @@ It is very similar. The only difference is the **requires** variable. It defines
     $ conan upload go-martini/1.0@lasote/stable  --all
     
     
-Now we are able to use them in an easy way and without the problems of versioning with github checkouts. 
+Now we are able to use them easily and without the problems of versioning with github checkouts. 
 
 
 

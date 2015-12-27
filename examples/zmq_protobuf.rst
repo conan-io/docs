@@ -1,20 +1,20 @@
 Getting started with ZMQ and Google Protocol Buffers (Protobuf)
 ===============================================================
 
-ZeroMQ (ZMQ), known as "Sockets on steroids" is a great C library for building distributed
-applications, efficient, implementing multiple communication paradigms, with very wide
+ZeroMQ (ZMQ), also known as "Sockets on steroids" is a great C library for building distributed
+applications. It is efficient, implements multiple communication paradigms, with very wide
 adoption in production systems at scale.
 
 Google Protocol Buffers (Protobuf) is a serialization framework, well known for being the one
 that Google uses in their whole infraestructure. 
 
-Here we will build a small client-server application with ZMQ (actually using also the ZMQCPP C++
+Here we will build a small client-server application with ZMQ (actually also using the ZMQCPP C++
 binding) and Protobuf:
 
 The source code
 ---------------
 
-You can just clone the following example repository
+You can just clone the following example repository:
 
 .. code-block:: bash
 
@@ -31,7 +31,7 @@ Or alternatively, manually create the folder and copy the following files inside
 The files are:
 
 **server.cpp** is a small zmq server that continuously listens for incoming messages, which
-must be a serialized person protobuf message and prints it out on the console.
+must be a serialized person protobuf message, and prints it out on the console.
 
 .. code-block:: cpp
 
@@ -60,8 +60,8 @@ must be a serialized person protobuf message and prints it out on the console.
        return 0;
    }
    
-**client.cpp** is a zmq client that hardcodes a protobuf "person" messages and send it to
-the server, then finish.
+**client.cpp** is a zmq client that hardcodes a protobuf "person" message, sends it to
+the server, and then finishes.
 
 .. code-block:: cpp
 
@@ -134,8 +134,8 @@ to C++ source code with the ``protoc`` application.
       }
       
 
-**CMakeLists.txt** simple cmake to build both the client and the server, assuming that ``protoc``
-has already been invoked and has generated the ``message.pb.cc`` file.
+**CMakeLists.txt** is a simple cmake configuration to build both the client and the server, assuming
+that ``protoc`` has already been invoked and has generated the ``message.pb.cc`` file.
 
 .. code-block:: cmake
 
@@ -173,17 +173,17 @@ If not created, then create also a ``conanfile.txt`` with the following content:
    bin, *.dll -> ./bin
 
 
-In this example we will use cmake for building the project as indicated in ``[generators]``, but you
-could use other build system too.
+In this example, we will use cmake for building the project as indicated in ``[generators]``, but you
+could use another build system too.
 
-Also, we are instructing in the ``[imports]`` section to import/copy the ``protoc`` executable to the project folder,
-so it is very simple to run it to generate the C++ protobuf stubs from the ``message.proto`` file. 
-We also tell to bring all shared libraries to our local
-bin folder in our project, as a convenience to run the examples.
+Also, we are instructing conan, in the ``[imports]`` section, to import/copy the ``protoc`` executable to
+the project folder, so that it is very simple to run it to generate the C++ protobuf stubs from the ``message.proto`` file. 
+We are also telling conan to bring all shared libraries to our local bin folder, inside our project, as a convenience
+for running the examples.
 
-This example right now is intended only for Win, but it will work exactly the same in other platforms,
-it is just a matter of generating the packages. We will specify Visual Studio 12,
-and assume that your default build is Release and system arch is "x86_64" (no need to specify):
+This particular example is intended only for Win, but it will work exactly the same on other platforms.
+It is just a matter of generating the packages. We will specify Visual Studio 12, and assume that our
+default build is Release and the system arch is "x86_64" (no need to specify):
 
 
 .. code-block:: bash
@@ -196,14 +196,14 @@ and assume that your default build is Release and system arch is "x86_64" (no ne
    with VS 14 (2015) or other settings, please try to contribute with a pull request to the package
    repositories.
 
-This command will manage to download the binary packages required for your configuration, and it
-will create a ``conanbuildinfo.cmake`` with the required information (some CMake variables as
+This command will download the binary packages required for your configuration, and it
+will create a ``conanbuildinfo.cmake`` with the required information (some CMake variables, like
 ``CONAN_INCLUDE_DIRS`` and ``CONAN_LIBS``) for building your example.
 
 Generating protobuf stubs
 -------------------------
 The above command, copied the ``protoc`` executable to our current folder.
-Protobuf works by automatically generating code from ``message.proto`` IDL file. Just type:
+Protobuf works by automatically generating code from the ``message.proto`` IDL file. Just type:
 
 .. code-block:: bash
 
@@ -222,17 +222,17 @@ You are ready to build and run your project:
     $ cmake .. -G "Visual Studio 12 Win64"
     $ cmake --build . --config Release
 
-Now, you can go to your project bin folder, launch first the server, then in another
+Now, you can go to your project's bin folder. First launch the server and then, in another
 terminal, go to the same folder and launch the client.
 
 Other configurations
 --------------------
-Now try yourself to build other configurations:
+Now try to build other configurations yourself:
 
 * Build the 32bits version. You should install a different package, and then use the ``Visual Studio 12`` cmake generator
 * Build against the static ZMQ version. You can use the option ``-o ZMQ:static=True`` in the install command.
-  Remember that if the binary package is not available in any remote, it will build it from source
-  if you indicate so with the ``--build=ZMQ`` or ``--build=missing`` options.
+  Remember that, if the binary package is not available in any remote, conan will build it from source
+  if you so indicate by entering the ``--build=ZMQ`` or ``--build=missing`` options.
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
