@@ -1,7 +1,7 @@
 Running your server
 ===================
 
-Running the pre-packaged server that comes with the conan installers is simple, just open
+Running the pre-packaged server that comes with the conan installers is simple. Just open
 a terminal and type:
 
 .. code:: bash
@@ -10,20 +10,21 @@ a terminal and type:
    
 .. note::
 
-    Windows user under bash/msys terminal might experience problems with the server. Please
-    launch it better in a regular ``cmd`` window.
+    On Windows, you might experience problems with the server, if you run it under bash/msys. It is
+    better to launch it in a regular ``cmd`` window.
 
-This server is mainly for testing (though it might work fine for small teams), if you want a 
+This server is mainly for testing (though it might work fine for small teams). If you need a 
 more stable, responsive and robust server, you should run it from source:
 
 Running from source (linux)
 ---------------------------
 
-Conan installer includes a simple executable **conan_server** for a server quick start.
-But you can use **conan server** trough the WSGI application so you can run the app, for example, with gunicorn.
+The conan installer includes a simple executable **conan_server** for a server quick start.
+But you can use the **conan server** trough the WSGI application, which means that you can use gunicorn
+to run the app, for example.
 
 
-First, install the conan repository from source and install the requirements:
+First, clone the conan repository from source and install the requirements:
 
 .. code-block:: bash
 
@@ -35,7 +36,7 @@ First, install the conan repository from source and install the requirements:
     $ pip install gunicorn
     
     
-- Run the server aplication with gunicorn, in the following example we will run server in port 9000 with 4 workers:
+- Run the server aplication with gunicorn. In the following example we will run server on port 9000 with 4 workers:
 
 
 .. code-block:: bash
@@ -46,8 +47,8 @@ First, install the conan repository from source and install the requirements:
 
 Server configuration
 --------------------
-Your server configuration lives in ``~/.conan_server/server.conf``, you can change values
-there, prior to launching the server, it is not reloaded if the values are changed, you
+Your server configuration lives in ``~/.conan_server/server.conf``. You can change values
+there, prior to launching the server. Not that the server is not reloaded when the values are changed. You
 have to stop and restart it manually.
 
 TODO: explain server settings

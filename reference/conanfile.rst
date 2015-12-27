@@ -9,10 +9,10 @@ conanfile.py
 Package URL
 -----------
 
-It is possible, even typical if you are packaging a thid party lib, that you just develop
-the packaging code. Such code is also subject to change and collaboration, so it should be stored
-in VCS as git, and probably put in GitHub or the like. If you do so, please indicate it in the
-``url`` attribute, so it can be easily found.
+It is possible, even typical, if you are packaging a thid party lib, that you just develop
+the packaging code. Such code is also subject to change, often via collaboration, so it should be stored
+in a VCS like git, and probably put on GitHub or a similar service. If you do indeed maintain such a
+repository, please indicate it in the ``url`` attribute, so that it can be easily found.
  
 .. code-block:: python
 
@@ -22,11 +22,10 @@ in VCS as git, and probably put in GitHub or the like. If you do so, please indi
        url = "https://github.com/memsharded/hellopack.git"
      
            
-The ``url`` is the url
-**of the package** repository, i.e. not necessarily the original source code.
-It is optional, but very recommended, should point to GitHub, Bitbucket or your preferred
+The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
+It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
 code collaboration platform. Of course, if you have the conanfile inside your library source,
-you can point to it, and afterward use the ``url`` in your ``source()`` method.
+you can point to it, and afterwards use the ``url`` in your ``source()`` method.
 
 .. _retrieve_source:
 
@@ -35,14 +34,14 @@ Retrieving source code
 
 There are 2 ways of getting source code to build a package. The first one is to use the ``export``
 field, where you specify which sources are required, and they will be exported together with
-the **conanfile.py**, and stored in the conan stores, both local and remotes.
+the **conanfile.py**, and stored in the conan stores, both local and remote.
 
-The other way is let conan retrieve the source code from any other external origin, github, or
+The other way is to let conan retrieve the source code from any other external origin, github, or
 just a regular download. This can be done in the ``source()`` method.
 
-For example, in the previous section, we "exported" the source code files together with the **conanfile.py** file,
-which can be handy if the source code is not under version control. But if the source code is
-available in a repository, you can directly get it from there:
+For example, in the previous section, we "exported" the source code files, together with the **conanfile.py** file,
+which can be handy if the source code is not under version control. But if the source code is available in a repository,
+you can directly get it from there:
 
 .. code-block:: python
 
@@ -60,9 +59,9 @@ available in a repository, you can directly get it from there:
            # self.run("cd hello && git checkout 2fe5...")
 
 
-This will work as long as ``git`` is in your current path (so in Win you probably want to run in msysgit, cmder, etc).
-You can also use other VCS or direct download/unzip. For that purpose we have provided some helpers,
-but you can also use your own code or origin. This is a snippet of the conanfile of the POCO libray:
+This will work, as long as ``git`` is in your current path (so in Win you probably want to run things in msysgit, cmder, etc).
+You can also use another VCS or direct download/unzip. For that purpose, we have provided some helpers,
+but you can use your own code or origin as well. This is a snippet of the conanfile of the POCO libray:
 
 
 ..  code-block:: python
@@ -87,33 +86,33 @@ but you can also use your own code or origin. This is a snippet of the conanfile
            os.unlink(zip_name)
            
 The download, unzip utilities can be imported from conan, but you can also use your own code here
-to retrieve source code from any origin. For pre-compiled libraries you have, even if you
-dont have the source code, you can create the package. You can download the binaries here, skip
+to retrieve source code from any origin. You can even create packages for pre-compiled libraries
+you already have, even if you don't have the source code. You can download the binaries, skip
 the ``build()`` method and define your ``package()`` and ``package_info()`` accordingly.
 
-You can also use **check_md5**, **check_sha1** and **check_sha256** from module **tools** to verify that package is downloaded right.
+You can also use **check_md5**, **check_sha1** and **check_sha256** from the **tools** module to verify that a package is downloaded correctly.
 
 
 
 Configuration
 -------------
 
-There are several things that can potentially affect the package being created, i.e., the final
+There are several things that can potentially affect a package being created, i.e. the final
 package will be different (a different binay, for example), if some input is different.
 
 Settings
 ++++++++
-Development project-wide variables as the compiler, the compiler version, or the OS 
-itself. Those variables have to be defined, and they cannot have a default value defined in the
-conanfile, as it does not make sense.
+Development project-wide variables, like the compiler, its version, or the OS 
+itself. These variables have to be defined, and they cannot have a default value listed in the
+conanfile, as it would not make sense.
 
-It is obvious that changing OS produces in most cases a different binary. Also changing compiler
+It is obvious that changing the OS produces a different binary in most cases. Changing the compiler
 or compiler version changes the binary too, which might have a compatible ABI or not, but the
-package is indeed different.
+package will be different in any case.
 
-But what happens for example to **header only libraries?** Such libraries final package is not
-binary, and in most cases, unless it is automatically generating code, the final package will
-be the same. We can indicate that in the conanfile:
+But what happens for example to **header only libraries**? The final package for such libraries is not
+binary and, in most cases it will be identical, unless it is automatically generating code.
+We can indicate that in the conanfile:
 
 .. code-block:: python
 
@@ -129,7 +128,7 @@ be the same. We can indicate that in the conanfile:
             #empty too, nothing to build in header only
          
          
-You can as well restrict existing settings, or accepted values, by redeclaring the settings
+You can restrict existing settings and accepted values as well, by redeclaring the settings
 attribute:
 
 .. code-block:: python
@@ -141,13 +140,13 @@ attribute:
                   
 In this example we have just defined that this package only works in Windows, with VS 10 and 11.
 Any attempt to build it in other platforms with other settings will throw an error saying so.
-We have also defined that the runtime (the MD, MT flags of VS) is not relevant for us
-(maybe using a universal one?). Using None as a value means, *leave the original values* in order
+We have also defined that the runtime (the MD and MT flags of VS) is irrelevant for us
+(maybe we using a universal one?). Using None as a value means, *maintain the original values* in order
 to avoid re-typing them. Then, "arch": None is totally equivalent to "arch": ["x86", "x86_64", "arm"]
 Check the reference or your ~/.conan/settings.yml file.
 
 As re-defining the whole settings attribute can be tedious, it is sometimes much simpler to
-remove or tune specific fields in the ``config()`` method. E.g.: if our package is runtime
+remove or tune specific fields in the ``config()`` method. For example, if our package is runtime
 independent in VS, we can just remove that setting field:
 
 
@@ -162,7 +161,7 @@ independent in VS, we can just remove that setting field:
 Options
 +++++++
 Options are similar to settings in the sense that they influence the final package. But they
-can typically have a default value. A very typical case would be the static/shared option of 
+can typically have a default value. A very common case would be the static/shared option of 
 a compiled library, which could be defined as:
 
 
@@ -179,16 +178,16 @@ a compiled library, which could be defined as:
          self.run("cmake . %s %s" % (cmake.command_line, static))
          self.run("cmake --build . %s" % cmake.build_config)
          
-Note that you have to consider the option properly in your build. In this case we are using
+Note that you have to consider the option properly in your build. In this case, we are using
 the CMake way. You must also remove the **STATIC** linkage in the **CMakeLists.txt** file, 
-and if you are using VS, you also need to change your code to adequately import/export symbols
+and if you are using VS, you also need to change your code to correctly import/export symbols
 for the dll.
 
 
 Variable configuration
 ++++++++++++++++++++++
-If the package options and settings are related, and you want to configure one or the other, you
-can do it in the ``config()`` method. This is an example:
+If the package options and settings are related, and you want to configure either, you can do so
+in the ``config()`` method. This is an example:
 
 ..  code-block:: python
 
@@ -205,11 +204,11 @@ can do it in the ``config()`` method. This is an example:
                self.settings.clear()
                self.options.remove("static")
 
-The package has 2 options, to be compiled as static (vs shared lib), and also creating a package
-without building anything at all, cause just header-only libs will be used. In this case,
-the settings that would affect a normal building, and even the other option (static vs shared)
-does not make sense, so we just clear those. That means, if someone consume MyLib with the
-``header_only: True``, then the package downloaded and used will be the same, irrespective of
+The package has 2 options set, to be compiled as a static (as opposed to shared) library,
+and also not to involve any builds, because header-only libraries will be used. In this case,
+the settings that would affect a normal build, and even the other option (static vs shared)
+do not make sense, so we just clear them. That means, if someone consumes MyLib with the
+``header_only: True`` option, the package downloaded and used will be the same, irrespective of
 the OS, compiler or architecture the consumer is building with.
 
 
@@ -217,7 +216,7 @@ Generators
 ----------
 
 Generators specify which is the output of the ``install`` command in your project folder. By
-default, a ``conanbuildinfo.txt`` is generated, but you can specify different generators:
+default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators:
 
 - gcc: conanbuildinfo.gcc
 - cmake: conanbuildinfo.cmake
@@ -256,12 +255,12 @@ Requirements can be complemented by 2 different parameters:
 **private**: a dependency can be declared as private if it is going to be fully embedded and hidden
 from consumers of the package. Typical examples could be a header only library which is not exposed
 through the public interface of the package, or the linking of a static library inside a dynamic
-one, in which the functionality or the objects of the linked static one is not exposed through
+one, in which the functionality or the objects of the linked static library are not exposed through
 the public interface of the dynamic library.
 
-**override**: a package can define overrides of their dependencies, if they want to define specific
-versions of the upstream required libraries, but not necessarly direct dependencies. For example, 
-you can depend on A(v1.0), which in turn could conditionally depend on Zlib(v2), depending whether
+**override**: packages can define overrides of their dependencies, if they require the defininition of
+specific versions of the upstream required libraries, but not necessarily direct dependencies. For example, 
+a package can depend on A(v1.0), which in turn could conditionally depend on Zlib(v2), depending on whether
 the compression is enabled or not. Now, if you want to force the usage of Zlib(v3) you can:
 
 ..  code-block:: python
