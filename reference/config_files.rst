@@ -28,8 +28,8 @@ This is the typical ``~/.conan/conan.conf`` file:
    compiler.version=14
    os=Windows
 
-Here you can configure the path where all the packages will be stored (it is recomended to assign it to
-some unit, e.g. map it to X: on windows, in order to avoid having to work with long path names).
+Here you can configure the path where all the packages will be stored (on Windows, it is recomended to assign it to
+some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
 
 The remotes are managed in the order in which they are listed. The first one is assumed to be the default
 for uploads. For downloads they are also accessed sequentially, until a matching binary package is found.
