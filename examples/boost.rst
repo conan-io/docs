@@ -4,10 +4,10 @@ Boost
 =====
 
 Boost doesn't need any intro. Let's go straight to build the typical regex example against Boost 1.60.
-There are more than 60 pre-built binary packages in conan.io, check them at https://www.conan.io/source/Boost/1.60.0/lasote/stable
+There are more than 60 pre-built binary packages in conan.io. Check them out at https://www.conan.io/source/Boost/1.60.0/lasote/stable
 
 
-It is very easy to setup your own project, but here is a repository for convenience:
+It is very easy to set up your own project, but here is a repository for convenience:
 
 
 .. code-block:: bash
@@ -44,7 +44,7 @@ Install the requirements, configure the project with CMake, and build it:
    $ regex
 
 The above configuration assumes that your predefined settings are VS14, 64 bits, Release, MD runtime.
-If your settings are different, just specify them at the conan install, e.g.:
+If your settings are different, just specify them while executing conan install, e.g.:
 
 .. code-block:: bash
 
@@ -52,10 +52,10 @@ If your settings are different, just specify them at the conan install, e.g.:
    $ cmake .. -G "Visual Studio 12"
    $ cmake --build . --config Debug
 
-In the above case it is important to specify the runtime ``MDd`` to be compatible with the ``Debug`` 
+In the case above, it is important to specify the runtime ``MDd`` to be compatible with the ``Debug`` 
 version we are requesting.
 
-This is the project ``CMakeLists.txt``:
+This is the project's ``CMakeLists.txt``:
 
 .. code-block:: cmake
 
@@ -77,13 +77,13 @@ This is the project ``CMakeLists.txt``:
    ENDIF()
 
 You can see that the traditional ``FIND_PACKAGE()`` approach is supported. It is not strictly
-necessary, as the ``conanbuildinfo.cmake`` already declare all the variables required to build
-your application. But if your project ``CMakeLists.txt`` already uses ``FIND_PACKAGE()`` for Boost,
+necessary, as the ``conanbuildinfo.cmake`` already declares all the variables required to build
+your application. But if your project's ``CMakeLists.txt`` already uses ``FIND_PACKAGE()`` for Boost,
 it is very easy to maintain the project with or without using conan.
 
 Non CMake projects
 ------------------
-If you are not using ``cmake`` in your project it is also possible to use conan. Put the
+Even if you are not using ``cmake`` in your project, it is possible to use conan. Put the
 following ``conanfile.txt`` in your project root:
 
 .. code-block:: text
@@ -108,9 +108,9 @@ Install your requirements as above:
 Then follow the instructions in :ref:`Visual Studio generator <visual_studio>` to load the generated
 ``conanbuildinfo.props`` into your project. Ensure that your project configuration matches the
 installed requirements and build as usual. The above ``conanfile.txt`` assumes that the output
-directory will be the ``bin`` one, and will put the boost dynamic libraries there if needed. You
+directory will be the ``bin`` one, and will put the boost dynamic libraries there, if needed. You
 can either configure your Visual Studio project or your ``conanfile.txt`` to use the same output
-directory for convenience to launch, debug, etc., your application.
+directory for convenience when launching or debugging your application.
 
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
