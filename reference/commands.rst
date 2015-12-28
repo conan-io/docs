@@ -138,7 +138,7 @@ conan upload
 
 	$ conan upload [--package PACKAGE] [--remote REMOTE] [--all] [--force]
 
-Uploads packages from your local to remote storage. If you use the ``--force`` variable, it wiil not check the package date. It will overridde the remote with the local package.
+Uploads packages from your local to remote storage. If you use the ``--force`` variable, it wiil not check the package date. It will override the remote with the local package.
 
 **Examples**:
 
@@ -179,6 +179,6 @@ conan user
 	$ conan user [-p PASSWORD] [--remote REMOTE] [name]
 
 Update your cached user name [and password] to avoid it being requested later, e.g. while you're uploading a package.
-You can have more than one users, and locally manage all your packages from your different accounts,
+You can have more than one user, and locally manage all your packages from your different accounts,
 without having to change user. Just **conan export user/channel** the conanfiles, and develop.
 Changing the user, or introducing the password is only necessary for uploading to the servers.

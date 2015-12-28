@@ -48,7 +48,7 @@ First, clone the conan repository from source and install the requirements:
 Server configuration
 --------------------
 Your server configuration lives in ``~/.conan_server/server.conf``. You can change values
-there, prior to launching the server. Not that the server is not reloaded when the values are changed. You
+there, prior to launching the server. Note that the server is not reloaded when the values are changed. You
 have to stop and restart it manually.
 
 TODO: explain server settings
