@@ -41,6 +41,10 @@ Install the requirements, configure the project with CMake, and build it:
    $ cd bin
    $ regex
 
+.. note::
+
+    If you don't want OpenSSL binary packages you can always build OpenSSL from source using **"conan install --build OpenSSL"**.
+
 The above configuration assumes that your predefined settings are VS14, 64 bits, Release, MD runtime.
 If your settings are different, just specify them while executing conan install, e.g.:
 
