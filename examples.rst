@@ -10,8 +10,9 @@ Contents:
 
    examples/boost
    examples/zmq_protobuf
+   examples/openssl
    examples/go
    examples/gtest
-
+   
 
 
