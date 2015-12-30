@@ -70,6 +70,24 @@ This is the project's ``CMakeLists.txt``:
     ADD_EXECUTABLE(md5 main.cpp)
     TARGET_LINK_LIBRARIES(md5 ${CONAN_LIBS})
 
+You can also use the classic CMake way by calling **find_package(OpenSSL)**:
+
+.. code-block:: cmake
+
+    PROJECT(ExampleOpenSSL)
+    CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+    
+    INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    CONAN_BASIC_SETUP()
+    
+    ADD_EXECUTABLE(md5 md5.cpp)
+        
+    find_package(OpenSSL)
+    
+    include_directories(${OPENSSL_INCLUDE_DIRS})        
+    TARGET_LINK_LIBRARIES(md5 ${OPENSSL_LIBRARIES})
+  
+
 
 Non CMake projects
 ------------------
