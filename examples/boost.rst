@@ -59,26 +59,26 @@ This is the project's ``CMakeLists.txt``:
 
 .. code-block:: cmake
 
-   PROJECT(MyRegex)
-   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+   project(MyRegex)
+   cmake_minimum_required(VERSION 2.8)
 
-   INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   conan_basic_setup()
 
    # Just comment or uncomment the FindPackage line to use it or not
-   FIND_PACKAGE(Boost 1.60.0 COMPONENTS regex)
-   IF(Boost_FOUND)
-      INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
-      ADD_EXECUTABLE(regex main.cpp)
-      TARGET_LINK_LIBRARIES(regex ${Boost_LIBRARIES})
-   ELSE()
-      ADD_EXECUTABLE(regex main.cpp)
-      TARGET_LINK_LIBRARIES(regex ${CONAN_LIBS})
-   ENDIF()
+   find_package(Boost 1.60.0 COMPONENTS regex)
+   if(Boost_FOUND)
+      include_directories(${Boost_INCLUDE_DIRS})
+      add_executable(regex main.cpp)
+      target_link_libraries(regex ${Boost_LIBRARIES})
+   else()
+      add_executable(regex main.cpp)
+      target_link_libraries(regex ${CONAN_LIBS})
+   endif()
 
-You can see that the traditional ``FIND_PACKAGE()`` approach is supported. It is not strictly
+You can see that the traditional ``find_package()`` approach is supported. It is not strictly
 necessary, as the ``conanbuildinfo.cmake`` already declares all the variables required to build
-your application. But if your project's ``CMakeLists.txt`` already uses ``FIND_PACKAGE()`` for Boost,
+your application. But if your project's ``CMakeLists.txt`` already uses ``find_package()`` for Boost,
 it is very easy to maintain the project with or without using conan.
 
 Non CMake projects

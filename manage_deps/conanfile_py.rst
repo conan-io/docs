@@ -105,12 +105,12 @@ You only need to include the following lines in your ``CMakeLists.txt``:
 
    # ... 
    
-   INCLUDE(conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(conanbuildinfo.cmake)
+   conan_basic_setup()
    
    # ... Your original cmakelists.txt contents ...
    
-   TARGET_LINK_LIBRARIES(YOUR_TARGET ${CONAN_LIBS})
+   target_link_libraries(YOUR_TARGET ${CONAN_LIBS})
    
 
 Then execute:
@@ -341,27 +341,27 @@ So let's use this option in our CMakeLists.txt
 
 .. code-block:: cmake
 
-   PROJECT(FoundationTimer)
-   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+   project(FoundationTimer)
+   cmake_minimum_required(VERSION 2.8)
    
-   INCLUDE(conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(conanbuildinfo.cmake)
+   conan_basic_setup()
    
    # Create a library, shared or static
-   IF(SHARED)
-      MESSAGE("BUILDING SHARED LIBRARY")
-      ADD_LIBRARY(mylibrary SHARED lib.cpp)
-   ELSE()
-      ADD_LIBRARY(mylibrary STATIC lib.cpp)
-   ENDIF()
+   if(SHARED)
+      message("BUILDING SHARED LIBRARY")
+      add_library(mylibrary SHARED lib.cpp)
+   else()
+      add_library(mylibrary STATIC lib.cpp)
+   endif()
    
    # Link library dependencies
-   TARGET_LINK_LIBRARIES(mylibrary ${CONAN_LIBS})
+   target_link_libraries(mylibrary ${CONAN_LIBS})
    
-   ADD_EXECUTABLE(timer timer.cpp)
+   add_executable(timer timer.cpp)
    
    # Link our lib to our executable
-   TARGET_LINK_LIBRARIES(timer mylibrary)
+   target_link_libraries(timer mylibrary)
                  
                          
 .. code-block:: bash

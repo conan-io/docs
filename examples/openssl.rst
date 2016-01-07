@@ -61,31 +61,31 @@ This is the project's ``CMakeLists.txt``:
 
 .. code-block:: cmake
 
-    PROJECT(ExampleOpenSSL)
-    CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+    project(ExampleOpenSSL)
+    cmake_minimum_required(VERSION 2.8)
     
-    INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    CONAN_BASIC_SETUP()
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
     
-    ADD_EXECUTABLE(md5 main.cpp)
-    TARGET_LINK_LIBRARIES(md5 ${CONAN_LIBS})
+    add_executable(md5 main.cpp)
+    target_link_libraries(md5 ${CONAN_LIBS})
 
 You can also use the classic CMake way by calling **find_package(OpenSSL)**:
 
 .. code-block:: cmake
 
-    PROJECT(ExampleOpenSSL)
-    CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+    project(ExampleOpenSSL)
+    cmake_minimum_required(VERSION 2.8)
     
-    INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    CONAN_BASIC_SETUP()
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()
     
-    ADD_EXECUTABLE(md5 md5.cpp)
+    add_executable(md5 md5.cpp)
         
     find_package(OpenSSL)
     
     include_directories(${OPENSSL_INCLUDE_DIRS})        
-    TARGET_LINK_LIBRARIES(md5 ${OPENSSL_LIBRARIES})
+    target_link_libraries(md5 ${OPENSSL_LIBRARIES})
   
 
 

@@ -139,17 +139,17 @@ that ``protoc`` has already been invoked and has generated the ``message.pb.cc``
 
 .. code-block:: cmake
 
-   PROJECT(MyHello)
-   CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
+   project(MyHello)
+   cmake_minimum_required(VERSION 3.0)
    
-   INCLUDE(conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(conanbuildinfo.cmake)
+   conan_basic_setup()
    
-   ADD_LIBRARY(message message.pb.cc)
-   ADD_EXECUTABLE(client client.cpp)
-   ADD_EXECUTABLE(server server.cpp)
-   TARGET_LINK_LIBRARIES(client message ${CONAN_LIBS})
-   TARGET_LINK_LIBRARIES(server message ${CONAN_LIBS})
+   add_library(message message.pb.cc)
+   add_executable(client client.cpp)
+   add_executable(server server.cpp)
+   target_link_libraries(client message ${CONAN_LIBS})
+   target_link_libraries(server message ${CONAN_LIBS})
    
          
 Declaring and installing dependencies
