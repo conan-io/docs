@@ -58,6 +58,28 @@ them to your on-premises server and forget about the original repository. Or you
 the build scripts, re-build from source on your premises, and then upload the packages to your
 server.
 
+Can I connect to conan.io or other remotes through a corporate proxy?
+---------------------------------------------------------------------
+Yes, it can be configured with some environment variables. You can write in your terminal (or add to .bashrc or similar)
+before running conan:
+
+.. code-block:: bash
+
+   # linux/osx
+   $ export HTTP_PROXY="http://10.10.1.10:3128"
+   $ export HTTPS_PROXY="http://10.10.1.10:1080"
+
+   # with user/password
+   $ export HTTP_PROXY="http://user:pass@10.10.1.10:3128/"
+   $ export HTTPS_PROXY="http://user:pass@10.10.1.10:3128/"
+
+   # windows (note, no quotes here)
+   $ set HTTP_PROXY=http://10.10.1.10:3128
+   $ set HTTPS_PROXY=http://10.10.1.10:1080
+
+This is a temporary solution while conan gets configuration for it (probably in conan.conf)
+   
+
 Can I create packages for third-party libraries?
 ------------------------------------------------
 Of course, as long as their license allows it.
