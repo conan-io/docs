@@ -49,63 +49,63 @@ Let's take a look at the generated ``conanbuildinfo.cmake`` file:
 
 .. code-block:: cmake
 
-    SET(CONAN_POCO_ROOT "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c")
-    SET(CONAN_INCLUDE_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include")
-    SET(CONAN_LIB_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib")
-    SET(CONAN_BIN_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin")
-    SET(CONAN_LIBS_POCO PocoUtil PocoXML PocoJSON PocoMongoDB PocoNet PocoCrypto PocoData PocoDataSQLite PocoZip PocoFoundation pthread dl rt)
-    SET(CONAN_DEFINES_POCO -DPOCO_STATIC=ON
+    set(CONAN_POCO_ROOT "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c")
+    set(CONAN_INCLUDE_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include")
+    set(CONAN_LIB_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib")
+    set(CONAN_BIN_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin")
+    set(CONAN_LIBS_POCO PocoUtil PocoXML PocoJSON PocoMongoDB PocoNet PocoCrypto PocoData PocoDataSQLite PocoZip PocoFoundation pthread dl rt)
+    set(CONAN_DEFINES_POCO -DPOCO_STATIC=ON
                 -DPOCO_NO_AUTOMATIC_LIBS)
-    SET(CONAN_CXX_FLAGS_POCO "")
-    SET(CONAN_SHARED_LINK_FLAGS_POCO "")
-    SET(CONAN_EXE_LINKER_FLAGS_POCO "")
-    SET(CONAN_C_FLAGS_POCO "")
+    set(CONAN_CXX_FLAGS_POCO "")
+    set(CONAN_SHARED_LINK_FLAGS_POCO "")
+    set(CONAN_EXE_LINKER_FLAGS_POCO "")
+    set(CONAN_C_FLAGS_POCO "")
     
-    SET(CONAN_ZLIB_ROOT "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e")
-    SET(CONAN_INCLUDE_DIRS_ZLIB "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include")
-    SET(CONAN_LIB_DIRS_ZLIB "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib")
-    SET(CONAN_BIN_DIRS_ZLIB "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin")
-    SET(CONAN_LIBS_ZLIB z)
-    SET(CONAN_DEFINES_ZLIB )
-    SET(CONAN_CXX_FLAGS_ZLIB "")
-    SET(CONAN_SHARED_LINK_FLAGS_ZLIB "")
-    SET(CONAN_EXE_LINKER_FLAGS_ZLIB "")
-    SET(CONAN_C_FLAGS_ZLIB "")
+    set(CONAN_ZLIB_ROOT "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e")
+    set(CONAN_INCLUDE_DIRS_ZLIB "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include")
+    set(CONAN_LIB_DIRS_ZLIB "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib")
+    set(CONAN_BIN_DIRS_ZLIB "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin")
+    set(CONAN_LIBS_ZLIB z)
+    set(CONAN_DEFINES_ZLIB )
+    set(CONAN_CXX_FLAGS_ZLIB "")
+    set(CONAN_SHARED_LINK_FLAGS_ZLIB "")
+    set(CONAN_EXE_LINKER_FLAGS_ZLIB "")
+    set(CONAN_C_FLAGS_ZLIB "")
     
-    SET(CONAN_OPENSSL_ROOT "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535")
-    SET(CONAN_INCLUDE_DIRS_OPENSSL "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/include")
-    SET(CONAN_LIB_DIRS_OPENSSL "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/lib")
-    SET(CONAN_BIN_DIRS_OPENSSL "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/bin")
-    SET(CONAN_LIBS_OPENSSL ssl crypto dl)
-    SET(CONAN_DEFINES_OPENSSL )
-    SET(CONAN_CXX_FLAGS_OPENSSL "")
-    SET(CONAN_SHARED_LINK_FLAGS_OPENSSL "")
-    SET(CONAN_EXE_LINKER_FLAGS_OPENSSL "")
-    SET(CONAN_C_FLAGS_OPENSSL "")
+    set(CONAN_OPENSSL_ROOT "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535")
+    set(CONAN_INCLUDE_DIRS_OPENSSL "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/include")
+    set(CONAN_LIB_DIRS_OPENSSL "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/lib")
+    set(CONAN_BIN_DIRS_OPENSSL "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/bin")
+    set(CONAN_LIBS_OPENSSL ssl crypto dl)
+    set(CONAN_DEFINES_OPENSSL )
+    set(CONAN_CXX_FLAGS_OPENSSL "")
+    set(CONAN_SHARED_LINK_FLAGS_OPENSSL "")
+    set(CONAN_EXE_LINKER_FLAGS_OPENSSL "")
+    set(CONAN_C_FLAGS_OPENSSL "")
     
-    SET(CONAN_INCLUDE_DIRS "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include"
+    set(CONAN_INCLUDE_DIRS "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include"
                 "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/include"
                 "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include" ${CONAN_INCLUDE_DIRS})
-    SET(CONAN_LIB_DIRS "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib"
+    set(CONAN_LIB_DIRS "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib"
                 "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/lib"
                 "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib" ${CONAN_LIB_DIRS})
-    SET(CONAN_BIN_DIRS "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin"
+    set(CONAN_BIN_DIRS "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin"
                 "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/bin"
                 "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin" ${CONAN_BIN_DIRS})
-    SET(CONAN_LIBS PocoUtil PocoXML PocoJSON PocoMongoDB PocoNet PocoCrypto PocoData PocoDataSQLite PocoZip PocoFoundation pthread dl rt ssl crypto z ${CONAN_LIBS})
-    SET(CONAN_DEFINES -DPOCO_STATIC=ON
+    set(CONAN_LIBS PocoUtil PocoXML PocoJSON PocoMongoDB PocoNet PocoCrypto PocoData PocoDataSQLite PocoZip PocoFoundation pthread dl rt ssl crypto z ${CONAN_LIBS})
+    set(CONAN_DEFINES -DPOCO_STATIC=ON
                 -DPOCO_NO_AUTOMATIC_LIBS ${CONAN_DEFINES})
-    SET(CONAN_CXX_FLAGS " ${CONAN_CXX_FLAGS}")
-    SET(CONAN_SHARED_LINK_FLAGS " ${CONAN_SHARED_LINK_FLAGS}")
-    SET(CONAN_EXE_LINKER_FLAGS " ${CONAN_EXE_LINKER_FLAGS}")
-    SET(CONAN_C_FLAGS " ${CONAN_C_FLAGS}")
-    SET(CONAN_CMAKE_MODULE_PATH "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c" "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e" "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535" ${CONAN_CMAKE_MODULE_PATH})
+    set(CONAN_CXX_FLAGS " ${CONAN_CXX_FLAGS}")
+    set(CONAN_SHARED_LINK_FLAGS " ${CONAN_SHARED_LINK_FLAGS}")
+    set(CONAN_EXE_LINKER_FLAGS " ${CONAN_EXE_LINKER_FLAGS}")
+    set(CONAN_C_FLAGS " ${CONAN_C_FLAGS}")
+    set(CONAN_CMAKE_MODULE_PATH "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c" "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e" "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535" ${CONAN_CMAKE_MODULE_PATH})
     MACRO(CONAN_BASIC_SETUP)
-        CONAN_CHECK_COMPILER()
-        CONAN_OUTPUT_DIRS_SETUP()
-        CONAN_FLAGS_SETUP()
+        conan_check_compiler()
+        conan_ouput_dirs_setup()
+        conan_flags_setup()
         # CMake can find findXXX.cmake files in the root of packages
-        SET(CMAKE_MODULE_PATH ${CONAN_CMAKE_MODULE_PATH} ${CMAKE_MODULE_PATH})
+        set(CMAKE_MODULE_PATH ${CONAN_CMAKE_MODULE_PATH} ${CMAKE_MODULE_PATH})
     ENDMACRO()
 
    # ... macros code...
@@ -132,65 +132,13 @@ All these variables are 'injected' to corresponding **CMake** functions/variable
 
 Find Packages
 =============
+**New** in Conan 0.6! Now conan provides automatic support for CMake **find_package** without creating a custom ``FindXXX.cmake`` file for each package (conan 0.5).
 
-Conan (as of version 0.5) provides support for CMake **find_package**.
+Variables **CMAKE_INCLUDE_PATH** and **CMAKE_LIBRARY_PATH** are setted with the requirements paths. CMake **find_library** function will be able to locate the right libraries in the package's folders.
 
-If you have a project that uses the **Boost** library, you are probably using **find_package(Boost)** or even **find_package(Boost COMPONENTS regex)**. You can keep it as is!
-
-This is possible because `conan's boost package`_ provides a custom **FindBoost.cmake** that prepares the original FindBoost.cmake to find the libraries with conan's package layout.
-
-In the ``conanbuildinfo.cmake`` generated file we can see these lines:
+So, you can use **find_package** normally:
 
 
-.. code-block:: cmake
-
-  SET(CONAN_CMAKE_MODULE_PATH "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c" "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e" "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535" ${CONAN_CMAKE_MODULE_PATH})
-    
-  ...
-  
-  SET(CMAKE_MODULE_PATH ${CONAN_CMAKE_MODULE_PATH} ${CMAKE_MODULE_PATH}) 
-
-
-This is appending to CMAKE_MODULE_PATH all the root folders from our requirements, so if we put a ``FindXXX.cmake`` file in a root folder, CMake will be able to find it.
-
-Boost is a massive and very complex library and ``FindBoost.cmake`` is not a good example to show you how you could generate your own FindXXX.cmake for your conan packages.
-
-Let's see a more manageable library, `conan's zlib package`_.
-
-
-.. code-block:: cmake
-
-
-    find_path(ZLIB_INCLUDE_DIR NAMES zlib.h PATHS ${CONAN_INCLUDE_DIRS_ZLIB})
-    find_library(ZLIB_LIBRARY NAMES ${CONAN_LIBS_ZLIB} PATHS ${CONAN_LIB_DIRS_ZLIB})
-    set(ZLIB_FOUND TRUE)
-   
-    set(ZLIB_INCLUDE_DIRS ${ZLIB_INCLUDE_DIR})
-    set(ZLIB_LIBRARIES ${ZLIB_LIBRARY})
-    
-
-It's not very complex, especially if you are familiar with the CMake **find_path** and **find_library** functions.
-
-We call **find_path**, pointing CMake to search in the **${CONAN_INCLUDE_DIRS_ZLIB** directories, where we know that we have our headers.
-Then we call **find_library**, passing the library names, **${CONAN_LIBS_ZLIB}**, and the paths where they are located, **${CONAN_LIB_DIRS_ZLIB}**.
-
-So, any user could use the zlib library with conan this way:
-
-
-**conanfile.txt**
-
-.. code-block:: txt
-
-    [requires]
-    zlib/1.2.8@lasote/stable
-    
-    [generators]
-    cmake
-
-
-
-**CMakeLists.txt**    
-    
 .. code-block:: cmake
 
     project(MyHello)
@@ -210,16 +158,7 @@ So, any user could use the zlib library with conan this way:
     endif()
 
 
-The ``CMakeLists.txt`` file is quite generic, surely the two lines that may diff with a CMakeLists.txt without conan are:
-
-     
-.. code-block:: cmake
-    
-    include(conanbuildinfo.cmake)
-    conan_basic_setup()
-      
-      
-You can see the whole example in `conan's zlib package`_, in the folder **"/test"**.
+In spite of having automatic support for CMake **find_package** you can override the default behaviour of any find_package() by creating a ``findXXX.cmake`` file in your package.
 
 
 .. |cmake_logo| image:: ../images/cmake_logo.png

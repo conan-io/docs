@@ -1,3 +1,4 @@
+.. _conanfile_py:
 
 Using ``conanfile.py``
 ----------------------
@@ -63,6 +64,7 @@ The full ``conanfile.py`` will allow you to:
 2. Have **full managed options** for both your project and its requirements.
 3. Get ready if you want to natively **build your own conan package**.
 
+.. _conanfile_py_managed_settings:
 
 Managed settings
 ................
@@ -173,12 +175,71 @@ You can use the **gcc** helper instead of **cmake** for building your source cod
          self.run("mkdir -p bin")
          command = 'g++ timer.cpp @conanbuildinfo.gcc -o bin/timer %s' % gcc.command_line
          self.run(command)
+         
+
+Example with Autotools: configure / make
+________________________________________
+
+
+If you are using **configure** and/or **make** to you can use **ConfigureEnvironment** helper.
+This helper sets some common variables as environment variables with your requirements information.
+
+It works prepending the *command_line* to your **configure and make** commands:
+
+    
+.. code-block:: python
+
+   from conans import ConanFile, ConfigureEnvironment
+
+   class MyProjectWithConan(ConanFile):
+      settings = "os", "compiler", "build_type", "arch"
+      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      default_options = "Poco:poco_static=False", "OpenSSL:shared=False"
+     
+      def imports(self):
+         self.copy("*.dll", dst="bin", src="bin") # From bin to bin
+         self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
+   
+      def build(self):
+         ############ ConfigureEnvironment helper ###########
+         env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
+         self.run("%s && ./configure" % env.command_line)
+         self.run("%s && make" % env.command_line)
+         
+         # nmake also works for Windows:
+         # command = '%s && nmake /f Makefile.msvc"' % env.command_line
+         # self.run(command)
+
+This helper is specially useful when **configure** script hasn't enough parameters to define where the requirements are located.
+It also works with **nmake** in Windows.
+
+Setted environment variables:
+
++-------------+------------------+--------------------------------------------------------+
+| OS          | NAME             | DESCRIPTION                                            |
++=============+==================+========================================================+
+| **LINUX**   | LIBS             |  Library names to link                                 |
++-------------+------------------+--------------------------------------------------------+
+| **LINUX**   | LDFLAGS          |  Link flags, (filled with -L lib paths)                |
++-------------+------------------+--------------------------------------------------------+
+| **LINUX**   | CFLAGS           |  Options for the C compiler                            |
++-------------+------------------+--------------------------------------------------------+
+| **LINUX**   | CPPFLAGS         |  Options for the C++ compiler                          |
++-------------+------------------+--------------------------------------------------------+
+| **LINUX**   | C_INCLUDE_PATH   |  Include paths for C compiler                          |
++-------------+------------------+--------------------------------------------------------+
+| **LINUX**   | CPP_INCLUDE_PATH |  Include paths for C compiler                          |
++-------------+------------------+--------------------------------------------------------+
+| **WINDOWS** | LIB              |  Libraries with full path (appended with semicolon)    |
++-------------+------------------+--------------------------------------------------------+
+| **WINDOWS** | CL               |  Compiler flags, (filled with include directories /I)  |
++-------------+------------------+--------------------------------------------------------+
 
 
 Example with other build systems
 ________________________________
 
-If you are using **make**, **scons** or any other build system you can use conan too.
+If you are using **scons** or any other build system you can use conan too.
 In the ``build()`` method you can access your settings and build information from your requirements and pass it to your build system.
 
 
