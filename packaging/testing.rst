@@ -63,14 +63,14 @@ Finally, the **CMakeLists.txt** is totally equivalent to what we have seen befor
 
 .. code-block:: cmake
 
-   PROJECT(MyHello)
-   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+   project(MyHello)
+   cmake_minimum_required(VERSION 2.8)
    
-   INCLUDE(conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(conanbuildinfo.cmake)
+   conan_basic_setup()
    
-   ADD_EXECUTABLE(greet main.cpp)
-   TARGET_LINK_LIBRARIES(greet ${CONAN_LIBS})
+   add_executable(greet main.cpp)
+   target_link_libraries(greet ${CONAN_LIBS})
 
 
 The current folders layout should be:

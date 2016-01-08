@@ -10,7 +10,7 @@ This section shows how to use the ``conanfile.txt`` to manage the required libra
    Remember, in :ref:`Getting started<getting_started>` we saw how to use **conan** to download the **POCO** library and compile a program.
    
 
-But before we start with ``conanfile.txt`` details, let's review the :ref:`getting started <getting_started>` example and see what **conan** is really doing:
+But before we start with the ``conanfile.txt`` details, let's review the :ref:`getting started <getting_started>` example and see what **conan** is really doing:
 
    
    1. We have created a ``conanfile.txt``
@@ -41,11 +41,11 @@ What is really happening?
      
      In this example, conan will download *OpenSSL/1.0.2d@lasote/stable* and *zlib/1.2.8@lasote/stable*.
      
-     Conan will also collect needed information from each requirement: **libs** that has to be **linked**, the **include directories**, **compile flags** etc.
+     Conan will also collect needed information from each requirement: **libs** that have to be **linked**, the **include directories**, **compile flags** etc.
      See the requires_ section for more details.
    
    
-   - For each **[generator]** specified, conan will generate a file with mentioned information that will help you to build your project and link with your requirements. The generators_ section contains more details.
+   - For each specified **[generator]**, conan will generate a file with relevant information that will help you to build your project and link with your requirements. The generators_ section contains more details.
 
 .. tip:: **Pro Tip**
 
@@ -134,7 +134,7 @@ Conan reads the **[generators]** section from ``conanfile.txt`` and creates one 
 _______
 
 
-The generator **cmake** creates a file named ``conanbuildinfo.cmake`` that can be imported from your *CMakeLists.txt*.
+The **cmake** generator creates a file named ``conanbuildinfo.cmake`` that can be imported from your *CMakeLists.txt*.
 Check the section :ref:`Integrations/CMake <cmake>` to read more about this generator.
 
 
@@ -212,7 +212,7 @@ So just execute:
 _______________
 
 
-The generator **visual_studio** creates a file named ``conanbuildinfo.props`` that can be imported to your *Visual Studio* project.
+The **visual_studio** generator creates a file named ``conanbuildinfo.props`` that can be imported to your *Visual Studio* project.
 Check the section :ref:`Integrations/Visual Studio<visual_studio>` to read more about this generator.
 
 
@@ -220,7 +220,7 @@ Check the section :ref:`Integrations/Visual Studio<visual_studio>` to read more 
 _______
 
 
-The generator **xcode** creates a file named ``conanbuildinfo.xcconfig`` that can be imported to your *XCode* project.
+The **xcode** generator creates a file named ``conanbuildinfo.xcconfig`` that can be imported to your *XCode* project.
 Check the section :ref:`Integrations/XCode <xcode>` to read more about this generator.
 
 *txt*
@@ -243,13 +243,13 @@ Specify **txt** generator:
       [generators]
       txt
    
-Install the requirements
+Install the requirements:
 
 .. code-block:: bash
 
    $ conan install
 
-And it's the generated file, with the same information as CMake and gcc, but in a generic format:
+And a file is generated, with the same information as in the case of CMake and gcc, only in a generic format:
 
 .. code-block:: text
 
@@ -321,7 +321,7 @@ You can set the options for your requirements this way:
       OpenSSL:shared=True
       
 
-Install the requirements and compile
+Install the requirements and compile:
 
 .. code-block:: bash
 
@@ -383,7 +383,7 @@ We can assume, for brevity, that **\*.dll**  and **\*.dylib** should be copied t
 
 We can easily do that with the **[imports]** section in ``conanfile.txt``. Let's try it.
 
-Edit the ``conanfile.txt`` file and paste the **[imports]** section
+Edit the ``conanfile.txt`` file and paste the **[imports]** section:
 
   
 .. code-block:: text
@@ -410,7 +410,7 @@ Edit the ``conanfile.txt`` file and paste the **[imports]** section
 
 
 
-Install the requirements
+Install the requirements:
 
 .. code-block:: bash
 
@@ -421,9 +421,9 @@ Now look at the ``lib/`` folder of your project and verify that the needed share
 
 As you can see, the **[imports]** section is a very generic way to import files from your requirements to your project. 
 
-Maybe conan could also be useful for packaging applications and copying the result executables to your bin folder, or for copying assets, test static files...etc. 
+Maybe conan could also be useful for packaging applications and copying the result executables to your bin folder, or for copying assets, test static files, etc. 
 
-Conan is a pretty generic solution for package management, not just C/C++ or libraries.
+Conan is a pretty generic solution for package management, not only for C/C++ or libraries.
 
 
 
@@ -431,11 +431,11 @@ Conan is a pretty generic solution for package management, not just C/C++ or lib
 
 .. tip:: **Pro Tip: Shared libraries & rpaths**
 
-   In **UNIX** based operating systems like **Linux** and **OSx** there is something called **rpath** (run-time search path) that is used to locate the **shared libraries** that another library or executable needs for execution.
+   In **UNIX** based operating systems like **Linux** and **OSx**, there is something called **rpath** (run-time search path) that is used to locate the **shared libraries** that another library or executable needs for execution.
    
    The **rpath** is encoded inside dynamic libraries and executables and helps the linker to find its required shared libraries.
    
-   Imagine that we have an executable **my_exe** that requires a shared library **shared_lib_1**, and **shared_lib_1**, in turn, requires another **shared_lib_2**.
+   Imagine that we have an executable, **my_exe**, that requires a shared library, **shared_lib_1**, and **shared_lib_1**, in turn, requires another **shared_lib_2**.
    
    So the **rpaths** values could be:
    
@@ -447,15 +447,15 @@ Conan is a pretty generic solution for package management, not just C/C++ or lib
    shared_lib_2 
    ============ =====================
    
-   In **linux** **rpath** is just an option, which means the, if the linker doesn't find the library in **rpath**, it will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
+   In **linux** **rpath** is just an option, which means that, if the linker doesn't find the library in **rpath**, it will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
    
    But in **OSx** with **dylibs** it doesn't work like that. In OSx, if the linker detects that an **rpath** is invalid (the file does not exist there), it will fail. In OSx, libraries are built with the hard restriction of knowing (before installing them) where (in which folder) they will be installed.
    
    Some dependency managers try to ride out this OSx restriction by changing the rpaths or making the rpaths relative to the binary.
    
-   For **conan** these are not suitable solutions because libraries are not all together in a directory we can refer to and we don't want it, because it's not good at all for package management and reuse.
+   For **conan**, these are not suitable solutions because libraries are not all together in a directory we can refer to and we don't want that, because it's not good at all for package management and reuse.
    
-   So for **OSx** conan requires **dylibs** to be built having an rpath just with the name of the required library (just the name, without path).
+   So, for **OSx**, conan requires **dylibs** to be built having an rpath with only the name of the required library (just the name, without path).
    
    With conan, **rpaths** values should be:
    
@@ -469,7 +469,7 @@ Conan is a pretty generic solution for package management, not just C/C++ or lib
    
    The only limitation of this convention is that **dylibs** have to be copied to the folder of our executable, just like **dll** files in windows.
    
-   In **linux** you don't need to care about **rpath** but you should know that, by default, the current directory (./) is not in the **LD_LIBRARY_PATH** so it's useless if you copy ***.so** files in your executable folder, unless you modify the LD_LIBRARY_PATH.
+   In **linux**, you don't need to care about **rpath** but you should know that, by default, the current directory (./) is not in the **LD_LIBRARY_PATH** so it's useless if you copy ***.so** files in your executable folder, unless you modify the LD_LIBRARY_PATH.
    
    That's why we import **dll** and **dylib** files to our project with the [imports] section.
   

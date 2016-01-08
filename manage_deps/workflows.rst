@@ -5,8 +5,8 @@ Workflows
 =========
 
 This section summarizes some possible layouts and workflows while using conan together with other
-tools, as an end-user, i.e. installing and consuming existing packages. For creating your own
-packages, check the :ref:`Packaging section <packaging>`
+tools as an end-user, i.e. installing and consuming existing packages. For creating your own
+packages, have a look at the :ref:`Packaging section <packaging>`.
 
 
 In both cases, the recommended approach is to have a conanfile (either .py or .txt) at the root of
@@ -115,5 +115,5 @@ directory, otherwise it will not find the necessary file:
 
 .. code-block:: cmake
 
-   INCLUDE(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   conan_basic_setup()

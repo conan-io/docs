@@ -117,14 +117,14 @@ that we should create inside our example folder:
 
 .. code-block:: cmake
 
-   PROJECT(FoundationTimer)
-   CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+   project(FoundationTimer)
+   cmake_minimum_required(VERSION 2.8)
 
-   INCLUDE(conanbuildinfo.cmake)
-   CONAN_BASIC_SETUP()
+   include(conanbuildinfo.cmake)
+   conan_basic_setup()
    
-   ADD_EXECUTABLE(timer timer.cpp)
-   TARGET_LINK_LIBRARIES(timer ${CONAN_LIBS})
+   add_executable(timer timer.cpp)
+   target_link_libraries(timer ${CONAN_LIBS})
 
 
 Now, you are ready to build and run your project:
