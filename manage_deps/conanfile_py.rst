@@ -213,7 +213,7 @@ It works prepending the *command_line* to your **configure and make** commands:
 This helper is specially useful when **configure** script hasn't enough parameters to define where the requirements are located.
 It also works with **nmake** in Windows.
 
-Setted environment variables:
+Used environment variables:
 
 +-------------+------------------+--------------------------------------------------------+
 | OS          | NAME             | DESCRIPTION                                            |
