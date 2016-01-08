@@ -92,11 +92,15 @@ Edit your ``conanfile.py`` and add the ``build()`` method:
    
       def build(self):
          cmake = CMake(self.settings)
-         self.run('cmake . %s' % cmake.command_line)
-         self.run("cmake --build . %s" % cmake.build_config)
+         self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
+         self.run('cmake --build . %s' % cmake.build_config)
 
 
 In the code above, we are using a **CMake** helper class. This class reads the current settings and sets cmake flags to handle **arch**, **build_type**, **compiler** and **compiler.version**.  
+Note that the first ``cmake`` invocation is using the ``conanfile_directory``. This is necessary if
+you want to do out-of-source builds or just building in a child folder, as ``cmake`` should be
+given the location of the root ``CMakeLists.txt``, in this case located in the same folder as the
+``conanfile.py``.
 
 You only need to include the following lines in your ``CMakeLists.txt``:
 
@@ -330,7 +334,7 @@ Define **options** and **default_options** this way:
          cmake = CMake(self.settings)
          ################### NEW ##########################
          shared_definition = "-DSHARED=1" if self.options.shared else ""
-         self.run('cmake . %s %s' % (cmake.command_line, shared_definition))
+         self.run('cmake "%s" %s %s' % (self.conanfile_directory, cmake.command_line, shared_definition))
          ##################################################
          self.run("cmake --build . %s" % cmake.build_config)
    
