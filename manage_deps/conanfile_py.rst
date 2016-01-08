@@ -228,7 +228,7 @@ Setted environment variables:
 +-------------+------------------+--------------------------------------------------------+
 | **LINUX**   | C_INCLUDE_PATH   |  Include paths for C compiler                          |
 +-------------+------------------+--------------------------------------------------------+
-| **LINUX**   | CPP_INCLUDE_PATH |  Include paths for C compiler                          |
+| **LINUX**   | CPP_INCLUDE_PATH |  Include paths for C++ compiler                        |
 +-------------+------------------+--------------------------------------------------------+
 | **WINDOWS** | LIB              |  Libraries with full path (appended with semicolon)    |
 +-------------+------------------+--------------------------------------------------------+
