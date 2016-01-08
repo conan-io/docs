@@ -134,7 +134,7 @@ Find Packages
 =============
 **New** in Conan 0.6! Now conan provides automatic support for CMake **find_package** without creating a custom ``FindXXX.cmake`` file for each package (conan 0.5).
 
-Variables **CMAKE_INCLUDE_PATH** and **CMAKE_LIBRARY_PATH** are setted with the requirements paths. CMake **find_library** function will be able to locate the right libraries in the package's folders.
+Variables **CMAKE_INCLUDE_PATH** and **CMAKE_LIBRARY_PATH** are set with the right requirements paths. CMake **find_library** function will be able to locate the libraries in the package's folders.
 
 So, you can use **find_package** normally:
 
@@ -158,7 +158,8 @@ So, you can use **find_package** normally:
     endif()
 
 
-In spite of having automatic support for CMake **find_package** you can override the default behaviour of any find_package() by creating a ``findXXX.cmake`` file in your package.
+In addition to automatic **find_package** support, **CMAKE_MODULE_PATH** variable is set with your requirements root package paths. You can override the default behavior of any find_package() by creating a ``findXXX.cmake`` file in your package.
+
 
 
 .. |cmake_logo| image:: ../images/cmake_logo.png
