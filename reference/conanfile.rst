@@ -547,8 +547,9 @@ And then the main ``conanfile.py`` would be:
        version = "1.9"
        exports = "msgs.py"  # Important to remember!
    
-       def build_msg(self):
+       def build(self):
            build_msg(self.output)
+           # ...
 
 
 It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package, 
