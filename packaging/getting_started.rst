@@ -45,6 +45,18 @@ It is the script that defines how this package is built and used:
            self.cpp_info.libs = ["hello"]
            
  
+This ``conanfile.py`` uses this specific layout and in-source build as an example. If you want to
+support more generic layouts, you can use ``conanfile_directory`` property that points to the
+directory in which the ``conanfile.py`` is located, and which could be used for this case as:
+
+.. code-block:: python
+
+   def build(self):
+      cmake = CMake(self.settings)
+      self.run('cmake "%s/hello" %s' % (self.conanfile_directory, cmake.command_line))
+      self.run('cmake --build . %s' % cmake.build_config)
+      
+
 A package ``name`` and ``version`` are always required to create packages. 
 
 The ``settings`` field defines a set of predefined variables that affect the binary package.
