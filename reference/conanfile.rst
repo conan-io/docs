@@ -238,9 +238,11 @@ Generators
 Generators specify which is the output of the ``install`` command in your project folder. By
 default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators:
 
-- gcc: conanbuildinfo.gcc
-- cmake: conanbuildinfo.cmake
-- txt: conanbuildinfo.txt
+- **gcc**: conanbuildinfo.gcc
+- **cmake**: conanbuildinfo.cmake
+- **txt:** conanbuildinfo.txt
+- **visual_studio**: conanbuildinfo.props
+- **xcode**: conanbuildinfo.xcconfig
 
 You can specify more than one:
 
@@ -248,6 +250,18 @@ You can specify more than one:
 
    class MyLibConan(ConanFile):
        generators = "cmake", "gcc"
+
+
+Build helpers
+-------------
+
+You can use these classes to prepare your build system's command invocation:
+
+- **CMake**: Prepares the invocation of cmake command with your settings.
+- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
+- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
+
+Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
 
 
 Requirements
