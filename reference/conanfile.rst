@@ -4,10 +4,13 @@
 conanfile.py
 ============
 
+Package meta information
+------------------------
+
 .. _package_url:
 
-Package URL
------------
+URL (recommended)
++++++++++++++++++
 
 It is possible, even typical, if you are packaging a thid party lib, that you just develop
 the packaging code. Such code is also subject to change, often via collaboration, so it should be stored
@@ -20,12 +23,29 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
        name = "Hello"
        version = "0.1"
        url = "https://github.com/memsharded/hellopack.git"
+       license = "MIT"
+       author = "John J. Smith (john.smith@company.com)"
      
            
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
 It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
 code collaboration platform. Of course, if you have the conanfile inside your library source,
 you can point to it, and afterwards use the ``url`` in your ``source()`` method.
+
+License (recommended)
++++++++++++++++++++++
+This field is intended for the license of the **target** source code and binaries, i.e. the code
+that is being packaged, not the ``conanfile.py`` itself. This info is used to be displayed by
+the ``conan info`` command and possibly other search and report tools.
+
+Author (optional)
++++++++++++++++++
+
+Intended to add information about the author, in case it is different from the conan user. It is
+possible that the conan user is the name of an organization, project, company or group, and many
+users have permissions over that account. In this case, the author information can explicitely
+define who is the creator/maintainer of the package
+
 
 .. _retrieve_source:
 
@@ -218,9 +238,11 @@ Generators
 Generators specify which is the output of the ``install`` command in your project folder. By
 default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators:
 
-- gcc: conanbuildinfo.gcc
-- cmake: conanbuildinfo.cmake
-- txt: conanbuildinfo.txt
+- **gcc**: conanbuildinfo.gcc
+- **cmake**: conanbuildinfo.cmake
+- **txt:** conanbuildinfo.txt
+- **visual_studio**: conanbuildinfo.props
+- **xcode**: conanbuildinfo.xcconfig
 
 You can specify more than one:
 
@@ -228,6 +250,18 @@ You can specify more than one:
 
    class MyLibConan(ConanFile):
        generators = "cmake", "gcc"
+
+
+Build helpers
+-------------
+
+You can use these classes to prepare your build system's command invocation:
+
+- **CMake**: Prepares the invocation of cmake command with your settings.
+- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
+- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
+
+Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
 
 
 Requirements
@@ -504,6 +538,36 @@ That will produce a **conaninfo.txt** file like:
    of packages when upstream 0.Y.Z dependencies change, even for patches. Change it in your
    conan_info() method if you need to.
 
+Relative imports
+----------------
+If you want to reuse common functionality between different packages, it can be written in their
+own python files and imported from the main ``conanfile.py``. Lets write for example a ``msgs.py``
+file and put it besides the ``conanfile.py``:
+
+..  code-block:: python
+
+   def build_msg(output):
+      output.info("Building!")
+
+And then the main ``conanfile.py`` would be:
+
+..  code-block:: python
+
+   from conans import ConanFile
+   from msgs import build_msg
+
+   class ConanFileToolsTest(ConanFile):
+       name = "test"
+       version = "1.9"
+       exports = "msgs.py"  # Important to remember!
+   
+       def build(self):
+           build_msg(self.output)
+           # ...
+
+
+It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package, 
+because package recipes must be self-contained
 
 Other
 -----
@@ -521,6 +585,11 @@ Check the source code. You might be able to produce different outputs with diffe
 
 ``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
 so that command errors are do not pass unnoticed. It is just a wrapper for ``os.system()``
+
+``self.conanfile_directory`` is a property that returns the directory in which the conanfile is
+located.
+
+
 
 
 

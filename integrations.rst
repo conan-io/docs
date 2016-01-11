@@ -17,3 +17,4 @@ Integrations
    integrations/travisci
    integrations/appveyor
    integrations/qmake
+   integrations/youcompleteme

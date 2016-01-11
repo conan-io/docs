@@ -4,7 +4,21 @@
 Changelog
 =========
 
-Check https://github.com/conan-io for issues and more details about development
+Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
+
+0.6 (11-Jan-2016)
+-----------------
+
+- New cmake variables in cmake generator to make FindPackage work better thanks to the underlaying FindLibrary. Now many FindXXX.cmake work "as-is" and the package creator does not have to create a custom override, and consumers can use packages transparently with the originals FindXXX.cmakes
+- New "conan info" command that shows the full dependency graph and details (license, author, url, dependants, dependencies) for each dependency.
+- New environment helper with a ConfigureEnvironment class, that is able to translate conan information to autotools configure environment definition
+- Relative importing from conanfiles now is possible. So if you have common functionality between different packages, you can reuse those python files by importing them from the conanfile.py. Note that export="..." might be necessary, as packages as to be self-contained.
+- Added YouCompleteMe generator for vim auto-completion of dependencies.
+- New "conanfile_directory" property that points to the file in which the conanfile.py is located. This helps if using the conanfile.py "build" method to build your own project as a project, not a package, to be able to use any workflow, out-of-source builds, etc.
+- Many edits and improvements in help, docs, output messages for many commands.
+- All cmake syntax in modern lowercase
+- Fixed several minor bugs: gcc detection failure when gcc not installed, missing import, copying source->build failing when symlinks
+
 
 0.5 (18-Dec-2015)
 -----------------

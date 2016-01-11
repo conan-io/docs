@@ -131,6 +131,45 @@ Get complete information about the specified reference pattern. You can use it o
 	$ conan search OpenCV/*
 
 
+conan info
+----------
+
+.. code-block:: bash
+
+   $ conan info [package or path]
+
+Get complete information about the specified reference pattern or path. 
+You can use it for your current project (just point to the path if you want), or for any
+existing package in your local cache
+
+
+**Examples**:
+
+.. code-block:: bash
+
+   $ conan info 
+   $ conan info myproject_path
+   $ conan info Hello/1.0@user/channel
+   
+The output will look like:
+
+.. code-block:: bash
+
+   Dependency/0.1@user/channel
+    URL: http://...
+    License: MIT
+    Required by:
+        Hello/1.0@user/channel
+
+   Hello/1.0@user/channel
+       URL: http://...
+       License: MIT
+       Required by:
+           Project
+       Requires:
+           Hello0/0.1@user/channel
+
+   
 conan upload
 ------------
 
