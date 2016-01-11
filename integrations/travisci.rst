@@ -39,7 +39,7 @@ Create a ``.travis.yml`` file and paste this code in it:
 	- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
 	
 	# Download conan
-	- wget https://s3-eu-west-1.amazonaws.com/conanio/downloads/conan-ubuntu-64_0_3_0.deb -O conan.deb
+	- wget http://downloads.conan.io/latest_debian -O conan.deb
 	- sudo dpkg -i conan.deb
 	- rm conan.deb
 	
