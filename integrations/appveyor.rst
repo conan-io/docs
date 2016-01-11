@@ -30,7 +30,7 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	
 	install:
 	  - cmd: echo "Downloading conan..."
-	  - ps: wget https://s3-eu-west-1.amazonaws.com/conanio/downloads/conan-win_0_3_0.exe -OutFile conan_installer.exe
+	  - ps: wget http://downloads.conan.io/latest_windows -OutFile conan_installer.exe
 	  - cmd: conan_installer.exe /VERYSILENT
 	  - cmd: set PATH=%PATH%;C:\Program Files (x86)\Conan\conan
 	  - cmd: conan --version
