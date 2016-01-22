@@ -11,6 +11,7 @@ This section shows how to create, build, upload and test your packages
    packaging/getting_started
    packaging/testing
    packaging/upload
+   packaging/package_tools
 
 
 
