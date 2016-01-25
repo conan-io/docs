@@ -79,7 +79,7 @@ The contents of ``conanbuildinfo.pri`` could look like this:
    CONAN_QMAKE_CFLAGS_CATCH += 
    CONAN_QMAKE_LFLAGS_CATCH += 
    CONAN_QMAKE_LFLAGS_CATCH += 
-   CONAN_ROOTPATH_CATCH = /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed
+   CONAN_CATCH_ROOT = /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed
 
    CONAN_INCLUDEPATH_HELLOLIBRARY += /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include
    CONAN_LIBS_HELLOLIBRARY += -L/home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/lib
@@ -90,7 +90,7 @@ The contents of ``conanbuildinfo.pri`` could look like this:
    CONAN_QMAKE_CFLAGS_HELLOLIBRARY += 
    CONAN_QMAKE_LFLAGS_HELLOLIBRARY += 
    CONAN_QMAKE_LFLAGS_HELLOLIBRARY += 
-   CONAN_ROOTPATH_HELLOLIBRARY = /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed
+   CONAN_HELLOLIBRARY_ROOT = /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed
 
    CONFIG(conan_basic_setup) {
        INCLUDEPATH += $$CONAN_INCLUDEPATH
