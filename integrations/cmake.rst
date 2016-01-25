@@ -54,8 +54,7 @@ Let's take a look at the generated ``conanbuildinfo.cmake`` file:
     set(CONAN_LIB_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib")
     set(CONAN_BIN_DIRS_POCO "/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin")
     set(CONAN_LIBS_POCO PocoUtil PocoXML PocoJSON PocoMongoDB PocoNet PocoCrypto PocoData PocoDataSQLite PocoZip PocoFoundation pthread dl rt)
-    set(CONAN_DEFINES_POCO -DPOCO_STATIC=ON
-                -DPOCO_NO_AUTOMATIC_LIBS)
+    set(CONAN_DEFINES_POCO -Dshared=OFF -DPOCO_NO_AUTOMATIC_LIBS)
     set(CONAN_CXX_FLAGS_POCO "")
     set(CONAN_SHARED_LINK_FLAGS_POCO "")
     set(CONAN_EXE_LINKER_FLAGS_POCO "")
@@ -93,8 +92,7 @@ Let's take a look at the generated ``conanbuildinfo.cmake`` file:
                 "/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/dd8a0e4171607d74dee9fd0c51153a922d849535/bin"
                 "/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin" ${CONAN_BIN_DIRS})
     set(CONAN_LIBS PocoUtil PocoXML PocoJSON PocoMongoDB PocoNet PocoCrypto PocoData PocoDataSQLite PocoZip PocoFoundation pthread dl rt ssl crypto z ${CONAN_LIBS})
-    set(CONAN_DEFINES -DPOCO_STATIC=ON
-                -DPOCO_NO_AUTOMATIC_LIBS ${CONAN_DEFINES})
+    set(CONAN_DEFINES -Dshared=OFF -DPOCO_NO_AUTOMATIC_LIBS ${CONAN_DEFINES})
     set(CONAN_CXX_FLAGS " ${CONAN_CXX_FLAGS}")
     set(CONAN_SHARED_LINK_FLAGS " ${CONAN_SHARED_LINK_FLAGS}")
     set(CONAN_EXE_LINKER_FLAGS " ${CONAN_EXE_LINKER_FLAGS}")
@@ -117,7 +115,7 @@ As we can see, conan is preparing some variables:
 * ``CONAN_LIB_DIRS``: The library folders from the requirements.
 * ``CONAN_BIN_DIRS``: The binary folders from the requirements.
 * ``CONAN_LIBS``: The name of the libs we have to link with.
-* ``CONAN_DEFINES``: Defines, observe that two are defined, POCO_STATIC and POCO_NO_AUTOMATIC_LIBS, that correspond to options.
+* ``CONAN_DEFINES``: Defines, observe that two are defined, "shared" and POCO_NO_AUTOMATIC_LIBS, that correspond to options.
 * ``CONAN_C_FLAGS``: Flags for C. Not specified for Poco nor its requirements.
 * ``CONAN_CXX_FLAGS``: Flags for CXX. Not specified for Poco nor its requirements.
 * ``CONAN_SHARED_LINK_FLAGS``: Shared flags for CXX. Not specified for Poco nor its requirements.

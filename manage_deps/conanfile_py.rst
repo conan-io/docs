@@ -24,7 +24,7 @@ Let's take a look at the complete ``conanfile.txt`` from our :ref:`conanfile.txt
       txt
       
       [options]
-      Poco:poco_static=False
+      Poco:shared=True
       OpenSSL:shared=True
       
       [imports]
@@ -42,7 +42,7 @@ And the equivalent ``conanfile.py`` file:
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
       generators = "cmake", "gcc", "txt"
-      default_options = "Poco:poco_static=False", "OpenSSL:shared=False"
+      default_options = "Poco:shared=True", "OpenSSL:shared=False"
             
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -86,7 +86,7 @@ Edit your ``conanfile.py`` and add the ``build()`` method:
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
       generators = "cmake", "gcc", "txt"
-      default_options = "Poco:poco_static=False", "OpenSSL:shared=False"
+      default_options = "Poco:shared=True", "OpenSSL:shared=False"
 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -167,7 +167,7 @@ You can use the **gcc** helper instead of **cmake** for building your source cod
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
       generators = "gcc"
-      default_options = "Poco:poco_static=False", "OpenSSL:shared=False"
+      default_options = "Poco:shared=True", "OpenSSL:shared=False"
      
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -198,7 +198,7 @@ It works prepending the *command_line* to your **configure and make** commands:
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
-      default_options = "Poco:poco_static=False", "OpenSSL:shared=False"
+      default_options = "Poco:shared=True", "OpenSSL:shared=False"
      
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -256,7 +256,7 @@ In the ``build()`` method you can access your settings and build information fro
       requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
       ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
       generators = "txt"
-      default_options = "Poco:poco_static=True", "OpenSSL:shared=False"
+      default_options = "Poco:shared=False", "OpenSSL:shared=False"
    
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -272,7 +272,7 @@ In the ``build()`` method you can access your settings and build information fro
          # Options
          #print(self.options.my_option)
          print(self.options["OpenSSL"].shared)
-         print(self.options["Poco"].poco_static)
+         print(self.options["Poco"].shared)
    
          # Paths and libraries, all
          print("-------- ALL --------------")
@@ -384,7 +384,7 @@ Define **options** and **default_options** this way:
       generators = "cmake", "gcc", "txt"    
       ################### NEW ###########################
       options = {"shared": [True, False]} # Values can be True or False (number or string value is also possible)
-      default_options = "shared=False", "Poco:poco_static=False", "OpenSSL:shared=False" # Default value for shared is False (static)
+      default_options = "shared=False", "Poco:shared=True", "OpenSSL:shared=False" # Default value for shared is False (static)
       ###################################################
 
       def imports(self):
@@ -481,7 +481,6 @@ Here is an example of what we could do in our **config method**:
        
       def config(self):
           # We can control the options of our dependencies based on current options
-          self.options["Poco"].poco_static = not self.options.shared
           self.options["OpenSSL"].shared = self.options.shared
           
           # Maybe in windows we know that OpenSSL works better as shared (false)

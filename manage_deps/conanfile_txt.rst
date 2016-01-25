@@ -304,7 +304,7 @@ Options are intended for package specific configurations.
       $ conan search Poco/1.6.1@lasote/stable -v -r conan.io
       
 
-We are going to adjust the option **"poco_static"** to use the shared library from POCO.
+We are going to adjust the option **"shared"** to use the shared library from POCO.
 
 You can set the options for your requirements this way:
 
@@ -317,7 +317,7 @@ You can set the options for your requirements this way:
       gcc
       
       [options]
-      Poco:poco_static=False # Just the name of the library ":" and the option name
+      Poco:shared=True # Just the name of the library ":" and the option name
       OpenSSL:shared=True
       
 
@@ -334,7 +334,7 @@ Install the requirements and compile:
    $ g++ timer.cpp @conanbuildinfo.gcc -o bin/timer
    
 
-What happened? The **conan install** command receives the different options and resolves the right packages to link to, meaninng the ones that are the generated with **Poco:poco_static=False** and **OpenSSL:shared=True**
+What happened? The **conan install** command receives the different options and resolves the right packages to link to, meaninng the ones that are the generated with **Poco:shared=True** and **OpenSSL:shared=True**
 
 So if we inspect the **objdump** tool (available in linux) we can see in *Dynamic section* that the executable used the shared libraries from POCO and OpenSSL:
 
