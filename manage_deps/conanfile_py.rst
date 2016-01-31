@@ -147,9 +147,9 @@ As you can see, if you integrate your build system with conan, the settings beco
    
 
 .. note::
-
-   If you don't want to alter your CMakefile.txt file, you can have a subfolder with your proyect.
-   Then, in conan's CMakelists.txt, wrap your CMakefile with **add_subdirectory**.
+   
+   If you don't want to alter your CMakeLists.txt file, you can have a subfolder with your project. 
+   Then, in conan's CMakeLists.txt, wrap your CMakeLists.txt with **add_subdirectory**.
 
 
 Example with GCC
