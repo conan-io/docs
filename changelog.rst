@@ -6,6 +6,34 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.7 (5-Feb-2016)
+----------------
+
+- Custom conanfile names are allowed for developing. With ``--file`` option you can define
+  the file you want to use, allowing for ``.conaninfo.txt`` or having multiple ``conanfile_dev.py``,
+  ``conanfile_test.py`` besides the standard ``conanfile.py`` which is used for sharing the package.
+  Inheritance is allowed, e.g. ``conanfile_dev.py`` might extend/inherit from ``conanfile.py``.
+- New ``conan copy`` command that can be used to copy/rename packages, promote them between channels,
+  forking other users packages.
+- New ``--all`` and ``--package`` options for ``conan install`` that allows to download one, several,
+  or all package configurations for a given reference.
+- Added ``patch()`` tool to easily patch sources if necessary.
+- New **qmake** and **qbs** generators
+- Upload of conanfile **exported** files is also **tgz'd**, allowing fast upload/downloads of
+  full sources if desired, avoiding retrieval of sources from externals sources.
+- ``conan info`` command improved showing info of current project too
+- Output of ``run()`` can be redirected to buffer string for processing, or even removed.
+- Added **proxy** configuration to conan.conf for users behinds proxies.
+- Large improvements in commands output, prefixed with package reference, and much clear.
+- Updated settings for more versions of gcc and new arm architectures
+- Treat dependencies includes as SYSTEM in cmake, so no warnings are raised
+- Deleting source folder after ``conan export`` so no manual removal is needed
+- Normalizing to CRLF generated user files in Win
+- Better detection and checks for compilers as VS, apple-clang
+- Fixed CMAKE_SHARED_LINKER_FLAGS typo in cmake files
+- Large internal refactor in generators
+
+
 0.6 (11-Jan-2016)
 -----------------
 
