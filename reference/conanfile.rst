@@ -240,7 +240,9 @@ default, a ``conanbuildinfo.txt`` file is generated, but you can specify differe
 
 - **gcc**: conanbuildinfo.gcc
 - **cmake**: conanbuildinfo.cmake
-- **txt:** conanbuildinfo.txt
+- **txt**: conanbuildinfo.txt
+- **qmake**: conanbuildinfo.pri
+- **qbs**: conanbuildinfo.qbs
 - **visual_studio**: conanbuildinfo.props
 - **xcode**: conanbuildinfo.xcconfig
 
@@ -588,8 +590,3 @@ so that command errors are do not pass unnoticed. It is just a wrapper for ``os.
 
 ``self.conanfile_directory`` is a property that returns the directory in which the conanfile is
 located.
-
-
-
-
-

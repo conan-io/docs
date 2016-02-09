@@ -31,7 +31,7 @@ How does conan compare to biicode dependency manager?
 A (probably not complete) list of differences:
 
 - It is fully decentralized, git-like style. The provided on-premises server is very easy to run.
-- It is build-system agnostic, and highly decoupled from builds. It uses cmake a lot and integrates well with it, but there are packages built with perl+nmake, autotools, etc. Consumers can use any available generator (visual studio, xcode, gcc, txt or cmake). They are not forced to use cmake.
+- It is build-system agnostic, and highly decoupled from builds. It uses cmake a lot and integrates well with it, but there are packages built with perl+nmake, autotools, etc. Consumers can use any available generator (visual studio, xcode, gcc, txt, cmake, qmake or qbs). They are not forced to use cmake.
 - Consumers are not locked-in to the techonology. They are just provided with a file with include paths, lib paths, libs, etc, so they can use that info. System package managers can perfectly coexist with it.
 - It hosts and manages pre-built binaries. You can decide to build from source or use existing binaries. Binaries are cached in your computer at the user-level, so there is no need to build the same large binary twice for different projects. Many versions of binaries can coexist, different projects can use different versions, and it is easy to switch between versions in the same project (without rebuilding).
 - Python package recipes allow for very advanced configuration: static, dynamic, 32, 64 bits, conditional dependencies (depending on OS, version, compiler, settings, options...) in a more intuitive cycle: source-build-package
