@@ -1,4 +1,3 @@
-.. _youcompleteme:
 
 
 YouCompleteMe (vim)

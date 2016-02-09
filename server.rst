@@ -53,7 +53,7 @@ have to stop and restart it manually.
 
 The server configuration file is by default:
 
-.. code-block:: txt
+.. code-block:: text
 
    [server]
    jwt_secret: MnpuzsExftskYGOMgaTYDKfw
@@ -124,13 +124,13 @@ If you want to restrict read/write access to specific packages, configure it in 
 and ``[write_permissions]`` sections. These sections allow a sequence of patterns and allowed users,
 in the form:
 
-.. code-block:: txt
+.. code-block:: text
 
    package/version@user/channel: allowed_user1, allowed_user2
 
 E.g.:
 
-.. code-block:: txt
+.. code-block:: text
 
    */*@*/*: * # allow all users to all packages
    PackageA/*@*/*: john, peter # allow john and peter access to any PackageA

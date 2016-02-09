@@ -516,7 +516,7 @@ could contain:
        
 This scheme asumes that changing the upstream Hello dependency will not affect my package, as
 long as the major version is not changed. Let's say that the "Hello" lib does not follow semver,
-and it breaks binary compatibility in each minor release. Then, we should change our ``info``s
+and it breaks binary compatibility in each minor release. Then, we should change our ``info``
 as follows:
 
 .. code-block:: python

@@ -2,7 +2,7 @@
 
 
 Qt Build System (qbs)
-_____
+_____________________
 
 As of version 0.7 of conan, a Qt Build System (qbs) generator is available
 that can be configured as follows:
