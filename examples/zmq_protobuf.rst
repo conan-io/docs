@@ -161,7 +161,7 @@ If not created, then create also a ``conanfile.txt`` with the following content:
 
 .. code-block:: text
 
-   [requirements]
+   [requires]
    zmqcpp/4.1.1@memsharded/testing
    Protobuf/2.6.1@memsharded/testing
    
