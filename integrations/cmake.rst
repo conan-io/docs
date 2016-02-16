@@ -30,7 +30,7 @@ This is the ``CMakeLists.txt`` file we used in the :ref:`Getting started<getting
 .. code-block:: cmake
 
    project(FoundationTimer)
-   cmake_minimum_required(VERSION 2.8)
+   cmake_minimum_required(VERSION 2.8.12)
 
    include(conanbuildinfo.cmake)
    conan_basic_setup()
@@ -140,7 +140,7 @@ So, you can use **find_package** normally:
 .. code-block:: cmake
 
     project(MyHello)
-    cmake_minimum_required(VERSION 2.8)
+    cmake_minimum_required(VERSION 2.8.12)
     
     include(conanbuildinfo.cmake)
     conan_basic_setup()

@@ -118,7 +118,7 @@ that we should create inside our example folder:
 .. code-block:: cmake
 
    project(FoundationTimer)
-   cmake_minimum_required(VERSION 2.8)
+   cmake_minimum_required(VERSION 2.8.12)
 
    include(conanbuildinfo.cmake)
    conan_basic_setup()
