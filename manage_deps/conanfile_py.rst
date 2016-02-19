@@ -207,8 +207,8 @@ It works prepending the *command_line* to your **configure and make** commands:
       def build(self):
          ############ ConfigureEnvironment helper ###########
          env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
-         self.run("%s && ./configure" % env.command_line)
-         self.run("%s && make" % env.command_line)
+         self.run("%s ./configure" % env.command_line)
+         self.run("%s make" % env.command_line)
          
          # nmake also works for Windows:
          # command = '%s && nmake /f Makefile.msvc"' % env.command_line
