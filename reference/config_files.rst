@@ -31,6 +31,26 @@ This is the typical ``~/.conan/conan.conf`` file:
 Here you can configure the path where all the packages will be stored (on Windows, it is recomended to assign it to
 some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
 
+You can also adjust the "path" setting using the environment variable **CONAN_USER_HOME**. 
+You can have multiple virtual conan environments just setting this variable in different consoles for the same computer.
+**Note:** Use an absolute path and without quotes in Windows.
+
+Windows users:
+
+.. code-block:: bash
+
+   $ SET CONAN_USER_HOME=c:\data
+   $ conan install # now invoke conan normally, config and data will be stored in the new folder
+
+
+Linux/OSx users:
+
+.. code-block:: bash
+
+   $ export CONAN_USER_HOME=/tmp/conan
+   $ conan install # now invoke conan normally, config and data will be stored in the new folder
+
+
 The remotes are managed in the order in which they are listed. The first one is assumed to be the default
 for uploads. For downloads they are also accessed sequentially, until a matching binary package is found.
 

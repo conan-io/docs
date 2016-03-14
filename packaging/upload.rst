@@ -1,9 +1,13 @@
 Uploading packages
 ==================
 
-In the previous section, we created several packages on our local computer. Now, you
-might want to upload them to a conan server for later reuse on another machine, project,
+In the previous section, we built several packages on our local computer. Now, you
+might want to upload both the package recipe and the built packages to a conan server for later reuse on another machine, project,
 or for sharing them.
+
+This way, if someone includes our package recipe reference in a **[requires]** section of a **conanfile.txt** (Hello/0.1@demo/testing) and his settings matches
+with the settings we used to generate our already uploaded packages, conan will directly download the built package. In case that no package
+is found, the user could use the package recipe with the **conan install --build** command to generate its own binary package.
 
 .. note::
 
@@ -23,7 +27,7 @@ The latter checks your current ``localhost`` server, but you could also query ot
 like the ``conan.io`` one.
 
 
-Now, try to upload all the packages:
+Now, try to upload the package recipe and all the packages:
 
 .. code-block:: bash
 
@@ -34,8 +38,7 @@ You might be prompted for a username and password. The local conan server has a 
 we can use for testing. If you want to try the conan.io server, you need to register first
 at the `conan.io <http://www.conan.io>`_ site.
    
-The ``--all`` option will upload all the binary packages, plus the exported ``conanfile.py`` to the local
-server. Now try again to read the information from the remote (we refer to it as remote, even
+The ``--all`` option will upload the package recipe plus all the binary packages. Now try again to read the information from the remote (we refer to it as remote, even
 if it is running on your local machine, as it could be run on another server in your LAN):
 
 .. code-block:: bash
