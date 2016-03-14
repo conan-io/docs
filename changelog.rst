@@ -6,6 +6,20 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.8 (15-Mar-2016)
+-----------------
+
+- Added new **compiler.libcxx** setting in order to support the different c++ standard libraries.
+- New **conan remote** command to manage remotes. Redesigned remotes architecture, now allows to work with several remotes in a more consistent, powerful and "git-like" way. 
+- Increased library name length limit.
+- Improved and clean output messages.
+- Easy way to **delete a non nedded setting** in conanfile.py: del self.settings.compiler.libcxx
+- Better conanfile download method. More stable and now checks (opt-out) the **ssl certificates**.
+- Fixed several minor bugs: removing empty folders, case sensitive exports, arm settings detection.
+- Introduced the concept of **"package recipe"** that refers to conanfile.py and exported files.
+- Conan virtual environment: Define a custom conan directory with **CONAN_USER_HOME** env variable.
+
+
 0.7 (5-Feb-2016)
 ----------------
 

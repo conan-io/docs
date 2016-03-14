@@ -1,7 +1,7 @@
 Automatically creating and testing packages
 ===========================================
 
-So in the previous section we created a package that we could consume in new projects just by
+So in the previous section we created a package recipe and built a package that we could consume in new projects just by
 adding a **conanfile.txt** to them and running ``conan install``.
 
 But it is common that, for a given project, we may want to create different packages, for different
@@ -43,11 +43,11 @@ Let's create a ``test`` subfolder inside our ``hellopack`` folder with the follo
            self.run(os.sep.join([".","bin", "greet"]))
            
 
-This file is very similar to the previous one (the one that generated the packages) but with a few
+This file is very similar to our previous package recipe (the one that generated the packages) but with a few
 differences:
 
 - It doesn't have a name and version, because we are not creating a package yet, so it's not necessary.
-- It defines a ``requires`` field, that points to our package.
+- It defines a ``requires`` field, that points to our package recipe.
 - It creates a ``cmake`` information file for the requirements (include directories, etc).
 - The ``package()`` and ``package_info()`` methods are not required, since we are not creating a package.
 - The ``test()`` method specifies which binaries have to be run.
@@ -55,7 +55,7 @@ differences:
 .. note::
 
    These tests are very different from the library unit or integration tests, which should be more
-   comprenhensive. These tests are "package" tests, and validate that the package is properly
+   comprehensive. These tests are "package" tests, and validate that the package is properly
    created, and that package consumers will be able to link against it and reuse it.
    
 
@@ -146,6 +146,17 @@ You can check all your created packages with:
 .. code-block:: bash
 
    $ conan search
+   
+   
+
+.. note::
+
+   We have developed another FOSS project **conan package tools** to ease the task of generating multiple packages
+   with a single package recipe. It offers a simple way to define the different configurations and to call "conan test"
+   Also offfers CI integration like **Travis CI, Appveyor and Bamboo** to remote and automated package creation.
+   
+   https://github.com/conan-io/conan-package-tools
+   
 
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.

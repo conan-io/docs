@@ -1,9 +1,9 @@
 .. _building_hello_world:
 
-Building a Hello World package
-==============================
+Building a Hello World package recipe
+=====================================
 
-We will build a package out of a "hello world" library available on github.
+We will write a package recipe for the "hello world" library available on github.
 It is a very simple project, consisting of some source code files and a CMakeLists.txt
 that builds a library and an executable. It can be built and run without conan.
 
@@ -18,8 +18,8 @@ First, let's create a folder for our project and get the source code:
 (you can also just download and copy the source code to a "hello" subfolder)
    
 
-Now we will write our **conanfile.py** in the **root "hellopack"** folder.
-It is the script that defines how this package is built and used:
+Now we will write our package recipe. All recipes needs a **conanfile.py** file in the **root "hellopack"** folder.
+It is the script that defines how the packages are built and used:
 
 .. code-block:: python
    
@@ -57,15 +57,17 @@ directory in which the ``conanfile.py`` is located, and which could be used for 
       self.run('cmake --build . %s' % cmake.build_config)
       
 
-A package ``name`` and ``version`` are always required to create packages. 
+A package ``name`` and ``version`` are always required in ``conanfile.py``. 
 
-The ``settings`` field defines a set of predefined variables that affect the binary package.
-The binary package is actually different for different OSs and compilers, also depending on
+The ``settings`` field defines a set of predefined variables that affect the binary packages.
+The package recipe will generate different packages for different OSs and compilers, also depending on
 whether the ``build_type`` is Debug or Release, or the architecture is 32 or
 64 bits. The possible values of those settings are also pre-defined.
 
 The ``exports`` field is optional. It defines which auxiliary files will be exported together with
-this **conanfile.py** file. In this particular case, we state that all the files inside the hello subfolder
+this **conanfile.py** file. All those 'export' files with the **conanfile.py** compose the **package recipe**.
+ 
+In this particular case, we state that all the files inside the hello subfolder
 will be stored together with the **conanfile.py**. This is not required, since the retrieval of
 source code can be easily defined in an optional ``source()`` method, which can make git clone,
 download & unzip, etc. We use the ``exports`` field here for brevity.
@@ -92,7 +94,7 @@ method can also be configured with python scripting, defining for example differ
 building process actually outputs different library names (e.g. debug, mt, 32 suffixes).
 
 
-Once we have our **conanfile.py** all we have to do to start using this package in our machine
+Once we have our **conanfile.py** all we have to do to start using this package recipe in our machine
 is to ``export`` it to the conan local store:
 
 
@@ -110,7 +112,7 @@ the channel is *testing*.
    $ conan search
 
 
-How can we know if the package builds properly? We can invoke the install command, passing
+How can we know if the package recipe works properly? We can invoke the install command, passing
 the full name of the package (we will use the default settings from conan.conf, but you can change
 them if you want):
 
@@ -123,7 +125,7 @@ them if you want):
 
 
 It failed, because there is no binary package that matches our settings. In fact, there aren't
-any binary packages, we have just written and exported the conanfile.py which can create them. Now we will
+any binary packages, we have just written and exported the recipe which can create them. Now we will
 try again, instructing conan to build the package from sources:
 
 .. code-block:: bash
@@ -133,17 +135,17 @@ try again, instructing conan to build the package from sources:
    
 Check :ref:`commands` for full details about the **install --build** options.
 
-Now, try a ``conan search`` again in order to ensure that the package has just been created:
+Now, try a ``conan search`` again in order to ensure that a package has just been created:
 
 .. code-block:: bash
 
    $ conan search
    
-So the package is there, but we still need to check if the package is actually properly created and
+So a new package has been built, but we still need to check if the package is actually properly created and
 that there are no missing headers, libs or flags.
 
-The best way to do that is to require this package from another test project that actually consumes it.
-You could depend on this package explicitely from another project with a **conanfile.txt** file,
+The best way to do that is to require this package recipe from another test project that actually consumes it.
+You could depend on this package recipe explicitely from another project with a **conanfile.txt** file,
 just as shown in :ref:`Getting started<getting_started>`. The ``Hello/0.1@demo/testing`` packages
 will be built on demand, when the consumer project requires a specific package configuration.
 

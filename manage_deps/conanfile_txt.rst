@@ -35,11 +35,15 @@ But before we start with the ``conanfile.txt`` details, let's review the :ref:`g
 What is really happening?
 
    - When you execute **conan install**, conan reads ``conanfile.txt`` from the current directory.
-   - Conan reads all the **[requires]** entries and installs them (taking care of upstream options/requires override)
-       
-     So conan will download the requirements (and each requirement's requirements recursively), first looking at your local store (a local cache) and, if its not found, at the remotes.
+   - Conan reads all the **[requires]** entries and installs them (taking care of upstream options/requires override). 
      
-     In this example, conan will download *OpenSSL/1.0.2d@lasote/stable* and *zlib/1.2.8@lasote/stable*.
+     Conan will download the **package recipe** to build each require and, if it's found, the already **built package** that matches with the specified settings and options.
+       
+     Conan will also get the requirement's recursively, first looking at your local store (a local cache) and, if it's not found, at the remotes.
+     
+     In this example, conan will download both the package recipe to build **OpenSSL/1.0.2d@lasote/stable** and **zlib/1.2.8@lasote/stable**, and the built packages for both of them.
+     
+     So, if any package is not found (neither local cache nor the remotes have a generated package that matches your settings and options), conan can try to build the package from the downloaded package recipe.
      
      Conan will also collect needed information from each requirement: **libs** that have to be **linked**, the **include directories**, **compile flags** etc.
      See the requires_ section for more details.
