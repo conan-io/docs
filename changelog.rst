@@ -12,25 +12,29 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - New **conan remote** command to manage remotes. Redesigned remotes architecture, now allows
   to work with several remotes in a more consistent, powerful and "git-like" way. New remotes
   registry keeps track of the remote of every installed package, and this information is shown
-  in *conan info* command too. Also, it keeps different user logins for different remotes, to
+  in ``conan info`` command too. Also, it keeps different user logins for different remotes, to
   improve support in corporate environments running in-house servers.
-- New **update** functionality. Now it is possible to *conan install --update* to update packages
+- New **update** functionality. Now it is possible to ``conan install --update`` to update packages
   that became obsolete because new ones were uploaded to the corresponding remote. Conan commands
   as install and info show information about the status of the local packages compared with the
   remote ones. In this way, using latest versions during development is much more natural.
 - Added new **compiler.libcxx** setting in order to support the different c++ standard libraries.
   It can take libstdc++, libstdc++11 or libc++ values to take into account different standard
   libraries for modern gcc and clang compilers. It is also possible to remove not needed settings,
-  like this one in pure C projects, with the new syntax: *del self.settings.compiler.libcxx*
+  like this one in pure C projects, with the new syntax: ``del self.settings.compiler.libcxx``
 - Conan **virtual environment**: Define a custom conan directory with **CONAN_USER_HOME** env variable,
   and have a per project or per workspace storage for your dependencies. So you can isolate your
   dependencies and even bundle them within your project, by just setting the CONAN_USER_HOME
-  variable to your *<project>/deps* folder, for example. This also improves support for continuous
+  variable to your ``<project>/deps`` folder, for example. This also improves support for continuous
   integration CI systems, in which many builds from different users could be run in parallel.
 - Better conanfile download method. More stable and now checks (opt-out) the **ssl certificates**.
 - Lots of improvements: Increased library name length limit, Improved and cleaner output messages.
 - Fixed several minor bugs: removing empty folders, case sensitive exports, arm settings detection.
 - Introduced the concept of **"package recipe"** that refers to conanfile.py and exported files.
+- Improved settings display in web, with new "copy install command to clipboard" to assist in
+  installing packages discovered in web.
+- The OSX installer, problematic with latest OSX releases, has been deprecated in favour
+  of homebrew and pip install procedures.
 
 
 
