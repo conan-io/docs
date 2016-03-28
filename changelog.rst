@@ -6,6 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.8.4 (28-Mar-2016)
+-------------------
+
+- Fixed linker problems with the new apple-clang 7.3 due to libraries with no setted timestamp.
+- Added apple-clang 7.3 to default settings
+- Fixed default libcxx for apple-clang in auto detection of base conan.conf
+
+
 0.8 (15-Mar-2016)
 -----------------
 
