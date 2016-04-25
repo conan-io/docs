@@ -82,14 +82,14 @@ build options
 Both the conan **install** and **test** commands have options to specify whether conan should
 try to build things or not:
 
-* **--build=never**  This is the default option. It is not necessary to write it explicitly. Conan will
+* :command:`--build=never`  This is the default option. It is not necessary to write it explicitly. Conan will
   not try to build packages when the requested configuration does not match, in which case it will
   throw an error.
-* **--build=missing** Conan will try to build from source, all packages of which the requested configuration
+* :command:`--build=missing` Conan will try to build from source, all packages of which the requested configuration
   was not found on any of the active remotes
-* **--build=[pattern]** Conan will force the build of the packages, the name of which matches the given **pattern**.
-  Several patterns can be specified, chaining multiple options, e.g. **--build=pattern1 --build=pattern2**
-* **--build**. Always build everything from source. Produces a clean re-build of all packages
+* :command:`--build=[pattern]` Conan will force the build of the packages, the name of which matches the given **pattern**.
+  Several patterns can be specified, chaining multiple options, e.g. :command:`--build=pattern1 --build=pattern2`
+* :command:`--build` Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
 
 
