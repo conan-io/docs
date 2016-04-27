@@ -1,7 +1,7 @@
 .. _manage_deps:
 
 
-Managing your dependencies
+Using packages
 ==========================
 
 This section shows how to setup your project and manage your dependencies with conan.
@@ -10,5 +10,4 @@ This section shows how to setup your project and manage your dependencies with c
    :maxdepth: 2
 
    manage_deps/conanfile_txt
-   manage_deps/conanfile_py
    manage_deps/workflows

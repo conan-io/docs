@@ -19,3 +19,5 @@ Integrations
    integrations/qmake
    integrations/qbs
    integrations/youcompleteme
+   integrations/gcc
+   integrations/other

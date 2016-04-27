@@ -1,7 +1,11 @@
 .. _building_hello_world:
 
-Building a Hello World package recipe
+Packaging from external sources
 =====================================
+
+In this case, we will create a package from the sources available from any other origin,
+could be another external repository, or just downloading it from some site.
+
 
 We will write a package recipe for the "hello world" library available on github.
 It is a very simple project, consisting of some source code files and a CMakeLists.txt

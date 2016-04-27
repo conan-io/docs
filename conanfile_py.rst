@@ -3,20 +3,20 @@
 Using ``conanfile.py``
 ----------------------
 
-If you know a little bit about python you can use ``conanfile.py`` to invoke your build system and take advantage of, among many other things, managing all settings and options of your requirements.
+If you know a little bit about python you can use ``conanfile.py`` to automatically invoke your build system and take advantage of, among many other things, managing all settings and options of your requirements.
 
 Migrate from ``conanfile.txt``
 ..............................
 
 If you have a ``conanfile.txt`` file, the conversion to ``conanfile.py`` is quite easy.
 
-Let's take a look at the complete ``conanfile.txt`` from our :ref:`conanfile.txt section<conanfile_txt>` with POCO:
+Let's take a look at the complete ``conanfile.txt`` from the previous example with POCO library,
+in which we have added a couple of extra generators
 
 .. code-block:: text
    
       [requires]
-      Poco/1.6.1@lasote/stable
-      OpenSSL/1.0.2d@lasote/stable # just an example of how to migrate multiple requirements, it shouldn't exist in your file
+      Poco/1.7.2@lasote/stable
       
       [generators]
       gcc
@@ -40,7 +40,7 @@ And the equivalent ``conanfile.py`` file:
    
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable" # comma separated list of requirements
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=False"
             
@@ -48,35 +48,25 @@ And the equivalent ``conanfile.py`` file:
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
 
-Install the requirements as usual
+Install the requirements as usual (from mytimer/build folder)
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install ..
   
-
-Well, now we have our ``conanfile.py`` created. But where is the improvement?
-In the previous ``conanfile.py`` we omitted the **build** method.
-
-The full ``conanfile.py`` will allow you to:
-
-1. Have **full managed settings** for both your project and its requirements.
-2. Have **full managed options** for both your project and its requirements.
-3. Get ready if you want to natively **build your own conan package**.
 
 .. _conanfile_py_managed_settings:
 
-Managed settings
+Build automation
 ................
 
+One advantage of using ``conanfile.py`` is that the project build can be further simplified,
+using the package recipe ``build()`` method.
 
-Example with CMake
+Building with CMake
 __________________
 
-
-If you are building your project with CMake, go through this example to manage your settings.
-
-Edit your ``conanfile.py`` and add the ``build()`` method:
+If you are building your project with CMake, edit your ``conanfile.py`` and add the following ``build()`` method:
 
 .. code-block:: python
 
@@ -84,7 +74,7 @@ Edit your ``conanfile.py`` and add the ``build()`` method:
    
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable"
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=False"
 
@@ -103,28 +93,15 @@ Note that the first ``cmake`` invocation is using the ``conanfile_directory``. T
 you want to do out-of-source builds or just building in a child folder, as ``cmake`` should be
 given the location of the root ``CMakeLists.txt``, in this case located in the same folder as the
 ``conanfile.py``.
-
-You only need to include the following lines in your ``CMakeLists.txt``:
-
-
-.. code-block:: cmake
-
-   # ... 
-   
-   include(conanbuildinfo.cmake)
-   conan_basic_setup()
-   
-   # ... Your original cmakelists.txt contents ...
-   
-   target_link_libraries(YOUR_TARGET ${CONAN_LIBS})
    
 
-Then execute:
+Then execute, from your project root:
 
 .. code-block:: bash
 
-   $ conan install # conan remembers: build_type=Release -s arch=x86s settings: -s build_type=Release -s arch=x86
-   $ conan build
+   $ mkdir build && cd build
+   $ conan install ..
+   $ conan build ..
    
 
 The **conan install** command downloads and prepares the requirements of your project
@@ -133,26 +110,22 @@ to invoke your ``build()`` method, which in turn calls **cmake**.
 
 The big benefit is that **cmake** will compile your code for the specified settings too.
 
-If you want to compile your project for **x86_64** and **Debug** or another setting just change the parameters passed to install:
+If you want to build your project for **x86_64** or another setting just change the parameters passed to install:
 
 .. code-block:: bash
 
-   $ conan install -s build_type=Debug -s arch=x86_64
-   $ conan build
+   $ rm -rf * //to clean the current build folder
+   $ conan install .. -s arch=x86_64
+   $ conan build ..
 
 
 From now you can just type **conan install** and conan will remember the settings.
-
-As you can see, if you integrate your build system with conan, the settings become standard and well organized.
+Implementing and using the conanfile.py ``build()`` method ensures that we always use the same
+settings both in the installation of requirements and the build of the project, and simplifies
+calling the build system.
    
 
-.. note::
-   
-   If you don't want to alter your CMakeLists.txt file, you can have a subfolder with your project. 
-   Then, in conan's CMakeLists.txt, wrap your CMakeLists.txt with **add_subdirectory**.
-
-
-Example with GCC
+GCC
 ________________
 
 You can use the **gcc** helper instead of **cmake** for building your source code:
@@ -165,7 +138,7 @@ You can use the **gcc** helper instead of **cmake** for building your source cod
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable"
       generators = "gcc"
       default_options = "Poco:shared=True", "OpenSSL:shared=False"
      
@@ -181,7 +154,7 @@ You can use the **gcc** helper instead of **cmake** for building your source cod
          self.run(command)
          
 
-Example with Autotools: configure / make
+Autotools: configure / make
 ________________________________________
 
 
@@ -197,7 +170,7 @@ It works prepending the *command_line* to your **configure and make** commands:
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable"
       default_options = "Poco:shared=True", "OpenSSL:shared=False"
      
       def imports(self):
@@ -240,11 +213,13 @@ Used environment variables:
 +-------------+------------------+--------------------------------------------------------+
 
 
-Example with other build systems
+Other build systems
 ________________________________
 
-If you are using **scons** or any other build system you can use conan too.
-In the ``build()`` method you can access your settings and build information from your requirements and pass it to your build system.
+If you are using any other build system you can use conan too.
+In the ``build()`` method you can access your settings and build information
+from your requirements and pass it to your build system. Note, however, that probably is simpler
+and much more reusable to create a generator to simplify the task for your build system.
 
 
 .. code-block:: python
@@ -253,7 +228,7 @@ In the ``build()`` method you can access your settings and build information fro
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable"
       ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
       generators = "txt"
       default_options = "Poco:shared=False", "OpenSSL:shared=False"
@@ -380,7 +355,7 @@ Define **options** and **default_options** this way:
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.6.1@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
       generators = "cmake", "gcc", "txt"    
       ################### NEW ###########################
       options = {"shared": [True, False]} # Values can be True or False (number or string value is also possible)
@@ -476,7 +451,7 @@ Here is an example of what we could do in our **config method**:
 .. code-block:: python
 
       ...
-      requires = "Poco/1.6.1@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
       ...
        
       def config(self):
@@ -498,18 +473,5 @@ Here is an example of what we could do in our **config method**:
                  
 
 
-Get ready to make your conan package
-....................................
-
-Well, at this point you almost have your library prepared for being a conan package.
-
-You just have these tasks pending:
-
-
-1. Separate source code from ``conanfile.py``: We recommend to have your source code in a repository and use the **method 'source'** to get it.
-2. Copy the compiled libraries/headers/binaries to a well known directory in the package, with **method 'package'**
-3. Declare library names, compilation flags and definitions needed to reuse your library, with **method 'package_info'**
-4. Test and upload your package to your own in-house server or to **conan.io**
-
-
-In :ref:`building getting started section<building_hello_world>` you will review the entire ``conanfile.py`` structure and the process to build a package from the beginning.
+Well, at this point you almost have your library prepared for being a conan package. In next section
+we will create our own packages using this ``conanfile.py``.
