@@ -1,17 +1,17 @@
 Automatically creating and testing packages
 ===========================================
 
-So in the previous section we created a package recipe and built a package that we could consume in new projects just by
-adding a **conanfile.txt** to them and running ``conan install``.
+In the previous two sections we created two package recipes, exported them to our local cache, 
+and used those packages in another project. 
 
-But it is common that, for a given project, we may want to create different packages, for different
-OSs, or for different settings in general. It turns out that, using the same **conanfile.py**, rather
-than a plain text **conanfile.txt**, makes this task much simpler to automate.
+This is a very common task for package creators, so conan allows to embed such "consuming" project
+in the package recipe and use it to automatically create and test packages.
 
-Let's create a ``test`` subfolder inside our ``hellopack`` folder with the following files:
+Let's create a ``test_package`` subfolder inside our package recipe (any of the two should work),
+and add the following files in it, which are in essence the same as the consuming project we
+did before:
          
-
-**main.cpp** is exactly the same as the original one
+**main.cpp**, which is consuming and using the package
 
 .. code-block:: cpp
 
@@ -21,34 +21,38 @@ Let's create a ``test`` subfolder inside our ``hellopack`` folder with the follo
        hello();
    }
    
-**conanfile.py** would be:
+**conanfile.py** to build the consuming application:
 
 .. code-block:: python
 
-   from conans import ConanFile, CMake
-   import os
-   
-   class HelloReuseConan(ConanFile):
-       settings = "os", "compiler", "build_type", "arch"
-       requires = "Hello/0.1@demo/testing"
-       generators = "cmake"
-   
-       def build(self):
-           cmake = CMake(self.settings)
-           self.run('cmake . %s' % cmake.command_line)
-           self.run("cmake --build . %s" % cmake.build_config)
-   
-       def test(self):
-           # equal to ./bin/greet, but portable win: .\bin\greet
-           self.run(os.sep.join([".","bin", "greet"]))
-           
+    from conans import ConanFile, CMake
+    import os
+    
+    # This easily allows to copy the package in other user or channel
+    channel = os.getenv("CONAN_CHANNEL", "testing")
+    username = os.getenv("CONAN_USERNAME", "demo")
+    
+    class HelloReuseConan(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+        requires = "Hello/0.1@%s/%s" % (username, channel)
+        generators = "cmake"
+    
+        def build(self):
+            cmake = CMake(self.settings)
+            self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
+            self.run("cmake --build . %s" % cmake.build_config)
+    
+        def test(self):
+            # equal to ./bin/greet, but portable win: .\bin\greet
+            self.run(os.sep.join([".","bin", "greet"]))
+               
 
-This file is very similar to our previous package recipe (the one that generated the packages) but with a few
+This file is very similar to our previous package recipes (the one that generated the package) but with a few
 differences:
 
-- It doesn't have a name and version, because we are not creating a package yet, so it's not necessary.
+- It doesn't have a name and version, because we are not creating a package, so it's not necessary.
 - It defines a ``requires`` field, that points to our package recipe.
-- It creates a ``cmake`` information file for the requirements (include directories, etc).
+- It uses the ``cmake`` generator, we are consuming a package, so it is convenient.
 - The ``package()`` and ``package_info()`` methods are not required, since we are not creating a package.
 - The ``test()`` method specifies which binaries have to be run.
 
@@ -66,36 +70,34 @@ Finally, the **CMakeLists.txt** is totally equivalent to what we have seen befor
    project(MyHello)
    cmake_minimum_required(VERSION 2.8.12)
    
-   include(conanbuildinfo.cmake)
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
    conan_basic_setup()
    
    add_executable(greet main.cpp)
    target_link_libraries(greet ${CONAN_LIBS})
 
 
-The current folders layout should be:
+The current folder layout could be:
 
 ::
 
-   hellopack
+   project
       conanfile.py  //the original, to create the package
-      hello
-         CMakeLists.txt
-         main.cpp
-         hello.cpp
-         hello.h
-      test
+      //possible other sources, depending if this recipe is internal or external
+      test_package
          conanfile.py //the one to build the test, consuming the package
          main.cpp
          CMakeLists.txt
          
 
-Now, we can take advantage of the ``test`` command that will build the consumer project with
-its ``build()`` method and run the ``test()`` method:
+Now, we can take advantage of the ``test_package`` command that will install the requirements,
+building the "Hello" package, and 
+building the consumer test project inside ``test_package`` folder with its ``build()`` method.
+Finally, it will run the ``test()`` method of the consumer project, to check that everything works:
 
 .. code-block:: bash
 
-   $ conan test
+   $ conan test_package
    ...
    Hello world!
 
@@ -105,13 +107,16 @@ use the **--build=never** option:
 
 .. code-block:: bash
 
-   $ conan test --build=never
+   $ conan test_package --build=never
    ...
    Hello world!
+   
+The ``conan test`` command receives the same command line parameters as ``conan install`` so you
+can pass to it the same settings, options, and command line switches.
 
-With some python (or just pure shell or bash) scripting, we could easily automate the whole package creation and testing process,
-for many different configurations.
-For example you could put the following script in the ``hellopack`` folder. Name it ``build.py``:
+With some python (or just pure shell or bash) scripting, we could easily automate the whole
+package creation and testing process, for many different configurations.
+For example you could put the following script in the package root folder. Name it ``build.py``:
 
 
 .. code-block:: python
@@ -145,18 +150,8 @@ You can check all your created packages with:
 
 .. code-block:: bash
 
-   $ conan search
-   
-   
-
-.. note::
-
-   We have developed another FOSS project **conan package tools** to ease the task of generating multiple packages
-   with a single package recipe. It offers a simple way to define the different configurations and to call "conan test"
-   Also offfers CI integration like **Travis CI, Appveyor and Bamboo** to remote and automated package creation.
-   
-   https://github.com/conan-io/conan-package-tools
-   
+   $ conan search -v
+ 
 
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.

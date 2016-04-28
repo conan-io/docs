@@ -85,9 +85,9 @@ Not necessarily, just enter the new version in **[requires]**:
 
    [requires]
    Poco/1.7.2@lasote/stable
-   OpenSSL/1.1.0a@lasote/stable
+   OpenSSL/1.0.2p@lasote/stable
 
-The second line will override the OpenSSL requirement (1.0.2) of poco, with the (non-existent yet)  **OpenSSL/1.1.0a**
+The second line will override the OpenSSL/1.0.2g required by poco, with the (non-existent yet)  **OpenSSL/1.0.2p**
 
 Other example could be, in order to try out some new zlib alpha features, we could replace the Zlib requirement with one from another user or channel. 
 
@@ -95,7 +95,7 @@ Other example could be, in order to try out some new zlib alpha features, we cou
 
    [requires]
    Poco/1.7.2@lasote/stable
-   OpenSSL/1.1.0a@lasote/stable
+   OpenSSL/1.0.2p@lasote/stable
    zlib/1.2.9@otheruser/alpha
 
 

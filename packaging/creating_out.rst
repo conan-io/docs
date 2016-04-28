@@ -7,156 +7,87 @@ In this case, we will create a package from the sources available from any other
 could be another external repository, or just downloading it from some site.
 
 
+So we will create another package, from the same "hello" repository, but this time, we will not
+embed the package recipe ``conanfile.py`` inside that repository. We will maintain it in a separate
+one. This method is perfect for packaging third party projects.
+
 We will write a package recipe for the "hello world" library available on github.
 It is a very simple project, consisting of some source code files and a CMakeLists.txt
 that builds a library and an executable. It can be built and run without conan.
 
-First, let's create a folder for our project and get the source code:
+First, let's create a folder for our package recipe:
 
 .. code-block:: bash
 
-   $ mkdir hellopack
-   $ cd hellopack
-   $ git clone https://github.com/memsharded/hello.git
+   $ mkdir greet && cd greet
 
-(you can also just download and copy the source code to a "hello" subfolder)
-   
 
-Now we will write our package recipe. All recipes needs a **conanfile.py** file in the **root "hellopack"** folder.
-It is the script that defines how the packages are built and used:
+Now we will write our package recipe, add a ``conanfile.py`` in the "greet" folder. Note that
+we are calling this package **Greet**. The final package will be indeed basically the same as 
+the "Hello" package we developed in the previous section:
 
 .. code-block:: python
    
-   from conans import ConanFile, CMake
-   
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       settings = "os", "compiler", "build_type", "arch"
-       exports = "hello/*"
-   
-       def build(self):
-           cmake = CMake(self.settings)
-           self.run('cd hello && cmake . %s' % cmake.command_line)
-           self.run("cd hello && cmake --build . %s" % cmake.build_config)
-   
-       def package(self):
-           self.copy("*.h", dst="include", src="hello")
-           self.copy("*.lib", dst="lib", src="hello/lib")
-           self.copy("*.a", dst="lib", src="hello/lib")
-   
-       def package_info(self):
-           self.cpp_info.libs = ["hello"]
-           
+    from conans import ConanFile, CMake
+    
+    class GreetConan(ConanFile):
+        name = "Greet"
+        version = "0.1"
+        settings = "os", "compiler", "build_type", "arch"
+        # No exports necessary
+    
+        def source(self):
+            # this will create a hello subfolder, take it into account
+            self.run("git clone https://github.com/memsharded/hello.git")
+    
+        def build(self):
+            cmake = CMake(self.settings)
+            self.run('cmake %s/hello %s' % (self.conanfile_directory, cmake.command_line))
+            self.run("cmake --build . %s" % cmake.build_config)
+    
+        def package(self):
+            self.copy("*.h", dst="include", src="hello")
+            self.copy("*.lib", dst="lib", src="lib")
+            self.copy("*.a", dst="lib", src="lib")
+    
+        def package_info(self):
+            self.cpp_info.libs = ["hello"]
+
  
-This ``conanfile.py`` uses this specific layout and in-source build as an example. If you want to
-support more generic layouts, you can use ``conanfile_directory`` property that points to the
-directory in which the ``conanfile.py`` is located, and which could be used for this case as:
+This ``conanfile.py`` is pretty much the same as in the previous section, just with a couple of changes:
 
-.. code-block:: python
-
-   def build(self):
-      cmake = CMake(self.settings)
-      self.run('cmake "%s/hello" %s' % (self.conanfile_directory, cmake.command_line))
-      self.run('cmake --build . %s' % cmake.build_config)
-      
-
-A package ``name`` and ``version`` are always required in ``conanfile.py``. 
-
-The ``settings`` field defines a set of predefined variables that affect the binary packages.
-The package recipe will generate different packages for different OSs and compilers, also depending on
-whether the ``build_type`` is Debug or Release, or the architecture is 32 or
-64 bits. The possible values of those settings are also pre-defined.
-
-The ``exports`` field is optional. It defines which auxiliary files will be exported together with
-this **conanfile.py** file. All those 'export' files with the **conanfile.py** compose the **package recipe**.
- 
-In this particular case, we state that all the files inside the hello subfolder
-will be stored together with the **conanfile.py**. This is not required, since the retrieval of
-source code can be easily defined in an optional ``source()`` method, which can make git clone,
-download & unzip, etc. We use the ``exports`` field here for brevity.
-
-The ``build()`` method just builds the package, invoking CMake. The first line is the project creation
-and configuration, and the second one is the actual build. They are just plain CMake commands, the
-only additional feature being the translation of the ``settings`` field to CMake syntax inside the
-cmake_command_line and cmake_build_config helpers, which just automatically define things like
-the CMake generator or build flags. You can configure your actual build with regular python syntax,
-using the settings, options, requirements, etc of the package as input.
-Also note that **CMake is not strictly required**. You can build packages directly invoking **make**,
-**MSBuild**, **SCons** or any other build system.
-
-Then, the ``package()`` method takes charge of extracting the results of the build from the
-build folder and putting them in another package folder. The ``copy()`` helper allows files
-matching certain patterns to be copied to a package destination (typically folders like
-include, lib, bin) from a source origin within the build folder.
-
-Finally, the ``package_info`` method defines which configuration is needed, in order to 
-actually consume this package. By default the package ``include``, ``lib`` and ``bin`` folders
-are automatically added to their respective ``cpp_info`` paths. One of the most common usages
-of ``cpp_info`` is to define the library names that package consumers should link with. This
-method can also be configured with python scripting, defining for example different names if your
-building process actually outputs different library names (e.g. debug, mt, 32 suffixes).
+* The ``exports`` field is not necessary in this case, as it doesn't have sources within the 
+  package recipe to be bundled with the recipe
+* The ``source()`` method is added, and a ``git clone`` is done to retrieve the sources. This will
+  be done only at package build time, but it is not necessary if package binaries already exist.
+  Any other way to retrieve sources is allowed, tools are provided to make easier to download and
+  unzip files too.
 
 
 Once we have our **conanfile.py** all we have to do to start using this package recipe in our machine
-is to ``export`` it to the conan local store:
+is to ``export`` it to our conan local package cache:
 
 
 .. code-block:: bash
 
    $ conan export demo/testing
-   
-
-The export takes the name and the version from the conanfile, but it can be exported and 
-afterwards reused under different user names and channels. In this case, the user is *demo* and
-the channel is *testing*. 
-
-.. code-block:: bash
-
-   $ conan search
+   $ conan search -v
 
 
-How can we know if the package recipe works properly? We can invoke the install command, passing
-the full name of the package (we will use the default settings from conan.conf, but you can change
-them if you want):
+Using the package in another project
+---------------------------------------
 
-.. code-block:: bash
+Using this new package is identical as in the :ref:`previous section <using_package>`.
+The consuming project does not have to change at all. Just use the previous **hello-use** project and change
+the **conanfile.txt** to use the new **Greet** package: 
 
-   $ conan install Hello/0.1@demo/testing
-   ...
-   ERROR: Can't find a 'Hello/0.1@demo/testing' package for the specified options and settings.
-   ...
+.. code-block:: text
 
-
-It failed, because there is no binary package that matches our settings. In fact, there aren't
-any binary packages, we have just written and exported the recipe which can create them. Now we will
-try again, instructing conan to build the package from sources:
-
-.. code-block:: bash
-
-   $ conan install Hello/0.1@demo/testing --build Hello
-   
-   
-Check :ref:`commands` for full details about the **install --build** options.
-
-Now, try a ``conan search`` again in order to ensure that a package has just been created:
-
-.. code-block:: bash
-
-   $ conan search
-   
-So a new package has been built, but we still need to check if the package is actually properly created and
-that there are no missing headers, libs or flags.
-
-The best way to do that is to require this package recipe from another test project that actually consumes it.
-You could depend on this package recipe explicitely from another project with a **conanfile.txt** file,
-just as shown in :ref:`Getting started<getting_started>`. The ``Hello/0.1@demo/testing`` packages
-will be built on demand, when the consumer project requires a specific package configuration.
-
-In the next section we will see how it is possible to further automate the creation and testing of
-multiple packages.
-   
-
+    [requires]
+    Greet/0.1@demo/testing
+    
+    [generators]
+    cmake
 
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
