@@ -15,6 +15,9 @@ We will write a package recipe for the "hello world" library available on github
 It is a very simple project, consisting of some source code files and a CMakeLists.txt
 that builds a library and an executable. It can be built and run without conan.
 
+Creating the package recipe
+---------------------------------------
+
 First, let's create a folder for our package recipe:
 
 .. code-block:: bash

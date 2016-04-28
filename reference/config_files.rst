@@ -16,10 +16,6 @@ This is the typical ``~/.conan/conan.conf`` file:
    # This is the default path, but you can write your own
    path: ~/.conan/data
    
-   [remotes]
-   conan.io: https://server.conan.io
-   local: http://localhost:9300
-   
    [settings_defaults]
    arch=x86_64
    build_type=Release
@@ -72,3 +68,28 @@ colleagues or consumers of your packages.
    
    The ``settings.yml`` file is not perfect nor definitive, surely incomplete. Please send us any suggestion (or
    better a PR) with settings and values that could make sense for other users.
+   
+registry.txt
+--------------------
+This file is generally automatically managed, and it has also access via the ``conan remote``
+command but just in case you might need to change it. It contains information about the known
+remotes and from which remotes are each package retrieved:
+
+
+.. code-block:: text
+
+    conan.io https://server.conan.io
+    local http://localhost:9300
+    
+    Hello/0.1@demo/testing local
+    
+    
+The first section of the file is listing remote-name: remote-url. Adding, removing or changing
+those lines, will add, remove or change the respective remote. 
+
+The second part of the file contains a list of conan-package-reference: remote-name. This is
+a reference to which remote was that package retrieved from, which will act also as the default
+for operations on that package.
+
+Be careful when modifying the remotes, as the information of the packages has to remain consistent,
+e.g. if removing a remote, all package references referencing that remote has to be removed too.

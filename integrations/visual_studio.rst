@@ -1,10 +1,10 @@
 .. _visual_studio:
 
 
-Visual Studio
-=============
+|visual_logo| Visual Studio
+=================================
 
-|visual_logo| 
+
 
 
 Conan can be integrated with **Visual Studio** in two different ways:
@@ -43,7 +43,7 @@ Open ``conanfile.txt`` and change (or add) the **visual_studio** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.6.1@lasote/stable
+   Poco/1.7.2@lasote/stable
    
    [generators]
    visual_studio

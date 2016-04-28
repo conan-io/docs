@@ -1,11 +1,9 @@
 .. _xcode:
 
 
-Xcode
-_____
+|xcode_logo|  Xcode
+____________________
 
-
-|xcode_logo|  
 
 Conan can be integrated with **XCode** in two different ways:
 

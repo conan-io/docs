@@ -1,7 +1,7 @@
 .. _gcc_generator:
 
 
-*gcc*
+gcc
 =====
 
 Conan provides a **gcc** generator, able to generate files to be directly used in the command line

@@ -1,46 +1,42 @@
 
-Git
-___
+|git_logo| Git
+_______________
 
 
-|git_logo|
+**Conan** uses plain text files, ``conanfile.txt`` or ``conanfile.py``, so it's perfectly
+suitable for the use of any version control system. We use and highly recommend git.
 
-Project layout
-==============
+Check :ref:`workflows section <workflows>` to know more about project layouts that naturally fit version control systems.
 
-
-**Conan** uses plain text files, so it's perfectly suitable for the use of a version control system.
-
-It's not required that ``conanfile`` is in your project root folder. You can create it in any directory. It's only needed that you take the place where ``conanbuildinfo.*`` files are generated into account, so that you can use them with your build system. 
-
-Check :ref:`workflows section <workflows>` to know more about project layouts that naturally fit version control system,
-as they locate all generated files in temporary out-of-source folders.
-
-Committed files
+Temporary files
 ===============
 
-**Conan** generates some files than should not be committed. These file can change in different computers and should be re-generated with the **conan install** command.
+**Conan** generates some files than should not be committed, as ``conanbuildinfo.*`` and ``conaninfo.txt``.
+These file can change in different computers and are re-generated with the **conan install** command.
 
-We suggest committing ``conanfile.txt`` or ``conanfile.py`` and ignoring the rest.
+However, these files are typically generated in the **build tree** not in the source tree, so they
+will be naturally disregarded. Just take care in case you have created the **build** folder inside
+your project (we do this in several examples in this docs). In this case, you should add it to your ``.gitignore`` file:
 
-So, if you are using **git**, you can append this to your ``.gitignore`` file:
-
+**.gitignore**
 
 .. code-block:: text
 
-   conanbuildinfo.*
-   conaninfo.txt
+   ...
+   build/
 
 
-That's all! After a ``git clone`` or update, just execute the **conan install** command with the required settings and all the files will be generated, matching your configuration. 
 
-
-conanfile.py
-============
+Package creators
+========================
 
 If you are creating a **conan** package:
 
-- You can use the :ref:`url field <package_url>` to indicate the origin of your recipe. If a **github** repository is detected, the conan website will link your github issues page in conan's package page.
+- You can use the :ref:`url field <package_url>` to indicate the origin of your package recipe. If you are using an
+  external package recipe, this url should point to the package recipe repository **not** to the
+  external source origin.
+  If a **github** repository is detected, the conan website will link your github issues page from your conan's package page.
 - You can use **git** to :ref:`obtain your sources<retrieve_source>` (requires the git client in the path)
+  when creating external package recipes.
 
 .. |git_logo| image:: ../images/git_logo.png

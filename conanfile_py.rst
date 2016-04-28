@@ -64,7 +64,7 @@ One advantage of using ``conanfile.py`` is that the project build can be further
 using the package recipe ``build()`` method.
 
 Building with CMake
-__________________
+__________________________
 
 If you are building your project with CMake, edit your ``conanfile.py`` and add the following ``build()`` method:
 
@@ -132,9 +132,9 @@ You can use the **gcc** helper instead of **cmake** for building your source cod
 
 
 .. code-block:: python
+   :emphasize-lines: 1, 14, 15, 16
 
-   ############ IMPORT GCC helper! ###########
-   from conans import ConanFile, GCC
+   from conans import ConanFile, GCC # IMPORT GCC helper!
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
@@ -147,7 +147,6 @@ You can use the **gcc** helper instead of **cmake** for building your source cod
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
    
       def build(self):
-         ############ GCC helper ###########
          gcc = GCC(self.settings)
          self.run("mkdir -p bin")
          command = 'g++ timer.cpp @conanbuildinfo.gcc -o bin/timer %s' % gcc.command_line
@@ -165,7 +164,8 @@ It works prepending the *command_line* to your **configure and make** commands:
 
     
 .. code-block:: python
-
+   :emphasize-lines: 13, 14
+   
    from conans import ConanFile, ConfigureEnvironment
 
    class MyProjectWithConan(ConanFile):
@@ -178,7 +178,6 @@ It works prepending the *command_line* to your **configure and make** commands:
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
    
       def build(self):
-         ############ ConfigureEnvironment helper ###########
          env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
          self.run("%s ./configure" % env.command_line)
          self.run("%s make" % env.command_line)
@@ -212,82 +211,6 @@ Used environment variables:
 | **WINDOWS** | CL               |  Compiler flags, (filled with include directories /I)  |
 +-------------+------------------+--------------------------------------------------------+
 
-
-Other build systems
-________________________________
-
-If you are using any other build system you can use conan too.
-In the ``build()`` method you can access your settings and build information
-from your requirements and pass it to your build system. Note, however, that probably is simpler
-and much more reusable to create a generator to simplify the task for your build system.
-
-
-.. code-block:: python
-
-   from conans import ConanFile
-
-   class MyProjectWithConan(ConanFile):
-      settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable"
-      ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
-      generators = "txt"
-      default_options = "Poco:shared=False", "OpenSSL:shared=False"
-   
-      def imports(self):
-         self.copy("*.dll", dst="bin", src="bin") # From bin to bin
-         self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
-   
-      def build(self):
-         ############ Without any helper ###########
-         # Settings
-         print(self.settings.os)
-         print(self.settings.arch)
-         print(self.settings.compiler)
-   
-         # Options
-         #print(self.options.my_option)
-         print(self.options["OpenSSL"].shared)
-         print(self.options["Poco"].shared)
-   
-         # Paths and libraries, all
-         print("-------- ALL --------------")
-         print(self.deps_cpp_info.include_paths)
-         print(self.deps_cpp_info.lib_paths)
-         print(self.deps_cpp_info.bin_paths)
-         print(self.deps_cpp_info.libs)
-         print(self.deps_cpp_info.defines)
-         print(self.deps_cpp_info.cflags)
-         print(self.deps_cpp_info.cppflags)
-         print(self.deps_cpp_info.sharedlinkflags)
-         print(self.deps_cpp_info.exelinkflags)
-   
-         # Just from OpenSSL
-         print("--------- FROM OPENSSL -------------")
-         print(self.deps_cpp_info["OpenSSL"].include_paths)
-         print(self.deps_cpp_info["OpenSSL"].lib_paths)
-         print(self.deps_cpp_info["OpenSSL"].bin_paths)
-         print(self.deps_cpp_info["OpenSSL"].libs)
-         print(self.deps_cpp_info["OpenSSL"].defines)
-         print(self.deps_cpp_info["OpenSSL"].cflags)
-         print(self.deps_cpp_info["OpenSSL"].cppflags)
-         print(self.deps_cpp_info["OpenSSL"].sharedlinkflags)
-         print(self.deps_cpp_info["OpenSSL"].exelinkflags)
-   
-         # Just from POCO
-         print("--------- FROM POCO -------------")
-         print(self.deps_cpp_info["Poco"].include_paths)
-         print(self.deps_cpp_info["Poco"].lib_paths)
-         print(self.deps_cpp_info["Poco"].bin_paths)
-         print(self.deps_cpp_info["Poco"].libs)
-         print(self.deps_cpp_info["Poco"].defines)
-         print(self.deps_cpp_info["Poco"].cflags)
-         print(self.deps_cpp_info["Poco"].cppflags)
-         print(self.deps_cpp_info["Poco"].sharedlinkflags)
-         print(self.deps_cpp_info["Poco"].exelinkflags)
-   
-   
-         # self.run("invoke here your configure, make, or others")
-         # self.run("basically you can do what you want with your requirements build info)
 
 
 Managed options
@@ -355,7 +278,7 @@ Define **options** and **default_options** this way:
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable", "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.2@lasote/stable"
       generators = "cmake", "gcc", "txt"    
       ################### NEW ###########################
       options = {"shared": [True, False]} # Values can be True or False (number or string value is also possible)

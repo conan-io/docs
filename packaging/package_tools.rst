@@ -1,5 +1,8 @@
+.. _package_tools:
+
+
 Tools for package creators
-===================
+======================================
 
 We have developed another FOSS tool for package creators, **conan package tools** to ease the 
 task of generating multiple binary packages from a package recipe. 

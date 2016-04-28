@@ -1,16 +1,19 @@
 
-Travis Ci
-_________
+|travisci_logo| Travis Ci
+=============================
+
+You can use `Travis CI`_ cloud service to automatically build and test your project in Linux/OSX environments in the cloud.
+It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
+fired in Travis-CI after a ``git push`` to Github.
+
+You can use Travis-CI both for:
+
+- Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
+- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
 
 
-|travisci_logo| 
-
-
-.. |travisci_logo| image:: ../images/travisci_logo.jpeg
-   
-
-If you are managing your project requirements with a *conanfile*, you can easily integrate your project with `Travis CI`_.
-
+Building and testing your project
+------------------------------------
 
 We are going to use the :ref:`Google Test example<google_test_example>` now, with **Travis CI** support to run the tests.
 
@@ -56,5 +59,12 @@ Travis will install the **conan** tool and will execute the **conan install** co
 Then, the **script** section creates the build folder, compiles the project with **cmake** and runs the **tests**.
 
 
+Creating and testing conan package binaries
+---------------------------------------------------------
+You can use Travis to automate the building of binary packages, which will be created in the
+cloud after pushing to Github. You can probably setup your own way, but it is recommended
+to use :ref:`conan tools for package creators <package_tools>`
 
+
+.. |travisci_logo| image:: ../images/travisci_logo.jpeg
 .. _`Travis CI`: https://travis-ci.org/
