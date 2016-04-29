@@ -18,8 +18,18 @@ First, let's create a folder for our project:
    $ mkdir mytimer
    $ cd mytimer
    
+.. note::
 
-Create the following source file inside that folder:
+    you have the code also in a github repository, instead of creating the folder, you can
+    just clone the project
+    
+    .. code-block:: bash
+    
+       $ git clone https://github.com/memsharded/example-poco-timer.git mytimer
+       
+       
+Create the following source files inside that folder :
+
 
 **timer.cpp**
 
@@ -84,7 +94,7 @@ that can be used in our build.
 .. note::
  
      If you are not a **cmake** user, change the [generators] section of your **conanfile.txt** to **gcc** or a more generic one **txt** to handle requirements with any build system.
-     Learn more in :ref:`Manage your dependencies<manage_deps>`
+     Learn more in :ref:`Using packages<manage_deps>`
 
 
 Just include the generated file and use those variables inside our own ``CMakeLists.txt``: 

@@ -6,6 +6,21 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.9 (XX-Apr-2016)
+-------------------
+
+- Conan test using new layout. Renamed test => test_package, as well as the folder (should keep working, deprecated)
+  Allowed custom test folder name
+- Generator packages, loaded dynamically. Premake initial support.
+- Python 3 experimental support
+- Very large re-write of the documentation, better workflows
+- Upgraded pyinstaller to generate binary OS installers to 3.1
+- Options for conan search, less verbose, verbose, extra verbose
+- List of dependencies in conanbuildinfo.cmake
+- Several minor bugfixes
+- Improved ``conan user`` to manage user login to multiple remotes
+
+
 0.8.4 (28-Mar-2016)
 -------------------
 

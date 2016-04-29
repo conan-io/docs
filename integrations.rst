@@ -18,6 +18,7 @@ Integrations
    integrations/appveyor
    integrations/qmake
    integrations/qbs
+   integrations/premake
    integrations/youcompleteme
    integrations/gcc
    integrations/other
