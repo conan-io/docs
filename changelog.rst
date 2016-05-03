@@ -9,15 +9,22 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.9 (XX-Apr-2016)
 -------------------
 
-- Conan test using new layout. Renamed test => test_package, as well as the folder (should keep working, deprecated)
-  Allowed custom test folder name
-- Generator packages, loaded dynamically. Premake initial support.
-- Python 3 experimental support
-- Very large re-write of the documentation, better workflows
-- Upgraded pyinstaller to generate binary OS installers to 3.1
-- Options for conan search, less verbose, verbose, extra verbose
-- List of dependencies in conanbuildinfo.cmake
-- Several minor bugfixes
+- **Python 3** "experimental" support. Now the main conan codebase is Python 2 and 3 compatible. 
+  Python 2 still the reference platform, Python 3 stable support in next releases.
+- Create and share your **own custom generators for any build system or tool**. With "generator packages",
+  you can write a generator just as any other package, upload it, modify and version it, etc. Require
+  them by reference, as any other package, and pull it into your projects dynamically.
+- **Premake4** initial experimental support via a generator package. Check https://www.conan.io/source/PremakeGen/0.1/memsharded/testing
+- Very large **re-write of the documentation**. New "creating packages" sections with in-source and out-source explicit examples.
+  Please read it! :)
+- Improved ``conan test``. Renamed ``test`` to ``test_package`` both for the command and the folder,
+  but backwards compatibility remains. Custom folder name also possible. 
+  **Adapted test layout** might require minor changes to your package test, 
+  automatic warnings added for your convenience.
+- Upgraded pyinstaller to generate binary OS installers from 2.X to 3.1
+- ``conan search`` now has command line options:, less verbose, verbose, extra verbose
+- Added variable with full list of dependencies in conanbuildinfo.cmake
+- Several minor bugfixes (check github issues)
 - Improved ``conan user`` to manage user login to multiple remotes
 
 
