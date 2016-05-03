@@ -1,83 +1,64 @@
 .. _conanfile_txt:
 
-Using ``conanfile.txt``
+Installing dependencies
 -----------------------
 
-This section shows how to use the ``conanfile.txt`` to manage the required libraries in your project.
-
-.. note::
-
-   Remember, in :ref:`Getting started<getting_started>` we saw how to use **conan** to download the **POCO** library and compile a program.
+In :ref:`Getting started<getting_started>` we used **conan install** to download the **POCO** library and build an example.
    
 
-But before we start with the ``conanfile.txt`` details, let's review the :ref:`getting started <getting_started>` example and see what **conan** is really doing:
+.. note:: When you execute the **conan install** command, the following happens:
 
-   
-   1. We have created a ``conanfile.txt``
-   
-      .. code-block:: text
-      
-         [requires]
-         Poco/1.6.1@lasote/stable
-         
-         [generators]
-         cmake
-      
-   #. We execute **conan install**
-   
-      .. code-block:: bash
-      
-         $ conan install
-      
-   #. We include the generated file ``conanbuildinfo.cmake`` in our ``CMakeLists.txt`` file.
+    - It reads ``conanfile.txt`` from the current directory or the directory pointed by the command.
+    - For each **[requires]** entry, conan will check locally for such conan **package recipe** , and if
+      it fails, it will try to download the **package recipe** from the server. Each package recipe is
+      identified by its reference, as ``Poco/1.7.2@lasote/stable``.
+    - Package recipes and package binaries are installed locally in your computer, typically in a
+      folder in your user home, called: ``~/.conan/data``, though you can change that configuration too.
+    - The requirements will be processed transitively, retrieving package recipes if necessary, taking
+      into account the current settings and options, until the full graph of dependencies is computed.
+      In the previous example, recipes for **OpenSSL** and **zlib** are retrieved.
+    - Once the graph is finished, and all package recipes have been retrieved, the hash (SHA1) 
+      or signature of the required binaries is computed.
+    - For each package, the corresponding binary, with a reference composed by the package recipe
+      reference and the hash (e.g. ``Poco/1.7.2@lasote/stable:63da...3f44``), is searched locally.
+    - If it is found locally, then, nothing to do. If it is not found locally, conan will look for it
+      in the server, and if found, will retrieve the corresponding package binary from the server.
+    - If the package binary is not found in the server, then the process will fail. The user can specify
+      some variant of the ``--build`` option to tell conan to build it from sources.
+    - Information is collected from the dependency graph, as **libs** to be **linked**, 
+      **include directories**, **compile flags** etc. This information is propagated from the
+      upstream packages to their dependents.
+    - For each specified **[generator]**, conan will generate a file with relevant information
+      to build the project and link with the defined dependencies.
 
 
-What is really happening?
 
-   - When you execute **conan install**, conan reads ``conanfile.txt`` from the current directory.
-   - Conan reads all the **[requires]** entries and installs them (taking care of upstream options/requires override). 
-     
-     Conan will download the **package recipe** to build each require and, if it's found, the already **built package** that matches with the specified settings and options.
-       
-     Conan will also get the requirement's recursively, first looking at your local store (a local cache) and, if it's not found, at the remotes.
-     
-     In this example, conan will download both the package recipe to build **OpenSSL/1.0.2d@lasote/stable** and **zlib/1.2.8@lasote/stable**, and the built packages for both of them.
-     
-     So, if any package is not found (neither local cache nor the remotes have a generated package that matches your settings and options), conan can try to build the package from the downloaded package recipe.
-     
-     Conan will also collect needed information from each requirement: **libs** that have to be **linked**, the **include directories**, **compile flags** etc.
-     See the requires_ section for more details.
+If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.7.2@lasote/stable**
+instead of nothing or the path to a ``conanfile.txt`` conan will download the Poco package and 
+all its dependencies (*OpenSSL/1.0.2g@lasote/stable* and *zlib/1.2.8@lasote/stable*) 
+to your conan cache and print information about the folder where they are installed. 
    
-   
-   - For each specified **[generator]**, conan will generate a file with relevant information that will help you to build your project and link with your requirements. The generators_ section contains more details.
-
-.. tip:: **Pro Tip**
-
-   If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.6.1@lasote/stable**, conan will download the Poco package and all its dependencies (*OpenSSL/1.0.2d@lasote/stable* and *zlib/1.2.8@lasote/stable*) to your local repository and print information about the local directory where they are installed. 
-   
-   You will find a **/lib** and an **/include** subfolder together with the libraries and include files. You could handle them manually if you want. But we recommend the usage of a ``conanfile.txt`` or ``conanfile.py`` instead of directly installing packages.
-   
-
-Now create your ``conanfile.txt`` in your project and start using conan.
+You will find two **/lib** and **/include** subfolders with the libraries and headers.
+You could handle them manually if you want. But we recommend the usage of a ``conanfile.txt`` instead of directly installing packages.
 
 
 Requires
 ........
 
-We put the requirements in the **[requires]** section. 
+We put the required dependencies in the **[requires]** section. 
 The requirements look like this:
 
 .. code-block:: text
 
    [requires]
-   Poco/1.6.1@lasote/stable
+   Poco/1.7.2@lasote/stable
    
 
 Where:
 
    - ``Poco`` is the name
-   - ``1.6.1`` is the version
-   - ``lasote`` is the owner
+   - ``1.7.2`` is the version
+   - ``lasote`` is the owner of this package version
    - ``stable`` is the channel (there could be several channels for developing, testing, etc.)
 
 
@@ -86,42 +67,36 @@ _______________________
 
 
 You can specify multiple requirements and you can **override** the "require's requirements".
-Let's see an example. 
+In our example, conan installed the POCO requirement and all its requirements recursively:
 
-At the beginning of this section we saw that, when we call the **conan install** command, conan installs the POCO requirement and all its requirements recursively:
-
-   * **OpenSSL/1.0.2d@lasote/stable**
+   * **OpenSSL/1.0.2g@lasote/stable**
    * **zlib/1.2.8@lasote/stable**
    
 .. tip:: 
 
     This is a good example to explain requirements overriding. We all know the importance of keeping the OpenSSL library updated.
 
-So, what happens if a new release of OpenSSL library is out? 
+Now imagine that a new release of OpenSSL library is out, and a new conan package for it is available. 
+Do we need to wait until **lasote** generates a new package of POCO that includes the new OpenSSL library?
 
-Do we need to wait until **lasote** generates a new package of POCO that includes the new OpenSSL library? That is not necessary.
-
-We just enter the new version in **[requires]**:
-
-.. code-block:: text
-
-   [requires]
-   Poco/1.6.1@lasote/stable
-   OpenSSL/1.1.0a@lasote/stable
-
-The second line will override the OpenSSL requirement with the (non-existent yet)  **OpenSSL/1.1.0a**
-
-And, maybe, in order to try out the new zlib alpha features, we could replace the Zlib requirement with one from another user or channel. 
+Not necessarily, just enter the new version in **[requires]**:
 
 .. code-block:: text
 
    [requires]
-   Poco/1.6.1@lasote/stable
-   OpenSSL/1.1.0a@lasote/stable
+   Poco/1.7.2@lasote/stable
+   OpenSSL/1.0.2p@lasote/stable
+
+The second line will override the OpenSSL/1.0.2g required by poco, with the (non-existent yet)  **OpenSSL/1.0.2p**
+
+Other example could be, in order to try out some new zlib alpha features, we could replace the Zlib requirement with one from another user or channel. 
+
+.. code-block:: text
+
+   [requires]
+   Poco/1.7.2@lasote/stable
+   OpenSSL/1.0.2p@lasote/stable
    zlib/1.2.9@otheruser/alpha
-
-
-Handling this task without a package manager in our project could be a nightmare. Don't you think?
 
 
 .. _generators:
@@ -129,92 +104,18 @@ Handling this task without a package manager in our project could be a nightmare
 Generators
 ..........
 
-Conan reads the **[generators]** section from ``conanfile.txt`` and creates one file for each generator with all necessary information to link your program with the specified requirements.
+Conan reads the **[generators]** section from ``conanfile.txt`` and creates one file for each generator with all the necessary information to link your program with the specified requirements.
 
-
-.. _cmake_generator:
 
 *cmake*
 _______
-
 
 The **cmake** generator creates a file named ``conanbuildinfo.cmake`` that can be imported from your *CMakeLists.txt*.
 Check the section :ref:`Integrations/CMake <cmake>` to read more about this generator.
 
 
-.. _gcc_generator:
-
-*gcc*
-_____
-
-Now we are going to compile the :ref:`getting started<getting_started>` example using **gcc** instead of the **cmake** generator.
-
-.. note:: 
-   
-   We have only tested the gcc generator in linux with the gcc compiler. But maybe it works with MinGW in Windows or even clang in OSx. Try it and let us know. :D
-
-
-Open ``conanfile.txt`` and change (or add) **gcc** generator:
-
-    
-.. code-block:: text
-
-   [requires]
-   Poco/1.6.1@lasote/stable
-   
-   [generators]
-   cmake
-   gcc
-   
-Install the requirements
-
-.. code-block:: bash
-
-   $ conan install
-
-
-.. note::
-
-   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them by editing the ``~/.conan/conan.conf`` or override them with "-s" parameters.  
- 
-   So, now type **conan install** and you are done! 
-
-
-Let's take a look to the generated ``conanbuildinfo.gcc``:
-
-.. code-block:: text
-   
-   -DPOCO_STATIC=ON -DPOCO_NO_AUTOMATIC_LIBS -I/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include -I/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/include -I/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include -L/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib -L/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib -L/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib -Wl,-rpath=/home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib -Wl,-rpath=/home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib -Wl,-rpath=/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib -lPocoUtil -lPocoXML -lPocoJSON -lPocoMongoDB -lPocoNet -lPocoCrypto -lPocoData -lPocoDataSQLite -lPocoZip -lPocoFoundation -lpthread -ldl -lrt -lssl -lcrypto -lz    
-
-Wow, it's a little hard to read, but those are just the **gcc** parameters needed to compile our program. But you could recognize **-I** options with headers directories, **-L** for libraries directories... 
-
-It's the same information we saw in ``conanbuildinfo.cmake``.
-
-So just execute:
-
-.. code-block:: bash
-
-   $ mkdir bin
-   $ g++ timer.cpp @conanbuildinfo.gcc -o bin/timer
-
-
-.. note:: 
-   
-   "@conanbuildinfo.gcc" appends all the file contents to g++ command parameters
-   
-
-.. code-block:: bash
-
-   $ cd bin
-   $ ./timer 
-    Callback called after 249 milliseconds.
-    Callback called after 749 milliseconds.
-    Callback called after 1249 milliseconds.
-    ...
-
 *visual_studio*
 _______________
-
 
 The **visual_studio** generator creates a file named ``conanbuildinfo.props`` that can be imported to your *Visual Studio* project.
 Check the section :ref:`Integrations/Visual Studio<visual_studio>` to read more about this generator.
@@ -223,78 +124,16 @@ Check the section :ref:`Integrations/Visual Studio<visual_studio>` to read more 
 *xcode*
 _______
 
-
 The **xcode** generator creates a file named ``conanbuildinfo.xcconfig`` that can be imported to your *XCode* project.
 Check the section :ref:`Integrations/XCode <xcode>` to read more about this generator.
 
-*txt*
-_____
+*other*
+_______
 
-
-Maybe you need a more generic ``conanbuildinfo`` file to use with another build system or script.
-
-.. note:: 
+There are some other generators, check them in :ref:`Integrations <integrations>`. You might
+use the generic :ref:`text generator <other_generator>`, or maybe even
+:ref:`create and share a new generator <dyn_generators>`
    
-   Do you miss support for your build system? Tell us what you need. info@conan.io
-     
-Specify **txt** generator:
-
-   .. code-block:: text
-   
-      [requires]
-      Poco/1.6.1@lasote/stable
-      
-      [generators]
-      txt
-   
-Install the requirements:
-
-.. code-block:: bash
-
-   $ conan install
-
-And a file is generated, with the same information as in the case of CMake and gcc, only in a generic format:
-
-.. code-block:: text
-
-   [includedirs]
-   /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include
-   /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/include
-   /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include
-   
-   [libs]
-   PocoUtil
-   PocoXML
-   PocoJSON
-   PocoMongoDB
-   PocoNet
-   PocoCrypto
-   PocoData
-   PocoDataSQLite
-   PocoZip
-   PocoFoundation
-   pthread
-   dl
-   rt
-   ssl
-   crypto
-   z
-   
-   [libdirs]
-   /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib
-   /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib
-   /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib
-   
-   [bindirs]
-   /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin
-   /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/bin
-   /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin
-   
-   [defines]
-   POCO_STATIC=ON
-   POCO_NO_AUTOMATIC_LIBS
-   
-
 
 Options
 .......
@@ -303,44 +142,48 @@ Options are intended for package specific configurations.
 
 .. note:: 
    
-   You can check the available options for a package with "conan search -v" command: 
+   You can search and see the available options for a package with "conan search -x" command: 
       
-      $ conan search Poco/1.6.1@lasote/stable -v -r conan.io
+      $ conan search Poco/1.7.2@lasote/stable -x
       
 
 We are going to adjust the option **"shared"** to use the shared library from POCO.
 
 You can set the options for your requirements this way:
 
-   .. code-block:: text
-   
-      [requires]
-      Poco/1.6.1@lasote/stable
-      
-      [generators]
-      gcc
-      
-      [options]
-      Poco:shared=True # Just the name of the library ":" and the option name
-      OpenSSL:shared=True
+.. code-block:: text
+
+    [requires]
+    Poco/1.7.2@lasote/stable
+    
+    [generators]
+    cmake
+    
+    [options]
+    Poco:shared=True # Just the name of the library ":" and the option name
+    OpenSSL:shared=True
       
 
-Install the requirements and compile:
+Install the requirements and compile from the build folder (change build command if not Win):
 
 .. code-block:: bash
 
-   $ conan install
+    $ conan install ..
+    $ cmake .. -G "Visual Studio 14 Win64"
+    $ cmake --build . --config Release
 
+Conan will install the shared library packages binaries, and the example will link with them.
+
+Finally, launch the executable:
 
 .. code-block:: bash
 
-   $ mkdir bin
-   $ g++ timer.cpp @conanbuildinfo.gcc -o bin/timer
-   
+    $ ./bin/timer
 
-What happened? The **conan install** command receives the different options and resolves the right packages to link to, meaninng the ones that are the generated with **Poco:shared=True** and **OpenSSL:shared=True**
+What happened? It fails because it can't find the shared libraries in the path.
 
-So if we inspect the **objdump** tool (available in linux) we can see in *Dynamic section* that the executable used the shared libraries from POCO and OpenSSL:
+We could inspect the generated executable, and see that it is using the shared libraries.
+For example in Linux, we could use the**objdump** tool and see in *Dynamic section*:
 
 .. code-block:: bash
 
@@ -373,12 +216,18 @@ So if we inspect the **objdump** tool (available in linux) we can see in *Dynami
 Imports
 .......
 
-In the options_ section we got shared libraries from Poco and OpenSSL just by changing the value of the options.
+There are some differences between shared libraries on linux (\*.so), windows (\*.dll) and MacOS (\*.dylib).
+The shared libraries must be located in some folder where they can be found, either by the linker,
+or by the OS runtime.
 
-This example was run in linux, where libraries can be found by the linker just by passing the library paths parameters.
-But there are some differences between shared libraries on linux (\*.so), windows (\*.dll) and MacOS (\*.dylib). 
+It is possible to add the folders of the libraries to the system Path, or copy those shared libraries
+to some system folder, so they are found by the OS. But those are typical operations of deploys or final
+installation of apps, not desired while developing, and conan is intended for developers, so it
+tries not to mess with the OS.
 
-We can assume, for brevity, that **\*.dll**  and **\*.dylib** should be copied to the user's binary directory.
+For linux, it is not necessary, as the linker is able to do the job, but in Windows and OSX, 
+the simplest approach is just to copy the shared libraries to the executable folder, so
+they are found by the exe, without having to modify the path.
 
 .. note::
    
@@ -392,42 +241,43 @@ Edit the ``conanfile.txt`` file and paste the **[imports]** section:
   
 .. code-block:: text
    
-      [requires]
-      Poco/1.6.1@lasote/stable
-      
-      [generators]
-      gcc
-      
-      [options]
-      Poco:poco_static=False
-      OpenSSL:shared=True
-      
-      [imports]
-      bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
-      lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
+    [requires]
+    Poco/1.7.2@lasote/stable
+    
+    [generators]
+    cmake
+    
+    [options]
+    Poco:shared=True
+    OpenSSL:shared=True
+    
+    [imports]
+    bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
+    lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
 
 
 .. note::
    
-    You can explore the package folder in your local storage (printed after the install command) and look where the shared libraries are. It's common that **\*.dll** are copied in **/bin**
-    the rest of the libraries should be found in the **/lib** folder. But it's just a convention, you can use a different one for your packages if you want.
+    You can explore the package folder in your local cache (~/.conan/data) and look where the shared libraries are. It is common that **\*.dll** are copied in **/bin**
+    the rest of the libraries should be found in the **/lib** folder. But it's just a convention, different layouts are possible.
 
 
 
-Install the requirements:
+Install the requirements (from the mytimer/build folder), and run the binary again:
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install ..
+   $ ./bin/timer
    
    
-Now look at the ``lib/`` folder of your project and verify that the needed shared libraries are there.
+Now look at the ``mytimer/build/bin`` folder and verify that the needed shared libraries are there.
 
 As you can see, the **[imports]** section is a very generic way to import files from your requirements to your project. 
 
-Maybe conan could also be useful for packaging applications and copying the result executables to your bin folder, or for copying assets, test static files, etc. 
+This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets, images, sounds, test static files, etc. 
 
-Conan is a pretty generic solution for package management, not only for C/C++ or libraries.
+Conan is a generic solution for package management, not only for C/C++ or libraries.
 
 
 

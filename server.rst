@@ -1,7 +1,7 @@
 Running your server
 ===================
 
-Running the pre-packaged server that comes with the conan installers is simple. Just open
+Running the pre-packaged server that comes with the conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
 .. code:: bash
@@ -20,7 +20,7 @@ Running from source (linux)
 ---------------------------
 
 The conan installer includes a simple executable **conan_server** for a server quick start.
-But you can use the **conan server** trough the WSGI application, which means that you can use gunicorn
+But you can use the **conan server** through the WSGI application, which means that you can use gunicorn
 to run the app, for example.
 
 

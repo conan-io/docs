@@ -1,10 +1,8 @@
 .. _cmake:
 
-CMake
-_____
+|cmake_logo| CMake
+_________________________
 
-
-|cmake_logo|
 
 
 If you are using *CMake* to build your project, you can use the *cmake* generator to manage all your requirements.

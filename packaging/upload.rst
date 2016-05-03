@@ -1,33 +1,36 @@
 Uploading packages
 ==================
 
-In the previous section, we built several packages on our local computer. Now, you
-might want to upload both the package recipe and the built packages to a conan server for later reuse on another machine, project,
+In the previous sections, we built several packages in our computer, those packages are stored
+in a local folder, typically ``~/.conan/data``. Now, you
+might want to upload them to a conan server for later reuse on another machine, project,
 or for sharing them.
-
-This way, if someone includes our package recipe reference in a **[requires]** section of a **conanfile.txt** (Hello/0.1@demo/testing) and his settings matches
-with the settings we used to generate our already uploaded packages, conan will directly download the built package. In case that no package
-is found, the user could use the package recipe with the **conan install --build** command to generate its own binary package.
 
 .. note::
 
-   If you are just evaluating conan, it is very simple to run a test conan server. You 
-   can just run it on your machine. Go to the :doc:`../server`.
+   If you are just evaluating conan and don't want to register an account on conan.io,
+   it is very simple to run a conan server. You can just run it on your current machine. 
+   Go to the :doc:`../server` to see how to launch it.
+   
+   If you want to upload your packages to the conan.io server, you have to register an account
+   first at `conan.io <http://www.conan.io>`_ site. You must also rename your packages 
+   from "demo" user to your actual username. This can be done with the ``conan copy`` command.
+   
+   The rest of this doc will assume you are uploading the packages to your local server.
          
          
-         
-First, you can check both your local and remote packages:
+First, you can check both your local and remote (your local conan server) packages:
 
 .. code-block:: bash
 
-   $ conan search Hello*
-   $ conan search Hello* -r=local
+   $ conan search -v
+   $ conan search -v -r=local
    
 The latter checks your current ``localhost`` server, but you could also query other servers
 like the ``conan.io`` one.
 
 
-Now, try to upload the package recipe and all the packages:
+Now, upload the package recipe and all the packages to your local server:
 
 .. code-block:: bash
 
@@ -35,15 +38,15 @@ Now, try to upload the package recipe and all the packages:
    
 
 You might be prompted for a username and password. The local conan server has a demo/demo account
-we can use for testing. If you want to try the conan.io server, you need to register first
-at the `conan.io <http://www.conan.io>`_ site.
+we can use for testing.
    
-The ``--all`` option will upload the package recipe plus all the binary packages. Now try again to read the information from the remote (we refer to it as remote, even
+The ``--all`` option will upload the package recipe plus all the binary packages. Now try again to 
+read the information from the remote (we refer to it as remote, even
 if it is running on your local machine, as it could be run on another server in your LAN):
 
 .. code-block:: bash
 
-   $ conan search Hello* -r=local
+   $ conan search -v -r=local
    
 .. note::
 
@@ -51,29 +54,29 @@ if it is running on your local machine, as it could be run on another server in 
    upload integrity and will only upload missing files.
    
 Now we can check if we are able to download and use them in a project. For that purpose, we first
-have to remove the local copies, otherwise the remote packages will not be downloaded. Since we have
+have to **remove the local copies**, otherwise the remote packages will not be downloaded. Since we have
 just uploaded them, they are identical to the local ones.
 
 .. code-block:: bash
 
    $ conan remove Hello*
-   $ conan search Hello*
+   $ conan search -v
 
 Since we have our test setup from the previous section, we can just use it for our test. Go
-to the ``hellopack`` folder and run the tests again, now indicating that we don't want to 
+to your project folder (``hello-use`` or ``greet``) and run the tests again, now saying that we don't want to 
 build the sources again, we just want to check if we can download the binaries and use them:
 
 .. code-block:: bash
 
-   $ python build.py --build=never
+   $ conan test_package --build=never
 
 
-You will see that the tests are built, but the packages are not. The binaries are simply 
-downloaded from the server. You can check their existence on your local computer again with:
+You will see that the test is built, but the packages are not. The binaries are simply 
+downloaded from your local server. You can check their existence on your local computer again with:
 
 .. code-block:: bash
 
-   $ conan search Hello*
+   $ conan search -v
 
 
 .. note::

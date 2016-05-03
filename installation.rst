@@ -15,7 +15,7 @@ Execute the installer. You don't need to install python.
 
 .. note::
 
-    You can use the latest version's links to download the latest installer:
+    You can also use the latest version's links to download the latest installer:
 
     :: 
     
@@ -26,6 +26,9 @@ Execute the installer. You don't need to install python.
 
 Install with pip
 ----------------
+
+You need a python 2.7 distribution installed in your machine.
+From 0.9 conan has "experimental/testing" Python3 support too.
 
 - Install pip following `pip docs`_
 
@@ -78,6 +81,7 @@ Install from source
 -------------------
 
 You can run conan directly from source code. First you need to install Python 2.7 and pip.
+From 0.9 conan has "experimental/testing" Python3 support too.
 
 Clone (or download and unzip) the git repository and install its requirements:
 

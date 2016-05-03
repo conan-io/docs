@@ -3,6 +3,8 @@
 FAQ
 ===
 
+General
+............
 
 Is Conan CMake based, or is CMake a requirement?
 ------------------------------------------------
@@ -12,17 +14,16 @@ if there are no available precompiled packages for your system/settings. We use 
 in our examples and documentation, but only because it is very convenient and most C/C++ devs are
 familiar with it. 
 
-
 Is build-system XXXXX supported?
 --------------------------------
 Yes, it is. Conan makes no assumption about the build system. It just wraps any build commands
 specified by the package creators. There are already some helper methods in code to ease the
-use of cmake, but similar functions can be very easily added for your favourite build system,
-so please send us your PRs!
+use of cmake, but similar functions can be very easily added for your favourite build system. 
+Please check the alternatives explained in :ref:`generator packages <dyn_generators>`
 
 Does it run offline?
 --------------------
-Yes, it runs offline very smoothly. Binary packages are stored in your machine, per user, so
+Yes, it runs offline very smoothly. Package recipes and binary packages are stored in your machine, per user, so
 you can start new projects that depend on the same libraries without any connection at all.
 Packages can be fully createad and tested locally, prior to uploading them to the desired server.
 
@@ -49,6 +50,12 @@ with a different sha signature for every different configuration (debug, release
 Packages are managed per user, but additionally differentiated by version and channel, and also by their configuration.
 So large packages, like Boost, don't have to be compiled or downloaded for every project.
 
+Can I run in the same machine conan isolated instances (virtual environments)?
+-------------------------------------------------------------------------------
+Yes, conan supports the concept of virtual environments so it manages all the information, from
+packages, remotes, user credentials, etc, in different isolated environments.
+Check :ref:`virtual environments<custom_cache>` for more details.
+
 
 Can I run the conan server behind a firewall (on-premises)?
 -----------------------------------------------------------
@@ -60,25 +67,9 @@ server.
 
 Can I connect to conan.io or other remotes through a corporate proxy?
 ---------------------------------------------------------------------
-Yes, it can be configured with some environment variables. You can write in your terminal (or add to .bashrc or similar)
-before running conan:
+Yes, it can be configured in your **~/.conan/conan.conf** configuration file or with some
+environment variables. Check :ref:`proxy configuration <proxys>` for more details.
 
-.. code-block:: bash
-
-   # linux/osx
-   $ export HTTP_PROXY="http://10.10.1.10:3128"
-   $ export HTTPS_PROXY="http://10.10.1.10:1080"
-
-   # with user/password
-   $ export HTTP_PROXY="http://user:pass@10.10.1.10:3128/"
-   $ export HTTPS_PROXY="http://user:pass@10.10.1.10:3128/"
-
-   # windows (note, no quotes here)
-   $ set HTTP_PROXY=http://10.10.1.10:3128
-   $ set HTTPS_PROXY=http://10.10.1.10:1080
-
-This is a temporary solution while conan gets configuration for it (probably in conan.conf)
-   
 
 Can I create packages for third-party libraries?
 ------------------------------------------------

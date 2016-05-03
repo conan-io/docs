@@ -16,10 +16,6 @@ This is the typical ``~/.conan/conan.conf`` file:
    # This is the default path, but you can write your own
    path: ~/.conan/data
    
-   [remotes]
-   conan.io: https://server.conan.io
-   local: http://localhost:9300
-   
    [settings_defaults]
    arch=x86_64
    build_type=Release
@@ -32,23 +28,7 @@ Here you can configure the path where all the packages will be stored (on Window
 some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
 
 You can also adjust the "path" setting using the environment variable **CONAN_USER_HOME**. 
-You can have multiple virtual conan environments just setting this variable in different consoles for the same computer.
-**Note:** Use an absolute path and without quotes in Windows.
-
-Windows users:
-
-.. code-block:: bash
-
-   $ SET CONAN_USER_HOME=c:\data
-   $ conan install # now invoke conan normally, config and data will be stored in the new folder
-
-
-Linux/OSx users:
-
-.. code-block:: bash
-
-   $ export CONAN_USER_HOME=/tmp/conan
-   $ conan install # now invoke conan normally, config and data will be stored in the new folder
+Check the :ref:`how to control the cache<custom_cache>` section.
 
 
 The remotes are managed in the order in which they are listed. The first one is assumed to be the default
@@ -72,3 +52,28 @@ colleagues or consumers of your packages.
    
    The ``settings.yml`` file is not perfect nor definitive, surely incomplete. Please send us any suggestion (or
    better a PR) with settings and values that could make sense for other users.
+   
+registry.txt
+--------------------
+This file is generally automatically managed, and it has also access via the ``conan remote``
+command but just in case you might need to change it. It contains information about the known
+remotes and from which remotes are each package retrieved:
+
+
+.. code-block:: text
+
+    conan.io https://server.conan.io
+    local http://localhost:9300
+    
+    Hello/0.1@demo/testing local
+    
+    
+The first section of the file is listing remote-name: remote-url. Adding, removing or changing
+those lines, will add, remove or change the respective remote. 
+
+The second part of the file contains a list of conan-package-reference: remote-name. This is
+a reference to which remote was that package retrieved from, which will act also as the default
+for operations on that package.
+
+Be careful when modifying the remotes, as the information of the packages has to remain consistent,
+e.g. if removing a remote, all package references referencing that remote has to be removed too.

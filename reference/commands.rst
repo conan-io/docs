@@ -101,12 +101,15 @@ for example to CMake syntax, as it can be done by the CMake helper. It is also a
 if you would like to create a package from your current project.
 
 
-conan test
-----------
+conan test_package
+--------------------
 
-The **test** command looks for a ``test`` subfolder in the current directory, and builds the
+The **test_package** (previously named **test**) command looks for a ``test_package`` subfolder in the current directory, and builds the
 project that is in it. It will typically be a project with a single requirement, pointing to
 the **conanfile.py** being developed in the current directory.
+
+This is intended to do a test of the package, not to run unit or integrations tests on the package
+being created. Those tests could be launched if desired in the ``build()`` method.
 
 The command line arguments are exactly the same as the settings, options, and build parameters
 for the **install** command, with one small difference.
@@ -115,6 +118,14 @@ In conan test, by default, the **--build=CurrentPackage** pattern is automatical
 current tested package. You can always manually specify other build options, like **--build=never**,
 if you just want to check that the current existing package works for the test subproject, without
 re-building it.
+
+If you want to use a different folder name than **test_package**, just use it and pass it to the ``-f folder``
+command line option
+
+.. code-block:: bash
+
+    $ conan test_package --f my_test_folder
+
 
 conan search
 ------------
