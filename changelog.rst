@@ -6,13 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-0.9.1 (11-May-2016)
+0.9.2 (11-May-2016)
 -------------------
 - **Fixed download bug** that made it specially slow to download, even crash. Thanks to github @melmdk for fixing it.
 - **Fixed cmake check of CLang**, it was being skipped
 - **Improved performance**. Check for updates has been removed from install, made it opt-in in ``conan info`` command, as it
   was very slow, seriously affecting performance of large projects.
 - Improved internal representation of graph, also improves performance for large projects.
+- Fixed bug in ``conan install --update``
 
 
 0.9 (3-May-2016)
