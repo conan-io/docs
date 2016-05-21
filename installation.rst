@@ -102,7 +102,7 @@ Create a script to execute conan and add it to your ``PATH``.
     conan_repo_path = "/home/your_user/conan" # ABSOLUTE PATH TO CONAN REPOSITORY FOLDER
 
     sys.path.append(conan_repo_path)
-    from packet.client.command import main
+    from conans.client.command import main
     main(sys.argv[1:])
 
 Test your ``conan`` script.
