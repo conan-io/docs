@@ -39,6 +39,9 @@ From 0.9 conan has "experimental/testing" Python3 support too.
     $ pip install conan
 
 
+**NOTE**: If you are installing with pip, please make sure that your pip installation
+is matching your python (2.7 or 3.X) one.
+
 Initial configuration
 ---------------------
 
