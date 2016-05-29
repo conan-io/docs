@@ -359,6 +359,37 @@ have the same system requirements, just add the following line to your method:
          if ...
 
 
+Packaging
+-----------
+The actual creation of the package, once that it is build, is done in the ``package()`` method.
+Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
+The syntax of copy is as follows:
+
+.. code-block:: python
+
+   self.copy(pattern, dst, src, keep_path=False)
+
+
+- ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``
+- ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though you can use any convention you like
+- ``src`` is the folder where you want to search the files in the *build* folder. If you know that your libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty means the root build folder.
+- ``keep_path``, with default value=True, means if you want to keep the relative path when you copy the files from the source(build) to the destination(package). Typically headers, you keep the relative path, so if the header is in *build/include/mylib/path/header.h*, you write:
+
+.. code-block:: python
+
+   self.copy("*.h", "include", "build/include") #keep_path default is True
+
+so the final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes will be in the form: ``#include "mylib/path/header.h"`` which is something desired
+
+``keep_path=False`` is something typically desired for libraries, both static and dynamic. Some compilers as MSVC, put them in paths as *Debug/x64/MyLib/Mylib.lib*. Using this option, we could write:
+
+.. code-block:: python
+
+   self.copy("*.lib", "lib", "", keep_path=False)
+ 
+And it will copy the lib to the package folder *lib/Mylib.lib*, which can be linked easily
+
+
 (Unit) Testing your library
 ---------------------------
 We have seen how to run package tests with conan, but what if we want to run full unit tests on
