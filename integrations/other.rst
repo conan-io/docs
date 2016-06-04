@@ -30,7 +30,7 @@ Just specify the **txt** generator in your conanfile:
    .. code-block:: text
    
       [requires]
-      Poco/1.7.2@lasote/stable
+      Poco/1.7.3@lasote/stable
       
       [generators]
       txt
@@ -92,7 +92,7 @@ and much more reusable to create a generator to simplify the task for your build
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable"
+      requires = "Poco/1.7.3@lasote/stable"
       ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
       generators = "txt"
       default_options = "Poco:shared=False", "OpenSSL:shared=False"

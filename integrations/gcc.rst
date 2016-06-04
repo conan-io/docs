@@ -20,7 +20,7 @@ Open ``conanfile.txt`` and change (or add) **gcc** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.2@lasote/stable
+   Poco/1.7.3@lasote/stable
    
    [generators]
    gcc
