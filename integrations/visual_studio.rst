@@ -43,7 +43,7 @@ Open ``conanfile.txt`` and change (or add) the **visual_studio** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.2@lasote/stable
+   Poco/1.7.3@lasote/stable
    
    [generators]
    visual_studio

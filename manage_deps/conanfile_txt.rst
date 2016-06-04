@@ -11,7 +11,7 @@ In :ref:`Getting started<getting_started>` we used **conan install** to download
     - It reads ``conanfile.txt`` from the current directory or the directory pointed by the command.
     - For each **[requires]** entry, conan will check locally for such conan **package recipe** , and if
       it fails, it will try to download the **package recipe** from the server. Each package recipe is
-      identified by its reference, as ``Poco/1.7.2@lasote/stable``.
+      identified by its reference, as ``Poco/1.7.3@lasote/stable``.
     - Package recipes and package binaries are installed locally in your computer, typically in a
       folder in your user home, called: ``~/.conan/data``, though you can change that configuration too.
     - The requirements will be processed transitively, retrieving package recipes if necessary, taking
@@ -20,7 +20,7 @@ In :ref:`Getting started<getting_started>` we used **conan install** to download
     - Once the graph is finished, and all package recipes have been retrieved, the hash (SHA1) 
       or signature of the required binaries is computed.
     - For each package, the corresponding binary, with a reference composed by the package recipe
-      reference and the hash (e.g. ``Poco/1.7.2@lasote/stable:63da...3f44``), is searched locally.
+      reference and the hash (e.g. ``Poco/1.7.3@lasote/stable:63da...3f44``), is searched locally.
     - If it is found locally, then, nothing to do. If it is not found locally, conan will look for it
       in the server, and if found, will retrieve the corresponding package binary from the server.
     - If the package binary is not found in the server, then the process will fail. The user can specify
@@ -33,7 +33,7 @@ In :ref:`Getting started<getting_started>` we used **conan install** to download
 
 
 
-If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.7.2@lasote/stable**
+If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.7.3@lasote/stable**
 instead of nothing or the path to a ``conanfile.txt`` conan will download the Poco package and 
 all its dependencies (*OpenSSL/1.0.2g@lasote/stable* and *zlib/1.2.8@lasote/stable*) 
 to your conan cache and print information about the folder where they are installed. 
@@ -51,13 +51,13 @@ The requirements look like this:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.2@lasote/stable
+   Poco/1.7.3@lasote/stable
    
 
 Where:
 
    - ``Poco`` is the name
-   - ``1.7.2`` is the version
+   - ``1.7.3`` is the version
    - ``lasote`` is the owner of this package version
    - ``stable`` is the channel (there could be several channels for developing, testing, etc.)
 
@@ -84,7 +84,7 @@ Not necessarily, just enter the new version in **[requires]**:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.2@lasote/stable
+   Poco/1.7.3@lasote/stable
    OpenSSL/1.0.2p@lasote/stable
 
 The second line will override the OpenSSL/1.0.2g required by poco, with the (non-existent yet)  **OpenSSL/1.0.2p**
@@ -94,7 +94,7 @@ Other example could be, in order to try out some new zlib alpha features, we cou
 .. code-block:: text
 
    [requires]
-   Poco/1.7.2@lasote/stable
+   Poco/1.7.3@lasote/stable
    OpenSSL/1.0.2p@lasote/stable
    zlib/1.2.9@otheruser/alpha
 
@@ -144,7 +144,7 @@ Options are intended for package specific configurations.
    
    You can search and see the available options for a package with "conan search -x" command: 
       
-      $ conan search Poco/1.7.2@lasote/stable -x
+      $ conan search Poco/1.7.3@lasote/stable -x
       
 
 We are going to adjust the option **"shared"** to use the shared library from POCO.
@@ -154,7 +154,7 @@ You can set the options for your requirements this way:
 .. code-block:: text
 
     [requires]
-    Poco/1.7.2@lasote/stable
+    Poco/1.7.3@lasote/stable
     
     [generators]
     cmake
@@ -242,7 +242,7 @@ Edit the ``conanfile.txt`` file and paste the **[imports]** section:
 .. code-block:: text
    
     [requires]
-    Poco/1.7.2@lasote/stable
+    Poco/1.7.3@lasote/stable
     
     [generators]
     cmake

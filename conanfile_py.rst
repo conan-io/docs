@@ -18,7 +18,7 @@ in which we have added a couple of extra generators
 .. code-block:: text
    
       [requires]
-      Poco/1.7.2@lasote/stable
+      Poco/1.7.3@lasote/stable
       
       [generators]
       gcc
@@ -42,7 +42,7 @@ The equivalent ``conanfile.py`` file is:
    
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable" # comma separated list of requirements
+      requires = "Poco/1.7.3@lasote/stable" # comma separated list of requirements
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
             
@@ -78,7 +78,7 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
    
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable"
+      requires = "Poco/1.7.3@lasote/stable"
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
 
@@ -144,7 +144,7 @@ You could use the **gcc** helper instead of **cmake** for building your source c
 
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable"
+      requires = "Poco/1.7.3@lasote/stable"
       generators = "gcc"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
      
@@ -176,7 +176,7 @@ It works prepending the *command_line* to your **configure and make** commands:
 
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.2@lasote/stable"
+      requires = "Poco/1.7.3@lasote/stable"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
      
       def imports(self):
@@ -305,7 +305,7 @@ package and define **options** and **default_options** this way:
     
     class PocoTimerConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Poco/1.7.2@lasote/stable"
+        requires = "Poco/1.7.3@lasote/stable"
         generators = "cmake", "gcc", "txt"
         options = {"shared": [True, False]} # Values can be True or False (number or string value is also possible)
         default_options = "shared=False", "Poco:shared=True", "OpenSSL:shared=True"
@@ -408,7 +408,7 @@ Here is an example of what we could do in our **config method**:
 .. code-block:: python
 
       ...
-      requires = "Poco/1.7.2@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.3@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
       ...
        
       def config(self):

@@ -80,7 +80,7 @@ Now, also create a ``conanfile.txt`` inside the same folder with the following c
 .. code-block:: text
 
    [requires]
-   Poco/1.7.2@lasote/stable
+   Poco/1.7.3@lasote/stable
    
    [generators]
    cmake
