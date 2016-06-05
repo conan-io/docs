@@ -45,7 +45,7 @@ Yes, you can install as many different versions of the same library as you need,
 switch among them in the same project, or have different projects use different versions simultaneously,
 and without having to install/uninstall or re-build any of them.
 
-Package binaries are stored per user in ~/.conan/data/Boost/1.59/user/stable/package/{SHA1, SHA2, SHA3...} 
+Package binaries are stored per user in ~/.conan/data/Boost/1.59/user/stable/package/{sha_0, sha_1, sha_2...} 
 with a different SHA signature for every different configuration (debug, release, 32, 64, compiler...). 
 Packages are managed per user, but additionally differentiated by version and channel, and also by their configuration.
 So large packages, like Boost, don't have to be compiled or downloaded for every project.
