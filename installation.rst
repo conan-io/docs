@@ -38,9 +38,23 @@ From 0.9 conan has "experimental/testing" Python3 support too.
 
     $ pip install conan
 
+.. note::
 
-**NOTE**: If you are installing with pip, please make sure that your pip installation
-is matching your python (2.7 or 3.X) one.
+    - Please make sure that your **pip** installation matches your **python (2.7 or 3.X)** one.
+    - In Linux if you want to install it globally, you might need **sudo** permissions.
+    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything python related
+    - In **Windows** you might need to use **32bits** python distributions, instead of 64bits.
+    - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip might fail.
+      Try with virtualenvs, or install with other user ``$ pip install --user conan``
+
+Install from brew (OSX)
+----------------------------------
+There is a brew recipe, so in OSX, you can install conan with 
+
+::
+
+    $ brew update
+    $ brew install conan
 
 Initial configuration
 ---------------------
