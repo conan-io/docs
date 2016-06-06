@@ -386,7 +386,8 @@ so the final path in the package will be: ``include/mylib/path/header.h``, and a
 .. code-block:: python
 
    self.copy("*.lib", "lib", "", keep_path=False)
- 
+
+
 And it will copy the lib to the package folder *lib/Mylib.lib*, which can be linked easily
 
 

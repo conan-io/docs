@@ -25,7 +25,7 @@ Does it run offline?
 --------------------
 Yes, it runs offline very smoothly. Package recipes and binary packages are stored in your machine, per user, so
 you can start new projects that depend on the same libraries without any connection at all.
-Packages can be fully createad and tested locally, prior to uploading them to the desired server.
+Packages can be fully created and tested locally, prior to uploading them to the desired server.
 
 How does conan compare to biicode dependency manager?
 -----------------------------------------------------
@@ -33,7 +33,7 @@ A (probably not complete) list of differences:
 
 - It is fully decentralized, git-like style. The provided on-premises server is very easy to run.
 - It is build-system agnostic, and highly decoupled from builds. It uses cmake a lot and integrates well with it, but there are packages built with perl+nmake, autotools, etc. Consumers can use any available generator (visual studio, xcode, gcc, txt, cmake, qmake or qbs). They are not forced to use cmake.
-- Consumers are not locked-in to the techonology. They are just provided with a file with include paths, lib paths, libs, etc, so they can use that info. System package managers can perfectly coexist with it.
+- Consumers are not locked-in to the technology. They are just provided with a file with include paths, lib paths, libs, etc, so they can use that info. System package managers can perfectly coexist with it.
 - It hosts and manages pre-built binaries. You can decide to build from source or use existing binaries. Binaries are cached in your computer at the user-level, so there is no need to build the same large binary twice for different projects. Many versions of binaries can coexist, different projects can use different versions, and it is easy to switch between versions in the same project (without rebuilding).
 - Python package recipes allow for very advanced configuration: static, dynamic, 32, 64 bits, conditional dependencies (depending on OS, version, compiler, settings, options...) in a more intuitive cycle: source-build-package
 - It is not required to host the source code. It can be retrieved from any origin like github, sourceforge download+unzip, etc.
@@ -45,8 +45,8 @@ Yes, you can install as many different versions of the same library as you need,
 switch among them in the same project, or have different projects use different versions simultaneously,
 and without having to install/uninstall or re-build any of them.
 
-Package binaries are stored per user in ~/.conan/data/Boost/1.59/user/stable/package/{sha1, sha2, sha3...} 
-with a different sha signature for every different configuration (debug, release, 32, 64, compiler...). 
+Package binaries are stored per user in ~/.conan/data/Boost/1.59/user/stable/package/{sha_0, sha_1, sha_2...} 
+with a different SHA signature for every different configuration (debug, release, 32, 64, compiler...). 
 Packages are managed per user, but additionally differentiated by version and channel, and also by their configuration.
 So large packages, like Boost, don't have to be compiled or downloaded for every project.
 
