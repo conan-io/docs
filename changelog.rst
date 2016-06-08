@@ -6,10 +6,6 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-0.9.3 (7-Jun-2016)
-------------------
-- **Fixed SSL issues** downloading sources from secure servers using TLS connections.
-
 
 0.9.2 (11-May-2016)
 -------------------
