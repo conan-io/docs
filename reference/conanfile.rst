@@ -1,5 +1,12 @@
 .. _conanfile:
 
+conanfile.txt
+=============
+
+The ``conanfile.txt`` is just a simplified version of the ``conanfile.py`` that aims for a simpler consumption of existing packages, without having to write a full ``conanfile.py``. Package creators would typically want to create just ``conanfile.py``, not requiring this txt at all.
+
+The conanfile has several sections, [requires], [generators], [options], [imports]. Please check the getting started for explanation of these sections (TODO: full reference here).
+
 
 conanfile.py
 ============
