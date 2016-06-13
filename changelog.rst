@@ -7,6 +7,7 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+
 0.9.2 (11-May-2016)
 -------------------
 - **Fixed download bug** that made it specially slow to download, even crash. Thanks to github @melmdk for fixing it.
