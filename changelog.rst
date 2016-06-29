@@ -6,7 +6,22 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.10.0 (29-June-2016)
+-------------------
+- **conan new** command, that creates conan package conanfile.py templates, with a ``test_package`` package test (-t option),
+  also for header only packages (-i option)
+- Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).
+- Definition of **dev_requires**. Those are requirements that are only retrieved when the package is in **dev** scope, otherwise they are not. They do not affect the package binaries. Typical use cases would be test libraries or build scripts.
+- Allow **shorter paths** for specific packages, which can be necessary to build packages with very long path names (e.g. Qt) in Windows.
+- Support for bzip2 and gzip decompression in ``tools``
+- Added ``package_folder`` attribute to conanfile, so the ``package()`` method can for example call ``cmake install`` to create the package.
+- Added ``CONAN_CMAKE_GENERATOR`` environment variable that allows to override the ``CMake`` default generator. That can be useful to build with Ninja instead of the default Unix Makefiles
+- Improved ``ConfigureEnvironment`` with include paths in CFLAGS and CPPFLAGS, and fixed bug.
+- New ``conan user --clean`` option, to completely remove all user data for all remotes.
+- Allowed to raise ``Exceptions`` in ``config()`` method, so it is easier for package creators to raise under non-supported configurations
+- Fixed many small bugs and other small improvements
 
+As always, thanks very much to all contributors and users providing feedback.
 
 0.9.2 (11-May-2016)
 -------------------
