@@ -54,7 +54,7 @@ colleagues or consumers of your packages.
    better a PR) with settings and values that could make sense for other users.
    
 registry.txt
---------------------
+------------
 This file is generally automatically managed, and it has also access via the ``conan remote``
 command but just in case you might need to change it. It contains information about the known
 remotes and from which remotes are each package retrieved:
@@ -77,3 +77,58 @@ for operations on that package.
 
 Be careful when modifying the remotes, as the information of the packages has to remain consistent,
 e.g. if removing a remote, all package references referencing that remote has to be removed too.
+
+
+short_paths.conf
+----------------
+
+This file contains a list of **conan-package-reference: disk_path**. 
+
+It's used to change the storage for a specified package with extra-short paths. It's specially useful in Windows, where max path characters is limited to 260, 
+and libraries with very long paths. e.g. Boost or Qt.
+
+If you install Boost package without editing the ``short_paths.conf`` file, the Boost package will be installed in the default storage file tree:
+
+.. code-block:: text
+
+    $ conan install Boost/1.60.0@lasote/stable 
+    $ dir c:/Users/myuser/.conan/data/Boost/1.60.0/lasote/stable/
+      export/
+      package/
+      
+      
+See that the installed package paths have a minimun if 104 character:
+
+``c:/Users/myuser/.conan/data/Boost/1.60.0/lasote/stable/package/d336e8559b1e0d637e30dde99d1ee4c50be475a8/``
+
+It can be specially a problem if you are creating a conan package, because the ``source`` and ``build`` folders will contain 
+all the original library source code file tree, and the 260 characters limit could be reached.
+
+
+      
+Now edit the ``short_paths.conf`` and change the storage for the package:
+
+ 
+.. code-block:: text
+
+    Boost/1.60.0@lasote/stable: c:\boost
+    
+    
+And install it again:
+
+.. code-block:: text
+
+    $ conan install Boost/1.60.0@lasote/stable 
+    $ dir c:\boost
+      e
+      p
+      
+- The ``export`` folder now is called ``e``.
+- The ``package`` is now ``p``.
+- The ``source`` folder now is called ``s``.
+- The ``build`` is now ``b``.
+- The package IDs are shorter shas (6 chars instead of 40)
+- There isn't a subfolder ``Boost/1.60.0/lasote/stable/`` in the package routes, the package files are mapped directly to ``c:/boost``.
+
+   
+
