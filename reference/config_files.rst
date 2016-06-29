@@ -97,7 +97,7 @@ If you install Boost package without editing the ``short_paths.conf`` file, the 
       package/
 
 
-See that the installed package paths have a minimun if 104 character:
+See that the installed package paths have a minimun of 104 characters:
 
 ``c:/Users/myuser/.conan/data/Boost/1.60.0/lasote/stable/package/d336e8559b1e0d637e30dde99d1ee4c50be475a8/``
 
