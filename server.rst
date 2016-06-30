@@ -36,12 +36,12 @@ First, clone the conan repository from source and install the requirements:
     $ pip install gunicorn
     
     
-- Run the server aplication with gunicorn. In the following example we will run server on port 9000 with 4 workers:
+- Run the server aplication with gunicorn. In the following example we will run server on port 9300 with 4 workers and a timeout of 2 minutes (for big uploads/downloads):
 
 
 .. code-block:: bash
 
-    $ gunicorn -b 0.0.0.0:9000 -w 4 conans.server.server_launcher:app
+    $ gunicorn -b 0.0.0.0:9300 -w 4 -t 120 conans.server.server_launcher:app
 
 
 
