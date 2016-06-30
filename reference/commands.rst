@@ -40,7 +40,7 @@ conan install
 
 .. code-block:: bash
 
-	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS]
+	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE]
 
 
 Install a package recipe and a remote package that matches with the specified settings.
@@ -102,7 +102,7 @@ if you would like to create a package from your current project.
 
 
 conan test_package
---------------------
+------------------
 
 The **test_package** (previously named **test**) command looks for a ``test_package`` subfolder in the current directory, and builds the
 project that is in it. It will typically be a project with a single requirement, pointing to
@@ -328,3 +328,34 @@ Optional arguments:
   * **-o, --only-manifest**  Just regenerate manifest for the existing package.If True conan won't call your conanfile's package method.
   * **--all**                Package all packages from specified reference.
 
+
+conan new
+---------
+
+.. code-block:: bash
+
+   $ conan new package/version@user/channel
+
+
+Creates a new ``conanfile.py`` file from a template.
+
+
+ * **-t, --test**              Create test_package skeleton to test_package command.
+ * **-i, --header**            Create a headers only package template.
+ * **-c, --pure_c**            Create a C language package only package (non-headers).
+
+**Examples**
+
+
+Create a new ``conanfile.py`` for a new package **mypackage/1.0@myuser/stable**
+
+.. code-block:: bash
+
+   $ conan new mypackage/1.0@myuser/stable
+
+
+Create also a test_package folder skeleton:
+
+.. code-block:: bash
+
+   $ conan new mypackage/1.0@myuser/stable -t
