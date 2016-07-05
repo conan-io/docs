@@ -392,17 +392,58 @@ you could maintain **both shared and static builds** very easily:
 -------------------------------------------------------------------------------------------------------
 
 
-Scope variables
-...............
 
 
-Scope vs Options
-________________
+Conditional settings, options and requirements
+..............................................
+
+Remember, in your ``conanfile.py`` you have also access to the options of your dependencies,
+and you can use them to:
+
+* Add requirements dynamically
+* Change options values
+
+The **config** method is the right place to change values of options and settings.
+
+Here is an example of what we could do in our **config method**:
+
+.. code-block:: python
+
+      ...
+      requires = "Poco/1.7.3@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
+      ...
+
+      def config(self):
+          # We can control the options of our dependencies based on current options
+          self.options["OpenSSL"].shared = self.options.shared
+
+          # Maybe in windows we know that OpenSSL works better as shared (false)
+          if self.settings.os == "Windows":
+             self.options["OpenSSL"].shared = True
+
+             # Or adjust any other available option
+             self.options["Poco"].other_option = "foo"
+
+          # Or add a new requirement!
+          if self.options.testing:
+             self.requires("OpenSSL/2.1@memsharded/testing")
+          else:
+             self.requires("OpenSSL/1.0.2d@lasote/stable")
 
 
-In the previous example we added an option "shared" to our conanfile.py to control if the library has to be static or shared.
 
-For the Poco package, if we specify *shared=True* or *shared=False* in the ``conan install`` command we get different binary packages.
+There is another advantage of using ``conanfile.py`` instead of ``conanfile.txt``.
+
+Scopes
+......
+
+
+Scopes vs options
+_________________
+
+In the previous example we added an option ``shared`` to our conanfile.py to control if the library has to be static or shared.
+
+For the Poco package, if we specify ``shared=True`` or ``shared=False`` in the ``conan install`` command we get different binary packages.
 When we declare new options we open the possibility of having multiple packages for the same recipe, as it happens with the settings.
 
 
@@ -415,7 +456,7 @@ First, we are going to see how to control the tests build with an **option** (ge
 
      class PocoTimerConan(ConanFile):
         ...
-        options = {"build_tests": [True, False]}
+        options = {"build_tests": [True, False]}  # NOT A GOOD APROACH
         default_options = "build_tests=False"
         ...
 
@@ -442,12 +483,12 @@ First, we are going to see how to control the tests build with an **option** (ge
 Then we could use ``conan install -o build_test=False/True`` to activate or deactivate the tests launch.
 
 
-But, what happens if we are creating a conan package with a library? (see the :ref:`Creating packages<packaging>`).
+But, what happens if we are creating a conan package?
 
 If we install our package specifying different values for the option "build_test", we will generate/require different conan packages,
 but the library (binary artifact) will be the same, so, why different conan packages?
 
-Conan have **scope variables** to control the conanfile.py without generating different packages no matter what is the value of the scope variable.
+Conan has **scope variables** to control the conanfile.py without generating different packages no matter what is the value of the scope variable.
 
 
 Now using scope variables:
@@ -471,13 +512,13 @@ Now using scope variables:
 Then we could use ``conan install --scope build_test=False/True`` to activate or deactivate the tests launch.
 
 
-``dev`` scope variable
-______________________
+``dev`` scope
+_____________
 
 
-There is an special scope variable called "dev" that is automatically set to True if you are using **conanfile.py** in your project.
+There is an special scope variable called ``dev`` that is automatically set to True if you are using **conanfile.py** in your project.
 
-If we export the recipe (see the :ref:`Creating packages<packaging>`) and install it from a local or remote repository, the variable "dev" will be False.
+If we export the recipe and install it from a local or remote repository, the variable ``dev`` will be False.
 
 It's specially useful to require some testing packages (just for run the tests) or anything that not affect to the built artifact.
 
@@ -516,23 +557,33 @@ There is also a simplified way to require development packages:
             self.requires("catch/1.3.0@TyRoXx/stable", dev=True)
 
 
-Passing scope variables
-_______________________
+An extra shortcut for this syntax would be to use the new ``dev_requires`` attribute:
 
+.. code-block:: python
+   :emphasize-lines: 2
+
+     class PocoTimerConan(ConanFile):
+        dev_requires = "catch/1.3.0@TyRoXx/stable"
+
+
+
+
+Defining scopes
+_______________
 
 Setting a scope variable in a requirement is very similar to options:
 
 
 .. code-block:: bash
 
-   $ conan install --scope Poco:somevariable=somevalue
+   $ conan install --scope Poco:somescope=somevalue
 
 
-If we want to set it in our conanfile we don't specify the package namespace:
+If we want to set it in our project conanfile we don't specify the package namespace:
 
 .. code-block:: bash
 
-   $ conan install --scope somevariable=somevalue
+   $ conan install --scope somescope=somevalue
 
 
 There is an special namespace called ``ALL`` that will apply to all our requirements and our conanfile:
@@ -540,48 +591,17 @@ There is an special namespace called ``ALL`` that will apply to all our requirem
 
 .. code-block:: bash
 
-   $ conan install --scope ALL:somevariable=somevalue
+   $ conan install --scope ALL:somescope=somevalue
+
+Note that if defining specific values for a certain package, the specific value will have
+precedence:
+
+.. code-block:: bash
+
+   $ conan install --scope ALL:somescope=somevalue Poco:somescope=othervalue
+
+In this case, the scope ``somescope`` of Poco will have the value ``othervalue``
 
 
-
-Conditional settings, options and requirements
-..............................................
-
-Remember, in your ``conanfile.py`` you have also access to the options of your dependencies, 
-and you can use them to:
-
-* Add requirements dynamically
-* Change options values
-
-The **config** method is the right place to change values of options and settings.
-
-Here is an example of what we could do in our **config method**:
-
-.. code-block:: python
-
-      ...
-      requires = "Poco/1.7.3@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
-      ...
-       
-      def config(self):
-          # We can control the options of our dependencies based on current options
-          self.options["OpenSSL"].shared = self.options.shared
-          
-          # Maybe in windows we know that OpenSSL works better as shared (false)
-          if self.settings.os == "Windows":
-             self.options["OpenSSL"].shared = True
-             
-             # Or adjust any other available option 
-             self.options["Poco"].other_option = "foo"
-             
-          # Or add a new requirement!
-          if self.options.testing:
-             self.requires("OpenSSL/2.1@memsharded/testing")
-          else:
-             self.requires("OpenSSL/1.0.2d@lasote/stable")
-                 
-
-
-There is another advantage of using ``conanfile.py`` instead of ``conanfile.txt``.
 At this point you almost have your library prepared for being a conan package. In next section
 we will create our own packages using ``conanfile.py``.
