@@ -397,6 +397,11 @@ so the final path in the package will be: ``include/mylib/path/header.h``, and a
 
 And it will copy the lib to the package folder *lib/Mylib.lib*, which can be linked easily
 
+.. note::
+
+    If you are using CMake and you have an install target defined in your CMakeLists.txt, you
+    might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
+
 
 (Unit) Testing your library
 ---------------------------
