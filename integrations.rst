@@ -21,4 +21,5 @@ Integrations
    integrations/premake
    integrations/youcompleteme
    integrations/gcc
+   integrations/ninja
    integrations/other
