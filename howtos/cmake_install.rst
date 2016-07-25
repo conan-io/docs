@@ -12,16 +12,8 @@ have to be copied from the build folder to the package folder.
 
 If you want to reuse that functionality, you can do it with cmake.
 
-First, define the ``CMAKE_INSTALL_PREFIX`` in your build to point to the
-package folder, defined by the conanfile variable ``package_folder``
-and use it in your cmake invocation flags.
-
-Then, you will typically build the cmake install target, which previously also
-builds the source code. We probably can do it in the ``package()`` method instead
-of in the ``build()`` one, but as the largest part of the time is used
-for build I prefer to have it in the ``build()`` method. Note that if you run
-it in both places you might end building the code twice which will make package
-creation unnecessary slower
+Invoke cmake with ``CMAKE_INSTALL_PREFIX`` using the ``package_folder`` variable.
+If ``cmake install`` target correctly copy all the required libraries, headers, etc. to the ``package_folder``, then no ``package()`` method is required
 
 
 .. code-block:: python
