@@ -261,6 +261,24 @@ You can specify more than one:
        generators = "cmake", "gcc"
 
 
+Build policies
+--------------
+
+With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
+The allowed ``build_policy`` values are:
+
+- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+     class PocoTimerConan(ConanFile):
+        build_policy = "always" # "missing"
+
+
+
 Build helpers
 -------------
 
@@ -367,7 +385,7 @@ have the same system requirements, just add the following line to your method:
 
 
 Packaging
------------
+---------
 The actual creation of the package, once that it is build, is done in the ``package()`` method.
 Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
 The syntax of copy is as follows:
@@ -477,6 +495,26 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
       if not self.settings.os == "Windows":
           self.cpp_info.cppflags = ["-pthread"]
            
+
+.. _environment_information:
+  
+Environment information
+-----------------------
+
+Each package can also define some environment variables that the package needs to be reused.
+It's specially useful for :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application.
+This can be done in the ``env_info`` attribute within the ``package_info()`` method.
+
+.. code-block:: python
+
+  self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
+  self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
+  self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value 
+  
+
+The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
+
+This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
             
         
 Importing files
