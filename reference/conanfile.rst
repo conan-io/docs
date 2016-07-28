@@ -361,16 +361,40 @@ defining the special cases, as is shown below:
 System requirements
 -------------------
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
-method to your conanfile and specify what you need there:
+method to your conanfile and specify what you need there.
+
+You can use ``conans.tools.os_info`` object to detect the operating system, version and distribution (linux):
+
+- ``os_info.is_linux`` True if Linux
+- ``os_info.is_windows`` True if Windows
+- ``os_info.is_macos`` True if OSx
+- ``os_info.os_version`` OS version
+- ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
+- ``os_info.linux_distro`` Linux distribution name (None if not Linux)
+
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum** or **brew** depending on the system we are running.
 
 ..  code-block:: python
 
+    from conans.tools import os_info, SystemPackageTool
+
     def system_requirements(self):
-        if platform.system() == "Linux": # Further check for debian based missing
-            self.run("sudo apt-get install mysystemdeps")
-        else:
-            # ...
-        return "Installed mysystemdeps"
+        pack_name = None
+        if os_info.linux_distro == "ubuntu":
+            if os_info.os_version > "12":
+                pack_name = "package_name_in_ubuntu_10"
+            else:
+                pack_name = "package_name_in_ubuntu_12"
+        elif os_info.linux_distro == "fedora" or os_info.linux_distro == "centos":
+            pack_name = "package_name_in_fedora_and_centos"
+        elif os_info.is_macos:
+            pack_name = "package_name_in_macos"
+
+        if pack_name:
+            installer = SystemPackageTool()
+            installer.update() # Update the package database
+            installer.install(pack_name) # Install the package 
+
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again
 at every conan command. The execution is done per package, since some packages of the same
