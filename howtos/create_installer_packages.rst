@@ -1,11 +1,12 @@
 .. _create_installer_packages:
 
 
-Creating tool packages
-======================
+Creating conan packages to install dev tools
+============================================
 
-If you want to create conan packages for any tool it's easy, specially if you are familiar creating conan packages.
-Let's see how the CMake recipe is done (https://www.conan.io/source/cmake_installer/0.1/lasote/testing):
+
+If you want to create conan packages for your development tools, it is easy, specially if you are already familiar with creating conan packages.
+Let's see the conan recipe to install different versions of cmake in different platforms (https://www.conan.io/source/cmake_installer/0.1/lasote/testing):
 
 .. code-block:: python
 
@@ -63,11 +64,12 @@ Let's see how the CMake recipe is done (https://www.conan.io/source/cmake_instal
 This package have only 2 different things than a regular conan library package:
 
 - The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but, in this case we are downloading the binaries, so we do it in the build method to download the different zip file for each settings/option combination. Instead of really building the tools, we are just downloading them. Of course if you want to build it from source, you can do it too, create your own package recipe
-- The package_info method use the new “self.env_info” object. With “self.env_info” the package can declare environment variables that will be setted with the “virutalenv” generator.
+- The package_info method use the new “self.env_info” object. With “self.env_info” the package can declare environment variables that will be set with the “virtualenv” generator.
+  This is a convenient method to use these tools without having to mess with the system PATH.
 
 
 The “self.env_info” variable can also be useful if a package tool depends on another tool.
-Take a look to the MinGW conanfile.py recipe (https://www.conan.io/source/mingw_installer/0.1/lasote/testing):
+For example, take a look at the MinGW conanfile.py recipe (https://www.conan.io/source/mingw_installer/0.1/lasote/testing):
 
 
 .. code-block:: python
@@ -105,7 +107,7 @@ Take a look to the MinGW conanfile.py recipe (https://www.conan.io/source/mingw_
            self.env_info.CC = os.path.join(self.package_folder, "bin", "gcc.exe")
 
 
-In the config method we are adding a require to another package, the 7z_installer that will use to unzip the mingw installers (with 7z compression).
+In the config method we are adding a require to another package, the 7z_installer that it will use to unzip the mingw installers (with 7z compression).
 
 In the build method we are downloading the right MinGW installer and using the helper 
 ``ConfigureEnvironment``. This helper will provide us a string with a command to set the environment variables. That means that the 7z executable will be in the path, because the 7z_installer dependency declares the “bin” folder in it’s “package_info” method.
@@ -147,7 +149,8 @@ Let's see an example. If you are working in Windows, with MinGW and CMake.
    
 
 
-Note that you can adjust the ``options`` and retrieve a different configuration of the required packages.
+Note that you can adjust the ``options`` and retrieve a different configuration of the required packages,
+or leave them unspecified in the file and pass them as command line parameters.
 
 
 3. Install them:
@@ -155,15 +158,15 @@ Note that you can adjust the ``options`` and retrieve a different configuration 
 
 .. code-block:: bash
 
-   $ conan install --build
+   $ conan install
 
 
 4. Activate the virtual environment in your shell:
 
 .. code-block:: bash
 
-   $ activate.bat
-   $ (my_cpp_environ)
+   $ activate
+   (my_cpp_environ)$ 
 
 
 5. Check that the tools are in the path:
@@ -171,7 +174,7 @@ Note that you can adjust the ``options`` and retrieve a different configuration 
 
 .. code-block:: bash
 
-   $ gcc --version
+   (my_cpp_environ)$ gcc --version
 
    > gcc (x86_64-posix-seh-rev1, Built by MinGW-W64 project) 4.9.2
 
@@ -179,7 +182,7 @@ Note that you can adjust the ``options`` and retrieve a different configuration 
     This is free software; see the source for copying conditions.  There is NO
     warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-   $ cmake --version
+   (my_cpp_environ)$ cmake --version
    
    > cmake version 3.4.3
 
@@ -190,5 +193,6 @@ Note that you can adjust the ``options`` and retrieve a different configuration 
 
 .. code-block:: bash
 
-   $ deactivate.bat
+   (my_cpp_environ)$ deactivate
+   $
 

@@ -127,6 +127,14 @@ command line option
     $ conan test_package --f my_test_folder
 
 
+This command will run the equivalent to ``conan export <user>/<channel>`` where ``user`` and ``channel``
+will be deduced from the values of the requirement in the ``conanfile.py`` inside the test subfolder.
+This is very convenient, as if you are running a package test it is extremely likely that you have
+just edited the package recipe. If the package recipe is locally modified, it has to be exported again,
+otherwise, the package will be tested with the old recipe. If you want to inhibit this ``export``,
+you can use the ``-ne, --no-export`` parameter.
+
+
 conan search
 ------------
 
@@ -182,7 +190,23 @@ The output will look like:
        Requires:
            Hello0/0.1@user/channel
 
-   
+
+It is possible to use the ``conan info`` command to extract useful information for Continuous
+Integration systems. More precisely, it has the ``--build_order, -bo`` option, that will produce
+a machine-readable output with an ordered list of package references, in the order they should be
+built. E.g., lets assume that we have a project that depends on Boost and Poco, which in turn 
+depends on OpenSSL and ZLib transitively. So we can query our project with a reference that has
+changed (most likely due to a git push on that package):
+
+.. code-block:: bash
+
+    $ conan info -bo zlib/1.2.8@lasote/stable
+    [zlib/1.2.8@lasote/stable], [OpenSSL/1.0.2g@lasote/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.2@lasote/stable]
+    
+Note the result is a list of lists. When there is more than one element in one of the lists, it means
+that they are decoupled projects and they can be built in parallel by the CI system.
+
+
 conan upload
 ------------
 

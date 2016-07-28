@@ -210,6 +210,19 @@ the CMake way. You must also remove the **STATIC** linkage in the **CMakeLists.t
 and if you are using VS, you also need to change your code to correctly import/export symbols
 for the dll.
 
+You can use the ``ANY`` string to allow any value for a specified option. The range of values for
+such an option will not be checked, and any value (as string) will be accepted. 
+
+.. code-block:: python
+   
+   class HelloConan(ConanFile):
+      ...
+      options = {"commit": "ANY"}
+      default_options = "commit=1234abcd"
+      
+This could be useful, for example, if you want to have an option so a package can actually reference any specific
+commit of a git repository.
+
 
 Variable configuration
 ++++++++++++++++++++++
