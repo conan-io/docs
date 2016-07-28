@@ -113,3 +113,82 @@ In the build method we are downloading the right MinGW installer and using the h
 In the package_info method we are declaring CC and CXX variables, used by CMake, autotools etc, to locate the compiler for C/C++ respectively. 
 Also we are appending to “path” variable the bin folder, so we can invoke gcc, g++, make and other tools in the command line using the virtualenv generator when we execute the “activate” script.
 
+
+Using the tool packages
+.......................
+
+
+Let's see an example. If you are working in Windows, with MinGW and CMake.
+
+1. Create a separate folder from your project, this folder will handle our global development environment. 
+
+
+.. code-block:: bash
+
+   mkdir my_cpp_environ
+   cd my_cpp_environ
+
+2. Create a 'conanfile.txt' file:
+
+
+.. code-block:: bash
+
+   [requires]
+   mingw_installer/0.1@lasote/testing
+   cmake_installer/0.1@lasote/testing
+   
+   [generators]
+   virtualenv
+   
+   [options]
+   mingw_installer:exception=seh
+   mingw_installer:version=4.9
+   cmake_installer:version=3.4.3
+   
+
+
+Note that you can adjust the ``options`` and retrieve a different configuration of the required packages.
+
+
+3. Install them:
+
+
+.. code-block:: bash
+
+   $ conan install --build
+
+
+4. Activate the virtual environment in your shell:
+
+.. code-block:: bash
+
+   $ activate.bat
+   $ (my_cpp_environ)
+
+
+5. Check that the tools are in the path:
+
+
+.. code-block:: bash
+
+   $ gcc --version
+
+   > gcc (x86_64-posix-seh-rev1, Built by MinGW-W64 project) 4.9.2
+
+    Copyright (C) 2014 Free Software Foundation, Inc.
+    This is free software; see the source for copying conditions.  There is NO
+    warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+   $ cmake --version
+   
+   > cmake version 3.4.3
+
+     CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+
+6. You can deactivate the virtual environment with the "deactivate.bat" script
+
+.. code-block:: bash
+
+   $ deactivate.bat
+
