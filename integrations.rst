@@ -13,6 +13,7 @@ Integrations
    integrations/xcode
    integrations/clion
    integrations/makefile
+   integrations/virtualenv
    integrations/git
    integrations/travisci
    integrations/appveyor

@@ -1,5 +1,5 @@
 Howtos
-=================
+======
 
 This section shows common solutions and different approaches to typical problems
 
@@ -11,4 +11,6 @@ This section shows common solutions and different approaches to typical problems
    howtos/cmake_install
    howtos/proxys
    howtos/copy_packages
+   howtos/create_installer_packages
+ 
 

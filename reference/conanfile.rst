@@ -261,6 +261,24 @@ You can specify more than one:
        generators = "cmake", "gcc"
 
 
+Build policies
+--------------
+
+With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
+The allowed ``build_policy`` values are:
+
+- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+     class PocoTimerConan(ConanFile):
+        build_policy = "always" # "missing"
+
+
+
 Build helpers
 -------------
 
@@ -343,16 +361,40 @@ defining the special cases, as is shown below:
 System requirements
 -------------------
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
-method to your conanfile and specify what you need there:
+method to your conanfile and specify what you need there.
+
+You can use ``conans.tools.os_info`` object to detect the operating system, version and distribution (linux):
+
+- ``os_info.is_linux`` True if Linux
+- ``os_info.is_windows`` True if Windows
+- ``os_info.is_macos`` True if OSx
+- ``os_info.os_version`` OS version
+- ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
+- ``os_info.linux_distro`` Linux distribution name (None if not Linux)
+
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum** or **brew** depending on the system we are running.
 
 ..  code-block:: python
 
+    from conans.tools import os_info, SystemPackageTool
+
     def system_requirements(self):
-        if platform.system() == "Linux": # Further check for debian based missing
-            self.run("sudo apt-get install mysystemdeps")
-        else:
-            # ...
-        return "Installed mysystemdeps"
+        pack_name = None
+        if os_info.linux_distro == "ubuntu":
+            if os_info.os_version > "12":
+                pack_name = "package_name_in_ubuntu_10"
+            else:
+                pack_name = "package_name_in_ubuntu_12"
+        elif os_info.linux_distro == "fedora" or os_info.linux_distro == "centos":
+            pack_name = "package_name_in_fedora_and_centos"
+        elif os_info.is_macos:
+            pack_name = "package_name_in_macos"
+
+        if pack_name:
+            installer = SystemPackageTool()
+            installer.update() # Update the package database
+            installer.install(pack_name) # Install the package 
+
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again
 at every conan command. The execution is done per package, since some packages of the same
@@ -367,7 +409,7 @@ have the same system requirements, just add the following line to your method:
 
 
 Packaging
------------
+---------
 The actual creation of the package, once that it is build, is done in the ``package()`` method.
 Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
 The syntax of copy is as follows:
@@ -477,6 +519,26 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
       if not self.settings.os == "Windows":
           self.cpp_info.cppflags = ["-pthread"]
            
+
+.. _environment_information:
+  
+Environment information
+-----------------------
+
+Each package can also define some environment variables that the package needs to be reused.
+It's specially useful for :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application.
+This can be done in the ``env_info`` attribute within the ``package_info()`` method.
+
+.. code-block:: python
+
+  self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
+  self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
+  self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value 
+  
+
+The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
+
+This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
             
         
 Importing files
