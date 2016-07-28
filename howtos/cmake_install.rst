@@ -13,7 +13,8 @@ have to be copied from the build folder to the package folder.
 If you want to reuse that functionality, you can do it with cmake.
 
 Invoke cmake with ``CMAKE_INSTALL_PREFIX`` using the ``package_folder`` variable.
-If ``cmake install`` target correctly copy all the required libraries, headers, etc. to the ``package_folder``, then no ``package()`` method is required
+If ``cmake install`` target correctly copy all the required libraries, headers, etc. to the ``package_folder``,
+then, no ``package()`` method will be required.
 
 
 .. code-block:: python
