@@ -6,6 +6,56 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.11.0 (3-August-2016)
+-----------------------
+- New solution for the path length limit in Windows, more robust and complete. Package conanfile.py
+  just have to declare an attribute ``short_paths=True`` and everything will be managed. The old
+  approach is deprecated and totally removed, so no shorts_paths.conf file is necessary. It should
+  fix also the issues with uploads/retrievals.
+- New ``virtualenv`` generator that generates ``activate`` and ``deactivate`` scripts that set
+  environment variables in the current shell. It is very useful, for example to install tools
+  (like CMake, MinGW) with conan packages, so multiple versions can be installed in the same machine,
+  and switch between them just by activating such virtual environments. Packages for MinGW and CMake
+  are already available as a demo
+- ConfigureEnvironment takes into account environment variables, defined in packages in new ``env_info``,
+  which is similar to ``cpp_info`` but for environment information (like paths).
+- New per-package **build_policy**, which can be set to ``always`` or ``missing``, so it is not
+  necessary to create packages or specify the ``--build`` parameter in command line. Useful for example
+  in header only libraries or to create packages that always get the latest code from a branch in a github
+  repository.
+- Command ``conan test_package`` now executes by default a ``conan export`` with smarter package
+  reference deduction. It is introduced as opt-out behavior.
+- Conan ``export`` command avoids copying ``test_package/build`` temporary files in case of ``export=*``
+- Now, ``package_info()`` allows absolute paths in ``includedir``, ``libdirs`` and ``bindirs``, so
+  wrapper packages can be defined that use system or manually installed libraries.
+- LDFLAGS in ``ConfigureEnvironment`` management of OSX frameworks.
+- Options allow the ``ANY`` value, so such option would accept any value. For example a commit of a
+  git repository, useful to create packages that can build any specific commit of a git repo.
+- Added gcc 5.4 to the default settings, as well as MinGW options (Exceptions, threads...)
+- Command ``conan info`` learned a new option to output the packages from a project dependency tree that
+  should be rebuilt in case of a modification of a certain package. It outputs a machine readable **ordered**
+  list of packages to be built in that order. Useful for CI systems.
+- Better management of incomplete, dirty or failed ``source`` directories (e.g. in case of a user
+  interrupting with Ctrl+C a git clone inside the ``source()`` method.
+- Added tools for easier detection of different OS versions and distributions, as well as command
+  wrappers to install system packages (apt, yum). They use ``sudo`` via a new environment variable
+  CONAN_SYSREQUIRES_SUDO, so using sudo is opt-in/out, for users with different sudo needs. Useful for ``system_requirements()``
+- Deprecated the ``config()`` method (still works, for backwards compatibility), but has been replaced
+  by a ``config_options()`` to modify options based on settings, and a ``configure()`` method for
+  most use cases. This removes a nasty behaviour of having the ``config()`` method called twice with 
+  side effects.
+- Now, running a ``conan install MyLib/0.1@user/channel`` to directly install packages without any
+  consuming project, is also able to generate files with the ``-g`` option. Useful for installing
+  tool packages (MinGW, CMake) and generate ``virtualenvs``.
+- Many small fixes and improvements: detect compiler bug in Py3, search was crashing for remotes,
+  conan new failed if the package name had a dash, etc.
+- Improved some internal duplications of code, refactored many tests. 
+
+This has been a big release. Practically 100% of the released features are thanks to active users
+feedback and contributions. Thanks very much again to all of them!
+
+
+
 0.10.0 (29-June-2016)
 -------------------
 - **conan new** command, that creates conan package conanfile.py templates, with a ``test_package`` package test (-t option),
