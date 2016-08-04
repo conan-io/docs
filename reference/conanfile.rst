@@ -673,8 +673,8 @@ If one of the packages you are creating hits the limit of 260 chars path length 
        ...
        short_paths = True
 
-This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root, something like
- `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
+This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root, 
+something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
 
 
 Relative imports
