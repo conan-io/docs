@@ -409,6 +409,9 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             installer.install(pack_name) # Install the package 
 
 
+The use of ``sudo`` in the internals of the ``install()`` method is controlled by the CONAN_SYSREQUIRES_SUDO
+environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
+
 Conan will keep track of the execution of this method, so that it is not invoked again and again
 at every conan command. The execution is done per package, since some packages of the same
 library might have different system dependencies. If you are sure that all your binary packages
