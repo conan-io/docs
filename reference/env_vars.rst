@@ -25,4 +25,10 @@ Allows defining a custom conan cache directory. Can be useful for concurrent bui
 users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
 
 Read more about it in :ref:`custom_cache`
-    
+
+
+CONAN_SYSREQUIRES_SUDO
+-----------------------
+This environment variable controls whether ``sudo`` is used for installing apt, yum, etc. system
+packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
+Set it to "False" or "0" to don't use sudo.
