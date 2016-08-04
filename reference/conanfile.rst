@@ -659,6 +659,24 @@ That will produce a **conaninfo.txt** file like:
    of packages when upstream 0.Y.Z dependencies change, even for patches. Change it in your
    conan_info() method if you need to.
 
+
+Windows path length limit
+-------------------------
+If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
+``short_paths=True`` in your conanfile.py:
+
+..  code-block:: python
+
+   from conans import ConanFile
+
+   class ConanFileTest(ConanFile):
+       ...
+       short_paths = True
+
+This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root, something like
+ `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
+
+
 Relative imports
 ----------------
 If you want to reuse common functionality between different packages, it can be written in their
