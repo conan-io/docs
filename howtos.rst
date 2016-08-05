@@ -12,5 +12,6 @@ This section shows common solutions and different approaches to typical problems
    howtos/proxys
    howtos/copy_packages
    howtos/create_installer_packages
+   howtos/link_apple_framework
  
 
