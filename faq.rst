@@ -27,10 +27,11 @@ Yes, conan is very general, and does not restrict any configuration at all.
 It might happen sometimes, when you specifcy a setting not present in the defaults
 that you receive a message like this:
 
-```bash
-ERROR: 'ppc64le' is not a valid 'settings.arch' value.
-Possible values are ['armv6', 'armv7', 'armv7hf', 'armv8', 'x86', 'x86_64']
-```
+.. code-block:: bash
+
+   ERROR: 'ppc64le' is not a valid 'settings.arch' value.
+   Possible values are ['armv6', 'armv7', 'armv7hf', 'armv8', 'x86', 'x86_64']
+
 
 This doesn't mean that such architecture is not supported by conan, it is just that it is not present in the actual
 defaults settings. You can find in your user home folder ``~/.conan/settings.yml`` a settings file that you
