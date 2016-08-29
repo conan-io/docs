@@ -18,26 +18,38 @@ or for sharing them.
    
    The rest of this doc will assume you are uploading the packages to your local server.
          
-         
-First, you can check both your local and remote (your local conan server) packages:
+
+First, check if the remote you want to upload to is already in your current remotes:
 
 .. code-block:: bash
 
-   $ conan search -v
+   $ conan remote list
+
+You can add any remote easily. For a remote running in your machine, you could run:
+
+.. code-block:: bash
+
+    $ conan remote add local http://localhost:9300
+
+         
+You can search any remote in the same way you search your computer. Actually many conan
+commands can specify a specific remote.
+
+.. code-block:: bash
+
    $ conan search -v -r=local
    
-The latter checks your current ``localhost`` server, but you could also query other servers
-like the ``conan.io`` one.
 
-
-Now, upload the package recipe and all the packages to your local server:
+Now, upload the package recipe and all the packages to your remote. In this example we are using
+our ``local`` remote, but you could use any other, including ``conan.io``, which often
+is the default one:
 
 .. code-block:: bash
 
    $ conan upload Hello/0.1@demo/testing --all -r=local
    
 
-You might be prompted for a username and password. The local conan server has a demo/demo account
+You might be prompted for a username and password. The default conan server remote has a demo/demo account
 we can use for testing.
    
 The ``--all`` option will upload the package recipe plus all the binary packages. Now try again to 
