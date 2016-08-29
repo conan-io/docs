@@ -24,7 +24,7 @@ Please check the alternatives explained in :ref:`generator packages <dyn_generat
 Is my compiler, version, architecture, or setting supported?
 ---------------------------------------------------------------
 Yes, conan is very general, and does not restrict any configuration at all.
-It might happen sometimes, when you specifcy a setting not present in the defaults
+It might happen sometimes, when you specify a setting not present in the defaults
 that you receive a message like this:
 
 .. code-block:: bash
