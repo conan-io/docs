@@ -56,7 +56,7 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	  - cmd: encryption_test.exe
 	  
 
-Travis will install the **conan** tool and will execute the **conan install** command.
+Appveyor will install the **conan** tool and will execute the **conan install** command.
 Then, the **build_script** section creates the build folder, compiles the project with **cmake** and the section **test_script** runs the **tests**.
 
 Creating and testing conan package binaries
