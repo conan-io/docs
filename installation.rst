@@ -48,13 +48,34 @@ From 0.9 conan has "experimental/testing" Python3 support too.
       Try with virtualenvs, or install with other user ``$ pip install --user conan``
 
 Install from brew (OSX)
-----------------------------------
+-----------------------
 There is a brew recipe, so in OSX, you can install conan with 
 
 ::
 
     $ brew update
     $ brew install conan
+    
+    
+Install from AUR (Arch Linux)
+-----------------------------
+You can find the package `here <https://aur.archlinux.org/packages/conan/>`_.
+The easiest way is using **pacaur** tool:
+
+::
+
+    $ pacaur -S conan
+
+
+Or you can also use ``makepkg`` and install it following the `AUR docs: installing packages <https://wiki.archlinux.org/index.php/Arch_User_Repository>`_.   
+
+Just remember to install two conan dependencies first. They are not in the official 
+repositories but there are in **AUR** repository too:
+
+- python-patch 
+- python-fasteners
+
+
 
 Initial configuration
 ---------------------
