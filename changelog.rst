@@ -6,6 +6,19 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.11.1 (31-August-2016)
+-----------------------
+- New error reporting for failures in conanfiles, including line number and offending line, much
+  easier for package creators
+- Removed message requesting to create an account in ``conan.io`` for other remotes
+- Removed localhost:9300 remote that was added by default mostly for demo purposes. Clarified in docs.
+- Fixed usernames case-sensitivity in conan_server, due to ConfigParser it was forcing lowercase
+- Handling unicode characters in remote responses, fixed crash
+- Added new compilers gcc 6.2, clang 8.0 to the default ``settings.yml``
+- Bumped cryptography, boto and other conan dependencies, mostly for ArchLinux compatibility and
+  new OSX security changes
+
+
 0.11.0 (3-August-2016)
 -----------------------
 - New solution for the path length limit in Windows, more robust and complete. Package conanfile.py

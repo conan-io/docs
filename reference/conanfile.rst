@@ -59,9 +59,19 @@ define who is the creator/maintainer of the package
 Retrieving source code
 ----------------------
 
-There are 2 ways of getting source code to build a package. The first one is to use the ``export``
+There are 2 ways of getting source code to build a package. The first one is to use the ``exports``
 field, where you specify which sources are required, and they will be exported together with
 the **conanfile.py**, and stored in the conan stores, both local and remote.
+
+The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+For example, if we have the source code inside "include" and "src" folders, and there are other folders
+that are not necessary for the package recipe, we could do:
+
+.. code-block:: python
+
+   exports = "include*", "src*"
+
+
 
 The other way is to let conan retrieve the source code from any other external origin, github, or
 just a regular download. This can be done in the ``source()`` method.
