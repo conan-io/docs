@@ -1,10 +1,10 @@
 .. _qbs:
 
 
-Qt Build Suite (qbs)
+Qbs
 _____________________
 
-As of version 0.7 of conan, a Qt Build Suite (qbs) generator is available
+As of version 0.7 of conan, a Qbs generator is available
 that can be configured as follows:
 
 **conanfile.txt**
