@@ -111,7 +111,7 @@ use the **--build=never** option:
    ...
    Hello world!
    
-The ``conan test`` command receives the same command line parameters as ``conan install`` so you
+The ``conan test_package`` command receives the same command line parameters as ``conan install`` so you
 can pass to it the same settings, options, and command line switches.
 
 With some python (or just pure shell or bash) scripting, we could easily automate the whole
@@ -134,9 +134,9 @@ For example you could put the following script in the package root folder. Name 
       params = " ".join(sys.argv[1:])
    
       if platform.system() == "Windows":
-          system('conan test -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
-          system('conan test -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
-          system('conan test -s compiler="gcc" -s compiler.version=4.8 %s' % params)
+          system('conan test_package -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
+          system('conan test_package -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
+          system('conan test_package -s compiler="gcc" -s compiler.version=4.8 %s' % params)
       else:
           pass
 
