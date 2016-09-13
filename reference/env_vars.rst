@@ -32,3 +32,15 @@ CONAN_SYSREQUIRES_SUDO
 This environment variable controls whether ``sudo`` is used for installing apt, yum, etc. system
 packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
 Set it to "False" or "0" to don't use sudo.
+
+
+CONAN_COLOR_DISPLAY
+-----------------------
+Useful to remove colored output, set it to ``CONAN_COLOR_DISPLAY=0`` to remove console output colors
+
+
+CONAN_COLOR_DARK
+-----------------------
+Set it to ``CONAN_COLOR_DARK=1`` to use dark colors in the terminal output, instead of light ones.
+Useful for terminal or consoles with light colors as white, so text is rendered in Blue, Black, Magenta,
+instead of Yellow, Cyan, White.
