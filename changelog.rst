@@ -6,6 +6,29 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.12.0 (13-September-2016)
+-----------------------
+- Major changes to **search** api and commands. Decoupled the search of package recipes, from the
+  search of package binaries.
+- Fixed bug that didn't allow to ``export`` or ``upload`` packages with settings restrictions if the
+  restrictions didn't match the host settings
+- Allowing disabling color output with ``CONAN_COLOR_DISPLAY=0`` environment variable, or to configure
+  color schema for light console backgrounds with ``CONAN_COLOR_DARK=1`` environment variable
+- Imports can use absolute paths, and files copied from local conan cache to those paths will not
+  be removed when ``conan install``. Can be used as a way to install machine-wise things (outside
+  conan local cache)
+- More robust handling of failing transfers (network disconnect), and inconsistent status after such
+- Large internal refactor for storage managers. Improved implementations and decoupling between
+  server and client
+- Fixed slow ``conan remove`` for caches with many packages due to slow deletion of empty folders
+- Always allowing explicit options scopes, ``- o Package:option=value`` as well as the implicit
+  ``-o option=value`` for current ``Package``, for consistency
+- Fixed some bugs in client-server auth process.
+- Allow to extract ``.tar`` files in ``tools.unzip()``
+- Some helpers for ``conan_info()``, as ``self.info.requires.clear()`` and removal of settings and options
+
+
 0.11.1 (31-August-2016)
 -----------------------
 - New error reporting for failures in conanfiles, including line number and offending line, much
