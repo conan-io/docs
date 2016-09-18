@@ -41,12 +41,10 @@ Create a ``.travis.yml`` file and paste this code in it:
 	- sudo apt-get install -qq g++-4.9 
 	- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
 	
-	# Download conan
-	- wget http://downloads.conan.io/latest_debian -O conan.deb
-	- sudo dpkg -i conan.deb
-	- rm conan.deb
+	# Install conan
+	- pip install conan
 	
-	# Automatic detection of your arch, compiler, etc
+	# Automatic detection of your arch, compiler, etc. Download dependencies
 	- conan install
 	  
 	script:
