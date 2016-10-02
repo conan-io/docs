@@ -6,6 +6,53 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.13.0 (03-October-2016)
+---------------------------
+- Streaming from/to disk for all uploads/downloads. Previously, this was done for memory, but conan
+  started to have issues for huge packages (>many hundreds Mbs), that sometimes could be alleviated
+  using Python 64 bits distros. This issues should be alleviated now
+- New security system that allows capturing and checking the package recipes and binaries manifests
+  into user folders (project or any other folder). That ensures that packages cannot be replaced,
+  hacked, forged, changed or wrongly edited, either locally or in any remote server, without notice.
+- Avoiding re-compress the tgz for packages after uploads if it didn't change.
+- New command ``conan source`` that executes the ``source()`` method of a given conanfile. Very
+  useful for CI, if desired to run in parallel the construction of different binaries.
+- New propagation of ``cpp_info``, so it now allows for capturing binary package libraries with new
+  ``collect_libs()`` helper, and access to created binaries to compute the ``package_info()`` in general.
+- Command ``test_package`` now allows the ``--update`` option, to automatically update dependencies.
+- Added new architectures for ``ppc64le`` and detection for ``AArch64``
+- New methods for defining requires effect over binary package ID (hash) in ``conan_info()``
+- Many bugs fixes: error in ``tools.download`` with python 3, restore correct prompt in virtualenvs,
+  bug if removing an option in ``config_options()``, setup.py bug...
+  
+This release has contributions from @tru, @raulbocanegra, @tivek, @mathieu, and the feedback of many
+other conan users, thanks very much to all of them!
+
+
+
+0.12.0 (13-September-2016)
+-----------------------
+- Major changes to **search** api and commands. Decoupled the search of package recipes, from the
+  search of package binaries.
+- Fixed bug that didn't allow to ``export`` or ``upload`` packages with settings restrictions if the
+  restrictions didn't match the host settings
+- Allowing disabling color output with ``CONAN_COLOR_DISPLAY=0`` environment variable, or to configure
+  color schema for light console backgrounds with ``CONAN_COLOR_DARK=1`` environment variable
+- Imports can use absolute paths, and files copied from local conan cache to those paths will not
+  be removed when ``conan install``. Can be used as a way to install machine-wise things (outside
+  conan local cache)
+- More robust handling of failing transfers (network disconnect), and inconsistent status after such
+- Large internal refactor for storage managers. Improved implementations and decoupling between
+  server and client
+- Fixed slow ``conan remove`` for caches with many packages due to slow deletion of empty folders
+- Always allowing explicit options scopes, ``- o Package:option=value`` as well as the implicit
+  ``-o option=value`` for current ``Package``, for consistency
+- Fixed some bugs in client-server auth process.
+- Allow to extract ``.tar`` files in ``tools.unzip()``
+- Some helpers for ``conan_info()``, as ``self.info.requires.clear()`` and removal of settings and options
+
+
 0.11.1 (31-August-2016)
 -----------------------
 - New error reporting for failures in conanfiles, including line number and offending line, much
