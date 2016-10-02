@@ -43,6 +43,7 @@ conan install
 	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--update, -u]
 
 
+
 Install a package recipe and a remote package that matches with the specified settings.
 It can be done specifying a ``package_recipe_ref`` (Hello/0.1@demo/testing) or installing the requirements defined in a ``conanfile.py`` or ``conanfile.txt``.
 
@@ -81,7 +82,6 @@ Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and t
 .. code-block:: bash
 
    $ conan install opencv/2.4.10@lasote/testing --update
-
 
 
 build options

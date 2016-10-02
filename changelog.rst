@@ -30,7 +30,6 @@ This release has contributions from @tru, @raulbocanegra, @tivek, @mathieu, and 
 other conan users, thanks very much to all of them!
 
 
-
 0.12.0 (13-September-2016)
 -----------------------
 - Major changes to **search** api and commands. Decoupled the search of package recipes, from the
