@@ -169,7 +169,7 @@ keep working even without network connection. To search packages in the local ca
 
 .. code-block:: bash
 
-    $ conan search -v
+    $ conan search 
 
 Please check the reference for more information on how to search in remotes, or how to remove
 or clean packages from the local cache, or how to define custom cache directory per user or per project.

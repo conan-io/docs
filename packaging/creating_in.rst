@@ -118,7 +118,7 @@ has tools to automate this process too, but lets keep it this way by now:
 
 .. code-block:: bash
 
-   $ conan search -v
+   $ conan search
    
 
 .. note::
@@ -174,11 +174,11 @@ have to use the option to build from sources. Lets try again:
    
 Check :ref:`commands` for full details about the **install --build** options.
 
-Now, try a ``conan search -v`` again in order to ensure that a package binary has just been created:
+Now, try a ``conan search <reference>`` again in order to ensure that a package binary has just been created:
 
 .. code-block:: bash
 
-   $ conan search -v
+   $ conan search Hello/0.1@demo/testing
    
 So a new package has been built. Lets build and run our project, to check that it is successfully
 using and linking to our ``hello`` package

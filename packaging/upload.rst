@@ -37,7 +37,7 @@ commands can specify a specific remote.
 
 .. code-block:: bash
 
-   $ conan search -v -r=local
+   $ conan search -r=local
    
 
 Now, upload the package recipe and all the packages to your remote. In this example we are using
@@ -58,7 +58,7 @@ if it is running on your local machine, as it could be run on another server in 
 
 .. code-block:: bash
 
-   $ conan search -v -r=local
+   $ conan search Hello/0.1@demo/testing -r=local
    
 .. note::
 
@@ -72,7 +72,7 @@ just uploaded them, they are identical to the local ones.
 .. code-block:: bash
 
    $ conan remove Hello*
-   $ conan search -v
+   $ conan search
 
 Since we have our test setup from the previous section, we can just use it for our test. Go
 to your project folder (``hello-use`` or ``greet``) and run the tests again, now saying that we don't want to 
@@ -88,7 +88,7 @@ downloaded from your local server. You can check their existence on your local c
 
 .. code-block:: bash
 
-   $ conan search -v
+   $ conan search
 
 
 .. note::

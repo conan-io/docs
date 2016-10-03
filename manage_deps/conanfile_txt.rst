@@ -142,9 +142,9 @@ Options are intended for package specific configurations.
 
 .. note:: 
    
-   You can search and see the available options for a package with "conan search -x" command: 
+   You can search and see the available options for a package with "conan search <reference>" command: 
       
-      $ conan search Poco/1.7.3@lasote/stable -x
+      $ conan search Poco/1.7.3@lasote/stable
       
 
 We are going to adjust the option **"shared"** to use the shared library from POCO.

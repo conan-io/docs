@@ -74,7 +74,10 @@ is to ``export`` it to our conan local package cache:
 .. code-block:: bash
 
    $ conan export demo/testing
-   $ conan search -v
+   $ conan search
+   $ conan search Greet/0.1@demo/testing
+   
+It will show no binaries, as we have just exported the recipe, but not binaries have been created yet.
 
 
 Using the package in another project
@@ -92,6 +95,12 @@ the **conanfile.txt** to use the new **Greet** package:
     [generators]
     cmake
 
+Search again for binaries:
+
+.. code-block:: bash
+
+   $ conan search Greet/0.1@demo/testing
+   
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
