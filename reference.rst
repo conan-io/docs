@@ -14,6 +14,7 @@ Contents:
    reference/conanfile
    reference/config_files
    reference/env_vars
+   reference/tools
 
 
 

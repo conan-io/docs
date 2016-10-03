@@ -380,6 +380,8 @@ defining the special cases, as is shown below:
 
    def requirements(self):
         self.requires("zlib/1.2@drl/testing", private=True, override=False)
+        
+.. _system_requirements:
 
 System requirements
 -------------------
