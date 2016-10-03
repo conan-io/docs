@@ -15,6 +15,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - New security system that allows capturing and checking the package recipes and binaries manifests
   into user folders (project or any other folder). That ensures that packages cannot be replaced,
   hacked, forged, changed or wrongly edited, either locally or in any remote server, without notice.
+- Possible to handle and reuse python code in recipes. Actually, conan can be used as a package
+  manager for python, by adding the package path to ``env_info.PYTHONPATH``. Useful if you want to
+  reuse common python code between different package recipes.
 - Avoiding re-compress the tgz for packages after uploads if it didn't change.
 - New command ``conan source`` that executes the ``source()`` method of a given conanfile. Very
   useful for CI, if desired to run in parallel the construction of different binaries.
