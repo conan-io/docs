@@ -146,11 +146,11 @@ This is a pure python script, not related to conan, and should be run as such:
 
    $ python build.py
 
-You can check all your created packages with:
+You can check all your created package binaries with:
 
 .. code-block:: bash
 
-   $ conan search -v
+   $ conan search MyPackage/1.0@myuser/mychannel
  
 
 

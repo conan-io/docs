@@ -146,18 +146,37 @@ you can use the ``-ne, --no-export`` parameter.
 conan search
 ------------
 
+Conan search can search both for package recipes and package binaries. If you provide a pattern,
+then it will search for existing package recipes matching that pattern:
+
 .. code-block:: bash
 
 	$ conan search [-r REMOTE] [pattern]
 
-Get complete information about the specified package recipe reference pattern. You can use it on remote or local storage.
+Get complete information about the specified package recipe reference pattern.
+You can use it on remote or local storage, if nothing is specified, the local conan cache is
+assumed:
 
-
-**Example**:
 
 .. code-block:: bash
 
 	$ conan search OpenCV/*
+	$ conan search OpenCV/* -r=conan.io
+
+
+If you use instead the full package recipe reference, you can explore the binaries existing for
+that recipe, also in a remote or in the local conan cache:
+
+.. code-block:: bash
+
+    $ conan search Boost/1.60.0@lasote/stable
+
+A query syntax is allowed to look for specific binaries:
+
+.. code-block:: bash
+
+    $ conan search Boost/1.60.0@lasote/stable -q arch=x86_64
+    $ conan search Boost/1.60.0@lasote/stable -q "arch=x86_64 AND build_type=Release"
 
 
 conan info
