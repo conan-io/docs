@@ -24,14 +24,15 @@ First, check if the remote you want to upload to is already in your current remo
 .. code-block:: bash
 
    $ conan remote list
-   
+
+
 You can add any remote easily. For a remote running in your machine, you could run:
 
 .. code-block:: bash
 
     $ conan remote add local http://localhost:9300
-    
-         
+
+
 You can search any remote in the same way you search your computer. Actually many conan
 commands can specify a specific remote.
 

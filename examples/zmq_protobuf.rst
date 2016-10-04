@@ -6,7 +6,7 @@ applications. It is efficient, implements multiple communication paradigms, with
 adoption in production systems at scale.
 
 Google Protocol Buffers (Protobuf) is a serialization framework, well known for being the one
-that Google uses in their whole infrastructure. 
+that Google uses in their whole infrastructure.
 
 Here we will build a small client-server application with ZMQ (actually also using the ZMQCPP C++
 binding) and Protobuf:

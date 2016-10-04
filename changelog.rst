@@ -7,8 +7,44 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+0.13.0 (03-October-2016)
+---------------------------
+
+**IMPORTANT UPGRADE ISSUE:** There was a small error in the computation of binary packages IDs, that
+has been addressed by conan 0.13. It affects to third level (and higher) package binaries, i.e. A
+and B in A->B->C->D, which binaries **must** be regenerated for the new hashes. If you don't plan
+to provide support for older conan releases (<=0.12), which would be reasonable, you should remove
+all binaries first (``conan remove -p``, works both locally and remotely), then re-build your binaries.
+
+Features:
+
+- Streaming from/to disk for all uploads/downloads. Previously, this was done for memory, but conan
+  started to have issues for huge packages (>many hundreds Mbs), that sometimes could be alleviated
+  using Python 64 bits distros. This issues should be alleviated now
+- New security system that allows capturing and checking the package recipes and binaries manifests
+  into user folders (project or any other folder). That ensures that packages cannot be replaced,
+  hacked, forged, changed or wrongly edited, either locally or in any remote server, without notice.
+- Possible to handle and reuse python code in recipes. Actually, conan can be used as a package
+  manager for python, by adding the package path to ``env_info.PYTHONPATH``. Useful if you want to
+  reuse common python code between different package recipes.
+- Avoiding re-compress the tgz for packages after uploads if it didn't change.
+- New command ``conan source`` that executes the ``source()`` method of a given conanfile. Very
+  useful for CI, if desired to run in parallel the construction of different binaries.
+- New propagation of ``cpp_info``, so it now allows for capturing binary package libraries with new
+  ``collect_libs()`` helper, and access to created binaries to compute the ``package_info()`` in general.
+- Command ``test_package`` now allows the ``--update`` option, to automatically update dependencies.
+- Added new architectures for ``ppc64le`` and detection for ``AArch64``
+- New methods for defining requires effect over binary package ID (hash) in ``conan_info()``
+- Many bugs fixes: error in ``tools.download`` with python 3, restore correct prompt in virtualenvs,
+  bug if removing an option in ``config_options()``, setup.py bug...
+  
+This release has contributions from @tru, @raulbocanegra, @tivek, @mathieu, and the feedback of many
+other conan users, thanks very much to all of them!
+
+
+
 0.12.0 (13-September-2016)
------------------------
+-----------------------------
 - Major changes to **search** api and commands. Decoupled the search of package recipes, from the
   search of package binaries.
 - Fixed bug that didn't allow to ``export`` or ``upload`` packages with settings restrictions if the
@@ -93,7 +129,7 @@ feedback and contributions. Thanks very much again to all of them!
 
 
 0.10.0 (29-June-2016)
--------------------
+-------------------------
 - **conan new** command, that creates conan package conanfile.py templates, with a ``test_package`` package test (-t option),
   also for header only packages (-i option)
 - Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).

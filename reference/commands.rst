@@ -40,7 +40,8 @@ conan install
 
 .. code-block:: bash
 
-	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--update, -u] 
+	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--update, -u]
+
 
 
 Install a package recipe and a remote package that matches with the specified settings.
@@ -81,9 +82,8 @@ Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and t
 .. code-block:: bash
 
    $ conan install opencv/2.4.10@lasote/testing --update
-   
 
-   
+
 build options
 +++++++++++++
 
@@ -185,13 +185,13 @@ conan info
 .. code-block:: bash
 
    $ conan info [package or path] [--update, -u]
-   
+
 Get complete information about the specified package recipe pattern or path. 
 You can use it for your current project (just point to the path if you want), or for any
 existing package in your local cache.
 
-The ``--update`` option will check if there is any new recipe/package available in remotes. Use ``conan install -u`` 
-to update them. 
+The ``--update`` option will check if there is any new recipe/package available in remotes. Use ``conan install -u``
+to update them.
 
 
 **Examples**:
