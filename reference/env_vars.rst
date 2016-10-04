@@ -26,6 +26,12 @@ users in CI, to retrieve and store per-project specific dependencies (useful for
 
 Read more about it in :ref:`custom_cache`
 
+CONAN_LOGGING_LEVEL
+----------------------
+By default this environment varible is = 50, which means only logging critical events. If you want
+to show more detailed logging information, set this variable to lower values, as 10 to show
+debug information
+
 
 CONAN_SYSREQUIRES_SUDO
 -----------------------
