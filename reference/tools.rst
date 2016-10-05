@@ -109,7 +109,7 @@ conan dependencies without forking or modifying the original project:
     def source(self):
         # get the sources from somewhere
        tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)", '''PROJECT(MyHello)
-    include(${{CMAKE_BINARY_DIR}}/conanbuildinfo.cmake)
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()''')
 
 check_with_algorithm_sum()
