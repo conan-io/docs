@@ -6,6 +6,26 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.13.3 (13-October-2016)
+---------------------------
+
+This minor solves some problems with ``ConfigureEnvironment``, mainly for Windows, but also fixes
+other things:
+
+- Fixed concatenation problems in Windows for several environment variables. Fixed problems with
+  path with spaces
+- A batch file is created in Windows to be called, as ``if defined`` structures doesn't seem to
+  work in the command line.
+- The ``vcvars_command`` from ``tools`` now checks the Visual Studio environment variable, if it is
+  already set, it will check it with the current project settings, throwing an error if not matching,
+  returning an empty command if matches.
+- Added a ``compile_flags`` property to ``ConfigureEnvironment``, to be passed in the command line
+  to the compiler, but not as environment variables
+- Added ``defines`` to environment for nix systems, it was not being handled before
+- Added new tests, compiling simple projects and diamond dependencies with cmake, cl (msvc), gcc (gcc in linux, mingw in win)
+  and clang (OSX), for a better coverage of the ``ConfigureEnvironment`` functionality.
+- Fixed wrong ``CPP_INCLUDE_PATH``, it is now ``CPLUS_INCLUDE_PATH``
+
 
 0.13.0 (03-October-2016)
 ---------------------------
