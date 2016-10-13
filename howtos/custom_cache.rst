@@ -66,13 +66,13 @@ You can now:
 .. code-block:: bash
 
    $ export CONAN_USER_HOME=/tmp/conan
-   $ conan search  //using that /tmp/conan environment
-   $ conan user  //using that /tmp/conan environment
+   $ conan search  # using that /tmp/conan environment
+   $ conan user  # using that /tmp/conan environment
    
    $ export CONAN_USER_HOME=/tmp/conan2
-   $ conan search  //different packages
-   $ conan user  //can be different users
+   $ conan search  # different packages
+   $ conan user  # can be different users
    
-   $ export CONAN_USER_HOME=/tmp/conan  // just go back to use the other environment
+   $ export CONAN_USER_HOME=/tmp/conan  # just go back to use the other environment
   
 
