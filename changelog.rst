@@ -6,7 +6,6 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-
 0.13.0 (03-October-2016)
 ---------------------------
 
