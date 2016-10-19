@@ -185,11 +185,11 @@ It works prepending the *command_line* to your **configure and make** commands:
    
       def build(self):
          env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
-         self.run("%s ./configure" % env.command_line)
-         self.run("%s make" % env.command_line)
+         self.run("%s ./configure" % env.command_line_env)
+         self.run("%s make" % env.command_line_env)
          
          # nmake also works for Windows:
-         # command = '%s && nmake /f Makefile.msvc"' % env.command_line
+         # command = '%s && nmake /f Makefile.msvc"' % env.command_line_env
          # self.run(command)
 
 This helper is specially useful when **configure** script hasn't enough parameters to define where the requirements are located.
