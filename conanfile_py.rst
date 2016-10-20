@@ -607,6 +607,78 @@ At this point you almost have your library prepared for being a conan package. I
 we will create our own packages using ``conanfile.py``.
 
 
+
+Profiles
+........
+
+A profile is a text file that contains a predefined set of ``settings``, ``environment variables``` and ``scopes``.
+A profile text file has to be located in ``.conan/profiles`` directory and has this structure:s
+
+.. code-block:: txt
+
+   [settings]
+   setting=value
+   
+   [env]
+   env_var=value
+   
+   [scopes]
+   scope=value
+
+
+Profiles are useful for change global settings without specifying multiple "-s" parameters in ``conan install`` or ``conan test`` command.
+
+For example, if you are working with Linux and you usually work with ``gcc`` compiler, but you have installed ``clang`` 
+compiler and want to install some package for ``clang`` compiler, you could do:
+
+- Create a ``.conan/profiles/clang`` file:
+
+.. code-block:: txt
+
+   [settings]
+   compiler=clang
+   compiler.version=3.5
+   compiler.libcxx=libstdc++11
+   
+   [env]
+   CC=/usr/bin/clang
+   CXX=/usr/bin/clang++
+
+   
+- Execute conan install command passing the ``--profile`` or ``-pr`` parameter:
+
+
+.. code-block:: bash
+
+   conan install --profile clang
+
+   
+
+Without profiles you would have needed to set the CC and CXX variables in the environment to point to your clang compiler and use ``-s`` parameters to specify the settings:
+
+
+.. code-block:: bash
+   
+   export CC=/usr/bin/clang
+   export CXX=/usr/bin/clang++
+   conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
+
+
+A profile can also be used in ``conan test_package`` command:
+
+.. code-block:: bash
+
+   $ conan test_package --profile clang
+
+
+Profiles can also be used with ``conan build`` command, but (by the moment) limited to the environment variables, settings and profiles will be ignored and taken from the **conaninfo.txt**:
+
+.. code-block:: bash
+
+   $ conan build --profile clang
+
+
+
 Build policies
 ..............
 
