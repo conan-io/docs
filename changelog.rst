@@ -6,6 +6,38 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.14.0 (20-October-2016)
+---------------------------
+
+- Feature: Added profiles, as user predefined settings and environment variables (as CC and CXX
+  for compiler paths). They are stored in files in the conan cache, so they can be easily edited,
+  added, and shared. Use them with ``$ conan install --profile=name``
+- Feature: ``short_paths`` feature for Windows now also handle long paths for the final package,
+  in case that a user library has a very long final name, with nested subfolders.
+- Feature: Added ``tools.cpu_count()`` as a helper to retrieve the number of cores, so it can be
+  used in concurrent builds
+- Feature: Detects cycles in the dependency graph, and raise error instead of exhausting recursion
+  limits
+- Feature: Conan learned the ``--werror`` option that will raise error and stop installation under
+  some cases treated as warnings otherwise: Duplicated dependencies, or dependencies conflicts
+- Feature: New ``env`` generator that generates a text file with the environment variables defined
+  by dependencies, so it can be stored. Such file is parsed by ``$ conan build`` to be able to use
+  such environment variables for ``self.deps_env_info`` too, in the same way it uses the ``txt``
+  generator to load variables for ``self.deps_cpp_info``.
+- Fix: Do not print progress bars when output is a file
+- Fix: Improved the local conan search, using options too in the query ``conan search -q option=value``
+- Fix: Boto dependency updated to 2.43.0 (necessary for ArchLinux)
+- Fix: Simplified the ``conan package`` command, removing unused and confusing options, and more
+  informative messages about errors and utility of this command.
+- Fix: More fixes and improvements on ``ConfigureEnvironment``, mainly for Windows
+- Fix: Conan now does not generate a ``conanbuildinfo.txt`` file when doing ``$ conan install <PkgRef>``
+- Bug fix: Files of a package recipe are "touched" to update their timestamps to current time when
+  retrieved, otherwise some build systems as Ninja can have problems with them.
+- Bug fix: ``qmake`` generator now uses quotes to handle paths with spaces
+- Bug fix: Fixed ``OSInfo`` to return the short distro name instead of the long one.
+- Bug fix: fixed transitivy of ```private`` dependencies
+
+
 0.13.3 (13-October-2016)
 ---------------------------
 
