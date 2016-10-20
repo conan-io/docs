@@ -6,6 +6,15 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.14.1 (20-October-2016)
+------------------------
+
+- Fixed bug with `short_paths` feature in windows.
+- Improved error messages for non-valid `profile` test files.
+- Remove downloaded tgz package files from remotes after decompress them. 
+- Fixes bug with `install --all` and short_paths
+
+
 0.14.0 (20-October-2016)
 ---------------------------
 

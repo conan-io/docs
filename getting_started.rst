@@ -20,7 +20,7 @@ First, let's create a folder for our project:
    
 .. note::
 
-    you have the code also in a github repository, instead of creating the folder, you can
+    if you have the code in a github repository, instead of creating the folder, you can
     just clone the project
     
     .. code-block:: bash
