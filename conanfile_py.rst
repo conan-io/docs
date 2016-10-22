@@ -516,7 +516,7 @@ Then we could use ``conan install --scope build_test=False/True`` to activate or
 _____________
 
 
-There is an special scope variable called ``dev`` that is automatically set to True if you are using **conanfile.py** in your project.
+There is a special scope variable called ``dev`` that is automatically set to True if you are using **conanfile.py** in your project.
 
 If we export the recipe and install it from a local or remote repository, the variable ``dev`` will be False.
 
