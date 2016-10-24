@@ -40,7 +40,7 @@ conan install
 
 .. code-block:: bash
 
-	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--update, -u]
+	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--profile PROFILE][--update, -u]
 
 
 
