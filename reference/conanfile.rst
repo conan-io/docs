@@ -135,7 +135,7 @@ Configuration
 -------------
 
 There are several things that can potentially affect a package being created, i.e. the final
-package will be different (a different binay, for example), if some input is different.
+package will be different (a different binary, for example), if some input is different.
 
 Settings
 ++++++++
