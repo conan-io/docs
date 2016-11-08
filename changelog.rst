@@ -6,6 +6,35 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.15.0 (08-November-2016)
+---------------------------
+
+- Feature: New ``--build=outdated`` functionality, that allows to build the binary packages for
+  those dependencies whose recipe has been changed, or if the binary is not existing. Each
+  package binary stores a hash of the recipe to know if they have to be regenerated (are outdated).
+  This information is also provided in the ``conan search <ref>`` command. Useful for package
+  creators and CI.
+- Feature: Extended the ``short_paths`` feature for Windows path limit to the ``package`` folder, so package
+  with very long paths, typically in headers in nested folder hierarchies are supported.
+- Feature: New ``tool.build_sln_command()`` helper to ``build()`` Microsoft Visual Studio solution (.sln)
+  projects
+- Feature: Extended the ``source`` and ``package`` command, so together with ``build`` they can be fully
+  executed in a user folder, as a convenience for package creation and testing.
+- Feature: Extending the scope of ``tools.pythonpath`` to work in local commands too
+- Improved the parsing of ``profiles`` and better error messages
+- Not adding ``-s`` compiler flag for clang, as it doesn't use it.
+- Automatic generation of ``conanenv.txt`` in local cache, warnings if using local commands and no
+  ``conanbuildinfo.txt`` and no ``conanenv.txt`` are present to cache the information form install
+- Fix: Fixed bug when using empty initial requirements (``requires = ""``)
+- Fix: Added ``glob`` hidden import to pyinstaller
+- Fix: Fixed minor bugs with ``short_paths`` as local search not listing packages
+- Fix: Fixed problem with virtual envs in Windows with paths separator (using / instead of \)
+- Fix: Fixed parsing of conanbuildinfo.txt, so the root folder for each dependency is available in local
+  commands too
+- Fix: Fixed bug in ``test_package`` with the test project using the ``requirements()`` method.
+
+
+
 0.14.1 (20-October-2016)
 ------------------------
 
