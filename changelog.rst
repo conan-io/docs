@@ -9,6 +9,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.15.0 (08-November-2016)
 ---------------------------
 
+**Upgrade**: If you were using the ``short_paths`` feature in Windows for packages with long paths, please
+reset your local cache. You could manually remove packages or just run ``conan remove "*"``
+
 - Feature: New ``--build=outdated`` functionality, that allows to build the binary packages for
   those dependencies whose recipe has been changed, or if the binary is not existing. Each
   package binary stores a hash of the recipe to know if they have to be regenerated (are outdated).
