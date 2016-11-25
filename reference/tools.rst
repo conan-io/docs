@@ -2,14 +2,14 @@
 
 
 Tools
-========
+=====
 
 Under the tools module there are several functions and utilities that can be used in conan package
 recipes
 
 
 vcvars_command()
------------------
+----------------
 
 This function returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
@@ -36,7 +36,7 @@ Visual Studio version.
 
     
 unzip()
-----------
+-------
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -54,7 +54,7 @@ and decompress them into the given destination folder (the current one by defaul
 
     
 untargz()
-----------
+---------
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
 unless the file had a different extension.
@@ -68,7 +68,7 @@ unless the file had a different extension.
     tools.untargz("myfile.tar.gz", "myfolder")
 
 get()
--------
+-----
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. Its implementation
 is very straightforward:
 
@@ -96,7 +96,7 @@ list of known verifiers for https downloads, but this can be optionally disabled
     
     
 replace_in_file()
--------------------
+-----------------
 
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
@@ -113,7 +113,7 @@ conan dependencies without forking or modifying the original project:
     conan_basic_setup()''')
 
 check_with_algorithm_sum()
-----------------------------
+--------------------------
 
 Useful to check that some downloaded file or resource has a predefined hash, so integrity and
 security are guaranteed. Something that could be typically done in ``source()`` method after
@@ -143,7 +143,7 @@ via ``hashlib.new(algorithm_name)``. The previous is equivalent to:
 
 
 patch()
----------
+-------
 
 Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff)
 format. To be used mainly in the ``source()`` method.
@@ -158,10 +158,50 @@ format. To be used mainly in the ``source()`` method.
     tools.patch(patch_string=patch_content)
     # to apply in subfolder
     tools.patch(base_path=mysubfolder, patch_string=patch_content)
+
+environment_append()
+--------------------
+
+This is a context manager that allows to temporary use environment variables for a specific piece of code
+in your conanfile:
+
+
+.. code-block:: python
+
+    from conans import tools
     
+    def build(self):
+        with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx"}):
+            do_something()
+
+When the context manager block ends, the environment variables will be unset.
+
+
+build_sln_command()
+-------------------
+
+Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
+It's recommended to use it along with ConfigureEnvironment, so that the Visual Studio tools 
+will be in path.
+
+.. code-block:: python
+
+  
+    build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
+    env = ConfigureEnvironment(self)
+    command = "%s && %s" % (env.command_line_env, build_command)
+    self.run(command)
+
+Arguments:
+
+ * **settings**  Conanfile settings, pass "self.settings"
+ * **sln_path**  Visual Studio project file path
+ * **targets**   List of targets to build
+ * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+
 
 pythonpath()
------------------
+------------
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
 
@@ -187,7 +227,7 @@ file or folder with a ``whatever`` file or object inside, and should have declar
 
   
 human_size()
--------------
+------------
 
 Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
@@ -201,7 +241,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
 
     
 OSInfo and SystemPackageTool
-------------------------------------
+----------------------------
 These are helpers to install system packages. Check :ref:`system_requirements`
 
 
