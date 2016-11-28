@@ -207,6 +207,52 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
+version ranges
+++++++++++++++
+
+From conan 0.16, version ranges expressions are supported, both in ``conanfile.txt`` and in
+``conanfile.py`` requirements. The syntax is using brackets:
+
+..  code-block:: python
+
+   class HelloConan(ConanFile):
+      requires = "Pkg/[>1.0,<1.8]@user/stable"
+
+Expressions are those defined and implemented by [python node-semver](https://pypi.python.org/pypi/node-semver),
+but using a comma instead of spaces. Accepted expressions would be:
+
+..  code-block:: python
+
+   >1.1,<2.1    # In such range
+   2.8          # equivalent to =2.8
+   ~=3.0        # compatible, according to semver
+   >1.1 || 0.8  # conditions can be OR'ed
+
+Version ranges expressions are evaluated at the time of building the dependencies graph, from
+downstream to upstream dependencies. No joint-compatibility of the full graph is computed, instead,
+version ranges are evaluated when dependencies are first retrieved.
+
+This means, that if a package A, depends on another package B (A->B), and A has a requirement for
+``C/[>1.2,<1.8]``, this requirements is evaluated first and it can lead to get the version ``C/1.7``. If
+package B has the requirement to ``C/[>1.3,<1.6]``, this one will be overwritten by the downstream one,
+it will output a version incompatibility error. But the "joint" compatibility of the graph will not
+be obtained. Downstream packages or consumer projects can impose their own requirements to comply
+with upstream constraints, in this case a override dependency to ``C/[>1.3,<1.6]`` can be easily defined
+in the downstream package or project.
+
+The order of search for matching versions is as follows:
+
+- First, the local conan storage is searched for matching versions, unless the ``--update`` flag
+  is provided to ``conan install``
+- If a matching version is found, it is used in the dependency graph as a solution
+- If no matching version is locally found, it starts to search in the remotes, in order. If some
+  remote is specified with ``-r=remote``, then only that remote will be used.
+- If the ``--update`` parameter is used, then the existing packages in the local conan cache will
+  not be used, and the same search of the previous steps is carried out in the remotes. If new
+  matching versions are found, they will be retrieved, so subsequents call to ``install`` will
+  find them locally and use them.
+
+
 exports
 --------
 There are 2 ways of getting source code to build a package. The first one is to use the ``exports``
@@ -507,7 +553,7 @@ configure(), config_options()
 Note: ``config()`` method has been deprecated, used ``configure()`` instead.
 
 If the package options and settings are related, and you want to configure either, you can do so
-in the ``configure()`` method. This is an example:
+in the ``configure()`` and ``config_options()`` methods. This is an example:
 
 ..  code-block:: python
 
@@ -531,7 +577,21 @@ do not make sense, so we just clear them. That means, if someone consumes MyLib 
 ``header_only: True`` option, the package downloaded and used will be the same, irrespective of
 the OS, compiler or architecture the consumer is building with.
 
+The most typical usage would be the one with ``configure()`` while ``config_options()`` should be
+used more sparingly. ``config_options()`` is used to configure or constraint the available
+options in a package, **before** they are given a value. So when a value is tried to be assigned,
+it will raise an error. For example, let's suppose that a certain package library cannot be
+built as shared library in Windows, it can be done:
 
+..  code-block:: python
+
+    def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.shared
+
+This will be executed before the actual assignment of ``options`` (then, such ``options`` values
+cannot be used inside this function), so the command ``$ conan install -o Pkg:shared=True`` will
+raise an Exception in Windows saying that ``shared`` is not an option for such package.
 
 
 requirements()
