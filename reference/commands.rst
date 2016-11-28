@@ -40,13 +40,12 @@ conan install
 
 .. code-block:: bash
 
-	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--profile PROFILE][--update, -u]
+	$ conan install [package_recipe_ref] [--remote REMOTE] [--options OPTIONS] [--settings SETTINGS] [--scope SCOPE] [--profile PROFILE] [--update, -u] [--env ENV]
 
 
 
 Install a package recipe and a remote package that matches with the specified settings.
 It can be done specifying a ``package_recipe_ref`` (Hello/0.1@demo/testing) or installing the requirements defined in a ``conanfile.py`` or ``conanfile.txt``.
-
 
 **Examples**
 
@@ -84,6 +83,9 @@ Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and t
    $ conan install opencv/2.4.10@lasote/testing --update
 
 
+.. _buildoptions:
+
+
 build options
 +++++++++++++
 
@@ -100,6 +102,40 @@ try to build things or not:
   Several patterns can be specified, chaining multiple options, e.g. :command:`--build=pattern1 --build=pattern2`
 * :command:`--build` Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
+
+
+env variables
++++++++++++++
+
+With the **-e** parameters you can define:
+
+   - Global environment variables (-e SOME_VAR="SOME_VALUE"). These variables will be defined before the `build` step in all the requires and will be cleaned after the `build` execution.
+   - Specific package environment variables (-e zlib:SOME_VAR="SOME_VALUE"). These variables will be defined only in the specified requires. 
+You can specify this variables not only for your direct requires but any require in the dependency tree.
+
+
+settings
+++++++++
+
+With the **-s** parameters you can define:
+
+   - Global settings (-s compiler="Visual Studio"). Will apply to all the requires.
+   - Specific package settings (-s zlib:compiler="MinGW"). Those settings will be applied only to the specified requires.
+You can specify custom settings not only for your direct requires but any require in the dependency tree.
+
+
+options
++++++++
+
+With the **-o** parameters you can only define specific package options (-o zlib:shared=True).
+See :ref:`using options section <usingoptions>` for more information.
+
+
+
+.. note::
+
+   You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**, **options**, **environment variables** and **scopes**
+
 
 
 conan build
