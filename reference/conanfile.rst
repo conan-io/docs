@@ -1,23 +1,13 @@
 .. _conanfile:
 
-conanfile.txt
-=============
 
-The ``conanfile.txt`` is just a simplified version of the ``conanfile.py`` that aims for a simpler consumption of existing packages, without having to write a full ``conanfile.py``. Package creators would typically want to create just ``conanfile.py``, not requiring this txt at all.
-
-The conanfile has several sections, [requires], [generators], [options], [imports]. Please check the getting started for explanation of these sections (TODO: full reference here).
-
-
-conanfile.py
-============
-
-Package meta information
-------------------------
+conanfile
+==========
 
 .. _package_url:
 
-URL (recommended)
-+++++++++++++++++
+url
+---
 
 It is possible, even typical, if you are packaging a thid party lib, that you just develop
 the packaging code. Such code is also subject to change, often via collaboration, so it should be stored
@@ -30,8 +20,6 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
        name = "Hello"
        version = "0.1"
        url = "https://github.com/memsharded/hellopack.git"
-       license = "MIT"
-       author = "John J. Smith (john.smith@company.com)"
      
            
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
@@ -39,106 +27,50 @@ It is optional, but highly recommended, that it points to GitHub, Bitbucket or y
 code collaboration platform. Of course, if you have the conanfile inside your library source,
 you can point to it, and afterwards use the ``url`` in your ``source()`` method.
 
-License (recommended)
-+++++++++++++++++++++
+This is a recommended, but not mandatory attribute.
+
+license
+---------
 This field is intended for the license of the **target** source code and binaries, i.e. the code
 that is being packaged, not the ``conanfile.py`` itself. This info is used to be displayed by
 the ``conan info`` command and possibly other search and report tools.
 
-Author (optional)
-+++++++++++++++++
+.. code-block:: python
+
+   class HelloConan(ConanFile):
+       name = "Hello"
+       version = "0.1"
+       license = "MIT"
+       
+This attribute can contain several, comma separated licenses. It is a text string, so it can
+contain any text, including hyperlinks to license files elsewhere.
+
+This is a recommended, but not mandatory attribute.
+
+author
+------
 
 Intended to add information about the author, in case it is different from the conan user. It is
 possible that the conan user is the name of an organization, project, company or group, and many
 users have permissions over that account. In this case, the author information can explicitely
 define who is the creator/maintainer of the package
 
-
-.. _retrieve_source:
-
-Retrieving source code
-----------------------
-
-There are 2 ways of getting source code to build a package. The first one is to use the ``exports``
-field, where you specify which sources are required, and they will be exported together with
-the **conanfile.py**, and stored in the conan stores, both local and remote.
-
-The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
-For example, if we have the source code inside "include" and "src" folders, and there are other folders
-that are not necessary for the package recipe, we could do:
-
 .. code-block:: python
-
-   exports = "include*", "src*"
-
-
-
-The other way is to let conan retrieve the source code from any other external origin, github, or
-just a regular download. This can be done in the ``source()`` method.
-
-For example, in the previous section, we "exported" the source code files, together with the **conanfile.py** file,
-which can be handy if the source code is not under version control. But if the source code is available in a repository,
-you can directly get it from there:
-
-.. code-block:: python
-
-   from conans import ConanFile
 
    class HelloConan(ConanFile):
        name = "Hello"
        version = "0.1"
-       settings = "os", "compiler", "build_type", "arch"
-       # exports = "hello/*"
-   
-       def source(self):
-           self.run("git clone https://github.com/memsharded/hello.git")
-           # You can also change branch, commit or whatever
-           # self.run("cd hello && git checkout 2fe5...")
+       author = "John J. Smith (john.smith@company.com)"
+
+This is an optional attribute
 
 
-This will work, as long as ``git`` is in your current path (so in Win you probably want to run things in msysgit, cmder, etc).
-You can also use another VCS or direct download/unzip. For that purpose, we have provided some helpers,
-but you can use your own code or origin as well. This is a snippet of the conanfile of the POCO libray:
-
-
-..  code-block:: python
-
-   from conans import ConanFile
-   from conans.tools import download, unzip, check_md5, check_sha1, check_sha256
-   import os
-   import shutil
-
-   class PocoConan(ConanFile):
-       name = "Poco"
-       version = "1.6.0"
-
-       def source(self):
-           zip_name = "poco-1.6.0-release.zip"
-           download("https://github.com/pocoproject/poco/archive/poco-1.6.0-release.zip", zip_name)
-           # check_md5(zip_name, "51e11f2c02a36689d6ed655b6fff9ec9")
-           # check_sha1(zip_name, "8d87812ce591ced8ce3a022beec1df1c8b2fac87")
-           # check_sha256(zip_name, "653f983c30974d292de58444626884bee84a2731989ff5a336b93a0fef168d79")
-           unzip(zip_name)
-           shutil.move("poco-poco-1.6.0-release", "poco")
-           os.unlink(zip_name)
-           
-The download, unzip utilities can be imported from conan, but you can also use your own code here
-to retrieve source code from any origin. You can even create packages for pre-compiled libraries
-you already have, even if you don't have the source code. You can download the binaries, skip
-the ``build()`` method and define your ``package()`` and ``package_info()`` accordingly.
-
-You can also use **check_md5**, **check_sha1** and **check_sha256** from the **tools** module to verify that a package is downloaded correctly.
-
-
-
-Configuration
--------------
+settings
+----------
 
 There are several things that can potentially affect a package being created, i.e. the final
 package will be different (a different binary, for example), if some input is different.
 
-Settings
-++++++++
 Development project-wide variables, like the compiler, its version, or the OS 
 itself. These variables have to be defined, and they cannot have a default value listed in the
 conanfile, as it would not make sense.
@@ -195,8 +127,8 @@ independent in VS, we can just remove that setting field:
        self.settings.compiler["Visual Studio"].remove("runtime")
        
        
-Options
-+++++++
+options, default_options
+---------------------------
 Options are similar to settings in the sense that they influence the final package. But they
 can typically have a default value. A very common case would be the static/shared option of 
 a compiled library, which could be defined as:
@@ -233,89 +165,8 @@ such an option will not be checked, and any value (as string) will be accepted.
 This could be useful, for example, if you want to have an option so a package can actually reference any specific
 commit of a git repository.
 
-
-Variable configuration
-++++++++++++++++++++++
-If the package options and settings are related, and you want to configure either, you can do so
-in the ``config()`` method. This is an example:
-
-..  code-block:: python
-
-   class MyLibConan(ConanFile):
-       name = "MyLib"
-       version = "2.5"
-       settings = "os", "compiler", "build_type", "arch"
-       options = {"static": [True, False], 
-                   "header_only": [True False]}
-
-       def config(self):
-           # If header only, the compiler, etc, does not affect the package!
-           if self.options.header_only:
-               self.settings.clear()
-               self.options.remove("static")
-
-The package has 2 options set, to be compiled as a static (as opposed to shared) library,
-and also not to involve any builds, because header-only libraries will be used. In this case,
-the settings that would affect a normal build, and even the other option (static vs shared)
-do not make sense, so we just clear them. That means, if someone consumes MyLib with the
-``header_only: True`` option, the package downloaded and used will be the same, irrespective of
-the OS, compiler or architecture the consumer is building with.
-
-
-Generators
-----------
-
-Generators specify which is the output of the ``install`` command in your project folder. By
-default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators:
-
-- **gcc**: conanbuildinfo.gcc
-- **cmake**: conanbuildinfo.cmake
-- **txt**: conanbuildinfo.txt
-- **qmake**: conanbuildinfo.pri
-- **qbs**: conanbuildinfo.qbs
-- **visual_studio**: conanbuildinfo.props
-- **xcode**: conanbuildinfo.xcconfig
-
-You can specify more than one:
-
-.. code-block:: python
-
-   class MyLibConan(ConanFile):
-       generators = "cmake", "gcc"
-
-
-Build policies
---------------
-
-With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
-The allowed ``build_policy`` values are:
-
-- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
-- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
-
-
-.. code-block:: python
-   :emphasize-lines: 2
-
-     class PocoTimerConan(ConanFile):
-        build_policy = "always" # "missing"
-
-
-
-Build helpers
--------------
-
-You can use these classes to prepare your build system's command invocation:
-
-- **CMake**: Prepares the invocation of cmake command with your settings.
-- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
-- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
-
-Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
-
-
-Requirements
-------------
+requires
+---------
 
 Specify package dependencies as a list of other packages:
 
@@ -356,6 +207,193 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
+exports
+--------
+There are 2 ways of getting source code to build a package. The first one is to use the ``exports``
+field, where you specify which sources are required, and they will be exported together with
+the **conanfile.py**, and stored in the conan stores, both local and remote. Using ``exports``
+the package recipe can be self-contained, containing the source code like in a snapshot, and then
+not requiring downloading or retrieving the source code from other origins (git, download) for
+building the package binaries.
+
+The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+For example, if we have the source code inside "include" and "src" folders, and there are other folders
+that are not necessary for the package recipe, we could do:
+
+.. code-block:: python
+
+   exports = "include*", "src*"
+   
+This is an optional attribute, only to be used if source code or other files want to be stored in
+the recipe itself.
+   
+generators
+----------
+
+Generators specify which is the output of the ``install`` command in your project folder. By
+default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators:
+
+- **gcc**: conanbuildinfo.gcc
+- **cmake**: conanbuildinfo.cmake
+- **txt**: conanbuildinfo.txt
+- **qmake**: conanbuildinfo.pri
+- **qbs**: conanbuildinfo.qbs
+- **visual_studio**: conanbuildinfo.props
+- **xcode**: conanbuildinfo.xcconfig
+
+You can specify more than one:
+
+.. code-block:: python
+
+   class MyLibConan(ConanFile):
+       generators = "cmake", "gcc"
+   
+build_policy
+--------------
+
+With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
+The allowed ``build_policy`` values are:
+
+- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+     class PocoTimerConan(ConanFile):
+        build_policy = "always" # "missing"   
+        
+short_paths
+------------
+
+If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
+``short_paths=True`` in your conanfile.py:
+
+..  code-block:: python
+
+   from conans import ConanFile
+
+   class ConanFileTest(ConanFile):
+       ...
+       short_paths = True
+
+This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root, 
+something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
+
+This attribute will not have any effect in other OS, it will be discarded.
+
+.. _retrieve_source:
+
+source()
+--------
+
+The other way is to let conan retrieve the source code from any other external origin, github, or
+just a regular download. This can be done in the ``source()`` method.
+
+For example, in the previous section, we "exported" the source code files, together with the **conanfile.py** file,
+which can be handy if the source code is not under version control. But if the source code is available in a repository,
+you can directly get it from there:
+
+.. code-block:: python
+
+   from conans import ConanFile
+
+   class HelloConan(ConanFile):
+       name = "Hello"
+       version = "0.1"
+       settings = "os", "compiler", "build_type", "arch"
+   
+       def source(self):
+           self.run("git clone https://github.com/memsharded/hello.git")
+           # You can also change branch, commit or whatever
+           # self.run("cd hello && git checkout 2fe5...")
+
+
+This will work, as long as ``git`` is in your current path (so in Win you probably want to run things in msysgit, cmder, etc).
+You can also use another VCS or direct download/unzip. For that purpose, we have provided some helpers,
+but you can use your own code or origin as well. This is a snippet of the conanfile of the POCO libray:
+
+
+..  code-block:: python
+
+   from conans import ConanFile
+   from conans.tools import download, unzip, check_md5, check_sha1, check_sha256
+   import os
+   import shutil
+
+   class PocoConan(ConanFile):
+       name = "Poco"
+       version = "1.6.0"
+
+       def source(self):
+           zip_name = "poco-1.6.0-release.zip"
+           download("https://github.com/pocoproject/poco/archive/poco-1.6.0-release.zip", zip_name)
+           # check_md5(zip_name, "51e11f2c02a36689d6ed655b6fff9ec9")
+           # check_sha1(zip_name, "8d87812ce591ced8ce3a022beec1df1c8b2fac87")
+           # check_sha256(zip_name, "653f983c30974d292de58444626884bee84a2731989ff5a336b93a0fef168d79")
+           unzip(zip_name)
+           shutil.move("poco-poco-1.6.0-release", "poco")
+           os.unlink(zip_name)
+           
+The download, unzip utilities can be imported from conan, but you can also use your own code here
+to retrieve source code from any origin. You can even create packages for pre-compiled libraries
+you already have, even if you don't have the source code. You can download the binaries, skip
+the ``build()`` method and define your ``package()`` and ``package_info()`` accordingly.
+
+You can also use **check_md5**, **check_sha1** and **check_sha256** from the **tools** module to verify that a package is downloaded correctly.
+
+
+
+configure(), config_options()
+-----------------------------
+
+Note: ``config()`` method has been deprecated, used ``configure()`` instead
+If the package options and settings are related, and you want to configure either, you can do so
+in the ``config()`` method. This is an example:
+
+..  code-block:: python
+
+   class MyLibConan(ConanFile):
+       name = "MyLib"
+       version = "2.5"
+       settings = "os", "compiler", "build_type", "arch"
+       options = {"static": [True, False], 
+                   "header_only": [True False]}
+
+       def config(self):
+           # If header only, the compiler, etc, does not affect the package!
+           if self.options.header_only:
+               self.settings.clear()
+               self.options.remove("static")
+
+The package has 2 options set, to be compiled as a static (as opposed to shared) library,
+and also not to involve any builds, because header-only libraries will be used. In this case,
+the settings that would affect a normal build, and even the other option (static vs shared)
+do not make sense, so we just clear them. That means, if someone consumes MyLib with the
+``header_only: True`` option, the package downloaded and used will be the same, irrespective of
+the OS, compiler or architecture the consumer is building with.
+
+
+
+
+
+
+
+Build helpers
+-------------
+
+You can use these classes to prepare your build system's command invocation:
+
+- **CMake**: Prepares the invocation of cmake command with your settings.
+- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
+- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
+
+Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
+
+
+requirements()
+--------------
 
 Besides the ``requires`` field, more advanced requirement logic can be defined in the
 ``requirements()`` optional method, using for example values from the package ``settings`` or
@@ -383,8 +421,8 @@ defining the special cases, as is shown below:
         
 .. _system_requirements:
 
-System requirements
--------------------
+system_requirements()
+----------------------
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
 method to your conanfile and specify what you need there.
 
@@ -436,7 +474,7 @@ have the same system requirements, just add the following line to your method:
          if ...
 
 
-Packaging
+package()
 ---------
 The actual creation of the package, once that it is build, is done in the ``package()`` method.
 Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
@@ -473,8 +511,10 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
     might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
 
 
+build()
+--------
 (Unit) Testing your library
----------------------------
+++++++++++++++++++++++++++++
 We have seen how to run package tests with conan, but what if we want to run full unit tests on
 our library before packaging, so that they are run for every build configuration?
 Nothing special is required here. We can just launch the tests from the last command in our
@@ -490,8 +530,11 @@ Nothing special is required here. We can just launch the tests from the last com
       self.run("ctest")
       
  
-C++ build information
----------------------
+package_info()
+---------------
+
+cpp_info
++++++++++
 Each package has to specify certain build information for its consumers. This can be done in
 the ``cpp_info`` attribute within the ``package_info()`` method.
 
@@ -550,8 +593,8 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 
 .. _environment_information:
   
-Environment information
------------------------
+env_info
++++++++++
 
 Each package can also define some environment variables that the package needs to be reused.
 It's specially useful for :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application.
@@ -569,7 +612,7 @@ The :ref:`virtualenv<virtual_environment_generator>` generator will use the self
 This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
             
         
-Importing files
+imports()
 ---------------
 Importing files copies files from the local store to your project. This feature is handy
 for copying shared libraries (dylib in Mac, dll in Win) to the directory of your executable, so that you don't have
@@ -591,7 +634,7 @@ A typical ``imports()`` method for shared libs could be:
       self.copy("*.dll", "", "bin")
       self.copy("*.dylib", "", "lib")
 
-Package information
+conan_info()
 -------------------
 Each package will translate its settings, options and requirements to a unique sha1 signature.
 A convention is established to define such mapping, but you could change it according to your needs.
@@ -675,21 +718,7 @@ That will produce a **conaninfo.txt** file like:
    conan_info() method if you need to.
 
 
-Windows path length limit
--------------------------
-If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
-``short_paths=True`` in your conanfile.py:
 
-..  code-block:: python
-
-   from conans import ConanFile
-
-   class ConanFileTest(ConanFile):
-       ...
-       short_paths = True
-
-This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root, 
-something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
 
 
 Relative imports
@@ -723,13 +752,14 @@ And then the main ``conanfile.py`` would be:
 It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package, 
 because package recipes must be self-contained
 
-Other
------
+output
+-------
 There are some helpers in the conanfile for colored output and running commands:
 
 ..  code-block:: python
 
-   self.output.info("This is a warning, should be yellow")
+   self.output.success("This is a good, should be green")
+   self.output.info("This is a neutral, should be white")
    self.output.warn("This is a warning, should be yellow")
    self.output.error("Error, should be red")
    self.output.rewrite_line("for progress bars, issues a cr")
