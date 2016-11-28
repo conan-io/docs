@@ -39,9 +39,9 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	
 	install:
 	  - cmd: echo "Downloading conan..."
-	  - ps: wget http://downloads.conan.io/latest_windows -OutFile conan_installer.exe
-	  - cmd: conan_installer.exe /VERYSILENT
-	  - cmd: set PATH=%PATH%;C:\Program Files (x86)\Conan\conan
+	  - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
+	  - cmd: pip.exe install conan
+	  - cmd: conan user # Create the conan data directory
 	  - cmd: conan --version
 	
 	build_script:
