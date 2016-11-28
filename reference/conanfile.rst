@@ -283,6 +283,9 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 
 This attribute will not have any effect in other OS, it will be discarded.
 
+
+
+
 .. _retrieve_source:
 
 source()
@@ -343,14 +346,168 @@ the ``build()`` method and define your ``package()`` and ``package_info()`` acco
 
 You can also use **check_md5**, **check_sha1** and **check_sha256** from the **tools** module to verify that a package is downloaded correctly.
 
+build()
+--------
+
+Build helpers
++++++++++++++
+
+You can use these classes to prepare your build system's command invocation:
+
+- **CMake**: Prepares the invocation of cmake command with your settings.
+- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
+- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
+
+Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
+
+
+
+(Unit) Testing your library
+++++++++++++++++++++++++++++
+We have seen how to run package tests with conan, but what if we want to run full unit tests on
+our library before packaging, so that they are run for every build configuration?
+Nothing special is required here. We can just launch the tests from the last command in our
+``build()`` method:
+
+.. code-block:: python
+
+   def build(self):
+      cmake = CMake(self.settings)
+      self.run("cmake . %s %s" % (cmake.command_line))
+      self.run("cmake --build . %s" % cmake.build_config)
+      # here you can run CTest, launch your binaries, etc
+      self.run("ctest")
+      
+ 
+package()
+---------
+The actual creation of the package, once that it is build, is done in the ``package()`` method.
+Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
+The syntax of copy is as follows:
+
+.. code-block:: python
+
+   self.copy(pattern, dst, src, keep_path=False)
+
+
+- ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``
+- ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though you can use any convention you like
+- ``src`` is the folder where you want to search the files in the *build* folder. If you know that your libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty means the root build folder.
+- ``keep_path``, with default value=True, means if you want to keep the relative path when you copy the files from the source(build) to the destination(package). Typically headers, you keep the relative path, so if the header is in *build/include/mylib/path/header.h*, you write:
+
+.. code-block:: python
+
+   self.copy("*.h", "include", "build/include") #keep_path default is True
+
+so the final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes will be in the form: ``#include "mylib/path/header.h"`` which is something desired
+
+``keep_path=False`` is something typically desired for libraries, both static and dynamic. Some compilers as MSVC, put them in paths as *Debug/x64/MyLib/Mylib.lib*. Using this option, we could write:
+
+.. code-block:: python
+
+   self.copy("*.lib", "lib", "", keep_path=False)
+
+
+And it will copy the lib to the package folder *lib/Mylib.lib*, which can be linked easily
+
+.. note::
+
+    If you are using CMake and you have an install target defined in your CMakeLists.txt, you
+    might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
+
+
+
+package_info()
+---------------
+
+cpp_info
++++++++++
+Each package has to specify certain build information for its consumers. This can be done in
+the ``cpp_info`` attribute within the ``package_info()`` method.
+
+The ``cpp_info`` attribute has the following properties you can assign/append to:
+
+.. code-block:: python
+
+   self.cpp_info.includedirs = ['include']  # Ordered list of include paths
+   self.cpp_info.libs = []  # The libs to link against
+   self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
+   self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
+   self.cpp_info.bindirs = []  # Directories where executables and shared libs can be found
+   self.cpp_info.defines = []  # preprocessor definitions
+   self.cpp_info.cflags = []  # pure C flags
+   self.cpp_info.cppflags = []  # C++ compilation flags
+   self.cpp_info.sharedlinkflags = []  # linker flags
+   self.cpp_info.exelinkflags = []  # linker flags
+
+
+* includedirs: list of relative paths (starting from the package root) of directories where headers
+  can be found. By default it is initialized to ['include'], and it is rarely changed.
+* libs: ordered list of libs the client should link against. Empty by default, it is common
+  that different configurations produce different library names. For example:
+  
+.. code-block:: python
+  
+   def package_info(self):
+        if not self.settings.os == "Windows":
+            self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
+        else:
+            ...
+
+* libdirs: list of relative paths (starting from the package root) of directories in which to find
+  library object binaries (.lib, .a, .so. dylib). By default it is initialize to ['lib'], and it is rarely changed. 
+* resdirs: list of relative paths (starting from the package root) of directories in which to find
+  resource files (images, xml, etc). By default it is initialize to ['res'], and it is rarely changed. 
+* bindirs: list of relative paths (starting from the package root) of directories in which to find
+  library runtime binaries (like windows .dlls). By default it is initialized to ['bin'], and it is rarely changed. 
+* defines: ordered list of preprocessor directives. It is common that the consumers have to specify
+  some sort of defines in some cases, so that including the library headers matches the binaries:
+* <c,cpp,exelink,sharedlink>flags, list of flags that the consumer should activate for proper
+  behavior. Usage of C++11 could be configured here, for example, although it is true that the consumer may
+  want to do some flag processing to check if different dependencies are setting incompatible flags
+  (c++11 after c++14)
+  
+.. code-block:: python
+  
+   if self.options.static:
+      if self.settings.compiler == "Visual Studio":
+          self.cpp_info.libs.append("ws2_32")
+      self.cpp_info.defines = ["ZMQ_STATIC"]
+
+      if not self.settings.os == "Windows":
+          self.cpp_info.cppflags = ["-pthread"]
+           
+
+.. _environment_information:
+  
+env_info
++++++++++
+
+Each package can also define some environment variables that the package needs to be reused.
+It's specially useful for :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application.
+This can be done in the ``env_info`` attribute within the ``package_info()`` method.
+
+.. code-block:: python
+
+  self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
+  self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
+  self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value 
+  
+
+The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
+
+This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
+            
+        
 
 
 configure(), config_options()
 -----------------------------
 
-Note: ``config()`` method has been deprecated, used ``configure()`` instead
+Note: ``config()`` method has been deprecated, used ``configure()`` instead.
+
 If the package options and settings are related, and you want to configure either, you can do so
-in the ``config()`` method. This is an example:
+in the ``configure()`` method. This is an example:
 
 ..  code-block:: python
 
@@ -375,21 +532,6 @@ do not make sense, so we just clear them. That means, if someone consumes MyLib 
 the OS, compiler or architecture the consumer is building with.
 
 
-
-
-
-
-
-Build helpers
--------------
-
-You can use these classes to prepare your build system's command invocation:
-
-- **CMake**: Prepares the invocation of cmake command with your settings.
-- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
-- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
-
-Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
 
 
 requirements()
@@ -474,144 +616,7 @@ have the same system requirements, just add the following line to your method:
          if ...
 
 
-package()
----------
-The actual creation of the package, once that it is build, is done in the ``package()`` method.
-Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
-The syntax of copy is as follows:
 
-.. code-block:: python
-
-   self.copy(pattern, dst, src, keep_path=False)
-
-
-- ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``
-- ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though you can use any convention you like
-- ``src`` is the folder where you want to search the files in the *build* folder. If you know that your libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty means the root build folder.
-- ``keep_path``, with default value=True, means if you want to keep the relative path when you copy the files from the source(build) to the destination(package). Typically headers, you keep the relative path, so if the header is in *build/include/mylib/path/header.h*, you write:
-
-.. code-block:: python
-
-   self.copy("*.h", "include", "build/include") #keep_path default is True
-
-so the final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes will be in the form: ``#include "mylib/path/header.h"`` which is something desired
-
-``keep_path=False`` is something typically desired for libraries, both static and dynamic. Some compilers as MSVC, put them in paths as *Debug/x64/MyLib/Mylib.lib*. Using this option, we could write:
-
-.. code-block:: python
-
-   self.copy("*.lib", "lib", "", keep_path=False)
-
-
-And it will copy the lib to the package folder *lib/Mylib.lib*, which can be linked easily
-
-.. note::
-
-    If you are using CMake and you have an install target defined in your CMakeLists.txt, you
-    might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
-
-
-build()
---------
-(Unit) Testing your library
-++++++++++++++++++++++++++++
-We have seen how to run package tests with conan, but what if we want to run full unit tests on
-our library before packaging, so that they are run for every build configuration?
-Nothing special is required here. We can just launch the tests from the last command in our
-``build()`` method:
-
-.. code-block:: python
-
-   def build(self):
-      cmake = CMake(self.settings)
-      self.run("cmake . %s %s" % (cmake.command_line))
-      self.run("cmake --build . %s" % cmake.build_config)
-      # here you can run CTest, launch your binaries, etc
-      self.run("ctest")
-      
- 
-package_info()
----------------
-
-cpp_info
-+++++++++
-Each package has to specify certain build information for its consumers. This can be done in
-the ``cpp_info`` attribute within the ``package_info()`` method.
-
-The ``cpp_info`` attribute has the following properties you can assign/append to:
-
-.. code-block:: python
-
-   self.cpp_info.includedirs = ['include']  # Ordered list of include paths
-   self.cpp_info.libs = []  # The libs to link against
-   self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
-   self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
-   self.cpp_info.bindirs = []  # Directories where executables and shared libs can be found
-   self.cpp_info.defines = []  # preprocessor definitions
-   self.cpp_info.cflags = []  # pure C flags
-   self.cpp_info.cppflags = []  # C++ compilation flags
-   self.cpp_info.sharedlinkflags = []  # linker flags
-   self.cpp_info.exelinkflags = []  # linker flags
-
-
-* includedirs: list of relative paths (starting from the package root) of directories where headers
-  can be found. By default it is initialized to ['include'], and it is rarely changed.
-* libs: ordered list of libs the client should link against. Empty by default, it is common
-  that different configurations produce different library names. For example:
-  
-.. code-block:: python
-  
-   def package_info(self):
-        if not self.settings.os == "Windows":
-            self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
-        else:
-            ...
-
-* libdirs: list of relative paths (starting from the package root) of directories in which to find
-  library object binaries (.lib, .a, .so. dylib). By default it is initialize to ['lib'], and it is rarely changed. 
-* resdirs: list of relative paths (starting from the package root) of directories in which to find
-  resource files (images, xml, etc). By default it is initialize to ['res'], and it is rarely changed. 
-* bindirs: list of relative paths (starting from the package root) of directories in which to find
-  library runtime binaries (like windows .dlls). By default it is initialized to ['bin'], and it is rarely changed. 
-* defines: ordered list of preprocessor directives. It is common that the consumers have to specify
-  some sort of defines in some cases, so that including the library headers matches the binaries:
-* <c,cpp,exelink,sharedlink>flags, list of flags that the consumer should activate for proper
-  behavior. Usage of C++11 could be configured here, for example, although it is true that the consumer may
-  want to do some flag processing to check if different dependencies are setting incompatible flags
-  (c++11 after c++14)
-  
-.. code-block:: python
-  
-   if self.options.static:
-      if self.settings.compiler == "Visual Studio":
-          self.cpp_info.libs.append("ws2_32")
-      self.cpp_info.defines = ["ZMQ_STATIC"]
-
-      if not self.settings.os == "Windows":
-          self.cpp_info.cppflags = ["-pthread"]
-           
-
-.. _environment_information:
-  
-env_info
-+++++++++
-
-Each package can also define some environment variables that the package needs to be reused.
-It's specially useful for :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application.
-This can be done in the ``env_info`` attribute within the ``package_info()`` method.
-
-.. code-block:: python
-
-  self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
-  self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
-  self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value 
-  
-
-The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
-
-This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
-            
-        
 imports()
 ---------------
 Importing files copies files from the local store to your project. This feature is handy
@@ -717,12 +722,32 @@ That will produce a **conaninfo.txt** file like:
    of packages when upstream 0.Y.Z dependencies change, even for patches. Change it in your
    conan_info() method if you need to.
 
+Other
+------
+
+There are some helpers in the conanfile for colored output and running commands:
+
+..  code-block:: python
+
+   self.output.success("This is a good, should be green")
+   self.output.info("This is a neutral, should be white")
+   self.output.warn("This is a warning, should be yellow")
+   self.output.error("Error, should be red")
+   self.output.rewrite_line("for progress bars, issues a cr")
+   
+Check the source code. You might be able to produce different outputs with different colors.
+
+
+``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
+so that command errors are do not pass unnoticed. It is just a wrapper for ``os.system()``
+
+``self.conanfile_directory`` is a property that returns the directory in which the conanfile is
+located.
 
 
 
-
-Relative imports
-----------------
+Splitting conanfile.py
+-----------------------
 If you want to reuse common functionality between different packages, it can be written in their
 own python files and imported from the main ``conanfile.py``. Lets write for example a ``msgs.py``
 file and put it besides the ``conanfile.py``:
@@ -752,23 +777,3 @@ And then the main ``conanfile.py`` would be:
 It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package, 
 because package recipes must be self-contained
 
-output
--------
-There are some helpers in the conanfile for colored output and running commands:
-
-..  code-block:: python
-
-   self.output.success("This is a good, should be green")
-   self.output.info("This is a neutral, should be white")
-   self.output.warn("This is a warning, should be yellow")
-   self.output.error("Error, should be red")
-   self.output.rewrite_line("for progress bars, issues a cr")
-   
-Check the source code. You might be able to produce different outputs with different colors.
-
-
-``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
-so that command errors are do not pass unnoticed. It is just a wrapper for ``os.system()``
-
-``self.conanfile_directory`` is a property that returns the directory in which the conanfile is
-located.
