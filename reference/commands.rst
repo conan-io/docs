@@ -83,6 +83,9 @@ Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and t
    $ conan install opencv/2.4.10@lasote/testing --update
 
 
+.. _buildoptions:
+
+
 build options
 +++++++++++++
 

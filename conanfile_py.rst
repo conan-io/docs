@@ -436,6 +436,11 @@ Here is an example of what we could do in our **config method**:
 
 There is another advantage of using ``conanfile.py`` instead of ``conanfile.txt``.
 
+.. note::
+
+   Check the :ref:`reference <buildoptions>` and the :ref:`profiles <profiles>` sections to know more about  **options**, **settings** and **environment variables**
+
+
 Scopes
 ......
 
