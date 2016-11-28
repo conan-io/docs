@@ -94,7 +94,8 @@ try to build things or not:
   not try to build packages when the requested configuration does not match, in which case it will
   throw an error.
 * :command:`--build=missing` Conan will try to build from source, all packages of which the requested configuration
-  was not found on any of the active remotes
+  was not found on any of the active remotes.
+* :command:`--build=outdated` Conan will try to build from code if the binary is not built with the current recipe or when missing binary package 
 * :command:`--build=[pattern]` Conan will force the build of the packages, the name of which matches the given **pattern**.
   Several patterns can be specified, chaining multiple options, e.g. :command:`--build=pattern1 --build=pattern2`
 * :command:`--build` Always build everything from source. Produces a clean re-build of all packages
@@ -383,6 +384,29 @@ Optional arguments:
 
   * **-o, --only-manifest**  Just regenerate manifest for the existing package.If True conan won't call your conanfile's package method.
   * **--all**                Package all packages from specified reference.
+
+
+conan copy
+----------
+
+Copy conan recipes and packages to another user/channel. Useful to promote packages (e.j. from "beta" to "stable"). 
+Also for moving packages from an user to another.
+
+
+.. code-block:: bash
+
+   $ conan copy package_recipe_ref otheruser/otherchannel
+
+Positional arguments:
+
+ * **package_recipe_ref**   Package recipe reference name. e.g. openssl/1.0.2@lasote/testing
+ * **user_channel**         Destination user/channel. e.g. lasote/stable
+
+Optional arguments:
+
+  * **-p** Specify a package to copy. e.g. -p 9cf83afd07b678d38a9c1645f605875400847ff3
+  * **--force** Override destination packages and the package recipe.
+  * **--all**   Copy all packages from the specified package recipe
 
 
 conan new
