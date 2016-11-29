@@ -6,6 +6,37 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.16.0 (19-November-2016)
+---------------------------
+**Upgrade**: The ``--build=outdated`` feature had a change in the hash computation, it might report
+outdated binaries from recipes. You can re-build the binaries or ignore it (if you haven't changed
+your recipes without re-generating binaries)
+
+- Feature: **version ranges**. Conan now supports defining requirements with version range expressions
+  like ``Pkg/[>1.2,<1.9||1.0.1]@user/channel``. Check the :ref:`version ranges reference <version_ranges>` for details
+- Feature: decoupled ``imports`` from normal install. Now ``conan install --no-imports`` skips the
+  imports section.
+- Feature: new ``conan imports`` command that will execute the imports section without running install
+- Feature: **overriding settings per package**. Now it is possible to specify individual settings
+  for each package. This can be specified both in the command line and in ``profiles``
+- Feature: Now conan files copies handle **symlinks**, so files are not duplicated. This will
+  save some space and improve download speed in some large packages. To enable it, use
+  ``self.copy(..., links=True)``
+- Fix: Enabling correct use of **MSYS** in Windows, by using the Windows ``C:/...`` path instead of
+  the MSYS ones
+- Fix: Several fixes in ``conan search``, both local and in remotes
+- Fix: Manifests line endings and order fix, and hash computation fixed (it had wrong ordering)
+- Fix: Removed http->https redirection in conan_server that produced some issues for SSL reversed
+  proxies
+- Fix: Taking into account "ANY" definition of settings and options
+- Fix: Improved some error messages and failures to encode OS errors with unicode characters
+- Update: added new arch ``ppc64`` to default settings
+- Update: updated python-requests library version
+- Fix: Using ``generator()`` instead of compiler to decide on cmake multi-configuration for Ninja+cl
+  builds
+- Improved and completed documentation
+
+
 0.15.0 (08-November-2016)
 ---------------------------
 
