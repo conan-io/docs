@@ -19,6 +19,9 @@ your recipes without re-generating binaries)
 - Feature: new ``conan imports`` command that will execute the imports section without running install
 - Feature: **overriding settings per package**. Now it is possible to specify individual settings
   for each package. This can be specified both in the command line and in ``profiles``
+- Feature: **environment variables** definition in the command line, global and per package. This
+  allows to define specific environment variables as the compiler (CC, CXX) for a specific package.
+  These environment variables can also be defined in ``profiles``. Check :ref:`profiles reference <profiles>`
 - Feature: Now conan files copies handle **symlinks**, so files are not duplicated. This will
   save some space and improve download speed in some large packages. To enable it, use
   ``self.copy(..., links=True)``
