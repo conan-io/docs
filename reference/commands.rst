@@ -111,6 +111,7 @@ With the **-e** parameters you can define:
 
    - Global environment variables (-e SOME_VAR="SOME_VALUE"). These variables will be defined before the `build` step in all the requires and will be cleaned after the `build` execution.
    - Specific package environment variables (-e zlib:SOME_VAR="SOME_VALUE"). These variables will be defined only in the specified requires. 
+
 You can specify this variables not only for your direct requires but any require in the dependency tree.
 
 
@@ -121,6 +122,7 @@ With the **-s** parameters you can define:
 
    - Global settings (-s compiler="Visual Studio"). Will apply to all the requires.
    - Specific package settings (-s zlib:compiler="MinGW"). Those settings will be applied only to the specified requires.
+
 You can specify custom settings not only for your direct requires but any require in the dependency tree.
 
 
@@ -537,7 +539,7 @@ Positional arguments:
 Optional arguments:
 
 
- * **-f, --file**              Use another filename, e.g.: ``conan imports -f=conanfile2.py
+ * **-f, --file**              Use another filename, e.g.: ``conan imports -f=conanfile2.py``
  * **-d, --dest**              Directory to copy the artifacts to. By default it will be the current
    directory.
 

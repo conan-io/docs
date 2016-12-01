@@ -624,7 +624,7 @@ As we previously see, we can use the **--build** option to change the default ``
 - **- -build some_package** will build only "some_package"
 - **- -build missing** will build only the missing requires.
 - **- -build** will build all requires from sources.
-* **- -build outdated** will try to build from code if the binary is not built with the current recipe or when missing binary package 
+- **- -build outdated** will try to build from code if the binary is not built with the current recipe or when missing binary package 
 
 
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.

@@ -23,7 +23,7 @@ Add ``conan_basic_setup`` to ``CONFIG`` and include the file in your existing
 
 **yourproject.pro**
 
-.. code-block:: qmake
+.. code-block:: text
 
    # ...
    
@@ -41,7 +41,7 @@ you can do so by skipping the CONFIG statement and only include
 
 **yourproject.pro**
 
-.. code-block:: qmake
+.. code-block:: text
 
    # ...
    
@@ -55,7 +55,7 @@ The contents of ``conanbuildinfo.pri`` could look like this:
 
 **conanfile.pri**
 
-.. code-block:: qmake
+.. code-block:: text
 
    CONAN_INCLUDEPATH += /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include \
        /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include
