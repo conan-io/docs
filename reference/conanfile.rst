@@ -6,6 +6,23 @@ conanfile
 
 .. _package_url:
 
+description
+------------
+This is an optional, but strongly recommended text field, containing the description of the package,
+and any information that might be useful for the consumers. The first line might be used as a
+short description of the package.
+
+
+.. code-block:: python
+
+   class HelloConan(ConanFile):
+       name = "Hello"
+       version = "0.1"
+       description = """This is a Hello World library.
+                        A fully featured, portable, C++ library to say Hello World in the stdout,
+                        with incredible iostreams performance"""
+       
+
 url
 ---
 
