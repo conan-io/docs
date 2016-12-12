@@ -167,7 +167,7 @@ instead of "http".
    **Important**: Conan client, by default, will validate the server SSL certificates and won't connect if it's not valid.
    If you have self signed certificates you have two options:
    
-   1. Use the ``conan remote`` command to disable the SSL certifate checks. e.j: *conan remote myremote https://somedir False*
+   1. Use the ``conan remote`` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
    2. Append the server ``.crt`` file contents to ``~/.conan/cacert.pem`` file.
   
   
