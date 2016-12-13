@@ -19,7 +19,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: allowing custom paths in profiles, so profiles can be easily shared in teams, just
   inside the source repository or elsewhere.
 - Feature: fields ``user`` and ``channel`` now available in conan recipes. That allows to declare
-  requirements for the same user/channel as the current package, for example.
+  requirements for the same user/channel as the current package.
 - Feature: improved conan.io package web, adding description.
 - Fix: allow to modify cmake generator in ``CMake`` helper class.
 - Fix: added ``strip`` parameter to ``tools.patch()`` utility
