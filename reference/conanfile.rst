@@ -825,7 +825,7 @@ so that command errors are do not pass unnoticed. It is just a wrapper for ``os.
 ``self.conanfile_directory`` is a property that returns the directory in which the conanfile is
 located.
 
-
+.. _split_conanfile:
 
 Splitting conanfile.py
 -----------------------
@@ -856,5 +856,26 @@ And then the main ``conanfile.py`` would be:
 
 
 It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package, 
-because package recipes must be self-contained
+because package recipes must be self-contained.
+
+The code reuse can also be done in the form of a base class, something like a file ``base_conan.py``
+
+..  code-block:: python
+
+    from conans import ConanFile
+    
+    class ConanBase(ConanFile):
+        # common code here
+   
+And then:
+
+..  code-block:: python
+
+    from conans import ConanFile
+    from base_conan import ConanBase
+    
+    class ConanFileToolsTest(ConanBase):
+        name = "test"
+        version = "1.9"
+       
 
