@@ -96,7 +96,7 @@ profiles
 A profile text file has to be located in ``.conan/profiles/`` directory.
 It's a text file that contains a predefined set of ``settings``, ``environment variables``` and ``scopes`` and has this structure:
 
-.. code-block:: txt
+.. code-block:: text
 
    [settings]
    setting=value
@@ -115,7 +115,7 @@ compiler and want to install some package for ``clang`` compiler, you could do:
 
 - Create a ``.conan/profiles/clang`` file:
 
-.. code-block:: txt
+.. code-block:: text
 
    [settings]
    compiler=clang
@@ -169,7 +169,7 @@ Profiles also support **package settings** and **package environment variables**
 
 - Create a ``.conan/profiles/zlib_with_clang`` file:
 
-.. code-block:: txt
+.. code-block:: text
 
    [settings]
    zlib:compiler=clang

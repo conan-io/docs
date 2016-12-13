@@ -137,9 +137,9 @@ instead of "http".
   
    [server]
 
-   ssl_enabled: True
+   ssl_enabled: True # Up/down urls will be https
    port: 9300
-   public_port: 443
+   public_port: 80 # Nginx will handle the ssl
    host_name: myservername.mydomain.com
     
 

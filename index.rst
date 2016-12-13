@@ -21,5 +21,6 @@ Contents:
    howtos
    reference
    examples
+   videos
    faq
    changelog
