@@ -50,3 +50,13 @@ CONAN_COLOR_DARK
 Set it to ``CONAN_COLOR_DARK=1`` to use dark colors in the terminal output, instead of light ones.
 Useful for terminal or consoles with light colors as white, so text is rendered in Blue, Black, Magenta,
 instead of Yellow, Cyan, White.
+
+
+CONAN_USER, CONAN_CHANNEL
+-------------------------
+Environment variables commonly used in ``test_package`` conanfiles, to allow package creation for
+different users and channel without modifying the code. They are also the environment variables
+that will be checked when using ``self.user`` or ``self.channel`` in ``conanfile.py`` package recipes
+in user space, where a user/channel has not been assigned yet (it is assigned when exported in the local cache)
+
+Read more about it in :ref:`user_channel`

@@ -4,7 +4,6 @@
 conanfile
 ==========
 
-.. _package_url:
 
 description
 ------------
@@ -22,6 +21,8 @@ short description of the package.
                         A fully featured, portable, C++ library to say Hello World in the stdout,
                         with incredible iostreams performance"""
        
+
+.. _package_url:
 
 url
 ---
@@ -80,6 +81,33 @@ define who is the creator/maintainer of the package
        author = "John J. Smith (john.smith@company.com)"
 
 This is an optional attribute
+
+.. _user_channel:
+
+user, channel
+--------------
+
+The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
+Though their usage is usually not encouraged, it could be useful in different cases,
+e.g. to define requirements with the same user and
+channel than the current package, which could be achieved with something like:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+    
+        def requirements(self):
+            self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            
+
+Only package recipes that are in the conan local cache (i.e. "exported") have an user/channel assigned.
+For package recipes working in user space, there is no current user/channel. The properties ``self.user``
+and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
+respectively. If they are not defined, an error will be raised.
 
 
 settings

@@ -559,6 +559,7 @@ Positional arguments:
 Optional arguments:
 
 
+ * **-u, --undo**              Undo imports. Remove imported files
  * **-f, --file**              Use another filename, e.g.: ``conan imports -f=conanfile2.py``
  * **-d, --dest**              Directory to copy the artifacts to. By default it will be the current
    directory.
@@ -575,5 +576,33 @@ a command line parameter:
 
    $ conan install --no-imports -g txt
    $ conan imports
+   
+
+The ``imports`` functionality will generate a manifest file called ``conan_imports_manifests.txt``
+of the files that have been copied from conan local cache to user space. This manifest can be used
+to automatically remove this file, with the command:
+
+.. code-block:: bash
+
+   $ conan imports --undo
 
 
+conan profile
+----------------
+
+.. code-block:: bash
+
+   $ conan profile list
+   > myprofile1
+   > myprofile2
+   $ conan profile show myprofile1
+   Profile myprofile1
+   [settings]
+   ...
+
+
+List all the profiles existing in the ``.conan/profiles`` folder, or show details for a given profile.
+
+The ``list`` subcommand will always use the default user ``.conan/profiles`` folder. But the 
+``show`` subcommand is able to resolve absolute and relative paths, as well as to map names to 
+``.conan/profiles`` folder, in the same way as the ``--profile`` install argument. 

@@ -158,6 +158,22 @@ format. To be used mainly in the ``source()`` method.
     tools.patch(patch_string=patch_content)
     # to apply in subfolder
     tools.patch(base_path=mysubfolder, patch_string=patch_content)
+    
+If the patch to be applied uses alternate paths that have to be stripped, like:
+
+.. code-block:: diff
+
+    --- old_path/text.txt\t2016-01-25 17:57:11.452848309 +0100
+    +++ new_path/text_new.txt\t2016-01-25 17:57:28.839869950 +0100
+    @@ -1 +1 @@
+    - old content
+    + new content
+
+Then it can be done specifying the number of folders to be stripped from the path:
+
+.. code-block:: diff
+
+    patch(patch_file="file.patch", strip=1)
 
 environment_append()
 --------------------
