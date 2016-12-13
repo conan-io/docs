@@ -160,6 +160,15 @@ Profiles can also be used with ``conan build`` command, but (by the moment) limi
    $ conan build --profile clang
 
 
+Profiles can be located in different folders, and be referenced by absolute or relative path:
+
+
+.. code-block:: bash
+
+   $ conan build --profile /abs/path/to/profile  # abs path
+   $ conan build --profile ./relpath/to/profile  # resolved to current dir
+   $ conan build --profile profile  # resolved to user/.conan/profiles/profile
+   
 
 Package settings and env vars
 .............................
