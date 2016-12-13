@@ -210,12 +210,29 @@ that recipe, also in a remote or in the local conan cache:
 
     $ conan search Boost/1.60.0@lasote/stable
 
-A query syntax is allowed to look for specific binaries:
+A query syntax is allowed to look for specific binaries, you can use ``AND`` and ``OR`` operators and parenthesis, with settings and also options.
 
 .. code-block:: bash
 
     $ conan search Boost/1.60.0@lasote/stable -q arch=x86_64
-    $ conan search Boost/1.60.0@lasote/stable -q "arch=x86_64 AND build_type=Release"
+    $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
+    
+    
+If you specify a query filter for a setting and the package recipe is not restricted by this setting, will find all packages:
+
+.. code-block:: python
+
+    class MyRecipe(ConanFile):
+        settings="arch"
+        
+        
+.. code-block:: bash
+
+    $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
+    
+    
+The query above will find all the MyRecipe binary packages, because the recipe doesn't declare "os" as a setting.
+   
 
 
 conan info
@@ -348,8 +365,8 @@ Handles the remote list and the package recipes associated to a remote.
 
    $ conan remote list
    
-   conan.io: https://server.conan.io
-   local: http://localhost:9300
+   conan.io: https://server.conan.io [Verify SSL: True]
+   local: http://localhost:9300 [Verify SSL: True]
    
    
 
@@ -357,21 +374,24 @@ Handles the remote list and the package recipes associated to a remote.
 
 .. code-block:: bash
 
-   $ conan remote add remote_name remote_url
+   $ conan remote add remote_name remote_url [verify_ssl]
+   
+ 
+Verify SSL option can be True or False (default True). Conan client will verify the SSL certificates.
 
 
-* Remote a remote:
+* Remove a remote:
 
 .. code-block:: bash
 
    $ conan remote remove remote_name
 
 
-* Update a remote url:
+* Update a remote:
 
 .. code-block:: bash
 
-   $ conan remote update remote_name new_url
+   $ conan remote update remote_name new_url [verify_ssl]
    
 
 * List the package recipes and its associated remotes:
