@@ -6,6 +6,32 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.17.0 (13-December-2016)
+---------------------------
+- Feature: support for **modern cmake** with cmake ``INTERFACE IMPORTED`` targets defined per package
+- Feature: support for more advanced queries in search.
+- Feature: new ``profile list|show`` command, able to list or show details of profiles
+- Feature: adding preliminary support for **FreeBSD**
+- Feature: added new ``description`` field, to document package contents.
+- Feature: generation of **imports manifest** and ``conan imports --undo`` functionality to remove
+  imported files
+- Feature: optional SSL certificate verification for remotes, to allow self signed certificates
+- Feature: allowing custom paths in profiles, so profiles can be easily shared in teams, just
+  inside the source repository or elsewhere.
+- Feature: fields ``user`` and ``channel`` now available in conan recipes. That allows to declare
+  requirements for the same user/channel as the current package, for example.
+- Feature: improved conan.io package web, adding description.
+- Fix: allow to modify cmake generator in ``CMake`` helper class.
+- Fix: added ``strip`` parameter to ``tools.patch()`` utility
+- Fix: removed unused dependency to Boto
+- Fix: wrong line endings in Windows for conan.conf
+- Fix: proper automatic use of ``txt`` and ``env`` generators in ``test_package``
+- Bug fix: solved problem when uploading python packages that generated .pyc at execution
+- Bug fix: crash when duplicate requires were declared in conanfile
+- Bug fix: crash with existing imported files with symlinks
+- Bug fix: options missing in "copy install command to clipboard" in web
+
+
 0.16.1 (05-December-2016)
 ---------------------------
 - Solved bug with ``test_package`` with arguments, like scopes.
