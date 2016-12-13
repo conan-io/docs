@@ -6,6 +6,11 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.16.1 (05-December-2016)
+---------------------------
+- Solved bug with ``test_package`` with arguments, like scopes.
+
+
 0.16.0 (19-November-2016)
 ---------------------------
 **Upgrade**: The ``--build=outdated`` feature had a change in the hash computation, it might report

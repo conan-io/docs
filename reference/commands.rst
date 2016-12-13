@@ -111,6 +111,7 @@ With the **-e** parameters you can define:
 
    - Global environment variables (-e SOME_VAR="SOME_VALUE"). These variables will be defined before the `build` step in all the requires and will be cleaned after the `build` execution.
    - Specific package environment variables (-e zlib:SOME_VAR="SOME_VALUE"). These variables will be defined only in the specified requires. 
+
 You can specify this variables not only for your direct requires but any require in the dependency tree.
 
 
@@ -121,6 +122,7 @@ With the **-s** parameters you can define:
 
    - Global settings (-s compiler="Visual Studio"). Will apply to all the requires.
    - Specific package settings (-s zlib:compiler="MinGW"). Those settings will be applied only to the specified requires.
+
 You can specify custom settings not only for your direct requires but any require in the dependency tree.
 
 
@@ -417,29 +419,69 @@ Verify SSL option can be True or False (default True). Conan client will verify 
 
    $ conan remote update_ref package_recipe_ref new_remote_name
    
+conan source
+------------
+
+The ``source`` command executes a conanfile.py ``source()`` method, retrieving source code as
+defined in the method, both locally, in user space or for a package in the local cache.
+
+Positional arguments:
+
+* **reference**   Package recipe reference name. e.g. openssl/1.0.2@lasote/testing or local path, e.g. ./myproject
+
+Optional arguments:
+
+* **-f, --force**  In the case of local cache, force the removal of the source folder, then the execution and
+  retrieval of the source code. Otherwise, if the code has already been retrieved, it will do nothing.
+
+
+In user space, the command will execute a local conanfile.py ``source()`` method, in the current
+directory.
+
+.. code-block:: bash
+
+   $ conan source ../mysource_folder
+
+
+In the conan local cache, it will execute the recipe ``source()`` , in the corresponding ``source``
+folder, as defined by the local cache layout. This command is useful for retrieving such source
+code before launching multiple concurrent package builds, that could otherwise collide in the
+source code retrieval process.
+
+.. code-block:: bash
+
+   $ conan source Pkg/0.2@user/channel
+
 
 conan package
 -------------
 
-Intended for package creators, for regenerating a package without recompiling the source.
-Calls your conanfile.py "package" method for a specific package or regenerates the existing package's manifest.
-
+Intended for package creators, for regenerating a package without recompiling the source. That is,
+it is just an optimization. Most likely **command not needed** for most use cases.
+Calls your conanfile.py ``package()`` method. 
+It is necessary that the package has already been built locally.
 
 .. code-block:: bash
 
-   $ conan package [-h] [-o] [--all] package_recipe_ref [package]
-
+   $ conan package [-h] reference [package]
 
 
 Positional arguments:
 
- * **package_recipe_ref**   Package recipe reference name. e.g. openssl/1.0.2@lasote/testing
- * **package**              Package ID to regenerate. e.g.9cf83afd07b678d38a9c1645f605875400847ff3
+ * **reference**    Package recipe reference name. e.g. openssl/1.0.2@lasote/testing, or path, e.g. ../build_folder
+ * **package**      Package ID to regenerate. e.g.9cf83afd07b678d38a9c1645f605875400847ff3. This
+   optional parameter is only used for the local conan cache.
 
-Optional arguments:
 
-  * **-o, --only-manifest**  Just regenerate manifest for the existing package.If True conan won't call your conanfile's package method.
-  * **--all**                Package all packages from specified reference.
+This command also works locally, in the user space, and it will copy artifacts from the provided
+folder to the current one.
+
+.. code-block:: bash
+
+   $ conan package ../build
+
+This local command is useful for extracting artifacts locally from a build (without being a real
+conan package), or to test things before actually creating a conan package.
 
 
 conan copy
@@ -495,3 +537,43 @@ Create also a test_package folder skeleton:
 .. code-block:: bash
 
    $ conan new mypackage/1.0@myuser/stable -t
+
+
+
+conan imports
+-------------
+
+.. code-block:: bash
+
+   $ conan imports
+
+
+Execute the ``imports`` stage of a conanfile.txt or a conanfile.py
+
+Positional arguments:
+
+ * **reference**   Specify the location of the folder containing the conanfile.
+   By default it will be the current directory. It can also use a full reference e.g. openssl/1.0.2@lasote/testing
+   and the recipe ``imports()`` for that package in the local conan cache will be used
+
+Optional arguments:
+
+
+ * **-f, --file**              Use another filename, e.g.: ``conan imports -f=conanfile2.py``
+ * **-d, --dest**              Directory to copy the artifacts to. By default it will be the current
+   directory.
+
+
+The ``imports`` functionality needs the existence of the file ``conanbuildinfo.txt``, so it has
+to be generated in the previous ``conan install``, either specifying it in the conanfile, or as
+a command line parameter:
+
+**Examples**
+
+
+.. code-block:: bash
+
+   $ conan install --no-imports -g txt
+   $ conan imports
+
+
