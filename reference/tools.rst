@@ -7,6 +7,10 @@ Tools
 Under the tools module there are several functions and utilities that can be used in conan package
 recipes
 
+cpu_count()
+-----------
+Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1.
+
 
 vcvars_command()
 ----------------
