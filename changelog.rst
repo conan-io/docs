@@ -6,8 +6,20 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.17.2 (21-December-2016)
+-------------------------
+- Bug Fix: ConfigureEnvironment helper ignoring libcxx setting. #791
+
+
+0.17.1 (15-December-2016)
+-------------------------
+- Bug Fix: conan install --all generating corrupted packages. Thanks to @yogeva
+- Improved case sensitive folder management.
+- Fix: appveyor links in README.
+
+
 0.17.0 (13-December-2016)
----------------------------
+-------------------------
 - Feature: support for **modern cmake** with cmake ``INTERFACE IMPORTED`` targets defined per package
 - Feature: support for more advanced queries in search.
 - Feature: new ``profile list|show`` command, able to list or show details of profiles
@@ -33,12 +45,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 0.16.1 (05-December-2016)
----------------------------
+-------------------------
 - Solved bug with ``test_package`` with arguments, like scopes.
 
 
 0.16.0 (19-November-2016)
----------------------------
+-------------------------
 **Upgrade**: The ``--build=outdated`` feature had a change in the hash computation, it might report
 outdated binaries from recipes. You can re-build the binaries or ignore it (if you haven't changed
 your recipes without re-generating binaries)
@@ -72,7 +84,7 @@ your recipes without re-generating binaries)
 
 
 0.15.0 (08-November-2016)
----------------------------
+-------------------------
 
 **Upgrade**: If you were using the ``short_paths`` feature in Windows for packages with long paths, please
 reset your local cache. You could manually remove packages or just run ``conan remove "*"``
@@ -113,7 +125,7 @@ reset your local cache. You could manually remove packages or just run ``conan r
 
 
 0.14.0 (20-October-2016)
----------------------------
+------------------------
 
 - Feature: Added profiles, as user predefined settings and environment variables (as CC and CXX
   for compiler paths). They are stored in files in the conan cache, so they can be easily edited,
@@ -145,7 +157,7 @@ reset your local cache. You could manually remove packages or just run ``conan r
 
 
 0.13.3 (13-October-2016)
----------------------------
+------------------------
 
 This minor solves some problems with ``ConfigureEnvironment``, mainly for Windows, but also fixes
 other things:
@@ -166,7 +178,7 @@ other things:
 
 
 0.13.0 (03-October-2016)
----------------------------
+------------------------
 
 **IMPORTANT UPGRADE ISSUE:** There was a small error in the computation of binary packages IDs, that
 has been addressed by conan 0.13. It affects to third level (and higher) package binaries, i.e. A
@@ -202,7 +214,7 @@ other conan users, thanks very much to all of them!
 
 
 0.12.0 (13-September-2016)
------------------------------
+--------------------------
 - Major changes to **search** api and commands. Decoupled the search of package recipes, from the
   search of package binaries.
 - Fixed bug that didn't allow to ``export`` or ``upload`` packages with settings restrictions if the
@@ -237,7 +249,7 @@ other conan users, thanks very much to all of them!
 
 
 0.11.0 (3-August-2016)
------------------------
+----------------------
 - New solution for the path length limit in Windows, more robust and complete. Package conanfile.py
   just have to declare an attribute ``short_paths=True`` and everything will be managed. The old
   approach is deprecated and totally removed, so no shorts_paths.conf file is necessary. It should
@@ -287,7 +299,7 @@ feedback and contributions. Thanks very much again to all of them!
 
 
 0.10.0 (29-June-2016)
--------------------------
+---------------------
 - **conan new** command, that creates conan package conanfile.py templates, with a ``test_package`` package test (-t option),
   also for header only packages (-i option)
 - Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).
@@ -314,7 +326,7 @@ As always, thanks very much to all contributors and users providing feedback.
 
 
 0.9 (3-May-2016)
--------------------
+----------------
 
 - **Python 3** "experimental" support. Now the main conan codebase is Python 2 and 3 compatible. 
   Python 2 still the reference platform, Python 3 stable support in next releases.
