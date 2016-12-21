@@ -26,4 +26,4 @@ Just include the ``conanbuildinfo.cmake`` this way:
 
 
 
-.. |clion_logo| image:: ../images/clion_logo.png
+.. |clion_logo| image:: ../images/icon_CLion.png
