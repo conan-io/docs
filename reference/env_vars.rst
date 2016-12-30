@@ -60,3 +60,30 @@ that will be checked when using ``self.user`` or ``self.channel`` in ``conanfile
 in user space, where a user/channel has not been assigned yet (it is assigned when exported in the local cache)
 
 Read more about it in :ref:`user_channel`
+
+
+CONAN_ENV_XXXX_YYYY
+-------------------
+You can override the default settings (located in your ``~/.conan/conan.conf`` directory) with environment variables.
+
+The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the sub-setting name.
+
+**Examples**:
+
+- Override the default compiler:
+
+.. code-block:: bash
+
+	CONAN_ENV_COMPILER = "Visual Studio"
+
+- Override the default compiler version:
+
+.. code-block:: bash
+
+	CONAN_ENV_COMPILER_VERSION = "14"
+
+- Override the architecture:
+
+.. code-block:: bash
+
+	CONAN_ENV_ARCH = "x86"
