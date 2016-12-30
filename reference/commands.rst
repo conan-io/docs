@@ -93,7 +93,7 @@ If no binary package is found you can build the package from sources using the `
 	                        Force install specified package ID (ignore settings/options)
 	  --all                 Install all packages from the specified package recipe
 	  --file FILE, -f FILE  specify conanfile filename
-	  --update, -u          update with new upstream packages, overriding the local cache if needed.
+	  --update, -u          update with new upstream packages, overwriting the local cache if needed.
 	  --scope SCOPE, -sc SCOPE
 	                        Use the specified scope in the install command
 	  --profile PROFILE, -pr PROFILE
@@ -111,9 +111,9 @@ If no binary package is found you can build the package from sources using the `
 	  -r REMOTE, --remote REMOTE
 	                        look in the specified remote server
 	  --options OPTIONS, -o OPTIONS
-	                        Options to build the package, overriding the defaults. e.g., -o with_qt=true
+	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
 	  --settings SETTINGS, -s SETTINGS
-	                        Settings to build the package, overriding the defaults. e.g., -s compiler=gcc
+	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
 	  --env ENV, -e ENV     Environment variables that will be set during the package build, -e CXX=/usr/bin/clang++
 	  --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
 	                        Optional, use it to choose if you want to build from sources:
@@ -319,9 +319,9 @@ to update them.
 	  -r REMOTE, --remote REMOTE
 	                        look in the specified remote server
 	  --options OPTIONS, -o OPTIONS
-	                        Options to build the package, overriding the defaults. e.g., -o with_qt=true
+	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
 	  --settings SETTINGS, -s SETTINGS
-	                        Settings to build the package, overriding the defaults. e.g., -s compiler=gcc
+	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
 	  --only ONLY, -n ONLY  show fields only
 	  --update, -u          check updates exist from upstream remotes
 	  --build_order BUILD_ORDER, -bo BUILD_ORDER
@@ -622,7 +622,7 @@ conan remove
                     pattern
 
 
-Remove any package recipe folders matching a pattern, or their packages and/or build folders.
+Remove any package recipe folders matching a pattern, or their package and/or build folders.
 
 
 .. code-block:: bash
@@ -857,15 +857,15 @@ You can use the ``conan new`` command with the ``-t`` option to generate a test_
 	  --scope SCOPE, -sc SCOPE
 	                        Use the specified scope in the install command
 	  --keep-source, -k     Optional. Do not remove the source folder in local cache. Use for testing purposes only
-	  --update, -u          update with new upstream packages, overriding the local cache if needed.
+	  --update, -u          update with new upstream packages, overwriting the local cache if needed.
 	  --profile PROFILE, -pr PROFILE
 	                        Apply the specified profile to the install command
 	  -r REMOTE, --remote REMOTE
 	                        look in the specified remote server
 	  --options OPTIONS, -o OPTIONS
-	                        Options to build the package, overriding the defaults. e.g., -o with_qt=true
+	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
 	  --settings SETTINGS, -s SETTINGS
-	                        Settings to build the package, overriding the defaults. e.g., -s compiler=gcc
+	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
 	  --env ENV, -e ENV     Environment variables that will be set during the package build, -e CXX=/usr/bin/clang++
 	  --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
 	                        Optional, use it to choose if you want to build from sources:
@@ -996,7 +996,8 @@ folder to the current one.
 	              path to the build folder (relative or absolute)
 	  package     Package ID to regenerate. e.g.,
 	              9cf83afd07b678d38a9c1645f605875400847ff3 This optional parameter
-	              is only used for the local conan cache.
+	              is only used for the local conan cache. If not specified, ALL binaries 
+	              for this recipe are re-packaged
 
 
 **Examples**
