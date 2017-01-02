@@ -89,6 +89,8 @@ download()
 ----------
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a
 list of known verifiers for https downloads, but this can be optionally disabled.
+You can also specify the number of retries in case of fail with ``retry`` parameter and the seconds to wait before download attempts
+with ``retry_wait``.
 
 .. code-block:: python
 
@@ -97,6 +99,8 @@ list of known verifiers for https downloads, but this can be optionally disabled
     tools.download("http://someurl/somefile.zip", "myfilename.zip")
     # to disable verification:
     tools.download("http://someurl/somefile.zip", "myfilename.zip", verify=False)
+    # to retry the download 2 times waiting 5 seconds between them
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", retry=2, retry_wait=5)
     
     
 replace_in_file()
