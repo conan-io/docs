@@ -12,9 +12,9 @@ conan export
 
 	$ conan export [-h] [--path PATH] [--keep-source] user
 
-Copies the package recipe (conanfile.py and associated files) to your local cache,
-where it can be shared and reused in other projects.
-From the local cache, it can be uploaded to a remote with the ``upload`` command.
+Copies the package recipe (conanfile.py and associated files) to your local cache.
+From the local cache it can be shared and reused in other projects.
+Also, from the local cache, it can be uploaded to any remote with the "upload" command.
         
  
 .. code-block:: bash   
@@ -941,6 +941,17 @@ defined in the method, both locally, in user space or for a package in the local
 	               nothing.
 		
 
+The ``conan source`` and the ``source()`` method might use dependencies information, either from
+``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
+using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
+files. So, if the ``conan source`` command is to be used, the recommended way to run install would be:
+
+.. code-block:: bash
+
+    $ conan install ... -g env -g txt
+
+or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
+
 
 **Examples**:
 
@@ -986,6 +997,18 @@ if you would like to create a package from your current project.
 	optional arguments:
 	  --file FILE, -f FILE  specify conanfile filename
 	  --profile PROFILE, -pr PROFILE Apply a profile
+	  
+	  
+The ``conan build`` and the ``build()`` method might use dependencies information, either from
+``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
+using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
+files. So, if the ``conan build`` command is to be used, the recommended way to run install would be:
+
+.. code-block:: bash
+
+    $ conan install ... -g env -g txt
+    
+or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
 	
 
 conan package
@@ -1019,6 +1042,17 @@ folder to the current one.
 	              9cf83afd07b678d38a9c1645f605875400847ff3 This optional parameter
 	              is only used for the local conan cache. If not specified, ALL binaries 
 	              for this recipe are re-packaged
+
+The ``conan package`` and the ``package()`` method might use dependencies information, either from
+``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
+using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
+files. So, if the ``conan package`` command is to be used, the recommended way to run install would be:
+
+.. code-block:: bash
+
+    $ conan install ... -g env -g txt
+    
+or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
 
 
 **Examples**
@@ -1082,6 +1116,17 @@ with the files that have been copied from conan local cache to user space.
 	                        be the current directory
 	  -u, --undo            Undo imports. Remove imported files
 
+The ``conan imports`` and the ``imports()`` method might use dependencies information, either from
+``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
+using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
+files. So, if the ``conan imports`` command is to be used, the recommended way to run install would be:
+
+.. code-block:: bash
+
+    $ conan install ... -g env -g txt
+    
+or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
+    
 
 
 **Examples**
