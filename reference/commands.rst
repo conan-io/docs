@@ -36,18 +36,18 @@ From the local cache, it can be uploaded to a remote with the ``upload`` command
 **Examples**
 
 
-- Export a recipe from the current directory, under the ``fenix/testing`` user:
+- Export a recipe from the current directory, under the ``myuser/testing`` user and channel:
 
 .. code-block:: bash
 
-	$ conan export fenix
+	$ conan export myuser
 
 
-- Export a recipe from any folder directory, under the ``fenix/stable`` user:
+- Export a recipe from any folder directory, under the ``myuser/stable`` user and channel:
 
 .. code-block:: bash
 
-	$ conan export ./folder_name fenix/stable
+	$ conan export ./folder_name myuser/stable
 
 
 - Export a recipe without removing the source folder in the local cache:
@@ -77,8 +77,10 @@ conan install
 
 Installs the requirements specified in a ``conanfile.py`` or ``conanfile.txt``.
 It can also be used to install a concrete recipe/package specified by the ``reference`` parameter.
-If the recipe is not found in the local cache it will retrieve the recipe from the remotes sequentially.
-When the recipe has been downloaded it will try to download a binary package matching the specified settings.
+If the recipe is not found in the local cache it will retrieve the recipe from a remote, looking
+for it sequentially in the available configured remotes.
+When the recipe has been downloaded it will try to download a binary package matching the specified settings,
+only from the remote from which the recipe was retrieved.
 If no binary package is found you can build the package from sources using the ``--build`` option.
 
 
@@ -129,7 +131,8 @@ If no binary package is found you can build the package from sources using the `
 
 **Examples**
 
-- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting:
+- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting
+(other settings will be defaulted as defined in ``<userhome>/.conan/conan.conf``):
 
 .. code-block:: bash
 
@@ -149,7 +152,8 @@ If no binary package is found you can build the package from sources using the `
    don't specify them again in the command line.
    
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and settings:
+- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and 
+default settings from ``<userhome>/.conan/conan.conf``:
 
 .. code-block:: bash
 
@@ -189,10 +193,10 @@ env variables
 
 With the **-e** parameters you can define:
 
-   - Global environment variables (-e SOME_VAR="SOME_VALUE"). These variables will be defined before the `build` step in all the requires and will be cleaned after the `build` execution.
-   - Specific package environment variables (-e zlib:SOME_VAR="SOME_VALUE"). These variables will be defined only in the specified requires. 
+   - Global environment variables (``-e SOME_VAR="SOME_VALUE"``). These variables will be defined before the `build` step in all the packages and will be cleaned after the `build` execution.
+   - Specific package environment variables (``-e zlib:SOME_VAR="SOME_VALUE"``). These variables will be defined only in the specified packages (e.g. zlib). 
 
-You can specify this variables not only for your direct requires but any require in the dependency tree.
+You can specify this variables not only for your direct ``requires`` but for any package in the dependency graph.
 
 
 settings
@@ -201,9 +205,9 @@ settings
 With the **-s** parameters you can define:
 
    - Global settings (-s compiler="Visual Studio"). Will apply to all the requires.
-   - Specific package settings (-s zlib:compiler="MinGW"). Those settings will be applied only to the specified requires.
+   - Specific package settings (-s zlib:compiler="MinGW"). Those settings will be applied only to the specified packages.
 
-You can specify custom settings not only for your direct requires but any require in the dependency tree.
+You can specify custom settings not only for your direct ``requires`` but for any package in the dependency graph.
 
 
 options
@@ -226,7 +230,7 @@ conan search
 
 	$ conan search [-r REMOTE] [pattern]
 
-Search both package recipes and package binaries in the local cache or a remote server.
+Search both package recipes and package binaries in the local cache or in a remote server.
 If you provide a pattern, then it will search for existing package recipes matching that pattern.
 
 You can search in a remote or in the local cache, if nothing is specified, the local conan cache is
@@ -286,7 +290,7 @@ If you specify a query filter for a setting and the package recipe is not restri
     $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
     
     
-The query above will find all the MyRecipe binary packages, because the recipe doesn't declare "os" as a setting.
+The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare "os" as a setting.
 
 
 conan info
@@ -300,8 +304,8 @@ conan info
                   [--scope SCOPE]
                   [reference]
 
-Prints information about a package recipe's dependency tree. 
-You can use it for your current project (just point to the path if you want), or for any
+Prints information about a package recipe's dependency graph. 
+You can use it for your current project (just point to the path of your conanfile if you want), or for any
 existing package in your local cache.
 
 
@@ -378,7 +382,7 @@ that they are decoupled projects and they can be built in parallel by the CI sys
 
 Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter:
 
-e.g., If I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and arch=x86, Which libraries will be build?
+e.g., If I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be build?
 
 .. code-block:: bash
 
@@ -560,8 +564,11 @@ If you use the ``--force`` variable, it won't check the package date. It will ov
 
 If you use a pattern instead of a conan recipe reference you can use the ``-c`` or ``--confirm`` option to upload all the matching recipes.
 
-If you use the ``--retry`` option you can specify how many times should conan try to upload the packages in case of fail. The default is 2.
+If you use the ``--retry`` option you can specify how many times should conan try to upload the packages in case of failure. The default is 2.
 With ``--retry_wait`` you can specify the seconds to wait between upload attempts.
+
+If not remote is specified, the first configured remote (by default conan.io, use
+``conan remote list`` to list the remotes) will be used. 
 
 
 .. code-block:: bash
@@ -594,24 +601,25 @@ Uploads a package recipe (conanfile.py and the exported files):
 
 	$ conan upload OpenCV/1.4.0@lasote/stable
 
-Uploads a package recipe and all the generated packages to a specified remote:
+Uploads a package recipe and all the generated binary packages to a specified remote:
 
 .. code-block:: bash
 
 	$ conan upload OpenCV/1.4.0@lasote/stable --all -r my_remote
 
 
-Uploads all recipes and packages from our local cache to my_remote without confirmation:
+Uploads all recipes and binary packages from our local cache to ``my_remote`` without confirmation:
 
 .. code-block:: bash
 
    $ conan upload "*" --all -r my_remote -c
    
-Upload all local packages and recipes begining with "Op" retrying 3 times and waiting 10 seconds between upload attempts:
+Upload all local packages and recipes beginning with "Op" retrying 3 times and waiting 10 seconds between upload attempts:
 
 .. code-block:: bash
 
    $ conan upload "Op*" --all -r my_remote -c --retry 3 --retry_wait 10
+
 
 conan remove
 ------------
@@ -622,7 +630,10 @@ conan remove
                     pattern
 
 
-Remove any package recipe folders matching a pattern, or their package and/or build folders.
+Remove any package recipe or binary matching a pattern. It can also be used to remove
+temporary source or build folders in the local conan cache.
+
+If no remote is specified, the removal will be done by default in the local conan cache.
 
 
 .. code-block:: bash
@@ -646,7 +657,8 @@ Remove any package recipe folders matching a pattern, or their package and/or bu
 
 **Examples**:
 
-- Remove only the packages from all the recipes matching ``OpenSSL/*`` pattern:
+- Remove from the local conan cache the binary packages (the package recipes will not be removed)
+  from all the recipes matching ``OpenSSL/*`` pattern:
 
 
 .. code-block:: bash
@@ -654,14 +666,14 @@ Remove any package recipe folders matching a pattern, or their package and/or bu
 	$ conan remove OpenSSL/* --packages
 	
 
-- Remove the build folders from all the recipes matching ``OpenSSL/*`` pattern without request confirmation:
+- Remove the temporary build folders from all the recipes matching ``OpenSSL/*`` pattern without requesting confirmation:
 	
 .. code-block:: bash
 
 	$ conan remove OpenSSL/* --builds --force
 
 
-- Remove the recipe and the packages from a specific remote:
+- Remove the recipe and the binary packages from a specific remote:
 	
 .. code-block:: bash
 
@@ -676,7 +688,7 @@ conan user
 
 	$ conan user [-h] [-p PASSWORD] [--remote REMOTE] [-c] [name]
 
-Update your cached user name [and password] to avoid it being requested later, e.g. while you're uploading a package.
+Update your cached user name (and auth token) to avoid it being requested later, e.g. while you're uploading a package.
 You can have more than one user (one per remote). Changing the user, or introducing the password is only necessary to upload 
 packages to a remote.
 
@@ -712,19 +724,26 @@ packages to a remote.
 
 	$ conan user foo -r conan.io
 
-- Change **conan.io** remote user to **foo** checking and storing the password:
+- Change **conan.io** remote user to **foo**, authenticating against the remote and storing the
+  user and authentication token locally, so a later upload won't require entering credentials:
 
 .. code-block:: bash
 
 	$ conan user foo -r conan.io -p mypassword
 
+- Clean all local users and tokens
+
+.. code-block:: bash
+
+    $ conan user --clean
 
 
 .. note::
 	
-	The password is not stored in the client machine at any moment. Conan uses JWT, with this system conan
-	will get a token (expirable) checking the password against a remote. If the password is correct, then will store that 
-	token in the client. For any further interaction with the remotes, Conan client will only use the JWT token.
+	The password is not stored in the client computer at any moment. Conan uses JWT, with this system conan
+	will get a token (expirable by the server) checking the password against the remote credentials. 
+	If the password is correct, an authentication token will be obtained, and that token is the
+	information cached locally. For any further interaction with the remotes, conan client will only use that JWT token.
 
 
 conan copy
@@ -736,7 +755,7 @@ conan copy
 
 
 Copy conan recipes and packages to another user/channel. Useful to promote packages (e.g. from "beta" to "stable"). 
-Also for moving packages from an user to another.
+Also for moving packages from one user to another.
 
 
 .. code-block:: bash
@@ -779,7 +798,8 @@ conan new
    $ conan new [-h] [-t] [-i] [-c] name
 
 
-Creates a new ``conanfile.py`` file from a template.
+Creates a new package recipe template with a ``conanfile.py`` and optionally, ``test_package``
+package testing files.
 
 .. code-block:: bash
 
@@ -804,7 +824,7 @@ Creates a new ``conanfile.py`` file from a template.
    $ conan new mypackage/1.0@myuser/stable
 
 
-- Create also a test_package folder skeleton:
+- Create also a ``test_package`` folder skeleton:
 
 .. code-block:: bash
 
@@ -827,22 +847,23 @@ conan test_package
 
 
 
-The **test_package** (previously named **test**) command looks for a ``test_package`` subfolder in the current directory, and builds the
+The ``test_package`` (previously named **test**) command looks for a **test_package subfolder** in the current directory, and builds the
 project that is in it. It will typically be a project with a single requirement, pointing to
-the **conanfile.py** being developed in the current directory.
+the ``conanfile.py`` being developed in the current directory.
 
-This is intended to do a test of the package, not to run unit or integrations tests on the package
+This was mainly intended to do a test of the package, not to run unit or integrations tests on the package
 being created. Those tests could be launched if desired in the ``build()`` method.
+But it can be used for that purpose if desired, there are no real technical constraints.
 
 The command line arguments are exactly the same as the settings, options, and build parameters
-for the **install** command, with one small difference.
+for the ``install`` command, with one small difference:
 
-In conan test, by default, the **--build=CurrentPackage** pattern is automatically apended for the
-current tested package. You can always manually specify other build options, like **--build=never**,
+In conan test, by default, the ``--build=CurrentPackage`` pattern is automatically appended for the
+current tested package. You can always manually specify other build options, like ``--build=never``,
 if you just want to check that the current existing package works for the test subproject, without
 re-building it.
 
-You can use the ``conan new`` command with the ``-t`` option to generate a test_package skeleton.
+You can use the ``conan new`` command with the ``-t`` option to generate a ``test_package`` skeleton.
 
 
 .. code-block:: bash
@@ -975,9 +996,9 @@ conan package
    $ conan package [-h] reference [package]
 
 
-Calls your conanfile.py "package" method for a specific package recipe.
+Calls your conanfile.py ``package()`` method for a specific package recipe.
 Intended for package creators, for regenerating a package without recompiling
-the source, i.e. for troubleshooting, and fixing the package() method, not
+the source, i.e. for troubleshooting, and fixing the ``package()`` method, not
 normal operation. 
 
 It requires the package has been built locally, it won't
@@ -1035,7 +1056,7 @@ conan imports
 
 
 Execute the ``imports`` stage of a conanfile.txt or a conanfile.py. It requires
-to have been previously installed it and have a conanbuildinfo.txt generated file.
+to have been previously installed it and have a ``conanbuildinfo.txt`` generated file.
 
 The ``imports`` functionality needs a ``conanbuildinfo.txt`` file, so it has
 to be generated with a previous ``conan install`` either specifying it in the conanfile, or as
@@ -1065,7 +1086,7 @@ with the files that have been copied from conan local cache to user space.
 
 **Examples**
 
-- Execute the imports method for a package in the local cache:
+- Execute the ``imports()`` method for a package in the local cache:
 
 
 .. code-block:: bash
