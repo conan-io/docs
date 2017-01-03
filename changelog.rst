@@ -26,6 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: manifests errors due to generated .pyc files
 - Bug Fix: unicode error messages crashes
 - Bug Fix: duplicated build of same package binary for private dependencies
+- Bug Fix: duplicated requirement if using version-ranges and ``requirements()`` method.
 
 
 0.17.2 (21-December-2016)
