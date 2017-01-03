@@ -6,6 +6,28 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.18.0 (3-January-2016)
+-------------------------
+- Feature: uploads and downloads with **retries** on failures. This helps to avoid having to fully
+  rebuild on CI when a network transfer fails
+- Feature: added **SCons** generator
+- Feature: support for **Python 3.6**, with several fixes. Added Python 3.6 to CI.
+- Feature: show package dates in ``conan info`` command
+- Feature: new ``cmake_multi`` generator for multi-configuration IDEs like Visual Studio and XCode
+- Feature: support for **Visual Studio 2017**, VS-15
+- Feature: **FreeBSD** now passes test suite
+- Feature: ``conan upload`` showing error messages or URL of remote
+- Feature: **wildcard or pattern upload**. Useful to upload multiple packages to a remote.
+- Feature: allow defining **settings as environment variables**. Useful for use cases like dockerized builds.
+- Feature: improved ``--help`` messages
+- Feature: cmake helper tools to launch conan directly from cmake
+- Added **code coverage** for code repository
+- Fix: conan.io badges when containing dash
+- Fix: manifests errors due to generated .pyc files
+- Bug Fix: unicode error messages crashes
+- Bug Fix: duplicated build of same package binary for private dependencies
+
+
 0.17.2 (21-December-2016)
 -------------------------
 - Bug Fix: ConfigureEnvironment helper ignoring libcxx setting. #791
