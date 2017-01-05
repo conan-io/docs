@@ -6,7 +6,7 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-0.18.0 (3-January-2016)
+0.18.0 (3-January-2017)
 -------------------------
 - Feature: uploads and downloads with **retries** on failures. This helps to avoid having to fully
   rebuild on CI when a network transfer fails
