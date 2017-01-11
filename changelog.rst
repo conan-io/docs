@@ -6,6 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.18.1 (11-January-2017)
+-------------------------
+- Bug Fix: Handling of transitive private dependencies in modern cmake targets
+- Bug Fix: Missing quotes in CMake macro for modern cmake targets
+- Bug Fix: Handling LINK_FLAGS in cmake modern targets
+- Bug Fix: Environment variables no propagating to test project with test_package command
+
+
 0.18.0 (3-January-2017)
 -------------------------
 - Feature: uploads and downloads with **retries** on failures. This helps to avoid having to fully
