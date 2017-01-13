@@ -56,15 +56,15 @@ Let's see the conan recipe to install different versions of cmake in different p
            self.env_info.path.append(os.path.join(self.package_folder, "bin"))
 
 
-- The config method is discarding some setting/options combination throwing an exception.
-- The build method is downloading the right CMake file and unzipping it.
+- The config method discards some combinations of settings and options, by throwing an exception.
+- The build method downloads the appropriate CMake file and unzips it.
 - The package method is copying all the files from the zip to the package folder.
 - The package info is using the “self.env_info” to append to the environment variable “path” the package’s bin folder.
 
-This package have only 2 different things than a regular conan library package:
+This package has only 2 differences from a regular conan library package:
 
-- The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but, in this case we are downloading the binaries, so we do it in the build method to download the different zip file for each settings/option combination. Instead of really building the tools, we are just downloading them. Of course if you want to build it from source, you can do it too, create your own package recipe
-- The package_info method use the new “self.env_info” object. With “self.env_info” the package can declare environment variables that will be set with the “virtualenv” generator.
+- The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but in this case we are downloading the binaries, so we do it in the build method to download the appropriate zip file according to each combination of settings/options.  Instead of actually building the tools, we just download them.  Of course, if you want to build it from source, you can do it too, by creating your own package recipe.
+- The package_info method uses the new “self.env_info” object.  With “self.env_info” the package can declare environment variables that will be set with the “virtualenv” generator.
   This is a convenient method to use these tools without having to mess with the system PATH.
 
 
@@ -107,13 +107,13 @@ For example, take a look at the MinGW conanfile.py recipe (https://www.conan.io/
            self.env_info.CC = os.path.join(self.package_folder, "bin", "gcc.exe")
 
 
-In the config method we are adding a require to another package, the 7z_installer that it will use to unzip the mingw installers (with 7z compression).
+In the config method we add a require to another package, the 7z_installer, which will be used to unzip the mingw installers (with 7z compression).
 
-In the build method we are downloading the right MinGW installer and using the helper 
-``ConfigureEnvironment``. This helper will provide us a string with a command to set the environment variables. That means that the 7z executable will be in the path, because the 7z_installer dependency declares the “bin” folder in it’s “package_info” method.
+In the build method we download the appropriate MinGW installer and we use the
+``ConfigureEnvironment`` helper.  This helper provides a command to set the environment variables.  In particular, the 7z executable will be in the PATH, because the 7z_installer dependency declares the “bin” folder in its “package_info” method.
 
-In the package_info method we are declaring CC and CXX variables, used by CMake, autotools etc, to locate the compiler for C/C++ respectively. 
-Also we are appending to “path” variable the bin folder, so we can invoke gcc, g++, make and other tools in the command line using the virtualenv generator when we execute the “activate” script.
+In the package_info method we declare the CC and CXX variables, used by CMake, autotools etc, to locate the compiler for C and C++ respectively. 
+We also append the bin folder to the “path” variable, so that we can invoke gcc, g++, make and other tools in the command line using the virtualenv generator when we execute the “activate” script.
 
 
 Using the tool packages
@@ -195,4 +195,3 @@ or leave them unspecified in the file and pass them as command line parameters.
 
    (my_cpp_environ)$ deactivate
    $
-
