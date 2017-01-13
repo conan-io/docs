@@ -13,7 +13,7 @@ There are several ways to handle python code reuse in package recipes:
   
 - To create a conan package with the common python code, and then ``require`` it from the recipe.
 
-This howto explains the later.
+This howto explains the latter.
 
 A basic python package
 -----------------------
@@ -143,6 +143,3 @@ In the above example, the code is reused in the ``build()`` method as an example
     ...
     $ conan build
     Hello World from Python!
-    
-    
-
