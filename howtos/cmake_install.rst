@@ -3,18 +3,18 @@
 Reuse cmake install for package() method
 ============================================
 
-It is possible that your project ``CMakeLists.txt`` already has defined some
+It is possible that your project's ``CMakeLists.txt`` has already defined some
 functionality that extracts the artifacts (headers, libraries, binaries) from
 the build and source folder to a predetermined place.
 
-The conan ``package()`` method does exactly that, it defines which files
+The conan ``package()`` method does exactly that: it defines which files
 have to be copied from the build folder to the package folder.
 
 If you want to reuse that functionality, you can do it with cmake.
 
 Invoke cmake with ``CMAKE_INSTALL_PREFIX`` using the ``package_folder`` variable.
-If ``cmake install`` target correctly copy all the required libraries, headers, etc. to the ``package_folder``,
-then, no ``package()`` method will be required.
+If the ``cmake install`` target correctly copies all the required libraries, headers, etc. to the ``package_folder``,
+then the ``package()`` method is not required.
 
 
 .. code-block:: python
