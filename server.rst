@@ -44,6 +44,12 @@ First, clone the conan repository from source and install the requirements:
     $ gunicorn -b 0.0.0.0:9300 -w 4 -t 120 conans.server.server_launcher:app
 
 
+- You can also bind to an IPV6 address or specify both IPv4 and IPv6 addresses:
+
+.. code-block:: bash
+
+    $ gunicorn -b 0.0.0.0:9300 -b [::1]:9300 -w 4 -t 120 conans.server.server_launcher:app
+
 
 Server configuration
 --------------------
