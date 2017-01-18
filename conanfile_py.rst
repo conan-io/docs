@@ -3,7 +3,7 @@
 Using ``conanfile.py``
 ----------------------
 
-If the expresiveness of the ``conanfile.txt`` is not enough for your use case, or if you want
+If the expressiveness of the ``conanfile.txt`` is not enough for your use case, or if you want
 to further automate your project building with automatic management of settings and options,
 you can use a ``conanfile.py``, which is an equivalent python version.
 
