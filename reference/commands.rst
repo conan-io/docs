@@ -88,7 +88,7 @@ If no binary package is found you can build the package from sources using the `
 
 
 	positional arguments:
-	  reference             package recipe referencee.g., MyPackage/1.2@user/channel or ./my_project/
+	  reference             package recipe reference, e.g. MyPackage/1.2@user/channel or ./my_project/
 	
 	optional arguments:
 	  --package PACKAGE, -p PACKAGE
@@ -104,9 +104,11 @@ If no binary package is found you can build the package from sources using the `
 	                        Generators to use
 	  --werror              Error instead of warnings for graph inconsistencies
 	  --manifests [MANIFESTS], -m [MANIFESTS]
-	                        Install dependencies manifests in folder for later verify. Default folder is .conan_manifests, but can be changed
+	                        Install dependencies manifests in folder for later verify.
+                                Default folder is .conan_manifests, but can be changed.
 	  --manifests-interactive [MANIFESTS_INTERACTIVE], -mi [MANIFESTS_INTERACTIVE]
-	                        Install dependencies manifests in folder for later verify, asking user for confirmation. Default folder is .conan_manifests, but can be changed
+	                        Install dependencies manifests in folder for later verify, asking user for
+                                confirmation. Default folder is .conan_manifests, but can be changed.
 	  --verify [VERIFY], -v [VERIFY]
 	                        Verify dependencies manifests against stored ones
 	  --no-imports          Install specified packages but avoid running imports
@@ -116,15 +118,19 @@ If no binary package is found you can build the package from sources using the `
 	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
 	  --settings SETTINGS, -s SETTINGS
 	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
-	  --env ENV, -e ENV     Environment variables that will be set during the package build, -e CXX=/usr/bin/clang++
+	  --env ENV, -e ENV     Environment variables that will be set during the package build,
+                                e.g. -e CXX=/usr/bin/clang++
 	  --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
 	                        Optional, use it to choose if you want to build from sources:
 	                        
 	                        --build            Build all from sources, do not use binary packages.
-	                        --build=never      Default option. Never build, use binary packages or fail if a binary package is not found.
+	                        --build=never      Never build: use binary packages or fail
+                                                   if a binary package is not found (default).
 	                        --build=missing    Build from code if a binary package is not found.
-	                        --build=outdated   Build from code if the binary is not built with the current recipe or when missing binary package.
-	                        --build=[pattern]  Build always these packages from source, but never build the others. Allows multiple --build parameters.
+	                        --build=outdated   Build from code if the binary is not built with the current
+                                                   recipe or when missing binary package.
+	                        --build=[pattern]  Always build these packages from source, but never build
+                                                   the others.  Allows multiple --build parameters.
 		
 	
 
@@ -494,7 +500,7 @@ conan profile
 	$ conan profile [-h] {list,show} ...
 	
 	
-List all the profiles existing in the ``.conan/profiles`` folder, or show details for a given profile.
+List all the profiles that exist in the ``.conan/profiles`` folder, or show details for a given profile.
 The ``list`` subcommand will always use the default user ``.conan/profiles`` folder. But the 
 ``show`` subcommand is able to resolve absolute and relative paths, as well as to map names to 
 ``.conan/profiles`` folder, in the same way as the ``--profile`` install argument. 
@@ -740,10 +746,10 @@ packages to a remote.
 
 .. note::
 	
-	The password is not stored in the client computer at any moment. Conan uses JWT, with this system conan
-	will get a token (expirable by the server) checking the password against the remote credentials. 
+	The password is not stored in the client computer at any moment. Conan uses `JWT <https://en.wikipedia.org/wiki/JSON_Web_Token>`: conan
+	gets a token (expirable by the server) checking the password against the remote credentials. 
 	If the password is correct, an authentication token will be obtained, and that token is the
-	information cached locally. For any further interaction with the remotes, conan client will only use that JWT token.
+	information cached locally. For any subsequent interaction with the remotes, the conan client will only use that JWT token.
 
 
 conan copy
@@ -761,9 +767,9 @@ Also for moving packages from one user to another.
 .. code-block:: bash
 
     positional arguments:
-	  reference             package recipe referencee.g.,
+	  reference             package recipe reference, e.g.
 	                        MyPackage/1.2@user/channel
-	  user_channel          Destination user/channele.g., lasote/testing
+	  user_channel          Destination user/channel, e.g. lasote/testing
 	
 	optional arguments:
 	  -h, --help            show this help message and exit
@@ -877,7 +883,8 @@ You can use the ``conan new`` command with the ``-t`` option to generate a ``tes
 	                        alternative test folder name
 	  --scope SCOPE, -sc SCOPE
 	                        Use the specified scope in the install command
-	  --keep-source, -k     Optional. Do not remove the source folder in local cache. Use for testing purposes only
+	  --keep-source, -k     Optional. Do not remove the source folder in local cache.
+                                Use for testing purposes only
 	  --update, -u          update with new upstream packages, overwriting the local cache if needed.
 	  --profile PROFILE, -pr PROFILE
 	                        Apply the specified profile to the install command
@@ -887,15 +894,19 @@ You can use the ``conan new`` command with the ``-t`` option to generate a ``tes
 	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
 	  --settings SETTINGS, -s SETTINGS
 	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
-	  --env ENV, -e ENV     Environment variables that will be set during the package build, -e CXX=/usr/bin/clang++
+	  --env ENV, -e ENV     Environment variables to set during the package build,
+                                e.g. -e CXX=/usr/bin/clang++
 	  --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
 	                        Optional, use it to choose if you want to build from sources:
 	                        
 	                        --build            Build all from sources, do not use binary packages.
-	                        --build=never      Default option. Never build, use binary packages or fail if a binary package is not found.
+	                        --build=never      Default option. Never build, use binary packages
+                                                   or fail if a binary package is not found.
 	                        --build=missing    Build from code if a binary package is not found.
-	                        --build=outdated   Build from code if the binary is not built with the current recipe or when missing binary package.
-	                        --build=[pattern]  Build always these packages from source, but never build the others. Allows multiple --build parameters.
+	                        --build=outdated   Build from code if the binary is not built with the
+                                                   current recipe or when missing binary package.
+	                        --build=[pattern]  Build always these packages from source, but never build
+                                                   the others. Allows multiple --build parameters.
 		
 
 
@@ -1024,7 +1035,7 @@ Intended for package creators, for regenerating a package without recompiling
 the source, i.e. for troubleshooting, and fixing the ``package()`` method, not
 normal operation. 
 
-It requires the package has been built locally, it won't
+It requires that the package has been built locally, it won't
 re-package otherwise. When used in a user space project, it
 will execute from the build folder specified as parameter, and the current
 directory. This is useful while creating package recipes or just for
