@@ -238,7 +238,7 @@ through the public interface of the package, or the linking of a static library 
 one, in which the functionality or the objects of the linked static library are not exposed through
 the public interface of the dynamic library.
 
-**override**: packages can define overrides of their dependencies, if they require the defininition of
+**override**: packages can define overrides of their dependencies, if they require the definition of
 specific versions of the upstream required libraries, but not necessarily direct dependencies. For example, 
 a package can depend on A(v1.0), which in turn could conditionally depend on Zlib(v2), depending on whether
 the compression is enabled or not. Now, if you want to force the usage of Zlib(v3) you can:
