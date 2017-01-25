@@ -87,3 +87,72 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
 .. code-block:: bash
 
 	CONAN_ENV_ARCH = "x86"
+	
+
+.. _conan_trace_file:
+
+
+CONAN_TRACE_FILE
+----------------
+
+If you want extra logging information about your conan command executions, you can enable it by setting the CONAN_TRACE_FILE environment variable.
+Set it with an absolute path to a file, e.j: ``export CONAN_TRACE_FILE=/tmp/conan_trace.log``
+
+When the conan command is executed, some traces will be appended to the specified file. 
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
+
+The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
+
+Read more here: :ref:`logging_and_debugging` 
+
+.. _conan_log_run_to_file:
+
+CONAN_LOG_RUN_TO_FILE
+---------------------
+
+Defaulted to "0". If it's set to "1" will log every ``self.run("{Some command}")`` command output in a file called ``conan_run.log``.
+That file will be located in the current execution directory, so if we call ``self.run`` in the conanfile.py's build method, the file
+will be located in the build folder.
+
+In case we execute ``self.run`` in our ``source`` method, the ``conan_run.log`` will be created in the source directory, but then conan will copy it 
+to the ``build`` folder following the regular execution flow. So the ``conan_run.log`` will contain all the logs from your conanfile.py command
+executions.
+
+The file can be included in the conan package (for debugging purposes) using the ``package`` method.
+
+.. code-block:: python
+
+        def package(self):
+            self.copy(pattern="conan_run.log", dst="", keep_path=False)
+            
+
+CONAN_LOG_RUN_TO_OUTPUT
+-----------------------
+
+Defaulted to "1". If it's set to "0" conan won't print the command output to the stdout.
+Can be used with `CONAN_LOG_RUN_TO_FILE` set to "1" to log only to file and not printing the output.
+
+
+.. _conan_print_run_commands:
+
+CONAN_PRINT_RUN_COMMANDS
+------------------------
+
+Defaulted to "0". If it is set to "1" every ``self.run("{Some command}")`` call will log the executed command {Some command} to the output.
+E.j. In the `conanfile.py` file:
+
+.. code-block:: python
+	
+	self.run("cd %s && %s ./configure" % (self.ZIP_FOLDER_NAME, env_line))
+	
+
+Will print to the output (stout and/or file):
+
+.. code-block:: bash
+	
+	...
+	----Running------
+	> cd zlib-1.2.9 && env LIBS="" LDFLAGS=" -m64   $LDFLAGS" CFLAGS="-mstackrealign -fPIC $CFLAGS -m64  -s -DNDEBUG  " CPPFLAGS="$CPPFLAGS -m64  -s -DNDEBUG  " C_INCLUDE_PATH=$C_INCLUDE_PATH: CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH: ./configure
+	-----------------
+	...
