@@ -110,6 +110,8 @@ and ``self.channel`` will then look for environment variables ``CONAN_USERNAME``
 respectively. If they are not defined, an error will be raised.
 
 
+.. _settings_property:
+
 settings
 ----------
 
@@ -750,86 +752,15 @@ A typical ``imports()`` method for shared libs could be:
 
 conan_info()
 -------------------
-Each package will translate its settings, options and requirements to a unique sha1 signature.
-A convention is established to define such mapping, but you could change it according to your needs.
-For example, suppose that you are building a pure C library with a certain compiler and version, so you
-define the package to have the usual settings. But then you realize than every consumer using a different
-compiler will try to depend on a different package, re-building it from source if you have not generated it.
-Since the ABI is compatible, you might want to only build one package, with your preferred compiler version.
-You can *narrow* this setting as follows:
 
-.. code-block:: python
+Conan keeps the compatibility between binary packages using ``settings``.
+When a recipe author specifies some settings in the :ref:`settings_property` property, is telling that any change at any 
+of those settings will require a different binary package.
 
-   class MyLibConan(ConanFile):
-       name = "MyLib"
-       version = "2.5"
-       settings = "os", "compiler", "build_type", "arch"
-       
-       def conan_info(self):
-           self.info.settings.compiler.version = "Any"
-           
-Note that this setting can take any value. It is not subject to validation. You can notice that
-we actually have 2 instances of settings, the normal, "full" settings, ``self.settings`` and
-``self.info.settings``. The latter is the one used to compute the sha1 signature and it is
-initially a copy of ``self.settings``.
+But sometimes you would need to alter the general behaviour, for example, to have only one binary package for several different compiler versions.
 
-Both are shown in the **conaninfo.txt** file. ``[settings]`` is the latter, used to compute the sha1,
-with the "Any" value, and ``[full_settings]`` is the former, the one passed as configuration, holding the actual
-compiler version that has been used to create the package.
+Please, check the section :ref:`how_to_define_complex_compatibility` to get more details.
 
-C++ ABI compatibility among different compiler and versions is not assumed, nor hardcoded.
-g++ 4.8 will be generally considered different to g++ 4.9 and g++ 5.0. If you are sure your
-package ABI compatibility is fine for versions 4.X, but changes with 5.0, you could try
-something like:
-
-.. code-block:: python
-       
-   def conan_info(self):
-      v = self.settings.compiler.version
-      if self.settings.compiler == "gcc" and (v == "4.8" or v == "4.9"):
-         self.info.settings.compiler.version = "4.8-9"
-   
-This behavior can also be very useful if you want to specify compiler settings to be able to build
-and run unit tests, but the library is actually header only. 
-
-Similarly we can change the signature options (though this use case might be rare) and the
-package requirements. For example, a typical **conaninfo.txt** requiring a stable dependency
-could contain:
-
-
-.. code-block:: text
-
-   [requires]
-       Hello/1.Y.Z
-   
-   [full_requires]
-       Hello/1.1@demo/testing:73bce3fd7eb82b2eabc19fe11317d37da81afa56
-       
-This scheme asumes that changing the upstream Hello dependency will not affect my package, as
-long as the major version is not changed. Let's say that the "Hello" lib does not follow semver,
-and it breaks binary compatibility in each minor release. Then, we should change our ``info``
-as follows:
-
-.. code-block:: python
-
-   def conan_info(self):
-      hello_require = self.info.requires["Hello"]
-      hello_require.version = hello_require.full_version.minor()
-      
-That will produce a **conaninfo.txt** file like:
-
-.. code-block:: text
-
-   [requires]
-       Hello/1.1.Z
-       
-       
-.. note::
-
-   Remember that, following semver, versions<1.0 (0.Y.Z) are considered to be unstable, so they will
-   be included in the [requires] section as they are, and influence the signature, forcing re-build
-   of packages when upstream 0.Y.Z dependencies change, even for patches. Change it in your
-   conan_info() method if you need to.
 
 Other
 ------
