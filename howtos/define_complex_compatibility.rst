@@ -276,16 +276,21 @@ can change your package ID:
 	    requires = "MyOtherLib/2.0@lasote/stable"
 	
 	    def package_id(self):
-	        myotherlib = self.info.requires["MyOtherLib"]
-	        
+
 	        # Default behavior, only major release changes the package ID
-	        myotherlib.semver()
+	        self.info.requires["MyOtherLib"].semver_mode()
+	        
+	        # Any change in the require version will change the package ID
+	        self.info.requires["MyOtherLib"].full_version_mode()
 	        
 	        # Any change in the MyOtherLib version, user or channel will affect our package ID
-	        myotherlib.full_recipe()
+	        self.info.requires["MyOtherLib"].full_recipe_mode()
 	        
-	     	# Any change in the MyOtherLib version, user or channelor Package ID will affect our package ID
-	        myotherlib.full_package()
+	     	# Any change in the MyOtherLib version, user or channel or Package ID will affect our package ID
+	        self.info.requires["MyOtherLib"].full_package_mode()
+	        
+	        # The requires won't affect at all to the package ID
+	        self.info.requires["MyOtherLib"].unrelated_mode()
 	
 
 You can also adjust the requirement info object properties manually:
@@ -295,7 +300,7 @@ You can also adjust the requirement info object properties manually:
 	def package_id(self):
         myotherlib = self.info.requires["MyOtherLib"]
 		
-        # Same as myotherlib.semver()
+        # Same as myotherlib.semver_mode()
         myotherlib.name = myotherlib.full_name
         myotherlib.version = myotherlib.full_version.stable()
         myotherlib.user = myotherlib.channel = myotherlib.package_id = None
