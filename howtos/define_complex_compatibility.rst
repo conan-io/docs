@@ -76,11 +76,11 @@ But there are some use cases pending:
 .. _controlling_settings_options_compatibility:
 
 
-Using conan_info() to control settings and options compatibility
+Using package_id() to control settings and options compatibility
 ----------------------------------------------------------------
 
-The ``conan_info()`` method allows us to precisely control when the computed package ID has to change.
-Within the ``conan_info`` method we have access to the ``self.info`` object. That object contents will
+The ``package_id()`` method allows us to precisely control when the computed package ID has to change.
+Within the ``package_id`` method we have access to the ``self.info`` object. That object contents will
 establish the package ID (just an object representation digest).
 
  - **self.info.settings**: Contains all the declared settings, always as string values. 
@@ -103,7 +103,7 @@ For example, If you are sure your package ABI compatibility is fine for GCC vers
 	    version = "1.0"
 	    settings = "os", "compiler", "build_type", "arch"
 	
-	    def conan_info(self):
+	    def package_id(self):
 	        v = self.settings.compiler.version.value # ".value" will return a comparable "Version" object
 	        if self.settings.compiler == "GCC" and (v >= "4.5" and v < "5.0"):
 	            self.info.settings.compiler.version = "GCC 4 between 4.5 and 5.0"
@@ -157,7 +157,7 @@ The same way we have adjusted the ``self.info.settings`` we can adjust the ``sel
 
 .. _controlling_requires_compatibility:
 
-Using conan_info() to control requires compatibility
+Using package_id() to control requires compatibility
 ----------------------------------------------------
 
 The ``self.info`` object also have a ``requires`` object. A dictionary with the requirements info. E.j ``self.info.requires["MyOtherLib"]``.
@@ -234,7 +234,7 @@ How does conan manage versioning schema?
 By default conan suppose **semver** schema, that means, if a version changes from **2.0** to **2.1** conan suppose that the API is compatible (headers not changing).
 In the same way if a version changes from **2.1.10** to **2.1.11** conan supposes that it's API compatible too. Those rules are defined by `semver <http://semver.org/>`_.
 
-If you are not following `semver <http://semver.org/>`_. You can adjust your versioning schema with the ``conan_info()`` method, manipulating the requires:
+If you are not following `semver <http://semver.org/>`_. You can adjust your versioning schema with the ``package_id()`` method, manipulating the requires:
 
 
 .. code-block:: python
@@ -248,7 +248,7 @@ If you are not following `semver <http://semver.org/>`_. You can adjust your ver
 	    settings = "os", "compiler", "build_type", "arch"
 	    requires = "MyOtherLib/2.0@lasote/stable"
 	
-	    def conan_info(self):
+	    def package_id(self):
 	        myotherlib = self.info.requires["MyOtherLib"]
 	        
 	        # Any change in the MyOtherLib version will change current Package ID
@@ -275,7 +275,7 @@ can change your package ID:
 	    settings = "os", "compiler", "build_type", "arch"
 	    requires = "MyOtherLib/2.0@lasote/stable"
 	
-	    def conan_info(self):
+	    def package_id(self):
 	        myotherlib = self.info.requires["MyOtherLib"]
 	        
 	        # Default behavior, only major release changes the package ID
@@ -292,7 +292,7 @@ You can also adjust the requirement info object properties manually:
 
 .. code-block:: python
 
-	def conan_info(self):
+	def package_id(self):
         myotherlib = self.info.requires["MyOtherLib"]
 		
         # Same as myotherlib.semver()
@@ -334,7 +334,7 @@ Examples
 
 .. code-block:: python
 
-    def conan_info(self):
+    def package_id(self):
         # Any change in the MyOtherLib version, user or channel or Package ID will affect our package ID
         self.info.requires["MyOtherLib"].full_package()
 	   
@@ -346,7 +346,7 @@ Examples
 
 .. code-block:: python
 
-    def conan_info(self):
+    def package_id(self):
         # Any change in the MyOtherLib version, user or channel or Package ID will affect our package ID
         self.info.requires["MyOtherLib"].full_package()
 
@@ -361,7 +361,7 @@ Examples
 
 .. code-block:: python
 
-    def conan_info(self):
+    def package_id(self):
 
         self.info.requires["MyOtherLib"].full_package()
         self.info.requires["MyOtherLib"].channel = None # Channel doesn't change out package ID

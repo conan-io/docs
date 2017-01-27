@@ -751,13 +751,19 @@ A typical ``imports()`` method for shared libs could be:
       self.copy("*.dylib", "", "lib")
 
 conan_info()
--------------------
+------------
+
+Deprecated, use ``package_id()`` method instead.
+
+
+package_id()
+------------
 
 Conan keeps the compatibility between binary packages using ``settings``.
 When a recipe author specifies some settings in the :ref:`settings_property` property, is telling that any change at any 
 of those settings will require a different binary package.
 
-But sometimes you would need to alter the general behaviour, for example, to have only one binary package for several different compiler versions.
+But sometimes you would need to alter the general behavior, for example, to have only one binary package for several different compiler versions.
 
 Please, check the section :ref:`how_to_define_complex_compatibility` to get more details.
 

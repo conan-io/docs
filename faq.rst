@@ -112,5 +112,5 @@ Does conan use semantic versioning (semver) for dependencies?
 -------------------------------------------------------------
 It uses a convention by which package dependencies follow semver by default, thus it is not necessary
 to recompile new packages if you update upstream minor versions, but it will do so when you
-update major versions. This behavior can be easily configured and changed in the ``conan_info()``
+update major versions. This behavior can be easily configured and changed in the ``package_id()``
 method of your conanfile, and any versioning scheme is supported.

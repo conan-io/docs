@@ -235,7 +235,7 @@ Features:
   ``collect_libs()`` helper, and access to created binaries to compute the ``package_info()`` in general.
 - Command ``test_package`` now allows the ``--update`` option, to automatically update dependencies.
 - Added new architectures for ``ppc64le`` and detection for ``AArch64``
-- New methods for defining requires effect over binary package ID (hash) in ``conan_info()``
+- New methods for defining requires effect over binary package ID (hash) in ``package_id()``
 - Many bugs fixes: error in ``tools.download`` with python 3, restore correct prompt in virtualenvs,
   bug if removing an option in ``config_options()``, setup.py bug...
   
@@ -263,7 +263,7 @@ other conan users, thanks very much to all of them!
   ``-o option=value`` for current ``Package``, for consistency
 - Fixed some bugs in client-server auth process.
 - Allow to extract ``.tar`` files in ``tools.unzip()``
-- Some helpers for ``conan_info()``, as ``self.info.requires.clear()`` and removal of settings and options
+- Some helpers for ``package_id()``, as ``self.info.requires.clear()`` and removal of settings and options
 
 
 0.11.1 (31-August-2016)
