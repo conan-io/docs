@@ -173,6 +173,7 @@ independent in VS, we can just remove that setting field:
    def config(self):
        self.settings.compiler["Visual Studio"].remove("runtime")
        
+.. _conanfile_options:
        
 options, default_options
 ---------------------------
@@ -765,7 +766,7 @@ of those settings will require a different binary package.
 
 But sometimes you would need to alter the general behavior, for example, to have only one binary package for several different compiler versions.
 
-Please, check the section :ref:`how_to_define_complex_compatibility` to get more details.
+Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
 
 
 Other
