@@ -15,5 +15,5 @@ This section shows common solutions and different approaches to typical problems
    howtos/copy_packages
    howtos/create_installer_packages
    howtos/link_apple_framework
- 
+   howtos/logging_and_debugging
 

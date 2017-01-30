@@ -4,7 +4,8 @@
 Virtual Environments
 ====================
 
-Conan provides a **virtualenv** generator, able to read from each dependency the :ref:`self.env_info<environment_information>` variables declared in the ``package_info()`` method and generate two scripts "activate" and "deactivate". These scripts set/unset all env variables in the current shell.
+Conan provides a **virtualenv** generator, able to read from each dependency the :ref:`self.env_info<environment_information>` 
+variables declared in the ``package_info()`` method and generate two scripts "activate" and "deactivate". These scripts set/unset all env variables in the current shell.
 
 
 Open ``conanfile.txt`` and change (or add) **virtualenv** generator:
@@ -31,7 +32,10 @@ And activate the virtual environment:
 .. code-block:: bash
 
    $ source activate.sh # Windows: activate.bat without the source
+   
 
+
+In windows are available ``activate.bat``/``deactivate.bat`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
    
 Now you can run ``cmake --version`` and check that you have the installed CMake in path.
 
