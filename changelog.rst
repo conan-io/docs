@@ -6,6 +6,43 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.19.0 (31-January-2017)
+-------------------------
+- Feature: ``exports_sources`` allows to snapshot sources (like ``exports``) but retrieve them strictly
+  when necessary, to build from sources. This can largely improve install times for package recipes
+  containing sources
+- Feature: new configurable **tracer** able to create structured logs of conan actions: commands, API calls, etc
+- Feature: new logger for ``self.run`` actions, able to log information from builds and other commands
+  to files, that can afterwards be packaged together with the binaries.
+- Feature: support for **Solaris SunOS**
+- Feature: ``Version`` helper improved with ``patch, pre, build`` capabilities to handle ``1.3.4-alpha2+build1`` versions
+- Feature: compress level of tgz is now configurable via ``CONAN_COMPRESSION_LEVEL`` environment variable,
+  default 9. Reducing it can lead to faster compression times, at the expense of slightly bigger archives
+- Feature: Add **powershell** support for virtualenv generator in Windows
+- Feature: Improved ``system_requirements()`` raising errors when failing, retrying if not successful,
+  being able to execute in user space for local recipes
+- Feature: new cmake helper macro ``conan_target_link_libraries()``
+- Feature: new cmake ``CONAN_EXPORTED`` variable, can be used in CMakeLists.txt to differentiate building
+  in the local conan cache as package and building in user space
+- Fix: improving the caching of options from ``conan install`` in conaninfo.txt and precedence.
+- Fix: conan definition of cmake output dirs has been disabled for ``cmake_multi`` generator
+- Fix: ``imports()`` now uses environment variables at "conan install" (but not at "conan imports" yet)
+- Fix: ``conan_info()`` method has been renamed to ``package_id()``. Backward compatibility is maintained,
+  but it is strongly encouraged to use the new name.
+- Fix: ``conan_find_libraries`` now use the NO_CMAKE_FIND_ROOT_PATH parameter for avoiding issue while cross-compiling
+- Fix: disallowing duplicate URLs in remotes, better error management
+- Fix: improved error message for wildcard uploads not matching any package
+- Fix: remove deprecated ``platform.linux_distribution()``, using new "distro" package
+- Bugfix: fixed management of ``VerifySSL`` parameter for remotes
+- Bugfix: fixed misdetection of compiler version in conanbuildinfo.cmake for apple-clang
+- Bugfix: fixed trailing slash in remotes URLs producing crashes
+- Refactor: A big refactor has been do to ``options``. Nested options are no longer supported, and
+  ``option.suboption`` will be managed as a single string option.
+
+
+This has been a huge release with contributors of 11 developers. Thanks very much to all of them!
+
+
 0.18.1 (11-January-2017)
 -------------------------
 - Bug Fix: Handling of transitive private dependencies in modern cmake targets
