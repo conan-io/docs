@@ -253,6 +253,19 @@ Or, if using the modern cmake syntax with targets:
     
     add_executable(say_hello main.cpp)
     target_link_libraries(say_hello CONAN_PKG::Hello1)
+
+There's also a convenient macro for linking to all libraries:
+
+.. code-block:: cmake
+
+    project(MyHello)
+    cmake_minimum_required(VERSION 2.8.12)
+
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    conan_basic_setup()
+
+    add_executable(say_hello main.cpp)
+    conan_target_link_libraries(say_hello)
     
     
 With this approach, the end user can open the generated IDE project and switch among both
