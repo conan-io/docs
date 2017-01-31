@@ -37,7 +37,7 @@ the "Hello" package we developed in the previous section:
         name = "Greet"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
-        # No exports necessary
+        # No exports_sources necessary
     
         def source(self):
             # this will create a hello subfolder, take it into account
@@ -59,7 +59,7 @@ the "Hello" package we developed in the previous section:
  
 This ``conanfile.py`` is pretty much the same as in the previous section, just with a couple of changes:
 
-* The ``exports`` field is not necessary in this case, as it doesn't have sources within the 
+* The ``exports_sources`` field is not necessary in this case, as it doesn't have sources within the 
   package recipe to be bundled with the recipe
 * The ``source()`` method is added, and a ``git clone`` is done to retrieve the sources. This will
   be done only at package build time, but it is not necessary if package binaries already exist.

@@ -30,7 +30,7 @@ It is the script that defines how the packages are built and used:
         name = "Hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
-        exports = "*"
+        exports_sources = "*"
     
         def build(self):
             cmake = CMake(self.settings)
@@ -58,8 +58,8 @@ This are the basics of this file:
   whether the ``build_type`` is Debug or Release, or the architecture is 32 or
   64 bits. The possible values of those settings are also pre-defined.
 
-* The ``exports`` field is optional. It defines which auxiliary files will be exported together with
-  this **conanfile.py** file. All those 'export' files with the **conanfile.py** compose the **package recipe**.
+* The ``exports_sources`` field is optional. It defines which auxiliary files will be exported together with
+  this **conanfile.py** file. All those 'exported' files with the **conanfile.py** compose the **package recipe**.
 
 * The ``build()`` method just builds the package, invoking CMake. The first line is the project creation
   and configuration, and the second one is the actual build. They are just plain CMake commands, the

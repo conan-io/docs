@@ -305,14 +305,33 @@ The order of search for matching versions is as follows:
 
 exports
 --------
-There are 2 ways of getting source code to build a package. The first one is to use the ``exports``
+If a package recipe ``conanfile.py`` requires other external files, like other python files that
+it is importing (python importing), or maybe some text file with data it is reading, those files
+must be exported with the ``exports`` field, so they are stored together, side by side with the
+``conanfile.py`` recipe.
+
+The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+For example, if we have some python code that we want the recipe to use in a ``helpers.py`` file,
+and have some text file, ``info.txt``, we want to read and display during the recipe evaluation
+we would do something like:
+
+.. code-block:: python
+
+   exports = "helpers.py", "info.txt"
+   
+This is an optional attribute, only to be used if source code or other files want to be stored in
+the recipe itself.
+
+exports_sources
+----------------
+There are 2 ways of getting source code to build a package. The first one is to use the ``exports_sources``
 field, where you specify which sources are required, and they will be exported together with
-the **conanfile.py**, and stored in the conan stores, both local and remote. Using ``exports``
+the **conanfile.py**, and stored in the conan stores, both local and remote. Using ``exports_sources``
 the package recipe can be self-contained, containing the source code like in a snapshot, and then
 not requiring downloading or retrieving the source code from other origins (git, download) for
 building the package binaries.
 
-The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+The ``exports_sources`` field can be one single pattern, like ``exports_sources="*"``, or several inclusion patterns.
 For example, if we have the source code inside "include" and "src" folders, and there are other folders
 that are not necessary for the package recipe, we could do:
 
