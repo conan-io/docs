@@ -32,6 +32,12 @@ By default this environment varible is = 50, which means only logging critical e
 to show more detailed logging information, set this variable to lower values, as 10 to show
 debug information
 
+CONAN_COMPRESSION_LEVEL
+------------------------
+Conan uses tgz compression for archives before uploading them to remotes. The default compression
+level is 9, which is good compression and fast enough for most cases, but users with huge packages
+might want to change it and set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number,
+which is able to get slightly bigger archives but much better compression speed.
 
 CONAN_SYSREQUIRES_SUDO
 -----------------------
