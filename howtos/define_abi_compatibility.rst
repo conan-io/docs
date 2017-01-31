@@ -176,8 +176,8 @@ The same way we have adjusted the ``self.info.settings`` we could set the ``self
 
 .. _controlling_requires_compatibility:
 
-The problem of dependencies in binaries
-----------------------------------------
+The problem of dependencies
+---------------------------
 
 Let's define a simple scenario in which there are two packages, one for ``MyLib/1.0`` which depends
 on (requires) ``MyOtherLib/2.0``. The recipes and binaries for them have been created and uploaded
@@ -220,7 +220,7 @@ it will maintain the old, buggy ``addition`` version. Even if ``MyLib/0.1`` hasn
 would be different.
 
 
-Using package_id() for package requirements
+Using package_id() for package dependencies
 -------------------------------------------
 
 The ``self.info`` object also have a ``requires`` object. It is a dictionary with the necessary information for each requirement, all direct and transitive dependencies. 
@@ -330,13 +330,13 @@ while the [full_xxxx] fields show the complete reference information.
 
 The default behavior produces a conaninfo.txt that looks like:
 
- .. code-block:: text
+.. code-block:: text
 
-    [requires]
-       MyOtherLib/2.Y.Z
-   
-    [full_requires]
-       MyOtherLib/2.2@demo/testing:73bce3fd7eb82b2eabc19fe11317d37da81afa56
+   [requires]
+      MyOtherLib/2.Y.Z
+
+   [full_requires]
+      MyOtherLib/2.2@demo/testing:73bce3fd7eb82b2eabc19fe11317d37da81afa56
  
 
 
@@ -345,42 +345,67 @@ Library types: Shared, static, header only
 
 Let's see some examples, corresponding to common scenarios:
 
-- ``Mylib/1.0`` is a shared library, linking with a static library ``MyOtherLib/2.0`` package. 
- When I release a new ``MyOtherLib/2.1`` version: Do I need to create a new binary for ``Mylib/1.0``?
+- ``MyLib/1.0`` is a shared library, linking with a static library ``MyOtherLib/2.0`` package.
+ When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
   
- Yes, always, because the implementation is embedded in the ``Mylib/1.0`` shared library. 
+ Yes, always, because the implementation is embedded in the ``MyLib/1.0`` shared library.
  If we always want to rebuild our library, even if the channel changes (we assume a channel
  change could mean a source code change):
     
  .. code-block:: python
 
      def package_id(self):
-         # Any change in the MyOtherLib version, user or channel or Package ID will affect our package ID
+         # Any change in the MyOtherLib version, user or
+         # channel or Package ID will affect our package ID
          self.info.requires["MyOtherLib"].full_package()
 	   
 
-- ``Mylib/1.0`` is a shared library, and requires another shared library to link with ``MyOtherLib/2.0``, if I release a new ``MyOtherLib/2.1`` version, Do I need to rebuild ``Mylib/1.0``?
- It depends, only if the headers have changed, if we are following ``semver`` for ``MyOtherLib/2.1`` we don't need to change anything, but otherwise we need to choose the better for us:
+- ``MyLib/1.0`` is a shared library, requiring another shared library ``MyOtherLib/2.0`` package.
+ When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+ It depends, if the public headers have not changed at all, it is not necessary. Actually it might be
+ necessary to consider transitive dependencies that are shared among the public headers, how they are
+ linked and if they cross the frontiers of the API, it might also lead to incompatibilities.
+ If public headers have changed, it would depend on what changes and how are they used in ``MyLib/1.0``.
+ Adding new methods to the public headers will have no impact, but changing the implementation of some
+ functions that will be inlined when compiled from ``MyLib/1.0`` will definitely require re-building.
+ For this case, it could make sense:
+
+ .. code-block:: python
+
+     def package_id(self):
+         # Any change in the MyOtherLib version, user or channel
+         # or Package ID will affect our package ID
+         self.info.requires["MyOtherLib"].full_package()
+
+         # Or any change in the MyOtherLib version, user or
+         # channel will affect our package ID
+         self.info.requires["MyOtherLib"].full_recipe()
+	   	
+
+- ``MyLib/1.0`` is a header-only library, linking with any kind (header, static, shared) of library in ``MyOtherLib/2.0`` package.
+ When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+  
+ Never, the package should always be the same, there are no settings, no options, and in any way a
+ dependency can affect a binary, because there is no such binary. The default behavior should be
+ changed to:
+
+ .. code-block:: python
+
+     def package_id(self):
+         self.info.requires.clear()
+
+- ``MyLib/1.0`` is a static library, linking with a header only library in ``MyOtherLib/2.0`` package.
+ When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+ It could happen that the ``MyOtherLib`` headers are strictly used in some ``MyLib`` headers, which
+ are not compiled, but transitively #included. But in the general case it is likely that ``MyOtherLib``
+ headers are used in ``MyLib`` implementation files, so every change in them should imply a new
+ binary to be built. If we know that changes in the channel never imply a source code change, because
+ it is the way we have defined our workflow/lifecycle, we could write:
 
 
  .. code-block:: python
 
      def package_id(self):
-         # Any change in the MyOtherLib version, user or channel or Package ID will affect our package ID
+
          self.info.requires["MyOtherLib"].full_package()
-
-         # Or any change in the MyOtherLib version, user or channel will affect our package ID
-         self.info.requires["MyOtherLib"].full_recipe()
-	   	
-
-- ``Mylib/1.0`` is a static library, and requires a ``header only`` library ``MyOtherLib/2.0``, if I release a new ``MyOtherLib/2.1`` version, Do I need to rebuild ``Mylib/1.0``?
-  
-   Yes, by definition if a header only library changes, the headers are changing. If we know that the channel never implies a source code change (this is our workflow):
-
-
-.. code-block:: python
-
-    def package_id(self):
-
-        self.info.requires["MyOtherLib"].full_package()
-        self.info.requires["MyOtherLib"].channel = None # Channel doesn't change out package ID
+         self.info.requires["MyOtherLib"].channel = None # Channel doesn't change out package ID
