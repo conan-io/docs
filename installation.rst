@@ -10,10 +10,10 @@ There are three ways to install conan:
 
 1. The preferred and **strongly recommended way to install conan** is from PyPI, the Python Package Index,
    with the ``pip`` command.
-2. There are other available binary installers for different systems, which might come with a bundled
+2. There are other available installers for different systems, which might come with a bundled
    python interpreter, so it is not necessary to install python first. Please note that some of 
    **these installers might have some limitations**, specially those created with pyinstaller 
-   (like Windows & Linux deb installers).
+   (like Windows exe & Linux deb).
 3. Running conan from sources.
 
 Install with pip
@@ -84,7 +84,6 @@ Execute the installer. You don't need to install python.
     
         http://downloads.conan.io/latest_debian
         http://downloads.conan.io/latest_windows
-        http://downloads.conan.io/latest_macos
 
 
 Initial configuration
