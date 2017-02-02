@@ -6,6 +6,12 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.19.1 (02-February-2017)
+-------------------------
+- Bug fix: Fixed issue with ``conan copy`` followed by ``conan upload`` due to the new ``exports_sources``
+  feature.
+  
+  
 0.19.0 (31-January-2017)
 -------------------------
 - Feature: ``exports_sources`` allows to snapshot sources (like ``exports``) but retrieve them strictly
