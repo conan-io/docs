@@ -19,7 +19,7 @@ There are three ways to install conan:
 Install with pip
 ----------------
 
-You need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
+You need a python 2.7 or 3.X distribution installed in your machine. Modern python distributions come
 with pip pre-installed, if not, install pip following `pip docs`_
 
 Install conan:
