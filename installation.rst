@@ -3,7 +3,7 @@
 Install
 =======
 
-Conan can be installed in many Operating Systems. It is extensively used and tested in Windows, Linux (different distros),
+Conan can be installed in many Operating Systems. It is extensively used and tested in Windows, Linux (different dists),
 OSX, and also actively used in FreeBSD and Solaris SunOS, but it has been reported to work in other systems too.
 
 There are three ways to install conan:
