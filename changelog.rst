@@ -6,6 +6,12 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.19.2 (15-February-2017)
+-------------------------
+- Bug fix: Fixed bug with remotes behind proxies
+- Bug fix: Fixed bug with ``exports_sources`` feature and nested folders
+  
+  
 0.19.1 (02-February-2017)
 -------------------------
 - Bug fix: Fixed issue with ``conan copy`` followed by ``conan upload`` due to the new ``exports_sources``
