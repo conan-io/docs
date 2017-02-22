@@ -213,6 +213,24 @@ such an option will not be checked, and any value (as string) will be accepted.
 This could be useful, for example, if you want to have an option so a package can actually reference any specific
 commit of a git repository.
 
+You can also specify options of the package dependencies:
+
+.. code-block:: python
+   
+   class HelloConan(ConanFile):
+      requires = "Pkg/0.1@user/channel"
+      default_options = "Pkg:pkg_option=value"
+      
+If you need to dynamically set some dependency options, you could do:
+
+.. code-block:: python
+   
+   class HelloConan(ConanFile):
+      requires = "Pkg/0.1@user/channel"
+
+      def configure(self):
+          self.options["Pkg"].pkg_option = "value"
+
 requires
 ---------
 
