@@ -416,7 +416,8 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 
 This attribute will not have any effect in other OS, it will be discarded.
 
-
+From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link 
+<https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info. Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
 
 
 .. _retrieve_source:
