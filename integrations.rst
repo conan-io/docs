@@ -10,17 +10,17 @@ Integrations
 
    integrations/cmake
    integrations/visual_studio
+   integrations/makefile
+   integrations/gcc
    integrations/xcode
    integrations/clion
-   integrations/makefile
    integrations/virtualenv
+   integrations/ninja
+   integrations/qmake
+   integrations/premake
+   integrations/qbs
    integrations/git
    integrations/travisci
    integrations/appveyor
-   integrations/qmake
-   integrations/qbs
-   integrations/premake
    integrations/youcompleteme
-   integrations/gcc
-   integrations/ninja
    integrations/other

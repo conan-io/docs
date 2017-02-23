@@ -146,22 +146,14 @@ Without profiles you would have needed to set the CC and CXX variables in the en
    conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
 
-A profile can also be used in ``conan test_package`` command:
+A profile can also be used in ``conan test_package`` and ``info`` command:
 
 .. code-block:: bash
 
    $ conan test_package --profile clang
 
 
-Profiles can also be used with ``conan build`` command, but (by the moment) limited to the environment variables, settings and profiles will be ignored and taken from the **conaninfo.txt**:
-
-.. code-block:: bash
-
-   $ conan build --profile clang
-
-
 Profiles can be located in different folders, and be referenced by absolute or relative path:
-
 
 .. code-block:: bash
 
