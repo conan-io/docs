@@ -357,7 +357,7 @@ Let's see some examples, corresponding to common scenarios:
      def package_id(self):
          # Any change in the MyOtherLib version, user or
          # channel or Package ID will affect our package ID
-         self.info.requires["MyOtherLib"].full_package()
+         self.info.requires["MyOtherLib"].full_package_mode()
 	   
 
 - ``MyLib/1.0`` is a shared library, requiring another shared library ``MyOtherLib/2.0`` package.
@@ -375,11 +375,11 @@ Let's see some examples, corresponding to common scenarios:
      def package_id(self):
          # Any change in the MyOtherLib version, user or channel
          # or Package ID will affect our package ID
-         self.info.requires["MyOtherLib"].full_package()
+         self.info.requires["MyOtherLib"].full_package_mode()
 
          # Or any change in the MyOtherLib version, user or
          # channel will affect our package ID
-         self.info.requires["MyOtherLib"].full_recipe()
+         self.info.requires["MyOtherLib"].full_recipe_mode()
 	   	
 
 - ``MyLib/1.0`` is a header-only library, linking with any kind (header, static, shared) of library in ``MyOtherLib/2.0`` package.

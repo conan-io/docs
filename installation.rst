@@ -3,36 +3,26 @@
 Install
 =======
 
-To install the conan client you can use one of the provided installers, or run it
-directly from source code.
+Conan can be installed in many Operating Systems. It is extensively used and tested in Windows, Linux (different distros),
+OSX, and also actively used in FreeBSD and Solaris SunOS, but it has been reported to work in other systems too.
 
-Install the binaries
---------------------
+There are three ways to install conan:
 
-Go to the conan website and `download the installer for your platform <https://www.conan.io/downloads>`_!
-
-Execute the installer. You don't need to install python.
-
-.. note::
-
-    You can also use the latest version's links to download the latest installer:
-
-    :: 
-    
-        http://downloads.conan.io/latest_debian
-        http://downloads.conan.io/latest_windows
-        http://downloads.conan.io/latest_macos
-
+1. The preferred and **strongly recommended way to install conan** is from PyPI, the Python Package Index,
+   with the ``pip`` command.
+2. There are other available installers for different systems, which might come with a bundled
+   python interpreter, so it is not necessary to install python first. Please note that some of 
+   **these installers might have some limitations**, specially those created with pyinstaller 
+   (like Windows exe & Linux deb).
+3. Running conan from sources.
 
 Install with pip
 ----------------
 
-You need a python 2.7 distribution installed in your machine.
-From 0.9 conan has "experimental/testing" Python3 support too.
+You need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
+with pip pre-installed, if not, install pip following `pip docs`_
 
-- Install pip following `pip docs`_
-
-- Install conan:
+Install conan:
 
 ::
 
@@ -46,6 +36,7 @@ From 0.9 conan has "experimental/testing" Python3 support too.
     - In **Windows** you might need to use **32bits** python distributions, instead of 64bits.
     - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip might fail.
       Try with virtualenvs, or install with other user ``$ pip install --user conan``
+
 
 Install from brew (OSX)
 -----------------------
@@ -77,6 +68,22 @@ repositories but there are in **AUR** repository too:
 - python-fasteners
 - python-node-semver
 
+
+Install the binaries
+--------------------
+
+Go to the conan website and `download the installer for your platform <https://www.conan.io/downloads>`_!
+
+Execute the installer. You don't need to install python.
+
+.. note::
+
+    You can also use the latest version's links to download the latest installer:
+
+    :: 
+    
+        http://downloads.conan.io/latest_debian
+        http://downloads.conan.io/latest_windows
 
 
 Initial configuration

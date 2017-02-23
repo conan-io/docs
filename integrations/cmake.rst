@@ -339,7 +339,7 @@ If it's not provided you can create a basic one, take a look to this example wit
 In the first line we are finding the path where our headers should be found, we suggest the CONAN_INCLUDE_DIRS_XXX.
 Then the same for the library names with CONAN_LIBS_XXX and the paths where the libs are CONAN_LIB_DIRS_XXX.
 
-2. In your conanfile.py file add the FindXXX.cmake to the exports:
+2. In your conanfile.py file add the ``FindXXX.cmake`` to the ``exports_sources`` field:
 
 
 .. code-block:: python
@@ -348,9 +348,9 @@ Then the same for the library names with CONAN_LIBS_XXX and the paths where the 
        name = "Hello"
        version = "0.1"
        ...
-       exports = ["FindXXX.cmake"]
+       exports_sources = ["FindXXX.cmake"]
 
-3. In the package method, copy the FindXXX.cmake file to the root:
+3. In the package method, copy the ``FindXXX.cmake`` file to the root:
 
 
 
@@ -360,7 +360,7 @@ Then the same for the library names with CONAN_LIBS_XXX and the paths where the 
        name = "Hello"
        version = "0.1"
        ...
-       exports = ["FindXXX.cmake"]
+       exports_sources = ["FindXXX.cmake"]
 
 
        def package(self):
