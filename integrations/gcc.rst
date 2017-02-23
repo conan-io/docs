@@ -52,7 +52,7 @@ So just execute:
 .. code-block:: bash
 
    $ mkdir bin
-   $ g++ timer.cpp @conanbuildinfo.gcc -o bin/timer
+   $ g++ ../timer.cpp @conanbuildinfo.gcc -o bin/timer
 
 
 .. note:: 

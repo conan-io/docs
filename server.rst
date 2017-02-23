@@ -81,7 +81,7 @@ The server configuration file is by default:
    
    
    [write_permissions]
-   # "opencv/2.3.4@lasote/testing": default_user, default_user2
+   # "opencv/2.3.4@lasote/testing": default_user,default_user2
    
    [read_permissions]  
    # opencv/1.2.3@lasote/testing: default_user default_user2
@@ -185,7 +185,7 @@ instead of "http".
   are not rejected, but not too big to prevent hanging up the file transfers. The value 
   ``disk_authorize_timeout`` is not currently used. File transfers are authorized with their own
   tokens, generated with the secret ``updown_secret``. This value should be different from the above 
-  ``jwt_secret```.
+  ``jwt_secret``.
   
   
 Permissions parameters
@@ -202,14 +202,15 @@ in the form:
 
 .. code-block:: text
 
-   package/version@user/channel: allowed_user1, allowed_user2
+    # use a comma separated, no-spaces list of users
+    package/version@user/channel: allowed_user1,allowed_user2
 
 E.g.:
 
 .. code-block:: text
 
    */*@*/*: * # allow all users to all packages
-   PackageA/*@*/*: john, peter # allow john and peter access to any PackageA
+   PackageA/*@*/*: john,peter # allow john and peter access to any PackageA
    */*@project/*: john # Allow john to access any package from the "project" user
    
 The rules are evaluated in order, if the left side of the pattern matches, the rule is applied
