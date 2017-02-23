@@ -204,6 +204,17 @@ With the **-e** parameters you can define:
 
 You can specify this variables not only for your direct ``requires`` but for any package in the dependency graph.
 
+If you want to define an environment variable but you want to append the variables declared in your
+requirements you can use the [] syntax:
+
+.. code-block:: bash
+
+    conan install -e PYTHONPATH=[/other/path]
+
+This way the first entry in the PYTHONPATH variable will be `/other/path` but the PYTHONPATH values declared in the requirements
+of the project will be appended at the end using the system path separator.
+
+Read more about environment variables management here: :ref:`Manage environment variables in your recipes<migrate_to_new_environment_management>`
 
 settings
 ++++++++

@@ -81,6 +81,9 @@ and the ``tools.vcvars_command``.
 Check :ref:`Build Automation/Building with Visual Studio<building_with_visual_studio>` section for more info.
 
 
+
+.. _building_visual_project:
+
 Build an existing Visual Studio project
 ---------------------------------------
 
