@@ -71,3 +71,19 @@ Build your project as usual.
 
     e.g. **Release/x64**    
     
+
+Calling Visual Studio compiler
+------------------------------
+
+You can call your Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment``
+and the ``tools.vcvars_command``.
+
+Check :ref:`Build Automation/Building with Visual Studio<building_with_visual_studio>` section for more info.
+
+
+Build an existing Visual Studio project
+---------------------------------------
+
+You can build an existing Visual Studio from your ``build()`` method using the ``tools.build_sln_command``.
+
+Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.

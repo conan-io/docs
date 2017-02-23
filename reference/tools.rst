@@ -201,19 +201,36 @@ in your conanfile:
 When the context manager block ends, the environment variables will be unset.
 
 
+
+
+chdir()
+-------
+
+This is a context manager that allows to temporary change the current directory in your conanfile:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        with tools.chdir("./subdir"):
+            do_something()
+
+
+.. _build_sln_commmand:
+
 build_sln_command()
 -------------------
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
-It's recommended to use it along with ConfigureEnvironment, so that the Visual Studio tools 
+It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools
 will be in path.
 
 .. code-block:: python
 
   
     build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
-    env = ConfigureEnvironment(self)
-    command = "%s && %s" % (env.command_line_env, build_command)
+    command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
     self.run(command)
 
 Arguments:
@@ -268,6 +285,35 @@ OSInfo and SystemPackageTool
 ----------------------------
 These are helpers to install system packages. Check :ref:`system_requirements`
 
+
+
+run_in_windows_bash
+-------------------
+
+Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
+
+.. code-block:: python
+
+    from conans import tools
+
+    command = "pwd"
+    tools.run_in_windows_bash(self, command) # self is a conanfile instance
+
+
+unix_path
+---------
+
+Used to translate Windows paths to MSYS/CYGWIN unix paths like c/users/path/to/file
+
+
+escape_windows_cmd
+------------------
+
+Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
+
+- Adds escapes so the argument can be unpacked by CommandLineToArgvW()
+- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
 
 
 

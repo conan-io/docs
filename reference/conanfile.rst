@@ -451,8 +451,7 @@ Build helpers
 You can use these classes to prepare your build system's command invocation:
 
 - **CMake**: Prepares the invocation of cmake command with your settings.
-- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
-- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
+- **
 
 Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
 
@@ -594,9 +593,8 @@ This can be done in the ``env_info`` attribute within the ``package_info()`` met
 
 The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
 
-This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
-            
-        
+In previous conan versions you needed to use `ConfigureEnvironment` helper (now deprecated) to reuse these variables, but it's not needed anymore.
+They will be automatically applied before calling the consumer conanfile.py methods `source`, `build`, `package` and `imports`.
 
 
 configure(), config_options()

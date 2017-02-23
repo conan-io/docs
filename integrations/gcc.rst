@@ -1,11 +1,11 @@
 .. _gcc_generator:
 
 
-gcc
-=====
+GCC / Clang
+===========
 
 Conan provides a **gcc** generator, able to generate files to be directly used in the command line
-by the gcc compiler.
+by the gcc or clang compiler.
 
 Now we are going to compile the :ref:`getting started<getting_started>` example using **gcc** instead of the **cmake** generator.
 
@@ -65,3 +65,7 @@ So just execute:
    $ ./bin/timer
     Callback called after 250 milliseconds.
     ...
+
+You can also use the generator within your ``build()`` method of your conanfile.py.
+
+Check the :ref:`Build automation: Building with GCC or Clang<building_with_gcc_clang>` section for more info.

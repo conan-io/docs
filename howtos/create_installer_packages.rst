@@ -92,10 +92,9 @@ For example, take a look at the MinGW conanfile.py recipe (https://www.conan.io/
       
        def build(self):
            ...
-           
+           # The 7z package path is automatically inherited
            tools.download(files[keychain], "file.7z")
-           env = ConfigureEnvironment(self)
-           self.run("%s && 7z x file.7z" % env.command_line)
+           self.run("7z x file.7z")
        
        def package(self):
            self.copy("*", dst="", src="mingw32")
@@ -109,8 +108,7 @@ For example, take a look at the MinGW conanfile.py recipe (https://www.conan.io/
 
 In the config method we add a require to another package, the 7z_installer, which will be used to unzip the mingw installers (with 7z compression).
 
-In the build method we download the appropriate MinGW installer and we use the
-``ConfigureEnvironment`` helper.  This helper provides a command to set the environment variables.  In particular, the 7z executable will be in the PATH, because the 7z_installer dependency declares the “bin” folder in its “package_info” method.
+In the build method we download the appropriate MinGW installer. The 7z executable will be in the PATH, because the 7z_installer dependency declares the “bin” folder in its “package_info” method.
 
 In the package_info method we declare the CC and CXX variables, used by CMake, autotools etc, to locate the compiler for C and C++ respectively. 
 We also append the bin folder to the “path” variable, so that we can invoke gcc, g++, make and other tools in the command line using the virtualenv generator when we execute the “activate” script.
