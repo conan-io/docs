@@ -63,9 +63,11 @@ Let's see the conan recipe to install different versions of cmake in different p
 
 This package has only 2 differences from a regular conan library package:
 
-- The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but in this case we are downloading the binaries, so we do it in the build method to download the appropriate zip file according to each combination of settings/options.  Instead of actually building the tools, we just download them.  Of course, if you want to build it from source, you can do it too, by creating your own package recipe.
-- The package_info method uses the new “self.env_info” object.  With “self.env_info” the package can declare environment variables that will be set with the “virtualenv” generator.
-  This is a convenient method to use these tools without having to mess with the system PATH.
+- The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but in this case we are downloading the binaries,
+  so we do it in the build method to download the appropriate zip file according to each combination of settings/options.  Instead of actually building the tools, we just download them.
+  Of course, if you want to build it from source, you can do it too, by creating your own package recipe.
+- The package_info method uses the new “self.env_info” object.  With “self.env_info” the package can declare environment variables that will be set automatically before the `build`,
+  `package`, `source` and `imports` methods of the conanfile requiring this package. This is a convenient method to use these tools without having to mess with the system PATH.
 
 
 The “self.env_info” variable can also be useful if a package tool depends on another tool.
