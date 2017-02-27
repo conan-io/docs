@@ -8,6 +8,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 0.20.0 (27-February-2017)
 -------------------------
+
+**NOTE:** It is important that if you upgrade to this version, all the clients connected to the same
+remote, should upgrade too. Packages created with conan>=0.20.0 might not be usable with conan older conan clients.
+
 - Feature: Largely improved management of **environment variables**, declaration in ``package_info()``,
   definition in profiles, in command line, per package, propagation to consumers.
 - Feature: New build helpers ``AutotoolsBuildEnvironment``, ``VisualStudioBuildEnvironment``, which
