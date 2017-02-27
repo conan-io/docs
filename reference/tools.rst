@@ -56,7 +56,19 @@ and decompress them into the given destination folder (the current one by defaul
     # or to extract in "myfolder" sub-folder
     tools.unzip("myfile.zip", "myfolder")
 
-    
+
+For the ``.zip`` files you can keep the permissions using the ``keep_permissions=True`` parameter.
+WARNING: It can be dangerous if the zip file was not created in a NIX system, it could produce undefined permission schema.
+So, use only this option if you are sure that the zip file was created correctly:
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.unzip("myfile.zip", "myfolder", keep_permissions=True)
+
+
+
 untargz()
 ---------
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``

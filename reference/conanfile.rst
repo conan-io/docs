@@ -737,6 +737,14 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             installer.install(pack_name) # Install the package 
 
 
+SystemPackageTool methods:
+
+- **update()**: Updates the system package manager database.
+- **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it will
+  execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
+  parameter is set to True.
+
+
 The use of ``sudo`` in the internals of the ``install()`` method is controlled by the CONAN_SYSREQUIRES_SUDO
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
 
