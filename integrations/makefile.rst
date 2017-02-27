@@ -1,10 +1,9 @@
 
-Makefile
-________
+Autotools: configure/make
+_________________________
 
-We currently don't have a **Makefile** generator but we think that it could be developed easily.
+If you are using **configure**/**make** you can use **AutoToolsBuildEnvironment** helper.
+This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`` environment variables based on your requirements.
 
-Check the :ref:`gcc generator<gcc_generator>` and our `conan source code`_. Maybe you could help us to develop it!
+Check :ref:`Building with Autotools <building_with_autotools>` for more info.
 
-
-.. _`conan source code`: http://github.com/conan-io

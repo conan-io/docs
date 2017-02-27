@@ -146,22 +146,14 @@ Without profiles you would have needed to set the CC and CXX variables in the en
    conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
 
-A profile can also be used in ``conan test_package`` command:
+A profile can also be used in ``conan test_package`` and ``info`` command:
 
 .. code-block:: bash
 
    $ conan test_package --profile clang
 
 
-Profiles can also be used with ``conan build`` command, but (by the moment) limited to the environment variables, settings and profiles will be ignored and taken from the **conaninfo.txt**:
-
-.. code-block:: bash
-
-   $ conan build --profile clang
-
-
 Profiles can be located in different folders, and be referenced by absolute or relative path:
-
 
 .. code-block:: bash
 
@@ -193,3 +185,29 @@ Profiles also support **package settings** and **package environment variables**
    zlib:CXX=/usr/bin/clang++
    
 - Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
+
+
+artifacts.properties
+--------------------
+
+This file is used to send custom headers in the PUT requests that ``conan upload`` command does:
+
+**.conan/artifacts.properties**
+
+.. code-block:: text
+
+   custom_header1=Value1
+   custom_header2=45
+
+Artifactory users can use this file to set file properties for the uploaded files. The variables should have the prefix
+``artifact_property``. You can use ``;`` to set multiple values to a property:
+
+
+**.conan/artifacts.properties**
+
+.. code-block:: text
+
+   artifact_property_build.name=Build1
+   artifact_property_build.number=23
+   artifact_property_build.timestamp=1487676992
+   artifact_property_custom_multiple_var=one;two;three;four

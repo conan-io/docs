@@ -489,8 +489,14 @@ Build helpers
 You can use these classes to prepare your build system's command invocation:
 
 - **CMake**: Prepares the invocation of cmake command with your settings.
-- **Gcc**: Prepares the invocation of gcc or g++ with your settings.
-- **ConfigureEnvironment**: Sets environment variables with information about your settings and requirements. Useful for configure/make.
+- **AutoToolsBuildEnvironment**: If you are using configure/Makefile to build your project you can use this helper.
+  Read more: :ref:`Building with Autotools <building_with_autotools>`.
+- **VisualStudioBuildEnvironment**: If you are calling your Visual Studio compiler directly to build your project you can use this helper.
+  Read more: :ref:`Building with Visual Studio <building_with_visual_studio>`.
+- **tools.build_sln_command()**: If you have an ``sln`` project you can use this tool to build it.
+  Read more: :ref:`Build an existing Visual Studio project <building_visual_project>`.
+- **GCC generator**: If you are calling GCC or Clang directly to build your project you can use the ``gcc`` generator.
+  Read more: :ref:`Building with GCC or Clang <building_with_gcc_clang>`.
 
 Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
 
@@ -632,9 +638,8 @@ This can be done in the ``env_info`` attribute within the ``package_info()`` met
 
 The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
 
-This defined variables will be also read by the build helper ``ConfigureEnvironment``. It will provide us the command line to set the defined environment variables.
-            
-        
+In previous conan versions you needed to use `ConfigureEnvironment` helper (now deprecated) to reuse these variables, but it's not needed anymore.
+They will be automatically applied before calling the consumer conanfile.py methods `source`, `build`, `package` and `imports`.
 
 
 configure(), config_options()
@@ -749,6 +754,14 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             installer = SystemPackageTool()
             installer.update() # Update the package database
             installer.install(pack_name) # Install the package 
+
+
+SystemPackageTool methods:
+
+- **update()**: Updates the system package manager database.
+- **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it will
+  execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
+  parameter is set to True.
 
 
 The use of ``sudo`` in the internals of the ``install()`` method is controlled by the CONAN_SYSREQUIRES_SUDO

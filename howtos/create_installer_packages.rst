@@ -63,9 +63,11 @@ Let's see the conan recipe to install different versions of cmake in different p
 
 This package has only 2 differences from a regular conan library package:
 
-- The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but in this case we are downloading the binaries, so we do it in the build method to download the appropriate zip file according to each combination of settings/options.  Instead of actually building the tools, we just download them.  Of course, if you want to build it from source, you can do it too, by creating your own package recipe.
-- The package_info method uses the new “self.env_info” object.  With “self.env_info” the package can declare environment variables that will be set with the “virtualenv” generator.
-  This is a convenient method to use these tools without having to mess with the system PATH.
+- The source method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but in this case we are downloading the binaries,
+  so we do it in the build method to download the appropriate zip file according to each combination of settings/options.  Instead of actually building the tools, we just download them.
+  Of course, if you want to build it from source, you can do it too, by creating your own package recipe.
+- The package_info method uses the new “self.env_info” object.  With “self.env_info” the package can declare environment variables that will be set automatically before the `build`,
+  `package`, `source` and `imports` methods of the conanfile requiring this package. This is a convenient method to use these tools without having to mess with the system PATH.
 
 
 The “self.env_info” variable can also be useful if a package tool depends on another tool.
@@ -92,10 +94,9 @@ For example, take a look at the MinGW conanfile.py recipe (https://www.conan.io/
       
        def build(self):
            ...
-           
+           # The 7z package path is automatically inherited
            tools.download(files[keychain], "file.7z")
-           env = ConfigureEnvironment(self)
-           self.run("%s && 7z x file.7z" % env.command_line)
+           self.run("7z x file.7z")
        
        def package(self):
            self.copy("*", dst="", src="mingw32")
@@ -109,8 +110,7 @@ For example, take a look at the MinGW conanfile.py recipe (https://www.conan.io/
 
 In the config method we add a require to another package, the 7z_installer, which will be used to unzip the mingw installers (with 7z compression).
 
-In the build method we download the appropriate MinGW installer and we use the
-``ConfigureEnvironment`` helper.  This helper provides a command to set the environment variables.  In particular, the 7z executable will be in the PATH, because the 7z_installer dependency declares the “bin” folder in its “package_info” method.
+In the build method we download the appropriate MinGW installer. The 7z executable will be in the PATH, because the 7z_installer dependency declares the “bin” folder in its “package_info” method.
 
 In the package_info method we declare the CC and CXX variables, used by CMake, autotools etc, to locate the compiler for C and C++ respectively. 
 We also append the bin folder to the “path” variable, so that we can invoke gcc, g++, make and other tools in the command line using the virtualenv generator when we execute the “activate” script.
