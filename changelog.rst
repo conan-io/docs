@@ -6,6 +6,55 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.20.0 (27-February-2017)
+-------------------------
+- Feature: Largely improved management of **environment variables**, declaration in ``package_info()``,
+  definition in profiles, in command line, per package, propagation to consumers.
+- Feature: New build helpers ``AutotoolsBuildEnvironment``, ``VisualStudioBuildEnvironment``, which
+  deprecate ``ConfigureEnvironment``, with much better usage of environment variables
+- Feature: New ``virtualbuildenv`` generator that will generate a composable environment with build
+  information from installed dependencies.
+- Feature: New ``build_id()`` recipe method that allows to define logic to build once, and package
+  multiple times without building. E.g.: build once both debug and release artifacts, then package
+  separately.
+- Feature: **Multi-config packages**. Now packages can provide multi-configuration packages, like
+  both debug/release artifacts in the same package, with ``self.cpp_info.debug.libs = [...]`` syntax.
+  Not restricted to debug/release, can be used for other purposes.
+- Feature: new ``conan config`` command to manage, edit, display ``conan.conf`` entries
+- Feature: Improvements to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
+  for common operations.
+- Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
+  implementation, installation of multi-name packages.
+- Feature: Unzip with ``tools.unzip`` maintaining permissions (Linux, OSX)
+- Feature: ``conan info`` command now allows profiles too
+- Feature: new tools ``unix_path()``, ``escape_windows_cmd()``, ``run_in_windows_bash()``, useful
+  for autotools projects in Win/MinGW/Msys
+- Feature: new context manager ``tools.chdir``, to temporarily change directory.
+- Feature: CMake using ``CMAKE_SYSTEM_NAME`` for cross-compiling.
+- Feature: Artifactory build-info extraction from traces
+- Feature: Attach custom headers to artifacts uploads with an `artifacts.properties` file.
+- Feature: allow and copy symlinks while ``conan export``
+- Fix: removing quotes in some cmake variables that were generating incorrect builds
+- Fix: providing better error messages for non existing binaries, with links to the docs
+- Fix: improved error messages if ``tools.patch`` failed
+- Fix: adding ``resdirs`` to ``cpp_info`` propagated information, and cmake variables, for directories
+  containing resources and other data.
+- Fix: printing error messages if a ``--build`` policy doesn't match any package
+- Fix: managing VS2017 by ``tools``. Still the manual definition of ``vs150comntools`` required.
+- Bug fix: crashes when not supported characters were dumped to terminal by logger
+- Bug fix: wrong executable path in Visual Studio generator
+
+
+0.19.3 (27-February-2017)
+-------------------------
+- Fix: backward compatibility for new environment variables. New features to be introduced in 0.20
+  will produce that ``conaninfo.txt`` will not be correctly parsed, and then package would be "missing".
+  This will happen for packages created with 0.20, and consumed with older than 0.19.3
+  
+NOTE: It is important that you upgrade at least to this version if you are using remotes with packages
+that might be created with latest conan releases (like conan.io).
+
+
 0.19.2 (15-February-2017)
 -------------------------
 - Bug fix: Fixed bug with remotes behind proxies
