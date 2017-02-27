@@ -315,10 +315,11 @@ conan info
 
 .. code-block:: bash
 
-   $ usage: conan info [-h] [--file FILE] [-r REMOTE] [--options OPTIONS]
-                  [--settings SETTINGS] [--only ONLY] [--update]
-                  [--build_order BUILD_ORDER] [--build [BUILD [BUILD ...]]]
-                  [--scope SCOPE]
+   $ usage: conan info [-h] [--file FILE] [--only [ONLY]]
+                  [--build_order BUILD_ORDER] [--update] [--scope SCOPE]
+                  [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
+                  [--settings SETTINGS] [--env ENV]
+                  [--build [BUILD [BUILD ...]]]
                   [reference]
 
 Prints information about a package recipe's dependency graph. 
@@ -332,26 +333,38 @@ to update them.
 
 .. code-block:: bash
 
-	positional arguments:
-	  reference             reference name or path to conanfile file, e.g., MyPackage/1.2@user/channel or ./my_project/
-	
-	optional arguments:
-	  --file FILE, -f FILE  specify conanfile filename
-	  -r REMOTE, --remote REMOTE
-	                        look in the specified remote server
-	  --options OPTIONS, -o OPTIONS
-	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
-	  --settings SETTINGS, -s SETTINGS
-	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
-	  --only ONLY, -n ONLY  show fields only
-	  --update, -u          check updates exist from upstream remotes
-	  --build_order BUILD_ORDER, -bo BUILD_ORDER
-	                        given a modified reference, return an ordered list to build (CI)
-	  --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
-	                        given a build policy (same install command "build" parameter), return an ordered list of packages that would be built from sources in install command
-	  --scope SCOPE, -sc SCOPE
-	                        Define scopes for packages
-	
+    positional arguments:
+      reference             reference name or path to conanfile file, e.g.,
+                            MyPackage/1.2@user/channel or ./my_project/
+
+    optional arguments:
+      --file FILE, -f FILE  specify conanfile filename
+      --only [ONLY], -n [ONLY]
+                            show fields only
+      --build_order BUILD_ORDER, -bo BUILD_ORDER
+                            given a modified reference, return an ordered list to
+                            build (CI)
+      --update, -u          check updates exist from upstream remotes
+      --scope SCOPE, -sc SCOPE
+                            Use the specified scope in the install command
+      --profile PROFILE, -pr PROFILE
+                            Apply the specified profile to the install command
+      -r REMOTE, --remote REMOTE
+                            look in the specified remote server
+      --options OPTIONS, -o OPTIONS
+                            Options to build the package, overwriting the
+                            defaults. e.g., -o with_qt=true
+      --settings SETTINGS, -s SETTINGS
+                            Settings to build the package, overwriting the
+                            defaults. e.g., -s compiler=gcc
+      --env ENV, -e ENV     Environment variables that will be set during the
+                            package build, -e CXX=/usr/bin/clang++
+      --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
+                            given a build policy (same install command "build"
+                            parameter), return an ordered list of packages that
+                            would be built from sources in install command
+                            (simulation)
+
 
 **Examples**:
 
@@ -965,14 +978,14 @@ defined in the method, both locally, in user space or for a package in the local
 
 The ``conan source`` and the ``source()`` method might use dependencies information, either from
 ``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
-using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
-files. So, if the ``conan source`` command is to be used, the recommended way to run install would be:
+using the ``txt`` generator in the ``conanbuildinfo.txt``.
+So, if the ``conan source`` command is to be used, the recommended way to run install would be:
 
 .. code-block:: bash
 
-    $ conan install ... -g env -g txt
+    $ conan install .. -g txt
 
-or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
+or adding ``txt`` generator to the consuming conanfile ``generators`` section
 
 
 **Examples**:
@@ -1002,7 +1015,7 @@ conan build
 
 .. code-block:: bash
 
-	$ conan build [-h] [--file FILE] [--profile PROFILE] [path]
+	$ conan build conan build [-h] [--file FILE] [path]
 
 Utility command to run your current project **conanfile.py** ``build()`` method. It doesn't
 work for **conanfile.txt**. It is convenient for automatic translation of conan settings and options,
@@ -1013,24 +1026,25 @@ if you would like to create a package from your current project.
 
 .. code-block:: bash
 
-	positional arguments:
-	  path                  path to conanfile.py, e.g., conan build .
-	
-	optional arguments:
-	  --file FILE, -f FILE  specify conanfile filename
-	  --profile PROFILE, -pr PROFILE Apply a profile
+    positional arguments:
+      path                  path to conanfile.py, e.g., conan build .
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --file FILE, -f FILE  specify conanfile filename
+
 	  
 	  
 The ``conan build`` and the ``build()`` method might use dependencies information, either from
 ``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
-using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
-files. So, if the ``conan build`` command is to be used, the recommended way to run install would be:
+using the ``txt`` generator in the ``conanbuildinfo.txt``.
+So, if the ``conan build`` command is to be used, the recommended way to run install would be:
 
 .. code-block:: bash
 
-    $ conan install ... -g env -g txt
+    $ conan install .. -g txt
     
-or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
+or adding ``txt`` generator to the consuming conanfile ``generators`` section
 	
 
 conan package
@@ -1067,14 +1081,14 @@ folder to the current one.
 
 The ``conan package`` and the ``package()`` method might use dependencies information, either from
 ``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
-using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
-files. So, if the ``conan package`` command is to be used, the recommended way to run install would be:
+using the ``txt`` generator in the ``conanbuildinfo.txt``.
+So, if the ``conan package`` command is to be used, the recommended way to run install would be:
 
 .. code-block:: bash
 
-    $ conan install ... -g env -g txt
+    $ conan install .. -g txt
     
-or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
+or adding  ``txt`` generator to the consuming conanfile ``generators`` section
 
 
 **Examples**
@@ -1140,14 +1154,14 @@ with the files that have been copied from conan local cache to user space.
 
 The ``conan imports`` and the ``imports()`` method might use dependencies information, either from
 ``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
-using the ``txt`` and ``env`` generators in the respective ``conanbuildinfo.txt`` and ``conanenv.txt``
-files. So, if the ``conan imports`` command is to be used, the recommended way to run install would be:
+using the ``txt`` generator in the ``conanbuildinfo.txt``.
+So, if the ``conan imports`` command is to be used, the recommended way to run install would be:
 
 .. code-block:: bash
 
-    $ conan install ... -g env -g txt
+    $ conan install .. -g txt
     
-or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators`` section
+or adding ``txt`` generator to the consuming conanfile ``generators`` section
     
 
 
@@ -1175,3 +1189,40 @@ or adding ``env`` and ``txt`` generators to the consuming conanfile ``generators
 .. code-block:: bash
 
    $ conan imports --undo
+
+
+conan config
+------------
+
+.. code-block:: bash
+
+   $ conan config [-h] {rm,set,get} ...
+
+
+Manages conan.conf information.
+
+.. code-block:: bash
+
+    positional arguments:
+      {rm,set,get}  sub-command help
+        rm          rm an existing config element
+        set         set/add value
+        get         get the value of existing element
+
+
+**Examples**
+
+- Change the logging level to 10:
+
+.. code-block:: bash
+
+    $ conan config set log.level=10
+
+- Get the logging level:
+
+.. code-block:: bash
+
+    $ conan config get log.level
+    $> 10
+
+

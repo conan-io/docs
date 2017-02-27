@@ -139,7 +139,7 @@ In the above example, the code is reused in the ``build()`` method as an example
 
 ..  code-block:: python
 
-    $ conan install -g env -g txt
+    $ conan install -g txt
     ...
     $ conan build
     Hello World from Python!
