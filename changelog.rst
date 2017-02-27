@@ -6,6 +6,15 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.19.3 (27-February-2017)
+-------------------------
+- Fix: backward compatibility for new environment variables. New features to be introduced in 0.20
+  will produce that ``conaninfo.txt`` will not be correctly parsed, and then package would be "missing".
+  This will happen for packages created with 0.20, and consumed with older than 0.19.3
+  
+NOTE: It is important that you upgrade at least to this version if you are using remotes with packages
+that might be created with latest conan releases (like conan.io).
+
 0.19.2 (15-February-2017)
 -------------------------
 - Bug fix: Fixed bug with remotes behind proxies
