@@ -277,6 +277,15 @@ configurations, building the project, or from the command line:
     # And without having to conan install again, or do anything else
     $ cmake --build . --config Debug
 
+Build automation
+================
+
+You can invoke CMake from your conanfile.py file and automate the build of your library/project.
+Conan provides a `CMake()` helper. This helper is useful to call ``cmake`` command both for creating conan packages
+or automating your project build with the ``conan build`` command. The ``CMake()`` helper will take into account
+your settings to automatically set definitions and a generator according to your compiler, build_type, etc.
+Check the section :ref:`Building with CMake<conanfile_py_managed_settings>`.
+
 
 Find Packages
 =============
