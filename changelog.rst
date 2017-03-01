@@ -6,6 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.20.1 (01-March-2017)
+-------------------------
+- Fix: Disabled the use of cached settings and options from installed ``conaninfo.txt``
+- Fix: Revert the use of quotes in ``cmake`` generator for flags.
+- Fix: Allow comments in artifacts.properties
+- Fix: Added missing commit for CMake new helpers
+
+
 0.20.0 (27-February-2017)
 -------------------------
 
