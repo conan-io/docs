@@ -558,6 +558,7 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
     might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
 
 
+.. _package_info:
 
 package_info()
 ---------------
@@ -818,6 +819,43 @@ of those settings will require a different binary package.
 But sometimes you would need to alter the general behavior, for example, to have only one binary package for several different compiler versions.
 
 Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
+
+.. _build_id:
+
+build_id()
+------------
+
+In the general case, there is one build folder for each binary package, with the exact same hash/ID
+of the package. However this behavior can be changed, there are a couple of scenarios that this might
+be interesting:
+
+- You have a build script that generates several different configurations at once, like both debug
+  and release artifacts, but you actually want to package and consume them separately. Same for
+  different architectures or any other setting
+- You build just one configuration (like release), but you want to create different binary packages
+  for different consuming cases. For example, if you have created tests for the library in the build
+  step, you might want to create to package, one just containing the library for general usage, but
+  another one also containing the tests, as a reference and a tool to debug errors.
+  
+In both cases, if using different settings, the system will build twice (or more times) the same binaries,
+just to produce a different final binary package. With the ``build_id()`` method this logic can be
+changed. ``build_id()`` will create a new package ID/hash for the build folder, and you can define
+the logic you want in it, for example:
+
+..  code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+    
+    def build_id(self):
+       self.info_build.settings.build_type = "Any"
+       
+So this recipe will generate a final different package for each debug/release configuration. But
+as the ``build_id()`` will generate the same ID for any ``build_type``, then just one folder and
+one build will be done. Such build should build both debug and release artifacts, and then the
+``package()`` method should package them accordingly to the ``self.settings.build_type`` value.
+Still different builds will be executed if using different compilers or architectures. This method
+is basically an optimization of build time, avoiding multiple re-builds.
+  
 
 
 Other
