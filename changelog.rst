@@ -6,6 +6,12 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.20.2 (02-March-2017)
+-------------------------
+- Fix: Regression of ``visual_studio``generator using ``%(ExecutablePath)`` instead of ``$(ExecutablePath)``
+- Fix: Regression for ``--build=outdated --build=Pkg`` install pattern
+
+
 0.20.1 (01-March-2017)
 -------------------------
 - Fix: Disabled the use of cached settings and options from installed ``conaninfo.txt``
