@@ -74,10 +74,10 @@ ___________________
 If you are building your project with CMake, edit your ``conanfile.py`` and add the following ``build()`` method:
 
 .. code-block:: python
-   :emphasize-lines: 14, 15
-   
+   :emphasize-lines: 13, 14, 15, 16
+
    from conans import ConanFile, CMake
-   
+
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.7.3@lasote/stable"
@@ -87,7 +87,7 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
-   
+
       def build(self):
          cmake = CMake(self.settings)
          cmake.configure(self)
@@ -132,6 +132,20 @@ Implementing and using the conanfile.py ``build()`` method ensures that we alway
 settings both in the installation of requirements and the build of the project, and simplifies
 calling the build system.
 
+CMake.command_line and CMake.build_config
+=========================================
+
+The CMake class has two properties ``command_line`` and ``build_config`` to help running cmake commands:
+
+.. code-block:: python
+
+   def build(self):
+      cmake = CMake(self.settings)
+      self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
+      self.run('cmake --build . %s' % cmake.build_config)
+
+They will set up flags and a cmake generator that reflects the specified Conan settings. However the two methods ``configure()`` and ``build()`` operate with cmake on a higher level:
+
 CMake.configure()
 =================
 
@@ -145,7 +159,7 @@ The ``cmake`` invocation in the configuration step is highly customizable:
 - ``conan_file`` is the ConanFile to use and read settings from. Typically ``self`` is passed
 - ``args`` is a list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
 - ``defs`` is a dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
-- ``source_dir`` is CMake's source directory where ``CMakeLists.txt`` is located. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified
+- ``source_dir`` is CMake's source directory where ``CMakeLists.txt`` is located. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified. Relative paths are allowed and will be relative to ``build_dir``
 - ``build_dir`` is CMake's output directory. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
 
 CMake.build()
