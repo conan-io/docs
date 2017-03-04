@@ -337,17 +337,18 @@ we would do something like:
 
    exports = "helpers.py", "info.txt"
    
-This is an optional attribute, only to be used if source code or other files want to be stored in
-the recipe itself.
+This is an optional attribute, only to be used if the package recipe requires these other files
+for evaluation of the recipe.
 
 exports_sources
 ----------------
-There are 2 ways of getting source code to build a package. The first one is to use the ``exports_sources``
-field, where you specify which sources are required, and they will be exported together with
-the **conanfile.py**, and stored in the conan stores, both local and remote. Using ``exports_sources``
+There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
+and using the ``exports_sources`` field. With ``exports_sources`` you specify which sources are required, 
+and they will be exported together with the **conanfile.py**, copying them from your folder to the
+local conan cache. Using ``exports_sources``
 the package recipe can be self-contained, containing the source code like in a snapshot, and then
-not requiring downloading or retrieving the source code from other origins (git, download) for
-building the package binaries.
+not requiring downloading or retrieving the source code from other origins (git, download) with the 
+``source()`` method when it is necessary to build from sources.
 
 The ``exports_sources`` field can be one single pattern, like ``exports_sources="*"``, or several inclusion patterns.
 For example, if we have the source code inside "include" and "src" folders, and there are other folders
@@ -355,10 +356,11 @@ that are not necessary for the package recipe, we could do:
 
 .. code-block:: python
 
-   exports = "include*", "src*"
+   exports_sources = "include*", "src*"
    
-This is an optional attribute, only to be used if source code or other files want to be stored in
-the recipe itself.
+This is an optional attribute, used typically when ``source()`` is not specify. The main difference with
+``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
+while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
    
 generators
 ----------
