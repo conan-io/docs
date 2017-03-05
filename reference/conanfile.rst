@@ -851,13 +851,21 @@ the logic you want in it, for example:
     def build_id(self):
        self.info_build.settings.build_type = "Any"
        
+
 So this recipe will generate a final different package for each debug/release configuration. But
 as the ``build_id()`` will generate the same ID for any ``build_type``, then just one folder and
 one build will be done. Such build should build both debug and release artifacts, and then the
 ``package()`` method should package them accordingly to the ``self.settings.build_type`` value.
 Still different builds will be executed if using different compilers or architectures. This method
 is basically an optimization of build time, avoiding multiple re-builds.
-  
+
+Other information as custom package options can also be changed:
+
+..  code-block:: python
+
+    def build_id(self):
+        self.info_build.options.myoption = 'MyValue' # any value possible
+        self.info_build.options.fullsource = 'Always'
 
 
 Other
