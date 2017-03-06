@@ -755,19 +755,18 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
 
         if pack_name:
             installer = SystemPackageTool()
-            installer.update() # Update the package database
-            installer.install(pack_name) # Install the package 
+            installer.install(pack_name) # Install the package, will update the package database if pack_name isn't already installed
 
 
 SystemPackageTool methods:
 
-- **update()**: Updates the system package manager database.
+- **update()**: Updates the system package manager database. It's called automatically from the ``install()`` method by default.
 - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it will
   execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
-  parameter is set to True.
+  parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
 
 
-The use of ``sudo`` in the internals of the ``install()`` method is controlled by the CONAN_SYSREQUIRES_SUDO
+The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the CONAN_SYSREQUIRES_SUDO
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again
