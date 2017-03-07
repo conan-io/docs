@@ -66,16 +66,18 @@ Build automation
 One advantage of using ``conanfile.py`` is that the project build can be further simplified,
 using the conanfile.py ``build()`` method.
 
+.. _building_with_cmake:
+
 Building with CMake
 ___________________
 
 If you are building your project with CMake, edit your ``conanfile.py`` and add the following ``build()`` method:
 
 .. code-block:: python
-   :emphasize-lines: 14, 15
-   
+   :emphasize-lines: 13, 14, 15, 16
+
    from conans import ConanFile, CMake
-   
+
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.7.3@lasote/stable"
@@ -85,16 +87,16 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
-   
+
       def build(self):
          cmake = CMake(self.settings)
-         self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
-         self.run('cmake --build . %s' % cmake.build_config)
+         cmake.configure(self)
+         cmake.build(self)
 
 
 In the code above, we are using a **CMake** helper class. This class reads the current settings and sets cmake flags to handle **arch**, **build_type**, **compiler** and **compiler.version**.  
-Note that the first ``cmake`` invocation is using the ``conanfile_directory``. This is necessary if
-you want to do out-of-source builds or just building in a child folder, as ``cmake`` should be
+Note that the ``cmake.configure()`` invocation is using the ``conanfile_directory`` as source directory. You can specify another
+path with the ``source_dir`` argument if you want to do out-of-source builds or just building in a child folder, as ``cmake`` should be
 given the location of the root ``CMakeLists.txt`` (in this case located in the same folder as the
 ``conanfile.py``).
    
@@ -120,7 +122,7 @@ If you want to build your project for **x86_64** or another setting just change 
 
 .. code-block:: bash
 
-   $ rm -rf * //to clean the current build folder
+   $ rm -rf *  # to clean the current build folder
    $ conan install .. -s arch=x86_64
    $ conan build ..
 
@@ -129,7 +131,51 @@ From now you can just type **conan install** and conan will remember the setting
 Implementing and using the conanfile.py ``build()`` method ensures that we always use the same
 settings both in the installation of requirements and the build of the project, and simplifies
 calling the build system.
-   
+
+CMake.command_line and CMake.build_config
+=========================================
+
+The CMake class has two properties ``command_line`` and ``build_config`` to help running cmake commands:
+
+.. code-block:: python
+
+   def build(self):
+      cmake = CMake(self.settings)
+      self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
+      self.run('cmake --build . %s' % cmake.build_config)
+
+They will set up flags and a cmake generator that reflects the specified Conan settings. However the two methods ``configure()`` and ``build()`` operate with cmake on a higher level:
+
+CMake.configure()
+=================
+
+The ``cmake`` invocation in the configuration step is highly customizable:
+
+.. code-block:: python
+
+   CMake.configure(self, conan_file, args=None, defs=None, source_dir=None, build_dir=None)
+
+
+- ``conan_file`` is the ConanFile to use and read settings from. Typically ``self`` is passed
+- ``args`` is a list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+- ``defs`` is a dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
+- ``source_dir`` is CMake's source directory where ``CMakeLists.txt`` is located. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified. Relative paths are allowed and will be relative to ``build_dir``
+- ``build_dir`` is CMake's output directory. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
+
+CMake.build()
+=============
+
+.. code-block:: python
+
+   CMake.build(self, conan_file, args=None, build_dir=None, target=None)
+
+
+- ``conan_file`` is the ``ConanFile`` to use and read settings from. Typically ``self`` is passed
+- ``args`` is a list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+- ``build_dir`` is CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used. ``conan_file.conanfile_directory`` is used if ``configure()`` has not been called
+- ``target`` specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging
+
+
 .. _building_with_autotools:
 
 Building with Autotools: configure / make
@@ -438,9 +484,9 @@ package and define **options** and **default_options** this way:
     
         def build(self):
             cmake = CMake(self.settings)
-            shared_definition = "-DSHARED=1" if self.options.shared else ""
-            self.run('cmake "%s" %s %s' % (self.conanfile_directory, cmake.command_line, shared_definition))
-            self.run('cmake --build . %s' % cmake.build_config)
+            definitions = {'SHARED': self.options.shared}
+            cmake.configure(defs=definitions)
+            cmake.build()
    
    
 Observe the **build** method. We are reading **self.options.shared** and appending a definition to our **cmake** command.
@@ -505,7 +551,7 @@ you could maintain **both shared and static builds** very easily:
 
 .. note::
 
-   You can use **-DBUILD_SHARED_LIBS=ON** instead of **-DSHARED=1** and CMake will automatically build SHARED libraries,
+   You can use **BUILD_SHARED_LIBS=True** instead of **SHARED=True** and CMake will automatically build SHARED libraries,
    without the need of modifying your CMakeLists.
    We used a custom definition as an example to show you how to control your build through **conan options** and **cmake definitions**.
 
