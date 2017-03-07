@@ -213,6 +213,24 @@ such an option will not be checked, and any value (as string) will be accepted.
 This could be useful, for example, if you want to have an option so a package can actually reference any specific
 commit of a git repository.
 
+You can also specify options of the package dependencies:
+
+.. code-block:: python
+   
+   class HelloConan(ConanFile):
+      requires = "Pkg/0.1@user/channel"
+      default_options = "Pkg:pkg_option=value"
+      
+If you need to dynamically set some dependency options, you could do:
+
+.. code-block:: python
+   
+   class HelloConan(ConanFile):
+      requires = "Pkg/0.1@user/channel"
+
+      def configure(self):
+          self.options["Pkg"].pkg_option = "value"
+
 requires
 ---------
 
@@ -319,17 +337,18 @@ we would do something like:
 
    exports = "helpers.py", "info.txt"
    
-This is an optional attribute, only to be used if source code or other files want to be stored in
-the recipe itself.
+This is an optional attribute, only to be used if the package recipe requires these other files
+for evaluation of the recipe.
 
 exports_sources
 ----------------
-There are 2 ways of getting source code to build a package. The first one is to use the ``exports_sources``
-field, where you specify which sources are required, and they will be exported together with
-the **conanfile.py**, and stored in the conan stores, both local and remote. Using ``exports_sources``
+There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
+and using the ``exports_sources`` field. With ``exports_sources`` you specify which sources are required, 
+and they will be exported together with the **conanfile.py**, copying them from your folder to the
+local conan cache. Using ``exports_sources``
 the package recipe can be self-contained, containing the source code like in a snapshot, and then
-not requiring downloading or retrieving the source code from other origins (git, download) for
-building the package binaries.
+not requiring downloading or retrieving the source code from other origins (git, download) with the 
+``source()`` method when it is necessary to build from sources.
 
 The ``exports_sources`` field can be one single pattern, like ``exports_sources="*"``, or several inclusion patterns.
 For example, if we have the source code inside "include" and "src" folders, and there are other folders
@@ -337,10 +356,11 @@ that are not necessary for the package recipe, we could do:
 
 .. code-block:: python
 
-   exports = "include*", "src*"
+   exports_sources = "include*", "src*"
    
-This is an optional attribute, only to be used if source code or other files want to be stored in
-the recipe itself.
+This is an optional attribute, used typically when ``source()`` is not specify. The main difference with
+``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
+while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
    
 generators
 ----------
@@ -398,7 +418,8 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 
 This attribute will not have any effect in other OS, it will be discarded.
 
-
+From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link 
+<https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info. Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
 
 
 .. _retrieve_source:
@@ -539,6 +560,7 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
     might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
 
 
+.. _package_info:
 
 package_info()
 ---------------
@@ -733,19 +755,18 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
 
         if pack_name:
             installer = SystemPackageTool()
-            installer.update() # Update the package database
-            installer.install(pack_name) # Install the package 
+            installer.install(pack_name) # Install the package, will update the package database if pack_name isn't already installed
 
 
 SystemPackageTool methods:
 
-- **update()**: Updates the system package manager database.
+- **update()**: Updates the system package manager database. It's called automatically from the ``install()`` method by default.
 - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it will
   execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
-  parameter is set to True.
+  parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
 
 
-The use of ``sudo`` in the internals of the ``install()`` method is controlled by the CONAN_SYSREQUIRES_SUDO
+The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the CONAN_SYSREQUIRES_SUDO
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again
@@ -799,6 +820,51 @@ of those settings will require a different binary package.
 But sometimes you would need to alter the general behavior, for example, to have only one binary package for several different compiler versions.
 
 Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
+
+.. _build_id:
+
+build_id()
+------------
+
+In the general case, there is one build folder for each binary package, with the exact same hash/ID
+of the package. However this behavior can be changed, there are a couple of scenarios that this might
+be interesting:
+
+- You have a build script that generates several different configurations at once, like both debug
+  and release artifacts, but you actually want to package and consume them separately. Same for
+  different architectures or any other setting
+- You build just one configuration (like release), but you want to create different binary packages
+  for different consuming cases. For example, if you have created tests for the library in the build
+  step, you might want to create to package, one just containing the library for general usage, but
+  another one also containing the tests, as a reference and a tool to debug errors.
+  
+In both cases, if using different settings, the system will build twice (or more times) the same binaries,
+just to produce a different final binary package. With the ``build_id()`` method this logic can be
+changed. ``build_id()`` will create a new package ID/hash for the build folder, and you can define
+the logic you want in it, for example:
+
+..  code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+    
+    def build_id(self):
+       self.info_build.settings.build_type = "Any"
+       
+
+So this recipe will generate a final different package for each debug/release configuration. But
+as the ``build_id()`` will generate the same ID for any ``build_type``, then just one folder and
+one build will be done. Such build should build both debug and release artifacts, and then the
+``package()`` method should package them accordingly to the ``self.settings.build_type`` value.
+Still different builds will be executed if using different compilers or architectures. This method
+is basically an optimization of build time, avoiding multiple re-builds.
+
+Other information as custom package options can also be changed:
+
+..  code-block:: python
+
+    def build_id(self):
+        self.info_build.options.myoption = 'MyValue' # any value possible
+        self.info_build.options.fullsource = 'Always'
 
 
 Other

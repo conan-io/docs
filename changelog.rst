@@ -6,6 +6,26 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.20.3 (06-March-2017)
+-------------------------
+- Fix: Added opt-out for ``CMAKE_SYSTEM_NAME`` automatically added when cross-building, causing users
+  providing their own cross-build to fail
+- BugFix: Corrected usage of ``CONAN_CFLAGS`` instead of ``CONAN_C_FLAGS`` in cmake targets
+
+0.20.2 (02-March-2017)
+-------------------------
+- Fix: Regression of ``visual_studio``generator using ``%(ExecutablePath)`` instead of ``$(ExecutablePath)``
+- Fix: Regression for ``--build=outdated --build=Pkg`` install pattern
+
+
+0.20.1 (01-March-2017)
+-------------------------
+- Fix: Disabled the use of cached settings and options from installed ``conaninfo.txt``
+- Fix: Revert the use of quotes in ``cmake`` generator for flags.
+- Fix: Allow comments in artifacts.properties
+- Fix: Added missing commit for CMake new helpers
+
+
 0.20.0 (27-February-2017)
 -------------------------
 
@@ -25,7 +45,7 @@ remote, should upgrade too. Packages created with conan>=0.20.0 might not be usa
   both debug/release artifacts in the same package, with ``self.cpp_info.debug.libs = [...]`` syntax.
   Not restricted to debug/release, can be used for other purposes.
 - Feature: new ``conan config`` command to manage, edit, display ``conan.conf`` entries
-- Feature: Improvements to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
+- Feature: :ref:`Improvements<building_with_cmake>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
   for common operations.
 - Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
   implementation, installation of multi-name packages.
