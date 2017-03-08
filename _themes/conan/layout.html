@@ -7,6 +7,8 @@
   {%- set titlesuffix = "" %}
 {%- endif %}
 
+{% set css_files = ['css/signup.css', 'css/theme.css'] + css_files %}
+
 <!DOCTYPE html>
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
@@ -38,9 +40,15 @@
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
   {% endif %}
 
-  {% for cssfile in css_files %}
-    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
-  {% endfor %}
+  {% if not READTHEDOCS %}
+    {% for cssfile in css_files %}
+      <link rel="stylesheet" href="{{ pathto('_static/' + cssfile, 1) }}" type="text/css" />
+    {% endfor %}
+  {% else %}
+      {% for cssfile in css_files %}
+         <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
+      {% endfor %}
+  {% endif %}
 
   {% for cssfile in extra_css_files %}
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
