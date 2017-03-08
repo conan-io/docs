@@ -40,15 +40,7 @@
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
   {% endif %}
 
-  {% if not READTHEDOCS %}
-    {% for cssfile in css_files %}
-      <link rel="stylesheet" href="{{ pathto('_static/' + cssfile, 1) }}" type="text/css" />
-    {% endfor %}
-  {% else %}
-      {% for cssfile in css_files %}
-         <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
-      {% endfor %}
-  {% endif %}
+  <link rel="stylesheet" href="{{ pathto('_static/' + cssfile, 1) }}" type="text/css" />
 
   {% for cssfile in extra_css_files %}
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
