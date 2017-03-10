@@ -11,12 +11,13 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   introduction
    installation
    getting_started
    manage_deps
+   packaging
    integrations
    conanfile_py
-   packaging
    server
    howtos
    reference

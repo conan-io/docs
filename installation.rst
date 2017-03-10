@@ -16,8 +16,8 @@ There are three ways to install conan:
    (like Windows exe & Linux deb).
 3. Running conan from sources.
 
-Install with pip
-----------------
+Install with pip (recommended)
+--------------------------------
 
 You need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
 with pip pre-installed, if not, install pip following `pip docs`_

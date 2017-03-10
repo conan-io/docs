@@ -5,8 +5,7 @@ Getting started
 ===============
 
 As an example, let's start with one of the most popular C++ libraries: POCO.
-
-We will use CMake. Even though it is not a **conan** requirement, it is very convenient.
+Conan **works with any build system** and it does not depend on CMake, though we will use CMake for this example for convenience.
 
 A Timer using POCO libraries
 ----------------------------
@@ -87,7 +86,7 @@ Now, also create a ``conanfile.txt`` inside the same folder with the following c
 
 
 In this example we will use **cmake** to build the project, which is why the **cmake** generator 
-is specified, but please feel free to use any other build system. This generator will create
+is specified. This generator will create
 a ``conanbuildinfo.cmake`` file that defines cmake variables as include paths and library names,
 that can be used in our build.
 
@@ -112,10 +111,8 @@ Just include the generated file and use those variables inside our own ``CMakeLi
    add_executable(timer timer.cpp)
    target_link_libraries(timer ${CONAN_LIBS})
    
-   
-Building the timer example
+Installing dependencies
 --------------------------
-
 Lets create a build folder, so temporary build files are put there, and install the requirements
 (pointing to the parent directory, as it is where the conanfile.txt is):
 
@@ -125,7 +122,6 @@ Lets create a build folder, so temporary build files are put there, and install 
    $ mkdir build && cd build
    $ conan install ..
 
-
 This ``install`` command will download the binary package required for your configuration
 (detected the first time that you ran the conan command), **together
 with other required libraries, like OpenSSL and Zlib**. 
@@ -133,14 +129,35 @@ It will also create the ``conanbuildinfo.cmake`` file in the current directory, 
 can see the cmake defined variables, and a ``conaninfo.txt`` where information about settings,
 requirements and options is saved.
 
+
+It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified in the command line or taken from the defaults in ``<userhome>/.conan/conan.conf`` file.
+
+.. image:: images/install_flow.png
+   :height: 400 px
+   :width: 500 px
+   :align: center
+
+So for a command like ``$ conan install -s os="Linux" -s compiler="gcc"``, the steps are:
+
+- First check if the package recipe (for Poco/1.7.3@lasote/stable package) exist in the conan local cache. If we are just starting, our cache will be empty.
+- Look for the package recipe in the defined remotes. By default, conan comes with the conan.io remote defined (you can change that), so the conan client will look in conan.io if such package recipe exists.
+- If exists, it will fetch the package recipe and store it in your local cache.
+- With the package recipe and the input settings (Linux, gcc), it will check in the local cache if the corresponding binary is there, if we are installing for the first time, it won't.
+- Conan will try to look for the corresponding package binary in the remote, if such package binary exists, it will be fetched.
+- It will finish generating the requested files specified in ``generators``.
+
+If the package binary necessary for some given settings doesn't exist, it will throw an error. It is possible to try to build the package binary from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a package binary is built from sources will be done in a later section.
+
 .. warning::
 
-   There are binaries for several compilers, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5. 
+   In conan.io there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
    If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build it 
    from source, using the **--build missing** option, instead of retrieving the binaries. Such a build might not have
    been tested and eventually fail. OpenSSL requires perl and some specific tools to build from source.
 
 
+Building the timer example
+--------------------------
 
 Now, you are ready to build and run your project:
 
@@ -171,6 +188,12 @@ keep working even without network connection. To search packages in the local ca
 
     $ conan search 
 
+You can also inspect the package binaries (for different installed binaries for a given package recipe) details with:
+
+.. code-block:: bash
+
+    $ conan search Poco/1.7.3@lasote/stable
+
 Please check the reference for more information on how to search in remotes, or how to remove
 or clean packages from the local cache, or how to define custom cache directory per user or per project.
 
@@ -184,7 +207,7 @@ the folder where the ``conanfile.txt`` is:
 
 Building with other configurations
 ----------------------------------
-Let's try building your timer project with a different configuration.
+As an exercise to the reader, try building your timer project with a different configuration.
 For example, you could try building the 32 bits version.
 
 - The first time you run the **conan** command, your settings will be detected (compiler, architecture...) automatically.
@@ -195,8 +218,7 @@ For example, you could try building the 32 bits version.
 
     $ conan install -s arch=x86 -s compiler=gcc -s compiler.version=4.9
 
-- You should install a different package, using the ``-s arch=x86`` setting
-  , instead of the default used previously, that in most cases will be ``x86_64``
+- You should install a different package, using the ``-s arch=x86`` setting, instead of the default used previously, that in most cases will be ``x86_64``
 - You will also have to change your project build:
    * In Windows, change the cmake invocation accordingly to ``Visual Studio 14``
    * In Linux, you have to add the ``-m32`` flag to your CMakeLists.txt:
