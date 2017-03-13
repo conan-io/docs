@@ -131,9 +131,7 @@ Server parameters
    public_port: 9999
    host_name: localhost
   
-* ``ssl_enabled``: Conan doesn't handle the SSL traffic by itself, but you can use a proxy like nginx to redirect the SSL traffic to your conan server. 
-If your conan clients are connecting with "https" set `ssl_enabled` to True. This way conan_server will generate the upload/download urls with "https" 
-instead of "http".
+* ``ssl_enabled``: Conan doesn't handle the SSL traffic by itself, but you can use a proxy like nginx to redirect the SSL traffic to your conan server. If your conan clients are connecting with "https" set `ssl_enabled` to True. This way conan_server will generate the upload/download urls with "https" instead of "http".
   
   **Example:** Running conan server with SSL using nginx.
   

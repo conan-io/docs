@@ -1,14 +1,14 @@
 .. _conanfile_py:
 
-Using ``conanfile.py``
+Advanced features
 ----------------------
 
 If the expressiveness of the ``conanfile.txt`` is not enough for your use case, or if you want
 to further automate your project building with automatic management of settings and options,
 you can use a ``conanfile.py``, which is an equivalent python version.
 
-Migrate from ``conanfile.txt``
-..............................
+Use conanfile.py for consumers
+...............................
 
 If you have a ``conanfile.txt`` file, the conversion to a ``conanfile.py`` is quite easy.
 

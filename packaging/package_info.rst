@@ -1,37 +1,27 @@
-Package identifiers and information
-====================================
+Packaging approaches
+=====================
 
-Packages provide two types of information for consumers. The first one would be the package
-identifiers (ID), which is a SHA-1 hash of the package configuration (settings, options, requirements),
-that allows consumers to reuse an existing package without building it again from sources.
+Package recipes have three methods to control the packages binary compatibility and to implement different packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``
 
-The other type of information would be C/C++ build information, as include paths, library names, or
-compile flags
+Package binary compatibility
+-----------------------------
 
+Each package binary has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
 
-Package IDs
-------------
-
-package_id
-++++++++++
-
-Each package has two elements that affect its ID: the configuration and the ``package_id()``
-recipe method. The configuration is:
+The elements that define the package ID are the package configuration and the ``package_id()`` recipe method. The package configuration is:
 
 - The package settings, as specified in the recipe ``settings = "os", "compiler", ...``
-- The package options, as specified in the recipe ``options = {"myoption": [True, False]}`` with
-  possible default values as ``default_options="myoption=True"``
-- The package requirements, as defined in the package ``requires = "Pkg/0.1@user/channel"`` or in
-  the ``requirements()`` method.
+- The package options, as specified in the recipe ``options = {"myoption": [True, False]}`` with possible default values as ``default_options="myoption=True"``
+- The package requirements, as defined in the package ``requires = "Pkg/0.1@user/channel"`` or in the ``requirements()`` method.
   
 Those elements are first declared in the recipe, but it is at install time when they get specific
-values (as os=Windows, compiler=gcc, etc). Once all those elements have a value, they are hashed,
-and a sha1 ID is computed. This will be the package identifier. It means that all configurations
-that obtain the same ID, will be compatible.
+values (as "os=Windows", "compiler=gcc", etc). Once all those elements have a value, they are hashed,
+and a SHA1 ID is computed. This will be the package identifier. It means that all configurations
+that obtain the same ID, will be be binary compatible.
 
 For example, a header-only library with no dependencies will have no settings, options or requirements.
-Hashing such empty items will obtain always the same ID, irrespective of os, compiler, etc. That is pretty
-right, the final package for a header-only is just one package for all system, containing such headers.
+Hashing such empty items will always obtain the same ID, irrespective of os, compiler, etc. That is pretty
+right, the final package for a header-only is just one package for all configurations, containing such headers.
 
 If you need to change in some way that package compatibility, you can provide your own ``package_id()``
 method, that can change the ``self.info`` object according to your compatibility model. For example,
@@ -55,40 +45,41 @@ the package created for gcc-4.8. You could do:
             if self.settings.compiler == "gcc" and (v >= "4.8" and v < "5.0"):
                 self.info.settings.compiler.version = "gcc4.8/9"
                 
-Note that object being modified is ``self.info``. Also, any string is valid, as long as it will
-be the same for the settings you want it to be the same package.
+Note that the object being modified is called ``self.info``, not ``self.settings``. Also, any string is valid, as long as it will be the same for the settings you want it to be the same package.
 
 Read more about this in :ref:`how_to_define_abi_compatibility`
 
-build_id
-++++++++++
-The ``build_id()`` methods is an optimization. If you find that you are doing exactly the same
-build for two different packages, then you might want to use this method to redefine the build ID.
-The build ID, by default is the same as the package ID, i.e. there is one build folder per package.
-But if for any reason you have a build system that is building different artifacts in the same
-build, and you want to create different packages with those artifacts, depending on different
-settings, you don't want to rebuild again the same, as it it usually time consuming.
 
-Read more about this in :ref:`build_id`
-
-Package information
----------------------
-
-Single configuration
-+++++++++++++++++++++
+Single configuration packages
+--------------------------------
 
 A typical approach is to have each package contain the artifacts just for one configuration. In this
 approach, for example, the debug pre-compiled libraries will be in a different package than the
 release pre-compiled libraries.
+
+So if there is a package recipe that builds a “hello” library, there will be one package containing the release version of the "hello.lib" library and a different package containing a debug version of that library (in the figure denoted as "hello_d.lib", to make it clear, it is not necessary to use different names). 
+
+.. image:: /images/single_conf_packages.png
+    :height: 300 px
+    :width: 400 px
+    :align: center
+
 
 In this approach, the ``package_info()`` method can just set the appropriate values for consumers,
 to let them know about the package library names, and necessary definitions and compile flags.
 
 .. code-block:: python
   
-   def package_info(self):
-        self.cpp_info.libs = ["mylib"]
+    class HelloConan(ConanFile):
+
+        settings = "os", "compiler", "build_type", "arch"
         
+        def package_info(self):
+            self.cpp_info.libs = ["mylib"]
+
+
+It is very important to note that it is declaring the ``build_type`` as a setting. This means that a different package will be generated for each different value of such setting.
+
 The values that packages declare here (the ``include``, ``lib`` and ``bin`` subfolders are already
 defined by default, so they define the include and library path to the package) are translated
 to variables of the respective build system by the used generators. That is, if using the ``cmake``
@@ -103,15 +94,33 @@ generator, such above definition will be translated in ``conanbuildinfo.cmake`` 
 Those variables, will be used in the ``conan_basic_setup()`` macro to actually set cmake
 relevant variables.
 
-        
+If the developer wants to switch configuration of the dependencies, he will usually switch with:
+
+.. code-block:: bash
+
+    $ conan install -s build_type=Release ... 
+    // when need to debug
+    $ conan install -s build_type=Debug ... 
+
+These switches will be fast, since all the dependencies are already cached locally.
+
+This process has some advantages: it is quite easy to implement and maintain. The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum. The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by artifacts could be a very risky issue. 
+
 Read more about this in :ref:`package_info`
 
-Multi configuration
-+++++++++++++++++++++
+
+Multi configuration packages
+--------------------------------
 
 It is possible that someone wants to package both debug and release artifacts in the same package,
 so it can be consumed from IDEs like Visual Studio changing debug/release configuration from the IDE,
-and not having to specify it in the command line.
+and not having to specify it in the command line. This type of package will include different artifacts for different configurations, like both the release and debug version of the "hello" library, in the same package.
+
+.. image:: /images/multi_conf_packages.png
+    :height: 300 px
+    :width: 400 px
+    :align: center
+
 
 Creating a multi-configuration Debug/Release package is not difficult, using ``CMake`` for example
 could be:
@@ -187,4 +196,37 @@ in your consumer CMake build script.
      build system, please open a github issue for it.
 
 
+Build once, package many
+--------------------------
 
+It’s possible that an already existing build script is building binaries for different configurations at once, like debug/release, or different architectures (32/64bits), or library types (shared/static). If such build script is used in the previous “Single configuration packages” approach, it will definitely work without problems, but we’ll be wasting precious build time, as we’ll be re-building the whole project for each package, then extracting the relevant artifacts for the given configuration, leaving the others.
+
+It is possible to specify the logic, so the same build can be reused to create different packages, which will be more efficient:
+
+.. image:: /images/build_once.png
+    :height: 300 px
+    :width: 400 px
+    :align: center
+
+
+This can be done by defining a build_id() method in the package recipe that will specify the logic.
+
+.. code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+
+    def build_id(self):
+        self.info_build.settings.build_type = "Any"
+
+    def package(self):
+        if self.settings.build_type == "Debug":
+            #package debug artifacts
+        else: 
+            # package release
+
+Note that the ``build_id()`` method uses the ``self.info_build`` object to alter the build hash. If the method doesn’t change it, the hash will match the package folder one. By setting ``build_type="Any"``, we are forcing that for both Debug and Release values of ``build_type``, the hash will be the same (the particular string is mostly irrelevant, as long as it is the same for both configurations). Note that the build hash ``sha3`` will be different of both ``sha1`` and ``sha2`` package identifiers.
+
+This doesn’t imply that there will be strictly one build folder. There will be a build folder for every configuration (architecture, compiler version, etc). So if we just have Debug/Release build types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders, saving half of the build time.
+
+
+Read more about this in :ref:`build_id`

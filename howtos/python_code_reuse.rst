@@ -27,7 +27,7 @@ Let's begin with a simple python package, a "hello world" functionality that we 
 
 To create a package, all we need to do is create the following layout:
 
-..  code-block:: txt
+..  code-block:: text
 
     -| hello.py
      | __init__.py
@@ -77,7 +77,7 @@ Of course if you want to share the package with your team, you can ``conan uploa
 
 Now the package is ready for consumption. In another folder, we can create a ``conanfile.txt`` (or a ``conanfile.py`` if we prefer):
 
-..  code-block:: txt
+..  code-block:: text
 
     [requires]
     HelloPy/0.1@memsharded/testing

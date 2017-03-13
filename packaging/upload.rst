@@ -2,7 +2,7 @@ Uploading packages
 ==================
 
 In the previous sections, we built several packages in our computer, those packages are stored
-in a local folder, typically ``~/.conan/data``. Now, you
+in a the conan local cache, typically ``~/.conan/data``. Now, you
 might want to upload them to a conan server for later reuse on another machine, project,
 or for sharing them.
 
@@ -76,12 +76,12 @@ just uploaded them, they are identical to the local ones.
    $ conan search
 
 Since we have our test setup from the previous section, we can just use it for our test. Go
-to your project folder (``hello-use`` or ``greet``) and run the tests again, now saying that we don't want to 
+to your package folder and run the tests again, now saying that we don't want to 
 build the sources again, we just want to check if we can download the binaries and use them:
 
 .. code-block:: bash
 
-   $ conan test_package --build=never
+   $ conan test_package --no-export --build=never
 
 
 You will see that the test is built, but the packages are not. The binaries are simply 
@@ -91,11 +91,6 @@ downloaded from your local server. You can check their existence on your local c
 
    $ conan search
 
-
-.. note::
-
-   This is a basic introduction of the package creation process. You can find out more about
-   conan's full packaging capabilities in the :ref:`reference<reference>`.
 
 
 .. |write_us| raw:: html
