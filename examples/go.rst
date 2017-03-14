@@ -134,7 +134,7 @@ Let's take a look at the ``conanfile.py`` of the **go inject** library:
             self.copy(pattern='*', dst='src/github.com/codegangsta/inject', src="inject", keep_path=True)
     
     
-If you have read the :ref:`Building a hello world package <building_hello_world>`, the previous code may look quite simple to you.
+If you have read the :ref:`Building a hello world package <packaging_getting_started>`, the previous code may look quite simple to you.
 
 We want to pack **version 1.0** of the **go inject** library, so the **version** variable is **"1.0"**.
 

@@ -1111,8 +1111,8 @@ or adding  ``txt`` generator to the consuming conanfile ``generators`` section
 
 .. note:: 
 
-    Conan package command won't create a new package, use 'install' or 'test_package' instead for
-    creating packages in the conan local cache, or `build' for conanfile.py in user space.
+    Conan package command won't create a new package, use ``install`` or ``test_package`` instead for
+    creating packages in the conan local cache, or ``build`` for conanfile.py in user space.
 
 
 

@@ -3,43 +3,21 @@
 Installing dependencies
 -----------------------
 
-In :ref:`Getting started<getting_started>` we used **conan install** to download the **POCO** library and build an example.
+In :ref:`Getting started<getting_started>` we used ``$ conan install`` command to download the **POCO** library and build an example.
    
+Please take a moment to inspect the generated ``conanbuildinfo.cmake`` file that was created when we did ``conan install``
+You can see there that there are many CMake variables declared. For example you can see variables like ``CONAN_INCLUDE_DIRS_ZLIB``, which defines the include path to the ZLib headers, or ``CONAN_INCLUDE_DIRS`` that defines include paths for all dependencies headers.
 
-.. note:: When you execute the **conan install** command, the following happens:
+.. image:: /images/local_cache_cmake.png
+   :height: 400 px
+   :width: 500 px
+   :align: center
 
-    - It reads ``conanfile.txt`` from the current directory or the directory pointed by the command.
-    - For each **[requires]** entry, conan will check locally for such conan **package recipe** , and if
-      it fails, it will try to download the **package recipe** from the server. Each package recipe is
-      identified by its reference, as ``Poco/1.7.3@lasote/stable``.
-    - Package recipes and package binaries are installed locally in your computer, typically in a
-      folder in your user home, called: ``~/.conan/data``, though you can change that configuration too.
-    - The requirements will be processed transitively, retrieving package recipes if necessary, taking
-      into account the current settings and options, until the full graph of dependencies is computed.
-      In the previous example, recipes for **OpenSSL** and **zlib** are retrieved.
-    - Once the graph is finished, and all package recipes have been retrieved, the hash (SHA1) 
-      or signature of the required binaries is computed.
-    - For each package, the corresponding binary, with a reference composed by the package recipe
-      reference and the hash (e.g. ``Poco/1.7.3@lasote/stable:63da...3f44``), is searched locally.
-    - If it is found locally, then, nothing to do. If it is not found locally, conan will look for it
-      in the server, and if found, will retrieve the corresponding package binary from the server.
-    - If the package binary is not found in the server, then the process will fail. The user can specify
-      some variant of the ``--build`` option to tell conan to build it from sources.
-    - Information is collected from the dependency graph, as **libs** to be **linked**, 
-      **include directories**, **compile flags** etc. This information is propagated from the
-      upstream packages to their dependents.
-    - For each specified **[generator]**, conan will generate a file with relevant information
-      to build the project and link with the defined dependencies.
+If you check the full path, you will see that they are pointing to a folder in your ``<userhome>`` folder, this is called the **conan local cache**. It is the place where package recipes and package binaries are stored and cached, so they don't have to be retrieved again. You can inspect it with ``conan search``, and you can also remove packages from it with ``conan remove`` command.
 
+If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the headers and the libraries for each package.
 
-
-If you execute a **conan install** command in your shell, specifying a reference like **Poco/1.7.3@lasote/stable**
-instead of nothing or the path to a ``conanfile.txt`` conan will download the Poco package and 
-all its dependencies (*OpenSSL/1.0.2g@lasote/stable* and *zlib/1.2.8@lasote/stable*) 
-to your conan cache and print information about the folder where they are installed. 
-   
-You will find two **/lib** and **/include** subfolders with the libraries and headers.
-You could handle them manually if you want. But we recommend the usage of a ``conanfile.txt`` instead of directly installing packages.
+If you execute a ``conan install Poco/1.7.3@lasote/stable`` command in your shell, conan will download the Poco package and its dependencies (*OpenSSL/1.0.2g@lasote/stable* and *zlib/1.2.8@lasote/stable*) to your conan cache and print information about the folder of the local cache where they are installed. You could handle them manually if you want. But the recommended approach is using a ``conanfile.txt``.
 
 
 Requires
@@ -56,18 +34,18 @@ The requirements look like this:
 
 Where:
 
-   - ``Poco`` is the name
-   - ``1.7.3`` is the version
-   - ``lasote`` is the owner of this package version
-   - ``stable`` is the channel (there could be several channels for developing, testing, etc.)
+   - ``Poco`` is the name of the package, usually the same of the project/library
+   - ``1.7.3`` is the version, usually matching the one of the packaged project/library. Can be any string, not necessarily a number, so it is possible to have a "develop" or "master" version. Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that are regenerated periodically.
+   - ``lasote`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So you can easily for example upload a certain libray under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
+   - ``stable`` is the channel. Channels also allow to have different packages for the same library and use them interchangeably. They usually denote the maturity of the package, as an arbitrary string: "stable", "testing", but it can be used for any purpose, like package revisions (the library version has not changed, but the package recipe has evolved) 
 
 
 Overriding requirements
 _______________________
 
 
-You can specify multiple requirements and you can **override** the "require's requirements".
-In our example, conan installed the POCO requirement and all its requirements recursively:
+You can specify multiple requirements and you can **override** the transitive "require's requirements".
+In our example, conan installed the POCO package and all its requirements transitively:
 
    * **OpenSSL/1.0.2g@lasote/stable**
    * **zlib/1.2.8@lasote/stable**
@@ -104,7 +82,7 @@ Other example could be, in order to try out some new zlib alpha features, we cou
 Generators
 ..........
 
-Conan reads the **[generators]** section from ``conanfile.txt`` and creates one file for each generator with all the necessary information to link your program with the specified requirements.
+Conan reads the **[generators]** section from ``conanfile.txt`` and creates files for each generator with all the necessary information to link your program with the specified requirements. The generated files are usually temporary, created in build folders and not committed to version control, as they have paths to local folder that will not exist in another machin. Also, it is very important to highlight that generated files match the given configuration (Debug/Release, x86/x86_64, etc), specified at ``conan install`` time. If the configuration changes, the files will change.
 
 
 *cmake*
@@ -138,7 +116,9 @@ use the generic :ref:`text generator <other_generator>`, or maybe even
 Options
 .......
 
-Options are intended for package specific configurations.
+We have already seen that there are some **settings** that can be specified at install, like ``conan install -s build_type=Debug``. The settings are typically project wide configuration that is defined by the client machine. So they cannot be defaulted. It doesn't make sense that a package defines that is using by default a "Visual Studio" compiler, because that is something defined by the end consumer, and unlikely to make sense if they are working in Linux.
+
+On the other hand, **options** are intended for package specific configuration, that can be defaulted. For example, one package can define that its default linkage is static, and such default will be used if consumers don't specify otherwise.
 
 .. note:: 
    
@@ -147,9 +127,7 @@ Options are intended for package specific configurations.
       $ conan search Poco/1.7.3@lasote/stable
       
 
-We are going to adjust the option **"shared"** to use the shared library from POCO.
-
-You can set the options for your requirements this way:
+As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the ``conanfile.txt``:
 
 .. code-block:: text
 
@@ -173,6 +151,7 @@ Install the requirements and compile from the build folder (change build command
     $ cmake --build . --config Release
 
 Conan will install the shared library packages binaries, and the example will link with them.
+You can again inspect the different installed binaries, e.g. ``conan search zlib/1.2.8@lasote/stable``.
 
 Finally, launch the executable:
 
@@ -180,7 +159,7 @@ Finally, launch the executable:
 
     $ ./bin/timer
 
-What happened? It fails because it can't find the shared libraries in the path.
+What happened? It fails because it can't find the shared libraries in the path. Remember that shared libraries are used at runtime, and the should be locatable by the OS, which is the one running the application.
 
 We could inspect the generated executable, and see that it is using the shared libraries.
 For example in Linux, we could use the**objdump** tool and see in *Dynamic section*:
@@ -225,18 +204,12 @@ to some system folder, so they are found by the OS. But those are typical operat
 installation of apps, not desired while developing, and conan is intended for developers, so it
 tries not to mess with the OS.
 
-For linux, it is not necessary, as the linker is able to do the job, but in Windows and OSX, 
-the simplest approach is just to copy the shared libraries to the executable folder, so
-they are found by the exe, without having to modify the path.
-
-.. note::
-   
-    You can read the :ref:`Tip about rpaths<protip_shared>` to learn more about shared libraries and how conan handles them.
-
+In Windows and OSX, the simplest approach is just to copy the shared libraries to the executable folder, so
+they are found by the executable, without having to modify the path.
 
 We can easily do that with the **[imports]** section in ``conanfile.txt``. Let's try it.
 
-Edit the ``conanfile.txt`` file and paste the **[imports]** section:
+Edit the ``conanfile.txt`` file and paste the following **[imports]** section:
 
   
 .. code-block:: text
@@ -263,7 +236,7 @@ Edit the ``conanfile.txt`` file and paste the **[imports]** section:
 
 
 
-Install the requirements (from the mytimer/build folder), and run the binary again:
+Install the requirements (from the ``mytimer/build`` folder), and run the binary again:
 
 .. code-block:: bash
 
@@ -275,9 +248,7 @@ Now look at the ``mytimer/build/bin`` folder and verify that the needed shared l
 
 As you can see, the **[imports]** section is a very generic way to import files from your requirements to your project. 
 
-This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets, images, sounds, test static files, etc. 
-
-Conan is a generic solution for package management, not only for C/C++ or libraries.
+This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets, images, sounds, test static files, etc. Conan is a generic solution for package management, not only for C/C++ or libraries.
 
 
 
@@ -303,13 +274,13 @@ Conan is a generic solution for package management, not only for C/C++ or librar
    
    In **linux** **rpath** is just an option, which means that, if the linker doesn't find the library in **rpath**, it will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
    
-   But in **OSx** with **dylibs** it doesn't work like that. In OSx, if the linker detects that an **rpath** is invalid (the file does not exist there), it will fail. In OSx, libraries are built with the hard restriction of knowing (before installing them) where (in which folder) they will be installed.
+   But in **OSX** with **dylibs** it doesn't work like that. In OSX, if the linker detects that an **rpath** is invalid (the file does not exist there), it will fail. In OSX, libraries are built with the hard restriction of knowing (before installing them) where (in which folder) they will be installed.
    
-   Some dependency managers try to ride out this OSx restriction by changing the rpaths or making the rpaths relative to the binary.
+   Some dependency managers try to ride out this OSX restriction by changing the rpaths or making the rpaths relative to the binary.
    
    For **conan**, these are not suitable solutions because libraries are not all together in a directory we can refer to and we don't want that, because it's not good at all for package management and reuse.
    
-   So, for **OSx**, conan requires **dylibs** to be built having an rpath with only the name of the required library (just the name, without path).
+   So, for **OSX**, conan requires **dylibs** to be built having an rpath with only the name of the required library (just the name, without path).
    
    With conan, **rpaths** values should be:
    

@@ -4,6 +4,40 @@
 Tools for package creators
 ======================================
 
+With some python (or just pure shell or bash) scripting, we could easily automate the whole
+package creation and testing process, for many different configurations.
+For example you could put the following script in the package root folder. Name it ``build.py``:
+
+
+.. code-block:: python
+
+   import os, sys
+   import platform
+   
+   def system(command):
+      retcode = os.system(command)
+      if retcode != 0:
+          raise Exception("Error while executing:\n\t %s" % command)
+   
+   if __name__ == "__main__":
+      system('conan export demo/testing')
+      params = " ".join(sys.argv[1:])
+   
+      if platform.system() == "Windows":
+          system('conan test_package -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
+          system('conan test_package -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
+          system('conan test_package -s compiler="gcc" -s compiler.version=4.8 %s' % params)
+      else:
+          pass
+
+This is a pure python script, not related to conan, and should be run as such:
+
+.. code:: bash
+
+   $ python build.py
+
+
+
 We have developed another FOSS tool for package creators, **conan package tools** to ease the 
 task of generating multiple binary packages from a package recipe. 
 It offers a simple way to define the different configurations and to call "conan test"

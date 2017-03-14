@@ -145,7 +145,7 @@ Let's check that it works properly, lets install the package for gcc 4.5:
 	...
 	
 
-We can see that the computed package ID is ``af04...46ad``(not real). What would happen if we specify GCC 4.6?
+We can see that the computed package ID is ``af04...46ad`` (not real). What would happen if we specify GCC 4.6?
 
 
 .. code-block:: bash
