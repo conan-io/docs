@@ -16,8 +16,8 @@ Contents:
    getting_started
    manage_deps
    packaging
-   integrations
    conanfile_py
+   integrations  
    server
    howtos
    reference
