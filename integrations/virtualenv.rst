@@ -67,6 +67,20 @@ Read More about the building environment variables defined in the sections :ref:
 and :ref:`Building with Visual Studio <building_with_visual_studio>`.
 
 
+Virtualrunenv generator
+---------------------------
+
+Use the generator ``virtualrunenv`` to activate an environment that will:
+
+- Append to ``PATH`` environment variable every ``bin`` folder of your requirements.
+- Append to ``LD_LIBRARY_PATH`` and ``DYLIB_LIBRARY_PATH`` environment variables each ``lib`` folder of  your requirements.
+
+This generator is specially useful:
+
+- If you are requiring packages with shared libraries and you are running some executable that needs those libraries.
+- If you have a require with some tool (executable) and you need it in the path.
+
+
 Virtual environment dump
 ------------------------
 

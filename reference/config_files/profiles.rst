@@ -70,9 +70,17 @@ Profiles can be located in different folders, and be referenced by absolute or r
 
 .. code-block:: bash
 
-   $ conan build --profile /abs/path/to/profile  # abs path
-   $ conan build --profile ./relpath/to/profile  # resolved to current dir
-   $ conan build --profile profile  # resolved to user/.conan/profiles/profile
+   $ conan install --profile /abs/path/to/profile  # abs path
+   $ conan install --profile ./relpath/to/profile  # resolved to current dir
+   $ conan install --profile profile  # resolved to user/.conan/profiles/profile
+
+You can use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to the profile file.
+It is useful to declare relative folders:
+
+.. code-block:: txt
+
+   [env]
+   PYTHONPATH=$PROFILE_DIR/my_python_tools
    
 
 Package settings and env vars
