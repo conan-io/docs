@@ -404,7 +404,7 @@ The ``RunEnvironment`` helper prepare some environment variables to locate share
 This helper is specially useful:
 
 - If you are requiring packages with shared libraries and you are running some executable that needs those libraries.
-- If you have a require with some tool (executable) and you need it in the path.
+- If you have a requirement with some tool (executable) and you need it in the path.
 
 
 Example:
