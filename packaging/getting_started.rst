@@ -136,10 +136,9 @@ We can create and test the package with our default settings simply by:
    $ conan test_package
    ...
    Hello world!
-   ERROR: ... while executing example
 
-If you see "Hello world!", the process **has worked OK**, the error message is a request to the user to implement their own test.
 
+If you see "Hello world!", it worked.
 
 This will perform the following steps:
 

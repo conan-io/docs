@@ -74,9 +74,6 @@ And simply create the package as previously:
    $ conan test_package
    ...
    Hello world!
-   ERROR: ... while executing example
-
-If you see "Hello world!", the process **has worked OK**, the error message is a request to the user to implement their own test.
 
 
 The package creation process
