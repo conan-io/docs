@@ -128,7 +128,7 @@ A **bin/example** for Raspberry PI (Arm hf) platform has been built.
 Cross build your project and the requirements
 ---------------------------------------------
 
-Remember that the ``test_package`` command is just a wrapper that export the recipe. It installs the requirements and builds an
+Remember that the ``test_package`` command is just a wrapper that exports the recipe, installs the requirements and builds an
 example against the exported package to ensure that a package can be reused correctly.
 
 If you want to cross compile your project's dependencies you can also run:
