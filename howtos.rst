@@ -7,6 +7,7 @@ This section shows common solutions and different approaches to typical problems
    :maxdepth: 2
 
    howtos/cmake_launch
+   howtos/cross_building
    howtos/python_code_reuse
    howtos/dyn_generators
    howtos/custom_cache
