@@ -16,7 +16,7 @@ Contents:
    getting_started
    manage_deps
    packaging
-   conanfile_py
+   mastering
    integrations  
    server
    howtos
