@@ -834,6 +834,7 @@ Also for moving packages from one user to another.
     $ conan copy OpenSSL/1.0.2i@lasote/beta foo/beta
 
 
+.. _conan_new:
 
 conan new
 ---------
