@@ -500,8 +500,6 @@ You can use these classes to prepare your build system's command invocation:
 - **GCC generator**: If you are calling GCC or Clang directly to build your project you can use the ``gcc`` generator.
   Read more: :ref:`Building with GCC or Clang <building_with_gcc_clang>`.
 
-Check the :ref:`Managing your dependencies/Using conanfile.py <conanfile_py_managed_settings>` to view some examples of compile helpers' use. 
-
 
 
 (Unit) Testing your library

@@ -2,6 +2,8 @@ Build helpers
 ==================
 There are several helpers that can assist to automate the ``build()`` method for popular build systems:
 
+.. _building_with_cmake:
+
 CMake
 -----------------
 
@@ -174,11 +176,21 @@ Set environment variables:
 +--------------------+---------------------------------------------------------------------+
 
 
+
 .. note::
 
- The **ConfigureEnvironment** helper has been deprecated. if you are still using it we recommend to read
- the :ref:`Migrate to new env variables management guide <migrate_to_new_environment_management>`.
+    **ConfigureEnvironment** helper class has been deprecated. It was used to:
 
+    1. Create a command line command to declare the environment variables inherited from the requirements (self.deps_env_info):
+
+        This is not needed anymore, the environment variables inherited from the requirements ``self.deps_env_info`` objects are automatically set before the ``source``, ``build``, ``package`` and ``imports`` methods. See the section above.
+
+    2. Create a command line to set environment variables before calling the build system, usually before calling ``configure`` or ``make``:
+
+        The new ``AutoToolsBuildEnvironment`` and ``VisualStudioBuildEnvironment`` with the ``tool.environment_append`` offers cleaner and more flexible solution.
+
+
+.. _building_with_visual_studio:
 
 Visual Studio
 ---------------
@@ -216,7 +228,7 @@ Set environment variables:
 | CL                 | "/I" flags with include directories                                 |
 +--------------------+---------------------------------------------------------------------+
 
-
+.. _building_with_gcc_clang:
 
 GCC or Clang
 ---------------

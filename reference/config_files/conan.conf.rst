@@ -49,6 +49,8 @@ be cached in the project ``conaninfo.txt`` file. The initial values for these de
 auto-detected the first time you run a ``conan`` command.
 
 
+.. _proxys:
+
 Proxies
 ++++++++++
 If you are not using proxies at all, you can just remove the ``[proxies]`` section

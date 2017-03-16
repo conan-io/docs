@@ -15,6 +15,4 @@ This section shows common solutions and different approaches to typical problems
    howtos/copy_packages
    howtos/create_installer_packages
    howtos/link_apple_framework
-   howtos/logging_and_debugging
    howtos/define_abi_compatibility
-   howtos/migrate_to_new_environment_management
