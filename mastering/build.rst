@@ -2,6 +2,8 @@ Build helpers
 ==================
 There are several helpers that can assist to automate the ``build()`` method for popular build systems:
 
+.. _building_with_cmake:
+
 CMake
 -----------------
 
@@ -188,6 +190,7 @@ Set environment variables:
         The new ``AutoToolsBuildEnvironment`` and ``VisualStudioBuildEnvironment`` with the ``tool.environment_append`` offers cleaner and more flexible solution.
 
 
+.. _building_with_visual_studio:
 
 Visual Studio
 ---------------
@@ -225,7 +228,7 @@ Set environment variables:
 | CL                 | "/I" flags with include directories                                 |
 +--------------------+---------------------------------------------------------------------+
 
-
+.. _building_with_gcc_clang:
 
 GCC or Clang
 ---------------

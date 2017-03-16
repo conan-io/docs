@@ -77,7 +77,7 @@ Profiles can be located in different folders, and be referenced by absolute or r
 You can use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to the profile file.
 It is useful to declare relative folders:
 
-.. code-block:: txt
+.. code-block:: text
 
    [env]
    PYTHONPATH=$PROFILE_DIR/my_python_tools

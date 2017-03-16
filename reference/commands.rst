@@ -137,8 +137,7 @@ If no binary package is found you can build the package from sources using the `
 
 **Examples**
 
-- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting
-(other settings will be defaulted as defined in ``<userhome>/.conan/conan.conf``):
+- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting (other settings will be defaulted as defined in ``<userhome>/.conan/conan.conf``):
 
 .. code-block:: bash
 
@@ -158,8 +157,7 @@ If no binary package is found you can build the package from sources using the `
    don't specify them again in the command line.
    
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and 
-default settings from ``<userhome>/.conan/conan.conf``:
+- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default settings from ``<userhome>/.conan/conan.conf``:
 
 .. code-block:: bash
 
@@ -214,7 +212,6 @@ requirements you can use the [] syntax:
 This way the first entry in the PYTHONPATH variable will be `/other/path` but the PYTHONPATH values declared in the requirements
 of the project will be appended at the end using the system path separator.
 
-Read more about environment variables management here: :ref:`Manage environment variables in your recipes<migrate_to_new_environment_management>`
 
 settings
 ++++++++
@@ -231,8 +228,6 @@ options
 +++++++
 
 With the **-o** parameters you can only define specific package options (-o zlib:shared=True).
-See :ref:`using options section <usingoptions>` for more information.
-
 
 
 .. note::
