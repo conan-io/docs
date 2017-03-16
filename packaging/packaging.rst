@@ -54,7 +54,7 @@ Now lets modify the ``conanfile.py`` to the following:
         options = {"shared": [True, False]}
         default_options = "shared=False"
         generators = "cmake"
-        export_sources = "hello/*"
+        exports_sources = "hello/*"
 
         def source(self):
             # patch to ensure compatibility
