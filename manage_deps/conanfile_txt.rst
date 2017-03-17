@@ -82,35 +82,12 @@ Other example could be, in order to try out some new zlib alpha features, we cou
 Generators
 ..........
 
-Conan reads the **[generators]** section from ``conanfile.txt`` and creates files for each generator with all the necessary information to link your program with the specified requirements. The generated files are usually temporary, created in build folders and not committed to version control, as they have paths to local folder that will not exist in another machin. Also, it is very important to highlight that generated files match the given configuration (Debug/Release, x86/x86_64, etc), specified at ``conan install`` time. If the configuration changes, the files will change.
+Conan reads the **[generators]** section from ``conanfile.txt`` and creates files for each generator with all the necessary information to link your program with the specified requirements.
+The generated files are usually temporary, created in build folders and not committed to version control, as they have paths to local folder that will not exist in another machine.
+Also, it is very important to highlight that generated files match the given configuration (Debug/Release, x86/x86_64, etc),
+specified at ``conan install`` time. If the configuration changes, the files will change.
 
-
-*cmake*
-_______
-
-The **cmake** generator creates a file named ``conanbuildinfo.cmake`` that can be imported from your *CMakeLists.txt*.
-Check the section :ref:`Integrations/CMake <cmake>` to read more about this generator.
-
-
-*visual_studio*
-_______________
-
-The **visual_studio** generator creates a file named ``conanbuildinfo.props`` that can be imported to your *Visual Studio* project.
-Check the section :ref:`Integrations/Visual Studio<visual_studio>` to read more about this generator.
-
-
-*xcode*
-_______
-
-The **xcode** generator creates a file named ``conanbuildinfo.xcconfig`` that can be imported to your *XCode* project.
-Check the section :ref:`Integrations/XCode <xcode>` to read more about this generator.
-
-*other*
-_______
-
-There are some other generators, check them in :ref:`Integrations <integrations>`. You might
-use the generic :ref:`text generator <other_generator>`, or maybe even
-:ref:`create and share a new generator <dyn_generators>`
+Check the complete :ref:`generators<generators_reference>` reference.
    
 
 Options

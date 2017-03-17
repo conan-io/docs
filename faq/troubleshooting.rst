@@ -8,7 +8,7 @@ When you are installing packages (with ``conan install`` or ``conan test_package
 that you get an error like the following one:
 
 
-.. code-block:: bash
+.. code-block:: text
 
     WARN: Can't find a 'libzmq/4.2.0@memsharded/testing' package for the specified options and settings:
     - Settings: arch=x86_64, build_type=Release, compiler=gcc, compiler.libcxx=libstdc++, compiler.version=4.9, os=Windows

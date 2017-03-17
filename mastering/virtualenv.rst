@@ -4,6 +4,16 @@
 Virtual Environments
 ====================
 
+!!!
+
+Conan virtual environments are special conan generators that b
+
+Concatenables
+
+
+Listado, y para que sirve, y linkar a reference/generators
+
+
 Virtualenv generator
 --------------------
 

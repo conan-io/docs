@@ -121,3 +121,6 @@ Conan implements other commands that can be executed locally over a consumer ``c
 - ``conan package <path>``: Execute locally the conanfile.py ``package()`` method
 
 These commands are mostly used for testing and debugging while developing a new package, before ``export-ing`` such package recipe into the local cache.
+
+
+.. seealso:: Check the section :ref:`Reference/Commands<commands>` to find out more.

@@ -47,10 +47,7 @@ We can try to build the hello world example for our own architecture with the ``
     ...
 
     > Hello World!
-    *** Running example, will fail by default, implement yours! ***
-    ERROR: Error 65280 while executing ./example
 
-The test_package command fails because it's only a template and it's asking us to override the default example.
 So it's all ok, we've built a Hello World conan package for our own architecture.
 
 From Linux to Windows
