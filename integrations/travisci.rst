@@ -43,14 +43,12 @@ Create a ``.travis.yml`` file and paste this code in it:
 	
 	# Install conan
 	- pip install conan
+	# Automatic detection of your arch, compiler, etc.
+	- conan user
 	
-	# Automatic detection of your arch, compiler, etc. Download dependencies
-	- conan install
-	  
 	script:
-	- mkdir build
-	- cd build && cmake ../ -DBUILD_TEST=TRUE && cmake --build .
-	- ./bin/encryption_test
+	# Download dependencies, build, test and create package
+	- conan test_package
 
 
 Travis will install the **conan** tool and will execute the **conan install** command.
