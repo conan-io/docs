@@ -222,3 +222,29 @@ Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 .. |write_us| raw:: html
 
    <a href="mailto:info@conan.io" target="_blank">write us</a>
+
+
+Overriding the base Authentication
+++++++++++++++++++++++++++++++++++
+
+
+If you want to use a different authenticator that the default based in the [users] list, create a python module
+in ``~/.conan_server/plugins/authenticator/my_authenticator.py``
+
+**Example:**
+
+.. code-block:: python
+
+     def get_class():
+         return MyAuthenticator()
+
+
+     class MyAuthenticator(object):
+         def valid_user(self, username, plain_password):
+             return username == "foo" and plain_password == "bar"
+
+The module have to implement:
+
+- A factory function ``get_class()`` that returns a class with a ``valid_user()`` method instance.
+- The class containing the ``valid_user()`` that has to return True if the user and password are valid or False otherwise.
+
