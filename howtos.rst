@@ -16,3 +16,4 @@ This section shows common solutions and different approaches to typical problems
    howtos/create_installer_packages
    howtos/link_apple_framework
    howtos/define_abi_compatibility
+   howtos/conan_as_other_languages_package_manager

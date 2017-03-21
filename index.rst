@@ -21,7 +21,6 @@ Contents:
    server
    howtos
    reference
-   examples
    videos
    faq
    changelog
