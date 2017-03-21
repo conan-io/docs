@@ -85,3 +85,18 @@
     color: #C3C4C5 !important;
     width: 200px !important;
 }
+
+
+.out-reference-box{
+    border: 1px solid #848484;
+    border-left: none;
+    border-right: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-image: url("book.jpg");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 80px;
+
+
+}

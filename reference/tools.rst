@@ -5,15 +5,28 @@ Tools
 =====
 
 Under the tools module there are several functions and utilities that can be used in conan package
-recipes
+recipes:
 
-cpu_count()
------------
+.. code-block:: python
+   :emphasize-lines: 2
+
+    from conans import ConanFile
+    from conans import tools
+
+    class ExampleConan(ConanFile):
+        ...
+
+
+.. _cpu_count:
+
+tools.cpu_count()
+-----------------
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1.
+Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan.conf file<conan_conf>`.
 
 
-vcvars_command()
-----------------
+tools.vcvars_command()
+----------------------
 
 This function returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
@@ -39,8 +52,8 @@ This is typically not needed if using ``CMake``, as the cmake generator will han
 Visual Studio version.
 
     
-unzip()
--------
+tools.unzip()
+-------------
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -69,8 +82,9 @@ So, use only this option if you are sure that the zip file was created correctly
 
 
 
-untargz()
----------
+tools.untargz()
+---------------
+
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
 unless the file had a different extension.
@@ -83,8 +97,9 @@ unless the file had a different extension.
     # or to extract in "myfolder" sub-folder
     tools.untargz("myfile.tar.gz", "myfolder")
 
-get()
------
+tools.get()
+-----------
+
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. Its implementation
 is very straightforward:
 
@@ -97,8 +112,9 @@ is very straightforward:
         os.unlink(filename)
 
 
-download()
-----------
+tools.download()
+----------------
+
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a
 list of known verifiers for https downloads, but this can be optionally disabled.
 You can also specify the number of retries in case of fail with ``retry`` parameter and the seconds to wait before download attempts
@@ -115,8 +131,8 @@ with ``retry_wait``.
     tools.download("http://someurl/somefile.zip", "myfilename.zip", retry=2, retry_wait=5)
     
     
-replace_in_file()
------------------
+tools.replace_in_file()
+-----------------------
 
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
@@ -132,8 +148,9 @@ conan dependencies without forking or modifying the original project:
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()''')
 
-check_with_algorithm_sum()
---------------------------
+
+tools.check_with_algorithm_sum()
+--------------------------------
 
 Useful to check that some downloaded file or resource has a predefined hash, so integrity and
 security are guaranteed. Something that could be typically done in ``source()`` method after
@@ -162,8 +179,8 @@ via ``hashlib.new(algorithm_name)``. The previous is equivalent to:
                                     "eb599ec83d383f0f25691c184f656d40384f9435")
 
 
-patch()
--------
+tools.patch()
+-------------
 
 Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff)
 format. To be used mainly in the ``source()`` method.
@@ -195,8 +212,11 @@ Then it can be done specifying the number of folders to be stripped from the pat
 
     patch(patch_file="file.patch", strip=1)
 
-environment_append()
---------------------
+
+.. _environment_append_tool:
+
+tools.environment_append()
+--------------------------
 
 This is a context manager that allows to temporary use environment variables for a specific piece of code
 in your conanfile:
@@ -213,10 +233,8 @@ in your conanfile:
 When the context manager block ends, the environment variables will be unset.
 
 
-
-
-chdir()
--------
+tools.chdir()
+-------------
 
 This is a context manager that allows to temporary change the current directory in your conanfile:
 
@@ -231,8 +249,8 @@ This is a context manager that allows to temporary change the current directory 
 
 .. _build_sln_commmand:
 
-build_sln_command()
--------------------
+tools.build_sln_command()
+-------------------------
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
 It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools
@@ -253,8 +271,8 @@ Arguments:
  * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
 
 
-pythonpath()
-------------
+tools.pythonpath()
+------------------
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
 
@@ -279,8 +297,8 @@ file or folder with a ``whatever`` file or object inside, and should have declar
         self.env_info.PYTHONPATH.append(self.package_folder)
 
   
-human_size()
-------------
+tools.human_size()
+------------------
 
 Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
@@ -293,14 +311,15 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     >> 1Kb
 
     
-OSInfo and SystemPackageTool
-----------------------------
+tools.OSInfo and tools.SystemPackageTool
+----------------------------------------
 These are helpers to install system packages. Check :ref:`system_requirements`
 
 
+.. _run_in_windows_bash_tool:
 
-run_in_windows_bash
--------------------
+tools.run_in_windows_bash
+-------------------------
 
 Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
@@ -313,22 +332,16 @@ Useful to build libraries using ``configure`` and ``make`` in Windows. Check :re
     tools.run_in_windows_bash(self, command) # self is a conanfile instance
 
 
-unix_path
----------
+tools.unix_path
+---------------
 
 Used to translate Windows paths to MSYS/CYGWIN unix paths like c/users/path/to/file
 
 
-escape_windows_cmd
-------------------
+tools.escape_windows_cmd
+------------------------
 
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by CommandLineToArgvW()
 - Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
-
-
-
-
-
-

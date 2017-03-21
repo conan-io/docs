@@ -1,4 +1,4 @@
-.. _gcc_generator:
+.. _gcc_integration:
 
 
 GCC / Clang

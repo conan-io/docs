@@ -34,3 +34,6 @@ Here is an example of what we could do in our **configure method**:
              self.requires("OpenSSL/2.1@memsharded/testing")
           else:
              self.requires("OpenSSL/1.0.2d@lasote/stable")
+
+
+.. seealso:: Check the section :ref:`Reference/conanfile.py/configure(), config_options() <configure_config_options>` to find out more.

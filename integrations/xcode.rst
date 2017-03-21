@@ -14,7 +14,7 @@ Conan can be integrated with **XCode** in two different ways:
 With CMake
 ----------
 
-Check the :ref:`generator<generators>` section to read about the **cmake** generator.
+Check the :ref:`Integrations/cmake<cmake>` section to read about the **cmake** generator.
 Check the official `CMake docs`_ to find out more about generating Xcode projects with CMake.
 
 
@@ -23,18 +23,11 @@ Check the official `CMake docs`_ to find out more about generating Xcode project
 With the *xcode* generator
 --------------------------
 
-You can use the **xcode**  :ref:`generator<generators>` to integrate your requirements in your *Xcode*  project.
+You can use the **xcode** generator to integrate your requirements in your *Xcode*  project.
 This generator creates an ``xcconfig`` file, with all the *include paths*, *lib paths*, *libs*, *flags* etc, that can be imported in your project.
 
 
 .. |xcode_logo| image:: ../images/xcode_logo.jpg
-
-
-
-
-
-
-
 
 
 Open ``conanfile.txt`` and change (or add) the **xcode** generator:
@@ -67,3 +60,9 @@ Click on the project again. In the **info/configurations** section, choose **con
 .. image::  ../images/xcode3.png
 
 Build your project as usual.
+
+
+
+.. seealso:: Check the :ref:`Reference/Generators/xcode <xcode_generator>` for the complete reference.
+
+
