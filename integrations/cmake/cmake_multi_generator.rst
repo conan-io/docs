@@ -47,8 +47,8 @@ These commands will generate 3 files: ``conanbuildinfo_release.cmake``, ``conanb
 and ``conanbuildinfo_multi.cmake``, which includes the other two, and enables its use.
 
 
-Global/Classic approach
------------------------
+Global variables approach
+----------------------------
 
 The consumer project might write a ``CMakeLists.txt`` like:
 
@@ -69,8 +69,8 @@ The consumer project might write a ``CMakeLists.txt`` like:
     endforeach()
 
 
-Global/Classic approach
------------------------
+Targets approach
+-----------------
 
 Or, if using the modern cmake syntax with targets:
 

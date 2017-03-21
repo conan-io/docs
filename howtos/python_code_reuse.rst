@@ -8,7 +8,7 @@ useful for other conan users, please propose it in a github issue.
 
 There are several ways to handle python code reuse in package recipes:
 
-- To put common code in files, as explained in :ref:`the reference <split_conanfile>`. This code
+- To put common code in files, as explained :ref:`below <split_conanfile>`. This code
   has to be exported into the recipe itself
   
 - To create a conan package with the common python code, and then ``require`` it from the recipe.
