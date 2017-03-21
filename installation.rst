@@ -61,7 +61,7 @@ The easiest way is using **pacaur** tool:
 
 Or you can also use ``makepkg`` and install it following the `AUR docs: installing packages <https://wiki.archlinux.org/index.php/Arch_User_Repository>`_.   
 
-Just remember to install five conan dependencies first. They are not in the official 
+Just remember to install six conan dependencies first. They are not in the official 
 repositories but there are in **AUR** repository too:
 
 - python-patch 
@@ -69,6 +69,7 @@ repositories but there are in **AUR** repository too:
 - python-fasteners
 - python-node-semver
 - python-distro
+- python-pluginbase
 
 
 Install the binaries
