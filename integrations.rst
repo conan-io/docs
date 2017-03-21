@@ -21,5 +21,6 @@ Integrations
    integrations/git
    integrations/travisci
    integrations/appveyor
+   integrations/gitlab
    integrations/youcompleteme
    integrations/other
