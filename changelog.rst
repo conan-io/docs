@@ -6,6 +6,35 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.21.0 (21-March-2017)
+-------------------------
+- Feature: ``conan info --graph`` or ``--graph=file.html`` will generate a dependency graph representation in dot or html formats.
+- Feature: Added better support and tests for Solaris Sparc.
+- Feature: custom authenticators are now possible in ``conan_server`` with plugins.
+- Feature: extended ``conan info`` command with path information and filter by packages.
+- Feature: enabled conditional package binaries removal with ``conan remove`` with query syntax
+- Feature: enabled generation and validation of manifests from ``test_package``.
+- Feature: allowing ``options`` definitions in profiles
+- Feature: new ``RunEnvironment`` helper, that makes easier to run binaries from dependent packages
+- Feature: new ``virtualrunenv`` generator that activates environment variable for execution of binaries from installed packages, without requiring ``imports`` of shared libraries.
+- Feature: adding new version modes for ABI compatibility definition in ``package_id()``.
+- Feature: Extended ``conan new`` command with new option for ``exports_sources`` example recipe.
+- Feature: ``CMake`` helper defining parallel builds for gcc-like compilers via ``--jN``, allowing user definition with environment variable and in conan.conf.
+- Feature: ``conan profile`` command now show profiles in alphabetical order.
+- Feature: extended ``visual_studio`` generator with more information and binary paths for execution with DLLs paths.
+- Feature: Allowing relative paths with $PROFILE_DIR place holder in ``profiles``
+- Fix: using only file checksums to decide for modified recipe in remote, for possible concurrent builds & uploads.
+- Fix: Improved ``--build`` modes management, with better checks and allowing multiple definitions and mixtures of conditions
+- Fix: Replaced warning for non-matching OS to one message stating the cross-build
+- Fix: local ``conan source`` command (working in user folder) now properly executes the equivalent of ``exports`` functionality
+- Fix: Setting command line arguments to cmake command as CMake flags, while using the TARGETS approach. Otherwise, arch flags like -m32 -m64 for gcc were not applied.
+- BugFix: fixed ``conan imports`` destination folder issue.
+- BugFix: Allowing environment variables with spaces
+- BugFix: fix for CMake with targets usage of multiple flags.
+- BugFix: Fixed crash of ``cmake_multi`` generator for "multi-config" packages.
+
+
 0.20.3 (06-March-2017)
 -------------------------
 - Fix: Added opt-out for ``CMAKE_SYSTEM_NAME`` automatically added when cross-building, causing users
