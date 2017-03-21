@@ -2,8 +2,8 @@
 ``cmake`` generator
 ===================
 
-If you are using *CMake* to build your project, you can use the *cmake* generator to manage all your requirements.
-It creates a file named ``conanbuildinfo.cmake`` that can be imported from your *CMakeLists.txt*.
+If you are using **CMake** to build your project, you can use the ``cmake`` generator to define all your requirements information in cmake syntax.
+It creates a file named ``conanbuildinfo.cmake`` that can be imported from your ``CMakeLists.txt``.
 
 
 **conanfile.txt**
@@ -22,7 +22,7 @@ We can include ``conanbuildinfo.cmake`` in our project's ``CMakeLists.txt`` to m
 The inclusion of ``conanbuildinfo.cmake`` doesn't alter cmake environment at all, it just provide ``CONAN_`` variables and some useful macros.
 
 
-Global/Classic consume approach
+Global variables approach
 -------------------------------
 
 The simplest way to consume it would be to invoke the ``conan_basic_setup()`` macro, which will basically
@@ -40,7 +40,7 @@ The ``conan_basic_setup()`` is split in smaller macros, that should be self expl
 something different, you can just use them individually.
 
 
-Targets/Modern consume approach
+Targets approach
 -------------------------------
 
 For **modern cmake (>=3.1.2)**, the macro ``conan_define_targets()``
