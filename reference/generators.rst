@@ -25,3 +25,4 @@ Available generators:
    generators/virtualbuildenv
    generators/virtualrunenv
    generators/ycm
+   generators/text

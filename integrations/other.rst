@@ -2,7 +2,7 @@
 
 
 Custom integrations
-=====================================
+===================
 
 If you intend to use other build system that has not a built-in generator, you might still be 
 ablto to do so. There are several options:
@@ -22,8 +22,11 @@ ablto to do so. There are several options:
    
    Need help to integrate your build system? Tell us what you need. info@conan.io
 
+
+.. _txt_integration:
+
 Use the text generator
--------------------------
+----------------------
 
 Just specify the **txt** generator in your conanfile:
 

@@ -7,8 +7,7 @@ gcc
 .. container:: out_reference_box
 
     This is the reference page for ``gcc`` generator.
-    Go to :ref:`Integrations/GCC / Clang<gcc>` if you want to learn how to integrate your project or recipes with ``gcc`` or ``clang``
-compilers.
+    Go to :ref:`Integrations/GCC / Clang<gcc_integration>` if you want to learn how to integrate your project or recipes with ``gcc`` or ``clang`` compilers.
 
 
 

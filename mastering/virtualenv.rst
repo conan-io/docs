@@ -4,14 +4,18 @@
 Virtual Environments
 ====================
 
-!!!
+Conan offer three special conan generators to create virtual environments:
 
-Conan virtual environments are special conan generators that b
+- ``virtualenv``:  Declares the :ref:`self.env_info<environment_information>` variables of the requirements.
+- ``virtualbuildenv``: Special build environment variables for autotools/visual studio.
+- ``virtualrunenv``: Special environment variables to locate executables and shared libraries in the requirements.
 
-Concatenables
+These virtual environment generators create two executable script files (.sh or .bat depending on the current operating system), one
+for ``activate`` the virtual environment (set the environment variables) and one for ``deactivate`` it.
 
-
-Listado, y para que sirve, y linkar a reference/generators
+You can aggregate two or more virtual environments, that means that you can activate a ``virtualenv`` and then activate a ``virtualrunenv`` so you will
+have available the environment variables declared in the ``env_info`` object of the requirements plus the special enviroment variables to locate executables
+and shared libraries.
 
 
 Virtualenv generator
@@ -20,8 +24,20 @@ Virtualenv generator
 Conan provides a **virtualenv** generator, able to read from each dependency the :ref:`self.env_info<environment_information>` 
 variables declared in the ``package_info()`` method and generate two scripts "activate" and "deactivate". These scripts set/unset all env variables in the current shell.
 
+**Example**:
 
-Open ``conanfile.txt`` and change (or add) **virtualenv** generator:
+The recipe of ``cmake-installer/0.1@lasote/testing`` appends to the PATH variable the package folder/bin.
+In the **bin** folder there is a **cmake** executable:
+
+
+.. code-block:: python
+
+  def package_info(self):
+        self.env_info.path.append(os.path.join(self.package_folder, "bin"))
+
+
+
+Let's prepare a virtual environment to have available out cmake in the path, open ``conanfile.txt`` and change (or add) **virtualenv** generator:
 
 
 .. code-block:: text
@@ -60,8 +76,11 @@ Deactivate the virtual environment (or close the console) to restore the environ
 
    $ source deactivate.sh # Windows: deactivate.bat without the source
    
-   
-Read the Howto :ref:`Create installer packages<create_installer_packages>` to know more about virtual environment feature.
+
+.. seealso:: Read the Howto :ref:`Create installer packages<create_installer_packages>` to know more about virtual environment feature.
+             Check the section :ref:`Reference/virtualenv<virtualenv_generator>` to see the reference of the generator.
+
+
 
 Virtualbuildenv environment
 ---------------------------
@@ -69,12 +88,11 @@ Virtualbuildenv environment
 Use the generator ``virtualbuildenv`` to activate an environment that will set the environment variables for
 Autotools and Visual Studio.
 
-This will generate ``activate_build`` and ``deactivate_build`` files. You can concatenate several virtualenv activations
-so you could activate a regular virtualenv to get the inherited environment variables from the requirements and then activate
-a build virtualenv to set the variables related with the build system.
+This will generate ``activate_build`` and ``deactivate_build`` files.
 
-Read More about the building environment variables defined in the sections :ref:`Building with autotools <building_with_autotools>`
-and :ref:`Building with Visual Studio <building_with_visual_studio>`.
+.. seealso:: Read More about the building environment variables defined in the sections :ref:`Building with autotools <building_with_autotools>` and :ref:`Building with Visual Studio <building_with_visual_studio>`.
+
+             Check the section :ref:`Reference/virtualbuildenv<virtualbuildenv_generator>` to see the reference of the generator.
 
 
 Virtualrunenv generator
@@ -90,29 +108,9 @@ This generator is specially useful:
 - If you are requiring packages with shared libraries and you are running some executable that needs those libraries.
 - If you have a requirement with some tool (executable) and you need it in the path.
 
-
-Virtual environment dump
-------------------------
-
-Besides the automated scripts to activate/deactivate environment variables, it is possible to
-do a simple text dump of the environment variables of the dependencies, with the ``env`` generator:
+In the previous example of the ``cmake_installer`` recipe, even if the cmake_installer package doesn't declare the ``self.env_info.path`` variable,
+using the virtualrunenv generator, the ``bin`` folder of the package will be available in the PATH. So after activating the virtual environment we could just run ``cmake`` and
+we will be executing the cmake of the package.
 
 
-.. code-block:: text
-
-   [requires]
-   ...
-
-   [generators]
-   env
-
-or
-
-.. code-block:: bash
-
-   $ conan install ... -g env
-
-
-It will generate a ``conanenv.txt`` file.
-
-  
+.. seealso:: Check the section :ref:`Reference/virtualrunenv<virtualrunenv_generator>` to see the reference of the generator.

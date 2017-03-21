@@ -12,6 +12,7 @@ This section provides an introduction to important productivity features and use
    mastering/profiles
    mastering/build
    mastering/conditional
+   mastering/version_ranges
    mastering/scopes
    mastering/policies
    mastering/envvars

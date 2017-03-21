@@ -90,6 +90,8 @@ specified at ``conan install`` time. If the configuration changes, the files wil
 Check the complete :ref:`generators<generators_reference>` reference.
    
 
+.. _options_txt:
+
 Options
 .......
 
@@ -167,7 +169,8 @@ For example in Linux, we could use the**objdump** tool and see in *Dynamic secti
      NEEDED               libgcc_s.so.1
      NEEDED               libc.so.6
    
-     
+
+.. _imports_txt:
 
 Imports
 .......
