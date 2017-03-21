@@ -297,7 +297,18 @@ defining the special cases, as is shown below:
 ..  code-block:: python
 
    def requirements(self):
-        self.requires("zlib/1.2@drl/testing", private=True, override=False)
+        self.requires("zlib/1.2@drl/testing", private=True, override=False, dev=False)
+
+
+``self.requires`` method parameters:
+
+- **override**: Default False. True means that this is not an actual requirement, but something to
+  be passed upstream and override possible existing values.
+- **private**: Default False. True means that this requirement will be somewhat embedded (like
+  a static lib linked into a shared lib), so it is not required to link.
+- **dev**: Default False. True means that this requirement is only needed at dev time, e.g. only
+  needed for building or testing, but not affects the package hash at all.
+
 
 .. _system_requirements:
 
