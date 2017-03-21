@@ -104,6 +104,7 @@ The specified ``virtualenv`` generator will create an ``activate`` script (in Wi
 
 
 .. code-block:: bash
+
     $ activate
     $ python
     Python 2.7.12 (v2.7.12:d33e0cf91556, Jun 27 2016, 15:19:22) [MSC v.1500 32 bit (Intel)] on win32
@@ -279,6 +280,7 @@ Also, in the ``conan install`` output we can read the dependencies that are bein
 
 
 .. code-block:: bash
+
     Requirements
         OpenSSL/1.0.2h@lasote/stable from conan.io
         Poco/1.7.3@lasote/stable from conan.io
