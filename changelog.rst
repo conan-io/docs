@@ -6,6 +6,13 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.21.1 (23-March-2017)
+-------------------------
+- BugFix: Fixed missing dependencies in ``AutoToolsBuildEnvironment``
+- BugFix: Escaping single quotes in html graph of ``conan info --graph=file.html``
+- BugFix: Fixed loading of auth plugins in conan_server
+- BugFix: Fixed ``visual_studio`` generator creating XML with dots.
+
 
 0.21.0 (21-March-2017)
 -------------------------
