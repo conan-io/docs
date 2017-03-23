@@ -22,45 +22,95 @@ This is our project layout:
 
 .. code-block:: text
 
-    my_project/
-          ├── test/
-          │   ├── encryption.cpp
-          │
-          ├── my_library.cpp
-          ├── my_library.h
-          ├── conanfile.txt
+    conan-gtest-example/
+          ├── .travis.yml
+          ├── .gitlab-ci.yml
+          ├── appveyor.yml
           ├── CMakeLists.txt
+          ├── conanfile.py
+          ├── encrypter.cpp
+          ├── encrypter.h
+          ├── LICENSE
+          ├── README.md
+          └── test_package
+              ├── CMakeLists.txt
+              ├── conanfile.py
+              └── encryption_test.cpp
 
-We will compile our project with CMake, so we use the **cmake** generator in ``conanfile.txt``
+
+We will compile our project with CMake and Conan, so we use the **cmake** generator in ``conanfile.py``
 
 
-Installing requirements
------------------------
+Installing requirements, compiling and running our tests
+--------------------------------------------------------
 
+Conan will install all dependencies, build your project, create a package and run all tests
+
+.. code-block:: bash
+
+   $ conan test_package
+
+The ``conan test_package`` automates all steps for you, however,
+you need to create the test directory and conanfile.py to make sure that your package is correct.
+
+
+CMake
+-----
+
+Optionally, you could use CMake to build your project:
+
+Install requirements
 
 .. code-block:: bash
 
    $ conan install
 
-
-
-Compiling and running our tests
--------------------------------
-
-Build your project normally with cmake:
+Build your project normally with CMake:
 
 .. code-block:: bash
 
    $ mkdir build && cd build
-   $ cmake ../ -DBUILD_TEST=TRUE && cmake --build .
+   $ cmake .. && cmake --build .
+
+If you just want to build the project, all steps can be executed directly
+by CMake, or just invoking ``conan build``.
 
 
-And execute the test!
+Step by step
+------------
+
+You could execute all Conan steps individually,
+
+Install dependencies
 
 .. code-block:: bash
 
-   $ cd bin
-   $ ./encryption_test
+   $ conan install
+
+Export and build the project
+
+.. code-block:: bash
+
+   $ conan export lasote
+   $ conan install conan-gtest-example/0.1.0@lasote/testing --build conan-gtest-example
+
+So far, the package was exported and created, without testing.
+
+Build test project
+
+.. code-block:: bash
+
+   $ cd test_package
+   $ mkdir build && cd build
+   $ conan install ..
+   $ conan build ..
+
+
+And run!
+
+.. code-block:: bash
+
+   $ bin/encryption_test
 
    [100%] Built target mytest
 	Running main() from gtest_main.cc
