@@ -30,7 +30,8 @@ to update them.
     optional arguments:
       --file FILE, -f FILE  specify conanfile filename
       --only [ONLY], -n [ONLY]
-                            show fields only
+                           show the specified fields only from: "id", "build_id",
+                           "remote", "url", "license", "requires"
       --build_order BUILD_ORDER, -bo BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
