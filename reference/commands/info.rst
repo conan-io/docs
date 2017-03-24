@@ -30,8 +30,13 @@ to update them.
     optional arguments:
       --file FILE, -f FILE  specify conanfile filename
       --only [ONLY], -n [ONLY]
-                           show the specified fields only from: "id", "build_id",
-                           "remote", "url", "license", "requires"
+                        show the specified fields only from: "id", "build_id",
+                        "remote", "url", "license", "requires", "update",
+                        "required", "date", "author", "None" or use --paths
+                        with options "export_folder", "build_folder",
+                        "package_folder", "source_folder". Use --only None to
+                        show only references.
+      --paths           Show package paths in local cache
       --build_order BUILD_ORDER, -bo BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
