@@ -107,14 +107,15 @@ The syntax of copy is as follows:
 
 .. code-block:: python
 
-   self.copy(pattern, dst, src, keep_path=False)
+   self.copy(pattern, dst, src, keep_path=False, symlinks=None, excludes=None)
 
 
 - ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``
 - ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though you can use any convention you like
 - ``src`` is the folder where you want to search the files in the *build* folder. If you know that your libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty means the root build folder.
 - ``keep_path``, with default value=True, means if you want to keep the relative path when you copy the files from the source(build) to the destination(package). Typically headers, you keep the relative path, so if the header is in *build/include/mylib/path/header.h*, you write:
-- ``links``, with default value=False, you can activate it to copy symlinks, like typical lib.so->lib.so.9
+- ``symlinks``, with default value=None, set it to True to activate symlinks copying, like typical lib.so->lib.so.9
+- ``excludes``, is a single pattern or a tuple of patterns to be excluded from the copy. If a file matches both the include and the exclude pattern, it will be excluded.
 
 
 .. code-block:: python
