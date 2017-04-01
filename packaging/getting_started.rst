@@ -48,7 +48,13 @@ Let`s have a look to the root package recipe ``conanfile.py``:
 
         def source(self):
             self.run("git clone https://github.com/memsharded/hello.git")
-            self.run("cd hello && git checkout static_shared")
+            
+            # self.run("cd hello && git checkout static_shared") 
+            # or better, change working directory and launch multiple commands:
+            with tools.chdir("hello"):
+                self.run("git checkout static_shared")
+                # ...maybe init submodules:
+                # self.run("git submodule update --init")
             # patch to ensure compatibility
             tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)", '''PROJECT(MyHello)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
