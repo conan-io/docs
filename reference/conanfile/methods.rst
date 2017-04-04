@@ -396,6 +396,19 @@ A typical ``imports()`` method for shared libs could be:
       self.copy("*.dll", "", "bin")
       self.copy("*.dylib", "", "lib")
 
+If you want to be able to customize the output user directory to work with both the ``cmake`` and ``cmake_multi`` generators, then you can do:
+
+.. code-block:: python
+
+    def imports(self):
+        dest = os.getenv("CONAN_IMPORT_PATH", "bin")
+        self.copy("*.dll", dst=dest, src="bin")
+        self.copy("*.dylib*", dst=dest, src="lib")
+
+
+And then use, for example: ``conan install -e CONAN_IMPORT_PATH=Release -g cmake_multi``
+
+
 conan_info()
 ------------
 
