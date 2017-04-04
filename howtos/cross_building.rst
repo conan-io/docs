@@ -71,7 +71,7 @@ From Linux to Windows
 
 
 ``CC`` and ``CXX`` are standard environment variables to declare the C/C++ compiler to use respectively.
-``CONAN_MAKE_GENERATOR`` overrides the CMake generator auto-detected by the ``CMake`` conan helper.
+``CONAN_CMAKE_GENERATOR`` overrides the CMake generator auto-detected by the ``CMake`` conan helper.
 
 
 - Call ``conan test_package`` using the created profile.

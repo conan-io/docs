@@ -6,6 +6,11 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.21.2 (04-April-2017)
+-------------------------
+- Bugfix: virtualenv generator quoting environment variables in Windows.
+
+
 0.21.1 (23-March-2017)
 -------------------------
 - BugFix: Fixed missing dependencies in ``AutoToolsBuildEnvironment``

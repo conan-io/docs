@@ -315,6 +315,13 @@ we would do something like:
 
    exports = "helpers.py", "info.txt"
 
+Exclude patterns are also possible, with the ``!`` prefix:
+
+.. code-block:: python
+
+   exports = "*.py", "!*tmp.py"
+
+
 This is an optional attribute, only to be used if the package recipe requires these other files
 for evaluation of the recipe.
 
@@ -335,6 +342,12 @@ that are not necessary for the package recipe, we could do:
 .. code-block:: python
 
    exports_sources = "include*", "src*"
+
+Exclude patterns are also possible, with the ``!`` prefix:
+
+.. code-block:: python
+
+   exports_sources = "include*", "src*", "!src/build/*"
 
 This is an optional attribute, used typically when ``source()`` is not specify. The main difference with
 ``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
