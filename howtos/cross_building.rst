@@ -250,16 +250,16 @@ For your conan package you could do:
 
 
 
-Toolchain packages as build requirements
-----------------------------------------
+Creating Toolchain packages
+---------------------------
 
-The :ref:`Build requirements<build_requires>` feature allows to create packages that "inject" C/C++ flags
+The :ref:`Build requirements<build_requires>` feature allows to create packages that "injects" C/C++ flags
 and environment variables through ``cpp_info`` and ``env_info`` objects.
 
 This is specially useful to create packages with toolchains for cross building because:
 
-- The toolchain package can be specified in a profile and kept isolated from out library package.
-  We won't need to change anything in the conan package of our library to cross build it for different targets.
+- The toolchain package can be specified in a profile and kept isolated from the library packages.
+  We won't need to change anything in the conan package of the libraries to cross build them for different targets.
   We can have different profiles using different ``build_requires`` to build our library for example, for Android,
   Windows, Raspberry PI etc.
 
@@ -267,11 +267,166 @@ This is specially useful to create packages with toolchains for cross building b
   C/C++ flags that we need to cross build a library. The toolchain package is able to read the specified user settings, so
   can 'inject' different flags for different user settings.
 
-- The toolchain packages can be easily shared as any other conan package, using a conan server. Downloading and
-  installing a toolchain and getting it work could be a difficult task.
+- The toolchain packages can be easily shared as any other conan package, using a conan server.
+
+Let's see an example of how to create a conan package for a toolchain:
+
+
+1. Create a new ``conanfile.py`` using the ``conan new command``
+
+
+.. code-block:: bash
+
+    $ conan new mytoolchain/1.0@user/testing
+
+2. Edit the **settings** property in the ``conanfile.py``
+
+To know which settings do you need to specify it is useful to answer two questions:
+
+- Do I need different toolchains for different values of that setting?
+- Do I want to restrict the toolchain usage for any value of that setting?
+
+For example, if we are building a toolchain for Raspbian (Raspberry Pi) and we want it working both from Linux and Windows:
+
+- **Do I need "os" setting?** Optionally, just to restrict to Linux (Raspbian usage). Remember that in cross build, the
+  conan settings means the "target" settings, not the host settings.
+- **Do I need "compiler" setting?** Yes, we are going to restrict the compiler to gcc (clang is not widely supported) and
+  we want to support both 4.9 and 4.6 gcc versions.
+- **Do I need the "build_type" setting?** No, the same toolchain will be able to build both debug and release packages.
+- **Do I need the "arch" setting?** Optionally, just to restrict it to armv7/armv7hf if we would want to support both.
+
+
+.. code-block:: python
+
+    class MytoolchainConan(ConanFile):
+        name = "mytoolchain"
+        version = "1.0"
+        settings = "os", "compiler", "arch"
+
+
+3. Restrict the settings if needed (Optional):
+
+Our recipe can control which settings values and the host machine are valid with the ``configure()`` method,
+it will be useful if someone try to install the toolchain with an unsupported setting. But this is optional:
+
+
+.. code-block:: python
+
+
+    def configure(self):
+
+        if self.settings.os != "Linux":
+            raise Exception("Only os Linux (Raspbian) supported")
+        if str(self.settings.compiler) != "gcc":
+            raise Exception("Not supported compiler, only gcc available")
+        if str(self.settings.compiler) == "gcc" and str(self.settings.compiler.version) not in ("4.6", "4.9"):
+            raise Exception("Not supported gcc compiler version, 4.6 and 4.9 available")
+        if str(self.settings.arch) not in ("armv7hf", "armv7"):
+            raise Exception("Not supported architecture, only armv7hf and armv7 available")
+
+        if not tools.OSInfo().is_windows and not tools.OSInfo().is_linux:
+            raise Exception("Not supported host operating system")
 
 
 
+
+4. Edit the **source()** method to get the toolchain:
+
+Download the toolchain according the introduced settings and the current platform. Remember, in cross building
+the settings values means the "target" settings, not the current machine target.
+
+
+.. code-block:: python
+
+    def source(self):
+
+        if tools.OSInfo().is_windows:
+            if self.settings.compiler.version == "4.8":
+                tools.download("some windows url for 4.8", "zipname.zip")
+            else:
+                tools.download("some windows url for 4.6", "zipname.zip")
+        else: # Linux
+            ...
+
+5. Remove the ``build`` method from your conanfile. The toolchains are usually precompiled binaries.
+6. Edit the **package()** method to pack all the needed toolchain files.
+
+You could copy all but sometimes we want to remove some help files or whatever to save disk space:
+
+.. code-block:: python
+
+    def package(self):
+         self.copy(pattern="*", src="bin", dst="", keep_path=True)
+
+
+7. Edit the **package_info()** to export the needed cpp flags/environment variables:
+
+.. code-block:: python
+
+    def package_info(self):
+
+        # Fill self.env_info object
+        if self.settings.arch == "armv7hf":
+            self.env_info.CC =  os.path.join(self.package_folder, "bin", "arm-linux-gnueabihf-gcc")
+            self.env_info.CXX = os.path.join(self.package_folder, "bin", "arm-linux-gnueabihf-g++)
+        else:
+            self.env_info.CC =  os.path.join(self.package_folder, "bin", "arm-linux-gnueabi-gcc")
+            self.env_info.CXX = os.path.join(self.package_folder, "bin", "arm-linux-gnueabi-g++)
+
+        #
+        self.env_info.CONAN_CMAKE_FIND_ROOT_PATH = os.path.join(self.package_folder, "sysroot")
+        self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
+
+        # Fill self.cpp_info object if needed, those are just an example, check your toolchain docs
+        # to see if it's required some flag to build your code.
+        self.cpp_info.cflags.add("-fPIC")
+        self.cpp_info.sharedlinkflags.append("-mfloat-abi=softfp")
+
+
+If you want to prepare your toolchain to work with CMake build system take a look to the :ref:`useful cmake configuration variables <useful_cmake_configuration_variables>`,
+you can use the ``self.env_info`` object to set them.
+
+
+
+8. Export the recipe:
+
+
+.. code-block:: bash
+
+   $ conan export lasote/testing
+
+
+9. Create one or more :ref:`profile <profile>` including your new toolchain build require:
+
+
+**~/.conan/profiles/rpi**
+
+.. code-block:: text
+
+    [settings]
+    os=Linux
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++
+    arch=armv7
+
+    [build_requires]
+    mytoolchain/1.0@lasote/testing
+
+
+10. Use the profile to cross build a conan package with test_package or install:
+
+.. code-block:: bash
+
+   $ conan install zlib/1.2.8@lasote/testing --profile rpi --build missing
+
+That command will build both our toolchain and the zlib library.
+
+
+The ``zlib`` recipe is using ``AutoToolsBuildEnvironment()`` helper for Linux and ``CMake`` helper for Windows,
+those helpers will automatically apply the received ``cpp_info``.
+
+The ``env_info`` will be applied automatically (creating environment variables) without any helper need.
 
 
 
@@ -322,6 +477,7 @@ Here is a table with some typical ARM platorms:
 
 
 
+.. _useful_cmake_configuration_variables:
 
 Useful CMake configuration variables
 ------------------------------------
@@ -354,3 +510,27 @@ use environment variables:
     - See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.
 
 
+Useful conans.tools for cross building
+--------------------------------------
+
+.. code-block:: python
+
+    from conans import ConanFile, tools
+
+    class MyLibrary(ConanFile):
+        ...
+
+
+- ``tools.OSInfo``:
+  To get information about the current host. Specially useful building toolchain packages, where we have to
+  differenciate between the settings (that describe the target) and the host. Check the :ref:`reference<osinfo_reference>`
+
+- ``tools.cross_building(self.settings)``
+  Function to check if we are cross building. Useful for libraries with cross build
+  support where we need to apply some special flag or do a special action (different package_info...).
+  Check the :ref:`reference<cross_building_reference>`
+
+
+
+
+Check the :ref:`complete tools reference<tools>`
