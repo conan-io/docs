@@ -6,16 +6,15 @@ conan install
 
 .. code-block:: bash
 
-	$ conan install [-h] [--package PACKAGE] [--all] [--file FILE] [--update]
-                        [--scope SCOPE] [--profile PROFILE]
-                        [--generator GENERATOR] [--werror]
-                        [--manifests [MANIFESTS]]
-                        [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                        [--verify [VERIFY]] [--no-imports] [-r REMOTE]
-                        [--options OPTIONS] [--settings SETTINGS] [--env ENV]
-                        [--build [BUILD [BUILD ...]]]
-                        [reference]
-
+    $ conan install [-h] [--package PACKAGE] [--all] [--file FILE]
+                    [--generator GENERATOR] [--werror]
+                    [--manifests [MANIFESTS]]
+                    [--manifests-interactive [MANIFESTS_INTERACTIVE]]
+                    [--verify [VERIFY]] [--no-imports] [--update]
+                    [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                    [--options OPTIONS] [--settings SETTINGS] [--env ENV]
+                    [--build [BUILD [BUILD ...]]]
+                    [reference]
 
 
 Installs the requirements specified in a ``conanfile.py`` or ``conanfile.txt``.
@@ -30,50 +29,58 @@ If no binary package is found you can build the package from sources using the `
 .. code-block:: bash
 
 
-	positional arguments:
-	  reference             package recipe reference, e.g. MyPackage/1.2@user/channel or ./my_project/
+    positional arguments:
+      reference             package recipe referencee.g.,
+                            MyPackage/1.2@user/channel or ./my_project/
 
-	optional arguments:
-	  --package PACKAGE, -p PACKAGE
-	                        Force install specified package ID (ignore settings/options)
-	  --all                 Install all packages from the specified package recipe
-	  --file FILE, -f FILE  specify conanfile filename
-	  --update, -u          update with new upstream packages, overwriting the local cache if needed.
-	  --scope SCOPE, -sc SCOPE
-	                        Use the specified scope in the install command
-	  --profile PROFILE, -pr PROFILE
-	                        Apply the specified profile to the install command
-	  --generator GENERATOR, -g GENERATOR
-	                        Generators to use
-	  --werror              Error instead of warnings for graph inconsistencies
-	  --manifests [MANIFESTS], -m [MANIFESTS]
-	                        Install dependencies manifests in folder for later verify.
-                                Default folder is .conan_manifests, but can be changed.
-	  --manifests-interactive [MANIFESTS_INTERACTIVE], -mi [MANIFESTS_INTERACTIVE]
-	                        Install dependencies manifests in folder for later verify, asking user for
-                                confirmation. Default folder is .conan_manifests, but can be changed.
-	  --verify [VERIFY], -v [VERIFY]
-	                        Verify dependencies manifests against stored ones
-	  --no-imports          Install specified packages but avoid running imports
-	  -r REMOTE, --remote REMOTE
-	                        look in the specified remote server
-	  --options OPTIONS, -o OPTIONS
-	                        Options to build the package, overwriting the defaults. e.g., -o with_qt=true
-	  --settings SETTINGS, -s SETTINGS
-	                        Settings to build the package, overwriting the defaults. e.g., -s compiler=gcc
-	  --env ENV, -e ENV     Environment variables that will be set during the package build,
-                                e.g. -e CXX=/usr/bin/clang++
-	  --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
-	                        Optional, use it to choose if you want to build from sources:
-
-	                        --build            Build all from sources, do not use binary packages.
-	                        --build=never      Never build: use binary packages or fail
-                                                   if a binary package is not found (default).
-	                        --build=missing    Build from code if a binary package is not found.
-	                        --build=outdated   Build from code if the binary is not built with the current
-                                                   recipe or when missing binary package.
-	                        --build=[pattern]  Always build these packages from source, but never build
-                                                   the others.  Allows multiple --build parameters.
+    optional arguments:
+      -h, --help            show this help message and exit
+      --package PACKAGE, -p PACKAGE
+                            Force install specified package ID (ignore
+                            settings/options)
+      --all                 Install all packages from the specified package recipe
+      --file FILE, -f FILE  specify conanfile filename
+      --generator GENERATOR, -g GENERATOR
+                            Generators to use
+      --werror              Error instead of warnings for graph inconsistencies
+      --manifests [MANIFESTS], -m [MANIFESTS]
+                            Install dependencies manifests in folder for later
+                            verify. Default folder is .conan_manifests, but can be
+                            changed
+      --manifests-interactive [MANIFESTS_INTERACTIVE], -mi [MANIFESTS_INTERACTIVE]
+                            Install dependencies manifests in folder for later
+                            verify, asking user for confirmation. Default folder
+                            is .conan_manifests, but can be changed
+      --verify [VERIFY], -v [VERIFY]
+                            Verify dependencies manifests against stored ones
+      --no-imports          Install specified packages but avoid running imports
+      --update, -u          check updates exist from upstream remotes
+      --scope SCOPE, -sc SCOPE
+                            Use the specified scope in the install command
+      --profile PROFILE, -pr PROFILE
+                            Apply the specified profile to the install command
+      -r REMOTE, --remote REMOTE
+                            look in the specified remote server
+      --options OPTIONS, -o OPTIONS
+                            Options to build the package, overwriting the
+                            defaults. e.g., -o with_qt=true
+      --settings SETTINGS, -s SETTINGS
+                            Settings to build the package, overwriting the
+                            defaults. e.g., -s compiler=gcc
+      --env ENV, -e ENV     Environment variables that will be set during the
+                            package build, -e CXX=/usr/bin/clang++
+      --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
+                            Optional, use it to choose if you want to build from
+                            sources: --build Build all from sources, do not use
+                            binary packages. --build=never Default option. Never
+                            build, use binary packages or fail if a binary package
+                            is not found. --build=missing Build from code if a
+                            binary package is not found. --build=outdated Build
+                            from code if the binary is not built with the current
+                            recipe or when missing binary package.
+                            --build=[pattern] Build always these packages from
+                            source, but never build the others. Allows multiple
+                            --build parameters.
 
 
 **Examples**
@@ -82,7 +89,7 @@ If no binary package is found you can build the package from sources using the `
 
 .. code-block:: bash
 
-	$ conan install . -o use_debug_mode=on -s compiler=clang
+    $ conan install . -o use_debug_mode=on -s compiler=clang
 
 
 .. note::
@@ -102,7 +109,7 @@ If no binary package is found you can build the package from sources using the `
 
 .. code-block:: bash
 
-	$ conan install opencv/2.4.10@lasote/testing
+    $ conan install opencv/2.4.10@lasote/testing
 
 
 - Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and the binary package if new upstream versions are available:
