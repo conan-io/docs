@@ -93,7 +93,14 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
 .. code-block:: bash
 
 	CONAN_ENV_ARCH = "x86"
-	
+
+
+CONAN_BASH_PATH
+---------------
+
+Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
+to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
+
 
 .. _conan_trace_file:
 

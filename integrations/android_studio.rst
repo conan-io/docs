@@ -12,7 +12,7 @@ library building for the different architectures that you want to support in you
 Here is an example of how to integrate the ``libpng`` conan package library in an Android application, but any library
 that can be cross-compiled to Android could be used using the same procedure.
 
-We are going to use the "Hello World" application as an example:
+We are going to start from the "Hello World" wizard application and then will add it the ``libpng`` C library:
 
 1. Create a new Android Studio project and include C++ support.
 

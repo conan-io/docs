@@ -30,6 +30,8 @@ This is the typical ``~/.conan/conan.conf`` file:
     [general]
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
+    # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
+
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -65,6 +67,9 @@ The settings defaults are the setting values used whenever you issue a ``conan i
 ``conanfile`` in one of your projects **for the first time**. After that, the settings and options will
 be cached in the project ``conaninfo.txt`` file. The initial values for these default settings are
 auto-detected the first time you run a ``conan`` command.
+
+The ``bash_path`` variable is used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
+to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`.
