@@ -228,7 +228,7 @@ The ``conanfile.py`` has a few more lines than the above, but still quite easy t
         build_policy = "missing"
 
         def build(self):
-            cmake = CMake(self.settings)
+            cmake = CMake(self)
             pythonpaths = "-DPYTHON_INCLUDE_DIR=C:/Python27/include -DPYTHON_LIBRARY=C:/Python27/libs/python27.lib"
             self.run('cmake %s %s -DEXAMPLE_PYTHON_VERSION=2.7' % (cmake.command_line, pythonpaths))
             self.run("cmake --build . %s" % cmake.build_config)

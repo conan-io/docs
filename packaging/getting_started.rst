@@ -55,7 +55,7 @@ Let`s have a look to the root package recipe ``conanfile.py``:
     conan_basic_setup()''')
 
         def build(self):
-            cmake = CMake(self.settings)
+            cmake = CMake(self)
             shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
             self.run('cmake hello %s %s' % (cmake.command_line, shared))
             self.run("cmake --build . %s" % cmake.build_config)
