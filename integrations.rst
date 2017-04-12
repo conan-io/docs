@@ -13,6 +13,7 @@ Integrations
    integrations/gcc
    integrations/visual_studio
    integrations/xcode
+   integrations/android_studio
    integrations/clion
    integrations/ninja
    integrations/qmake

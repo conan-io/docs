@@ -162,3 +162,45 @@ Will print to the output (stout and/or file):
 	> cd zlib-1.2.9 && env LIBS="" LDFLAGS=" -m64   $LDFLAGS" CFLAGS="-mstackrealign -fPIC $CFLAGS -m64  -s -DNDEBUG  " CPPFLAGS="$CPPFLAGS -m64  -s -DNDEBUG  " C_INCLUDE_PATH=$C_INCLUDE_PATH: CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH: ./configure
 	-----------------
 	...
+
+
+CMAKE RELATED VARIABLES
+-----------------------
+
+There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
+the :ref:`CMake build tool<cmake_reference>`:
+
+
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| Variable                                | CMake set variable                                                                             |
++=========================================+================================================================================================+
+| CONAN_CMAKE_SYSTEM_NAME                 | CMAKE_SYSTEM_NAME                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSTEM_VERSION              | CMAKE_SYSTEM_VERSION                                                                           |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSTEM_PROCESSOR            | CMAKE_SYSTEM_PROCESSOR                                                                         |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH              | CMAKE_FIND_ROOT_PATH                                                                           |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM | CMAKE_FIND_ROOT_PATH_MODE_PROGRAM                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY | CMAKE_FIND_ROOT_PATH_MODE_LIBRARY                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+
+
+.. seealso::
+
+    See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
+
+
+
+CONAN_CPU_COUNT
+---------------
+
+Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return, by default the number of cores
+available in your machine.
+Conan recipes can use the cpu_count() tool to build the library using more than one core.
+
+

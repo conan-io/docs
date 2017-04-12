@@ -9,10 +9,16 @@ This is the typical ``~/.conan/conan.conf`` file:
 
     [storage]
     # This is the default path, but you can write your own
-    path: ~/.conan/data
+    path = ~/.conan/data
 
     [proxies]
     # Empty section will try to use system proxies.
+    # If don't want proxy at all, remove section [proxies]
+    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # http = http://user:pass@10.10.1.10:3128/
+    # http = http://10.10.1.10:3128
+    # https = http://10.10.1.10:1080
+
 
     [log]
     run_to_output = True        # environment CONAN_LOG_RUN_TO_OUTPUT
@@ -22,9 +28,21 @@ This is the typical ``~/.conan/conan.conf`` file:
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
     [general]
-    compression_level = 9       # environment CONAN_COMPRESSION_LEVEL
-    sysrequires_sudo = True     # environment CONAN_SYSREQUIRES_SUDO
-    # cmake_generator           # environment CONAN_CMAKE_GENERATOR
+    compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
+    sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
+
+    # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
+    # http://www.vtk.org/Wiki/CMake_Cross_Compiling
+    # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
+    # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
+    # cmake_system_processor              # environment CONAN_CMAKE_SYSTEM_PROCESSOR
+    # cmake_find_root_path                # environment CONAN_CMAKE_FIND_ROOT_PATH
+    # cmake_find_root_path_mode_program   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM
+    # cmake_find_root_path_mode_library   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY
+    # cmake_find_root_path_mode_include   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE
+
+    # cpu_count = 1             # environment CONAN_CPU_COUNT
+
 
     [settings_defaults]
     arch=x86_64
@@ -47,6 +65,13 @@ The settings defaults are the setting values used whenever you issue a ``conan i
 ``conanfile`` in one of your projects **for the first time**. After that, the settings and options will
 be cached in the project ``conaninfo.txt`` file. The initial values for these default settings are
 auto-detected the first time you run a ``conan`` command.
+
+The ``cmake_***`` variables will declare the corresponding CMake variable when you use the :ref:`cmake generator<cmake_generator>` and
+the :ref:`CMake build tool<cmake_reference>`.
+
+The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return, by default the number of cores
+available in your machine.
+Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 
 .. _proxys:
