@@ -156,10 +156,42 @@ Android
 Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
 architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android api levels.
 
-Creating a toolchain for the specific settings can be a tedious task. The Android NDK offers a mechanism to create a
-`standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html?hl=es>`_ for different settings.
+You can create an Android toolchain or point directly to the desired folders in the NDK and then use a conan profile to
+declare the needed environment variables, something like:
 
-We created a recipe ``android-toolchain/r13b@lasote/testing`` to be used as a :ref:`build requirement<build_requires>`.
+.. code-block:: text
+
+    [settings]
+    compiler=clang
+    compiler.version=3.9
+    compiler.libcxx=libstdc++
+    os=Android
+    arch=armv8
+    build_type=Release
+
+    [env]
+    CC=clang
+    CXX=clang++
+    CFLAGS=-fPIC -DPIC -march=armv8a --sysroot=/path/to/ndk/aarch64-api21/sysroot --target=aarch64-linux-android --gcc-toolchain=/path/to/ndk/aarch64-api21
+    CXXFLAGS=--target=aarch64-linux-android -fPIC -DPIC -march=armv8a --sysroot=/path/to/ndk/aarch64-api21/sysroot--gcc-toolchain=/path/to/ndk/aarch64-api21
+    LDFLAGS= --target=aarch64-linux-android --sysroot=/path/to/ndk/aarch64-api21/sysroot --gcc-toolchain=/path/to/ndk/aarch64-api21
+
+And then call ``conan install`` using the profile:
+
+
+.. code-block:: bash
+
+
+    $ conan install --profile my_android_profile
+
+
+But if you want to use different architectures or api levels, generate many profiles handling all the different flags
+and different paths it will be error prone and very tedious task.
+
+
+So we created a recipe ``android-toolchain/r13b@lasote/testing`` to be used as a :ref:`build requirement<build_requires>`.
+
+
 It automatically builds an Android toolchain for your specified conan settings using the NDK already installed with your
 :ref:`Android Studio<android_studio>` or will install a NDK by itself.
 
@@ -213,7 +245,34 @@ For your conan package you could do:
 
 .. seealso::
 
-    :ref:`Integrate Conan with Android Studio<android_studio>`
+    - :ref:`Integrate Conan with Android Studio<android_studio>`
+    - `Android NDF standalone toolchains <https://developer.android.com/ndk/guides/standalone_toolchain.html?hl=es>`_.
+
+
+
+Toolchain packages as build requirements
+----------------------------------------
+
+The :ref:`Build requirements<build_requires>` feature allows to create packages that "inject" C/C++ flags
+and environment variables through ``cpp_info`` and ``env_info`` objects.
+
+This is specially useful to create packages with toolchains for cross building because:
+
+- The toolchain package can be specified in a profile and kept isolated from out library package.
+  We won't need to change anything in the conan package of our library to cross build it for different targets.
+  We can have different profiles using different ``build_requires`` to build our library for example, for Android,
+  Windows, Raspberry PI etc.
+
+- The toolchain package will manage all the complexity of the toolchain, just declaring the environment variables and
+  C/C++ flags that we need to cross build a library. The toolchain package is able to read the specified user settings, so
+  can 'inject' different flags for different user settings.
+
+- The toolchain packages can be easily shared as any other conan package, using a conan server. Downloading and
+  installing a toolchain and getting it work could be a difficult task.
+
+
+
+
 
 
 ARM reference
