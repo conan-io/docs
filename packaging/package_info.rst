@@ -129,7 +129,7 @@ could be:
 .. code-block:: python
 
     def build(self):
-        cmake = CMake(self.settings)
+        cmake = CMake(self)
         if cmake.is_multi_configuration:
             cmd = 'cmake "%s" %s' % (self.conanfile_directory, cmake.command_line)
             self.run(cmd)

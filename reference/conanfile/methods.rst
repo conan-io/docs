@@ -92,7 +92,7 @@ Nothing special is required here. We can just launch the tests from the last com
 .. code-block:: python
 
    def build(self):
-      cmake = CMake(self.settings)
+      cmake = CMake(self)
       self.run("cmake . %s %s" % (cmake.command_line))
       self.run("cmake --build . %s" % cmake.build_config)
       # here you can run CTest, launch your binaries, etc

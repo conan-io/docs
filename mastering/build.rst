@@ -18,7 +18,7 @@ There are two ways to invoke your cmake tools:
 .. code-block:: python
 
    def build(self):
-      cmake = CMake(self.settings)
+      cmake = CMake(self)
       self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
       self.run('cmake --build . %s' % cmake.build_config)
 
@@ -29,9 +29,9 @@ There are two ways to invoke your cmake tools:
 .. code-block:: python
 
    def build(self):
-      cmake = CMake(self.settings)
-      cmake.configure(self, source_dir=self.conanfile_directory, build_dir="./")
-      cmake.build(self)
+      cmake = CMake(self)
+      cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+      cmake.build()
 
 
 
