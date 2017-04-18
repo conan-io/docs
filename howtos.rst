@@ -6,6 +6,7 @@ This section shows common solutions and different approaches to typical problems
 .. toctree::
    :maxdepth: 2
 
+   howtos/existing_binaries
    howtos/cmake_launch
    howtos/cross_building
    howtos/python_code_reuse
