@@ -188,7 +188,7 @@ a compiled library, which could be defined as:
 
       def build(self):
          static = "-DBUILD_SHARED_LIBS=ON" if not self.options.static else ""
-         cmake = CMake(self.settings)
+         cmake = CMake(self)
          self.run("cmake . %s %s" % (cmake.command_line, static))
          self.run("cmake --build . %s" % cmake.build_config)
 

@@ -76,9 +76,9 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
 
       def build(self):
-         cmake = CMake(self.settings)
-         cmake.configure(self)
-         cmake.build(self)
+         cmake = CMake(self)
+         cmake.configure()
+         cmake.build()
 
    
 Then execute, from your project root:

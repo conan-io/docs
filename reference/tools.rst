@@ -310,10 +310,27 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     tools.human_size(1024)
     >> 1Kb
 
+
+.. _osinfo_reference:
+
     
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
 These are helpers to install system packages. Check :ref:`system_requirements`
+
+
+.. _cross_building_reference:
+
+tools.cross_building
+--------------------
+
+Reading the settings and the current host machine it returns True if we are cross building a conan package:
+
+.. code-block:: python
+
+    if tools.cross_building(self.settings):
+        # Some special action
+
 
 
 .. _run_in_windows_bash_tool:

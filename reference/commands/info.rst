@@ -5,10 +5,11 @@ conan info
 
 .. code-block:: bash
 
-   $ usage: conan info [-h] [--file FILE] [--only [ONLY]]
-                  [--build_order BUILD_ORDER] [--update] [--scope SCOPE]
-                  [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
-                  [--settings SETTINGS] [--env ENV]
+   $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
+                  [--package_filter [PACKAGE_FILTER]]
+                  [--build_order BUILD_ORDER] [--graph GRAPH] [--update]
+                  [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                  [--options OPTIONS] [--settings SETTINGS] [--env ENV]
                   [--build [BUILD [BUILD ...]]]
                   [reference]
 
@@ -28,18 +29,25 @@ to update them.
                             MyPackage/1.2@user/channel or ./my_project/
 
     optional arguments:
+      -h, --help            show this help message and exit
       --file FILE, -f FILE  specify conanfile filename
-      --only [ONLY], -n [ONLY]
-                        show the specified fields only from: "id", "build_id",
-                        "remote", "url", "license", "requires", "update",
-                        "required", "date", "author", "None" or use --paths
-                        with options "export_folder", "build_folder",
-                        "package_folder", "source_folder". Use --only None to
-                        show only references.
-      --paths           Show package paths in local cache
+      --only ONLY, -n ONLY  show the specified fields only from: "id", "build_id",
+                            "remote", "url", "license", "requires", "update",
+                            "required", "date", "author", "None" or use --paths
+                            with options "export_folder", "build_folder",
+                            "package_folder", "source_folder". Use --only None to
+                            show only references.
+      --paths               Show package paths in local cache
+      --package_filter [PACKAGE_FILTER]
+                            print information only for packages that match the
+                            filtere.g., MyPackage/1.2@user/channel or MyPackage*
       --build_order BUILD_ORDER, -bo BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
+      --graph GRAPH, -g GRAPH
+                            Creates file with project dependencies graph. It will
+                            generate a DOT or HTML file depending on the filename
+                            extension
       --update, -u          check updates exist from upstream remotes
       --scope SCOPE, -sc SCOPE
                             Use the specified scope in the install command

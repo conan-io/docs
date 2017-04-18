@@ -25,7 +25,7 @@ First, we are going to see how to control the tests build with an **option** (ge
         ...
 
         def build(self):
-            cmake = CMake(self.settings)
+            cmake = CMake(self)
             flag_build_tests = "-DBUILD_TEST=1" if self.options.build_tests else ""
             self.run('cmake "%s" %s %s' % (self.conanfile_directory, cmake.command_line, flag_build_tests))
             self.run('cmake --build . %s' % cmake.build_config)
@@ -67,7 +67,7 @@ Now using scope variables:
         ...
 
         def build(self):
-            cmake = CMake(self.settings)
+            cmake = CMake(self)
             flag_build_tests = "-DBUILD_TEST=1" if self.scope.build_tests else ""
             self.run('cmake "%s" %s %s' % (self.conanfile_directory, cmake.command_line, flag_build_tests))
             self.run('cmake --build . %s' % cmake.build_config)
@@ -99,7 +99,7 @@ In the following example we will require the ``catch`` package for unit test our
               self.requires("catch/1.3.0@TyRoXx/stable")
 
         def build(self):
-            cmake = CMake(self.settings)
+            cmake = CMake(self)
             flag_build_tests = "-DBUILD_TEST=1" if self.scope.dev and self.scope.build_tests else ""
             self.run('cmake "%s" %s %s' % (self.conanfile_directory, cmake.command_line, flag_build_tests))
             self.run('cmake --build . %s' % cmake.build_config)

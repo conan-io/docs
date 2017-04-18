@@ -24,5 +24,6 @@ Conan command reference:
    commands/source.rst
    commands/build.rst
    commands/package.rst
+   commands/package_files.rst
    commands/imports.rst
    commands/config.rst
