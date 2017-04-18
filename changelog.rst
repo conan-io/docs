@@ -7,6 +7,13 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+0.22.1 (18-April-2017)
+----------------------
+
+- Fix: "-" symbol available again in usernames. 
+- Fix: Added ``future`` requirement to solve an error with pyinstaller generating the Windows installer.
+
+
 0.22.0 (18-April-2017)
 -------------------------
 - Feature: ``[build_requires]`` can now be declared in ``profiles`` and apply them to build packages. Those requirements are only installed if the package is required to build from sources, and do not affect its package ID hash, and it is not necessary to define them in the package recipe. Ideal for testing libraries, cross compiling toolchains (like Android), development tools, etc.
