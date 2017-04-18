@@ -7,17 +7,21 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
-0.22.0 (XX-April-2017)
+0.22.0 (18-April-2017)
 -------------------------
 - Feature: ``[build_requires]`` can now be declared in ``profiles`` and apply them to build packages. Those requirements are only installed if the package is required to build from sources, and do not affect its package ID hash, and it is not necessary to define them in the package recipe. Ideal for testing libraries, cross compiling toolchains (like Android), development tools, etc.
-- Feature: Much improved support for cross-building, mainly with CMake. Support for cross-building to **Android** provided, with toolchains installable via ``build_requires``.
+- Feature: Much improved support for cross-building. Support for cross-building to **Android** provided, with toolchains installable via ``build_requires``.
 - Feature: New ``package_files`` command, that is able to create binary packages directly from user files, without needing to define ``build()`` or ``package()`` methods in the the recipes.
 - Feature: command ``conan new`` with a new ``--bare`` option that will create a minimal package recipe, usable with the ``package_files`` command.
-- Feature: Improved ``CMake`` helper, with ``test()`` method.
+- Feature: Improved ``CMake`` helper, with ``test()`` method, automatic setting of BUILD_SHARED_LIBS, better management of variables, support for parallel compilation in MSVC (via /MP)
 - Feature: new ``tools.msvc_build_command()`` helper that both sets the Visual vcvars and calls Visual to build the solution. Also ``vcvars_command`` is improved to return non-empty string even if vcvars is set, for easier concatenation.
+- Feature: Added package recipe linter, warning for potential errors and also about Python 3 incompatibilities when running from Python 2. Enabled by default can be opt-out.
+- Feature: Improvements in HTML output of ``conan info --graph``
+- Feature: allow custom path to bash, as configuration and environment variable.
 - Fix: Not issuing an unused variable warning in CMake for the CONAN_EXPORTED variable
 - Fix: added new ``mips`` architectures and latest compiler versions to default settings.yml
 - Fix: Unified username allowed patterns to those used in package references.
+- Fix: hardcoded vs15 version in tools.vcvars
 - BugFix: Clean crash and improved error messages when manifests mistmatch exists in conan upload.
 
 
