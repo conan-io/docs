@@ -6,6 +6,10 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.22.2 (20-April-2017)
+----------------------
+
+- Fix: Fixed regression with usernames starting with non-alphabetical characters, introduced by 0.22.0
 
 0.22.1 (18-April-2017)
 ----------------------
