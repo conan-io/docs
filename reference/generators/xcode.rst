@@ -6,12 +6,12 @@ xcode
 .. container:: out_reference_box
 
     This is the reference page for ``xcode`` generator.
-    Go to :ref:`Integrations/Xcode<xcode>` if you want to learn how to integrate your project or recipes with Visual Studio.
+    Go to :ref:`Integrations/Xcode<xcode>` if you want to learn how to integrate your project or recipes with Xcode.
 
 
 
 
-The **xcode** generator creates a file named ``conanbuildinfo.xcconfig`` that can be imported to your *XCode* project.
+The **xcode** generator creates a file named ``conanbuildinfo.xcconfig`` that can be imported to your *Xcode* project.
 
 The file declare these variables:
 
