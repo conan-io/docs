@@ -6,6 +6,11 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.22.3 (03-May-2017)
+----------------------
+
+- Fix: Fixed CMake generator (in targets mode) with linker/exe flags like --framework XXX containing spaces.
+
 0.22.2 (20-April-2017)
 ----------------------
 
