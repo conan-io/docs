@@ -67,3 +67,29 @@ don't use them or even fail.
 Such helpers as ``CMake`` are simple utilities to translate from conan settings to the respective
 build system syntax and command line arguments, so they can be extended or replaced with your own
 one that would handle your own private settings.
+
+
+ERROR: Failed to create process
+--------------------------------
+
+When conan is installed via pip/PyPI, and python is installed in a path with spaces (like many times in Windows "C:/Program Files..."), conan can fail to launch. This is a known python issue, and can't be fixed from conan.
+The current workarounds would be:
+
+- Install python in a path without spaces
+- Use virtualenvs. Short guide:
+
+.. code-block:: bash
+
+    $ pip install virtualenvwrapper-win # virtualenvwrapper if not Windows
+    $ mkvirtualenv conan
+    (conan) $ pip install conan
+    (conan) $ conan --help
+
+Then, when you will be using conan, for example in a new shell, you have to activate the virtualenv:
+
+.. code-block:: bash
+
+    $ workon conan
+    (conan) $ conan --help
+
+Virtualenvs are very convenient, not only for this workaround, but to keep your system clean and to avoid unwanted interaction between different tools and python projects.

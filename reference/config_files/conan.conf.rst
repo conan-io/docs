@@ -31,7 +31,7 @@ This is the typical ``~/.conan/conan.conf`` file:
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
-
+    # recipe_linter = False               # environment CONAN_RECIPE_LINTER
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -70,6 +70,8 @@ auto-detected the first time you run a ``conan`` command.
 
 The ``bash_path`` variable is used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
+
+The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at ``conan install``. Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`.

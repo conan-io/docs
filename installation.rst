@@ -31,6 +31,7 @@ Install conan:
 .. note::
 
     **IMPORTANT: Please READ carefully**:
+
     - Please make sure that your **pip** installation matches your **python (2.7 or 3.X)** one.
     - In Linux if you want to install it globally, you might need **sudo** permissions.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything python related
