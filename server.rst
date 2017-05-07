@@ -241,6 +241,7 @@ is a simple 2 step process:
 This is a list of available authenticators, visit their URLs to get them, but also to report issues and collaborate:
 
 - **htpasswd**: Use your server Apache htpasswd file to authenticate users. Get it: https://github.com/d-schiffner/conan-htpasswd
+- **LDAP**: Use your LDAP server to authenticate users. Get it: https://github.com/uilianries/conan-ldap-authentication
 
 
 Create your own custom Authenticator
