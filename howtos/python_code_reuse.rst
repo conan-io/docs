@@ -1,21 +1,21 @@
 .. _python_reuse:
 
-How to reuse python code in recipes
+How to reuse Python code in recipes
 =====================================
 
-First, if you feel that you are repeating a lot of python code, and that repeated code could be
-useful for other conan users, please propose it in a github issue.
+First, if you feel that you are repeating a lot of Python code, and that repeated code could be
+useful for other Conan users, please propose it in a github issue.
 
-There are several ways to handle python code reuse in package recipes:
+There are several ways to handle Python code reuse in package recipes:
 
 - To put common code in files, as explained :ref:`below <split_conanfile>`. This code
-  has to be exported into the recipe itself
+  has to be exported into the recipe itself.
   
-- To create a conan package with the common python code, and then ``require`` it from the recipe.
+- To create a Conan package with the common python code, and then ``require`` it from the recipe.
 
 This howto explains the latter.
 
-A basic python package
+A basic Python package
 -----------------------
 
 Let's begin with a simple python package, a "hello world" functionality that we want to package and reuse:
