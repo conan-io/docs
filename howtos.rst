@@ -9,6 +9,7 @@ This section shows common solutions and different approaches to typical problems
    howtos/existing_binaries
    howtos/cmake_launch
    howtos/cross_building
+   howtos/visual_studio_packages
    howtos/python_code_reuse
    howtos/dyn_generators
    howtos/custom_cache

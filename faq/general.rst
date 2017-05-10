@@ -53,7 +53,7 @@ Packages are managed per user, but additionally differentiated by version and ch
 So large packages, like Boost, don't have to be compiled or downloaded for every project.
 
 Can I run multiple conan isolated instances (virtual environments) on the same machine?
--------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 Yes, conan supports the concept of virtual environments; so it manages all the information (packages, remotes, user credentials, ..., etc.) in different, isolated environments.
 Check :ref:`virtual environments<custom_cache>` for more details.
 
