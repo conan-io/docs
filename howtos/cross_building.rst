@@ -396,7 +396,7 @@ you can use the ``self.env_info`` object to set them.
    $ conan export lasote/testing
 
 
-9. Create one or more :ref:`profile <profile>` including your new toolchain build require:
+9. Create one or more :ref:`profile <profiles>` including your new toolchain build require:
 
 
 **~/.conan/profiles/rpi**

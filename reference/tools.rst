@@ -51,7 +51,41 @@ corresponding Visual Studio version for the current settings.
 This is typically not needed if using ``CMake``, as the cmake generator will handle the correct
 Visual Studio version.
 
-    
+
+.. _build_sln_commmand:
+
+tools.build_sln_command()
+-------------------------
+
+Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
+It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
+
+.. code-block:: python
+
+    build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
+    command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
+    self.run(command)
+
+Arguments:
+
+ * **settings**  Conanfile settings, pass "self.settings"
+ * **sln_path**  Visual Studio project file path
+ * **targets**   List of targets to build
+ * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+
+
+.. _msvc_build_command:
+
+tools.msvc_build_command()
+------------------------------
+
+Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
+
+Arguments:
+
+    Exactly the same arguments as the above ``tools.build_sln_command()``
+
+
 tools.unzip()
 -------------
 
@@ -245,30 +279,6 @@ This is a context manager that allows to temporary change the current directory 
     def build(self):
         with tools.chdir("./subdir"):
             do_something()
-
-
-.. _build_sln_commmand:
-
-tools.build_sln_command()
--------------------------
-
-Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
-It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools
-will be in path.
-
-.. code-block:: python
-
-  
-    build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
-    command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
-    self.run(command)
-
-Arguments:
-
- * **settings**  Conanfile settings, pass "self.settings"
- * **sln_path**  Visual Studio project file path
- * **targets**   List of targets to build
- * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
 
 
 tools.pythonpath()
