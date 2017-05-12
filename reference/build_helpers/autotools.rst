@@ -15,7 +15,7 @@ Prepares the needed environment variables to invoke  **configure**/**make**:
 
 
 
-Or calling `configure`` and `make`` manually:
+Or calling `configure` and `make` manually:
 
 .. code-block:: python
 
