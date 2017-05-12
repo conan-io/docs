@@ -10,9 +10,38 @@ Prepares the needed environment variables to invoke  **configure**/**make**:
 
       def build(self):
          env_build = AutoToolsBuildEnvironment(self)
+         env_build.configure()
+         env_build.make()
+
+
+
+Or calling `configure`` and `make`` manually:
+
+.. code-block:: python
+
+      def build(self):
+         env_build = AutoToolsBuildEnvironment(self)
          with tools.environment_append(env_build.vars):
             self.run("./configure")
             self.run("make")
+
+
+
+
+Methods
+-------
+
+- **configure** (configure_dir=None, args=None, build=None, host=None, target=None)
+
+    - **configure_dir**: Directory where the ``configure`` script is.
+    - **args**: A list of additional arguments to be passed to the ``configure`` script. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+    - **build**: To specify a value for the parameter ``--build``. If None it will try to detect the value if cross building is detected according to the settings.
+    - **host**: To specify a value for the parameter ``--host``. If None it will try to detect the value if cross building is detected according to the settings.
+    - **target**: To specify a value for the parameter ``--target``. If None it will try to detect the value if cross building is detected according to the settings.
+
+- **make** (args=None)
+
+    - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
 
 
 **Set environment variables**
