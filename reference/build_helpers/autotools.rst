@@ -39,7 +39,7 @@ Methods
     - **host**: To specify a value for the parameter ``--host``. If None it will try to detect the value if cross building is detected according to the settings.
     - **target**: To specify a value for the parameter ``--target``. If None it will try to detect the value if cross building is detected according to the settings.
 
-- **make** (args=None, build_dir=None, target=None)
+- **make** (args=None)
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
 
