@@ -37,5 +37,38 @@ you can do so by skipping the CONFIG statement and only include
    # INCLUDEPATH += CONAN_INCLUDEPATH_POCO
 
 
+There is a complete example in https://github.com/memsharded/qmake_example
+This project will depend on a multi-configuration (debug/release) "Hello World" package, that should be installed first:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/memsharded/hello_multi_config
+    $ cd hello_multi_config
+    $ conan test_package
+
+This hello package is created with cmake, but that doesn't matter, it can be consumed from a qmake project:
+
+
+Then, you can get the qmake project and build it, both for debug and release (this example has been tested on linux):
+
+.. code-block:: bash
+
+    $ git clone https://github.com/memsharded/qmake_example
+    $ cd qmake_example
+    $ conan install .
+    $ qmake
+    $ make
+    $ ./helloworld
+    > Hello World Release!
+    # now lets build the debug one
+    $ make clean
+    $ qmake CONFIG+=debug
+    $ make
+    $ ./helloworld
+    > Hello World Debug!
+
+
+
+
 .. seealso:: Check the :ref:`Reference/Generators/qmake <qmake_generator>` for the complete reference.
 

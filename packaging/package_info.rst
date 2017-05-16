@@ -128,7 +128,7 @@ and not having to specify it in the command line. This type of package will incl
     .. code:: bash
 
         $ git clone https://github.com/memsharded/hello_multi_config
-        $ cde hello_multi_config
+        $ cd hello_multi_config
         $ conan test_package -s build_type=Release
         $ conan test_package -s build_type=Debug --build=missing
 
