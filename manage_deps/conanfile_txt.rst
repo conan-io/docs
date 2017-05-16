@@ -141,7 +141,7 @@ Finally, launch the executable:
 What happened? It fails because it can't find the shared libraries in the path. Remember that shared libraries are used at runtime, and the should be locatable by the OS, which is the one running the application.
 
 We could inspect the generated executable, and see that it is using the shared libraries.
-For example in Linux, we could use the**objdump** tool and see in *Dynamic section*:
+For example in Linux, we could use the `objdump` tool and see in *Dynamic section*:
 
 .. code-block:: bash
 
