@@ -17,7 +17,7 @@ Just include the ``conanbuildinfo.cmake`` this way:
        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
        conan_basic_setup()
    else()
-       message(WARNING "Skipping Conan")
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
    endif()
 
 If the ``conanbuildinfo.cmake`` file is not found, it will print a warning message in the ``Messages`` console of your Clion IDE.
@@ -40,7 +40,7 @@ Let see an example of how to use Conan requirements to a CLion project.
        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
        conan_basic_setup()
    else()
-       message(WARNING "Skipping Conan")
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
    endif()
 
 |cmakelists|
@@ -80,7 +80,7 @@ setting accordingly:
 
 .. code-block:: bash
 
-   $ cd cmake-build-debug
+   $ cd cmake-build-release
    $ conan install ../ -s build_type=Release
 
 7. Now reconfigure your CLion project, the Warning message is not shown anymore:
@@ -98,6 +98,7 @@ detect the ``zlib.h`` header file from the local conan cache.
 |built_ok|
 
 
+You can check a full example of a CLion project reusing conan packages in this github repository: `lasote/clion-conan-consumer <https://github.com/lasote/clion-conan-consumer>`_.
 
 
 Creating conan packages in a CLion project
@@ -117,7 +118,7 @@ Now we are going to see how to create a conan package from the previous library.
        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
        conan_basic_setup()
    else()
-       message(WARNING "Skipping Conan")
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
    endif()
 
 |cmakelists|
@@ -195,10 +196,13 @@ to a conan server.
 .. code-block:: bash
 
    $ conan export myuser/channel
-   $ conan upload mylibrary/1.0@myuser/channel
+   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated binary packages
 
 8. Instead of the local ``package`` local command, you could use the ``-t`` option in the ``conan new`` and use the
 ``conan test_package``. Check :ref:`Creating packages getting started guide<packaging_getting_started>`.
+
+
+You can check a full example of a CLion project for creating a conan package in this github repository: `lasote/clion-conan-package <https://github.com/lasote/clion-conan-package>`_.
 
 
 .. |clion_logo| image:: ../images/clion/icon_CLion.png
