@@ -5,7 +5,8 @@
 You can use `Jenkins CI` both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py) and uploading to a
+  conan remote (Artifactory or conan_server)
 
 There is no needed any special setup for it, just install conan and your build tools in the Jenkins machine and call
 the needed ``conan`` commands.
@@ -71,6 +72,8 @@ Create a new Jenkins Pipeline task using this script:
         }
     }
 
+|jenkins_stages|
+
 
 Example: Build a conan package and upload it to Artifactory
 ***********************************************************
@@ -110,7 +113,12 @@ and then upload it to Artifactory. We also upload the `build information`_:
     }
 
 
+|jenkins_stages_creator|
+
+
 .. |jenkins_logo| image:: ../images/jenkins.png
+.. |jenkins_stages| image:: ../images/jenkins_stages.png
+.. |jenkins_stages_creator| image:: ../images/jenkins_stages_creator.png
 .. _`Artifactory`: https://www.jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
 .. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/RTF/Jenkins+%28Hudson%29+Artifactory+Plug-in
