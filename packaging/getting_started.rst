@@ -125,6 +125,7 @@ The main differences with the above ``conanfile.py`` are:
 - The ``test()`` method specifies which binaries have to be run.
 - The ``imports()`` method is defined to copy shared libraries to the ``bin`` folder, so when dynamic linkage is used, and the ``test()`` method launches the ``example`` executable, they are found and ``example`` runs.
 
+.. _creating_and_testing_packages:
 
 Creating and testing packages
 -------------------------------
