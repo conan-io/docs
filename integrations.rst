@@ -20,6 +20,7 @@ Integrations
    integrations/premake
    integrations/qbs
    integrations/git
+   integrations/jenkins
    integrations/travisci
    integrations/appveyor
    integrations/gitlab
