@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   move_to_bintray
    introduction
    installation
    getting_started
