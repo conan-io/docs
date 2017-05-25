@@ -121,6 +121,18 @@ and not having to specify it in the command line. This type of package will incl
     :width: 400 px
     :align: center
 
+.. note::
+
+    A complete working example of the following code can be found in a github repo. You should be able to run:
+
+    .. code:: bash
+
+        $ git clone https://github.com/memsharded/hello_multi_config
+        $ cd hello_multi_config
+        $ conan test_package -s build_type=Release
+        $ conan test_package -s build_type=Debug --build=missing
+
+
 
 Creating a multi-configuration Debug/Release package is not difficult, using ``CMake`` for example
 could be:
