@@ -3,7 +3,7 @@ Conan.io moves to JFrog Bintray!
 
 
 `JFrog Bintray now supports Conan repositories`_ that work seamlessly with the Conan client letting you freely upload your C/C++ Conan packages.
-This page describes how you should prepare for the migration and how to the new central repositories on Bintray.
+This page describes how you should prepare for the migration and how to use the new central repositories on Bintray.
 
 .. _`JFrog Bintray now supports Conan repositories`: http://blog.conan.io/2017/05/25/bintray-support-conan-repositories.html
 
@@ -22,7 +22,8 @@ Conan Repositories on Bintray
 
     - **conan-transit:** Will contain an exact copy of the current conan.io and will be read only.
     - **conan-center:** Will contain moderated/curated/well maintained packages.
-      The users that want to share their packages with the community need to include their packages in this repository by making an inclusion request from their own repositories
+      The users that want to share their packages with the community need to include their packages in this repository
+      by making an inclusion request from their own repositories
 
 
 The migration
@@ -40,7 +41,7 @@ conan.io package consumers
 
 If you are just consuming packages from conan.io you will mostly be unaffected. Before the migration date you have nothing to do.
 
-After the migration. The old ``server.conan.io` domain will be redirected to the new Bintray conan-transit repository `
+After the migration. The old ``server.conan.io`` domain will be redirected to the new Bintray conan-transit repository
 that will contain a copy of the old conan.io, so it will keep working transparently.
 
 However, you are encouraged to directly point your conan client to the new repositories:
@@ -116,7 +117,7 @@ Remotes created in this order will have the priority:
   - Then if not found from conan-center.
   - Finally from conan-transit.
 
-Conan-transit will contain a copy of the packages you have in your own repository and it will be read-only.
+``conan-transit`` will contain a copy of the packages you have in your own repository and it will be read-only.
 If you upload new versions to your own repository, the ``conan-transit`` will be outdated, but still used by your consumers so nothing will break.
 
 **In conan-center repository**
@@ -127,7 +128,7 @@ The inclusion request will be reviewed following some rules:
 -  If you are the **author of an Open Source library** your package will be approved. No matter the quality, you are responsible of your library’s package quality.
 -  If you are packaging a **third party library**:
 
-    - The recipes must contain a :ref:`test_package<test_package>`
+    - The recipes must contain a :ref:`test_package<packaging_getting_started>`
     - If the library supports it, the recipe has to be compatible with Windows, Linux and OSX,
-    - Have CI enabled to test it. (conan-package-tools LINK)
+    - Have CI enabled to test it. (Pending full documentation)
     - A general review of the recipe, will suggest improvements or better/cleaner ways to do something
