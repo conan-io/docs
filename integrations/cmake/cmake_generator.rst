@@ -43,9 +43,7 @@ something different, you can just use them individually.
 Targets approach
 -------------------------------
 
-For **modern cmake (>=3.1.2)**, the macro ``conan_define_targets()``
-defines cmake ``INTERFACE IMPORTED`` targets, one per package, so they can be used to link with, instead
-of using global cmake setup. The name of the targets is ``CONAN_PKG::PackageName``
+For **modern cmake (>=3.1.2)**, you can use the following approach:
 
 .. code-block:: cmake
 
@@ -54,6 +52,9 @@ of using global cmake setup. The name of the targets is ``CONAN_PKG::PackageName
 
     add_executable(timer timer.cpp)
     target_link_libraries(timer CONAN_PKG::Poco)
+    
+Using ``TARGETS`` as argument, ``conan_basic_setup()`` will internally call the macro ``conan_define_targets()``
+which defines cmake ``INTERFACE IMPORTED`` targets, one per package. These targets, named ``CONAN_PKG::PackageName`` can be used to link with, instead of using global cmake setup.
 
 
 .. seealso:: Check the section :ref:`Reference/Generators/cmake <cmake_generator>` to read more about this generator.
