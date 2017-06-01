@@ -28,6 +28,7 @@ Also, from the local cache, it can be uploaded to any remote with the "upload" c
       --file FILE, -f FILE  specify conanfile filename
 
 
+The ``export`` command will run a linting of the package recipe, looking for possible inconsistencies, bugs and py2-3 incompatibilities. It is possible to customize the rules for this linting, as well as totally disabling it. Look at the ``recipe_linter`` and ``pylintrc`` variables in :ref:`conan.conf<conan_conf>` and the ``PYLINTRC`` environment variable.
 
 
 **Examples**

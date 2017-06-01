@@ -297,6 +297,19 @@ but using a comma instead of spaces. Accepted expressions would be:
 
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
+build_requires
+----------------
+
+Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
+
+They can be specified as a comma separated tuple in the package recipe:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+        build_requires = "ToolA/0.2@user/testing", "ToolB/0.2@user/testing"
+
+Read more: :ref:`Build requiremens <build_requires>`
 
 
 exports
@@ -406,6 +419,27 @@ This attribute will not have any effect in other OS, it will be discarded.
 
 From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link
 <https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info. Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
+
+
+no_copy_source
+---------------
+
+The attribute ``no_copy_source`` tells the recipe that the source code will not be copied from the ``source`` folder to the ``build`` folder. 
+This is mostly an optimization for packages with large source codebases, to avoid extra copies. It is **mandatory** that the source code must not be modified at all by the configure or build scripts, as the source code will be shared among all builds.
+
+To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``
+
+folders
+---------
+In the package recipe methods, some attributes pointing to the relevant folders can be defined. Not all of them will be defined always, only in those relevant methods that might use them.
+
+- ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder, as the source code is copied from the ``source`` folder to the ``build`` folder, to ensure isolation and avoiding modifications of shared common source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
+- ``self.build_folder``: the folder in which the build is being done
+- ``self.package_folder``: the folder to copy the final artifacts for the package binary
+
+When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
+
+
 
 
 conanfile_directory

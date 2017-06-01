@@ -6,12 +6,12 @@ conan package_files
 .. code-block:: bash
 
 	$  conan package_files [-h] [--path PATH] [--profile PROFILE]
-                           [--options OPTIONS] [--settings SETTINGS]
+                           [--options OPTIONS] [--settings SETTINGS] [-f]
                            reference
 
 
 Creates a package binary from given precompiled artifacts in user folder, skipping the package recipe
-build() and package() methods.
+``build()`` and ``package()`` methods.
 
 
 
@@ -31,6 +31,7 @@ build() and package() methods.
                             Options for this package. e.g., -o with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings for this package e.g., -s compiler=gcc
+      -f, --force           Overwrite existing package if existing
 
 
 

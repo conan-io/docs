@@ -310,6 +310,23 @@ defining the special cases, as is shown below:
 - **dev**: Default False. True means that this requirement is only needed at dev time, e.g. only
   needed for building or testing, but not affects the package hash at all.
 
+build_requirements()
+-----------------------
+
+Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
+
+This method is useful for defining conditional build requirements, for example:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+
+        def build_requirements(self):
+            if self.settings.os == "Windows":
+                self.build_requires("ToolWin/0.1@user/stable")
+
+Read more: :ref:`Build requiremens <build_requires>`
+
 
 .. _system_requirements:
 

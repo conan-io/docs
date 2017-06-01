@@ -32,6 +32,7 @@ This is the typical ``~/.conan/conan.conf`` file:
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
+    # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -63,8 +64,7 @@ Check the :ref:`how to control the cache<custom_cache>` section.
 The remotes are managed in the order in which they are listed. The first one is assumed to be the default
 for uploads. For downloads they are also accessed sequentially, until a matching binary package is found.
 
-The settings defaults are the setting values used whenever you issue a ``conan install`` command over a
-``conanfile`` in one of your projects **for the first time**. After that, the settings and options will
+The settings defaults are the setting values used whenever you issue a ``conan install`` command over a ``conanfile`` in one of your projects **for the first time**. After that, the settings and options will
 be cached in the project ``conaninfo.txt`` file. The initial values for these default settings are
 auto-detected the first time you run a ``conan`` command.
 
@@ -73,6 +73,15 @@ to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's no
 
 The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at ``conan install``. Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
 
+The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules for the python linter executed at ``export`` time. A use case could be to define some custom indents (though the standard pep8 4-spaces indent is recommended, there are companies that define different styles). The ``pylintrc`` file has the form:
+
+.. code :: text
+
+    [FORMAT]
+    indent-string='  '
+
+Running ``pylint --generate-rcfile`` will output a complete rcfile with commments explaining the fields.
+    
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`.
 

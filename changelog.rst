@@ -6,10 +6,10 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-0.23.0-rc1 (22-May-2017)
+0.23.0 (01-June-2017)
 ---------------------------
 - Feature: new ``build_requires`` field and ``build_requirements()`` in package recipes
-- Feature: improved commands (source, build, package, packaeg_files) and workflows for local development of packages in user folders.
+- Feature: improved commands (source, build, package, package_files) and workflows for local development of packages in user folders.
 - Feature: implemented ``no_copy_source`` attribute in recipes to avoid the copy of source code from "source" to "build folder". Created new ``self.source_folder``, ``self.build_folder``, ``self.package_folder`` for recipes to use.
 - Feature: improved ``qmake`` generator with multi-config support, resource directories
 - Feature: improved exception capture and formatting for all recipe user methods exceptions
@@ -21,6 +21,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: fixed ``vcvars`` architecture setting
 - Fix: Make ``cacert.pem`` folder use CONAN_USER_HOME if existing
 - Fix: fixed ``options=a=b`` option definition
+- Fix: ``package_files`` command allows ``--force`` argument to overwrite existing instead of failing
 - BugFix: Package names with underscore when parsing ``conanbuildinfo.txt``
 
 

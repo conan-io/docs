@@ -37,14 +37,37 @@ If a pattern like ``MyPkg*`` is specified, the declared build requirements will 
 The special case of a **consumer** conanfile, which might have no name or version, and thus impossible to match with a pattern, is handled with the ``&`` character. ``&`` means apply these build requirements to the consumer conanfile, while ``&!`` means apply the build requirements to all packages except the consumer one. Remember that the consumer conanfile is the one inside the ``test_package`` folder or the one referenced in the ``conan install`` command.
 
 
+Build requirements can be also specified in a package recipe, with the ``build_requires`` attribute and the ``build_requirements()`` method:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+        build_requires = "ToolA/0.2@user/testing", "ToolB/0.2@user/testing"
+
+        def build_requirements(self):
+            # useful for example for conditional build_requires
+            if self.settings.os == "Windows":
+                self.build_requires("ToolWin/0.1@user/stable")
+
+The above ``ToolA`` and ``ToolB`` will be always retrieved and used for building this recipe, while the ``ToolWin`` one will only be used in Windows.
+
+If some ``build_require`` defined inside ``build_requirements()`` has the same package name than one defined in the ``build_requires`` attribute, the one inside the ``build_requirements()`` method will prevail.
+
+Also, as a rule of thumb, downstream defined values always override upstream dependencies values. If some build requirement is defined in the profile, it will overwrite the build requirements defined in package recipes that have the same package name.
+
 Properties of build requirements
 ---------------------------------
+
+The behavior of ``build_requires`` is the same, irrespective if they are defined in the profile, or if defined in the package recipe:
 
 - Build requirements will only be retrieved and installed if some package that has to be built from sources matches the declared pattern. Otherwise, they will not be even checked for existence.
 - Options and environment variables declared in the ``profile`` as well as in the command line will affect the build requirements packages. In that way, you can define, for example for the ``cmake_installer/0.1`` package, which cmake version will be installed
 - Build requirements will be activated for matching packages via the ``deps_cpp_info`` and ``deps_env_info`` members. So, include directories, library names, compile flags (CFLAGS, CXXFLAGS, LINKFLAGS), sysroot, etc. will be applied from the build requirement package ``self.cpp_info`` values. The same for ``self.env_info``: variables such as PATH, PYTHONPATH, and any other environment variables will be applied to the matching patterns and activated as environment variables.
 - Build requirements can also be transitive. They can declare their own requirements, both normal requirements and their own build requirements. Normal logic for dependency graph resolution applies, such as conflict resolution and dependencies overriding.
 - Each matching pattern will produce a different dependency graph of build requiremens. These graphs are cached so that they are only computed once. If a build requirement applies to different packages, with the same configuration, it will only be installed once (same behavior as normal dependencies. Once they are cached locally, there is no need to retrieve nor build them again).
+- Build requirements do not affect the binary package ID. If using a different build requirement produces a different binary, you should considering adding an option or a setting to model that (if not already modeled)
+- Build requires can also use version-ranges, like ``Tool/[>0.3]@user/channel``
+- Build requirements are not listed in ``conan info`` nor are represented in the graph (with ``conan info --graph``)
 
 
 Testing libraries

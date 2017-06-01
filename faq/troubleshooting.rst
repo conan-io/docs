@@ -93,3 +93,12 @@ Then, when you will be using conan, for example in a new shell, you have to acti
     (conan) $ conan --help
 
 Virtualenvs are very convenient, not only for this workaround, but to keep your system clean and to avoid unwanted interaction between different tools and python projects.
+
+
+ERROR: Failed to remove folder (Windows)
+-----------------------------------------
+It is possible that operating conan, some random exceptions (some with complete tracebacks) are produced, related to the impossibility to remove one folder. Two things can happen:
+
+- The user has some file or folder open (in a file editor, in the terminal), so it cannot be removed, and the process fails. Make sure to close files, specially if you are opening or inspecting the local conan cache.
+- In Windows, the Search Indexer might be opening and locking the files, producing random, difficult to reproduce and annoying errors. Please **disable the Windows Search Indexer for the conan local storage folder**
+

@@ -375,3 +375,23 @@ Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by CommandLineToArgvW()
 - Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
+
+
+tools.sha1sum(), sha256sum(), md5sum(), md5()
+---------------------------------------------
+Return the respective hash or checksum for a file:
+
+.. code-block:: python
+
+    sha1 = tools.sha1sum("myfilepath.txt")
+    md5 = tools.md5("some string, not a file path")
+
+
+tools.save(), tools.load()
+----------------------------
+Utility methods to load and save files, in one line. They will manage the open and close of the file, encodings and creating directories if necessary
+
+.. code-block:: python
+
+    content = tools.load("myfile.txt")
+    tools.save("otherfile.txt", "contents of the file")
