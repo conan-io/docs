@@ -6,6 +6,12 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.23.1 (05-June-2017)
+----------------------
+- BugFix: Fixed bug while packaging symlinked folders in build folder, and target not being packaged.
+- Relaxed OSX requirement of pyopenssl to <18
+
+
 0.23.0 (01-June-2017)
 ---------------------------
 - Feature: new ``build_requires`` field and ``build_requirements()`` in package recipes
