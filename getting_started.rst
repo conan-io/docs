@@ -5,7 +5,7 @@ Getting started
 ===============
 
 As an example, let's start with one of the most popular C++ libraries: [POCO](https://pocoproject.org/).
-Conan **works with any build system** and it does not depend on CMake, though we will use CMake for this example for convenience.
+Conan **works with any build system** and it doesn't depend on CMake, though we will use CMake for this example for convenience.
 
 A Timer using POCO libraries
 ----------------------------
