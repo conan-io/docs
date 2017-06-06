@@ -53,7 +53,7 @@ Let see an example of how to use Conan requirements to a CLion project.
 4. Create a ``conanfile.txt`` with all your requirements and use the ``cmake`` generator. In this case we are only
 requiring zlib library from a conan package:
 
-.. code-block:: txt
+.. code-block:: text
 
     [requires]
     zlib/1.2.8@lasote/stable
