@@ -145,7 +145,7 @@ Let's check that it works properly, lets install the package for gcc 4.5:
 	...
 	
 
-We can see that the computed package ID is ``af04...46ad``(not real). What would happen if we specify GCC 4.6?
+We can see that the computed package ID is ``af04...46ad`` (not real). What would happen if we specify GCC 4.6?
 
 
 .. code-block:: bash
@@ -346,48 +346,39 @@ Library types: Shared, static, header only
 Let's see some examples, corresponding to common scenarios:
 
 - ``MyLib/1.0`` is a shared library, linking with a static library ``MyOtherLib/2.0`` package.
- When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
   
- Yes, always, because the implementation is embedded in the ``MyLib/1.0`` shared library.
- If we always want to rebuild our library, even if the channel changes (we assume a channel
- change could mean a source code change):
+  Yes, always, because the implementation is embedded in the ``MyLib/1.0`` shared library.
+  If we always want to rebuild our library, even if the channel changes (we assume a channel
+  change could mean a source code change):
     
  .. code-block:: python
 
      def package_id(self):
          # Any change in the MyOtherLib version, user or
          # channel or Package ID will affect our package ID
-         self.info.requires["MyOtherLib"].full_package()
+         self.info.requires["MyOtherLib"].full_package_mode()
 	   
 
 - ``MyLib/1.0`` is a shared library, requiring another shared library ``MyOtherLib/2.0`` package.
- When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
- It depends, if the public headers have not changed at all, it is not necessary. Actually it might be
- necessary to consider transitive dependencies that are shared among the public headers, how they are
- linked and if they cross the frontiers of the API, it might also lead to incompatibilities.
- If public headers have changed, it would depend on what changes and how are they used in ``MyLib/1.0``.
- Adding new methods to the public headers will have no impact, but changing the implementation of some
- functions that will be inlined when compiled from ``MyLib/1.0`` will definitely require re-building.
- For this case, it could make sense:
+  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+  It depends, if the public headers have not changed at all, it is not necessary. Actually it might be necessary to consider transitive dependencies that are shared among the public headers, how they are linked and if they cross the frontiers of the API, it might also lead to incompatibilities. If public headers have changed, it would depend on what changes and how are they used in ``MyLib/1.0``. Adding new methods to the public headers will have no impact, but changing the implementation of some functions that will be inlined when compiled from ``MyLib/1.0`` will definitely require re-building. For this case, it could make sense:
 
  .. code-block:: python
 
      def package_id(self):
          # Any change in the MyOtherLib version, user or channel
          # or Package ID will affect our package ID
-         self.info.requires["MyOtherLib"].full_package()
+         self.info.requires["MyOtherLib"].full_package_mode()
 
          # Or any change in the MyOtherLib version, user or
          # channel will affect our package ID
-         self.info.requires["MyOtherLib"].full_recipe()
+         self.info.requires["MyOtherLib"].full_recipe_mode()
 	   	
 
 - ``MyLib/1.0`` is a header-only library, linking with any kind (header, static, shared) of library in ``MyOtherLib/2.0`` package.
- When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
-  
- Never, the package should always be the same, there are no settings, no options, and in any way a
- dependency can affect a binary, because there is no such binary. The default behavior should be
- changed to:
+  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+  Never, the package should always be the same, there are no settings, no options, and in any way a dependency can affect a binary, because there is no such binary. The default behavior should be changed to:
 
  .. code-block:: python
 
@@ -395,12 +386,12 @@ Let's see some examples, corresponding to common scenarios:
          self.info.requires.clear()
 
 - ``MyLib/1.0`` is a static library, linking with a header only library in ``MyOtherLib/2.0`` package.
- When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
- It could happen that the ``MyOtherLib`` headers are strictly used in some ``MyLib`` headers, which
- are not compiled, but transitively #included. But in the general case it is likely that ``MyOtherLib``
- headers are used in ``MyLib`` implementation files, so every change in them should imply a new
- binary to be built. If we know that changes in the channel never imply a source code change, because
- it is the way we have defined our workflow/lifecycle, we could write:
+  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for ``MyLib/1.0`` to link with it?
+  It could happen that the ``MyOtherLib`` headers are strictly used in some ``MyLib`` headers, which
+  are not compiled, but transitively #included. But in the general case it is likely that ``MyOtherLib``
+  headers are used in ``MyLib`` implementation files, so every change in them should imply a new
+  binary to be built. If we know that changes in the channel never imply a source code change, because
+  it is the way we have defined our workflow/lifecycle, we could write:
 
 
  .. code-block:: python

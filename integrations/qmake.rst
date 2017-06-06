@@ -2,24 +2,15 @@
 
 
 QMake
-_____
+======
 
-As of version 0.5 of conan, a qmake generator is available that can be 
-configured as follows:
+A qmake generator will generate a ``conanbuildinfo.pri`` file that can be used for your qmake builds.
 
-**conanfile.txt**
+.. code-block:: bash
 
-.. code-block:: text
+    $ conan install . -g qmake
 
-   ...
-   
-   [generators]
-   qmake
-   
-It will generate a ``conanbuildinfo.pri`` file that can be used for your 
-qmake builds.
-Add ``conan_basic_setup`` to ``CONFIG`` and include the file in your existing 
-.pro file:
+Add ``conan_basic_setup`` to ``CONFIG`` and include the file in your existing project ``.pro`` file:
 
 **yourproject.pro**
 
@@ -30,14 +21,10 @@ Add ``conan_basic_setup`` to ``CONFIG`` and include the file in your existing
    CONFIG += conan_basic_setup
    include(conanbuildinfo.pri)
 
-This will include all the statements in ``conanbuildinfo.pri`` in your 
-project.
-Include paths, libraries, defines, etc. will be set up for all requirements
-you have defined in ``conanfile.txt``.
+This will include all the statements in ``conanbuildinfo.pri`` in your project.
+Include paths, libraries, defines, etc. will be set up for all requirements you have defined in ``conanfile.txt``.
 
-If you'd rather like to manually add the variables for each dependency,
-you can do so by skipping the CONFIG statement and only include 
-``conanbuildinfo.pri``:
+If you'd rather like to manually add the variables for each dependency, you can do so by skipping the CONFIG statement and only include ``conanbuildinfo.pri``:
 
 **yourproject.pro**
 
@@ -50,59 +37,42 @@ you can do so by skipping the CONFIG statement and only include
    # you may now modify your variables manually for each library, such as
    # INCLUDEPATH += CONAN_INCLUDEPATH_POCO
 
+The ``qmake`` generator allows multi-configuration packages, i.e. packages that contains both debug and release artifacts. Lets see an example:
 
-The contents of ``conanbuildinfo.pri`` could look like this:
+Example
+----------
 
-**conanfile.pri**
+There is a complete example in https://github.com/memsharded/qmake_example
+This project will depend on a multi-configuration (debug/release) "Hello World" package, that should be installed first:
 
-.. code-block:: text
+.. code-block:: bash
 
-   CONAN_INCLUDEPATH += /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include \
-       /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include
-   CONAN_LIBS += -L/home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/lib \
-       -L/home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/lib
-   CONAN_BINDIRS += /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/bin \
-       /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/bin
-   CONAN_LIBS += -lhellolibrary
-   CONAN_DEFINES += 
-   CONAN_QMAKE_CXXFLAGS += 
-   CONAN_QMAKE_CFLAGS += 
-   CONAN_QMAKE_LFLAGS += 
-   CONAN_QMAKE_LFLAGS += 
+    $ git clone https://github.com/memsharded/hello_multi_config
+    $ cd hello_multi_config
+    $ conan test_package
 
-   CONAN_INCLUDEPATH_CATCH += /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include
-   CONAN_LIBS_CATCH += -L/home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/lib
-   CONAN_BINDIRS_CATCH += /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/bin
-   CONAN_LIBS_CATCH += 
-   CONAN_DEFINES_CATCH += 
-   CONAN_QMAKE_CXXFLAGS_CATCH += 
-   CONAN_QMAKE_CFLAGS_CATCH += 
-   CONAN_QMAKE_LFLAGS_CATCH += 
-   CONAN_QMAKE_LFLAGS_CATCH += 
-   CONAN_CATCH_ROOT = /home/username/.conan/data/Catch/1.3.2/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed
+This hello package is created with cmake, but that doesn't matter, it can be consumed from a qmake project:
 
-   CONAN_INCLUDEPATH_HELLOLIBRARY += /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/include
-   CONAN_LIBS_HELLOLIBRARY += -L/home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/lib
-   CONAN_BINDIRS_HELLOLIBRARY += /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed/bin
-   CONAN_LIBS_HELLOLIBRARY += -lhellolibrary
-   CONAN_DEFINES_HELLOLIBRARY += 
-   CONAN_QMAKE_CXXFLAGS_HELLOLIBRARY += 
-   CONAN_QMAKE_CFLAGS_HELLOLIBRARY += 
-   CONAN_QMAKE_LFLAGS_HELLOLIBRARY += 
-   CONAN_QMAKE_LFLAGS_HELLOLIBRARY += 
-   CONAN_HELLOLIBRARY_ROOT = /home/username/.conan/data/hellolibrary/0.1/maintainer/master/package/0692fb2bd888ba708ca65670557c56d2e16851ed
+Then, you can get the qmake project and build it, both for debug and release (this example has been tested on linux):
 
-   CONFIG(conan_basic_setup) {
-       INCLUDEPATH += $$CONAN_INCLUDEPATH
-       LIBS += $$CONAN_LIBS
-       BINDIRS += $$CONAN_BINDIRS
-       LIBS += $$CONAN_LIBS
-       DEFINES += $$CONAN_DEFINES
-       QMAKE_CXXFLAGS += $$CONAN_QMAKE_CXXFLAGS
-       QMAKE_CFLAGS += $$CONAN_QMAKE_CFLAGS
-       QMAKE_LFLAGS += $$CONAN_QMAKE_LFLAGS
-   }
+.. code-block:: bash
 
-Note that both ``CONAN_INCLUDEPATH`` and dependency specific variables such as
-``CONAN_INCLUDEPATH_POCO`` are defined so that you may choose to include all or
-only some include paths for your requirements.
+    $ git clone https://github.com/memsharded/qmake_example
+    $ cd qmake_example
+    $ conan install .
+    $ qmake
+    $ make
+    $ ./helloworld
+    > Hello World Release!
+    # now lets build the debug one
+    $ make clean
+    $ qmake CONFIG+=debug
+    $ make
+    $ ./helloworld
+    > Hello World Debug!
+
+
+
+
+.. seealso:: Check the :ref:`Reference/Generators/qmake <qmake_generator>` for the complete reference.
+

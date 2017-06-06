@@ -1,21 +1,21 @@
 .. _python_reuse:
 
-How to reuse python code in recipes
+How to reuse Python code in recipes
 =====================================
 
-First, if you feel that you are repeating a lot of python code, and that repeated code could be
-useful for other conan users, please propose it in a github issue.
+First, if you feel that you are repeating a lot of Python code, and that repeated code could be
+useful for other Conan users, please propose it in a github issue.
 
-There are several ways to handle python code reuse in package recipes:
+There are several ways to handle Python code reuse in package recipes:
 
-- To put common code in files, as explained in :ref:`the reference <split_conanfile>`. This code
-  has to be exported into the recipe itself
+- To put common code in files, as explained :ref:`below <split_conanfile>`. This code
+  has to be exported into the recipe itself.
   
-- To create a conan package with the common python code, and then ``require`` it from the recipe.
+- To create a Conan package with the common python code, and then ``require`` it from the recipe.
 
 This howto explains the latter.
 
-A basic python package
+A basic Python package
 -----------------------
 
 Let's begin with a simple python package, a "hello world" functionality that we want to package and reuse:
@@ -27,7 +27,7 @@ Let's begin with a simple python package, a "hello world" functionality that we 
 
 To create a package, all we need to do is create the following layout:
 
-..  code-block:: txt
+..  code-block:: text
 
     -| hello.py
      | __init__.py
@@ -77,7 +77,7 @@ Of course if you want to share the package with your team, you can ``conan uploa
 
 Now the package is ready for consumption. In another folder, we can create a ``conanfile.txt`` (or a ``conanfile.py`` if we prefer):
 
-..  code-block:: txt
+..  code-block:: text
 
     [requires]
     HelloPy/0.1@memsharded/testing
@@ -111,19 +111,21 @@ The specified ``virtualenv`` generator will create an ``activate`` script (in Wi
 
 The above shows an interactive session, but you can import also the functionality in a regular python script.
 
-
 Reusing python code in your recipes
-------------------------------------
+-----------------------------------
+
+Requiring a python conan package
+________________________________
 
 As the conan recipes are python code itself, it is easy to reuse python packages in them. A basic recipe using the created package would be:
 
 ..  code-block:: python
 
     from conans import ConanFile, tools
-    
+
     class HelloPythonReuseConan(ConanFile):
         requires = "HelloPy/0.1@memsharded/testing"
-    
+
         def build(self):
             with tools.pythonpath(self):
                 from hello import hello
@@ -139,7 +141,65 @@ In the above example, the code is reused in the ``build()`` method as an example
 
 ..  code-block:: python
 
-    $ conan install -g env -g txt
+    $ conan install -g txt
     ...
     $ conan build
     Hello World from Python!
+
+
+
+Sharing a python module
+_______________________
+
+Another approach is sharing a python module and exporting within the recipe.
+
+.. _split_conanfile:
+
+Lets write for example a ``msgs.py`` file and put it besides the ``conanfile.py``:
+
+..  code-block:: python
+
+   def build_msg(output):
+      output.info("Building!")
+
+And then the main ``conanfile.py`` would be:
+
+..  code-block:: python
+
+   from conans import ConanFile
+   from msgs import build_msg
+
+   class ConanFileToolsTest(ConanFile):
+       name = "test"
+       version = "1.9"
+       exports = "msgs.py"  # Important to remember!
+
+       def build(self):
+           build_msg(self.output)
+           # ...
+
+
+It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package,
+because package recipes must be self-contained.
+
+The code reuse can also be done in the form of a base class, something like a file ``base_conan.py``
+
+..  code-block:: python
+
+    from conans import ConanFile
+
+    class ConanBase(ConanFile):
+        # common code here
+
+And then:
+
+..  code-block:: python
+
+    from conans import ConanFile
+    from base_conan import ConanBase
+
+    class ConanFileToolsTest(ConanBase):
+        name = "test"
+        version = "1.9"
+
+

@@ -11,16 +11,17 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   move_to_bintray
+   introduction
    installation
    getting_started
    manage_deps
-   integrations
-   conanfile_py
    packaging
+   mastering
+   integrations  
    server
    howtos
    reference
-   examples
    videos
    faq
    changelog

@@ -1,4 +1,4 @@
-
+.. _youcompleteme_integration:
 
 YouCompleteMe (vim)
 ___________________

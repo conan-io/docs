@@ -4,9 +4,6 @@
 |visual_logo| Visual Studio
 =================================
 
-
-
-
 Conan can be integrated with **Visual Studio** in two different ways:
 
 - Using the **cmake** generator to create a **conanbuildinfo.cmake** file.
@@ -25,9 +22,7 @@ Check the official `CMake docs`_ to find out more about generating Visual Studio
 With *visual_studio* generator
 ------------------------------
 
-
-
-You can use the **visual_studio**  :ref:`generator<generators>` to manage your requirements via your *Visual Studio*  project.
+You can use the **visual_studio** generator to manage your requirements via your *Visual Studio*  project.
 
 
 .. |visual_logo| image:: ../images/visual-studio-logo.png
@@ -70,4 +65,29 @@ Build your project as usual.
     If these values don't match, you build will probably fail.
 
     e.g. **Release/x64**    
-    
+
+
+.. seealso:: Check the :ref:`Reference/Generators/visual_studio <visualstudio_generator>` for the complete reference.
+
+
+
+Calling Visual Studio compiler
+------------------------------
+
+You can call your Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment``
+and the ``tools.vcvars_command``.
+
+Check :ref:`Build Automation/Building with Visual Studio<building_with_visual_studio>` section for more info.
+
+
+
+.. _building_visual_project:
+
+Build an existing Visual Studio project
+---------------------------------------
+
+You can build an existing Visual Studio from your ``build()`` method using the ``tools.build_sln_command``.
+
+
+.. seealso:: Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
+

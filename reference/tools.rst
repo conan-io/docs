@@ -5,15 +5,28 @@ Tools
 =====
 
 Under the tools module there are several functions and utilities that can be used in conan package
-recipes
+recipes:
 
-cpu_count()
------------
+.. code-block:: python
+   :emphasize-lines: 2
+
+    from conans import ConanFile
+    from conans import tools
+
+    class ExampleConan(ConanFile):
+        ...
+
+
+.. _cpu_count:
+
+tools.cpu_count()
+-----------------
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1.
+Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan.conf file<conan_conf>`.
 
 
-vcvars_command()
-----------------
+tools.vcvars_command()
+----------------------
 
 This function returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
@@ -38,9 +51,43 @@ corresponding Visual Studio version for the current settings.
 This is typically not needed if using ``CMake``, as the cmake generator will handle the correct
 Visual Studio version.
 
-    
-unzip()
--------
+
+.. _build_sln_commmand:
+
+tools.build_sln_command()
+-------------------------
+
+Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
+It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
+
+.. code-block:: python
+
+    build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
+    command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
+    self.run(command)
+
+Arguments:
+
+ * **settings**  Conanfile settings, pass "self.settings"
+ * **sln_path**  Visual Studio project file path
+ * **targets**   List of targets to build
+ * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+
+
+.. _msvc_build_command:
+
+tools.msvc_build_command()
+------------------------------
+
+Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
+
+Arguments:
+
+    Exactly the same arguments as the above ``tools.build_sln_command()``
+
+
+tools.unzip()
+-------------
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -56,9 +103,22 @@ and decompress them into the given destination folder (the current one by defaul
     # or to extract in "myfolder" sub-folder
     tools.unzip("myfile.zip", "myfolder")
 
-    
-untargz()
----------
+
+For the ``.zip`` files you can keep the permissions using the ``keep_permissions=True`` parameter.
+WARNING: It can be dangerous if the zip file was not created in a NIX system, it could produce undefined permission schema.
+So, use only this option if you are sure that the zip file was created correctly:
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.unzip("myfile.zip", "myfolder", keep_permissions=True)
+
+
+
+tools.untargz()
+---------------
+
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
 unless the file had a different extension.
@@ -71,8 +131,9 @@ unless the file had a different extension.
     # or to extract in "myfolder" sub-folder
     tools.untargz("myfile.tar.gz", "myfolder")
 
-get()
------
+tools.get()
+-----------
+
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. Its implementation
 is very straightforward:
 
@@ -85,8 +146,9 @@ is very straightforward:
         os.unlink(filename)
 
 
-download()
-----------
+tools.download()
+----------------
+
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a
 list of known verifiers for https downloads, but this can be optionally disabled.
 You can also specify the number of retries in case of fail with ``retry`` parameter and the seconds to wait before download attempts
@@ -103,8 +165,8 @@ with ``retry_wait``.
     tools.download("http://someurl/somefile.zip", "myfilename.zip", retry=2, retry_wait=5)
     
     
-replace_in_file()
------------------
+tools.replace_in_file()
+-----------------------
 
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
@@ -120,8 +182,9 @@ conan dependencies without forking or modifying the original project:
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()''')
 
-check_with_algorithm_sum()
---------------------------
+
+tools.check_with_algorithm_sum()
+--------------------------------
 
 Useful to check that some downloaded file or resource has a predefined hash, so integrity and
 security are guaranteed. Something that could be typically done in ``source()`` method after
@@ -150,8 +213,8 @@ via ``hashlib.new(algorithm_name)``. The previous is equivalent to:
                                     "eb599ec83d383f0f25691c184f656d40384f9435")
 
 
-patch()
--------
+tools.patch()
+-------------
 
 Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff)
 format. To be used mainly in the ``source()`` method.
@@ -183,8 +246,11 @@ Then it can be done specifying the number of folders to be stripped from the pat
 
     patch(patch_file="file.patch", strip=1)
 
-environment_append()
---------------------
+
+.. _environment_append_tool:
+
+tools.environment_append()
+--------------------------
 
 This is a context manager that allows to temporary use environment variables for a specific piece of code
 in your conanfile:
@@ -201,31 +267,22 @@ in your conanfile:
 When the context manager block ends, the environment variables will be unset.
 
 
-build_sln_command()
--------------------
+tools.chdir()
+-------------
 
-Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
-It's recommended to use it along with ConfigureEnvironment, so that the Visual Studio tools 
-will be in path.
+This is a context manager that allows to temporary change the current directory in your conanfile:
 
 .. code-block:: python
 
-  
-    build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
-    env = ConfigureEnvironment(self)
-    command = "%s && %s" % (env.command_line_env, build_command)
-    self.run(command)
+    from conans import tools
 
-Arguments:
-
- * **settings**  Conanfile settings, pass "self.settings"
- * **sln_path**  Visual Studio project file path
- * **targets**   List of targets to build
- * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+    def build(self):
+        with tools.chdir("./subdir"):
+            do_something()
 
 
-pythonpath()
-------------
+tools.pythonpath()
+------------------
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
 
@@ -250,8 +307,8 @@ file or folder with a ``whatever`` file or object inside, and should have declar
         self.env_info.PYTHONPATH.append(self.package_folder)
 
   
-human_size()
-------------
+tools.human_size()
+------------------
 
 Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
@@ -263,14 +320,78 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     tools.human_size(1024)
     >> 1Kb
 
+
+.. _osinfo_reference:
+
     
-OSInfo and SystemPackageTool
-----------------------------
+tools.OSInfo and tools.SystemPackageTool
+----------------------------------------
 These are helpers to install system packages. Check :ref:`system_requirements`
 
 
+.. _cross_building_reference:
+
+tools.cross_building
+--------------------
+
+Reading the settings and the current host machine it returns True if we are cross building a conan package:
+
+.. code-block:: python
+
+    if tools.cross_building(self.settings):
+        # Some special action
 
 
 
+.. _run_in_windows_bash_tool:
+
+tools.run_in_windows_bash
+-------------------------
+
+Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
+
+You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path`` variable to change the default bash location.
 
 
+.. code-block:: python
+
+    from conans import tools
+
+    command = "pwd"
+    tools.run_in_windows_bash(self, command) # self is a conanfile instance
+
+
+tools.unix_path
+---------------
+
+Used to translate Windows paths to MSYS/CYGWIN unix paths like c/users/path/to/file
+
+
+tools.escape_windows_cmd
+------------------------
+
+Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
+
+- Adds escapes so the argument can be unpacked by CommandLineToArgvW()
+- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
+
+
+tools.sha1sum(), sha256sum(), md5sum(), md5()
+---------------------------------------------
+Return the respective hash or checksum for a file:
+
+.. code-block:: python
+
+    sha1 = tools.sha1sum("myfilepath.txt")
+    md5 = tools.md5("some string, not a file path")
+
+
+tools.save(), tools.load()
+----------------------------
+Utility methods to load and save files, in one line. They will manage the open and close of the file, encodings and creating directories if necessary
+
+.. code-block:: python
+
+    content = tools.load("myfile.txt")
+    tools.save("otherfile.txt", "contents of the file")

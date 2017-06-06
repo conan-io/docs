@@ -20,7 +20,7 @@ then the ``package()`` method is not required.
 .. code-block:: python
 
     def build(self):
-        cmake = CMake(self.settings)
+        cmake = CMake(self)
         args = ["-DBUILD_SHARED_LIBS=ON"  if self.options.shared else "-DBUILD_SHARED_LIBS=OFF"]
         args += ['-DCMAKE_INSTALL_PREFIX="%s"' % self.package_folder]
 

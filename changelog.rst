@@ -6,6 +6,187 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.23.1 (05-June-2017)
+----------------------
+- BugFix: Fixed bug while packaging symlinked folders in build folder, and target not being packaged.
+- Relaxed OSX requirement of pyopenssl to <18
+
+
+0.23.0 (01-June-2017)
+---------------------------
+- Feature: new ``build_requires`` field and ``build_requirements()`` in package recipes
+- Feature: improved commands (source, build, package, package_files) and workflows for local development of packages in user folders.
+- Feature: implemented ``no_copy_source`` attribute in recipes to avoid the copy of source code from "source" to "build folder". Created new ``self.source_folder``, ``self.build_folder``, ``self.package_folder`` for recipes to use.
+- Feature: improved ``qmake`` generator with multi-config support, resource directories
+- Feature: improved exception capture and formatting for all recipe user methods exceptions
+- Feature: new ``tools.sha256()`` method
+- Feature: folder symlinks working now for packages and upload/download
+- Feature: added ``set_find_paths()`` to ``cmake-multi``, to set CMake FindXXX.cmake paths. This will work only for single-config build-systems.
+- Feature: using environment variables for ``configure()``, ``requirements()`` and ``test()`` methods
+- Feature: added a ``pylintrc`` environment variable in ``conan.conf`` to define a PYLINTRC file with custom style definitions (like indents).
+- Feature: fixed ``vcvars`` architecture setting
+- Fix: Make ``cacert.pem`` folder use CONAN_USER_HOME if existing
+- Fix: fixed ``options=a=b`` option definition
+- Fix: ``package_files`` command allows ``--force`` argument to overwrite existing instead of failing
+- BugFix: Package names with underscore when parsing ``conanbuildinfo.txt``
+
+
+
+0.22.3 (03-May-2017)
+----------------------
+
+- Fix: Fixed CMake generator (in targets mode) with linker/exe flags like --framework XXX containing spaces.
+
+0.22.2 (20-April-2017)
+----------------------
+
+- Fix: Fixed regression with usernames starting with non-alphabetical characters, introduced by 0.22.0
+
+0.22.1 (18-April-2017)
+----------------------
+
+- Fix: "-" symbol available again in usernames. 
+- Fix: Added ``future`` requirement to solve an error with pyinstaller generating the Windows installer.
+
+
+0.22.0 (18-April-2017)
+-------------------------
+- Feature: ``[build_requires]`` can now be declared in ``profiles`` and apply them to build packages. Those requirements are only installed if the package is required to build from sources, and do not affect its package ID hash, and it is not necessary to define them in the package recipe. Ideal for testing libraries, cross compiling toolchains (like Android), development tools, etc.
+- Feature: Much improved support for cross-building. Support for cross-building to **Android** provided, with toolchains installable via ``build_requires``.
+- Feature: New ``package_files`` command, that is able to create binary packages directly from user files, without needing to define ``build()`` or ``package()`` methods in the the recipes.
+- Feature: command ``conan new`` with a new ``--bare`` option that will create a minimal package recipe, usable with the ``package_files`` command.
+- Feature: Improved ``CMake`` helper, with ``test()`` method, automatic setting of BUILD_SHARED_LIBS, better management of variables, support for parallel compilation in MSVC (via /MP)
+- Feature: new ``tools.msvc_build_command()`` helper that both sets the Visual vcvars and calls Visual to build the solution. Also ``vcvars_command`` is improved to return non-empty string even if vcvars is set, for easier concatenation.
+- Feature: Added package recipe linter, warning for potential errors and also about Python 3 incompatibilities when running from Python 2. Enabled by default can be opt-out.
+- Feature: Improvements in HTML output of ``conan info --graph``
+- Feature: allow custom path to bash, as configuration and environment variable.
+- Fix: Not issuing an unused variable warning in CMake for the CONAN_EXPORTED variable
+- Fix: added new ``mips`` architectures and latest compiler versions to default settings.yml
+- Fix: Unified username allowed patterns to those used in package references.
+- Fix: hardcoded vs15 version in tools.vcvars
+- BugFix: Clean crash and improved error messages when manifests mistmatch exists in conan upload.
+
+
+0.21.2 (04-April-2017)
+-------------------------
+- Bugfix: virtualenv generator quoting environment variables in Windows.
+
+
+0.21.1 (23-March-2017)
+-------------------------
+- BugFix: Fixed missing dependencies in ``AutoToolsBuildEnvironment``
+- BugFix: Escaping single quotes in html graph of ``conan info --graph=file.html``
+- BugFix: Fixed loading of auth plugins in conan_server
+- BugFix: Fixed ``visual_studio`` generator creating XML with dots.
+
+
+0.21.0 (21-March-2017)
+-------------------------
+- Feature: ``conan info --graph`` or ``--graph=file.html`` will generate a dependency graph representation in dot or html formats.
+- Feature: Added better support and tests for Solaris Sparc.
+- Feature: custom authenticators are now possible in ``conan_server`` with plugins.
+- Feature: extended ``conan info`` command with path information and filter by packages.
+- Feature: enabled conditional package binaries removal with ``conan remove`` with query syntax
+- Feature: enabled generation and validation of manifests from ``test_package``.
+- Feature: allowing ``options`` definitions in profiles
+- Feature: new ``RunEnvironment`` helper, that makes easier to run binaries from dependent packages
+- Feature: new ``virtualrunenv`` generator that activates environment variable for execution of binaries from installed packages, without requiring ``imports`` of shared libraries.
+- Feature: adding new version modes for ABI compatibility definition in ``package_id()``.
+- Feature: Extended ``conan new`` command with new option for ``exports_sources`` example recipe.
+- Feature: ``CMake`` helper defining parallel builds for gcc-like compilers via ``--jN``, allowing user definition with environment variable and in conan.conf.
+- Feature: ``conan profile`` command now show profiles in alphabetical order.
+- Feature: extended ``visual_studio`` generator with more information and binary paths for execution with DLLs paths.
+- Feature: Allowing relative paths with $PROFILE_DIR place holder in ``profiles``
+- Fix: using only file checksums to decide for modified recipe in remote, for possible concurrent builds & uploads.
+- Fix: Improved ``--build`` modes management, with better checks and allowing multiple definitions and mixtures of conditions
+- Fix: Replaced warning for non-matching OS to one message stating the cross-build
+- Fix: local ``conan source`` command (working in user folder) now properly executes the equivalent of ``exports`` functionality
+- Fix: Setting command line arguments to cmake command as CMake flags, while using the TARGETS approach. Otherwise, arch flags like -m32 -m64 for gcc were not applied.
+- BugFix: fixed ``conan imports`` destination folder issue.
+- BugFix: Allowing environment variables with spaces
+- BugFix: fix for CMake with targets usage of multiple flags.
+- BugFix: Fixed crash of ``cmake_multi`` generator for "multi-config" packages.
+
+
+0.20.3 (06-March-2017)
+-------------------------
+- Fix: Added opt-out for ``CMAKE_SYSTEM_NAME`` automatically added when cross-building, causing users
+  providing their own cross-build to fail
+- BugFix: Corrected usage of ``CONAN_CFLAGS`` instead of ``CONAN_C_FLAGS`` in cmake targets
+
+0.20.2 (02-March-2017)
+-------------------------
+- Fix: Regression of ``visual_studio``generator using ``%(ExecutablePath)`` instead of ``$(ExecutablePath)``
+- Fix: Regression for ``--build=outdated --build=Pkg`` install pattern
+
+
+0.20.1 (01-March-2017)
+-------------------------
+- Fix: Disabled the use of cached settings and options from installed ``conaninfo.txt``
+- Fix: Revert the use of quotes in ``cmake`` generator for flags.
+- Fix: Allow comments in artifacts.properties
+- Fix: Added missing commit for CMake new helpers
+
+
+0.20.0 (27-February-2017)
+-------------------------
+
+**NOTE:** It is important that if you upgrade to this version, all the clients connected to the same
+remote, should upgrade too. Packages created with conan>=0.20.0 might not be usable with conan older conan clients.
+
+- Feature: Largely improved management of **environment variables**, declaration in ``package_info()``,
+  definition in profiles, in command line, per package, propagation to consumers.
+- Feature: New build helpers ``AutotoolsBuildEnvironment``, ``VisualStudioBuildEnvironment``, which
+  deprecate ``ConfigureEnvironment``, with much better usage of environment variables
+- Feature: New ``virtualbuildenv`` generator that will generate a composable environment with build
+  information from installed dependencies.
+- Feature: New ``build_id()`` recipe method that allows to define logic to build once, and package
+  multiple times without building. E.g.: build once both debug and release artifacts, then package
+  separately.
+- Feature: **Multi-config packages**. Now packages can provide multi-configuration packages, like
+  both debug/release artifacts in the same package, with ``self.cpp_info.debug.libs = [...]`` syntax.
+  Not restricted to debug/release, can be used for other purposes.
+- Feature: new ``conan config`` command to manage, edit, display ``conan.conf`` entries
+- Feature: :ref:`Improvements<building_with_cmake>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
+  for common operations.
+- Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
+  implementation, installation of multi-name packages.
+- Feature: Unzip with ``tools.unzip`` maintaining permissions (Linux, OSX)
+- Feature: ``conan info`` command now allows profiles too
+- Feature: new tools ``unix_path()``, ``escape_windows_cmd()``, ``run_in_windows_bash()``, useful
+  for autotools projects in Win/MinGW/Msys
+- Feature: new context manager ``tools.chdir``, to temporarily change directory.
+- Feature: CMake using ``CMAKE_SYSTEM_NAME`` for cross-compiling.
+- Feature: Artifactory build-info extraction from traces
+- Feature: Attach custom headers to artifacts uploads with an `artifacts.properties` file.
+- Feature: allow and copy symlinks while ``conan export``
+- Fix: removing quotes in some cmake variables that were generating incorrect builds
+- Fix: providing better error messages for non existing binaries, with links to the docs
+- Fix: improved error messages if ``tools.patch`` failed
+- Fix: adding ``resdirs`` to ``cpp_info`` propagated information, and cmake variables, for directories
+  containing resources and other data.
+- Fix: printing error messages if a ``--build`` policy doesn't match any package
+- Fix: managing VS2017 by ``tools``. Still the manual definition of ``vs150comntools`` required.
+- Bug fix: crashes when not supported characters were dumped to terminal by logger
+- Bug fix: wrong executable path in Visual Studio generator
+
+
+0.19.3 (27-February-2017)
+-------------------------
+- Fix: backward compatibility for new environment variables. New features to be introduced in 0.20
+  will produce that ``conaninfo.txt`` will not be correctly parsed, and then package would be "missing".
+  This will happen for packages created with 0.20, and consumed with older than 0.19.3
+  
+NOTE: It is important that you upgrade at least to this version if you are using remotes with packages
+that might be created with latest conan releases (like conan.io).
+
+
+0.19.2 (15-February-2017)
+-------------------------
+- Bug fix: Fixed bug with remotes behind proxies
+- Bug fix: Fixed bug with ``exports_sources`` feature and nested folders
+  
+  
 0.19.1 (02-February-2017)
 -------------------------
 - Bug fix: Fixed issue with ``conan copy`` followed by ``conan upload`` due to the new ``exports_sources``
