@@ -3,7 +3,7 @@
 Install
 =======
 
-Conan can be installed in many Operating Systems. It is extensively used and tested in Windows, Linux (different distros),
+Conan can be installed in many Operating Systems. It is extensively used and tested in Windows, Linux (different distributions),
 OSX, and also actively used in FreeBSD and Solaris SunOS, but it has been reported to work in other systems too.
 
 There are three ways to install conan:
@@ -19,7 +19,7 @@ There are three ways to install conan:
 Install with pip (recommended)
 --------------------------------
 
-You need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
+You need a python 2.7 or 3.X distribution installed in your machine. Modern python distributions come
 with pip pre-installed, if not, install pip following `pip docs`_
 
 Install conan:
