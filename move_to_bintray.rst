@@ -117,8 +117,8 @@ ____________________
 
   Upload all your packages from conan.io to your Conan repository on Bintray. Remember you can use:
 
-  - ``conan install {reference} –all`` to download all your binary packages along with their respective recipes
-  - ``conan upload {reference} –all –r bintray`` to upload them all to your personal repository on Bintray.
+  - ``conan install {reference} –-all`` to download all your binary packages along with their respective recipes
+  - ``conan upload {reference} –-all –r bintray`` to upload them all to your personal repository on Bintray.
     When prompted, for a username and  password, enter your Bintray username and your API key
 
     .. note:: **About permissions**:
