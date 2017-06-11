@@ -62,7 +62,6 @@ Working with Bintray
 
    Use the Set Me Up button on your repository’s page on Bintray to get its URL
 
-
 All requests to the old server.conan.io domain has been redirected to the `conan-transit`_ repository on Bintray.
 Nevertheless, as a best practice, we recommend that you point your Conan client directly to the new repositories.
 Here is how to configure your Conan client to start using the new Bintray repositories:

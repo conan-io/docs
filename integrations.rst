@@ -25,4 +25,5 @@ Integrations
    integrations/appveyor
    integrations/gitlab
    integrations/youcompleteme
+   integrations/scons
    integrations/other
