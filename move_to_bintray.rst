@@ -1,85 +1,35 @@
-Conan.io moves to JFrog Bintray!
-================================
+Conan.io is now on Bintray
+==========================
 
-`JFrog Bintray now supports Conan repositories`_ that work seamlessly with the Conan client letting you freely upload
-your C/C++ Conan packages.
-All packages currently hosted on conan.io will be migrated to Bintray, and conan.io will be deprecated.
+On Bintray, you can create and manage as many free, personal Conan repositories as you like.
+On an OSS account, all packages you upload are public, and anyone can use them by simply adding your repository to their
+Conan remotes.
 
-This page describes how you should prepare for the migration and how to use the central Conan repositories on Bintray
-that will replace conan.io for your public OSS packages.
+To allow collaboration on open source projects, you can also create
+`Organizations <https://bintray.com/docs/usermanual/interacting/interacting_bintrayorganizations.html>`_ in Bintray
+and add members who will be able to create and edit packages in your organization’s repositories.
 
-.. _`JFrog Bintray now supports Conan repositories`: http://blog.conan.io/2017/05/25/bintray-support-conan-repositories.html
+Central repositories
+--------------------
 
-.. _note:
-    If you are only using Conan with a private server (conan_server or Artifactory), then this migration does not affect you.
+Bintray host two central repositories:
 
+  - `conan-transit`_
 
-Conan repositories on Bintray
------------------------------
+    This repository is an exact copy of the conan.io repository at **June 11, 2017 08:00 CET**.
+    It is a read-only repository, you can download any packages that it hosts, but you are not able to
+    upload packages to it.
 
-**Personal repositories**
+  - `conan-center`_
 
-On Bintray, you can create and manage as many free, personal Conan repositories as you like. On an OSS account, all packages you upload are public, and anyone can use them by simply adding your repository to their Conan remotes. To allow collaboration on open source projects, you can also create `Organizations <https://bintray.com/docs/usermanual/interacting/interacting_bintrayorganizations.html>`_ in Bintray and add members who will be able to create and edit packages in your organization’s repositories.
-
-**Central repositories**
-
-Bintray will also host two central repositories:
-
-  - **conan-transit**
-
-    This repository will be an exact copy of the current conan.io repository at the time it is migrated as described below.
-    It will be a read-only repository meaning that you can download any packages that it hosts, but will not be able to
-    upload any new packages to it.
-
-  - **conan-center**
-
-    This repository will host moderated, curated and well-maintained packages, and is the place where you can share
+    This repository has moderated, curated and well-maintained packages, and is the place where you can share
     your packages with the community. To share your package, you upload it to your own (or your organization’s)
-    repositories and submit a request to include it in ``conan-center``.
+    repositories and submit a request to include it in `conan-center`_. Check :ref:`Working with conan-center<conan_center_flow>`
 
 
-The migration
--------------
+Working with Bintray
+--------------------
 
-
-On **June 11, 2017**, from 08:00 CET until 19:00 CET, the conan.io server will be unavailable.
-During that time we will migrate all packages from conan.io to the ``conan-transit`` repository on Bintray.
-
-Once service is restored:
-  - All the packages that were on conan.io will have been migrated to ``conan-transit``
-  - The current conan.io api domain will be redirected to the ``conan-transit`` repository which will be
-    available for downloading packages (read only).
-
-
-conan.io package consumers
---------------------------
-
-If you only consume packages from conan.io you will mostly be unaffected, and there is no preparation required from you
-before the migration.
-
-After the migration, any requests to the old server.conan.io domain will be redirected to the new ``conan-transit``
-repository on Bintray. Since ``conan-transit``  will contain a copy of all packages in the old conan.io, these requests
-will keep working transparently.
-
-Nevertheless, as a best practice, we recommend that you point your Conan client directly to the new repositories as follows:
-
-
-.. code-block:: bash
-
-   $ conan remote remove conan.io
-   $ conan remote add conan-center https://conan.bintray.com
-   $ conan remote add conan-transit https://conan-transit.bintray.com
-
-If, for some reason, you still wanted to read from the old conan.io repository, its contents will be available on the remote https://legacy-server.conan.io
-
-conan.io package creators
--------------------------
-
-If you have created and uploaded packages to conan.io, then you should follow the steps below:
-
-
-Before the migration
-____________________
 
 1. **Create a Bintray Open Source account**
 
@@ -102,7 +52,7 @@ ____________________
    To create an API key, you need to edit your user profile.
 
 
-4. **Add your Bintray repository**
+4. **Add your Bintray repository** (Optional, only if you want to host your packages in Bintray)
 
    Add a Conan remote in your Conan client pointing to your Bintray repository
 
@@ -110,38 +60,11 @@ ____________________
 
       $ conan remote add <REMOTE> <YOUR_BINTRAY_REPO_URL>
 
-   Use the Set Me Up button  on your repository’s page on Bintray to get its URL
+   Use the Set Me Up button on your repository’s page on Bintray to get its URL
 
-
-5. **Upload your packages**
-
-  Upload all your packages from conan.io to your Conan repository on Bintray. Remember you can use:
-
-  - ``conan install {reference} –-all`` to download all your binary packages along with their respective recipes
-  - ``conan upload {reference} –-all –r bintray`` to upload them all to your personal repository on Bintray.
-    When prompted, for a username and  password, enter your Bintray username and your API key
-
-    .. note:: **About permissions**:
-
-        | The username from the references of the Conan packages is not associated to the Bintray user. For example, on conan.io, the zlib/1.2.8@lasote/stable package can only be uploaded or updated by the user, “lasote”. On Bintray you can upload any package to a personal repository, even if it belongs to a different Conan user. For example, a Bintray user called Foo could upload zlib/1.2.8@lasote/stable package to its own repository.
-
-
-6. **Packages for your own use**
-
-If your packages are just for you, and you are not concerned about sharing them with others or breaking others' builds that might depend on your packages, you can just remove them from conan.io.
-They won’t be migrated to the ``conan-transit``. Then you will be done, just start using your personal or organization repositories in bintray.
-
-
-
-After the migration
-___________________
-
-
-If you are uploading packages for your own internal use, or for use by your team, then your personal or organization’s
-repositories are sufficient.
-
+All requests to the old server.conan.io domain has been redirected to the `conan-transit`_ repository on Bintray.
+Nevertheless, as a best practice, we recommend that you point your Conan client directly to the new repositories.
 Here is how to configure your Conan client to start using the new Bintray repositories:
-
 
 .. code-block:: bash
 
@@ -157,24 +80,26 @@ By specifying your remotes in this way, your Conan client will try to resolve pa
 repositories in the following order of priority:
 
   1. Your own repository
-  2. ``conan-center``
-  3. ``conan-transit``
+  2. `conan-center`_
+  3. `conan-transit`_
 
-As described above, ``conan-transit`` will contain a snapshot of conan.io at the time it was migrated to Bintray,
+As described above, `conan-transit`_ contains a snapshot of conan.io at the time it was migrated to Bintray,
 including a copy of the packages you had uploaded to your own repositories, and these will all be read-only.
-If you now upload new versions to your repositories, ``conan-transit`` will become outdated, however, packages you had
+If you now upload new versions to your repositories, `conan-transit`_ will become outdated, however, packages you had
 previously loaded before the migration will still be available to your consumers, so none of their builds will break.
 
-**Working with conan-center**
+.. _conan_center_flow:
 
-As a moderated and curated repository, ``conan-center`` will not be populated automatically. Initially, it will be empty.
-To have your recipe or binary package available on ``conan-center``, you need to submit an inclusion request to Bintray,
+Working with conan-center
+-------------------------
+
+As a moderated and curated repository, `conan-center`_ will not be populated automatically. Initially, it will be empty.
+To have your recipe or binary package available on `conan-center`_, you need to submit an inclusion request to Bintray,
 and the Bintray team will review your request.
-
 
     - If you are the author of an open source library, your package will be approved.
       Keep in mind that it is your responsibility to maintain acceptable standards of quality for all packages you submit
-      for inclusion in ``conan-center``.
+      for inclusion in `conan-center`_.
     - If you are packaging a third-party library, you need to follow the guidelines below:
 
         - The recipes must contain a :ref:`test_package<packaging_getting_started>`
@@ -183,4 +108,5 @@ and the Bintray team will review your request.
         - Provide a general review of the recipe. Bintray team will make suggestions for improvements or
           better/cleaner ways to do implement the code.
 
-
+.. _`conan-transit`: https://bintray.com/conan/conan-transit
+.. _`conan-center`: https://bintray.com/conan/conan-center
