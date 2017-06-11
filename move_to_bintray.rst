@@ -9,6 +9,13 @@ To allow collaboration on open source projects, you can also create
 `Organizations <https://bintray.com/docs/usermanual/interacting/interacting_bintrayorganizations.html>`_ in Bintray
 and add members who will be able to create and edit packages in your organization’s repositories.
 
+Known issues
+-------------
+There is a known issue related to search with patterns, like "*". 
+Please read: https://github.com/conan-io/conan/issues/1379
+This issue might affect usage of version-ranges expressions, as they rely on search.
+
+
 Central repositories
 --------------------
 
