@@ -34,6 +34,11 @@ Creates a package binary from given precompiled artifacts in user folder, skippi
       -f, --force           Overwrite existing package if existing
 
 
+Note that this is **not** the normal or recommended flow for creating conan packages, as packages created this way will not have a reproducible build from sources. This command is intended only when it is not possible to build the packages from sources.
+
+To create packages this way, a recipe must already exist for it. Typically this recipe will be simple, without ``build()`` and ``package()`` methods, though the ``package_info()`` method is still necessary to be able to automatically provide information for consumers. The command ``conan new <ref> --bare`` will create a simple recipe that could be used in combination with the ``package_files`` command. Check this :ref:`How to package existing binaries <existing_binaries>`
+
+
 
 
 
