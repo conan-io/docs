@@ -71,7 +71,7 @@ You could follow these steps:
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
 #. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Activate the repo in your Travis account, so it is built when we push changes to it.
-#. Under *Travis More Options -> Settings->Environment Variables*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key.
+#. Under *Travis More Options -> Settings->Environment Variables*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key. If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -cilg -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
 #. You can inspect the created files: both ``.travis.yml``, ``.travis/run.sh``, and ``.travis/install.sh`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds with different configurations in different travis jobs.
