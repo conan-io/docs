@@ -6,6 +6,29 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.24.0 (15-June-2017)
+----------------------
+- Feature: ``conan new`` new arguments to generate **Travis-CI** and **Appveyor** files for Continuous Integration
+- Feature: Added ``RelWithDebInfo/MinRelSize`` to cmake generators
+- Feature: Improved linter, removing false positives due to dynamic conanfile attributes
+- Feature: Added ``tools.ftp_download()`` function for FTP retrieval
+- Feature: Managing symlinks between folders.
+- Feature: ``conan remote add`` command learned new ``--insert`` option to add remotes in specific order.
+- Feature: support multi-config in the ``SCons`` generator
+- Feature: support for gcc 7.1+ detection
+- Feature: ``tools`` now are using global ``requests`` and ``output`` instances. Proxies will work for ``tools.download()``
+- Fix: update default repos, now pointing to Bintray.
+- Fix: printing ``outdated from recipe`` also for remotes
+- Fix: Fix required slash in ``configure_dir`` of ``AutoToolsBuildEnvironment``
+- Fix: command ``new`` with very short names, now errors earlier.
+- Fix: better error detection for incorrect ``Conanfile.py`` letter case.
+- Fix: Improved some cmake robustness using quotes to avoid cmake errors
+- BugFix: Fixed incorrect firing of building due to ``--build`` patterns error
+- BugFix: Fixed bug with options incorrectly applied to ``build_requires`` and crashing
+- Refactor: internal refactors toward having a python api to conan functionality
+
+
 0.23.1 (05-June-2017)
 ----------------------
 - BugFix: Fixed bug while packaging symlinked folders in build folder, and target not being packaged.

@@ -79,7 +79,7 @@ Conan packages can be uploaded to bintray under your own users or organizations.
    To create an API key, you need to edit your user profile.
 
 
-4. **Add your Bintray repository** (Optional, only if you want to host your packages in Bintray)
+4. **Add your Bintray repository**
 
    Add a Conan remote in your Conan client pointing to your Bintray repository
 
