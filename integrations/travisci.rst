@@ -1,3 +1,5 @@
+.. _travis_integration:
+
 
 |travisci_logo| Travis Ci
 =============================

@@ -1,3 +1,5 @@
+.. _appveyor_integration:
+
 
 |appveyor_logo| Appveyor 
 ========================
