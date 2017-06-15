@@ -44,7 +44,7 @@ First, we are going to see how to control the tests build with an **option** (ge
    endif()
 
 
-Then we could use ``conan install -o build_test=False/True`` to activate or deactivate the tests launch.
+Then we could use ``conan install -o Poco:build_test=False/True`` to activate or deactivate the tests launch.
 
 
 But, what happens if we are creating a conan package?

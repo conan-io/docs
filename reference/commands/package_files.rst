@@ -28,7 +28,7 @@ Creates a package binary from given precompiled artifacts in user folder, skippi
       --profile PROFILE, -pr PROFILE
                             Profile for this package
       --options OPTIONS, -o OPTIONS
-                            Options for this package. e.g., -o with_qt=true
+                            Options for this package. e.g., -o PkgName:with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings for this package e.g., -s compiler=gcc
       -f, --force           Overwrite existing package if existing

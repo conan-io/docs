@@ -57,7 +57,7 @@ to update them.
                             look in the specified remote server
       --options OPTIONS, -o OPTIONS
                             Options to build the package, overwriting the
-                            defaults. e.g., -o with_qt=true
+                            defaults. e.g., -o PkgName:with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
