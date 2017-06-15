@@ -63,7 +63,7 @@ If no binary package is found you can build the package from sources using the `
                             look in the specified remote server
       --options OPTIONS, -o OPTIONS
                             Options to build the package, overwriting the
-                            defaults. e.g., -o with_qt=true
+                            defaults. e.g., -o PkgName:with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
@@ -89,7 +89,7 @@ If no binary package is found you can build the package from sources using the `
 
 .. code-block:: bash
 
-    $ conan install . -o use_debug_mode=on -s compiler=clang
+    $ conan install . -o PkgName:use_debug_mode=on -s compiler=clang
 
 
 .. note::

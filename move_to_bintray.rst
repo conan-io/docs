@@ -27,8 +27,28 @@ Bintray host two central repositories:
     repositories and submit a request to include it in `conan-center`_. Check :ref:`Working with conan-center<conan_center_flow>`
 
 
-Working with Bintray
---------------------
+Using the new Bintray repositories
+------------------------------------
+
+Using the new Bintray ``conan-transit`` repository is automatic, as the old ``server.conan.io`` has been automatically redirected to the ``conan-transit`` repository. However, it is preferred if you can update to explicitely use the new repositories, as the redirect is just a temporary solution. To do this, first remove the old conan.io repository, then add the new ones, in order:
+
+
+.. code-block:: bash
+
+    $ conan remote remove conan.io
+    $ conan remote add conan-center https://conan.bintray.com
+    $ conan remote add conan-transit https://conan-transit.bintray.com
+
+If, for some reason, you still wanted to read from the old conan.io repository (but please, avoid it if possible), which by now is read-only,
+the new remote should point to https://legacy-server.conan.io.
+
+If you are just reading packages, this should be enough. You can navigate the bintray repos from: https://bintray.com/conan
+
+
+Uploading packages to Bintray
+-------------------------------
+
+Conan packages can be uploaded to bintray under your own users or organizations. YOu can follow these steps:
 
 
 1. **Create a Bintray Open Source account**
@@ -62,26 +82,24 @@ Working with Bintray
 
    Use the Set Me Up button on your repository’s page on Bintray to get its URL
 
-All requests to the old server.conan.io domain has been redirected to the `conan-transit`_ repository on Bintray.
-Nevertheless, as a best practice, we recommend that you point your Conan client directly to the new repositories.
-Here is how to configure your Conan client to start using the new Bintray repositories:
-
-.. code-block:: bash
-
-    $ conan remote remove conan.io
-    $ conan remote add conan-center https://conan.bintray.com
-    $ conan remote add conan-transit https://conan-transit.bintray.com
-
-
-If, for some reason, you still wanted to read from the old conan.io repository (which by now is read-only),
-the new remote should point to https://legacy-server.conan.io
 
 By specifying your remotes in this way, your Conan client will try to resolve packages and to install them from
 repositories in the following order of priority:
 
-  1. Your own repository
-  2. `conan-center`_
-  3. `conan-transit`_
+  1. `conan-center`_
+  2. `conan-transit`_
+  3. Your own repository
+
+If you want to have your own repository prioritized, please remove the ``conan-transit`` and ``conan-center`` repository, then add yours first, then the others:
+
+.. code-block:: bash
+
+    $ conan remote remove conan-center
+    $ conan remote remove conan-transit
+    $ conan remote add <your_remote <your_url>
+    $ conan remote add conan-center https://conan.bintray.com
+    $ conan remote add conan-transit https://conan-transit.bintray.com
+
 
 As described above, `conan-transit`_ contains a snapshot of conan.io at the time it was migrated to Bintray,
 including a copy of the packages you had uploaded to your own repositories, and these will all be read-only.
@@ -90,8 +108,8 @@ previously loaded before the migration will still be available to your consumers
 
 .. _conan_center_flow:
 
-Working with conan-center
--------------------------
+Contributing packages to conan-center
+--------------------------------------
 
 As a moderated and curated repository, `conan-center`_ will not be populated automatically. Initially, it will be empty.
 To have your recipe or binary package available on `conan-center`_, you need to submit an inclusion request to Bintray,
