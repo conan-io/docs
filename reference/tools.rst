@@ -163,8 +163,29 @@ with ``retry_wait``.
     tools.download("http://someurl/somefile.zip", "myfilename.zip", verify=False)
     # to retry the download 2 times waiting 5 seconds between them
     tools.download("http://someurl/somefile.zip", "myfilename.zip", retry=2, retry_wait=5)
-    
-    
+
+
+
+tools.ftp_download()
+------------------------
+
+Retrieves a file from an FTP server. Right now it doesn't support SSL, but you might implement it yourself using the standard python FTP library, and also if you need some special functionality.
+
+``def ftp_download(ip, filename, login='', password='')``
+
+- ip: The IP or address of the ftp server
+- filename: The filename, including the path/folder where it is located
+- login/password: optional credentials to the ftp server
+
+Example: 
+
+.. code-block:: python
+
+    def source(self):
+        tools.ftp_download('ftp.debian.org', "debian/README")
+        self.output.info(load("README"))
+
+
 tools.replace_in_file()
 -----------------------
 

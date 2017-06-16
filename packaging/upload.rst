@@ -92,6 +92,68 @@ downloaded from your local server. You can check their existence on your local c
    $ conan search
 
 
+Uploading OSS packages to Bintray
+------------------------------------
+
+Bintray offers free conan repositories for OSS packages. If you want to share and distribute your OSS packages in Bintray, please follow these steps:
+
+#. **Create a Bintray Open Source account**
+
+   Browse to https://bintray.com/signup/oss and submit the form to create your account. Note that you don’t have to use
+   the same username that you had in your Conan account.
+
+
+#. **Create a Conan repository**
+
+   If you intend to collaborate with other users, you first need to create a Bintray organization, and create your
+   repository under the organization’s profile rather than under your own user profile.
+
+   On your user profile (or organization profile) click “Add new repository”.
+   Fill in the Create Repository form making sure to select Conan as the Type.
+
+
+#. **Get your API key**
+
+   Your API key is the “password” used to authenticate the Conan client to Bintray, NOT your Bintray password.
+   To create an API key, you need to edit your user profile.
+
+
+#. **Add your Bintray repository** 
+
+   Add a Conan remote in your Conan client pointing to your Bintray repository
+
+    .. code-block:: bash
+
+      $ conan remote add <REMOTE> <YOUR_BINTRAY_REPO_URL>
+
+   Use the Set Me Up button on your repository’s page on Bintray to get its URL
+
+#. **Upload**
+
+    .. code-block:: bash
+
+      $ conan upload Hello/0.1@demo/testing --all -r=REMOTE
+
+
+Using travis-ci and appveyor to create and upload OSS packages to Bintray
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+You can fully automate the creation, testing and upload of your conan packages using free services like Travis-CI and Appveyor (free for OSS). 
+
+The command ``conan new`` has arguments to generate files for both systems:
+
+.. code-block:: bash
+
+    $ conan new Hello/0.1@demo/testing -t -s -cilg -cio -ciw -cis -ciu=YOUR_BINTRAY_REPO_URL
+
+
+The respective integration doc pages have detailed information how to use both systems. Please read and follow them:
+
+- :ref:`travis_ci`
+- :ref:`appveyor_ci`
+
+
+
 
 .. |write_us| raw:: html
 
