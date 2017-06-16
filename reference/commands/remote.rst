@@ -47,9 +47,21 @@ Handles the remote list and the package recipes associated to a remote.
 
    $ conan remote add remote_name remote_url [verify_ssl]
 
-
 Verify SSL option can be True or False (default True). Conan client will verify the SSL certificates.
 
+- Insert a new remote:
+
+Insert as the first one (position/index 0), so it is the first one to be checked:
+
+.. code-block:: bash
+
+   $ conan remote add remote_name remote_url [verify_ssl] --insert
+
+Insert as the second one (position/index 1), so it is the second one to be checked:
+
+.. code-block:: bash
+
+   $ conan remote add remote_name remote_url [verify_ssl] --insert=1
 
 - Remove a remote:
 
