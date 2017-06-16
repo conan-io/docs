@@ -123,6 +123,7 @@ The ``include()`` sentence has to be at the top of the profile file:
 
 
 **myprofile.txt**
+
 .. code-block:: text
 
    include(gcc_49.txt)
