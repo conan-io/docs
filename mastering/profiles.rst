@@ -116,6 +116,7 @@ The ``include()`` sentence has to be at the top of the profile file:
 
 .. code-block:: text
 
+   [settings]
    compiler=gcc
    compiler.version=4.9
    compiler.libcxx=libstdc++11
