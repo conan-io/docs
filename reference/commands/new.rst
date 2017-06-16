@@ -6,7 +6,9 @@ conan new
 
 .. code-block:: bash
 
-   $ conan new [-h] [-t] [-i] [-c] [-s] [-b] name
+   $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-cis] [-cilg] [-cilc] [-cio]
+               [-ciw] [-gi] [-ciu CI_UPLOAD_URL]
+               name
 
 
 Creates a new package recipe template with a ``conanfile.py`` and optionally, ``test_package``
@@ -30,6 +32,14 @@ package testing files.
      -b, --bare     Create the minimum package recipe, without build() or
                     package()methods. Useful in combination with "package_files"
                     command
+     -cis, --ci_shared        Package will have a "shared" option to be used in CI
+     -cilg, --ci_travis_gcc   Generate travis-ci files for linux gcc
+     -cilc, --ci_travis_clang Generate travis-ci files for linux clang
+     -cio, --ci_travis_osx    Generate travis-ci files for OSX apple-clang
+     -ciw, --ci_appveyor_win  Generate appveyor files for Appveyor Visual Studio
+     -gi, --gitignore         Generate a .gitignore with the known patterns to
+                              excluded
+     -ciu CI_UPLOAD_URL, --ci_upload_url CI_UPLOAD_URL Define URL of the repository to upload
 
 **Examples**:
 
@@ -46,4 +56,11 @@ package testing files.
 .. code-block:: bash
 
    $ conan new mypackage/1.0@myuser/stable -t
+
+
+- Create files for travis (both Linux and OSX) and appveyor Continuous Integration:
+
+.. code-block:: bash
+
+   $ conan new mypackage/1.0@myuser/stable -t -cilg -cio -ciw
 

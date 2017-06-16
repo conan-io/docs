@@ -11,7 +11,6 @@ To allow collaboration on open source projects, you can also create
 `Organizations <https://bintray.com/docs/usermanual/interacting/interacting_bintrayorganizations.html>`_ in Bintray
 and add members who will be able to create and edit packages in your organization’s repositories.
 
-
 .. toctree::
    :maxdepth: 2
 

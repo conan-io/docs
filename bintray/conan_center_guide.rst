@@ -59,7 +59,7 @@ CI Integration
     - ``.travis.yml`` file. Adjust your username, library reference etc
     - ``appveyor.yml`` file. Adjust your username, library reference etc
 
-- Take a look to the :ref:`Travis CI<travis_integration>` and :ref:`Appveyor<appveyor_integration>` integration guides.
+- Take a look to the :ref:`Travis CI<travis_integration>` and :ref:`Appveyor<appveyor_ci>` integration guides.
 
 
 
