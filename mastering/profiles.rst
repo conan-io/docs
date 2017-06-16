@@ -106,10 +106,10 @@ Profiles also support **package settings** and **package environment variables**
 Profile includes
 ----------------
 
-You can include other profiles using the ``include()`` sentence. The paths can be relative to the current profile, absolute,
+You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute,
 or a profile name from the default profile location in the local cache.
 
-The ``include()`` sentence has to be at the top of the profile file:
+The ``include()`` statement has to be at the top of the profile file:
 
 
 **gcc_49.txt**
