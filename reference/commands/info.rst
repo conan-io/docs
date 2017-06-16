@@ -7,10 +7,10 @@ conan info
 
    $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
                   [--package_filter [PACKAGE_FILTER]]
-                  [--build_order BUILD_ORDER] [--graph GRAPH] [--update]
-                  [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
-                  [--options OPTIONS] [--settings SETTINGS] [--env ENV]
-                  [--build [BUILD [BUILD ...]]]
+                  [--build_order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
+                  [--cwd CWD] [--update] [--scope SCOPE] [--profile PROFILE]
+                  [-r REMOTE] [--options OPTIONS] [--settings SETTINGS]
+                  [--env ENV] [--build [BUILD [BUILD ...]]]
                   [reference]
 
 Prints information about a package recipe's dependency graph.
@@ -44,10 +44,15 @@ to update them.
       --build_order BUILD_ORDER, -bo BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
+      --json [JSON], -j [JSON]
+                            Only with --build_order option, return the information
+                            in a json. e.j --json=/path/to/filename.json or --json
+                            to output the json
       --graph GRAPH, -g GRAPH
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
                             extension
+      --cwd CWD, -c CWD     Use this directory as the current directory
       --update, -u          check updates exist from upstream remotes
       --scope SCOPE, -sc SCOPE
                             Use the specified scope in the install command
@@ -57,7 +62,7 @@ to update them.
                             look in the specified remote server
       --options OPTIONS, -o OPTIONS
                             Options to build the package, overwriting the
-                            defaults. e.g., -o PkgName:with_qt=true
+                            defaults. e.g., -o with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
