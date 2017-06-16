@@ -144,7 +144,7 @@ Variable declaration
 In a profile you can declare variables that will be replaced automatically by conan before the profile is applied.
 The variables have to be declared at the top of the file, after the include() statements.
 
-e.j
+**myprofile.txt**
 
 .. code-block:: text
 
