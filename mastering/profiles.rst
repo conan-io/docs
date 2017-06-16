@@ -161,6 +161,39 @@ The variables have to be declared at the top of the file, after the include() st
    zlib:CXX=$CLANG/clang++
 
 
+The variables will be inherited too, so you can declare variables in a profile and then include the profile in a different one,
+all the variables will be available:
+
+**gcc_49.txt**
+
+.. code-block:: text
+
+
+   GCC_PATH=/my/custom/toolchain/path/
+
+   [settings]
+   compiler=gcc
+   compiler.version=4.9
+   compiler.libcxx=libstdc++11
+
+
+**myprofile.txt**
+
+.. code-block:: text
+
+   include(gcc_49.txt)
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=$GCC_PATH/gcc
+   zlib:CXX=$GCC_PATH/g++
+
+
+
 Examples
 --------
 
