@@ -103,6 +103,96 @@ Profiles also support **package settings** and **package environment variables**
 - Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
 
 
+Profile includes
+----------------
+
+You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute,
+or a profile name from the default profile location in the local cache.
+
+The ``include()`` statement has to be at the top of the profile file:
+
+
+**gcc_49.txt**
+
+.. code-block:: text
+
+   [settings]
+   compiler=gcc
+   compiler.version=4.9
+   compiler.libcxx=libstdc++11
+
+
+**myprofile.txt**
+
+.. code-block:: text
+
+   include(gcc_49.txt)
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=/usr/bin/clang
+   zlib:CXX=/usr/bin/clang++
+
+
+Variable declaration
+--------------------
+
+In a profile you can declare variables that will be replaced automatically by conan before the profile is applied.
+The variables have to be declared at the top of the file, after the include() statements.
+
+**myprofile.txt**
+
+.. code-block:: text
+
+   include(gcc_49)
+   CLANG=/usr/bin/clang
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=$CLANG/clang
+   zlib:CXX=$CLANG/clang++
+
+
+The variables will be inherited too, so you can declare variables in a profile and then include the profile in a different one,
+all the variables will be available:
+
+**gcc_49.txt**
+
+.. code-block:: text
+
+
+   GCC_PATH=/my/custom/toolchain/path/
+
+   [settings]
+   compiler=gcc
+   compiler.version=4.9
+   compiler.libcxx=libstdc++11
+
+
+**myprofile.txt**
+
+.. code-block:: text
+
+   include(gcc_49.txt)
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=$GCC_PATH/gcc
+   zlib:CXX=$GCC_PATH/g++
+
+
 
 Examples
 --------
@@ -148,8 +238,6 @@ A profile can also be used in ``conan test_package`` and ``info`` command:
 .. code-block:: bash
 
    $ conan test_package --profile clang
-
-
 
 
 

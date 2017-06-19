@@ -10,6 +10,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.24.0 (15-June-2017)
 ----------------------
 - Feature: ``conan new`` new arguments to generate **Travis-CI** and **Appveyor** files for Continuous Integration
+- Feature: Profile files with ``include()`` and variable declaration
 - Feature: Added ``RelWithDebInfo/MinRelSize`` to cmake generators
 - Feature: Improved linter, removing false positives due to dynamic conanfile attributes
 - Feature: Added ``tools.ftp_download()`` function for FTP retrieval
@@ -18,6 +19,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: support multi-config in the ``SCons`` generator
 - Feature: support for gcc 7.1+ detection
 - Feature: ``tools`` now are using global ``requests`` and ``output`` instances. Proxies will work for ``tools.download()``
+- Feature: ``--json`` parameter added to ``conan info`` command to create a JSON with the ``build_order``.
 - Fix: update default repos, now pointing to Bintray.
 - Fix: printing ``outdated from recipe`` also for remotes
 - Fix: Fix required slash in ``configure_dir`` of ``AutoToolsBuildEnvironment``
