@@ -413,6 +413,24 @@ A typical ``imports()`` method for shared libs could be:
       self.copy("*.dll", "", "bin")
       self.copy("*.dylib", "", "lib")
 
+The ``self.copy()`` method inside ``imports()`` support the following arguments:
+
+- pattern: an fnmatch file pattern of the files that should be copied. Eg. *.dll
+- dst: the destination local folder, wrt to current directory, to which the files will be copied. Eg: "bin"
+- src: the source folder in which those files will be searched. This folder will be stripped from the dst name. Eg.: lib/Debug/x86
+- root_package: fnmatch pattern of the package name ("OpenCV", "Boost") from which files will be copied. Default: all packages in deps
+- folder: (default=False). If enabled, it will copy the files from the local cache to a subfolder named as the package containing the files. Useful to avoid conflicting imports of files with the same name (e.g. License)
+- ignore_case: (default=False). If enabled will do a case-insensitive pattern matching
+- excludes: (default=None). Allows defining a list of patterns (even a single pattern) to be excluded from the copy, even if they match the main ``pattern``.
+
+Example to collect license files from dependencies:
+
+.. code-block:: python
+
+    def imports(self):
+        self.copy("license*", dst="licenses", folder=True, ignore_case=True)
+
+
 If you want to be able to customize the output user directory to work with both the ``cmake`` and ``cmake_multi`` generators, then you can do:
 
 .. code-block:: python
