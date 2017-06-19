@@ -21,13 +21,14 @@ In the inclusion request process, the JFrog staff will perform a general review 
 better/cleaner ways to do implement the code.
 
 
-One library for one Conan package
+One conan package per OSS library
 ---------------------------------
+
+Before creating packages for third party libraries, please read these general guidelines.
 
 - Ensure that there is no other conan package for the same library. If you are planning to support a new version of a library
   that already exists in the ``conan-center`` repository, please, contact the package author and collaborate.
   All the versions of the same library have to be on the same Bintray Conan package.
-
 
 - It is recommended to contact the **library author** and suggest to maintain the Conan package. When possible, open a pull request
   to the original repository of the library with the conan needed files or suggest to open a new repository with the
