@@ -24,4 +24,3 @@ Contents:
    videos
    faq
    changelog
-   move_to_bintray
