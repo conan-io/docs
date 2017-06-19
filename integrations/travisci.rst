@@ -1,3 +1,5 @@
+.. _travis_integration:
+
 
 .. _travis_ci:
 

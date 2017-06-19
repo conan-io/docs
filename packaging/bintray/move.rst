@@ -1,13 +1,7 @@
-Conan.io is now on Bintray
-==========================
 
-On Bintray, you can create and manage as many free, personal Conan repositories as you like.
-On an OSS account, all packages you upload are public, and anyone can use them by simply adding your repository to their
-Conan remotes.
+Uploading to Bintray
+====================
 
-To allow collaboration on open source projects, you can also create
-`Organizations <https://bintray.com/docs/usermanual/interacting/interacting_bintrayorganizations.html>`_ in Bintray
-and add members who will be able to create and edit packages in your organization’s repositories.
 
 Central repositories
 --------------------
@@ -72,7 +66,7 @@ Conan packages can be uploaded to bintray under your own users or organizations.
    To create an API key, you need to edit your user profile.
 
 
-4. **Add your Bintray repository**
+4. **Add your Bintray repository** (Optional, only if you want to host your packages in Bintray)
 
    Add a Conan remote in your Conan client pointing to your Bintray repository
 
@@ -105,26 +99,6 @@ As described above, `conan-transit`_ contains a snapshot of conan.io at the time
 including a copy of the packages you had uploaded to your own repositories, and these will all be read-only.
 If you now upload new versions to your repositories, `conan-transit`_ will become outdated, however, packages you had
 previously loaded before the migration will still be available to your consumers, so none of their builds will break.
-
-.. _conan_center_flow:
-
-Contributing packages to conan-center
---------------------------------------
-
-As a moderated and curated repository, `conan-center`_ will not be populated automatically. Initially, it will be empty.
-To have your recipe or binary package available on `conan-center`_, you need to submit an inclusion request to Bintray,
-and the Bintray team will review your request.
-
-    - If you are the author of an open source library, your package will be approved.
-      Keep in mind that it is your responsibility to maintain acceptable standards of quality for all packages you submit
-      for inclusion in `conan-center`_.
-    - If you are packaging a third-party library, you need to follow the guidelines below:
-
-        - The recipes must contain a :ref:`test_package<packaging_getting_started>`
-        - If the library supports it, the recipe has to be compatible with Windows, Linux and OSX.
-        - Have CI enabled to test it. (Pending full documentation)
-        - Provide a general review of the recipe. Bintray team will make suggestions for improvements or
-          better/cleaner ways to do implement the code.
 
 .. _`conan-transit`: https://bintray.com/conan/conan-transit
 .. _`conan-center`: https://bintray.com/conan/conan-center
