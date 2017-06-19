@@ -7,7 +7,7 @@ As a moderated and curated repository, `conan-center`_ will not be populated aut
 To have your recipe or binary package available on `conan-center`_, you need to submit an inclusion request to Bintray,
 and the Bintray team will review your request.
 
-- If you are the author of an open source library, your package will be approved.
+- If you are the **author of an open source library**, your package will be approved.
   Keep in mind that it is your responsibility to maintain acceptable standards of quality for all packages you submit
   for inclusion in `conan-center`_.
 
@@ -21,10 +21,25 @@ In the inclusion request process, the JFrog staff will perform a general review 
 better/cleaner ways to do implement the code.
 
 
+One library for one Conan package
+---------------------------------
+
+- Ensure that there is no other conan package for the same library. If you are planning to support a new version of a library
+  that already exists in the ``conan-center`` repository, please, contact the package author and collaborate.
+  All the versions of the same library have to be on the same Bintray Conan package.
+
+
+- It is recommended to contact the **library author** and suggest to maintain the Conan package. When possible, open a pull request
+  to the original repository of the library with the conan needed files or suggest to open a new repository with the
+  recipe.
+
+- If you are going to collaborate with different users to maintain the Conan package, open a Bintray organization.
+
+
 Recipe quality
 --------------
 
-- **Github public repository**: The recipe needs to be hosted in a public Github repository.
+- **Git public repository**: The recipe needs to be hosted in a public Git repository that allow collaboration.
 
 - **Recipe fields**: `description`, `license` and `url` are required.
 
@@ -37,6 +52,8 @@ Recipe quality
 
 - **test_package:** The recipes must contain a :ref:`test_package<packaging_getting_started>`
 
+- **Maintenance commitment:** You will be the responsible to keep the recipe updated, fix issues etc, so a minimal commitment
+  will be required. Conan organization reserves the right to unlink a poor maintained package or with better alternatives.
 
 
 CI Integration
@@ -46,7 +63,8 @@ CI Integration
   to support:
 
     - **Linux:** GCC, desirable latest version from each major (4.9, 5.4, 6.3)
-    - **Linux:** Clang
+    - **Linux:** Clang, desirable latest version from each major (3.9, 4.0)
+    - **Mac OSX:** Two latest versions of apple-clang, e.j (8.0, 8.1) or newer.
     - **Windows:** Visual Studio 12, 14 and 15 (or newer)
 
 
@@ -63,8 +81,8 @@ CI Integration
 
 
 
-Bintray library page information
---------------------------------
+Bintray package information
+---------------------------
 
 
 In the bintray page of your package fill the following fields:

@@ -1,6 +1,6 @@
 
-Conan.io is now on Bintray
-==========================
+Uploading to Bintray
+====================
 
 
 Central repositories
