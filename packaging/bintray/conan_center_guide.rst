@@ -55,18 +55,31 @@ Recipe quality
 - **Maintenance commitment:** You will be the responsible to keep the recipe updated, fix issues etc, so a minimal commitment
   will be required. Conan organization reserves the right to unlink a poor maintained package or with better alternatives.
 
+- **Raise errors on invalid configurations:** If the library doesn't work for a specific configuration, e.j requires **gcc>7** the recipe must contain a ``configure(self)`` method
+  that raises an exception in case of invalid settings/options.
+
+.. code-block:: python
+
+   def configure():
+       if self.settings.compiler == "gcc" and self.settings.compiler.version < "7.0":
+           raise ConanException("GCC > 7.0 is required")
+       if self.os == "Windows":
+           raise ConanException("Windows not supported")
+
 
 CI Integration
 --------------
 
-- Unless your library doesn't support a concrete operating system or compiler you will need to provide a CI systems integration
+- If you are packaging a header only library, it is only needed to provide one CI configuration (e.j Travis with gcc 6.1) to check
+  that the package is built correctly (use test_package).
+
+- Unless your library is a header only library or doesn't support a concrete operating system or compiler you will need to provide a CI systems integration
   to support:
 
     - **Linux:** GCC, desirable latest version from each major (4.9, 5.4, 6.3)
     - **Linux:** Clang, desirable latest version from each major (3.9, 4.0)
     - **Mac OSX:** Two latest versions of apple-clang, e.j (8.0, 8.1) or newer.
     - **Windows:** Visual Studio 12, 14 and 15 (or newer)
-
 
 - The easiest way to provide the CI integration (with Appveyor for Windows builds and Travis.ci for Linux and OSX) is to
   use the :ref:`conan new<conan_new>` command. Take a look to the options to generate a library layout with the needed appveyor/travis.
