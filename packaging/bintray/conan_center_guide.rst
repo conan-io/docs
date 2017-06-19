@@ -59,9 +59,6 @@ Recipe quality
 - **Raise errors on invalid configurations:** If the library doesn't work for a specific configuration, e.j requires **gcc>7** the recipe must contain a ``configure(self)`` method
   that raises an exception in case of invalid settings/options.
 
-- **LICENSE file:** The library recipe needs a ``LICENSE`` file containing the license of the packaged library.
-
-
 .. code-block:: python
 
    def configure():
@@ -69,6 +66,11 @@ Recipe quality
            raise ConanException("GCC > 7.0 is required")
        if self.os == "Windows":
            raise ConanException("Windows not supported")
+
+
+- **LICENSE file:** The library recipe needs a ``LICENSE`` file containing the license of the packaged library.
+
+
 
 
 CI Integration
