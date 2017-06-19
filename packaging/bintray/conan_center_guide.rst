@@ -64,7 +64,7 @@ Recipe quality
    def configure():
        if self.settings.compiler == "gcc" and self.settings.compiler.version < "7.0":
            raise ConanException("GCC > 7.0 is required")
-       if self.os == "Windows":
+       if self.settings.os == "Windows":
            raise ConanException("Windows not supported")
 
 
