@@ -42,7 +42,7 @@ Recipe quality
 
 - **Git public repository**: The recipe needs to be hosted in a public Git repository that allow collaboration.
 
-- **Recipe fields**: `description`, `license` and `url` are required.
+- **Recipe fields**: `description`, `license` and `url` are required. The `license` field refers to the library being packaged.
 
 - **Linter:** Is important to have a reasonable clean Linter, ``conan export`` and  ``conan test_package`` will
   output some warnings and errors, keep it as clean as possible to guarantee a recipe less error prone and more understandable.
@@ -68,9 +68,30 @@ Recipe quality
            raise ConanException("Windows not supported")
 
 
-- **LICENSE file:** The library recipe needs a ``LICENSE`` file containing the license of the packaged library.
+- **LICENSE of the recipe:** The public repository have to contain a ``LICENSE`` file with an OSS license.
+- **LICENSE of the library:** Every built binary package have to contain one or more ``license*`` file/s, so make sure that
+  in the ``package()`` method of your recipe, you are copying the library licenses to a ``licenses`` subfolder.
 
 
+.. code-block:: python
+
+   def package():
+       self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
+
+
+Sometimes there is no ``license`` file, and you need to extract the license from a header file, this is an example:
+
+
+.. code-block:: python
+
+    def package():
+        # Extract the License/s from the header to a file
+        tmp = tools.load("header.h")
+        license_contents = tmp[2:tmp.find("*/", 1)] # The license begins with a C comment /* and ends with */
+        tools.save("LICENSE", license_contents)
+
+        # Package it
+        self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
 
 CI Integration
