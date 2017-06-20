@@ -87,8 +87,8 @@ CI Integration
     - **Mac OSX:** Two latest versions of apple-clang, e.j (8.0, 8.1) or newer.
     - **Windows:** Visual Studio 12, 14 and 15 (or newer)
 
-- The easiest way to provide the CI integration (with Appveyor for Windows builds and Travis.ci for Linux and OSX) is to
-  use the :ref:`conan new<conan_new>` command. Take a look to the options to generate a library layout with the needed appveyor/travis.
+- The easiest way to provide the CI integration (with Appveyor for Windows builds, Travis.ci for Linux and OSX, and Gitlab for Linux) is to
+  use the :ref:`conan new<conan_new>` command. Take a look to the options to generate a library layout with the needed appveyor/travis/gitlab.
 
   You can also copy the following files from this `zlib Conan package repository`_ and adapt them:
 
@@ -96,7 +96,7 @@ CI Integration
     - ``.travis.yml`` file. Adjust your username, library reference etc
     - ``appveyor.yml`` file. Adjust your username, library reference etc
 
-- Take a look to the :ref:`Travis CI<travis_integration>` and :ref:`Appveyor<appveyor_ci>` integration guides.
+- Take a look to the :ref:`Travis CI<travis_integration>`, :ref:`Appveyor<appveyor_ci>` and :ref:`GitLab CI<gitlab_integration>` integration guides.
 
 
 
