@@ -3,7 +3,7 @@ conan search
 
 .. code-block:: bash
 
-	$ conan search [-r REMOTE] [pattern]
+	$ conan search [-h] [--case-sensitive] [-r REMOTE] [--raw] [-q QUERY] [pattern]
 
 Search both package recipes and package binaries in the local cache or in a remote server.
 If you provide a pattern, then it will search for existing package recipes matching that pattern.
@@ -18,15 +18,16 @@ assumed.
 	                        reference if "-q" is used. e.g.
 	                        MyPackage/1.2@user/channel
 
-	optional arguments:
-	  -h, --help            show this help message and exit
-	  --case-sensitive      Make a case-sensitive search
-	  -r REMOTE, --remote REMOTE
-	                        Remote origin
-	  -q QUERY, --query QUERY
-	                        Packages query: "os=Windows AND (arch=x86 OR
-	                        compiler=gcc)". The "pattern" parameter has to be a
-	                        package recipe reference: MyPackage/1.2@user/channel
+    optional arguments:
+      -h, --help            show this help message and exit
+      --case-sensitive      Make a case-sensitive search
+      -r REMOTE, --remote REMOTE
+                            Remote origin
+      --raw                 Print a plain text line for each result, only if pattern is not a package recipe reference.
+      -q QUERY, --query QUERY
+                            Packages query: "os=Windows AND (arch=x86 OR
+                            compiler=gcc)". The "pattern" parameter has to be a
+                            package recipe reference: MyPackage/1.2@user/channel
 
 **Examples**
 
