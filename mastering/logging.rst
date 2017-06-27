@@ -13,7 +13,7 @@ Example:
 
 .. code-block:: bash
 
-	export CONAN_TRACE_FILE="/tmp/conan_trace.log" # Or SET in windows
+	export CONAN_TRACE_FILE=/tmp/conan_trace.log # Or SET in windows
 	conan install zlib/1.2.8@lasote/stable
 	
 
@@ -50,7 +50,7 @@ If we execute again the conan install:
 
 .. code-block:: bash
 
-	export CONAN_TRACE_FILE="/tmp/conan_trace.log" # Or SET in windows
+	export CONAN_TRACE_FILE=/tmp/conan_trace.log # Or SET in windows
 	conan install zlib/1.2.8@lasote/stable
 	
 
