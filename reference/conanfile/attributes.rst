@@ -439,6 +439,60 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
+cpp_info
+--------
+
+Typically set in ``package_info()``, the ``cpp_info`` attribute has the following properties you can assign/append to:
+
+.. code-block:: python
+
+   self.cpp_info.includedirs = ['include']  # Ordered list of include paths
+   self.cpp_info.libs = []  # The libs to link against
+   self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
+   self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
+   self.cpp_info.bindirs = []  # Directories where executables and shared libs can be found
+   self.cpp_info.defines = []  # preprocessor definitions
+   self.cpp_info.cflags = []  # pure C flags
+   self.cpp_info.cppflags = []  # C++ compilation flags
+   self.cpp_info.sharedlinkflags = []  # linker flags
+   self.cpp_info.exelinkflags = []  # linker flags
+
+
+* includedirs: list of relative paths (starting from the package root) of directories where headers
+  can be found. By default it is initialized to ['include'], and it is rarely changed.
+* libs: ordered list of libs the client should link against. Empty by default, it is common
+  that different configurations produce different library names. For example:
+
+.. code-block:: python
+
+   def package_info(self):
+        if not self.settings.os == "Windows":
+            self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
+        else:
+            ...
+
+* libdirs: list of relative paths (starting from the package root) of directories in which to find
+  library object binaries (.lib, .a, .so. dylib). By default it is initialize to ['lib'], and it is rarely changed.
+* resdirs: list of relative paths (starting from the package root) of directories in which to find
+  resource files (images, xml, etc). By default it is initialize to ['res'], and it is rarely changed.
+* bindirs: list of relative paths (starting from the package root) of directories in which to find
+  library runtime binaries (like windows .dlls). By default it is initialized to ['bin'], and it is rarely changed.
+* defines: ordered list of preprocessor directives. It is common that the consumers have to specify
+  some sort of defines in some cases, so that including the library headers matches the binaries:
+* <c,cpp,exelink,sharedlink>flags, list of flags that the consumer should activate for proper
+  behavior. Usage of C++11 could be configured here, for example, although it is true that the consumer may
+  want to do some flag processing to check if different dependencies are setting incompatible flags
+  (c++11 after c++14)
+
+.. code-block:: python
+
+   if self.options.static:
+      if self.settings.compiler == "Visual Studio":
+          self.cpp_info.libs.append("ws2_32")
+      self.cpp_info.defines = ["ZMQ_STATIC"]
+
+      if not self.settings.os == "Windows":
+          self.cpp_info.cppflags = ["-pthread"]
 
 
 
