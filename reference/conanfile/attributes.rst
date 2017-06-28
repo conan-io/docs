@@ -1,6 +1,13 @@
 Attributes
 ==========
 
+name
+----
+<this needs to be filled in>
+
+version
+-------
+<this needs to be filled in, including whether it must be a constant or can be computed somehow, what the format must be, etc.>
 
 description
 ------------
