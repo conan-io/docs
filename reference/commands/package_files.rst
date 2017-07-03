@@ -60,5 +60,5 @@ Run:
 
 .. code-block:: bash
 
-    $ conan package_files Hello/0.1@lasote/stable -s os=Windows -s arch=x86 -s build_type=Relase --path=Release_x86
+    $ conan package_files Hello/0.1@lasote/stable -s os=Windows -s arch=x86 -s build_type=Release --path=Release_x86
 
