@@ -447,3 +447,9 @@ conanfile_directory
 
 ``self.conanfile_directory`` is a **read only property** that returns the directory in which the conanfile is
 located.
+
+
+cpp_info
+---------
+This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
+Read :ref:`package_info() method docs <package_info>` for more info.
