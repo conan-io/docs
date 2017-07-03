@@ -3,11 +3,20 @@ Attributes
 
 name
 ----
-<this needs to be filled in>
+This is a string, with a minimun of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
+It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
+
+The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``test_package`` commands), so it might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). However, the most common and suggested approach would be to define it in plain text as a constant.
+
 
 version
 -------
-<this needs to be filled in, including whether it must be a constant or can be computed somehow, what the format must be, etc.>
+The version attribute will define the version part of the package reference: ``PkgName/<version>@user/channel``
+It is a string, and can take any value, matching the same constraints defined for the above ``name`` attribute.
+In case the version follows semantic versioning in the form ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through version ranges instead of exact versions.
+
+The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export`` and ``test_package`` commands), so it might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). However, please note that this value might be used in the recipe in other places (as in ``source()`` method to retrieve code from elsewhere). In that case, this approach will not be valid and fail. The most common and suggested approach would be to define it in plain text as a constant.
+
 
 description
 ------------
