@@ -12,7 +12,7 @@ The name is only necessary for ``export``-ing the recipe into the local cache (`
 version
 -------
 The version attribute will define the version part of the package reference: ``PkgName/<version>@user/channel``
-It is a string, and can take any value, matching the same constraints defined for the above ``name`` attribute.
+It is a string, and can take any value, matching the same constraints as the ``name`` attribute.
 In case the version follows semantic versioning in the form ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through version ranges instead of exact versions.
 
 The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export`` and ``test_package`` commands), so it might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). However, please note that this value might be used in the recipe in other places (as in ``source()`` method to retrieve code from elsewhere). In that case, this approach will not be valid and fail. The most common and suggested approach would be to define it in plain text as a constant.
