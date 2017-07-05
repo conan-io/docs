@@ -14,7 +14,7 @@ Here is an example of what we could do in our **configure method**:
 .. code-block:: python
 
       ...
-      requires = "Poco/1.7.3@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
       ...
 
       def configure(self):

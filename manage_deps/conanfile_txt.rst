@@ -17,7 +17,7 @@ If you check the full path, you will see that they are pointing to a folder in y
 
 If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the headers and the libraries for each package.
 
-If you execute a ``conan install Poco/1.7.3@lasote/stable`` command in your shell, conan will download the Poco package and its dependencies (*OpenSSL/1.0.2g@lasote/stable* and *zlib/1.2.8@lasote/stable*) to your conan cache and print information about the folder of the local cache where they are installed. You could handle them manually if you want. But the recommended approach is using a ``conanfile.txt``.
+If you execute a ``conan install Poco/1.7.8p3@pocoproject/stable`` command in your shell, conan will download the Poco package and its dependencies (*OpenSSL/1.0.2l@conan/stable* and *zlib/1.2.11@conan/stable*) to your conan cache and print information about the folder of the local cache where they are installed. You could handle them manually if you want. But the recommended approach is using a ``conanfile.txt``.
 
 
 Requires
@@ -29,7 +29,7 @@ The requirements look like this:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    
 
 Where:
@@ -62,8 +62,8 @@ Not necessarily, just enter the new version in **[requires]**:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
-   OpenSSL/1.0.2p@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
+   OpenSSL/1.0.2p@conan/stable
 
 The second line will override the OpenSSL/1.0.2g required by poco, with the (non-existent yet)  **OpenSSL/1.0.2p**
 
@@ -72,9 +72,9 @@ Other example could be, in order to try out some new zlib alpha features, we cou
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    OpenSSL/1.0.2p@lasote/stable
-   zlib/1.2.9@otheruser/alpha
+   zlib/1.2.11@otheruser/alpha
 
 
 .. _generators:
@@ -103,7 +103,7 @@ On the other hand, **options** are intended for package specific configuration, 
    
    You can search and see the available options for a package with "conan search <reference>" command: 
       
-      $ conan search Poco/1.7.3@lasote/stable
+      $ conan search Poco/1.7.8p3@pocoproject/stable
       
 
 As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the ``conanfile.txt``:
@@ -111,7 +111,7 @@ As an example, we can modify the previous example to use dynamic linkage instead
 .. code-block:: text
 
     [requires]
-    Poco/1.7.3@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
     
     [generators]
     cmake
@@ -195,7 +195,7 @@ Edit the ``conanfile.txt`` file and paste the following **[imports]** section:
 .. code-block:: text
    
     [requires]
-    Poco/1.7.3@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
     
     [generators]
     cmake
