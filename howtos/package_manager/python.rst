@@ -221,7 +221,7 @@ The ``conanfile.py`` has a few more lines than the above, but still quite easy t
     class PocoPyReuseConan(ConanFile):
         name = "PocoPy"
         version = "0.1"
-        requires = "Poco/1.7.3@lasote/stable", "pybind11/any@memsharded/stable"
+        requires = "Poco/1.7.8p3@pocoproject/stable", "pybind11/any@memsharded/stable"
         settings = "os", "compiler", "arch", "build_type"
         exports = "*"
         generators = "cmake"
@@ -282,11 +282,11 @@ Also, in the ``conan install`` output we can read the dependencies that are bein
 .. code-block:: bash
 
     Requirements
-        OpenSSL/1.0.2h@lasote/stable from conan.io
-        Poco/1.7.3@lasote/stable from conan.io
+        OpenSSL/1.0.2l@conan/stable from conan.io
+        Poco/1.7.8p3@pocoproject/stable from conan.io
         PocoPy/0.1@memsharded/testing from local
         pybind11/any@memsharded/stable from conan.io
-        zlib/1.2.8@lasote/stable from conan.io
+        zlib/1.2.11@conan/stable from conan.io
 
 
 

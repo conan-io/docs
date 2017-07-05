@@ -56,7 +56,7 @@ It works using the :ref:`environment_append <environment_append_tool>` context m
 
    class ExampleConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.3@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
      
       def imports(self):
@@ -83,7 +83,7 @@ For Windows users:
 
    class ExampleConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.3@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
 
       def _run_cmd(self, command):
@@ -176,7 +176,7 @@ It's valid to invoke both gcc and clang compilers.
 
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.3@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
       generators = "gcc"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
 

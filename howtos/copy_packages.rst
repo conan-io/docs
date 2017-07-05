@@ -58,8 +58,8 @@ own username:
 
 .. code-block:: bash
 
-   $ conan copy Poco/1.7.3@lasote/stable myuser/stable
-   $ conan upload Poco/1.7.3@myuser/stable -r=myremote --all
+   $ conan copy Poco/1.7.8p3@pocoproject/stable myuser/stable
+   $ conan upload Poco/1.7.8p3@myuser/testing -r=myremote --all
    
 Contribute with binaries
 ---------------------------

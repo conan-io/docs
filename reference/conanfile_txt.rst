@@ -15,8 +15,8 @@ List of requirements, specifing the full reference.
 .. code-block:: text
 
     [requires]
-    Poco/1.7.3@lasote/stable
-    zlib/1.2.8@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
+    zlib/1.2.11@conan/stable
 
 
 Also support :ref:`version ranges<version_ranges>`:
@@ -25,8 +25,8 @@ Also support :ref:`version ranges<version_ranges>`:
 .. code-block:: text
 
     [requires]
-    Poco/[>1.0,<1.8]@lasote/stable
-    zlib/1.2.8@lasote/stable
+    Poco/[>1.0,<1.8]@pocoproject/stable
+    zlib/1.2.11@conan/stable
 
 
 
@@ -39,8 +39,8 @@ List of :ref:`generators<generators_reference>`
 .. code-block:: text
 
     [requires]
-    Poco/1.7.3@lasote/stable
-    zlib/1.2.8@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
+    zlib/1.2.11@conan/stable
 
     [generators]
     xcode
@@ -58,8 +58,8 @@ List of :ref:`options<options_txt>`. Always specifying **package_name:option = V
 .. code-block:: text
 
     [requires]
-    Poco/1.7.3@lasote/stable
-    zlib/1.2.8@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
+    zlib/1.2.11@conan/stable
 
     [generators]
     cmake
@@ -78,8 +78,8 @@ List of files to be imported to a local directory. Read more: :ref:`imports<impo
 .. code-block:: text
 
     [requires]
-    Poco/1.7.3@lasote/stable
-    zlib/1.2.8@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
+    zlib/1.2.11@conan/stable
 
     [generators]
     cmake
