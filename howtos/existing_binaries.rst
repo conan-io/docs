@@ -100,3 +100,8 @@ Having a ``test_package`` is still very recommended, to locally test the package
     $ conan test_package --build=missing -s os=Windows -s compiler=gcc -s ...
 
 Latest 2 steps can be repeated for any number of configurations.
+
+Examples
+-------------------------
+
+For a concrete working example of packaging already existing binaries, refer to this repo [conan-package-binary-example](https://github.com/shreyasbharath/conan-package-binary-example)
