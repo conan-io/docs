@@ -36,6 +36,7 @@ This is the typical ``~/.conan/conan.conf`` file:
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
+    # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
     # cmake_system_processor              # environment CONAN_CMAKE_SYSTEM_PROCESSOR
