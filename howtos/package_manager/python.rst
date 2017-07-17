@@ -151,7 +151,7 @@ In the above example, the code is reused in the ``build()`` method as an example
 
 
 
-.. code-block:: python
+.. code-block:: bash
 
     $ conan install -g env -g txt
     ...

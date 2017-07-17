@@ -415,7 +415,7 @@ A typical ``imports()`` method for shared libs could be:
 
 The ``self.copy()`` method inside ``imports()`` support the following arguments:
 
-- pattern: an fnmatch file pattern of the files that should be copied. Eg. *.dll
+- pattern: an fnmatch file pattern of the files that should be copied. Eg. \*.dll
 - dst: the destination local folder, wrt to current directory, to which the files will be copied. Eg: "bin"
 - src: the source folder in which those files will be searched. This folder will be stripped from the dst name. Eg.: lib/Debug/x86
 - root_package: fnmatch pattern of the package name ("OpenCV", "Boost") from which files will be copied. Default: all packages in deps
