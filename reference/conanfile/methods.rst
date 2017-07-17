@@ -107,7 +107,7 @@ The syntax of copy is as follows:
 
 .. code-block:: python
 
-   self.copy(pattern, dst, src, keep_path=False, symlinks=None, excludes=None)
+   self.copy(pattern, dst, src, keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
 
 - ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``

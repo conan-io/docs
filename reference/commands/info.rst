@@ -113,8 +113,8 @@ changed (most likely due to a git push on that package):
 
 .. code-block:: bash
 
-    $ conan info -bo zlib/1.2.8@lasote/stable
-    [zlib/1.2.8@lasote/stable], [OpenSSL/1.0.2g@lasote/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.2@lasote/stable]
+    $ conan info -bo zlib/1.2.11@conan/stable
+    [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
 
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.

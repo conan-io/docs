@@ -17,7 +17,7 @@ package testing files.
 .. code-block:: bash
 
    positional arguments:
-     name           Package name, e.g.: Poco/1.7.3@user/testing
+     name           Package name, e.g.: Poco/1.7.8p3@pocoproject/stable
 
    optional arguments:
      -h, --help     show this help message and exit
