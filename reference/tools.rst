@@ -436,3 +436,22 @@ when ``no_copy_source==True``.
     
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
+
+
+tools.touch()
+-------------
+Updates the timestamp (last access and last modificatiion times) of a file.
+This is similar to Unix' ``touch`` command,
+except the command fails if the file does not exist.
+
+Optionally, a tuple of two numbers can be specified,
+which denotes the new values for the 'last access' and 'last modified' times respectively.
+
+.. code-block:: python
+
+    from conans import tools
+    import time
+   
+    tools.touch("myfile")                            # Sets atime and mtime to the current time
+    tools.touch("myfile", (time.time(), time.time()) # Similar to above
+    tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
