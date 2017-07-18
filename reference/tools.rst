@@ -416,3 +416,23 @@ Utility methods to load and save files, in one line. They will manage the open a
 
     content = tools.load("myfile.txt")
     tools.save("otherfile.txt", "contents of the file")
+
+
+tools.mkdir(), tools.rmdir()
+----------------------------
+Utility methods to create/delete a directory.
+The existance of the specified directory is checked.
+I.e. ``mkdir()`` will do nothing if the directory already exists
+and ``rmdir()`` will do nothing if the directory does not exists.
+This makes it safe to use these functions in the ``package()`` method of a ``conanfile.py``
+when ``no_copy_source==True``.
+
+.. code-block:: python
+
+    from conans import tools
+    
+    tools.mkdir("mydir") # Creates mydir if it does not already exist
+    tools.mkdir("mydir") # Does nothing
+    
+    tools.rmdir("mydir") # Deletes mydir
+    tools.rmdir("mydir") # Does nothing
