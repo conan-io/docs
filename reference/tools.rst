@@ -455,3 +455,10 @@ which denotes the new values for the 'last access' and 'last modified' times res
     tools.touch("myfile")                            # Sets atime and mtime to the current time
     tools.touch("myfile", (time.time(), time.time()) # Similar to above
     tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
+
+
+tools.relative_dirs()
+---------------------
+Recursively walks a given directory (using ``os.walk()``)
+and returns a list of all contained file paths
+relative to the given directory.
