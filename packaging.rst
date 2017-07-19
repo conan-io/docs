@@ -13,6 +13,7 @@ This section shows how to create, build, upload and test your packages
    packaging/existing_binaries
    packaging/packaging  
    packaging/upload
+   packaging/inspecting_packages
    packaging/using_bintray
    packaging/package_info
    packaging/package_tools
