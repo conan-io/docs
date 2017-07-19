@@ -4,8 +4,11 @@
 Getting started
 ===============
 
-As an example, let's start with one of the most popular C++ libraries: [POCO](https://pocoproject.org/).
+As an example, let's start with one of the most popular C++ libraries: POCO_.
 Conan **works with any build system** and it does not depend on CMake, though we will use CMake for this example for convenience.
+
+.. _POCO: https://pocoproject.org/
+
 
 A Timer using POCO libraries
 ----------------------------
@@ -79,7 +82,7 @@ Now, also create a ``conanfile.txt`` inside the same folder with the following c
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    
    [generators]
    cmake
@@ -104,6 +107,7 @@ Just include the generated file and use those variables inside our own ``CMakeLi
 
    project(FoundationTimer)
    cmake_minimum_required(VERSION 2.8.12)
+   add_definitions("-std=c++11")
 
    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
    conan_basic_setup()
@@ -192,7 +196,7 @@ You can also inspect the package binaries (for different installed binaries for 
 
 .. code-block:: bash
 
-    $ conan search Poco/1.7.3@lasote/stable
+    $ conan search Poco/1.7.8p3@pocoproject/stable
 
 Please check the reference for more information on how to search in remotes, or how to remove
 or clean packages from the local cache, or how to define custom cache directory per user or per project.

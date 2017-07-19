@@ -6,7 +6,9 @@ name
 This is a string, with a minimun of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
 It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
-The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``test_package`` commands), so it might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). However, the most common and suggested approach would be to define it in plain text as a constant.
+The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). 
+However, the most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
 
 
 version
@@ -15,7 +17,10 @@ The version attribute will define the version part of the package reference: ``P
 It is a string, and can take any value, matching the same constraints as the ``name`` attribute.
 In case the version follows semantic versioning in the form ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through version ranges instead of exact versions.
 
-The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export`` and ``test_package`` commands), so it might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). However, please note that this value might be used in the recipe in other places (as in ``source()`` method to retrieve code from elsewhere), making this value not constant means that it may evaluate differently in different contexts (e.g., on different machines or for different users) leading to unrepeatable or unpredictable results. It should be used with caution. The most common and suggested approach would be to define it in plain text as a constant.
+The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
+Please note that this value might be used in the recipe in other places (as in ``source()`` method to retrieve code from elsewhere), making this value not constant means that it may evaluate differently in different contexts (e.g., on different machines or for different users) leading to unrepeatable or unpredictable results.
+The most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
 
 
 description
@@ -445,6 +450,9 @@ This is mostly an optimization for packages with large source codebases, to avoi
 
 To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``
 
+When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
+
+
 folders
 ---------
 In the package recipe methods, some attributes pointing to the relevant folders can be defined. Not all of them will be defined always, only in those relevant methods that might use them.
@@ -456,10 +464,15 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
 
-
-
 conanfile_directory
 -------------------
 
 ``self.conanfile_directory`` is a **read only property** that returns the directory in which the conanfile is
 located.
+
+
+cpp_info
+---------
+This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
+Read :ref:`package_info() method docs <package_info>` for more info.
+

@@ -17,7 +17,7 @@ If you check the full path, you will see that they are pointing to a folder in y
 
 If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the headers and the libraries for each package.
 
-If you execute a ``conan install Poco/1.7.3@lasote/stable`` command in your shell, conan will download the Poco package and its dependencies (*OpenSSL/1.0.2g@lasote/stable* and *zlib/1.2.8@lasote/stable*) to your conan cache and print information about the folder of the local cache where they are installed. You could handle them manually if you want. But the recommended approach is using a ``conanfile.txt``.
+If you execute a ``conan install Poco/1.7.8p3@pocoproject/stable`` command in your shell, conan will download the Poco package and its dependencies (*OpenSSL/1.0.2l@conan/stable* and *zlib/1.2.11@conan/stable*) to your conan cache and print information about the folder of the local cache where they are installed. You could handle them manually if you want. But the recommended approach is using a ``conanfile.txt``.
 
 
 Requires
@@ -29,14 +29,14 @@ The requirements look like this:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    
 
 Where:
 
    - ``Poco`` is the name of the package, usually the same of the project/library
    - ``1.7.3`` is the version, usually matching the one of the packaged project/library. Can be any string, not necessarily a number, so it is possible to have a "develop" or "master" version. Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that are regenerated periodically.
-   - ``lasote`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So you can easily for example upload a certain libray under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
+   - ``pocoproject`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So you can easily for example upload a certain libray under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
    - ``stable`` is the channel. Channels also allow to have different packages for the same library and use them interchangeably. They usually denote the maturity of the package, as an arbitrary string: "stable", "testing", but it can be used for any purpose, like package revisions (the library version has not changed, but the package recipe has evolved) 
 
 
@@ -62,8 +62,8 @@ Not necessarily, just enter the new version in **[requires]**:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
-   OpenSSL/1.0.2p@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
+   OpenSSL/1.0.2p@conan/stable
 
 The second line will override the OpenSSL/1.0.2g required by poco, with the (non-existent yet)  **OpenSSL/1.0.2p**
 
@@ -72,9 +72,9 @@ Other example could be, in order to try out some new zlib alpha features, we cou
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    OpenSSL/1.0.2p@lasote/stable
-   zlib/1.2.9@otheruser/alpha
+   zlib/1.2.11@otheruser/alpha
 
 
 .. _generators:
@@ -103,7 +103,7 @@ On the other hand, **options** are intended for package specific configuration, 
    
    You can search and see the available options for a package with "conan search <reference>" command: 
       
-      $ conan search Poco/1.7.3@lasote/stable
+      $ conan search Poco/1.7.8p3@pocoproject/stable
       
 
 As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the ``conanfile.txt``:
@@ -111,7 +111,7 @@ As an example, we can modify the previous example to use dynamic linkage instead
 .. code-block:: text
 
     [requires]
-    Poco/1.7.3@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
     
     [generators]
     cmake
@@ -195,7 +195,7 @@ Edit the ``conanfile.txt`` file and paste the following **[imports]** section:
 .. code-block:: text
    
     [requires]
-    Poco/1.7.3@lasote/stable
+    Poco/1.7.8p3@pocoproject/stable
     
     [generators]
     cmake

@@ -8,7 +8,7 @@ Let's take a look at the complete ``conanfile.txt`` from the previous *timer* ex
 .. code-block:: text
    
       [requires]
-      Poco/1.7.3@lasote/stable
+      Poco/1.7.8p3@pocoproject/stable
       
       [generators]
       gcc
@@ -32,7 +32,7 @@ The equivalent ``conanfile.py`` file is:
    
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.3@lasote/stable" # comma separated list of requirements
+      requires = "Poco/1.7.8p3@pocoproject/stable" # comma separated list of requirements
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
             
@@ -67,7 +67,7 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
 
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.3@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
 
