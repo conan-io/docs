@@ -102,27 +102,27 @@ You will see something similar to:
 .. code-block:: bash
 
    It seems to be the first time you run conan
-   Auto detecting your dev setup to initialize conan.conf
+   Auto detecting your dev setup to initialize ~/.conan/profiles/default
    Found Visual Studio 9
    Found Visual Studio 12
    Found Visual Studio 14
    Found gcc 4.8
    Found clang 3.7
-   Default conan.conf settings
+   Default ~/.conan/profiles/default settings
            os=Windows
            arch=x86_64
            compiler=Visual Studio
            compiler.version=14
            compiler.runtime=MD
            build_type=Release
-   *** You can change them in ~/.conan/conan.conf ***
+   *** You can change them in ~/.conan/profiles/default ***
    *** Or override with -s compiler='other' -s ...s***
 
 As you can see, on first execution, conan performs a basic detection of your installed tools and
-saves the details in the **conan.conf** file (under your user home directory **~/.conan/conan.conf**).
+saves the details in the **~/.conan/profiles/default** file.
 These auto-detected settings are just a convenience and act as a default for your conan commands.
 You can change them at any time in this file or override them on the command line with new values.
-You can also delete them from **conan.conf**, in which case you will have to fully specify them for
+You can also delete them from **~/.conan/profiles/default**, in which case you will have to fully specify them for
 new projects.
 
 

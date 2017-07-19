@@ -32,7 +32,7 @@ directly:
 The process will be:
 
 1. Conan will get the user input settings and options, which can come from the command line,
-   be default values defined in ``~/.conan/conan.conf``, defined in ``profile`` files, or cached
+   be default values defined in ``~/.conan/profiles/default``, defined in ``profile`` files, or cached
    from the latest ``conan install`` execution.
 2. Conan will retrieve the ``MyLib/1.0@user/channel`` recipe, read the ``settings`` attribute, and
    assign the necessary values.

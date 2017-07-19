@@ -134,7 +134,7 @@ can see the cmake defined variables, and a ``conaninfo.txt`` where information a
 requirements and options is saved.
 
 
-It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified in the command line or taken from the defaults in ``<userhome>/.conan/conan.conf`` file.
+It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified in the command line or taken from the defaults in ``<userhome>/.conan/profiles/default`` file.
 
 .. image:: images/install_flow.png
    :height: 400 px
@@ -215,7 +215,7 @@ As an exercise to the reader, try building your timer project with a different c
 For example, you could try building the 32 bits version.
 
 - The first time you run the **conan** command, your settings will be detected (compiler, architecture...) automatically.
-- You can change your default settings by editing the ``~/.conan/conan.conf`` file
+- You can change your default settings by editing the ``~/.conan/profiles/default`` file
 - You can always override the default settings in **install** command with the **-s** parameter. Example:
 
 .. code-block:: bash

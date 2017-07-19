@@ -10,6 +10,7 @@ These are the most important configuration files, used to customize conan.
    :maxdepth: 2
 
    config_files/conan.conf
+   config_files/default_profile
    config_files/settings.yml
    config_files/registry.txt
    config_files/short_paths.conf

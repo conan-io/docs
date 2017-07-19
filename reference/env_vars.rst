@@ -70,7 +70,7 @@ Read more about it in :ref:`user_channel`
 
 CONAN_ENV_XXXX_YYYY
 -------------------
-You can override the default settings (located in your ``~/.conan/conan.conf`` directory) with environment variables.
+You can override the default settings (located in your ``~/.conan/profiles/default`` directory) with environment variables.
 
 The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the sub-setting name.
 
