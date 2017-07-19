@@ -202,6 +202,21 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
           self.cpp_info.cppflags = ["-pthread"]
 
 
+If your recipe has requirements, you can access to your requirements ``cpp_info`` as well using the ``deps_cpp_info`` object.
+
+.. code-block:: python
+
+
+   class OtherConan(ConanFile):
+       name = "OtherLib"
+       version = "1.0"
+       requires = "MyLib/1.6.0@conan/stable"
+
+       def build(self):
+           self.out.warn(self.deps_cpp_info["MyLib"].libdirs)
+
+
+
 .. _environment_information:
 
 env_info
@@ -222,6 +237,63 @@ The :ref:`virtualenv<virtual_environment_generator>` generator will use the self
 
 In previous conan versions you needed to use `ConfigureEnvironment` helper (now deprecated) to reuse these variables, but it's not needed anymore.
 They will be automatically applied before calling the consumer conanfile.py methods `source`, `build`, `package` and `imports`.
+
+If your recipe has requirements, you can access to your requirements ``env_info`` as well using the ``deps_env_info`` object.
+
+
+.. code-block:: python
+
+
+   class OtherConan(ConanFile):
+       name = "OtherLib"
+       version = "1.0"
+       requires = "MyLib/1.6.0@conan/stable"
+
+       def build(self):
+           self.out.warn(self.deps_env_info["MyLib"].othervar)
+
+
+.. _user_info:
+
+user_info
++++++++++
+
+If you need to declare custom variables not related with C/C++ (`cpp_info`) and the variables are not
+environment variables (`env_info`), you can use the ``self.user_info`` object.
+
+Currently only the ``cmake``, ``cmake_multi`` and ``txt`` generators supports ``user_info`` variables.
+
+
+.. code-block:: python
+
+
+   class MyLibConan(ConanFile):
+       name = "MyLib"
+       version = "1.6.0"
+
+       # ...
+
+       def package_info(self):
+           self.user_info.var1 = 2
+
+
+For the example above, in the ``cmake`` and ``cmake_multi`` generators, a variable ``CONAN_USER_MYLIB_var1`` will be declared.
+
+If your recipe has requirements, you can access to your requirements ``user_info`` using the ``deps_user_info`` object.
+
+
+.. code-block:: python
+
+
+   class OtherConan(ConanFile):
+       name = "OtherLib"
+       version = "1.0"
+       requires = "MyLib/1.6.0@conan/stable"
+
+       def build(self):
+           self.out.warn(self.deps_user_info["MyLib"].var1)
+
+
 
 
 .. _configure_config_options:

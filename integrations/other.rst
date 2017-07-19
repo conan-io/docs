@@ -38,7 +38,9 @@ Just specify the **txt** generator in your conanfile:
       [generators]
       txt
 
-And a file is generated, with the same information as in the case of CMake and gcc, only in a generic, text format:
+And a file is generated, with the same information as in the case of CMake and gcc, only in a generic, text format,
+containing the information from the ``deps_cpp_info`` and ``deps_user_info``. Check the conanfile :ref:`package_info<package_info>`
+method to know more about these objects:
 
 .. code-block:: text
 
@@ -78,6 +80,13 @@ And a file is generated, with the same information as in the case of CMake and g
    [defines]
    POCO_STATIC=ON
    POCO_NO_AUTOMATIC_LIBS
+
+   [USER_MyRequiredLib1]
+   somevariable=Some Value
+   othervar=Othervalue
+
+   [USER_MyRequiredLib2]
+   myvar=34
    
    
 Use conan data model (conanfile.py)
@@ -155,6 +164,22 @@ and much more reusable to create a generator to simplify the task for your build
    
          # self.run("invoke here your configure, make, or others")
          # self.run("basically you can do what you want with your requirements build info)
+
+
+         # Environment variables (from requirements self.env_info objects)
+         # are automatically applied in the python ``os.environ`` but can be accesible as well:
+         print("--------- Globally -------------")
+         print(self.env)
+
+         print("--------- FROM MyLib -------------")
+         print(self.deps_env_info["MyLib"].some_env_var)
+
+
+         # User declared variables (from requirements self.user_info objects)
+         # are available in the self.deps_user_info object
+         print("--------- FROM MyLib -------------")
+         print(self.deps_user_info["MyLib"].some_user_var)
+
 
 
 Create your own generator
