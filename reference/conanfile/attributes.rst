@@ -1,6 +1,27 @@
 Attributes
 ==========
 
+name
+----
+This is a string, with a minimun of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
+It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
+
+The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). 
+However, the most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
+
+
+version
+-------
+The version attribute will define the version part of the package reference: ``PkgName/<version>@user/channel``
+It is a string, and can take any value, matching the same constraints as the ``name`` attribute.
+In case the version follows semantic versioning in the form ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through version ranges instead of exact versions.
+
+The version is only strictly necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
+Please note that this value might be used in the recipe in other places (as in ``source()`` method to retrieve code from elsewhere), making this value not constant means that it may evaluate differently in different contexts (e.g., on different machines or for different users) leading to unrepeatable or unpredictable results.
+The most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
+
 
 description
 ------------
@@ -443,8 +464,6 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
 
-
-
 conanfile_directory
 -------------------
 
@@ -456,3 +475,4 @@ cpp_info
 ---------
 This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
 Read :ref:`package_info() method docs <package_info>` for more info.
+
