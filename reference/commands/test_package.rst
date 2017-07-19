@@ -5,19 +5,25 @@ conan test_package
 
 .. code-block:: bash
 
-	$  conan test_package [-h] [-ne] [-f FOLDER] [--keep-source]
-                            [--manifests [MANIFESTS]]
-                            [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                            [--verify [VERIFY]] [--update] [--scope SCOPE]
-                            [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
-                            [--settings SETTINGS] [--env ENV]
-                            [--build [BUILD [BUILD ...]]]
-                            [path]
+	$  conan test_package [-h] [-ne] [-tf TEST_FOLDER] [--keep-source]
+                          [--test-only] [--cwd CWD] [--manifests [MANIFESTS]]
+                          [--manifests-interactive [MANIFESTS_INTERACTIVE]]
+                          [--verify [VERIFY]] [--update] [--scope SCOPE]
+                          [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
+                          [--settings SETTINGS] [--env ENV]
+                          [--build [BUILD [BUILD ...]]]
+                          [user_channel]
 
 
 
+.. note::
 
-The ``test_package`` (previously named **test**) command looks for a **test_package subfolder** in the current directory, and builds the
+    The ``test_package`` command was the preferred way to create packages. Now this has been superseded by the ``conan create``
+    command. ``test_package`` will keep backwards compatibility for a while, but the recommended usage from now would be to use
+    for pure testing, with ``conan test_package user/channel --test-only``
+
+
+The ``test_package`` command looks for a **test_package subfolder** in the current directory, and builds the
 project that is in it. It will typically be a project with a single requirement, pointing to
 the ``conanfile.py`` being developed in the current directory.
 
