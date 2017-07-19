@@ -416,3 +416,49 @@ Utility methods to load and save files, in one line. They will manage the open a
 
     content = tools.load("myfile.txt")
     tools.save("otherfile.txt", "contents of the file")
+
+
+tools.mkdir(), tools.rmdir()
+----------------------------
+Utility methods to create/delete a directory.
+The existance of the specified directory is checked.
+I.e. ``mkdir()`` will do nothing if the directory already exists
+and ``rmdir()`` will do nothing if the directory does not exists.
+This makes it safe to use these functions in the ``package()`` method of a ``conanfile.py``
+when ``no_copy_source==True``.
+
+.. code-block:: python
+
+    from conans import tools
+    
+    tools.mkdir("mydir") # Creates mydir if it does not already exist
+    tools.mkdir("mydir") # Does nothing
+    
+    tools.rmdir("mydir") # Deletes mydir
+    tools.rmdir("mydir") # Does nothing
+
+
+tools.touch()
+-------------
+Updates the timestamp (last access and last modificatiion times) of a file.
+This is similar to Unix' ``touch`` command,
+except the command fails if the file does not exist.
+
+Optionally, a tuple of two numbers can be specified,
+which denotes the new values for the 'last access' and 'last modified' times respectively.
+
+.. code-block:: python
+
+    from conans import tools
+    import time
+   
+    tools.touch("myfile")                            # Sets atime and mtime to the current time
+    tools.touch("myfile", (time.time(), time.time()) # Similar to above
+    tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
+
+
+tools.relative_dirs()
+---------------------
+Recursively walks a given directory (using ``os.walk()``)
+and returns a list of all contained file paths
+relative to the given directory.
