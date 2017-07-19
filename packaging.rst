@@ -9,6 +9,8 @@ This section shows how to create, build, upload and test your packages
    :maxdepth: 2
 
    packaging/getting_started
+   packaging/package_repo
+   packaging/existing_binaries
    packaging/packaging  
    packaging/upload
    packaging/using_bintray
