@@ -40,7 +40,7 @@ First, we are going to see how to control the tests build with an **option** (ge
    if(BUILD_TEST)
        include(CTest)
        enable_testing()
-       ...
+       # ...
    endif()
 
 

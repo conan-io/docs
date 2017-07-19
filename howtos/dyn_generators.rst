@@ -68,33 +68,33 @@ Then, write in it the following **conanfile.py**:
     from conans.model import Generator
     from conans.paths import BUILD_INFO
     from conans import ConanFile, CMake
-    
+
     class PremakeDeps(object):
-        def __init__(self, deps_cpp_info):
+        def __init__(self, conanfile):
             self.include_paths = ",\n".join('"%s"' % p.replace("\\", "/")
-                                           for p in deps_cpp_info.include_paths)
+                                           for p in conanfile.deps_cpp_info.include_paths)
             self.lib_paths = ",\n".join('"%s"' % p.replace("\\", "/")
-                                       for p in deps_cpp_info.lib_paths)
+                                       for p in conanfile.deps_cpp_info.lib_paths)
             self.bin_paths = ",\n".join('"%s"' % p.replace("\\", "/")
-                                       for p in deps_cpp_info.bin_paths)
-            self.libs = ", ".join('"%s"' % p for p in deps_cpp_info.libs)
-            self.defines = ", ".join('"%s"' % p for p in deps_cpp_info.defines)
-            self.cppflags = ", ".join('"%s"' % p for p in deps_cpp_info.cppflags)
-            self.cflags = ", ".join('"%s"' % p for p in deps_cpp_info.cflags)
-            self.sharedlinkflags = ", ".join('"%s"' % p for p in deps_cpp_info.sharedlinkflags)
-            self.exelinkflags = ", ".join('"%s"' % p for p in deps_cpp_info.exelinkflags)
-    
-            self.rootpath = "%s" % deps_cpp_info.rootpath.replace("\\", "/")
-            
+                                       for p in conanfile.deps_cpp_info.bin_paths)
+            self.libs = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.libs)
+            self.defines = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.defines)
+            self.cppflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.cppflags)
+            self.cflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.cflags)
+            self.sharedlinkflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.sharedlinkflags)
+            self.exelinkflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.exelinkflags)
+
+            self.rootpath = "%s" % conanfile.deps_cpp_info.rootpath.replace("\\", "/")
+
     class Premake(Generator):
         @property
         def filename(self):
             return "conanpremake.lua"
-    
+
         @property
-        def content(self):     
-            deps = PremakeDeps(self.deps_build_info)
-    
+        def content(self):
+            deps = PremakeDeps(self.conanfile)
+
             template = ('conan_includedirs{dep} = {{{deps.include_paths}}}\n'
                         'conan_libdirs{dep} = {{{deps.lib_paths}}}\n'
                         'conan_bindirs{dep} = {{{deps.bin_paths}}}\n'
@@ -104,33 +104,34 @@ Then, write in it the following **conanfile.py**:
                         'conan_cflags{dep} = {{{deps.cflags}}}\n'
                         'conan_sharedlinkflags{dep} = {{{deps.sharedlinkflags}}}\n'
                         'conan_exelinkflags{dep} = {{{deps.exelinkflags}}}\n')
-    
+
             sections = ["#!lua"]
             all_flags = template.format(dep="", deps=deps)
             sections.append(all_flags)
             template_deps = template + 'conan_rootpath{dep} = "{deps.rootpath}"\n'
-    
+
             for dep_name, dep_cpp_info in self.deps_build_info.dependencies:
                 deps = PremakeDeps(dep_cpp_info)
                 dep_flags = template_deps.format(dep="_" + dep_name, deps=deps)
                 sections.append(dep_flags)
-    
+
             return "\n".join(sections)
-    
-    
+
+
     class MyCustomGeneratorPackage(ConanFile):
         name = "PremakeGen"
         version = "0.1"
         url = "https://github.com/memsharded/conan-premake"
         license = "MIT"
-        
+
         def build(self):
           pass
-        
+
         def package_info(self):
           self.cpp_info.includedirs = []
           self.cpp_info.libdirs = []
           self.cpp_info.bindirs = []
+
 
 
 This is a full working example. Note the ``PremakeDeps`` class as a helper. The generator is

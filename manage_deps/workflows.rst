@@ -81,9 +81,13 @@ the project).
       $ cd .. && mkdir release && cd release
       $ conan install ../../example-hello -s build_type=Release --build=missing
       $ cmake ../../example-hello -G "Visual Studio 14 Win64"
-      
-      
-      
+
+
+.. note::
+
+    You can also use the ``cwd`` parameter in the ``conan install`` command to change the current directory.
+
+
 So the layout will be:
       
 ::

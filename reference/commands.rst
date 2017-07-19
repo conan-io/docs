@@ -11,6 +11,7 @@ Conan command reference:
 
    commands/export.rst
    commands/install.rst
+   commands/create.rst
    commands/search.rst
    commands/info.rst
    commands/remote.rst
@@ -27,3 +28,5 @@ Conan command reference:
    commands/package_files.rst
    commands/imports.rst
    commands/config.rst
+   commands/get.rst
+   commands/alias.rst

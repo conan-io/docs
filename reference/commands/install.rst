@@ -7,14 +7,14 @@ conan install
 .. code-block:: bash
 
     $ conan install [-h] [--package PACKAGE] [--all] [--file FILE]
-                    [--generator GENERATOR] [--werror]
-                    [--manifests [MANIFESTS]]
-                    [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                    [--verify [VERIFY]] [--no-imports] [--update]
-                    [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
-                    [--options OPTIONS] [--settings SETTINGS] [--env ENV]
-                    [--build [BUILD [BUILD ...]]]
-                    [reference]
+                     [--generator GENERATOR] [--werror] [--cwd CWD]
+                     [--manifests [MANIFESTS]]
+                     [--manifests-interactive [MANIFESTS_INTERACTIVE]]
+                     [--verify [VERIFY]] [--no-imports] [--update]
+                     [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                     [--options OPTIONS] [--settings SETTINGS] [--env ENV]
+                     [--build [BUILD [BUILD ...]]]
+                     [reference]
 
 
 Installs the requirements specified in a ``conanfile.py`` or ``conanfile.txt``.
@@ -43,6 +43,7 @@ If no binary package is found you can build the package from sources using the `
       --generator GENERATOR, -g GENERATOR
                             Generators to use
       --werror              Error instead of warnings for graph inconsistencies
+      --cwd CWD, -c CWD     Use this directory as the current directory
       --manifests [MANIFESTS], -m [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -85,7 +86,7 @@ If no binary package is found you can build the package from sources using the `
 
 **Examples**
 
-- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting (other settings will be defaulted as defined in ``<userhome>/.conan/conan.conf``):
+- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting (other settings will be defaulted as defined in ``<userhome>/.conan/profiles/default``):
 
 .. code-block:: bash
 
@@ -105,7 +106,7 @@ If no binary package is found you can build the package from sources using the `
    don't specify them again in the command line.
 
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default settings from ``<userhome>/.conan/conan.conf``:
+- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default settings from ``<userhome>/.conan/profiles/default``:
 
 .. code-block:: bash
 

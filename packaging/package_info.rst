@@ -88,7 +88,7 @@ generator, such above definition will be translated in ``conanbuildinfo.cmake`` 
 .. code-block:: cmake
   
     set(CONAN_LIBS_MYPKG mylib)
-    ...
+    # ...
     set(CONAN_LIBS mylib ${CONAN_LIBS})
     
 Those variables, will be used in the ``conan_basic_setup()`` macro to actually set cmake
@@ -99,7 +99,7 @@ If the developer wants to switch configuration of the dependencies, he will usua
 .. code-block:: bash
 
     $ conan install -s build_type=Release ... 
-    // when need to debug
+    # when need to debug
     $ conan install -s build_type=Debug ... 
 
 These switches will be fast, since all the dependencies are already cached locally.
@@ -178,7 +178,7 @@ This will translate to the cmake variables:
   
     set(CONAN_LIBS_MYPKG_DEBUG mylibrary_d)
     set(CONAN_LIBS_MYPKG_RELEASE mylibrary)
-    ...
+    # ...
     set(CONAN_LIBS_DEBUG mylibrary_d ${CONAN_LIBS_DEBUG})
     set(CONAN_LIBS_RELEASE mylibrary ${CONAN_LIBS_RELEASE})
     

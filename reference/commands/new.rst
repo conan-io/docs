@@ -7,7 +7,7 @@ conan new
 .. code-block:: bash
 
    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-cis] [-cilg] [-cilc] [-cio]
-               [-ciw] [-gi] [-ciu CI_UPLOAD_URL]
+               [-ciw] [-ciglg] [-ciglc] [-gi] [-ciu CI_UPLOAD_URL]
                name
 
 
@@ -32,13 +32,15 @@ package testing files.
      -b, --bare     Create the minimum package recipe, without build() or
                     package()methods. Useful in combination with "package_files"
                     command
-     -cis, --ci_shared        Package will have a "shared" option to be used in CI
-     -cilg, --ci_travis_gcc   Generate travis-ci files for linux gcc
-     -cilc, --ci_travis_clang Generate travis-ci files for linux clang
-     -cio, --ci_travis_osx    Generate travis-ci files for OSX apple-clang
-     -ciw, --ci_appveyor_win  Generate appveyor files for Appveyor Visual Studio
-     -gi, --gitignore         Generate a .gitignore with the known patterns to
-                              excluded
+     -cis, --ci_shared           Package will have a "shared" option to be used in CI
+     -cilg, --ci_travis_gcc      Generate travis-ci files for linux gcc
+     -cilc, --ci_travis_clang    Generate travis-ci files for linux clang
+     -cio, --ci_travis_osx       Generate travis-ci files for OSX apple-clang
+     -ciw, --ci_appveyor_win     Generate appveyor files for Appveyor Visual Studio
+     -ciglg, --ci_gitlab_gcc     Generate GitLab files for linux gcc
+     -ciglc, --ci_gitlab_clang   Generate GitLab files for linux clang
+     -gi, --gitignore            Generate a .gitignore with the known patterns to
+                                 excluded
      -ciu CI_UPLOAD_URL, --ci_upload_url CI_UPLOAD_URL Define URL of the repository to upload
 
 **Examples**:
@@ -64,3 +66,8 @@ package testing files.
 
    $ conan new mypackage/1.0@myuser/stable -t -cilg -cio -ciw
 
+- Create files for gitlab (linux) Continuous integration and set upload conan server:
+
+.. code-block:: bash
+
+  $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://api.bintray.com/conan/myuser/myrepo

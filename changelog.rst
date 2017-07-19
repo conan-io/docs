@@ -7,6 +7,51 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+
+0.25.0 (19-July-2017)
+----------------------
+
+.. note::
+
+  This release introduces a new layout for the local cache, with dedicated ``export_source`` folder to store the source code exported with ``exports_sources`` feature, which is much cleaner than the old ``.c_src`` subfolder. A migration is included to remove from the local cache packages with the old layout.
+
+
+- Feature: new ``conan create`` command that supersedes ``test_package`` for creating and testing package. It works even without the test_package folder, and have improved management for user, channel. The test_package recipe no longer defines ``requires``
+- Feature: new ``conan get`` command that display (with syntax highlight) package recipes, and any other file from conan: recipes, conaninfo.txt, manifests, etc.
+- Feature: new ``conan alias`` command that creates a special package recipe, that works like an **alias** or a **proxy** to other package, allowing easy definition and transparent management of "using the latest minor" and similar policies. Those special alias packages do not appear in the dependency graph.
+- Feature: new ``conan search --table=file.html`` command that will output an html file with a graphical representation of available binaries
+- Feature: created **default profile**, that replace the ``[settings_default]`` in **conan.conf** and augments it, allowing to define more things like env-vars, options, build_requires, etc.
+- Feature: new ``self.user_info`` member that can be used in ``package_info()`` to define custom user variables, that will be translated to general purpose variables by generators.
+- Feature: ``conan remove`` learned the ``--outdated`` argument, to remove those package binaries that are outdated from the recipe, both from local cache and remotes
+- Feature: ``conan search`` learned the ``--outdated`` argument, to show only those package binaries that are outdated from the recipe, both from local cache and remotes
+- Feature: Automatic management ``CMAKE_TOOLCHAIN_FILE`` in ``CMake`` helper for cross-building.
+- Feature: created ``conan_api``, a python API interface to conan functionality.
+- Feature: new ``cmake.install()`` method of ``CMake`` helper.
+- Feature: ``short_paths`` feature now applies also to ``exports_sources``
+- Feature: ``SystemPackageTool`` now supports **FreeBSD** system packages
+- Feature: ``build_requires`` now manage options too, also default options in package recipes
+- Feature: ``conan build`` learned new ``--package_folder`` argument, useful if the build system perform the packaging
+- Feature: ``CMake`` helper now defines by default ``CMAKE_INSTALL_PREFIX`` pointing to the current package_folder, so ``cmake.install()`` can transparently execute the packaging.
+- Feature: improved command UX with ``--cwd`` arguments to allow define the current directory for the command
+- Feature: improved ``VisualStudioBuildEnvironment``
+- Feature: transfers now show size (MB, KB) of download/uploaded files, and current status of transfer.
+- Feature: ``conan new`` now has arguments to generate CI scripts for Gitlab CI.
+- Feature: Added ``MinRelSize`` and ``RelWithDebInfo`` management in ``CMake`` helper.
+- Fix: make ``mkdir``, ``rmdir``, ``relative_dirs`` available for import from ``conans`` module.
+- Fix: improved detection of Visual Studio default under cygwin environment.
+- Fix: ``package_files`` now allows symlinks
+- Fix: Windows installer now includes conan_build_info tool.
+- Fix: appending environment variables instead of overwriting them when they come from different origins: upstream dependencies and profiles.
+- Fix: made opt-in the check of package integrity before uploads, it was taking too much time, and provide little value for most users.
+- Fix: Package recipe linter removed some false positives
+- Fix: default settings from conan.conf do not fail for constrained settings in recipes.
+- Fix: Allowing to define package remote with ``conan remote add_ref`` before download/upload.
+- Fix: removed duplicated BUILD_SHARED_LIBS in test_package
+- Fix: add "rhel" to list of distros using yum.
+- Bugfix: allowing relative paths in ``exports`` and ``exports_sources`` fields
+- Bugfix: allow custom user generators with underscore
+
+
 0.24.0 (15-June-2017)
 ----------------------
 - Feature: ``conan new`` new arguments to generate **Travis-CI** and **Appveyor** files for Continuous Integration

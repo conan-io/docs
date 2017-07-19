@@ -139,7 +139,7 @@ The ``requires`` section is just referencing the previously created package. The
 In the above example, the code is reused in the ``build()`` method as an example. Note the use of a helper context, which basically activates/deactivates the ``PYTHONPATH`` environment variable with the value assigned in the package. We didn't want to do this activation implicit for all conan packages, but rather make it explicit.
 
 
-..  code-block:: python
+..  code-block:: bash
 
     $ conan install -g txt
     ...

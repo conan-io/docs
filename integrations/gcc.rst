@@ -34,7 +34,7 @@ Install the requirements (from the mytimer/build folder):
 
 .. note::
 
-   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them by editing the ``~/.conan/conan.conf`` or override them with "-s" parameters.  
+   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them by editing the ``~/.conan/profiles/default`` or override them with "-s" parameters.
  
 
 Let's take a look to the generated ``conanbuildinfo.gcc``:

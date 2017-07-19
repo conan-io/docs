@@ -70,7 +70,7 @@ Read more about it in :ref:`user_channel`
 
 CONAN_ENV_XXXX_YYYY
 -------------------
-You can override the default settings (located in your ``~/.conan/conan.conf`` directory) with environment variables.
+You can override the default settings (located in your ``~/.conan/profiles/default`` directory) with environment variables.
 
 The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the sub-setting name.
 
@@ -181,6 +181,8 @@ the :ref:`CMake build tool<cmake_reference>`:
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | Variable                                | CMake set variable                                                                             |
 +=========================================+================================================================================================+
+| CONAN_CMAKE_TOOLCHAIN_FILE              | CMAKE_TOOLCHAIN_FILE                                                                           |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_SYSTEM_NAME                 | CMAKE_SYSTEM_NAME                                                                              |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_SYSTEM_VERSION              | CMAKE_SYSTEM_VERSION                                                                           |

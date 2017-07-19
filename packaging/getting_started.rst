@@ -18,7 +18,7 @@ First, let's create a folder for our package recipe, and use the ``conan new`` h
 .. code-block:: bash
 
    $ mkdir mypkg && cd mypkg
-   $ conan new Hello/0.1@demo/testing -t
+   $ conan new Hello/0.1 -t
 
 
 This will generate the following files:
@@ -56,8 +56,7 @@ Let`s have a look to the root package recipe ``conanfile.py``:
 
         def build(self):
             cmake = CMake(self)
-            shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
-            self.run('cmake hello %s %s' % (cmake.command_line, shared))
+            self.run('cmake hello %s' % cmake.command_line)
             self.run("cmake --build . %s" % cmake.build_config)
 
         def package(self):
@@ -101,17 +100,22 @@ If you have a look to the ``test_package`` folder, you will realize that the ``e
 
 .. code-block:: python
 
-    channel = os.getenv("CONAN_CHANNEL", "testing")
-    username = os.getenv("CONAN_USERNAME", "demo")
+    from conans import ConanFile, CMake
+    import os
 
     class HelloTestConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Hello/0.1@%s/%s" % (username, channel)
         generators = "cmake"
 
+        def build(self):
+            cmake = CMake(self)
+            # Current dir is "test_package/build/<build_id>" and CMakeLists.txt is in "test_package"
+            cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+            cmake.build()
+
         def imports(self):
-            self.copy("*.dll", "bin", "bin")
-            self.copy("*.dylib", "bin", "bin")
+            self.copy("*.dll", dst="bin", src="bin")
+            self.copy("*.dylib*", dst="bin", src="lib")
 
         def test(self):
             os.chdir("bin")
@@ -120,10 +124,14 @@ If you have a look to the ``test_package`` folder, you will realize that the ``e
 The main differences with the above ``conanfile.py`` are:
 
 - It doesn't have a name and version, because we are not creating a package, so they are not necessary.
-- It defines a ``requires`` field, that points to our package ``Hello/0.1@demo/testing``. This is exactly the same as the ``[requires]`` field of ``conanfile.txt``
 - The ``package()`` and ``package_info()`` methods are not required, since we are not creating a package.
 - The ``test()`` method specifies which binaries have to be run.
 - The ``imports()`` method is defined to copy shared libraries to the ``bin`` folder, so when dynamic linkage is used, and the ``test()`` method launches the ``example`` executable, they are found and ``example`` runs.
+
+.. note::
+
+    An important difference with respect to normal package recipes, is that this one does not need to declare a ``requires`` attribute, to depend on the ``Hello/0.1@demo/testing`` package we are testing. This ``requires`` will be automatically injected by conan while running. You can however declare it explicitely, it will work, but you will have to remember to bump the version, and possibly the user and channel if you change them.
+
 
 .. _creating_and_testing_packages:
 
@@ -134,7 +142,7 @@ We can create and test the package with our default settings simply by:
 
 .. code-block:: bash
 
-   $ conan test_package
+   $ conan create demo/testing
    ...
    Hello world!
 
@@ -144,29 +152,40 @@ If you see "Hello world!", it worked.
 This will perform the following steps:
 
 - Copy ("export" in conan terms) the ``conanfile.py`` from the user folder into the conan local cache.
+- Install the package, forcing building it from sources
 - Move to the ``test_package`` folder, and create a temporary ``build`` folder.
-- Execute there a ``conan install .. --build=Hello``, so it installs the requirements of the ``test_package/conanfile.py``. Note that it will build Hello from sources
+- Execute there a ``conan install ..``, so it installs the requirements of the ``test_package/conanfile.py``. Note that it will build Hello from sources
 - Build and launch the ``example`` consuming application, calling the ``test_package/conanfile.py`` ``build()`` and ``test()`` methods respectively
 
-
-
-This command uses the ``--build=Hello`` option by default, i.e. it always re-builds the package.
-If you just want to check if the package is properly created, but don't want to re-build it, use the ``--build=missing`` option:
+Using conan commands, the ``conan create`` command would be equivalent to:
 
 .. code-block:: bash
 
-   $ conan test_package --build=missing
-   ...
-   Hello world!
+    $ conan export demo/testing
+    $ conan install Hello/0.1@demo/testing --build=Hello
+    # package is created now, use test_package to test it
+    $ conan test_package demo/testing --test-only
+
+Also, the ``conan test_package --test-only`` command would be in turn equivalent to:
+
+.. code-block:: bash
+
+    $ cd test_package
+    $ mkdir build && cd build
+    $ conan install ..  # adding "requires=Hello/0.1@demo/testing" first
+    $ conan build   # builds the example.cpp
+    $ # launch test_package/conanfile->test() method
+
    
-The ``conan test_package`` command receives the same command line parameters as ``conan install`` so you can pass to it the same settings, options, and command line switches. So if you want to create and test packages for different configurations, you could:
+The ``conan create`` command receives the same command line parameters as ``conan install`` so you can pass to it the same settings, options, and command line switches. If you want to create and test packages for different configurations, you could:
 
 .. code-block:: bash
 
-   $ conan test_package -s build_type=Debug
-   $ conan test_package -o Hello:shared=True -s arch=x86
+   $ conan create -s build_type=Debug
+   $ conan create -o Hello:shared=True -s arch=x86
+   $ conan create -pr my_gcc49_debug_profile
    ...
-   $ conan test_package ...
+   $ conan create ...
 
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.

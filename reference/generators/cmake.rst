@@ -75,6 +75,44 @@ The values are ordered in the right order according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 
 
+- **Variables from user_info**
+
+If any of the requirements is filling the :ref:`user_info<user_info>` object in the :ref:`package_info<package_info>`
+method a set of variables will be declared following this naming:
+
++--------------------------------+----------------------------------------------------------------------+
+| NAME                           | VALUE                                                                |
++================================+======================================================================+
+| CONAN_USER_XXXX_YYYY           | User declared value                                                  |
++--------------------------------+----------------------------------------------------------------------+
+
+``XXXX`` is the name of the requirement in uppercase and ``YYYY`` the variable name. e.j:
+
+
+.. code-block:: python
+
+
+   class MyLibConan(ConanFile):
+       name = "MyLib"
+       version = "1.6.0"
+
+       # ...
+
+       def package_info(self):
+           self.user_info.var1 = 2
+
+
+When other library requires ``MyLib`` and uses the cmake generator:
+
+**conanbuildinfo.cmake**:
+
+.. code-block:: python
+
+    # ...
+    set(CONAN_USER_MYLIB_var1 "2")
+
+
+
 .. _conanbuildinfocmake_methods:
 
 Methods available in conanbuildinfo.cmake
