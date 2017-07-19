@@ -205,7 +205,7 @@ Running conan server using Apache
 
     You need to install ``mod_wsgi`` and checkout the conan source code, in the example, to `/srv/conan`
 
-    **Apache conf file** (e.j /etc/apache2/sites-available/conan.conf)
+    **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
 
     .. code-block:: text
 

@@ -85,7 +85,7 @@ If no binary package is found you can build the package from sources using the `
 
 **Examples**
 
-- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting (other settings will be defaulted as defined in ``<userhome>/.conan/conan.conf``):
+- Install a package requirement from a ``conanfile.txt``, saved in your current directory with one option and setting (other settings will be defaulted as defined in ``<userhome>/.conan/profiles/default``):
 
 .. code-block:: bash
 
@@ -105,7 +105,7 @@ If no binary package is found you can build the package from sources using the `
    don't specify them again in the command line.
 
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default settings from ``<userhome>/.conan/conan.conf``:
+- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default settings from ``<userhome>/.conan/profiles/default``:
 
 .. code-block:: bash
 

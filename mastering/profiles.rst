@@ -4,7 +4,7 @@
 Profiles
 =========
 
-So far we have used the default settings stored in ``conan.conf`` and defined as command line arguments.
+So far we have used the default settings stored in ``~/.conan/profiles/default`` and defined as command line arguments.
 
 However, configurations can be large, settings can be very different, and we might want to switch easily between different configurations with different settings, options, etc.
 
