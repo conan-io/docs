@@ -13,6 +13,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Build requires are now applied correctly to test_package projects.
 - Fix: Fixed search command to print an error when --table parameter is used without a reference.
 - Fix: install() method of the CMake() helper, allows parallel building, change build folder and custom parameters.
+- Fix: Controlled errors in migration, print warning if conan is not able to remove a package directory.
 
 
 0.25.0 (19-July-2017)
