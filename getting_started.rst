@@ -157,7 +157,7 @@ If the package binary necessary for some given settings doesn't exist, it will t
    In conan.io there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
    If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build it 
    from source, using the **--build missing** option, instead of retrieving the binaries. Such a build might not have
-   been tested and eventually fail. OpenSSL requires perl and some specific tools to build from source.
+   been tested and eventually fail.
 
 
 Building the timer example
@@ -198,6 +198,26 @@ You can also inspect the package binaries (for different installed binaries for 
 
     $ conan search Poco/1.7.8p3@pocoproject/stable
 
+You can also generate a table for all binaries from a given recipe with the ``--table`` option, even in remotes:
+
+.. code-block:: bash
+
+    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
+    $ file.html # or open the file, double-click
+
+You can generate a table for all binaries from a given recipe with the ``--table`` option, even from remotes:
+
+.. code-block:: bash
+
+    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
+    $ file.html # or open the file, double-click
+
+.. image:: /images/search_binary_table.png
+    :height: 250 px
+    :width: 300 px
+    :align: center
+
+
 Please check the reference for more information on how to search in remotes, or how to remove
 or clean packages from the local cache, or how to define custom cache directory per user or per project.
 
@@ -207,6 +227,18 @@ the folder where the ``conanfile.txt`` is:
 .. code-block:: bash
 
     $ conan info ..
+
+You can generate a graph of your dependencies, in dot or html formats:
+
+.. code-block:: bash
+
+    $ conan info .. --graph=file.html
+    $ file.html # or open the file, double-click
+
+.. image:: /images/info_deps_html_graph.png
+    :height: 150 px
+    :width: 200 px
+    :align: center
 
 
 Building with other configurations
