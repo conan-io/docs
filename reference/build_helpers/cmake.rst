@@ -12,6 +12,7 @@ Invoke `cmake` explicitly with the helper ``command_line`` and ``build_config`` 
       cmake = CMake(self)
       self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
       self.run('cmake --build . %s' % cmake.build_config)
+      self.run('cmake --build . --target install')
 
 
 Using the helper methods:
