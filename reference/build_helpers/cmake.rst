@@ -104,6 +104,7 @@ Attributes
       cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
       cmake.configure()
       cmake.build()
+      cmake.install() # Build --target=install
 
 
 Methods
@@ -122,4 +123,8 @@ Methods
     - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used. ``conan_file.conanfile_directory`` is used if ``configure()`` has not been called
     - **target**: Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging
 
+- **install** (args=None, build_dir=None, target=None)
 
+    - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used. ``conan_file.conanfile_directory`` is used if ``configure()`` has not been called
+  
