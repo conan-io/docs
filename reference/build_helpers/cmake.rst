@@ -23,6 +23,7 @@ Using the helper methods:
       cmake = CMake(self)
       cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
       cmake.build()
+      cmake.install()
 
 
 
@@ -127,4 +128,3 @@ Methods
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used. ``conan_file.conanfile_directory`` is used if ``configure()`` has not been called
-  
