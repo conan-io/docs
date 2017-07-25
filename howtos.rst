@@ -6,6 +6,7 @@ This section shows common solutions and different approaches to typical problems
 .. toctree::
    :maxdepth: 2
 
+   howtos/header_only
    howtos/cmake_launch
    howtos/cross_building
    howtos/visual_studio_packages
