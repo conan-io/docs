@@ -219,6 +219,10 @@ If your recipe has requirements, you can access to your requirements ``cpp_info`
            self.out.warn(self.deps_cpp_info["MyLib"].libdirs)
 
 
+.. note::
+
+    Please take into account that defining ``self.cpp_info.bindirs`` directories, does not have any effect on system paths, PATH environment variable, nor will be directly accessible by consumers. ``self.cpp_info`` information is translated to build-systems information via generators, for example for CMake, it will be a variable in ``conanbuildinfo.cmake``.
+    If you want a package to make accessible its executables to its consumers, you have to specify it with ``self.env_info`` as described in next section.
 
 .. _environment_information:
 
@@ -234,6 +238,13 @@ This can be done in the ``env_info`` attribute within the ``package_info()`` met
   self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
   self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
   self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value
+
+One of the most typical usages for the PATH environment variable, would be to add the current package binary directories to the path, so consumers can use those executables easily:
+
+.. code-block:: python
+
+    # assuming the binaries are in the "bin" subfolder
+    self.env_info.PATH.append(os.path.join(self.package_folder, "bin")
 
 
 The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive a virtual environment.
