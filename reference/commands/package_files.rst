@@ -5,8 +5,9 @@ conan package_files
 
 .. code-block:: bash
 
-	$  conan package_files [-h] [--path PATH] [--profile PROFILE]
-                           [--options OPTIONS] [--settings SETTINGS] [-f]
+	$  conan package_files [-h] [--package_folder PACKAGE_FOLDER]
+                           [--profile PROFILE] [--options OPTIONS]
+                           [--settings SETTINGS] [-f]
                            reference
 
 
@@ -23,7 +24,8 @@ Creates a package binary from given precompiled artifacts in user folder, skippi
 
     optional arguments:
       -h, --help            show this help message and exit
-      --path PATH, -p PATH  Get binaries from this path, relative to current or
+      --package_folder PACKAGE_FOLDER, -pf PACKAGE_FOLDER
+                            Get binaries from this path, relative to current or
                             absolute
       --profile PROFILE, -pr PROFILE
                             Profile for this package
