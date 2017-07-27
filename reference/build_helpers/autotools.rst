@@ -35,9 +35,9 @@ Methods
 
     - **configure_dir**: Directory where the ``configure`` script is.
     - **args**: A list of additional arguments to be passed to the ``configure`` script. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build**: To specify a value for the parameter ``--build``. If None it will try to detect the value if cross building is detected according to the settings.
-    - **host**: To specify a value for the parameter ``--host``. If None it will try to detect the value if cross building is detected according to the settings.
-    - **target**: To specify a value for the parameter ``--target``. If None it will try to detect the value if cross building is detected according to the settings.
+    - **build**: To specify a value for the parameter ``--build``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
+    - **host**: To specify a value for the parameter ``--host``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
+    - **target**: To specify a value for the parameter ``--target``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
 
 - **make** (args=None)
 
