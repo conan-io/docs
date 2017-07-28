@@ -36,7 +36,7 @@ Where:
 
    - ``Poco`` is the name of the package, usually the same of the project/library
    - ``1.7.3`` is the version, usually matching the one of the packaged project/library. Can be any string, not necessarily a number, so it is possible to have a "develop" or "master" version. Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that are regenerated periodically.
-   - ``pocoproject`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So you can easily for example upload a certain libray under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
+   - ``pocoproject`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So you can easily for example upload a certain library under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
    - ``stable`` is the channel. Channels also allow to have different packages for the same library and use them interchangeably. They usually denote the maturity of the package, as an arbitrary string: "stable", "testing", but it can be used for any purpose, like package revisions (the library version has not changed, but the package recipe has evolved) 
 
 
