@@ -5,7 +5,7 @@ conan build
 
 .. code-block:: bash
 
-	$ conan build conan build [-h] [--file FILE] [path]
+	$ conan build [-h] [--file FILE] [path]
 
 Utility command to run your current project **conanfile.py** ``build()`` method. It doesn't
 work for **conanfile.txt**. It is convenient for automatic translation of conan settings and options,
