@@ -195,47 +195,68 @@ independent in VS, we can just remove that setting field:
 
 options, default_options
 ---------------------------
-Options are similar to settings in the sense that they influence the final package. But they
-can typically have a default value. A very common case would be the static/shared option of
-a compiled library, which could be defined as:
+Conan packages recipes can generate different package binaries when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
 
+A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
+
+Options are defined in package recipes as dictionaries of name and allowed values:
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
+    class MyPkg(ConanFile):
+        ...
+        options = {"shared": [True, False]}
+
+There is an special value ``ANY`` to allow any value for a given option. The range of values for such an option will not be checked, and any value (as string) will be accepted:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+        ...
+        options = {"shared": [True, False], "commit": "ANY"}
+
+
+When a package is installed, it will need all its options be defined a value. Those values can be defined in command line, profiles, but they can also (and they will be typically) defined in conan package recipes:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+        ...
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = "shared=False", "fPIC=False"
+
+The options will typically affect the ``build()`` of the package in some way, for example:
+
+.. code-block:: python
+
+   class MyPkg(ConanFile):
       ...
-      options = {"static": [True, False]}
-      default_options = "static=True"
+      options = {"shared": [True, False]}
+      default_options = "shared=False"
 
       def build(self):
-         static = "-DBUILD_SHARED_LIBS=ON" if not self.options.static else ""
+         shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
          cmake = CMake(self)
-         self.run("cmake . %s %s" % (cmake.command_line, static))
+         self.run("cmake . %s %s" % (cmake.command_line, shared))
          self.run("cmake --build . %s" % cmake.build_config)
 
-Note that you have to consider the option properly in your build. In this case, we are using
-the CMake way. You must also remove the **STATIC** linkage in the **CMakeLists.txt** file,
-and if you are using VS, you also need to change your code to correctly import/export symbols
-for the dll.
+Note that you have to consider the option properly in your build scripts. In this case, we are using the CMake way. So if you had explicit **STATIC** linkage in the **CMakeLists.txt** file, you have to remove it. If you are using VS, you also need to change your code to correctly import/export symbols for the dll.
 
-You can use the ``ANY`` string to allow any value for a specified option. The range of values for
-such an option will not be checked, and any value (as string) will be accepted.
+This is only an example. Actually, the ``CMake`` helper already automates this, so it is enough to do:
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
-      ...
-      options = {"commit": "ANY"}
-      default_options = "commit=1234abcd"
+    def build(self):
+        cmake = CMake(self) # internally it will check self.options.shared
+        self.run("cmake . %s" % cmake.command_line) # or cmake.configure()
+        self.run("cmake --build . %s" % cmake.build_config) # or cmake.build()
 
-This could be useful, for example, if you want to have an option so a package can actually reference any specific
-commit of a git repository.
 
-You can also specify options of the package dependencies:
+You can also specify default option values of the required dependencies:
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
+   class OtherPkg(ConanFile):
       requires = "Pkg/0.1@user/channel"
       default_options = "Pkg:pkg_option=value"
 
@@ -243,11 +264,48 @@ If you need to dynamically set some dependency options, you could do:
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
+   class OtherPkg(ConanFile):
       requires = "Pkg/0.1@user/channel"
 
       def configure(self):
           self.options["Pkg"].pkg_option = "value"
+
+
+Option values can be given in command line, and they will have priority over the default values in the recipe:
+
+.. code-block:: bash
+
+    $ conan install -o Pkg:shared=True -o OtherPkg:option=value
+
+You can also defined them in consumer ``conanfile.txt``, as described in :ref:`this section<options_txt>`
+
+.. code-block:: text
+
+    [requires]
+    Poco/1.7.8p3@pocoproject/stable
+
+    [options]
+    Poco:shared=True
+    OpenSSL:shared=True
+
+And finally, you can define options in :ref:`profiles<profiles>` too, with the same syntax:
+
+.. code-block:: text
+
+    # file "myprofile"
+    # use it as $ conan install -pr=myprofile
+    [settings]
+    setting=value
+
+    [options]
+    MyLib:shared=True
+
+
+You can inspect available package options, reading the package recipe, which is conveniently done with:
+
+.. code-block:: bash
+
+    $ conan get Pkg/0.1@user/channel
 
 requires
 ---------
