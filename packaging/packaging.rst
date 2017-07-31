@@ -40,7 +40,7 @@ The package creation process
 
 It is very useful for package creators and conan users in general to understand the flow of package creation inside the conan local cache, and its layout.
 
-For every package recipe, there are 4 important folders in the conan local cache:
+For every package recipe, there are 5 important folders in the conan local cache:
 
 - **export**: The folder where the package recipe is stored.
 - **export_source**: The folder where code copied with the recipe ``exports_sources`` attribute is stored.
