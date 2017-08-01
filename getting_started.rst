@@ -156,7 +156,7 @@ If the package binary necessary for some given settings doesn't exist, it will t
 
    In conan.io there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
    If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build it 
-   from source, using the **--build missing** option, instead of retrieving the binaries. Such a build might not have
+   from source, using the ``--build missing`` option, instead of retrieving the binaries. Such a build might not have
    been tested and eventually fail.
 
 
