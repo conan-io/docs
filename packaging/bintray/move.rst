@@ -50,6 +50,13 @@ Conan packages can be uploaded to bintray under your own users or organizations.
    Browse to https://bintray.com/signup/oss and submit the form to create your account. Note that you don’t have to use
    the same username that you had in your Conan account.
 
+   .. warning::
+
+    Please **make sure you use the Open Source Software OSS account**. 
+    Follow this link: https://bintray.com/signup/oss.
+    Bintray provides free conan repositories for OSS projects, no need to open a Pro or Enterprise Trial account.
+    
+
 
 2. **Create a Conan repository**
 
