@@ -329,7 +329,7 @@ in the ``configure()`` and ``config_options()`` methods. This is an example:
        options = {"static": [True, False],
                    "header_only": [True False]}
 
-       def config(self):
+       def configure(self):
            # If header only, the compiler, etc, does not affect the package!
            if self.options.header_only:
                self.settings.clear()
