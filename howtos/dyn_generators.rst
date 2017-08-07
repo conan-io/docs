@@ -47,6 +47,21 @@ that implements the package itself, with the name of the package, the version, e
 class typically has no ``source()``, ``build()``, ``package()``, and even the ``package_info()`` method is
 overriden as it doesn't have to define any include paths or library paths.
 
+If you want to create a generator that creates more than one file, you can leave the ``filename()`` empty, and return a dictionary of filenames->contents in the ``content()`` method:
+
+.. code-block:: python
+
+    class MultiGenerator(Generator):
+
+        @property
+        def content(self):
+            return {"filename1.txt": "contents of file1",
+                    "filename2.txt": "contents of file2"}  # any number of files
+
+        @property
+        def filename(self):
+            pass
+
 Once, it is defined in the ``conanfile.py`` you can treat is as a regular package, typically you
 will ``export`` it first to your local cache, test it, and once it is working fine, you would
 ``upload`` it to a server.
