@@ -17,7 +17,7 @@ Profiles can be located in different folders, as for example the default ``<user
    $ conan install --profile profile  # resolved to user/.conan/profiles/profile
 
 
-A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``` and ``scopes`` and has this structure:
+A profile file contains a predefined set of ``settings``, ``options``, ``environment variables```, ``scopes`` and ``build_requires`` and has this structure:
 
 .. code-block:: text
 
@@ -32,6 +32,11 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
 
    [scopes]
    scope=value
+
+   [build_requires]
+   Tool1/0.1@user/channel
+   Tool2/0.1@user/channel, Tool3/0.1@user/channel
+   *: Tool4/0.1@user/channel
 
 
 They would contain the desired configuration, for example assume the following file is named ``myprofile``:
@@ -76,6 +81,10 @@ It is useful to declare relative folders:
 
    [env]
    PYTHONPATH=$PROFILE_DIR/my_python_tools
+
+
+.. seealso:: Check the section :ref:`Mastering conan/Build requirements <build_requires>` to read more about how to use build_requires in a profile.
+
 
 
 Package settings and env vars
