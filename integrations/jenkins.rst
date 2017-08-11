@@ -45,17 +45,12 @@ Create a new Jenkins Pipeline task using this script:
     def repo_branch = 'master'
 
     node {
+        def server = Artifactory.server artifactory_name
+        def client = Artifactory.newConanClient()
+
         stage("Get project"){
             git branch: repo_branch, url: repo_url
         }
-
-        stage("Configure Artifactory/Conan")
-        def server = Artifactory.server artifactory_name
-        def client = Artifactory.newConanClient()
-        def serverName = client.remote.add server: server, repo: artifactory_repo
-        // You could optionally don't remove the default conan.io server to retrieve from conan.io
-        client.run(command: "remote remove conan.io")
-
 
         stage("Get dependencies and publish build info"){
             sh "mkdir -p build"
@@ -86,20 +81,17 @@ and then upload it to Artifactory. We also upload the `build information`_:
 
     def artifactory_name = "artifactory"
     def artifactory_repo = "conan-local"
-    def repo_url = 'https://github.com/lasote/conan-libcurl.git'
-    def repo_branch = "release/7.50.3"
+    def repo_url = 'https://github.com/lasote/conan-zlib.git'
+    def repo_branch = "release/1.2.11"
 
     node {
-        stage("Get recipe"){
-            git branch: repo_branch, url: repo_url
-        }
-
-        stage("Configure Artifactory/Conan")
         def server = Artifactory.server artifactory_name
         def client = Artifactory.newConanClient()
         def serverName = client.remote.add server: server, repo: artifactory_repo
-        client.run(command: "remote remove conan.io")
 
+        stage("Get recipe"){
+            git branch: repo_branch, url: repo_url
+        }
 
         stage("Test recipe"){
             client.run(command: "test_package")
