@@ -76,7 +76,7 @@ Example: Build a conan package and upload it to Artifactory
 In this example we will call conan :ref:`test package<creating_and_testing_packages>` command to create a binary package
 and then upload it to Artifactory. We also upload the `build information`_:
 
-
+ 
 .. code-block:: groovy
 
     def artifactory_name = "artifactory"
