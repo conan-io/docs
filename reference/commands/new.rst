@@ -17,7 +17,8 @@ package testing files.
 .. code-block:: bash
 
    positional arguments:
-     name           Package name, e.g.: Poco/1.7.8p3@pocoproject/stable
+     name           Package name, e.g.: "Poco/1.7.3" or complete reference
+                    for CI scripts: "Poco/1.7.3@conan/stable"
 
    optional arguments:
      -h, --help     show this help message and exit
@@ -50,14 +51,14 @@ package testing files.
 
 .. code-block:: bash
 
-   $ conan new mypackage/1.0@myuser/stable
+   $ conan new mypackage/1.0
 
 
 - Create also a ``test_package`` folder skeleton:
 
 .. code-block:: bash
 
-   $ conan new mypackage/1.0@myuser/stable -t
+   $ conan new mypackage/1.0 -t
 
 
 - Create files for travis (both Linux and OSX) and appveyor Continuous Integration:
