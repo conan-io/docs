@@ -143,21 +143,19 @@ It is very important to understand the installation process. When a ``conan inst
 
 So for a command like ``$ conan install -s os="Linux" -s compiler="gcc"``, the steps are:
 
-- First check if the package recipe (for Poco/1.7.3@lasote/stable package) exist in the conan local cache. If we are just starting, our cache will be empty.
-- Look for the package recipe in the defined remotes. By default, conan comes with the conan.io remote defined (you can change that), so the conan client will look in conan.io if such package recipe exists.
-- If exists, it will fetch the package recipe and store it in your local cache.
-- With the package recipe and the input settings (Linux, gcc), it will check in the local cache if the corresponding binary is there, if we are installing for the first time, it won't.
-- Conan will try to look for the corresponding package binary in the remote, if such package binary exists, it will be fetched.
-- It will finish generating the requested files specified in ``generators``.
+- First check if the package recipe (for Poco/1.7.8p3@pocoproject/stable package) exists in the conan local cache. If we are just starting, our cache will be empty.
+- Look for the package recipe in the defined remotes. By default, conan comes with the Bintray remotes defined (you can change that), so the conan client will search in `conan-center` and `conan-transit` for the recipe.
+- If the recipe exists, conan client will fetch and store it in your local cache.
+- With the package recipe and the input settings (Linux, gcc), conan client will check in the local cache if the corresponding binary is there, if we are installing for the first time, it won't.
+- Conan client will search for the corresponding package binary in the remote, if it exists, it will be fetched.
+- Conan client will then finish generating the requested files specified in ``generators``.
 
-If the package binary necessary for some given settings doesn't exist, it will throw an error. It is possible to try to build the package binary from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a package binary is built from sources will be done in a later section.
+If the package binary necessary for some given settings doesn't exist, conan client will throw an error. It is possible to try to build the package binary from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a package binary is built from sources will be given in a later section.
 
 .. warning::
 
-   In conan.io there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
-   If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build it 
-   from source, using the ``--build missing`` option, instead of retrieving the binaries. Such a build might not have
-   been tested and eventually fail.
+   In the Bintray repositories there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
+   If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build the package from source, using the ``--build missing`` option, instead of retrieving the binaries. Such a build might not have been tested and eventually fail.
 
 
 Building the timer example
