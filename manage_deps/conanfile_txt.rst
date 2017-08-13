@@ -179,10 +179,7 @@ There are some differences between shared libraries on linux (\*.so), windows (\
 The shared libraries must be located in some folder where they can be found, either by the linker,
 or by the OS runtime.
 
-It is possible to add the folders of the libraries to the dynamic linker system path, or copy those shared libraries
-to some system folder, so they are found by the OS. But those are typical operations of deploys or final
-installation of apps, not desired while developing, and conan is intended for developers, so it
-tries not to mess with the OS.
+It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path in Linux, or system PATH in Windows), or copy those shared libraries to some system folder, so they are found by the OS. But those are typical operations of deploys or final installation of apps, not desired while developing, and conan is intended for developers, so it tries not to mess with the OS.
 
 In Windows and OSX, the simplest approach is just to copy the shared libraries to the executable folder, so
 they are found by the executable, without having to modify the path.
