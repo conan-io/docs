@@ -12,7 +12,7 @@ Temporary files
 ===============
 
 **Conan** generates some files than should not be committed, as ``conanbuildinfo.*`` and ``conaninfo.txt``.
-These file can change in different computers and are re-generated with the **conan install** command.
+These files can change in different computers and are re-generated with the **conan install** command.
 
 However, these files are typically generated in the **build tree** not in the source tree, so they
 will be naturally disregarded. Just take care in case you have created the **build** folder inside

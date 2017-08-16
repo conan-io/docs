@@ -110,5 +110,5 @@ configurations, building the project, or from the command line:
 
 
 
-.. seealso:: Check the section :ref:`Reference/Generators/cmake <cmakemulti_generator>` to read more about this generator..
+.. seealso:: Check the section :ref:`Reference/Generators/cmake <cmakemulti_generator>` to read more about this generator.
 

@@ -441,7 +441,7 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
    exports_sources = "include*", "src*", "!src/build/*"
 
-This is an optional attribute, used typically when ``source()`` is not specify. The main difference with
+This is an optional attribute, used typically when ``source()`` is not specified. The main difference with
 ``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
 while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
 

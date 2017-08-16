@@ -78,7 +78,7 @@ This is a complete package recipe. Without worrying too much about every detail,
 
 * The ``source()`` method executes a ``git clone`` to retrieve the sources from github. Other origins, as downloading a zip file are also possible. As you can see, any manipulation of the code can be done, as checking out any branch or tag, or patching the source code. In this example, we are adding two lines to the existing CMake code, to ensure binary compatibility. Don't worry too much about it now, we'll visit it later.
 
-* The ``build()`` first configures the project, then builds it, with standard CMake commands. The ``CMake`` object is just a helper to easy the translation of conan settings to CMake command line arguments. Also remember that **CMake is not strictly required**. You can build packages directly invoking **make**, **MSBuild**, **SCons** or any other build system.
+* The ``build()`` first configures the project, then builds it, with standard CMake commands. The ``CMake`` object is just a helper to ease the translation of conan settings to CMake command line arguments. Also remember that **CMake is not strictly required**. You can build packages directly invoking **make**, **MSBuild**, **SCons** or any other build system.
 
 * The ``package()`` method copies artifacts (headers, libs) from the build folder to the final package folder. 
 
@@ -154,8 +154,8 @@ This will perform the following steps:
 - Copy ("export" in conan terms) the ``conanfile.py`` from the user folder into the conan local cache.
 - Install the package, forcing building it from sources
 - Move to the ``test_package`` folder, and create a temporary ``build`` folder.
-- Execute there a ``conan install ..``, so it installs the requirements of the ``test_package/conanfile.py``. Note that it will build Hello from sources
-- Build and launch the ``example`` consuming application, calling the ``test_package/conanfile.py`` ``build()`` and ``test()`` methods respectively
+- Execute there a ``conan install ..``, so it installs the requirements of the ``test_package/conanfile.py``. Note that it will build Hello from sources.
+- Build and launch the ``example`` consuming application, calling the ``test_package/conanfile.py`` ``build()`` and ``test()`` methods respectively.
 
 Using conan commands, the ``conan create`` command would be equivalent to:
 

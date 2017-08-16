@@ -101,7 +101,7 @@ Nothing special is required here. We can just launch the tests from the last com
 
 package()
 ---------
-The actual creation of the package, once that it is build, is done in the ``package()`` method.
+The actual creation of the package, once that it is built, is done in the ``package()`` method.
 Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
 The syntax of copy is as follows:
 
@@ -110,11 +110,11 @@ The syntax of copy is as follows:
    self.copy(pattern, dst, src, keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
 
-- ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``
-- ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though you can use any convention you like
+- ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``.
+- ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though you can use any convention you like.
 - ``src`` is the folder where you want to search the files in the *build* folder. If you know that your libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty means the root build folder.
 - ``keep_path``, with default value=True, means if you want to keep the relative path when you copy the files from the source(build) to the destination(package). Typically headers, you keep the relative path, so if the header is in *build/include/mylib/path/header.h*, you write:
-- ``symlinks``, with default value=None, set it to True to activate symlinks copying, like typical lib.so->lib.so.9
+- ``symlinks``, with default value=None, set it to True to activate symlink copying, like typical lib.so->lib.so.9.
 - ``excludes``, is a single pattern or a tuple of patterns to be excluded from the copy. If a file matches both the include and the exclude pattern, it will be excluded.
 
 
@@ -182,9 +182,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
             ...
 
 * libdirs: list of relative paths (starting from the package root) of directories in which to find
-  library object binaries (.lib, .a, .so. dylib). By default it is initialize to ['lib'], and it is rarely changed.
+  library object binaries (.lib, .a, .so. dylib). By default it is initialized to ['lib'], and it is rarely changed.
 * resdirs: list of relative paths (starting from the package root) of directories in which to find
-  resource files (images, xml, etc). By default it is initialize to ['res'], and it is rarely changed.
+  resource files (images, xml, etc). By default it is initialized to ['res'], and it is rarely changed.
 * bindirs: list of relative paths (starting from the package root) of directories in which to find
   library runtime binaries (like windows .dlls). By default it is initialized to ['bin'], and it is rarely changed.
 * defines: ordered list of preprocessor directives. It is common that the consumers have to specify

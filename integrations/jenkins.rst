@@ -8,7 +8,7 @@ You can use `Jenkins CI` both for:
 - Building and testing conan binary packages for a given conan package recipe (with a conanfile.py) and uploading to a
   conan remote (Artifactory or conan_server)
 
-There is no needed any special setup for it, just install conan and your build tools in the Jenkins machine and call
+There is no need for any special setup for it, just install conan and your build tools in the Jenkins machine and call
 the needed ``conan`` commands.
 
 

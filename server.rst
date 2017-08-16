@@ -295,7 +295,7 @@ in ``~/.conan_server/plugins/authenticator/my_authenticator.py``
          def valid_user(self, username, plain_password):
              return username == "foo" and plain_password == "bar"
 
-The module have to implement:
+The module has to implement:
 
 - A factory function ``get_class()`` that returns a class with a ``valid_user()`` method instance.
 - The class containing the ``valid_user()`` that has to return True if the user and password are valid or False otherwise.

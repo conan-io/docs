@@ -6,7 +6,7 @@ Packaging existing binaries
 
 Sometimes, it is necessary to create packages from existing binaries, like binaries from third parties, or previously built by another process or team not using conan, so building from sources is not wanted. For this case, there could be two different approaches:
 
-- If the binaries don't have such a reference, like local files in user space, or created by a CI job in some temporary folder, then the ``package_files`` command can directly package those files without having to define ``build()`` or ``package()`` recipe methods
+- If the binaries don't have such a reference, like local files in user space, or created by a CI job in some temporary folder, then the ``package_files`` command can directly package those files without having to define ``build()`` or ``package()`` recipe methods.
 
 - If the binary packages are already accesible by some kind of constant, external reference (URL, team shared drive, etc), then it is possible to just use the ``build()`` method to get the binaries into the build folder, and then package them.
 
@@ -37,7 +37,7 @@ This will create and store in the local cache the following package recipe:
       def package_info(self):
           self.cpp_info.libs = self.collect_libs()
 
-The provided ``package_info()`` method will scan the package files to provide the end consumers with the name of the libraries to link with. This method can be further customized to provide other build flags (typically conditioned to the settings). The default ``package_info()`` applies: it will define headers in "include" folder, libraries in "lib" folder, binaries in "bin" folder. If different package layout, it can be defined in ``package_info()`` method.
+The provided ``package_info()`` method will scan the package files to provide the end consumers with the name of the libraries to link with. This method can be further customized to provide other build flags (typically conditioned to the settings). The default ``package_info()`` applies: it will define headers in "include" folder, libraries in "lib" folder, binaries in "bin" folder. A different package layout can be defined in ``package_info()`` method.
 
 This package recipe can be also extended to provide support for more configurations (for example, adding options: shared/static, or using different settings), adding dependencies (``requires``), etc.
 
@@ -60,7 +60,7 @@ Having a ``test_package`` is still very recommended, to locally test the package
     $ conan package_files Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
     $ conan test_package --build=missing -s os=Windows -s compiler=gcc -s ...
 
-Latest 2 steps can be repeated for any number of configurations.
+The last 2 steps can be repeated for any number of configurations.
 
 
 For a concrete working example of packaging already existing binaries, refer to this repo [conan-package-binary-example](https://github.com/shreyasbharath/conan-package-binary-example)
@@ -102,7 +102,7 @@ Typically, pre-compiled binaries come for different configurations, so the only 
 .. note::
 
   - This is a normal conan package, even if the binaries are being retrieved from somewhere. The **recommended approach** is using ``conan create``, and have a small consuming project besides the above recipe, to test locally, then upload the conan package with the binaries to the conan remote with ``conan upload``.
-  - The same "building" policies apply. Having a recipe will fail if no conan packages are created, and the ``--build`` argument is not defined. A typical approach for this kind of packages could be to define a ``build_policy="missing"``, specially if the URLs are also under the team control. If they are external (internet), it could be better to create the packages and store them in your own conan server, so builds do not rely on the third party URL being available.
+  - The same "building" policies apply. Having a recipe will fail if no conan packages are created, and the ``--build`` argument is not defined. A typical approach for this kind of packages could be to define a ``build_policy="missing"``, especially if the URLs are also under the team control. If they are external (internet), it could be better to create the packages and store them in your own conan server, so builds do not rely on the third party URL being available.
 
 
 
