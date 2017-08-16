@@ -5,7 +5,7 @@ Remember, in your ``conanfile.py`` you have also access to the options of your d
 and you can use them to:
 
 * Add requirements dynamically
-* Change options values
+* Change values of options
 
 The **configure** method is the right place to change values of options and settings.
 

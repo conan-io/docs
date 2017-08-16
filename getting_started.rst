@@ -134,7 +134,7 @@ can see the cmake defined variables, and a ``conaninfo.txt`` where information a
 requirements and options is saved.
 
 
-It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified in the command line or taken from the defaults in ``<userhome>/.conan/profiles/default`` file.
+It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified on the command line or taken from the defaults in ``<userhome>/.conan/profiles/default`` file.
 
 .. image:: images/install_flow.png
    :height: 400 px
@@ -219,7 +219,7 @@ You can generate a table for all binaries from a given recipe with the ``--table
 Please check the reference for more information on how to search in remotes, or how to remove
 or clean packages from the local cache, or how to define custom cache directory per user or per project.
 
-You can also inspect your current projects dependencies with the ``info`` command, pointing it to
+You can also inspect your current project's dependencies with the ``info`` command, pointing it to
 the folder where the ``conanfile.txt`` is:
 
 .. code-block:: bash

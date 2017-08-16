@@ -2,7 +2,7 @@ Uploading packages
 ==================
 
 In the previous sections, we built several packages in our computer, those packages are stored
-in a the conan local cache, typically ``~/.conan/data``. Now, you
+in the conan local cache, typically ``~/.conan/data``. Now, you
 might want to upload them to a conan server for later reuse on another machine, project,
 or for sharing them.
 
@@ -33,7 +33,7 @@ You can add any remote easily. For a remote running in your machine, you could r
     $ conan remote add local http://localhost:9300
 
 
-You can search any remote in the same way you search your computer. Actually many conan
+You can search any remote in the same way you search your computer. Actually, many conan
 commands can specify a specific remote.
 
 .. code-block:: bash

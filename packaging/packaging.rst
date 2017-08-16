@@ -56,7 +56,7 @@ The "source" and "build" folders only exist when the packages have been built fr
     :align: center
 
 
-The process starts when a package is "exported", via the ``conan export`` command or more typically, with the ``conan create`` command. The conanfile.py and files especified by the ``exports_sources`` field are copied from the user space into the conan local cache.
+The process starts when a package is "exported", via the ``conan export`` command or more typically, with the ``conan create`` command. The conanfile.py and files specified by the ``exports_sources`` field are copied from the user space into the conan local cache.
 
 The "export" and "export_source" files are copied to the "source" folder, and then the ``source()`` method is executed (if existing). Note that there is only one source folder for all the binary packages. If some source code is to be generated that will be different for different configurations, it cannot be generated in the ``source()`` method, it has to be done in the ``build()`` method.
 

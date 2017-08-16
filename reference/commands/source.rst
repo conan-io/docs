@@ -47,7 +47,7 @@ or adding ``txt`` generator to the consuming conanfile ``generators`` section
    $ conan source ../mysource_folder
 
 
-- Call a cached recipe's source method: In the conan local cache, it will execute the recipe ``source()`` ,
+- Call a cached recipe's source method: In the conan local cache, it will execute the recipe's ``source()`` ,
   in the corresponding ``source`` folder, as defined by the local cache layout.
   This command is useful for retrieving such source code before launching multiple concurrent package builds,
   that could otherwise collide in the source code retrieval process.

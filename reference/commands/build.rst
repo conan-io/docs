@@ -9,7 +9,7 @@ conan build
 
 Utility command to run your current project **conanfile.py** ``build()`` method. It doesn't
 work for **conanfile.txt**. It is convenient for automatic translation of conan settings and options,
-for example to CMake syntax, as it can be done by the CMake helper. It is also a good starting point
+for example, to CMake syntax, as it can be done by the CMake helper. It is also a good starting point
 if you would like to create a package from your current project.
 
 
@@ -34,5 +34,5 @@ So, if the ``conan build`` command is to be used, the recommended way to run ins
 
     $ conan install .. -g txt
 
-or adding ``txt`` generator to the consuming conanfile ``generators`` section
+or adding ``txt`` generator to the consuming conanfile ``generators`` section.
 

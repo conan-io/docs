@@ -34,8 +34,8 @@ But it can be used for that purpose if desired, there are no real technical cons
 The command line arguments are exactly the same as the settings, options, and build parameters
 for the ``install`` command, with one small difference:
 
-In conan test, by default, the ``--build=CurrentPackage`` pattern is automatically appended for the
-current tested package. You can always manually specify other build options, like ``--build=never``,
+In conan test_package, by default, the ``--build=CurrentPackage`` pattern is automatically appended for the
+currently tested package. You can always manually specify other build options, like ``--build=never``,
 if you just want to check that the current existing package works for the test subproject, without
 re-building it.
 
