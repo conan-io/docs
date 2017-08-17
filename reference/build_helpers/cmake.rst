@@ -103,7 +103,7 @@ Attributes
 
    def build(self):
       cmake = CMake(self)
-      cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
+      cmake.defs["CMAKE_SYSTEM_NAME"] = "Generic"
       cmake.configure()
       cmake.build()
       cmake.install() # Build --target=install
