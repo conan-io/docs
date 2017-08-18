@@ -1,7 +1,7 @@
 Packaging approaches
 =====================
 
-Package recipes have three methods to control the packages binary compatibility and to implement different packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``
+Package recipes have three methods to control the package's binary compatibility and to implement different packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``.
 
 Package binary compatibility
 -----------------------------
@@ -47,7 +47,7 @@ the package created for gcc-4.8. You could do:
                 
 Note that the object being modified is called ``self.info``, not ``self.settings``. Also, any string is valid, as long as it will be the same for the settings you want it to be the same package.
 
-Read more about this in :ref:`how_to_define_abi_compatibility`
+Read more about this in :ref:`how_to_define_abi_compatibility`.
 
 
 Single configuration packages
@@ -104,9 +104,9 @@ If the developer wants to switch configuration of the dependencies, he will usua
 
 These switches will be fast, since all the dependencies are already cached locally.
 
-This process has some advantages: it is quite easy to implement and maintain. The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum. The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by artifacts could be a very risky issue. 
+This process has some advantages: it is quite easy to implement and maintain. The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum. The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by mistake could be a very risky issue.
 
-Read more about this in :ref:`package_info`
+Read more about this in :ref:`package_info`.
 
 
 Multi configuration packages
@@ -134,8 +134,7 @@ and not having to specify it in the command line. This type of package will incl
 
 
 
-Creating a multi-configuration Debug/Release package is not difficult, using ``CMake`` for example
-could be:
+Creating a multi-configuration Debug/Release package is not difficult, see the following example using ``CMake``:
 
 
 .. code-block:: python
@@ -185,12 +184,12 @@ This will translate to the cmake variables:
 And these variables will be correctly applied to each configuration by ``conan_basic_setup()``
 helper.
 
-In this case you can still use the general, no config-specific variables. For example, the
+In this case you can still use the general, not config-specific variables. For example, the
 include directory, set by default to ``include`` is still the same for both debug and release. 
 Those general variables will be applied for all configurations.
 
 Also, you can use any custom configuration you might want, they are not restricted. For example,
-if your package is a multilibrary package, you could try doing something like:
+if your package is a multi-library package, you could try doing something like:
 
 .. code-block:: python
 
@@ -205,7 +204,7 @@ in your consumer CMake build script.
  
      The automatic conversion of multi-config variables to generators is currently only implemented
      in the ``cmake`` and ``txt`` generators. If you want to have support for them in another
-     build system, please open a github issue for it.
+     build system, please open a GitHub issue for it.
 
 
 Build once, package many
@@ -241,4 +240,4 @@ Note that the ``build_id()`` method uses the ``self.info_build`` object to alter
 This doesn’t imply that there will be strictly one build folder. There will be a build folder for every configuration (architecture, compiler version, etc). So if we just have Debug/Release build types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders, saving half of the build time.
 
 
-Read more about this in :ref:`build_id`
+Read more about this in :ref:`build_id`.

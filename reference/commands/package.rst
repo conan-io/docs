@@ -41,7 +41,7 @@ So, if the ``conan package`` command is to be used, the recommended way to run i
 
     $ conan install .. -g txt
 
-or adding  ``txt`` generator to the consuming conanfile ``generators`` section
+or adding  ``txt`` generator to the consuming conanfile ``generators`` section.
 
 
 **Examples**

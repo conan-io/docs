@@ -24,7 +24,7 @@ Bintray host two central repositories:
 Using the new Bintray repositories
 ------------------------------------
 
-Using the new Bintray ``conan-transit`` repository is automatic, as the old ``server.conan.io`` has been automatically redirected to the ``conan-transit`` repository. However, it is preferred if you can update to explicitely use the new repositories, as the redirect is just a temporary solution. To do this, first remove the old conan.io repository, then add the new ones, in order:
+Using the new Bintray ``conan-transit`` repository is automatic, as the old ``server.conan.io`` has been automatically redirected to the ``conan-transit`` repository. However, it is preferred if you can update to explicitly use the new repositories, as the redirect is just a temporary solution. To do this, first remove the old conan.io repository, then add the new ones, in order:
 
 
 .. code-block:: bash
@@ -42,7 +42,7 @@ If you are just reading packages, this should be enough. You can navigate the bi
 Uploading packages to Bintray
 -------------------------------
 
-Conan packages can be uploaded to bintray under your own users or organizations. YOu can follow these steps:
+Conan packages can be uploaded to bintray under your own users or organizations. You can follow these steps:
 
 
 1. **Create a Bintray Open Source account**

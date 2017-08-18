@@ -8,7 +8,7 @@ There are several helpers that can assist to automate the ``build()`` method for
 CMake
 -----
 
-The `CMake` class help us to invoke `cmake` command with the generator, flags and definitions, reflecting the specified Conan settings.
+The `CMake` class helps us to invoke `cmake` command with the generator, flags and definitions, reflecting the specified Conan settings.
 
 
 There are two ways to invoke your cmake tools:

@@ -96,7 +96,7 @@ If no binary package is found you can build the package from sources using the `
 .. note::
 
    You have to take into account that **settings** are cached as defaults in the **conaninfo.txt** file,
-   so you don't have to type them again and again in the **conan install** or **conan test**
+   so you don't have to type them again and again in the **conan install** or **conan create**
    commands.
 
    However, the default **options** are defined in your **conanfile**.
@@ -126,7 +126,7 @@ If no binary package is found you can build the package from sources using the `
 build options
 -------------
 
-Both the conan **install** and **test** commands have options to specify whether conan should
+Both the conan **install** and **create** commands have options to specify whether conan should
 try to build things or not:
 
 * :command:`--build=never`  This is the default option. It is not necessary to write it explicitly. Conan will

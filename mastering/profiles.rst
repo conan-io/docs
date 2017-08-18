@@ -8,7 +8,7 @@ So far we have used the default settings stored in ``~/.conan/profiles/default``
 
 However, configurations can be large, settings can be very different, and we might want to switch easily between different configurations with different settings, options, etc.
 
-Profiles can be located in different folders, as for example the default ``<userhome>/.conan/profiles``, and be referenced by absolute or relative path:
+Profiles can be located in different folders, for example, the default ``<userhome>/.conan/profiles``, and be referenced by absolute or relative path:
 
 .. code-block:: bash
 
@@ -39,7 +39,7 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
    *: Tool4/0.1@user/channel
 
 
-They would contain the desired configuration, for example assume the following file is named ``myprofile``:
+They would contain the desired configuration, for example, assume the following file is named ``myprofile``:
 
 .. code-block:: text
 

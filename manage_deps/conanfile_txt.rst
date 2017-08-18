@@ -36,7 +36,7 @@ Where:
 
    - ``Poco`` is the name of the package, usually the same of the project/library
    - ``1.7.3`` is the version, usually matching the one of the packaged project/library. Can be any string, not necessarily a number, so it is possible to have a "develop" or "master" version. Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that are regenerated periodically.
-   - ``pocoproject`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So you can easily for example upload a certain library under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
+   - ``pocoproject`` is the owner of this package version. It is basically a namespace that allows different users to have their own packages for the same library with the same name, and interchange them. So, for example, you can easily upload a certain library under your own user name "lasote", and later those packages can be uploaded without modifications to another official, group or company username.
    - ``stable`` is the channel. Channels also allow to have different packages for the same library and use them interchangeably. They usually denote the maturity of the package, as an arbitrary string: "stable", "testing", but it can be used for any purpose, like package revisions (the library version has not changed, but the package recipe has evolved) 
 
 
@@ -47,15 +47,15 @@ _______________________
 You can specify multiple requirements and you can **override** the transitive "require's requirements".
 In our example, conan installed the POCO package and all its requirements transitively:
 
-   * **OpenSSL/1.0.2g@lasote/stable**
-   * **zlib/1.2.8@lasote/stable**
+   * **OpenSSL/1.0.2l@conan/stable**
+   * **zlib/1.2.11@conan/stable**
    
 .. tip:: 
 
     This is a good example to explain requirements overriding. We all know the importance of keeping the OpenSSL library updated.
 
 Now imagine that a new release of OpenSSL library is out, and a new conan package for it is available. 
-Do we need to wait until **lasote** generates a new package of POCO that includes the new OpenSSL library?
+Do we need to wait until **@conan** generates a new package of POCO that includes the new OpenSSL library?
 
 Not necessarily, just enter the new version in **[requires]**:
 
@@ -65,15 +65,15 @@ Not necessarily, just enter the new version in **[requires]**:
    Poco/1.7.8p3@pocoproject/stable
    OpenSSL/1.0.2p@conan/stable
 
-The second line will override the OpenSSL/1.0.2g required by poco, with the (non-existent yet)  **OpenSSL/1.0.2p**
+The second line will override the OpenSSL/1.0.2l required by POCO, with the (non-existent yet)  **OpenSSL/1.0.2p**
 
-Other example could be, in order to try out some new zlib alpha features, we could replace the Zlib requirement with one from another user or channel. 
+Other example could be, in order to try out some new zlib alpha features, we could replace the zlib requirement with one from another user or channel.
 
 .. code-block:: text
 
    [requires]
    Poco/1.7.8p3@pocoproject/stable
-   OpenSSL/1.0.2p@lasote/stable
+   OpenSSL/1.0.2p@conan/stable
    zlib/1.2.11@otheruser/alpha
 
 
@@ -95,9 +95,9 @@ Check the complete :ref:`generators<generators_reference>` reference.
 Options
 .......
 
-We have already seen that there are some **settings** that can be specified at install, like ``conan install -s build_type=Debug``. The settings are typically project wide configuration that is defined by the client machine. So they cannot be defaulted. It doesn't make sense that a package defines that is using by default a "Visual Studio" compiler, because that is something defined by the end consumer, and unlikely to make sense if they are working in Linux.
+We have already seen that there are some **settings** that can be specified at install time, for example ``conan install -s build_type=Debug``. The settings are typically a project-wide configuration, defined by the client machine. So they cannot have a default value in the recipe. For example, it doesn't make sense for a package recipe to declare as default compiler "Visual Studio", because that is something defined by the end consumer, and unlikely to make sense if they are working in Linux.
 
-On the other hand, **options** are intended for package specific configuration, that can be defaulted. For example, one package can define that its default linkage is static, and such default will be used if consumers don't specify otherwise.
+On the other hand, **options** are intended for package specific configuration, that can be set to a default value in the recipe. For example, one package can define that its default linkage is static, and such default will be used if consumers don't specify otherwise.
 
 .. note:: 
    
@@ -117,11 +117,11 @@ As an example, we can modify the previous example to use dynamic linkage instead
     cmake
     
     [options]
-    Poco:shared=True # Just the name of the library ":" and the option name
+    Poco:shared=True # PACKAGE:OPTION=VALUE
     OpenSSL:shared=True
       
 
-Install the requirements and compile from the build folder (change build command if not Win):
+Install the requirements and compile from the build folder (change cmake generator if not Win):
 
 .. code-block:: bash
 
@@ -138,7 +138,7 @@ Finally, launch the executable:
 
     $ ./bin/timer
 
-What happened? It fails because it can't find the shared libraries in the path. Remember that shared libraries are used at runtime, and the should be locatable by the OS, which is the one running the application.
+What happened? It fails because it can't find the shared libraries in the path. Remember that shared libraries are used at runtime, and should be locatable by the OS, which is the one running the application.
 
 We could inspect the generated executable, and see that it is using the shared libraries.
 For example in Linux, we could use the `objdump` tool and see in *Dynamic section*:
@@ -179,10 +179,7 @@ There are some differences between shared libraries on linux (\*.so), windows (\
 The shared libraries must be located in some folder where they can be found, either by the linker,
 or by the OS runtime.
 
-It is possible to add the folders of the libraries to the system Path, or copy those shared libraries
-to some system folder, so they are found by the OS. But those are typical operations of deploys or final
-installation of apps, not desired while developing, and conan is intended for developers, so it
-tries not to mess with the OS.
+It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path in Linux, or system PATH in Windows), or copy those shared libraries to some system folder, so they are found by the OS. But those are typical operations of deploys or final installation of apps, not desired while developing, and conan is intended for developers, so it tries not to mess with the OS.
 
 In Windows and OSX, the simplest approach is just to copy the shared libraries to the executable folder, so
 they are found by the executable, without having to modify the path.
@@ -236,7 +233,7 @@ This method can be used for packaging applications and copying the result execut
 
 .. tip:: **Pro Tip: Shared libraries & rpaths**
 
-   In **UNIX** based operating systems like **Linux** and **OSx**, there is something called **rpath** (run-time search path) that is used to locate the **shared libraries** that another library or executable needs for execution.
+   In **UNIX** based operating systems like **Linux** and **OSX**, there is something called **rpath** (run-time search path) that is used to locate the **shared libraries** that another library or executable needs for execution.
    
    The **rpath** is encoded inside dynamic libraries and executables and helps the linker to find its required shared libraries.
    
@@ -252,9 +249,9 @@ This method can be used for packaging applications and copying the result execut
    shared_lib_2 
    ============ =====================
    
-   In **linux** **rpath** is just an option, which means that, if the linker doesn't find the library in **rpath**, it will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
+   In **Linux** **rpath** is just an option, which means that, if the linker doesn't find the library in **rpath**, it will continue the search in **system defaults paths** (LD_LIBRARY_PATH... etc)
    
-   But in **OSX** with **dylibs** it doesn't work like that. In OSX, if the linker detects that an **rpath** is invalid (the file does not exist there), it will fail. In OSX, libraries are built with the hard restriction of knowing (before installing them) where (in which folder) they will be installed.
+   But in **OSX** with **dylibs** it doesn't work like that. In **OSX**, if the linker detects that an **rpath** is invalid (the file does not exist there), it will fail. In **OSX**, libraries are built with the hard restriction of knowing (before installing them) where (in which folder) they will be installed.
    
    Some dependency managers try to ride out this OSX restriction by changing the rpaths or making the rpaths relative to the binary.
    
@@ -274,7 +271,7 @@ This method can be used for packaging applications and copying the result execut
    
    The only limitation of this convention is that **dylibs** have to be copied to the folder of our executable, just like **dll** files in windows.
    
-   In **linux**, you don't need to care about **rpath** but you should know that, by default, the current directory (./) is not in the **LD_LIBRARY_PATH** so it's useless if you copy ***.so** files in your executable folder, unless you modify the LD_LIBRARY_PATH.
+   In **Linux**, you don't need to care about **rpath** but you should know that, by default, the current directory (./) is not in the **LD_LIBRARY_PATH** so it's useless if you copy ***.so** files in your executable folder, unless you modify the LD_LIBRARY_PATH.
    
    That's why we import **dll** and **dylib** files to our project with the [imports] section.
   

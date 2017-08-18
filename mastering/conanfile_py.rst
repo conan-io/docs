@@ -43,7 +43,7 @@ The equivalent ``conanfile.py`` file is:
 
 Note that this ``conanfile.py`` doesn't have a name, version, or ``build()`` or ``package()`` method, as it is not creating a package, they are not required.
 
-With this ``conanfile.py`` you can just work as usual, nothing changes from the user perspective.
+With this ``conanfile.py`` you can just work as usual, nothing changes from the user's perspective.
 You can install the requirements with (from mytimer/build folder):
 
 .. code-block:: bash
