@@ -38,6 +38,8 @@ Let`s have a look to the root package recipe ``conanfile.py``:
 
 .. code-block:: python
 
+    from conans import ConanFile, CMake, tools
+
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
