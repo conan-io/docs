@@ -426,11 +426,13 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.is_linux`` True if Linux
 - ``os_info.is_windows`` True if Windows
 - ``os_info.is_macos`` True if OSx
+- ``os_info.is_freebsd`` True if FreeBSD
+- ``os_info.is_solaris`` True if SunOS
 - ``os_info.os_version`` OS version
 - ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
 - ``os_info.linux_distro`` Linux distribution name (None if not Linux)
 
-Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum** or **brew** depending on the system we are running.
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **chocolatey**, **pkg**, **pkgutil** or **brew** depending on the system we are running.
 
 ..  code-block:: python
 
@@ -447,6 +449,12 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             pack_name = "package_name_in_fedora_and_centos"
         elif os_info.is_macos:
             pack_name = "package_name_in_macos"
+        elif os_info.is_windows:
+            pack_name = "package_name_in_windows"
+        elif os_info.is_freebsd:
+            pack_name = "package_name_in_freebsd"
+        elif os_info.is_solaris:
+            pack_name = "package_name_in_solaris"
 
         if pack_name:
             installer = SystemPackageTool()
@@ -591,4 +599,3 @@ Other information as custom package options can also be changed:
     def build_id(self):
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
-
