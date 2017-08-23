@@ -11,7 +11,7 @@ For the Poco package, if we specify ``shared=True`` or ``shared=False`` in the `
 When we declare new options we open the possibility of having multiple packages for the same recipe, as it happens with the settings.
 
 
-First, we are going to see how to control the tests build with an **option** (generally not a good idea). Adding a new option ``build_tests`` we can control when to run the tests:
+First, we are going to see how to control the build of tests with an **option** (generally not a good idea). Adding a new option ``build_tests`` we can control when to run the tests:
 
 **conanfile.py**
 
@@ -20,7 +20,7 @@ First, we are going to see how to control the tests build with an **option** (ge
 
      class PocoTimerConan(ConanFile):
         ...
-        options = {"build_tests": [True, False]}  # NOT A GOOD APROACH
+        options = {"build_tests": [True, False]}  # NOT A GOOD APPROACH
         default_options = "build_tests=False"
         ...
 
@@ -44,7 +44,7 @@ First, we are going to see how to control the tests build with an **option** (ge
    endif()
 
 
-Then we could use ``conan install -o Poco:build_test=False/True`` to activate or deactivate the tests launch.
+Then we could use ``conan install -o Poco:build_test=False/True`` to activate or deactivate the execution of tests.
 
 
 But, what happens if we are creating a conan package?
@@ -84,9 +84,9 @@ There is a special scope variable called ``dev`` that is automatically set to Tr
 
 If we export the recipe and install it from a local or remote repository, the variable ``dev`` will be False.
 
-It's specially useful to require some testing packages (just for run the tests) or anything that not affect to the built artifact.
+It's especially useful to require some testing packages (just for running the tests) or anything that does not affect the built artifact.
 
-In the following example we will require the ``catch`` package for unit test our project:
+In the following example we will require the ``catch`` package for unit testing our project:
 
 .. code-block:: python
    :emphasize-lines: 6,10
@@ -163,7 +163,7 @@ precedence:
 
    $ conan install --scope ALL:somescope=somevalue Poco:somescope=othervalue
 
-In this case, the scope ``somescope`` of Poco will have the value ``othervalue``
+In this case, the scope ``somescope`` of Poco will have the value ``othervalue``.
 
 
 At this point you almost have your library prepared for being a conan package. In next section

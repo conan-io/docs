@@ -11,7 +11,7 @@ Decentralized package manager
 -------------------------------
 Conan is a decentralized package manager with a client-server architecture. This means that clients can fetch packages from, as well as upload packages to, different servers (“remotes”), similar to the “git” push-pull model to/from git remotes.
 
-On a high level, the servers are just package storage. They do not build nor create the packages. The packages are created from the client, and if binaries are built from sources, that compilation is also done from the client application.
+On a high level, the servers are just package storage. They do not build nor create the packages. The packages are created by the client, and if binaries are built from sources, that compilation is also done by the client application.
 
 .. image:: images/systems.png
    :height: 200 px
@@ -23,14 +23,14 @@ The different applications in the picture are:
 
 - The **conan client**: this is a console/terminal command line application, containing the heavy logic for package creation and consumption. Conan client has a local cache for package storage, and so it allows you to fully create and test packages offline.  You can also **work offline** so long as no new packages are needed from remote servers. 
 - The **conan_server**: this is a TCP server that can be easily run as your **own server on-premises** to host your private packages. It is also a service application that can be run as a daemon or service, behind a web server (apache, nginx), or easily as stand-alone application.  Both the conan client and the conan_server are OSS, MIT license, so you can use them for free in your company, customize them, or redistribute them without any legal issue.
-- JFrog `Artifactory <https://www.jfrog.com/artifactory/>`_ offers conan repositories; so it can also be used as an on-premises server. It is a more powerful solution, featuring a WebUI, multiple auth protocols, High Availability, ..., etc. It also has cloud offerings that will allow you to have private packages without having any on-premises infrastructure.
+- JFrog `Artifactory <https://www.jfrog.com/artifactory/>`_ offers conan repositories; so it can also be used as an on-premises server. It is a more powerful solution, featuring a WebUI, multiple auth protocols, High Availability, etc. It also has cloud offerings that will allow you to have private packages without having any on-premises infrastructure.
 - JFrog `Bintray <https://bintray.com/>`_ provides a public and free hosting service for OSS conan packages. Users can create their own repositories under their accounts and organizations, and freely upload conan packages there, without moderation. You should, however, take into account that those packages will be public, and so they must conform to the respective licenses, especially if the packages contain third party code. Just reading or retrieving conan packages from Bintray, doesn't require an account, an account is only needed to upload packages. Besides that, Bintray provides a central repository called `conan-center <https://bintray.com/conan/conan-center>`_ which is moderated, and packages are reviewed before being accepted to ensure quality. This repository is currently empty, the process has just started. In the meantime, the repository `conan-transit <https://bintray.com/conan/conan-transit>`_ contains a copy of all the packages that were in the conan.io repository, and were copied. Those were non-moderated packages, so quality and cross-platform support of packages might vary.
 
 
 
 Binary management
 -------------------------------
-One of the powerful features of conan is that it can manage pre-compiled binaries for packages. To define a package, referenced by its name, version, user and channel, a package recipe is needed. Such a package recipe is a conanfile.py python script that defines how the package is built from sources, what the final binary artifacts are, the package dependencies, ..., etc.
+One of the powerful features of conan is that it can manage pre-compiled binaries for packages. To define a package, referenced by its name, version, user and channel, a package recipe is needed. Such a package recipe is a conanfile.py python script that defines how the package is built from sources, what the final binary artifacts are, the package dependencies, etc.
 
 .. image:: images/binary_mgmt.png
    :height: 200 px

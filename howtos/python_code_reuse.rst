@@ -58,7 +58,7 @@ It is not necessary to compile code, so the package recipe ``conanfile.py`` is q
 The ``exports`` will copy both the ``hello.py`` and the ``__init__.py`` into the recipe. The ``package()`` method is also obvious: to construct the package just copy the python sources.
 
 
-The ``package_info()`` adds the current package folder to the ``PYTHONPATH`` conan environment variable. It will not affect the real environment variable unless the end user want it.
+The ``package_info()`` adds the current package folder to the ``PYTHONPATH`` conan environment variable. It will not affect the real environment variable unless the end user wants it.
 
 
 It can be seen that this recipe would be practically the same for most python packages, so it could be factored in a ``PythonConanFile`` base class to further simplify it (open a feature request, or better a pull request :) ) 

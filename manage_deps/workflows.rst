@@ -67,8 +67,8 @@ Multi configuration
 -------------------
 You can also manage different configurations, in-source or out of source, and you can switch
 between them without taking the extra step of re-issuing the ``conan install`` command (even
-though this is not an speed related issue, since the second time ``conan install`` is executed
-with the same parameters, it will run very fast. Packages are installed in the cache, not inside
+though this is not a speed-related issue, since the second time ``conan install`` is executed
+with the same parameters, it will run very fast: packages are installed in the cache, not inside
 the project).
 
 .. code-block:: bash

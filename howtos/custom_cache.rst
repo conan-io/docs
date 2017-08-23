@@ -7,7 +7,7 @@ Virtual environments: concurrency, Continuous Integration, isolation
 Conan needs access to some, per user, configuration files, as the **conan.conf** file that
 defines the basic client app configuration. By convention, this file will be located in the
 user home folder **~/.conan/**. This folder will typically also store the package cache, in
-**~/.conan/data**. Though this later is configurable in *conan.conf*, still conan needs
+**~/.conan/data**. Though the latter is configurable in *conan.conf*, still conan needs
 some place to look for this initial configuration file.
 
 There are some scenarios in which you might want to use different initial locations for the
@@ -37,7 +37,7 @@ Using different caches is very simple. You can just define the environment varia
 By setting this variable to different paths, you have multiple virtual conan environments, 
 something like python "virtualenvs". Just changing the value of **CONAN_USER_HOME** you can 
 switch among isolated environments that will have independent package storage caches, but also
-different user credentials, different user defaul settings, and different remotes configuration.
+different user credentials, different user default settings, and different remotes configuration.
 
 **Note:** Use an absolute path or a path starting with ~/ (relative to user home). In Windows do not use quotes.
 

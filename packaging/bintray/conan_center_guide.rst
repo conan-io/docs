@@ -18,7 +18,7 @@ Inclusion guidelines for third party libraries
 **********************************************
 
 In the inclusion request process, the JFrog staff will perform a general review and will make suggestions for improvements or
-better/cleaner ways to do implement the code.
+better/cleaner ways to implement the package.
 
 
 One conan package per OSS library
@@ -40,7 +40,7 @@ Before creating packages for third party libraries, please read these general gu
 Recipe quality
 --------------
 
-- **Git public repository**: The recipe needs to be hosted in a public Git repository that allow collaboration.
+- **Git public repository**: The recipe needs to be hosted in a public Git repository that allows collaboration.
 
 - **Recipe fields**: `description`, `license` and `url` are required. The `license` field refers to the library being packaged.
 
@@ -54,9 +54,9 @@ Recipe quality
 - **test_package:** The recipes must contain a :ref:`test_package<packaging_getting_started>`
 
 - **Maintenance commitment:** You will be the responsible to keep the recipe updated, fix issues etc, so a minimal commitment
-  will be required. Conan organization reserves the right to unlink a poor maintained package or with better alternatives.
+  will be required. Conan organization reserves the right to unlink a poorly maintained package or replace it with better alternatives.
 
-- **Raise errors on invalid configurations:** If the library doesn't work for a specific configuration, e.j requires **gcc>7** the recipe must contain a ``configure(self)`` method
+- **Raise errors on invalid configurations:** If the library doesn't work for a specific configuration, e.g. requires **gcc>7** the recipe must contain a ``configure(self)`` method
   that raises an exception in case of invalid settings/options.
 
 .. code-block:: python
@@ -68,8 +68,8 @@ Recipe quality
            raise ConanException("Windows not supported")
 
 
-- **LICENSE of the recipe:** The public repository have to contain a ``LICENSE`` file with an OSS license.
-- **LICENSE of the library:** Every built binary package have to contain one or more ``license*`` file/s, so make sure that
+- **LICENSE of the recipe:** The public repository must contain a ``LICENSE`` file with an OSS license.
+- **LICENSE of the library:** Every built binary package must contain one or more ``license*`` file(s), so make sure that
   in the ``package()`` method of your recipe, you are copying the library licenses to a ``licenses`` subfolder.
 
 
@@ -97,7 +97,7 @@ Sometimes there is no ``license`` file, and you need to extract the license from
 CI Integration
 --------------
 
-- If you are packaging a header only library, it is only needed to provide one CI configuration (e.j Travis with gcc 6.1) to check
+- If you are packaging a header only library, it is only needed to provide one CI configuration (e.g. Travis with gcc 6.1) to check
   that the package is built correctly (use test_package).
 
 - Unless your library is a header only library or doesn't support a concrete operating system or compiler you will need to provide a CI systems integration

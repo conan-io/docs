@@ -19,7 +19,7 @@ It creates a file named ``conanbuildinfo.cmake`` that can be imported from your 
 When **conan install** is executed, a file named ``conanbuildinfo.cmake`` is created.
 
 We can include ``conanbuildinfo.cmake`` in our project's ``CMakeLists.txt`` to manage our requirements.
-The inclusion of ``conanbuildinfo.cmake`` doesn't alter cmake environment at all, it just provide ``CONAN_`` variables and some useful macros.
+The inclusion of ``conanbuildinfo.cmake`` doesn't alter cmake environment at all, it just provides ``CONAN_`` variables and some useful macros.
 
 
 Global variables approach
