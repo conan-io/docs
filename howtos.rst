@@ -22,3 +22,4 @@ This section shows common solutions and different approaches to typical problems
    howtos/collect_licenses
    howtos/conan_as_other_languages_package_manager
    howtos/use_gtest
+   howtos/work_with_pc_files
