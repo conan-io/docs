@@ -1,7 +1,10 @@
 .. _pc_files:
 
-Work with pkg-config and pc files
-=================================
+pkg-config and pc files
+=======================
+
+Intro
+-----
 
 If you are creating a Conan package for a library (A) and the build system uses ``.pc`` files to locate
 its dependencies (B and C), Conan packages too, you can follow different approaches.
@@ -68,12 +71,10 @@ You can adjust the `PKG_CONFIG_PATH` to let ``pkg-config`` tool locate your ``.p
         requires = "libB/1.0@conan/stable"
 
         def build(self):
-            from conans.client.file_copier import FileCopier
             lib_b_path = self.deps_cpp_info["libB"].rootpath
-            file_copier = FileCopier(lib_b_path, ".")
-            pcs = file_copier("*.pc")
-            for pcfile in pcs:
-                tools.replace_prefix_in_pc_file(pcfile, lib_b_path)
+            copyfile(os.path.join(lib_b_path, "libB.pc"), "libB.pc")
+            # Patch copied file with the libB path
+            tools.replace_prefix_in_pc_file("libB.pc", lib_b_path)
 
             with tools.environment_append({"PKG_CONFIG_PATH": os.getcwd()}):
                # CALL YOUR BUILD SYSTEM (configure, make etc)
@@ -98,7 +99,7 @@ Library B recipe (preparing the ``pc`` file):
 
 .. code-block:: python
 
-    from conans import tools
+    from conans import ConanFile, tools
 
     class LibraryBrecipe(ConanFile):
         ....
@@ -145,7 +146,7 @@ If you have available ``pkg-config`` >= 0.29 and you have only one dependency, y
 the ``--define-prefix`` option to declare a custom ``prefix`` variable. With this approach you won't
 need to patch anything, just declare the correct variable.
 
-Approach 3: Use `PKG_CONFIG_$PACKAGE_$VARIABLE`
+Approach 4: Use `PKG_CONFIG_$PACKAGE_$VARIABLE`
 -----------------------------------------------
 
 If you have available ``pkg-config`` >= 0.29.1 you can manage multiple dependencies declaring N variables

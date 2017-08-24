@@ -43,6 +43,6 @@ Variables declared
 +--------------------+---------------------------------------------------------------------+
 | LD_LIBRARY_PATH    | ``lib`` folders of  your requirements.                              |
 +--------------------+---------------------------------------------------------------------+
-| DYLIB_LIBRARY_PATH | ``lib`` folders of  your requirements.                              |
+| DYLD_LIBRARY_PATH  | ``lib`` folders of  your requirements.                              |
 +--------------------+---------------------------------------------------------------------+
 
