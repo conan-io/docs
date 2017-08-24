@@ -21,7 +21,7 @@ If your package recipe (A) is generating shared libraries you can declare the ne
 pointing to the package directory. This way, any other package depending on (A) will automatically have
 the right environment variable set, so they will be able to locate the (A) shared library.
 
-Similarly if you use the :ref:`virtualrunenv generator<virtual_run_environment_generator>` and you
+Similarly if you use the :ref:`virtualenv generator<virtual_environment_generator>` and you
 activate it, you will get the paths needed to locate the shared libraries in your terminal.
 
 
@@ -145,11 +145,43 @@ In Linux you still need to set the ``LD_LIBRARY_PATH``:
 
    $ cd bin && LD_LIBRARY_PATH=$(pwd) && ./mytool
 
-Using the tool in a terminal
-----------------------------
 
-We could also use a :ref:`virtualrunenv generator<virtual_run_environment_generator>` to get the
+Using the **virtualenv** generator
+----------------------------------
+
+We could also use a :ref:`virtualenv generator<virtual_environment_generator>` to get the
 ``toolA`` executable available:
+
+**conanfile.txt**
+
+.. code-block:: python
+
+    [requires]
+    toolA/1.0@myuser/stable
+
+    [options]
+    toolA:shared=True
+
+    [generators]
+    virtualenvironment
+
+
+**In the terminal window:**
+
+.. code-block:: bash
+
+    conan install .
+    source activate
+    toolA --someparams
+
+
+Using the **virtualrunenv** generator
+----------------------------------
+
+Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
+the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically
+the environment variables poiting to the "lib" and "bin" folders.
+
 
 **conanfile.txt**
 
@@ -172,3 +204,4 @@ We could also use a :ref:`virtualrunenv generator<virtual_run_environment_genera
     conan install .
     source activate
     toolA --someparams
+
