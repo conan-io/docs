@@ -477,6 +477,8 @@ The allowed ``build_policy`` values are:
      class PocoTimerConan(ConanFile):
         build_policy = "always" # "missing"
 
+.. _short_paths_reference:
+
 short_paths
 ------------
 
