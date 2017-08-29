@@ -123,6 +123,7 @@ shared libraries to our user space.
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
     lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
+    lib, *.so* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
 
 
 **In the terminal window and build the project:**
@@ -176,7 +177,7 @@ We could also use a :ref:`virtualenv generator<virtual_environment_generator>` t
 
 
 Using the **virtualrunenv** generator
-----------------------------------
+-------------------------------------
 
 Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
 the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically

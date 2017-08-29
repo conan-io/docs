@@ -160,7 +160,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
    self.cpp_info.libs = []  # The libs to link against
    self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
-   self.cpp_info.bindirs = []  # Directories where executables and shared libs can be found
+   self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
    self.cpp_info.defines = []  # preprocessor definitions
    self.cpp_info.cflags = []  # pure C flags
    self.cpp_info.cppflags = []  # C++ compilation flags
