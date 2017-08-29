@@ -3,7 +3,7 @@
 conan.conf
 ==========
 
-The typical location of the **conan.conf** file is the directory ``~/.conan/conan.conf``:
+The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
 .. code-block:: text
 
@@ -100,8 +100,13 @@ Conan recipes can use the cpu_count() tool to build the library using more than 
 
 Storage
 +++++++
-The ``storage.path`` variable define the path where all the packages will be stored (on Windows, it is recomended to assign it to
-some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
+The ``storage.path`` variable define the path where all the packages will be stored.
+
+On Windows:
+
+- It is recommended to assign it to some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
+- Also see the :ref:`short_paths docs<short_paths_reference>` to know more about how to mitigate the limitation of 260 chars path name length limit.
+- It is recommended to disable the Windows indexer or exclude the storage path to avoid problems (busy resources).
 
 
 .. note::
