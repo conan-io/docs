@@ -1,7 +1,7 @@
 .. _create_command:
 
 conan create
-==================
+============
 
 .. code-block:: bash
 
