@@ -118,16 +118,24 @@ When other library requires ``MyLib`` and uses the cmake generator:
 Methods available in conanbuildinfo.cmake
 -----------------------------------------
 
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| NAME                           | DESCRIPTION                                                                               |
-+================================+===========================================================================================+
-| conan_basic_setup()            |  Setup all the CMake vars according to our settings with the global approach (no targets) |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| conan_basic_setup(TARGETS)     |  Setup all the CMake vars by target (only CMake > 3.1.2)                                  |
-+--------------------------------+-------------------------------------------------------------------------------------------+
-| conan_target_link_libraries()  |  Helper to link all libraries to a specified target                                       |
-+--------------------------------+-------------------------------------------------------------------------------------------+
++-----------------------------------+-------------------------------------------------------------------------------------------+
+| NAME                              | DESCRIPTION                                                                               |
++===================================+===========================================================================================+
+| conan_basic_setup()               |  Setup all the CMake vars according to our settings with the global approach (no targets) |
++-----------------------------------+-------------------------------------------------------------------------------------------+
+| conan_basic_setup(TARGETS)        |  Setup all the CMake vars by target (only CMake > 3.1.2)                                  |
++-----------------------------------+-------------------------------------------------------------------------------------------+
+| conan_basic_setup(NO_OUTPUT_DIRS) |  Do not adjust the output directories                                                     |
++-----------------------------------+-------------------------------------------------------------------------------------------+
+| conan_basic_setup(SKIP_RPATH)     |  Do not adjust the CMAKE_SKIP_RPATH variable in OSX                                       |
++-----------------------------------+-------------------------------------------------------------------------------------------+
+| conan_target_link_libraries()     |  Helper to link all libraries to a specified target                                       |
++-----------------------------------+-------------------------------------------------------------------------------------------+
 
+
+.. note::
+
+    You can combine several parameters to the ``conan_basic_setup`` macro. e.j: ``conan_basic_setup(TARGETS SKIP_RPATH)``
 
 
 Other optional methods
