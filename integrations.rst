@@ -16,6 +16,7 @@ Integrations
    integrations/android_studio
    integrations/clion
    integrations/ninja
+   integrations/pkg_config_pc_files
    integrations/qmake
    integrations/premake
    integrations/qbs

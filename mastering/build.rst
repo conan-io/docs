@@ -198,7 +198,7 @@ It's valid to invoke both gcc and clang compilers.
 RunEnvironment
 --------------
 
-The ``RunEnvironment`` helper prepare ``PATH``, ``LD_LIBRARY_PATH`` and ``DYLIB_LIBRARY_PATH`` environment variables to locate shared libraries and executables of your requirements at runtime.
+The ``RunEnvironment`` helper prepare ``PATH``, ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables to locate shared libraries and executables of your requirements at runtime.
 
 This helper is specially useful:
 
@@ -222,7 +222,7 @@ Example:
          with tools.environment_append(env_build.vars):
             self.run("....")
             # All the requirements bin folder will be available at PATH
-            # All the lib folders will be available in LD_LIBRARY_PATH and DYLIB_LIBRARY_PATH
+            # All the lib folders will be available in LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
 
 .. seealso:: Check the :ref:`Reference/Build Helpers/RunEnvironment <run_environment_reference>` to see the complete reference.
 
