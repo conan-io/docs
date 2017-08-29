@@ -40,7 +40,6 @@ Handles the remote list and the package recipes associated to a remote.
    local: http://localhost:9300 [Verify SSL: True]
 
 
-
 - Add a new remote:
 
 .. code-block:: bash
@@ -75,6 +74,13 @@ Insert as the second one (position/index 1), so it is the second one to be check
 .. code-block:: bash
 
    $ conan remote update remote_name new_url [verify_ssl]
+
+
+- Change an existing remote to the first position:
+
+.. code-block:: bash
+
+   $ conan remote update remote_name same_url --insert 0
 
 
 - List the package recipes and its associated remotes:

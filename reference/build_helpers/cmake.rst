@@ -44,6 +44,18 @@ CMake(conanfile, generator=None, cmake_system_name=True, parallel=True)
 Attributes
 ----------
 
+- **verbose**: Set it to True or False to automatically set the definition ``CMAKE_VERBOSE_MAKEFILE``.
+
+
+.. code-block:: python
+
+
+   def build(self):
+      cmake = CMake(self)
+      cmake.verbose = True
+      cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+      cmake.build()
+
 - **command_line** (read only): Generator, conan definitions and flags that reflects the specified Conan settings.
 
 .. code-block:: text
@@ -55,7 +67,6 @@ Attributes
 .. code-block:: text
 
     --config Release
-
 
 - **definitions**: The CMake helper will automatically append some definitions based on your settings:
 

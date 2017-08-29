@@ -176,7 +176,7 @@ We could also use a :ref:`virtualenv generator<virtual_environment_generator>` t
 
 
 Using the **virtualrunenv** generator
-----------------------------------
+-------------------------------------
 
 Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
 the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically
