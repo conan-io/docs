@@ -3,22 +3,9 @@
 conan.conf
 ==========
 
-This is the typical ``~/.conan/conan.conf`` file:
+The typical location of the **conan.conf** file is the directory ``~/.conan/conan.conf``:
 
 .. code-block:: text
-
-    [storage]
-    # This is the default path, but you can write your own
-    path = ~/.conan/data
-
-    [proxies]
-    # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
-    # http = http://user:pass@10.10.1.10:3128/
-    # http = http://10.10.1.10:3128
-    # https = http://10.10.1.10:1080
-
 
     [log]
     run_to_output = True        # environment CONAN_LOG_RUN_TO_OUTPUT
@@ -28,11 +15,11 @@ This is the typical ``~/.conan/conan.conf`` file:
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
     [general]
+    default_profile = default
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
-    # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -47,17 +34,47 @@ This is the typical ``~/.conan/conan.conf`` file:
 
     # cpu_count = 1             # environment CONAN_CPU_COUNT
 
-Here you can configure the path where all the packages will be stored (on Windows, it is recomended to assign it to
-some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
 
-You can also adjust the "path" setting using the environment variable **CONAN_USER_HOME**. 
-Check the :ref:`how to control the cache<custom_cache>` section.
+    [storage]
+    # This is the default path, but you can write your own. It must be an absolute path or a
+    # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
+    # with "~/", will be relative to the conan user home, not to the system user home)
+    path = ~/.conan/data
 
-The remotes are managed in the order in which they are listed. The first one is assumed to be the default
-for uploads. For downloads they are also accessed sequentially, until a matching binary package is found.
+    [proxies]
+    # Empty section will try to use system proxies.
+    # If don't want proxy at all, remove section [proxies]
+    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # http = http://user:pass@10.10.1.10:3128/
+    # http = http://10.10.1.10:3128
+    # https = http://10.10.1.10:1080
 
 
+    # Default settings now declared in the default profile
 
+
+Log
++++
+
+The ``run_to_output`` variable, defaulted to 1, will print to the ``stdout`` the output from the ``self.run`` executions in the conanfile.
+You can also adjust the environment variable ``CONAN_LOG_RUN_TO_OUTPUT``.
+
+The ``run_to_file`` variable, defaulted to False, will print the output from the ``self.run`` executions to the path that the variable specifies.
+You can also adjust the environment variable ``CONAN_LOG_RUN_TO_FILE``.
+
+The ``level`` variable, defaulted to 50 (critical events), declares the LOG level . If you want to show more detailed logging information,
+set this variable to lower values, as 10 to show debug information.                #
+You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+
+The ``trace_file`` variable enable extra logging information about your conan command executions.
+Set it with an absolute path to a file.
+You can also adjust the environment variable ``CONAN_TRACE_FILE``.
+
+The ``print_run_commands``, when is 1, Conan will print the executed commands in ``self.run`` to the output.
+You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
+
+General
++++++++
 The ``bash_path`` variable is used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
 
@@ -80,10 +97,22 @@ available in your machine.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 
+Storage
++++++++
+The ``storage.path`` variable define the path where all the packages will be stored (on Windows, it is recomended to assign it to
+some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
+
+
+.. note::
+
+    If you want to change the default "conan home" (directory where ``conan.conf`` file is) you can adjust
+    the environment variable ``CONAN_USER_HOME``.
+
+
 .. _proxys:
 
 Proxies
-++++++++++
++++++++
 If you are not using proxies at all, you can just remove the ``[proxies]`` section
 completely. You might want to try to use your system defined configuration. You can try to
 do this with a blank ``[proxies]`` section:
