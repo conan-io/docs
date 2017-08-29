@@ -432,7 +432,7 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
 - ``os_info.linux_distro`` Linux distribution name (None if not Linux)
 
-Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **chocolatey**, **pkg**, **pkgutil** or **brew** depending on the system we are running.
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil** or **brew** depending on the system we are running.
 
 ..  code-block:: python
 
@@ -449,8 +449,6 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             pack_name = "package_name_in_fedora_and_centos"
         elif os_info.is_macos:
             pack_name = "package_name_in_macos"
-        elif os_info.is_windows:
-            pack_name = "package_name_in_windows"
         elif os_info.is_freebsd:
             pack_name = "package_name_in_freebsd"
         elif os_info.is_solaris:
@@ -460,6 +458,17 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             installer = SystemPackageTool()
             installer.install(pack_name) # Install the package, will update the package database if pack_name isn't already installed
 
+On Windows, there is no standard package manager, however **choco** can be invoked as an optional:
+
+..  code-block:: python
+
+    from conans.tools import os_info, SystemPackageTool, ChocolateyTool
+
+    def system_requirements(self):
+        if os_info.is_windows:
+            pack_name = "package_name_in_windows"
+            installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
+            installer.install(pack_name)
 
 SystemPackageTool methods:
 
