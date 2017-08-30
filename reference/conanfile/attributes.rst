@@ -534,5 +534,102 @@ located.
 cpp_info
 ---------
 This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
-Read :ref:`package_info() method docs <package_info>` for more info.
+
+The ``self.cpp_info`` object can be filled with the needed information for the consumers of the current
+package:
+
++-------------------------------------------+---------------------------------------------------------------------+
+| NAME                                      | DESCRIPTION                                                         |
++===========================================+=====================================================================+
+| self.cpp_info.includedirs                 | Ordered list with include paths, by default ['include']             |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.libdirs                     | Ordered list with lib paths, by default ['lib']                     |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.resdirs                     | Ordered list of resource (data) paths, by default ['res']           |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                 |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.libs                        | Ordered list with the library names, by default empty []            |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.defines                     | Preprocessor definitions, by default empty []                       |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.cflags                      | Ordered list with pure C flags, by default empty []                 |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.cppflags                    | Ordered list with C++ flags, by default empty []                    |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags             | Ordered list with linker flags (shared libs), by default empty []   |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.exelinkflags                | Ordered list with linker flags (executables), by default empty []   |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info    |
++-------------------------------------------+---------------------------------------------------------------------+
+
+
+.. seealso::
+
+    Read :ref:`package_info() method docs <package_info>` for more info.
+
+
+
+deps_cpp_info
+-------------
+
+Contains the ``cpp_info`` object of the requirements of the recipe.
+It can be used to get information about the dependencies, like used compilation flags or the
+root folder of the package:
+
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+     class PocoTimerConan(ConanFile):
+        ...
+        requires = "zlib/1.2.11@conan/stable", "OpenSSL/1.0.2l@conan/stable"
+        ...
+
+        def build(self):
+            # Get the directory where zlib package is installed
+            self.deps_cpp_info["zlib"].rootpath
+
+            # Get the sharedlinkflags property from OpenSSL package
+            self.deps_cpp_info["OpenSSL"].sharedlinkflags
+
+env_info
+--------
+
+This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
+
+The ``self.env_info`` object can be filled with the environment variables to be declared in the packages reusing the recipe.
+
+.. seealso::
+
+    Read :ref:`package_info() method docs <package_info>` for more info.
+
+
+deps_env_info
+-------------
+
+You can access to the declared environment variables of the requirements of the recipe.
+
+**Note:** The environment variables declared in the requirements of a recipe are automatically applied
+and it can be accesed with the python ``os.environ`` dictionary. Nevertheless if
+you want to access to the variable declared by some specific requirement you can use the ``self.deps_env_info`` object.
+
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+     import os
+
+     class RecipeConan(ConanFile):
+        ...
+        requires = "package1/1.0@conan/stable", "package2/1.2@conan/stable"
+        ...
+
+        def build(self):
+            # Get the SOMEVAR environment variable declared in the "package1"
+            self.deps_env_info["package1"].SOMEVAR
+
+            # Access to the environment variables globally
+            os.environ["SOMEVAR"]
 
