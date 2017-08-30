@@ -86,6 +86,12 @@ This process can be repeated to create and test packages for different configura
    $ conan test_package -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
 
 
+.. note::
+
+    From Conan 0.26 it is not mandatory to specify the ``compiler.runtime`` setting. For ``build_type==Debug`` Conan will use ``runtime=MDd``, for
+    ``build_type==Release`` Conan will use ``runtime=MD`` automatically.
+
+
 You can list the different created package binaries:
 
 .. code-block:: bash

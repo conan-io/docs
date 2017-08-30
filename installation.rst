@@ -113,7 +113,6 @@ You will see something similar to:
            arch=x86_64
            compiler=Visual Studio
            compiler.version=14
-           compiler.runtime=MD
            build_type=Release
    *** You can change them in ~/.conan/profiles/default ***
    *** Or override with -s compiler='other' -s ...s***
