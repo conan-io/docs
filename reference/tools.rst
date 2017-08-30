@@ -462,3 +462,25 @@ tools.relative_dirs()
 Recursively walks a given directory (using ``os.walk()``)
 and returns a list of all contained file paths
 relative to the given directory.
+
+
+tools.vs_installation_path()
+----------------------------
+
+Returns the Visual Studio installation path for the given version.
+It only works when the tool ``vswhere`` is installed.
+If the tool is not able to return the path it returns ``None``.
+
+**Parameters:**
+
+- **version**: Visual Studio version to locate. The valid version numbers are strings: "10", "11", "12", "13", "14", "15"...
+
+
+**Example:**
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path_2017 = tools.vs_installation_path("15")
+
