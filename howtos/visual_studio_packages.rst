@@ -177,6 +177,10 @@ The above example works as-is for VS2017, because VS support upgrading from prev
     $ set VS150COMNTOOLS C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/Common7/Tools
     $ conan test_package -s compiler="Visual Studio" -s compiler.version=15
 
+.. note::
+
+    From Conan v0.26 it is not needed to set the ``VS150COMNTOOLS`` variable if the tool ``vswhere`` is installed in the system.
+
 
 If you have to build for older versions of Visual Studio, it is also possible. In that case, you would probably have different solution projects inside your build folder. Then the recipe only has to select the correct one, something like:
 
