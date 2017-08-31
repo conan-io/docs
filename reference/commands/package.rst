@@ -28,20 +28,20 @@ folder to the current one.
 
 		positional arguments:
 			reference             package recipe reference e.g. MyPkg/0.1@user/channel,
-														or local path to the build folder (relative or
-														absolute)
+                            or local path to the build folder (relative or
+                            absolute)
 			package_id            Package ID to regenerate. e.g.,
-														9cf83afd07b678d38a9c1645f605875400847ff3 This optional
-														parameter is only used for the local conan cache. If
-														not specified, ALL binaries for this recipe are re-
-														packaged
+                            9cf83afd07b678d38a9c1645f605875400847ff3 This optional
+                            parameter is only used for the local conan cache. If
+                            not specified, ALL binaries for this recipe are re-
+                            packaged
 
 		optional arguments:
 			-h, --help            show this help message and exit
 			--build_folder BUILD_FOLDER, -bf BUILD_FOLDER
-														local folder containing the build
+                            local folder containing the build
 			--source_folder SOURCE_FOLDER, -sf SOURCE_FOLDER
-														local folder containing the sources
+                            local folder containing the sources
 
 
 This command has 2 different modes:
