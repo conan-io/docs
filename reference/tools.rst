@@ -484,3 +484,26 @@ If the tool is not able to return the path it returns ``None``.
 
     vs_path_2017 = tools.vs_installation_path("15")
 
+
+tools.replace_prefix_in_pc_file
+-------------------------------
+
+Replaces the ``prefix`` variable in a package config file ``.pc`` with the specified value.
+
+**Parameters:**
+
+- **pc_file**: Path to the pc file
+- **new_prefix**: New prefix variable value (path pointing to a package)
+
+
+.. code-block:: python
+
+    lib_b_path = self.deps_cpp_info["libB"].rootpath
+    tools.replace_prefix_in_pc_file("libB.pc", lib_b_path)
+
+
+.. seealso::
+
+    Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
+
+
