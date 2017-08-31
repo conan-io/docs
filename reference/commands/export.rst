@@ -5,19 +5,21 @@ conan export
 
 .. code-block:: bash
 
-	$ conan export [-h] [--path PATH] [--keep-source] [--file FILE] user
+	$ conan export [-h] [--path PATH] [--keep-source] [--file FILE] reference
 
-Copies the package recipe (conanfile.py and associated files) to your local cache.
-From the local cache it can be shared and reused in other projects.
-Also, from the local cache, it can be uploaded to any remote with the "upload" command.
+Copies the package recipe (conanfile.py and associated files) to your local
+cache. From the local cache it can be shared and reused in other projects.
+Also, from the local cache, it can be uploaded to any remote with the "upload"
+command.
 
 
 .. code-block:: bash
 
 
     positional arguments:
-      user                  user_name[/channel]. By default, channel is "testing",
-                            e.g., phil or phil/stable
+    reference             a full package reference Pkg/version@user/channel, or
+                          just the user/channel if package and version are
+                          defined in recipe
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -34,11 +36,11 @@ The ``export`` command will run a linting of the package recipe, looking for pos
 **Examples**
 
 
-- Export a recipe from the current directory, under the ``myuser/testing`` user and channel:
+- Export a recipe using a full reference. Only valid if ``name`` and ``version`` are not declared in the recipe:
 
 .. code-block:: bash
 
-	$ conan export myuser
+	$ conan export mylib/1.0@myuser/channel
 
 
 - Export a recipe from any folder directory, under the ``myuser/stable`` user and channel:

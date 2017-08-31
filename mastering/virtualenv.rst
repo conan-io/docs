@@ -95,13 +95,15 @@ This will generate ``activate_build`` and ``deactivate_build`` files.
              Check the section :ref:`Reference/virtualbuildenv<virtualbuildenv_generator>` to see the reference of the generator.
 
 
+.. _virtual_run_environment_generator:
+
 Virtualrunenv generator
 ---------------------------
 
 Use the generator ``virtualrunenv`` to activate an environment that will:
 
 - Append to ``PATH`` environment variable every ``bin`` folder of your requirements.
-- Append to ``LD_LIBRARY_PATH`` and ``DYLIB_LIBRARY_PATH`` environment variables each ``lib`` folder of  your requirements.
+- Append to ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables each ``lib`` folder of  your requirements.
 
 This generator is especially useful:
 

@@ -39,7 +39,7 @@ something like python "virtualenvs". Just changing the value of **CONAN_USER_HOM
 switch among isolated environments that will have independent package storage caches, but also
 different user credentials, different user default settings, and different remotes configuration.
 
-**Note:** Use an absolute path and without quotes in Windows.
+**Note:** Use an absolute path or a path starting with ~/ (relative to user home). In Windows do not use quotes.
 
 Windows users:
 

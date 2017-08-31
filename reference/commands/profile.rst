@@ -5,22 +5,28 @@ conan profile
 
 .. code-block:: bash
 
-	$ conan profile [-h] {list,show} ...
+	$ conan profile [-h] {list,show,new,update,remove} ...
 
-
-List all the profiles that exist in the ``.conan/profiles`` folder, or show details for a given profile.
-The ``list`` subcommand will always use the default user ``.conan/profiles`` folder. But the
-``show`` subcommand is able to resolve absolute and relative paths, as well as to map names to
-``.conan/profiles`` folder, in the same way as the ``--profile`` install argument.
+List profiles in the '.conan/profiles' folder, or show profile details. The
+'list' subcommand will always use the default user 'conan/profiles' folder.
+But the 'show' subcommand is able to resolve absolute and relative paths, as
+well as to map names to '.conan/profiles' folder, in the same way as the '--
+profile' install argument.
 
 
 .. code-block:: bash
 
 	positional arguments:
-	  {list,show}  sub-command help
-	    list       list current profiles
-	    show       show the values defined for a profile. Can be a path (relative
-	               or absolute) to a profile file in any location.
+	  {list,show,new,update,remove}
+                        sub-command help
+      list                list current profiles
+      show                show the values defined for a profile. Can be a path
+                           (relative or absolute) to a profile file in any
+                           location.
+      new                 Creates a new empty profile
+      update              Update a profile
+      remove              Remove a profile key
+
 
 
 **Examples**
@@ -59,4 +65,28 @@ The ``list`` subcommand will always use the default user ``.conan/profiles`` fol
    Profile myprofile1
    [settings]
    ...
+
+- Update a setting from a profile located in a custom directory:
+
+.. code-block:: bash
+
+   $ conan profile update settings.build_type=Debug /path/to/my/profile
+
+- Add a new option to the default profile:
+
+.. code-block:: bash
+
+   $ conan profile update options.zlib:shared=True default
+
+- Create a new empty profile:
+
+.. code-block:: bash
+
+   $ conan profile new /path/to/new/profile
+
+- Create a new profile detecting the settings:
+
+.. code-block:: bash
+
+   $ conan profile new /path/to/new/profile --detect
 

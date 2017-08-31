@@ -24,7 +24,7 @@ Set environment variables:
 +--------------------+---------------------------------------------------------------------+
 | LD_LIBRARY_PATH    | Containing all the requirements ``lib`` folders. (Linux)            |
 +--------------------+---------------------------------------------------------------------+
-| DYLIB_LIBRARY_PATH | Containing all the requirements ``lib`` folders. (OSX)              |
+| DYLD_LIBRARY_PATH  | Containing all the requirements ``lib`` folders. (OSX)              |
 +--------------------+---------------------------------------------------------------------+
 
 

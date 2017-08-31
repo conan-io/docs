@@ -161,7 +161,7 @@ Same result, the required package is again ``af04...46ad``. Now we can try with 
 
 .. code-block:: bash
 
-	$ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.6 ...
+	$ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.4 ...
 	
 	Requirements
 	    Pkg/1.0@myuser/mychannel from local

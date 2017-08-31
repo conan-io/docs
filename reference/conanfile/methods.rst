@@ -175,7 +175,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
    self.cpp_info.libs = []  # The libs to link against
    self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
-   self.cpp_info.bindirs = []  # Directories where executables and shared libs can be found
+   self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
    self.cpp_info.defines = []  # preprocessor definitions
    self.cpp_info.cflags = []  # pure C flags
    self.cpp_info.cppflags = []  # C++ compilation flags
@@ -441,11 +441,13 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.is_linux`` True if Linux
 - ``os_info.is_windows`` True if Windows
 - ``os_info.is_macos`` True if OSx
+- ``os_info.is_freebsd`` True if FreeBSD
+- ``os_info.is_solaris`` True if SunOS
 - ``os_info.os_version`` OS version
 - ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
 - ``os_info.linux_distro`` Linux distribution name (None if not Linux)
 
-Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum** or **brew** depending on the system we are running.
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil** or **brew** depending on the system we are running.
 
 ..  code-block:: python
 
@@ -462,11 +464,26 @@ Also you can use ``SystemPackageTool`` class, that will automatically invoke the
             pack_name = "package_name_in_fedora_and_centos"
         elif os_info.is_macos:
             pack_name = "package_name_in_macos"
+        elif os_info.is_freebsd:
+            pack_name = "package_name_in_freebsd"
+        elif os_info.is_solaris:
+            pack_name = "package_name_in_solaris"
 
         if pack_name:
             installer = SystemPackageTool()
             installer.install(pack_name) # Install the package, will update the package database if pack_name isn't already installed
 
+On Windows, there is no standard package manager, however **choco** can be invoked as an optional:
+
+..  code-block:: python
+
+    from conans.tools import os_info, SystemPackageTool, ChocolateyTool
+
+    def system_requirements(self):
+        if os_info.is_windows:
+            pack_name = "package_name_in_windows"
+            installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
+            installer.install(pack_name)
 
 SystemPackageTool methods:
 
@@ -606,4 +623,3 @@ Other information as custom package options can also be changed:
     def build_id(self):
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
-
