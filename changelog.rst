@@ -6,6 +6,44 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.26.0 (31-August-2017)
+------------------------
+
+- Feature: ``conan profile`` command has implemented ``update``, ``new``, ``remove`` subcommands, with ``--detect``, to allow creation, edition and management of profiles.
+- Feature: ``conan package_files`` command now can call recipe ``package()`` method if ``--build_folder`` or ``--source_folder`` arguments are defined
+- Feature: graph loading algorithm improved to avoid repeating nodes. Results in much faster times for dense graphs, and avoids duplications of private requirements.
+- Feature: authentication based on environment variables. Allows very long processes without tokens being expired.
+- Feature: Definition of Visual Studio runtime setting ``MD`` or ``MDd`` is now automatic based on build type, not necessary to default in profile.
+- Feature: Capturing ``SystemExit`` to return user error codes to the system with ``sys.exit(code)``
+- Feature: Added SKIP_RPATH argument to cmake ``conan_basic_setup()`` function
+- Feature: Optimized uploads, now uploads will be skipped if there are no changes, irrespective of timestamp
+- Feature: Automatic detection of VS 15-2017, via both a ``vs150comntools`` variable, and using ``vswhere.exe``
+- Feature: Added NO_OUTPUT_DIRS argument to cmake ``conan_basic_setup()`` function
+- Feature: Add support for Chocolatey system package manager for Windows.
+- Feature: Improved in conan user home and path storage configuration, better error checks.
+- Feature: ``export`` command is now able to export recipes without name or version, specifying the full reference.
+- Feature: Added new default settings, Arduino, gcc-7.2
+- Feature: Add conan settings to cmake generated file
+- Feature: new ``tools.replace_prefix_in_pc_file()`` function to help with .pc files.
+- Feature: Adding support for system package tool ``pkgutil`` on Solaris
+- Feature: ``conan remote update`` now allows ``--insert`` argument to change remote order
+- Feature: Add ``verbose`` definition to ``CMake`` helper.
+- Fix: ``conan package`` working locally failed if not specified build_folder
+- Fix: Search when using wildcards for version like ``Pkg/*@user/channel``
+- Fix: Change current working directory to the conanfile.py one before loading it, so relative python imports or code work.
+- Fix: ``package_files`` command now works with ``short_paths`` too.
+- Fix: adding missing require of tested package in test_package/conanfile build() method
+- Fix: path joining in ``vcvars_command`` for custom VS paths defined via env-vars
+- Fix: better managing string escaping in CMake variables
+- Fix: ``ExecutablePath`` assignment has been removed from the ``visual_studio`` generator.
+- Fix: removing ``export_source`` folder containing exported code, fix issues with read-only files and keeps cache consistency better.
+- Fix: Accept 100 return code from yum check-update
+- Fix: importing *.so files from the ``conan new`` generated test templates
+- Fix: progress bars display when download/uploads are not multipart (reported size 0)
+- Bugfix: fixed wrong OSX ``DYLD_LIBRARY_PATH`` variable for virtual environments
+- Bugfix: ``FileCopier`` had a bug that affected ``self.copy()`` commands, changing base reference directory.
+
+
 
 0.25.1 (20-July-2017)
 ---------------------
