@@ -224,7 +224,7 @@ To cross build a conan package to Android:
     android-toolchain/r13b@lasote/testing
 
 
-2. You can use the ``test_package`` or ``install`` specifying the profile.
+2. You can use the ``create`` or ``install`` specifying the profile.
 
 For example, you can try to build ``libpng/1.6.23@lasote/testing`` for Android armv7v architecture, it will also
 build the ``zlib/1.2.11@lasote/testing``.
@@ -240,7 +240,7 @@ For your conan package you could do:
 
 .. code-block:: bash
 
-    conan test_package --build missing --profile my_android_profile -u
+    conan create --build missing --profile my_android_profile -u
 
 
 .. seealso::
@@ -329,26 +329,22 @@ it will be useful if someone try to install the toolchain with an unsupported se
 
 
 
+4. Usually the ``source()`` method is not necessary, unless you are building the toolchain from sources. Remember that the ``source()`` method is executed just once in the cache, and the sources are reused for all the variants of the package. If you need different downloads for different settings/options, you can better use the ``build()`` method.
 
-4. Edit the **source()** method to get the toolchain:
+5. Edit the ``build()`` method to get the toolchain (usually they are precompiled binaries or scripts):
 
-Download the toolchain according the introduced settings and the current platform. Remember, in cross building
-the settings values means the "target" settings, not the current machine target.
-
+Download the toolchain according to the introduced settings and the current platform. Remember, in cross building
+the settings values means the "target" settings, not the current machine platform.
 
 .. code-block:: python
 
-    def source(self):
-
-        if tools.OSInfo().is_windows:
-            if self.settings.compiler.version == "4.8":
-                tools.download("some windows url for 4.8", "zipname.zip")
-            else:
-                tools.download("some windows url for 4.6", "zipname.zip")
+    def build(self):
+        if self.settings.os == "Windows":
+            tools.download("some windows url for 4.8", "zipname.zip")
         else: # Linux
             ...
 
-5. Remove the ``build`` method from your conanfile. The toolchains are usually precompiled binaries.
+
 6. Edit the **package()** method to pack all the needed toolchain files.
 
 You could copy all but sometimes we want to remove some help files or whatever to save disk space:
