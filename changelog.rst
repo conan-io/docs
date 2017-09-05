@@ -6,7 +6,7 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-0.26.01 (05-September-2017)
+0.26.1 (05-September-2017)
 ----------------------------
 
 - Feature: added apple-clang 9.0 to default settings.
