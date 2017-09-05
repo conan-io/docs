@@ -6,6 +6,15 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.26.01 (05-September-2017)
+----------------------------
+
+- Feature: added apple-clang 9.0 to default settings.
+- Fix: ``conan copy`` command now supports symlinks.
+- Fix: fixed removal of "export_source" folder when files have no permissions
+- Bugfix: fixed parsing of ``conanbuildinfo.txt`` with package names containing dots.
+
+
 0.26.0 (31-August-2017)
 ------------------------
 
