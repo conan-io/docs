@@ -37,7 +37,7 @@ CMake(conanfile, generator=None, cmake_system_name=True, parallel=True)
 - **conanfile**: Conanfile object. Usually ``self`` in a conanfile.py
 - **generator**: Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
 - **cmake_system_name**: Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
-- **paralell**: If true, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`
+- **parallel**: If true, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`
 
 
 
