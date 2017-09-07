@@ -14,8 +14,8 @@ This section provides an introduction to important productivity features and use
    mastering/build_requires
    mastering/conditional
    mastering/version_ranges
-   mastering/scopes
    mastering/policies
    mastering/envvars
    mastering/virtualenv
    mastering/logging
+   mastering/scopes
