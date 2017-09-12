@@ -212,7 +212,7 @@ Example:
 .. code-block:: python
    :emphasize-lines: 7, 8, 9
 
-   from conans import ConanFile, AutoToolsBuildEnvironment
+   from conans import ConanFile, RunEnvironment
 
    class ExampleConan(ConanFile):
       ...
