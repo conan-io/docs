@@ -633,3 +633,24 @@ you want to access to the variable declared by some specific requirement you can
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
 
+
+in_local_cache
+--------------
+
+A boolean attribute useful for conditional logic to apply in user folders local commands.
+It will return `True` if the conanfile resides in the local cache ( we are installing the package)
+and `False` if we are running the conanfile in a user folder (local Conan commands).
+
+
+.. code-block:: python
+
+     import os
+
+     class RecipeConan(ConanFile):
+        ...
+
+        def build(self):
+            if self.in_local_cache:
+                # we are installing the package
+            else:
+                # we are building the package in a local directory

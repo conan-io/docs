@@ -11,6 +11,9 @@ that commonly make sense to most users. Anyway, you can add/remove/modify those 
 possible values in the ``settings.yml`` file, according to your needs, just be sure to share changes with
 colleagues or consumers of your packages.
 
+If you want to distribute a unified the ``settings.yml`` file
+
+
 .. note::
    
    The ``settings.yml`` file is not perfect nor definitive, surely incomplete. Please send us any suggestion (or
