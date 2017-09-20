@@ -58,13 +58,12 @@ The **profiles files**, that will be overwritten if already present, but won't d
 has in the local machine.
 
 
-Allowed files in the zipfile:
+All files in the zip will be copied to the conan home directory.
+These are the special files and the rules applied to merge them:
 
 +--------------------------------+----------------------------------------------------------------------+
-| File                           |                                                                      |
+| File                           | How it is applied                                                    |
 +================================+======================================================================+
-| pylintrc                       | Overrides the local ~/.conan/pylintrc                                |
-+--------------------------------+----------------------------------------------------------------------+
 | profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists    |
 +--------------------------------+----------------------------------------------------------------------+
 | settings.yml                   | Overrides the local ~/.conan/settings.yml                            |
@@ -87,11 +86,16 @@ so following calls to ``conan config install`` command doesn't need to specify t
 
     $ conan config install http://url/to/some/config.zip
 
+Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
+
 - Refresh the configuration again:
 
 .. code-block:: bash
 
     $ conan config install
+
+It's not needed to specify the url again, it is already stored.
+
 
 - Install the configuration from a local path:
 
