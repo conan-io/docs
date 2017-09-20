@@ -4,7 +4,7 @@ conan source
 
 .. code-block:: bash
 
-   $ conan source [-h] [-f] [reference]
+   $ usage: conan source [-h] [-f] [--cwd CWD] [reference]
 
 
 The ``source`` command executes a conanfile.py ``source()`` method, retrieving source code as
@@ -14,20 +14,19 @@ defined in the method, both locally, in user space or for a package in the local
 .. code-block:: bash
 
 	positional arguments:
-	  reference    package recipe reference. e.g., MyPackage/1.2@user/channel or
-	               ./my_project/
+      reference          package recipe reference. e.g.,
+                         MyPackage/1.2@user/channel or ./my_project/
 
-	optional arguments:
-	  -h, --help   show this help message and exit
-	  -f, --force  In the case of local cache, force the removal of the source
-	               folder, then the execution and retrieval of the source code.
-	               Otherwise, if the code has already been retrieved, it will do
-	               nothing.
-
+    optional arguments:
+      -h, --help         show this help message and exit
+      -f, --force        In the case of local cache, force the removal of the
+                         source folder, then the execution and retrieval of the
+                         source code. Otherwise, if the code has already been
+                         retrieved, it will do nothing.
+      --cwd CWD, -c CWD  Use this directory as the current directory
 
 The ``conan source`` and the ``source()`` method might use dependencies information, either from
-``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
-using the ``txt`` generator in the ``conanbuildinfo.txt``.
+``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step in the ``conanbuildinfo.txt``.
 So, if the ``conan source`` command is to be used, the recommended way to run install would be:
 
 .. code-block:: bash

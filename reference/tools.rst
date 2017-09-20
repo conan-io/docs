@@ -193,6 +193,8 @@ This function is useful for a simple "patch" or modification of source files. A 
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
 conan dependencies without forking or modifying the original project:
 
+``def replace_in_file(file_path, search, replace, strict=True)``
+
 .. code-block:: python
 
     from conans import tools
@@ -202,6 +204,10 @@ conan dependencies without forking or modifying the original project:
        tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)", '''PROJECT(MyHello)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()''')
+
+
+If the ``strict`` parameter is True (default) it will be raise an error if the introduced "search" string
+is not found, so nothing is actually replaced.
 
 
 tools.check_with_algorithm_sum()
