@@ -11,7 +11,7 @@ that commonly make sense to most users. Anyway, you can add/remove/modify those 
 possible values in the ``settings.yml`` file, according to your needs, just be sure to share changes with
 colleagues or consumers of your packages.
 
-If you want to distribute a unified the ``settings.yml`` file
+If you want to distribute a unified ``settings.yml`` file you can use the :ref:`conan config install command<conan_config_install>`.
 
 
 .. note::
