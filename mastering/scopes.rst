@@ -2,6 +2,10 @@ Scopes
 ========
 
 
+.. warning::
+
+    Scopes might be deprecated in the future. Probably everything you can do with scopes can be done more easily with environment variables. Please try to avoid the use of scopes, and if you are already using them, please contact us to report your use case and get advice about other solutions.
+
 Scopes vs options
 _________________
 

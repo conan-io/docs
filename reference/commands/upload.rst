@@ -5,8 +5,8 @@ conan upload
 .. code-block:: bash
 
 	$ conan upload [-h] [--package PACKAGE] [--remote REMOTE] [--all]
-                    [--force] [--confirm] [--retry RETRY]
-                    [--retry_wait RETRY_WAIT]
+                    [--skip_upload] [--force] [--check] [--confirm]
+                    [--retry RETRY] [--retry_wait RETRY_WAIT]
                     pattern
 
 Uploads recipes and binary packages from your local cache to a remote server.
@@ -35,8 +35,12 @@ If no remote is specified, the first configured remote (by default conan.io, use
 	  --remote REMOTE, -r REMOTE
 	                        upload to this specific remote
 	  --all                 Upload both package recipe and packages
+	  --skip_upload         Do not upload anything, just run the checks and the
+	                        compression.
 	  --force               Do not check conan recipe date, override remote with
 	                        local
+	  --check               Perform an integrity check, using the manifests,
+	                        before upload
 	  --confirm, -c         If pattern is given upload all matching recipes
 	                        without confirmation
 	  --retry RETRY         In case of fail it will retry the upload again N times

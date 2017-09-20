@@ -67,10 +67,10 @@ you will need to have the shared library available.
 
 
         def package_info(self):
-            self.env_vars.PATH.append(os.path.join(self.package_folder, "bin"))
+            self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
             if self.options.shared:
-                self.env_vars.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
-                self.env_vars.DYLD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
+                self.env_info.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
+                self.env_info.DYLD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
 
 
 

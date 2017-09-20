@@ -62,6 +62,21 @@ the ``build()`` method and define your ``package()`` and ``package_info()`` acco
 
 You can also use **check_md5**, **check_sha1** and **check_sha256** from the **tools** module to verify that a package is downloaded correctly.
 
+.. note::
+
+	It is very important to recall that the ``source()`` method will be executed just once, and the source code will be shared for all the package builds. So it is not a good idea to conditionally use settings or options to make changes or patches on the source code. Maybe the only setting that makes sense is the OS ``self.settings.os``, if not doing cross-building, for example to retrieve different sources:
+
+	.. code-block:: python
+
+			def source(self):
+			    if self.settings.os == "Windows":
+					# download some Win source zip
+			    else:
+					# download sources from Nix systems in a tgz
+
+	If you need to patch the source code or build scripts differently for different variants of your packages, you can do it in the ``build()`` method, which uses a different folder and source code copy for each variant.
+
+
 build()
 --------
 
