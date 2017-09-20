@@ -10,12 +10,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ----------------------------
 - Feature: ``conan config install <url>`` new command. Will install remotes, profiles, settings, conan.conf and other files into the local conan installation. Perfect to synchronize configuration among teams
 - Feature: improved traceback printing when errors are raised for more context. Configurable via env
-- Feature: filtering out non existing directories in ``cpp_info`` (include, lib, etc), so some build systems doesn't complain of them.
+- Feature: filtering out non existing directories in ``cpp_info`` (include, lib, etc), so some build systems don't complain about them.
 - Feature: Added include directories to ResourceCompiler and to MIDL compiler in ``visual_studio`` generator
 - Feature: new ``visual_studio_legacy`` generator for Visual Studio 2008
 - Feature: show path where manifests are locally stored
 - Feature: ``replace_in_file`` now raises error if replacement is not done (opt-out parameter)
-- Feature: enabled in conan.conf ``[proxies]`` section ``no_proxy=url1,url2`` configuration (to skip proxying for those URLs), as well as ``http=None`` and ``https=None`` to explicitely disable them.
+- Feature: enabled in conan.conf ``[proxies]`` section ``no_proxy=url1,url2`` configuration (to skip proxying for those URLs), as well as ``http=None`` and ``https=None`` to explicitly disable them.
 - Feature: new conanfile ``self.in_local_cache`` attribute for conditional logic to apply in user folders local commands
 - Feature: ``CONAN_USER_HOME_SHORT=None`` can disable the usage of ``short_paths`` in Windows, for modern Windows that enable long paths at the system level
 - Feature: ``if "arm" in self.settings.arch`` is now a valid check (without casting to str(self.settings.arch))
@@ -26,7 +26,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Development: Several internal refactors (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor
 - Deprecation: ``dev_requires`` have been removed (it was not documented, but accesible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
 - Deprecation: sources tgz files for exported sources no longer contain ".c_src" subfolder. Packages created with 0.27 will be incompatible with conan < 0.25
-
 
 
 
