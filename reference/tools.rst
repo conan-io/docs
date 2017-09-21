@@ -513,3 +513,20 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
     Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
 
 
+tools.collect_libs
+------------------
+
+Fetches a list of all libraries in the package folder.
+
+**Parameters:**
+
+- **conanfile**: A `ConanFile` object from which to get the `package_folder`
+- **folder**: The subfolder where the library files are. Defaulted to "lib"
+
+**Example:**
+
+.. code-block:: python
+
+     def package_info(self):
+        self.cpp_info.libs = tools.collect_libs(self)
+
