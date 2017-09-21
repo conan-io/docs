@@ -129,15 +129,18 @@ On Windows:
 
 Proxies
 +++++++
-If you are not using proxies at all, you can just remove the ``[proxies]`` section
-completely. You might want to try to use your system defined configuration. You can try to
-do this with a blank ``[proxies]`` section:
+
+If you are not using proxies at all, or you want to use the proxies specified by the operating system,
+just remove the ``[proxies]`` section completely. You can run ``conan config rm proxies``.
+
+If you leave leave the ``[proxies]`` section blank, conan will copy the system configured
+proxies, but if you configured some exclusion rule it won't work:
 
 .. code-block:: text
 
     [proxies]
     # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
+    # If don't want that conan mess with proxies at all, remove section [proxies]
     
 You can specify http and https proxies as follows, use the `no-proxy` keyword to specify a list
 of urls that will skip the proxy:
