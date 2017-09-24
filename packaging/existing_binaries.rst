@@ -86,9 +86,7 @@ In this case, having a complete conan recipe, with the detailed retrieval of the
                 url = ...
             else:
                 raise Exception("Binary does not exist for these settings")
-            tools.download(url, "mydownload.zip")
-            tools.unzip("mydownload.zip")
-            os.remove("mydownload.zip")
+            tools.get(url)
 
         def package(self):
             self.copy("*") # assume package as-is, but you can also copy specific files or rearrange
