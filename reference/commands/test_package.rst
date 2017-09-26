@@ -105,7 +105,7 @@ command line option
 
 .. code-block:: bash
 
-    $ conan test_package --f my_test_folder
+    $ conan test_package --tf my_test_folder
 
 
 This command will run the equivalent to ``conan export <user>/<channel>`` where ``user`` and ``channel``
