@@ -426,7 +426,7 @@ This method is useful for defining conditional build requirements, for example:
             if self.settings.os == "Windows":
                 self.build_requires("ToolWin/0.1@user/stable")
 
-Read more: :ref:`Build requiremens <build_requires>`
+Read more: :ref:`Build requirements <build_requires>`
 
 
 .. _system_requirements:
