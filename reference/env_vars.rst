@@ -43,7 +43,10 @@ CONAN_SYSREQUIRES_SUDO
 -----------------------
 This environment variable controls whether ``sudo`` is used for installing apt, yum, etc. system
 packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
-Set it to "False" or "0" to don't use sudo.
+By default when the environment variable does not exist, "True" is assumed, and ``sudo`` is 
+automatically prefixed in front of package management commands.  If you set this to "False" or "0"
+``sudo`` will not be prefixed in front of the comands, however installation or updates of some 
+packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
 
 CONAN_COLOR_DISPLAY
