@@ -144,6 +144,14 @@ It is obvious that changing the OS produces a different binary in most cases. Ch
 or compiler version changes the binary too, which might have a compatible ABI or not, but the
 package will be different in any case.
 
+For these reasons, the most common convention among Conan recipes is to distinguish binaries by the following four settings, which is reflected in the `conanfile.py` template used in the `conan new` command:
+
+.. code-block:: python
+
+   settings = "os", "compiler", "build_type", "arch"
+   
+When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings. 
+
 But what happens for example to **header only libraries**? The final package for such libraries is not
 binary and, in most cases it will be identical, unless it is automatically generating code.
 We can indicate that in the conanfile:
