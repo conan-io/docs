@@ -263,4 +263,5 @@ Specify the base folder to be used with the :ref:`short paths<short_paths_refere
 marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
 
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
-for modern Windows that enable long paths at the system level.
+for modern Windows that enable long paths at the system level. 
+Please note that this only works with Python 3.6 and newer.
