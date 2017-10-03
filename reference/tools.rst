@@ -17,6 +17,7 @@ recipes:
         ...
 
 
+.. _cpu_count:
 
 tools.cpu_count()
 -----------------
