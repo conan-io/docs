@@ -17,7 +17,6 @@ recipes:
         ...
 
 
-.. _cpu_count:
 
 tools.cpu_count()
 -----------------
@@ -151,18 +150,37 @@ tools.download()
 
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a
 list of known verifiers for https downloads, but this can be optionally disabled.
-You can also specify the number of retries in case of fail with ``retry`` parameter and the seconds to wait before download attempts
-with ``retry_wait``.
+
+- **url**: URL to download
+- **filename**: Name of the file to be created in the local storage
+- **overwrite**: (Default False) When `True` Conan will overwrite the destination file if exists, if False it will raise.
+- **auth**: A tuple of user, password can be passed to use HTTPBasic authentication. This is passed directly to the
+  requests python library, check here other uses of the **auth** parameter: http://docs.python-requests.org/en/master/user/authentication
+- **headers**: A dict with additional headers.
+- **out**: (Default None) An object with a write() method can be passed to get the output, stdout will use if not specified.
+- **retry**: Number of retries in case of failure.
+- **retry_wait**: Seconds to wait between download attempts.
+- **verify**: When False, disables https certificate validation.
 
 .. code-block:: python
 
     from conans import tools
     
     tools.download("http://someurl/somefile.zip", "myfilename.zip")
+
     # to disable verification:
     tools.download("http://someurl/somefile.zip", "myfilename.zip", verify=False)
+
     # to retry the download 2 times waiting 5 seconds between them
     tools.download("http://someurl/somefile.zip", "myfilename.zip", retry=2, retry_wait=5)
+
+    # Use https basic authentication
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", auth=("user", "password"))
+
+    # Pass some header
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", headers={"Myheader": "My value"})
+
+Parameters:
 
 
 
