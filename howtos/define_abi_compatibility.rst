@@ -197,7 +197,7 @@ Let's suppose that both are being compiled as static libraries, and that the API
 to ``MyLib/1.0`` through the public headers has not changed at all. Then, it is not necessary to build
 new binaries for ``MyLib/1.0``, because the final consumer will link against both ``Mylib/1.0`` and ``MyOtherLib/2.1``.
 
-It could happen that the API exposed by ``MyOtherLib``in public headers has changed, but without
+It could happen that the API exposed by ``MyOtherLib`` in public headers has changed, but without
 affecting the ``MyLib/1.0`` binary, for whatever reasons, like changes consisting on new functions,
 not used by MyLib. The same reasoning would still be valid if ``MyOtherLib`` was header only.
 
