@@ -140,11 +140,26 @@ The previous example will work only in Windows and OSX (changing the CMake gener
 dynamic linker will look in the current directory (the binary directory) where we copied the shared
 libraries too.
 
-In Linux you still need to set the ``LD_LIBRARY_PATH``:
+In Linux you still need to set the ``LD_LIBRARY_PATH``, or in OSX, the ``DYLD_LIBRARY_PATH``:
 
 .. code-block:: bash
 
    $ cd bin && LD_LIBRARY_PATH=$(pwd) && ./mytool
+
+
+Using shared libraries from dependencies
+------------------------------------------
+
+If you are executing something that depends on shared libraries belonging to your dependencies, such shared libraries have to be found at runtime. In Windows, it is enough if the package added its binary folder to the system ``PATH``. In Linux and OSX, it is necessary that the ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables are used.
+
+Security restrictions might apply in OSX (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the ``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitely in your conanfile.py:
+
+.. code-block:: python
+
+    def test(self):
+        # self.run('./myexe") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
+        self.run('DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
+
 
 
 Using the **virtualenv** generator

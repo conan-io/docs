@@ -359,7 +359,7 @@ These are helpers to install system packages. Check :ref:`system_requirements`
 .. _cross_building_reference:
 
 tools.cross_building()
---------------------
+-----------------------
 
 Reading the settings and the current host machine it returns True if we are cross building a conan package:
 
@@ -373,7 +373,7 @@ Reading the settings and the current host machine it returns True if we are cros
 .. _run_in_windows_bash_tool:
 
 tools.run_in_windows_bash()
--------------------------
+----------------------------
 
 Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
@@ -390,13 +390,13 @@ You can customize the path of the bash executable using the environment variable
 
 
 tools.unix_path()
----------------
+------------------
 
 Used to translate Windows paths to MSYS/CYGWIN unix paths like c/users/path/to/file
 
 
 tools.escape_windows_cmd()
-------------------------
+---------------------------
 
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
@@ -492,7 +492,7 @@ If the tool is not able to return the path it returns ``None``.
 
 
 tools.replace_prefix_in_pc_file()
--------------------------------
+----------------------------------
 
 Replaces the ``prefix`` variable in a package config file ``.pc`` with the specified value.
 
@@ -514,7 +514,7 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 
 
 tools.collect_libs()
-------------------
+---------------------
 
 Fetches a list of all libraries in the package folder.
 
