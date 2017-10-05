@@ -96,7 +96,7 @@ to invoke your ``build()`` method to build your project, which in turn calls ``c
 
 This ``conan build`` will use the settings used in the ``conan install`` which have been cached in the local ``conaninfo.txt`` file in your build folder, which simplifies
 the process and reduces the errors of mismatches between the installed packages and the current
-project configuration.
+project configuration. Also, the ``conanbuildinfo.txt`` file contains all the needed information obtained from the requirements: deps_cpp_info, deps_env_info, deps_user_info objects.
 
 
 If you want to build your project for **x86_64** or another setting just change the parameters passed to ``conan install``:

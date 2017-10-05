@@ -155,7 +155,7 @@ In the above example, the code is reused in the ``build()`` method as an example
 
     $ conan install -g env -g txt
     ...
-    $ conan build
+    $ conan build .
     Hello World from Python!
 
 
