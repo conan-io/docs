@@ -203,13 +203,6 @@ You can also generate a table for all binaries from a given recipe with the ``--
     $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
-You can generate a table for all binaries from a given recipe with the ``--table`` option, even from remotes:
-
-.. code-block:: bash
-
-    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
-    $ file.html # or open the file, double-click
-
 .. image:: /images/search_binary_table.png
     :height: 250 px
     :width: 300 px
