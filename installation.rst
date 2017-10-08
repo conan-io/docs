@@ -38,6 +38,7 @@ Install conan:
     - In **Windows** you might need to use **32bits** python distributions, instead of 64bits.
     - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip might fail. Try with virtualenvs, or install with other user ``$ pip install --user conan``
     - If you are in Windows, and using python <3.5, you might have problems if python is installed in a path with spaces, like "C:/Program Files(x86)/Python". This is a known python limitation, not conan. Install python in a path without spaces, use a virtualenv in another location or upgrade your python installation
+    - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart, or logout/system if not enough) after installation, so conan is found in the path.
 
 
 Install from brew (OSX)
