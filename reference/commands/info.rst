@@ -119,6 +119,14 @@ changed (most likely due to a git push on that package):
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.
 
+You can also specify the ``ALL`` argument, if you want just to compute the whole dependency graph build order
+
+.. code-block:: bash
+
+    $ conan info . --build_order=ALL
+    > [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+
+
 Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter:
 
 e.g., If I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
