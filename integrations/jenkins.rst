@@ -114,5 +114,5 @@ and then upload it to Artifactory. We also upload the `build information`_:
 .. _`Artifactory`: https://www.jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
 .. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/RTF/Jenkins+%28Hudson%29+Artifactory+Plug-in
-.. _`here you can check the full documentation about the DSL`: https://wiki.jenkins-ci.org/display/JENKINS/Artifactory+-+Working+With+the+Pipeline+Jenkins+Plugin
+.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/RTF/Working+With+Pipeline+Jobs+in+Jenkins
 .. _`build information`: https://www.jfrog.com/confluence/display/RTF/Build+Integration
