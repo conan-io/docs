@@ -22,6 +22,7 @@ step.
     positional arguments:
       path                  path to a recipe (conanfile.py), e.g., conan build .
 
+
     optional arguments:
       -h, --help            show this help message and exit
       --file FILE, -f FILE  specify conanfile filename
@@ -30,6 +31,7 @@ step.
                             directory of the conanfile. A relative path can also
                             be specified (relative to the current directory)
       --build-folder BUILD_FOLDER, --build_folder BUILD_FOLDER, -bf BUILD_FOLDER
+
                             build folder, working directory of the build process.
                             Defaulted to the current directory. A relative path
                             can also be specified (relative to the current
@@ -56,7 +58,6 @@ Those files have to be located in the specified ``--build_folder``.
 
     from conans import ConanFile, CMake, tools
 
-
     class LibConan(ConanFile):
         ...
 
@@ -72,6 +73,7 @@ Those files have to be located in the specified ``--build_folder``.
 
 .. code-block:: bash
    :emphasize-lines: 4
+
 
     $ mkdir build_x86
     $ conan source . --source-folder src

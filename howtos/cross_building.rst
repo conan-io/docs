@@ -134,12 +134,12 @@ If you want to cross compile your project's dependencies you can also run:
 
     $ conan install . --profile /path/to/win_to_rpi --build missing
 
-If you have automated your project build with conan you can then just call ``conan build`` to crossbuild your project too:
+If you have automated your project build with conan you can then just call ``conan build .`` to crossbuild your project too:
 
 
 .. code-block:: bash
 
-    $ conan build
+    $ conan build .
 
 
 So, now you can commit your profile files to a repository and use them for cross-building your projects.
