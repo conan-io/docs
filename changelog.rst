@@ -6,6 +6,19 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.28.0
+-------
+
+Breaking changes!
+=================
+
+- The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
+-
+
+
+
+
 0.27.0 (20-September-2017)
 ----------------------------
 - Feature: ``conan config install <url>`` new command. Will install remotes, profiles, settings, conan.conf and other files into the local conan installation. Perfect to synchronize configuration among teams

@@ -8,19 +8,17 @@ conan alias
 
 	$ conan alias [-h] reference target
 
-Uploads a package recipe and the generated binary packages to a specified
-remote
+Uploads a recipe and binary packages to a remote.
 
 
 .. code-block:: bash
 
     positional arguments:
-    reference   Alias reference. e.j: mylib/1.X@user/channel
-    target      Target reference. e.j: mylib/1.12@user/channel
+      reference   Alias reference. e.j: mylib/1.X@user/channel
+      target      Target reference. e.j: mylib/1.12@user/channel
 
     optional arguments:
-    -h, --help  show this help message and exit
-
+      -h, --help  show this help message and exit
 
 The command:
 
