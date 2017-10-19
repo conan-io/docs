@@ -175,7 +175,7 @@ Also, the ``conan test_package --test-only`` command would be in turn equivalent
     $ cd test_package
     $ mkdir build && cd build
     $ conan install ..  # adding "requires=Hello/0.1@demo/testing" first
-    $ conan build   # builds the example.cpp
+    $ conan build .   # builds the example.cpp
     $ # launch test_package/conanfile->test() method
 
    

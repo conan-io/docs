@@ -86,7 +86,7 @@ This example shows how ``package`` works in a package which can be edited and bu
 
 	$ conan new Hello/0.1 -s
 	$ conan install
-	$ conan build # You can also use your build system to build your code
+	$ conan build . # You can also use your build system to build your code
 	$ mkdir mypkg && cd mypkg # assume we are in the conanfile.py folder
 	$ conan package .. # Will package from the conanfile.py folder
 	# Now in the current dif "mypkg" we have the final package
