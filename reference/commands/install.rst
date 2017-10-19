@@ -135,8 +135,9 @@ try to build things or not:
 * :command:`--build=missing` Conan will try to build from source, all packages of which the requested configuration
   was not found on any of the active remotes.
 * :command:`--build=outdated` Conan will try to build from code if the binary is not built with the current recipe or when missing binary package
-* :command:`--build=[pattern]` Conan will force the build of the packages, the name of which matches the given **pattern**.
-  Several patterns can be specified, chaining multiple options, e.g. :command:`--build=pattern1 --build=pattern2`
+* :command:`--build=[pattern]` A fnmatch file pattern of a package name. e.j ``zl*`` will match ``zlib`` package.
+  Conan will force the build of the packages, the name of which matches the given **pattern**.
+  Several patterns can be specified, chaining m`ultiple options, e.g. :command:`--build=pattern1 --build=pattern2`
 * :command:`--build` Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
 
