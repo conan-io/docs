@@ -30,6 +30,7 @@ with a ``package()`` method.
 If you used ``conan source`` with a reference to workaround the concurrency, now it natively supported, you
 can remove the command call and trust concurrent install processes.
 
+PENDING TO SEE IF WE REVERT THE CWD OF INSTALL AND INFO OR WE MOVE TO --output-folder OR WHATEVER
 
 
 0.27.0 (20-September-2017)
