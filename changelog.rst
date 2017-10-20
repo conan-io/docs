@@ -13,9 +13,22 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 Breaking changes!
 =================
 
-- The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
--
+We are in the path of release a Conan 1.0! Some command syntax and code refactor was necessary,
+please update to ease the future migration to a more stable Conan 1.0:
 
+
+- The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
+
+- The command ``conan package`` not longer re-package a package in the local cache, now it only
+operates in a user local folder. The recommended way to re-package a package is using ``conan build``
+and then ``conan export-pkg``.
+
+- Removed ``conan package_files`` in favor of a new command ``conan export-pkg``. It requires a local recipe
+with a ``package()`` method.
+
+- The command ``conan source`` no longer operates in the local cache. now it only operates in a user local folder.
+If you used ``conan source`` with a reference to workaround the concurrency, now it natively supported, you
+can remove the command call and trust concurrent install processes.
 
 
 

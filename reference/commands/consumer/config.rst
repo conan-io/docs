@@ -9,18 +9,18 @@ conan config
    $ conan config [-h] {rm,set,get,install} ...
 
 
-   Manages conan configuration information
+   Manage configuration. Edit conan.conf or install full configuration.
 
-    positional arguments:
-      {rm,set,get,install}  sub-command help
-        rm                  rm an existing config element
-        set                 set/add value
-        get                 get the value of existing element
-        install             install a full configuration from a zip file, local or
-                            remote
+        positional arguments:
+          {rm,set,get,install}  sub-command help
+            rm                  rm an existing config element
+            set                 set/add value
+            get                 get the value of existing element
+            install             install a full configuration from a zip file, local or
+                                remote
 
-    optional arguments:
-      -h, --help            show this help message and exit
+        optional arguments:
+          -h, --help            show this help message and exit
 
 
 **Examples**
@@ -102,6 +102,3 @@ It's not needed to specify the url again, it is already stored.
 .. code-block:: bash
 
     $ conan config install /path/to/some/config.zip
-
-
-

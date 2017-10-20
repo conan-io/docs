@@ -5,26 +5,26 @@ conan user
 
 	$ conan user [-h] [-p PASSWORD] [--remote REMOTE] [-c] [name]
 
-Update your cached user name (and auth token) to avoid it being requested later, e.g. while you're uploading a package.
-You can have more than one user (one per remote). Changing the user, or introducing the password is only necessary to upload
+Authenticates against a remote with user/pass, caching the auth token. Useful
+to avoid the user and password being requested later. e.g. while you're
+uploading a package. You can have more than one user (one per remote).
+Changing the user, or introducing the password is only necessary to upload
 packages to a remote.
 
 .. code-block:: bash
 
-	positional arguments:
-	  name                  Username you want to use. If no name is provided it
-	                        will show the current user.
+    positional arguments:
+      name                  Username you want to use. If no name is provided it
+                            will show the current user.
 
-	optional arguments:
-	  -h, --help            show this help message and exit
-	  -p PASSWORD, --password PASSWORD
-	                        User password. Use double quotes if password with
-	                        spacing, and escape quotes if existing
-	  --remote REMOTE, -r REMOTE
-	                        look in the specified remote server
-	  -c, --clean           Remove user and tokens for all remotes
-
-
+    optional arguments:
+      -h, --help            show this help message and exit
+      -p PASSWORD, --password PASSWORD
+                            User password. Use double quotes if password with
+                            spacing, and escape quotes if existing
+      --remote REMOTE, -r REMOTE
+                            look in the specified remote server
+      -c, --clean           Remove user and tokens for all remotes
 
 **Examples**:
 

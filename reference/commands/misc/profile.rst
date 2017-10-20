@@ -5,9 +5,9 @@ conan profile
 
 .. code-block:: bash
 
-	$ conan profile [-h] {list,show,new,update,remove} ...
+	$ conan profile [-h] {list,show,new,update,get,remove} ...
 
-List profiles in the '.conan/profiles' folder, or show profile details. The
+Lists profiles in the '.conan/profiles' folder, or shows profile details. The
 'list' subcommand will always use the default user 'conan/profiles' folder.
 But the 'show' subcommand is able to resolve absolute and relative paths, as
 well as to map names to '.conan/profiles' folder, in the same way as the '--
@@ -16,17 +16,20 @@ profile' install argument.
 
 .. code-block:: bash
 
-	positional arguments:
-	  {list,show,new,update,remove}
-                        sub-command help
-      list                list current profiles
-      show                show the values defined for a profile. Can be a path
+   positional arguments:
+     {list,show,new,update,get,remove}
+                           sub-command help
+       list                list current profiles
+       show                show the values defined for a profile. Can be a path
                            (relative or absolute) to a profile file in any
                            location.
-      new                 Creates a new empty profile
-      update              Update a profile
-      remove              Remove a profile key
+       new                 Creates a new empty profile
+       update              Update a profile
+       get                 Get a profile key
+       remove              Remove a profile key
 
+   optional arguments:
+     -h, --help            show this help message and exit
 
 
 **Examples**

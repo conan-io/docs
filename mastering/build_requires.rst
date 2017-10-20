@@ -30,7 +30,7 @@ Build requirements can be declared in profiles, like:
   &!: Tool7/0.1@user/channel
 
 Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all packages. Packages can be declared in different lines or by a comma separated list.
-In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running ``conan install`` or ``conan test_package``)
+In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running ``conan install`` or ``conan create``)
 
 If a pattern like ``MyPkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern. Tool5 will not be applied to Zlib, for example, but it will be applied to MyPkgZlib.
 

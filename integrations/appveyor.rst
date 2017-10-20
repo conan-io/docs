@@ -77,7 +77,7 @@ The command ``conan new`` has arguments to create a default working ``appveyor.y
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
 #. You can inspect the created files: both ``appveyor.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds 			 with different configurations in different appveyor jobs.
-#. You can test locally, before pushing, with ``$ conan test_package``
+#. You can test locally, before pushing, with ``$ conan create``
 #. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
 #. Go to Appveyor and see the build, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations

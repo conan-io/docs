@@ -48,9 +48,9 @@ Conan will install all dependencies, build your project, create a package and ru
 
 .. code-block:: bash
 
-   $ conan test_package
+   $ conan create demo/testing
 
-The ``conan test_package`` automates all steps for you, however,
+The ``conan create`` automates all steps for you, however,
 you need to create the test directory and conanfile.py to make sure that your package is correct.
 
 

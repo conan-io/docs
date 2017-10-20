@@ -5,7 +5,9 @@ How to package header-only libraries
 
 Without unit tests
 ------------------
-Packaging a header only library, without requiring to build and run unit tests for it within conan, can be done with a very simple recipe. Assuming you have the recipe in the source repo root folder, and the headers in a subfolder called ``include``, you could do:
+Packaging a header only library, without requiring to build and run unit tests for it within conan, can be
+done with a very simple recipe. Assuming you have the recipe in the source repo root folder, and the headers
+in a subfolder called ``include``, you could do:
 
 .. code-block:: python
 
@@ -20,12 +22,16 @@ Packaging a header only library, without requiring to build and run unit tests f
         def package(self):
             self.copy("*.h")
 
-If you want to package an external repository, you can use the ``source()`` method to do a clone or download instead of the ``exports_sources`` fields.
+If you want to package an external repository, you can use the ``source()`` method to do a clone or download
+instead of the ``exports_sources`` fields.
 
 - There is no need for ``settings``, as changing them will not affect the final package artifacts
 - There is no need for ``build()`` method, as header-only are not built
-- There is no need for a custom ``package_info()`` method. The default one already adds "include" subfolder to the include path
-- Note that this recipe has no other dependencies, settings or options. If it had any of those, it would be very convenient to add the ``package_id()`` method, to ensure that only one package with always the same ID is create irrespective of the configurations and dependencies:
+- There is no need for a custom ``package_info()`` method. The default one already adds "include" subfolder
+  to the include path
+- Note that this recipe has no other dependencies, settings or options. If it had any of those, it would be very
+  convenient to add the ``package_id()`` method, to ensure that only one package with always the same ID is
+  create irrespective of the configurations and dependencies:
 
 .. code-block:: python
 
@@ -93,9 +99,11 @@ and some ``example.cpp`` file, which will be our "unit test" of the library:
     }
 
 
-- This will use different compilers and versions, as configured by conan settings (in command line or profiles), but will always generate just 1 output package, always with the same ID.
+- This will use different compilers and versions, as configured by conan settings (in command line or
+  profiles), but will always generate just 1 output package, always with the same ID.
 - The necessary files for the unit tests, must be ``exports_sources`` too (or retrieved from ``source()`` method)
-- If the package had dependencies, via ``requires``, it would be necessary to add the ``generators = "cmake"`` to the package recipe and adding the ``conanbuildinfo.cmake`` file to the testing CMakeLists.txt:
+- If the package had dependencies, via ``requires``, it would be necessary to add the ``generators = "cmake"``
+  to the package recipe and adding the ``conanbuildinfo.cmake`` file to the testing CMakeLists.txt:
 
 .. code-block:: cmake
 
@@ -114,4 +122,9 @@ Package is created with:
 
 .. note::
 
-    This with/without tests is referring to running full unitary tests over the library, which is different to the ``test_package`` functionality that checks the integrityg of the package. The above examples are describing the approaches for unit-testing the library within the recipe. In either case, it is recommended to have a ``test_package`` folder, so the ``conan create`` command checks the package once it is created. Check the :ref:`packaging getting started guide<packaging_getting_started>`
+    This with/without tests is referring to running full unitary tests over the library, which is different
+    to the ``test`` functionality that checks the integrityg of the package.
+    The above examples are describing the approaches for unit-testing the library within the recipe.
+    In either case, it is recommended to have a ``test_package`` folder, so the ``conan create``
+    command checks the package once it is created.
+    Check the :ref:`packaging getting started guide<packaging_getting_started>`

@@ -4,9 +4,6 @@
 |clion_logo| CLion
 ____________________
 
-
-
-
 CLion uses **CMake** as the build system of projects, so you can use the :ref:`CMake generator<cmake>` to manage your requirements in your CLion project.
 
 Just include the ``conanbuildinfo.cmake`` this way:
@@ -199,7 +196,7 @@ to a conan server.
    $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated binary packages
 
 8. Instead of the local ``package`` local command, you could use the ``-t`` option in the ``conan new`` and use the
-``conan test_package``. Check :ref:`Creating packages getting started guide<packaging_getting_started>`.
+``conan export-pkg``. Check :ref:`Creating packages getting started guide<packaging_getting_started>`.
 
 
 You can check a full example of a CLion project for creating a conan package in this github repository: `lasote/clion-conan-package <https://github.com/lasote/clion-conan-package>`_.

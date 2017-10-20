@@ -81,7 +81,7 @@ build the sources again, we just want to check if we can download the binaries a
 
 .. code-block:: bash
 
-   $ conan test_package --no-export --build=never
+   $ conan create demo/testing --no-export --build=never
 
 
 You will see that the test is built, but the packages are not. The binaries are simply 

@@ -2,7 +2,7 @@
 
 
 Tools for package creators
-======================================
+==========================
 
 With some python (or just pure shell or bash) scripting, we could easily automate the whole
 package creation and testing process, for many different configurations.
@@ -20,13 +20,12 @@ For example you could put the following script in the package root folder. Name 
           raise Exception("Error while executing:\n\t %s" % command)
    
    if __name__ == "__main__":
-      system('conan export demo/testing')
       params = " ".join(sys.argv[1:])
    
       if platform.system() == "Windows":
-          system('conan test_package -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
-          system('conan test_package -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
-          system('conan test_package -s compiler="gcc" -s compiler.version=4.8 %s' % params)
+          system('conan create demo/testing -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
+          system('conan create demo/testing -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
+          system('conan create demo/testing -s compiler="gcc" -s compiler.version=4.8 %s' % params)
       else:
           pass
 

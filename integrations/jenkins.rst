@@ -94,7 +94,7 @@ and then upload it to Artifactory. We also upload the `build information`_:
         }
 
         stage("Test recipe"){
-            client.run(command: "test_package")
+            client.run(command: "create")
         }
 
         stage("Upload packages"){

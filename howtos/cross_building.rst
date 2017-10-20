@@ -42,7 +42,7 @@ We can try to build the hello world example for our own architecture with the ``
 
 .. code-block:: bash
 
-    $ conan test_package
+    $ conan create lasote/stable
 
     ...
 
@@ -74,11 +74,11 @@ From Linux to Windows
 ``CONAN_CMAKE_GENERATOR`` overrides the CMake generator auto-detected by the ``CMake`` conan helper.
 
 
-- Call ``conan test_package`` using the created profile.
+- Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan test_package --profile /path/to/linux_to_win64
+    $ conan create lasote/testing --profile /path/to/linux_to_win64
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example.exe
@@ -109,11 +109,11 @@ From Windows to Raspberry PI
         CXX=arm-linux-gnueabihf-g++
 
 
-- Call ``conan test_package`` using the created profile.
+- Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan test_package --profile /path/to/win_to_rpi
+    $ conan create lasote/testing --profile /path/to/win_to_rpi
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example

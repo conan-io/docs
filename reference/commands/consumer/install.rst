@@ -6,44 +6,42 @@ conan install
 
 .. code-block:: bash
 
-    $ conan install [-h] [--package PACKAGE] [--all] [--file FILE]
-                     [--generator GENERATOR] [--werror] [--cwd CWD]
-                     [--manifests [MANIFESTS]]
-                     [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                     [--verify [VERIFY]] [--no-imports] [--update]
-                     [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
-                     [--options OPTIONS] [--settings SETTINGS] [--env ENV]
-                     [--build [BUILD [BUILD ...]]]
-                     [reference]
+    $ conan install [-h] [--file FILE] [--generator GENERATOR] [--werror]
+                    [--build-folder BUILD_FOLDER] [--manifests [MANIFESTS]]
+                    [--manifests-interactive [MANIFESTS_INTERACTIVE]]
+                    [--verify [VERIFY]] [--no-imports] [--update]
+                    [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                    [--options OPTIONS] [--settings SETTINGS] [--env ENV]
+                    [--build [BUILD [BUILD ...]]]
+                    [path]
 
 
-Installs the requirements specified in a ``conanfile.py`` or ``conanfile.txt``.
-It can also be used to install a concrete recipe/package specified by the ``reference`` parameter.
-If the recipe is not found in the local cache it will retrieve the recipe from a remote, looking
-for it sequentially in the available configured remotes.
-When the recipe has been downloaded it will try to download a binary package matching the specified settings,
-only from the remote from which the recipe was retrieved.
-If no binary package is found you can build the package from sources using the ``--build`` option.
+Installs the requirements specified in a conanfile (.py or .txt). If any
+requirement is not found in the local cache it will retrieve the recipe from a
+remote, looking for it sequentially in the available configured remotes. When
+the recipes have been downloaded it will try to download a binary package
+matching the specified settings, only from the remote from which the recipe
+was retrieved. If no binary package is found you can build the package from
+sources using the '--build' option. When the package is installed, Conan will
+write the files for the specified generators. It can also be used to install a
+concrete recipe/package specifying a reference in the "path" parameter.
 
 
 .. code-block:: bash
 
 
     positional arguments:
-      reference             package recipe referencee.g.,
-                            MyPackage/1.2@user/channel or ./my_project/
+      path                  path to a recipe (conanfile.py). e.g., ./my_project/
 
     optional arguments:
       -h, --help            show this help message and exit
-      --package PACKAGE, -p PACKAGE
-                            Force install specified package ID (ignore
-                            settings/options)
-      --all                 Install all packages from the specified package recipe
       --file FILE, -f FILE  specify conanfile filename
       --generator GENERATOR, -g GENERATOR
                             Generators to use
       --werror              Error instead of warnings for graph inconsistencies
-      --cwd CWD, -c CWD     Use this directory as the current directory
+      --build-folder BUILD_FOLDER, --build_folder BUILD_FOLDER, -c BUILD_FOLDER
+                            Use this directory as the directory where to put the
+                            generatorfiles, conaninfo/conanbuildinfo.txt etc.
       --manifests [MANIFESTS], -m [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -64,7 +62,7 @@ If no binary package is found you can build the package from sources using the `
                             look in the specified remote server
       --options OPTIONS, -o OPTIONS
                             Options to build the package, overwriting the
-                            defaults. e.g., -o PkgName:with_qt=true
+                            defaults. e.g., -o with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
@@ -81,7 +79,8 @@ If no binary package is found you can build the package from sources using the `
                             recipe or when missing binary package.
                             --build=[pattern] Build always these packages from
                             source, but never build the others. Allows multiple
-                            --build parameters.
+                            --build parameters. 'pattern' is a fnmatch file
+                            pattern of a package name.
 
 
 **Examples**

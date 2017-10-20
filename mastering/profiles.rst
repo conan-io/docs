@@ -59,7 +59,7 @@ And you can use it instead of command line arguments as:
 
 .. code-block:: bash
 
-  $ conan test_package -pr=myprofile
+  $ conan create demo/testing -pr=myprofile
 
 
 You can list and show existing profiles with the ``conan profile`` command:
@@ -242,15 +242,15 @@ Without profiles you would have needed to set the CC and CXX variables in the en
    conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
 
-A profile can also be used in ``conan test_package`` and ``info`` command:
+A profile can also be used in ``conan create`` and ``info`` command:
 
 .. code-block:: bash
 
-   $ conan test_package --profile clang
+   $ conan create demo/testing --profile clang
 
 
 
 .. seealso:: - :ref:`Howtos/Cross Building <cross_building>`
              - :ref:`Reference/Commands/conan profile <conan_profile_command>`
              - :ref:`Reference/Commands/conan install <conan_install_command>`
-             - :ref:`Reference/Commands/conan test_package <conan_test_package_command>`
+             - :ref:`Reference/Commands/conan create <conan_create_command>`

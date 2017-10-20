@@ -27,7 +27,7 @@ If it has ``test_package``, you can just directly run from there
 
 .. code-block:: bash
 
-   $ conan test_package
+   $ conan create demo/testing
    
 Otherwise, you should just point your project's ``[requires]`` from the original creator to
 the new name, including your user account. You typically will build packages from sources:

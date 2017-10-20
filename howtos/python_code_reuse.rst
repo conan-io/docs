@@ -141,7 +141,7 @@ In the above example, the code is reused in the ``build()`` method as an example
 
 ..  code-block:: bash
 
-    $ conan install
+    $ conan install .
     ...
     $ conan build .
     Hello World from Python!
