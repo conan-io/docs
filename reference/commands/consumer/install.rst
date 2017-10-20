@@ -7,7 +7,7 @@ conan install
 .. code-block:: bash
 
     $ conan install [-h] [--file FILE] [--generator GENERATOR] [--werror]
-                    [--build-folder BUILD_FOLDER] [--manifests [MANIFESTS]]
+                    [--install-folder BUILD_FOLDER] [--manifests [MANIFESTS]]
                     [--manifests-interactive [MANIFESTS_INTERACTIVE]]
                     [--verify [VERIFY]] [--no-imports] [--update]
                     [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
@@ -39,7 +39,7 @@ concrete recipe/package specifying a reference in the "path" parameter.
       --generator GENERATOR, -g GENERATOR
                             Generators to use
       --werror              Error instead of warnings for graph inconsistencies
-      --build-folder BUILD_FOLDER, --build_folder BUILD_FOLDER, -c BUILD_FOLDER
+      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
                             Use this directory as the directory where to put the
                             generatorfiles, conaninfo/conanbuildinfo.txt etc.
       --manifests [MANIFESTS], -m [MANIFESTS]

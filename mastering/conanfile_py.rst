@@ -85,7 +85,7 @@ Then execute, from your project root:
 
 .. code-block:: bash
 
-   $ conan install . --build-folder build
+   $ conan install . --install-folder build
    $ conan build . --build-folder build
    
 
@@ -102,7 +102,7 @@ If you want to build your project for **x86** or another setting just change the
 
 .. code-block:: bash
 
-   $ conan install . --build-folder build_x86 -s arch=x86
+   $ conan install . --install-folder build_x86 -s arch=x86
    $ conan build . --build-folder build_x86
 
 Implementing and using the conanfile.py ``build()`` method ensures that we always use the same

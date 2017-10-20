@@ -16,6 +16,8 @@ Breaking changes!
 We are in the path of release a Conan 1.0! Some command syntax and code refactor was necessary,
 please update to ease the future migration to a more stable Conan 1.0:
 
+- The command ``conan install`` doesn't accept ``cwd`` anymore, to change the directory where the generator
+  files are written, use the ``--install-folder`` parameter.
 
 - The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
 
@@ -30,7 +32,8 @@ with a ``package()`` method.
 If you used ``conan source`` with a reference to workaround the concurrency, now it natively supported, you
 can remove the command call and trust concurrent install processes.
 
-PENDING TO SEE IF WE REVERT THE CWD OF INSTALL AND INFO OR WE MOVE TO --output-folder OR WHATEVER
+- The command ``conan imports`` doesn't accept ``-d, --dest`` anymore, use ``--imports-folder`` parameter instead.
+
 
 
 0.27.0 (20-September-2017)

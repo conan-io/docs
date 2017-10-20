@@ -8,8 +8,8 @@ conan build
 	$ conan build [-h] [--file FILE] [--source-folder SOURCE_FOLDER]
                       [--build-folder BUILD_FOLDER]
                       [--package-folder PACKAGE_FOLDER]
+                      [--install-folder INSTALL_FOLDER]
                       path
-
 
 Calls your local conanfile.py 'build()' method. The recipe will be built in
 the local directory specified by --build_folder, reading the sources from
@@ -40,6 +40,10 @@ step.
                             '{build_folder}/package' folder. A relative path can
                             be specified, relative to the current folder. Also an
                             absolute path is allowed.
+      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
+                            Optional. Local folder containing the conaninfo.txt
+                            and conanbuildinfo.txt files (from a previous conan
+                            install execution). Defaulted to --build-folder
 
 
 The ``build()`` method might use `settings`, `options` and `environment variables` from the specified
@@ -47,7 +51,8 @@ profile and dependencies information from the declared ``deps_XXX_info`` objects
 requirements.
 All that information is saved automatically in the ``conaninfo.txt`` and ``conanbuildinfo.txt``
 files respectively, when you run the ``conan install`` command.
-Those files have to be located in the specified ``--build-folder``.
+Those files have to be located in the specified ``--build-folder`` or in the ``--install-folder`` if
+specified.
 
 
 **Example**: Building a conan package (for architecture x86) in a local directory.
@@ -80,5 +85,19 @@ and finally ``conan build`` to build the package:
 
 
     $ conan source . --source-folder src
-    $ conan install --build-folder build_x86 -s arch=x86
+    $ conan install --install-folder build_x86 -s arch=x86
     $ conan build . --build-folder build_x86 --source-folder src
+
+Or if we want to create the ``conaninfo.txt`` and ``conanbuildinfo.txt`` files in a different folder:
+
+.. code-block:: bash
+   :emphasize-lines: 3
+
+
+    $ conan source . --source-folder src
+    $ conan install --install-folder install_x86 -s arch=x86
+    $ conan build . --build-folder build_x86 --install-folder install_x86 --source-folder src
+
+However, we recommend the ``conaninfo.txt`` and ``conanbuildinfo.txt`` to be generated in the same
+--build_folder, otherwise, you will need to specify a different folder in your build system to include
+the files generators file. e.j ``conanbuildinfo.cmake``

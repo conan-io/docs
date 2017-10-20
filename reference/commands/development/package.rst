@@ -8,6 +8,7 @@ conan package
    $ conan package [-h] [--source-folder SOURCE_FOLDER]
                    [--build-folder BUILD_FOLDER]
                    [--package-folder PACKAGE_FOLDER]
+                   [--install-folder INSTALL_FOLDER]
                    path
 
 
@@ -39,7 +40,10 @@ pkg' after a 'build' command.
                             '{build_folder}/package' folder. A relative path can
                             be specified (relative to the current directory). Also
                             an absolute pathis allowed.
-
+      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
+                            Optional. Local folder containing the conaninfo.txt
+                            and conanbuildinfo.txt files (from a previous conan
+                            install execution). Defaulted to --build-folder
 
 
 The ``package()`` method might use `settings`, `options` and `environment variables` from the specified
@@ -61,7 +65,7 @@ This example shows how ``package`` works in a package which can be edited and bu
 .. code-block:: bash
 
 	$ conan new Hello/0.1 -s
-	$ conan install . --build-folder=build_x86 -s arch=x86
+	$ conan install . --install-folder=build_x86 -s arch=x86
 	$ conan build . --build-folder=build_x86
 	$ conan package . --build-folder=build_x86 --package-folder=package_x86
 	$ ls package/x86
@@ -78,7 +82,7 @@ This example shows how ``package`` works in a package which can be edited and bu
     .. code-block:: bash
 
         $ conan new Hello/0.1 -s
-        $ conan install . --build-folder=build_x86 -s arch=x86
+        $ conan install . --install-folder=build_x86 -s arch=x86
         $ conan build . --build-folder=build_x86
         $ conan export-pkg . Hello/0.1@user/stable --build-folder=build_x86 -s arch=x86
 

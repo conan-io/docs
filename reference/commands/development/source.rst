@@ -57,7 +57,7 @@ Those files have to be located in the specified ``--install-folder``.
 
 .. code-block:: bash
 
-   $ conan install . --build-folder mybuild
+   $ conan install . --install-folder mybuild
    $ conan source . --source-folder mysrc --install-folder mybuild
 
 

@@ -6,13 +6,12 @@ conan info
 .. code-block:: bash
 
    $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
-                       [--package-filter [PACKAGE_FILTER]]
-                       [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
-                       [--build-folder BUILD_FOLDER] [--update] [--scope SCOPE]
-                       [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
-                       [--settings SETTINGS] [--env ENV]
-                       [--build [BUILD [BUILD ...]]]
-                       [reference]
+                  [--package-filter [PACKAGE_FILTER]]
+                  [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
+                  [--update] [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                  [--options OPTIONS] [--settings SETTINGS] [--env ENV]
+                  [--build [BUILD [BUILD ...]]]
+                  [reference]
 
 Gets information about the dependency graph of a recipe. You can use it for
 your current project, by passing a path to a conanfile.py as the reference, or
@@ -49,9 +48,6 @@ for any existing package in your local cache.
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
                             extension
-      --build-folder BUILD_FOLDER, --build_folder BUILD_FOLDER
-                            Use this directory as the directory where to put the
-                            generatorfiles, conaninfo/conanbuildinfo.txt etc.
       --update, -u          check updates exist from upstream remotes
       --scope SCOPE, -sc SCOPE
                             Use the specified scope in the install command
