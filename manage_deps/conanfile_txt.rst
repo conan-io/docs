@@ -13,7 +13,7 @@ You can see there that there are many CMake variables declared. For example you 
    :width: 500 px
    :align: center
 
-If you check the full path, you will see that they are pointing to a folder in your ``<userhome>`` folder, this is called the **conan local cache**. It is the place where package recipes and package binaries are stored and cached, so they don't have to be retrieved again. You can inspect it with ``conan search``, and you can also remove packages from it with ``conan remove`` command.
+If you check the full path, you will see that they are pointing to a folder in your ``<userhome>`` folder, this is called the **conan local cache**. It is the place where package recipes and binary packages are stored and cached, so they don't have to be retrieved again. You can inspect it with ``conan search``, and you can also remove packages from it with ``conan remove`` command.
 
 If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the headers and the libraries for each package.
 
@@ -55,7 +55,7 @@ In our example, conan installed the POCO package and all its requirements transi
     This is a good example to explain requirements overriding. We all know the importance of keeping the OpenSSL library updated.
 
 Now imagine that a new release of OpenSSL library is out, and a new conan package for it is available. 
-Do we need to wait until **@conan** generates a new package of POCO that includes the new OpenSSL library?
+Do we need to wait until the author `pocoproject`_ generates a new package of POCO that includes the new OpenSSL library?
 
 Not necessarily, just enter the new version in **[requires]**:
 
@@ -101,9 +101,9 @@ On the other hand, **options** are intended for package specific configuration, 
 
 .. note:: 
    
-   You can search and see the available options for a package with "conan search <reference>" command: 
+   You can see the available options for a package inspecting the recipe with "conan get <reference>" command:
       
-      $ conan search Poco/1.7.8p3@pocoproject/stable
+      $ conan get Poco/1.7.8p3@pocoproject/stable
       
 
 As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the ``conanfile.txt``:
@@ -128,6 +128,16 @@ Install the requirements and compile from the build folder (change cmake generat
     $ conan install ..
     $ cmake .. -G "Visual Studio 14 Win64"
     $ cmake --build . --config Release
+
+
+You can also avoid defining the options in the ``conanfile.txt`` and directly define them in the command line:
+
+.. code-block:: bash
+
+    $ conan install .. -o Poco:shared=True -o OpenSSL:shared=True
+    # or even with wildcards, to apply to many packages
+    $ conan install .. -o *:shared=True
+
 
 Conan will install the shared library packages binaries, and the example will link with them.
 You can again inspect the different installed binaries, e.g. ``conan search zlib/1.2.8@lasote/stable``.
@@ -179,7 +189,9 @@ There are some differences between shared libraries on linux (\*.so), windows (\
 The shared libraries must be located in some folder where they can be found, either by the linker,
 or by the OS runtime.
 
-It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path in Linux, or system PATH in Windows), or copy those shared libraries to some system folder, so they are found by the OS. But those are typical operations of deploys or final installation of apps, not desired while developing, and conan is intended for developers, so it tries not to mess with the OS.
+It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path in Linux, DYLD_LIBRARY_PATH in OSX, or system PATH in Windows),
+or copy those shared libraries to some system folder, so they are found by the OS. But those are typical operations of deploys or final installation of apps,
+not desired while developing, and conan is intended for developers, so it tries not to mess with the OS.
 
 In Windows and OSX, the simplest approach is just to copy the shared libraries to the executable folder, so
 they are found by the executable, without having to modify the path.
@@ -225,7 +237,10 @@ Now look at the ``mytimer/build/bin`` folder and verify that the needed shared l
 
 As you can see, the **[imports]** section is a very generic way to import files from your requirements to your project. 
 
-This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets, images, sounds, test static files, etc. Conan is a generic solution for package management, not only for C/C++ or libraries.
+This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets,
+images, sounds, test static files, etc. Conan is a generic solution for package management, not only (but focused in) for C/C++ or libraries.
 
 
 .. seealso:: Check the section :ref:`Howtos/Manage shared libraries<manage_shared>` to know more about working with shared libraries.
+
+.. _`pocoproject`: https://bintray.com/pocoproject/conan/Poco%3Apocoproject

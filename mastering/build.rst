@@ -19,7 +19,7 @@ There are two ways to invoke your cmake tools:
 
    def build(self):
       cmake = CMake(self)
-      self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
+      self.run('cmake "%s" %s' % (self.source_folder, cmake.command_line))
       self.run('cmake --build . %s' % cmake.build_config)
 
 
@@ -30,7 +30,7 @@ There are two ways to invoke your cmake tools:
 
    def build(self):
       cmake = CMake(self)
-      cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+      cmake.configure(source_dir=self.source_folder, build_dir="./")
       cmake.build()
 
 
@@ -47,10 +47,8 @@ Autotools: configure / make
 If you are using **configure**/**make** you can use **AutoToolsBuildEnvironment** helper.
 This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`` environment variables based on your requirements.
 
-It works using the :ref:`environment_append <environment_append_tool>` context manager applied to your **configure and make** commands:
-
 .. code-block:: python
-   :emphasize-lines: 13, 14
+   :emphasize-lines: 13, 14, 15
    
    from conans import ConanFile, AutoToolsBuildEnvironment
 
@@ -65,9 +63,22 @@ It works using the :ref:`environment_append <environment_append_tool>` context m
    
       def build(self):
          env_build = AutoToolsBuildEnvironment(self)
+         env_build.configure()
+         env_build.make()
+
+It also works using the :ref:`environment_append <environment_append_tool>` context manager applied to your **configure and make** commands:
+
+
+.. code-block:: python
+   :emphasize-lines: 5,6,7
+
+      ...
+
+      def build(self):
+         env_build = AutoToolsBuildEnvironment(self)
          with tools.environment_append(env_build.vars):
-            self.run("./configure")
-            self.run("make")
+             self.run("./configure")
+             self.run("make")
 
 
 For Windows users:
@@ -119,10 +130,8 @@ an automatic value or add new values:
          env_build.fpic = True
          env_build.libs.append("pthread")
          env_build.defines.append("NEW_DEFINE=23")
-
-         with tools.environment_append(env_build.vars):
-            self.run("./configure")
-            self.run("make")
+         env_build.configure()
+         env_build.make()
 
 
 
@@ -192,6 +201,37 @@ It's valid to invoke both gcc and clang compilers.
 
 
 .. seealso:: Check the :ref:`Reference/Generators/gcc <gcc_generator>` for the complete reference.
+
+
+.. _building_with_mesonbuild:
+
+Meson Build
+-----------
+
+If you are using **Meson Build** as your library buils system, you can use the **Meson** build helper.
+Specially useful with the :ref:`pkg_config generator<pkg_config_generator>` that will generate the ``*.pc``
+files of our requirements, then ``Meson()`` build helper will locate them automatically.
+
+
+.. code-block:: python
+   :emphasize-lines: 5, 10, 11, 12
+
+    from conans import ConanFile, tools, Meson
+    import os
+
+    class ConanFileToolsTest(ConanFile):
+        generators = "pkg_config"
+        requires = "LIB_A/0.1@conan/stable"
+        settings = "os", "compiler", "build_type"
+
+        def build(self):
+            meson = Meson(self)
+            meson.configure()
+            meson.build()
+
+
+
+.. seealso:: Check the :ref:`Reference/Build Helpers/Meson <meson_build_helper_reference>` for the complete reference.
 
 
 

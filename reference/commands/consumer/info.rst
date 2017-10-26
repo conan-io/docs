@@ -6,20 +6,16 @@ conan info
 .. code-block:: bash
 
    $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
-                  [--package_filter [PACKAGE_FILTER]]
-                  [--build_order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
-                  [--cwd CWD] [--update] [--scope SCOPE] [--profile PROFILE]
-                  [-r REMOTE] [--options OPTIONS] [--settings SETTINGS]
-                  [--env ENV] [--build [BUILD [BUILD ...]]]
+                  [--package-filter [PACKAGE_FILTER]]
+                  [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
+                  [--update] [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                  [--options OPTIONS] [--settings SETTINGS] [--env ENV]
+                  [--build [BUILD [BUILD ...]]]
                   [reference]
 
-Prints information about a package recipe's dependency graph.
-You can use it for your current project (just point to the path of your conanfile if you want), or for any
-existing package in your local cache.
-
-
-The ``--update`` option will check if there is any new recipe/package available in remotes. Use ``conan install -u``
-to update them.
+Gets information about the dependency graph of a recipe. You can use it for
+your current project, by passing a path to a conanfile.py as the reference, or
+for any existing package in your local cache.
 
 
 .. code-block:: bash
@@ -38,10 +34,10 @@ to update them.
                             "package_folder", "source_folder". Use --only None to
                             show only references.
       --paths               Show package paths in local cache
-      --package_filter [PACKAGE_FILTER]
+      --package-filter [PACKAGE_FILTER], --package_filter [PACKAGE_FILTER]
                             print information only for packages that match the
                             filtere.g., MyPackage/1.2@user/channel or MyPackage*
-      --build_order BUILD_ORDER, -bo BUILD_ORDER
+      --build-order BUILD_ORDER, --build_order BUILD_ORDER, -bo BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
       --json [JSON], -j [JSON]
@@ -52,7 +48,6 @@ to update them.
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
                             extension
-      --cwd CWD, -c CWD     Use this directory as the current directory
       --update, -u          check updates exist from upstream remotes
       --scope SCOPE, -sc SCOPE
                             Use the specified scope in the install command
@@ -73,6 +68,7 @@ to update them.
                             parameter), return an ordered list of packages that
                             would be built from sources in install command
                             (simulation)
+
 
 
 **Examples**:

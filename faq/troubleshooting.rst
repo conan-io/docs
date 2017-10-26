@@ -4,7 +4,7 @@ Troubleshooting
 ERROR: Missing prebuilt package
 --------------------------------
 
-When you are installing packages (with ``conan install`` or ``conan test_package``) it is possible
+When you are installing packages (with ``conan install`` or ``conan create``) it is possible
 that you get an error like the following one:
 
 

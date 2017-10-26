@@ -141,8 +141,15 @@ Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_window
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
 
 
-.. _conan_trace_file:
+.. _conan_make_program:
 
+CONAN_MAKE_PROGRAM
+------------------
+
+Specify an alternative ``make`` program to use with the :ref:`build helper AutoToolsBuildEnvironment<autotools_reference>` make() method. e.j: ``mingw32-make``.
+
+
+.. _conan_trace_file:
 
 CONAN_TRACE_FILE
 ----------------
@@ -244,11 +251,15 @@ the :ref:`CMake build tool<cmake_reference>`:
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 
-
 .. seealso::
 
     See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
+
+CONAN_CMAKE_TOOLSET
+-------------------
+
+Appends the specified value as a ``-Tvalue`` in the configure when using the :ref:`CMake build helper<cmake_reference>` .
 
 
 CONAN_CPU_COUNT
@@ -268,3 +279,18 @@ marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
 for modern Windows that enable long paths at the system level. 
 Please note that this only works with Python 3.6 and newer.
+
+
+CONAN_READ_ONLY_CACHE
+----------------------
+This environment variable if defined, will make the conan cache read-only. This could prevent 
+developers to accidentally edit some header of their dependencies while navigating code in their
+IDEs.
+
+The packages are made read-only in two points: when a package is built from sources, and when
+a package is retrieved from a remote repository. 
+
+The packages are not modified for upload, so users should take that into consideration before 
+uploading packages, as they will be read-only and that could have other side-effects. In general,
+it is not recommended to upload packages directly from developers machines with read-only mode
+(in fact, we recommended that packages are created and uploaded by CI, not from developers machines)

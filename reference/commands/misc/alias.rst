@@ -8,19 +8,25 @@ conan alias
 
 	$ conan alias [-h] reference target
 
-Uploads a package recipe and the generated binary packages to a specified
-remote
+Uploads a recipe and binary packages to a remote. If you use the --force
+variable, it won't check the package date. It will override the remote with
+the local package. If you use a pattern instead of a conan recipe reference
+you can use the -c or --confirm option to upload all the matching recipes. If
+you use the --retry option you can specify how many times should conan try to
+upload the packages in case of failure. The default is 2. With --retry_wait
+you can specify the seconds to wait between upload attempts. If no remote is
+specified, the first configured remote (by default conan.io, use 'conan remote
+list' to list the remotes) will be used.
 
 
 .. code-block:: bash
 
     positional arguments:
-    reference   Alias reference. e.j: mylib/1.X@user/channel
-    target      Target reference. e.j: mylib/1.12@user/channel
+      reference   Alias reference. e.j: mylib/1.X@user/channel
+      target      Target reference. e.j: mylib/1.12@user/channel
 
     optional arguments:
-    -h, --help  show this help message and exit
-
+      -h, --help  show this help message and exit
 
 The command:
 

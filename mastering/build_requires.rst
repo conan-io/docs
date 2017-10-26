@@ -6,7 +6,7 @@ Build requirements
 
 There are some requirements that don't feel natural to add to a package recipe. For example, imagine that you had a ``cmake/3.4`` package in conan. Would you add it as a requirement to the ``ZLib`` package, so it will install cmake first in order to build ``Zlib``? In short:
 
-- There are requirements that are only needed when you need to build a package from sources, but if the package binary already exists, you don't want to install or retrieve them.
+- There are requirements that are only needed when you need to build a package from sources, but if the binary package already exists, you don't want to install or retrieve them.
 - These could be dev tools, compilers, build systems, code analyzers, testing libraries, ..., etc.
 - They can be very orthogonal to the creation of the package. It doesn't matter whether you build ZLib with cmake 3.4, 3.5 or 3.6. As long as the CMakeLists.txt is compatible, it will produce the same final package. 
 - You don't want to add a lot of different versions (like those of cmake) to be able to use them to build the package. You want to easily change the requirements, without needing to edit the ZLib package recipe.
@@ -30,7 +30,7 @@ Build requirements can be declared in profiles, like:
   &!: Tool7/0.1@user/channel
 
 Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all packages. Packages can be declared in different lines or by a comma separated list.
-In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running ``conan install`` or ``conan test_package``)
+In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running ``conan install`` or ``conan create``)
 
 If a pattern like ``MyPkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern. Tool5 will not be applied to Zlib, for example, but it will be applied to MyPkgZlib.
 

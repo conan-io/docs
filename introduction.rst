@@ -37,11 +37,11 @@ One of the powerful features of conan is that it can manage pre-compiled binarie
    :width: 400 px
    :align: center
 
-When a package recipe is used in a conan client and a “package binary” is built from sources, that package binary will be compatible with certain settings, such as the OS it was created for, the compiler and compiler version, or the computer architecture. If the package is built again from the same sources but with different settings, (e.g. for a different architecture), a new, different binary will be generated. By the way, “package binary” is in quotes because, strictly, it is not necessarily a binary. A header-only library, for example, will contain just the headers in the “package binary”.
+When a package recipe is used in a conan client and a “binary package” is built from sources, that binary package will be compatible with certain settings, such as the OS it was created for, the compiler and compiler version, or the computer architecture. If the package is built again from the same sources but with different settings, (e.g. for a different architecture), a new, different binary will be generated. By the way, “binary package” is in quotes because, strictly, it is not necessarily a binary. A header-only library, for example, will contain just the headers in the “binary package”.
 
-All the package binaries generated from a package recipe are managed and stored coherently.  When they are uploaded to a remote, they stay connected. Also, different clients building binaries from the same package recipe (like CI build slaves in different operating systems), will upload their binaries under the same package name to the remotes.
+All the binary packages generated from a package recipe are managed and stored coherently.  When they are uploaded to a remote, they stay connected. Also, different clients building binaries from the same package recipe (like CI build slaves in different operating systems), will upload their binaries under the same package name to the remotes.
 
-Consumers, i.e. client application users that are installing existing packages for reuse in their projects, will typically retrieve pre-compiled binaries for their systems, if there exist such compatible binaries, or otherwise require building from sources, on the client machine, to create a package binary matching their settings.
+Consumers, i.e. client application users that are installing existing packages for reuse in their projects, will typically retrieve pre-compiled binaries for their systems, if there exist such compatible binaries, or otherwise require building from sources, on the client machine, to create a binary package matching their settings.
 
 
 Cross platform, build system agnostic

@@ -28,6 +28,8 @@ Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configu
 tools.vcvars_command()
 ----------------------
 
+**vcvars_command(settings, arch=None, compiler_version=None)**
+
 This function returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
 the command, as that typically have to be done in the same command as the compilation,
@@ -51,6 +53,9 @@ corresponding Visual Studio version for the current settings.
 This is typically not needed if using ``CMake``, as the cmake generator will handle the correct
 Visual Studio version.
 
+If **arch** or **compiler_version** is specified, it will ignore the settings and return the command
+to set the Visual Studio environment for these parameters.
+
 
 .. _build_sln_commmand:
 
@@ -66,12 +71,23 @@ It's recommended to use it along with ``vcvars_command()``, so that the Visual S
     command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
     self.run(command)
 
+Definition:
+
+.. code-block:: python
+
+    def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
+                          arch=None, parallel=True)
+
 Arguments:
 
  * **settings**  Conanfile settings, pass "self.settings"
  * **sln_path**  Visual Studio project file path
  * **targets**   List of targets to build
  * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+ * **build_type**: Override the build type defined in the settings (``settings.build_type``).
+ * **arch**: Override the architecture defined in the settings (``settings.arch``).
+ * **parallel**: Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
+   or by the number of cores in the processor by default
 
 
 .. _msvc_build_command:
@@ -134,16 +150,15 @@ unless the file had a different extension.
 tools.get()
 -----------
 
-Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. Its implementation
-is very straightforward:
+Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
+You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
+will be checked, if any of them doesn't match, it will raise a ``ConanException``.
 
 .. code-block:: python
 
-    def get(url):
-        filename = os.path.basename(url)
-        download(url, filename)
-        unzip(filename)
-        os.unlink(filename)
+    from conans import tools
+
+    tools.get("http://url/file", md5='d2da0cd0756cd9da6560b9a56016a0cb')
 
 
 tools.download()
@@ -461,6 +476,17 @@ when ``no_copy_source==True``.
     
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
+
+
+tools.which()
+-------------
+
+Returns the path to a specified executable searching in the PATH environment variable.
+
+.. code-block:: python
+
+    from conans import tools
+    abs_path_make = tools.which("make")
 
 
 tools.touch()

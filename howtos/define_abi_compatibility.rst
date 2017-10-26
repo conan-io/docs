@@ -38,7 +38,7 @@ The process will be:
    assign the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will
    compute a SHA1 hash, that will be the binary package ID, e.g. ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
-4. conan will try to find the ``c6d75...`` package binary. If it's present conan will retrieve it, if not, it can be built from sources with ``conan install --build``.
+4. conan will try to find the ``c6d75...`` binary package. If it's present conan will retrieve it, if not, it can be built from sources with ``conan install --build``.
 
 
 If the package is installed again with different settings, for example, for 32bits architecture:
@@ -75,7 +75,7 @@ in the recipe:
         # no settings defined!
         
 Then, no matter what are the settings defined by the users, which compiler or version, the package
-settings and options will always be the same (empty) and they will hash to the same package binary
+settings and options will always be the same (empty) and they will hash to the same binary package
 ID, that will typically contain just the header files.
 
 
@@ -282,7 +282,7 @@ If it is necessary to change the default behavior, the applied versioning schema
 	        
 	        
 Besides the ``version``, there are some other helpers that can be used, to decide whether the 
-**channel** and **user** of one dependency also affects the package binary, or even the required package ID 
+**channel** and **user** of one dependency also affects the binary package, or even the required package ID
 can change your own package ID:
 
 

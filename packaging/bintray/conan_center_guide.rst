@@ -4,7 +4,7 @@ Contributing packages to conan-center
 =====================================
 
 As a moderated and curated repository, `conan-center`_ will not be populated automatically. Initially, it will be empty.
-To have your recipe or binary package available on `conan-center`_, you need to submit an inclusion request to Bintray,
+To have your recipe or binary packages available on `conan-center`_, you need to submit an inclusion request to Bintray,
 and the Bintray team will review your request.
 
 - If you are the **author of an open source library**, your package will be approved.
@@ -44,7 +44,7 @@ Recipe quality
 
 - **Recipe fields**: `description`, `license` and `url` are required. The `license` field refers to the library being packaged.
 
-- **Linter:** Is important to have a reasonable clean Linter, ``conan export`` and  ``conan test_package`` will
+- **Linter:** Is important to have a reasonable clean Linter, ``conan export`` and  ``conan create`` will
   output some warnings and errors, keep it as clean as possible to guarantee a recipe less error prone and more understandable.
 
 - **Updated:** Not using deprecated features and when possible, using latest conan features, build helpers etc.
@@ -98,7 +98,7 @@ CI Integration
 --------------
 
 - If you are packaging a header only library, it is only needed to provide one CI configuration (e.g. Travis with gcc 6.1) to check
-  that the package is built correctly (use test_package).
+  that the package is built correctly (use `conan create`).
 
 - Unless your library is a header only library or doesn't support a concrete operating system or compiler you will need to provide a CI systems integration
   to support:

@@ -29,6 +29,6 @@ The allowed build_policy values are:
         build_policy = "always" # "missing"
 
        
-These build policies are especially useful if the package creator doesn't want to provide binary packages, for example, with header only libraries.
+These build policies are especially useful if the package creator doesn't want to provide binary package, for example, with header only libraries.
 
 The "always" policy, will retrieve the sources each time the package is installed so it can be useful for providing a "latest" mechanism or ignoring the uploaded binary packages.

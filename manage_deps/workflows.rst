@@ -25,8 +25,7 @@ are excluded too.
 .. code-block:: bash
    
       $ git clone https://github.com/memsharded/example-hello.git
-      $ mkdir example-hello-build && cd example-hello-build
-      $ conan install ../example-hello --build=missing
+      $ conan install ./example-hello --build=missing --install-folder example-hello-build
       
 So the layout will be:
       
@@ -34,6 +33,7 @@ So the layout will be:
 
    example-hello-build
       conaninfo.txt
+      conanbuildinfo.txt
       conanbuildinfo.cmake
    example-hello
       conanfile.txt
@@ -74,18 +74,17 @@ the project).
 .. code-block:: bash
    
       $ git clone https://github.com/memsharded/example-hello.git
-      $ mkdir example-hello-build && cd example-hello-build
-      $ mkdir debug && cd debug
-      $ conan install ../../example-hello -s build_type=Debug --build=missing
-      $ cmake ../../example-hello -G "Visual Studio 14 Win64"
-      $ cd .. && mkdir release && cd release
-      $ conan install ../../example-hello -s build_type=Release --build=missing
-      $ cmake ../../example-hello -G "Visual Studio 14 Win64"
+      $ conan install ./example-hello -s build_type=Debug --build=missing -if example-hello-build/debug
+      $ conan install ./example-hello -s build_type=Release --build=missing -if example-hello-build/release
+
+      $ cd example-hello-build/debug && cmake ../../example-hello -G "Visual Studio 14 Win64" && cd ../..
+      $ cd example-hello-build/release && cmake ../../example-hello -G "Visual Studio 14 Win64" && cd ../..
 
 
 .. note::
 
-    You can also use the ``cwd`` parameter in the ``conan install`` command to change the current directory.
+    You can use the ``--install-folder`` or ``-if`` to specify where to generate the output files
+    or create manually the directory and change to it before execute the ``conan install`` command.
 
 
 So the layout will be:
@@ -95,10 +94,12 @@ So the layout will be:
    example-hello-build
       debug
           conaninfo.txt
+          conanbuildinfo.txt
           conanbuildinfo.cmake
           CMakeCache.txt # and other cmake files
       release
           conaninfo.txt
+          conanbuildinfo.txt
           conanbuildinfo.cmake
           CMakeCache.txt # and other cmake files
    example-hello
@@ -112,10 +113,8 @@ the conan configuration files for that build configuration will also be there.
 
 .. code-block:: bash
    
-      $ cd example-hello-build/debug
-      $ cmake --build . --config Debug
-      $ cd ../release
-      $ cmake --build . --config Release
+      $ cd example-hello-build/debug && cmake --build . --config Debug && cd ../..
+      $ cd example-hello-build/release && cmake --build . --config Release && cd ../..
       
 Note that the CMake ``INCLUDE()`` of your project must be prefixed with the current cmake binary
 directory, otherwise it will not find the necessary file:

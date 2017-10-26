@@ -7,7 +7,7 @@ RunEnvironment
 Prepares the needed environment variables to locate shared libraries and executables of your requirements at runtime.
 
 .. code-block:: python
-   :emphasize-lines: 7, 8, 9
+   :emphasize-lines: 2, 3
 
     def build(self):
          env_build = RunEnvironment(self)
