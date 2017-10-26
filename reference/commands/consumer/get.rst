@@ -55,7 +55,7 @@ Gets a file or list a directory of a given reference or package.
 
     $ conan get zlib/1.2.11@conan/stable conanmanifest.txt
 
-- Print the conaninfo.txt file for a package binary:
+- Print the conaninfo.txt file for a binary package:
 
 .. code-block:: bash
 
@@ -77,7 +77,7 @@ Gets a file or list a directory of a given reference or package.
        # ...
 
 
-- List the files from a package binary in a remote:
+- List the files from a binary package in a remote:
 
 .. code-block:: bash
 

@@ -41,7 +41,7 @@ In the traces we can see:
 2. A rest api call to get some ``download_urls``.
 3. Three files downloaded (corresponding to the previously retrieved urls).
 4. ``DOWNLOADED_RECIPE`` tells us that the recipe retrieving is finished. We can see that the whole retrieve process took 2.4 seconds.
-5. conan client has computed the needed package binary SHA and now will get it. So will request and download the package ``package_id`` file to perform some checks like outdated binaries.
+5. conan client has computed the needed binary package SHA and now will get it. So will request and download the package ``package_id`` file to perform some checks like outdated binaries.
 6. Another rest api call to get some more ``download_urls``, for the package files and download them.
 7. Finally we get a ``DOWNLOADED_PACKAGE`` telling us that the package has beed downloaded. It took 1.3 seconds.
 

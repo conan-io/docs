@@ -126,7 +126,7 @@ Lets create a build folder, so temporary build files are put there, and install 
    $ mkdir build && cd build
    $ conan install ..
 
-This ``install`` command will download the package binary required for your configuration
+This ``install`` command will download the binary package required for your configuration
 (detected the first time that you ran the conan command), **together
 with other (transitively required by Poco) libraries, like OpenSSL and Zlib**. 
 It will also create the ``conanbuildinfo.cmake`` file in the current directory, in which you
@@ -147,10 +147,10 @@ So for a command like ``$ conan install -s os="Linux" -s compiler="gcc"``, the s
 - Look for the package recipe in the defined remotes. By default, conan comes with the Bintray remotes defined (you can change that), so the conan client will search in `conan-center` and `conan-transit` for the recipe.
 - If the recipe exists, conan client will fetch and store it in your local cache.
 - With the package recipe and the input settings (Linux, gcc), conan client will check in the local cache if the corresponding binary is there, if we are installing for the first time, it won't.
-- Conan client will search for the corresponding package binary in the remote, if it exists, it will be fetched.
+- Conan client will search for the corresponding binary package in the remote, if it exists, it will be fetched.
 - Conan client will then finish generating the requested files specified in ``generators``.
 
-If the package binary necessary for some given settings doesn't exist, conan client will throw an error. It is possible to try to build the package binary from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a package binary is built from sources will be given in a later section.
+If the binary package necessary for some given settings doesn't exist, conan client will throw an error. It is possible to try to build the binary package from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a binary package is built from sources will be given in a later section.
 
 .. warning::
 
@@ -190,7 +190,7 @@ keep working even without network connection. To search packages in the local ca
 
     $ conan search 
 
-You can also inspect the package binaries (for different installed binaries for a given package recipe) details with:
+You can also inspect the binary packages (for different installed binaries for a given package recipe) details with:
 
 .. code-block:: bash
 

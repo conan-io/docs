@@ -40,7 +40,7 @@ command.
      conanmanifest.txt
 
 
-- Print the ``conaninfo.txt`` file of a package binary:
+- Print the ``conaninfo.txt`` file of a binary package:
 
 .. code-block:: bash
 

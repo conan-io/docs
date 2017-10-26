@@ -175,8 +175,8 @@ thanks very much!
 - Feature: new ``conan search --table=file.html`` command that will output an html file with a graphical representation of available binaries
 - Feature: created **default profile**, that replace the ``[settings_default]`` in **conan.conf** and augments it, allowing to define more things like env-vars, options, build_requires, etc.
 - Feature: new ``self.user_info`` member that can be used in ``package_info()`` to define custom user variables, that will be translated to general purpose variables by generators.
-- Feature: ``conan remove`` learned the ``--outdated`` argument, to remove those package binaries that are outdated from the recipe, both from local cache and remotes
-- Feature: ``conan search`` learned the ``--outdated`` argument, to show only those package binaries that are outdated from the recipe, both from local cache and remotes
+- Feature: ``conan remove`` learned the ``--outdated`` argument, to remove those binary packages that are outdated from the recipe, both from local cache and remotes
+- Feature: ``conan search`` learned the ``--outdated`` argument, to show only those binary packages that are outdated from the recipe, both from local cache and remotes
 - Feature: Automatic management ``CMAKE_TOOLCHAIN_FILE`` in ``CMake`` helper for cross-building.
 - Feature: created ``conan_api``, a python API interface to conan functionality.
 - Feature: new ``cmake.install()`` method of ``CMake`` helper.
@@ -276,7 +276,7 @@ thanks very much!
 -------------------------
 - Feature: ``[build_requires]`` can now be declared in ``profiles`` and apply them to build packages. Those requirements are only installed if the package is required to build from sources, and do not affect its package ID hash, and it is not necessary to define them in the package recipe. Ideal for testing libraries, cross compiling toolchains (like Android), development tools, etc.
 - Feature: Much improved support for cross-building. Support for cross-building to **Android** provided, with toolchains installable via ``build_requires``.
-- Feature: New ``package_files`` command, that is able to create package binaries directly from user files, without needing to define ``build()`` or ``package()`` methods in the the recipes.
+- Feature: New ``package_files`` command, that is able to create binary packages directly from user files, without needing to define ``build()`` or ``package()`` methods in the the recipes.
 - Feature: command ``conan new`` with a new ``--bare`` option that will create a minimal package recipe, usable with the ``package_files`` command.
 - Feature: Improved ``CMake`` helper, with ``test()`` method, automatic setting of BUILD_SHARED_LIBS, better management of variables, support for parallel compilation in MSVC (via /MP)
 - Feature: new ``tools.msvc_build_command()`` helper that both sets the Visual vcvars and calls Visual to build the solution. Also ``vcvars_command`` is improved to return non-empty string even if vcvars is set, for easier concatenation.
@@ -309,7 +309,7 @@ thanks very much!
 - Feature: Added better support and tests for Solaris Sparc.
 - Feature: custom authenticators are now possible in ``conan_server`` with plugins.
 - Feature: extended ``conan info`` command with path information and filter by packages.
-- Feature: enabled conditional package binaries removal with ``conan remove`` with query syntax
+- Feature: enabled conditional binary packages removal with ``conan remove`` with query syntax
 - Feature: enabled generation and validation of manifests from ``test_package``.
 - Feature: allowing ``options`` definitions in profiles
 - Feature: new ``RunEnvironment`` helper, that makes easier to run binaries from dependent packages
@@ -480,7 +480,7 @@ This has been a huge release with contributors of 11 developers. Thanks very muc
 - Fix: conan.io badges when containing dash
 - Fix: manifests errors due to generated .pyc files
 - Bug Fix: unicode error messages crashes
-- Bug Fix: duplicated build of same package binary for private dependencies
+- Bug Fix: duplicated build of same binary package for private dependencies
 - Bug Fix: duplicated requirement if using version-ranges and ``requirements()`` method.
 
 
@@ -567,9 +567,9 @@ your recipes without re-generating binaries)
 **Upgrade**: If you were using the ``short_paths`` feature in Windows for packages with long paths, please
 reset your local cache. You could manually remove packages or just run ``conan remove "*"``
 
-- Feature: New ``--build=outdated`` functionality, that allows to build the package binaries for
+- Feature: New ``--build=outdated`` functionality, that allows to build the binary packages for
   those dependencies whose recipe has been changed, or if the binary is not existing. Each
-  package binary stores a hash of the recipe to know if they have to be regenerated (are outdated).
+  binary package stores a hash of the recipe to know if they have to be regenerated (are outdated).
   This information is also provided in the ``conan search <ref>`` command. Useful for package
   creators and CI.
 - Feature: Extended the ``short_paths`` feature for Windows path limit to the ``package`` folder, so package
@@ -658,8 +658,8 @@ other things:
 0.13.0 (03-October-2016)
 ------------------------
 
-**IMPORTANT UPGRADE ISSUE:** There was a small error in the computation of package binaries IDs, that
-has been addressed by conan 0.13. It affects to third level (and higher) package binaries, i.e. A
+**IMPORTANT UPGRADE ISSUE:** There was a small error in the computation of binary packages IDs, that
+has been addressed by conan 0.13. It affects to third level (and higher) binary packages, i.e. A
 and B in A->B->C->D, which binaries **must** be regenerated for the new hashes. If you don't plan
 to provide support for older conan releases (<=0.12), which would be reasonable, you should remove
 all binaries first (``conan remove -p``, works both locally and remotely), then re-build your binaries.
@@ -678,11 +678,11 @@ Features:
 - Avoiding re-compress the tgz for packages after uploads if it didn't change.
 - New command ``conan source`` that executes the ``source()`` method of a given conanfile. Very
   useful for CI, if desired to run in parallel the construction of different binaries.
-- New propagation of ``cpp_info``, so it now allows for capturing package binaries libraries with new
+- New propagation of ``cpp_info``, so it now allows for capturing binary packages libraries with new
   ``collect_libs()`` helper, and access to created binaries to compute the ``package_info()`` in general.
 - Command ``test_package`` now allows the ``--update`` option, to automatically update dependencies.
 - Added new architectures for ``ppc64le`` and detection for ``AArch64``
-- New methods for defining requires effect over package binaries ID (hash) in ``conan_info()``
+- New methods for defining requires effect over binary packages ID (hash) in ``conan_info()``
 - Many bugs fixes: error in ``tools.download`` with python 3, restore correct prompt in virtualenvs,
   bug if removing an option in ``config_options()``, setup.py bug...
   
@@ -694,7 +694,7 @@ other conan users, thanks very much to all of them!
 0.12.0 (13-September-2016)
 --------------------------
 - Major changes to **search** api and commands. Decoupled the search of package recipes, from the
-  search of package binaries.
+  search of binary packages.
 - Fixed bug that didn't allow to ``export`` or ``upload`` packages with settings restrictions if the
   restrictions didn't match the host settings
 - Allowing disabling color output with ``CONAN_COLOR_DISPLAY=0`` environment variable, or to configure
@@ -781,7 +781,7 @@ feedback and contributions. Thanks very much again to all of them!
 - **conan new** command, that creates conan package conanfile.py templates, with a ``test_package`` package test (-t option),
   also for header only packages (-i option)
 - Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).
-- Definition of **dev_requires**. Those are requirements that are only retrieved when the package is in **dev** scope, otherwise they are not. They do not affect the package binaries. Typical use cases would be test libraries or build scripts.
+- Definition of **dev_requires**. Those are requirements that are only retrieved when the package is in **dev** scope, otherwise they are not. They do not affect the binary packages. Typical use cases would be test libraries or build scripts.
 - Allow **shorter paths** for specific packages, which can be necessary to build packages with very long path names (e.g. Qt) in Windows.
 - Support for bzip2 and gzip decompression in ``tools``
 - Added ``package_folder`` attribute to conanfile, so the ``package()`` method can for example call ``cmake install`` to create the package.

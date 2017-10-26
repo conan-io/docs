@@ -101,7 +101,7 @@ This process can be repeated to create and test packages for different configura
     ``build_type==Release`` Conan will use ``runtime=MD`` automatically.
 
 
-You can list the different created package binaries:
+You can list the different created binary packages:
 
 .. code-block:: bash
 

@@ -89,12 +89,12 @@ Let`s have a look to the root package recipe ``conanfile.py``:
 
 This is a complete package recipe. Without worrying too much about every detail, these are the basics:
 
-* The ``settings`` field defines the configuration that defines the different package binaries.
+* The ``settings`` field defines the configuration that defines the different binary packages.
   In this example we are defining that any change to the OS, compiler, architecture or build type will
-  generate a different package binary. Remember, Conan generates different package binaries for different
+  generate a different binary package. Remember, Conan generates different binary packages for different
   introduced configuration (in this case settings) for the same recipe.
 
-* This package recipe is also able to create different package binaries for static and shared libraries
+* This package recipe is also able to create different binary packages for static and shared libraries
   with the ``shared`` option, which is defaulted to False (i.e. by default it will use static linkage).
 
 * The ``source()`` method executes a ``git clone`` to retrieve the sources from github.

@@ -51,7 +51,7 @@ is the default one:
 You might be prompted for a username and password. The default conan server remote has a demo/demo account
 we can use for testing.
    
-The ``--all`` option will upload the package recipe plus all the package binaries. Now try again to
+The ``--all`` option will upload the package recipe plus all the binary packages. Now try again to
 read the information from the remote (we refer to it as remote, even
 if it is running on your local machine, as it could be run on another server in your LAN):
 

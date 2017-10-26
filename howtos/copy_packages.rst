@@ -51,9 +51,9 @@ Copy a package
 ---------------
 
 If you don't need to modify the original package creator recipe, it is fine to just
-copy the package in your local storage. You can copy the recipes that way, and also existing the package binaries.
+copy the package in your local storage. You can copy the recipes that way, and also existing the binary packages.
 This could be sufficient for
-caching existing package binaries from the conan.io remote into your own remote, under your
+caching existing binary packages from the conan.io remote into your own remote, under your
 own username:
 
 .. code-block:: bash
@@ -65,7 +65,7 @@ Contribute with binaries
 ---------------------------
 It is possible to contribute pre-compiled binaries to the package of a colleague.
 That would be the equivalent of a Pull Request, but with binaries. This would be useful for
-teams of developers working in different platforms, so they can create package binaries on
+teams of developers working in different platforms, so they can create binary packages on
 their own machine and contribute them back.
 If you think this is an interesting feature, please give feedback: would you prefer this approach,
 or would you prefer to use a common account with privileges to different users?

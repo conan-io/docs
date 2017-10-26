@@ -25,7 +25,7 @@ Go to :ref:`invalid settings<error_invalid_setting>` to learn more about it.
 
 Does it run offline?
 --------------------
-Yes. It runs offline very well. Package recipes and package binaries are stored in your machine, per user, and so
+Yes. It runs offline very well. Package recipes and binary packages are stored in your machine, per user, and so
 you can start new projects that depend on the same libraries without any Internet connection at all.
 Packages can be fully created, tested and consumed locally, without needing to upload them anywhere.
 

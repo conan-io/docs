@@ -62,7 +62,7 @@ Given for example a ``conanfile.txt`` like:
   visual_studio
 
 
-And assuming that package binaries exist for ``Pkg/0.1@user/channel``, we could do:
+And assuming that binary packages exist for ``Pkg/0.1@user/channel``, we could do:
 
 .. code-block:: bash
 

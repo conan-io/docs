@@ -203,7 +203,7 @@ independent in VS, we can just remove that setting field:
 
 options, default_options
 ---------------------------
-Conan packages recipes can generate different package binaries when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
+Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
 
 A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
 
@@ -475,7 +475,7 @@ build_policy
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no package binary is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
 
 
@@ -529,7 +529,7 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 - ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder, as the source code is copied from the ``source`` folder to the ``build`` folder, to ensure isolation and avoiding modifications of shared common source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
 - ``self.build_folder``: the folder in which the build is being done
 - ``self.install_folder``: the folder in which the install has outputed the generator files, by default, and always in the local cache, is the same ``self.build_folder``
-- ``self.package_folder``: the folder to copy the final artifacts for the package binary
+- ``self.package_folder``: the folder to copy the final artifacts for the binary package
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 

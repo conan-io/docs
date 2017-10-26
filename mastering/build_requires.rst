@@ -6,7 +6,7 @@ Build requirements
 
 There are some requirements that don't feel natural to add to a package recipe. For example, imagine that you had a ``cmake/3.4`` package in conan. Would you add it as a requirement to the ``ZLib`` package, so it will install cmake first in order to build ``Zlib``? In short:
 
-- There are requirements that are only needed when you need to build a package from sources, but if the package binary already exists, you don't want to install or retrieve them.
+- There are requirements that are only needed when you need to build a package from sources, but if the binary package already exists, you don't want to install or retrieve them.
 - These could be dev tools, compilers, build systems, code analyzers, testing libraries, ..., etc.
 - They can be very orthogonal to the creation of the package. It doesn't matter whether you build ZLib with cmake 3.4, 3.5 or 3.6. As long as the CMakeLists.txt is compatible, it will produce the same final package. 
 - You don't want to add a lot of different versions (like those of cmake) to be able to use them to build the package. You want to easily change the requirements, without needing to edit the ZLib package recipe.
@@ -65,7 +65,7 @@ The behavior of ``build_requires`` is the same, irrespective if they are defined
 - Build requirements will be activated for matching packages via the ``deps_cpp_info`` and ``deps_env_info`` members. So, include directories, library names, compile flags (CFLAGS, CXXFLAGS, LINKFLAGS), sysroot, etc. will be applied from the build requirement package ``self.cpp_info`` values. The same for ``self.env_info``: variables such as PATH, PYTHONPATH, and any other environment variables will be applied to the matching patterns and activated as environment variables.
 - Build requirements can also be transitive. They can declare their own requirements, both normal requirements and their own build requirements. Normal logic for dependency graph resolution applies, such as conflict resolution and dependency overriding.
 - Each matching pattern will produce a different dependency graph of build requirements. These graphs are cached so that they are only computed once. If a build requirement applies to different packages with the same configuration it will only be installed once (same behavior as normal dependencies - once they are cached locally, there is no need to retrieve or build them again).
-- Build requirements do not affect the package binary ID. If using a different build requirement produces a different binary, you should consider adding an option or a setting to model that (if not already modeled).
+- Build requirements do not affect the binary package ID. If using a different build requirement produces a different binary, you should consider adding an option or a setting to model that (if not already modeled).
 - Build requires can also use version-ranges, like ``Tool/[>0.3]@user/channel``.
 - Build requirements are not listed in ``conan info`` nor are represented in the graph (with ``conan info --graph``).
 

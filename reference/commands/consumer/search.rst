@@ -10,7 +10,7 @@ conan search
 Searches package recipes and binaries in the local cache or in a remote. If
 you provide a pattern, then it will search for existing package recipes
 matching that pattern. If a full and complete package reference is provided,
-like Pkg/0.1@user/channel, then the existing package binaries for that
+like Pkg/0.1@user/channel, then the existing binary packages for that
 reference will be displayed. You can search in a remote or in the local cache,
 if nothing is specified, the local conan cache is assumed. Search is case
 sensitive, exact case has to be used. For case insensitive file systems, like
@@ -77,7 +77,7 @@ If you specify a query filter for a setting and the package recipe is not restri
     $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
 
 
-The query above will find all the ``MyRecipe`` package binaries, because the recipe doesn't declare "os" as a setting.
+The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare "os" as a setting.
 
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:

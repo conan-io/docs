@@ -8,7 +8,7 @@ conan alias
 
 	$ conan alias [-h] reference target
 
-Uploads a recipe and package binaries to a remote. If you use the --force
+Uploads a recipe and binary packages to a remote. If you use the --force
 variable, it won't check the package date. It will override the remote with
 the local package. If you use a pattern instead of a conan recipe reference
 you can use the -c or --confirm option to upload all the matching recipes. If

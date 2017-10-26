@@ -45,7 +45,7 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 
 **Examples**:
 
-- Remove from the local conan cache the package binaries (the package recipes will not be removed)
+- Remove from the local conan cache the binary packages (the package recipes will not be removed)
   from all the recipes matching ``OpenSSL/*`` pattern:
 
 
@@ -61,7 +61,7 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 	$ conan remove OpenSSL/* --builds --force
 
 
-- Remove the recipe and the package binaries from a specific remote:
+- Remove the recipe and the binary packages from a specific remote:
 
 .. code-block:: bash
 

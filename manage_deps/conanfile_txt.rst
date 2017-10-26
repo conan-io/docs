@@ -13,7 +13,7 @@ You can see there that there are many CMake variables declared. For example you 
    :width: 500 px
    :align: center
 
-If you check the full path, you will see that they are pointing to a folder in your ``<userhome>`` folder, this is called the **conan local cache**. It is the place where package recipes and package binaries are stored and cached, so they don't have to be retrieved again. You can inspect it with ``conan search``, and you can also remove packages from it with ``conan remove`` command.
+If you check the full path, you will see that they are pointing to a folder in your ``<userhome>`` folder, this is called the **conan local cache**. It is the place where package recipes and binary packages are stored and cached, so they don't have to be retrieved again. You can inspect it with ``conan search``, and you can also remove packages from it with ``conan remove`` command.
 
 If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the headers and the libraries for each package.
 

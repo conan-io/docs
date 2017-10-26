@@ -193,7 +193,7 @@ cache:
 
 .. code-block:: bash
 
-   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated package binaries.
+   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated binary packages.
 
 8. If you would like to see how the package looks like before exporting it to the local cache (conan export-pkg)
 you can use the ``conan package`` command to create the package in a local directory:

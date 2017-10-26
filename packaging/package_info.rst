@@ -9,7 +9,7 @@ packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``.
 Package binary compatibility
 -----------------------------
 
-Each package binary has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
+Each binary package has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
 
 The elements that define the package ID are the package configuration and the ``package_id()`` recipe method. The package configuration is:
 
