@@ -13,7 +13,7 @@ fired in Gitlab CI after a ``git push`` to Gitlab.
 You can use Gitlab CI both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing conan package binaries for a given conan package recipe (with a conanfile.py)
 
 
 Building and testing your project
@@ -46,7 +46,7 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 
       script:
         # Download dependencies, build, test and create package
-        - conan test_package
+        - conan create user/channel
 
 
 Gitlab CI will install the **conan** tool and will execute the **conan install** command.
@@ -55,7 +55,7 @@ Then, the **script** section creates the build folder, compiles the project with
 
 Creating, testing and uploading conan package binaries
 ------------------------------------------------------
-You can use Gitlab CI to automate the building of binary packages, which will be created in the
+You can use Gitlab CI to automate the building of package binaries, which will be created in the
 cloud after pushing to Gitlab. You can probably setup your own way, but conan has some utilities to help in the process.
 
 The command ``conan new`` has arguments to create a default working ``.gitlab-ci.yml`` file.
@@ -69,7 +69,7 @@ You could follow these steps:
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -ciglg -ciglc -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
 #. You can inspect the created files: both ``.gitlab-ci.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds with different configurations in different GitLab CI jobs.
-#. You can test locally, before pushing, with ``$ conan test_package`` or by GitLab Runner
+#. You can test locally, before pushing, with ``$ conan create`` or by GitLab Runner
 #. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
 #. Go to Pipelines page and see the pipeline, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations

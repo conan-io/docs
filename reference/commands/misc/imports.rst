@@ -5,17 +5,15 @@ conan imports
 
 .. code-block:: bash
 
-   $ conan imports [-h] [--file FILE] [-d DEST] [-u] [reference]
+   $ conan imports [-h] [--file FILE] [-d DEST]
+                   [--install-folder INSTALL_FOLDER] [-u]
+                   path
 
 
 
-Execute the ``imports`` stage of a conanfile.txt or a conanfile.py. It requires
-to have been previously installed it and have a ``conanbuildinfo.txt`` generated file.
-
-The ``imports`` functionality needs a ``conanbuildinfo.txt`` file, so it has
-to be generated with a previous ``conan install`` either specifying it in the conanfile, or as
-a command line parameter. It will generate a manifest file called ``conan_imports_manifests.txt``
-with the files that have been copied from conan local cache to user space.
+Calls your local conanfile.py or conanfile.txt 'imports' method. It requires
+to have been previously installed and have a conanbuildinfo.txt generated file
+in the --install-folder (defaulted to current directory).
 
 
 .. code-block:: bash
@@ -36,16 +34,13 @@ with the files that have been copied from conan local cache to user space.
 	                        be the current directory
 	  -u, --undo            Undo imports. Remove imported files
 
-The ``conan imports`` and the ``imports()`` method might use dependencies information, either from
-``cpp_info`` or from ``env_info``. That information is saved in the ``conan install`` step if
-using the ``txt`` generator in the ``conanbuildinfo.txt``.
-So, if the ``conan imports`` command is to be used, the recommended way to run install would be:
 
-.. code-block:: bash
-
-    $ conan install .. -g txt
-
-or adding ``txt`` generator to the consuming conanfile ``generators`` section
+The ``imports()`` method might use `settings`, `options` and `environment variables` from the specified
+profile and dependencies information from the declared ``deps_XXX_info`` objects in the conanfile
+requirements.
+All that information is saved automatically in the ``conaninfo.txt`` and ``conanbuildinfo.txt``
+files respectively, when you run the ``conan install`` command.
+Those files have to be located in the specified ``--install-folder``.
 
 
 

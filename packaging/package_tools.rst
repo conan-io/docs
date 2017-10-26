@@ -2,7 +2,7 @@
 
 
 Tools for package creators
-======================================
+==========================
 
 With some python (or just pure shell or bash) scripting, we could easily automate the whole
 package creation and testing process, for many different configurations.
@@ -20,13 +20,12 @@ For example you could put the following script in the package root folder. Name 
           raise Exception("Error while executing:\n\t %s" % command)
    
    if __name__ == "__main__":
-      system('conan export demo/testing')
       params = " ".join(sys.argv[1:])
    
       if platform.system() == "Windows":
-          system('conan test_package -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
-          system('conan test_package -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
-          system('conan test_package -s compiler="gcc" -s compiler.version=4.8 %s' % params)
+          system('conan create demo/testing -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
+          system('conan create demo/testing -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
+          system('conan create demo/testing -s compiler="gcc" -s compiler.version=4.8 %s' % params)
       else:
           pass
 
@@ -39,12 +38,12 @@ This is a pure python script, not related to conan, and should be run as such:
 
 
 We have developed another FOSS tool for package creators, **conan package tools** to ease the 
-task of generating multiple binary packages from a package recipe. 
+task of generating multiple package binaries from a package recipe.
 It offers a simple way to define the different configurations and to call "conan test".
 Also offers CI integration like **Travis CI, Appveyor and Bamboo**, for cloud based automated
-binary package creation, testing and uploading.
+package binary creation, testing and uploading.
 
-This tool enables the creation of hundreds of binary packages in the cloud with a simple ``git push``.
+This tool enables the creation of hundreds of package binaries in the cloud with a simple ``git push``.
    
 
 - Make easier the **generation of multiple conan packages** with different configurations.

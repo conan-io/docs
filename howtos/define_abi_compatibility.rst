@@ -7,7 +7,7 @@ How to define package ABI compatibility
 Introduction
 ------------
 
-Each conan package recipe can generate N binary packages from it, depending on three things:
+Each conan package recipe can generate N package binaries from it, depending on three things:
 the package ``settings``, the package ``options`` and the package ``requires``.
 
 When any of the :ref:`settings_property` of a package recipe changes, it will reference a
@@ -37,7 +37,7 @@ The process will be:
 2. Conan will retrieve the ``MyLib/1.0@user/channel`` recipe, read the ``settings`` attribute, and
    assign the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will
-   compute a SHA1 hash, that will be the binary package ID, e.g. ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
+   compute a SHA1 hash, that will be the package binary ID, e.g. ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
 4. conan will try to find the ``c6d75...`` package binary. If it's present conan will retrieve it, if not, it can be built from sources with ``conan install --build``.
 
 
@@ -64,7 +64,7 @@ defined at the package level and they can be defaulted. Check the :ref:`conanfil
 
 Note the simple scenario of a **header-only** library. Such package does not need to be built, and
 it will not have any ABI issues at all. The recipe of such package will have to generate exactly 1
-binary package, no more. This is easily achieved, just by no declaring ``settings`` nor ``options``
+package binary, no more. This is easily achieved, just by no declaring ``settings`` nor ``options``
 in the recipe:
 
 .. code-block:: python
@@ -169,7 +169,7 @@ Same result, the required package is again ``af04...46ad``. Now we can try with 
 	    Pkg/1.0@myuser/mychannel:mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
 
 
-Now the computed package ID is different, that means that we need a different binary package for GCC 4.4
+Now the computed package ID is different, that means that we need a different package binary for GCC 4.4
 
 The same way we have adjusted the ``self.info.settings`` we could set the ``self.info.options`` values if necessary.
 

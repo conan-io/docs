@@ -498,7 +498,7 @@ environment variable, so if the users don't need sudo permissions, it is easy to
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again
 at every conan command. The execution is done per package, since some packages of the same
-library might have different system dependencies. If you are sure that all your binary packages
+library might have different system dependencies. If you are sure that all your package binaries
 have the same system requirements, just add the following line to your method:
 
 ..  code-block:: python
@@ -571,11 +571,11 @@ Deprecated, use ``package_id()`` method instead.
 package_id()
 ------------
 
-Conan keeps the compatibility between binary packages using ``settings``.
+Conan keeps the compatibility between package binaries using ``settings``.
 When a recipe author specifies some settings in the :ref:`settings_property` property, is telling that any change at any
-of those settings will require a different binary package.
+of those settings will require a different package binary.
 
-But sometimes you would need to alter the general behavior, for example, to have only one binary package for several different compiler versions.
+But sometimes you would need to alter the general behavior, for example, to have only one package binary for several different compiler versions.
 
 Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
 
@@ -584,20 +584,20 @@ Please, check the section :ref:`how_to_define_abi_compatibility` to get more det
 build_id()
 ------------
 
-In the general case, there is one build folder for each binary package, with the exact same hash/ID
+In the general case, there is one build folder for each package binary, with the exact same hash/ID
 of the package. However this behavior can be changed, there are a couple of scenarios that this might
 be interesting:
 
 - You have a build script that generates several different configurations at once, like both debug
   and release artifacts, but you actually want to package and consume them separately. Same for
   different architectures or any other setting
-- You build just one configuration (like release), but you want to create different binary packages
+- You build just one configuration (like release), but you want to create different package binaries
   for different consuming cases. For example, if you have created tests for the library in the build
   step, you might want to create to package, one just containing the library for general usage, but
   another one also containing the tests, as a reference and a tool to debug errors.
 
 In both cases, if using different settings, the system will build twice (or more times) the same binaries,
-just to produce a different final binary package. With the ``build_id()`` method this logic can be
+just to produce a different final package binary. With the ``build_id()`` method this logic can be
 changed. ``build_id()`` will create a new package ID/hash for the build folder, and you can define
 the logic you want in it, for example:
 

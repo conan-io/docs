@@ -13,7 +13,7 @@ fired in Travis-CI after a ``git push`` to Github.
 You can use Travis-CI both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing conan package binaries for a given conan package recipe (with a conanfile.py)
 
 
 Building and testing your project
@@ -52,7 +52,7 @@ Create a ``.travis.yml`` file and paste this code in it:
 	
 	script:
 	# Download dependencies, build, test and create package
-	- conan test_package
+	- conan create user/channel
 
 
 Travis will install the **conan** tool and will execute the **conan install** command.
@@ -62,7 +62,7 @@ Then, the **script** section creates the build folder, compiles the project with
 Creating, testing and uploading conan package binaries
 -------------------------------------------------------
 
-You can use Travis to automate the building of binary packages, which will be created in the
+You can use Travis to automate the building of package binaries, which will be created in the
 cloud after pushing to Github. You can probably setup your own way, but conan has some utilities to help in the process.
 
 The command ``conan new`` has arguments to create a default working ``.travis.yml`` file. 
@@ -77,7 +77,7 @@ You could follow these steps:
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -cilg -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
 #. You can inspect the created files: both ``.travis.yml``, ``.travis/run.sh``, and ``.travis/install.sh`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds with different configurations in different travis jobs.
-#. You can test locally, before pushing, with ``$ conan test_package``
+#. You can test locally, before pushing, with ``$ conan test``
 #. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
 #. Go to Travis and see the build, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations

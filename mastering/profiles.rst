@@ -17,7 +17,7 @@ Profiles can be located in different folders, for example, the default ``<userho
    $ conan install --profile profile  # resolved to user/.conan/profiles/profile
 
 
-A profile file contains a predefined set of ``settings``, ``options``, ``environment variables```, ``scopes`` and ``build_requires`` and has this structure:
+A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, ``scopes`` and ``build_requires`` and has this structure:
 
 .. code-block:: text
 
@@ -59,7 +59,7 @@ And you can use it instead of command line arguments as:
 
 .. code-block:: bash
 
-  $ conan test_package -pr=myprofile
+  $ conan create demo/testing -pr=myprofile
 
 
 You can list and show existing profiles with the ``conan profile`` command:
@@ -84,6 +84,10 @@ It is useful to declare relative folders:
 
 
 .. seealso:: Check the section :ref:`Mastering conan/Build requirements <build_requires>` to read more about how to use build_requires in a profile.
+
+.. note:: If you specify a profile in a conan command, like `conan create` or `conan install` the base profile ``~/.conan/profiles/default`` won't be applied.
+          If you want to apply it use the ``include`` directive explained later in this page.
+
 
 
 
@@ -242,15 +246,15 @@ Without profiles you would have needed to set the CC and CXX variables in the en
    conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
 
-A profile can also be used in ``conan test_package`` and ``info`` command:
+A profile can also be used in ``conan create`` and ``info`` command:
 
 .. code-block:: bash
 
-   $ conan test_package --profile clang
+   $ conan create demo/testing --profile clang
 
 
 
 .. seealso:: - :ref:`Howtos/Cross Building <cross_building>`
              - :ref:`Reference/Commands/conan profile <conan_profile_command>`
              - :ref:`Reference/Commands/conan install <conan_install_command>`
-             - :ref:`Reference/Commands/conan test_package <conan_test_package_command>`
+             - :ref:`Reference/Commands/conan create <conan_create_command>`

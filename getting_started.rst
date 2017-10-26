@@ -126,7 +126,7 @@ Lets create a build folder, so temporary build files are put there, and install 
    $ mkdir build && cd build
    $ conan install ..
 
-This ``install`` command will download the binary package required for your configuration
+This ``install`` command will download the package binary required for your configuration
 (detected the first time that you ran the conan command), **together
 with other (transitively required by Poco) libraries, like OpenSSL and Zlib**. 
 It will also create the ``conanbuildinfo.cmake`` file in the current directory, in which you

@@ -13,7 +13,7 @@ fired in Appveyor after a ``git push`` to Github.
 You can use Appveyor both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing conan package binaries for a given conan package recipe (with a conanfile.py)
 
 
 Building and testing your project
@@ -64,7 +64,7 @@ Then, the **build_script** section creates the build folder, compiles the projec
 Creating, testing and uploading conan package binaries
 -------------------------------------------------------
 
-You can use Appveyor to automate the building of binary packages, which will be created in the
+You can use Appveyor to automate the building of package binaries, which will be created in the
 cloud after pushing to Github. You can probably setup your own way, but conan has some utilities to help in the process.
 
 The command ``conan new`` has arguments to create a default working ``appveyor.yml`` file. Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray. You could follow these steps:
@@ -77,7 +77,7 @@ The command ``conan new`` has arguments to create a default working ``appveyor.y
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
 #. You can inspect the created files: both ``appveyor.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds 			 with different configurations in different appveyor jobs.
-#. You can test locally, before pushing, with ``$ conan test_package``
+#. You can test locally, before pushing, with ``$ conan create``
 #. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
 #. Go to Appveyor and see the build, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations

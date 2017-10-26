@@ -6,24 +6,24 @@ conan remove
 .. code-block:: bash
 
 	$ conan remove [-h] [-p [PACKAGES [PACKAGES ...]]]
-                    [-b [BUILDS [BUILDS ...]]] [-s] [-f] [-r REMOTE]
-                    [-q QUERY]
-                    pattern
+                       [-b [BUILDS [BUILDS ...]]] [-s] [-f] [-r REMOTE]
+                       [-q QUERY] [--outdated]
+                       pattern
 
 
-Remove any package recipe or binary matching a pattern. It can also be used to remove
-temporary source or build folders in the local conan cache.
-
-If no remote is specified, the removal will be done by default in the local conan cache.
+Removes packages or binaries matching pattern from local cache or remote. It
+can also be used to remove temporary source or build folders in the local
+conan cache. If no remote is specified, the removal will be done by default in
+the local conan cache.
 
 
 .. code-block:: bash
 
-	positional arguments:
-	  pattern               Pattern name, e.g., openssl/*
+    positional arguments:
+      pattern               Pattern name, e.g., openssl/*
 
-	optional arguments:
-	  -h, --help            show this help message and exit
+    optional arguments:
+      -h, --help            show this help message and exit
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
                             By default, remove all the packages or select one,
                             specifying the package ID
@@ -38,13 +38,14 @@ If no remote is specified, the removal will be done by default in the local cona
                             Packages query: "os=Windows AND (arch=x86 OR
                             compiler=gcc)". The "pattern" parameter has to be a
                             package recipe reference: MyPackage/1.2@user/channel
+      --outdated, -o        Remove only outdated from recipe packages
 
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 
 **Examples**:
 
-- Remove from the local conan cache the binary packages (the package recipes will not be removed)
+- Remove from the local conan cache the package binaries (the package recipes will not be removed)
   from all the recipes matching ``OpenSSL/*`` pattern:
 
 
@@ -60,7 +61,7 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 	$ conan remove OpenSSL/* --builds --force
 
 
-- Remove the recipe and the binary packages from a specific remote:
+- Remove the recipe and the package binaries from a specific remote:
 
 .. code-block:: bash
 

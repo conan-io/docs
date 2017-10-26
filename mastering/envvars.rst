@@ -16,7 +16,7 @@ Defining environment variables
 --------------------------------
 
 You can use :ref:`profiles<profiles>` to define environment variables that will apply to your recipes.
-Also you can use the ``-e`` parameter in ``conan install``, ``conan info`` and ``conan test_package`` commands.
+Also you can use the ``-e`` parameter in ``conan install``, ``conan info`` and ``conan create`` commands.
 
 .. code-block:: text
    

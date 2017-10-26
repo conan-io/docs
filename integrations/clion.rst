@@ -4,9 +4,6 @@
 |clion_logo| CLion
 ____________________
 
-
-
-
 CLion uses **CMake** as the build system of projects, so you can use the :ref:`CMake generator<cmake>` to manage your requirements in your CLion project.
 
 Just include the ``conanbuildinfo.cmake`` this way:
@@ -26,7 +23,8 @@ If the ``conanbuildinfo.cmake`` file is not found, it will print a warning messa
 Using packages in a CLion project
 =================================
 
-Let see an example of how to use Conan requirements to a CLion project.
+Let see an example of how to consume Conan packages in a CLion project. We are going to require and use
+the ``zlib`` conan package.
 
 1. Create a new CLion project
 
@@ -56,7 +54,7 @@ requiring zlib library from a conan package:
 .. code-block:: text
 
     [requires]
-    zlib/1.2.8@lasote/stable
+    zlib/1.2.11@conan/stable
 
     [generators]
     cmake
@@ -66,22 +64,20 @@ requiring zlib library from a conan package:
 
 .. _step_five:
 
-5. Now go to your build directory, ``cmake-build-debug`` and execute ``conan install`` to install your requirements and
-generate the ``conanbuildinfo.cmake`` file:
+5. Now you can ``conan install`` for debug in the ``cmake-build-debug`` folder to install your requirements and
+generate the ``conanbuildinfo.cmake`` file there:
 
 
 .. code-block:: bash
 
-   $ cd cmake-build-debug
-   $ conan install ../ -s build_type=Debug
+   $ conan install . -s build_type=Debug --install-folder=cmake-build-debug
 
 6. Repeat the last step if you have the release build types configured in your CLion IDE, but changing the build_type
 setting accordingly:
 
 .. code-block:: bash
 
-   $ cd cmake-build-release
-   $ conan install ../ -s build_type=Release
+   $ conan install . -s build_type=Release --install-folder=cmake-build-release
 
 7. Now reconfigure your CLion project, the Warning message is not shown anymore:
 
@@ -130,14 +126,16 @@ Now we are going to see how to create a conan package from the previous library.
 
    $ conan new mylibrary/1.0@myuser/channel
 
-And edit the file:
-
+And edit the ``conanfile.py``:
 
 - We are removing the ``source`` method because we have the sources in the same project, so we can use the
   ``exports_sources``.
 
 - In the ``package_info`` method adjust the library name, in this case our ``CMakeLists.txt`` is creating a target library called
   ``mylibrary``.
+
+- Adjust the CMake helper in the ``build()`` method, the ``cmake.configure()`` doesn't need to specify the ``source_folder``, because
+  we have the ``library.*`` files in the root directory.
 
 - Adjust the ``copy`` function calls in the ``package`` method to ensure that all your headers and libraries are copied to the conan package.
 
@@ -146,28 +144,34 @@ And edit the file:
 
     from conans import ConanFile, CMake, tools
 
+
     class MylibraryConan(ConanFile):
         name = "mylibrary"
         version = "1.0"
-        license = "MIT"
+        license = "<Put the package license here>"
         url = "<Package recipe repository url here, for issues about the package>"
+        description = "<Description of Mylibrary here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = "shared=False"
         generators = "cmake"
-        requires = "zlib/1.2.8@lasote/stable"
-        exports = "*.h", "*.cpp", "CMakeLists.txt"
+        requires = "zlib/1.2.11@conan/stable"
 
         def build(self):
             cmake = CMake(self)
             cmake.configure()
             cmake.build()
 
+            # Explicit way:
+            # self.run('cmake %s %s' % (self.source_folder, cmake.command_line))
+            # self.run("cmake --build . %s" % cmake.build_config)
+
         def package(self):
-            self.copy("*.h", dst="include")
+            self.copy("*.h", dst="include", src="hello")
             self.copy("*.lib", dst="lib", keep_path=False)
             self.copy("*.dll", dst="bin", keep_path=False)
             self.copy("*.so", dst="lib", keep_path=False)
+            self.copy("*.dylib", dst="lib", keep_path=False)
             self.copy("*.a", dst="lib", keep_path=False)
 
         def package_info(self):
@@ -177,29 +181,34 @@ And edit the file:
 
 4. To build your library with CLion follow the guide of :ref:`Using packages from the step 5<step_five>`.
 
-5. To package your library use the ``conan package`` command passing the used build folder:
+5. To package your library use the ``conan export-pkg`` command passing the used build-folder. It
+will call your ``package()`` method to extract the artifacts and push the conan package to the local
+cache:
 
 .. code-block:: bash
 
-   $ mkdir package && cd package
-   $ conan package ../ --build_folder=../cmake-build-debug
+   $ conan export-pkg . mylibrary/1.0@myuser/channel --build-folder cmake-build-debug
 
-6. If we list the ``package`` folder we can see:
-
-- A ``lib`` folder containing our library
-- A ``include`` folder containing our header files
-- A ``conaninfo.txt`` and a	``conanmanifest.txt`` conan files.
-
-7. If everything looks good in your ``package`` folder you can export your recipe to your local cache and/or upload it
-to a conan server.
+7. Now you can upload it to a conan server if needed:
 
 .. code-block:: bash
 
-   $ conan export myuser/channel
-   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated binary packages
+   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated package binaries.
 
-8. Instead of the local ``package`` local command, you could use the ``-t`` option in the ``conan new`` and use the
-``conan test_package``. Check :ref:`Creating packages getting started guide<packaging_getting_started>`.
+8. If you would like to see how the package looks like before exporting it to the local cache (conan export-pkg)
+you can use the ``conan package`` command to create the package in a local directory:
+
+
+.. code-block:: bash
+
+  $ conan package . --build-folder cmake-build-debug --package-folder=mypackage
+
+
+If we list the ``mypackage`` folder we can see:
+
+    - A ``lib`` folder containing our library
+    - A ``include`` folder containing our header files
+    - A ``conaninfo.txt`` and ``conanmanifest.txt`` conan files, always present in all packages.
 
 
 You can check a full example of a CLion project for creating a conan package in this github repository: `lasote/clion-conan-package <https://github.com/lasote/clion-conan-package>`_.

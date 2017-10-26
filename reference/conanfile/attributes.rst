@@ -475,7 +475,7 @@ build_policy
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``missing``: If no package binary is found, conan will build it without the need of invoke conan install with **--build missing** option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
 
 
@@ -528,6 +528,7 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 
 - ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder, as the source code is copied from the ``source`` folder to the ``build`` folder, to ensure isolation and avoiding modifications of shared common source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
 - ``self.build_folder``: the folder in which the build is being done
+- ``self.install_folder``: the folder in which the install has outputed the generator files, by default, and always in the local cache, is the same ``self.build_folder``
 - ``self.package_folder``: the folder to copy the final artifacts for the package binary
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.

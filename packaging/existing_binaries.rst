@@ -4,26 +4,31 @@
 Packaging existing binaries
 ============================
 
-Sometimes, it is necessary to create packages from existing binaries, like binaries from third parties, or previously built by another process or team not using conan, so building from sources is not wanted. For this case, there could be two different approaches:
+Sometimes, it is necessary to create packages from existing binaries, like binaries from third parties, or previously
+built by another process or team not using conan, so building from sources is not wanted.
+You would want to package local files in two situations:
 
-- If the binaries don't have such a reference, like local files in user space, or created by a CI job in some temporary folder, then the ``package_files`` command can directly package those files without having to define ``build()`` or ``package()`` recipe methods.
-
-- If the binary packages are already accesible by some kind of constant, external reference (URL, team shared drive, etc), then it is possible to just use the ``build()`` method to get the binaries into the build folder, and then package them.
+ - When it is not possible to build the packages from sources (only pre-built binaries available).
+ - When you are developing your package locally and want to export the built artifacts to the local cache.
+   As you don't want to rebuild again (clean copy) your artifacts, you don't want to call ``conan create``.
+   This way you can keep your build cache if you are using an IDE or calling locally to the ``conan build``
+   command.
 
 
 Packaging pre-built binaries
 -----------------------------
 
-If the files we want to package are just local, creating a ``build()`` method that would copy them from the user folder is not reproducible, so it doesn't add any value.
-For this use case, it is possible to use ``conan package_files`` command directly.
+If the files we want to package are just local, creating a ``build()`` method that would copy them
+from the user folder is not reproducible, so it doesn't add any value.
+For this use case, it is possible to use ``conan export-pkg`` command directly.
 
-A conan recipe is still needed, in this case it will be very simple, just the meta information of the package. A basic recipe can be created with the ``conan new`` command:
+A conan recipe is still needed, in this case it will be very simple, just the meta information of the package.
+A basic recipe can be created with the ``conan new`` command:
 
 
 .. code-block:: bash
 
     $ conan new Hello/0.1 --bare
-    $ conan export myuser/testing
 
 This will create and store in the local cache the following package recipe:
 
@@ -34,42 +39,48 @@ This will create and store in the local cache the following package recipe:
       version = "0.1"
       settings = "os", "compiler", "build_type", "arch"
 
+      def package(self):
+          self.copy("*")
+
       def package_info(self):
           self.cpp_info.libs = self.collect_libs()
 
-The provided ``package_info()`` method will scan the package files to provide the end consumers with the name of the libraries to link with. This method can be further customized to provide other build flags (typically conditioned to the settings). The default ``package_info()`` applies: it will define headers in "include" folder, libraries in "lib" folder, binaries in "bin" folder. A different package layout can be defined in ``package_info()`` method.
+The provided ``package_info()`` method will scan the package files to provide the end consumers with the name of the libraries to link with.
+This method can be further customized to provide other build flags (typically conditioned to the settings).
+The default ``package_info()`` applies: it will define headers in "include" folder, libraries in "lib" folder, binaries in "bin" folder.
+A different package layout can be defined in ``package_info()`` method.
 
-This package recipe can be also extended to provide support for more configurations (for example, adding options: shared/static, or using different settings), adding dependencies (``requires``), etc.
+This package recipe can be also extended to provide support for more configurations
+(for example, adding options: shared/static, or using different settings), adding dependencies (``requires``), etc.
 
-Then, we will assume that we have in our current directory a "lib" folder with some binary for this "hello" library ``libhello.a``, compatible for example with Windows MinGW (gcc) version 4.9:
+Then, we will assume that we have in our current directory a "lib" folder with some binary for this "hello" library
+``libhello.a``, compatible for example with Windows MinGW (gcc) version 4.9:
 
 .. code-block:: bash
 
-    $ conan package_files Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
+    $ conan export-pkg . Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
 
 
-Having a ``test_package`` is still very recommended, to locally test the package before uploading. As we don't want to build the package from sources, the flow would be:
+Having a ``test_package`` is still very recommended, to locally test the package before uploading.
+As we don't want to build the package from sources, the flow would be:
 
 .. code-block:: bash
 
     $ conan new Hello/0.1 --bare --test
     # customize test_package project
     # customize package recipe if necessary
-    $ conan export myuser/testing
     $ cd my/path/to/binaries
-    $ conan package_files Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
-    $ conan test_package --build=missing -s os=Windows -s compiler=gcc -s ...
+    $ conan export-pkg PATH/TO/conanfile.py Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
+    $ conan test PATH/TO/test_package/conanfile.py Hello/0.1@myuser/testing -s os=Windows -s compiler=gcc -s ...
 
 The last 2 steps can be repeated for any number of configurations.
 
 
-For a concrete working example of packaging already existing binaries, refer to this repo [conan-package-binary-example](https://github.com/shreyasbharath/conan-package-binary-example)
+Downloading and Packaging pre-built binaries
+--------------------------------------------
 
-
-Packaging external binaries
-------------------------------
-
-In this case, having a complete conan recipe, with the detailed retrieval of the binaries could be the preferred way, because it has better reproducibility, and the original binaries might be traced. Such a recipe would be like:
+In this case, having a complete conan recipe, with the detailed retrieval of the binaries could be
+the preferred way, because it has better reproducibility, and the original binaries might be traced. Such a recipe would be like:
 
 .. code-block:: python
 
@@ -95,12 +106,19 @@ In this case, having a complete conan recipe, with the detailed retrieval of the
             self.cpp_info.libs = ["hello"]
 
 
-Typically, pre-compiled binaries come for different configurations, so the only task that the ``build()`` method has to implement is to map the ``settings`` to the different URLs.
+Typically, pre-compiled binaries come for different configurations, so the only task that the ``build()``
+method has to implement is to map the ``settings`` to the different URLs.
 
 .. note::
 
-  - This is a normal conan package, even if the binaries are being retrieved from somewhere. The **recommended approach** is using ``conan create``, and have a small consuming project besides the above recipe, to test locally, then upload the conan package with the binaries to the conan remote with ``conan upload``.
-  - The same "building" policies apply. Having a recipe will fail if no conan packages are created, and the ``--build`` argument is not defined. A typical approach for this kind of packages could be to define a ``build_policy="missing"``, especially if the URLs are also under the team control. If they are external (internet), it could be better to create the packages and store them in your own conan server, so builds do not rely on the third party URL being available.
+  - This is a normal conan package, even if the binaries are being retrieved from somewhere.
+    The **recommended approach** is using ``conan create``, and have a small consuming project besides the above recipe,
+    to test locally, then upload the conan package with the binaries to the conan remote with ``conan upload``.
+
+  - The same "building" policies apply. Having a recipe will fail if no conan packages are created, and the ``--build``
+    argument is not defined. A typical approach for this kind of packages could be to define a ``build_policy="missing"``,
+    especially if the URLs are also under the team control. If they are external (internet), it could be better to create
+    the packages and store them in your own conan server, so builds do not rely on the third party URL being available.
 
 
 

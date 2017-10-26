@@ -55,7 +55,7 @@ In our example, conan installed the POCO package and all its requirements transi
     This is a good example to explain requirements overriding. We all know the importance of keeping the OpenSSL library updated.
 
 Now imagine that a new release of OpenSSL library is out, and a new conan package for it is available. 
-Do we need to wait until **@conan** generates a new package of POCO that includes the new OpenSSL library?
+Do we need to wait until the author `pocoproject`_ generates a new package of POCO that includes the new OpenSSL library?
 
 Not necessarily, just enter the new version in **[requires]**:
 
@@ -101,9 +101,9 @@ On the other hand, **options** are intended for package specific configuration, 
 
 .. note:: 
    
-   You can search and see the available options for a package with "conan search <reference>" command: 
+   You can see the available options for a package inspecting the recipe with "conan get <reference>" command:
       
-      $ conan search Poco/1.7.8p3@pocoproject/stable
+      $ conan get Poco/1.7.8p3@pocoproject/stable
       
 
 As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the ``conanfile.txt``:
@@ -179,7 +179,9 @@ There are some differences between shared libraries on linux (\*.so), windows (\
 The shared libraries must be located in some folder where they can be found, either by the linker,
 or by the OS runtime.
 
-It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path in Linux, or system PATH in Windows), or copy those shared libraries to some system folder, so they are found by the OS. But those are typical operations of deploys or final installation of apps, not desired while developing, and conan is intended for developers, so it tries not to mess with the OS.
+It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path in Linux, DYLD_LIBRARY_PATH in OSX, or system PATH in Windows),
+or copy those shared libraries to some system folder, so they are found by the OS. But those are typical operations of deploys or final installation of apps,
+not desired while developing, and conan is intended for developers, so it tries not to mess with the OS.
 
 In Windows and OSX, the simplest approach is just to copy the shared libraries to the executable folder, so
 they are found by the executable, without having to modify the path.
@@ -225,7 +227,10 @@ Now look at the ``mytimer/build/bin`` folder and verify that the needed shared l
 
 As you can see, the **[imports]** section is a very generic way to import files from your requirements to your project. 
 
-This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets, images, sounds, test static files, etc. Conan is a generic solution for package management, not only for C/C++ or libraries.
+This method can be used for packaging applications and copying the result executables to your bin folder, or for copying assets,
+images, sounds, test static files, etc. Conan is a generic solution for package management, not only (but focused in) for C/C++ or libraries.
 
 
 .. seealso:: Check the section :ref:`Howtos/Manage shared libraries<manage_shared>` to know more about working with shared libraries.
+
+.. _`pocoproject`: https://bintray.com/pocoproject/conan/Poco%3Apocoproject
