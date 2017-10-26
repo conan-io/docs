@@ -7,37 +7,78 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
-0.28.0
--------
+0.28.0 (26-October-2017)
+-------------------------
 
-Breaking changes!
-=================
+This is a big release, with many important and core changes. Also with a huge number of community contributions,
+thanks very much!
 
-We are in the path of release a Conan 1.0! Some command syntax and code refactor was necessary,
-please update to ease the future migration to a more stable Conan 1.0:
+- Feature: Major revamp of most conan commands, making command line arguments homogeneous. Much
+  better development flow adapting to user layouts, with ``install-folder``, ``source-folder``,
+  ``build-folder``, ``package-folder``.
+- Feature: new ``deploy()`` method, useful for installing binaries from conan packages
+- Feature: Implemented some **concurrency** support for the conan local cache. Parallel ``conan install``
+  and ``conan create`` for different configurations should be possible.
+- Feature: options now allow patterns in command line: ``-o *:myoption=myvalue`` applies to all packages
+- Feature: new ``pc`` generator that generates files from dependencies for ``pkg-config``
+- Feature: Support for read-only cache with ``CONAN_READ_ONLY_CACHE`` environment variable
+- Feature: new ``visual_studio_multi`` generator to load Debug/Release, 32/64 configs at once 
+- Feature: new ``tools.which`` helper to locate executables
+- Feature: new ``conan --help`` layout
+- Feature: allow to override compiler version in ``vcvars_command``
+- Feature: ``conan user`` interactive (and not exposed) password input for empty ``-p`` argument
+- Feature: Support for ``PacManTool`` for ``system_requirements()`` for ArchLinux
+- Feature: Define VS toolset in ``CMake`` constructor and from environment variable CONAN_CMAKE_TOOLSET
+- Feature: ``conan create`` now accepts ``werror`` argument
+- Feature: ``AutoToolsBuildEnvironment`` can use``CONAN_MAKE_PROGRAM`` env-var to define make program
+- Feature: added xcode9 for apple-clang 9.0, clang 5 to default settings.yml
+- Feature: deactivation of ``short_paths`` in Windows 10 with Py3.6 and long path support is automatic
+- Feature: show unzip progress by percentage, not by file (do not clutters output)
+- Feature: do not use ``sudo`` for system requirements if already running as root
+- Feature: ``tools.download`` able to use headers/auth
+- Feature: conan does not longer generate bytecode from recipes (no more .pyc, and more efficient)
+- Feature: add parallel argument to ``build_sln_command`` for VS
+- Feature: Show warning if vs150comntools is an invalid path
+- Feature: ``tools.get()`` now has arguments for hash checking
+- Fix: upload pattern now accepts ``Pkg/*``
+- Fix: improved downloader, make more robust, better streaming
+- Fix: ``tools.patch`` now support adding/removal of files
+- Fix: The ``default`` profile is no longer taken as a base and merged with user profile.
+  Use explicit ``include(default)`` instead.
+- Fix: properly manage x86 as cross building with autotools
+- Fix: ``tools.unzip`` removed unnecessary long-paths check in Windows
+- Fix: ``package_info()`` is no longer executed at install for the consumer conanfile.py
+- BugFix: source folder was not being correctly removed when recipe was updated
+- BugFix: fixed ``CMAKE_C_FLAGS_DEBUG`` definition in ``cmake`` generator
+- BugFix: ``CMAKE_SYSTEM_NAME`` is now Darwin for iOS, watchOS and tvOS
+- BugFix: ``xcode`` generator fixed handling of compiler flags
+- BugFix: pyinstaller hidden import that broke .deb installer
+- BugFix: ``conan profile list`` when local files matched profile names
 
-- The command ``conan install`` doesn't accept ``cwd`` anymore, to change the directory where the generator
-  files are written, use the ``--install-folder`` parameter.
+.. note::
 
-- The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
+  **Breaking changes**
 
-- The command ``conan package`` not longer re-package a package in the local cache, now it only
-operates in a user local folder. The recommended way to re-package a package is using ``conan build``
-and then ``conan export-pkg``.
+  This is an important release towards stabilizing conan and moving out of beta. Some breaking changes have been done,
+  but mostly to command line arguments, so they should be easy to fix. Package recipes or existing packages shouldn't break.
+  Please **update**, it is very important to ease the transition of future stable releases. Do not hesitate to ask questions,
+  or for help if you need it. This is a possibly not complete list of things to take into account:
 
-- Removed ``conan package_files`` in favor of a new command ``conan export-pkg``. It requires a local recipe
-with a ``package()`` method.
+  - The command ``conan install`` doesn't accept ``cwd`` anymore, to change the directory where the generator
+    files are written, use the ``--install-folder`` parameter.
+  - The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
+  - The command ``conan package`` not longer re-package a package in the local cache, now it only
+    operates in a user local folder. The recommended way to re-package a package is using ``conan build``
+    and then ``conan export-pkg``.
+  - Removed ``conan package_files`` in favor of a new command ``conan export-pkg``. It requires a local recipe
+    with a ``package()`` method.
+  - The command ``conan source`` no longer operates in the local cache. now it only operates in a user local folder.
+    If you used ``conan source`` with a reference to workaround the concurrency, now it natively supported, you
+    can remove the command call and trust concurrent install processes.
+  - The command ``conan imports`` doesn't accept ``-d, --dest`` anymore, use ``--imports-folder`` parameter instead.
+  - If you specify a profile in a conan command, like conan create or conan install the base profile ~/.conan/profiles/default won’t be applied.
+    Use explicit ``include`` to keep the old behavior.
 
-- The command ``conan source`` no longer operates in the local cache. now it only operates in a user local folder.
-If you used ``conan source`` with a reference to workaround the concurrency, now it natively supported, you
-can remove the command call and trust concurrent install processes.
-
-- The command ``conan imports`` doesn't accept ``-d, --dest`` anymore, use ``--imports-folder`` parameter instead.
-
-- If you specify a profile in a conan command, like conan create or conan install the base profile ~/.conan/profiles/default won’t be applied.
-  Use explicit ``include`` to keep the old behavior.
-
--
 
 0.27.0 (20-September-2017)
 ----------------------------
