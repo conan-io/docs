@@ -399,7 +399,7 @@ defining the special cases, as is shown below:
 ..  code-block:: python
 
    def requirements(self):
-        self.requires("zlib/1.2@drl/testing", private=True, override=False, dev=False)
+        self.requires("zlib/1.2@drl/testing", private=True, override=False)
 
 
 ``self.requires`` method parameters:
@@ -408,8 +408,9 @@ defining the special cases, as is shown below:
   be passed upstream and override possible existing values.
 - **private**: Default False. True means that this requirement will be somewhat embedded (like
   a static lib linked into a shared lib), so it is not required to link.
-- **dev**: Default False. True means that this requirement is only needed at dev time, e.g. only
-  needed for building or testing, but not affects the package hash at all.
+
+
+
 
 build_requirements()
 -----------------------
@@ -538,7 +539,7 @@ A typical ``imports()`` method for shared libs could be:
 
 The ``self.copy()`` method inside ``imports()`` support the following arguments:
 
-- pattern: an fnmatch file pattern of the files that should be copied. Eg. \*.dll
+- pattern: an fnmatch file pattern of the files that should be copied. E.g. \*.dll
 - dst: the destination local folder, wrt to current directory, to which the files will be copied. Eg: "bin"
 - src: the source folder in which those files will be searched. This folder will be stripped from the dst name. Eg.: lib/Debug/x86
 - root_package: fnmatch pattern of the package name ("OpenCV", "Boost") from which files will be copied. Default: all packages in deps
@@ -628,3 +629,39 @@ Other information as custom package options can also be changed:
     def build_id(self):
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
+
+
+deploy()
+---------
+
+This method can be used in a ``conanfile.py`` to install in the system or user folder artifacts from packages.
+
+The ``deploy()`` method is of the form:
+
+..  code-block:: python
+
+    def deploy(self):
+        self.copy("*.exe")  # copy from current package
+        self.copy_deps("*.dll") # copy from dependencies
+
+Where:
+
+- ``self.copy_deps()`` is the same as ``self.copy()`` method inside ``imports()`` method, read: imports()_.
+- ``self.copy()`` is the ``self.copy()`` method executed inside ``package()`` method, read: package()_. 
+
+Both methods allow the definition of absolute paths (to install in the system), in the ``dst`` argument.
+By default, the ``dst`` destionation folder will be the current one.
+
+
+The ``deploy()`` method is designed to work on a package that is installed directly from its reference, as:
+
+.. code-block:: bash
+
+    $ conan install Pkg/0.1@user/channel
+    > ...
+    > Pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
+    > Pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
+
+All other packages and dependencies, even transitive dependencies of "Pkg/0.1@user/testing" will not be deployed,
+it is the responsibility of the installed package to deploy what it needs from its dependencies.
+

@@ -12,7 +12,7 @@ The lock files will be stored inside each ``Pkg/version/user/channel`` folder in
 
 It is possible to disable the locking mechanism in ``conan.conf``:
 
-.. text::
+.. code-block:: text
 
   [general]
   cache_no_locks = True
