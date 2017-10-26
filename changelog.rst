@@ -21,6 +21,7 @@ thanks very much!
   and ``conan create`` for different configurations should be possible.
 - Feature: options now allow patterns in command line: ``-o *:myoption=myvalue`` applies to all packages
 - Feature: new ``pc`` generator that generates files from dependencies for ``pkg-config``
+- Feature: new ``Meson`` helper, similar to ``CMake`` for Meson build system. Works well with ``pc`` generator.
 - Feature: Support for read-only cache with ``CONAN_READ_ONLY_CACHE`` environment variable
 - Feature: new ``visual_studio_multi`` generator to load Debug/Release, 32/64 configs at once 
 - Feature: new ``tools.which`` helper to locate executables
