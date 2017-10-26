@@ -9,7 +9,7 @@ conan upload
                     [--retry RETRY] [--retry-wait RETRY_WAIT]
                     pattern
 
-Uploads a recipe and binary packages to a remote. If you use the --force
+Uploads a recipe and package binaries to a remote. If you use the --force
 variable, it won't check the package date. It will override the remote with
 the local package. If you use a pattern instead of a conan recipe reference
 you can use the -c or --confirm option to upload all the matching recipes. If
@@ -57,14 +57,14 @@ Uploads a package recipe (conanfile.py and the exported files):
 
 	$ conan upload OpenCV/1.4.0@lasote/stable
 
-Uploads a package recipe and all the generated binary packages to a specified remote:
+Uploads a package recipe and all the generated package binaries to a specified remote:
 
 .. code-block:: bash
 
 	$ conan upload OpenCV/1.4.0@lasote/stable --all -r my_remote
 
 
-Uploads all recipes and binary packages from our local cache to ``my_remote`` without confirmation:
+Uploads all recipes and package binaries from our local cache to ``my_remote`` without confirmation:
 
 .. code-block:: bash
 

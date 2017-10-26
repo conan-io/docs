@@ -3,14 +3,17 @@
 conan export-pkg
 ================
 
+
+OTRA VEZ!
+
 .. code-block:: bash
 
 	$  conan export-pkg . [-h] [--source-folder SOURCE_FOLDER]
-                          [--build-folder BUILD_FOLDER] [--profile PROFILE]
-                          [--options OPTIONS] [--settings SETTINGS]
-                          [--env ENV] [-f] [--no-export]
+                          [--build-folder BUILD_FOLDER]
+                          [--install-folder INSTALL_FOLDER]
+                          [--profile PROFILE] [--options OPTIONS]
+                          [--settings SETTINGS] [--env ENV] [-f]
                           path reference
-
 
 Exports a recipe & creates a package with given files calling 'package'. It
 executes the package() method applied to the local folders '--source_folder'
@@ -38,6 +41,13 @@ specified 'reference' and for the specified '--settings', '--options' and or '
                             Defaulted to the current directory. A relative path
                             can also be specified (relative to the current
                             directory)
+      --install-folder INSTALL_FOLDER, -if INSTALL_FOLDER
+                        local folder containing the conaninfo.txt and
+                        conanbuildinfo.txt files (from a previous conan
+                        install execution). Defaulted to --build-folder. If
+                        these files are found in the specified folder, they
+                        will be used, then if you specify --profile, -s, -o,
+                        --env, it will raise an error
       --profile PROFILE, -pr PROFILE
                             Profile for this package
       --options OPTIONS, -o OPTIONS
@@ -47,7 +57,6 @@ specified 'reference' and for the specified '--settings', '--options' and or '
       --env ENV, -e ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -f, --force           Overwrite existing package if existing
-      --no-export, -ne      Do not export the recipe
 
 
 
@@ -159,4 +168,8 @@ files to a package in the local cache:
     $ conan source . --source-folder src
     $ conan install --install-folder build_x86 -s arch=x86
     $ conan build . --build-folder build_x86 --source-folder src
-    $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86 -s arch=x86
+    $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
+
+In this case, in the ``conan export-pkg``, ee don't need to specify the ``-s arch=x86``or any other setting,
+option, or profile, because it will all the information in the ``--build_folder`` the ``conaninfo.txt``
+and ``conanbuildinfo.txt`` that have been created with the ``conan install`` command.

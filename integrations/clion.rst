@@ -135,7 +135,7 @@ And edit the ``conanfile.py``:
   ``mylibrary``.
 
 - Adjust the CMake helper in the ``build()`` method, the ``cmake.configure()`` doesn't need to specify the ``source_folder``, because
-we have the ``library.*`` files in the root directory.
+  we have the ``library.*`` files in the root directory.
 
 - Adjust the ``copy`` function calls in the ``package`` method to ensure that all your headers and libraries are copied to the conan package.
 
@@ -193,7 +193,7 @@ cache:
 
 .. code-block:: bash
 
-   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated binary packages
+   $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated package binaries.
 
 8. If you would like to see how the package looks like before exporting it to the local cache (conan export-pkg)
 you can use the ``conan package`` command to create the package in a local directory:

@@ -13,7 +13,7 @@ fired in Appveyor after a ``git push`` to Github.
 You can use Appveyor both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing conan package binaries for a given conan package recipe (with a conanfile.py)
 
 
 Building and testing your project
@@ -64,7 +64,7 @@ Then, the **build_script** section creates the build folder, compiles the projec
 Creating, testing and uploading conan package binaries
 -------------------------------------------------------
 
-You can use Appveyor to automate the building of binary packages, which will be created in the
+You can use Appveyor to automate the building of package binaries, which will be created in the
 cloud after pushing to Github. You can probably setup your own way, but conan has some utilities to help in the process.
 
 The command ``conan new`` has arguments to create a default working ``appveyor.yml`` file. Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray. You could follow these steps:

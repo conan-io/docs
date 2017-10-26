@@ -13,7 +13,7 @@ fired in Travis-CI after a ``git push`` to Github.
 You can use Travis-CI both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing conan package binaries for a given conan package recipe (with a conanfile.py)
 
 
 Building and testing your project
@@ -62,7 +62,7 @@ Then, the **script** section creates the build folder, compiles the project with
 Creating, testing and uploading conan package binaries
 -------------------------------------------------------
 
-You can use Travis to automate the building of binary packages, which will be created in the
+You can use Travis to automate the building of package binaries, which will be created in the
 cloud after pushing to Github. You can probably setup your own way, but conan has some utilities to help in the process.
 
 The command ``conan new`` has arguments to create a default working ``.travis.yml`` file. 

@@ -77,7 +77,7 @@ If you specify a query filter for a setting and the package recipe is not restri
     $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
 
 
-The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare "os" as a setting.
+The query above will find all the ``MyRecipe`` package binaries, because the recipe doesn't declare "os" as a setting.
 
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:

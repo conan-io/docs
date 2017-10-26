@@ -89,28 +89,30 @@ Let`s have a look to the root package recipe ``conanfile.py``:
 
 This is a complete package recipe. Without worrying too much about every detail, these are the basics:
 
-* The ``settings`` field defines the configuration that defines the different binary packages.
-In this example we are defining that any change to the OS, compiler, architecture or build type will generate a different package binary.
+* The ``settings`` field defines the configuration that defines the different package binaries.
+  In this example we are defining that any change to the OS, compiler, architecture or build type will
+  generate a different package binary. Remember, Conan generates different package binaries for different
+  introduced configuration (in this case settings) for the same recipe.
 
 * This package recipe is also able to create different package binaries for static and shared libraries
-with the ``shared`` option, which is defaulted to False (i.e. by default it will use static linkage).
+  with the ``shared`` option, which is defaulted to False (i.e. by default it will use static linkage).
 
 * The ``source()`` method executes a ``git clone`` to retrieve the sources from github.
-Other origins, as downloading a zip file are also possible. As you can see, any manipulation of the
-code can be done, as checking out any branch or tag, or patching the source code. In this example,
-we are adding two lines to the existing CMake code, to ensure binary compatibility. Don't worry too
-much about it now, we'll visit it later.
+  Other origins, as downloading a zip file are also available. As you can see, any manipulation of the
+  code can be done, as checking out any branch or tag, or patching the source code. In this example,
+  we are adding two lines to the existing CMake code, to ensure binary compatibility. Don't worry too
+  much about it now, we'll visit it later.
 
 * The ``build()`` first configures the project, then builds it, with standard CMake commands.
-The ``CMake`` object is just a helper to ease the translation of conan settings to CMake command line
-arguments. Also remember that **CMake is not strictly required**. You can build packages directly
-invoking **make**, **MSBuild**, **SCons** or any other build system.
+  The ``CMake`` object is just a helper to ease the translation of conan settings to CMake command line
+  arguments. Also remember that **CMake is not strictly required**. You can build packages directly
+  invoking **make**, **MSBuild**, **SCons** or any other build system.
 
 * The ``package()`` method copies artifacts (headers, libs) from the build folder to the final package folder. 
 
 * Finally, the ``package_info()`` method defines that consumer must link with the "hello" library
-when using this package. Other information as include or lib paths can be defined as well.
-This information is used for files created by generators to be used by consumers, as ``conanbuildinfo.cmake``
+  when using this package. Other information as include or lib paths can be defined as well.
+  This information is used for files created by generators to be used by consumers, as ``conanbuildinfo.cmake``
 
 
 

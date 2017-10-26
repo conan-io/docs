@@ -1,20 +1,20 @@
 Build policies
 =================
 
-By default, ``conan install`` command will search for a binary package (corresponding to our settings and defined options) in a remote, if it's not present the install command will fail.
+By default, ``conan install`` command will search for a package binary (corresponding to our settings and defined options) in a remote, if it's not present the install command will fail.
 
 As previously demonstrated, we can use the **--build** option to change the default ``conan install`` behaviour:
 
 - **- -build some_package** will build only "some_package".
 - **- -build missing** will build only the missing requires.
 - **- -build** will build all requirements from sources.
-- **- -build outdated** will try to build from code if the binary is not built with the current recipe or when missing binary package.
+- **- -build outdated** will try to build from code if the binary is not built with the current recipe or when missing package binary.
 
 
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
 The allowed build_policy values are:
 
-- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``missing``: If no package binary is found, conan will build it without the need of invoke conan install with **--build missing** option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
 
 
@@ -29,6 +29,6 @@ The allowed build_policy values are:
         build_policy = "always" # "missing"
 
        
-These build policies are especially useful if the package creator doesn't want to provide binary packages, for example, with header only libraries.
+These build policies are especially useful if the package creator doesn't want to provide package binary, for example, with header only libraries.
 
-The "always" policy, will retrieve the sources each time the package is installed so it can be useful for providing a "latest" mechanism or ignoring the uploaded binary packages.
+The "always" policy, will retrieve the sources each time the package is installed so it can be useful for providing a "latest" mechanism or ignoring the uploaded package binaries.

@@ -19,9 +19,9 @@ conan install
 Installs the requirements specified in a conanfile (.py or .txt). If any
 requirement is not found in the local cache it will retrieve the recipe from a
 remote, looking for it sequentially in the available configured remotes. When
-the recipes have been downloaded it will try to download a binary package
+the recipes have been downloaded it will try to download a package binary
 matching the specified settings, only from the remote from which the recipe
-was retrieved. If no binary package is found you can build the package from
+was retrieved. If no package binary is found you can build the package from
 sources using the '--build' option. When the package is installed, Conan will
 write the files for the specified generators. It can also be used to install a
 concrete recipe/package specifying a reference in the "path" parameter.
@@ -71,12 +71,12 @@ concrete recipe/package specifying a reference in the "path" parameter.
       --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
-                            binary packages. --build=never Default option. Never
-                            build, use binary packages or fail if a binary package
+                            package binaries. --build=never Default option. Never
+                            build, use package binaries or fail if a package binary
                             is not found. --build=missing Build from code if a
-                            binary package is not found. --build=outdated Build
+                            package binary is not found. --build=outdated Build
                             from code if the binary is not built with the current
-                            recipe or when missing binary package.
+                            recipe or when missing package binary.
                             --build=[pattern] Build always these packages from
                             source, but never build the others. Allows multiple
                             --build parameters. 'pattern' is a fnmatch file
@@ -112,7 +112,7 @@ concrete recipe/package specifying a reference in the "path" parameter.
     $ conan install opencv/2.4.10@lasote/testing
 
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and the binary package if new upstream versions are available:
+- Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and the package binary if new upstream versions are available:
 
 .. code-block:: bash
 
@@ -133,7 +133,7 @@ try to build things or not:
   throw an error.
 * :command:`--build=missing` Conan will try to build from source, all packages of which the requested configuration
   was not found on any of the active remotes.
-* :command:`--build=outdated` Conan will try to build from code if the binary is not built with the current recipe or when missing binary package
+* :command:`--build=outdated` Conan will try to build from code if the binary is not built with the current recipe or when missing package binary
 * :command:`--build=[pattern]` A fnmatch file pattern of a package name. e.j ``zl*`` will match ``zlib`` package.
   Conan will force the build of the packages, the name of which matches the given **pattern**.
   Several patterns can be specified, chaining m`ultiple options, e.g. :command:`--build=pattern1 --build=pattern2`

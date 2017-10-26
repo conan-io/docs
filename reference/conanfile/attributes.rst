@@ -475,7 +475,7 @@ build_policy
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``missing``: If no package binary is found, conan will build it without the need of invoke conan install with **--build missing** option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
 
 

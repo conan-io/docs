@@ -15,7 +15,7 @@ conan create
                         reference
 
 
-Builds a binary package for recipe (conanfile.py) located in current dir. Uses
+Builds a package binary for recipe (conanfile.py) located in current dir. Uses
 the specified configuration in a profile or in -s settings, -o options etc. If
 a 'test_package' folder (the name can be configured with -tf) is found, the
 command will run the consumer project to ensure that the package has been
@@ -70,12 +70,12 @@ created correctly. Check the 'conan test' command to know more about the
       --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
-                            binary packages. --build=never Default option. Never
-                            build, use binary packages or fail if a binary package
+                            package binaries. --build=never Default option. Never
+                            build, use package binaries or fail if a package binary
                             is not found. --build=missing Build from code if a
-                            binary package is not found. --build=outdated Build
+                            package binary is not found. --build=outdated Build
                             from code if the binary is not built with the current
-                            recipe or when missing binary package.
+                            recipe or when missing package binary.
                             --build=[pattern] Build always these packages from
                             source, but never build the others. Allows multiple
                             --build parameters. 'pattern' is a fnmatch file

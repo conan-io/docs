@@ -17,7 +17,7 @@ Profiles can be located in different folders, for example, the default ``<userho
    $ conan install --profile profile  # resolved to user/.conan/profiles/profile
 
 
-A profile file contains a predefined set of ``settings``, ``options``, ``environment variables```, ``scopes`` and ``build_requires`` and has this structure:
+A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, ``scopes`` and ``build_requires`` and has this structure:
 
 .. code-block:: text
 
@@ -84,6 +84,10 @@ It is useful to declare relative folders:
 
 
 .. seealso:: Check the section :ref:`Mastering conan/Build requirements <build_requires>` to read more about how to use build_requires in a profile.
+
+.. note:: If you specify a profile in a conan command, like `conan create` or `conan install` the base profile ``~/.conan/profiles/default`` won't be applied.
+          If you want to apply it use the ``include`` directive explained later in this page.
+
 
 
 

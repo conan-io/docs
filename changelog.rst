@@ -34,7 +34,10 @@ can remove the command call and trust concurrent install processes.
 
 - The command ``conan imports`` doesn't accept ``-d, --dest`` anymore, use ``--imports-folder`` parameter instead.
 
+- If you specify a profile in a conan command, like conan create or conan install the base profile ~/.conan/profiles/default won’t be applied.
+  Use explicit ``include`` to keep the old behavior.
 
+-
 
 0.27.0 (20-September-2017)
 ----------------------------
@@ -231,7 +234,7 @@ can remove the command call and trust concurrent install processes.
 -------------------------
 - Feature: ``[build_requires]`` can now be declared in ``profiles`` and apply them to build packages. Those requirements are only installed if the package is required to build from sources, and do not affect its package ID hash, and it is not necessary to define them in the package recipe. Ideal for testing libraries, cross compiling toolchains (like Android), development tools, etc.
 - Feature: Much improved support for cross-building. Support for cross-building to **Android** provided, with toolchains installable via ``build_requires``.
-- Feature: New ``package_files`` command, that is able to create binary packages directly from user files, without needing to define ``build()`` or ``package()`` methods in the the recipes.
+- Feature: New ``package_files`` command, that is able to create package binaries directly from user files, without needing to define ``build()`` or ``package()`` methods in the the recipes.
 - Feature: command ``conan new`` with a new ``--bare`` option that will create a minimal package recipe, usable with the ``package_files`` command.
 - Feature: Improved ``CMake`` helper, with ``test()`` method, automatic setting of BUILD_SHARED_LIBS, better management of variables, support for parallel compilation in MSVC (via /MP)
 - Feature: new ``tools.msvc_build_command()`` helper that both sets the Visual vcvars and calls Visual to build the solution. Also ``vcvars_command`` is improved to return non-empty string even if vcvars is set, for easier concatenation.
@@ -522,7 +525,7 @@ your recipes without re-generating binaries)
 **Upgrade**: If you were using the ``short_paths`` feature in Windows for packages with long paths, please
 reset your local cache. You could manually remove packages or just run ``conan remove "*"``
 
-- Feature: New ``--build=outdated`` functionality, that allows to build the binary packages for
+- Feature: New ``--build=outdated`` functionality, that allows to build the package binaries for
   those dependencies whose recipe has been changed, or if the binary is not existing. Each
   package binary stores a hash of the recipe to know if they have to be regenerated (are outdated).
   This information is also provided in the ``conan search <ref>`` command. Useful for package
@@ -613,7 +616,7 @@ other things:
 0.13.0 (03-October-2016)
 ------------------------
 
-**IMPORTANT UPGRADE ISSUE:** There was a small error in the computation of binary packages IDs, that
+**IMPORTANT UPGRADE ISSUE:** There was a small error in the computation of package binaries IDs, that
 has been addressed by conan 0.13. It affects to third level (and higher) package binaries, i.e. A
 and B in A->B->C->D, which binaries **must** be regenerated for the new hashes. If you don't plan
 to provide support for older conan releases (<=0.12), which would be reasonable, you should remove
@@ -633,11 +636,11 @@ Features:
 - Avoiding re-compress the tgz for packages after uploads if it didn't change.
 - New command ``conan source`` that executes the ``source()`` method of a given conanfile. Very
   useful for CI, if desired to run in parallel the construction of different binaries.
-- New propagation of ``cpp_info``, so it now allows for capturing binary package libraries with new
+- New propagation of ``cpp_info``, so it now allows for capturing package binaries libraries with new
   ``collect_libs()`` helper, and access to created binaries to compute the ``package_info()`` in general.
 - Command ``test_package`` now allows the ``--update`` option, to automatically update dependencies.
 - Added new architectures for ``ppc64le`` and detection for ``AArch64``
-- New methods for defining requires effect over binary package ID (hash) in ``conan_info()``
+- New methods for defining requires effect over package binaries ID (hash) in ``conan_info()``
 - Many bugs fixes: error in ``tools.download`` with python 3, restore correct prompt in virtualenvs,
   bug if removing an option in ``config_options()``, setup.py bug...
   

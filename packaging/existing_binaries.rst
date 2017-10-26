@@ -10,7 +10,7 @@ You would want to package local files in two situations:
 
  - When it is not possible to build the packages from sources (only pre-built binaries available).
  - When you are developing your package locally and want to export the built artifacts to the local cache.
-   Because you don't want to rebuild again (clean copy) your artifacts, you don't want to call ``conan create``.
+   As you don't want to rebuild again (clean copy) your artifacts, you don't want to call ``conan create``.
    This way you can keep your build cache if you are using an IDE or calling locally to the ``conan build``
    command.
 
@@ -76,8 +76,8 @@ As we don't want to build the package from sources, the flow would be:
 The last 2 steps can be repeated for any number of configurations.
 
 
-Packaging external binaries
-------------------------------
+Downloading and Packaging pre-built binaries
+--------------------------------------------
 
 In this case, having a complete conan recipe, with the detailed retrieval of the binaries could be
 the preferred way, because it has better reproducibility, and the original binaries might be traced. Such a recipe would be like:
@@ -112,12 +112,13 @@ method has to implement is to map the ``settings`` to the different URLs.
 .. note::
 
   - This is a normal conan package, even if the binaries are being retrieved from somewhere.
-  The **recommended approach** is using ``conan create``, and have a small consuming project besides the above recipe,
-  to test locally, then upload the conan package with the binaries to the conan remote with ``conan upload``.
+    The **recommended approach** is using ``conan create``, and have a small consuming project besides the above recipe,
+    to test locally, then upload the conan package with the binaries to the conan remote with ``conan upload``.
+
   - The same "building" policies apply. Having a recipe will fail if no conan packages are created, and the ``--build``
-  argument is not defined. A typical approach for this kind of packages could be to define a ``build_policy="missing"``,
-  especially if the URLs are also under the team control. If they are external (internet), it could be better to create
-  the packages and store them in your own conan server, so builds do not rely on the third party URL being available.
+    argument is not defined. A typical approach for this kind of packages could be to define a ``build_policy="missing"``,
+    especially if the URLs are also under the team control. If they are external (internet), it could be better to create
+    the packages and store them in your own conan server, so builds do not rely on the third party URL being available.
 
 
 
