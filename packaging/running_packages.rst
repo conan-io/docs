@@ -3,8 +3,12 @@
 Running and deploying packages
 ================================
 Executables and applications including shared libraries can be also distributed, deployed and run with conan. This might have
-several advantages compared to deploying with other systems:
-- A unified
+some advantages compared to deploying with other systems:
+
+- A unified development and distribution tool, for all systems and platforms
+- Manage any number of different deployment configurations in the same way you manage them for development
+- Use a conan server remote to store all your applications and runtimes for all Operating Systems, platforms and targets
+
 There are different approaches:
 
 Using virtual environments
