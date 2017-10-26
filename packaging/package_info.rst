@@ -1,12 +1,15 @@
 Packaging approaches
 =====================
 
-Package recipes have three methods to control the package's binary compatibility and to implement different packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``.
+Package recipes have three methods to control the package's binary compatibility and to implement different
+packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``.
+
+
 
 Package binary compatibility
 -----------------------------
 
-Each package binary has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
+Each binary package has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
 
 The elements that define the package ID are the package configuration and the ``package_id()`` recipe method. The package configuration is:
 
@@ -50,8 +53,8 @@ Note that the object being modified is called ``self.info``, not ``self.settings
 Read more about this in :ref:`how_to_define_abi_compatibility`.
 
 
-Single configuration packages
---------------------------------
+1 config (1 build) -> 1 package
+-------------------------------
 
 A typical approach is to have each package contain the artifacts just for one configuration. In this
 approach, for example, the debug pre-compiled libraries will be in a different package than the
@@ -109,8 +112,8 @@ This process has some advantages: it is quite easy to implement and maintain. Th
 Read more about this in :ref:`package_info`.
 
 
-Multi configuration packages
---------------------------------
+N configs -> 1 package
+----------------------
 
 It is possible that someone wants to package both debug and release artifacts in the same package,
 so it can be consumed from IDEs like Visual Studio changing debug/release configuration from the IDE,
@@ -129,8 +132,8 @@ and not having to specify it in the command line. This type of package will incl
 
         $ git clone https://github.com/memsharded/hello_multi_config
         $ cd hello_multi_config
-        $ conan test_package -s build_type=Release
-        $ conan test_package -s build_type=Debug --build=missing
+        $ conan create user/channel -s build_type=Release
+        $ conan create user/channel -s build_type=Debug --build=missing
 
 
 
@@ -138,6 +141,9 @@ Creating a multi-configuration Debug/Release package is not difficult, see the f
 
 
 .. code-block:: python
+
+    def package_id(self):
+        self.info.settings.build_type = "ANY" # For any build_type we will use 1 package
 
     def build(self):
         cmake = CMake(self)
@@ -207,8 +213,8 @@ in your consumer CMake build script.
      build system, please open a GitHub issue for it.
 
 
-Build once, package many
---------------------------
+N configs (1 build) -> N packages
+---------------------------------
 
 It’s possible that an already existing build script is building binaries for different configurations at once, like debug/release, or different architectures (32/64bits), or library types (shared/static). If such build script is used in the previous “Single configuration packages” approach, it will definitely work without problems, but we’ll be wasting precious build time, as we’ll be re-building the whole project for each package, then extracting the relevant artifacts for the given configuration, leaving the others.
 

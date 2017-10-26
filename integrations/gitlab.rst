@@ -46,14 +46,14 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 
       script:
         # Download dependencies, build, test and create package
-        - conan test_package
+        - conan create user/channel
 
 
 Gitlab CI will install the **conan** tool and will execute the **conan install** command.
 Then, the **script** section creates the build folder, compiles the project with **cmake** and runs the **tests**.
 
 
-Creating, testing and uploading conan package binaries
+Creating, testing and uploading conan binary packages
 ------------------------------------------------------
 You can use Gitlab CI to automate the building of binary packages, which will be created in the
 cloud after pushing to Gitlab. You can probably setup your own way, but conan has some utilities to help in the process.
@@ -69,7 +69,7 @@ You could follow these steps:
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
 #. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -ciglg -ciglc -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
 #. You can inspect the created files: both ``.gitlab-ci.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds with different configurations in different GitLab CI jobs.
-#. You can test locally, before pushing, with ``$ conan test_package`` or by GitLab Runner
+#. You can test locally, before pushing, with ``$ conan create`` or by GitLab Runner
 #. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
 #. Go to Pipelines page and see the pipeline, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations

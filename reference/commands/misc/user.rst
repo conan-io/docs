@@ -3,10 +3,12 @@ conan user
 
 .. code-block:: bash
 
-	$ conan user [-h] [-p PASSWORD] [--remote REMOTE] [-c] [name]
+	$ conan user [-h] [--remote REMOTE] [-c] [-p [PASSWORD]] [name]
 
-Update your cached user name (and auth token) to avoid it being requested later, e.g. while you're uploading a package.
-You can have more than one user (one per remote). Changing the user, or introducing the password is only necessary to upload
+Authenticates against a remote with user/pass, caching the auth token. Useful
+to avoid the user and password being requested later. e.g. while you're
+uploading a package. You can have more than one user (one per remote).
+Changing the user, or introducing the password is only necessary to upload
 packages to a remote.
 
 .. code-block:: bash
@@ -17,14 +19,13 @@ packages to a remote.
 
 	optional arguments:
 	  -h, --help            show this help message and exit
-	  -p PASSWORD, --password PASSWORD
-	                        User password. Use double quotes if password with
-	                        spacing, and escape quotes if existing
 	  --remote REMOTE, -r REMOTE
 	                        look in the specified remote server
 	  -c, --clean           Remove user and tokens for all remotes
-
-
+	  -p [PASSWORD], --password [PASSWORD]
+	                        User password. Use double quotes if password with
+	                        spacing, and escape quotes if existing. If empty, the
+	                        password is requested interactively (not exposed)
 
 **Examples**:
 
@@ -54,6 +55,14 @@ packages to a remote.
 
     $ conan user --clean
 
+- Change **conan.io** remote user to **foo**, **asking user password** to authenticate against the
+  remote and storing the user and authentication token locally, so a later upload won't require entering credentials:
+
+.. code-block:: text
+
+		$ conan user foo -r conan.io -p
+		Please enter a password for "foo" account:
+		Change 'conan.io' user from anonymous to foo
 
 .. note::
 
@@ -61,4 +70,3 @@ packages to a remote.
 	gets a token (expirable by the server) checking the password against the remote credentials.
 	If the password is correct, an authentication token will be obtained, and that token is the
 	information cached locally. For any subsequent interaction with the remotes, the conan client will only use that JWT token.
-

@@ -16,6 +16,8 @@ Available generators:
    generators/cmake
    generators/cmakemulti
    generators/visualstudio
+   generators/visualstudiomulti
+   generators/visualstudiolegacy
    generators/xcode
    generators/gcc
    generators/qbs

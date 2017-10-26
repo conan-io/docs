@@ -43,7 +43,10 @@ CONAN_SYSREQUIRES_SUDO
 -----------------------
 This environment variable controls whether ``sudo`` is used for installing apt, yum, etc. system
 packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
-Set it to "False" or "0" to don't use sudo.
+By default when the environment variable does not exist, "True" is assumed, and ``sudo`` is 
+automatically prefixed in front of package management commands.  If you set this to "False" or "0"
+``sudo`` will not be prefixed in front of the comands, however installation or updates of some 
+packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
 
 CONAN_COLOR_DISPLAY
@@ -207,6 +210,13 @@ Will print to the output (stout and/or file):
 	...
 
 
+CONAN_VERBOSE_TRACEBACK
+-----------------------
+
+When an error is raised in a recipe or even in the conan code base, if the variable is set to "1"
+it will show the complete traceback to ease the debugging.
+
+
 CMAKE RELATED VARIABLES
 -----------------------
 
@@ -249,3 +259,27 @@ available in your machine.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 
+CONAN_USER_HOME_SHORT
+---------------------
+
+Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
+marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+
+If the variable is set to "None" will disable the `short_paths` feature in Windows,
+for modern Windows that enable long paths at the system level. 
+Please note that this only works with Python 3.6 and newer.
+
+
+CONAN_READ_ONLY_CACHE
+----------------------
+This environment variable if defined, will make the conan cache read-only. This could prevent 
+developers to accidentally edit some header of their dependencies while navigating code in their
+IDEs.
+
+The packages are made read-only in two points: when a package is built from sources, and when
+a package is retrieved from a remote repository. 
+
+The packages are not modified for upload, so users should take that into consideration before 
+uploading packages, as they will be read-only and that could have other side-effects. In general,
+it is not recommended to upload packages directly from developers machines with read-only mode
+(in fact, we recommended that packages are created and uploaded by CI, not from developers machines)

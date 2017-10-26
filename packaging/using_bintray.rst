@@ -1,3 +1,5 @@
+.. _using_bintray:
+
 Using Bintray
 -------------
 

@@ -66,12 +66,23 @@ It's recommended to use it along with ``vcvars_command()``, so that the Visual S
     command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
     self.run(command)
 
+Definition:
+
+.. code-block:: python
+
+    def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
+                          arch=None, parallel=True)
+
 Arguments:
 
  * **settings**  Conanfile settings, pass "self.settings"
  * **sln_path**  Visual Studio project file path
  * **targets**   List of targets to build
  * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+ * **build_type**: Override the build type defined in the settings (``settings.build_type``).
+ * **arch**: Override the architecture defined in the settings (``settings.arch``).
+ * **parallel**: Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
+   or by the number of cores in the processor by default
 
 
 .. _msvc_build_command:
@@ -151,18 +162,37 @@ tools.download()
 
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a
 list of known verifiers for https downloads, but this can be optionally disabled.
-You can also specify the number of retries in case of fail with ``retry`` parameter and the seconds to wait before download attempts
-with ``retry_wait``.
+
+- **url**: URL to download
+- **filename**: Name of the file to be created in the local storage
+- **overwrite**: (Default False) When `True` Conan will overwrite the destination file if exists, if False it will raise.
+- **auth**: A tuple of user, password can be passed to use HTTPBasic authentication. This is passed directly to the
+  requests python library, check here other uses of the **auth** parameter: http://docs.python-requests.org/en/master/user/authentication
+- **headers**: A dict with additional headers.
+- **out**: (Default None) An object with a write() method can be passed to get the output, stdout will use if not specified.
+- **retry**: Number of retries in case of failure.
+- **retry_wait**: Seconds to wait between download attempts.
+- **verify**: When False, disables https certificate validation.
 
 .. code-block:: python
 
     from conans import tools
     
     tools.download("http://someurl/somefile.zip", "myfilename.zip")
+
     # to disable verification:
     tools.download("http://someurl/somefile.zip", "myfilename.zip", verify=False)
+
     # to retry the download 2 times waiting 5 seconds between them
     tools.download("http://someurl/somefile.zip", "myfilename.zip", retry=2, retry_wait=5)
+
+    # Use https basic authentication
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", auth=("user", "password"))
+
+    # Pass some header
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", headers={"Myheader": "My value"})
+
+Parameters:
 
 
 
@@ -193,6 +223,8 @@ This function is useful for a simple "patch" or modification of source files. A 
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
 conan dependencies without forking or modifying the original project:
 
+``def replace_in_file(file_path, search, replace, strict=True)``
+
 .. code-block:: python
 
     from conans import tools
@@ -202,6 +234,10 @@ conan dependencies without forking or modifying the original project:
        tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)", '''PROJECT(MyHello)
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()''')
+
+
+If the ``strict`` parameter is True (default) it will be raise an error if the introduced "search" string
+is not found, so nothing is actually replaced.
 
 
 tools.check_with_algorithm_sum()
@@ -352,8 +388,8 @@ These are helpers to install system packages. Check :ref:`system_requirements`
 
 .. _cross_building_reference:
 
-tools.cross_building
---------------------
+tools.cross_building()
+-----------------------
 
 Reading the settings and the current host machine it returns True if we are cross building a conan package:
 
@@ -366,8 +402,8 @@ Reading the settings and the current host machine it returns True if we are cros
 
 .. _run_in_windows_bash_tool:
 
-tools.run_in_windows_bash
--------------------------
+tools.run_in_windows_bash()
+----------------------------
 
 Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
@@ -383,14 +419,14 @@ You can customize the path of the bash executable using the environment variable
     tools.run_in_windows_bash(self, command) # self is a conanfile instance
 
 
-tools.unix_path
----------------
+tools.unix_path()
+------------------
 
 Used to translate Windows paths to MSYS/CYGWIN unix paths like c/users/path/to/file
 
 
-tools.escape_windows_cmd
-------------------------
+tools.escape_windows_cmd()
+---------------------------
 
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
@@ -485,8 +521,8 @@ If the tool is not able to return the path it returns ``None``.
     vs_path_2017 = tools.vs_installation_path("15")
 
 
-tools.replace_prefix_in_pc_file
--------------------------------
+tools.replace_prefix_in_pc_file()
+----------------------------------
 
 Replaces the ``prefix`` variable in a package config file ``.pc`` with the specified value.
 
@@ -506,4 +542,21 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 
     Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
 
+
+tools.collect_libs()
+---------------------
+
+Fetches a list of all libraries in the package folder.
+
+**Parameters:**
+
+- **conanfile**: A `ConanFile` object from which to get the `package_folder`
+- **folder**: The subfolder where the library files are. Defaulted to "lib"
+
+**Example:**
+
+.. code-block:: python
+
+     def package_info(self):
+        self.cpp_info.libs = tools.collect_libs(self)
 

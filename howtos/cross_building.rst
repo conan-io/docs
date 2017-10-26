@@ -42,7 +42,7 @@ We can try to build the hello world example for our own architecture with the ``
 
 .. code-block:: bash
 
-    $ conan test_package
+    $ conan create lasote/stable
 
     ...
 
@@ -74,11 +74,11 @@ From Linux to Windows
 ``CONAN_CMAKE_GENERATOR`` overrides the CMake generator auto-detected by the ``CMake`` conan helper.
 
 
-- Call ``conan test_package`` using the created profile.
+- Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan test_package --profile /path/to/linux_to_win64
+    $ conan create lasote/testing --profile /path/to/linux_to_win64
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example.exe
@@ -109,11 +109,11 @@ From Windows to Raspberry PI
         CXX=arm-linux-gnueabihf-g++
 
 
-- Call ``conan test_package`` using the created profile.
+- Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan test_package --profile /path/to/win_to_rpi
+    $ conan create lasote/testing --profile /path/to/win_to_rpi
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example
@@ -134,12 +134,12 @@ If you want to cross compile your project's dependencies you can also run:
 
     $ conan install . --profile /path/to/win_to_rpi --build missing
 
-If you have automated your project build with conan you can then just call ``conan build`` to crossbuild your project too:
+If you have automated your project build with conan you can then just call ``conan build .`` to crossbuild your project too:
 
 
 .. code-block:: bash
 
-    $ conan build
+    $ conan build .
 
 
 So, now you can commit your profile files to a repository and use them for cross-building your projects.

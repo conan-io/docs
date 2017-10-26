@@ -18,4 +18,5 @@ This section provides an introduction to important productivity features and use
    mastering/envvars
    mastering/virtualenv
    mastering/logging
-   mastering/scopes
+   mastering/sharing_settings_and_config
+   mastering/concurrency

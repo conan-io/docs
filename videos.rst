@@ -12,7 +12,18 @@ Videos and links
     
 
     <br/><br/>
+
+
+- Faster Delivery of Large C/C++ Projects with Conan Package Manager and Efficient Continuous Integration. 60 min talk in CppCon 2017.
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/xA9yRX4Mdz0" frameborder="0" allowfullscreen>
+    </iframe>
     
+
+    <br/><br/>
+
     
 - Conan.io c++ package manager demo with SFML, by `Charl Botha <http://charlbotha.com/>`_
 

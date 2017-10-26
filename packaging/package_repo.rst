@@ -1,7 +1,7 @@
 .. _package_repo:
 
-Packaging from the source repository
-====================================
+Recipe and sources in the same repo
+===================================
 
 In the previous package we implemented a ``source()`` method that fetched the source code from github. An alternative approach would be embedding the source code into the package recipe, so it is self-contained and it doesn't require to fetch code from external origins when it is necessary to build from sources.
 
@@ -20,9 +20,15 @@ Now lets have a look to the ``conanfile.py``:
 
 .. code-block:: python
 
+    from conans import ConanFile, CMake
+
+
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
+        license = "<Put the package license here>"
+        url = "<Package recipe repository url here, for issues about the package>"
+        description = "<Description of Hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = "shared=False"
@@ -31,8 +37,12 @@ Now lets have a look to the ``conanfile.py``:
 
         def build(self):
             cmake = CMake(self)
-            self.run('cmake %s/src %s' % (self.source_folder, cmake.command_line))
-            self.run("cmake --build . %s" % cmake.build_config)
+            cmake.configure(source_dir="%s/src" % self.source_folder)
+            cmake.build()
+
+            # Explicit way:
+            # self.run('cmake %s/src %s' % (self.source_folder, cmake.command_line))
+            # self.run("cmake --build . %s" % cmake.build_config)
 
         def package(self):
             self.copy("*.h", dst="include", src="src")
@@ -44,6 +54,7 @@ Now lets have a look to the ``conanfile.py``:
 
         def package_info(self):
             self.cpp_info.libs = ["hello"]
+
 
 There are two important changes:
 

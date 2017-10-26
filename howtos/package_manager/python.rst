@@ -153,9 +153,9 @@ In the above example, the code is reused in the ``build()`` method as an example
 
 .. code-block:: bash
 
-    $ conan install -g env -g txt
+    $ conan install 
     ...
-    $ conan build
+    $ conan build .
     Hello World from Python!
 
 

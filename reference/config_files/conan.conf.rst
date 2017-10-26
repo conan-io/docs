@@ -18,6 +18,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     default_profile = default
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
+    # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
@@ -76,6 +77,9 @@ You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
 
 General
 +++++++
+The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even in the conan code base, allowing
+to debug the detected error.
+
 The ``bash_path`` variable is used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
 
@@ -98,6 +102,12 @@ available in your machine.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 
+The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature.
+If not specified, the packages marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+
+If the variable is set to "None" will disable the `short_paths` feature in Windows,
+for modern Windows that enable long paths at the system level.
+
 Storage
 +++++++
 The ``storage.path`` variable define the path where all the packages will be stored.
@@ -119,17 +129,21 @@ On Windows:
 
 Proxies
 +++++++
-If you are not using proxies at all, you can just remove the ``[proxies]`` section
-completely. You might want to try to use your system defined configuration. You can try to
-do this with a blank ``[proxies]`` section:
+
+If you are not using proxies at all, or you want to use the proxies specified by the operating system,
+just remove the ``[proxies]`` section completely. You can run ``conan config rm proxies``.
+
+If you leave leave the ``[proxies]`` section blank, conan will copy the system configured
+proxies, but if you configured some exclusion rule it won't work:
 
 .. code-block:: text
 
     [proxies]
     # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
+    # If don't want that conan mess with proxies at all, remove section [proxies]
     
-You can specify http and https proxies as follows:
+You can specify http and https proxies as follows, use the `no-proxy` keyword to specify a list
+of urls that will skip the proxy:
 
 .. code-block:: text
 
@@ -138,6 +152,9 @@ You can specify http and https proxies as follows:
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
+    no-proxy: http://url1, http://url2
+
+Use `http=None` and/or `https=None` to disable the usage of a proxy.
 
 
 If this fails, you might also try to set environment variables:

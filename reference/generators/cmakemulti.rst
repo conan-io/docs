@@ -1,12 +1,12 @@
 .. _cmakemulti_generator:
 
 
-`cmakemulti`
+`cmake_multi`
 ============
 
 .. container:: out_reference_box
 
-    This is the reference page for ``cmakemulti`` generator.
+    This is the reference page for ``cmake_multi`` generator.
     Go to :ref:`Integrations/CMake<cmake>` if you want to learn how to integrate your project or recipes with CMake.
 
 Usage

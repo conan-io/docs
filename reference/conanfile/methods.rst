@@ -108,7 +108,7 @@ Nothing special is required here. We can just launch the tests from the last com
 
    def build(self):
       cmake = CMake(self)
-      self.run("cmake . %s %s" % (cmake.command_line))
+      self.run("cmake . %s" % (cmake.command_line))
       self.run("cmake --build . %s" % cmake.build_config)
       # here you can run CTest, launch your binaries, etc
       self.run("ctest")
@@ -254,7 +254,7 @@ This can be done in the ``env_info`` attribute within the ``package_info()`` met
   self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
   self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value
 
-One of the most typical usages for the PATH environment variable, would be to add the current package binary directories to the path, so consumers can use those executables easily:
+One of the most typical usages for the PATH environment variable, would be to add the current binary package directories to the path, so consumers can use those executables easily:
 
 .. code-block:: python
 
@@ -426,7 +426,7 @@ This method is useful for defining conditional build requirements, for example:
             if self.settings.os == "Windows":
                 self.build_requires("ToolWin/0.1@user/stable")
 
-Read more: :ref:`Build requiremens <build_requires>`
+Read more: :ref:`Build requirements <build_requires>`
 
 
 .. _system_requirements:

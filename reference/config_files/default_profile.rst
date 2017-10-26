@@ -23,4 +23,21 @@ a ``conanfile`` in one of your projects. The initial values for these default se
 auto-detected the first time you run a ``conan`` command.
 
 You can override the default settings using the ``-s`` parameter in ``conan install`` and ``conan info``
-commands or use a profile: ``conan install --profile gcc48``.
+commands but when you specify a profile, ``conan install --profile gcc48``, the default profile
+won't be applied, unless you specify it with an ``include`` statement:
+
+**myprofile.txt**
+
+.. code-block:: text
+
+   include(default)
+
+   [settings]
+   compiler=clang
+   compiler.version=3.5
+   compiler.libcxx=libstdc++11
+
+   [env]
+   CC=/usr/bin/clang
+   CXX=/usr/bin/clang++
+

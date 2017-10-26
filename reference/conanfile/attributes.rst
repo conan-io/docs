@@ -144,6 +144,14 @@ It is obvious that changing the OS produces a different binary in most cases. Ch
 or compiler version changes the binary too, which might have a compatible ABI or not, but the
 package will be different in any case.
 
+For these reasons, the most common convention among Conan recipes is to distinguish binaries by the following four settings, which is reflected in the `conanfile.py` template used in the `conan new` command:
+
+.. code-block:: python
+
+   settings = "os", "compiler", "build_type", "arch"
+   
+When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings. 
+
 But what happens for example to **header only libraries**? The final package for such libraries is not
 binary and, in most cases it will be identical, unless it is automatically generating code.
 We can indicate that in the conanfile:
@@ -195,7 +203,7 @@ independent in VS, we can just remove that setting field:
 
 options, default_options
 ---------------------------
-Conan packages recipes can generate different package binaries when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
+Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
 
 A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
 
@@ -500,6 +508,7 @@ This attribute will not have any effect in other OS, it will be discarded.
 
 From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link
 <https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info. Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
+Please note that this only works with Python 3.6 and newer.
 
 
 no_copy_source
@@ -519,7 +528,8 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 
 - ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder, as the source code is copied from the ``source`` folder to the ``build`` folder, to ensure isolation and avoiding modifications of shared common source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
 - ``self.build_folder``: the folder in which the build is being done
-- ``self.package_folder``: the folder to copy the final artifacts for the package binary
+- ``self.install_folder``: the folder in which the install has outputed the generator files, by default, and always in the local cache, is the same ``self.build_folder``
+- ``self.package_folder``: the folder to copy the final artifacts for the binary package
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
@@ -633,3 +643,24 @@ you want to access to the variable declared by some specific requirement you can
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
 
+
+in_local_cache
+--------------
+
+A boolean attribute useful for conditional logic to apply in user folders local commands.
+It will return `True` if the conanfile resides in the local cache ( we are installing the package)
+and `False` if we are running the conanfile in a user folder (local Conan commands).
+
+
+.. code-block:: python
+
+     import os
+
+     class RecipeConan(ConanFile):
+        ...
+
+        def build(self):
+            if self.in_local_cache:
+                # we are installing the package
+            else:
+                # we are building the package in a local directory
