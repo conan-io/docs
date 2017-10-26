@@ -66,12 +66,23 @@ It's recommended to use it along with ``vcvars_command()``, so that the Visual S
     command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
     self.run(command)
 
+Definition:
+
+.. code-block:: python
+
+    def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
+                          arch=None, parallel=True)
+
 Arguments:
 
  * **settings**  Conanfile settings, pass "self.settings"
  * **sln_path**  Visual Studio project file path
  * **targets**   List of targets to build
  * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
+ * **build_type**: Override the build type defined in the settings (``settings.build_type``).
+ * **arch**: Override the architecture defined in the settings (``settings.arch``).
+ * **parallel**: Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
+   or by the number of cores in the processor by default
 
 
 .. _msvc_build_command:

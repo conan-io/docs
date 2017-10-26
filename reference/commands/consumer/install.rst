@@ -176,8 +176,14 @@ You can specify custom settings not only for your direct ``requires`` but for an
 options
 -------
 
-With the **-o** parameters you can only define specific package options (-o zlib:shared=True).
+With the **-o** parameters you can only define specific package options.
 
+.. code-block:: bash
+
+    $ conan install . -o zlib:shared=True
+    $ conan install . -o zlib:shared=True -o bzip2:option=132
+    # you can also apply the same options to many packages with wildcards:
+    $ conan install . -o *:shared=True
 
 .. note::
 

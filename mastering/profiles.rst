@@ -39,6 +39,14 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
    *: Tool4/0.1@user/channel
 
 
+Options allow definition with wildcards, to apply same option value to many packages:
+
+.. code-block:: text
+
+   [options]
+   *:shared=True
+
+
 They would contain the desired configuration, for example, assume the following file is named ``myprofile``:
 
 .. code-block:: text
