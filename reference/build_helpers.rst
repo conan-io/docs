@@ -14,3 +14,4 @@ Contents:
    build_helpers/autotools
    build_helpers/visual_studio
    build_helpers/run_environment
+   build_helpers/meson

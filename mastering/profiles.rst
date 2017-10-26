@@ -257,4 +257,4 @@ A profile can also be used in ``conan create`` and ``info`` command:
 .. seealso:: - :ref:`Howtos/Cross Building <cross_building>`
              - :ref:`Reference/Commands/conan profile <conan_profile_command>`
              - :ref:`Reference/Commands/conan install <conan_install_command>`
-             - :ref:`Reference/Commands/conan create <conan_create_command>`
+             - :ref:`Reference/Commands/conan create <create_command>`

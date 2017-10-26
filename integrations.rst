@@ -20,6 +20,7 @@ Integrations
    integrations/qmake
    integrations/premake
    integrations/qbs
+   integrations/meson
    integrations/git
    integrations/jenkins
    integrations/travisci

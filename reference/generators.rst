@@ -22,6 +22,7 @@ Available generators:
    generators/qbs
    generators/qmake
    generators/scons
+   generators/pkg_config
    generators/virtualenv
    generators/virtualbuildenv
    generators/virtualrunenv
