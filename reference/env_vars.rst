@@ -141,8 +141,15 @@ Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_window
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
 
 
-.. _conan_trace_file:
+.. _conan_make_program:
 
+CONAN_MAKE_PROGRAM
+------------------
+
+Specify an alternative ``make`` program to use with the :ref:`build helper AutoToolsBuildEnvironment<autotools_reference>` make() method. e.j: ``mingw32-make``.
+
+
+.. _conan_trace_file:
 
 CONAN_TRACE_FILE
 ----------------
@@ -244,11 +251,15 @@ the :ref:`CMake build tool<cmake_reference>`:
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 
-
 .. seealso::
 
     See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
+
+CONAN_CMAKE_TOOLSET
+-------------------
+
+Appends the specified value as a ``-Tvalue`` in the configure when using the :ref:`CMake build helper<cmake_reference>` .
 
 
 CONAN_CPU_COUNT

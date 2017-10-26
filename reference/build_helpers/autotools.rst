@@ -41,8 +41,8 @@ Methods
 
 - **make** (args=None)
 
-    - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-
+    - **args**: A list of additional arguments to be passed to the ``make`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+    - **make_program**: Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. Also the environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used.
 
 **Set environment variables**
 

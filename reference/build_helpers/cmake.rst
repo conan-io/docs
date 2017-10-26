@@ -32,13 +32,14 @@ Using the helper methods:
 Constructor
 -----------
 
-CMake(conanfile, generator=None, cmake_system_name=True, parallel=True)
+CMake(conanfile, **generator**\=None, **cmake_system_name**\=True, **parallel**\=True, **build_type**\=None, **toolset**\=None)
 
 - **conanfile**: Conanfile object. Usually ``self`` in a conanfile.py
 - **generator**: Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
 - **cmake_system_name**: Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
 - **parallel**: If true, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`
-
+- **build_type**: Force the build type to be declared in ``CMAKE_BUILD_TYPE`` (not will be taken from the settings).
+- **toolset**: Specify a toolset
 
 
 Attributes
