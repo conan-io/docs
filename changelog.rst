@@ -31,7 +31,7 @@ thanks very much!
 - Feature: Support for ``PacManTool`` for ``system_requirements()`` for ArchLinux
 - Feature: Define VS toolset in ``CMake`` constructor and from environment variable CONAN_CMAKE_TOOLSET
 - Feature: ``conan create`` now accepts ``werror`` argument
-- Feature: ``AutoToolsBuildEnvironment`` can use``CONAN_MAKE_PROGRAM`` env-var to define make program
+- Feature: ``AutoToolsBuildEnvironment`` can use ``CONAN_MAKE_PROGRAM`` env-var to define make program
 - Feature: added xcode9 for apple-clang 9.0, clang 5 to default settings.yml
 - Feature: deactivation of ``short_paths`` in Windows 10 with Py3.6 and long path support is automatic
 - Feature: show unzip progress by percentage, not by file (do not clutters output)
