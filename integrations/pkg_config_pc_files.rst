@@ -168,3 +168,56 @@ with the prefixes:
 
             with tools.environment_append(vars):
                 # Call the build system
+
+
+.. _pkg_config_generator_example:
+
+
+Approach 5: Use the ``pkg_config`` generator
+--------------------------------------------
+
+If you use ``package_info()`` in libB and libC, and specify all the library names and any other needed flag,
+you can use the ``pkg_config`` generator during the ``libA``. Those files doesn't need to be patched, because
+are dynamically generated with the correct path.
+
+So it can be a good solution in case you are building ``libA`` with a build system that manages ``pc files`` like
+:ref:`Meson Build<meson_build_tool>` or :ref:`AutoTools<autotools_build_tool>`:
+
+
+**Meson Build**
+
+.. code-block:: python
+   :emphasize-lines: 5, 10, 11, 12
+
+    from conans import ConanFile, tools, Meson
+    import os
+
+    class ConanFileToolsTest(ConanFile):
+        generators = "pkg_config"
+        requires = "LIB_A/0.1@conan/stable"
+        settings = "os", "compiler", "build_type"
+
+        def build(self):
+            meson = Meson(self)
+            meson.configure()
+            meson.build()
+
+
+**Autotools**
+
+.. code-block:: python
+   :emphasize-lines: 5, 10, 11, 12, 13
+
+    from conans import ConanFile, tools, Meson
+    import os
+
+    class ConanFileToolsTest(ConanFile):
+        generators = "pkg_config"
+        requires = "LIB_A/0.1@conan/stable"
+        settings = "os", "compiler", "build_type"
+
+        def build(self):
+            autotools = AutoToolsBuildEnvironment(self)
+            with tools.environment_append({"PKG_CONFIG_PATH": self.build_folder}):
+                autotools.configure()
+                autotools.make()

@@ -203,6 +203,37 @@ It's valid to invoke both gcc and clang compilers.
 .. seealso:: Check the :ref:`Reference/Generators/gcc <gcc_generator>` for the complete reference.
 
 
+.. _building_with_mesonbuild:
+
+Meson Build
+-----------
+
+If you are using **Meson Build** as your library buils system, you can use the **Meson** build helper.
+Specially useful with the :ref:`pkg_config generator<pkg_config_generator>` that will generate the ``*.pc``
+files of our requirements, then ``Meson()`` build helper will locate them automatically.
+
+
+.. code-block:: python
+   :emphasize-lines: 5, 10, 11, 12
+
+    from conans import ConanFile, tools, Meson
+    import os
+
+    class ConanFileToolsTest(ConanFile):
+        generators = "pkg_config"
+        requires = "LIB_A/0.1@conan/stable"
+        settings = "os", "compiler", "build_type"
+
+        def build(self):
+            meson = Meson(self)
+            meson.configure()
+            meson.build()
+
+
+
+.. seealso:: Check the :ref:`Reference/Build Helpers/Meson <meson_build_helper_reference>` for the complete reference.
+
+
 
 RunEnvironment
 --------------

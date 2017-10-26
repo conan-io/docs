@@ -447,7 +447,7 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
 - ``os_info.linux_distro`` Linux distribution name (None if not Linux)
 
-Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil** or **brew** depending on the system we are running.
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the system we are running.
 
 ..  code-block:: python
 
@@ -484,6 +484,11 @@ On Windows, there is no standard package manager, however **choco** can be invok
             pack_name = "package_name_in_windows"
             installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
             installer.install(pack_name)
+
+Available SystemPackageTool classes:
+
+**AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**, **PacManTool**
+
 
 SystemPackageTool methods:
 

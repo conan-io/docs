@@ -145,7 +145,7 @@ thanks very much!
 - Fix: ``ExecutablePath`` assignment has been removed from the ``visual_studio`` generator.
 - Fix: removing ``export_source`` folder containing exported code, fix issues with read-only files and keeps cache consistency better.
 - Fix: Accept 100 return code from yum check-update
-- Fix: importing *.so files from the ``conan new`` generated test templates
+- Fix: importing \*.so files from the ``conan new`` generated test templates
 - Fix: progress bars display when download/uploads are not multipart (reported size 0)
 - Bugfix: fixed wrong OSX ``DYLD_LIBRARY_PATH`` variable for virtual environments
 - Bugfix: ``FileCopier`` had a bug that affected ``self.copy()`` commands, changing base reference directory.
