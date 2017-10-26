@@ -28,6 +28,8 @@ Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configu
 tools.vcvars_command()
 ----------------------
 
+**vcvars_command(settings, arch=None, compiler_version=None)**
+
 This function returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
 the command, as that typically have to be done in the same command as the compilation,
@@ -50,6 +52,9 @@ corresponding Visual Studio version for the current settings.
 
 This is typically not needed if using ``CMake``, as the cmake generator will handle the correct
 Visual Studio version.
+
+If **arch** or **compiler_version** is specified, it will ignore the settings and return the command
+to set the Visual Studio environment for these parameters.
 
 
 .. _build_sln_commmand:
@@ -145,16 +150,15 @@ unless the file had a different extension.
 tools.get()
 -----------
 
-Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. Its implementation
-is very straightforward:
+Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
+You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
+will be checked, if any of them doesn't match, it will raise a ``ConanException``.
 
 .. code-block:: python
 
-    def get(url):
-        filename = os.path.basename(url)
-        download(url, filename)
-        unzip(filename)
-        os.unlink(filename)
+    from conans import tools
+
+    tools.get("http://url/file", md5='d2da0cd0756cd9da6560b9a56016a0cb')
 
 
 tools.download()
@@ -472,6 +476,17 @@ when ``no_copy_source==True``.
     
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
+
+
+tools.which()
+-------------
+
+Returns the path to a specified executable searching in the PATH environment variable.
+
+.. code-block:: python
+
+    from conans import tools
+    abs_path_make = tools.which("make")
 
 
 tools.touch()
