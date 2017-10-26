@@ -129,6 +129,16 @@ Install the requirements and compile from the build folder (change cmake generat
     $ cmake .. -G "Visual Studio 14 Win64"
     $ cmake --build . --config Release
 
+
+You can also avoid defining the options in the ``conanfile.txt`` and directly define them in the command line:
+
+.. code-block:: bash
+
+    $ conan install .. -o Poco:shared=True -o OpenSSL:shared=True
+    # or even with wildcards, to apply to many packages
+    $ conan install .. -o *:shared=True
+
+
 Conan will install the shared library packages binaries, and the example will link with them.
 You can again inspect the different installed binaries, e.g. ``conan search zlib/1.2.8@lasote/stable``.
 
