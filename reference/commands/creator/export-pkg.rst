@@ -3,9 +3,6 @@
 conan export-pkg
 ================
 
-
-OTRA VEZ!
-
 .. code-block:: bash
 
 	$  conan export-pkg . [-h] [--source-folder SOURCE_FOLDER]
@@ -51,7 +48,7 @@ specified 'reference' and for the specified '--settings', '--options' and or '
       --profile PROFILE, -pr PROFILE
                             Profile for this package
       --options OPTIONS, -o OPTIONS
-                            Options for this package. e.g., -o with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings for this package e.g., -s compiler=gcc
       --env ENV, -e ENV     Environment variables that will be set during the
