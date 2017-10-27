@@ -5,6 +5,9 @@ Environment variables
 
 These are the environment variables used to customize conan.
 
+Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder)
+
+
 CONAN_CMAKE_GENERATOR
 ------------------------------
 Conan ``CMake`` helper class is just a convenience to help to translate conan
@@ -286,6 +289,9 @@ CONAN_READ_ONLY_CACHE
 This environment variable if defined, will make the conan cache read-only. This could prevent 
 developers to accidentally edit some header of their dependencies while navigating code in their
 IDEs.
+
+This variable can also be set in ``conan.conf`` as ``read_only_cache = True`` in the ``[general]``
+section.
 
 The packages are made read-only in two points: when a package is built from sources, and when
 a package is retrieved from a remote repository. 
