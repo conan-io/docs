@@ -31,6 +31,7 @@ Commands related to the creation of Conan recipes and packages:
   commands/creator/export-pkg.rst
   commands/creator/new.rst
   commands/creator/upload.rst
+  commands/creator/test.rst
 
 
 Package development commands
