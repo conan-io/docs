@@ -7,6 +7,13 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+0.28.1 (31-October-2017)
+-------------------------
+
+- BugFix: Downloading (``tools.download``) of files with ``content-encoding=gzip`` were raising an exception
+  because the downloaded content length didn't match the http header ``content-length``
+
+
 0.28.0 (26-October-2017)
 -------------------------
 
