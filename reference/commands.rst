@@ -59,5 +59,6 @@ Other useful commands:
   commands/misc/user.rst
   commands/misc/imports.rst
   commands/misc/copy.rst
+  commands/misc/download.rst
   commands/misc/remove.rst
   commands/misc/alias.rst

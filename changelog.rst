@@ -67,6 +67,7 @@ thanks very much!
 
   - The command ``conan install`` doesn't accept ``cwd`` anymore, to change the directory where the generator
     files are written, use the ``--install-folder`` parameter.
+  - The command ``conan install`` doesn't accept ``--all`` anymore. Use ``conan download <ref>`` instead.
   - The command ``conan build`` now requires the path to the ``conanfile.py`` (optional before)
   - The command ``conan package`` not longer re-package a package in the local cache, now it only
     operates in a user local folder. The recommended way to re-package a package is using ``conan build``
@@ -79,6 +80,7 @@ thanks very much!
   - The command ``conan imports`` doesn't accept ``-d, --dest`` anymore, use ``--imports-folder`` parameter instead.
   - If you specify a profile in a conan command, like conan create or conan install the base profile ~/.conan/profiles/default won’t be applied.
     Use explicit ``include`` to keep the old behavior.
+
 
 
 0.27.0 (20-September-2017)
