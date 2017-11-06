@@ -60,8 +60,7 @@ created correctly. Check the 'conan test' command to know more about the
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
       --options OPTIONS, -o OPTIONS
-                            Options to build the package, overwriting the
-                            defaults. e.g., -o with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=true
       --settings SETTINGS, -s SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
