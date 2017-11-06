@@ -203,7 +203,24 @@ Running conan server using Apache
 +++++++++++++++++++++++++++++++++
 
 
-    You need to install ``mod_wsgi`` and checkout the conan source code, in the example, to `/srv/conan`
+    You need to install ``mod_wsgi``. If you want to use Conan installed from ``pip``, the conf file should be roughly as follows:
+
+    **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
+
+    .. code-block:: text
+
+        <VirtualHost *:80>
+            WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/conans/server/server_launcher.py
+            WSGICallableObject app
+            WSGIPassAuthorization On
+
+            <Directory /usr/local/lib/python2.7/dist-packages/conans>
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+
+    If you want to use Conan checked out from source in, say, `/srv/conan`, the conf file should be as follows:
 
     **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
 
