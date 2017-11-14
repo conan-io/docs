@@ -167,6 +167,6 @@ files to a package in the local cache:
     $ conan build . --build-folder build_x86 --source-folder src
     $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
 
-In this case, in the ``conan export-pkg``, ee don't need to specify the ``-s arch=x86``or any other setting,
+In this case, in the ``conan export-pkg``, you don't need to specify the ``-s arch=x86`` or any other setting,
 option, or profile, because it will all the information in the ``--build_folder`` the ``conaninfo.txt``
 and ``conanbuildinfo.txt`` that have been created with the ``conan install`` command.
