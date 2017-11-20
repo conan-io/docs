@@ -117,7 +117,9 @@ Just include the generated file and use those variables inside our own ``CMakeLi
    
 Installing dependencies
 --------------------------
-Lets create a build folder, so temporary build files are put there, and install the requirements
+If you have a terminal with light colors, like the default gnome terminal in Ubuntu,
+set ``CONAN_COLOR_DARK=1`` to have a better contrast.
+Then create a build folder, so temporary build files are put there, and install the requirements
 (pointing to the parent directory, as it is where the conanfile.txt is):
 
 
