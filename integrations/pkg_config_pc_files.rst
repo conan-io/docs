@@ -218,6 +218,5 @@ So it can be a good solution in case you are building ``libA`` with a build syst
 
         def build(self):
             autotools = AutoToolsBuildEnvironment(self)
-            with tools.environment_append({"PKG_CONFIG_PATH": self.build_folder}):
-                autotools.configure()
-                autotools.make()
+            autotools.configure()
+            autotools.make()

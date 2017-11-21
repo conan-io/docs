@@ -38,6 +38,7 @@ Methods
     - **build**: To specify a value for the parameter ``--build``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
     - **host**: To specify a value for the parameter ``--host``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
     - **target**: To specify a value for the parameter ``--target``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
+    - **pkg_config_paths**: A list containing paths to locate the pkg-config files (\*.pc). Default conanfile.build_folder. Default only applied when using the pkg_config generator in the conanfile)
 
 - **make** (args=None, make_program=Nonw)
 
