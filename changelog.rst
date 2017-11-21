@@ -6,6 +6,46 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.29.0 (21-November-2017)
+-------------------------
+- Feature: Support for WindowsStore (WinRT, UWP)
+- Feature: Support for Visual Studio Toolsets.
+- Feature: New ``boost-build`` generator for generic bjam (not only Boost)
+- Feature: new ``tools.PkgConfig`` helper to parse pkg-config (.pc) files.
+- Feature: Added ``self.develop`` conanfile variable. It is true for ``conan create`` packages and for local development.
+- Feature: Added ``self.keep_imports`` to avoid removal of imported files in the ``build()`` method. Convenient for re-packaging.
+- Feature: Autodected MSYS2 for ``SystemPackageTool``
+- Feature: ``AutoToolsBuildEnvironment`` now auto-loads ``pkg_config_path`` (to use with ``pkg_config`` generator)
+- Feature: Changed search for profiles. Profiles not found in the default ``profiles`` folder, will be searched for locally. Use ``./myprofile`` to force local search only.
+- Feature: Parallel builds for Visual Studio (previously it was only parallel compilation within builds)
+- Feature: implemented syntax to check options with ``if "something" in self.options.myoption``
+- Fix: Fixed CMake dependency graph when using TARGETS, that produced wrong link order for transitive dependencies.
+- Fix: Trying to download the ``exports_sources`` is not longer done if such attribute is not defined
+- Fix: Added output directories in ``cmake`` generator for RelWithDebInfo and MinSizeRel configs
+- Fix: Locks for concurrent access to local cache now use process IDs (PIDs) to handle interruptions and inconsistent states. Also, adding messages when locking.
+- Fix: Not remove the .zip file after a ``conan config install`` if such file is local
+- Fix: Fixed ``CMake.test()`` for the Ninja generator
+- Fix: Do not crete local conaninfo.txt file for ``conan install <pkg-ref>`` commands.
+- Fix: Solved issue with multiple repetitions of the same command line argument
+- BugFix: Don't rebuild conan created (with conan-create) packages when ``build_policy="always"``
+- BugFix: ``conan copy`` was always copying binaries, now can copy only recipes
+- BugFix: A bug in download was causing appends insteads of overwriting for repeated downloads.
+- Development: Large restructuring of files (new cmd and build folders)
+- Deprecation: Removed old CMake helper methods (only valid constructor is ``CMake(self)``)
+- Deprecation: Removed old ``conan_info()`` method, that was superseded by ``package_id()``
+
+
+.. note::
+
+  **Breaking changes**
+
+  - CMAKE_LIBRARY_OUTPUT_DIRECTORY definition has been introduced in ``conan_basic_setup()``, it will send shared libraries .so
+    to the ``lib`` folder in Linux systems. Right now it was undefined.
+  - Profile search logic has slightly changed. For ``-pr=myprofile``, such profile will be searched both in the default folder
+    and in the local one if not existing. Use ``-pr=./myprofile`` to force local search only.
+  - The ``conan copy`` command has been fixed. To copy all binaries, it is necessary to explicit ``--all``, as other commands do
+  - The only valid use of CMake helper is ``CMake(self)`` syntax
+  - If using ``conan_info()``, replace it with ``package_id()``
 
 0.28.1 (31-October-2017)
 -------------------------
