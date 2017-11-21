@@ -46,6 +46,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   - The ``conan copy`` command has been fixed. To copy all binaries, it is necessary to explicit ``--all``, as other commands do
   - The only valid use of CMake helper is ``CMake(self)`` syntax
   - If using ``conan_info()``, replace it with ``package_id()``
+  - Removed environment variable ``CONAN_CMAKE_TOOLSET``, now the toolset can be specified as a subsetting of Visual Studio compiler or specified in the build helpers.
 
 0.28.1 (31-October-2017)
 -------------------------

@@ -259,12 +259,6 @@ the :ref:`CMake build tool<cmake_reference>`:
     See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
 
-CONAN_CMAKE_TOOLSET
--------------------
-
-Appends the specified value as a ``-Tvalue`` in the configure when using the :ref:`CMake build helper<cmake_reference>` .
-
-
 CONAN_CPU_COUNT
 ---------------
 
