@@ -568,6 +568,15 @@ If you want to be able to customize the output user directory to work with both 
 And then use, for example: ``conan install -e CONAN_IMPORT_PATH=Release -g cmake_multi``
 
 
+When a conanfile recipe has an ``imports()`` method and it builds from sources, it will do the following:
+
+- Before running ``build()`` it will execute ``imports()`` in the build folder, copying dependencies artifacts
+- Run the ``build()`` method, which could use such imported binaries
+- Remove the copied (imported) artifacts after ``build()`` is finished.
+
+You can use the :ref:`keep_imports <keep_imports>`. attribute to keep the imported artifacts, and maybe :ref:`repackage <repackage>` them.
+
+
 conan_info()
 ------------
 

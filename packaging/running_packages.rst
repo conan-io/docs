@@ -152,6 +152,8 @@ to greet executable:
         self.run("greet")
 
 
+.. _repackage:
+
 Runtime packages and re-packaging
 ----------------------------------
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
@@ -161,22 +163,18 @@ package also contains a library, and the headers), we could do:
 .. code-block:: python
 
     from conans import ConanFile
-    import shutil
-
 
     class HellorunConan(ConanFile):
         name = "HelloRun"
         version = "0.1"
         build_requires = "Hello/0.1@user/testing"
+        keep_imports = True
 
         def imports(self):
             self.copy("*.exe", dst="bin")
-
-        def build(self):
-            shutil.copytree("bin", "pkg")
             
         def package(self):
-            self.copy("*", src="pkg", dst="bin")
+            self.copy("*")
 
 
 This recipe has the following characteristics:
@@ -185,10 +183,9 @@ This recipe has the following characteristics:
   That means that it will be used to build this "HelloRun" package, but once the "HelloRun" package is built,
   it will not be necessary to retrieve it.
 - It is using an ``imports()`` to copy from the dependencies, in this case, the executable
-- By default, ``imports()`` are executed before the ``build()`` method, and the imported files removed after
-  the ``build()`` method, to avoid unnecessary re-packaging and copying of dependencies artifacts
-- The ``build()`` method creates a copy of the imported files
-- The ``package()`` method packages such a copy.
+- It is using ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which
+  is not define, then using the default empty one), are kept and not removed after build
+- The ``package()`` method packages the imported artifacts that will be in the build folder.
 
 
 Installing and running this package, can be done by any of the means presented above, for example, we could do:
