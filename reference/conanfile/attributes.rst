@@ -559,6 +559,8 @@ package:
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                 |
 +-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.builddirs                   | Ordered list with build scripts paths, by default ['']              |
++-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.libs                        | Ordered list with the library names, by default empty []            |
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.defines                     | Preprocessor definitions, by default empty []                       |
@@ -584,13 +586,29 @@ package:
 deps_cpp_info
 -------------
 
-Contains the ``cpp_info`` object of the requirements of the recipe.
+Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also
+properties to obtain the absolute paths:
+
++-------------------------------------------+---------------------------------------------------------------------+
+| NAME                                      | DESCRIPTION                                                         |
++===========================================+=====================================================================+
+| self.cpp_info.include_paths               | Same as ``includedirs`` but transformed to absolute paths           |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.lib_paths                   | Same as ``libdirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.bin_paths                   | Same as ``bindirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
 
 
 .. code-block:: python
-   :emphasize-lines: 2
+   :emphasize-lines: 8, 11, 14
 
      class PocoTimerConan(ConanFile):
         ...
@@ -600,6 +618,9 @@ root folder of the package:
         def build(self):
             # Get the directory where zlib package is installed
             self.deps_cpp_info["zlib"].rootpath
+
+            # Get the absolute paths to zlib include directories (list)
+            self.deps_cpp_info["zlib"].include_paths
 
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["OpenSSL"].sharedlinkflags
@@ -664,3 +685,45 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
                 # we are installing the package
             else:
                 # we are building the package in a local directory
+
+
+
+develop
+--------
+
+A boolean attribute useful for conditional logic. It will be ``True`` if the package is created with
+``conan create``, or if the conanfile is in user space:
+
+.. code-block:: python
+
+     class RecipeConan(ConanFile):
+
+        def build(self):
+            if self.develop:
+                self.output.info("Develop mode")
+
+It can be used for conditional logic in other methods too, like ``requirements()``, ``package()``, etc.
+
+This recipe will output "Develop mode" if:
+
+.. code-block:: bash
+
+    $ conan create user/testing
+    # or
+    $ mkdir build && cd build && conan install ..
+    $ conan build ..
+
+But it will not output that when it is a transitive requirement or installed with ``conan install``
+
+.. _keep_imports:
+
+keep_imports
+-------------
+
+Just before the ``build()`` method is executed, if the conanfile has an ``imports()`` method, it is
+executed into the build folder, to copy binaries from dependencies that might be necessary for
+the ``build()`` method to work. After the method finishes, those copied (imported) files are removed,
+so they are not later unnecessarily repackaged.
+
+This behavior can be avoided declaring the ``keep_imports=True`` attribute. This can be useful, for example
+to :ref:`repackage artifacts <repackage>`
