@@ -6,6 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.29.1 (23-November-2017)
+-------------------------
+- Support for OSX High Sierra
+- Reverted concurrency locks to counters, removed ``psutil`` dependency
+- Implemented migration for settings.yml (for new VS toolsets)
+- Fixed encoding issues in conan_server
+
+
 0.29.0 (21-November-2017)
 -------------------------
 - Feature: Support for WindowsStore (WinRT, UWP)
