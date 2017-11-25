@@ -28,6 +28,10 @@ Here is an example of what we could do in our **configure method**:
              # Or adjust any other available option
              self.options["Poco"].other_option = "foo"
 
+          # We could check the presence of an option
+          if "shared" in self.options:
+              pass
+
       def requirements(self):
           # Or add a new requirement!
           if self.options.testing:

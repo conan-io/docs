@@ -218,6 +218,12 @@ So it can be a good solution in case you are building ``libA`` with a build syst
 
         def build(self):
             autotools = AutoToolsBuildEnvironment(self)
-            with tools.environment_append({"PKG_CONFIG_PATH": self.build_folder}):
-                autotools.configure()
-                autotools.make()
+            # When using the pkg_config generator, self.build_folder will be added to PKG_CONFIG_PATH
+            # so pkg_config will be able to locate the generated pc files from the requires (LIB_A)
+            autotools.configure()
+            autotools.make()
+
+
+
+.. seealso:: Check the :ref:`tools.PkgConfig() class<pkgconfigtool>`,
+             a wrapper of the ``pkg-config`` tool that allows to extract flags, library paths, etc for any ``pc`` file.
