@@ -56,8 +56,6 @@ Conan packages can be uploaded to bintray under your own users or organizations.
     Follow this link: https://bintray.com/signup/oss.
     Bintray provides free conan repositories for OSS projects, no need to open a Pro or Enterprise Trial account.
     
-
-
 2. **Create a Conan repository**
 
    If you intend to collaborate with other users, you first need to create a Bintray organization, and create your
@@ -66,14 +64,7 @@ Conan packages can be uploaded to bintray under your own users or organizations.
    On your user profile (or organization profile) click “Add new repository”.
    Fill in the Create Repository form making sure to select Conan as the Type.
 
-
-3. **Get your API key**
-
-   Your API key is the “password” used to authenticate the Conan client to Bintray, NOT your Bintray password.
-   To create an API key, you need to edit your user profile.
-
-
-4. **Add your Bintray repository** (Optional, only if you want to host your packages in Bintray)
+3. **Add your Bintray repository**
 
    Add a Conan remote in your Conan client pointing to your Bintray repository
 
@@ -83,6 +74,18 @@ Conan packages can be uploaded to bintray under your own users or organizations.
 
    Use the Set Me Up button on your repository’s page on Bintray to get its URL
 
+4. **Get your API key**
+
+   Your API key is the “password” used to authenticate the Conan client to Bintray, NOT your Bintray password.
+   To get your API key, you need to go to “Edit Your Profile” in your Bintray account and check the *API Key* section.
+
+5. **Set your user credentials**
+
+   Add your conan user with the API Key, your remote and your Bintray user name
+
+    .. code-block:: bash
+
+      $ conan user -p <APIKEY> -r <REMOTE> <USERNAME>
 
 By specifying your remotes in this way, your Conan client will try to resolve packages and to install them from
 repositories in the following order of priority:
