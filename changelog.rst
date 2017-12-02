@@ -6,6 +6,13 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.29.2 (2-December-2017)
+====================
+
+- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.python.org/pypi/pyOpenSSL
+
+
 0.29.1 (23-November-2017)
 -------------------------
 - Support for OSX High Sierra
@@ -54,6 +61,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   - The ``conan copy`` command has been fixed. To copy all binaries, it is necessary to explicit ``--all``, as other commands do
   - The only valid use of CMake helper is ``CMake(self)`` syntax
   - If using ``conan_info()``, replace it with ``package_id()``
+  - Removed environment variable ``CONAN_CMAKE_TOOLSET``, now the toolset can be specified as a subsetting of Visual Studio compiler or specified in the build helpers.
 
 0.28.1 (31-October-2017)
 -------------------------

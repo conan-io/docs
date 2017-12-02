@@ -88,6 +88,7 @@ Arguments:
  * **arch**: Override the architecture defined in the settings (``settings.arch``).
  * **parallel**: Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
    or by the number of cores in the processor by default
+ * **toolset**: Specify a toolset. Will append a ``/p:PlatformToolset`` option.
 
 
 .. _msvc_build_command:
@@ -577,3 +578,61 @@ Fetches a list of all libraries in the package folder.
      def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
 
+
+
+.. _pkgconfigtool:
+
+tools.PkgConfig()
+-----------------
+
+Wrapper of the ``pkg-config`` tool.
+
+
+**Parameters of the constructor:**
+
+- **library**: library (package) name, such as libastral
+- **pkg_config_executable** (Optional): specify custom pkg-config executable (e.g. for cross-compilation)
+- **static** (Optional): output libraries suitable for static linking (adds --static to pkg-config command line)
+- **msvc_syntax** (Optional): MSVC compatibility (adds --msvc-syntax to pkg-config command line)
+- **variables** (Optional): dictionary of pkg-config variables (passed as --define-variable=VARIABLENAME=VARIABLEVALUE)
+
+
+**Properties**
+
++-----------------------------+---------------------------------------------------------------------+
+| PROPERTY                    | DESCRIPTION                                                         |
++=============================+=====================================================================+
+| .cflags                     | get all pre-processor and compiler flags                            |
++-----------------------------+---------------------------------------------------------------------+
+| .cflags_only_I              | get -I flags                                                        |
++-----------------------------+---------------------------------------------------------------------+
+| .cflags_only_other          | get cflags not covered by the cflags-only-I option                  |
++-----------------------------+---------------------------------------------------------------------+
+| .libs                       | get all linker flags                                                |
++-----------------------------+---------------------------------------------------------------------+
+| .libs_only_L                | get -L flags                                                        |
++-----------------------------+---------------------------------------------------------------------+
+| .libs_only_l                | get -l flags                                                        |
++-----------------------------+---------------------------------------------------------------------+
+| .libs_only_other            | get other libs (e.g. -pthread)                                      |
++-----------------------------+---------------------------------------------------------------------+
+| .provides                   | get which packages the package provides                             |
++-----------------------------+---------------------------------------------------------------------+
+| .requires                   | get which packages the package requires                             |
++-----------------------------+---------------------------------------------------------------------+
+| .requires_private           | get packages the package requires for static linking                |
++-----------------------------+---------------------------------------------------------------------+
+| .variables                  | get list of variables defined by the module                         |
++-----------------------------+---------------------------------------------------------------------+
+
+
+
+**Example:**
+
+.. code-block:: python
+
+     with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
+        pkg_config = PkgConfig("libastral")
+        print(pkg_config.cflags)
+        print(pkg_config.cflags_only_I)
+        print(pkg_config.variables)

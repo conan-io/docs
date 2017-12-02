@@ -17,6 +17,7 @@ Integrations
    integrations/clion
    integrations/ninja
    integrations/pkg_config_pc_files
+   integrations/boost_build
    integrations/qmake
    integrations/premake
    integrations/qbs

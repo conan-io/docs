@@ -20,6 +20,7 @@ Available generators:
    generators/visualstudiolegacy
    generators/xcode
    generators/gcc
+   generators/boost_build
    generators/qbs
    generators/qmake
    generators/scons
