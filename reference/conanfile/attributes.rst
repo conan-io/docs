@@ -538,7 +538,7 @@ conanfile_directory
 -------------------
 
 ``self.conanfile_directory`` is a **read only property** that returns the directory in which the conanfile is
-located.
+located for user folders, or to the current directory for the conan local cache (like ``source_folder`` for the ``build()`` method). This property has been practically superseded by the above defined folders (``source_folder``, ``build_folder``, ``package_folder``, ``install_folder``)
 
 
 cpp_info
