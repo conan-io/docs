@@ -35,3 +35,71 @@ Methods
     - **args**: A list of additional arguments to be passed to the ``make`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **build_dir**: Default conanfile.build_folder
     - **targets**: A list of targets to be built.
+
+
+Example
+--------
+
+A typical usage of the Meson build helper, if you want to be able to both execute ``conan create`` and also build your package for a library locally (in your user folder, not in the conan cache), could be:
+
+.. code-block:: python
+
+    from conans import ConanFile, Meson
+
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "pkg_config"
+        exports_sources = "src/*"
+
+        def build(self):
+            meson = Meson(self)
+            meson.configure(source_dir="%s/src" % self.source_folder, 
+                            build_dir="build")
+            meson.build()
+
+        def package(self):
+            self.copy("*.h", dst="include", src="src")
+            self.copy("*.lib", dst="lib", keep_path=False)
+            self.copy("*.dll", dst="bin", keep_path=False)
+            self.copy("*.dylib*", dst="lib", keep_path=False)
+            self.copy("*.so", dst="lib", keep_path=False)
+            self.copy("*.a", dst="lib", keep_path=False)
+
+        def package_info(self):
+            self.cpp_info.libs = ["hello"]
+
+
+Note the **pkg_config** generator, which generates .pc files, which are understood by Meson to process dependencies informations (no need for a "meson" generator).
+
+The layout is:
+
+.. code-block:: text
+
+    <folder>
+      | - conanfile.py
+      | - src
+           | - meson.build
+           | - hello.cpp
+           | - hello.h
+
+And the ``meson.build`` could be as simple as:
+
+.. code-block:: text
+
+    project('hello', 'cpp', version : '0.1.0',
+		     default_options : ['cpp_std=c++11'])
+
+    library('hello', ['hello.cpp'])
+
+This allows, to create the package with ``conan create`` as well as to build the package locally:
+
+.. code-block:: bash
+
+    $ cd <folder>
+    $ conan create user/testing
+    # Now local build
+    $ mkdir build && cd build
+    $ conan install ..
+    $ conan build ..
