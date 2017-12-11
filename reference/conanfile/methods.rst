@@ -586,11 +586,19 @@ Deprecated, use ``package_id()`` method instead.
 package_id()
 ------------
 
-Conan keeps the compatibility between binary packages using ``settings``.
-When a recipe author specifies some settings in the :ref:`settings_property` property, is telling that any change at any
-of those settings will require a different binary package.
+Creates a unique id for the package. Default package id is calculated using ``settings``, ``options`` and ``requires`` properties.
+When a package creator specifies the values for any of thoses properties, it is telling that any value change will require a different
+binary package.
 
-But sometimes you would need to alter the general behavior, for example, to have only one binary package for several different compiler versions.
+However, sometimes you, as a package creator, would need to alter the default behavior, for example, to have only one binary package for several
+different compiler versions. In that case you can set a custom package id to ``self.info`` object implementing this method:
+
+.. code-block:: python
+
+    def package_id(self):
+        v = Version(str(self.settings.compiler.version))
+        if self.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
+            self.info.settings.compiler.version = "GCC 4 between 4.5 and 5.0"
 
 Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
 
