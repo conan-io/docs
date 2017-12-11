@@ -24,21 +24,33 @@ The most common and suggested approach would be to define it in plain text as a 
 
 
 description
-------------
+-----------
 This is an optional, but strongly recommended text field, containing the description of the package,
 and any information that might be useful for the consumers. The first line might be used as a
 short description of the package.
 
-
 .. code-block:: python
 
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       description = """This is a Hello World library.
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        description = """This is a Hello World library.
                         A fully featured, portable, C++ library to say Hello World in the stdout,
                         with incredible iostreams performance"""
 
+homepage
+--------
+
+Use this attribute to indicate the home web page of the library being packaged. This is useful to link
+the recipe to further explanations of the library itself like an overview of its features, documentation, FAQ
+as well as other related information.
+
+.. code-block:: python
+
+    class EigenConan(ConanFile):
+        name = "eigen"
+        version = "3.3.4"
+        homepage = "http://eigen.tuxfamily.org"
 
 .. _package_url:
 
@@ -52,10 +64,10 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       url = "https://github.com/memsharded/hellopack.git"
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        url = "https://github.com/memsharded/hellopack.git"
 
 
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
@@ -73,10 +85,10 @@ the ``conan info`` command and possibly other search and report tools.
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       license = "MIT"
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        license = "MIT"
 
 This attribute can contain several, comma separated licenses. It is a text string, so it can
 contain any text, including hyperlinks to license files elsewhere.
@@ -93,10 +105,10 @@ define who is the creator/maintainer of the package
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       author = "John J. Smith (john.smith@company.com)"
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        author = "John J. Smith (john.smith@company.com)"
 
 This is an optional attribute
 
@@ -148,8 +160,8 @@ For these reasons, the most common convention among Conan recipes is to distingu
 
 .. code-block:: python
 
-   settings = "os", "compiler", "build_type", "arch"
-   
+    settings = "os", "compiler", "build_type", "arch"
+
 When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings. 
 
 But what happens for example to **header only libraries**? The final package for such libraries is not
@@ -175,7 +187,7 @@ attribute:
 
 .. code-block:: python
 
-   class HelloConan(ConanFile):
+    class HelloConan(ConanFile):
       settings = {"os": ["Windows"],
                   "compiler": {"Visual Studio": {"version": [11, 12]}},
                   "arch": None}
@@ -194,10 +206,10 @@ independent in VS, we can just remove that setting field:
 
 .. code-block:: python
 
-   settings = "os", "compiler", "build_type", "arch"
+    settings = "os", "compiler", "build_type", "arch"
 
-   def config(self):
-       self.settings.compiler["Visual Studio"].remove("runtime")
+    def config(self):
+        self.settings.compiler["Visual Studio"].remove("runtime")
 
 .. _conanfile_options:
 
@@ -237,16 +249,16 @@ The options will typically affect the ``build()`` of the package in some way, fo
 
 .. code-block:: python
 
-   class MyPkg(ConanFile):
-      ...
-      options = {"shared": [True, False]}
-      default_options = "shared=False"
+    class MyPkg(ConanFile):
+        ...
+        options = {"shared": [True, False]}
+        default_options = "shared=False"
 
-      def build(self):
-         shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
-         cmake = CMake(self)
-         self.run("cmake . %s %s" % (cmake.command_line, shared))
-         self.run("cmake --build . %s" % cmake.build_config)
+        def build(self):
+            shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
+            cmake = CMake(self)
+            self.run("cmake . %s %s" % (cmake.command_line, shared))
+            self.run("cmake --build . %s" % cmake.build_config)
 
 Note that you have to consider the option properly in your build scripts. In this case, we are using the CMake way. So if you had explicit **STATIC** linkage in the **CMakeLists.txt** file, you have to remove it. If you are using VS, you also need to change your code to correctly import/export symbols for the dll.
 
@@ -264,19 +276,19 @@ You can also specify default option values of the required dependencies:
 
 .. code-block:: python
 
-   class OtherPkg(ConanFile):
-      requires = "Pkg/0.1@user/channel"
-      default_options = "Pkg:pkg_option=value"
+    class OtherPkg(ConanFile):
+        requires = "Pkg/0.1@user/channel"
+        default_options = "Pkg:pkg_option=value"
 
 If you need to dynamically set some dependency options, you could do:
 
 .. code-block:: python
 
-   class OtherPkg(ConanFile):
-      requires = "Pkg/0.1@user/channel"
+    class OtherPkg(ConanFile):
+        requires = "Pkg/0.1@user/channel"
 
-      def configure(self):
-          self.options["Pkg"].pkg_option = "value"
+        def configure(self):
+            self.options["Pkg"].pkg_option = "value"
 
 
 Option values can be given in command line, and they will have priority over the default values in the recipe:
@@ -323,17 +335,17 @@ Specify package dependencies as a list of other packages:
 
 .. code-block:: python
 
-   class MyLibConan(ConanFile):
-       requires = "Hello/1.0@user/stable", "OtherLib/2.1@otheruser/testing"
+    class MyLibConan(ConanFile):
+        requires = "Hello/1.0@user/stable", "OtherLib/2.1@otheruser/testing"
 
 You can specify further information about the package requirements:
 
 .. code-block:: python
 
-   class MyLibConan(ConanFile):
-      requires = (("Hello/0.1@user/testing"),
-                  ("Say/0.2@dummy/stable", "override"),
-                  ("Bye/2.1@coder/beta", "private"))
+    class MyLibConan(ConanFile):
+        requires = (("Hello/0.1@user/testing"),
+                    ("Say/0.2@dummy/stable", "override"),
+                    ("Bye/2.1@coder/beta", "private"))
 
 Requirements can be complemented by 2 different parameters:
 
@@ -350,8 +362,8 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 
 ..  code-block:: python
 
-   class HelloConan(ConanFile):
-      requires = ("A/1.0@user/stable", ("Zlib/3.0@other/beta", "override"))
+    class HelloConan(ConanFile):
+        requires = ("A/1.0@user/stable", ("Zlib/3.0@other/beta", "override"))
 
 
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
@@ -366,18 +378,18 @@ The syntax is using brackets:
 
 ..  code-block:: python
 
-   class HelloConan(ConanFile):
-      requires = "Pkg/[>1.0,<1.8]@user/stable"
+    class HelloConan(ConanFile):
+        requires = "Pkg/[>1.0,<1.8]@user/stable"
 
 Expressions are those defined and implemented by [python node-semver](https://pypi.python.org/pypi/node-semver),
 but using a comma instead of spaces. Accepted expressions would be:
 
 ..  code-block:: python
 
-   >1.1,<2.1    # In such range
-   2.8          # equivalent to =2.8
-   ~=3.0        # compatible, according to semver
-   >1.1 || 0.8  # conditions can be OR'ed
+    >1.1,<2.1    # In such range
+    2.8          # equivalent to =2.8
+    ~=3.0        # compatible, according to semver
+    >1.1 || 0.8  # conditions can be OR'ed
 
 
 .. container:: out_reference_box
@@ -413,13 +425,13 @@ we would do something like:
 
 .. code-block:: python
 
-   exports = "helpers.py", "info.txt"
+    exports = "helpers.py", "info.txt"
 
 Exclude patterns are also possible, with the ``!`` prefix:
 
 .. code-block:: python
 
-   exports = "*.py", "!*tmp.py"
+    exports = "*.py", "!*tmp.py"
 
 
 This is an optional attribute, only to be used if the package recipe requires these other files
@@ -441,13 +453,13 @@ that are not necessary for the package recipe, we could do:
 
 .. code-block:: python
 
-   exports_sources = "include*", "src*"
+    exports_sources = "include*", "src*"
 
 Exclude patterns are also possible, with the ``!`` prefix:
 
 .. code-block:: python
 
-   exports_sources = "include*", "src*", "!src/build/*"
+    exports_sources = "include*", "src*", "!src/build/*"
 
 This is an optional attribute, used typically when ``source()`` is not specified. The main difference with
 ``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
@@ -465,8 +477,8 @@ You can specify more than one generator:
 
 .. code-block:: python
 
-   class MyLibConan(ConanFile):
-       generators = "cmake", "gcc"
+    class MyLibConan(ConanFile):
+        generators = "cmake", "gcc"
 
 
 build_policy
@@ -482,7 +494,7 @@ The allowed ``build_policy`` values are:
 .. code-block:: python
    :emphasize-lines: 2
 
-     class PocoTimerConan(ConanFile):
+    class PocoTimerConan(ConanFile):
         build_policy = "always" # "missing"
 
 .. _short_paths_reference:
@@ -495,11 +507,11 @@ If one of the packages you are creating hits the limit of 260 chars path length 
 
 ..  code-block:: python
 
-   from conans import ConanFile
+    from conans import ConanFile
 
-   class ConanFileTest(ConanFile):
-       ...
-       short_paths = True
+    class ConanFileTest(ConanFile):
+        ...
+        short_paths = True
 
 This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root,
 something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
@@ -610,7 +622,7 @@ root folder of the package:
 .. code-block:: python
    :emphasize-lines: 8, 11, 14
 
-     class PocoTimerConan(ConanFile):
+    class PocoTimerConan(ConanFile):
         ...
         requires = "zlib/1.2.11@conan/stable", "OpenSSL/1.0.2l@conan/stable"
         ...
@@ -650,9 +662,9 @@ you want to access to the variable declared by some specific requirement you can
 .. code-block:: python
    :emphasize-lines: 2
 
-     import os
+    import os
 
-     class RecipeConan(ConanFile):
+    class RecipeConan(ConanFile):
         ...
         requires = "package1/1.0@conan/stable", "package2/1.2@conan/stable"
         ...
@@ -675,9 +687,9 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
 
 .. code-block:: python
 
-     import os
+    import os
 
-     class RecipeConan(ConanFile):
+    class RecipeConan(ConanFile):
         ...
 
         def build(self):
@@ -696,7 +708,7 @@ A boolean attribute useful for conditional logic. It will be ``True`` if the pac
 
 .. code-block:: python
 
-     class RecipeConan(ConanFile):
+    class RecipeConan(ConanFile):
 
         def build(self):
             if self.develop:
