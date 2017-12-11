@@ -28,7 +28,7 @@ You can override the default settings using the ``-s`` parameter in ``conan inst
 commands but when you specify a profile, ``conan install --profile gcc48``, the default profile
 won't be applied, unless you specify it with an ``include`` statement:
 
-**myprofile**
+**my_clang_profile**
 
 .. code-block:: text
 
