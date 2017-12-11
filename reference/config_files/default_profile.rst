@@ -1,3 +1,5 @@
+.. _default_profile:
+
 profiles/default
 ================
 
@@ -40,3 +42,5 @@ won't be applied, unless you specify it with an ``include`` statement:
    [env]
    CC=/usr/bin/clang
    CXX=/usr/bin/clang++
+
+.. seealso:: Check the section :ref:`Mastering conan/Profiles <profiles>` to read more about this feature.
