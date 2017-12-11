@@ -664,13 +664,13 @@ you want to access to the variable declared by some specific requirement you can
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
 
-auto_env_inherit
-----------------
+apply_env
+---------
 
 When ``True``, the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
 will be automatically applied to the ``os.environ``.
 
-Disable it setting ``auto_env_inherit`` to False if you want to control by yourself the environment variables
+Disable it setting ``apply_env`` to False if you want to control by yourself the environment variables
 applied to your recipes.
 
 You can apply manually the environment variables from the requires and build_requires:
@@ -682,11 +682,11 @@ You can apply manually the environment variables from the requires and build_req
      from conans import tools
 
      class RecipeConan(ConanFile):
-        auto_env_inherit = False
+        apply_env = False
 
         def build(self):
             with tools.environment_append(self.env):
-                # The same if we specified auto_env_inherit = True
+                # The same if we specified apply_env = True
                 pass
 
 in_local_cache
