@@ -24,11 +24,10 @@ The most common and suggested approach would be to define it in plain text as a 
 
 
 description
-------------
+-----------
 This is an optional, but strongly recommended text field, containing the description of the package,
 and any information that might be useful for the consumers. The first line might be used as a
 short description of the package.
-
 
 .. code-block:: python
 
@@ -39,6 +38,19 @@ short description of the package.
                         A fully featured, portable, C++ library to say Hello World in the stdout,
                         with incredible iostreams performance"""
 
+homepage
+--------
+
+Use this attribute to indicate the home web page of the library being packaged. This is useful to link
+the recipe to further explanations of the library itself like an overview of its features, documentation, FAQ
+as well as other related information.
+
+.. code-block:: python
+
+    class EigenConan(ConanFile):
+        name = "eigen"
+        version = "3.3.4"
+        homepage = "http://eigen.tuxfamily.org"
 
 .. _package_url:
 
