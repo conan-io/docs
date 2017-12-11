@@ -1,7 +1,6 @@
 Methods
 =======
 
-
 .. _retrieve_source:
 
 source()
@@ -16,44 +15,42 @@ you can directly get it from there:
 
 .. code-block:: python
 
-   from conans import ConanFile
+    from conans import ConanFile
 
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       settings = "os", "compiler", "build_type", "arch"
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        settings = "os", "compiler", "build_type", "arch"
 
-       def source(self):
-           self.run("git clone https://github.com/memsharded/hello.git")
-           # You can also change branch, commit or whatever
-           # self.run("cd hello && git checkout 2fe5...")
-
+        def source(self):
+            self.run("git clone https://github.com/memsharded/hello.git")
+            # You can also change branch, commit or whatever
+            # self.run("cd hello && git checkout 2fe5...")
 
 This will work, as long as ``git`` is in your current path (so in Win you probably want to run things in msysgit, cmder, etc).
 You can also use another VCS or direct download/unzip. For that purpose, we have provided some helpers,
 but you can use your own code or origin as well. This is a snippet of the conanfile of the POCO libray:
 
-
 ..  code-block:: python
 
-   from conans import ConanFile
-   from conans.tools import download, unzip, check_md5, check_sha1, check_sha256
-   import os
-   import shutil
+    from conans import ConanFile
+    from conans.tools import download, unzip, check_md5, check_sha1, check_sha256
+    import os
+    import shutil
 
-   class PocoConan(ConanFile):
-       name = "Poco"
-       version = "1.6.0"
+    class PocoConan(ConanFile):
+        name = "Poco"
+        version = "1.6.0"
 
-       def source(self):
-           zip_name = "poco-1.6.0-release.zip"
-           download("https://github.com/pocoproject/poco/archive/poco-1.6.0-release.zip", zip_name)
-           # check_md5(zip_name, "51e11f2c02a36689d6ed655b6fff9ec9")
-           # check_sha1(zip_name, "8d87812ce591ced8ce3a022beec1df1c8b2fac87")
-           # check_sha256(zip_name, "653f983c30974d292de58444626884bee84a2731989ff5a336b93a0fef168d79")
-           unzip(zip_name)
-           shutil.move("poco-poco-1.6.0-release", "poco")
-           os.unlink(zip_name)
+        def source(self):
+            zip_name = "poco-1.6.0-release.zip"
+            download("https://github.com/pocoproject/poco/archive/poco-1.6.0-release.zip", zip_name)
+            # check_md5(zip_name, "51e11f2c02a36689d6ed655b6fff9ec9")
+            # check_sha1(zip_name, "8d87812ce591ced8ce3a022beec1df1c8b2fac87")
+            # check_sha256(zip_name, "653f983c30974d292de58444626884bee84a2731989ff5a336b93a0fef168d79")
+            unzip(zip_name)
+            shutil.move("poco-poco-1.6.0-release", "poco")
+            os.unlink(zip_name)
 
 The download, unzip utilities can be imported from conan, but you can also use your own code here
 to retrieve source code from any origin. You can even create packages for pre-compiled libraries
@@ -64,21 +61,21 @@ You can also use **check_md5**, **check_sha1** and **check_sha256** from the **t
 
 .. note::
 
-	It is very important to recall that the ``source()`` method will be executed just once, and the source code will be shared for all the package builds. So it is not a good idea to conditionally use settings or options to make changes or patches on the source code. Maybe the only setting that makes sense is the OS ``self.settings.os``, if not doing cross-building, for example to retrieve different sources:
+    It is very important to recall that the ``source()`` method will be executed just once, and the source code will be shared for all the package builds. So it is not a good idea to conditionally use settings or options to make changes or patches on the source code. Maybe the only setting that makes sense is the OS ``self.settings.os``, if not doing cross-building, for example to retrieve different sources:
 
-	.. code-block:: python
+    .. code-block:: python
 
-			def source(self):
-			    if self.settings.os == "Windows":
-					# download some Win source zip
-			    else:
-					# download sources from Nix systems in a tgz
+            def source(self):
+                if self.settings.os == "Windows":
+                    # download some Win source zip
+                else:
+                    # download sources from Nix systems in a tgz
 
-	If you need to patch the source code or build scripts differently for different variants of your packages, you can do it in the ``build()`` method, which uses a different folder and source code copy for each variant.
+    If you need to patch the source code or build scripts differently for different variants of your packages, you can do it in the ``build()`` method, which uses a different folder and source code copy for each variant.
 
 
 build()
---------
+-------
 
 Build helpers
 +++++++++++++
@@ -96,9 +93,8 @@ You can use these classes to prepare your build system's command invocation:
   Read more: :ref:`Building with GCC or Clang <building_with_gcc_clang>`.
 
 
-
 (Unit) Testing your library
-++++++++++++++++++++++++++++
++++++++++++++++++++++++++++
 We have seen how to run package tests with conan, but what if we want to run full unit tests on
 our library before packaging, so that they are run for every build configuration?
 Nothing special is required here. We can just launch the tests from the last command in our
@@ -106,12 +102,12 @@ Nothing special is required here. We can just launch the tests from the last com
 
 .. code-block:: python
 
-   def build(self):
-      cmake = CMake(self)
-      self.run("cmake . %s" % (cmake.command_line))
-      self.run("cmake --build . %s" % cmake.build_config)
-      # here you can run CTest, launch your binaries, etc
-      self.run("ctest")
+    def build(self):
+        cmake = CMake(self)
+        self.run("cmake . %s" % (cmake.command_line))
+        self.run("cmake --build . %s" % cmake.build_config)
+        # here you can run CTest, launch your binaries, etc
+        self.run("ctest")
 
 
 package()
@@ -122,7 +118,7 @@ The syntax of copy is as follows:
 
 .. code-block:: python
 
-   self.copy(pattern, dst, src, keep_path=True, symlinks=None, excludes=None, ignore_case=False)
+    self.copy(pattern, dst, src, keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
 
 - ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically something like ``*.lib`` or ``*.h``.
@@ -132,12 +128,12 @@ The syntax of copy is as follows:
 - ``symlinks``, with default value=None, set it to True to activate symlink copying, like typical lib.so->lib.so.9.
 - ``excludes``, is a single pattern or a tuple of patterns to be excluded from the copy. If a file matches both the include and the exclude pattern, it will be excluded.
 
-
 .. code-block:: python
 
    self.copy("*.h", "include", "build/include") #keep_path default is True
 
-so the final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes will be in the form: ``#include "mylib/path/header.h"`` which is something desired
+
+So the final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes will be in the form: ``#include "mylib/path/header.h"`` which is something desired.
 
 ``keep_path=False`` is something typically desired for libraries, both static and dynamic. Some compilers as MSVC, put them in paths as *Debug/x64/MyLib/Mylib.lib*. Using this option, we could write:
 
@@ -156,14 +152,13 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
 
 The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and True. One will copy from the ``source`` folder (typically packaging the headers and other data files), and the other will copy from the ``build`` folder, packaging the libraries and other binary artifacts. Also, when the local ``conan package`` command is issued with ``--source_folder`` and ``--build_folder``, it will execute two times, one in each folder, in the same way.
 
-
 .. _package_info:
 
 package_info()
----------------
+--------------
 
 cpp_info
-+++++++++
+++++++++
 Each package has to specify certain build information for its consumers. This can be done in
 the ``cpp_info`` attribute within the ``package_info()`` method.
 
@@ -171,16 +166,16 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 
 .. code-block:: python
 
-   self.cpp_info.includedirs = ['include']  # Ordered list of include paths
-   self.cpp_info.libs = []  # The libs to link against
-   self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
-   self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
-   self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
-   self.cpp_info.defines = []  # preprocessor definitions
-   self.cpp_info.cflags = []  # pure C flags
-   self.cpp_info.cppflags = []  # C++ compilation flags
-   self.cpp_info.sharedlinkflags = []  # linker flags
-   self.cpp_info.exelinkflags = []  # linker flags
+    self.cpp_info.includedirs = ['include']  # Ordered list of include paths
+    self.cpp_info.libs = []  # The libs to link against
+    self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
+    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
+    self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
+    self.cpp_info.defines = []  # preprocessor definitions
+    self.cpp_info.cflags = []  # pure C flags
+    self.cpp_info.cppflags = []  # C++ compilation flags
+    self.cpp_info.sharedlinkflags = []  # linker flags
+    self.cpp_info.exelinkflags = []  # linker flags
 
 
 * includedirs: list of relative paths (starting from the package root) of directories where headers
@@ -190,7 +185,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 
 .. code-block:: python
 
-   def package_info(self):
+    def package_info(self):
         if not self.settings.os == "Windows":
             self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
         else:
@@ -211,27 +206,26 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 
 .. code-block:: python
 
-   if self.options.static:
-      if self.settings.compiler == "Visual Studio":
-          self.cpp_info.libs.append("ws2_32")
-      self.cpp_info.defines = ["ZMQ_STATIC"]
+    if self.options.static:
+        if self.settings.compiler == "Visual Studio":
+            self.cpp_info.libs.append("ws2_32")
+        self.cpp_info.defines = ["ZMQ_STATIC"]
 
-      if not self.settings.os == "Windows":
-          self.cpp_info.cppflags = ["-pthread"]
+        if not self.settings.os == "Windows":
+            self.cpp_info.cppflags = ["-pthread"]
 
 
 If your recipe has requirements, you can access to your requirements ``cpp_info`` as well using the ``deps_cpp_info`` object.
 
 .. code-block:: python
 
+    class OtherConan(ConanFile):
+        name = "OtherLib"
+        version = "1.0"
+        requires = "MyLib/1.6.0@conan/stable"
 
-   class OtherConan(ConanFile):
-       name = "OtherLib"
-       version = "1.0"
-       requires = "MyLib/1.6.0@conan/stable"
-
-       def build(self):
-           self.out.warn(self.deps_cpp_info["MyLib"].libdirs)
+        def build(self):
+            self.out.warn(self.deps_cpp_info["MyLib"].libdirs)
 
 
 .. note::
@@ -239,10 +233,11 @@ If your recipe has requirements, you can access to your requirements ``cpp_info`
     Please take into account that defining ``self.cpp_info.bindirs`` directories, does not have any effect on system paths, PATH environment variable, nor will be directly accessible by consumers. ``self.cpp_info`` information is translated to build-systems information via generators, for example for CMake, it will be a variable in ``conanbuildinfo.cmake``.
     If you want a package to make accessible its executables to its consumers, you have to specify it with ``self.env_info`` as described in next section.
 
+
 .. _environment_information:
 
 env_info
-+++++++++
+++++++++
 
 Each package can also define some environment variables that the package needs to be reused.
 It's specially useful for :ref:`installer packages<create_installer_packages>`, to set the path with the "bin" folder of the packaged application.
@@ -250,9 +245,10 @@ This can be done in the ``env_info`` attribute within the ``package_info()`` met
 
 .. code-block:: python
 
-  self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
-  self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
-  self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value
+    self.env_info.path.append("ANOTHER VALUE") # Append "ANOTHER VALUE" to the path variable
+    self.env_info.othervar = "OTHER VALUE" # Assign "OTHER VALUE" to the othervar variable
+    self.env_info.thirdvar.append("some value") # Every variable can be set or appended a new value
+
 
 One of the most typical usages for the PATH environment variable, would be to add the current binary package directories to the path, so consumers can use those executables easily:
 
@@ -269,17 +265,15 @@ They will be automatically applied before calling the consumer conanfile.py meth
 
 If your recipe has requirements, you can access to your requirements ``env_info`` as well using the ``deps_env_info`` object.
 
-
 .. code-block:: python
 
+    class OtherConan(ConanFile):
+        name = "OtherLib"
+        version = "1.0"
+        requires = "MyLib/1.6.0@conan/stable"
 
-   class OtherConan(ConanFile):
-       name = "OtherLib"
-       version = "1.0"
-       requires = "MyLib/1.6.0@conan/stable"
-
-       def build(self):
-           self.out.warn(self.deps_env_info["MyLib"].othervar)
+        def build(self):
+            self.out.warn(self.deps_env_info["MyLib"].othervar)
 
 
 .. _user_info:
@@ -292,37 +286,31 @@ environment variables (`env_info`), you can use the ``self.user_info`` object.
 
 Currently only the ``cmake``, ``cmake_multi`` and ``txt`` generators supports ``user_info`` variables.
 
-
 .. code-block:: python
 
+    class MyLibConan(ConanFile):
+        name = "MyLib"
+        version = "1.6.0"
 
-   class MyLibConan(ConanFile):
-       name = "MyLib"
-       version = "1.6.0"
+        # ...
 
-       # ...
-
-       def package_info(self):
-           self.user_info.var1 = 2
+        def package_info(self):
+            self.user_info.var1 = 2
 
 
 For the example above, in the ``cmake`` and ``cmake_multi`` generators, a variable ``CONAN_USER_MYLIB_var1`` will be declared.
 
 If your recipe has requirements, you can access to your requirements ``user_info`` using the ``deps_user_info`` object.
 
-
 .. code-block:: python
 
+    class OtherConan(ConanFile):
+        name = "OtherLib"
+        version = "1.0"
+        requires = "MyLib/1.6.0@conan/stable"
 
-   class OtherConan(ConanFile):
-       name = "OtherLib"
-       version = "1.0"
-       requires = "MyLib/1.6.0@conan/stable"
-
-       def build(self):
-           self.out.warn(self.deps_user_info["MyLib"].var1)
-
-
+        def build(self):
+            self.out.warn(self.deps_user_info["MyLib"].var1)
 
 
 .. _configure_config_options:
@@ -337,18 +325,18 @@ in the ``configure()`` and ``config_options()`` methods. This is an example:
 
 ..  code-block:: python
 
-   class MyLibConan(ConanFile):
-       name = "MyLib"
-       version = "2.5"
-       settings = "os", "compiler", "build_type", "arch"
-       options = {"static": [True, False],
-                   "header_only": [True False]}
+    class MyLibConan(ConanFile):
+        name = "MyLib"
+        version = "2.5"
+        settings = "os", "compiler", "build_type", "arch"
+        options = {"static": [True, False],
+                    "header_only": [True False]}
 
-       def configure(self):
-           # If header only, the compiler, etc, does not affect the package!
-           if self.options.header_only:
-               self.settings.clear()
-               self.options.remove("static")
+        def configure(self):
+            # If header only, the compiler, etc, does not affect the package!
+            if self.options.header_only:
+                self.settings.clear()
+                self.options.remove("static")
 
 The package has 2 options set, to be compiled as a static (as opposed to shared) library,
 and also not to involve any builds, because header-only libraries will be used. In this case,
@@ -381,14 +369,14 @@ Besides the ``requires`` field, more advanced requirement logic can be defined i
 ``requirements()`` optional method, using for example values from the package ``settings`` or
 ``options``:
 
-
 ..  code-block:: python
 
-   def requirements(self):
+    def requirements(self):
         if self.options.myoption:
             self.requires("zlib/1.2@drl/testing")
         else:
             self.requires("opencv/2.2@drl/stable")
+
 
 This is a powerful mechanism for handling **conditional dependencies**.
 
@@ -409,11 +397,8 @@ defining the special cases, as is shown below:
 - **private**: Default False. True means that this requirement will be somewhat embedded (like
   a static lib linked into a shared lib), so it is not required to link.
 
-
-
-
 build_requirements()
------------------------
+--------------------
 
 Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
 
@@ -429,11 +414,10 @@ This method is useful for defining conditional build requirements, for example:
 
 Read more: :ref:`Build requirements <build_requires>`
 
-
 .. _system_requirements:
 
 system_requirements()
-----------------------
+---------------------
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
 method to your conanfile and specify what you need there.
 
@@ -490,14 +474,12 @@ Available SystemPackageTool classes:
 
 **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**, **PacManTool**
 
-
 SystemPackageTool methods:
 
 - **update()**: Updates the system package manager database. It's called automatically from the ``install()`` method by default.
 - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it will
   execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
   parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
-
 
 The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the CONAN_SYSREQUIRES_SUDO
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
@@ -510,13 +492,12 @@ have the same system requirements, just add the following line to your method:
 ..  code-block:: python
 
     def system_requirements(self):
-         self.global_system_requirements=True
-         if ...
-
+        self.global_system_requirements=True
+        if ...
 
 
 imports()
----------------
+---------
 Importing files copies files from the local store to your project. This feature is handy
 for copying shared libraries (dylib in Mac, dll in Win) to the directory of your executable, so that you don't have
 to mess with your PATH to run them. But there are other use cases:
@@ -536,6 +517,7 @@ A typical ``imports()`` method for shared libs could be:
    def imports(self):
       self.copy("*.dll", "", "bin")
       self.copy("*.dylib", "", "lib")
+
 
 The ``self.copy()`` method inside ``imports()`` support the following arguments:
 
@@ -567,7 +549,6 @@ If you want to be able to customize the output user directory to work with both 
 
 And then use, for example: ``conan install -e CONAN_IMPORT_PATH=Release -g cmake_multi``
 
-
 When a conanfile recipe has an ``imports()`` method and it builds from sources, it will do the following:
 
 - Before running ``build()`` it will execute ``imports()`` in the build folder, copying dependencies artifacts
@@ -575,7 +556,6 @@ When a conanfile recipe has an ``imports()`` method and it builds from sources, 
 - Remove the copied (imported) artifacts after ``build()`` is finished.
 
 You can use the :ref:`keep_imports <keep_imports>`. attribute to keep the imported artifacts, and maybe :ref:`repackage <repackage>` them.
-
 
 conan_info()
 ------------
@@ -605,7 +585,7 @@ Please, check the section :ref:`how_to_define_abi_compatibility` to get more det
 .. _build_id:
 
 build_id()
-------------
+----------
 
 In the general case, there is one build folder for each binary package, with the exact same hash/ID
 of the package. However this behavior can be changed, there are a couple of scenarios that this might
@@ -613,23 +593,24 @@ be interesting:
 
 - You have a build script that generates several different configurations at once, like both debug
   and release artifacts, but you actually want to package and consume them separately. Same for
-  different architectures or any other setting
+  different architectures or any other setting.
 - You build just one configuration (like release), but you want to create different binary packages
   for different consuming cases. For example, if you have created tests for the library in the build
-  step, you might want to create to package, one just containing the library for general usage, but
-  another one also containing the tests, as a reference and a tool to debug errors.
+  step, you might want to create two packages: one just containing the library for general usage, and
+  another one also containing the tests. First package could be used as a reference and the other one as
+  a tool to debug errors.
 
 In both cases, if using different settings, the system will build twice (or more times) the same binaries,
 just to produce a different final binary package. With the ``build_id()`` method this logic can be
 changed. ``build_id()`` will create a new package ID/hash for the build folder, and you can define
-the logic you want in it, for example:
+the logic you want in it. For example:
 
 ..  code-block:: python
 
     settings = "os", "compiler", "arch", "build_type"
 
     def build_id(self):
-       self.info_build.settings.build_type = "Any"
+        self.info_build.settings.build_type = "Any"
 
 
 So this recipe will generate a final different package for each debug/release configuration. But
@@ -639,7 +620,7 @@ one build will be done. Such build should build both debug and release artifacts
 Still different builds will be executed if using different compilers or architectures. This method
 is basically an optimization of build time, avoiding multiple re-builds.
 
-Other information as custom package options can also be changed:
+Other information like custom package options can also be changed:
 
 ..  code-block:: python
 
@@ -649,7 +630,7 @@ Other information as custom package options can also be changed:
 
 
 deploy()
----------
+--------
 
 This method can be used in a ``conanfile.py`` to install in the system or user folder artifacts from packages.
 
@@ -661,6 +642,7 @@ The ``deploy()`` method is of the form:
         self.copy("*.exe")  # copy from current package
         self.copy_deps("*.dll") # copy from dependencies
 
+
 Where:
 
 - ``self.copy_deps()`` is the same as ``self.copy()`` method inside ``imports()`` method, read: imports()_.
@@ -668,7 +650,6 @@ Where:
 
 Both methods allow the definition of absolute paths (to install in the system), in the ``dst`` argument.
 By default, the ``dst`` destionation folder will be the current one.
-
 
 The ``deploy()`` method is designed to work on a package that is installed directly from its reference, as:
 
@@ -679,6 +660,6 @@ The ``deploy()`` method is designed to work on a package that is installed direc
     > Pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
     > Pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
 
+
 All other packages and dependencies, even transitive dependencies of "Pkg/0.1@user/testing" will not be deployed,
 it is the responsibility of the installed package to deploy what it needs from its dependencies.
-
