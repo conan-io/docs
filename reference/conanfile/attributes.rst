@@ -664,6 +664,15 @@ you want to access to the variable declared by some specific requirement you can
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
 
+auto_env_inherit
+----------------
+
+When `True`, the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the requirements)
+will be automatically applied to the ``os.environ``.
+
+Disable it setting ``auto_env_inherit`` to False if you want to control by yourself the environment variables
+applied to your recipes.
+
 
 in_local_cache
 --------------

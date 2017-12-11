@@ -370,6 +370,22 @@ file or folder with a ``whatever`` file or object inside, and should have declar
     def package_info(self):
         self.env_info.PYTHONPATH.append(self.package_folder)
 
+
+
+tools.no_op()
+-------------
+
+Context manager that performs nothing. Useful to condition any other context manager to get a cleaner code:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        with tools.chdir("some_dir") if self.options.myoption else tools.no_op():
+            # if not self.options.myoption, we are not in the "some_dir"
+            pass
+
   
 tools.human_size()
 ------------------
