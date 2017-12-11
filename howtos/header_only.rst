@@ -18,6 +18,7 @@ in a subfolder called ``include``, you could do:
         version = "0.1"
         # No settings/options are necessary, this is header only
         exports_sources = "include/*"
+        no_copy_source = True
 
         def package(self):
             self.copy("*.h")
@@ -29,6 +30,8 @@ instead of the ``exports_sources`` fields.
 - There is no need for ``build()`` method, as header-only are not built
 - There is no need for a custom ``package_info()`` method. The default one already adds "include" subfolder
   to the include path
+- ``no_copy_source = True`` will disable the copy of the source folder to the build directory as there is
+  no need to do so because source code is not modified at all by the ``configure()`` or ``build()`` methods.
 - Note that this recipe has no other dependencies, settings or options. If it had any of those, it would be very
   convenient to add the ``package_id()`` method, to ensure that only one package with always the same ID is
   create irrespective of the configurations and dependencies:
@@ -58,6 +61,7 @@ If you want to run the library unit test while packaging, you would need this re
         version = "0.1"
         settings = "os", "compiler", "arch", "build_type"
         exports_sources = "include/*", "CMakeLists.txt", "example.cpp"
+        no_copy_source = True
         
         def build(self): # this is not building a library, just tests
             cmake = CMake(self)
