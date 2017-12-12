@@ -148,7 +148,7 @@ Creating a multi-configuration Debug/Release package is not difficult, see the f
     def build(self):
         cmake = CMake(self)
         if cmake.is_multi_configuration:
-            cmd = 'cmake "%s" %s' % (self.conanfile_directory, cmake.command_line)
+            cmd = 'cmake "%s" %s' % (self.source_folder, cmake.command_line)
             self.run(cmd)
             self.run("cmake --build . --config Debug")
             self.run("cmake --build . --config Release")
@@ -156,7 +156,7 @@ Creating a multi-configuration Debug/Release package is not difficult, see the f
             for config in ("Debug", "Release"):
                 self.output.info("Building %s" % config)
                 self.run('cmake "%s" %s -DCMAKE_BUILD_TYPE=%s'
-                         % (self.conanfile_directory, cmake.command_line, config))
+                         % (self.source_folder, cmake.command_line, config))
                 self.run("cmake --build .")
                 shutil.rmtree("CMakeFiles")
                 os.remove("CMakeCache.txt")
