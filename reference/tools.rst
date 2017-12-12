@@ -160,6 +160,8 @@ will be checked, if any of them doesn't match, it will raise a ``ConanException`
     from conans import tools
 
     tools.get("http://url/file", md5='d2da0cd0756cd9da6560b9a56016a0cb')
+    # also, specify a destination folder
+    tools.get("http://url/file", destination="subfolder")
 
 
 tools.download()
