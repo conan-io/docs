@@ -570,8 +570,9 @@ Creates a unique id for the package. Default package id is calculated using ``se
 When a package creator specifies the values for any of thoses properties, it is telling that any value change will require a different
 binary package.
 
-However, sometimes you, as a package creator, would need to alter the default behavior, for example, to have only one binary package for several
-different compiler versions. In that case you can set a custom package id to ``self.info`` object implementing this method:
+However, sometimes a package creator would need to alter the default behavior, for example, to have only one binary package for several
+different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the pacakge id will
+be computed with the given information:
 
 .. code-block:: python
 
