@@ -38,6 +38,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
   **Breaking changes**
 
+  - ``scopes`` have been completely removed. You can use environment variables, or the ``conanfile.develop`` or ``conanfile.in_local_cache``
+    attributes instead.
   - Command ``test_package`` has been removed. Use ``conan create`` instead, and ``conan test`` for just running package tests.
   - ``werror`` behavior is now by default. Dependencies conflicts will now error, and have to be fixed. 
   - ``short_paths`` feature is again active by default in Windows, even with Py3.6 and system LongPathsEnabled.
