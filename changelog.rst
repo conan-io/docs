@@ -6,7 +6,7 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-0.30.0 (12-December-2017)
+0.30.1 (12-December-2017)
 -------------------------
 
 - Feature: Introduced major versions for gcc (5, 6, 7) as defaults settings for OSS packages, as minors are compatible by default
