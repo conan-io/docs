@@ -69,7 +69,6 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
         version = "0.1"
         url = "https://github.com/memsharded/hellopack.git"
 
-
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
 It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
 code collaboration platform. Of course, if you have the conanfile inside your library source,
@@ -133,17 +132,15 @@ channel than the current package, which could be achieved with something like:
         def requirements(self):
             self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
 
-
 Only package recipes that are in the conan local cache (i.e. "exported") have an user/channel assigned.
 For package recipes working in user space, there is no current user/channel. The properties ``self.user``
 and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
 respectively. If they are not defined, an error will be raised.
 
-
 .. _settings_property:
 
 settings
-----------
+--------
 
 There are several things that can potentially affect a package being created, i.e. the final
 package will be different (a different binary, for example), if some input is different.
@@ -172,15 +169,14 @@ We can indicate that in the conanfile:
 
    from conans import ConanFile
 
-   class HelloConan(ConanFile):
-       name = "Hello"
-       version = "0.1"
-       # We can just omit the settings attribute too
-       settings = None
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        # We can just omit the settings attribute too
+        settings = None
 
-       def build(self):
+        def build(self):
             #empty too, nothing to build in header only
-
 
 You can restrict existing settings and accepted values as well, by redeclaring the settings
 attribute:
@@ -188,9 +184,9 @@ attribute:
 .. code-block:: python
 
     class HelloConan(ConanFile):
-      settings = {"os": ["Windows"],
-                  "compiler": {"Visual Studio": {"version": [11, 12]}},
-                  "arch": None}
+        settings = {"os": ["Windows"],
+            "compiler": {"Visual Studio": {"version": [11, 12]}},
+            "arch": None}
 
 In this example we have just defined that this package only works in Windows, with VS 10 and 11.
 Any attempt to build it in other platforms with other settings will throw an error saying so.
@@ -202,7 +198,6 @@ Check the reference or your ~/.conan/settings.yml file.
 As re-defining the whole settings attribute can be tedious, it is sometimes much simpler to
 remove or tune specific fields in the ``config()`` method. For example, if our package is runtime
 independent in VS, we can just remove that setting field:
-
 
 .. code-block:: python
 
@@ -271,7 +266,6 @@ This is only an example. Actually, the ``CMake`` helper already automates this, 
         self.run("cmake . %s" % cmake.command_line) # or cmake.configure()
         self.run("cmake --build . %s" % cmake.build_config) # or cmake.build()
 
-
 You can also specify default option values of the required dependencies:
 
 .. code-block:: python
@@ -289,7 +283,6 @@ If you need to dynamically set some dependency options, you could do:
 
         def configure(self):
             self.options["Pkg"].pkg_option = "value"
-
 
 Option values can be given in command line, and they will have priority over the default values in the recipe:
 
@@ -320,7 +313,6 @@ And finally, you can define options in :ref:`profiles<profiles>` too, with the s
     [options]
     MyLib:shared=True
 
-
 You can inspect available package options, reading the package recipe, which is conveniently done with:
 
 .. code-block:: bash
@@ -328,10 +320,9 @@ You can inspect available package options, reading the package recipe, which is 
     $ conan get Pkg/0.1@user/channel
 
 requires
----------
+--------
 
 Specify package dependencies as a list of other packages:
-
 
 .. code-block:: python
 
@@ -365,7 +356,6 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
     class HelloConan(ConanFile):
         requires = ("A/1.0@user/stable", ("Zlib/3.0@other/beta", "override"))
 
-
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
@@ -397,7 +387,7 @@ but using a comma instead of spaces. Accepted expressions would be:
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
 build_requires
-----------------
+--------------
 
 Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
 
@@ -410,9 +400,9 @@ They can be specified as a comma separated tuple in the package recipe:
 
 Read more: :ref:`Build requiremens <build_requires>`
 
-
 exports
 --------
+
 If a package recipe ``conanfile.py`` requires other external files, like other python files that
 it is importing (python importing), or maybe some text file with data it is reading, those files
 must be exported with the ``exports`` field, so they are stored together, side by side with the
@@ -433,12 +423,11 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports = "*.py", "!*tmp.py"
 
-
 This is an optional attribute, only to be used if the package recipe requires these other files
 for evaluation of the recipe.
 
 exports_sources
-----------------
+---------------
 There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
 and using the ``exports_sources`` field. With ``exports_sources`` you specify which sources are required,
 and they will be exported together with the **conanfile.py**, copying them from your folder to the
@@ -480,7 +469,6 @@ You can specify more than one generator:
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
 
-
 build_policy
 ------------
 
@@ -489,7 +477,6 @@ The allowed ``build_policy`` values are:
 
 - ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
-
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -500,7 +487,7 @@ The allowed ``build_policy`` values are:
 .. _short_paths_reference:
 
 short_paths
-------------
+-----------
 
 If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
 ``short_paths=True`` in your conanfile.py:
@@ -519,12 +506,12 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 This attribute will not have any effect in other OS, it will be discarded.
 
 From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link
-<https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info. Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
+<https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info.
+Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
 Please note that this only works with Python 3.6 and newer.
 
-
 no_copy_source
----------------
+--------------
 
 The attribute ``no_copy_source`` tells the recipe that the source code will not be copied from the ``source`` folder to the ``build`` folder. 
 This is mostly an optimization for packages with large source codebases, to avoid extra copies. It is **mandatory** that the source code must not be modified at all by the configure or build scripts, as the source code will be shared among all builds.
@@ -533,28 +520,24 @@ To be able to use it, the package recipe can access the ``self.source_folder`` a
 
 When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
 
-
 folders
----------
+-------
+
 In the package recipe methods, some attributes pointing to the relevant folders can be defined. Not all of them will be defined always, only in those relevant methods that might use them.
 
-- ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder, as the source code is copied from the ``source`` folder to the ``build`` folder, to ensure isolation and avoiding modifications of shared common source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
+- ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder,
+  as the source code is copied from the ``source`` folder to the ``build`` folder,
+  to ensure isolation and avoiding modifications of shared common source code among builds for different configurations.
+  Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
 - ``self.build_folder``: the folder in which the build is being done
 - ``self.install_folder``: the folder in which the install has outputed the generator files, by default, and always in the local cache, is the same ``self.build_folder``
 - ``self.package_folder``: the folder to copy the final artifacts for the binary package
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
-
-conanfile_directory
--------------------
-
-``self.conanfile_directory`` is a **read only property** that returns the directory in which the conanfile is
-located for user folders, or to the current directory for the conan local cache (like ``source_folder`` for the ``build()`` method). This property has been practically superseded by the above defined folders (``source_folder``, ``build_folder``, ``package_folder``, ``install_folder``)
-
-
 cpp_info
 ---------
+
 This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
 
 The ``self.cpp_info`` object can be filled with the needed information for the consumers of the current
@@ -588,11 +571,9 @@ package:
 | self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info    |
 +-------------------------------------------+---------------------------------------------------------------------+
 
-
 .. seealso::
 
     Read :ref:`package_info() method docs <package_info>` for more info.
-
 
 
 deps_cpp_info
@@ -617,7 +598,6 @@ properties to obtain the absolute paths:
 
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
-
 
 .. code-block:: python
    :emphasize-lines: 8, 11, 14
@@ -648,7 +628,6 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 
     Read :ref:`package_info() method docs <package_info>` for more info.
 
-
 deps_env_info
 -------------
 
@@ -657,7 +636,6 @@ You can access to the declared environment variables of the requirements of the 
 **Note:** The environment variables declared in the requirements of a recipe are automatically applied
 and it can be accesed with the python ``os.environ`` dictionary. Nevertheless if
 you want to access to the variable declared by some specific requirement you can use the ``self.deps_env_info`` object.
-
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -690,10 +668,10 @@ You can apply manually the environment variables from the requires and build_req
 .. code-block:: python
    :emphasize-lines: 2
 
-     import os
-     from conans import tools
+    import os
+    from conans import tools
 
-     class RecipeConan(ConanFile):
+    class RecipeConan(ConanFile):
         apply_env = False
 
         def build(self):
@@ -701,9 +679,7 @@ You can apply manually the environment variables from the requires and build_req
                 # The same if we specified apply_env = True
                 pass
 
-
 .. _in_local_cache:
-
 
 in_local_cache
 --------------
@@ -711,7 +687,6 @@ in_local_cache
 A boolean attribute useful for conditional logic to apply in user folders local commands.
 It will return `True` if the conanfile resides in the local cache ( we are installing the package)
 and `False` if we are running the conanfile in a user folder (local Conan commands).
-
 
 .. code-block:: python
 
@@ -725,8 +700,6 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
                 # we are installing the package
             else:
                 # we are building the package in a local directory
-
-
 
 develop
 --------
