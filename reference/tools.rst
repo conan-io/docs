@@ -242,31 +242,37 @@ Parameters:
 tools.ftp_download()
 --------------------
 
-Retrieves a file from an FTP server. Right now it doesn't support SSL, but you might implement it yourself using the standard python FTP library, and also if you need some special functionality.
+.. code-block:: python
 
-``def ftp_download(ip, filename, login='', password='')``
+    def ftp_download(ip, filename, login="", password="")
 
-- ip: The IP or address of the ftp server
-- filename: The filename, including the path/folder where it is located
-- login/password: optional credentials to the ftp server
-
-Example: 
+Retrieves a file from an FTP server. Right now it doesn't support SSL, but you might implement it yourself using the standard python FTP library, and also if
+you need some special functionality.
 
 .. code-block:: python
+
+    from conans import tools
 
     def source(self):
         tools.ftp_download('ftp.debian.org', "debian/README")
         self.output.info(load("README"))
 
+Parameters:
+    - **ip** (Required): The IP or address of the ftp server.
+    - **filename** (Required): The filename, including the path/folder where it is located.
+    - **login** (Optional, Defaulted to ``""``): Login credentials for the ftp server.
+    - **password** (Optional, Defaulted to ``""``): Password credentials for the ftp server.
 
 tools.replace_in_file()
 -----------------------
 
+.. code-block:: python
+
+    def replace_in_file(file_path, search, replace, strict=True)
+
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
 conan dependencies without forking or modifying the original project:
-
-``def replace_in_file(file_path, search, replace, strict=True)``
 
 .. code-block:: python
 
@@ -274,27 +280,53 @@ conan dependencies without forking or modifying the original project:
     
     def source(self):
         # get the sources from somewhere
-       tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)", '''PROJECT(MyHello)
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()''')
+        tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)",
+            '''PROJECT(MyHello)
+               include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+               conan_basic_setup()''')
 
 
 If the ``strict`` parameter is True (default) it will be raise an error if the introduced "search" string
 is not found, so nothing is actually replaced.
 
+Parameters:
+    - **file_path** (Required): File path of the file to perform the replace in.
+    - **search** (Required): String you want to be replaced.
+    - **replace** (Required): String to replace the searched string.
+    - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
+      is not found, so nothing is actually replaced.
 
 tools.check_with_algorithm_sum()
 --------------------------------
+
+.. code-block:: python
+
+    def check_with_algorithm_sum(algorithm_name, file_path, signature)
 
 Useful to check that some downloaded file or resource has a predefined hash, so integrity and
 security are guaranteed. Something that could be typically done in ``source()`` method after
 retrieving some file from the internet.
 
+Parameters:
+    - **algorithm_name** (Required): Name of the algorithm to be checked.
+    - **file_path** (Required): File path of the file to be checked.
+    - **signature** (Required): Hash code that the file should have.
+
 There are specific methods for common algorithms:
 
-- ``check_sha1(file_path, signature)``
-- ``check_md5(file_path, signature)``
-- ``check_sha256(file_path, signature)``
+.. code-block:: python
+
+    def check_sha1(file_path, signature)
+
+.. code-block:: python
+
+    def check_md5(file_path, signature)
+
+.. code-block:: python
+
+    def check_sha256(file_path, signature)
+
+For example:
 
 .. code-block:: python
 
