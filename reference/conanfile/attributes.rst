@@ -701,6 +701,10 @@ You can apply manually the environment variables from the requires and build_req
                 # The same if we specified apply_env = True
                 pass
 
+
+.. _in_local_cache:
+
+
 in_local_cache
 --------------
 

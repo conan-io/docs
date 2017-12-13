@@ -136,6 +136,9 @@ Methods
     - **definitions**: A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
     - **source_dir**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``build`` folder if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified). Relative paths are allowed and will be relative to ``build_dir``
     - **build_dir**: CMake's output directory. The default value is the package ``build`` root folder if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
+    - **cache_build_dir**: Use the given subfolder as build folder when building the package in the local cache.
+      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_dir** when working in the local cache.
+      See :ref:`self.in_local_cache<in_local_cache>`.
 
 - **build** (args=None, build_dir=None, target=None)
 
