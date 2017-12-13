@@ -594,7 +594,6 @@ package:
     Read :ref:`package_info() method docs <package_info>` for more info.
 
 
-
 deps_cpp_info
 -------------
 
@@ -675,6 +674,14 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
+
+
+info
+----
+
+Object used in the :ref:`package_id()<package_id>` method to control the unique ID for a package.
+Check the :ref:`package_id()<package_id>` to see the details of the ``self.info`` object
+
 
 apply_env
 ---------

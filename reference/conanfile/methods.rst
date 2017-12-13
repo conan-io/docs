@@ -562,6 +562,7 @@ conan_info()
 
 Deprecated, use ``package_id()`` method instead.
 
+.. _package_id:
 
 package_id()
 ------------
@@ -582,6 +583,63 @@ be computed with the given information:
             self.info.settings.compiler.version = "GCC 4 between 4.5 and 5.0"
 
 Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
+
+**Available methods in the self.info object**:
+
+- **self.info.header_only()**: The package will always be the same, irrespective of the OS, compiler or architecture the consumer is building with.
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.header_only()
+
+- **self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()**:
+
+By default (vs_toolset_compatible mode), Conan will generate the same binary package when the compiler
+is Visual Studio and the ``compiler.toolset`` matches the specified ``compiler.version``.
+For example, if we install some packages specifying the following settings:
+
+
+.. code-block:: text
+
+    compiler="Visual Studio"
+    compiler.version=14
+
+And then we install again specifying these settings:
+
+.. code-block:: text
+
+    compiler="Visual Studio"
+    compiler.version=15
+    compiler.toolset=v140
+
+
+The compiler version is different, but Conan will not generate a different package, because the used
+``toolchain`` in both cases are considered (by default) the same.
+You can deactivate this default behavior using calling ``self.info.vs_toolset_incompatible()``.
+
+This is the relation of Visual Studio versions and the compatible toolchain:
+
++-------------------------------------------+------------------------------+
+| Visual Studio Version                     | Compatible toolset           |
++===========================================+==============================+
+| 15                                        |   v141                       |
++-------------------------------------------+------------------------------+
+| 14                                        |   v140                       |
++-------------------------------------------+------------------------------+
+| 13                                        |   v120                       |
++-------------------------------------------+------------------------------+
+| 12                                        |   v120                       |
++-------------------------------------------+------------------------------+
+| 11                                        |   v110                       |
++-------------------------------------------+------------------------------+
+| 10                                        |   v100                       |
++-------------------------------------------+------------------------------+
+| 9                                         |   v90                        |
++-------------------------------------------+------------------------------+
+| 8                                         |   v80                        |
++-------------------------------------------+------------------------------+
+
 
 .. _build_id:
 

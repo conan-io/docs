@@ -99,6 +99,13 @@ You can use the subsetting ``toolset`` of the Visual Studio compiler to specify 
 It will be automatically applied when using the ``CMake()`` build helper, ``tools.build_sln_command`` or ``tools.msvc_build_command``.
 The toolset can be also specified manually in these build helpers with the ``toolset`` parameter.
 
+By default, Conan will not generate a new binary package if
+the specified ``compiler.toolset`` matches an already generated package for the corresponding
+``compiler.version``. Check the :ref:`package_id()<package_id>` reference to know more.
+
+
+
+
 .. seealso:: - Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
              - Check the :ref:`tools.msvc_build_command()<msvc_build_command>` reference section for more info.
              - Check the :ref:`CMake()<cmake_reference>` reference section for more info.
