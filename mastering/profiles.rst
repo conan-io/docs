@@ -17,7 +17,7 @@ Profiles can be located in different folders, for example, the default ``<userho
    $ conan install --profile profile  # resolved to user/.conan/profiles/profile
 
 
-A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, ``scopes`` and ``build_requires`` and has this structure:
+A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` and has this structure:
 
 .. code-block:: text
 
@@ -29,9 +29,6 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
 
    [env]
    env_var=value
-
-   [scopes]
-   scope=value
 
    [build_requires]
    Tool1/0.1@user/channel

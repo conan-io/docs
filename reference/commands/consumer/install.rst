@@ -10,7 +10,7 @@ conan install
                     [--install-folder BUILD_FOLDER] [--manifests [MANIFESTS]]
                     [--manifests-interactive [MANIFESTS_INTERACTIVE]]
                     [--verify [VERIFY]] [--no-imports] [--update]
-                    [--scope SCOPE] [--profile PROFILE] [-r REMOTE]
+                    [--profile PROFILE] [-r REMOTE]
                     [--options OPTIONS] [--settings SETTINGS] [--env ENV]
                     [--build [BUILD [BUILD ...]]]
                     [path]
@@ -54,8 +54,6 @@ concrete recipe/package specifying a reference in the "path" parameter.
                             Verify dependencies manifests against stored ones
       --no-imports          Install specified packages but avoid running imports
       --update, -u          check updates exist from upstream remotes
-      --scope SCOPE, -sc SCOPE
-                            Use the specified scope in the install command
       --profile PROFILE, -pr PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -187,4 +185,4 @@ With the **-o** parameters you can only define specific package options.
 
 .. note::
 
-   You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**, **options**, **environment variables** and **scopes**
+   You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**, **options** and **environment variables**

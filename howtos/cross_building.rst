@@ -26,7 +26,7 @@ Some toochain examples:
 Once you have the toolchain installed conan can help you to build your conan package with the :ref:`profiles<profiles>`
 feature.
 
-Conan profiles contain a predefined set of ``settings``, ``options``, ``environment variables`` and ``scopes``.
+Conan profiles contain a predefined set of ``settings``, ``options`` and ``environment variables``.
 That way you can organize your builds adjusting the OS and the compiler of the target and setting CC and CXX environment
 variables pointing to the compiler of the toolchain.
 
