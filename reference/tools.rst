@@ -28,7 +28,7 @@ Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configu
 tools.vcvars_command()
 ----------------------
 
-**vcvars_command(settings, arch=None, compiler_version=None)**
+**vcvars_command(settings, arch=None, compiler_version=None, force=False)**
 
 This function returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
