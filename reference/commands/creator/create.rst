@@ -8,7 +8,7 @@ conan create
 	$  conan create [-h] [--cwd CWD] [--file FILE] [-ne] [-tf TEST_FOLDER]
                         [--keep-source] [--werror] [--manifests [MANIFESTS]]
                         [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                        [--verify [VERIFY]] [--update] [--scope SCOPE]
+                        [--verify [VERIFY]] [--update]
                         [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
                         [--settings SETTINGS] [--env ENV]
                         [--build [BUILD [BUILD ...]]]
@@ -53,8 +53,6 @@ created correctly. Check the 'conan test' command to know more about the
       --verify [VERIFY], -v [VERIFY]
                             Verify dependencies manifests against stored ones
       --update, -u          check updates exist from upstream remotes
-      --scope SCOPE, -sc SCOPE
-                            Use the specified scope in the install command
       --profile PROFILE, -pr PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE

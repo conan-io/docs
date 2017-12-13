@@ -4,7 +4,7 @@ conan test
 
 .. code-block:: bash
 
-	$ conan test [-h] [--update] [--scope SCOPE] [--profile PROFILE]
+	$ conan test [-h] [--update] [--profile PROFILE]
                [-r REMOTE] [--options OPTIONS] [--settings SETTINGS]
                [--env ENV] [--build [BUILD [BUILD ...]]]
                path [reference]
@@ -27,8 +27,6 @@ create`` command.
     optional arguments:
       -h, --help            show this help message and exit
       --update, -u          check updates exist from upstream remotes
-      --scope SCOPE, -sc SCOPE
-                            Use the specified scope in the install command
       --profile PROFILE, -pr PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE

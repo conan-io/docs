@@ -17,7 +17,6 @@ This is the typical ``~/.conan/profiles/default`` file:
         compiler.libcxx=libc++
         build_type=Release
     [options]
-    [scopes]
     [env]
 
 The settings defaults are the setting values used whenever you issue a ``conan install`` command over
