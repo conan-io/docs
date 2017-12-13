@@ -56,6 +56,13 @@ Visual Studio version.
 If **arch** or **compiler_version** is specified, it will ignore the settings and return the command
 to set the Visual Studio environment for these parameters.
 
+Arguments:
+
+   - **settings**: Settings, Use ``self.settings`` from the conanfile.
+   - **arch**: Optional. Defaulted to None, will use ``settings.arch``
+   - **compiler_version**: Optional. Defaulted to None, will use ``settings.compiler.version``
+   - **force**: Optional. Defaulted to False. Will ignore if the environment is already set for a different Visual Studio version.
+
 
 .. _build_sln_commmand:
 
