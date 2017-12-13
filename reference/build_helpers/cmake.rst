@@ -10,7 +10,7 @@ Invoke `cmake` explicitly with the helper ``command_line`` and ``build_config`` 
 
    def build(self):
       cmake = CMake(self)
-      self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
+      self.run('cmake "%s" %s' % (self.source_folder, cmake.command_line))
       self.run('cmake --build . %s' % cmake.build_config)
       self.run('cmake --build . --target install')
 
@@ -22,7 +22,8 @@ Using the helper methods:
 
    def build(self):
       cmake = CMake(self)
-      cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+      cmake.configure()
+      # same as cmake.configure(source_dir=self.source_folder, build_dir="./")
       cmake.build()
       cmake.install()
 
@@ -54,7 +55,7 @@ Attributes
    def build(self):
       cmake = CMake(self)
       cmake.verbose = True
-      cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+      cmake.configure()
       cmake.build()
 
 - **command_line** (read only): Generator, conan definitions and flags that reflects the specified Conan settings.
@@ -128,16 +129,16 @@ Methods
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **definitions**: A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
-    - **source_dir**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified. Relative paths are allowed and will be relative to ``build_dir``
-    - **build_dir**: CMake's output directory. The default value is ``conan_file.conanfile_directory`` if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
+    - **source_dir**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``build`` folder if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified). Relative paths are allowed and will be relative to ``build_dir``
+    - **build_dir**: CMake's output directory. The default value is the package ``build`` root folder if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
 
 - **build** (args=None, build_dir=None, target=None)
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used. ``conan_file.conanfile_directory`` is used if ``configure()`` has not been called
+    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
     - **target**: Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging
 
 - **install** (args=None, build_dir=None, target=None)
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used. ``conan_file.conanfile_directory`` is used if ``configure()`` has not been called
+    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.

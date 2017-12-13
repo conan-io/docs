@@ -133,7 +133,7 @@ or a profile name from the default profile location in the local cache.
 The ``include()`` statement has to be at the top of the profile file:
 
 
-**gcc_49.txt**
+**gcc_49**
 
 .. code-block:: text
 
@@ -143,11 +143,11 @@ The ``include()`` statement has to be at the top of the profile file:
    compiler.libcxx=libstdc++11
 
 
-**myprofile.txt**
+**myprofile**
 
 .. code-block:: text
 
-   include(gcc_49.txt)
+   include(gcc_49)
 
    [settings]
    zlib:compiler=clang
@@ -165,7 +165,7 @@ Variable declaration
 In a profile you can declare variables that will be replaced automatically by conan before the profile is applied.
 The variables have to be declared at the top of the file, after the include() statements.
 
-**myprofile.txt**
+**myprofile**
 
 .. code-block:: text
 
@@ -185,7 +185,7 @@ The variables have to be declared at the top of the file, after the include() st
 The variables will be inherited too, so you can declare variables in a profile and then include the profile in a different one,
 all the variables will be available:
 
-**gcc_49.txt**
+**gcc_49**
 
 .. code-block:: text
 
@@ -198,11 +198,11 @@ all the variables will be available:
    compiler.libcxx=libstdc++11
 
 
-**myprofile.txt**
+**myprofile**
 
 .. code-block:: text
 
-   include(gcc_49.txt)
+   include(gcc_49)
 
    [settings]
    zlib:compiler=clang
@@ -262,7 +262,8 @@ A profile can also be used in ``conan create`` and ``info`` command:
 
 
 
-.. seealso:: - :ref:`Howtos/Cross Building <cross_building>`
+.. seealso:: - :ref:`Reference/Configuration files/profiles/default <default_profile>`
+             - :ref:`Howtos/Cross Building <cross_building>`
              - :ref:`Reference/Commands/conan profile <conan_profile_command>`
              - :ref:`Reference/Commands/conan install <conan_install_command>`
              - :ref:`Reference/Commands/conan create <conan_create_command>`

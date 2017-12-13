@@ -6,10 +6,48 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+0.30.0 (12-December-2017)
+-------------------------
+
+- Feature: Introduced major versions for gcc (5, 6, 7) as defaults settings for OSS packages, as minors are compatible by default
+- Feature: ``VisualStudioBuildEnvironment`` has added more compilation and link flags.
+- Feature: new ``MSBuild`` build helper that wraps the call to ``msvc_build_command`` with the correct application of environment
+  variables with the improved ``VisualStudioBuildEnvironment``
+- Feature: ``CMake`` and ``Meson`` build helpers got a new ``cache_build_dir`` argument for ``configure(cache_build_dir=None)``
+  that will be used to define a build directory while the package is being built in local cache, but not when built locally
+- Feature: ``conanfiles`` got a new ``apply_env`` attribute, defaulted to ``True``. If false, the environment variables from
+  dependencies will not be automatically applied. Useful if you don't want some dependency adding itself to the PATH by default,
+  for example
+- Feature: allow recipes to use and run python code installed with ``conan config install``
+- Feature: ``conanbuildinfo.cmake`` now has ``KEEP_RPATHS`` as argument to keep the RPATHS, as opposed to old SKIP_RPATH which
+  was confusing. Also, it uses set(CMAKE_INSTALL_NAME_DIR "") to keep the old behavior even for CMake >= 3.9
+- Feature: ``conan info`` is able to get profile information from the previous install, instead of requiring it as input again
+- Feature: ``tools.unix_path`` support MSYS, Cygwin, WSL path flavors
+- Feature: added ``destination`` folder argument to ``tools.get()`` function
+- Feature: ``SystemPackageTool`` for apt-get now uses ``--no-install-recommends`` automatically.
+- Feature: ``visual_studio_multi`` generator now uses toolsets instead of IDE version to identify files.
+- Fix: generators failures print traces to help debugging
+- Fix: typos in generator names, or non-existing generator now raise an Error instead of a warning
+- Fix: ``short_paths`` feature is active by default in Windows. If you want to opt-out, you can use ``CONAN_USER_HOME_SHORT=None``
+- Fix: ``SystemPackageTool`` doesn't use sudo in Windows
+- BugFix: Not using parallel builds for Visual<10 in cmake build helper
+- Deprecation: ``conanfile_directory`` shouldn't be used anymore in recipes. Use ``source_folder``, ``build_folder``, etc
+
+
+.. note::
+
+  **Breaking changes**
+
+  - ``scopes`` have been completely removed. You can use environment variables, or the ``conanfile.develop`` or ``conanfile.in_local_cache``
+    attributes instead.
+  - Command ``test_package`` has been removed. Use ``conan create`` instead, and ``conan test`` for just running package tests.
+  - ``werror`` behavior is now by default. Dependencies conflicts will now error, and have to be fixed. 
+  - ``short_paths`` feature is again active by default in Windows, even with Py3.6 and system LongPathsEnabled.
+  - ``ConfigureEnvironment`` and ``GCC`` build helpers have been completely removed
+
 
 0.29.2 (2-December-2017)
-====================
-
+-------------------------
 - Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.python.org/pypi/pyOpenSSL
 
 
