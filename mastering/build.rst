@@ -30,7 +30,7 @@ There are two ways to invoke your cmake tools:
 
    def build(self):
       cmake = CMake(self)
-      cmake.configure(source_dir=self.source_folder, build_dir="./")
+      cmake.configure()
       cmake.build()
 
 
