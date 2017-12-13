@@ -50,6 +50,9 @@ the package created for gcc-4.8. You could do:
                 
 Note that the object being modified is called ``self.info``, not ``self.settings``. Also, any string is valid, as long as it will be the same for the settings you want it to be the same package.
 
+Check the :ref:`package_id()<package_id>` reference to see available helper methods in the ``self.info`` object,
+for example, to adjust the info object for a header only library or to control the Visual Studio toolset compatibility.
+
 Read more about this in :ref:`how_to_define_abi_compatibility`.
 
 
