@@ -103,12 +103,14 @@ Arguments:
 tools.msvc_build_command()
 ------------------------------
 
+**msvc_build_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None, arch=None, parallel=True, force_vcvars=False)**
+
 Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Arguments:
 
-    Exactly the same arguments as the above ``tools.build_sln_command()``
-
+    - Same arguments as the above ``tools.build_sln_command()``
+    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``
 
 tools.unzip()
 -------------
