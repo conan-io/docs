@@ -43,7 +43,7 @@ In the repository, there is already a ``conanfile.py`` recipe:
 
 .. code-block:: python
 
-    from conans import ConanFile, tools
+    from conans import ConanFile, MSBuild
 
     class HelloConan(ConanFile):
         name = "Hello"
@@ -54,8 +54,8 @@ In the repository, there is already a ``conanfile.py`` recipe:
         exports_sources = "src/*", "build/*"
 
         def build(self):
-            cmd = tools.msvc_build_command(self.settings, "build/HelloLib/HelloLib.sln")
-            self.run(cmd)
+            msbuild = MSBuild(self)
+            msbuild.build("build/HelloLib/HelloLib.sln")
 
         def package(self):
             self.copy("*.h", dst="include", src="src")
@@ -65,8 +65,10 @@ In the repository, there is already a ``conanfile.py`` recipe:
             self.cpp_info.libs = ["HelloLib"]
 
 
-This recipe is using :ref:`the msvc_build_command() function <msvc_build_command>` to get a command
- string containing required commands to build the application with the correct configuration.
+This recipe is using the :ref:`MSBuild() build helper <msbuild>` to build the ``sln`` project.
+If our recipe had ``requires``, the ``MSBUILD`` helper will also take care of inject all the needed
+information from the requirements, as include directories, library names, definitions, flags etc
+to allow our project to locate the declared dependencies.
 
 The recipe contains also a ``test_package`` folder with a simple example consuming application.
 In this example, the consuming application is using cmake to build, but it could also use Visual Studio too.
@@ -198,7 +200,7 @@ Other configurations
 ---------------------
 
 The above example works as-is for VS2017, because VS support upgrading from previous versions.
-The ``tools.msvc_build_command()`` already implements such functionality, so building and testing
+The ``MSBuild()`` already implements such functionality, so building and testing
 packages with VS2017 can be done. The only requirement is to define the ``VS150COMNTOOLS``
 environment variable, as VS2017 doesn't define it, and it is necessary to find the tools:
 
@@ -223,8 +225,9 @@ Then the recipe only has to select the correct one, something like:
     def build(self):
         # assuming HelloLibVS12, HelloLibVS14 subfolders
         sln_file = "build/HelloLibVS%s/HelloLib.sln" % self.settings.compiler.version
-        cmd = tools.msvc_build_command(self.settings, sln_file)
-        self.run(cmd)
+        msbuild = MSBuild(self)
+        msbuild.build(sln_file)
+
 
 Finally, we used just one ``conanbuildinfo.props`` file, which the solution loaded at a global level.
 You could also define multiple ``conanbuildinfo.props`` files, one per configuration (Release/Debug, x86/x86_64), and load them accordingly.

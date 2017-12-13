@@ -7,10 +7,16 @@ Meson
 
 .. code-block:: python
 
-      def build(self):
-         meson = Meson(self)
-         meson.configure()
-         meson.build()
+   from conans import ConanFile, Meson
+
+   class ExampleConan(ConanFile):
+       ...
+
+
+       def build(self):
+           meson = Meson(self)
+           meson.configure()
+           meson.build()
 
 
 Methods

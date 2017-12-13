@@ -7,9 +7,14 @@ RunEnvironment
 Prepares the needed environment variables to locate shared libraries and executables of your requirements at runtime.
 
 .. code-block:: python
-   :emphasize-lines: 2, 3
+   :emphasize-lines: 7, 8, 9
 
-    def build(self):
+   from conans import ConanFile, RunEnvironment
+
+   class ExampleConan(ConanFile):
+       ...
+
+       def build(self):
          env_build = RunEnvironment(self)
          with tools.environment_append(env_build.vars):
              self.run("....")

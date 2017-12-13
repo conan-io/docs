@@ -8,7 +8,13 @@ Prepares the needed environment variables to invoke  **configure**/**make**:
 
 .. code-block:: python
 
-      def build(self):
+   from conans import ConanFile, AutoToolsBuildEnvironment
+
+   class ExampleConan(ConanFile):
+       ...
+
+
+       def build(self):
          env_build = AutoToolsBuildEnvironment(self)
          env_build.configure()
          env_build.make()
