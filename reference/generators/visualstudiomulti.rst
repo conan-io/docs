@@ -22,10 +22,10 @@ Usage
 These commands will generate 5 files for each compiler version:
 
 - ``conanbuildinfo_multi.props``: All properties
-- ``conanbuildinfo_release_x64_14.props.props``: Variables for release/64bits/VS2015
-- ``conanbuildinfo_debug_x64_14.props.props``: Variables for debug/64bits/VS2015
-- ``conanbuildinfo_release_win32_14.props.props``: Variables for release/32bits/VS2015
-- ``conanbuildinfo_debug_win32_14.props.props``: Variables for debug/32bits/VS2015
+- ``conanbuildinfo_release_x64_v141.props.props``: Variables for release/64bits/VS2015 (toolset v141)
+- ``conanbuildinfo_debug_x64_v141.props.props``: Variables for debug/64bits/VS2015 (toolset v141)
+- ``conanbuildinfo_release_win32_v141.props.props``: Variables for release/32bits/VS2015 (toolset v141)
+- ``conanbuildinfo_debug_win32_v141.props.props``: Variables for debug/32bits/VS2015 (toolset v141)
 
 
 You can now load ``conanbuildinfo_multi.props`` in your Visual Studio IDE property manager,
