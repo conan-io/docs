@@ -67,7 +67,7 @@ Let`s have a look to the root package recipe ``conanfile.py``:
 
         def build(self):
             cmake = CMake(self)
-            cmake.configure(source_dir="%s/hello" % self.source_folder)
+            cmake.configure(source_dir="hello")
             cmake.build()
 
             # Explicit way:
