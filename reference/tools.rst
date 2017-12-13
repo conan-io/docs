@@ -348,6 +348,10 @@ via ``hashlib.new(algorithm_name)``. The previous is equivalent to:
 tools.patch()
 -------------
 
+.. code-block::
+
+    def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None)
+
 Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff)
 format. To be used mainly in the ``source()`` method.
 
@@ -378,15 +382,24 @@ Then it can be done specifying the number of folders to be stripped from the pat
 
     patch(patch_file="file.patch", strip=1)
 
+Parameters:
+    - **base_path** (Optional, Defaulted to ``None``): Base path where teh patch should be applied.
+    - **patch_file** (Optional, Defaulted to ``None``): Patch file that should be applied.
+    - **patch_string** (Optional, Defaulted to ``None``): Patch string that should be applied.
+    - **strip** (Optional, Defaulted to ``0``): Number of folders to be stripped from the path.
+    - **output** (Optional, Defaulted to ``None``): Stream object.
 
 .. _environment_append_tool:
 
 tools.environment_append()
 --------------------------
 
+.. code-block:: python
+
+    def environment_append(env_vars)
+
 This is a context manager that allows to temporary use environment variables for a specific piece of code
 in your conanfile:
-
 
 .. code-block:: python
 
@@ -398,9 +411,15 @@ in your conanfile:
 
 When the context manager block ends, the environment variables will be unset.
 
+Paramenters:
+    - **env_vars** (Required): Dictionary object with environment variable name and its value.
 
 tools.chdir()
 -------------
+
+.. code-block:: python
+
+    def chdir(newdir)
 
 This is a context manager that allows to temporary change the current directory in your conanfile:
 
@@ -412,9 +431,16 @@ This is a context manager that allows to temporary change the current directory 
         with tools.chdir("./subdir"):
             do_something()
 
+Parameters:
+    - **newdir** (Required): Directory path name to change the current directory.
 
 tools.pythonpath()
 ------------------
+
+.. code-block:: python
+
+    def pythonpath(conanfile)
+
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
 
@@ -438,10 +464,15 @@ file or folder with a ``whatever`` file or object inside, and should have declar
     def package_info(self):
         self.env_info.PYTHONPATH.append(self.package_folder)
 
-
+Parameters:
+    - **conanfile** (Required): Current ``ConanFile`` object.
 
 tools.no_op()
 -------------
+
+.. code-block:: python
+
+    def no_op()
 
 Context manager that performs nothing. Useful to condition any other context manager to get a cleaner code:
 
@@ -454,9 +485,12 @@ Context manager that performs nothing. Useful to condition any other context man
             # if not self.options.myoption, we are not in the "some_dir"
             pass
 
-  
 tools.human_size()
 ------------------
+
+.. code-block:: python
+
+    def human_size(size_bytes)
 
 Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
@@ -468,28 +502,36 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     tools.human_size(1024)
     >> 1Kb
 
+Paramenters:
+    - **size_bytes** (Required): Number of bytes.
 
 .. _osinfo_reference:
 
-    
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
-These are helpers to install system packages. Check :ref:`system_requirements`
 
+These are helpers to install system packages. Check :ref:`system_requirements`
 
 .. _cross_building_reference:
 
 tools.cross_building()
 -----------------------
 
-Reading the settings and the current host machine it returns True if we are cross building a conan package:
+.. code-block:: python
+
+    def cross_building(settings, self_os=None, self_arch=None)
+
+Reading the settings and the current host machine it returns ``True`` if we are cross building a conan package:
 
 .. code-block:: python
 
     if tools.cross_building(self.settings):
         # Some special action
 
-
+Parameters:
+    - **settings** (Required): Conanfile settings. Use "self.settings".
+    - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
+    - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
 
 .. _run_in_windows_bash_tool:
 
