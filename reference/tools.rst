@@ -1,6 +1,5 @@
 .. _tools:
 
-
 Tools
 =====
 
@@ -16,21 +15,26 @@ recipes:
     class ExampleConan(ConanFile):
         ...
 
-
 .. _cpu_count:
 
 tools.cpu_count()
 -----------------
+
+.. code-block:: python
+
+    def tools.cpu_count()
+
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1.
 Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan.conf file<conan_conf>`.
-
 
 tools.vcvars_command()
 ----------------------
 
-**vcvars_command(settings, arch=None, compiler_version=None, force=False)**
+.. code-block:: python
 
-This function returns, for given settings, the command that should be called to load the Visual
+    def vcvars_command(settings, arch=None, compiler_version=None, force=False)
+
+Returns, for given settings, the command that should be called to load the Visual
 Studio environment variables for a certain Visual Studio version. It does not execute
 the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
@@ -56,18 +60,21 @@ Visual Studio version.
 If **arch** or **compiler_version** is specified, it will ignore the settings and return the command
 to set the Visual Studio environment for these parameters.
 
-Arguments:
-
-   - **settings**: Settings, Use ``self.settings`` from the conanfile.
-   - **arch**: Optional. Defaulted to None, will use ``settings.arch``
-   - **compiler_version**: Optional. Defaulted to None, will use ``settings.compiler.version``
-   - **force**: Optional. Defaulted to False. Will ignore if the environment is already set for a different Visual Studio version.
-
+Parameters:
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
+    - **compiler_version** (Optional, Defaulted to None): Will use ``settings.compiler.version``.
+    - **force** (Optional, Defaulted to False): Will ignore if the environment is already set for a different Visual Studio version.
 
 .. _build_sln_commmand:
 
 tools.build_sln_command()
 -------------------------
+
+.. code-block:: python
+
+    def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
+                          arch=None, parallel=True, toolset=None)
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
 It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
@@ -78,42 +85,40 @@ It's recommended to use it along with ``vcvars_command()``, so that the Visual S
     command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
     self.run(command)
 
-Definition:
-
-.. code-block:: python
-
-    def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                          arch=None, parallel=True)
-
-Arguments:
-
- * **settings**  Conanfile settings, pass "self.settings"
- * **sln_path**  Visual Studio project file path
- * **targets**   List of targets to build
- * **upgrade_project** True/False. If True, the project file will be upgraded if the project's VS version is older than current
- * **build_type**: Override the build type defined in the settings (``settings.build_type``).
- * **arch**: Override the architecture defined in the settings (``settings.arch``).
- * **parallel**: Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
-   or by the number of cores in the processor by default
- * **toolset**: Specify a toolset. Will append a ``/p:PlatformToolset`` option.
-
+Parameters:
+    - **settings** (Required): Conanfile settings. Use "self.settings".
+    - **sln_path** (Required):  Visual Studio project file path.
+    - **targets** (Optional, Defaulted to ``None``):  List of targets to build.
+    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is older than current.
+    - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
+    - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
+    - **parallel** (Optional, Defaulted to ``True``): Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
+      or by the number of cores in the processor by default.
+    - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
 
 .. _msvc_build_command:
 
 tools.msvc_build_command()
-------------------------------
+--------------------------
 
-**msvc_build_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None, arch=None, parallel=True, force_vcvars=False)**
+.. code-block:: python
 
-Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
+    def msvc_build_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
+                           arch=None, parallel=True, force_vcvars=False, toolset=None)
 
-Arguments:
+Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above
+``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
+Parameters:
     - Same arguments as the above ``tools.build_sln_command()``
     - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``
 
 tools.unzip()
 -------------
+
+.. code-block:: python
+
+    def unzip(filename, destination=".", keep_permissions=False)
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -130,9 +135,7 @@ and decompress them into the given destination folder (the current one by defaul
     tools.unzip("myfile.zip", "myfolder")
 
 
-For the ``.zip`` files you can keep the permissions using the ``keep_permissions=True`` parameter.
-WARNING: It can be dangerous if the zip file was not created in a NIX system, it could produce undefined permission schema.
-So, use only this option if you are sure that the zip file was created correctly:
+You can keep the permissions of the files using the ``keep_permissions=True`` parameter.
 
 .. code-block:: python
 
@@ -140,10 +143,19 @@ So, use only this option if you are sure that the zip file was created correctly
 
     tools.unzip("myfile.zip", "myfolder", keep_permissions=True)
 
-
+Parameters:
+    - **filename** (Required): File to be unzipped.
+    - **destination** (Optional, Defaulted to ``"."``): Destination folder for unzipped files.
+    - **keep_permissions** (Optional, Defaulted to ``False``): Keep permissions of files. **WARNING:** Can be dangerous if the zip
+      was not created in a NIX system, the bits could produce undefined permission schema. Use only this option if you are sure that
+      the zip was created correctly.
 
 tools.untargz()
 ---------------
+
+.. code-block:: python
+
+    def untargz(filename, destination=".")
 
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
@@ -157,8 +169,16 @@ unless the file had a different extension.
     # or to extract in "myfolder" sub-folder
     tools.untargz("myfile.tar.gz", "myfolder")
 
+Parameters:
+    - **filename** (Required): File to be unzipped.
+    - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
+
 tools.get()
 -----------
+
+.. code-block:: python
+
+    def get(url, md5="", sha1="", sha256="")
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
@@ -172,23 +192,22 @@ will be checked, if any of them doesn't match, it will raise a ``ConanException`
     # also, specify a destination folder
     tools.get("http://url/file", destination="subfolder")
 
+Parameters:
+    - **url** (Required): URL to download
+    - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
+    - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
+    - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
 
 tools.download()
 ----------------
 
+.. code-block:: python
+
+    def download(url, filename, verify=True, out=None, retry=2, retry_wait=5, overwrite=False,
+                 auth=None, headers=None)
+
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a
 list of known verifiers for https downloads, but this can be optionally disabled.
-
-- **url**: URL to download
-- **filename**: Name of the file to be created in the local storage
-- **overwrite**: (Default False) When `True` Conan will overwrite the destination file if exists, if False it will raise.
-- **auth**: A tuple of user, password can be passed to use HTTPBasic authentication. This is passed directly to the
-  requests python library, check here other uses of the **auth** parameter: http://docs.python-requests.org/en/master/user/authentication
-- **headers**: A dict with additional headers.
-- **out**: (Default None) An object with a write() method can be passed to get the output, stdout will use if not specified.
-- **retry**: Number of retries in case of failure.
-- **retry_wait**: Seconds to wait between download attempts.
-- **verify**: When False, disables https certificate validation.
 
 .. code-block:: python
 
@@ -209,11 +228,19 @@ list of known verifiers for https downloads, but this can be optionally disabled
     tools.download("http://someurl/somefile.zip", "myfilename.zip", headers={"Myheader": "My value"})
 
 Parameters:
-
-
+    - **url** (Required): URL to download
+    - **filename** (Required): Name of the file to be created in the local storage
+    - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
+    - **out**: (Optional, Defaulted to ``None``): An object with a write() method can be passed to get the output, stdout will use if not specified.
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure.
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
+    - **overwrite**: (Optional, Defaulted to ``False``): When `True` Conan will overwrite the destination file if exists, if False it will raise.
+    - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed directly to the
+      requests python library, check here other uses of the **auth** parameter: http://docs.python-requests.org/en/master/user/authentication
+    - **headers** (Optional, Defaulted to ``None``): A dict with additional headers.
 
 tools.ftp_download()
-------------------------
+--------------------
 
 Retrieves a file from an FTP server. Right now it doesn't support SSL, but you might implement it yourself using the standard python FTP library, and also if you need some special functionality.
 
