@@ -5,14 +5,6 @@ conan info
 
 .. code-block:: bash
 
-   $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
-                  [--package-filter [PACKAGE_FILTER]]
-                  [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
-                  [--update] [--profile PROFILE] [-r REMOTE]
-                  [--options OPTIONS] [--settings SETTINGS] [--env ENV]
-                  [--build [BUILD [BUILD ...]]]
-                  [reference]
-
     $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
                   [--package-filter [PACKAGE_FILTER]]
                   [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
