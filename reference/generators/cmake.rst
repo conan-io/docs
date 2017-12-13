@@ -123,11 +123,11 @@ _________________
 
 Setup all the CMake vars according to our settings, by default with the global approach (no targets).
 
-**parameters**: You can combine several parameters to the ``conan_basic_setup`` macro. e.j: ``conan_basic_setup(TARGETS SKIP_RPATH)``
+**parameters**: You can combine several parameters to the ``conan_basic_setup`` macro. e.j: ``conan_basic_setup(TARGETS KEEP_RPATHS)``
 
     - ``TARGETS``:  Setup all the CMake vars by target (only CMake > 3.1.2)
     - ``NO_OUTPUT_DIRS``: Do not adjust the output directories
-    - ``SKIP_RPATH``: Do not adjust the CMAKE_SKIP_RPATH variable in OSX
+    - ``KEEP_RPATHS``: Do not adjust the CMAKE_SKIP_RPATH variable in OSX
 
 
 conan_target_link_libraries
