@@ -67,12 +67,12 @@ shared_lib_2.dylib
 
 The ``conan_basic_setup()`` macro will set the ``set(CMAKE_SKIP_RPATH 1)`` in OSX.
 
-You can skip this default behavior by passing the ``SKIP_RPATH`` parameter to the ``conan_basic_setup`` macro:
+You can skip this default behavior by passing the ``KEEP_RPATHS`` parameter to the ``conan_basic_setup`` macro:
 
 .. code-block:: cmake
 
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup(SKIP_RPATH)
+    conan_basic_setup(KEEP_RPATHS)
 
     add_executable(timer timer.cpp)
     target_link_libraries(timer ${CONAN_LIBS})
@@ -96,12 +96,12 @@ You can adjust the **rpaths** in the way that adapts better to your needs.
 
 If you are using ``CMake`` take a look to the `CMake RPATH handling`_ guide.
 
-Remember to pass the ``SKIP_RPATH`` variable to the ``conan_basic_setup``:
+Remember to pass the ``KEEP_RPATHS`` variable to the ``conan_basic_setup``:
 
 .. code-block:: cmake
 
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup(SKIP_RPATH)
+    conan_basic_setup(KEEP_RPATHS)
 
 Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust
 a relative path from the executable:
