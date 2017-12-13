@@ -679,7 +679,7 @@ you want to access to the variable declared by some specific requirement you can
 apply_env
 ---------
 
-When ``True``, the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
+When ``True`` (Default), the values from ``self.deps_env_info`` (corresponding to the declared ``env_info`` in the ``requires`` and ``build_requires``)
 will be automatically applied to the ``os.environ``.
 
 Disable it setting ``apply_env`` to False if you want to control by yourself the environment variables
