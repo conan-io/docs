@@ -315,13 +315,7 @@ There are specific functions for common algorithms:
 .. code-block:: python
 
     def check_sha1(file_path, signature)
-
-.. code-block:: python
-
     def check_md5(file_path, signature)
-
-.. code-block:: python
-
     def check_sha256(file_path, signature)
 
 For example:
@@ -341,7 +335,6 @@ via ``hashlib.new(algorithm_name)``. The previous is equivalent to:
 
     tools.check_with_algorithm_sum("sha1", "myfile.zip",
                                     "eb599ec83d383f0f25691c184f656d40384f9435")
-
 
 tools.patch()
 -------------
