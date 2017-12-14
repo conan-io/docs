@@ -6,6 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+0.30.2 (14-December-2017)
+-------------------------
+
+- Fix: CMake() and Meson() build helpers and relative directories regression.
+- Fix: ycm generator, removed the access of cpp_info to generators, keeping the access to deps_cpp_info.
+
+
 0.30.1 (12-December-2017)
 -------------------------
 
