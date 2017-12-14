@@ -46,7 +46,7 @@ method, like this:
     
     def build(self):
         if self.settings.os == "Windows":
-            vcvars = tools.vcvars_command(self.settings)    
+            vcvars = tools.vcvars_command(self.settings)
             build_command = ...
             self.run("%s && configure %s" % (vcvars, " ".join(args)))
             self.run("%s && %s %s" % (vcvars, build_command, " ".join(build_args)))
@@ -81,9 +81,12 @@ It's recommended to use it along with ``vcvars_command()``, so that the Visual S
 
 .. code-block:: python
 
-    build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
-    command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
-    self.run(command)
+    from conans import tools
+
+    def build(self):
+        build_command = build_sln_command(self.settings, "myfile.sln", targets=["SDL2_image"])
+        command = "%s && %s" % (tools.vcvars_command(self.settings), build_command)
+        self.run(command)
 
 Parameters:
     - **settings** (Required): Conanfile settings. Use "self.settings".
@@ -129,11 +132,10 @@ and decompress them into the given destination folder (the current one by defaul
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.unzip("myfile.zip")
     # or to extract in "myfolder" sub-folder
     tools.unzip("myfile.zip", "myfolder")
-
 
 You can keep the permissions of the files using the ``keep_permissions=True`` parameter.
 
@@ -285,10 +287,6 @@ conan dependencies without forking or modifying the original project:
                include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
                conan_basic_setup()''')
 
-
-If the ``strict`` parameter is True (default) it will be raise an error if the introduced "search" string
-is not found, so nothing is actually replaced.
-
 Parameters:
     - **file_path** (Required): File path of the file to perform the replace in.
     - **search** (Required): String you want to be replaced.
@@ -312,7 +310,7 @@ Parameters:
     - **file_path** (Required): File path of the file to be checked.
     - **signature** (Required): Hash code that the file should have.
 
-There are specific methods for common algorithms:
+There are specific functions for common algorithms:
 
 .. code-block:: python
 
@@ -411,7 +409,7 @@ in your conanfile:
 
 When the context manager block ends, the environment variables will be unset.
 
-Paramenters:
+Parameters:
     - **env_vars** (Required): Dictionary object with environment variable name and its value.
 
 tools.chdir()
@@ -502,7 +500,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     tools.human_size(1024)
     >> 1Kb
 
-Paramenters:
+Parameters:
     - **size_bytes** (Required): Number of bytes.
 
 .. _osinfo_reference:
@@ -515,7 +513,7 @@ These are helpers to install system packages. Check :ref:`system_requirements`
 .. _cross_building_reference:
 
 tools.cross_building()
------------------------
+----------------------
 
 .. code-block:: python
 
@@ -529,20 +527,24 @@ Reading the settings and the current host machine it returns ``True`` if we are 
         # Some special action
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use "self.settings".
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
 
 .. _run_in_windows_bash_tool:
 
 tools.run_in_windows_bash()
-----------------------------
+---------------------------
+
+.. code-block:: python
+
+    def run_in_windows_bash(conanfile, bashcmd, cwd=None)
 
 Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
 
-You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path`` variable to change the default bash location.
-
+You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path``
+variable to change the default bash location.
 
 .. code-block:: python
 
@@ -551,50 +553,132 @@ You can customize the path of the bash executable using the environment variable
     command = "pwd"
     tools.run_in_windows_bash(self, command) # self is a conanfile instance
 
+Parameters:
+    - **conanfile** (Required): Current ``ConanFile`` object.
+    - **bashcmd** (Required): String with the command to be run.
+    - **cwd** (Optional, Defaulted to ``None``): Path to directory where to apply the command from.
 
 tools.unix_path()
-------------------
+-----------------
 
-Used to translate Windows paths to MSYS/CYGWIN unix paths like c/users/path/to/file
+.. code-block:: python
 
+    def unix_path(path, path_flavor=MSYS)
+
+Used to translate Windows paths to MSYS/CYGWIN unix paths like ``c/users/path/to/file``.
+
+Parameters:
+    - **path** (Required): Path to be converted.
+    - **path_flavor** (Optional, Defaulted to ``MSYS``): Type of unix path to be returned. Options are ``MSYS``, ``CYGWIN``, ``WSL`` and ``SFU``.
 
 tools.escape_windows_cmd()
----------------------------
+--------------------------
+
+.. code-block:: python
+
+    def escape_windows_cmd(command)
 
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
-- Adds escapes so the argument can be unpacked by CommandLineToArgvW()
+- Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
 - Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
 
+Parameters:
+    - **command** (Required): Command to execute.
 
-tools.sha1sum(), sha256sum(), md5sum(), md5()
----------------------------------------------
+
+tools.sha1sum(), sha256sum(), md5sum()
+--------------------------------------
+
+.. code-block:: python
+
+    def def md5sum(file_path)
+    def sha1sum(file_path)
+    def sha256sum(file_path)
+
 Return the respective hash or checksum for a file:
 
 .. code-block:: python
 
+    from conans import tools
+
+    md5 = tools.md5sum("myfilepath.txt")
     sha1 = tools.sha1sum("myfilepath.txt")
+
+Parameters:
+    - **file_path** (Required): Path to the file.
+
+
+tools.md5()
+-----------
+
+.. code-block:: python
+
+    def md5(content)
+
+Returns the MD5 hash for a string or byte object:
+
+.. code-block:: python
+
+    from conans import tools
+
     md5 = tools.md5("some string, not a file path")
 
+Parameters:
+    - **content** (Required): String or bytes to calculate its md5.
 
-tools.save(), tools.load()
-----------------------------
-Utility methods to load and save files, in one line. They will manage the open and close of the file, encodings and creating directories if necessary
+tools.save()
+------------
+
+.. code-block:: python
+
+    def save(path, content, append=False)
+
+Utility function to save files in one line.
+It will manage the open and close of the file and creating directories if necessary.
+
+.. code-block:: python
+
+    tools.save("otherfile.txt", "contents of the file")
+
+Parameters:
+    - **path** (Required): Path to the file.
+    - **content** (Required): Content that should be saved into the file.
+    - **append** (Optional, Defaulted to ``False``): If ``True``, it will append the content.
+
+tools.load()
+------------
+
+.. code-block:: python
+
+    def load(path, binary=False)
+
+Utility function to load files in one line.
+It will manage the open and close of the file, and load binary encodings.
+Returns the content of the file.
 
 .. code-block:: python
 
     content = tools.load("myfile.txt")
-    tools.save("otherfile.txt", "contents of the file")
 
+Parameters:
+    - **path** (Required): Path to the file.
+    - **binary** (Optional, Defaulted to ``False``): If ``True``, it reads the the file as binary code.
 
 tools.mkdir(), tools.rmdir()
 ----------------------------
-Utility methods to create/delete a directory.
-The existance of the specified directory is checked.
-I.e. ``mkdir()`` will do nothing if the directory already exists
-and ``rmdir()`` will do nothing if the directory does not exists.
+
+.. code-block:: python
+
+    def mkdir(path)
+    def rmdir(path)
+
+Utility functions to create/delete a directory.
+The existance of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
+already exists and ``rmdir()`` will do nothing if the directory does not exists.
+
 This makes it safe to use these functions in the ``package()`` method of a ``conanfile.py``
-when ``no_copy_source==True``.
+when ``no_copy_source=True``.
 
 .. code-block:: python
 
@@ -606,26 +690,39 @@ when ``no_copy_source==True``.
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
 
+Parameters:
+    - **path** (Required): Path to the directory.
 
 tools.which()
 -------------
 
-Returns the path to a specified executable searching in the PATH environment variable.
+.. code-block:: python
+
+    def which(filename)
+
+Returns the path to a specified executable searching in the ``PATH`` environment variable. If not found, it returns ``None``.
 
 .. code-block:: python
 
     from conans import tools
+
     abs_path_make = tools.which("make")
 
+Parameters:
+    - **filename** (Required): Name of the executable file.
 
 tools.touch()
 -------------
-Updates the timestamp (last access and last modificatiion times) of a file.
-This is similar to Unix' ``touch`` command,
-except the command fails if the file does not exist.
 
-Optionally, a tuple of two numbers can be specified,
-which denotes the new values for the 'last access' and 'last modified' times respectively.
+.. code-block:: python
+
+    def touch(fname, times=None)
+
+Updates the timestamp (last access and last modificatiion times) of a file.
+This is similar to Unix' ``touch`` command, except the command fails if the file does not exist.
+
+Optionally, a tuple of two numbers can be specified, which denotes the new values for the
+'last access' and 'last modified' times respectively.
 
 .. code-block:: python
 
@@ -636,27 +733,39 @@ which denotes the new values for the 'last access' and 'last modified' times res
     tools.touch("myfile", (time.time(), time.time()) # Similar to above
     tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
 
+Parameters:
+    - **fname** (Required): File name of the file to be touched.
+    - **times** (Optional, Defaulted to ``None``: Tuple with 'last access' and 'last modified' times.
 
 tools.relative_dirs()
 ---------------------
-Recursively walks a given directory (using ``os.walk()``)
-and returns a list of all contained file paths
+
+.. code-block:: python
+
+    def relative_dirs(path)
+
+Recursively walks a given directory (using ``os.walk()``) and returns a list of all contained file paths
 relative to the given directory.
 
+.. code-block:: python
+
+    from conans import tools
+
+    tools.relative_dirs("mydir")
+
+Parameters:
+    - **path** (Required): Path of the directory.
 
 tools.vs_installation_path()
 ----------------------------
 
+.. code-block:: python
+
+    def vs_installation_path(version)
+
 Returns the Visual Studio installation path for the given version.
 It only works when the tool ``vswhere`` is installed.
 If the tool is not able to return the path it returns ``None``.
-
-**Parameters:**
-
-- **version**: Visual Studio version to locate. The valid version numbers are strings: "10", "11", "12", "13", "14", "15"...
-
-
-**Example:**
 
 .. code-block:: python
 
@@ -664,23 +773,27 @@ If the tool is not able to return the path it returns ``None``.
 
     vs_path_2017 = tools.vs_installation_path("15")
 
+**Parameters:**
+    - **version** (Required): Visual Studio version to locate. Valid version numbers
+      are strings: ``"10"``, ``"11"``, ``"12"``, ``"13"``, ``"14"``, ``"15"``...
 
 tools.replace_prefix_in_pc_file()
 ----------------------------------
 
+.. code-block:: python
+
+    def replace_prefix_in_pc_file(pc_file, new_prefix)
+
 Replaces the ``prefix`` variable in a package config file ``.pc`` with the specified value.
-
-**Parameters:**
-
-- **pc_file**: Path to the pc file
-- **new_prefix**: New prefix variable value (path pointing to a package)
-
 
 .. code-block:: python
 
     lib_b_path = self.deps_cpp_info["libB"].rootpath
     tools.replace_prefix_in_pc_file("libB.pc", lib_b_path)
 
+**Parameters:**
+    - **pc_file** (Required): Path to the pc file
+    - **new_prefix** (Required): New prefix variable value (Usually a path pointing to a package).
 
 .. seealso::
 
@@ -690,40 +803,50 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 tools.collect_libs()
 ---------------------
 
+.. code-block:: python
+
+    def collect_libs(conanfile, folder="lib")
+
 Fetches a list of all libraries in the package folder.
-
-**Parameters:**
-
-- **conanfile**: A `ConanFile` object from which to get the `package_folder`
-- **folder**: The subfolder where the library files are. Defaulted to "lib"
-
-**Example:**
 
 .. code-block:: python
 
-     def package_info(self):
+    def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
 
-
+**Parameters:**
+    - **conanfile** (Required): A `ConanFile` object from which to get the `package_folder`.
+    - **folder** (Optional, Defaulted to ``"lib"``): The subfolder where the library files are.
 
 .. _pkgconfigtool:
 
 tools.PkgConfig()
 -----------------
 
+.. code-block:: python
+
+    class PkgConfig(object):
+
+        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None)
+
 Wrapper of the ``pkg-config`` tool.
 
+.. code-block:: python
 
-**Parameters of the constructor:**
+     with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
+        pkg_config = PkgConfig("libastral")
+        print(pkg_config.cflags)
+        print(pkg_config.cflags_only_I)
+        print(pkg_config.variables)
 
-- **library**: library (package) name, such as libastral
-- **pkg_config_executable** (Optional): specify custom pkg-config executable (e.g. for cross-compilation)
-- **static** (Optional): output libraries suitable for static linking (adds --static to pkg-config command line)
-- **msvc_syntax** (Optional): MSVC compatibility (adds --msvc-syntax to pkg-config command line)
-- **variables** (Optional): dictionary of pkg-config variables (passed as --define-variable=VARIABLENAME=VARIABLEVALUE)
+Parameters of the constructor:
+    - **library** (Required): Library (package) name, such as ``libastral``.
+    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g. for cross-compilation).
+    - **static** (Optional, Defaulted to ``False``): Output libraries suitable for static linking (adds ``--static`` to ``pkg-config`` command line).
+    - **msvc_syntax** (Optional, Defaulted to ``False``): MSVC compatibility (adds ``--msvc-syntax`` to ``pkg-config`` command line).
+    - **variables** (Optional, Defaulted to ``None``): Dictionary of pkg-config variables (passed as ``--define-variable=VARIABLENAME=VARIABLEVALUE``).
 
-
-**Properties**
+**Properties:**
 
 +-----------------------------+---------------------------------------------------------------------+
 | PROPERTY                    | DESCRIPTION                                                         |
@@ -750,15 +873,3 @@ Wrapper of the ``pkg-config`` tool.
 +-----------------------------+---------------------------------------------------------------------+
 | .variables                  | get list of variables defined by the module                         |
 +-----------------------------+---------------------------------------------------------------------+
-
-
-
-**Example:**
-
-.. code-block:: python
-
-     with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
-        pkg_config = PkgConfig("libastral")
-        print(pkg_config.cflags)
-        print(pkg_config.cflags_only_I)
-        print(pkg_config.variables)
