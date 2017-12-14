@@ -369,9 +369,11 @@ If the patch to be applied uses alternate paths that have to be stripped, like:
 
 Then it can be done specifying the number of folders to be stripped from the path:
 
-.. code-block:: diff
+.. code-block:: python
 
-    patch(patch_file="file.patch", strip=1)
+    from conans import tools
+
+    tools.patch(patch_file="file.patch", strip=1)
 
 Parameters:
     - **base_path** (Optional, Defaulted to ``None``): Base path where teh patch should be applied.
