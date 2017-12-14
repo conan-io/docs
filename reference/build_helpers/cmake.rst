@@ -4,78 +4,102 @@
 CMake
 =====
 
-Invoke `cmake` explicitly with the helper ``command_line`` and ``build_config`` attributes:
+Invoke `CMake` explicitly with the helper ``command_line`` and ``build_config`` attributes:
 
 .. code-block:: python
 
    from conans import ConanFile, CMake
 
-   class ExampleConan(ConanFile):
-       ...
+    class ExampleConan(ConanFile):
+        ...
 
-       def build(self):
-          cmake = CMake(self)
-          self.run('cmake "%s" %s' % (self.source_folder, cmake.command_line))
-          self.run('cmake --build . %s' % cmake.build_config)
-          self.run('cmake --build . --target install')
-
+        def build(self):
+            cmake = CMake(self)
+            self.run('cmake "%s" %s' % (self.source_folder, cmake.command_line))
+            self.run('cmake --build . %s' % cmake.build_config)
+            self.run('cmake --build . --target install')
 
 Using the helper methods:
 
-
 .. code-block:: python
 
-   def build(self):
-      cmake = CMake(self)
-      cmake.configure()
-      # same as cmake.configure(source_dir=self.source_folder, build_dir="./")
-      cmake.build()
-      cmake.install()
+    from conans import ConanFile, CMake
 
-
-
+    class ExampleConan(ConanFile):
+        ...
+        
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            # same as cmake.configure(source_dir=self.source_folder, build_dir="./")
+            cmake.build()
+            cmake.install()
 
 Constructor
 -----------
 
-CMake(conanfile, **generator**\=None, **cmake_system_name**\=True, **parallel**\=True, **build_type**\=None, **toolset**\=None)
+.. code-block:: python
 
-- **conanfile**: Conanfile object. Usually ``self`` in a conanfile.py
-- **generator**: Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
-- **cmake_system_name**: Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
-- **parallel**: If true, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`
-- **build_type**: Force the build type to be declared in ``CMAKE_BUILD_TYPE`` (not will be taken from the settings).
-- **toolset**: Specify a toolset for Visual Studio
+    class CMake(object):
 
+        def __init__(self, conanfile, generator=None, cmake_system_name=True,
+                     parallel=True, build_type=None, toolset=None)
+
+Parameters:
+    - **conanfile** (Required): Conanfile object. Usually ``self`` in a conanfile.py
+    - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
+    - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
+    - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`.
+    - **build_type** (Optional, Defaulted to ``None``): Force the build type to be declared in ``CMAKE_BUILD_TYPE``. If you set this parameter the build type
+      not will be taken from the settings.
+    - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
 
 Attributes
 ----------
 
-- **verbose**: Set it to True or False to automatically set the definition ``CMAKE_VERBOSE_MAKEFILE``.
+verbose
++++++++
 
+**Defaulted to**: ``False``
+
+Set it to ``True`` or ``False`` to automatically set the definition ``CMAKE_VERBOSE_MAKEFILE``.
 
 .. code-block:: python
 
+    from conans import ConanFile, CMake
 
-   def build(self):
-      cmake = CMake(self)
-      cmake.verbose = True
-      cmake.configure()
-      cmake.build()
+    class ExampleConan(ConanFile):
+        ...
 
-- **command_line** (read only): Generator, conan definitions and flags that reflects the specified Conan settings.
+        def build(self):
+            cmake = CMake(self)
+            cmake.verbose = True
+            cmake.configure()
+            cmake.build()
+
+
+command_line (read only)
+++++++++++++++++++++++++
+
+Generator, conan definitions and flags that reflects the specified Conan settings.
 
 .. code-block:: text
 
-     -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ... -DCONAN_C_FLAGS=-m64 -Wno-dev
+    -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ... -DCONAN_C_FLAGS=-m64 -Wno-dev
 
-- **build_config** (read only): Value for ``--config`` option for Multi-configuration IDEs.
+build_config (read only)
+++++++++++++++++++++++++
+
+Value for ``--config`` option for Multi-configuration IDEs.
 
 .. code-block:: text
 
     --config Release
 
-- **definitions**: The CMake helper will automatically append some definitions based on your settings:
+definitions
++++++++++++
+
+The CMake helper will automatically append some definitions based on your settings:
 
 +-------------------------------------------+--------------------------------------------------------------------------+
 | Variable                                  | Description                                                              |
@@ -115,38 +139,68 @@ Attributes
 | CONAN_LINK_RUNTIME                        |  Runtime from self.settings.compiler.runtime for MSVS                    |
 +-------------------------------------------+--------------------------------------------------------------------------+
 
-  But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property:
+But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property:
 
 .. code-block:: python
 
-   def build(self):
-      cmake = CMake(self)
-      cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
-      cmake.configure()
-      cmake.build()
-      cmake.install() # Build --target=install
+    from conans import ConanFile, CMake
+
+    class ExampleConan(ConanFile):
+        ...
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
+            cmake.configure()
+            cmake.build()
+            cmake.install() # Build --target=install
 
 
 Methods
 -------
 
-- **configure** (args=None, defs=None, source_dir=None, build_dir=None)
+configure()
++++++++++++
 
-    - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **definitions**: A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
-    - **source_dir**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``build`` folder if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified). Relative paths are allowed and will be relative to ``build_dir``
-    - **build_dir**: CMake's output directory. The default value is the package ``build`` root folder if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
-    - **cache_build_dir**: Use the given subfolder as build folder when building the package in the local cache.
+.. code-block:: python
+
+    def configure(self, args=None, defs=None, source_dir=None, build_dir=None,
+                  cache_build_dir=None)
+
+Configures `CMake` project with the given parameters.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+    - **definitions** (Optional, Defaulted to ``None``): A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
+    - **source_dir** (Optional, Defaulted to ``None``): CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``build`` folder if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified). Relative paths are allowed and will be relative to ``build_dir``
+    - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. The default value is the package ``build`` root folder if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
+    - **cache_build_dir** (Optional, Defaulted to ``None``): Use the given subfolder as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_dir** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
 
-- **build** (args=None, build_dir=None, target=None)
+build()
++++++++
 
-    - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
-    - **target**: Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging
+.. code-block:: python
 
-- **install** (args=None, build_dir=None, target=None)
+    def build(self, args=None, build_dir=None, target=None)
 
-    - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
+Builds `CMake` project with the given parameters.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
+    - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
+    - **target** (Optional, Defaulted to ``None``): Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging.
+
+install()
++++++++++
+
+.. code-block:: python
+
+    def install(args=None, build_dir=None)
+
+Installs `CMake` project with the given parameters.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
