@@ -63,8 +63,8 @@ to set the Visual Studio environment for these parameters.
 Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
-    - **compiler_version** (Optional, Defaulted to None): Will use ``settings.compiler.version``.
-    - **force** (Optional, Defaulted to False): Will ignore if the environment is already set for a different Visual Studio version.
+    - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
+    - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
 
 .. _build_sln_commmand:
 
@@ -518,6 +518,8 @@ Reading the settings and the current host machine it returns ``True`` if we are 
 
 .. code-block:: python
 
+    from conans import tools
+
     if tools.cross_building(self.settings):
         # Some special action
 
@@ -634,6 +636,8 @@ It will manage the open and close of the file and creating directories if necess
 
 .. code-block:: python
 
+    from conans import tools
+
     tools.save("otherfile.txt", "contents of the file")
 
 Parameters:
@@ -653,6 +657,8 @@ It will manage the open and close of the file, and load binary encodings.
 Returns the content of the file.
 
 .. code-block:: python
+
+    from conans import tools
 
     content = tools.load("myfile.txt")
 
@@ -783,6 +789,8 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 
 .. code-block:: python
 
+    from conans import tools
+
     lib_b_path = self.deps_cpp_info["libB"].rootpath
     tools.replace_prefix_in_pc_file("libB.pc", lib_b_path)
 
@@ -806,6 +814,8 @@ Fetches a list of all libraries in the package folder.
 
 .. code-block:: python
 
+    from conans import tools
+
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
 
@@ -828,7 +838,9 @@ Wrapper of the ``pkg-config`` tool.
 
 .. code-block:: python
 
-     with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
+    from conans import tools
+
+    with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
         pkg_config = PkgConfig("libastral")
         print(pkg_config.cflags)
         print(pkg_config.cflags_only_I)
