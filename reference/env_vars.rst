@@ -7,11 +7,8 @@ These are the environment variables used to customize conan.
 
 Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
 
-Variables
----------
-
 CONAN_CMAKE_GENERATOR
-+++++++++++++++++++++
+---------------------
 
 Conan ``CMake`` helper class is just a convenience to help to translate conan
 settings and options into cmake parameters, but you can easily do it yourself, or adapt it.
@@ -25,7 +22,7 @@ So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just s
 to your desired cmake generator (as ``Ninja``).
 
 CONAN_USER_HOME
-+++++++++++++++
+---------------
 
 **Defaulted to**: Not defined
 
@@ -37,7 +34,7 @@ users in CI, to retrieve and store per-project specific dependencies (useful for
     Read more about it in :ref:`custom_cache`
 
 CONAN_LOGGING_LEVEL
-+++++++++++++++++++
+-------------------
 
 **Defaulted to**: ``50``
 
@@ -46,7 +43,7 @@ to show more detailed logging information, set this variable to lower values, as
 debug information.
 
 CONAN_COMPRESSION_LEVEL
-+++++++++++++++++++++++
+-----------------------
 
 **Defaulted to**: ``9``
 
@@ -56,7 +53,7 @@ set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number, which is
 bigger archives but much better compression speed.
 
 CONAN_SYSREQUIRES_SUDO
-++++++++++++++++++++++
+----------------------
 
 **Defaulted to**: ``True``/``1``
 
@@ -68,14 +65,14 @@ automatically prefixed in front of package management commands.  If you set this
 packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
 CONAN_COLOR_DISPLAY
-+++++++++++++++++++
+-------------------
 
 **Defaulted to**: ``True``/``1``
 
 Useful to remove colored output, set it to ``False``/``0`` to remove console output colors.
 
 CONAN_COLOR_DARK
-++++++++++++++++
+----------------
 
 **Defaulted to**: ``False``/``0``
 
@@ -84,7 +81,7 @@ Useful for terminal or consoles with light colors as white, so text is rendered 
 instead of Yellow, Cyan, White.
 
 CONAN_USER, CONAN_CHANNEL
-+++++++++++++++++++++++++
+-------------------------
 
 Environment variables commonly used in ``test_package`` conanfiles, to allow package creation for
 different users and channel without modifying the code. They are also the environment variables
@@ -96,7 +93,7 @@ in user space, where a user/channel has not been assigned yet (it is assigned wh
     Read more about it in :ref:`user_channel`
 
 CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------
 
 **Defaulted to**: Not defined
 
@@ -116,7 +113,7 @@ For example: For a remote named "conan-center":
     SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
 
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
-++++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------
 
 **Defaulted to**: Not defined
 
@@ -136,7 +133,7 @@ For example: For a remote named "conan-center":
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
 
 CONAN_ENV_XXXX_YYYY
-+++++++++++++++++++
+-------------------
 
 You can override the default settings (located in your ``~/.conan/profiles/default`` directory) with environment variables.
 
@@ -163,7 +160,7 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
     CONAN_ENV_ARCH = "x86"
 
 CONAN_BASH_PATH
-+++++++++++++++
+---------------
 
 **Defaulted to**: Not defined
 
@@ -173,7 +170,7 @@ to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's no
 .. _conan_make_program:
 
 CONAN_MAKE_PROGRAM
-++++++++++++++++++
+------------------
 
 **Defaulted to**: Not defined
 
@@ -188,7 +185,7 @@ For example:
 .. _conan_trace_file:
 
 CONAN_TRACE_FILE
-++++++++++++++++
+----------------
 
 **Defaulted to**: Not defined
 
@@ -212,7 +209,7 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 .. _conan_log_run_to_file:
 
 CONAN_LOG_RUN_TO_FILE
-+++++++++++++++++++++
+---------------------
 
 **Defaulted to**: ``0``
 
@@ -232,7 +229,7 @@ The file can be included in the conan package (for debugging purposes) using the
             self.copy(pattern="conan_run.log", dst="", keep_path=False)
 
 CONAN_LOG_RUN_TO_OUTPUT
-+++++++++++++++++++++++
+-----------------------
 
 **Defaulted to**: ``1``
 
@@ -242,7 +239,7 @@ Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and 
 .. _conan_print_run_commands:
 
 CONAN_PRINT_RUN_COMMANDS
-++++++++++++++++++++++++
+------------------------
 
 **Defaulted to**: ``0``
 
@@ -264,13 +261,13 @@ Will print to the output (stout and/or file):
     ...
 
 CONAN_VERBOSE_TRACEBACK
-+++++++++++++++++++++++
+-----------------------
 
 **Defaulted to**: ``0``
 
 When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
 
-CMake Related Variables
+CMAKE RELATED VARIABLES
 -----------------------
 
 There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
@@ -302,7 +299,7 @@ the :ref:`CMake build tool<cmake_reference>`:
     See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
 CONAN_CPU_COUNT
-+++++++++++++++
+---------------
 
 **Defaulted to**: Number of available cores in your machine.
 
@@ -310,7 +307,7 @@ Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 CONAN_USER_HOME_SHORT
-+++++++++++++++++++++
+---------------------
 
 **Defaulted to**: Not defined
 
@@ -324,7 +321,7 @@ If set to "None", it will disable the `short_paths` feature in Windows for moder
     Please note that this only works with Python 3.6 and newer.
 
 CONAN_READ_ONLY_CACHE
-+++++++++++++++++++++
+---------------------
 
 **Defaulted to**: Not defined
 
