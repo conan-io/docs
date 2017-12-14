@@ -44,6 +44,71 @@ Constructor
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a conanfile.py
 
+Attributes
+----------
+
+You can adjust the automatically filled values modifying the attributes like this:
+
+.. code-block:: python
+   :emphasize-lines: 8, 9, 10
+
+    from conans import ConanFile, AutoToolsBuildEnvironment
+
+    class ExampleConan(ConanFile):
+        ...
+
+        def build(self):
+            env_build = AutoToolsBuildEnvironment(self)
+            env_build.fpic = True
+            env_build.libs.append("pthread")
+            env_build.defines.append("NEW_DEFINE=23")
+
+            with tools.environment_append(env_build.vars):
+                self.run("./configure")
+                self.run("make")
+
+fpic
+++++
+
+**Defaulted to**: ``None``
+
+Set it to ``True`` if you want to append the ``-fPIC`` flag.
+
+libs
+++++
+
+List with library names of the requirements (``-l`` in ``LIBS``).
+
+include_paths
++++++++++++++
+
+List with the include paths of the requires (-I in CPPFLAGS).
+
+library_paths
++++++++++++++
+
+List with library paths of the requirements  (-L in LDFLAGS).
+
+defines
++++++++
+
+List with variables that will be defined with ``-D``  in ``CPPFLAGS``.
+
+flags
++++++
+
+List with compilation flags (``CFLAGS`` and ``CXXFLAGS``).
+
+cxx_flags
++++++++++
+
+List with only C++ compilation flags (``CXXFLAGS``).
+
+link_flags
+++++++++++
+
+List with linker flags
+
 Methods
 -------
 
@@ -65,7 +130,7 @@ Parameters:
       is detected according to the settings. If ``False``, it will not use this argument at all.
     - **host** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--host``. If ``None`` it will try to detect the value if cross-building
       is detected according to the settings. If ``False``, it will not use this argument at all.
-    - **target**(Optional, Defaulted to ``None``): To specify a value for the parameter ``--target``. If ``None`` it will try to detect the value if cross-building
+    - **target** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--target``. If ``None`` it will try to detect the value if cross-building
       is detected according to the settings. If ``False``, it will not use this argument at all.
     - **pkg_config_paths** (Optional, Defaulted to ``None``): To specify folders (in a list) where to find ``*.pc`` files (by using the env var ``PKG_CONFIG_PATH``).
       If ``None`` is specified but the conanfile is using the ``pkg_config`` generator, the ``self.build_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to
@@ -86,7 +151,10 @@ Parameters:
     - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. Also the environment variable
       :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used.
 
-**Set environment variables**
+Environment variables
+---------------------
+
+The following environment variables will also affect the `AutoToolsBuildEnvironment` helper class.
 
 +--------------------+---------------------------------------------------------------------+
 | NAME               | DESCRIPTION                                                         |
@@ -102,51 +170,6 @@ Parameters:
 | CPPFLAGS           | Preprocessor definitions (-D, -I)                                   |
 +--------------------+---------------------------------------------------------------------+
 
+.. seealso::
 
-**Attributes**
-
-+-----------------------------+---------------------------------------------------------------------+
-| PROPERTY                    | DESCRIPTION                                                         |
-+=============================+=====================================================================+
-| .fpic                       | Boolean, Set it to True if you want to append the -fPIC flag        |
-+-----------------------------+---------------------------------------------------------------------+
-| .libs                       | List with library names of the requirements  (-l in LIBS)           |
-+-----------------------------+---------------------------------------------------------------------+
-| .include_paths              | List with the include paths of the requires (-I in CPPFLAGS)        |
-+-----------------------------+---------------------------------------------------------------------+
-| .library_paths              | List with library paths of the requirements  (-L in LDFLAGS)        |
-+-----------------------------+---------------------------------------------------------------------+
-| .defines                    | List with variables that will be defined with -D  in CPPFLAGS       |
-+-----------------------------+---------------------------------------------------------------------+
-| .flags                      | List with compilation flags (CFLAGS and CXXFLAGS)                   |
-+-----------------------------+---------------------------------------------------------------------+
-| .cxx_flags                  | List with only c++ compilation flags (CXXFLAGS)                     |
-+-----------------------------+---------------------------------------------------------------------+
-| .link_flags                 | List with linker flags                                              |
-+-----------------------------+---------------------------------------------------------------------+
-
-
-
-You can adjust the automatically filled values modifying the attributes above:
-
-
-.. code-block:: python
-   :emphasize-lines: 8, 9, 10
-
-   from conans import ConanFile, AutoToolsBuildEnvironment
-
-   class ExampleConan(ConanFile):
-      ...
-
-      def build(self):
-         env_build = AutoToolsBuildEnvironment(self)
-         env_build.fpic = True
-         env_build.libs.append("pthread")
-         env_build.defines.append("NEW_DEFINE=23")
-
-         with tools.environment_append(env_build.vars):
-            self.run("./configure")
-            self.run("make")
-
-
-.. seealso:: - :ref:`Reference/Tools/environment_append <environment_append_tool>`
+    - :ref:`Reference/Tools/environment_append <environment_append_tool>`
