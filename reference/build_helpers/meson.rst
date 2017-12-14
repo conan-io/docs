@@ -32,22 +32,41 @@ Parameters:
 Methods
 -------
 
-- **configure** (args=None, defs=None, source_dir=None, build_dir=None, pkg_config_paths=None)
+configure()
++++++++++++
 
-    - **args**: A list of additional arguments to be passed to the ``configure`` script. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **defs**: A list of definitions
-    - **source_dir**: Default conanfile.source_folder.
-    - **build_dir**: Default conanfile.build_folder
-    - **cache_build_dir**: Use the given subfolder as build folder when building the package in the local cache.
+.. code-block:: python
+
+    def configure(self, args=None, defs=None, source_dir=None, build_dir=None,
+                  pkg_config_paths=None, cache_build_dir=None)
+
+Configures `Meson` project with the given parameters.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument will
+      be escaped according to the current shell. No extra arguments will be added if ``args=None``.
+    - **defs** (Optional, Defaulted to ``None``): A list of definitions.
+    - **source_dir** (Optional, Defaulted to ``None``): If ``None``, it will be set to ``conanfile.source_folder``.
+    - **build_dir** (Optional, Defaulted to ``None``): If ``None``, it will be set to ``conanfile.build_folder``.
+    - **pkg_config_paths** (Optional, Defaulted to ``None``): A list containing paths to locate the pkg-config files (\*.pc). If ``None``, it will be set to ``conanfile.build_folder``.
+    - **cache_build_dir** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_dir** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
-    - **pkg_config_paths**: A list containing paths to locate the pkg-config files (\*.pc). Default conanfile.build_folder.
 
-- **build** (args=None, build_dir=None, targets=None)
+build()
++++++++
 
-    - **args**: A list of additional arguments to be passed to the ``make`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: Default conanfile.build_folder
-    - **targets**: A list of targets to be built.
+.. code-block:: python
+
+    def build(self, args=None, build_dir=None, targets=None)
+
+Builds `Meson` project with the given parameters.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``make`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None``, it will be set to ``conanfile.build_folder``.
+    - **targets** (Optional, Defaulted to ``None``): A list of targets to be built. No targets will be added if ``targets=None``.
 
 Example
 --------
