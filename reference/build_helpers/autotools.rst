@@ -47,15 +47,29 @@ Parameters:
 Methods
 -------
 
-- **configure** (configure_dir=None, args=None, build=None, host=None, target=None, pkg_config_paths=None)
+configure()
++++++++++++
 
-    - **configure_dir**: Directory where the ``configure`` script is.
-    - **args**: A list of additional arguments to be passed to the ``configure`` script. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build**: To specify a value for the parameter ``--build``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
-    - **host**: To specify a value for the parameter ``--host``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
-    - **target**: To specify a value for the parameter ``--target``. If ``None`` it will try to detect the value if cross building is detected according to the settings. If ``False``, it will not use this argument at all.
-    - **pkg_config_paths**: To specify folders (in a list) where to find ``*.pc`` files (by using the env var ``PKG_CONFIG_PATH``.
-      If None is specified but the conanfile is using the ``pkg_config`` generator, the ``self.build_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to locate the pc files of the requirements of the conanfile.
+.. code-block:: python
+
+    def configure(self, configure_dir=None, args=None, build=None, host=None, target=None,
+                  pkg_config_paths=None)
+
+Configures `Autotools` project with the given parameters.
+
+Parameters:
+    - **configure_dir** (Optional, Defaulted to ``None``): Directory where the ``configure`` script is. If ``None``, it will use the current directory.
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--build``. If ``None`` it will try to detect the value if cross-building
+      is detected according to the settings. If ``False``, it will not use this argument at all.
+    - **host** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--host``. If ``None`` it will try to detect the value if cross-building
+      is detected according to the settings. If ``False``, it will not use this argument at all.
+    - **target**(Optional, Defaulted to ``None``): To specify a value for the parameter ``--target``. If ``None`` it will try to detect the value if cross-building
+      is detected according to the settings. If ``False``, it will not use this argument at all.
+    - **pkg_config_paths** (Optional, Defaulted to ``None``): To specify folders (in a list) where to find ``*.pc`` files (by using the env var ``PKG_CONFIG_PATH``).
+      If ``None`` is specified but the conanfile is using the ``pkg_config`` generator, the ``self.build_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to
+      locate the pc files of the requirements of the conanfile.
 
 - **make** (args=None, make_program=Nonw)
 
