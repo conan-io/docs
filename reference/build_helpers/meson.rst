@@ -3,6 +3,8 @@
 Meson
 =====
 
+Build helper  for Meson build system with configure and build methods.
+
 .. code-block:: python
 
     from conans import ConanFile, Meson
@@ -69,9 +71,10 @@ Parameters:
     - **targets** (Optional, Defaulted to ``None``): A list of targets to be built. No targets will be added if ``targets=None``.
 
 Example
---------
+-------
 
-A typical usage of the Meson build helper, if you want to be able to both execute ``conan create`` and also build your package for a library locally (in your user folder, not in the conan cache), could be:
+A typical usage of the Meson build helper, if you want to be able to both execute ``conan create`` and also build your package for a library locally
+(in your user folder, not in the conan cache), could be:
 
 .. code-block:: python
 
@@ -111,9 +114,9 @@ The layout is:
     <folder>
       | - conanfile.py
       | - src
-           | - meson.build
-           | - hello.cpp
-           | - hello.h
+          | - meson.build
+          | - hello.cpp
+          | - hello.h
 
 And the ``meson.build`` could be as simple as:
 
