@@ -1,6 +1,5 @@
 .. _autotools_reference:
 
-
 AutoToolsBuildEnvironment
 =========================
 
@@ -8,31 +7,42 @@ Prepares the needed environment variables to invoke  **configure**/**make**:
 
 .. code-block:: python
 
-   from conans import ConanFile, AutoToolsBuildEnvironment
+    from conans import ConanFile, AutoToolsBuildEnvironment
 
-   class ExampleConan(ConanFile):
-       ...
+    class ExampleConan(ConanFile):
+        ...
 
-
-       def build(self):
-         env_build = AutoToolsBuildEnvironment(self)
-         env_build.configure()
-         env_build.make()
-
-
+        def build(self):
+            env_build = AutoToolsBuildEnvironment(self)
+            env_build.configure()
+            env_build.make()
 
 Or calling `configure` and `make` manually:
 
 .. code-block:: python
 
-      def build(self):
-         env_build = AutoToolsBuildEnvironment(self)
-         with tools.environment_append(env_build.vars):
-            self.run("./configure")
-            self.run("make")
+    from conans import ConanFile, AutoToolsBuildEnvironment
 
+    class ExampleConan(ConanFile):
+        ...
 
+        def build(self):
+            env_build = AutoToolsBuildEnvironment(self)
+            with tools.environment_append(env_build.vars):
+                self.run("./configure")
+                self.run("make")
 
+Constructor
+-----------
+
+.. code-block:: python
+
+    class AutoToolsBuildEnvironment(object):
+
+        def __init__(self, conanfile)
+
+Parameters:
+    - **conanfile** (Required): Conanfile object. Usually ``self`` in a conanfile.py
 
 Methods
 -------
