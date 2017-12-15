@@ -7,6 +7,12 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+0.30.3 (15-December-2017)
+-------------------------
+
+- Reverted CMake() and Meson() build helpers to keep old behavior.
+- Forced Astroid dependency to < 1.6 because of py3 issues.
+
 0.30.2 (14-December-2017)
 -------------------------
 
