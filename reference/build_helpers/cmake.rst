@@ -134,7 +134,7 @@ Methods
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **definitions**: A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
-    - **source_folder**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``self.source_folder`` if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified).
+    - **source_folder**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``self.source_folder``.
       Relative paths are allowed and will be relative to ``self.source_folder``.
     - **build_folder**: CMake's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.
       The ``CMake`` object will store ``build_folder`` internally for subsequent calls to ``build()``.

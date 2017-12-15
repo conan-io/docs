@@ -33,7 +33,7 @@ Methods
 
     - **args**: A list of additional arguments to be passed to the ``configure`` script. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **defs**: A list of definitions
-    - **source_folder**: Meson's source directory where ``meson.build`` is located. The default value is the ``self.source_folder`` if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified).
+    - **source_folder**: Meson's source directory where ``meson.build`` is located. The default value is the ``self.source_folder``.
       Relative paths are allowed and will be relative to ``self.source_folder``.
     - **build_folder**: Meson's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.
       The ``Meson`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
