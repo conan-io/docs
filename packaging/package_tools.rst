@@ -48,7 +48,7 @@ This tool enables the creation of hundreds of binary packages in the cloud with 
 
 - Make easier the **generation of multiple conan packages** with different configurations.
 - Automated/remote package generation in **Travis/Appveyor** server with distributed builds in CI jobs for big/slow builds.
-- **Docker**: Automatic generation of packages for several gcc and clang  in any Linux, also in Travis CI.
+- **Docker**: Automatic generation of packages for several versions of ``gcc`` and ``clang`` in Linux, also in Travis CI.
 - Automatic creation of OSX packages with apple-clang, also in Travis-CI.
 - **Visual Studio**: Automatic configuration of command line environment with detected settings.
 
