@@ -28,7 +28,7 @@ Using the helper methods:
    def build(self):
       cmake = CMake(self)
       cmake.configure()
-      # same as cmake.configure(source_dir=self.source_folder, build_dir="./")
+      # same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)
       cmake.build()
       cmake.install()
 
@@ -130,23 +130,25 @@ Attributes
 Methods
 -------
 
-- **configure** (args=None, defs=None, source_dir=None, build_dir=None)
+- **configure** (args=None, defs=None, source_folder=None, build_folder=None)
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **definitions**: A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
-    - **source_dir**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``build`` folder if ``None`` is specified (or the ``source`` folder if ``no_copy_source`` is specified). Relative paths are allowed and will be relative to ``build_dir``
-    - **build_dir**: CMake's output directory. The default value is the package ``build`` root folder if ``None`` is specified. The ``CMake`` object will store ``build_dir`` internally for subsequent calls to ``build()``
-    - **cache_build_dir**: Use the given subfolder as build folder when building the package in the local cache.
-      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_dir** when working in the local cache.
+    - **source_folder**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``self.source_folder``.
+      Relative paths are allowed and will be relative to ``self.source_folder``.
+    - **build_folder**: CMake's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.
+      The ``CMake`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
+    - **cache_build_folder**: Use the given subfolder as build folder when building the package in the local cache.
+      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
 
 - **build** (args=None, build_dir=None, target=None)
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
+    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
     - **target**: Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging
 
 - **install** (args=None, build_dir=None, target=None)
 
     - **args**: A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
+    - **build_dir**: CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
