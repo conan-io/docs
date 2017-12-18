@@ -144,7 +144,7 @@ And such package will contain just the files:
 
         def build(self):
             cmake = CMake(self)
-            cmake.configure(source_dir="hello")
+            cmake.configure(source_folder="hello")
             cmake.build()
 
         def package(self):
