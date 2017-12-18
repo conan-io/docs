@@ -14,7 +14,7 @@ Build helper  for Meson build system with configure and build methods.
 
         def build(self):
             meson = Meson(self)
-            meson.configure(cache_build_dir="build")
+            meson.configure(cache_build_folder="build")
             meson.build()
 
 Constructor
@@ -39,8 +39,8 @@ configure()
 
 .. code-block:: python
 
-    def configure(self, args=None, defs=None, source_dir=None, build_dir=None,
-                  pkg_config_paths=None, cache_build_dir=None)
+    def configure(self, args=None, defs=None, source_folder=None, build_folder=None,
+                  pkg_config_paths=None, cache_build_folder=None)
 
 Configures `Meson` project with the given parameters.
 
@@ -48,11 +48,13 @@ Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument will
       be escaped according to the current shell. No extra arguments will be added if ``args=None``.
     - **defs** (Optional, Defaulted to ``None``): A list of definitions.
-    - **source_dir** (Optional, Defaulted to ``None``): If ``None``, it will be set to ``conanfile.source_folder``.
-    - **build_dir** (Optional, Defaulted to ``None``): If ``None``, it will be set to ``conanfile.build_folder``.
+    - **source_folder** (Optional, Defaulted to ``None``): Meson's source directory where ``meson.build`` is located. The default value is the ``self.source_folder``.
+      Relative paths are allowed and will be relative to ``self.source_folder``.
+    - **build_folder** (Optional, Defaulted to ``None``): Meson's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.
+      The ``Meson`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
     - **pkg_config_paths** (Optional, Defaulted to ``None``): A list containing paths to locate the pkg-config files (\*.pc). If ``None``, it will be set to ``conanfile.build_folder``.
-    - **cache_build_dir** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
-      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_dir** when working in the local cache.
+    - **cache_build_folder** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
+      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
 
 build()
@@ -89,8 +91,8 @@ A typical usage of the Meson build helper, if you want to be able to both execut
 
         def build(self):
             meson = Meson(self)
-            meson.configure(source_dir="%s/src" % self.source_folder, 
-                            build_dir="build")
+            meson.configure(source_folder="%s/src" % self.source_folder, 
+                            build_folder="build")
             meson.build()
 
         def package(self):
