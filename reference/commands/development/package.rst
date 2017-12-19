@@ -22,7 +22,8 @@ pkg' after a 'build' command.
 .. code-block:: bash
 
     positional arguments:
-      path                  path to a recipe (conanfile.py), e.g., conan package .
+      path                  path to a folder containing a recipe (conanfile.py) or to a
+                            recipe file, e.g., conan package folder/conanfile.py
 
     optional arguments:
       -h, --help            show this help message and exit
