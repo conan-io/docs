@@ -26,7 +26,7 @@ then the ``package()`` method is not required.
         cmake.install()
         # equivalent to
         # args += ['-DCMAKE_INSTALL_PREFIX="%s"' % self.package_folder]
-        # self.run('cmake %s/src %s %s'
+        # self.run('cmake "%s/src" %s %s'
         #          % (self.source_folder, cmake.command_line, ' '.join( args ) ) )
         # self.run("cmake --build . --target install %s" % cmake.build_config)
 

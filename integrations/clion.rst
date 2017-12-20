@@ -163,7 +163,7 @@ And edit the ``conanfile.py``:
             cmake.build()
 
             # Explicit way:
-            # self.run('cmake %s %s' % (self.source_folder, cmake.command_line))
+            # self.run('cmake "%s" %s' % (self.source_folder, cmake.command_line))
             # self.run("cmake --build . %s" % cmake.build_config)
 
         def package(self):
