@@ -376,7 +376,7 @@ Then it can be done specifying the number of folders to be stripped from the pat
     tools.patch(patch_file="file.patch", strip=1)
 
 Parameters:
-    - **base_path** (Optional, Defaulted to ``None``): Base path where teh patch should be applied.
+    - **base_path** (Optional, Defaulted to ``None``): Base path where the patch should be applied.
     - **patch_file** (Optional, Defaulted to ``None``): Patch file that should be applied.
     - **patch_string** (Optional, Defaulted to ``None``): Patch string that should be applied.
     - **strip** (Optional, Defaulted to ``0``): Number of folders to be stripped from the path.
