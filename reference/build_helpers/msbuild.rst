@@ -35,9 +35,9 @@ You can adjust all the information from the requirements accessing to the ``buil
 
         def build(self):
             msbuild = MSBuild(self)
-            msbuild.env_build.include_paths.append("mycustom/directory/to/headers")
-            msbuild.env_build.lib_paths.append("mycustom/directory/to/libs")
-            msbuild.env_build.link_flags = []
+            msbuild.build_env.include_paths.append("mycustom/directory/to/headers")
+            msbuild.build_env.lib_paths.append("mycustom/directory/to/libs")
+            msbuild.build_env.link_flags = []
 
             msbuild.build("MyProject.sln")
 
