@@ -1,3 +1,4 @@
+.. _remote_command:
 
 conan remote
 ============

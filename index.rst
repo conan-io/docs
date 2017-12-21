@@ -15,6 +15,7 @@ Contents:
    installation
    getting_started
    manage_deps
+   repositories
    packaging
    mastering
    integrations  
