@@ -810,8 +810,8 @@ tools.collect_libs()
 
     def collect_libs(conanfile, folder="lib")
 
-Fetches a list of all libraries in the package folder. Useful to collect libraries with complex
-names like ``libmylib-x86-debug-en.lib``.
+Fetches a list of all libraries in the package folder. Useful to collect not inter-dependent
+libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
 .. code-block:: python
 
@@ -826,10 +826,9 @@ names like ``libmylib-x86-debug-en.lib``.
 
 .. warning::
 
-    This tool collects the libraries searching directly inside the directory tree of the package
-    folder. It does not follow any kind of dependency graph, name convention or build order, so it
-    is recommended to sort the libraries in the desired way for each particular package to achieve a
-    correct linking order.
+    This tool collects the libraries searching directly inside the package folder and returns the in
+    no specific order. If libraries are inter-dependent, then package_info() method should order
+    them to achieve correct linking order.
 
 .. _pkgconfigtool:
 
