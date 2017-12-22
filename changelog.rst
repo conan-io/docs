@@ -7,6 +7,34 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
+1.0.0-beta1 (22-December-2017)
+------------------------------
+- Feature: New command line UI. Most commands use now the path to the package recipe, like ``conan export . user/testing``
+  or ``conan create folder/myconanfile.py user/channel``.
+- Feature: Better cross-compiling. New settings model for ``os_build``, ``arch_build``, ``os_target``, ``arch_target``.
+- Feature: Better Windows OSS ecosystem, with utilities and settings model for MSYS, Cygwing, Mingw, WSL
+- Feature: ``package()`` will not warn of not copied files for known use cases.
+- Feature: reduce the scope of definition of ``cpp_info``, ``env_info``, ``user_info`` attributes to ``package_info()``
+  method, to avoid unexpected errors.
+- Feature: extended the use of addressing folder and conanfiles with diffeent names for ```source``, ``package`` and ``export-pkg``
+  commands
+- Feature: added support for Zypper system package tool
+- Fix: Fixed application of build requires from profiles that didn't apply to requires in recipes
+- Fix: Improved "test package" message in output log
+- Fix: updated CI templates generated with ``conan new``
+- Deprecation: Removed ``self.copy_headers`` and family for the ``package()`` method
+- Deprecation: Removed ``self.conanfile_directory`` attribute.
+
+.. note::
+
+  **Breaking changes**
+
+  - The new command line UI breaks command line tools and integration. Most cases, just add a ``.`` to the command.
+  - Removed ``self.copy_headers``, ``self.copy_libs``, methods for ``package()``. Use ``self.copy()`` instead.
+  - Removed ``self.conanfile_directory`` attribute. Use ``self.source_folder``, ``self.build_folder``, etc.
+    instead
+
+
 0.30.3 (15-December-2017)
 -------------------------
 
