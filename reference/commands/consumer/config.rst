@@ -3,24 +3,23 @@
 conan config
 ============
 
-
 .. code-block:: bash
 
-   $ conan config [-h] {rm,set,get,install} ...
+    $ conan config [-h] {rm,set,get,install} ...
 
 
-   Manage configuration. Edit conan.conf or install full configuration.
+   Manages configuration. Edits the conan.conf or installs config files.
 
-        positional arguments:
-          {rm,set,get,install}  sub-command help
-            rm                  rm an existing config element
-            set                 set/add value
-            get                 get the value of existing element
-            install             install a full configuration from a zip file, local or
-                                remote
+    positional arguments:
+      {rm,set,get,install}  sub-command help
+        rm                  rm an existing config element
+        set                 set/add value
+        get                 get the value of existing element
+        install             install a full configuration from a zip file, local or
+                            remote
 
-        optional arguments:
-          -h, --help            show this help message and exit
+optional arguments:
+  -h, --help            show this help message and exit
 
 
 **Examples**
