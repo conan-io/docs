@@ -35,7 +35,7 @@ Install conan:
     - Please make sure that your **pip** installation matches your **python (2.7 or 3.X)** one.
     - In Linux if you want to install it globally, you might need **sudo** permissions.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything python related
-    - In **Windows** you might need to use **32bits** python distributions, instead of 64bits.
+    - In **Windows** and with Python 2.7, you might need to use **32bits** python distribution (which is the Windows default one), instead of 64bits.
     - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip might fail. Try with virtualenvs, or install with other user ``$ pip install --user conan``
     - If you are in Windows, and using python <3.5, you might have problems if python is installed in a path with spaces, like "C:/Program Files(x86)/Python". This is a known python limitation, not conan. Install python in a path without spaces, use a virtualenv in another location or upgrade your python installation
     - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart, or logout/system if not enough) after installation, so conan is found in the path.

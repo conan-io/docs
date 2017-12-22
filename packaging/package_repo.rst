@@ -37,11 +37,11 @@ Now lets have a look to the ``conanfile.py``:
 
         def build(self):
             cmake = CMake(self)
-            cmake.configure(source_dir="src")
+            cmake.configure(source_folder="src")
             cmake.build()
 
             # Explicit way:
-            # self.run('cmake %s/src %s' % (self.source_folder, cmake.command_line))
+            # self.run('cmake "%s/src" %s' % (self.source_folder, cmake.command_line))
             # self.run("cmake --build . %s" % cmake.build_config)
 
         def package(self):

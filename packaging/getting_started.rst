@@ -68,11 +68,11 @@ Let's have a look to the root package recipe ``conanfile.py``:
 
         def build(self):
             cmake = CMake(self)
-            cmake.configure(source_dir="hello")
+            cmake.configure(source_folder="hello")
             cmake.build()
 
             # Explicit way:
-            # self.run('cmake %s/hello %s' % (self.source_folder, cmake.command_line))
+            # self.run('cmake "%s/hello" %s' % (self.source_folder, cmake.command_line))
             # self.run("cmake --build . %s" % cmake.build_config)
 
         def package(self):
