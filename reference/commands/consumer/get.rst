@@ -1,22 +1,19 @@
 .. _conan_get:
 
-
 conan get
 ==========
 
 .. code-block:: bash
 
-	$ conan get [-h] [--package PACKAGE] [--remote REMOTE] [--raw] reference [path]
+    $ conan get [-h] [--package PACKAGE] [--remote REMOTE] [--raw]
+                reference [path]
 
-
-Gets a file or list a directory of a given reference or package.
-
-.. code-block:: bash
+    Gets a file or list a directory of a given reference or package.
 
     positional arguments:
       reference             package recipe reference
       path                  Path to the file or directory. If not specified will
-                            get the conafile if only a reference is specified and
+                            get the conanfile if only a reference is specified and
                             a conaninfo.txt file contents if the package is also
                             specified
 
@@ -28,14 +25,13 @@ Gets a file or list a directory of a given reference or package.
                             Get from this specific remote
       --raw, -raw           Do not decorate the text
 
-
 **Examples**:
 
 - Print the conanfile.py from a remote package:
 
 .. code-block:: bash
 
-	$ conan get zlib/1.2.8@conan/stable -r conan-center
+    $ conan get zlib/1.2.8@conan/stable -r conan-center
 
 
 - List the files for a local package recipe:
@@ -74,8 +70,7 @@ Gets a file or list a directory of a given reference or package.
 
 
     [options]
-       # ...
-
+        # ...
 
 - List the files from a binary package in a remote:
 
