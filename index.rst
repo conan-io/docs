@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   conan1.0
    introduction
    installation
    getting_started

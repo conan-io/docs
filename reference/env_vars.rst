@@ -254,7 +254,7 @@ For example: In the `conanfile.py` file:
 Will print to the output (stout and/or file):
 
 .. code-block:: bash
-    ...
+
     ----Running------
     > cd zlib-1.2.9 && env LIBS="" LDFLAGS=" -m64   $LDFLAGS" CFLAGS="-mstackrealign -fPIC $CFLAGS -m64  -s -DNDEBUG  " CPPFLAGS="$CPPFLAGS -m64  -s -DNDEBUG  " C_INCLUDE_PATH=$C_INCLUDE_PATH: CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH: ./configure
     -----------------
