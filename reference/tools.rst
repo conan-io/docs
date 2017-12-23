@@ -826,8 +826,8 @@ libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
 .. warning::
 
-    This tool collects the libraries searching directly inside the package folder and returns the in
-    no specific order. If libraries are inter-dependent, then package_info() method should order
+    This tool collects the libraries searching directly inside the package folder and returns them
+    in no specific order. If libraries are inter-dependent, then package_info() method should order
     them to achieve correct linking order.
 
 .. _pkgconfigtool:
