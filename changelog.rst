@@ -7,7 +7,7 @@ Changelog
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 
-1.0.0-beta1 (22-December-2017)
+1.0.0-beta2 (23-December-2017)
 ------------------------------
 - Feature: New command line UI. Most commands use now the path to the package recipe, like ``conan export . user/testing``
   or ``conan create folder/myconanfile.py user/channel``.
@@ -26,6 +26,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Deprecation: Removed ``self.conanfile_directory`` attribute.
 
 .. note::
+
+  This is a beta release, shouldn't be installed unless you do it explicitly
+
+  $ pip install conan==1.0.0b2 --upgrade
 
   **Breaking changes**
 
