@@ -3,7 +3,7 @@ conan search
 
 .. code-block:: bash
 
-	$ conan search [-h] [--case-sensitive] [-r REMOTE] [--raw]
+    $ conan search [-h] [--case-sensitive] [-r REMOTE] [--raw]
                        [--table TABLE] [-q QUERY] [-o]
                        [pattern]
 
@@ -15,7 +15,7 @@ reference will be displayed. You can search in a remote or in the local cache,
 if nothing is specified, the local conan cache is assumed. Search is case
 sensitive, exact case has to be used. For case insensitive file systems, like
 Windows, case sensitive search can be forced with the --case-sensitive
-argument
+argument.
 
 .. code-block:: bash
 
@@ -40,14 +40,12 @@ argument
                             package recipe reference: MyPackage/1.2@user/channel
       -o, --outdated        Show only outdated from recipe packages
 
-
 **Examples**
 
 .. code-block:: bash
 
-	$ conan search OpenCV/*
-	$ conan search OpenCV/* -r=conan.io
-
+    $ conan search OpenCV/*
+    $ conan search OpenCV/* -r=conan.io
 
 If you use instead the full package recipe reference, you can explore the binaries existing for
 that recipe, also in a remote or in the local conan cache:
@@ -56,29 +54,28 @@ that recipe, also in a remote or in the local conan cache:
 
     $ conan search Boost/1.60.0@lasote/stable
 
-A query syntax is allowed to look for specific binaries, you can use ``AND`` and ``OR`` operators and parenthesis, with settings and also options.
+A query syntax is allowed to look for specific binaries, you can use ``AND`` and ``OR`` operators
+and parenthesis, with settings and also options.
 
 .. code-block:: bash
 
     $ conan search Boost/1.60.0@lasote/stable -q arch=x86_64
     $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
-
-If you specify a query filter for a setting and the package recipe is not restricted by this setting, will find all packages:
+If you specify a query filter for a setting and the package recipe is not restricted by this
+setting, will find all packages:
 
 .. code-block:: python
 
     class MyRecipe(ConanFile):
         settings="arch"
 
-
 .. code-block:: bash
 
     $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
 
-
-The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare "os" as a setting.
-
+The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare
+"os" as a setting.
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:
 
