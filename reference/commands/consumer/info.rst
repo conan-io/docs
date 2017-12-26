@@ -1,33 +1,30 @@
 
-
 conan info
 ==========
 
 .. code-block:: bash
 
-    $ usage: conan info [-h] [--file FILE] [--only ONLY] [--paths]
-                  [--package-filter [PACKAGE_FILTER]]
-                  [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
-                  [--install-folder INSTALL_FOLDER] [--update]
-                  [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
-                  [--settings SETTINGS] [--env ENV]
-                  [--build [BUILD [BUILD ...]]]
-                  [reference]
+    $ conan info [-h] [--only ONLY] [--paths]
+                 [--package-filter [PACKAGE_FILTER]]
+                 [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
+                 [--install-folder INSTALL_FOLDER] [--update]
+                 [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
+                 [--settings SETTINGS] [--env ENV]
+                 [--build [BUILD [BUILD ...]]]
+                 [reference]
 
-Gets information about the dependency graph of a recipe. You can use it for
-your current project, by passing a path to a conanfile.py as the reference, or
-for any existing package in your local cache.
-
-
-.. code-block:: bash
+    Gets information about the dependency graph of a recipe. You can use it for
+    your current project, by passing a path to a conanfile.py as the reference, or
+    for any existing package in your local cache.
 
     positional arguments:
-      reference             reference name or path to conanfile file, e.g.,
-                            MyPackage/1.2@user/channel or ./my_project/
+      reference             path to a folder containing a recipe (conanfile.py or
+                            conanfile.txt) or to a recipe file. e.g.,
+                            ./my_project/conanfile.txt. It could also be a
+                            reference
 
     optional arguments:
       -h, --help            show this help message and exit
-      --file FILE, -f FILE  specify conanfile filename
       --only ONLY, -n ONLY  show the specified fields only from: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
                             "required", "date", "author", "None" or use --paths
@@ -49,13 +46,13 @@ for any existing package in your local cache.
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
                             extension
-      --install-folder INSTALL_FOLDER, -if INSTALL_FOLDER
-                        local folder containing the conaninfo.txt and
-                        conanbuildinfo.txt files (from a previous conan
-                        install execution). Defaulted to current folder,
-                        unless --profile, -s or -o is specified. If you
-                        specify both install-folder and any setting/option it
-                        will raise an error.
+      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
+                            local folder containing the conaninfo.txt and
+                            conanbuildinfo.txt files (from a previous conan
+                            install execution). Defaulted to current folder,
+                            unless --profile, -s or -o is specified. If you
+                            specify both install-folder and any setting/option it
+                            will raise an error.
       --update, -u          check updates exist from upstream remotes
       --profile PROFILE, -pr PROFILE
                             Apply the specified profile to the install command
@@ -74,35 +71,41 @@ for any existing package in your local cache.
                             would be built from sources in install command
                             (simulation)
 
-
 **Examples**:
 
 .. code-block:: bash
 
-   $ conan info
-   $ conan info myproject_path
-   $ conan info Hello/1.0@user/channel
+    $ conan info .
+    $ conan info myproject_folder
+    $ conan info myproject_folder/conanfile.py
+    $ conan info Hello/1.0@user/channel
 
 The output will look like:
 
 .. code-block:: bash
 
-   Dependency/0.1@user/channel
-    URL: http://...
-    License: MIT
-    Updates: Version not checked
-    Required by:
+    Dependency/0.1@user/channel
+     ID: 5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+     BuildID: None
+     Remote: None
+     URL: http://...
+     License: MIT
+     Updates: Version not checked
+     Creation date: 2017-10-31 14:45:34
+     Required by:
         Hello/1.0@user/channel
 
-   Hello/1.0@user/channel
-       URL: http://...
-       License: MIT
-       Updates: Version not checked
-       Required by:
-           Project
-       Requires:
-           Hello0/0.1@user/channel
-
+    Hello/1.0@user/channel
+     ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
+     BuildID: None
+     Remote: None
+     URL: http://...
+     License: MIT
+     Updates: Version not checked
+     Required by:
+        Project
+     Requires:
+        Hello0/0.1@user/channel
 
 ``conan info`` builds the complete dependency graph, like ``conan install`` does. The machine
 difference is that it doesn't try to install or build the binaries, but the package recipes
@@ -113,22 +116,22 @@ given configuration (settings, options), as the dependency graph can be differen
 configurations. Then, the input to the ``conan info`` commmand is the same as ``conan install``,
 the configuration can be specified directly with settings and options, or using profiles.
 
-Also, if you did a previous ``conan install`` with a specific configuration, or maybe different installs
-with different configurations, you can reuse that information with the ``--install-folder`` argument:
+Also, if you did a previous ``conan install`` with a specific configuration, or maybe different
+installs with different configurations, you can reuse that information with the ``--install-folder``
+argument:
 
 .. code-block:: bash
 
-   $ # dir with a conanfile.txt
-   $ mkdir build_release && cd build_release
-   $ conan install .. --profile=gcc54release
-   $ cd .. && mkdir build_debug && cd build_debug
-   $ conan install .. --profile=gcc54debug
-   $ cd ..
-   $ conan info . --install-folder=build_release
-   > info for the release dependency graph install
-   $ conan info . --install-folder=build_debug
-   > info for the debug dependency graph install
-   
+    $ # dir with a conanfile.txt
+    $ mkdir build_release && cd build_release
+    $ conan install .. --profile=gcc54release
+    $ cd .. && mkdir build_debug && cd build_debug
+    $ conan install .. --profile=gcc54debug
+    $ cd ..
+    $ conan info . --install-folder=build_release
+    > info for the release dependency graph install
+    $ conan info . --install-folder=build_debug
+    > info for the debug dependency graph install
 
 It is possible to use the ``conan info`` command to extract useful information for Continuous
 Integration systems. More precisely, it has the ``--build_order, -bo`` option, that will produce
@@ -139,7 +142,7 @@ changed (most likely due to a git push on that package):
 
 .. code-block:: bash
 
-    $ conan info -bo zlib/1.2.11@conan/stable
+    $ conan info . -bo zlib/1.2.11@conan/stable
     [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
 
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
