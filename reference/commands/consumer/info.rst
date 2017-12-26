@@ -48,7 +48,7 @@ for any existing package in your local cache.
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
                             extension
-      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
+      --install-folder INSTALL_FOLDER, -if INSTALL_FOLDER
                             local folder containing the conaninfo.txt and
                             conanbuildinfo.txt files (from a previous conan
                             install execution). Defaulted to current folder,
