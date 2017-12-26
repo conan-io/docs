@@ -13,9 +13,11 @@ conan info
                  [--build [BUILD [BUILD ...]]]
                  [reference]
 
-    Gets information about the dependency graph of a recipe. You can use it for
-    your current project, by passing a path to a conanfile.py as the reference, or
-    for any existing package in your local cache.
+Gets information about the dependency graph of a recipe. You can use it for
+your current project, by passing a path to a conanfile.py as the reference, or
+for any existing package in your local cache.
+
+.. code-block:: bash
 
     positional arguments:
       reference             path to a folder containing a recipe (conanfile.py or

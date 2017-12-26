@@ -8,7 +8,9 @@ conan get
     $ conan get [-h] [--package PACKAGE] [--remote REMOTE] [--raw]
                 reference [path]
 
-    Gets a file or list a directory of a given reference or package.
+Gets a file or list a directory of a given reference or package.
+
+.. code-block:: bash
 
     positional arguments:
       reference             package recipe reference
@@ -29,56 +31,56 @@ conan get
 
 - Print the conanfile.py from a remote package:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan get zlib/1.2.8@conan/stable -r conan-center
+      $ conan get zlib/1.2.8@conan/stable -r conan-center
 
 
 - List the files for a local package recipe:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan get zlib/1.2.11@conan/stable .
+      $ conan get zlib/1.2.11@conan/stable .
 
-    Listing directory '.':
-     CMakeLists.txt
-     conanfile.py
-     conanmanifest.txt
+      Listing directory '.':
+       CMakeLists.txt
+       conanfile.py
+       conanmanifest.txt
 
 - Print a file from a recipe folder:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan get zlib/1.2.11@conan/stable conanmanifest.txt
+      $ conan get zlib/1.2.11@conan/stable conanmanifest.txt
 
 - Print the conaninfo.txt file for a binary package:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan get zlib/1.2.11@conan/stable -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8
+      $ conan get zlib/1.2.11@conan/stable -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8
 
-.. code-block:: text
+  .. code-block:: text
 
-    [settings]
-        arch=x86_64
-        build_type=Release
-        compiler=apple-clang
-        compiler.version=8.1
-        os=Macos
+      [settings]
+          arch=x86_64
+          build_type=Release
+          compiler=apple-clang
+          compiler.version=8.1
+          os=Macos
 
-    [requires]
+      [requires]
 
 
-    [options]
-        # ...
+      [options]
+          # ...
 
 - List the files from a binary package in a remote:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan get zlib/1.2.11@conan/stable . -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8 -r conan-center
+      $ conan get zlib/1.2.11@conan/stable . -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8 -r conan-center
 
-    Listing directory '.':
-     conan_package.tgz
-     conaninfo.txt
-     conanmanifest.txt
+      Listing directory '.':
+       conan_package.tgz
+       conaninfo.txt
+       conanmanifest.txt
