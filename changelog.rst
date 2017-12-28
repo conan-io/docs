@@ -6,6 +6,13 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+1.0.0-beta3 (28-December-2017)
+------------------------------
+- Fix: Upgraded pylint and astroid to latest
+- Fix: Fixed ``build_requires`` with transitive dependencies to other build_requires
+- Fix: Improved pyinstaller creation of executable, to allow for py3-64 bits (windows)
+- Deprecation: removed all ``--some_argument``, use instead ``--some-argument`` in command line.
+
 
 1.0.0-beta2 (23-December-2017)
 ------------------------------
