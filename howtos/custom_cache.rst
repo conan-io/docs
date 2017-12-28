@@ -1,7 +1,7 @@
 .. _custom_cache:
 
 
-Virtual environments: concurrency, Continuous Integration, isolation
+Conan local cache: concurrency, Continuous Integration, isolation
 =========================================================================================
 
 Conan needs access to some, per user, configuration files, as the **conan.conf** file that
@@ -31,9 +31,9 @@ conan client application:
 
 
 Using different caches is very simple. You can just define the environment variable **CONAN_USER_HOME**.
-By setting this variable to different paths, you have multiple virtual conan environments, 
+By setting this variable to different paths, you have multiple conan caches, 
 something like python "virtualenvs". Just changing the value of **CONAN_USER_HOME** you can 
-switch among isolated environments that will have independent package storage caches, but also
+switch among isolated conan instantes that will have independent package storage caches, but also
 different user credentials, different user default settings, and different remotes configuration.
 
 **Note:** Use an absolute path or a path starting with ~/ (relative to user home). In Windows do not use quotes.
@@ -58,18 +58,18 @@ You can now:
 - Build concurrent jobs, parallel builds in Continous Integration or locally, just setting the
   variable before launching conan commands
 - You can test locally different user credentials, default configurations, different remotes,
-  just by switching from one environment to the others:
+  just by switching from one cache to the others:
   
 .. code-block:: bash
 
    $ export CONAN_USER_HOME=/tmp/conan
-   $ conan search  # using that /tmp/conan environment
-   $ conan user  # using that /tmp/conan environment
+   $ conan search  # using that /tmp/conan cache
+   $ conan user  # using that /tmp/conan cache
    
    $ export CONAN_USER_HOME=/tmp/conan2
    $ conan search  # different packages
    $ conan user  # can be different users
    
-   $ export CONAN_USER_HOME=/tmp/conan  # just go back to use the other environment
+   $ export CONAN_USER_HOME=/tmp/conan  # just go back to use the other cache
   
 
