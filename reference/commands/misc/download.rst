@@ -4,7 +4,7 @@ conan download
 
 .. code-block:: bash
 
-    $ conan download [-h] [--package PACKAGE] [-r REMOTE] reference
+    $ conan download [-h] [-p PACKAGE] [-r REMOTE] reference
 
 Downloads recipe and binaries to the local cache, without using settings. It
 works specifying the recipe reference and package ID to be installed. Not
@@ -22,7 +22,7 @@ sequentially in the available configured remotes.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --package PACKAGE, -p PACKAGE
+      -p PACKAGE, --package PACKAGE
                             Force install specified package ID (ignore
                             settings/options)
       -r REMOTE, --remote REMOTE

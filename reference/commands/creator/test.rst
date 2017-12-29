@@ -4,10 +4,9 @@ conan test
 
 .. code-block:: bash
 
-    $ conan test [-h] [--update] [--profile PROFILE]
-                 [-r REMOTE] [--options OPTIONS] [--settings SETTINGS]
-                 [--env ENV] [--build [BUILD [BUILD ...]]]
-                 path [reference]
+    $ conan test [-h] [-u] [-pr PROFILE] [-r REMOTE] [-o OPTIONS]
+                 [-s SETTINGS] [-e ENV] [-b [BUILD [BUILD ...]]]
+                 path reference
 
 Runs a test_folder/conanfile.py to test an existing package. The package to be
 tested must exist in the local cache or any configured remote. To create and
@@ -26,19 +25,19 @@ create`` command.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --update, -u          check updates exist from upstream remotes
-      --profile PROFILE, -pr PROFILE
+      -u, --update          check updates exist from upstream remotes
+      -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
-      --options OPTIONS, -o OPTIONS
+      -o OPTIONS, --options OPTIONS
                             Define options values, e.g., -o Pkg:with_qt=true
-      --settings SETTINGS, -s SETTINGS
+      -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
-      --env ENV, -e ENV     Environment variables that will be set during the
+      -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
-      --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
+      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
                             binary packages. --build=never Never build, use binary

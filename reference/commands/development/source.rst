@@ -4,9 +4,7 @@ conan source
 
 .. code-block:: bash
 
-    $ conan source [-h] [--source-folder SOURCE_FOLDER]
-                   [--install-folder INSTALL_FOLDER]
-                   path
+    $ conan source [-h] [-sf SOURCE_FOLDER] [-if INSTALL_FOLDER] path
 
 Calls your local conanfile.py 'source()' method. I.e., downloads and unzip the
 package source.
@@ -20,9 +18,9 @@ package source.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --source-folder SOURCE_FOLDER, --source_folder SOURCE_FOLDER, -s SOURCE_FOLDER
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             Destination directory. Defaulted to current directory
-      --install-folder INSTALL_FOLDER, -if INSTALL_FOLDER
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Optional. Local folder containing the conaninfo.txt
                             and conanbuildinfo.txt files (from a previous conan
                             install execution). Defaulted to the current

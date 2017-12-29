@@ -5,14 +5,11 @@ conan install
 
 .. code-block:: bash
 
-    $ conan install [-h] [--file FILE] [--generator GENERATOR]
-                    [--install-folder INSTALL_FOLDER]
-                    [--manifests [MANIFESTS]]
-                    [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                    [--verify [VERIFY]] [--no-imports] [--update]
-                    [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
-                    [--settings SETTINGS] [--env ENV]
-                    [--build [BUILD [BUILD ...]]]
+    $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-m [MANIFESTS]]
+                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
+                    [--no-imports] [-u] [-pr PROFILE] [-r REMOTE]
+                    [-o OPTIONS] [-s SETTINGS] [-e ENV]
+                    [-b [BUILD [BUILD ...]]]
                     path
 
 Installs the requirements specified in a conanfile (.py or .txt). If any
@@ -35,35 +32,35 @@ concrete recipe/package specifying a reference in the "path" parameter.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --generator GENERATOR, -g GENERATOR
+      -g GENERATOR, --generator GENERATOR
                             Generators to use
-      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Use this directory as the directory where to put the
                             generatorfiles, conaninfo/conanbuildinfo.txt etc.
-      --manifests [MANIFESTS], -m [MANIFESTS]
+      -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
                             changed
-      --manifests-interactive [MANIFESTS_INTERACTIVE], -mi [MANIFESTS_INTERACTIVE]
+      -mi [MANIFESTS_INTERACTIVE], --manifests-interactive [MANIFESTS_INTERACTIVE]
                             Install dependencies manifests in folder for later
                             verify, asking user for confirmation. Default folder
                             is .conan_manifests, but can be changed
-      --verify [VERIFY], -v [VERIFY]
+      -v [VERIFY], --verify [VERIFY]
                             Verify dependencies manifests against stored ones
       --no-imports          Install specified packages but avoid running imports
-      --update, -u          check updates exist from upstream remotes
-      --profile PROFILE, -pr PROFILE
+      -u, --update          check updates exist from upstream remotes
+      -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
-      --options OPTIONS, -o OPTIONS
+      -o OPTIONS, --options OPTIONS
                             Define options values, e.g., -o Pkg:with_qt=true
-      --settings SETTINGS, -s SETTINGS
+      -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
-      --env ENV, -e ENV     Environment variables that will be set during the
+      -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
-      --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
+      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
                             binary packages. --build=never Never build, use binary
@@ -89,7 +86,6 @@ concrete recipe/package specifying a reference in the "path" parameter.
 
       $ conan install . -o PkgName:use_debug_mode=on -s compiler=clang
 
-
   .. note::
 
       You have to take into account that **settings** are cached as defaults in the
@@ -101,7 +97,6 @@ concrete recipe/package specifying a reference in the "path" parameter.
       them in the **conanfile**. When you change the **options** on the command line, they are only
       changed for one shot. Next time, **conan install** will take the **conanfile** options as
       default values, if you don't specify them again in the command line.
-
 
 - Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default
   settings from ``<userhome>/.conan/profiles/default``:

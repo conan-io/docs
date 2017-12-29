@@ -5,8 +5,7 @@ conan get
 
 .. code-block:: bash
 
-    $ conan get [-h] [--package PACKAGE] [--remote REMOTE] [--raw]
-                reference [path]
+    $ conan get [-h] [-p PACKAGE] [-r REMOTE] [-raw] reference [path]
 
 Gets a file or list a directory of a given reference or package.
 
@@ -21,11 +20,11 @@ Gets a file or list a directory of a given reference or package.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --package PACKAGE, -p PACKAGE
-                            package ID
-      --remote REMOTE, -r REMOTE
-                            Get from this specific remote
-      --raw, -raw           Do not decorate the text
+      -p PACKAGE, --package PACKAGE
+                        package ID
+      -r REMOTE, --remote REMOTE
+                        Get from this specific remote
+      -raw, --raw           Do not decorate the text
 
 **Examples**:
 

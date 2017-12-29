@@ -4,14 +4,11 @@ conan info
 
 .. code-block:: bash
 
-    $ conan info [-h] [--only ONLY] [--paths]
-                 [--package-filter [PACKAGE_FILTER]]
-                 [--build-order BUILD_ORDER] [--json [JSON]] [--graph GRAPH]
-                 [--install-folder INSTALL_FOLDER] [--update]
-                 [--profile PROFILE] [-r REMOTE] [--options OPTIONS]
-                 [--settings SETTINGS] [--env ENV]
-                 [--build [BUILD [BUILD ...]]]
-                 [reference]
+    $ conan info [-h] [-n ONLY] [--paths] [--package-filter [PACKAGE_FILTER]]
+                 [-bo BUILD_ORDER] [-j [JSON]] [-g GRAPH]
+                 [-if INSTALL_FOLDER] [-u] [-pr PROFILE] [-r REMOTE]
+                 [-o OPTIONS] [-s SETTINGS] [-e ENV] [-b [BUILD [BUILD ...]]]
+                 reference
 
 Gets information about the dependency graph of a recipe. You can use it for
 your current project, by passing a path to a conanfile.py as the reference, or
@@ -27,47 +24,47 @@ for any existing package in your local cache.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --only ONLY, -n ONLY  show the specified fields only from: "id", "build_id",
+      -n ONLY, --only ONLY  show the specified fields only from: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
                             "required", "date", "author", "None" or use --paths
                             with options "export_folder", "build_folder",
                             "package_folder", "source_folder". Use --only None to
                             show only references.
       --paths               Show package paths in local cache
-      --package-filter [PACKAGE_FILTER], --package_filter [PACKAGE_FILTER]
+      --package-filter [PACKAGE_FILTER]
                             print information only for packages that match the
                             filtere.g., MyPackage/1.2@user/channel or MyPackage*
-      --build-order BUILD_ORDER, --build_order BUILD_ORDER, -bo BUILD_ORDER
+      -bo BUILD_ORDER, --build-order BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
-      --json [JSON], -j [JSON]
+      -j [JSON], --json [JSON]
                             Only with --build_order option, return the information
                             in a json. e.j --json=/path/to/filename.json or --json
                             to output the json
-      --graph GRAPH, -g GRAPH
+      -g GRAPH, --graph GRAPH
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
                             extension
-      --install-folder INSTALL_FOLDER, -if INSTALL_FOLDER
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             local folder containing the conaninfo.txt and
                             conanbuildinfo.txt files (from a previous conan
                             install execution). Defaulted to current folder,
                             unless --profile, -s or -o is specified. If you
                             specify both install-folder and any setting/option it
                             will raise an error.
-      --update, -u          check updates exist from upstream remotes
-      --profile PROFILE, -pr PROFILE
+      -u, --update          check updates exist from upstream remotes
+      -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
-      --options OPTIONS, -o OPTIONS
+      -o OPTIONS, --options OPTIONS
                             Define options values, e.g., -o Pkg:with_qt=true
-      --settings SETTINGS, -s SETTINGS
+      -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
-      --env ENV, -e ENV     Environment variables that will be set during the
+      -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
-      --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
+      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
                             given a build policy (same install command "build"
                             parameter), return an ordered list of packages that
                             would be built from sources in install command

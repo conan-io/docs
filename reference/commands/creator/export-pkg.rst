@@ -5,12 +5,10 @@ conan export-pkg
 
 .. code-block:: bash
 
-    $  conan export-pkg [-h] [--source-folder SOURCE_FOLDER]
-                        [--build-folder BUILD_FOLDER]
-                        [--install-folder INSTALL_FOLDER]
-                        [--profile PROFILE] [--options OPTIONS]
-                        [--settings SETTINGS] [--env ENV] [-f]
-                        path reference
+    $ conan export-pkg [-h] [-sf SOURCE_FOLDER] [-bf BUILD_FOLDER]
+                       [-if INSTALL_FOLDER] [-pr PROFILE] [-o OPTIONS]
+                       [-s SETTINGS] [-e ENV] [-f]
+                       path reference
 
 Exports a recipe & creates a package with given files calling 'package'. It
 executes the package() method applied to the local folders '--source_folder'
@@ -28,29 +26,29 @@ specified 'reference' and for the specified '--settings', '--options' and or '
 
     optional arguments:
       -h, --help            show this help message and exit
-      --source-folder SOURCE_FOLDER, --source_folder SOURCE_FOLDER, -sf SOURCE_FOLDER
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             local folder containing the sources. Defaulted to
                             --build-folder. A relative path to the current dir can
                             also be specified
-      --build-folder BUILD_FOLDER, --build_folder BUILD_FOLDER, -bf BUILD_FOLDER
+      -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             build folder, working directory of the build process.
                             Defaulted to the current directory. A relative path
                             can also be specified (relative to the current
                             directory)
-      --install-folder INSTALL_FOLDER, -if INSTALL_FOLDER
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             local folder containing the conaninfo.txt and
                             conanbuildinfo.txt files (from a previous conan
                             install execution). Defaulted to --build-folder. If
                             these files are found in the specified folder, they
                             will be used, then if you specify --profile, -s, -o,
-                            --env, it will raise an error
-      --profile PROFILE, -pr PROFILE
+                            --env, it will raise an error.
+      -pr PROFILE, --profile PROFILE
                             Profile for this package
-      --options OPTIONS, -o OPTIONS
+      -o OPTIONS, --options OPTIONS
                             Define options values, e.g., -o Pkg:with_qt=true
-      --settings SETTINGS, -s SETTINGS
-                            Settings for this package e.g., -s compiler=gcc
-      --env ENV, -e ENV     Environment variables that will be set during the
+      -s SETTINGS, --settings SETTINGS
+                            Define settings values, e.g., -s compiler=gcc
+      -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -f, --force           Overwrite existing package if existing
 

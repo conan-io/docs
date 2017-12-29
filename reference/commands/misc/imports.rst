@@ -4,9 +4,7 @@ conan imports
 
 .. code-block:: bash
 
-    $ conan imports [-h] [--import-folder IMPORT_FOLDER]
-                    [--install-folder INSTALL_FOLDER] [-u]
-                    path
+    $ conan imports [-h] [-imf IMPORT_FOLDER] [-if INSTALL_FOLDER] [-u] path
 
 Calls your local conanfile.py or conanfile.txt 'imports' method. It requires
 to have been previously installed and have a conanbuildinfo.txt generated file
@@ -23,11 +21,11 @@ in the --install-folder (defaulted to current directory).
 
     optional arguments:
       -h, --help            show this help message and exit
-      --import-folder IMPORT_FOLDER, --import_folder IMPORT_FOLDER, -imf IMPORT_FOLDER
+      -imf IMPORT_FOLDER, --import-folder IMPORT_FOLDER
                             Directory to copy the artifacts to. By default it will
                             be the current directory
-      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
-                           local folder containing the conaninfo.txt and
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            local folder containing the conaninfo.txt and
                             conanbuildinfo.txt files (from a previous conan
                             install execution)
       -u, --undo            Undo imports. Remove imported files

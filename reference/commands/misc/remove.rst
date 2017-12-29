@@ -6,7 +6,7 @@ conan remove
 
     $ conan remove [-h] [-p [PACKAGES [PACKAGES ...]]]
                    [-b [BUILDS [BUILDS ...]]] [-s] [-f] [-r REMOTE]
-                   [-q QUERY] [--outdated]
+                   [-q QUERY] [-o]
                    pattern
 
 Removes packages or binaries matching pattern from local cache or remote. It
@@ -35,7 +35,7 @@ the local conan cache.
                             Packages query: "os=Windows AND (arch=x86 OR
                             compiler=gcc)". The "pattern" parameter has to be a
                             package recipe reference: MyPackage/1.2@user/channel
-      --outdated, -o        Remove only outdated from recipe packages
+      -o, --outdated        Remove only outdated from recipe packages
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 

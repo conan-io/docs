@@ -4,8 +4,8 @@ conan search
 .. code-block:: bash
 
     $ conan search [-h] [--case-sensitive] [-r REMOTE] [--raw]
-                       [--table TABLE] [-q QUERY] [-o]
-                       [pattern]
+                   [--table TABLE] [-q QUERY] [-o]
+                   [pattern]
 
 Searches package recipes and binaries in the local cache or in a remote. If
 you provide a pattern, then it will search for existing package recipes
@@ -32,7 +32,7 @@ argument.
       -r REMOTE, --remote REMOTE
                             Remote origin
       --raw                 Print just the list of recipes
-      --table TABLE         Outputs html file with a table of binaries. Only valid
+     --table TABLE         Outputs html file with a table of binaries. Only valid
                             if "pattern" is a package recipe reference
       -q QUERY, --query QUERY
                             Packages query: "os=Windows AND (arch=x86 OR

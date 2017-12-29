@@ -4,10 +4,8 @@ conan package
 
 .. code-block:: bash
 
-    $ conan package [-h] [--source-folder SOURCE_FOLDER]
-                    [--build-folder BUILD_FOLDER]
-                    [--package-folder PACKAGE_FOLDER]
-                    [--install-folder INSTALL_FOLDER]
+    $ conan package [-h] [-sf SOURCE_FOLDER] [-bf BUILD_FOLDER]
+                    [-pf PACKAGE_FOLDER] [-if INSTALL_FOLDER]
                     path
 
 Calls your local conanfile.py 'package()' method. This command works locally,
@@ -25,21 +23,21 @@ pkg' after a 'build' command.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --source-folder SOURCE_FOLDER, --source_folder SOURCE_FOLDER, -sf SOURCE_FOLDER
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             local folder containing the sources. Defaulted to the
                             directory of the conanfile. A relative path can also
                             be specified (relative to the current directory)
-      --build-folder BUILD_FOLDER, --build_folder BUILD_FOLDER, -bf BUILD_FOLDER
+      -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             build folder, working directory of the build process.
                             Defaulted to the current directory. A relative path
                             can also be specified (relative to the current
                             directory)
-      --package-folder PACKAGE_FOLDER, --package_folder PACKAGE_FOLDER, -pf PACKAGE_FOLDER
+      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
                             folder to install the package. Defaulted to the
                             '{build_folder}/package' folder. A relative path can
                             be specified (relative to the current directory). Also
                             an absolute path is allowed.
-      --install-folder INSTALL_FOLDER, --install_folder INSTALL_FOLDER, -if INSTALL_FOLDER
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Optional. Local folder containing the conaninfo.txt
                             and conanbuildinfo.txt files (from a previous conan
                             install execution). Defaulted to --build-folder

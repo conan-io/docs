@@ -3,7 +3,7 @@ conan user
 
 .. code-block:: bash
 
-    $ conan user [-h] [--remote REMOTE] [-c] [-p [PASSWORD]] [name]
+    $ conan user [-h] [-r REMOTE] [-c] [-p [PASSWORD]] [name]
 
 Authenticates against a remote with user/pass, caching the auth token. Useful
 to avoid the user and password being requested later. e.g. while you're
@@ -19,7 +19,7 @@ packages to a remote.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --remote REMOTE, -r REMOTE
+      -r REMOTE, --remote REMOTE
                             look in the specified remote server
       -c, --clean           Remove user and tokens for all remotes
       -p [PASSWORD], --password [PASSWORD]

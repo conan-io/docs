@@ -5,12 +5,10 @@ conan create
 
 .. code-block:: bash
 
-    $ conan create [-h] [-ne] [-tf TEST_FOLDER] [--keep-source]
-                   [--manifests [MANIFESTS]]
-                   [--manifests-interactive [MANIFESTS_INTERACTIVE]]
-                   [--verify [VERIFY]] [--update] [--profile PROFILE]
-                   [-r REMOTE] [--options OPTIONS] [--settings SETTINGS]
-                   [--env ENV] [--build [BUILD [BUILD ...]]]
+    $ conan create [-h] [-ne] [-tf TEST_FOLDER] [-k] [-m [MANIFESTS]]
+                   [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-u]
+                   [-pr PROFILE] [-r REMOTE] [-o OPTIONS] [-s SETTINGS]
+                   [-e ENV] [-b [BUILD [BUILD ...]]]
                    path reference
 
 Builds a binary package for recipe (conanfile.py) located in current dir. Uses
@@ -33,34 +31,34 @@ created correctly. Check the 'conan test' command to know more about the
     optional arguments:
       -h, --help            show this help message and exit
       -ne, --not-export     Do not export the conanfile
-      -tf TEST_FOLDER, --test-folder TEST_FOLDER, --test_folder TEST_FOLDER
+      -tf TEST_FOLDER, --test-folder TEST_FOLDER
                             alternative test folder name, by default is
                             "test_package"
-      --keep-source, -k     Optional. Do not remove the source folder in local
+      -k, --keep-source     Optional. Do not remove the source folder in local
                             cache. Use for testing purposes only
-      --manifests [MANIFESTS], -m [MANIFESTS]
+      -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
                             changed
-      --manifests-interactive [MANIFESTS_INTERACTIVE], -mi [MANIFESTS_INTERACTIVE]
+      -mi [MANIFESTS_INTERACTIVE], --manifests-interactive [MANIFESTS_INTERACTIVE]
                             Install dependencies manifests in folder for later
                             verify, asking user for confirmation. Default folder
                             is .conan_manifests, but can be changed
-      --verify [VERIFY], -v [VERIFY]
+      -v [VERIFY], --verify [VERIFY]
                             Verify dependencies manifests against stored ones
-      --update, -u          check updates exist from upstream remotes
-      --profile PROFILE, -pr PROFILE
+      -u, --update          check updates exist from upstream remotes
+      -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
-      --options OPTIONS, -o OPTIONS
+      -o OPTIONS, --options OPTIONS
                             Define options values, e.g., -o Pkg:with_qt=true
-      --settings SETTINGS, -s SETTINGS
+      -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
-      --env ENV, -e ENV     Environment variables that will be set during the
+      -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
-      --build [BUILD [BUILD ...]], -b [BUILD [BUILD ...]]
+      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
                             binary packages. --build=never Never build, use binary
