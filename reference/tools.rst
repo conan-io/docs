@@ -339,7 +339,7 @@ via ``hashlib.new(algorithm_name)``. The previous is equivalent to:
 tools.patch()
 -------------
 
-.. code-block::
+.. code-block:: python
 
     def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None)
 
