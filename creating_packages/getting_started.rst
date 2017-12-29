@@ -109,6 +109,8 @@ basics:
   arguments. Also remember that **CMake is not strictly required**. You can build packages directly
   invoking **make**, **MSBuild**, **SCons** or any other build system.
 
+  .. seealso:: Check the :ref:`existing build helpers <build_helpers>`.
+
 - The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
   package folder. 
 

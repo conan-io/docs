@@ -68,4 +68,4 @@ So just execute:
 
 You can also use the generator within your ``build()`` method of your conanfile.py.
 
-Check the :ref:`Build automation: Building with GCC or Clang<building_with_gcc_clang>` section for more info.
+Check the :ref:`Build automation: Building with GCC or Clang<gcc_generator>` section for more info.

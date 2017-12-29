@@ -1,12 +1,11 @@
 .. _conan_alias:
 
-
 conan alias
 ============
 
 .. code-block:: bash
 
-	$ conan alias [-h] reference target
+    $ conan alias [-h] reference target
 
 Uploads a recipe and binary packages to a remote. If you use the --force
 variable, it won't check the package date. It will override the remote with
@@ -17,7 +16,6 @@ upload the packages in case of failure. The default is 2. With --retry_wait
 you can specify the seconds to wait between upload attempts. If no remote is
 specified, the first configured remote (by default conan.io, use 'conan remote
 list' to list the remotes) will be used.
-
 
 .. code-block:: bash
 
@@ -34,7 +32,7 @@ The command:
 
     $ conan alias Hello/0.X@user/testing Hello/0.1@user/testing
 
-Creates and export a package recipe for ``Hello/0.X@user/testing`` with the following content:
+Creates and exports a package recipe for ``Hello/0.X@user/testing`` with the following content:
 
 .. code-block:: python
 
@@ -43,8 +41,11 @@ Creates and export a package recipe for ``Hello/0.X@user/testing`` with the foll
     class AliasConanfile(ConanFile):
         alias = "Hello/0.1@user/testing"
 
+Such package recipe acts as a "proxy" for the aliased reference. Users depending on
+``Hello/0.X@user/testing`` will actually use version ``Hello/0.1@user/testing``. The alias package
+reference will not appear in the dependency graph at all. It is useful to define symbolic names, or
+behaviors like "always depend on the latest minor", but defined upstream instead of being defined
+downstream with ``version-ranges``.
 
-Such package recipe acts as a "proxy" for the aliased reference. Users depending on ``Hello/0.X@user/testing`` will actually use version ``Hello/0.1@user/testing``. The alias package reference will not appear in the dependency graph at all.
-It is useful to define symbolic names, or behaviors like "always depend on the latest minor", but defined upstream instead of being defined downstream with ``version-ranges``.
-
-The "alias" package should be uploaded to servers in the same way as regular package recipes, in order to enable usage from servers.
+The "alias" package should be uploaded to servers in the same way as regular package recipes, in
+order to enable usage from servers.

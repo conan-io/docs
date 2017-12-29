@@ -4,7 +4,11 @@
 CMake
 =====
 
-Invoke `CMake` explicitly with the helper ``command_line`` and ``build_config`` attributes:
+The `CMake` class helps us to invoke `cmake` command with the generator, flags and definitions, reflecting the specified Conan settings.
+
+There are two ways to invoke your cmake tools:
+
+- Using the helper attributes ``cmake.command_line`` and ``cmake.build_config``:
 
 .. code-block:: python
 
@@ -19,7 +23,7 @@ Invoke `CMake` explicitly with the helper ``command_line`` and ``build_config`` 
             self.run('cmake --build . %s' % cmake.build_config)
             self.run('cmake --build . --target install')
 
-Using the helper methods:
+- Using the helper methods:
 
 .. code-block:: python
 
@@ -30,10 +34,13 @@ Using the helper methods:
         
         def build(self):
             cmake = CMake(self)
-            cmake.configure()
             # same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)
+            cmake.configure()  
             cmake.build()
-            cmake.install()
+            cmake.test() # Build the "RUN_TESTS" or "test" target
+            # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder
+            cmake.install() 
+
 
 Constructor
 -----------
@@ -193,6 +200,22 @@ Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
     - **target** (Optional, Defaulted to ``None``): Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging.
+
+
+test()
++++++++++
+
+.. code-block:: python
+
+    def test(args=None, build_dir=None, target=None)
+
+Build `CMake` test target (could be RUN_TESTS in multi-config projects or ``test`` in single-config projects), which usually means building and running unit tests
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+    - **target** (Optional, default to ``None``). Alternative target name for running the tests. If not defined RUN_TESTS or ``test`` will be used
+
 
 install()
 +++++++++

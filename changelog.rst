@@ -526,7 +526,7 @@ remote, should upgrade too. Packages created with conan>=0.20.0 might not be usa
   both debug/release artifacts in the same package, with ``self.cpp_info.debug.libs = [...]`` syntax.
   Not restricted to debug/release, can be used for other purposes.
 - Feature: new ``conan config`` command to manage, edit, display ``conan.conf`` entries
-- Feature: :ref:`Improvements<building_with_cmake>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
+- Feature: :ref:`Improvements<cmake_reference>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
   for common operations.
 - Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
   implementation, installation of multi-name packages.

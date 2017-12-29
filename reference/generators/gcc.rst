@@ -47,3 +47,29 @@ compilers.
 +--------------------------------+----------------------------------------------------------------------+
 | Other flags                    | cppflags, cflags, sharedlinkflags, exelinkflags (applied directly)   |
 +--------------------------------+----------------------------------------------------------------------+
+
+
+
+You could use the **gcc** generator directly to build your source code.
+It's valid to invoke both gcc and clang compilers.
+
+
+.. code-block:: python
+   :emphasize-lines: 15
+
+   from conans import ConanFile
+
+   class PocoTimerConan(ConanFile):
+      settings = "os", "compiler", "build_type", "arch"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
+      generators = "gcc"
+      default_options = "Poco:shared=True", "OpenSSL:shared=True"
+
+      def imports(self):
+         self.copy("*.dll", dst="bin", src="bin") # From bin to bin
+         self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
+
+      def build(self):
+         self.run("mkdir -p bin")
+         command = 'g++ timer.cpp @conanbuildinfo.gcc -o bin/timer'
+         self.run(command)
