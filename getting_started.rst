@@ -89,7 +89,7 @@ variables as include paths and library names, that can be used in our build.
 
     If you are not a CMake user, change the **[generators]** section of your **conanfile.txt** to
     **gcc** or a more generic one **txt** to handle requirements with any build system. Learn more
-    in :ref:`Using packages<manage_deps>`.
+    in :ref:`Using packages<using_packages>`.
 
 Just include the generated file and use those variables inside our own ``CMakeLists.txt``: 
 
