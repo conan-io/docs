@@ -11,3 +11,4 @@ you can use.
 
    uploading_packages/upload
    uploading_packages/using_bintray
+   uploading_packages/server

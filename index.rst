@@ -21,7 +21,6 @@ Contents:
    devtools
    mastering
    integrations
-   server
    howtos
    reference
    videos
