@@ -70,9 +70,9 @@ concrete recipe/package specifying a reference in the "path" parameter.
                             binary is not built with the current recipe or when
                             missing binary package. --build=[pattern] Build always
                             these packages from source, but never build the
-                            others. Allows multiple --build parameters. 'pattern'
+                            others. Allows multiple --build parameters. "pattern"
                             is a fnmatch file pattern of a package name. Default
-                            behavior: If you don't specify anything, it will be
+                            behavior: If you dont specify anything, it will be
                             similar to --build=never, but package recipes can
                             override it and decide to build with "build_policy"
 
