@@ -17,6 +17,7 @@ Contents:
    getting_started
    manage_deps
    packaging
+   devtools
    mastering
    integrations  
    server

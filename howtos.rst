@@ -16,7 +16,6 @@ This section shows common solutions and different approaches to typical problems
    howtos/manage_shared_libraries
    howtos/cmake_install
    howtos/copy_packages
-   howtos/create_installer_packages
    howtos/link_apple_framework
    howtos/define_abi_compatibility
    howtos/collect_licenses

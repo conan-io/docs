@@ -17,7 +17,3 @@ This section shows how to create, build, upload and test your packages
    packaging/using_bintray
    packaging/package_info
    packaging/package_tools
-   packaging/running_packages
-
-
-
