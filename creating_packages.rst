@@ -3,7 +3,7 @@
 Creating packages
 =================
 
-This section shows how to create, build, upload and test your packages
+This section shows how to create, build and test your packages.
 
 .. toctree::
    :maxdepth: 2
