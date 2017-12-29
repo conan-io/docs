@@ -3,55 +3,104 @@
 Cross building
 ==============
 
-Cross building is compiling a library or executable for a platform other than the one on which the compiler is running.
+Cross building is compiling a library or executable in one platform to be used in a different one.
 
-Cross compilation is especially useful if you are building software for embedded devices where you don't have an operating system
+Cross compilation is used to build software for embedded devices where you don't have an operating system
 nor a compiler available. Also for building software for not too fast devices, like an Android machine, a Raspberry PI etc.
 
-The only thing that you need to cross compile some code is have the right toolchain installed in your system.
-A toolchain is just a compiler with some libraries matching the target platform.
+To cross build code to need the right toolchain.
+A toolchain is basically a compiler with a set of libraries matching the target platform.
 
-Some toochain examples:
 
-+------------+---------------+--------------------------------------------------------------------------+
-| Running on | Target        | Toolchain                                                                |
-+============+===============+==========================================================================+
-| Linux      | RaspberryPI   | ARM hf compiler (apt-get install g++-arm-linux-gnueabihf)                |
-+------------+---------------+--------------------------------------------------------------------------+
-| Linux      | Windows x64   | Mingw compiler for linux (apt-get install g++-mingw-w64)                 |
-+------------+---------------+--------------------------------------------------------------------------+
-| Windows    | RaspberryPI   | SysProgs toolchain http://gnutoolchains.com/raspberry/                   |
-+------------+---------------+--------------------------------------------------------------------------+
+GNU triplet convention
+----------------------
 
-Once you have the toolchain installed conan can help you to build your conan package with the :ref:`profiles<profiles>`
-feature.
+According to the GNU convention, there could be three platforms involved in the software building:
 
-Conan profiles contain a predefined set of ``settings``, ``options`` and ``environment variables``.
-That way you can organize your builds adjusting the OS and the compiler of the target and setting CC and CXX environment
-variables pointing to the compiler of the toolchain.
+- **Build platform:** The platform on which the compilation tools are executed
+- **Host platform:** The platform on which the code will run
+- **Target platform:** Only when building a compiler, this is the platform that the compiler will
+  generate code for
 
-First create an example **Hello World** conan package with the :ref:`conan new command<conan_new>`:
+
+When you are building code for your own machine it's called **native building**, where the ``build``
+and the ``host`` platforms are the same. The ``target`` platform is not defined in this situation.
+
+When you are building code for a different platform, it's called **cross building**, where the ``build``
+platform is different from the ``host`` platform. The ``target`` platform is not defined in this situation.
+
+The use of the ``target`` platform is rarely needed, only makes sense when you are building a compiler. For instance,
+when you are building in your Linux machine a gcc compiler that will run on Windows, to generate code for Android.
+Here, the ``build`` is you Linux computer, the ``host`` is the Windows computer and the ``target`` is Android.
+
+
+Conan settings
+--------------
+
+From version 1.0, Conan introduces new settings to model the GNU convention triplet:
+
+``build`` platform settings:
+
+    - **os_build**: Operating system of the ``build`` system.
+    - **arch_build**: Architecture system of the ``build`` system.
+
+    These settings are detected the first time you run Conan with the same values than the ``host`` settings,
+    so by default we are doing **native building**. Probably you won't never need to change the value
+    of this settings, because they describe where are you running Conan.
+
+
+``host`` platform settings:
+
+    - **os**: Operating system of the ``host`` system.
+    - **arch**: Architecture of the ``host`` system.
+    - **compiler**: Compiler of the ``host`` system (to declare compatibility of libs in the host platform)
+    - ... (all the regular settings)
+
+    These settings are the regular Conan settings, already present before supporting the GNU triplet convention.
+    If you are cross building you have to change them according to the ``host`` platform.
+
+
+``target`` platform:
+
+    - **os_target**: Operating system of the ``target`` system.
+    - **arch_target**: Architecture of the ``target`` system.
+
+    If you are building a compiler, specify with these settings where the compiled code will run.
+
+
+
+Cross build your project and the requirements
+---------------------------------------------
+
+Remember that the ``test_package`` command is just a wrapper that exports the recipe, installs the requirements and builds an
+example against the exported package to ensure that a package can be reused correctly.
+
+If you want to cross compile your project's dependencies you can also run:
 
 .. code-block:: bash
 
-    conan new mylib/1.0@lasote/stable -t
+    $ conan install . --profile /path/to/win_to_rpi --build missing
 
-
-We can try to build the hello world example for our own architecture with the ``test_package`` command:
+If you have automated your project build with conan you can then just call ``conan build .`` to crossbuild your project too:
 
 
 .. code-block:: bash
 
-    $ conan create lasote/stable
+    $ conan build .
 
-    ...
 
-    > Hello World!
+So, now you can commit your profile files to a repository and use them for cross-building your projects.
 
-So it's all ok, we've built a Hello World conan package for our own architecture.
+
+
+.. _cross_building_android:
+
+
+Examples & reference
+--------------------
 
 From Linux to Windows
----------------------
+.....................
 
 - Install the needed toolchain (for ubuntu should be ``sudo apt-get install g++-mingw-w64``)
 
@@ -89,7 +138,7 @@ A **bin/example.exe** for Win64 platform has been built.
 
 
 From Windows to Raspberry PI
-----------------------------
+............................
 
 - Install the toolchain: http://gnutoolchains.com/raspberry/
 
@@ -122,36 +171,10 @@ From Windows to Raspberry PI
 A **bin/example** for Raspberry PI (Arm hf) platform has been built.
 
 
-Cross build your project and the requirements
----------------------------------------------
-
-Remember that the ``test_package`` command is just a wrapper that exports the recipe, installs the requirements and builds an
-example against the exported package to ensure that a package can be reused correctly.
-
-If you want to cross compile your project's dependencies you can also run:
-
-.. code-block:: bash
-
-    $ conan install . --profile /path/to/win_to_rpi --build missing
-
-If you have automated your project build with conan you can then just call ``conan build .`` to crossbuild your project too:
-
-
-.. code-block:: bash
-
-    $ conan build .
-
-
-So, now you can commit your profile files to a repository and use them for cross-building your projects.
-
-
-
-.. _cross_building_android:
 
 
 Android
--------
-
+.......
 
 Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
 architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
@@ -247,6 +270,37 @@ For your conan package you could do:
 
     - :ref:`Integrate Conan with Android Studio<android_studio>`
     - `Android NDF standalone toolchains <https://developer.android.com/ndk/guides/standalone_toolchain.html?hl=es>`_.
+
+
+
+ARM reference
+.............
+
+Remember that the conan settings are intended to unify the different names for operating systems, compilers,
+architectures etc.
+
+Conan has different architecture settings for ARM: ``armv6``, ``armv7``, ``armv7hf``, ``armv8``.
+The "problem" with ARM architecture is that frequently are named in different ways, so maybe you are wondering what setting
+do you need to specify in your case.
+
+Here is a table with some typical ARM platorms:
+
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Platform                       | Conan setting                                                                                  |
++================================+================================================================================================+
+| Raspberry PI 1 and 2           | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Visual Studio                  | ``armv7`` currently Visual Studio builds ``armv7`` binaries when you select ARM.               |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Android armbeabi-v7a           | ``armv7``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Android armv64-v8a             | ``armv8``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Android armeabi                | ``armv6`` (as a minimal compatible, will be compatible with v7 too)                            |
++--------------------------------+------------------------------------------------------------------------------------------------+
+
 
 
 
@@ -426,34 +480,6 @@ The ``env_info`` will be applied automatically (creating environment variables) 
 
 
 
-ARM reference
--------------
-Remember that the conan settings are intended to unify the different names for operating systems, compilers,
-architectures etc.
-
-Conan has different architecture settings for ARM: ``armv6``, ``armv7``, ``armv7hf``, ``armv8``.
-The "problem" with ARM architecture is that frequently are named in different ways, so maybe you are wondering what setting
-do you need to specify in your case.
-
-Here is a table with some typical ARM platorms:
-
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Platform                       | Conan setting                                                                                  |
-+================================+================================================================================================+
-| Raspberry PI 1 and 2           | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Visual Studio                  | ``armv7`` currently Visual Studio builds ``armv7`` binaries when you select ARM.               |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Android armbeabi-v7a           | ``armv7``                                                                                      |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Android armv64-v8a             | ``armv8``                                                                                      |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Android armeabi                | ``armv6`` (as a minimal compatible, will be compatible with v7 too)                            |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-
-
 
 .. seealso:: Reference links
 
@@ -470,6 +496,22 @@ Here is a table with some typical ARM platorms:
     **VISUAL STUDIO**
 
     - https://msdn.microsoft.com/en-us/library/dn736986.aspx
+
+
+Some toolchain examples
+-----------------------
+
++------------------+---------------+--------------------------------------------------------------------------+
+| Running on       | Target        | Toolchain                                                                |
++==================+===============+==========================================================================+
+| Linux/Windows/OSX| Android       | Android NDK toolchain https://developer.android.com/ndk                  |
++------------------+---------------+--------------------------------------------------------------------------+
+| Linux            | RaspberryPI   | ARM hf compiler (apt-get install g++-arm-linux-gnueabihf)                |
++------------------+---------------+--------------------------------------------------------------------------+
+| Linux            | Windows x64   | Mingw compiler for linux (apt-get install g++-mingw-w64)                 |
++------------------+---------------+--------------------------------------------------------------------------+
+| Windows          | RaspberryPI   | SysProgs toolchain http://gnutoolchains.com/raspberry/                   |
++------------------+---------------+--------------------------------------------------------------------------+
 
 
 

@@ -18,7 +18,8 @@ Contents:
    manage_deps
    packaging
    mastering
-   integrations  
+   systems_cross_building
+   integrations
    server
    howtos
    reference
