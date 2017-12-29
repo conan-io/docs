@@ -10,8 +10,8 @@ packages, have a look at the :ref:`Packaging section <packaging>`.
 In both cases, the recommended approach is to have a conanfile (either .py or .txt) at the root of
 your project.
 
-Single configuration 
----------------------
+Single configuration
+--------------------
 
 The single configuration is simple. It is the one that has been used so far for the examples and
 tutorials. In :ref:`Getting started<getting_started>`, we ran the ``conan install ..`` command
@@ -22,7 +22,7 @@ temporary files are excluded too.
 **Out-of-source builds** are also supported. Let's make a simple example:
 
 .. code-block:: bash
-   
+
     $ git clone https://github.com/memsharded/example-hello.git
     $ conan install ./example-hello --build=missing --install-folder example-hello-build
 
