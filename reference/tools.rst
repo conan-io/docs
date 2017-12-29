@@ -538,7 +538,7 @@ tools.run_in_windows_bash()
     def run_in_windows_bash(conanfile, bashcmd, cwd=None)
 
 Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
-Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <building_with_autotools>` section.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <autotools_reference>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path``
 variable to change the default bash location.

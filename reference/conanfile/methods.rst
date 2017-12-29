@@ -84,13 +84,9 @@ You can use these classes to prepare your build system's command invocation:
 
 - **CMake**: Prepares the invocation of cmake command with your settings.
 - **AutoToolsBuildEnvironment**: If you are using configure/Makefile to build your project you can use this helper.
-  Read more: :ref:`Building with Autotools <building_with_autotools>`.
-- **VisualStudioBuildEnvironment**: If you are calling your Visual Studio compiler directly to build your project you can use this helper.
-  Read more: :ref:`Building with Visual Studio <building_with_visual_studio>`.
-- **tools.build_sln_command()**: If you have an ``sln`` project you can use this tool to build it.
-  Read more: :ref:`Build an existing Visual Studio project <building_visual_project>`.
-- **GCC generator**: If you are calling GCC or Clang directly to build your project you can use the ``gcc`` generator.
-  Read more: :ref:`Building with GCC or Clang <building_with_gcc_clang>`.
+  Read more: :ref:`Building with Autotools <autotools_reference>`.
+- **MSBuild**: If you are using Visual Studio compiler directly to build your project you can use this helper :ref:`MSBuild() <msbuild>`. For lower level control, the **VisualStudioBuildEnvironment** can also be used: :ref:`VisualStudioBuildEnvironment <visual_studio_build>`
+  
 
 
 (Unit) Testing your library

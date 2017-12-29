@@ -9,7 +9,7 @@ This helper have ``.configure()`` and ``.build()`` methods available to ease the
 It also will take automatically the ``pc files`` of your dependencies when using the :ref:`pkg_config
 generator<pkg_config_generator_example>`.
 
-Check :ref:`Building with Meson Build <building_with_mesonbuild>` for more info.
+Check :ref:`Building with Meson Build <meson_build_reference>` for more info.
 
 
 
