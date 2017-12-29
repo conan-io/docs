@@ -108,6 +108,9 @@ This is a complete package recipe. Without worrying too much about every detail,
   arguments. Also remember that **CMake is not strictly required**. You can build packages directly
   invoking **make**, **MSBuild**, **SCons** or any other build system.
 
+  .. seealso:: Check the :ref:`existing build helpers <build_helpers>`.
+
+
 * The ``package()`` method copies artifacts (headers, libs) from the build folder to the final package folder. 
 
 * Finally, the ``package_info()`` method defines that consumer must link with the "hello" library

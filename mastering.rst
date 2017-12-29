@@ -10,7 +10,6 @@ This section provides an introduction to important productivity features and use
 
    mastering/conanfile_py
    mastering/profiles
-   mastering/build
    mastering/conditional
    mastering/version_ranges
    mastering/policies
