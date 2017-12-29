@@ -1,5 +1,5 @@
-Uploading packages
-==================
+Upload
+======
 
 In the previous sections, we built several packages in our computer, those packages are stored
 in the conan local cache, typically ``~/.conan/data``. Now, you

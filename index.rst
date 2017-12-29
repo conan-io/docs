@@ -16,10 +16,11 @@ Contents:
    installation
    getting_started
    using_packages
-   packaging
+   creating_packages
+   uploading_packages
    devtools
    mastering
-   integrations  
+   integrations
    server
    howtos
    reference
