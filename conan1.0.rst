@@ -11,7 +11,7 @@ Conan 1.0 is really close. And we need your help to polish and tune it, before i
     $ pip install conan==1.0.0b3 --upgrade
     $ conan --version
 
-There has been a few things that will break existing usage (compared to 0.30). Most of them are in the command line arguments, so they be relatively easy to fix. The most important one is that now most command requires the path to the conanfile folder or file, instead of using ``--path`` and ``--file`` arguments. Especifically, ``conan install``, ``conan export`` and ``conan create`` will be the ones most affected:
+There has been a few things that will break existing usage (compared to 0.30). Most of them are in the command line arguments, so they be relatively easy to fix. The most important one is that now most command requires the path to the conanfile folder or file, instead of using ``--path`` and ``--file`` arguments. Specifically, ``conan install``, ``conan export`` and ``conan create`` will be the ones most affected:
 
 .. code-block:: bash
 
