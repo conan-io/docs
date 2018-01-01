@@ -19,11 +19,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: New command line UI. Most commands use now the path to the package recipe, like ``conan export . user/testing``
   or ``conan create folder/myconanfile.py user/channel``.
 - Feature: Better cross-compiling. New settings model for ``os_build``, ``arch_build``, ``os_target``, ``arch_target``.
-- Feature: Better Windows OSS ecosystem, with utilities and settings model for MSYS, Cygwing, Mingw, WSL
+- Feature: Better Windows OSS ecosystem, with utilities and settings model for MSYS, Cygwin, Mingw, WSL
 - Feature: ``package()`` will not warn of not copied files for known use cases.
 - Feature: reduce the scope of definition of ``cpp_info``, ``env_info``, ``user_info`` attributes to ``package_info()``
   method, to avoid unexpected errors.
-- Feature: extended the use of addressing folder and conanfiles with diffeent names for ```source``, ``package`` and ``export-pkg``
+- Feature: extended the use of addressing folder and conanfiles with different names for ```source``, ``package`` and ``export-pkg``
   commands
 - Feature: added support for Zypper system package tool
 - Fix: Fixed application of build requires from profiles that didn't apply to requires in recipes
