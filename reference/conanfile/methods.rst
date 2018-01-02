@@ -427,6 +427,9 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.os_version`` OS version
 - ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
 - ``os_info.linux_distro`` Linux distribution name (None if not Linux)
+- ``os_info.bash_path`` Returns the absolute path to a bash in the system
+- ``os_info.uname(options=None)`` Runs the "uname" command and returns the ouput. You can pass arguments with the `options` parameter.
+- ``os_info.detect_windows_subsystem()`` Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
 Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the system we are running.
 

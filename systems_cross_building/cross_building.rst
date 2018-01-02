@@ -5,17 +5,17 @@ Cross building
 
 Cross building is compiling a library or executable in one platform to be used in a different one.
 
-Cross compilation is used to build software for embedded devices where you don't have an operating system
+Cross-compilation is used to build software for embedded devices where you don't have an operating system
 nor a compiler available. Also for building software for not too fast devices, like an Android machine, a Raspberry PI etc.
 
-To cross build code to need the right toolchain.
+To cross build code you need the right toolchain.
 A toolchain is basically a compiler with a set of libraries matching the target platform.
 
 
 GNU triplet convention
 ----------------------
 
-According to the GNU convention, there could be three platforms involved in the software building:
+According to the GNU convention, there are three platforms involved in the software building:
 
 - **Build platform:** The platform on which the compilation tools are executed
 - **Host platform:** The platform on which the code will run
@@ -30,8 +30,8 @@ When you are building code for a different platform, it's called **cross buildin
 platform is different from the ``host`` platform. The ``target`` platform is not defined in this situation.
 
 The use of the ``target`` platform is rarely needed, only makes sense when you are building a compiler. For instance,
-when you are building in your Linux machine a gcc compiler that will run on Windows, to generate code for Android.
-Here, the ``build`` is you Linux computer, the ``host`` is the Windows computer and the ``target`` is Android.
+when you are building in your Linux machine a GCC compiler that will run on Windows, to generate code for Android.
+Here, the ``build`` is your Linux computer, the ``host`` is the Windows computer and the ``target`` is Android.
 
 
 Conan settings
@@ -45,8 +45,8 @@ From version 1.0, Conan introduces new settings to model the GNU convention trip
     - **arch_build**: Architecture system of the ``build`` system.
 
     These settings are detected the first time you run Conan with the same values than the ``host`` settings,
-    so by default we are doing **native building**. Probably you won't never need to change the value
-    of this settings, because they describe where are you running Conan.
+    so by default, we are doing **native building**. Probably you will never need to change the value
+    of this settings because they describe where are you running Conan.
 
 
 ``host`` platform settings:
@@ -68,66 +68,76 @@ From version 1.0, Conan introduces new settings to model the GNU convention trip
     If you are building a compiler, specify with these settings where the compiled code will run.
 
 
+Cross building with Conan
+-------------------------
 
-Cross build your project and the requirements
----------------------------------------------
+If you want to cross-build a Conan package, for example, in your Linux machine, build the `zlib`
+Conan package for Windows, you need to indicate to Conan where to find your cross-compiler/toolchain.
 
-Remember that the ``test_package`` command is just a wrapper that exports the recipe, installs the requirements and builds an
-example against the exported package to ensure that a package can be reused correctly.
+There are two approaches:
 
-If you want to cross compile your project's dependencies you can also run:
+- Install the toolchain in your computer and use a ``profile`` to declare the settings and
+  point to the needed tools/libraries in the toolchain using the ``[env]`` section to declare, at least,
+  the ``CC`` and ``CXX`` environment variables.
 
-.. code-block:: bash
-
-    $ conan install . --profile /path/to/win_to_rpi --build missing
-
-If you have automated your project build with conan you can then just call ``conan build .`` to crossbuild your project too:
-
-
-.. code-block:: bash
-
-    $ conan build .
+- Package the toolchain as a Conan package and include it as a ``build_require``.
 
 
-So, now you can commit your profile files to a repository and use them for cross-building your projects.
+Using profiles
+++++++++++++++
+
+Create a profile with:
+
+- A **[settings]** section containing the needed settings: ``os_build``, ``arch_build`` and the regular
+  settings ``os``, ``arch``, ``compiler``, ``build_type`` and so on.
+
+- An **[env]** section with a PATH variable pointing to your installed toolchain. Also any other variable
+  that the toolchain expects (read the docs of your compiler). Some build systems need a variable ``SYSROOT`` to locate
+  where the host system libraries and tools are.
 
 
+Linux to Windows
+................
 
-.. _cross_building_android:
+- Install the needed toolchain, in ubuntu:
 
-
-Examples & reference
---------------------
-
-From Linux to Windows
-.....................
-
-- Install the needed toolchain (for ubuntu should be ``sudo apt-get install g++-mingw-w64``)
+    ``sudo apt-get install g++-mingw-w64 gcc-mingw-w64``
 
 - Create a file named **linux_to_win64** with the contents:
 
 .. code-block:: text
 
     [env]
+    # Where is our C compiler
     CC=/usr/bin/x86_64-w64-mingw32-gcc
+    # Where is our CPP compiler
     CXX=/usr/bin/x86_64-w64-mingw32-g++
-    CONAN_CMAKE_GENERATOR=Unix Makefiles
 
     [settings]
+    # We are building in Ubuntu Linux
+    os_build=Linux
+    arch_build=x86_64
+
+    # We are cross building to Windows
     os=Windows
+    arch=x86_64
     compiler=gcc
-    compiler.version=6.2
+    # Adjust to the gcc version of your MinGW package
+    compiler.version=6.3
+    compiler.libcxx=libstdc++11
+    build_type=Release
 
-
-``CC`` and ``CXX`` are standard environment variables to declare the C/C++ compiler to use respectively.
-``CONAN_CMAKE_GENERATOR`` overrides the CMake generator auto-detected by the ``CMake`` conan helper.
-
-
-- Call ``conan create`` using the created profile.
+- Clone an example recipe or use your own recipe:
 
 .. code-block:: bash
 
-    $ conan create lasote/testing --profile /path/to/linux_to_win64
+    git clone https://github.com/memsharded/conan-hello.git
+
+- Call ``conan create`` using the created profile.win
+
+.. code-block:: bash
+
+    $ cd conan-hello && conan create . conan/testing --profile ../linux_to_win64
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example.exe
@@ -136,9 +146,8 @@ From Linux to Windows
 A **bin/example.exe** for Win64 platform has been built.
 
 
-
-From Windows to Raspberry PI
-............................
+Windows to Raspberry PI
+.......................
 
 - Install the toolchain: http://gnutoolchains.com/raspberry/
 
@@ -147,134 +156,111 @@ From Windows to Raspberry PI
 .. code-block:: text
 
     [settings]
-        os: Linux
-        compiler: gcc
-        compiler.version: 4.6
-        compiler.libcxx: libstdc++
-        build_type: Debug
-        arch: armv7hf
-    [env]
-        CC=arm-linux-gnueabihf-gcc
-        CXX=arm-linux-gnueabihf-g++
+    os_build=Windows
+    arch_build=x86_64
+    os=Linux
+    arch=armv7hf
+    compiler=gcc
+    compiler.version=6.3
+    compiler.libcxx=libstdc++11
+    build_type=Release
 
+    [env]
+    CC=arm-linux-gnueabihf-gcc
+    CXX=arm-linux-gnueabihf-g++
+
+The downloaded toolchain is an installer that puts the compilers in the path, so we can just specify
+the executable name in the ``CC`` and ``CXX`` variables.
+
+- Clone an example recipe or use your own recipe:
+
+.. code-block:: bash
+
+    git clone https://github.com/memsharded/conan-hello.git
 
 - Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan create lasote/testing --profile /path/to/win_to_rpi
+    $ cd conan-hello && conan create . conan/testing --profile ../win_to_rpi
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example
     [100%] Built target example
 
-A **bin/example** for Raspberry PI (Arm hf) platform has been built.
+A **bin/example** for Raspberry PI (Linux/armv7hf) platform has been built.
 
 
+Using build requires
+++++++++++++++++++++
+
+Instead of downloading manually the toolchain and creating a profile, you can create a Conan package
+with it. The toolchain Conan package needs to fill the ``env_info`` object
+in the :ref:`package_info()<package_info>` method with the same variables we've specified in the examples
+above in the ``[env]`` section of profiles.
+
+A layout of a Conan package for a toolchain could looks like this:
 
 
-Android
-.......
+.. code-block:: python
 
-Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
-architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
-
-You can create an Android toolchain or point directly to the desired folders in the NDK and then use a conan profile to
-declare the needed environment variables, something like:
-
-.. code-block:: text
-
-    [settings]
-    compiler=clang
-    compiler.version=3.9
-    compiler.libcxx=libstdc++
-    os=Android
-    arch=armv8
-    build_type=Release
-
-    [env]
-    CC=clang
-    CXX=clang++
-    CFLAGS=-fPIC -DPIC -march=armv8a --sysroot=/path/to/ndk/aarch64-api21/sysroot --target=aarch64-linux-android --gcc-toolchain=/path/to/ndk/aarch64-api21
-    CXXFLAGS=--target=aarch64-linux-android -fPIC -DPIC -march=armv8a --sysroot=/path/to/ndk/aarch64-api21/sysroot--gcc-toolchain=/path/to/ndk/aarch64-api21
-    LDFLAGS= --target=aarch64-linux-android --sysroot=/path/to/ndk/aarch64-api21/sysroot --gcc-toolchain=/path/to/ndk/aarch64-api21
-
-And then call ``conan install`` using the profile:
+   from conans import ConanFile
+   import os
 
 
-.. code-block:: bash
+   class MyToolchainXXXConan(ConanFile):
+       name = "my_toolchain"
+       version = "0.1"
+       settings = "os", "os_build", "arch", "arch_build"
 
+       def build(self):
+           # Typically download the toolchain for the 'build' host
+           url = "http://fake_url.com/installers/%s/%s/toolchain.tgz" % (os_build, os_arch)
+           tools.download(url, "toolchain.tgz")
+           tools.unzip("toolchain.tgz")
 
-    $ conan install --profile my_android_profile
+       def package(self):
+           # Copy all the
+           self.copy("*", dst="", src="toolchain")
 
+       def package_info(self):
+           bin_folder = os.path.join(self.package_folder, "bin")
+           self.env_info.path.append(bin_folder)
+           self.env_info.CC = os.path.join(bin_folder, "mycompiler-cc")
+           self.env_info.CXX = os.path.join(bin_folder, "mycompiler-cxx")
+           self.env_info.SYSROOT = self.package_folder
 
-But if you want to use different architectures or API levels, generate many profiles handling all the different flags
-and different paths it will be error prone and very tedious task.
+Finally, when you want to cross-build a library, the profile to be used, will include a ``[build_requires]``
+section with the reference to our new packaged toolchain. Also will contain a ``[settings]`` section
+with the same settings of the examples above.
 
-
-So we created a recipe ``android-toolchain/r13b@lasote/testing`` to be used as a :ref:`build requirement<build_requires>`.
-
-
-It automatically builds an Android toolchain for your specified conan settings using the NDK already installed with your
-:ref:`Android Studio<android_studio>` or will install a NDK by itself.
-
-The ``android-toolchain/r13b@lasote/testing`` recipe will fill the ``env_info`` and ``cpp_info`` objects with
-information about the toolchain. Information like compiler name, cflags, sysroot path etc. You can take a look at the
-recipe in its `github repository <https://github.com/lasote/conan-android-toolchain/blob/master/conanfile.py>`_.
-
-To cross build a conan package to Android:
-
-1. Create a new :ref:`conan profile<profiles>` and specify your settings:
-
-
-**~/.conan/profiles/my_android_profile**
-
-.. code-block:: text
-
-    [settings]
-    os=Android
-    compiler=clang
-    compiler.version=3.8
-    compiler.libcxx=libstdc++
-
-    arch=armv7v # Adjust
-    os.api_level=21 # Adjust
-
-    [options]
-    android-toolchain:ndk_path=~/Android/Sdk/ndk-bundle # If you have a NDK already installed
-
-    [build_requires]
-    android-toolchain/r13b@lasote/testing
-
-
-2. You can use the ``create`` or ``install`` specifying the profile.
-
-For example, you can try to build ``libpng/1.6.23@lasote/testing`` for Android armv7v architecture, it will also
-build the ``zlib/1.2.11@lasote/testing``.
-
-
-.. code-block:: bash
-
-    conan install libpng/1.6.23@lasote/testing --build missing --profile my_android_profile -u
-
-For your conan package you could do:
-
-
-
-.. code-block:: bash
-
-    conan create --build missing --profile my_android_profile -u
-
+You can
 
 .. seealso::
 
-    - :ref:`Integrate Conan with Android Studio<android_studio>`
-    - `Android NDF standalone toolchains <https://developer.android.com/ndk/guides/standalone_toolchain.html?hl=es>`_.
+    - Check the :ref:`Creating conan packages to install dev tools<create_installer_packages>` to learn
+      more about how to create Conan packages for tools.
+
+    - Check the `mingw-installer <https://github.com/lasote/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
 
 
+Preparing recipes to be cross-compiled
+++++++++++++++++++++++++++++++++++++++
 
-ARM reference
-.............
+If you use the build helpers :ref:`AutoToolsBuildEnvironment<autotools_reference>` or :ref:`CMake<cmake_reference>`,
+Conan will adjust the configuration accordingly to the specified settings.
+
+If don't, you can always check the ``self.settings.os``, ``self.settings.build_os``,
+``self.settings.arch`` and ``self.settings.build_arch`` settings values and inject the needed flags to your
+build system script.
+
+You can use this tool to check if you are cross building:
+
+- :ref:`tools.cross_building(self.settings)<cross_building_reference>` (returns True or False)
+
+
+ARM architecture reference
+--------------------------
 
 Remember that the conan settings are intended to unify the different names for operating systems, compilers,
 architectures etc.
@@ -303,184 +289,6 @@ Here is a table with some typical ARM platorms:
 
 
 
-
-Creating Toolchain packages
----------------------------
-
-The :ref:`Build requirements<build_requires>` feature allows to create packages that "injects" C/C++ flags
-and environment variables through ``cpp_info`` and ``env_info`` objects.
-
-This is especially useful to create packages with toolchains for cross building because:
-
-- The toolchain package can be specified in a profile and kept isolated from the library packages.
-  We won't need to change anything in the conan package of the libraries to cross build them for different targets.
-  We can have different profiles using different ``build_requires`` to build our library for example, for Android,
-  Windows, Raspberry PI etc.
-
-- The toolchain package will manage all the complexity of the toolchain, just declaring the environment variables and
-  C/C++ flags that we need to cross build a library. The toolchain package is able to read the specified user settings, so
-  can 'inject' different flags for different user settings.
-
-- The toolchain packages can be easily shared as any other conan package, using a conan server.
-
-Let's see an example of how to create a conan package for a toolchain:
-
-
-1. Create a new ``conanfile.py`` using the ``conan new command``
-
-
-.. code-block:: bash
-
-    $ conan new mytoolchain/1.0@user/testing
-
-2. Edit the **settings** property in the ``conanfile.py``
-
-To know which settings you need to specify it is useful to answer two questions:
-
-- Do I need different toolchains for different values of that setting?
-- Do I want to restrict the toolchain usage for any value of that setting?
-
-For example, if we are building a toolchain for Raspbian (Raspberry Pi) and we want it working both from Linux and Windows:
-
-- **Do I need "os" setting?** Optionally, just to restrict to Linux (Raspbian usage). Remember that in cross build, the
-  conan settings means the "target" settings, not the host settings.
-- **Do I need "compiler" setting?** Yes, we are going to restrict the compiler to gcc (clang is not widely supported) and
-  we want to support both 4.9 and 4.6 gcc versions.
-- **Do I need the "build_type" setting?** No, the same toolchain will be able to build both debug and release packages.
-- **Do I need the "arch" setting?** Optionally, just to restrict it to armv7/armv7hf if we would want to support both.
-
-
-.. code-block:: python
-
-    class MytoolchainConan(ConanFile):
-        name = "mytoolchain"
-        version = "1.0"
-        settings = "os", "compiler", "arch"
-
-
-3. Restrict the settings if needed (Optional):
-
-Our recipe can control which settings values and the host machine are valid with the ``configure()`` method,
-it will be useful if someone try to install the toolchain with an unsupported setting. But this is optional:
-
-
-.. code-block:: python
-
-
-    def configure(self):
-
-        if self.settings.os != "Linux":
-            raise Exception("Only os Linux (Raspbian) supported")
-        if str(self.settings.compiler) != "gcc":
-            raise Exception("Not supported compiler, only gcc available")
-        if str(self.settings.compiler) == "gcc" and str(self.settings.compiler.version) not in ("4.6", "4.9"):
-            raise Exception("Not supported gcc compiler version, 4.6 and 4.9 available")
-        if str(self.settings.arch) not in ("armv7hf", "armv7"):
-            raise Exception("Not supported architecture, only armv7hf and armv7 available")
-
-        if not tools.OSInfo().is_windows and not tools.OSInfo().is_linux:
-            raise Exception("Not supported host operating system")
-
-
-
-4. Usually the ``source()`` method is not necessary, unless you are building the toolchain from sources. Remember that the ``source()`` method is executed just once in the cache, and the sources are reused for all the variants of the package. If you need different downloads for different settings/options, you can better use the ``build()`` method.
-
-5. Edit the ``build()`` method to get the toolchain (usually they are precompiled binaries or scripts):
-
-Download the toolchain according to the introduced settings and the current platform. Remember, in cross building
-the settings values means the "target" settings, not the current machine platform.
-
-.. code-block:: python
-
-    def build(self):
-        if self.settings.os == "Windows":
-            tools.download("some windows url for 4.8", "zipname.zip")
-        else: # Linux
-            ...
-
-
-6. Edit the **package()** method to pack all the needed toolchain files.
-
-You could copy all but sometimes we want to remove some help files or whatever to save disk space:
-
-.. code-block:: python
-
-    def package(self):
-         self.copy(pattern="*", src="bin", dst="", keep_path=True)
-
-
-7. Edit the **package_info()** to export the needed cpp flags/environment variables:
-
-.. code-block:: python
-
-    def package_info(self):
-
-        # Fill self.env_info object
-        if self.settings.arch == "armv7hf":
-            self.env_info.CC =  os.path.join(self.package_folder, "bin", "arm-linux-gnueabihf-gcc")
-            self.env_info.CXX = os.path.join(self.package_folder, "bin", "arm-linux-gnueabihf-g++)
-        else:
-            self.env_info.CC =  os.path.join(self.package_folder, "bin", "arm-linux-gnueabi-gcc")
-            self.env_info.CXX = os.path.join(self.package_folder, "bin", "arm-linux-gnueabi-g++)
-
-        #
-        self.env_info.CONAN_CMAKE_FIND_ROOT_PATH = os.path.join(self.package_folder, "sysroot")
-        self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
-
-        # Fill self.cpp_info object if needed, those are just an example, check your toolchain docs
-        # to see if it's required some flag to build your code.
-        self.cpp_info.cflags.add("-fPIC")
-        self.cpp_info.sharedlinkflags.append("-mfloat-abi=softfp")
-
-
-If you want to prepare your toolchain to work with CMake build system take a look to the :ref:`useful cmake configuration variables <useful_cmake_configuration_variables>`,
-you can use the ``self.env_info`` object to set them.
-
-
-
-8. Export the recipe:
-
-
-.. code-block:: bash
-
-   $ conan export lasote/testing
-
-
-9. Create one or more :ref:`profile <profiles>` including your new toolchain build require:
-
-
-**~/.conan/profiles/rpi**
-
-.. code-block:: text
-
-    [settings]
-    os=Linux
-    compiler=gcc
-    compiler.version=4.9
-    compiler.libcxx=libstdc++
-    arch=armv7
-
-    [build_requires]
-    mytoolchain/1.0@lasote/testing
-
-
-10. Use the profile to cross build a conan package with test_package or install:
-
-.. code-block:: bash
-
-   $ conan install zlib/1.2.8@lasote/testing --profile rpi --build missing
-
-That command will build both our toolchain and the zlib library.
-
-
-The ``zlib`` recipe is using ``AutoToolsBuildEnvironment()`` helper for Linux and ``CMake`` helper for Windows,
-those helpers will automatically apply the received ``cpp_info``.
-
-The ``env_info`` will be applied automatically (creating environment variables) without any helper need.
-
-
-
-
 .. seealso:: Reference links
 
     **ARM**
@@ -498,79 +306,9 @@ The ``env_info`` will be applied automatically (creating environment variables) 
     - https://msdn.microsoft.com/en-us/library/dn736986.aspx
 
 
-Some toolchain examples
------------------------
-
-+------------------+---------------+--------------------------------------------------------------------------+
-| Running on       | Target        | Toolchain                                                                |
-+==================+===============+==========================================================================+
-| Linux/Windows/OSX| Android       | Android NDK toolchain https://developer.android.com/ndk                  |
-+------------------+---------------+--------------------------------------------------------------------------+
-| Linux            | RaspberryPI   | ARM hf compiler (apt-get install g++-arm-linux-gnueabihf)                |
-+------------------+---------------+--------------------------------------------------------------------------+
-| Linux            | Windows x64   | Mingw compiler for linux (apt-get install g++-mingw-w64)                 |
-+------------------+---------------+--------------------------------------------------------------------------+
-| Windows          | RaspberryPI   | SysProgs toolchain http://gnutoolchains.com/raspberry/                   |
-+------------------+---------------+--------------------------------------------------------------------------+
-
-
-
-.. _useful_cmake_configuration_variables:
-
-Useful CMake configuration variables
-------------------------------------
-
-If you are using CMake to cross build your project you can adjust some Conan configuration variables, you can also
-use environment variables:
-
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| conan.conf variable               | Environment variable                                                                           |
-+===================================+================================================================================================+
-| cmake_toolchain_file              |  CONAN_CMAKE_TOOLCHAIN_FILE                                                                    |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_system_name                 |  CONAN_CMAKE_SYSTEM_NAME                                                                       |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_system_version              |  CONAN_CMAKE_SYSTEM_VERSION                                                                    |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_system_processor            |  CONAN_CMAKE_SYSTEM_PROCESSOR                                                                  |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_find_root_path              |  CONAN_CMAKE_FIND_ROOT_PATH                                                                    |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_find_root_path_mode_program |  CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM                                                       |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_find_root_path_mode_library |  CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY                                                       |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-| cmake_find_root_path_mode_include |  CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                       |
-+-----------------------------------+------------------------------------------------------------------------------------------------+
-
-
 .. seealso::
 
     - See :ref:`conan.conf file<conan_conf>` and :ref:`Environment variables <env_vars>` sections to know more.
+    - See :ref:`AutoToolsBuildEnvironment build helper<autotools_reference>` reference.
+    - See :ref:`CMake build helper<cmake_reference>` reference.
     - See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.
-
-
-Useful conans.tools for cross building
---------------------------------------
-
-.. code-block:: python
-
-    from conans import ConanFile, tools
-
-    class MyLibrary(ConanFile):
-        ...
-
-
-- ``tools.OSInfo``:
-  To get information about the current host. Specially useful building toolchain packages, where we have to
-  differenciate between the settings (that describe the target) and the host. Check the :ref:`reference<osinfo_reference>`
-
-- ``tools.cross_building(self.settings)``
-  Function to check if we are cross building. Useful for libraries with cross build
-  support where we need to apply some special flag or do a special action (different package_info...).
-  Check the :ref:`reference<cross_building_reference>`
-
-
-
-
-Check the :ref:`complete tools reference<tools>`
