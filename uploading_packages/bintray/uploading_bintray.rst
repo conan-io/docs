@@ -1,23 +1,6 @@
 Uploading to Bintray
 ====================
 
-Using the Bintray repositories
-------------------------------
-
-Conan comes with bot conan-center and conan-transit repositories configured by default. In case you
-want to manually configure these repositories you can always add them like this:
-
-.. code-block:: bash
-
-    $ conan remote add conan-center https://conan.bintray.com
-    $ conan remote add conan-transit https://conan-transit.bintray.com
-
-If you are just reading packages, this should be enough. You can navigate the bintray repos from:
-https://bintray.com/conan
-
-Uploading packages to Bintray
------------------------------
-
 Conan packages can be uploaded to Bintray under your own users or organizations. To create a
 repository you can follow these steps:
 
@@ -87,3 +70,7 @@ If you want to have your own repository prioritized, please remove the ``conan-t
 .. tip::
 
     Check the full reference of :ref:`$ conan remote<conan_remote>` command.
+
+
+.. _`conan-transit`: https://bintray.com/conan/conan-transit
+.. _`conan-center`: https://bintray.com/conan/conan-center

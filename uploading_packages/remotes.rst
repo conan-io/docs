@@ -40,9 +40,9 @@ team. Currently there are two central repositories:
 .. pull-quote::
 
    This repository has moderated, curated and well-maintained packages, and is the place where you
-   can share your packages with the community. To share your package, you upload it to your own (or
-   your organization’s) repositories and submit a request to include it in `conan-center`_. Check
-   :ref:`conan-center guide <conan_center_flow>` for more information.
+   can share your packages with the community. To share your package, you can upload it to your own
+   (or your organization’s) repositories and submit a request to include it in `conan-center`_.
+   Check :ref:`conan-center guide <conan_center_flow>` for more information.
 
 **conan-transit**: https://bintray.com/conan/conan-transit
 
@@ -52,6 +52,17 @@ team. Currently there are two central repositories:
    08:00 CET**. It is a read-only repository, sou you can download any packages that it hosts but
    you are not able to upload packages to it. This repository only exists for backwards
    compatibility and the packages there **will never be updated**.
+
+Conan comes with both **conan-center** and **conan-transit** repositories configured by default.
+Just in case you want to manually configure these repositories you can always add them like this:
+
+.. code-block:: bash
+
+    $ conan remote add conan-center https://conan.bintray.com
+    $ conan remote add conan-transit https://conan-transit.bintray.com
+
+If you are just reading packages, this should be enough. You can navigate the bintray repos from:
+https://bintray.com/conan
 
 Community repositories
 ----------------------

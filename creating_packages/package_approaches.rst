@@ -2,7 +2,7 @@ Packaging approaches
 ====================
 
 Package recipes have three methods to control the package's binary compatibility and to implement
-different packaging approaches: :ref:`package_id`, :ref:`build_id` and :ref:`package_info()`.
+different packaging approaches: :ref:`package_id`, :ref:`build_id` and :ref:`package_info`.
 
 This methods provide package creators with the posibility to follow different packages approaches
 and chose the best one for each library.

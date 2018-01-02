@@ -11,7 +11,7 @@ This section shows how to create, build and test your packages.
    creating_packages/getting_started
    creating_packages/package_repo
    creating_packages/existing_binaries
-   creating_packages/packaging
+   creating_packages/understand_packaging
    creating_packages/define_abi_compatibility
    creating_packages/inspecting_packages
    creating_packages/package_approaches
