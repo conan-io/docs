@@ -29,10 +29,11 @@ There are 3 possibilities to have a server where to upload packages:
     - Go to the :doc:`running_your_server` to see how to launch it.
     - Go to the :ref:`Using Bintray<using_bintray>` section to know more about how to use Bintray.
 
-Central repositories
---------------------
+Official repositories
+---------------------
 
-Conan official repositories are hosted in Bintray. Currently there are two central repositories:
+Conan official repositories are hosted in Bintray. These repositories are maintained by the Conan
+team. Currently there are two central repositories:
 
 **conan-center**: https://bintray.com/conan/conan-center
 
@@ -41,7 +42,7 @@ Conan official repositories are hosted in Bintray. Currently there are two centr
    This repository has moderated, curated and well-maintained packages, and is the place where you
    can share your packages with the community. To share your package, you upload it to your own (or
    your organization’s) repositories and submit a request to include it in `conan-center`_. Check
-   :ref:`Working with conan-center<conan_center_flow>`
+   :ref:`conan-center guide <conan_center_flow>` for more information.
 
 **conan-transit**: https://bintray.com/conan/conan-transit
 
@@ -49,22 +50,29 @@ Conan official repositories are hosted in Bintray. Currently there are two centr
 
    This repository is an exact copy of the old ``server.conan.io`` repository at **June 11, 2017
    08:00 CET**. It is a read-only repository, sou you can download any packages that it hosts but
-   you are not able to upload packages to it. If you now upload new versions to your bintray
-   repositories, `conan-transit`_ will become outdated. However, packages you had previously loaded
-   before the migration will still be available to your consumers, so none of their builds will
-   break.
+   you are not able to upload packages to it. This repository only exists for backwards
+   compatibility and the packages there **will never be updated**.
 
 Community repositories
 ----------------------
 
-There are some community repositories that may be of interest for conan users to retrieve packages
-from:
+There are some popular community repositories that may be of interest for conan users to retrieve
+packages from. Some of these repositories are not affiliated with the Conan team.
 
-Bintray community repositories:
+**bincrafters** : https://bintray.com/bincrafters/public-conan
 
-- Bincrafters:
+.. pull-quote::
 
-- conan-community:
+    The `Bincrafters <https://bincrafters.github.io>`_ team builds binary software packages for the
+    OSS community. This repository contains a wide and growing variety of conan packages from
+    contributors.
+
+    Use the following command to add this remote to Conan:
+
+    .. code-block:: bash
+
+        $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+
 
 .. _`conan-transit`: https://bintray.com/conan/conan-transit
 .. _`conan-center`: https://bintray.com/conan/conan-center
