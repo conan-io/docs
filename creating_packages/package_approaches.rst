@@ -1,65 +1,11 @@
 Packaging approaches
-=====================
+====================
 
 Package recipes have three methods to control the package's binary compatibility and to implement
-different packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``.
+different packaging approaches: :ref:`package_id`, :ref:`build_id` and :ref:`package_info()`.
 
-Package binary compatibility
------------------------------
-
-Each binary package has an identifier (ID) which is a SHA1 hash of the package configuration
-(settings, options, requirements), that allows consumers to reuse an existing package without
-building it again from sources.
-
-The elements that define the package ID are the package configuration and the ``package_id()``
-recipe method. The package configuration is:
-
-- The package settings, as specified in the recipe ``settings = "os", "compiler", ...``
-- The package options, as specified in the recipe ``options = {"myoption": [True, False]}``
-  with possible default values as ``default_options="myoption=True"``
-- The package requirements, as defined in the package ``requires = "Pkg/0.1@user/channel"`` or in
-  the ``requirements()`` method.
-
-Those elements are first declared in the recipe, but it is at install time when they get specific
-values (as "os=Windows", "compiler=gcc", etc). Once all those elements have a value, they are
-hashed, and a SHA1 ID is computed. This will be the package identifier. It means that all
-configurations that obtain the same ID, will be be binary compatible.
-
-For example, a header-only library with no dependencies will have no settings, options or
-requirements. Hashing such empty items will always obtain the same ID, irrespective of os, compiler,
-etc. That is pretty right, the final package for a header-only is just one package for all
-configurations, containing such headers.
-
-If you need to change in some way that package compatibility, you can provide your own
-``package_id()`` method, that can change the ``self.info`` object according to your compatibility
-model. For example, a ``compiler.version`` setting is needed for building the package, which will be
-done with gcc-4.8. But we know that such package will be compatible for gcc-4.9 for some reason
-(maybe just pure C code), so we don't want to create a different binary for gcc-4.9 but let users
-with that configuration consume the package created for gcc-4.8. You could do:
-
-.. code-block:: python
-
-    from conans import ConanFile, CMake, tools
-    from conans.model.version import Version
-    
-    class PkgConan(ConanFile):
-        name = "Pkg"
-        version = "0.1"
-        settings = "os", "compiler", "build_type", "arch"
-    
-        def package_id(self):
-            v = Version(str(self.settings.compiler.version))
-            if self.settings.compiler == "gcc" and (v >= "4.8" and v < "5.0"):
-                self.info.settings.compiler.version = "gcc4.8/9"
-                
-Note that the object being modified is called ``self.info``, not ``self.settings``. Also, any string
-is valid, as long as it will be the same for the settings you want it to be the same package.
-
-Check the :ref:`package_id()<package_id>` reference to see available helper methods in the
-``self.info`` object, for example, to adjust the info object for a header only library or to control
-the Visual Studio toolset compatibility.
-
-Read more about this in :ref:`how_to_define_abi_compatibility`.
+This methods provide package creators with the posibility to follow different packages approaches
+and chose the best one for each library.
 
 1 config (1 build) -> 1 package
 -------------------------------
@@ -93,7 +39,7 @@ to let them know about the package library names, and necessary definitions and 
 It is very important to note that it is declaring the ``build_type`` as a setting. This means that a
 different package will be generated for each different value of such setting.
 
-The values that packages declare here (the ``include``, ``lib`` and ``bin`` subfolders are already
+The values that packages declare here (the *include*, *lib* and *bin* subfolders are already
 defined by default, so they define the include and library path to the package) are translated
 to variables of the respective build system by the used generators. That is, if using the ``cmake``
 generator, such above definition will be translated in *conanbuildinfo.cmake* to something like:
@@ -206,10 +152,10 @@ And these variables will be correctly applied to each configuration by ``conan_b
 helper.
 
 In this case you can still use the general, not config-specific variables. For example, the include
-directory, set by default to ``include`` is still the same for both debug and release. Those general
+directory, set by default to *include*, is still the same for both debug and release. Those general
 variables will be applied for all configurations.
 
-Also, you can use any custom configuration you might want, they are not restricted. For example, if
+Also, you can use any custom configuration you want, they are not restricted. For example, if
 your package is a multi-library package, you could try doing something like:
 
 .. code-block:: python

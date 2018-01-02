@@ -14,5 +14,5 @@ This section shows how to create, build and test your packages.
    creating_packages/packaging
    creating_packages/define_abi_compatibility
    creating_packages/inspecting_packages
-   creating_packages/package_info
+   creating_packages/package_approaches
    creating_packages/package_tools
