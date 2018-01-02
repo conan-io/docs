@@ -9,6 +9,7 @@ you can use.
 .. toctree::
    :maxdepth: 2
 
-   uploading_packages/upload
+   uploading_packages/remotes
+   uploading_packages/uploading_to_remotes
    uploading_packages/using_bintray
-   uploading_packages/server
+   uploading_packages/running_your_server

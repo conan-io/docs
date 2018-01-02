@@ -1,3 +1,4 @@
+.. _conan_remote:
 
 conan remote
 ============

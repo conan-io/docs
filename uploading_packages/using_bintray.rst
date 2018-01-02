@@ -15,5 +15,5 @@ repositories.
 .. toctree::
    :maxdepth: 2
 
-   bintray/move
+   bintray/uploading_bintray
    bintray/conan_center_guide
