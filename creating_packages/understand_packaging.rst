@@ -26,7 +26,7 @@ This would be equivalent to:
 
 .. code-block:: bash
 
-    $ conan export demo/testing
+    $ conan export . demo/testing
     $ conan install Hello/0.1@demo/testing --build=Hello
 
 Once the package is there, it can be consumed like any other package, just add
