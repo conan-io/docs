@@ -581,7 +581,7 @@ be computed with the given information:
         if self.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
             self.info.settings.compiler.version = "GCC 4 between 4.5 and 5.0"
 
-Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
+Please, check the section :ref:`define_abi_compatibility` to get more details.
 
 **Available methods in the self.info object**:
 

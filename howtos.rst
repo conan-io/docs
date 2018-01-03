@@ -1,7 +1,7 @@
 Howtos
 ======
 
-This section shows common solutions and different approaches to typical problems
+This section shows common solutions and different approaches to typical problems.
 
 .. toctree::
    :maxdepth: 2
@@ -16,7 +16,6 @@ This section shows common solutions and different approaches to typical problems
    howtos/cmake_install
    howtos/copy_packages
    howtos/link_apple_framework
-   howtos/define_abi_compatibility
    howtos/collect_licenses
    howtos/conan_as_other_languages_package_manager
    howtos/use_gtest
