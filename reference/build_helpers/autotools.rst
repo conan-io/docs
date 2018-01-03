@@ -95,7 +95,7 @@ Constructor
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a conanfile.py
-    - **win_bash**: Defaulted to False. When True, it will run the configure/make commands inside a
+    - **win_bash**: (Optional, Defaulted to ``False``): When True, it will run the configure/make commands inside a
 bash.
 
 Attributes

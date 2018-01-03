@@ -12,7 +12,8 @@ recipe will run. When we are packaging a tool, it usually makes no sense, becaus
 building any software, but it makes sense if you are :ref:`cross building software<cross_building>`.
 
 We recommend the use of ``os_build`` and ``arch_build`` settings instead of ``os`` and ``arch`` if you are
-packaging a tool.
+packaging a tool involved in the building process, like a compiler, a build system etc. If you are
+building a package to be run on the ``host`` system you can use ``os`` and ``arch``.
 
 A Conan package for a tool follow always a similar structure, this is a recipe for packaging the
 ``nasm`` tool for building assembler:
@@ -43,17 +44,15 @@ A Conan package for a tool follow always a similar structure, this is a recipe f
            return "nasm-%s" % self.version
 
        def build(self):
-           def get_version(suffix):
-               nasm_zip_name = "%s-%s.zip" % (self.nasm_folder_name, suffix)
-               tools.download("http://www.nasm.us/pub/nasm/releasebuilds/"
-                              "%s/%s/%s" % (self.version, suffix, nasm_zip_name), nasm_zip_name)
-               self.output.warn("Downloading nasm: "
-                                "http://www.nasm.us/pub/nasm/releasebuilds"
-                                "/%s/%s/%s" % (self.version, suffix, nasm_zip_name))
-               tools.unzip(nasm_zip_name)
-               os.unlink(nasm_zip_name)
-
-           get_version("win32" if self.settings.arch_build == "x86" else "win64")
+           suffix = "win32" if self.settings.arch_build == "x86" else "win64"
+           nasm_zip_name = "%s-%s.zip" % (self.nasm_folder_name, suffix)
+           tools.download("http://www.nasm.us/pub/nasm/releasebuilds/"
+                          "%s/%s/%s" % (self.version, suffix, nasm_zip_name), nasm_zip_name)
+           self.output.warn("Downloading nasm: "
+                            "http://www.nasm.us/pub/nasm/releasebuilds"
+                            "/%s/%s/%s" % (self.version, suffix, nasm_zip_name))
+           tools.unzip(nasm_zip_name)
+           os.unlink(nasm_zip_name)
 
        def package(self):
            self.copy("*", dst="", keep_path=True)

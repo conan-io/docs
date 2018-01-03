@@ -9,7 +9,7 @@ Cross-compilation is used to build software for embedded devices where you don't
 nor a compiler available. Also for building software for not too fast devices, like an Android machine, a Raspberry PI etc.
 
 To cross build code you need the right toolchain.
-A toolchain is basically a compiler with a set of libraries matching the target platform.
+A toolchain is basically a compiler with a set of libraries matching the ``host`` platform.
 
 
 GNU triplet convention
@@ -150,6 +150,8 @@ Windows to Raspberry PI
 .......................
 
 - Install the toolchain: http://gnutoolchains.com/raspberry/
+  You can choose different versions of the GCC cross compiler, choose one and adjust the following
+  settings in the profile accordingly.
 
 - Create a file named **win_to_rpi** with the contents:
 
@@ -161,7 +163,7 @@ Windows to Raspberry PI
     os=Linux
     arch=armv7hf
     compiler=gcc
-    compiler.version=6.3
+    compiler.version=6.3  # We have chosen gcc 6.3 installer
     compiler.libcxx=libstdc++11
     build_type=Release
 
@@ -182,7 +184,7 @@ the executable name in the ``CC`` and ``CXX`` variables.
 
 .. code-block:: bash
 
-    $ cd conan-hello && conan create . conan/testing --profile ../win_to_rpi
+    $ cd conan-hello && conan create . conan/testing --profile=../win_to_rpi
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example
@@ -211,7 +213,7 @@ A layout of a Conan package for a toolchain could looks like this:
    class MyToolchainXXXConan(ConanFile):
        name = "my_toolchain"
        version = "0.1"
-       settings = "os", "os_build", "arch", "arch_build"
+       settings = "os_build", "arch_build"
 
        def build(self):
            # Typically download the toolchain for the 'build' host

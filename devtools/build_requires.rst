@@ -46,6 +46,7 @@ Build requirements can be also specified in a package recipe, with the ``build_r
 
         def build_requirements(self):
             # useful for example for conditional build_requires
+            # This means, if we are running on a Windows machine, require ToolWin
             if self.settings.os_build == "Windows":
                 self.build_requires("ToolWin/0.1@user/stable")
 
