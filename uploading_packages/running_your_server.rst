@@ -1,3 +1,5 @@
+.. _running_your_server:
+
 Running your server
 ===================
 

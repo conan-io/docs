@@ -1,3 +1,5 @@
+.. _search_command:
+
 conan search
 ============
 
