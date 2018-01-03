@@ -149,25 +149,17 @@ And apply the profile in your recipe to create a package using the MSYS2 and MIN
 As we included in the profile the ``MinGW`` and then the ``MSYS2`` build_require, when we run a command, the PATH
 will contain first the MinGW tools and finally the MSYS2.
 
-What could we do with the Visual Studio issue with ``link.exe``? The **vs_path_wrapper/1.0@conan/stable** package
-is a wrapper for your existing installation of Visual Studio, it puts in the PATH the needed directories corresponding
-to the Visual Studio specified in the settings. This way to can control the order of the tools in the PATH:
+What could we do with the Visual Studio issue with ``link.exe``? You can pass an additional parameter to ``run_in_windows_bash``
+with a dictionary of environment variables to have more priority than the others:
 
-.. code-block:: text
 
-   [build_requires]
-   vs_path_wrapper/1.0@conan/stable
-   msys2_installer/latest@bincrafters/stable
+.. code-block:: python
 
-   [settings]
-   os_build: Windows
-   os: Windows
-   arch: x86_64
-   arch_build: x86_64
-   compiler: Visual Studio
-   compiler.version: 15
-   compiler.runtime: MT
-   build_type: Release
+    def build(self):
+        # ...
+        vs_path = tools.vcvars_dict(self.settings)["PATH"] # Extract the path from the vcvars_dict tool
+        tools.run_in_windows_bash(command, env={"PATH": vs_path})
+
 
 So you will get first the ``link.exe`` from the Visual Studio.
 

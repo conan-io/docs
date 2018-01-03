@@ -71,7 +71,7 @@ tools.vcvars_dict()
 
 .. code-block:: python
 
-    vcvars_dict(*args, **kwargs)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=True)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -85,12 +85,19 @@ Returns a dictionary with the variables set by the **tools.vcvars_command**.
             # Do something
 
 
+Parameters:
+    - Same as ``vcvars_command``.
+    - **filter_known_paths** (Optional, Defaulted to ``True``): The function will only keep the PATH
+      entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
+      it will keep the PATH will all the system entries.
+
+
 tools.vcvars()
 --------------
 
 .. code-block:: python
 
-    vcvars(*args, **kwargs)
+    vcvars(settings, arch=None, compiler_version=None, force=False)
 
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
@@ -576,7 +583,7 @@ tools.run_in_windows_bash()
 
 .. code-block:: python
 
-    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True)
+    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None)
 
 Runs an unix command inside a bash shell. It requires to have "bash" in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
@@ -597,6 +604,8 @@ Parameters:
     - **cwd** (Optional, Defaulted to ``None``): Path to directory where to apply the command from.
     - **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem). Used to escape the command according to the specified subsystem.
     - **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).
+    - **env** (Optional, Defaulted to ``None``) You can pass a dict with environment variable to be applied **at first place** so they will have more priority than others.
+
 
 
 tools.remove_from_path()
