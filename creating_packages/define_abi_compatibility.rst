@@ -26,14 +26,14 @@ The process will be:
 
 1. Conan will get the user input settings and options, which can come from the command line, be
    default values defined in *~/.conan/profiles/default*, defined in a :ref:`profiles` file, or
-   cached from the latest **$ conan install** execution.
+   cached from the latest ``$ conan install`` execution.
 2. Conan will retrieve the ``MyLib/1.0@user/channel`` recipe, read the ``settings`` attribute, and
    assign the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will
    compute a SHA1 hash, that will be the binary package ID, e.g.
    ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
 4. Conan will try to find the ``c6d75...`` binary package. If it's present conan will retrieve it,
-   if not, it can be built from sources with **$ conan install --build**.
+   if not, it can be built from sources with ``$ conan install --build``.
 
 If the package is installed again with different settings, for example, for 32bits architecture:
 

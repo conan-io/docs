@@ -20,7 +20,7 @@ code origins, like downloading a zip or tarball from the internet.
 Creating the package recipe
 ---------------------------
 
-First, let's create a folder for our package recipe, and use the **$ conan new** helper command that
+First, let's create a folder for our package recipe, and use the ``$ conan new`` helper command that
 will create a working package recipe for us:
 
 .. code-block:: bash
@@ -193,13 +193,13 @@ This will perform the following steps:
 
 - Copy ("export" in conan terms) the *conanfile.py* from the user folder into the **local cache**.
 - Install the package, forcing building it from sources.
-- Move to the ``test_package`` folder, and create a temporary ``build`` folder.
-- Execute there a **$ conan install ..**, so it installs the requirements of the
+- Move to the *test_package* folder, and create a temporary *build* folder.
+- Execute there a ``$ conan install ..``, so it installs the requirements of the
   *test_package/conanfile.py*. Note that it will build "Hello" from sources.
 - Build and launch the *example* consuming application, calling the *test_package/conanfile.py*
   ``build()`` and ``test()`` methods respectively.
 
-Using conan commands, the ``conan create`` command would be equivalent to:
+Using conan commands, the ``$ conan create`` command would be equivalent to:
 
 .. code-block:: bash
 
@@ -208,7 +208,7 @@ Using conan commands, the ``conan create`` command would be equivalent to:
     # package is created now, use test to test it
     $ conan test test_package Hello/0.1@demo/testing
 
-The **$ conan create** command receives the same command line parameters as **$ conan install** so
+The ``$ conan create`` command receives the same command line parameters as ``$ conan install`` so
 you can pass to it the same settings, options, and command line switches. If you want to create and
 test packages for different configurations, you could:
 

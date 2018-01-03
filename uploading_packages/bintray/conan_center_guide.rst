@@ -101,7 +101,7 @@ CI Integration
 --------------
 
 - If you are packaging a header only library, it is only needed to provide one CI configuration
-  (e.g. Travis with gcc 6.1) to check that the package is built correctly (use **$ conan create**).
+  (e.g. Travis with gcc 6.1) to check that the package is built correctly (use ``$ conan create``).
 
 - Unless your library is a header only library or doesn't support a concrete operating system or
   compiler you will need to provide a CI systems integration to support:

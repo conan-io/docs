@@ -2,7 +2,7 @@ Inspecting packages
 ===================
 
 You can inspect the uploaded packages and also the packages in the local cache with the
-**$ conan get** command.
+``$ conan get`` command.
 
 - List the files of a local recipe folder:
 
