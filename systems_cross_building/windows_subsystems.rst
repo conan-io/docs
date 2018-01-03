@@ -84,11 +84,6 @@ There are some packages you can use as ``build_requires``:
 
     - **mingw_installer/1.0@conan/stable**: MinGW compiler installer as a Conan package.
 
-- From Conan-community: ``conan remote add community https://api.bintray.com/conan/conan-community/conan``
-
-    - **vs_path_wrapper/1.0@conan/stable**: Wrapper of your own Visual Studio compiler, to be able to put it
-      in the path in the specified order.
-
 
 For example, create a profile and name it ``msys2_mingw`` with the following contents:
 
