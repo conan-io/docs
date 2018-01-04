@@ -4,13 +4,13 @@
 Upgrading to conan 1.0
 ======================
 
-If you were using a 0.X conan version, there are some things to consider while upgrading. They are reflected in the changelog, but this tries to summarize the most important changes here:
+If you were using a 0.X conan version, there are some things to consider while upgrading. They are reflected in the :ref:`changelog<changelog>`., but this section summarizes the most important changes here:
 
 
 Command line changes
 --------------------
 
-There has been a few things that will break existing usage (compared to 0.30). Most of them are in the command line arguments, so they be relatively easy to fix. The most important one is that now most command requires the path to the conanfile folder or file, instead of using ``--path`` and ``--file`` arguments. Specifically, ``conan install``, ``conan export`` and ``conan create`` will be the ones most affected:
+There has been a few things that will break existing usage (compared to 0.30). Most of them are in command line arguments, so they are relatively easy to fix. The most important one is that now most commands require the path to the conanfile folder or file, instead of using ``--path`` and ``--file`` arguments. Specifically, ``$ conan install``, ``$ conan export`` and ``$ conan create`` will be the ones most affected:
 
 .. code-block:: bash
 
@@ -44,9 +44,9 @@ Deprecations/removals
 - ``self.cpp_info``, ``self.env_info`` and ``self.user_info`` scope has been reduced to only the ``package_info()`` method
 - ``gcc`` and ``ConfigureEnvironment`` were already removed in conan 0.30.1
 - ``werror`` doesn't exist anymore. Now it is the builtin behavior.
-- Command ``test_package`` has been removed. Use ``conan create`` and ``conan test`` instead.
+- Command ``test_package`` has been removed. Use ``$ conan create`` and ``$ conan test`` instead.
 - ``CMake`` helper only allows now (from conan 0.29). the ``CMake(self)`` syntax
-- ``conan package_files`` command was replaced in conan 0.28 by ``conan export-pkg`` command.
+- ``$ conan package_files`` command was replaced in conan 0.28 by ``$ conan export-pkg`` command.
 
 
 New features
