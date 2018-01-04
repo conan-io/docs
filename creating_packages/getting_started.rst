@@ -96,7 +96,7 @@ basics:
 
   The ``os_build`` and ``arch_build`` settings represent the machine where Conan is running, so if you
   need to perform some different operation depepending on the current machine, like building with `CMake`
-  if we are in Windows or building with `make` otherwise, there are the correct settings to use:
+  if we are in Windows or building with `make` otherwise, these are the correct settings to use:
 
   .. code-block:: python
 
@@ -111,7 +111,7 @@ basics:
                  env_build.make()
 
   These ``os_build`` and ``arch_build`` settings can be different from ``os`` and ``arch`` that represent
-  the machine where the built software will run.
+  the machine where the built artifact will run.
   Learn more in the :ref:`Cross building <cross_building>` section.
 
 - This package recipe is also able to create different binary packages for static and shared
