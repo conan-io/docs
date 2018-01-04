@@ -11,24 +11,25 @@ How to build
 - Install python and [pip docs](https://pip.pypa.io/en/stable/installing/).
 - Install the requirements (sphinx):
 
-     `$ pip install -r requirements.txt`
+  `$ pip install -r requirements.txt`
 
 - Build the documentation:
 
-    `$ make html`
+  `$ make html`
 
 How to read the built docs
 ==========================
 
-Open a browser and select the _build/html/index.html file. E.j:
+Open a browser and select the *_build/html/index.html* file.
+
+Example:
 
 `$ firefox _build/html/index.html`
-
 
 How to contribute
 =================
 
-Any contribution to Conan documentation is welcomed. Fork this repository and open a Pull Request.
+To make any contribution to Conan documentation fork this repository and open a Pull Request.
 
 Style Guidelines
 ----------------
@@ -45,6 +46,8 @@ Any detail not covered by this guidelines will follow the aforementioned rules.
 
 ### Section titles
 
+Use section titles in this level of importance:
+
 ```
 Section Title
 =============
@@ -58,6 +61,7 @@ Section Title
 Section Title
 ^^^^^^^^^^^^^
 ```
+
 ### Text emphasis/highlighting
 
 - **Bold text** to highlight important texts:
@@ -73,12 +77,12 @@ Section Title
   anything special. The *test_package/conanfile.py* file is...
   ```
 
-- Inline literals with $ to refer to command line commands.
+- ``Inline literals with $`` to refer to command line commands.
   ```
   To create a conan package you can use the ``$ conan create`` command.  You can see a ``$ git clone`` command...
   ```
 
-- Inline literals to refer to code or text inside recipies:
+- ``Inline literals`` to refer to code or text inside recipies:
 
   ```
    ``package()`` -> conanfile.py method
@@ -141,15 +145,15 @@ cases a 3 space identation is needed for reStructuredText specifics like toctree
 .. toctree::
    :maxdepth: 2
 
-···creating_packages/getting_started
-···creating_packages/package_repo
+   creating_packages/getting_started
+   creating_packages/package_repo
 ```
 
 The **maximum line length for documentation is 140 characters** except for lines inside code-blocks, extenral links or references.
 
 Do not left any unnecessary or trailing spaces.
 
-### text boxes
+### Text boxes
 
 Also called **Admonitions**, they are eyecatching texts with a clear purpose like warnings, tips or important content.
 
@@ -176,7 +180,8 @@ Use them in the following importance order:
 
 ### References
 
-Reference are commonly used in the documentation and it is always a good way to highlight texts and give an implicit importance of something.
+Reference are commonly used in the documentation and it is always a good way to highlight texts and give an implicit importance of
+something.
 
 #### Internal reference
 
