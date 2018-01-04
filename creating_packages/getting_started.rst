@@ -52,7 +52,7 @@ Let's have a look to the root package recipe *conanfile.py*:
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch"
+        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
         options = {"shared": [True, False]}
         default_options = "shared=False"
         generators = "cmake"
@@ -93,6 +93,26 @@ basics:
   this example we are defining that any change to the OS, compiler, architecture or build type will
   generate a different binary package. Remember, Conan generates different binary packages for
   different introduced configuration (in this case settings) for the same recipe.
+
+  The ``os_build`` and ``arch_build`` settings represent the machine where Conan is running, so if you
+  need to perform some different operation depepending on the current machine, like building with `CMake`
+  if we are in Windows or building with `make` otherwise, these are the correct settings to use:
+
+  .. code-block:: python
+
+         def build(self):
+             if self.settings.build_os == "Windows":
+                 cmake = CMake(self)
+                 cmake.configure(source_folder="hello")
+                 cmake.build()
+             else:
+                 env_build = AutoToolsBuildEnvironment(self)
+                 env_build.configure()
+                 env_build.make()
+
+  These ``os_build`` and ``arch_build`` settings can be different from ``os`` and ``arch`` that represent
+  the machine where the built artifact will run.
+  Learn more in the :ref:`Cross building <cross_building>` section.
 
 - This package recipe is also able to create different binary packages for static and shared
   libraries with the ``shared`` option, which is defaulted to ``False`` (i.e. by default it will use
@@ -139,7 +159,7 @@ previous sections:
     import os
 
     class HelloTestConan(ConanFile):
-        settings = "os", "compiler", "build_type", "arch"
+        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
         generators = "cmake"
 
         def build(self):

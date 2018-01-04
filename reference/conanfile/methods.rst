@@ -66,7 +66,7 @@ You can also use **check_md5**, **check_sha1** and **check_sha256** from the **t
     .. code-block:: python
 
             def source(self):
-                if self.settings.os == "Windows":
+                if self.settings.os_build == "Windows":
                     # download some Win source zip
                 else:
                     # download sources from Nix systems in a tgz
@@ -417,7 +417,11 @@ system_requirements()
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
 method to your conanfile and specify what you need there.
 
-You can use ``conans.tools.os_info`` object to detect the operating system, version and distribution (linux):
+If you want to perform some operation depending on the Operating System or Architecture of the running machine,
+you should use the ``self.settings.os_build`` and ``self.settings.arch_build`` settings.
+
+For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system,
+version and distribution (linux):
 
 - ``os_info.is_linux`` True if Linux
 - ``os_info.is_windows`` True if Windows
@@ -431,7 +435,8 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.uname(options=None)`` Runs the "uname" command and returns the ouput. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()`` Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the system we are running.
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool:
+**apt**, **yum**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the system we are running.
 
 ..  code-block:: python
 
@@ -598,6 +603,12 @@ By default (vs_toolset_compatible mode), Conan will generate the same binary pac
 is Visual Studio and the ``compiler.toolset`` matches the specified ``compiler.version``.
 For example, if we install some packages specifying the following settings:
 
+.. code-block:: python
+
+    def package_id(self):
+        self.info.vs_toolset_compatible()
+        # self.info.vs_toolset_incompatible()
+
 
 .. code-block:: text
 
@@ -639,6 +650,23 @@ This is the relation of Visual Studio versions and the compatible toolchain:
 | 8                                         |   v80                        |
 +-------------------------------------------+------------------------------+
 
+
+- **self.info.discard_build_settings() / self.info.include_build_settings**:
+
+By default (discard_build_settings), Conan will generate the same binary when you change the ``os_build`` or ``arch_build``
+when the ``os`` and ``arch`` are declared respectively. This is because ``os_build`` represent the machine
+running Conan, so, for the consumer, the only setting that matters is where the built software will run,
+not where is running the compilation. The same applies to ``arch_build``.
+
+Using the ``self.info.include_build_settings``, Conan will generate different packages when you change the ``os_build``
+or ``arch_build``.
+
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.discard_build_settings()
+        # self.info.include_build_settings()
 
 .. _build_id:
 

@@ -45,7 +45,7 @@ method, like this:
     from conans import tools
     
     def build(self):
-        if self.settings.os == "Windows":
+        if self.settings.build_os == "Windows":
             vcvars = tools.vcvars_command(self.settings)
             build_command = ...
             self.run("%s && configure %s" % (vcvars, " ".join(args)))

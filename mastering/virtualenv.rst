@@ -115,4 +115,4 @@ using the virtualrunenv generator, the ``bin`` folder of the package will be ava
 we will be executing the cmake of the package.
 
 
-.. seealso:: Check the section :ref:`Reference/virtualrunenv<virtualrunenv_generator>` to see the reference of the generator.
+.. seealso:: - :ref:`Reference/Tools/environment_append <environment_append_tool>`
