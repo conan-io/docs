@@ -1,6 +1,5 @@
 .. _manage_shared:
 
-
 How to manage shared libraries
 ==============================
 

@@ -1,8 +1,7 @@
 .. _link_apple_framework:
 
-
-Link with Apple Frameworks
-==========================
+How to link with Apple Frameworks
+=================================
 
 It is common in OSx that your conan package needs to link with a complete Apple framework, 
 and, of course, you want to propagate this information to all projects/libraries that uses your package.

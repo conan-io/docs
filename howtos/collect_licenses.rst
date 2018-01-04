@@ -1,7 +1,7 @@
 .. _collect_licenses:
 
-Collect licenses of dependencies
-================================
+How to collect licenses of dependencies
+=======================================
 
 With the ``imports`` feature it is possible to collect the License files from all packages in the dependency graph. Please note that the licenses are artifacts that must exist in the binary packages to be collected, as different binary packages might have different licenses. E.g., a package creator might provide a different license for static or shared linkage, they could provide different "License" files if they want to.
 

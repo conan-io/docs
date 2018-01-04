@@ -1,15 +1,15 @@
 .. _copy_packages:
 
 
-Collaborating: Copying and modifying other user packages
-============================================================
+How to collaborate on other users' packages
+===========================================
 
 If a certain existing package does not work for you, or you need to store pre-compiled
 binaries for a platform not provided by the original package creator, you might still
 be able to do so:
 
 Collaborate from git repository
----------------------------------
+-------------------------------
 
 If the original package creator has the package recipe in a repository, this would be 
 the simplest approach. Just clone the package recipe in your machine, change something

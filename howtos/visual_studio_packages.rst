@@ -1,8 +1,7 @@
 .. _visual_studio_packages:
 
-
-Creating and reusing packages based on Visual Studio
-============================================================
+How to create and reuse packages based on Visual Studio
+=======================================================
 
 Conan has different helpers to manage Visual Studio and MSBuild based projects.
 This how-to illustrates how to put them together to create and consume packages that are purely

@@ -1,7 +1,7 @@
 .. _header_only:
 
 How to package header-only libraries
-=======================================
+====================================
 
 Without unit tests
 ------------------

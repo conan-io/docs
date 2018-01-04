@@ -1,8 +1,8 @@
 .. _dyn_generators:
 
 
-Create and share a custom generator with generator packages
-=====================================================================
+How to create and share a custom generator with generator packages
+==================================================================
 
 There are several built-in generators, like ``cmake``, ``visual_studio``, ``xcode``...
 But what if your build system is not included? Or maybe the existing built-in generators

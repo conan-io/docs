@@ -1,7 +1,7 @@
 .. _cmake_launch:
 
-Launch conan install from cmake
-============================================
+How to launch conan install from cmake
+======================================
 
 It is possible to launch ``conan install`` from cmake, which can be convenient for end users,
 package consumers, that are not creating packages themselves.

@@ -1,5 +1,5 @@
-Use Conan as other language package manager
-===========================================
+How to use Conan as other language package manager
+==================================================
 
 Conan is a generic package manager. In the :ref:`getting started <getting_started>` section we saw how to use conan and manage a C/C++ library, like POCO.
 

@@ -1,7 +1,7 @@
 .. _google_test_example:
 
-Test your project with Google Test
-==================================
+How to test test your project with Google Test
+==============================================
 
 Google Test is a framework for writing C++ tests on a variety of platforms.
 We are going to see an example of how to use GTest with conan.

@@ -1,7 +1,7 @@
 .. _reuse_cmake_install:
 
-Reuse cmake install for package() method
-============================================
+How to reuse cmake install for package() method
+===============================================
 
 It is possible that your project's ``CMakeLists.txt`` has already defined some
 functionality that extracts the artifacts (headers, libraries, binaries) from
