@@ -159,7 +159,7 @@ Also called **Admonitions**, they are eyecatching texts with a clear purpose lik
 
 Use them in the following importance order:
 
-1. caution 
+1. caution
 2. attention
 3. warning
 4. important
@@ -173,15 +173,15 @@ Use them in the following importance order:
 ```
 
 ```
-. tip::
+.. tip::
 
     Using profiles is strongly recommended. Learn more about them...
 ```
 
 ### References
 
-Reference are commonly used in the documentation and it is always a good way to highlight texts and give an implicit importance of
-something.
+Reference are commonly used in the documentation and it is always a good way to highlight texts and give an implicit or explicit importance
+to something.
 
 #### Internal reference
 
@@ -215,8 +215,8 @@ Submit a request to include it in `conan-center`_.
 .. _`conan-center`: https://bintray.com/conan/conan-center
 ```
 
-In case you what to use explicit exteranal reference with a link, make sure it is not too long to exceed maximum line lenght, otherwise it
-should considered to be witten as a normal external reference.
+In case you what to use explicit external reference with a link, make sure it is not too long to exceed maximum line lenght, otherwise it
+should considered to be written as a normal external reference.
 
 ```
 If you are just evaluating conan, you can create an account on https://bintray.com
