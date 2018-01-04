@@ -61,7 +61,7 @@ Now lets have a look to the *conanfile.py*:
 There are two important changes:
 
 - Added the ``exports_sources`` field, to tell conan to copy all the files from the local *src*
-folder into the package recipe.
+  folder into the package recipe.
 - Removed the ``source()`` method, it is not necessary anymore to retrieve external sources.
 
 Also, you can notice the two CMake lines:
