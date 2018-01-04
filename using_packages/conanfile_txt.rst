@@ -281,4 +281,5 @@ for package management, not only (but focused in) for C/C++ or libraries.
     Check the section :ref:`Howtos/Manage shared libraries<manage_shared>` to know more about
     working with shared libraries.
 
+
 .. _`pocoproject`: https://bintray.com/pocoproject/conan/Poco%3Apocoproject

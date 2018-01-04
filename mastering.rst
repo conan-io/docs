@@ -9,7 +9,6 @@ This section provides an introduction to important productivity features and use
    :maxdepth: 2
 
    mastering/conanfile_py
-   mastering/profiles
    mastering/conditional
    mastering/version_ranges
    mastering/policies
