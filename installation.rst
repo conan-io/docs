@@ -48,6 +48,7 @@ Install conan:
     - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart,
       or logout/system if not enough) after installation, so conan is found in the path.
 
+
 Install from brew (OSX)
 -----------------------
 

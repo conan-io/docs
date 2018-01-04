@@ -66,6 +66,54 @@ Parameters:
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
 
+tools.vcvars_dict()
+-------------------
+
+.. code-block:: python
+
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=True)
+
+Returns a dictionary with the variables set by the **tools.vcvars_command**.
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        env_vars = tools.vcvars_dict(self.settings):
+        with tools.environment_append(env_vars):
+            # Do something
+
+
+Parameters:
+    - Same as ``vcvars_command``.
+    - **filter_known_paths** (Optional, Defaulted to ``True``): The function will only keep the PATH
+      entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
+      it will keep the PATH will all the system entries.
+
+
+tools.vcvars()
+--------------
+
+.. code-block:: python
+
+    vcvars(settings, arch=None, compiler_version=None, force=False)
+
+This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
+You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
+environment:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        with tools.vcvars(self.settings):
+            do_something()
+
+
+
+
 .. _build_sln_commmand:
 
 tools.build_sln_command()
@@ -535,10 +583,10 @@ tools.run_in_windows_bash()
 
 .. code-block:: python
 
-    def run_in_windows_bash(conanfile, bashcmd, cwd=None)
+    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None)
 
-Runs an unix command inside the msys2 environment. It requires to have MSYS2 in the path.
-Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Building with Autotools <autotools_reference>` section.
+Runs an unix command inside a bash shell. It requires to have "bash" in the path.
+Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path``
 variable to change the default bash location.
@@ -554,19 +602,44 @@ Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
     - **bashcmd** (Required): String with the command to be run.
     - **cwd** (Optional, Defaulted to ``None``): Path to directory where to apply the command from.
+    - **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem). Used to escape the command according to the specified subsystem.
+    - **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).
+    - **env** (Optional, Defaulted to ``None``) You can pass a dict with environment variable to be applied **at first place** so they will have more priority than others.
+
+
+
+tools.remove_from_path()
+------------------------
+
+.. code-block:: python
+
+    remove_from_path(command)
+
+This is a context manager that allows you to remove a tool from the PATH. Conan will locate the executable
+(using tools.which) and will remove from the PATH the directory entry that contains it.
+It's not necessary to specify the extension.
+
+.. code-block:: python
+
+    from conans import tools
+
+    with tools.remove_from_path("make"):
+        self.run("some command")
+
+
 
 tools.unix_path()
 -----------------
 
 .. code-block:: python
 
-    def unix_path(path, path_flavor=MSYS)
+    def unix_path(path, path_flavor=None)
 
 Used to translate Windows paths to MSYS/CYGWIN unix paths like ``c/users/path/to/file``.
 
 Parameters:
     - **path** (Required): Path to be converted.
-    - **path_flavor** (Optional, Defaulted to ``MSYS``): Type of unix path to be returned. Options are ``MSYS``, ``CYGWIN``, ``WSL`` and ``SFU``.
+    - **path_flavor** (Optional, Defaulted to ``None``, will try to autodetect the subsystem): Type of unix path to be returned. Options are ``MSYS``, ``MSYS2``, ``CYGWIN``, ``WSL`` and ``SFU``.
 
 tools.escape_windows_cmd()
 --------------------------
@@ -710,7 +783,7 @@ Returns the path to a specified executable searching in the ``PATH`` environment
     abs_path_make = tools.which("make")
 
 Parameters:
-    - **filename** (Required): Name of the executable file.
+    - **filename** (Required): Name of the executable file. It doesn't require the extension of the executable.
 
 tools.touch()
 -------------

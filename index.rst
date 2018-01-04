@@ -20,6 +20,7 @@ Contents:
    uploading_packages
    devtools
    mastering
+   systems_cross_building
    integrations
    howtos
    reference
