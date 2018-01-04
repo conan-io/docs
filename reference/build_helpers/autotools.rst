@@ -12,7 +12,7 @@ This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`
    from conans import ConanFile, AutoToolsBuildEnvironment
 
    class ExampleConan(ConanFile):
-      settings = "os", "compiler", "build_type", "arch"
+      settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
       requires = "Poco/1.7.8p3@pocoproject/stable"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
      
