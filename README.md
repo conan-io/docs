@@ -122,13 +122,15 @@ identation. Documentation makes an extensive use of bash, python, txt and cmake 
     zlib/1.2.11@conan/stable
 ```
 
-  .. code-block:: bash
-      :emphasize-lines: 3
+```
+.. code-block:: bash
+   :emphasize-lines: 3
 
-      $ conan source . --source-folder src
-      $ conan install --install-folder build_x86 -s arch=x86
-      $ conan build . --build-folder build_x86 --source-folder src
-      $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
+    $ conan source . --source-folder src
+    $ conan install --install-folder build_x86 -s arch=x86
+    $ conan build . --build-folder build_x86 --source-folder src
+    $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
+```
 
 ### Identation and line lenght
 
@@ -139,8 +141,8 @@ cases a 3 space identation is needed for reStructuredText specifics like toctree
 .. toctree::
    :maxdepth: 2
 
-   creating_packages/getting_started
-   creating_packages/package_repo
+···creating_packages/getting_started
+···creating_packages/package_repo
 ```
 
 The **maximum line length for documentation is 140 characters** except for lines inside code-blocks, extenral links or references.
@@ -189,8 +191,8 @@ conan export-pkg
 
 ...
 ```
+
 To reference to the conan export-pkg command from another text:
-```
 
 ```
 Read more about conan export-pkg commnad :ref:`here<conan_export_pkg_command>`.
