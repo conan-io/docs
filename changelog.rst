@@ -6,6 +6,20 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+1.0.0-beta4 (4-January-2018)
+-----------------------------
+- Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories 
+- Fix: Adding all values to ``arch_target``
+- Fix: ``conan new`` templates now use new ``os_build`` and ``arch_build`` settings
+- Fix: Updated ``CMake`` helper to account for ``os_build`` and ``arch_build`` new settings
+- Fix: Automatic creation of *default* profile when it is needed by another one (like ``include(default)``)
+- BugFix: Failed installation (non existing package) was leaving lock files in the cache, reporting a package for ``conan search``
+- BugFix: Environment variables are now applied to ``build_requirements()`` for ``$ conan install .``
+- BugFix: Dependency graph was raising conflicts for diamonds with ``alias`` packages
+- BugFix: Fixed ``conan export-pkg`` after a ``conan install`` when recipe has options
+
+
+
 1.0.0-beta3 (28-December-2017)
 ------------------------------
 - Fix: Upgraded pylint and astroid to latest
