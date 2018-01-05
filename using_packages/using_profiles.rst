@@ -72,6 +72,7 @@ A profile to install depenencies as **shared** and in **debug** mode will look l
 
     [options]
     Poco:shared=True
+    Poco:enable_apacheconnector=False
     OpenSSL:shared=True
 
 With this we could just install using the profile:
@@ -88,8 +89,9 @@ We could also create a new profile to use a different compiler version and store
     include(clang_3.5)
 
     [options]
-    *:shared=True
+    Poco:shared=True
     Poco:enable_apacheconnector=False
+    OpenSSL:shared=True
 
 Installation will be as easy as:
 
