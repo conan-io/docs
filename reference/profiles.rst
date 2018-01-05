@@ -22,27 +22,7 @@ requirements** in a file. They have this structure:
     Tool2/0.1@user/channel, Tool3/0.1@user/channel
     *: Tool4/0.1@user/channel
 
-Profile files are useful to gather some configurations that would have to be introduced as arguments in command line instructions like
-``$ conan install`` or ``$ conan create``. Therefore, profile files ussage is highly recommended as anyone could share the whole
-configuration to build a project with settings and options, set set environment variables needed for compilation and even set requirements
-for building.
-
-.. code-block:: text
-   :caption: *myprofile*
-
-    [settings]
-    compiler=clang
-    compiler.version=3.5
-    compiler.libcxx=libstdc++11
-
-    [options]
-    MyLib:shared=True
-
-    [env]
-    CC=/usr/bin/clang
-    CXX=/usr/bin/clang++
-
-As said, you can use it instead of command line arguments:
+Profile files can be used with ``-pr``/``--profile`` option in ``$ conan install`` and ``$ conan create`` commands.
 
 .. code-block:: bash
 
@@ -57,7 +37,7 @@ relative path:
     $ conan install --profile ./relpath/to/profile  # resolved to current dir
     $ conan install --profile profile  # resolved to user/.conan/profiles/profile
 
-You can list and show existing profiles with the ``$ conan profile`` command:
+Listing existing profiles can be done like this:
 
 .. code-block:: bash
 
@@ -66,6 +46,10 @@ You can list and show existing profiles with the ``$ conan profile`` command:
     myprofile1
     myprofile2
     ...
+
+You can also show profile's content:
+
+.. code-block:: bash
 
     $ conan profile show myprofile1
     Configuration for profile myprofile1:
@@ -80,18 +64,13 @@ You can list and show existing profiles with the ``$ conan profile`` command:
     [build_requires]
     [env]
 
-You can use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to the profile file.
-It is useful to declare relative folders:
+Use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to the profile file. It is useful to declare relative
+folders:
 
 .. code-block:: text
 
     [env]
     PYTHONPATH=$PROFILE_DIR/my_python_tools
-
-.. note::
-
-    If you specify a profile in a conan command, like `conan create` or `conan install` the base profile ``~/.conan/profiles/default`` won't
-    be applied. If you want to apply it use the ``include`` directive explained later in this page.
 
 Package settings and env vars
 -----------------------------
@@ -99,29 +78,28 @@ Package settings and env vars
 Profiles also support **package settings** and **package environment variables** definition, so you can override some settings or
 environment variables for some specific package:
 
-- Create a ``.conan/profiles/zlib_with_clang`` file:
+.. code-block:: text
+   :caption: *.conan/profiles/zlib_with_clang*
 
-  .. code-block:: text
+    [settings]
+    zlib:compiler=clang
+    zlib:compiler.version=3.5
+    zlib:compiler.libcxx=libstdc++11
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++11
 
-      [settings]
-      zlib:compiler=clang
-      zlib:compiler.version=3.5
-      zlib:compiler.libcxx=libstdc++11
-      compiler=gcc
-      compiler.version=4.9
-      compiler.libcxx=libstdc++11
+    [env]
+    zlib:CC=/usr/bin/clang
+    zlib:CXX=/usr/bin/clang++
 
-      [env]
-      zlib:CC=/usr/bin/clang
-      zlib:CXX=/usr/bin/clang++
-
-- Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency
-  tree.
+Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
 
 Profile includes
 ----------------
 
-You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute, or a profile name from the default profile location in the local cache.
+You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute, or a profile
+name from the default profile location in the local cache.
 
 The ``include()`` statement has to be at the top of the profile file:
 
@@ -151,7 +129,7 @@ Variable declaration
 --------------------
 
 In a profile you can declare variables that will be replaced automatically by conan before the profile is applied. The variables have to be
-declared at the top of the file, after the include() statements.
+declared at the top of the file, after the ``include()`` statements.
 
 .. code-block:: text
    :caption: *myprofile*

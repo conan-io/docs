@@ -37,47 +37,35 @@ Options allow definition with wildcards, to apply same option value to many pack
 They would contain the desired configuration, for example:
 
 .. code-block:: text
-   :caption: myprofile
+   :caption: *clang_3.5*
 
     [settings]
+    os=Macos
+    arch=x86_64
     compiler=clang
     compiler.version=3.5
     compiler.libcxx=libstdc++11
-
-    [options]
-    MyLib:shared=True
+    build_type=Release
 
     [env]
     CC=/usr/bin/clang
     CXX=/usr/bin/clang++
 
-And you can use it instead of command line arguments as:
+You can store them in the default profile folder or anywhere in you project and you can use it instead of command line arguments:
 
 .. code-block:: bash
 
-    $ conan create demo/testing -pr=myprofile
-
-You can use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to the profile file.
-It is useful to declare relative folders:
-
-.. code-block:: text
-
-   [env]
-   PYTHONPATH=$PROFILE_DIR/my_python_tools
-
-.. note::
-
-    If you specify a profile in a conan command, like `conan create` or `conan install` the base profile ``~/.conan/profiles/default`` won't
-    be applied.
+    $ conan create demo/testing -pr=clang_3.5
 
 If we continue with the example of Poco, we could have a handy profile to help us build our project with the desired configuration and avoid
 the ussage of all the command line arguments when installing the dependency packages.
 
-A profile to build our depenencies as **shared** and and in **debug** mode will look like this:
+A profile to install depenencies as **shared** and in **debug** mode will look like this:
 
 .. code-block:: text
-   :caption: *poco_debug_shared_profile*
+   :caption: *debug_shared*
 
+    include(default)
 
     [settings]
     build_type=Debug
@@ -90,25 +78,18 @@ With this we could just install using the profile:
 
 .. code-block:: bash
 
-    $ conan install . -pr=poco_debug_shared_profile
+    $ conan install . -pr=debug_shared
 
-We could also create a new profile to use a different compiler in a different OS, even use release as build type and store it in our project
-directory:
+We could also create a new profile to use a different compiler version and store it in our project directory:
 
 .. code-block:: text
-   :caption: *poco_apple_clang*
+   :caption: *poco_clang_3.5*
 
-
-    [settings]
-    os=Macos
-    arch=x86_64
-    compiler=apple-clang
-    compiler.version=8.1
-    compiler.libcxx=libc++
-    build_type=Release
+    include(clang_3.5)
 
     [options]
     *:shared=True
+    Poco:enable_apacheconnector=False
 
 Installation will be as easy as:
 
