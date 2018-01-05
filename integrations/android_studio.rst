@@ -95,7 +95,7 @@ that will call ``conan install`` to install the requirements:
         buildDir.mkdirs()
         // if you have problems running the command try to specify the absolute
         // path to conan (Known problem in MacOSX) /usr/local/bin/conan
-        def cmd = "/usr/local/bin/conan install ../conanfile.txt --profile android_21_arm_clang --build missing "
+        def cmd = "conan install ../conanfile.txt --profile android_21_arm_clang --build missing "
         print(">> ${cmd} \n")
 
         def sout = new StringBuilder(), serr = new StringBuilder()
@@ -109,11 +109,6 @@ that will call ``conan install`` to install the requirements:
     }
 
 
-.. code-block:: groovy
-
-    dependencies {
-        ...
-        implementation 'com.android.support:appcompat-v7:21.1.0'
 
 
 9. Finally open the default example cpp library in ``app/src/main/cpp/native-lib.cpp`` and include some lines using your library.
