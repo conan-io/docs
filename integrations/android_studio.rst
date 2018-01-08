@@ -51,7 +51,7 @@ the following contents:
 .. code-block:: text
 
     [requires]
-    libpng/1.6.23@conan/stable
+    libpng/1.6.23@lasote/stable
 
     [generators]
     cmake
