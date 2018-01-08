@@ -8,13 +8,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 1.0.0-beta5 (8-January-2018)
 -----------------------------
-- Fix: Errors from remotes different to a 404 will raise an error. Disconnected remotes have to be removed from remotes or use explicit remote with -r myremote
+- Fix: Errors from remotes different to a 404 will raise an error. Disconnected remotes have to be removed from remotes or use explicit remote with ``-r myremote``
 - Fix: cross-building message when building different architecture in same OS
-- Fix: conan profile show now shows profile with same syntax as profile files
-- Fix: generated test code in conan new templates will not run example app if cross building.
-- Fix: conan export-pkg uses the conanfile.py folder as the default --source-folder
-- Bugfix: conan download didn't download recipe if there are no binaries. Force recipe download.
-- Bugfix: Fixed blocked self.run() when stderr outputs large tests, due to full pipe.
+- Fix: ``$ conan profile show`` now shows profile with same syntax as profile files
+- Fix: generated test code in ``$ conan new`` templates will not run example app if cross building.
+- Fix: ``$ conan export-pkg`` uses the *conanfile.py* folder as the default ``--source-folder``
+- Bugfix: ``$ conan download`` didn't download recipe if there are no binaries. Force recipe download.
+- Bugfix: Fixed blocked ``self.run()`` when stderr outputs large tests, due to full pipe.
 
 
 1.0.0-beta4 (4-January-2018)
