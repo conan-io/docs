@@ -65,6 +65,7 @@ to match the current conan settings (like ``-m32`` or ``-m64`` based on the cona
         def build(self):
             with tools.chdir("src"):
                 env_build = AutoToolsBuildEnvironment(self)
+                # env_build.configure() # use it to run "./configure" if using autotools
                 env_build.make()
 
         def package(self):
