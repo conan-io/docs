@@ -193,6 +193,90 @@ the executable name in the ``CC`` and ``CXX`` variables.
 A **bin/example** for Raspberry PI (Linux/armv7hf) platform has been built.
 
 
+.. _cross_building_android:
+
+Linux/Windows/Macos to Android
+..............................
+
+Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
+architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
+
+Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ and unzip it.
+
+.. note::
+
+    If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (C:\) to avoid issues with path lengths.
+
+Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_,
+we are going to target "arm" architecture and the Android API level 21, change the ``--install-dir`` to any other place that works
+for you:
+
+.. code-block:: bash
+
+   $ cd build/tools
+   $ python make_standalone_toolchain.py --arch=arm --api=21 --stl=libc++ --install-dir=/tmp/arm_21_toolchain
+
+
+.. note::
+
+    You can generate the standalone toolchain with several different options to target different architectures, api levels etc.
+
+    Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_
+
+
+Create a profile `android_21_arm_clang` with the following contents:
+
+.. code-block:: text
+
+    standalone_toolchain=/tmp/arm_21_toolchain # Adjust this path
+    target_host=arm-linux-androideabi
+
+    [settings]
+    compiler=clang
+    compiler.version=5.0
+    compiler.libcxx=libc++
+    os=Android
+    os.api_level=21
+    arch=armv7
+    build_type=Release
+
+    [env]
+    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/sysroot
+    PATH=[$standalone_toolchain/bin]
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-clang
+    CC=$target_host-clang
+    CXX=$target_host-clang++
+    LD=$target_host-ld
+    STRIP=$target_host-strip
+    CFLAGS= -fPIE -fPIC
+    CXXFLAGS= -fPIE -fPIC
+    LDFLAGS= -pie
+
+
+- Clone, for example, the zlib library to try to build it to Android
+
+.. code-block:: bash
+
+    git clone https://github.com/lasote/conan-zlib.git
+
+- Call ``conan create`` using the created profile.
+
+.. code-block:: bash
+
+    $ cd conan-zlib && conan create . conan/testing --profile=../android_21_arm_clang
+
+    ...
+    -- Build files have been written to: /tmp/conan-zlib/test_package/build/ba0b9dbae0576b9a23ce7005180b00e4fdef1198
+    Scanning dependencies of target enough
+    [ 50%] Building C object CMakeFiles/enough.dir/enough.c.o
+    [100%] Linking C executable bin/enough
+    [100%] Built target enough
+    zlib/1.2.11@conan/testing (test package): Running test()
+
+A **bin/enough** for Android ARM platform has been built.
+
 Using build requires
 ++++++++++++++++++++
 
