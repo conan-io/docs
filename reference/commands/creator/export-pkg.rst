@@ -27,9 +27,9 @@ specified 'reference' and for the specified '--settings', '--options' and or '
     optional arguments:
       -h, --help            show this help message and exit
       -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            local folder containing the sources. Defaulted to
-                            --build-folder. A relative path to the current dir can
-                            also be specified
+                            local folder containing the sources. Defaulted to the
+                            directory of the conanfile. A relative path can also
+                            be specified (relative to the current directory)
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             build folder, working directory of the build process.
                             Defaulted to the current directory. A relative path
@@ -88,7 +88,7 @@ This command will use the ``package()`` method.
 
 - Create a package from a user folder build and sources folders:
 
-  Given this files in the current folder
+  Given these files in the current folder
 
   .. code-block:: text
 
@@ -150,7 +150,7 @@ This command will use the ``package()`` method.
   local cache:
 
   .. code-block:: bash
-      :emphasize-lines: 3
+      :emphasize-lines: 4
 
       $ conan source . --source-folder src
       $ conan install --install-folder build_x86 -s arch=x86

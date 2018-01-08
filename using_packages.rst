@@ -10,4 +10,5 @@ packages) with conan.
    :maxdepth: 2
 
    using_packages/conanfile_txt
+   using_packages/using_profiles
    using_packages/workflows
