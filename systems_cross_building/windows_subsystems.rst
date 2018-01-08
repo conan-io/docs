@@ -95,16 +95,16 @@ For example, create a profile and name it ``msys2_mingw`` with the following con
    msys2_installer/latest@bincrafters/stable
 
    [settings]
-   os_build: Windows
-   os: Windows
-   arch: x86_64
-   arch_build: x86_64
-   compiler: gcc
-   compiler.version: 4.9
-   compiler.exception: seh
-   compiler.libcxx: libstdc++11
-   compiler.threads: posix
-   build_type: Release
+   os_build=Windows
+   os=Windows
+   arch=x86_64
+   arch_build=x86_64
+   compiler=gcc
+   compiler.version=4.9
+   compiler.exception=seh
+   compiler.libcxx=libstdc++11
+   compiler.threads=posix
+   build_type=Release
 
 
 Then you can have a ``conanfile.py`` that can use **self.run()** with ``win_bash=True`` to run any
