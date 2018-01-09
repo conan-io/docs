@@ -6,6 +6,10 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+(9-January-2018)
+----------------
+- Feature: Added description of ``target`` paremeter in ``AutoToolsBuildEnvironment``
+
 1.0.0-beta5 (8-January-2018)
 -----------------------------
 - Fix: Errors from remotes different to a 404 will raise an error. Disconnected remotes have to be removed from remotes or use explicit remote with ``-r myremote``
@@ -16,6 +20,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: ``$ conan download`` didn't download recipe if there are no binaries. Force recipe download.
 - Bugfix: Fixed blocked ``self.run()`` when stderr outputs large tests, due to full pipe.
 
+  
 
 1.0.0-beta4 (4-January-2018)
 -----------------------------
