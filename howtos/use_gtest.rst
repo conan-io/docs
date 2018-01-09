@@ -48,7 +48,7 @@ Conan will install all dependencies, build your project, create a package and ru
 
 .. code-block:: bash
 
-   $ conan create demo/testing
+   $ conan create . demo/testing
 
 The ``conan create`` automates all steps for you, however,
 you need to create the test directory and conanfile.py to make sure that your package is correct.
@@ -63,7 +63,7 @@ Install requirements
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install .
 
 Build your project normally with CMake:
 
@@ -85,13 +85,13 @@ Install dependencies
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install .
 
 Export and build the project
 
 .. code-block:: bash
 
-   $ conan export lasote
+   $ conan export . lasote/testing
    $ conan install conan-gtest-example/0.1.0@lasote/testing --build conan-gtest-example
 
 So far, the package was exported and created, without testing.

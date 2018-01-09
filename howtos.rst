@@ -18,4 +18,3 @@ This section shows common solutions and different approaches to typical problems
    howtos/link_apple_framework
    howtos/collect_licenses
    howtos/conan_as_other_languages_package_manager
-   howtos/use_gtest
