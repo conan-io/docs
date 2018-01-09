@@ -8,7 +8,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 (9-January-2018)
 ----------------
-- Feature: Added description of ``target`` paremeter in ``AutoToolsBuildEnvironment``
+- Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make 
 
 1.0.0-beta5 (8-January-2018)
 -----------------------------
