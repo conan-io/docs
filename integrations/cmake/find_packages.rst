@@ -2,7 +2,7 @@
 Find Packages
 =============
 
-If installed CMake already provides a FindXXX.cmake file for the library you are packaging, it should work automatically.
+If a FindXXX.cmake file for the library you are packaging is already available, it should work automatically.
 
 Variables **CMAKE_INCLUDE_PATH** and **CMAKE_LIBRARY_PATH** are set with the right requirements paths. CMake **find_library** function will be able to locate the libraries in the package's folders.
 
@@ -36,13 +36,13 @@ Creating a custom FindXXX.cmake file
 Sometimes the "official" CMake FindXXX.cmake scripts are not ready to find our libraries (not supported library names for specific settings, fixed installation directories like C:\\OpenSSL... etc)
 Or maybe there is no "official" CMake script for our library.
 
-So in these cases we can provide a custom **FindXXX.cmake** file in our conan packages:
+So in these cases we can provide a custom **FindXXX.cmake** file in our conan packages.
 
 1. Create a file named FindXXX.cmake and save it in your conan package root folder. Where XXX is the name of the library that we will use in the **find_package** CMake function.
 For example, we create a ``FindZLIB.cmake`` and use ``find_package(ZLIB)``.
-We recommend (if exists) to copy the original FindXXX.cmake file from kitware if provided (folder Modules/FindXXX.cmake) and modify it to help finding our library files, but it depends a lot, maybe you are interested in create a new one.
+We recommend to copy the original FindXXX.cmake file from Kitware (folder Modules/FindXXX.cmake), if available, and modify it to help finding our library files, but it depends a lot, maybe you are interested in creating a new one.
 
-If it's not provided you can create a basic one, take a look to this example with the ZLIB library:
+If it's not provided you can create a basic one, take a look at this example with the ZLIB library:
 
 **FindZLIB.cmake**
 

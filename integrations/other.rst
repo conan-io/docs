@@ -5,17 +5,17 @@ Custom integrations
 ===================
 
 If you intend to use other build system that has not a built-in generator, you might still be 
-ablto to do so. There are several options:
+able to do so. There are several options.
 
 - First, search in conan.io. Generators can now be created and contributed by users as regular
   packages, so you can depend on them, use versioning, evolve faster without depending on the
-  conan.io releases, etc. Check :ref:`generator packages <dyn_generators>`
+  conan.io releases, etc. Check :ref:`generator packages <dyn_generators>`.
 - You can use the **text generator**. It will generate a text file, simple to read and to parse
-  that you can easily parse with your tools to extract the information
+  that you can easily parse with your tools to extract the information.
 - Use the **conanfile data model** and access its properties and values, so you can directly
-  call your build system with that information, without requiring generating a file.
-- Write and **create your own generator**. So you can upload it to, version and reuse it, as well
-  as sharing it with your team or community. Check :ref:`generator packages <dyn_generators>` too.
+  call your build system with that information, without requiring to generate a file.
+- Write and **create your own generator**. So you can upload it, version and reuse it, as well
+  as share it with your team or community. Check :ref:`generator packages <dyn_generators>` too.
   
   
 .. note:: 
@@ -33,12 +33,14 @@ Just specify the **txt** generator in your conanfile:
    .. code-block:: text
    
       [requires]
-      Poco/1.7.3@lasote/stable
+      Poco/1.7.8p3@pocoproject/stable
       
       [generators]
       txt
 
-And a file is generated, with the same information as in the case of CMake and gcc, only in a generic, text format:
+And a file is generated, with the same information as in the case of CMake and gcc, only in a generic, text format,
+containing the information from the ``deps_cpp_info`` and ``deps_user_info``. Check the conanfile :ref:`package_info<package_info>`
+method to know more about these objects:
 
 .. code-block:: text
 
@@ -78,6 +80,13 @@ And a file is generated, with the same information as in the case of CMake and g
    [defines]
    POCO_STATIC=ON
    POCO_NO_AUTOMATIC_LIBS
+
+   [USER_MyRequiredLib1]
+   somevariable=Some Value
+   othervar=Othervalue
+
+   [USER_MyRequiredLib2]
+   myvar=34
    
    
 Use conan data model (conanfile.py)
@@ -95,7 +104,7 @@ and much more reusable to create a generator to simplify the task for your build
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.3@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
       ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
       generators = "txt"
       default_options = "Poco:shared=False", "OpenSSL:shared=False"
@@ -155,6 +164,22 @@ and much more reusable to create a generator to simplify the task for your build
    
          # self.run("invoke here your configure, make, or others")
          # self.run("basically you can do what you want with your requirements build info)
+
+
+         # Environment variables (from requirements self.env_info objects)
+         # are automatically applied in the python ``os.environ`` but can be accesible as well:
+         print("--------- Globally -------------")
+         print(self.env)
+
+         print("--------- FROM MyLib -------------")
+         print(self.deps_env_info["MyLib"].some_env_var)
+
+
+         # User declared variables (from requirements self.user_info objects)
+         # are available in the self.deps_user_info object
+         print("--------- FROM MyLib -------------")
+         print(self.deps_user_info["MyLib"].some_user_var)
+
 
 
 Create your own generator

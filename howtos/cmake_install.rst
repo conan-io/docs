@@ -21,12 +21,14 @@ then the ``package()`` method is not required.
 
     def build(self):
         cmake = CMake(self)
-        args = ["-DBUILD_SHARED_LIBS=ON"  if self.options.shared else "-DBUILD_SHARED_LIBS=OFF"]
-        args += ['-DCMAKE_INSTALL_PREFIX="%s"' % self.package_folder]
-
-        self.run('cmake %s/SRC %s %s'
-                  % (self.conanfile_directory, cmake.command_line, ' '.join( args ) ) )
-        self.run("cmake --build . --target install %s" % cmake.build_config)
+        cmake.configure()
+        cmake.build()
+        cmake.install()
+        # equivalent to
+        # args += ['-DCMAKE_INSTALL_PREFIX="%s"' % self.package_folder]
+        # self.run('cmake "%s/src" %s %s'
+        #          % (self.source_folder, cmake.command_line, ' '.join( args ) ) )
+        # self.run("cmake --build . --target install %s" % cmake.build_config)
 
     def package(self):
         # nothing to do here now

@@ -46,9 +46,9 @@ A complete example, with a ``test_package`` that also uses SCons is in a github 
 
     $ git clone https://github.com/memsharded/conan-scons-template
     $ cd conan-scons-template
-    $ conan test_package
+    $ conan create demo/testing
     > Hello World Release!
-    $ conan test_package -s build_type=Debug
+    $ conan create demo/testing -s build_type=Debug
     > Hello World Debug!
 
 

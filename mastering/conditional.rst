@@ -5,7 +5,7 @@ Remember, in your ``conanfile.py`` you have also access to the options of your d
 and you can use them to:
 
 * Add requirements dynamically
-* Change options values
+* Change values of options
 
 The **configure** method is the right place to change values of options and settings.
 
@@ -14,7 +14,7 @@ Here is an example of what we could do in our **configure method**:
 .. code-block:: python
 
       ...
-      requires = "Poco/1.7.3@lasote/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
+      requires = "Poco/1.7.8p3@pocoproject/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
       ...
 
       def configure(self):
@@ -27,6 +27,10 @@ Here is an example of what we could do in our **configure method**:
 
              # Or adjust any other available option
              self.options["Poco"].other_option = "foo"
+
+          # We could check the presence of an option
+          if "shared" in self.options:
+              pass
 
       def requirements(self):
           # Or add a new requirement!

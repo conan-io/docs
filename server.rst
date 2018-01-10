@@ -139,10 +139,35 @@ Server parameters
        public_port: 9999
        host_name: localhost
   
-* ``ssl_enabled``: Conan doesn't handle the SSL traffic by itself, but you can use a proxy like nginx to redirect the SSL traffic to your conan server. If your conan clients are connecting with "https" set `ssl_enabled` to True. This way conan_server will generate the upload/download urls with "https" instead of "http".
+* ``ssl_enabled``: Conan doesn't handle the SSL traffic by itself, but you can use a proxy like nginx to redirect the SSL traffic to your conan server.
+  If your conan clients are connecting with "https" set `ssl_enabled` to True. This way conan_server will generate the upload/download urls with "https" instead of "http".
   
-  **Example:** Running conan server with SSL using nginx.
-  
+
+.. note::
+
+   **Important**: Conan client, by default, will validate the server SSL certificates and won't connect if it's not valid.
+   If you have self signed certificates you have two options:
+
+   1. Use the ``conan remote`` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
+   2. Append the server ``.crt`` file contents to ``~/.conan/cacert.pem`` file.
+
+
+
+* Conan has implemented an extensible storage backend, based on the abstract class ``StorageAdapter``.
+  Currently the server only supports storage in ``disk``. The folder in which uploaded packages
+  are stored (i.e., the folder you would want to backup) is defined in ``disk_storage_path``.
+  The storage backend might use a different channel, and uploads/downloads are authorized up to
+  a maximum of ``authorize_timeout`` seconds. The value should be enough so large downloads/uploads
+  are not rejected, but not too big to prevent hanging up the file transfers. The value
+  ``disk_authorize_timeout`` is not currently used. File transfers are authorized with their own
+  tokens, generated with the secret ``updown_secret``. This value should be different from the above
+  ``jwt_secret``.
+
+
+
+Running conan server with SSL using nginx
++++++++++++++++++++++++++++++++++++++++++
+
     **server.conf**
     
     .. code-block:: text
@@ -172,27 +197,51 @@ Server parameters
            ssl_certificate /etc/nginx/ssl/server.crt;
            ssl_certificate_key /etc/nginx/ssl/server.key;
        }
-   
-   
-.. note::
 
-   **Important**: Conan client, by default, will validate the server SSL certificates and won't connect if it's not valid.
-   If you have self signed certificates you have two options:
-   
-   1. Use the ``conan remote`` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
-   2. Append the server ``.crt`` file contents to ``~/.conan/cacert.pem`` file.
-  
-  
-* Conan has implemented an extensible storage backend, based on the abstract class ``StorageAdapter``.
-  Currently the server only supports storage in ``disk``. The folder in which uploaded packages
-  are stored (i.e., the folder you would want to backup) is defined in ``disk_storage_path``. 
-  The storage backend might use a different channel, and uploads/downloads are authorized up to
-  a maximum of ``authorize_timeout`` seconds. The value should be enough so large downloads/uploads
-  are not rejected, but not too big to prevent hanging up the file transfers. The value 
-  ``disk_authorize_timeout`` is not currently used. File transfers are authorized with their own
-  tokens, generated with the secret ``updown_secret``. This value should be different from the above 
-  ``jwt_secret``.
-  
+
+Running conan server using Apache
++++++++++++++++++++++++++++++++++
+
+
+    You need to install ``mod_wsgi``. If you want to use Conan installed from ``pip``, the conf file should be roughly as follows:
+
+    **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
+
+    .. code-block:: text
+
+        <VirtualHost *:80>
+            WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/conans/server/server_launcher.py
+            WSGICallableObject app
+            WSGIPassAuthorization On
+
+            <Directory /usr/local/lib/python2.7/dist-packages/conans>
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+
+    If you want to use Conan checked out from source in, say, `/srv/conan`, the conf file should be as follows:
+
+    **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
+
+    .. code-block:: text
+
+        <VirtualHost *:80>
+            WSGIScriptAlias / /srv/conan/conans/server/server_launcher.py
+            WSGICallableObject app
+            WSGIPassAuthorization On
+
+            <Directory /srv/conan/conans>
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+
+    The directive ``WSGIPassAuthorization On`` is needed to pass the HTTP basic authentication to Conan.
+
+    Also take into account that the server config files are located in the home of the configured Apache user,
+    e.j var/www/.conan_server, so remember to use that directory to configure your conan server.
+
   
 Permissions parameters
 ++++++++++++++++++++++
@@ -263,7 +312,7 @@ in ``~/.conan_server/plugins/authenticator/my_authenticator.py``
          def valid_user(self, username, plain_password):
              return username == "foo" and plain_password == "bar"
 
-The module have to implement:
+The module has to implement:
 
 - A factory function ``get_class()`` that returns a class with a ``valid_user()`` method instance.
 - The class containing the ``valid_user()`` that has to return True if the user and password are valid or False otherwise.

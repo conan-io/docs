@@ -38,7 +38,7 @@ Open ``conanfile.txt`` and change (or add) the **visual_studio** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    
    [generators]
    visual_studio
@@ -91,3 +91,21 @@ You can build an existing Visual Studio from your ``build()`` method using the `
 
 .. seealso:: Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
 
+
+Toolsets
+--------
+
+You can use the subsetting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
+It will be automatically applied when using the ``CMake()`` build helper, ``tools.build_sln_command`` or ``tools.msvc_build_command``.
+The toolset can be also specified manually in these build helpers with the ``toolset`` parameter.
+
+By default, Conan will not generate a new binary package if
+the specified ``compiler.toolset`` matches an already generated package for the corresponding
+``compiler.version``. Check the :ref:`package_id()<package_id>` reference to know more.
+
+
+
+
+.. seealso:: - Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
+             - Check the :ref:`tools.msvc_build_command()<msvc_build_command>` reference section for more info.
+             - Check the :ref:`CMake()<cmake_reference>` reference section for more info.

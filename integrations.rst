@@ -16,9 +16,12 @@ Integrations
    integrations/android_studio
    integrations/clion
    integrations/ninja
+   integrations/pkg_config_pc_files
+   integrations/boost_build
    integrations/qmake
    integrations/premake
    integrations/qbs
+   integrations/meson
    integrations/git
    integrations/jenkins
    integrations/travisci

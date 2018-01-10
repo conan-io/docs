@@ -4,7 +4,7 @@ Troubleshooting
 ERROR: Missing prebuilt package
 --------------------------------
 
-When you are installing packages (with ``conan install`` or ``conan test_package``) it is possible
+When you are installing packages (with ``conan install`` or ``conan create``) it is possible
 that you get an error like the following one:
 
 
@@ -67,6 +67,39 @@ don't use them or even fail.
 Such helpers as ``CMake`` are simple utilities to translate from conan settings to the respective
 build system syntax and command line arguments, so they can be extended or replaced with your own
 one that would handle your own private settings.
+
+ERROR: Setting value not defined
+---------------------------------
+
+When you install or create a package, it is possible to see an error like this:
+
+.. code-block:: bash
+
+    ERROR: Hello/0.1@user/testing: 'settings.arch' value not defined
+
+This means that the recipe defined ``settings = "os", "arch", ...`` but a value for the ``arch`` setting was 
+not provided either in a profile or in the command line. Make sure to specify a value for it in your profile,
+or in the command line:
+
+.. code-block:: bash
+
+    $ conan install . -s arch=x86 ...
+
+If you are building a pure C library with gcc/clang, you might encounter an error like this:
+
+.. code-block:: bash
+
+    ERROR: Hello/0.1@user/testing: 'settings.compiler.libcxx' value not defined
+
+Indeed, for building a C library, it is not necessary to define a C++ standard library. And if you provide a value, 
+you might end with multiple packages for exactly the same binary. What has to be done is to remove such subsetting
+in your recipe:
+
+
+.. code-block:: python
+
+    def configure(self):
+        del self.settings.compiler.libcxx
 
 
 ERROR: Failed to create process

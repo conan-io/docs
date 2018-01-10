@@ -3,27 +3,63 @@
 Commands
 ========
 
-Conan command reference:
 
+Consumer commands
+-----------------
+
+Commands related with the installation and usage of Conan packages:
 
 .. toctree::
-   :maxdepth: 2
+  :maxdepth: 1
 
-   commands/export.rst
-   commands/install.rst
-   commands/search.rst
-   commands/info.rst
-   commands/remote.rst
-   commands/profile.rst
-   commands/upload.rst
-   commands/remove.rst
-   commands/user.rst
-   commands/copy.rst
-   commands/new.rst
-   commands/test_package.rst
-   commands/source.rst
-   commands/build.rst
-   commands/package.rst
-   commands/package_files.rst
-   commands/imports.rst
-   commands/config.rst
+  commands/consumer/install.rst
+  commands/consumer/config.rst
+  commands/consumer/get.rst
+  commands/consumer/info.rst
+  commands/consumer/search.rst
+
+Creator commands
+----------------
+
+Commands related to the creation of Conan recipes and packages:
+
+.. toctree::
+  :maxdepth: 1
+
+  commands/creator/create.rst
+  commands/creator/export.rst
+  commands/creator/export-pkg.rst
+  commands/creator/new.rst
+  commands/creator/upload.rst
+  commands/creator/test.rst
+
+
+Package development commands
+----------------------------
+
+Commands related to the local (user space) development of a Conan package:
+
+.. toctree::
+  :maxdepth: 1
+
+  commands/development/source.rst
+  commands/development/build.rst
+  commands/development/package.rst
+
+
+Misc commands
+-------------
+
+Other useful commands:
+
+.. toctree::
+  :maxdepth: 1
+
+  commands/misc/profile.rst
+  commands/misc/remote.rst
+  commands/misc/user.rst
+  commands/misc/imports.rst
+  commands/misc/copy.rst
+  commands/misc/download.rst
+  commands/misc/remove.rst
+  commands/misc/alias.rst

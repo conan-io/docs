@@ -3,15 +3,15 @@
 Cross building
 ==============
 
-Cross building is compile a library or executable for a platform other than the one on which the compiler is running.
+Cross building is compiling a library or executable for a platform other than the one on which the compiler is running.
 
-Cross compilation is a specially useful if you are building software for embedded devices where you don't have an operating system
+Cross compilation is especially useful if you are building software for embedded devices where you don't have an operating system
 nor a compiler available. Also for building software for not too fast devices, like an Android machine, a Raspberry PI etc.
 
 The only thing that you need to cross compile some code is have the right toolchain installed in your system.
 A toolchain is just a compiler with some libraries matching the target platform.
 
-Some toochains examples:
+Some toochain examples:
 
 +------------+---------------+--------------------------------------------------------------------------+
 | Running on | Target        | Toolchain                                                                |
@@ -26,8 +26,8 @@ Some toochains examples:
 Once you have the toolchain installed conan can help you to build your conan package with the :ref:`profiles<profiles>`
 feature.
 
-Conan profiles contains a predefined set of ``settings``, ``options``, ``environment variables`` and ``scopes``.
-That way you can organize your target buildings adjusting the OS and the compiler of the target and setting CC and CXX environment
+Conan profiles contain a predefined set of ``settings``, ``options`` and ``environment variables``.
+That way you can organize your builds adjusting the OS and the compiler of the target and setting CC and CXX environment
 variables pointing to the compiler of the toolchain.
 
 First create an example **Hello World** conan package with the :ref:`conan new command<conan_new>`:
@@ -42,7 +42,7 @@ We can try to build the hello world example for our own architecture with the ``
 
 .. code-block:: bash
 
-    $ conan test_package
+    $ conan create lasote/stable
 
     ...
 
@@ -74,11 +74,11 @@ From Linux to Windows
 ``CONAN_CMAKE_GENERATOR`` overrides the CMake generator auto-detected by the ``CMake`` conan helper.
 
 
-- Call ``conan test_package`` using the created profile.
+- Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan test_package --profile /path/to/linux_to_win64
+    $ conan create lasote/testing --profile /path/to/linux_to_win64
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example.exe
@@ -109,11 +109,11 @@ From Windows to Raspberry PI
         CXX=arm-linux-gnueabihf-g++
 
 
-- Call ``conan test_package`` using the created profile.
+- Call ``conan create`` using the created profile.
 
 .. code-block:: bash
 
-    $ conan test_package --profile /path/to/win_to_rpi
+    $ conan create lasote/testing --profile /path/to/win_to_rpi
     ...
     [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
     [100%] Linking CXX executable bin/example
@@ -134,15 +134,15 @@ If you want to cross compile your project's dependencies you can also run:
 
     $ conan install . --profile /path/to/win_to_rpi --build missing
 
-If you have your project building automated with conan you can then just call ``conan build`` to crossbuild your project too:
+If you have automated your project build with conan you can then just call ``conan build .`` to crossbuild your project too:
 
 
 .. code-block:: bash
 
-    $ conan build
+    $ conan build .
 
 
-So, now you can commit your profile files to a repository and use them for cross-build your projects.
+So, now you can commit your profile files to a repository and use them for cross-building your projects.
 
 
 
@@ -154,7 +154,7 @@ Android
 
 
 Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
-architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android api levels.
+architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
 
 You can create an Android toolchain or point directly to the desired folders in the NDK and then use a conan profile to
 declare the needed environment variables, something like:
@@ -185,7 +185,7 @@ And then call ``conan install`` using the profile:
     $ conan install --profile my_android_profile
 
 
-But if you want to use different architectures or api levels, generate many profiles handling all the different flags
+But if you want to use different architectures or API levels, generate many profiles handling all the different flags
 and different paths it will be error prone and very tedious task.
 
 
@@ -196,7 +196,7 @@ It automatically builds an Android toolchain for your specified conan settings u
 :ref:`Android Studio<android_studio>` or will install a NDK by itself.
 
 The ``android-toolchain/r13b@lasote/testing`` recipe will fill the ``env_info`` and ``cpp_info`` objects with
-information about the toolchain. Information like compiler name, cflags, sysroot path etc. You can take a look to the
+information about the toolchain. Information like compiler name, cflags, sysroot path etc. You can take a look at the
 recipe in its `github repository <https://github.com/lasote/conan-android-toolchain/blob/master/conanfile.py>`_.
 
 To cross build a conan package to Android:
@@ -224,9 +224,9 @@ To cross build a conan package to Android:
     android-toolchain/r13b@lasote/testing
 
 
-2. You can use the ``test_package`` or ``install`` specifying the profile.
+2. You can use the ``create`` or ``install`` specifying the profile.
 
-For example, uou can try to build ``libpng/1.6.23@lasote/testing`` for Android armv7v architecture, it will also
+For example, you can try to build ``libpng/1.6.23@lasote/testing`` for Android armv7v architecture, it will also
 build the ``zlib/1.2.11@lasote/testing``.
 
 
@@ -240,7 +240,7 @@ For your conan package you could do:
 
 .. code-block:: bash
 
-    conan test_package --build missing --profile my_android_profile -u
+    conan create --build missing --profile my_android_profile -u
 
 
 .. seealso::
@@ -256,7 +256,7 @@ Creating Toolchain packages
 The :ref:`Build requirements<build_requires>` feature allows to create packages that "injects" C/C++ flags
 and environment variables through ``cpp_info`` and ``env_info`` objects.
 
-This is specially useful to create packages with toolchains for cross building because:
+This is especially useful to create packages with toolchains for cross building because:
 
 - The toolchain package can be specified in a profile and kept isolated from the library packages.
   We won't need to change anything in the conan package of the libraries to cross build them for different targets.
@@ -281,7 +281,7 @@ Let's see an example of how to create a conan package for a toolchain:
 
 2. Edit the **settings** property in the ``conanfile.py``
 
-To know which settings do you need to specify it is useful to answer two questions:
+To know which settings you need to specify it is useful to answer two questions:
 
 - Do I need different toolchains for different values of that setting?
 - Do I want to restrict the toolchain usage for any value of that setting?
@@ -329,26 +329,22 @@ it will be useful if someone try to install the toolchain with an unsupported se
 
 
 
+4. Usually the ``source()`` method is not necessary, unless you are building the toolchain from sources. Remember that the ``source()`` method is executed just once in the cache, and the sources are reused for all the variants of the package. If you need different downloads for different settings/options, you can better use the ``build()`` method.
 
-4. Edit the **source()** method to get the toolchain:
+5. Edit the ``build()`` method to get the toolchain (usually they are precompiled binaries or scripts):
 
-Download the toolchain according the introduced settings and the current platform. Remember, in cross building
-the settings values means the "target" settings, not the current machine target.
-
+Download the toolchain according to the introduced settings and the current platform. Remember, in cross building
+the settings values means the "target" settings, not the current machine platform.
 
 .. code-block:: python
 
-    def source(self):
-
-        if tools.OSInfo().is_windows:
-            if self.settings.compiler.version == "4.8":
-                tools.download("some windows url for 4.8", "zipname.zip")
-            else:
-                tools.download("some windows url for 4.6", "zipname.zip")
+    def build(self):
+        if self.settings.os == "Windows":
+            tools.download("some windows url for 4.8", "zipname.zip")
         else: # Linux
             ...
 
-5. Remove the ``build`` method from your conanfile. The toolchains are usually precompiled binaries.
+
 6. Edit the **package()** method to pack all the needed toolchain files.
 
 You could copy all but sometimes we want to remove some help files or whatever to save disk space:
@@ -488,6 +484,8 @@ use environment variables:
 +-----------------------------------+------------------------------------------------------------------------------------------------+
 | conan.conf variable               | Environment variable                                                                           |
 +===================================+================================================================================================+
+| cmake_toolchain_file              |  CONAN_CMAKE_TOOLCHAIN_FILE                                                                    |
++-----------------------------------+------------------------------------------------------------------------------------------------+
 | cmake_system_name                 |  CONAN_CMAKE_SYSTEM_NAME                                                                       |
 +-----------------------------------+------------------------------------------------------------------------------------------------+
 | cmake_system_version              |  CONAN_CMAKE_SYSTEM_VERSION                                                                    |

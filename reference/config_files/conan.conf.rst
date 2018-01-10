@@ -3,22 +3,9 @@
 conan.conf
 ==========
 
-This is the typical ``~/.conan/conan.conf`` file:
+The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
 .. code-block:: text
-
-    [storage]
-    # This is the default path, but you can write your own
-    path = ~/.conan/data
-
-    [proxies]
-    # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
-    # http = http://user:pass@10.10.1.10:3128/
-    # http = http://10.10.1.10:3128
-    # https = http://10.10.1.10:1080
-
 
     [log]
     run_to_output = True        # environment CONAN_LOG_RUN_TO_OUTPUT
@@ -28,14 +15,17 @@ This is the typical ``~/.conan/conan.conf`` file:
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
     [general]
+    default_profile = default
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
+    # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
+    # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
     # cmake_system_processor              # environment CONAN_CMAKE_SYSTEM_PROCESSOR
@@ -47,26 +37,48 @@ This is the typical ``~/.conan/conan.conf`` file:
     # cpu_count = 1             # environment CONAN_CPU_COUNT
 
 
-    [settings_defaults]
-    arch=x86_64
-    build_type=Release
-    compiler=Visual Studio
-    compiler.runtime=MD
-    compiler.version=14
-    os=Windows
+    [storage]
+    # This is the default path, but you can write your own. It must be an absolute path or a
+    # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
+    # with "~/", will be relative to the conan user home, not to the system user home)
+    path = ~/.conan/data
 
-Here you can configure the path where all the packages will be stored (on Windows, it is recomended to assign it to
-some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
+    [proxies]
+    # Empty section will try to use system proxies.
+    # If don't want proxy at all, remove section [proxies]
+    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # http = http://user:pass@10.10.1.10:3128/
+    # http = http://10.10.1.10:3128
+    # https = http://10.10.1.10:1080
 
-You can also adjust the "path" setting using the environment variable **CONAN_USER_HOME**. 
-Check the :ref:`how to control the cache<custom_cache>` section.
 
-The remotes are managed in the order in which they are listed. The first one is assumed to be the default
-for uploads. For downloads they are also accessed sequentially, until a matching binary package is found.
+    # Default settings now declared in the default profile
 
-The settings defaults are the setting values used whenever you issue a ``conan install`` command over a ``conanfile`` in one of your projects **for the first time**. After that, the settings and options will
-be cached in the project ``conaninfo.txt`` file. The initial values for these default settings are
-auto-detected the first time you run a ``conan`` command.
+
+Log
++++
+
+The ``run_to_output`` variable, defaulted to 1, will print to the ``stdout`` the output from the ``self.run`` executions in the conanfile.
+You can also adjust the environment variable ``CONAN_LOG_RUN_TO_OUTPUT``.
+
+The ``run_to_file`` variable, defaulted to False, will print the output from the ``self.run`` executions to the path that the variable specifies.
+You can also adjust the environment variable ``CONAN_LOG_RUN_TO_FILE``.
+
+The ``level`` variable, defaulted to 50 (critical events), declares the LOG level . If you want to show more detailed logging information,
+set this variable to lower values, as 10 to show debug information.                #
+You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+
+The ``trace_file`` variable enable extra logging information about your conan command executions.
+Set it with an absolute path to a file.
+You can also adjust the environment variable ``CONAN_TRACE_FILE``.
+
+The ``print_run_commands``, when is 1, Conan will print the executed commands in ``self.run`` to the output.
+You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
+
+General
++++++++
+The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even in the conan code base, allowing
+to debug the detected error.
 
 The ``bash_path`` variable is used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the PATH or you want to use a different one.
@@ -90,21 +102,48 @@ available in your machine.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 
+The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature.
+If not specified, the packages marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+
+If the variable is set to "None" will disable the `short_paths` feature in Windows,
+for modern Windows that enable long paths at the system level.
+
+Storage
++++++++
+The ``storage.path`` variable define the path where all the packages will be stored.
+
+On Windows:
+
+- It is recommended to assign it to some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
+- Also see the :ref:`short_paths docs<short_paths_reference>` to know more about how to mitigate the limitation of 260 chars path name length limit.
+- It is recommended to disable the Windows indexer or exclude the storage path to avoid problems (busy resources).
+
+
+.. note::
+
+    If you want to change the default "conan home" (directory where ``conan.conf`` file is) you can adjust
+    the environment variable ``CONAN_USER_HOME``.
+
+
 .. _proxys:
 
 Proxies
-++++++++++
-If you are not using proxies at all, you can just remove the ``[proxies]`` section
-completely. You might want to try to use your system defined configuration. You can try to
-do this with a blank ``[proxies]`` section:
++++++++
+
+If you are not using proxies at all, or you want to use the proxies specified by the operating system,
+just remove the ``[proxies]`` section completely. You can run ``conan config rm proxies``.
+
+If you leave leave the ``[proxies]`` section blank, conan will copy the system configured
+proxies, but if you configured some exclusion rule it won't work:
 
 .. code-block:: text
 
     [proxies]
     # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
+    # If don't want that conan mess with proxies at all, remove section [proxies]
     
-You can specify http and https proxies as follows:
+You can specify http and https proxies as follows, use the `no-proxy` keyword to specify a list
+of urls that will skip the proxy:
 
 .. code-block:: text
 
@@ -113,6 +152,9 @@ You can specify http and https proxies as follows:
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
+    no-proxy: http://url1, http://url2
+
+Use `http=None` and/or `https=None` to disable the usage of a proxy.
 
 
 If this fails, you might also try to set environment variables:

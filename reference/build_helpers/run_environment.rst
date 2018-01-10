@@ -9,7 +9,12 @@ Prepares the needed environment variables to locate shared libraries and executa
 .. code-block:: python
    :emphasize-lines: 7, 8, 9
 
-    def build(self):
+   from conans import ConanFile, RunEnvironment
+
+   class ExampleConan(ConanFile):
+       ...
+
+       def build(self):
          env_build = RunEnvironment(self)
          with tools.environment_append(env_build.vars):
              self.run("....")
@@ -24,7 +29,7 @@ Set environment variables:
 +--------------------+---------------------------------------------------------------------+
 | LD_LIBRARY_PATH    | Containing all the requirements ``lib`` folders. (Linux)            |
 +--------------------+---------------------------------------------------------------------+
-| DYLIB_LIBRARY_PATH | Containing all the requirements ``lib`` folders. (OSX)              |
+| DYLD_LIBRARY_PATH  | Containing all the requirements ``lib`` folders. (OSX)              |
 +--------------------+---------------------------------------------------------------------+
 
 

@@ -37,7 +37,7 @@ In the **bin** folder there is a **cmake** executable:
 
 
 
-Let's prepare a virtual environment to have available out cmake in the path, open ``conanfile.txt`` and change (or add) **virtualenv** generator:
+Let's prepare a virtual environment to have available our cmake in the path, open ``conanfile.txt`` and change (or add) **virtualenv** generator:
 
 
 .. code-block:: text
@@ -64,7 +64,7 @@ And activate the virtual environment:
    
 
 
-In windows are available ``activate.bat``/``deactivate.bat`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
+Two sets of scripts are available for Windows - ``activate.bat``/``deactivate.bat`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
    
 Now you can run ``cmake --version`` and check that you have the installed CMake in path.
 
@@ -95,15 +95,17 @@ This will generate ``activate_build`` and ``deactivate_build`` files.
              Check the section :ref:`Reference/virtualbuildenv<virtualbuildenv_generator>` to see the reference of the generator.
 
 
+.. _virtual_run_environment_generator:
+
 Virtualrunenv generator
 ---------------------------
 
 Use the generator ``virtualrunenv`` to activate an environment that will:
 
 - Append to ``PATH`` environment variable every ``bin`` folder of your requirements.
-- Append to ``LD_LIBRARY_PATH`` and ``DYLIB_LIBRARY_PATH`` environment variables each ``lib`` folder of  your requirements.
+- Append to ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables each ``lib`` folder of  your requirements.
 
-This generator is specially useful:
+This generator is especially useful:
 
 - If you are requiring packages with shared libraries and you are running some executable that needs those libraries.
 - If you have a requirement with some tool (executable) and you need it in the path.

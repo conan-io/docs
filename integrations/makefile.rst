@@ -1,3 +1,5 @@
+.. _autotools_build_tool:
+
 
 Autotools: configure/make
 _________________________

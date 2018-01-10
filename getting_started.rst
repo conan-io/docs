@@ -4,8 +4,11 @@
 Getting started
 ===============
 
-As an example, let's start with one of the most popular C++ libraries: [POCO](https://pocoproject.org/).
+As an example, let's start with one of the most popular C++ libraries: POCO_.
 Conan **works with any build system** and does not depend on CMake, though we will use CMake for this example for convenience.
+
+.. _POCO: https://pocoproject.org/
+
 
 A Timer using POCO libraries
 ----------------------------
@@ -79,7 +82,7 @@ Now, also create a ``conanfile.txt`` inside the same folder with the following c
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.8.0.1@pocoproject/stable
    
    [generators]
    cmake
@@ -104,6 +107,7 @@ Just include the generated file and use those variables inside our own ``CMakeLi
 
    project(FoundationTimer)
    cmake_minimum_required(VERSION 2.8.12)
+   add_definitions("-std=c++11")
 
    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
    conan_basic_setup()
@@ -113,7 +117,9 @@ Just include the generated file and use those variables inside our own ``CMakeLi
    
 Installing dependencies
 --------------------------
-Lets create a build folder, so temporary build files are put there, and install the requirements
+If you have a terminal with light colors, like the default gnome terminal in Ubuntu,
+set ``CONAN_COLOR_DARK=1`` to have a better contrast.
+Then create a build folder, so temporary build files are put there, and install the requirements
 (pointing to the parent directory, as it is where the conanfile.txt is):
 
 
@@ -130,7 +136,7 @@ can see the cmake defined variables, and a ``conaninfo.txt`` where information a
 requirements and options is saved.
 
 
-It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified in the command line or taken from the defaults in ``<userhome>/.conan/conan.conf`` file.
+It is very important to understand the installation process. When a ``conan install`` command is issued, it will use some settings, specified on the command line or taken from the defaults in ``<userhome>/.conan/profiles/default`` file.
 
 .. image:: images/install_flow.png
    :height: 400 px
@@ -139,21 +145,19 @@ It is very important to understand the installation process. When a ``conan inst
 
 So for a command like ``$ conan install -s os="Linux" -s compiler="gcc"``, the steps are:
 
-- First check if the package recipe (for Poco/1.7.3@lasote/stable package) exist in the conan local cache. If we are just starting, our cache will be empty.
-- Look for the package recipe in the defined remotes. By default, conan comes with the conan.io remote defined (you can change that), so the conan client will look in conan.io if such package recipe exists.
-- If exists, it will fetch the package recipe and store it in your local cache.
-- With the package recipe and the input settings (Linux, gcc), it will check in the local cache if the corresponding binary is there, if we are installing for the first time, it won't.
-- Conan will try to look for the corresponding package binary in the remote, if such package binary exists, it will be fetched.
-- It will finish generating the requested files specified in ``generators``.
+- First check if the package recipe (for Poco/1.8.0.1@pocoproject/stable package) exists in the conan local cache. If we are just starting, our cache will be empty.
+- Look for the package recipe in the defined remotes. By default, conan comes with the Bintray remotes defined (you can change that), so the conan client will search in `conan-center` and `conan-transit` for the recipe.
+- If the recipe exists, conan client will fetch and store it in your local cache.
+- With the package recipe and the input settings (Linux, gcc), conan client will check in the local cache if the corresponding binary is there, if we are installing for the first time, it won't.
+- Conan client will search for the corresponding binary package in the remote, if it exists, it will be fetched.
+- Conan client will then finish generating the requested files specified in ``generators``.
 
-If the package binary necessary for some given settings doesn't exist, it will throw an error. It is possible to try to build the package binary from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a package binary is built from sources will be done in a later section.
+If the binary package necessary for some given settings doesn't exist, conan client will throw an error. It is possible to try to build the binary package from sources with the ``--build missing`` command line argument to install. Detailed explanations about how a binary package is built from sources will be given in a later section.
 
 .. warning::
 
-   In conan.io there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
-   If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build it 
-   from source, using the **--build missing** option, instead of retrieving the binaries. Such a build might not have
-   been tested and eventually fail. OpenSSL requires perl and some specific tools to build from source.
+   In the Bintray repositories there are binaries for several mainstream compilers and versions, like Visual Studio 12, 14, linux-gcc 4.9 and apple-clang 3.5.
+   If you are using another setup, the command might fail because of the missing package. You could try to change your settings or build the package from source, using the ``--build missing`` option, instead of retrieving the binaries. Such a build might not have been tested and eventually fail.
 
 
 Building the timer example
@@ -188,21 +192,46 @@ keep working even without network connection. To search packages in the local ca
 
     $ conan search 
 
-You can also inspect the package binaries (for different installed binaries for a given package recipe) details with:
+You can also inspect the binary packages (for different installed binaries for a given package recipe) details with:
 
 .. code-block:: bash
 
-    $ conan search Poco/1.7.3@lasote/stable
+    $ conan search Poco/1.8.0.1@pocoproject/stable
+
+You can also generate a table for all binaries from a given recipe with the ``--table`` option, even in remotes:
+
+.. code-block:: bash
+
+    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
+    $ file.html # or open the file, double-click
+
+.. image:: /images/search_binary_table.png
+    :height: 250 px
+    :width: 300 px
+    :align: center
+
 
 Please check the reference for more information on how to search in remotes, or how to remove
 or clean packages from the local cache, or how to define custom cache directory per user or per project.
 
-You can also inspect your current projects dependencies with the ``info`` command, pointing it to
+You can also inspect your current project's dependencies with the ``info`` command, pointing it to
 the folder where the ``conanfile.txt`` is:
 
 .. code-block:: bash
 
     $ conan info ..
+
+You can generate a graph of your dependencies, in dot or html formats:
+
+.. code-block:: bash
+
+    $ conan info .. --graph=file.html
+    $ file.html # or open the file, double-click
+
+.. image:: /images/info_deps_html_graph.png
+    :height: 150 px
+    :width: 200 px
+    :align: center
 
 
 Building with other configurations
@@ -211,7 +240,7 @@ As an exercise to the reader, try building your timer project with a different c
 For example, you could try building the 32 bits version.
 
 - The first time you run the **conan** command, your settings will be detected (compiler, architecture...) automatically.
-- You can change your default settings by editing the ``~/.conan/conan.conf`` file
+- You can change your default settings by editing the ``~/.conan/profiles/default`` file
 - You can always override the default settings in **install** command with the **-s** parameter. Example:
 
 .. code-block:: bash

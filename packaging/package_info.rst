@@ -1,12 +1,15 @@
 Packaging approaches
 =====================
 
-Package recipes have three methods to control the packages binary compatibility and to implement different packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``
+Package recipes have three methods to control the package's binary compatibility and to implement different
+packaging approaches: ``package_id()``, ``build_id()`` and ``package_info()``.
+
+
 
 Package binary compatibility
 -----------------------------
 
-Each package binary has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
+Each binary package has an identifier (ID) which is a SHA1 hash of the package configuration (settings, options, requirements), that allows consumers to reuse an existing package without building it again from sources.
 
 The elements that define the package ID are the package configuration and the ``package_id()`` recipe method. The package configuration is:
 
@@ -47,11 +50,14 @@ the package created for gcc-4.8. You could do:
                 
 Note that the object being modified is called ``self.info``, not ``self.settings``. Also, any string is valid, as long as it will be the same for the settings you want it to be the same package.
 
-Read more about this in :ref:`how_to_define_abi_compatibility`
+Check the :ref:`package_id()<package_id>` reference to see available helper methods in the ``self.info`` object,
+for example, to adjust the info object for a header only library or to control the Visual Studio toolset compatibility.
+
+Read more about this in :ref:`how_to_define_abi_compatibility`.
 
 
-Single configuration packages
---------------------------------
+1 config (1 build) -> 1 package
+-------------------------------
 
 A typical approach is to have each package contain the artifacts just for one configuration. In this
 approach, for example, the debug pre-compiled libraries will be in a different package than the
@@ -88,7 +94,7 @@ generator, such above definition will be translated in ``conanbuildinfo.cmake`` 
 .. code-block:: cmake
   
     set(CONAN_LIBS_MYPKG mylib)
-    ...
+    # ...
     set(CONAN_LIBS mylib ${CONAN_LIBS})
     
 Those variables, will be used in the ``conan_basic_setup()`` macro to actually set cmake
@@ -99,18 +105,18 @@ If the developer wants to switch configuration of the dependencies, he will usua
 .. code-block:: bash
 
     $ conan install -s build_type=Release ... 
-    // when need to debug
+    # when need to debug
     $ conan install -s build_type=Debug ... 
 
 These switches will be fast, since all the dependencies are already cached locally.
 
-This process has some advantages: it is quite easy to implement and maintain. The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum. The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by artifacts could be a very risky issue. 
+This process has some advantages: it is quite easy to implement and maintain. The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the necessary minimum. The decoupling of configurations might help with isolating issues related to mixing different types of artifacts, and also protecting valuable information from deploy and distribution mistakes. For example, debug artifacts might contain symbols or source code, which could help or directly provide means for reverse engineering. So distributing debug artifacts by mistake could be a very risky issue.
 
-Read more about this in :ref:`package_info`
+Read more about this in :ref:`package_info`.
 
 
-Multi configuration packages
---------------------------------
+N configs -> 1 package
+----------------------
 
 It is possible that someone wants to package both debug and release artifacts in the same package,
 so it can be consumed from IDEs like Visual Studio changing debug/release configuration from the IDE,
@@ -129,21 +135,23 @@ and not having to specify it in the command line. This type of package will incl
 
         $ git clone https://github.com/memsharded/hello_multi_config
         $ cd hello_multi_config
-        $ conan test_package -s build_type=Release
-        $ conan test_package -s build_type=Debug --build=missing
+        $ conan create user/channel -s build_type=Release
+        $ conan create user/channel -s build_type=Debug --build=missing
 
 
 
-Creating a multi-configuration Debug/Release package is not difficult, using ``CMake`` for example
-could be:
+Creating a multi-configuration Debug/Release package is not difficult, see the following example using ``CMake``:
 
 
 .. code-block:: python
 
+    def package_id(self):
+        self.info.settings.build_type = "ANY" # For any build_type we will use 1 package
+
     def build(self):
         cmake = CMake(self)
         if cmake.is_multi_configuration:
-            cmd = 'cmake "%s" %s' % (self.conanfile_directory, cmake.command_line)
+            cmd = 'cmake "%s" %s' % (self.source_folder, cmake.command_line)
             self.run(cmd)
             self.run("cmake --build . --config Debug")
             self.run("cmake --build . --config Release")
@@ -151,7 +159,7 @@ could be:
             for config in ("Debug", "Release"):
                 self.output.info("Building %s" % config)
                 self.run('cmake "%s" %s -DCMAKE_BUILD_TYPE=%s'
-                         % (self.conanfile_directory, cmake.command_line, config))
+                         % (self.source_folder, cmake.command_line, config))
                 self.run("cmake --build .")
                 shutil.rmtree("CMakeFiles")
                 os.remove("CMakeCache.txt")
@@ -178,19 +186,19 @@ This will translate to the cmake variables:
   
     set(CONAN_LIBS_MYPKG_DEBUG mylibrary_d)
     set(CONAN_LIBS_MYPKG_RELEASE mylibrary)
-    ...
+    # ...
     set(CONAN_LIBS_DEBUG mylibrary_d ${CONAN_LIBS_DEBUG})
     set(CONAN_LIBS_RELEASE mylibrary ${CONAN_LIBS_RELEASE})
     
 And these variables will be correctly applied to each configuration by ``conan_basic_setup()``
 helper.
 
-In this case you can still use the general, no config-specific variables. For example, the
+In this case you can still use the general, not config-specific variables. For example, the
 include directory, set by default to ``include`` is still the same for both debug and release. 
 Those general variables will be applied for all configurations.
 
 Also, you can use any custom configuration you might want, they are not restricted. For example,
-if your package is a multilibrary package, you could try doing something like:
+if your package is a multi-library package, you could try doing something like:
 
 .. code-block:: python
 
@@ -205,11 +213,11 @@ in your consumer CMake build script.
  
      The automatic conversion of multi-config variables to generators is currently only implemented
      in the ``cmake`` and ``txt`` generators. If you want to have support for them in another
-     build system, please open a github issue for it.
+     build system, please open a GitHub issue for it.
 
 
-Build once, package many
---------------------------
+N configs (1 build) -> N packages
+---------------------------------
 
 It’s possible that an already existing build script is building binaries for different configurations at once, like debug/release, or different architectures (32/64bits), or library types (shared/static). If such build script is used in the previous “Single configuration packages” approach, it will definitely work without problems, but we’ll be wasting precious build time, as we’ll be re-building the whole project for each package, then extracting the relevant artifacts for the given configuration, leaving the others.
 
@@ -241,4 +249,4 @@ Note that the ``build_id()`` method uses the ``self.info_build`` object to alter
 This doesn’t imply that there will be strictly one build folder. There will be a build folder for every configuration (architecture, compiler version, etc). So if we just have Debug/Release build types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders, saving half of the build time.
 
 
-Read more about this in :ref:`build_id`
+Read more about this in :ref:`build_id`.

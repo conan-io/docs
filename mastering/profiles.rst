@@ -4,11 +4,11 @@
 Profiles
 =========
 
-So far we have used the default settings stored in ``conan.conf`` and defined as command line arguments.
+So far we have used the default settings stored in ``~/.conan/profiles/default`` and defined as command line arguments.
 
 However, configurations can be large, settings can be very different, and we might want to switch easily between different configurations with different settings, options, etc.
 
-Profiles can be located in different folders, as for example the default ``<userhome>/.conan/profiles``, and be referenced by absolute or relative path:
+Profiles can be located in different folders, for example, the default ``<userhome>/.conan/profiles``, and be referenced by absolute or relative path:
 
 .. code-block:: bash
 
@@ -17,7 +17,7 @@ Profiles can be located in different folders, as for example the default ``<user
    $ conan install --profile profile  # resolved to user/.conan/profiles/profile
 
 
-A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``` and ``scopes`` and has this structure:
+A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` and has this structure:
 
 .. code-block:: text
 
@@ -30,11 +30,21 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
    [env]
    env_var=value
 
-   [scopes]
-   scope=value
+   [build_requires]
+   Tool1/0.1@user/channel
+   Tool2/0.1@user/channel, Tool3/0.1@user/channel
+   *: Tool4/0.1@user/channel
 
 
-They would contain the desired configuration, for example assume the following file is named ``myprofile``:
+Options allow definition with wildcards, to apply same option value to many packages:
+
+.. code-block:: text
+
+   [options]
+   *:shared=True
+
+
+They would contain the desired configuration, for example, assume the following file is named ``myprofile``:
 
 .. code-block:: text
 
@@ -54,7 +64,7 @@ And you can use it instead of command line arguments as:
 
 .. code-block:: bash
 
-  $ conan test_package -pr=myprofile
+  $ conan create demo/testing -pr=myprofile
 
 
 You can list and show existing profiles with the ``conan profile`` command:
@@ -76,6 +86,14 @@ It is useful to declare relative folders:
 
    [env]
    PYTHONPATH=$PROFILE_DIR/my_python_tools
+
+
+.. seealso:: Check the section :ref:`Mastering conan/Build requirements <build_requires>` to read more about how to use build_requires in a profile.
+
+.. note:: If you specify a profile in a conan command, like `conan create` or `conan install` the base profile ``~/.conan/profiles/default`` won't be applied.
+          If you want to apply it use the ``include`` directive explained later in this page.
+
+
 
 
 Package settings and env vars
@@ -101,6 +119,96 @@ Profiles also support **package settings** and **package environment variables**
    zlib:CXX=/usr/bin/clang++
 
 - Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
+
+
+Profile includes
+----------------
+
+You can include other profiles using the ``include()`` statement. The path can be relative to the current profile, absolute,
+or a profile name from the default profile location in the local cache.
+
+The ``include()`` statement has to be at the top of the profile file:
+
+
+**gcc_49**
+
+.. code-block:: text
+
+   [settings]
+   compiler=gcc
+   compiler.version=4.9
+   compiler.libcxx=libstdc++11
+
+
+**myprofile**
+
+.. code-block:: text
+
+   include(gcc_49)
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=/usr/bin/clang
+   zlib:CXX=/usr/bin/clang++
+
+
+Variable declaration
+--------------------
+
+In a profile you can declare variables that will be replaced automatically by conan before the profile is applied.
+The variables have to be declared at the top of the file, after the include() statements.
+
+**myprofile**
+
+.. code-block:: text
+
+   include(gcc_49)
+   CLANG=/usr/bin/clang
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=$CLANG/clang
+   zlib:CXX=$CLANG/clang++
+
+
+The variables will be inherited too, so you can declare variables in a profile and then include the profile in a different one,
+all the variables will be available:
+
+**gcc_49**
+
+.. code-block:: text
+
+
+   GCC_PATH=/my/custom/toolchain/path/
+
+   [settings]
+   compiler=gcc
+   compiler.version=4.9
+   compiler.libcxx=libstdc++11
+
+
+**myprofile**
+
+.. code-block:: text
+
+   include(gcc_49)
+
+   [settings]
+   zlib:compiler=clang
+   zlib:compiler.version=3.5
+   zlib:compiler.libcxx=libstdc++11
+
+   [env]
+   zlib:CC=$GCC_PATH/gcc
+   zlib:CXX=$GCC_PATH/g++
 
 
 
@@ -143,17 +251,16 @@ Without profiles you would have needed to set the CC and CXX variables in the en
    conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
 
-A profile can also be used in ``conan test_package`` and ``info`` command:
+A profile can also be used in ``conan create`` and ``info`` command:
 
 .. code-block:: bash
 
-   $ conan test_package --profile clang
+   $ conan create demo/testing --profile clang
 
 
 
-
-
-.. seealso:: - :ref:`Howtos/Cross Building <cross_building>`
+.. seealso:: - :ref:`Reference/Configuration files/profiles/default <default_profile>`
+             - :ref:`Howtos/Cross Building <cross_building>`
              - :ref:`Reference/Commands/conan profile <conan_profile_command>`
              - :ref:`Reference/Commands/conan install <conan_install_command>`
-             - :ref:`Reference/Commands/conan test_package <conan_test_package_command>`
+             - :ref:`Reference/Commands/conan create <conan_create_command>`
