@@ -2,11 +2,9 @@
 conan download
 ==============
 
-
 .. code-block:: bash
 
-   $ conan download [-h] [--package PACKAGE] [-r REMOTE] reference
-
+    $ conan download [-h] [-p PACKAGE] [-r REMOTE] reference
 
 Downloads recipe and binaries to the local cache, without using settings. It
 works specifying the recipe reference and package ID to be installed. Not
@@ -16,7 +14,6 @@ different user/channel. If only a reference is specified, it will download all
 packages in the specified remote. If no remote is specified will search
 sequentially in the available configured remotes.
 
-
 .. code-block:: bash
 
     positional arguments:
@@ -25,25 +22,22 @@ sequentially in the available configured remotes.
 
     optional arguments:
       -h, --help            show this help message and exit
-      --package PACKAGE, -p PACKAGE
+      -p PACKAGE, --package PACKAGE
                             Force install specified package ID (ignore
                             settings/options)
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
 
-
-
 **Examples**
 
 - Download all ``OpenSSL/1.0.2i@conan/stable`` binary packages from the remote "foo":
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan download OpenSSL/1.0.2i@conan/stable -r foo
-
+      $ conan download OpenSSL/1.0.2i@conan/stable -r foo
 
 - Download a single binary package from ``OpenSSL/1.0.2i@conan/stable`` from the remote "foo":
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan download OpenSSL/1.0.2i@conan/stable -r foo -p 8018a4df6e7d2b4630a814fa40c81b85b9182d2b
+      $ conan download OpenSSL/1.0.2i@conan/stable -r foo -p 8018a4df6e7d2b4630a814fa40c81b85b9182d2b

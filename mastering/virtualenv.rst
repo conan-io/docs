@@ -90,7 +90,7 @@ Autotools and Visual Studio.
 
 This will generate ``activate_build`` and ``deactivate_build`` files.
 
-.. seealso:: Read More about the building environment variables defined in the sections :ref:`Building with autotools <building_with_autotools>` and :ref:`Building with Visual Studio <building_with_visual_studio>`.
+.. seealso:: Read More about the building environment variables defined in the sections :ref:`Building with autotools <autotools_reference>` and :ref:`Build with Visual Studio<msbuild>`.
 
              Check the section :ref:`Reference/virtualbuildenv<virtualbuildenv_generator>` to see the reference of the generator.
 
@@ -115,4 +115,4 @@ using the virtualrunenv generator, the ``bin`` folder of the package will be ava
 we will be executing the cmake of the package.
 
 
-.. seealso:: Check the section :ref:`Reference/virtualrunenv<virtualrunenv_generator>` to see the reference of the generator.
+.. seealso:: - :ref:`Reference/Tools/environment_append <environment_append_tool>`
