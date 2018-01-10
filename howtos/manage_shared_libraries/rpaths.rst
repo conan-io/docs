@@ -1,6 +1,5 @@
-
 Manage RPATHs
--------------
+=============
 
 The **rpath** is encoded inside dynamic libraries and executables and helps the linker to find its
 required shared libraries.
@@ -10,20 +9,22 @@ and **shared_lib_1**, in turn, requires another **shared_lib_2**.
 
 So the **rpaths** values are:
 
-============ =====================
-File         rpath
-============ =====================
-my_exe       /path/to/shared_lib_1
-shared_lib_1 /path/to/shared_lib_2
-shared_lib_2
-============ =====================
++--------------+-----------------------+
+| File         | rpath                 |
++==============+=======================+
+| my_exe       | /path/to/shared_lib_1 |
++--------------+-----------------------+
+| shared_lib_1 | /path/to/shared_lib_2 |
++--------------+-----------------------+
+| shared_lib_2 |                       |
++--------------+-----------------------+
 
 In **linux** if the linker doesn't find the library in **rpath**, it will continue the search in
 **system defaults paths** (LD_LIBRARY_PATH... etc)
 In OSX, if the linker detects an invalid **rpath** (the file does not exist there), it will fail.
 
 Default Conan approach
-______________________
+----------------------
 
 The consumer project of dependencies with shared libraries needs to import them to the executable
 directory to be able to run it:
@@ -57,13 +58,15 @@ we reuse packages in a different environment from where the artifacts have been 
 So, for **OSX**, conan, by default when you build your library with **CMake**, the rpaths will be
 generated without any path:
 
-================== =====================
-File               rpath
-================== =====================
-my_exe             shared_lib_1.dylib
-shared_lib_1.dylib shared_lib_2.dylib
-shared_lib_2.dylib
-================== =====================
++--------------------+--------------------+
+| File               | rpath              |
++====================+====================+
+| my_exe             | shared_lib_1.dylib |
++--------------------+--------------------+
+| shared_lib_1.dylib | shared_lib_2.dylib |
++--------------------+--------------------+
+| shared_lib_2.dylib |                    |
++--------------------+--------------------+
 
 The ``conan_basic_setup()`` macro will set the ``set(CMAKE_SKIP_RPATH 1)`` in OSX.
 
@@ -88,9 +91,8 @@ generated files in your recipe to not use $rpath:
     replace_in_file("./configure", r"-install_name \$rpath/", "-install_name ")
 
 
-
 Different approaches
-____________________
+--------------------
 
 You can adjust the **rpaths** in the way that adapts better to your needs.
 

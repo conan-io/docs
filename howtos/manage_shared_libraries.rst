@@ -1,6 +1,5 @@
 .. _manage_shared:
 
-
 How to manage shared libraries
 ==============================
 
@@ -13,9 +12,8 @@ On OSX, it will search in the directories declared in `DYLD_LIBRARY_PATH` as on 
 
 Furthermore in OSX and Linux there is another mechanism to locate the shared libraries: The RPATHs.
 
-
 .. toctree::
    :maxdepth: 2
 
-   shared/env_vars
-   shared/rpaths
+   manage_shared_libraries/env_vars
+   manage_shared_libraries/rpaths
