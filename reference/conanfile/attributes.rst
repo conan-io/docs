@@ -204,7 +204,7 @@ independent in VS, we can just remove that setting field:
     settings = "os", "compiler", "build_type", "arch"
 
     def configure(self):
-        self.settings.compiler["Visual Studio"].remove("runtime")W
+        self.settings.compiler["Visual Studio"].remove("runtime")
 
 .. _conanfile_options:
 
