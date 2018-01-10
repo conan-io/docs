@@ -196,15 +196,15 @@ to avoid re-typing them. Then, "arch": None is totally equivalent to "arch": ["x
 Check the reference or your ~/.conan/settings.yml file.
 
 As re-defining the whole settings attribute can be tedious, it is sometimes much simpler to
-remove or tune specific fields in the ``config()`` method. For example, if our package is runtime
+remove or tune specific fields in the ``configure()`` method. For example, if our package is runtime
 independent in VS, we can just remove that setting field:
 
 .. code-block:: python
 
     settings = "os", "compiler", "build_type", "arch"
 
-    def config(self):
-        self.settings.compiler["Visual Studio"].remove("runtime")
+    def configure(self):
+        self.settings.compiler["Visual Studio"].remove("runtime")W
 
 .. _conanfile_options:
 
