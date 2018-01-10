@@ -36,14 +36,16 @@ something like python "virtualenvs". Just changing the value of **CONAN_USER_HOM
 switch among isolated conan instantes that will have independent package storage caches, but also
 different user credentials, different user default settings, and different remotes configuration.
 
-**Note:** Use an absolute path or a path starting with ~/ (relative to user home). In Windows do not use quotes.
+.. note::
+
+    Use an absolute path or a path starting with ~/ (relative to user home). In Windows do not use quotes.
 
 Windows users:
 
 .. code-block:: bash
 
    $ SET CONAN_USER_HOME=c:\data
-   $ conan install # call conan normally, config & data will be in c:\data
+   $ conan install . # call conan normally, config & data will be in c:\data
 
 
 Linux/OSx users:
@@ -51,7 +53,7 @@ Linux/OSx users:
 .. code-block:: bash
 
    $ export CONAN_USER_HOME=/tmp/conan
-   $ conan install # call conan normally, config & data will be in /tmp/conan
+   $ conan install . # call conan normally, config & data will be in /tmp/conan
    
 You can now:
 
@@ -71,5 +73,3 @@ You can now:
    $ conan user  # can be different users
    
    $ export CONAN_USER_HOME=/tmp/conan  # just go back to use the other cache
-  
-

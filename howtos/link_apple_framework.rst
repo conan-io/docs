@@ -24,15 +24,15 @@ With frameworks we need to declare the "-framework flag" as a linker flag:
         self.cpp_info.libs = ["SDL2"] 
           
         self.cpp_info.exelinkflags.append("-framework Carbon")
-        self.cpp_info.exelinkflags.append("-framework CoreAudio")        
+        self.cpp_info.exelinkflags.append("-framework CoreAudio")
         self.cpp_info.exelinkflags.append("-framework Security")
         self.cpp_info.exelinkflags.append("-framework IOKit")
         
         self.cpp_info.sharedlinkflags = self.cpp_info.exelinkflags
 
-In the previous example we are using ``self.cpp_info.exelinkflags``. If we are using CMake to consume this package, it will only link those frameworks
-if we are building an executable and ``sharedlinkflags`` will only apply if we are building a shared library.
+In the previous example we are using ``self.cpp_info.exelinkflags``. If we are using CMake to consume this package, it will only link those
+frameworks if we are building an executable and ``sharedlinkflags`` will only apply if we are building a shared library.
 
 If we are not using CMake to consume this package ``sharedlinkflags`` and ``exelinkflags`` are used indistinctly.
-In the example above we are assigning in the last line ``sharedlinkflags`` with ``exelinkflags``, so no matter what the consumer will build, it will indicate
-to the linker to link with the specified frameworks.
+In the example above we are assigning in the last line ``sharedlinkflags`` with ``exelinkflags``, so no matter what the consumer will build,
+it will indicate to the linker to link with the specified frameworks.

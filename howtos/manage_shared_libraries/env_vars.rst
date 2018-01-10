@@ -26,7 +26,7 @@ activate it, you will get the paths needed to locate the shared libraries in you
 
 
 Example
-_______
+-------
 
 
 We are packaging a tool called ``toolA`` with a library and an executable that, for example, compress data.
@@ -150,9 +150,14 @@ In Linux you still need to set the ``LD_LIBRARY_PATH``, or in OSX, the ``DYLD_LI
 Using shared libraries from dependencies
 ------------------------------------------
 
-If you are executing something that depends on shared libraries belonging to your dependencies, such shared libraries have to be found at runtime. In Windows, it is enough if the package added its binary folder to the system ``PATH``. In Linux and OSX, it is necessary that the ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables are used.
+If you are executing something that depends on shared libraries belonging to your dependencies, such shared libraries have to be found at
+runtime. In Windows, it is enough if the package added its binary folder to the system ``PATH``. In Linux and OSX, it is necessary that the
+``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables are used.
 
-Security restrictions might apply in OSX (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the ``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitely in your conanfile.py:
+Security restrictions might apply in OSX
+(`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
+``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitely in
+your conanfile.py:
 
 .. code-block:: python
 
