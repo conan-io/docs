@@ -224,7 +224,7 @@ for you:
     Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_
 
 
-Create a profile `android_21_arm_clang` with the following contents:
+To use the ``clang`` compiler, create a profile ``android_21_arm_clang`` with the following contents:
 
 .. code-block:: text
 
@@ -245,7 +245,8 @@ Create a profile `android_21_arm_clang` with the following contents:
     PATH=[$standalone_toolchain/bin]
     CHOST=$target_host
     AR=$target_host-ar
-    AS=$target_host-clang
+    AS=$target_host-as
+    RANLIB=$target_host-ranlib
     CC=$target_host-clang
     CXX=$target_host-clang++
     LD=$target_host-ld
@@ -254,6 +255,37 @@ Create a profile `android_21_arm_clang` with the following contents:
     CXXFLAGS= -fPIE -fPIC
     LDFLAGS= -pie
 
+You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``:
+
+
+.. code-block:: text
+
+    standalone_toolchain=/tmp/arm_21_toolchain # Adjust this path
+    target_host=arm-linux-androideabi
+
+    [settings]
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++
+    os=Android
+    os.api_level=21
+    arch=armv7
+    build_type=Release
+
+    [env]
+    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/sysroot
+    PATH=[$standalone_toolchain/bin]
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-as
+    CC=$target_host-gcc
+    CXX=$target_host-g++
+    RANLIB=$target_host-ranlib
+    LD=$target_host-ld
+    STRIP=$target_host-strip
+    CFLAGS=-fPIC
+    CXXFLAGS=-fPIC
+    LDFLAGS=
 
 - Clone, for example, the zlib library to try to build it to Android
 
