@@ -11,7 +11,6 @@ This section shows common solutions and different approaches to typical problems
    howtos/visual_studio_packages
    howtos/python_code_reuse
    howtos/custom_generators
-   howtos/custom_cache
    howtos/manage_shared_libraries
    howtos/cmake_install
    howtos/collaborate_packages

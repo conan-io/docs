@@ -17,4 +17,4 @@ This section provides an introduction to important productivity features and use
    mastering/virtualenv
    mastering/logging
    mastering/sharing_settings_and_config
-   mastering/concurrency
+   mastering/custom_cache
