@@ -6,6 +6,14 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+1.0.0 (10-January-2018)
+-----------------------
+- Bugfix: Fixed bug from ``remove_from_path`` due to Windows path backslash
+- Bugfix: Compiler detection in *conanbuildinfo.cmake* for Visual Studio using toolchains like LLVM (Clang)
+- Bugfix: Added quotes to bash path.
+
+
+
 1.0.0-beta3 (28-December-2017)
 ------------------------------
 - Fix: Upgraded pylint and astroid to latest
