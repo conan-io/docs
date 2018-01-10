@@ -6,7 +6,6 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-
 1.0.0 (10-January-2018)
 -----------------------
 - Bugfix: Fixed bug from ``remove_from_path`` due to Windows path backslash
