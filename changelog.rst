@@ -6,9 +6,17 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-(9-January-2018)
+(Develop)
 ----------------
-- Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make 
+- Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
+
+
+1.0.0 (10-January-2018)
+-----------------------
+- Bugfix: Fixed bug from ``remove_from_path`` due to Windows path backslash
+- Bugfix: Compiler detection in *conanbuildinfo.cmake* for Visual Studio using toolchains like LLVM (Clang)
+- Bugfix: Added quotes to bash path.
+
 
 1.0.0-beta5 (8-January-2018)
 -----------------------------
@@ -21,7 +29,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fixed blocked ``self.run()`` when stderr outputs large tests, due to full pipe.
 
   
-
 1.0.0-beta4 (4-January-2018)
 -----------------------------
 - Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories 
@@ -33,7 +40,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - BugFix: Environment variables are now applied to ``build_requirements()`` for ``$ conan install .``
 - BugFix: Dependency graph was raising conflicts for diamonds with ``alias`` packages
 - BugFix: Fixed ``conan export-pkg`` after a ``conan install`` when recipe has options
-
 
 
 1.0.0-beta3 (28-December-2017)
@@ -556,7 +562,7 @@ remote, should upgrade too. Packages created with conan>=0.20.0 might not be usa
   both debug/release artifacts in the same package, with ``self.cpp_info.debug.libs = [...]`` syntax.
   Not restricted to debug/release, can be used for other purposes.
 - Feature: new ``conan config`` command to manage, edit, display ``conan.conf`` entries
-- Feature: :ref:`Improvements<building_with_cmake>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
+- Feature: :ref:`Improvements<cmake_reference>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
   for common operations.
 - Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
   implementation, installation of multi-name packages.

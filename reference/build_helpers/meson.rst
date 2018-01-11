@@ -1,21 +1,29 @@
-.. _meson_build_helper_reference:
+.. _meson_build_reference:
 
 Meson
 =====
 
-Build helper  for Meson build system with configure and build methods.
+If you are using **Meson Build** as your build system, you can use the **Meson** build helper.
+Specially useful with the :ref:`pkg_config generator<pkg_config_generator>` that will generate the ``*.pc``
+files of our requirements, then ``Meson()`` build helper will locate them automatically.
+
 
 .. code-block:: python
+   :emphasize-lines: 5, 10, 11, 12
 
-    from conans import ConanFile, Meson
+    from conans import ConanFile, tools, Meson
+    import os
 
-    class ExampleConan(ConanFile):
-        ...
+    class ConanFileToolsTest(ConanFile):
+        generators = "pkg_config"
+        requires = "LIB_A/0.1@conan/stable"
+        settings = "os", "compiler", "build_type", "os_build", "arch_build"
 
         def build(self):
             meson = Meson(self)
-            meson.configure(cache_build_folder="build")
+            meson.configure()
             meson.build()
+
 
 Constructor
 -----------
@@ -85,7 +93,7 @@ A typical usage of the Meson build helper, if you want to be able to both execut
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch"
+        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
         generators = "pkg_config"
         exports_sources = "src/*"
 

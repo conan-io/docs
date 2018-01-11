@@ -14,6 +14,7 @@ Contents:
    reference/conanfile_txt
    reference/conanfile
    reference/generators
+   reference/profiles
    reference/build_helpers
    reference/tools
    reference/config_files

@@ -66,7 +66,7 @@ You can also use **check_md5**, **check_sha1** and **check_sha256** from the **t
     .. code-block:: python
 
             def source(self):
-                if self.settings.os == "Windows":
+                if self.settings.os_build == "Windows":
                     # download some Win source zip
                 else:
                     # download sources from Nix systems in a tgz
@@ -84,13 +84,9 @@ You can use these classes to prepare your build system's command invocation:
 
 - **CMake**: Prepares the invocation of cmake command with your settings.
 - **AutoToolsBuildEnvironment**: If you are using configure/Makefile to build your project you can use this helper.
-  Read more: :ref:`Building with Autotools <building_with_autotools>`.
-- **VisualStudioBuildEnvironment**: If you are calling your Visual Studio compiler directly to build your project you can use this helper.
-  Read more: :ref:`Building with Visual Studio <building_with_visual_studio>`.
-- **tools.build_sln_command()**: If you have an ``sln`` project you can use this tool to build it.
-  Read more: :ref:`Build an existing Visual Studio project <building_visual_project>`.
-- **GCC generator**: If you are calling GCC or Clang directly to build your project you can use the ``gcc`` generator.
-  Read more: :ref:`Building with GCC or Clang <building_with_gcc_clang>`.
+  Read more: :ref:`Building with Autotools <autotools_reference>`.
+- **MSBuild**: If you are using Visual Studio compiler directly to build your project you can use this helper :ref:`MSBuild() <msbuild>`. For lower level control, the **VisualStudioBuildEnvironment** can also be used: :ref:`VisualStudioBuildEnvironment <visual_studio_build>`
+  
 
 
 (Unit) Testing your library
@@ -421,7 +417,11 @@ system_requirements()
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
 method to your conanfile and specify what you need there.
 
-You can use ``conans.tools.os_info`` object to detect the operating system, version and distribution (linux):
+If you want to perform some operation depending on the Operating System or Architecture of the running machine,
+you should use the ``self.settings.os_build`` and ``self.settings.arch_build`` settings.
+
+For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system,
+version and distribution (linux):
 
 - ``os_info.is_linux`` True if Linux
 - ``os_info.is_windows`` True if Windows
@@ -431,8 +431,12 @@ You can use ``conans.tools.os_info`` object to detect the operating system, vers
 - ``os_info.os_version`` OS version
 - ``os_info.os_version_name`` Common name of the OS (Windows 7, Mountain Lion, Wheezy...)
 - ``os_info.linux_distro`` Linux distribution name (None if not Linux)
+- ``os_info.bash_path`` Returns the absolute path to a bash in the system
+- ``os_info.uname(options=None)`` Runs the "uname" command and returns the ouput. You can pass arguments with the `options` parameter.
+- ``os_info.detect_windows_subsystem()`` Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the system we are running.
+Also you can use ``SystemPackageTool`` class, that will automatically invoke the right system package tool:
+**apt**, **yum**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the system we are running.
 
 ..  code-block:: python
 
@@ -582,7 +586,7 @@ be computed with the given information:
         if self.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
             self.info.settings.compiler.version = "GCC 4 between 4.5 and 5.0"
 
-Please, check the section :ref:`how_to_define_abi_compatibility` to get more details.
+Please, check the section :ref:`define_abi_compatibility` to get more details.
 
 **Available methods in the self.info object**:
 
@@ -598,6 +602,12 @@ Please, check the section :ref:`how_to_define_abi_compatibility` to get more det
 By default (vs_toolset_compatible mode), Conan will generate the same binary package when the compiler
 is Visual Studio and the ``compiler.toolset`` matches the specified ``compiler.version``.
 For example, if we install some packages specifying the following settings:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.vs_toolset_compatible()
+        # self.info.vs_toolset_incompatible()
 
 
 .. code-block:: text
@@ -640,6 +650,23 @@ This is the relation of Visual Studio versions and the compatible toolchain:
 | 8                                         |   v80                        |
 +-------------------------------------------+------------------------------+
 
+
+- **self.info.discard_build_settings() / self.info.include_build_settings**:
+
+By default (discard_build_settings), Conan will generate the same binary when you change the ``os_build`` or ``arch_build``
+when the ``os`` and ``arch`` are declared respectively. This is because ``os_build`` represent the machine
+running Conan, so, for the consumer, the only setting that matters is where the built software will run,
+not where is running the compilation. The same applies to ``arch_build``.
+
+Using the ``self.info.include_build_settings``, Conan will generate different packages when you change the ``os_build``
+or ``arch_build``.
+
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.discard_build_settings()
+        # self.info.include_build_settings()
 
 .. _build_id:
 

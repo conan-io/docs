@@ -1,7 +1,7 @@
 .. _header_only:
 
 How to package header-only libraries
-=======================================
+====================================
 
 Without unit tests
 ------------------
@@ -45,10 +45,10 @@ Package is created with:
 
 .. code-block:: bash
 
-    $ conan create user/channel
+    $ conan create . user/channel
 
 With unit tests
-----------------
+---------------
 
 If you want to run the library unit test while packaging, you would need this recipe:
 
@@ -121,7 +121,7 @@ Package is created with:
 
 .. code-block:: bash
 
-    $ conan create user/channel
+    $ conan create . user/channel
 
 
 .. note::
