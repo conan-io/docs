@@ -52,7 +52,7 @@ Let's have a look to the root package recipe *conanfile.py*:
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = "shared=False"
         generators = "cmake"
@@ -94,14 +94,15 @@ basics:
   generate a different binary package. Remember, Conan generates different binary packages for
   different introduced configuration (in this case settings) for the same recipe.
 
-  The ``os_build`` and ``arch_build`` settings represent the machine where Conan is running, so if you
-  need to perform some different operation depepending on the current machine, like building with `CMake`
-  if we are in Windows or building with `make` otherwise, these are the correct settings to use:
+  Note that the platform where the recipe is running and the package is being build can be different from
+  the final platform where the code will be running (``self.settings.os`` and ``self.settings.arch``) if
+  the package is being cross-built. So if you want to apply a different build depending on the current
+  build machine, you need to check it:
 
   .. code-block:: python
 
          def build(self):
-             if self.settings.build_os == "Windows":
+             if platform.system() == "Windows":
                  cmake = CMake(self)
                  cmake.configure(source_folder="hello")
                  cmake.build()
@@ -110,8 +111,6 @@ basics:
                  env_build.configure()
                  env_build.make()
 
-  These ``os_build`` and ``arch_build`` settings can be different from ``os`` and ``arch`` that represent
-  the machine where the built artifact will run.
   Learn more in the :ref:`Cross building <cross_building>` section.
 
 - This package recipe is also able to create different binary packages for static and shared
@@ -159,7 +158,7 @@ previous sections:
     import os
 
     class HelloTestConan(ConanFile):
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
 
         def build(self):
