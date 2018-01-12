@@ -6,6 +6,18 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+1.0.1 (12-January-2018)
+-----------------------
+- Fix: ``conan new`` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
+- Fix: ``conaninfo.txt`` file does not dump settings with None values
+
+
+.. important::
+
+  Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries. 
+  There were some errors in the docs, using them for all packages.
+  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
+
 1.0.0 (10-January-2018)
 -----------------------
 - Bugfix: Fixed bug from ``remove_from_path`` due to Windows path backslash
