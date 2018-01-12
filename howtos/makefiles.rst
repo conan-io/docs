@@ -58,7 +58,7 @@ to match the current conan settings (like ``-m32`` or ``-m64`` based on the cona
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
         exports_sources = "src/*"
 
@@ -125,7 +125,7 @@ And also a *conanfile.py* very similar to the previous one, in this case adding 
     class AppConan(ConanFile):
         name = "App"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         exports_sources = "src/*"
         requires = "Hello/0.1@user/testing"
 

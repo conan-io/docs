@@ -66,7 +66,7 @@ You can also use **check_md5**, **check_sha1** and **check_sha256** from the **t
     .. code-block:: python
 
             def source(self):
-                if self.settings.os_build == "Windows":
+                if platform.system() == "Windows":
                     # download some Win source zip
                 else:
                     # download sources from Nix systems in a tgz
@@ -416,9 +416,6 @@ system_requirements()
 ---------------------
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
 method to your conanfile and specify what you need there.
-
-If you want to perform some operation depending on the Operating System or Architecture of the running machine,
-you should use the ``self.settings.os_build`` and ``self.settings.arch_build`` settings.
 
 For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system,
 version and distribution (linux):

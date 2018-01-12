@@ -17,7 +17,7 @@ files of our requirements, then ``Meson()`` build helper will locate them automa
     class ConanFileToolsTest(ConanFile):
         generators = "pkg_config"
         requires = "LIB_A/0.1@conan/stable"
-        settings = "os", "compiler", "build_type", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type"
 
         def build(self):
             meson = Meson(self)
@@ -93,7 +93,7 @@ A typical usage of the Meson build helper, if you want to be able to both execut
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         generators = "pkg_config"
         exports_sources = "src/*"
 
