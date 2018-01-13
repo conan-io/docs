@@ -221,7 +221,7 @@ If your recipe has requirements, you can access to your requirements ``cpp_info`
         requires = "MyLib/1.6.0@conan/stable"
 
         def build(self):
-            self.out.warn(self.deps_cpp_info["MyLib"].libdirs)
+            self.output.warn(self.deps_cpp_info["MyLib"].libdirs)
 
 
 .. note::
@@ -269,7 +269,7 @@ If your recipe has requirements, you can access to your requirements ``env_info`
         requires = "MyLib/1.6.0@conan/stable"
 
         def build(self):
-            self.out.warn(self.deps_env_info["MyLib"].othervar)
+            self.output.warn(self.deps_env_info["MyLib"].othervar)
 
 
 .. _user_info:
