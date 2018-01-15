@@ -662,6 +662,8 @@ Object used in the :ref:`package_id()<package_id>` method to control the unique 
 Check the :ref:`package_id()<package_id>` to see the details of the ``self.info`` object
 
 
+.. _apply_env:
+
 apply_env
 ---------
 

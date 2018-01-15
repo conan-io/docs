@@ -165,6 +165,5 @@ such package can be reused in other recipes, such as the following:
 
     def build(self):
         self.run("mytool")
-        with tools.pythonpath(self):
-            import mypythontool
-            self.output.info(mypythontool.hello_world())
+        import mypythontool
+        self.output.info(mypythontool.hello_world())

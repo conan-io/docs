@@ -478,12 +478,17 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
+any PYTHONPATH inherited from the requirements will be automatically available.
+
 .. code-block:: python
 
     def pythonpath(conanfile)
 
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
+
+It is automatically applied
 
 .. code-block:: python
 
