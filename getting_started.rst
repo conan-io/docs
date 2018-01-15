@@ -4,8 +4,7 @@ Getting started
 ===============
 
 As an example, let's start with one of the most popular C++ libraries: POCO_.
-Conan **works with any build system** and it does not depend on CMake, though we will use CMake for
-this example for convenience.
+Conan **works with any build system** and  does not depend on CMake, though we will use CMake for this example for convenience.
 
 .. _POCO: https://pocoproject.org/
 
@@ -81,7 +80,7 @@ Now, also create a ``conanfile.txt`` inside the same folder with the following c
     [generators]
     cmake
 
-In this example we will use **CMake** to build the project, which is why the **cmake** generator 
+In this example we will use **CMake** to build the project, which is why the **cmake** generator
 is specified. This generator will create a ``conanbuildinfo.cmake`` file that defines CMake
 variables as include paths and library names, that can be used in our build.
 

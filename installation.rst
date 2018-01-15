@@ -30,20 +30,14 @@ Install conan:
 
     **IMPORTANT: Please READ carefully**:
 
-    - Make sure that your **pip** installation matches your **python (2.7 or 3.X)** one.
-    - In Linux if you want to install it globally, you might need **sudo** permissions.
-    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything
-      python related
-    - In **Windows** and with Python 2.7, you might need to use **32bits** python distribution
-      (which is the Windows default one), instead of 64bits.
-    - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip
-      might fail. Try with virtualenvs, or install with other user ``$ pip install --user conan``.
-    - If you are in Windows, and using python <3.5, you might have problems if python is installed
-      in a path with spaces, like "C:/Program Files(x86)/Python". This is a known python limitation,
-      not conan. Install python in a path without spaces, use a virtualenv in another location or
-      upgrade your python installation.
-    - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart,
-      or logout/system if not enough) after installation, so conan is found in the path.
+    - Please make sure that your **pip** installation matches your **Python (2.7 or 3.X)** version.
+    - In Linux, if you want to install it globally, you might need **sudo** permissions.
+    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything Python related
+    - In **Windows** the *Indexing service* can interact badly with the conan local cache. It is strongly recommended to exclude the ``<userhome>/.conan`` folder from Indexing Service. Important in CI machines.
+    - In **Windows** and with Python 2.7, you might need to use **32bits** Python distribution (which is the Windows default one), instead of 64bits.
+    - In **OSX**, especially in the latest versions that might have **System Integrity Protection**, pip might fail. Try with virtualenvs, or install with other user ``$ pip install --user conan``
+    - If you are on Windows, and using a Python version below 3.5, you might have problems if pPython is installed in a path with spaces such as "C:/Program Files(x86)/Python". This is a known limitation of Python, not Conan. To overcome this limitation, install Python in a path without spaces, use a virtualenv in another location or upgrade your Python installation.
+    - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart, or logout/system if not enough) after installation, so conan is found in the path.
 
 
 Install using Brew (OS X)
@@ -68,7 +62,7 @@ The easiest way is using **pacaur** tool:
 
 You can also use ``makepkg`` and install it as described in `AUR docs: installing packages <https://wiki.archlinux.org/index.php/Arch_User_Repository>`_.
 
-Make sure to first install the following six Conan dependencies. They are not in the official
+Make sure to first install the following four Conan dependencies. They are not in the official
 repositories but are available in the **AUR** repository:
 
 - python-patch 
@@ -109,12 +103,13 @@ You will see something like:
 
 .. code-block:: bash
 
-    Consumer commands
-      install    Installs the requirements specified in a conanfile (.py or .txt).
-      config     Manages configuration. Edits the conan.conf or installs config files.
-      get        Gets a file or list a directory of a given reference or package.
-      info       Gets information about the dependency graph of a recipe.
-      ...
+    Conan commands. Type $conan "command" -h for help
+        alias          Creates and export an alias recipe
+        build          Utility command to run your current project 'conanfile.py' build() method.
+        config         Manages conan configuration information
+        copy           Copy conan recipes and packages to another user/channel.
+        ...
+
 
 Install from source
 -------------------
