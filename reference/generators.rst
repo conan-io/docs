@@ -16,11 +16,15 @@ Available generators:
    generators/cmake
    generators/cmakemulti
    generators/visualstudio
+   generators/visualstudiomulti
+   generators/visualstudiolegacy
    generators/xcode
    generators/gcc
+   generators/boost_build
    generators/qbs
    generators/qmake
    generators/scons
+   generators/pkg_config
    generators/virtualenv
    generators/virtualbuildenv
    generators/virtualrunenv

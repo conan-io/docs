@@ -9,13 +9,11 @@ This section provides an introduction to important productivity features and use
    :maxdepth: 2
 
    mastering/conanfile_py
-   mastering/profiles
-   mastering/build
-   mastering/build_requires
    mastering/conditional
    mastering/version_ranges
-   mastering/scopes
    mastering/policies
    mastering/envvars
    mastering/virtualenv
    mastering/logging
+   mastering/sharing_settings_and_config
+   mastering/custom_cache

@@ -6,7 +6,7 @@ Install
 Conan can be installed on many operating systems. It has been extensively used and tested on Windows, Linux (different distributions),
 and OS X, and is also actively used on FreeBSD and Solaris SunOS. There are also several additional operating systems on which it has been reported to work.
 
-There are three ways to install Conan:
+There are three ways to install conan:
 
 1. The preferred and **strongly recommended way to install Conan** is from PyPI, the Python Package Index,
    using the ``pip`` command.
@@ -15,12 +15,12 @@ There are three ways to install Conan:
 3. Running Conan from sources.
 
 Install with pip (recommended)
-------------------------------
+--------------------------------
 
 To install Conan using ``pip``, you need a Python 2.7 or 3.X distribution installed in your machine. Modern Python distributions come
 with pip pre-installed, however, if necessary you can install pip by following the instructions in `pip docs`_
 
-Install Conan:
+Install conan:
 
 ::
 
@@ -30,12 +30,20 @@ Install Conan:
 
     **IMPORTANT: Please READ carefully**:
 
-    - Please make sure that your **pip** installation matches your **Python (2.7 or 3.X)** version.
-    - In Linux, if you want to install it globally, you might need **sudo** permissions.
-    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything Python related.
-    - In **Windows**, you might need to use the **32bits** Python distributio, instead of 64bits.
-    - In **OS X**, especially in the latest versions that might have **System Integrity Protection**, pip might fail. Try using virtualenvs, or install with other user ``$ pip install --user conan``.
-    - If you are on Windows, and using a Python version below 3.5, you might have problems if Python is installed in a path with spaces such as "C:/Program Files(x86)/Python". This is a known limitation of Python, not Conan. To overcome this limiation, install Python in a path without spaces, use a virtualenv in another location or upgrade your Python installation.
+    - Make sure that your **pip** installation matches your **python (2.7 or 3.X)** one.
+    - In Linux if you want to install it globally, you might need **sudo** permissions.
+    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything
+      python related
+    - In **Windows** and with Python 2.7, you might need to use **32bits** python distribution
+      (which is the Windows default one), instead of 64bits.
+    - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip
+      might fail. Try with virtualenvs, or install with other user ``$ pip install --user conan``.
+    - If you are in Windows, and using python <3.5, you might have problems if python is installed
+      in a path with spaces, like "C:/Program Files(x86)/Python". This is a known python limitation,
+      not conan. Install python in a path without spaces, use a virtualenv in another location or
+      upgrade your python installation.
+    - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart,
+      or logout/system if not enough) after installation, so conan is found in the path.
 
 
 Install using Brew (OS X)
@@ -51,7 +59,7 @@ There is a Brew recipe, so in OS X, you can install Conan as follows:
 Install using AUR (Arch Linux)
 ------------------------------
 You can find the package `here <https://aur.archlinux.org/packages/conan/>`_.
-The easiest way is to using **pacaur** tool as follows:
+The easiest way is using **pacaur** tool:
 
 ::
 
@@ -80,10 +88,10 @@ Execute the installer. You don't need to install python.
 
 .. note::
 
-    You can also use the latest version links to download the latest installer:
+    You can also use the latest version's links to download the latest installer:
 
-    :: 
-    
+    .. code-block:: text
+
         http://downloads.conan.io/latest_debian
         http://downloads.conan.io/latest_windows
 
@@ -95,42 +103,24 @@ Let's check if conan is correctly installed. In your console, run the following:
 
 .. code-block:: bash
 
-   $ conan
+    $ conan
 
 You will see something like:
 
 .. code-block:: bash
 
-   It seems to be the first time you run conan
-   Auto detecting your dev setup to initialize conan.conf
-   Found Visual Studio 9
-   Found Visual Studio 12
-   Found Visual Studio 14
-   Found gcc 4.8
-   Found clang 3.7
-   Default conan.conf settings
-           os=Windows
-           arch=x86_64
-           compiler=Visual Studio
-           compiler.version=14
-           compiler.runtime=MD
-           build_type=Release
-   *** You can change them in ~/.conan/conan.conf ***
-   *** Or override with -s compiler='other' -s ...s***
-
-As you can see, upon first execution, Conan performs a basic detection of your installed tools and
-saves the details in the **conan.conf** file (under your user home directory **~/.conan/conan.conf**).
-These auto-detected settings are just a convenience and act as a default for your Conan commands.
-You can change them at any time in this file or override them on the command line with new values.
-You can also delete them from **conan.conf**, in which case you will have to fully specify them for
-new projects.
-
+    Consumer commands
+      install    Installs the requirements specified in a conanfile (.py or .txt).
+      config     Manages configuration. Edits the conan.conf or installs config files.
+      get        Gets a file or list a directory of a given reference or package.
+      info       Gets information about the dependency graph of a recipe.
+      ...
 
 Install from source
 -------------------
 
-You can run Conan directly from source code. First you need to install Python 2.7 and pip.
-From version 0.9, Conan also has "experimental/testing" support for Python3.
+You can run conan directly from source code. First you need to install Python 2.7 or Python 3 and
+pip.
 
 Clone (or download and unzip) the git repository and install its requirements:
 

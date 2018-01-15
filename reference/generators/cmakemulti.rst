@@ -1,12 +1,12 @@
 .. _cmakemulti_generator:
 
 
-`cmakemulti`
-============
+`cmake_multi`
+==============
 
 .. container:: out_reference_box
 
-    This is the reference page for ``cmakemulti`` generator.
+    This is the reference page for ``cmake_multi`` generator.
     Go to :ref:`Integrations/CMake<cmake>` if you want to learn how to integrate your project or recipes with CMake.
 
 Usage
@@ -14,8 +14,8 @@ Usage
 
 .. code-block:: bash
 
-    $ conan install -g cmake_multi -s build_type=Release -s compiler.runtime=MD ...
-    $ conan install -g cmake_multi -s build_type=Debug -s compiler.runtime=MDd ...
+    $ conan install -g cmake_multi -s build_type=Release ...
+    $ conan install -g cmake_multi -s build_type=Debug ...
 
 These commands will generate 3 files:
 

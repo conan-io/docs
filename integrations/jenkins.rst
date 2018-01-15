@@ -8,7 +8,7 @@ You can use `Jenkins CI` both for:
 - Building and testing conan binary packages for a given conan package recipe (with a conanfile.py) and uploading to a
   conan remote (Artifactory or conan_server)
 
-There is no needed any special setup for it, just install conan and your build tools in the Jenkins machine and call
+There is no need for any special setup for it, just install conan and your build tools in the Jenkins machine and call
 the needed ``conan`` commands.
 
 
@@ -45,17 +45,12 @@ Create a new Jenkins Pipeline task using this script:
     def repo_branch = 'master'
 
     node {
+        def server = Artifactory.server artifactory_name
+        def client = Artifactory.newConanClient()
+
         stage("Get project"){
             git branch: repo_branch, url: repo_url
         }
-
-        stage("Configure Artifactory/Conan")
-        def server = Artifactory.server artifactory_name
-        def client = Artifactory.newConanClient()
-        def serverName = client.remote.add server: server, repo: artifactory_repo
-        // You could optionally don't remove the default conan.io server to retrieve from conan.io
-        client.run(command: "remote remove conan.io")
-
 
         stage("Get dependencies and publish build info"){
             sh "mkdir -p build"
@@ -78,31 +73,28 @@ Create a new Jenkins Pipeline task using this script:
 Example: Build a conan package and upload it to Artifactory
 ***********************************************************
 
-In this example we will call conan :ref:`test package<creating_and_testing_packages>` command to create a binary package
+In this example we will call conan :ref:`test package<creating_and_testing_packages>` command to create a binary packages
 and then upload it to Artifactory. We also upload the `build information`_:
 
-
+ 
 .. code-block:: groovy
 
     def artifactory_name = "artifactory"
     def artifactory_repo = "conan-local"
-    def repo_url = 'https://github.com/lasote/conan-libcurl.git'
-    def repo_branch = "release/7.50.3"
+    def repo_url = 'https://github.com/lasote/conan-zlib.git'
+    def repo_branch = "release/1.2.11"
 
     node {
+        def server = Artifactory.server artifactory_name
+        def client = Artifactory.newConanClient()
+        def serverName = client.remote.add server: server, repo: artifactory_repo
+
         stage("Get recipe"){
             git branch: repo_branch, url: repo_url
         }
 
-        stage("Configure Artifactory/Conan")
-        def server = Artifactory.server artifactory_name
-        def client = Artifactory.newConanClient()
-        def serverName = client.remote.add server: server, repo: artifactory_repo
-        client.run(command: "remote remove conan.io")
-
-
         stage("Test recipe"){
-            client.run(command: "test_package")
+            client.run(command: "create")
         }
 
         stage("Upload packages"){
@@ -122,5 +114,5 @@ and then upload it to Artifactory. We also upload the `build information`_:
 .. _`Artifactory`: https://www.jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
 .. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/RTF/Jenkins+%28Hudson%29+Artifactory+Plug-in
-.. _`here you can check the full documentation about the DSL`: https://wiki.jenkins-ci.org/display/JENKINS/Artifactory+-+Working+With+the+Pipeline+Jenkins+Plugin
+.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/RTF/Working+With+Pipeline+Jobs+in+Jenkins
 .. _`build information`: https://www.jfrog.com/confluence/display/RTF/Build+Integration

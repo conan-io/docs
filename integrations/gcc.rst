@@ -11,7 +11,7 @@ Now we are going to compile the :ref:`getting started<getting_started>` example 
 
 .. note:: 
    
-   We have only tested the gcc generator in linux with the gcc compiler. But maybe it works with MinGW in Windows or even clang in OSx. Try it and let us know. :D
+   We have only tested the gcc generator in linux with the gcc compiler. But maybe it works with MinGW in Windows or even clang in OSX. Try it and let us know. :D
 
 
 Open ``conanfile.txt`` and change (or add) **gcc** generator:
@@ -20,7 +20,7 @@ Open ``conanfile.txt`` and change (or add) **gcc** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.3@lasote/stable
+   Poco/1.7.8p3@pocoproject/stable
    
    [generators]
    gcc
@@ -34,10 +34,10 @@ Install the requirements (from the mytimer/build folder):
 
 .. note::
 
-   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them by editing the ``~/.conan/conan.conf`` or override them with "-s" parameters.  
+   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults. You can always change them by editing the ``~/.conan/profiles/default`` or override them with "-s" parameters.
  
 
-Let's take a look to the generated ``conanbuildinfo.gcc``:
+Let's take a look at the generated ``conanbuildinfo.gcc``:
 
 .. code-block:: text
    
@@ -68,4 +68,4 @@ So just execute:
 
 You can also use the generator within your ``build()`` method of your conanfile.py.
 
-Check the :ref:`Build automation: Building with GCC or Clang<building_with_gcc_clang>` section for more info.
+Check the :ref:`Build automation: Building with GCC or Clang<gcc_generator>` section for more info.

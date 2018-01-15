@@ -13,7 +13,7 @@ Example:
 
 .. code-block:: bash
 
-	export CONAN_TRACE_FILE="/tmp/conan_trace.log" # Or SET in windows
+	export CONAN_TRACE_FILE=/tmp/conan_trace.log # Or SET in windows
 	conan install zlib/1.2.8@lasote/stable
 	
 
@@ -39,18 +39,18 @@ In the traces we can see:
 
 1. A command ``install`` execution.
 2. A rest api call to get some ``download_urls``.
-3. Three file download (corresponding to the previously gotten urls).
-4. ``DOWNLOADED_RECIPE`` tell us that the recipe retrieving is finished. We can see that the whole retrieve process took 2.4 seconds.
+3. Three files downloaded (corresponding to the previously retrieved urls).
+4. ``DOWNLOADED_RECIPE`` tells us that the recipe retrieving is finished. We can see that the whole retrieve process took 2.4 seconds.
 5. conan client has computed the needed binary package SHA and now will get it. So will request and download the package ``package_id`` file to perform some checks like outdated binaries.
 6. Another rest api call to get some more ``download_urls``, for the package files and download them.
 7. Finally we get a ``DOWNLOADED_PACKAGE`` telling us that the package has beed downloaded. It took 1.3 seconds.
 
 
-If we execute again the conan install:
+If we execute conan install again:
 
 .. code-block:: bash
 
-	export CONAN_TRACE_FILE="/tmp/conan_trace.log" # Or SET in windows
+	export CONAN_TRACE_FILE=/tmp/conan_trace.log # Or SET in windows
 	conan install zlib/1.2.8@lasote/stable
 	
 
@@ -64,7 +64,7 @@ The `/tmp/conan_trace.log` file only three lines will be appended:
 
 1. A command ``install`` execution.
 2. A ``GOT_RECIPE_FROM_LOCAL_CACHE`` because we already have it available in local cache.
-3. A ``GOT_PACKAGE_FROM_LOCAL_CACHE`` the package is cached too.
+3. A ``GOT_PACKAGE_FROM_LOCAL_CACHE`` because the package is cached too.
 
 
 

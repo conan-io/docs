@@ -15,7 +15,7 @@ A Product ``ConanBasicSetup`` contains the aggregated requirement values and als
 requirement.
 
 
-.. code-block:: json
+.. code-block:: text
 
     import qbs 1.0
 
