@@ -8,4 +8,4 @@ or automating your project build with the ``conan build .`` command. The ``CMake
 your settings to automatically set definitions and a generator according to your compiler, build_type, etc.
 
 
-.. seealso:: Check the section :ref:`Building with CMake<building_with_cmake>`.
+.. seealso:: Check the section :ref:`Building with CMake<cmake_reference>`.

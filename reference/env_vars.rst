@@ -159,6 +159,8 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
 
     CONAN_ENV_ARCH = "x86"
 
+.. _conan_bash_path_env:
+
 CONAN_BASH_PATH
 ---------------
 

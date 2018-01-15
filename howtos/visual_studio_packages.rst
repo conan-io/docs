@@ -1,8 +1,7 @@
 .. _visual_studio_packages:
 
-
-Creating and reusing packages based on Visual Studio
-============================================================
+How to create and reuse packages based on Visual Studio
+=======================================================
 
 Conan has different helpers to manage Visual Studio and MSBuild based projects.
 This how-to illustrates how to put them together to create and consume packages that are purely
@@ -86,7 +85,8 @@ then create and test the package (here it is using system defaults, assuming the
    ...
    > Hello World Release!
 
-Instead of closing the IDE and running ``git clean`` we could also configure a smarter filter in ``exports_sources`` field, so temporary build files are not exported into the recipe.
+Instead of closing the IDE and running ``git clean`` we could also configure a smarter filter in ``exports_sources`` field, so temporary
+build files are not exported into the recipe.
 
 This process can be repeated to create and test packages for different configurations:
 
@@ -99,8 +99,8 @@ This process can be repeated to create and test packages for different configura
 
 .. note::
 
-    From Conan 0.26 it is not mandatory to specify the ``compiler.runtime`` setting. For ``build_type==Debug`` Conan will use ``runtime=MDd``, for
-    ``build_type==Release`` Conan will use ``runtime=MD`` automatically.
+    From Conan 0.26 it is not mandatory to specify the ``compiler.runtime`` setting. For ``build_type==Debug`` Conan will use
+    ``runtime=MDd``, for ``build_type==Release`` Conan will use ``runtime=MD`` automatically.
 
 
 You can list the different created binary packages:
@@ -110,19 +110,20 @@ You can list the different created binary packages:
     $ conan search Hello/0.1@memsharded/testing
 
 Uploading binaries
--------------------
+------------------
 
 Your locally created packages can already be uploaded to a conan remote.
-If you created them with the original username "memsharded", as from the git clone, you might want to do a ``conan copy``
-to put them on your own username. Of course, you can also edit the recipes or set the environment variable ``CONAN_USERNAME`` to define your own username.
+If you created them with the original username "memsharded", as from the git clone, you might want to do a ``$ conan copy``
+to put them on your own username. Of course, you can also edit the recipes or set the environment variable ``CONAN_USERNAME`` to define your
+own username.
 
 Another alternative is to configure the permissions in the remote, to allow uploading packages with
-different usernames. Artifactory will allow it, but by default conan_server doesn't allow
+different usernames. Artifactory will allow it, but by default conan server doesn't allow
 that: permissions must be given in ``[write_permissions]`` section of ``server.conf``.
 
 
 Reusing packages
--------------------
+----------------
 
 To use existing packages directly from Visual Studio, conan provides the ``visual_studio`` generator.
 Let's clone an existing "Chat" project, consisting of a ChatLib static library that makes use of the
@@ -199,7 +200,7 @@ You can also repeat the process for different build types and architectures.
 Other configurations
 ---------------------
 
-The above example works as-is for VS2017, because VS support upgrading from previous versions.
+The above example works as-is for VS2017, because VS supports upgrading from previous versions.
 The ``MSBuild()`` already implements such functionality, so building and testing
 packages with VS2017 can be done. The only requirement is to define the ``VS150COMNTOOLS``
 environment variable, as VS2017 doesn't define it, and it is necessary to find the tools:
