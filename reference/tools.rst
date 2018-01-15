@@ -607,6 +607,17 @@ Parameters:
     - **env** (Optional, Defaulted to ``None``) You can pass a dict with environment variable to be applied **at first place** so they will have more priority than others.
 
 
+tools.get_cased_path()
+----------------------
+
+.. code-block:: python
+
+    get_cased_path(abs_path)
+
+
+For Windows, for any ``abs_path`` parameter containing a case-insensitive absolute path, returns it case-sensitive, that is, with the real cased characters.
+Useful when using Windows subsystems where the file system is case-sensitive.
+
 
 tools.remove_from_path()
 ------------------------
