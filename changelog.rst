@@ -6,6 +6,17 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+
+1.0.2 (16-January-2018)
+-----------------------
+- Fix: Adding a warning message for simultaneous use of ``os`` and ``os_build`` settings.
+- Fix: Do not raise error from *conanbuildinfo.cmake* for Intel MSVC toolsets.
+- Fix: Added more architectures to default *settings.yml* ``arch_build`` setting.
+- Fix: using ``--xxx-folder`` in command line help messages.
+- Bugfix: using quotes for Windows bash path with spaces.
+- Bugfix: vcvars/vcvars_dict not including windows and windows/system32 directories in the path.
+
+
 1.0.1 (12-January-2018)
 -----------------------
 - Fix: ``conan new`` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
