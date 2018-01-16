@@ -9,9 +9,9 @@ conan build
                   path
 
 Calls your local conanfile.py 'build()' method. The recipe will be built in
-the local directory specified by --build_folder, reading the sources from
---source_folder. If you are using a build helper, like CMake(), the
---package_folder will be configured as destination folder for the install
+the local directory specified by --build-folder, reading the sources from
+--source-folder. If you are using a build helper, like CMake(), the
+--package-folder will be configured as destination folder for the install
 step.
 
 .. code-block:: bash
@@ -89,5 +89,5 @@ Or if we want to create the ``conaninfo.txt`` and ``conanbuildinfo.txt`` files i
     $ conan build . --build-folder build_x86 --install-folder install_x86 --source-folder src
 
 However, we recommend the ``conaninfo.txt`` and ``conanbuildinfo.txt`` to be generated in the same
---build_folder, otherwise, you will need to specify a different folder in your build system to include
+--build-folder, otherwise, you will need to specify a different folder in your build system to include
 the files generators file. e.j ``conanbuildinfo.cmake``
