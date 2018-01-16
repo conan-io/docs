@@ -11,8 +11,8 @@ conan export-pkg
                        path reference
 
 Exports a recipe & creates a package with given files calling 'package'. It
-executes the package() method applied to the local folders '--source_folder'
-and '--build_folder' and creates a new package in the local cache for the
+executes the package() method applied to the local folders '--source-folder'
+and '--build-folder' and creates a new package in the local cache for the
 specified 'reference' and for the specified '--settings', '--options' and or '
 --profile'.
 
@@ -84,7 +84,7 @@ This command will use the ``package()`` method.
   .. code-block:: bash
 
       $ conan new Hello/0.1 --bare  # In case you still don't have a recipe for the binaries
-      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --build_folder=Release_x86
+      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --build-folder=Release_x86
 
 - Create a package from a user folder build and sources folders:
 
@@ -110,7 +110,7 @@ This command will use the ``package()`` method.
 
   .. code-block:: bash
 
-      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source_folder=sources --build_folder=build
+      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build
 
   And such package will contain just the files:
 
@@ -158,6 +158,6 @@ This command will use the ``package()`` method.
       $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
 
   In this case, in the ``conan export-pkg``, you don't need to specify the ``-s arch=x86`` or any
-  other setting, option, or profile, because it will all the information in the ``--build_folder``
+  other setting, option, or profile, because it will all the information in the ``--build-folder``
   the ``conaninfo.txt`` and ``conanbuildinfo.txt`` that have been created with the ``conan install``
   command.
