@@ -202,7 +202,7 @@ We can create and test the package with our default settings simply by:
 
 .. code-block:: bash
 
-    $ conan create demo/testing
+    $ conan create . demo/testing
     ...
     Hello world!
 
