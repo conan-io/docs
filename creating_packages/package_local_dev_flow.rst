@@ -101,7 +101,7 @@ Thus, now is an appropriate time to try to run the recipe all the way through, a
 
 .. code-block:: bash
 
-    $ conan create user/channel
+    $ conan create . user/channel
 
 
 conan test
