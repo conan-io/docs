@@ -12,6 +12,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   There were some errors in the docs, using them for all packages.
   They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
 
+1.0.3 (17-January-2018)
+-----------------------
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 
 1.0.2 (16-January-2018)
 -----------------------
