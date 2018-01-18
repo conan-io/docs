@@ -17,7 +17,7 @@ you can use the -c or --confirm option to upload all the matching recipes. If
 you use the --retry option you can specify how many times should conan try to
 upload the packages in case of failure. The default is 2. With --retry_wait
 you can specify the seconds to wait between upload attempts. If no remote is
-specified, the first configured remote (by default conan.io, use 'conan remote
+specified, the first configured remote (by default conan-center, use 'conan remote
 list' to list the remotes) will be used.
 
 .. code-block:: bash

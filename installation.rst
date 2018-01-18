@@ -89,15 +89,6 @@ Go to the conan website and `download the installer for your platform
 
 Execute the installer. You don't need to install python.
 
-.. note::
-
-    You can also use the latest version's links to download the latest installer:
-
-    .. code-block:: text
-
-        http://downloads.conan.io/latest_debian
-        http://downloads.conan.io/latest_windows
-
 
 Initial configuration
 ---------------------

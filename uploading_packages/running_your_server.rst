@@ -248,7 +248,7 @@ Running conan server using Apache
 Permissions parameters
 ++++++++++++++++++++++
   
-By default, the server configuration is similar to the conan.io server. Read can be done anonymous,
+By default, the server configuration is: Read can be done anonymous,
 but uploading requires registered users. Users can be easily registered in the ``[users]`` section,
 defining a pair of ``login: password`` for each one. Yes, plain text passwords at the moment, but
 as the server is on-premises (behind firewall), you just need to trust your sysadmin :)

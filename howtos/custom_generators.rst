@@ -15,7 +15,7 @@ doesn't satisfy your needs. There are several options:
 - Fork the conan codebase and write a built-in generator. Please make a pull request if possible to
   contribute it to the community.
 - Write a custom generator in a ``conanfile.py`` and manage it as a package. You can upload it
-  to your own server and share with your team, or share with the world uploading it to conan.io.
+  to your own server and share with your team, or share with the world uploading it to bintray.
   You can manage it as a package, you can version it, overwrite it, delete it, create channels (testing/stable...),
   and the most important: bring it to your projects as a regular dependency.
   
