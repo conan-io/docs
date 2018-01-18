@@ -7,7 +7,11 @@ conan alias
 
     $ conan alias [-h] reference target
 
-    Creates and exports an 'alias package recipe'.
+    Creates and exports an 'alias package recipe'. An "alias" package is a
+    symbolic name (reference) for another package (target). When some
+    package depends on an alias, the target one will be retrieved and used
+    instead, so the alias reference, the symbolic name, does not appear
+    in the final dependency graph.
 
 .. code-block:: bash
 
