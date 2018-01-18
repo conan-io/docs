@@ -270,7 +270,6 @@ Options are defined in the package recipe, including their allowed values, and i
 recipe itself. A package for a library can well define that by default it will be a static library (a typical default).
 If no one else specifies something different, the package will be static.
 
-
 There are some exceptions to the above, for example, settings can be defined per-package, like in command line:
 
 .. code-block:: bash
@@ -284,9 +283,6 @@ Or you can have a very widely used option in many packages and set its value all
 .. code-block:: bash
 
     $ conan install . -o *:shared=True
-
-
-
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
