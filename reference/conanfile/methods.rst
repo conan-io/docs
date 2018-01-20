@@ -314,8 +314,6 @@ If your recipe has requirements, you can access to your requirements ``user_info
 configure(), config_options()
 -----------------------------
 
-Note: ``config()`` method has been deprecated, used ``configure()`` instead.
-
 If the package options and settings are related, and you want to configure either, you can do so
 in the ``configure()`` and ``config_options()`` methods. This is an example:
 
