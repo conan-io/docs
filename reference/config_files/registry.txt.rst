@@ -10,7 +10,8 @@ remotes and from which remotes are each package retrieved:
 
 .. code-block:: text
 
-    conan.io https://server.conan.io True
+    conan-center https://conan.bintray.com True
+    conan-transit https://conan-transit.bintray.com True
     local http://localhost:9300 True
     
     Hello/0.1@demo/testing local

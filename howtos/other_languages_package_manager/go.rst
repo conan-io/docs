@@ -56,7 +56,7 @@ Create a *conanfile.txt*, with the following content:
 Our project requires a package, **go-martini/1.0@lasote/stable**, and we indicate that all **src contents** from all our requirements have
 to be copied to *./deps/src*.
 
-The package go-martini_ depends on go-inject_, so Conan will handle automatically the go-inject dependency.
+The package go-martini depends on go-inject, so Conan will handle automatically the go-inject dependency.
 
 .. code-block:: bash
 
@@ -84,7 +84,7 @@ And run the server:
     $ cd src/server
     $ go run main.go
 
-Open your browser and go to `localhost:3000`__
+Open your browser and go to `localhost:9300`__
 
 .. code-block:: html
 
@@ -166,7 +166,5 @@ requirement.
 Now we are able to use them easily and without the problems of versioning with github checkouts.
 
 
-.. _go-martini: https://conan.io/source/go-martini/1.0/lasote/stable
-.. _go-inject: https://conan.io/source/go-inject/1.0/lasote/stable
-.. _localhost: http://localhost:3000
+.. _localhost: http://localhost:9300
 __ localhost_

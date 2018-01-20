@@ -239,6 +239,51 @@ test packages for different configurations, you could:
     ...
     $ conan create ...
 
+
+.. _settings_vs_options:
+
+Settings vs. options
+--------------------
+
+We have used settings as ``os``, ``arch`` and ``compiler``. But the above package recipe also contains a
+``shared`` option (defined as ``options = {"shared": [True, False]}``). What is the difference between
+settings and options?
+
+**Settings** are project-wide configuration, something that typically affect to the whole project that
+is being built. For example the Operating System or the architecture would be naturally the same for all
+packages in a dependency graph, linking a Linux library for a Windows app, or
+mixing architectures is impossible.
+
+Settings cannot be defaulted in a package recipe. A recipe for a given library cannot say that its default
+``os=Windows``. The ``os`` will be given by the environment in which that recipe is processed. It is
+a necessary input.
+
+Settings are configurable. You can edit, add, remove settings or subsettings in your *settings.yml* file.
+See :ref:`the settings.yml reference <settings_yml>`.
+
+On the other hand, **options** are package-specific configuration. Being a static or shared library is not
+something that applies to all packages. Some can be header only libraries. Other packages can be just data,
+or package executables. Or packages can contain a mixture of different artifacts. ``shared`` is a common
+option, but packages can define and use any options they want.
+
+Options are defined in the package recipe, including their allowed values, and it can be defaulted by the package 
+recipe itself. A package for a library can well define that by default it will be a static library (a typical default).
+If no one else specifies something different, the package will be static.
+
+There are some exceptions to the above, for example, settings can be defined per-package, like in command line:
+
+.. code-block:: bash
+
+    $ conan install . -s MyPkg:compiler=gcc -s compiler=clang ..
+
+This will use ``gcc`` for MyPkg and ``clang`` for the rest of the dependencies (extremely unusual case)
+
+Or you can have a very widely used option in many packages and set its value all at once with patterns, like:
+
+.. code-block:: bash
+
+    $ conan install . -o *:shared=True
+
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
 .. |write_us| raw:: html

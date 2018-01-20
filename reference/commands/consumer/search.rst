@@ -46,8 +46,8 @@ argument.
 
 .. code-block:: bash
 
-    $ conan search OpenCV/*
-    $ conan search OpenCV/* -r=conan.io
+    $ conan search zlib/*
+    $ conan search zlib/* -r=conan-center
 
 If you use instead the full package recipe reference, you can explore the binaries existing for
 that recipe, also in a remote or in the local conan cache:
