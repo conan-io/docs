@@ -1,23 +1,31 @@
 .. _autotools_reference:
 
-AutoToolsBuildEnvironment
-=========================
+AutoToolsBuildEnvironment (configure/make)
+==========================================
 
-Prepares the needed environment variables to invoke  **configure**/**make**:
+If you are using **configure**/**make** you can use **AutoToolsBuildEnvironment** helper.
+This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`` environment variables based on your requirements.
 
 .. code-block:: python
+   :emphasize-lines: 13, 14, 15
+   
+   from conans import ConanFile, AutoToolsBuildEnvironment
 
-    from conans import ConanFile, AutoToolsBuildEnvironment
+   class ExampleConan(ConanFile):
+      settings = "os", "compiler", "build_type", "arch"
+      requires = "Poco/1.7.8p3@pocoproject/stable"
+      default_options = "Poco:shared=True", "OpenSSL:shared=True"
+     
+      def imports(self):
+         self.copy("*.dll", dst="bin", src="bin")
+         self.copy("*.dylib*", dst="bin", src="lib")
+   
+      def build(self):
+         env_build = AutoToolsBuildEnvironment(self)
+         env_build.configure()
+         env_build.make()
 
-    class ExampleConan(ConanFile):
-        ...
-
-        def build(self):
-            env_build = AutoToolsBuildEnvironment(self)
-            env_build.configure()
-            env_build.make()
-
-Or calling `configure` and `make` manually:
+It also works using the :ref:`environment_append <environment_append_tool>` context manager applied to your **configure and make** commands, calling `configure` and `make` manually:
 
 .. code-block:: python
 
@@ -32,6 +40,51 @@ Or calling `configure` and `make` manually:
                 self.run("./configure")
                 self.run("make")
 
+You can change some variables like ``.fpic``, ``.libs``, ``.include_paths``, ``defines`` before accessing the ``vars`` to override
+an automatic value or add new values:
+
+.. code-block:: python
+   :emphasize-lines: 8, 9, 10
+
+   from conans import ConanFile, AutoToolsBuildEnvironment
+
+   class ExampleConan(ConanFile):
+      ...
+
+      def build(self):
+         env_build = AutoToolsBuildEnvironment(self)
+         env_build.fpic = True
+         env_build.libs.append("pthread")
+         env_build.defines.append("NEW_DEFINE=23")
+         env_build.configure()
+         env_build.make()
+
+
+You can use it also with ``MSYS2``/``MinGW`` subsystems installed by setting the `win_bash` parameter
+in the constructor. It will run the the ``configure`` and ``make`` commands inside a ``bash`` that
+has to be in the path or declared in ``CONAN_BASH_PATH``:
+
+
+.. code-block:: python
+   :emphasize-lines: 12
+
+   from conans import ConanFile, AutoToolsBuildEnvironment
+   import platform
+
+   class ExampleConan(ConanFile):
+      settings = "os", "compiler", "build_type", "arch"
+
+      def imports(self):
+        self.copy("*.dll", dst="bin", src="bin")
+        self.copy("*.dylib*", dst="bin", src="lib")
+
+      def build(self):
+         in_win = platform.system() == "Windows"
+         env_build = AutoToolsBuildEnvironment(self, win_bash=in_win)
+         env_build.configure()
+         env_build.make()
+
+
 Constructor
 -----------
 
@@ -39,10 +92,12 @@ Constructor
 
     class AutoToolsBuildEnvironment(object):
 
-        def __init__(self, conanfile)
+        def __init__(self, conanfile, win_bash=False)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a conanfile.py
+    - **win_bash**: (Optional, Defaulted to ``False``): When True, it will run the configure/make commands inside a
+      bash.
 
 Attributes
 ----------

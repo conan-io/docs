@@ -107,5 +107,5 @@ Example to collect license files from dependencies, into a **licenses** folder, 
 .. code-block:: text
 
     [imports]
-    ., license* -> ./licenses @ folder=True, ignore_case=True, excludes="*.html *.jpeg"
+    ., license* -> ./licenses @ folder=True, ignore_case=True, excludes=*.html *.jpeg
 

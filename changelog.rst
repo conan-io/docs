@@ -6,6 +6,47 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+.. important::
+
+  Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries. 
+  There were some errors in the docs, using them for all packages.
+  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
+
+
+1.0.2 (16-January-2018)
+-----------------------
+- Fix: Adding a warning message for simultaneous use of ``os`` and ``os_build`` settings.
+- Fix: Do not raise error from *conanbuildinfo.cmake* for Intel MSVC toolsets.
+- Fix: Added more architectures to default *settings.yml* ``arch_build`` setting.
+- Fix: using ``--xxx-folder`` in command line help messages.
+- Bugfix: using quotes for Windows bash path with spaces.
+- Bugfix: vcvars/vcvars_dict not including windows and windows/system32 directories in the path.
+
+
+1.0.1 (12-January-2018)
+-----------------------
+- Fix: ``conan new`` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
+- Fix: ``conaninfo.txt`` file does not dump settings with None values
+
+
+1.0.0 (10-January-2018)
+-----------------------
+- Bugfix: Fixed bug from ``remove_from_path`` due to Windows path backslash
+- Bugfix: Compiler detection in *conanbuildinfo.cmake* for Visual Studio using toolchains like LLVM (Clang)
+- Bugfix: Added quotes to bash path.
+
+
+1.0.0-beta5 (8-January-2018)
+-----------------------------
+- Fix: Errors from remotes different to a 404 will raise an error. Disconnected remotes have to be removed from remotes or use explicit remote with ``-r myremote``
+- Fix: cross-building message when building different architecture in same OS
+- Fix: ``$ conan profile show`` now shows profile with same syntax as profile files
+- Fix: generated test code in ``$ conan new`` templates will not run example app if cross building.
+- Fix: ``$ conan export-pkg`` uses the *conanfile.py* folder as the default ``--source-folder``
+- Bugfix: ``$ conan download`` didn't download recipe if there are no binaries. Force recipe download.
+- Bugfix: Fixed blocked ``self.run()`` when stderr outputs large tests, due to full pipe.
+
+
 1.0.0-beta4 (4-January-2018)
 -----------------------------
 - Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories 
@@ -17,7 +58,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - BugFix: Environment variables are now applied to ``build_requirements()`` for ``$ conan install .``
 - BugFix: Dependency graph was raising conflicts for diamonds with ``alias`` packages
 - BugFix: Fixed ``conan export-pkg`` after a ``conan install`` when recipe has options
-
 
 
 1.0.0-beta3 (28-December-2017)
@@ -540,7 +580,7 @@ remote, should upgrade too. Packages created with conan>=0.20.0 might not be usa
   both debug/release artifacts in the same package, with ``self.cpp_info.debug.libs = [...]`` syntax.
   Not restricted to debug/release, can be used for other purposes.
 - Feature: new ``conan config`` command to manage, edit, display ``conan.conf`` entries
-- Feature: :ref:`Improvements<building_with_cmake>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
+- Feature: :ref:`Improvements<cmake_reference>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
   for common operations.
 - Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
   implementation, installation of multi-name packages.

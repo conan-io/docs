@@ -7,9 +7,9 @@ Custom integrations
 If you intend to use other build system that has not a built-in generator, you might still be 
 able to do so. There are several options.
 
-- First, search in conan.io. Generators can now be created and contributed by users as regular
+- First, search in bintray. Generators can now be created and contributed by users as regular
   packages, so you can depend on them, use versioning, evolve faster without depending on the
-  conan.io releases, etc. Check :ref:`generator packages <dyn_generators>`.
+  conan releases, etc. Check :ref:`generator packages <dyn_generators>`.
 - You can use the **text generator**. It will generate a text file, simple to read and to parse
   that you can easily parse with your tools to extract the information.
 - Use the **conanfile data model** and access its properties and values, so you can directly

@@ -3,44 +3,42 @@
 conan config
 ============
 
+.. code-block:: bash
+
+    $ conan config [-h] {rm,set,get,install} ...
+
+Manages configuration. Edits the conan.conf or installs config files.
 
 .. code-block:: bash
 
-   $ conan config [-h] {rm,set,get,install} ...
+    positional arguments:
+      {rm,set,get,install}  sub-command help
+        rm                  rm an existing config element
+        set                 set/add value
+        get                 get the value of existing element
+        install             install a full configuration from a zip file, local or
+                            remote
 
-
-   Manage configuration. Edit conan.conf or install full configuration.
-
-        positional arguments:
-          {rm,set,get,install}  sub-command help
-            rm                  rm an existing config element
-            set                 set/add value
-            get                 get the value of existing element
-            install             install a full configuration from a zip file, local or
-                                remote
-
-        optional arguments:
-          -h, --help            show this help message and exit
+    optional arguments:
+      -h, --help            show this help message and exit
 
 
 **Examples**
 
 - Change the logging level to 10:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan config set log.level=10
+      $ conan config set log.level=10
 
 - Get the logging level:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan config get log.level
-    $> 10
-
+      $ conan config get log.level
+      $> 10
 
 .. _conan_config_install:
-
 
 conan config install
 ____________________
@@ -57,7 +55,6 @@ and will keep the rest of the local variables.
 The **profiles files**, that will be overwritten if already present, but won't delete any other profile file that the user
 has in the local machine.
 
-
 All files in the zip will be copied to the conan home directory.
 These are the special files and the rules applied to merge them:
 
@@ -73,32 +70,29 @@ These are the special files and the rules applied to merge them:
 | config/conan.conf              | Merges the variables, overriding only the declared variables         |
 +--------------------------------+----------------------------------------------------------------------+
 
-
 The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
 so following calls to ``conan config install`` command doesn't need to specify the url.
-
 
 **Examples**:
 
 - Install the configuration from an url:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan config install http://url/to/some/config.zip
+      $ conan config install http://url/to/some/config.zip
 
-Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
+  Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
 
 - Refresh the configuration again:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan config install
+      $ conan config install
 
-It's not needed to specify the url again, it is already stored.
-
+  It's not needed to specify the url again, it is already stored.
 
 - Install the configuration from a local path:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan config install /path/to/some/config.zip
+      $ conan config install /path/to/some/config.zip

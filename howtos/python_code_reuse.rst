@@ -1,7 +1,7 @@
 .. _python_reuse:
 
 How to reuse Python code in recipes
-=====================================
+===================================
 
 First, if you feel that you are repeating a lot of Python code, and that repeated code could be
 useful for other Conan users, please propose it in a github issue.
@@ -20,14 +20,14 @@ A basic Python package
 
 Let's begin with a simple python package, a "hello world" functionality that we want to package and reuse:
 
-..  code-block:: python
+.. code-block:: python
 
     def hello():
         print("Hello World from Python!")
 
 To create a package, all we need to do is create the following layout:
 
-..  code-block:: text
+.. code-block:: text
 
     -| hello.py
      | __init__.py
@@ -38,10 +38,10 @@ The ``__init__.py`` is blank.
 It is not necessary to compile code, so the package recipe ``conanfile.py`` is quite simple:
 
 
-..  code-block:: python
+.. code-block:: python
 
     from conans import ConanFile
-    
+
     class HelloPythonConan(ConanFile):
         name = "HelloPy"
         version = "0.1"
@@ -50,34 +50,35 @@ It is not necessary to compile code, so the package recipe ``conanfile.py`` is q
     
         def package(self):
             self.copy('*.py')
-    
+
         def package_info(self):
             self.env_info.PYTHONPATH.append(self.package_folder)
 
 
-The ``exports`` will copy both the ``hello.py`` and the ``__init__.py`` into the recipe. The ``package()`` method is also obvious: to construct the package just copy the python sources.
+The ``exports`` will copy both the ``hello.py`` and the ``__init__.py`` into the recipe. The ``package()`` method is also obvious: to
+construct the package just copy the python sources.
+
+The ``package_info()`` adds the current package folder to the ``PYTHONPATH`` conan environment variable. It will not affect the real
+environment variable unless the end user wants it.
 
 
-The ``package_info()`` adds the current package folder to the ``PYTHONPATH`` conan environment variable. It will not affect the real environment variable unless the end user wants it.
-
-
-It can be seen that this recipe would be practically the same for most python packages, so it could be factored in a ``PythonConanFile`` base class to further simplify it (open a feature request, or better a pull request :) ) 
+It can be seen that this recipe would be practically the same for most python packages, so it could be factored in a ``PythonConanFile``
+base class to further simplify it (open a feature request, or better a pull request :) ) 
 
 
 With this recipe, all we have to do is:
 
 
-..  code-block:: bash
+.. code-block:: bash
 
-    $ conan export memsharded/testing
-    $ conan search
+    $ conan export . memsharded/testing
 
-
-Of course if you want to share the package with your team, you can ``conan upload`` it to a remote server. But to create and test the package, we can do everything locally.
+Of course if you want to share the package with your team, you can ``conan upload`` it to a remote server. But to create and test the
+package, we can do everything locally.
 
 Now the package is ready for consumption. In another folder, we can create a ``conanfile.txt`` (or a ``conanfile.py`` if we prefer):
 
-..  code-block:: text
+.. code-block:: text
 
     [requires]
     HelloPy/0.1@memsharded/testing
@@ -86,18 +87,20 @@ Now the package is ready for consumption. In another folder, we can create a ``c
 And install it with the following command:
 
 
-..  code-block:: bash
+.. code-block:: bash
 
-    $ conan install -g virtualenv
-
-
-Creating the above ``conanfile.txt`` might be unnecessary for this simple example, as you can directly run ``conan install HelloPy/0.1@memsharded/testing -g virtualenv``, however, using the file is the canonical way.
+    $ conan install . -g virtualenv
 
 
-The specified ``virtualenv`` generator will create an ``activate`` script (in Windows ``activate.bat``), that basically contains the environment, in this case, the ``PYTHONPATH``. Once we activate it, we are able to find the package in the path and use it:
+Creating the above ``conanfile.txt`` might be unnecessary for this simple example, as you can directly run
+``conan install HelloPy/0.1@memsharded/testing -g virtualenv``, however, using the file is the canonical way.
 
 
-..  code-block:: bash
+The specified ``virtualenv`` generator will create an ``activate`` script (in Windows ``activate.bat``), that basically contains the
+environment, in this case, the ``PYTHONPATH``. Once we activate it, we are able to find the package in the path and use it:
+
+
+.. code-block:: bash
 
     $ activate
     $ python
@@ -115,11 +118,11 @@ Reusing python code in your recipes
 -----------------------------------
 
 Requiring a python conan package
-________________________________
+++++++++++++++++++++++++++++++++
 
 As the conan recipes are python code itself, it is easy to reuse python packages in them. A basic recipe using the created package would be:
 
-..  code-block:: python
+.. code-block:: python
 
     from conans import ConanFile, tools
 
@@ -133,23 +136,25 @@ As the conan recipes are python code itself, it is easy to reuse python packages
 
 
 
-The ``requires`` section is just referencing the previously created package. The functionality of that package can be used in several methods of the recipe: ``source()``, ``build()``, ``package()`` and ``package_info()``, i.e. all of the methods used for creating the package itself. Note that in other places it is not possible, as it would require the dependencies of the recipe to be already retrieved, and such dependencies cannot be retrieved until the basic evaluation of the recipe has been executed.
+The ``requires`` section is just referencing the previously created package. The functionality of that package can be used in several
+methods of the recipe: ``source()``, ``build()``, ``package()`` and ``package_info()``, i.e. all of the methods used for creating the
+package itself. Note that in other places it is not possible, as it would require the dependencies of the recipe to be already retrieved,
+and such dependencies cannot be retrieved until the basic evaluation of the recipe has been executed.
 
 
-In the above example, the code is reused in the ``build()`` method as an example. Note the use of a helper context, which basically activates/deactivates the ``PYTHONPATH`` environment variable with the value assigned in the package. We didn't want to do this activation implicit for all conan packages, but rather make it explicit.
+In the above example, the code is reused in the ``build()`` method as an example. Note the use of a helper context, which basically
+activates/deactivates the ``PYTHONPATH`` environment variable with the value assigned in the package. We didn't want to do this activation
+implicit for all conan packages, but rather make it explicit.
 
-
-..  code-block:: bash
+.. code-block:: bash
 
     $ conan install .
     ...
     $ conan build .
     Hello World from Python!
 
-
-
 Sharing a python module
-_______________________
++++++++++++++++++++++++
 
 Another approach is sharing a python module and exporting within the recipe.
 
@@ -157,14 +162,14 @@ Another approach is sharing a python module and exporting within the recipe.
 
 Lets write for example a ``msgs.py`` file and put it besides the ``conanfile.py``:
 
-..  code-block:: python
+.. code-block:: python
 
-   def build_msg(output):
-      output.info("Building!")
+    def build_msg(output):
+        output.info("Building!")
 
 And then the main ``conanfile.py`` would be:
 
-..  code-block:: python
+.. code-block:: python
 
    from conans import ConanFile
    from msgs import build_msg
@@ -178,13 +183,12 @@ And then the main ``conanfile.py`` would be:
            build_msg(self.output)
            # ...
 
-
-It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package,
-because package recipes must be self-contained.
+It is important to note that such ``msgs.py`` file **must be exported** too when exporting the package, because package recipes must be
+self-contained.
 
 The code reuse can also be done in the form of a base class, something like a file ``base_conan.py``
 
-..  code-block:: python
+.. code-block:: python
 
     from conans import ConanFile
 
@@ -193,7 +197,7 @@ The code reuse can also be done in the form of a base class, something like a fi
 
 And then:
 
-..  code-block:: python
+.. code-block:: python
 
     from conans import ConanFile
     from base_conan import ConanBase
@@ -201,5 +205,3 @@ And then:
     class ConanFileToolsTest(ConanBase):
         name = "test"
         version = "1.9"
-
-
