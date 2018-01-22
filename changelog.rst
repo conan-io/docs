@@ -13,6 +13,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
 
 
+1.0.3 (22-January-2018)
+-----------------------
+- Bugfix: Correct load of stored settings in conaninfo.txt (for ``conan build``) when ``configure()`` remove some setting.
+- Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
+- Fix: fixed wrong message for ``conan alias --help``.
+- Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
+
+
 1.0.2 (16-January-2018)
 -----------------------
 - Fix: Adding a warning message for simultaneous use of ``os`` and ``os_build`` settings.
