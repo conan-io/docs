@@ -166,7 +166,7 @@ Windows to Raspberry PI (Linux/ARM)
     os_build=Windows
     arch_build=x86_64
     os=Linux
-    arch=armv7
+    arch=armv7 # Change to armv6 if you are using Raspberry 1
     compiler=gcc
     compiler.version=6
     compiler.libcxx=libstdc++11
@@ -419,7 +419,9 @@ Here is a table with some typical ARM platorms:
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Platform                       | Conan setting                                                                                  |
 +================================+================================================================================================+
-| Raspberry PI 1 and 2           | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
+| Raspberry PI 1                 | ``armv6``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Raspberry PI 2                 | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
 +--------------------------------+------------------------------------------------------------------------------------------------+
