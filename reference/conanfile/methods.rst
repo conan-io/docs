@@ -27,9 +27,9 @@ control. But if the source code is available in a repository, you can directly g
             # You can also change branch, commit or whatever
             # self.run("cd hello && git checkout 2fe5...")
 
-This will work, as long as ``$ git`` is in your current path (so in Win you probably want to run things in msysgit, cmder, etc).
-You can also use another VCS or direct download/unzip. For that purpose, we have provided some helpers,
-but you can use your own code or origin as well. This is a snippet of the conanfile of the POCO libray:
+This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use
+another VCS or direct download/unzip. For that purpose, we have provided some helpers, but you can use your own code or origin as well. This
+is a snippet of the conanfile of the Poco library:
 
 ..  code-block:: python
 
@@ -117,7 +117,7 @@ Nothing special is required here. We can just launch the tests from the last com
         cmake.configure()
         cmake.build()
         # here you can run CTest, launch your binaries, etc
-        self.run("ctest")
+        cmake.test()
 
 .. _method_package:
 
