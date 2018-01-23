@@ -103,7 +103,7 @@ of popular build systems such as CMake or Autotools, but they are just helpers. 
 not necessary that all the packages are built with the same build system. It is possible to depend
 on packages created with other build system than the one you are using to build your project.
 
-Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
+Have a question? Check out our :ref:`FAQ section <faq>` or |write_us|.
 
 .. |write_us| raw:: html
 
