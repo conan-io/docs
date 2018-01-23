@@ -6,14 +6,22 @@ Version ranges
 
 Version range expressions are supported, both in ``conanfile.txt`` and in ``conanfile.py`` requirements.
 
-The syntax is using brackets:
+The syntax is using brackets. The square brackets are the way to specify conan that is a version range. Otherwise, versions are plain strings, they can be whatever you want them to be (up to limitations of length and allowed characters). 
 
 ..  code-block:: python
 
    class HelloConan(ConanFile):
       requires = "Pkg/[>1.0,<1.8]@user/stable"
 
-Expressions are those defined and implemented by [python node-semver](https://pypi.python.org/pypi/node-semver),
+
+So when specifying ``Pkg/[expression]@user/stable`` it means that ``expression`` will be evaluated as a version range. Otherwise it will be understand as plain text, so ``requires = "Pkg/version@user/stable"`` always means to use the version ``version`` literally.
+
+There are some packages that do not follow semver, a popular one would be the OpenSSL package with versions as ``1.0.2n``. They cannot be used with version-ranges, to require such packages you always have to use explicit versions (without brackets).
+
+The process to manage plain versions vs version-ranges is also different. The second one requires a "search" in the remote, which is orders of magnitude slower than direct retrieval of the reference (plain versions), so take it into account if you plan to use it for very large projects.
+
+
+Expressions are those defined and implemented by https://pypi.python.org/pypi/node-semver,
 but using a comma instead of spaces. Accepted expressions would be:
 
 ..  code-block:: python
