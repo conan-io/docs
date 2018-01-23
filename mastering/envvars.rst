@@ -47,7 +47,7 @@ Automatic environment variables inheritance
 
 If your dependencies define some ``env_info`` variables in the ``package_info`` method they will be automatically
 applied before calling the consumer conanfile.py methods ``source``, ``build``, ``package`` and ``imports``. You can read
-more about ``env_info`` object :ref:`here <environment_information>`.
+more about ``env_info`` object :ref:`here <method_package_info_env_info>`.
 
 For example, if you are creating a package for a tool, you can define the variable ``PATH``
 

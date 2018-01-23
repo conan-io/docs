@@ -1,17 +1,18 @@
+.. _methods:
+
 Methods
 =======
 
-.. _retrieve_source:
+.. _method_source:
 
 source()
 --------
 
-The other way is to let conan retrieve the source code from any other external origin, github, or
-just a regular download. This can be done in the ``source()`` method.
+The other way is to let conan retrieve the source code from any other external origin, github, or just a regular download. This can be done
+in the ``source()`` method.
 
-For example, in the previous section, we "exported" the source code files, together with the **conanfile.py** file,
-which can be handy if the source code is not under version control. But if the source code is available in a repository,
-you can directly get it from there:
+For example, in the previous section, we "exported" the source code files, together with the *conanfile.py* file, which can be handy if the
+source code is not under version control. But if the source code is available in a repository, you can directly get it from there:
 
 .. code-block:: python
 
@@ -85,12 +86,12 @@ You can use these classes to prepare your build system's command invocation:
 - **CMake**: Prepares the invocation of cmake command with your settings.
 - **AutoToolsBuildEnvironment**: If you are using configure/Makefile to build your project you can use this helper.
   Read more: :ref:`Building with Autotools <autotools_reference>`.
-- **MSBuild**: If you are using Visual Studio compiler directly to build your project you can use this helper :ref:`MSBuild() <msbuild>`. For lower level control, the **VisualStudioBuildEnvironment** can also be used: :ref:`VisualStudioBuildEnvironment <visual_studio_build>`
-  
-
+- **MSBuild**: If you are using Visual Studio compiler directly to build your project you can use this helper :ref:`MSBuild() <msbuild>`.
+  For lower level control, the **VisualStudioBuildEnvironment** can also be used: :ref:`VisualStudioBuildEnvironment <visual_studio_build>`.
 
 (Unit) Testing your library
 +++++++++++++++++++++++++++
+
 We have seen how to run package tests with conan, but what if we want to run full unit tests on
 our library before packaging, so that they are run for every build configuration?
 Nothing special is required here. We can just launch the tests from the last command in our
@@ -105,9 +106,11 @@ Nothing special is required here. We can just launch the tests from the last com
         # here you can run CTest, launch your binaries, etc
         self.run("ctest")
 
+.. _method_package:
 
 package()
 ---------
+
 The actual creation of the package, once that it is built, is done in the ``package()`` method.
 Using the ``self.copy()`` method, artifacts are copied from the build folder to the package folder.
 The syntax of copy is as follows:
@@ -148,7 +151,7 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
 
 The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and True. One will copy from the ``source`` folder (typically packaging the headers and other data files), and the other will copy from the ``build`` folder, packaging the libraries and other binary artifacts. Also, when the local ``conan package`` command is issued with ``--source-folder`` and ``--build-folder``, it will execute two times, one in each folder, in the same way.
 
-.. _package_info:
+.. _method_package_info:
 
 package_info()
 --------------
@@ -229,8 +232,7 @@ If your recipe has requirements, you can access to your requirements ``cpp_info`
     Please take into account that defining ``self.cpp_info.bindirs`` directories, does not have any effect on system paths, PATH environment variable, nor will be directly accessible by consumers. ``self.cpp_info`` information is translated to build-systems information via generators, for example for CMake, it will be a variable in ``conanbuildinfo.cmake``.
     If you want a package to make accessible its executables to its consumers, you have to specify it with ``self.env_info`` as described in next section.
 
-
-.. _environment_information:
+.. _method_package_info_env_info:
 
 env_info
 ++++++++
@@ -272,7 +274,7 @@ If your recipe has requirements, you can access to your requirements ``env_info`
             self.output.warn(self.deps_env_info["MyLib"].othervar)
 
 
-.. _user_info:
+.. _method_package_info_user_info:
 
 user_info
 +++++++++
@@ -308,8 +310,7 @@ If your recipe has requirements, you can access to your requirements ``user_info
         def build(self):
             self.out.warn(self.deps_user_info["MyLib"].var1)
 
-
-.. _configure_config_options:
+.. _method_configure_config_options:
 
 configure(), config_options()
 -----------------------------
@@ -408,7 +409,7 @@ This method is useful for defining conditional build requirements, for example:
 
 Read more: :ref:`Build requirements <build_requires>`
 
-.. _system_requirements:
+.. _method_system_requirements:
 
 system_requirements()
 ---------------------
@@ -494,9 +495,11 @@ have the same system requirements, just add the following line to your method:
         self.global_system_requirements=True
         if ...
 
+.. _method_imports:
 
 imports()
 ---------
+
 Importing files copies files from the local store to your project. This feature is handy
 for copying shared libraries (dylib in Mac, dll in Win) to the directory of your executable, so that you don't have
 to mess with your PATH to run them. But there are other use cases:
@@ -556,12 +559,7 @@ When a conanfile recipe has an ``imports()`` method and it builds from sources, 
 
 You can use the :ref:`keep_imports <keep_imports>`. attribute to keep the imported artifacts, and maybe :ref:`repackage <repackage>` them.
 
-conan_info()
-------------
-
-Deprecated, use ``package_id()`` method instead.
-
-.. _package_id:
+.. _method_package_id:
 
 package_id()
 ------------
@@ -663,7 +661,7 @@ or ``arch_build``.
         self.info.discard_build_settings()
         # self.info.include_build_settings()
 
-.. _build_id:
+.. _method_build_id:
 
 build_id()
 ----------
@@ -709,7 +707,6 @@ Other information like custom package options can also be changed:
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
 
-
 deploy()
 --------
 
@@ -723,11 +720,10 @@ The ``deploy()`` method is of the form:
         self.copy("*.exe")  # copy from current package
         self.copy_deps("*.dll") # copy from dependencies
 
-
 Where:
 
-- ``self.copy_deps()`` is the same as ``self.copy()`` method inside ``imports()`` method, read: imports()_.
-- ``self.copy()`` is the ``self.copy()`` method executed inside ``package()`` method, read: package()_. 
+- ``self.copy_deps()`` is the same as ``self.copy()`` method inside :ref:`imports() method <method_imports>`.
+- ``self.copy()`` is the ``self.copy()`` method executed inside :ref:`package() method <method_package>`.
 
 Both methods allow the definition of absolute paths (to install in the system), in the ``dst`` argument.
 By default, the ``dst`` destionation folder will be the current one.
@@ -740,7 +736,6 @@ The ``deploy()`` method is designed to work on a package that is installed direc
     > ...
     > Pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
     > Pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
-
 
 All other packages and dependencies, even transitive dependencies of "Pkg/0.1@user/testing" will not be deployed,
 it is the responsibility of the installed package to deploy what it needs from its dependencies.

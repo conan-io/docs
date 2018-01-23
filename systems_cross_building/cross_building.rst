@@ -314,7 +314,7 @@ Using build requires
 
 Instead of downloading manually the toolchain and creating a profile, you can create a Conan package
 with it. The toolchain Conan package needs to fill the ``env_info`` object
-in the :ref:`package_info()<package_info>` method with the same variables we've specified in the examples
+in the :ref:`package_info()<method_package_info>` method with the same variables we've specified in the examples
 above in the ``[env]`` section of profiles.
 
 A layout of a Conan package for a toolchain could looks like this:

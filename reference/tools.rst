@@ -551,7 +551,7 @@ Parameters:
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
 
-These are helpers to install system packages. Check :ref:`system_requirements`
+These are helpers to install system packages. Check :ref:`method_system_requirements`.
 
 .. _cross_building_reference:
 
