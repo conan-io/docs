@@ -125,30 +125,36 @@ package()
 ---------
 
 The actual creation of the package, once that it is built, is done in the ``package()`` method. Using the ``self.copy()`` method, artifacts
-are copied from the build folder to the package folder. The syntax of copy is as follows:
+are copied from the build folder to the package folder.
+
+The syntax of ``self.copy`` inside ``package()`` is as follows:
 
 .. code-block:: python
 
-    self.copy(pattern, dst, src, keep_path=True, symlinks=None, excludes=None, ignore_case=False)
+    self.copy(pattern, dst="", src="", keep_path=True, links=False, symlinks=None, excludes=None, ignore_case=False)
 
-- ``pattern`` is a pattern following fnmatch syntax of the files you want to copy, from the *build* to the *package* folders. Typically
-  something like ``*.lib`` or ``*.h``.
-- ``dst`` is the destination folder in the package. They will typically be ``include`` for headers, ``lib`` for libraries and so on, though
-  you can use any convention you like.
-- ``src`` is the folder where you want to search the files in the *build* folder. If you know that your libraries when you build your
-  package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty means the root build folder.
-- ``keep_path``, with default value=True, means if you want to keep the relative path when you copy the files from the source(build) to the
-  destination(package). Typically headers, you keep the relative path, so if the header is in *build/include/mylib/path/header.h*, you
-  write:
-- ``symlinks``, with default value=None, set it to True to activate symlink copying, like typical lib.so->lib.so.9.
-- ``excludes``, is a single pattern or a tuple of patterns to be excluded from the copy. If a file matches both the include and the exclude
-  pattern, it will be excluded.
+Parameters:
+    - **pattern** (Required): A pattern following fnmatch syntax of the files you want to copy, from the build to the package folders.
+      Typically something like ``*.lib`` or ``*.h``.
+    - **src** (Optional, Defaulted to ``""``): The folder where you want to search the files in the build folder. If you know that your
+      libraries when you build your package will be in *build/lib*, you will typically use ``build/lib`` in this parameter. Leaving it empty
+      means the root build folder in local cache.
+    - **dst** (Optional, Defaulted to ``""``): Destination folder in the package. They will typically be ``include`` for headers, ``lib``
+      for libraries and so on, though you can use any convention you like. Leaving it empty means the root package folder in local cache.
+    - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
+      folder to the **dst** one. Typically headers are packaged with relative path.
+    - **symlinks** (Optional, Defaulted to ``None``): Set it to True to activate symlink copying, like typical lib.so->lib.so.9.
+    - **excludes** (Optional, Defaulted to ``None``): Single pattern or a tuple of patterns to be excluded from the copy. If a file matches
+      both the include and the exclude pattern, it will be excluded.
+    - **ignore_case** (Optional, Defaulted to ``False``): If enabled, it will do a case-insensitive pattern matching.
+
+For example:
 
 .. code-block:: python
 
     self.copy("*.h", "include", "build/include") #keep_path default is True
 
-So the final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes
+The final path in the package will be: ``include/mylib/path/header.h``, and as the *include* is usually added to the path, the includes
 will be in the form: ``#include "mylib/path/header.h"`` which is something desired.
 
 ``keep_path=False`` is something typically desired for libraries, both static and dynamic. Some compilers as MSVC, put them in paths as
@@ -351,7 +357,7 @@ If the package options and settings are related, and you want to configure eithe
 
 The package has 2 options set, to be compiled as a static (as opposed to shared) library, and also not to involve any builds, because
 header-only libraries will be used. In this case, the settings that would affect a normal build, and even the other option (static vs
-shared) do not make sense, so we just clear them. That means, if someone consumes MyLib with the ``header_only: True`` option, the package
+shared) do not make sense, so we just clear them. That means, if someone consumes MyLib with the ``header_only=True`` option, the package
 downloaded and used will be the same, irrespective of the OS, compiler or architecture the consumer is building with.
 
 The most typical usage would be the one with ``configure()`` while ``config_options()`` should be used more sparingly. ``config_options()``
@@ -480,17 +486,23 @@ On Windows, there is no standard package manager, however **choco** can be invok
             installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
             installer.install(pack_name)
 
-Available SystemPackageTool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
+SystemPackageTool
++++++++++++++++++
+
+.. code-block:: python
+
+    def SystemPackageTool(tool=None)
+
+Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
 **PacManTool**.
 
-SystemPackageTool methods:
+Methods:
+    - **update()**: Updates the system package manager database. It's called automatically from the ``install()`` method by default.
+    - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it
+      will execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
+      parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
 
-- **update()**: Updates the system package manager database. It's called automatically from the ``install()`` method by default.
-- **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it will
-  execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
-  parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
-
-The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the CONAN_SYSREQUIRES_SUDO
+The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the ``CONAN_SYSREQUIRES_SUDO``
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
@@ -578,12 +590,12 @@ You can use the :ref:`keep_imports <keep_imports>` attribute to keep the importe
 package_id()
 ------------
 
-Creates a unique id for the package. Default package id is calculated using ``settings``, ``options`` and ``requires`` properties. When a
+Creates a unique ID for the package. Default package ID is calculated using ``settings``, ``options`` and ``requires`` properties. When a
 package creator specifies the values for any of thoses properties, it is telling that any value change will require a different binary
 package.
 
 However, sometimes a package creator would need to alter the default behavior, for example, to have only one binary package for several
-different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the pacakge id will be
+different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the pacakge ID will be
 computed with the given information:
 
 .. code-block:: python
@@ -598,7 +610,7 @@ Please, check the section :ref:`define_abi_compatibility` to get more details.
 self.info
 +++++++++
 
-This ``self.info`` class stores the information that will be used to compute the package id.
+This ``self.info`` object stores the information that will be used to compute the package ID.
 
 
 self.info.header_only()
