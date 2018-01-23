@@ -61,7 +61,7 @@ when adding it
 .. code-block:: bash
 
     $ conan remote add <your_remote> <your_url> --insert
-    $ conan list
+    $ conan remote list
       <your remote>: <your_url> [Verify SSL: True]
       conan-center: https://conan.bintray.com [Verify SSL: True]
       conan-transit: https://conan-transit.bintray.com [Verify SSL: True]
