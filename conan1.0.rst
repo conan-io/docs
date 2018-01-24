@@ -15,7 +15,7 @@ There has been a few things that will break existing usage (compared to 0.30). M
 .. code-block:: bash
 
     # instead of --path=myfolder --file=myconanfile.py, now you can do:
-    $ conan install . # Note the "." is now compulsory
+    $ conan install . # Note the "." is now mandatory
     $ conan install folder/myconanfile.txt
     $ conan install ../myconanfile.py
     $ conan info .
@@ -103,7 +103,7 @@ New features
 
     os:
         Windows:
-            subsystem: [None, cygwin, msys, msys2, wsl]
+            subsystem: [None, cygwin, msys, msys2, sfu, wsl]
 
 This subsetting can be used by build helpers as ``CMake``, to act accordingly.
 
