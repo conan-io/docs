@@ -66,7 +66,7 @@ You can also use **check_md5**, **check_sha1** and **check_sha256** from the **t
     .. code-block:: python
 
             def source(self):
-                if self.settings.os_build == "Windows":
+                if platform.system() == "Windows":
                     # download some Win source zip
                 else:
                     # download sources from Nix systems in a tgz
@@ -146,7 +146,7 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
     might be able to reuse it for this ``package()`` method. Please check :ref:`reuse_cmake_install`
 
 
-The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and True. One will copy from the ``source`` folder (typically packaging the headers and other data files), and the other will copy from the ``build`` folder, packaging the libraries and other binary artifacts. Also, when the local ``conan package`` command is issued with ``--source_folder`` and ``--build_folder``, it will execute two times, one in each folder, in the same way.
+The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and True. One will copy from the ``source`` folder (typically packaging the headers and other data files), and the other will copy from the ``build`` folder, packaging the libraries and other binary artifacts. Also, when the local ``conan package`` command is issued with ``--source-folder`` and ``--build-folder``, it will execute two times, one in each folder, in the same way.
 
 .. _package_info:
 
@@ -221,7 +221,7 @@ If your recipe has requirements, you can access to your requirements ``cpp_info`
         requires = "MyLib/1.6.0@conan/stable"
 
         def build(self):
-            self.out.warn(self.deps_cpp_info["MyLib"].libdirs)
+            self.output.warn(self.deps_cpp_info["MyLib"].libdirs)
 
 
 .. note::
@@ -269,7 +269,7 @@ If your recipe has requirements, you can access to your requirements ``env_info`
         requires = "MyLib/1.6.0@conan/stable"
 
         def build(self):
-            self.out.warn(self.deps_env_info["MyLib"].othervar)
+            self.output.warn(self.deps_env_info["MyLib"].othervar)
 
 
 .. _user_info:
@@ -313,8 +313,6 @@ If your recipe has requirements, you can access to your requirements ``user_info
 
 configure(), config_options()
 -----------------------------
-
-Note: ``config()`` method has been deprecated, used ``configure()`` instead.
 
 If the package options and settings are related, and you want to configure either, you can do so
 in the ``configure()`` and ``config_options()`` methods. This is an example:
@@ -416,9 +414,6 @@ system_requirements()
 ---------------------
 It is possible to install system-wide packages from conan. Just add a ``system_requirements()``
 method to your conanfile and specify what you need there.
-
-If you want to perform some operation depending on the Operating System or Architecture of the running machine,
-you should use the ``self.settings.os_build`` and ``self.settings.arch_build`` settings.
 
 For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system,
 version and distribution (linux):

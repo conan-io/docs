@@ -1,6 +1,6 @@
 .. _systems_cross_building:
 
-Systems and Cross Building
+Systems and cross building
 ==========================
 
 This section explains how to cross build with Conan to any platform and the Windows subsystems (Cygwin, MSYS2).

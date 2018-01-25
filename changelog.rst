@@ -6,9 +6,40 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-(Develop)
+.. important::
+
+  Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries. 
+  There were some errors in the docs, using them for all packages.
+  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
+  
+  
+1.1.0 ( )
 ----------------
 - Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
+
+
+1.0.3 (22-January-2018)
+-----------------------
+- Bugfix: Correct load of stored settings in conaninfo.txt (for ``conan build``) when ``configure()`` remove some setting.
+- Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
+- Fix: fixed wrong message for ``conan alias --help``.
+- Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
+
+
+1.0.2 (16-January-2018)
+-----------------------
+- Fix: Adding a warning message for simultaneous use of ``os`` and ``os_build`` settings.
+- Fix: Do not raise error from *conanbuildinfo.cmake* for Intel MSVC toolsets.
+- Fix: Added more architectures to default *settings.yml* ``arch_build`` setting.
+- Fix: using ``--xxx-folder`` in command line help messages.
+- Bugfix: using quotes for Windows bash path with spaces.
+- Bugfix: vcvars/vcvars_dict not including windows and windows/system32 directories in the path.
+
+
+1.0.1 (12-January-2018)
+-----------------------
+- Fix: ``conan new`` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
+- Fix: ``conaninfo.txt`` file does not dump settings with None values
 
 
 1.0.0 (10-January-2018)
@@ -28,7 +59,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: ``$ conan download`` didn't download recipe if there are no binaries. Force recipe download.
 - Bugfix: Fixed blocked ``self.run()`` when stderr outputs large tests, due to full pipe.
 
-  
+
 1.0.0-beta4 (4-January-2018)
 -----------------------------
 - Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories 

@@ -78,7 +78,7 @@ And simply create the package for user and channel **demo/testing** as previousl
 
 .. code-block:: bash
 
-    $ conan create demo/testing
+    $ conan create . demo/testing
     ...
     Hello/0.1@demo/testing test package: Running test()
     Hello world!

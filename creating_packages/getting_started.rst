@@ -52,7 +52,7 @@ Let's have a look to the root package recipe *conanfile.py*:
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = "shared=False"
         generators = "cmake"
@@ -94,14 +94,15 @@ basics:
   generate a different binary package. Remember, Conan generates different binary packages for
   different introduced configuration (in this case settings) for the same recipe.
 
-  The ``os_build`` and ``arch_build`` settings represent the machine where Conan is running, so if you
-  need to perform some different operation depepending on the current machine, like building with `CMake`
-  if we are in Windows or building with `make` otherwise, these are the correct settings to use:
+  Note that the platform where the recipe is running and the package is being build can be different from
+  the final platform where the code will be running (``self.settings.os`` and ``self.settings.arch``) if
+  the package is being cross-built. So if you want to apply a different build depending on the current
+  build machine, you need to check it:
 
   .. code-block:: python
 
          def build(self):
-             if self.settings.build_os == "Windows":
+             if platform.system() == "Windows":
                  cmake = CMake(self)
                  cmake.configure(source_folder="hello")
                  cmake.build()
@@ -110,8 +111,6 @@ basics:
                  env_build.configure()
                  env_build.make()
 
-  These ``os_build`` and ``arch_build`` settings can be different from ``os`` and ``arch`` that represent
-  the machine where the built artifact will run.
   Learn more in the :ref:`Cross building <cross_building>` section.
 
 - This package recipe is also able to create different binary packages for static and shared
@@ -159,7 +158,7 @@ previous sections:
     import os
 
     class HelloTestConan(ConanFile):
-        settings = "os", "compiler", "build_type", "arch", "os_build", "arch_build"
+        settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
 
         def build(self):
@@ -203,7 +202,7 @@ We can create and test the package with our default settings simply by:
 
 .. code-block:: bash
 
-    $ conan create demo/testing
+    $ conan create . demo/testing
     ...
     Hello world!
 
@@ -239,6 +238,51 @@ test packages for different configurations, you could:
     $ conan create . demo/testing -pr my_gcc49_debug_profile
     ...
     $ conan create ...
+
+
+.. _settings_vs_options:
+
+Settings vs. options
+--------------------
+
+We have used settings as ``os``, ``arch`` and ``compiler``. But the above package recipe also contains a
+``shared`` option (defined as ``options = {"shared": [True, False]}``). What is the difference between
+settings and options?
+
+**Settings** are project-wide configuration, something that typically affect to the whole project that
+is being built. For example the Operating System or the architecture would be naturally the same for all
+packages in a dependency graph, linking a Linux library for a Windows app, or
+mixing architectures is impossible.
+
+Settings cannot be defaulted in a package recipe. A recipe for a given library cannot say that its default
+``os=Windows``. The ``os`` will be given by the environment in which that recipe is processed. It is
+a necessary input.
+
+Settings are configurable. You can edit, add, remove settings or subsettings in your *settings.yml* file.
+See :ref:`the settings.yml reference <settings_yml>`.
+
+On the other hand, **options** are package-specific configuration. Being a static or shared library is not
+something that applies to all packages. Some can be header only libraries. Other packages can be just data,
+or package executables. Or packages can contain a mixture of different artifacts. ``shared`` is a common
+option, but packages can define and use any options they want.
+
+Options are defined in the package recipe, including their allowed values, and it can be defaulted by the package 
+recipe itself. A package for a library can well define that by default it will be a static library (a typical default).
+If no one else specifies something different, the package will be static.
+
+There are some exceptions to the above, for example, settings can be defined per-package, like in command line:
+
+.. code-block:: bash
+
+    $ conan install . -s MyPkg:compiler=gcc -s compiler=clang ..
+
+This will use ``gcc`` for MyPkg and ``clang`` for the rest of the dependencies (extremely unusual case)
+
+Or you can have a very widely used option in many packages and set its value all at once with patterns, like:
+
+.. code-block:: bash
+
+    $ conan install . -o *:shared=True
 
 Any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 

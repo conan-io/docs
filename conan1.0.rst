@@ -53,9 +53,13 @@ New features
 ------------
 
 - Cross-compilation support with new default settings in settings.yml: ``os_build``, ``arch_build``, ``os_target``, ``arch_target``.
-  ``conan new command`` will add them by default. They are automatically removed from the ``package_id`` computation, or kept if they
+  They are automatically removed from the ``package_id`` computation, or kept if they
   are the only ones defined (as it happens usually with dev-tools packages). It is possible to keep them too with the ``self.info.include_build_settings()`` method (call it in your ``package_id()`` method).
-  They can be used by build helpers as ``CMake``, to act accordingly the current build environment, not the destination environment.
+
+.. important::
+
+  Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries.
+  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
 
 
 - Model and utilities for Windows subsystems

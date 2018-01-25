@@ -85,11 +85,11 @@ _____________
 
 Just as it sounds, this CLI command now simply runs the package() method of a recipe.
 Like the conan build command, it basically takes “input” and “output” folders.
-In this case ``--build_folder`` and ``--package_folder``:
+In this case ``--build-folder`` and ``--package-folder``:
 
 .. code-block:: bash
 
-    $ conan package . --build_folder=tmp/build --package_folder=tmp/package
+    $ conan package . --build-folder=tmp/build --package-folder=tmp/package
 
 
 conan create
@@ -101,7 +101,7 @@ Thus, now is an appropriate time to try to run the recipe all the way through, a
 
 .. code-block:: bash
 
-    $ conan create user/channel
+    $ conan create . user/channel
 
 
 conan test
