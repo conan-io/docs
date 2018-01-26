@@ -20,7 +20,7 @@ When this package is installed by a *conanfile.txt*, another package *conanfile.
 
 .. code-block:: bash
 
-    $ conan install MyLib/1.0@user/channel -s arch=x86_64 -s ...
+    $ conan install . MyLib/1.0@user/channel -s arch=x86_64 -s ...
 
 The process will be:
 
@@ -39,7 +39,7 @@ If the package is installed again with different settings, for example, for 32bi
 
 .. code-block:: bash
 
-    $ conan install MyLib/1.0@user/channel -s arch=x86 -s ...
+    $ conan install . MyLib/1.0@user/channel -s arch=x86 -s ...
 
 The process will be repeated, but now generating a different package ID, because the ``arch``
 setting will have a different value. The same applies for different compilers, compiler versions,
