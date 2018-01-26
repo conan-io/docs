@@ -56,8 +56,9 @@ repositories in the following order of priority:
   2. `conan-transit`_
   3. Your own repository
 
-If you want to have your own repository prioritized, please use the --insert command line option 
-when adding it
+If you want to have your own repository prioritized, please use the ``--insert`` command line option
+when adding it:
+
 .. code-block:: bash
 
     $ conan remote add <your_remote> <your_url> --insert
