@@ -103,7 +103,7 @@ New features
 
     os:
         Windows:
-            subsystem: [None, cygwin, msys, msys2, sfu, wsl]
+            subsystem: [None, cygwin, msys, msys2, wsl]
 
 This subsetting can be used by build helpers as ``CMake``, to act accordingly.
 
