@@ -101,7 +101,7 @@ The toolset can be also specified manually in these build helpers with the ``too
 
 By default, Conan will not generate a new binary package if
 the specified ``compiler.toolset`` matches an already generated package for the corresponding
-``compiler.version``. Check the :ref:`package_id()<package_id>` reference to know more.
+``compiler.version``. Check the :ref:`package_id()<method_package_id>` reference to know more.
 
 
 

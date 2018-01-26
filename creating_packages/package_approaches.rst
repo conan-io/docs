@@ -2,7 +2,7 @@ Packaging approaches
 ====================
 
 Package recipes have three methods to control the package's binary compatibility and to implement
-different packaging approaches: :ref:`package_id`, :ref:`build_id` and :ref:`package_info`.
+different packaging approaches: :ref:`method_package_id`, :ref:`method_build_id` and :ref:`method_package_info`.
 
 This methods provide package creators with the posibility to follow different packages approaches
 and chose the best one for each library.
@@ -71,7 +71,7 @@ distribution mistakes. For example, debug artifacts might contain symbols or sou
 could help or directly provide means for reverse engineering. So distributing debug artifacts by
 mistake could be a very risky issue.
 
-Read more about this in :ref:`package_info`.
+Read more about this in :ref:`method_package_info`.
 
 N configs -> 1 package
 ----------------------
@@ -250,4 +250,4 @@ every configuration (architecture, compiler version, etc). So if we just have De
 types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders,
 saving half of the build time.
 
-Read more about this in :ref:`build_id`.
+Read more about this in :ref:`method_build_id`.

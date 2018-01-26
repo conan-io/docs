@@ -342,6 +342,8 @@ Parameters:
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
 
+.. _tools_check_with_algorithm_sum:
+
 tools.check_with_algorithm_sum()
 --------------------------------
 
@@ -551,7 +553,7 @@ Parameters:
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
 
-These are helpers to install system packages. Check :ref:`system_requirements`
+These are helpers to install system packages. Check :ref:`method_system_requirements`.
 
 .. _cross_building_reference:
 

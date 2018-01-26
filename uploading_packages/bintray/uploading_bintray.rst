@@ -56,8 +56,12 @@ repositories in the following order of priority:
   2. `conan-transit`_
   3. Your own repository
 
+<<<<<<< HEAD
+If you want to have your own repository prioritized, please use the ``--insert`` command line option when adding it:
+=======
 If you want to have your own repository prioritized, please use the ``--insert`` command line option
 when adding it:
+>>>>>>> master
 
 .. code-block:: bash
 
@@ -66,7 +70,7 @@ when adding it:
       <your remote>: <your_url> [Verify SSL: True]
       conan-center: https://conan.bintray.com [Verify SSL: True]
       conan-transit: https://conan-transit.bintray.com [Verify SSL: True]
-    
+
 .. tip::
 
     Check the full reference of :ref:`$ conan remote<conan_remote>` command.

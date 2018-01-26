@@ -6,7 +6,7 @@ Virtual Environments
 
 Conan offer three special conan generators to create virtual environments:
 
-- ``virtualenv``:  Declares the :ref:`self.env_info<environment_information>` variables of the requirements.
+- ``virtualenv``:  Declares the :ref:`self.env_info<method_package_info_env_info>` variables of the requirements.
 - ``virtualbuildenv``: Special build environment variables for autotools/visual studio.
 - ``virtualrunenv``: Special environment variables to locate executables and shared libraries in the requirements.
 
@@ -21,7 +21,7 @@ and shared libraries.
 Virtualenv generator
 --------------------
 
-Conan provides a **virtualenv** generator, able to read from each dependency the :ref:`self.env_info<environment_information>` 
+Conan provides a **virtualenv** generator, able to read from each dependency the :ref:`self.env_info<method_package_info_env_info>`
 variables declared in the ``package_info()`` method and generate two scripts "activate" and "deactivate". These scripts set/unset all env variables in the current shell.
 
 **Example**:
