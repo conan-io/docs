@@ -196,7 +196,7 @@ make()
 
 .. code-block:: python
 
-    def make(self, args="", make_program=None)
+    def make(self, args="", make_program=None, target=None)
 
 Builds `Autotools` project with the given parameters.
 
@@ -205,6 +205,7 @@ Parameters:
       shell. No extra arguments will be added if ``args=""``.
     - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. Also the environment variable
       :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used.
+    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g. docs, shared libraries or install for some autotools projects. For example, to issue to the command ``make install``, use ``target="install"``
 
 Environment variables
 ---------------------

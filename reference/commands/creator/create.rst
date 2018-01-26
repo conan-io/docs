@@ -5,7 +5,7 @@ conan create
 
 .. code-block:: bash
 
-    $ conan create [-h] [-ne] [-tf TEST_FOLDER] [-k] [-m [MANIFESTS]]
+    $ conan create [-h] [-ne] [-tf TEST_FOLDER] [-k] [-kb] [-m [MANIFESTS]]
                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-u]
                    [-pr PROFILE] [-r REMOTE] [-o OPTIONS] [-s SETTINGS]
                    [-e ENV] [-b [BUILD [BUILD ...]]]
@@ -35,6 +35,8 @@ created correctly. Check the 'conan test' command to know more about the
                             alternative test folder name, by default is
                             "test_package"
       -k, --keep-source     Optional. Do not remove the source folder in local
+                            cache. Use for testing purposes only
+      -kb, --keep-build     Optional. Do not remove the build folder in local
                             cache. Use for testing purposes only
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later

@@ -728,6 +728,26 @@ Other information like custom package options can also be changed:
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
 
+<<<<<<< HEAD
+=======
+If the ``build_id()`` method does not modify the ``build_id``, and produce a different one than
+the ``package_id``, then the standard behavior will be applied. Consider the following:
+
+..  code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+
+    def build_id(self):
+        if self.settings.os == "Windows":
+            self.info_build.settings.build_type = "Any"
+
+This will only produce a build ID different if the package is for Windows. So the behavior
+in any other OS will be the standard one, as if the ``build_id()`` method was not defined:
+the build folder will be wiped at each ``$ conan create`` command and a clean build will
+be done.
+
+
+>>>>>>> develop
 deploy()
 --------
 
