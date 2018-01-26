@@ -15,7 +15,7 @@ There has been a few things that will break existing usage (compared to 0.30). M
 .. code-block:: bash
 
     # instead of --path=myfolder --file=myconanfile.py, now you can do:
-    $ conan install . # Note the "." is now compulsory
+    $ conan install . # Note the "." is now mandatory
     $ conan install folder/myconanfile.txt
     $ conan install ../myconanfile.py
     $ conan info .
@@ -47,6 +47,41 @@ Deprecations/removals
 - Command ``test_package`` has been removed. Use ``$ conan create`` and ``$ conan test`` instead.
 - ``CMake`` helper only allows now (from conan 0.29). the ``CMake(self)`` syntax
 - ``$ conan package_files`` command was replaced in conan 0.28 by ``$ conan export-pkg`` command.
+
+
+Settings and profiles. Gcc/CLang versioning
+-------------------------------------------
+
+gcc and clang compilers have modified their versioning approach, from gcc > 5 and clang > 4, 
+the minors are really bugfixes, and then they have binary compatibility. To adapt to this,
+conan now includes major version in the *settings.yml* default settings file:
+
+.. code-block:: yaml
+
+    gcc:
+        version: ["4.1", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9",
+                  "5", "5.1", "5.2", "5.3", "5.4",
+                  "6", "6.1", "6.2", "6.3", "6.4",
+                  "7", "7.1", "7.2"]
+
+Most package creators want to use the major-only settings, like ``-s compiler=gcc -s compiler.version=5``,
+instead of specifying the minors too.
+
+The default profile detection and creation has been modified accordingly, but if you have a default
+profile you may want to update it to reflect this:
+
+.. code-block::text
+
+    [settings]
+    os=Linux
+    compiler=gcc
+    compiler.version=7 #instead of 7.2
+
+
+Conan associated tools (conan-package-tools, conan.cmake) have been upgraded to accomodate this new defaults.
+
+
+
 
 
 New features

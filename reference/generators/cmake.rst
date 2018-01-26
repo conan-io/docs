@@ -77,7 +77,7 @@ The values are ordered in the right order according to the dependency tree.
 
 - **Variables from user_info**
 
-If any of the requirements is filling the :ref:`user_info<user_info>` object in the :ref:`package_info<package_info>`
+If any of the requirements is filling the :ref:`user_info<method_package_info_user_info>` object in the :ref:`package_info<method_package_info>`
 method a set of variables will be declared following this naming:
 
 +--------------------------------+----------------------------------------------------------------------+

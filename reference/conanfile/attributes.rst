@@ -573,7 +573,7 @@ package:
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <package_info>` for more info.
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 
 deps_cpp_info
@@ -626,7 +626,7 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <package_info>` for more info.
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 deps_env_info
 -------------
@@ -658,8 +658,8 @@ you want to access to the variable declared by some specific requirement you can
 info
 ----
 
-Object used in the :ref:`package_id()<package_id>` method to control the unique ID for a package.
-Check the :ref:`package_id()<package_id>` to see the details of the ``self.info`` object
+Object used to control the unique ID for a package. Check the :ref:`package_id() <method_package_id>` to see the details of the ``self.info``
+object.
 
 
 apply_env
