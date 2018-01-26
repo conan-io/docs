@@ -15,7 +15,7 @@ There has been a few things that will break existing usage (compared to 0.30). M
 .. code-block:: bash
 
     # instead of --path=myfolder --file=myconanfile.py, now you can do:
-    $ conan install . # Note the "." is now compulsory
+    $ conan install . # Note the "." is now mandatory
     $ conan install folder/myconanfile.txt
     $ conan install ../myconanfile.py
     $ conan info .
@@ -70,7 +70,7 @@ instead of specifying the minors too.
 The default profile detection and creation has been modified accordingly, but if you have a default
 profile you may want to update it to reflect this:
 
-.. code-block::
+.. code-block::text
 
     [settings]
     os=Linux

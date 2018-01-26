@@ -6,7 +6,7 @@ Using profiles
 So far we have used the default settings stored in ``~/.conan/profiles/default`` and defined as command line arguments.
 
 However, configurations can be large, settings can be very different, and we might want to switch easily between different configurations
-with different settings, options, etc.. The best way to this is using profiles.
+with different settings, options, etc.. The best way to do it is using profiles.
 
 A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` and has this
 structure:
