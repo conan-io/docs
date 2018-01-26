@@ -70,7 +70,7 @@ instead of specifying the minors too.
 The default profile detection and creation has been modified accordingly, but if you have a default
 profile you may want to update it to reflect this:
 
-.. code-block::
+.. code-block::text
 
     [settings]
     os=Linux
