@@ -164,7 +164,7 @@ values if necessary.
 
 .. seealso::
 
-    Check the :ref:`package_id() method reference<package_id>` too see the available helper methods
+    Check the :ref:`package_id() method reference<method_package_id>` too see the available helper methods
     to change the package_id() behavior, for example to:
 
         - Adjust our package recipe as a **header only**

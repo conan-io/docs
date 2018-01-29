@@ -134,7 +134,7 @@ issued, it will use some settings, specified on the command line or taken from t
    :width: 500 px
    :align: center
 
-So for a command like ``$ conan install -s os="Linux" -s compiler="gcc"``, the steps are:
+So for a command like ``$ conan install .. -s os="Linux" -s compiler="gcc"``, the steps are:
 
 - First check if the package recipe (for Poco/1.8.0.1@pocoproject/stable package) exists in the
   local cache. If we are just starting, our cache will be empty.

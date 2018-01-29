@@ -39,7 +39,7 @@ Just specify the **txt** generator in your conanfile:
       txt
 
 And a file is generated, with the same information as in the case of CMake and gcc, only in a generic, text format,
-containing the information from the ``deps_cpp_info`` and ``deps_user_info``. Check the conanfile :ref:`package_info<package_info>`
+containing the information from the ``deps_cpp_info`` and ``deps_user_info``. Check the conanfile :ref:`package_info<method_package_info>`
 method to know more about these objects:
 
 .. code-block:: text
