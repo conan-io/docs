@@ -33,7 +33,7 @@ Now, we can create the package as usual, but if we try to run the executable, it
 
 .. code-block:: bash
 
-    $ conan create user/testing
+    $ conan create . user/testing
     ...
     Hello/0.1@user/testing package(): Copied 1 '.h' files: hello.h
     Hello/0.1@user/testing package(): Copied 1 '.exe' files: greet.exe
@@ -62,10 +62,10 @@ We will get some files, that can be called to activate and deactivate such envir
 
 .. code-block:: bash
 
-    $ activate # $ source activate in nix
+    $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
     > Hello World!
-
+    $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
 
 Imports
 --------
