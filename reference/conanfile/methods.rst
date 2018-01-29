@@ -728,8 +728,6 @@ Other information like custom package options can also be changed:
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
 
-<<<<<<< HEAD
-=======
 If the ``build_id()`` method does not modify the ``build_id``, and produce a different one than
 the ``package_id``, then the standard behavior will be applied. Consider the following:
 
@@ -746,8 +744,6 @@ in any other OS will be the standard one, as if the ``build_id()`` method was no
 the build folder will be wiped at each ``$ conan create`` command and a clean build will
 be done.
 
-
->>>>>>> develop
 deploy()
 --------
 
