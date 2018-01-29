@@ -20,7 +20,7 @@ We can crate a package that contains an executable, for example from the default
 
     $ conan new Hello/0.1
 
-The source code used contains an executable called ``greet``, but it is not packaged by default. Lets modify the recipe
+The source code used contains an executable called ``greet``, but it is not packaged by default. Let's modify the recipe
 ``package()`` method to also package the executable:
 
 .. code-block:: python
@@ -52,7 +52,7 @@ The ``virtualrunenv`` generator will generate files that add the packages defaul
 - It adds the dependencies ``lib`` subfolder to the ``LD_LIBRARY_PATH`` environment variable (for Linux shared libraries)
 - It adds the dependencies ``bin`` subfolder to the ``PATH`` environment variable (for executables)
 
-So if we install the package, specifying such ``virtualenv`` like:
+So if we install the package, specifying such ``virtualrunenv`` like:
 
 .. code-block:: bash
 
@@ -70,19 +70,25 @@ We will get some files, that can be called to activate and deactivate such envir
 Imports
 --------
 It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
-cache the desired files. This approach, requires a user conanfile, so it might not be very convenient.
+cache the desired files. This approach, requires an user conanfile, so it might not be very convenient.
 
 
 Deployable packages
 --------------------
-With the ``deploy()`` method, a package can specify which files and artifacts to copy to user space, of to other locations
-in the system. In the above example we could add to our ``Hello`` conanfile.py, and run ``conan create`` again:
+With the ``deploy()`` method, a package can specify which files and artifacts to copy to user space or to other
+locations in the system. Let's modify the example recipe adding the ``deploy()`` method:
 
 .. code-block:: python
 
     def deploy(self):
         self.copy("*", dst="bin", src="bin")
 
+
+And call ``conan create``
+
+.. code-block:: bash
+
+    $ conan create . user/testing
 
 With that method in our package recipe, it will copy the executable when installed directly:
 
