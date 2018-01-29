@@ -70,7 +70,8 @@ We will get some files, that can be called to activate and deactivate such envir
 Imports
 --------
 It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
-cache the desired files. This approach, requires an user conanfile, so it might not be very convenient.
+cache the desired files. This approach, requires an user conanfile.
+For more details see example below :ref:`runtime packages<repackage>`
 
 
 Deployable packages
@@ -169,6 +170,7 @@ to greet executable:
 
 .. _repackage:
 
+
 Runtime packages and re-packaging
 ----------------------------------
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
@@ -207,12 +209,9 @@ Installing and running this package, can be done by any of the means presented a
 
 .. code-block:: bash
 
-    $ conan install HelloRun/0.1@user/testing -g virtualrunenv
+    $ conan install . -g virtualrunenv
     # It will not install Hello/0.1@...
-    $ activate
+    $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
     > Hello World!
-
-
-
-
+    $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
