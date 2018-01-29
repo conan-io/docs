@@ -125,6 +125,15 @@ the ``Consumer`` package is willing to execute the ``greet`` app while building 
             with tools.environment_append(env.vars):
                 self.run("greet")
 
+Now run ``conan install`` and ``conan build`` for this consumer recipe:
+
+.. code-block:: bash
+
+    $ conan install . && conan build .
+    ...
+    Project: Running build()
+    Hello World!
+
 Instead of using the environment, it is also possible to access the path of the dependencies:
 
 .. code-block:: python
