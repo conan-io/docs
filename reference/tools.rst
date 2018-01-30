@@ -71,7 +71,7 @@ tools.vcvars_dict()
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=True)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -87,7 +87,7 @@ Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
 Parameters:
     - Same as ``vcvars_command``.
-    - **filter_known_paths** (Optional, Defaulted to ``True``): The function will only keep the PATH
+    - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
 
@@ -97,7 +97,7 @@ tools.vcvars()
 
 .. code-block:: python
 
-    vcvars(settings, arch=None, compiler_version=None, force=False)
+    vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
