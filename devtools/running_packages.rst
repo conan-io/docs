@@ -85,7 +85,7 @@ locations in the system. Let's modify the example recipe adding the ``deploy()``
         self.copy("*", dst="bin", src="bin")
 
 
-And call ``conan create``
+And run ``$ conan create``
 
 .. code-block:: bash
 
@@ -126,7 +126,7 @@ the ``Consumer`` package is willing to execute the ``greet`` app while building 
             with tools.environment_append(env.vars):
                 self.run("greet")
 
-Now run ``conan install`` and ``conan build`` for this consumer recipe:
+Now run ``$ conan install`` and ``$ conan build`` for this consumer recipe:
 
 .. code-block:: bash
 
@@ -170,7 +170,6 @@ to greet executable:
 
 .. _repackage:
 
-
 Runtime packages and re-packaging
 ----------------------------------
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
@@ -204,12 +203,21 @@ This recipe has the following characteristics:
   is not define, then using the default empty one), are kept and not removed after build
 - The ``package()`` method packages the imported artifacts that will be in the build folder.
 
-
-Installing and running this package, can be done by any of the means presented above, for example, we could do:
+To create and upload to remote this package:
 
 .. code-block:: bash
 
-    $ conan install . -g virtualrunenv
+    $ conan create . user/testing
+    $ conan upload HelloRun* --all -r=my-remote
+
+
+After that, installing and running this package, can be done by any of the means presented above,
+for example, we could do:
+
+.. code-block:: bash
+
+    $ conan install HelloRun/0.1@user/testing -g virtualrunenv
+    # You can specify the remote with -r=my-remote
     # It will not install Hello/0.1@...
     $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
