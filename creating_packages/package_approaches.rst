@@ -4,14 +4,14 @@ Packaging approaches
 Package recipes have three methods to control the package's binary compatibility and to implement
 different packaging approaches: :ref:`method_package_id`, :ref:`method_build_id` and :ref:`method_package_info`.
 
-This methods provide package creators with the posibility to follow different packages approaches
-and chose the best one for each library.
+The above methods let package creators follow different package approaches to choose
+the best fit for each library.
 
 1 config (1 build) -> 1 package
 -------------------------------
 
-A typical approach is to have each package contain the artifacts just for one configuration. In this
-approach, for example, the debug pre-compiled libraries will be in a different package than the
+A typical approach is to have one configuration for each package containing the artifacts.
+In this approach, for example, the debug pre-compiled libraries will be in a different package than the
 release pre-compiled libraries.
 
 So if there is a package recipe that builds a “hello” library, there will be one package containing

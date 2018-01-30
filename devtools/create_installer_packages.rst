@@ -118,7 +118,7 @@ Using the tool packages in your system
 ......................................
 
 
-You can use the :ref:`virtual_env generator <virtualenv_generator>` to get the requirements applied
+You can use the :ref:`virtualenv generator <virtualenv_generator>` to get the requirements applied
 in your system.
 
 For example, if you are working in Windows, with MinGW and CMake.
@@ -154,7 +154,7 @@ or leave them unspecified in the file and pass them as command line parameters.
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install .
 
 
 4. Activate the virtual environment in your shell:

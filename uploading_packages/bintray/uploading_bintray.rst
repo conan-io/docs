@@ -56,12 +56,8 @@ repositories in the following order of priority:
   2. `conan-transit`_
   3. Your own repository
 
-<<<<<<< HEAD
-If you want to have your own repository prioritized, please use the ``--insert`` command line option when adding it:
-=======
 If you want to have your own repository prioritized, please use the ``--insert`` command line option
 when adding it:
->>>>>>> master
 
 .. code-block:: bash
 
