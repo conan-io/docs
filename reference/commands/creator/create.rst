@@ -33,7 +33,8 @@ created correctly. Check the 'conan test' command to know more about the
       -ne, --not-export     Do not export the conanfile
       -tf TEST_FOLDER, --test-folder TEST_FOLDER
                             alternative test folder name, by default is
-                            "test_package"
+                            "test_package". "None" if test stage needs to be
+                            disabled
       -k, --keep-source     Optional. Do not remove the source folder in local
                             cache. Use for testing purposes only
       -kb, --keep-build     Optional. Do not remove the build folder in local
@@ -87,3 +88,11 @@ This is the recommended way to create packages.
     # package is created now, use test to test it
     $ cd test_package
     $ conan test . Hello/0.1@demo/testing
+
+.. tip::
+
+    Sometimes you need to **skip/disable test stage** to avoid a failure while creating the package,
+    i.e: when you are cross compiling libraries and target code cannot be executed in current host platform.
+    In that case you can skip/disable the test package stage:
+
+    ``conan create . demo/testing --test-folder=None``
