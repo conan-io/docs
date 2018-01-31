@@ -31,7 +31,8 @@ so that command errors are do not pass unnoticed. It is just a wrapper for ``os.
 
 Optional parameters:
 
-- **output**: Defaulted to True, will write in stdout. You can pass any stream that accepts a ``write`` method like a ``io.StringIO()``:
+- **output**:(Optional, Defaulted to ``True``) When True it will write in stdout.
+              You can pass any stream that accepts a ``write`` method like a ``io.StringIO()``:
 
 ..  code-block:: python
 
@@ -42,8 +43,7 @@ Optional parameters:
 
 
 
-- **cwd**: Current directory to run the command. Default "."
-
+- **cwd**: (Optional, Defaulted to ``.`` current directory): Current directory to run the command.
 - **win_bash**: (Optional, Defaulted to ``False``): When True, it will run the configure/make commands inside a bash.
 - **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem). Used to escape the command according to the specified subsystem.
 - **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).
