@@ -81,7 +81,7 @@ then create and test the package (here it is using system defaults, assuming the
 
    # close VS
    $ git clean -xdf
-   $ conan create demo/testing
+   $ conan create . memsharded/testing
    ...
    > Hello World Release!
 
@@ -92,15 +92,15 @@ This process can be repeated to create and test packages for different configura
 
 .. code-block:: bash
 
-   $ conan create demo/testing -s arch=x86
-   $ conan create demo/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug
-   $ conan create demo/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
+   $ conan create . memsharded/testing -s arch=x86
+   $ conan create . memsharded/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug
+   $ conan create . memsharded/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
 
 
 .. note::
 
-    From Conan 0.26 it is not mandatory to specify the ``compiler.runtime`` setting. For ``build_type==Debug`` Conan will use
-    ``runtime=MDd``, for ``build_type==Release`` Conan will use ``runtime=MD`` automatically.
+    It is not mandatory to specify the ``compiler.runtime`` setting. If it is not explicitly defined, Conan will
+    automatically use ``runtime=MDd`` for ``build_type==Debug`` and ``runtime=MD`` for ``build_type==Release`` 
 
 
 You can list the different created binary packages:
@@ -114,8 +114,7 @@ Uploading binaries
 
 Your locally created packages can already be uploaded to a conan remote.
 If you created them with the original username "memsharded", as from the git clone, you might want to do a ``$ conan copy``
-to put them on your own username. Of course, you can also edit the recipes or set the environment variable ``CONAN_USERNAME`` to define your
-own username.
+to put them on your own username. Of course, you can also directly use your user name in ``$ conan create``
 
 Another alternative is to configure the permissions in the remote, to allow uploading packages with
 different usernames. Artifactory will allow it, but by default conan server doesn't allow
@@ -190,7 +189,7 @@ This will allow us to create and test the package of the ChatLib library:
 
 .. code-block:: bash
 
-    $ conan create demo/testing
+    $ conan create . memsharded/testing
     > Hello World Release!
     > Hello World Release!
 
@@ -202,18 +201,11 @@ Other configurations
 
 The above example works as-is for VS2017, because VS supports upgrading from previous versions.
 The ``MSBuild()`` already implements such functionality, so building and testing
-packages with VS2017 can be done. The only requirement is to define the ``VS150COMNTOOLS``
-environment variable, as VS2017 doesn't define it, and it is necessary to find the tools:
+packages with VS2017 can be done.
 
 .. code-block:: bash
 
-    # maybe better done system-wide after VS2017 installation
-    $ set VS150COMNTOOLS C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/Common7/Tools
-    $ conan create demo/testing -s compiler="Visual Studio" -s compiler.version=15
-
-.. note::
-
-    From Conan v0.26 it is not needed to set the ``VS150COMNTOOLS`` variable if the tool ``vswhere`` is installed in the system.
+    $ conan create . demo/testing -s compiler="Visual Studio" -s compiler.version=15
 
 
 If you have to build for older versions of Visual Studio, it is also possible.
