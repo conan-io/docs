@@ -344,3 +344,29 @@ uploading packages, as they will be read-only and that could have other side-eff
 
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
+
+CONAN_RUN_TEST
+--------------
+
+**Defaulted to**: Not defined (True/False if defined)
+
+This environment variable (if defined) can be used in ``conanfile.py`` to enable/disable the tests for a library or
+application.
+
+It can be used as a convention variable and it's specially useful if a library has unit tests
+and you are doing :ref:`cross building <cross_building>`, the target binary can't be executed in current host machine building the package.
+
+It can be defined in your profile files at ``~/.conan/profiles``
+
+.. code-block:: python
+
+    ...
+    [env]
+    CONAN_RUN_TEST=False
+
+or declared in command line when invoking conan:
+
+.. code-block:: bash
+
+    $ CONAN_RUN_TEST=False conan <command> ...
+
