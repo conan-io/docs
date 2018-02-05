@@ -100,7 +100,7 @@ This process can be repeated to create and test packages for different configura
 .. note::
 
     It is not mandatory to specify the ``compiler.runtime`` setting. If it is not explicitly defined, Conan will
-    automatically use ``runtime=MDd`` for ``build_type==Debug`` and ``runtime=MD`` for ``build_type==Release`` 
+    automatically use ``runtime=MDd`` for ``build_type==Debug`` and ``runtime=MD`` for ``build_type==Release``.
 
 
 You can list the different created binary packages:
@@ -114,11 +114,11 @@ Uploading binaries
 
 Your locally created packages can already be uploaded to a conan remote.
 If you created them with the original username "memsharded", as from the git clone, you might want to do a ``$ conan copy``
-to put them on your own username. Of course, you can also directly use your user name in ``$ conan create``
+to put them on your own username. Of course, you can also directly use your user name in ``$ conan create``.
 
 Another alternative is to configure the permissions in the remote, to allow uploading packages with
-different usernames. Artifactory will allow it, but by default conan server doesn't allow
-that: permissions must be given in ``[write_permissions]`` section of ``server.conf``.
+different usernames. By default artifactory will do it but conan server won't:
+permissions must be given in ``[write_permissions]`` section of ``server.conf``.
 
 
 Reusing packages
