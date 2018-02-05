@@ -345,10 +345,10 @@ uploading packages, as they will be read-only and that could have other side-eff
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
-.. _conan_run_test:
+.. _conan_run_tests:
 
-CONAN_RUN_TEST
---------------
+CONAN_RUN_TESTS
+---------------
 
 **Defaulted to**: Not defined (True/False if defined)
 
@@ -364,11 +364,11 @@ It can be defined in your profile files at ``~/.conan/profiles``
 
     ...
     [env]
-    CONAN_RUN_TEST=False
+    CONAN_RUN_TESTS=False
 
 or declared in command line when invoking conan:
 
 .. code-block:: bash
 
-    $ CONAN_RUN_TEST=False conan <command> ...
+    $ CONAN_RUN_TESTS=False conan <command> ...
 
