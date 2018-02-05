@@ -16,6 +16,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.1.0 ( )
 ----------------
 - Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
+- Feature: The ``CONAN_MAKE_PROGRAM`` environment variable now it is used by the CMake() build helper to set a custom make program.
 
 
 1.0.3 (22-January-2018)
