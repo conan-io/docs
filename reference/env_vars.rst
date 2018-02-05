@@ -176,13 +176,16 @@ CONAN_MAKE_PROGRAM
 
 **Defaulted to**: Not defined
 
-Specify an alternative ``make`` program to use with the :ref:`build helper AutoToolsBuildEnvironment<autotools_reference>` make() method. 
+Specify an alternative ``make`` program to use with:
+
+    - The build helper :ref:`AutoToolsBuildEnvironment<autotools_reference>`. Will invoke the specified executable in the `make` method.
+    - The build helper :ref:`build helper CMake<cmake_reference>`. By adjusting the CMake variable `CMAKE_MAKE_PROGRAM <https://cmake.org/cmake/help/v3.0/variable/CMAKE_MAKE_PROGRAM.html>`_.
 
 For example:
 
 .. code-block:: bash
 
-    CONAN_MAKE_PROGRAM = ``mingw32-make``.
+    CONAN_MAKE_PROGRAM="/path/to/mingw32-make"
 
 .. _conan_trace_file:
 
