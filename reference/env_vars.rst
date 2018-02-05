@@ -345,6 +345,8 @@ uploading packages, as they will be read-only and that could have other side-eff
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
+.. _conan_run_test:
+
 CONAN_RUN_TEST
 --------------
 

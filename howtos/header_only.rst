@@ -76,6 +76,15 @@ If you want to run the library unit test while packaging, you would need this re
             self.info.header_only()
 
 
+.. tip::
+    If you are :ref:`cross building <cross_building>` your **library** or **app** you'll probably need
+    to skip the **unit tests** because your target binary cannot be executed in current building host.
+    To do it you can use :ref:`tools.get_env() <tools_get_env>` in combination with
+    :ref:`CONAN_RUN_TEST <conan_run_test>` **environment variable** added to your profile for cross building.
+    You can replace ``cmake.test()`` with a conditional call like:
+
+    ``cmake.test() if tools.get_env("CONAN_RUN_TEST", False)``
+
 Which will use a ``CMakeLists.txt`` file in the root folder:
 
 .. code-block:: cmake

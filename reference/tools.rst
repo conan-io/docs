@@ -248,6 +248,8 @@ Parameters:
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
 
+.. _tools_get_env:
+
 tools.get_env()
 ---------------
 
