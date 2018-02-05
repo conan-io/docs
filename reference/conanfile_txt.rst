@@ -28,6 +28,18 @@ Also support :ref:`version ranges<version_ranges>`:
     Poco/[>1.0,<1.8]@pocoproject/stable
     zlib/1.2.11@conan/stable
 
+[build_requires]
+__________
+
+List of build requirements, specifing the full reference.
+
+
+.. code-block:: text
+
+    [build_requires]
+    7z_installer/1.0@conan/stable
+
+Also support :ref:`version ranges<version_ranges>`
 
 
 [generators]
