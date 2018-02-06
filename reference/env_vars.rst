@@ -187,6 +187,10 @@ For example:
 
     CONAN_MAKE_PROGRAM="/path/to/mingw32-make"
 
+    # Or only the exe name if it is in the path
+
+    CONAN_MAKE_PROGRAM="mingw32-make"
+
 .. _conan_trace_file:
 
 CONAN_TRACE_FILE
