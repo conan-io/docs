@@ -283,7 +283,7 @@ See an usage example with an environment variable defined while executing conan
 Parameters:
    - **env_key** (Required): environment variable name.
    - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
-   - **environment** (Optional, Defaulted to ``None``): os.environ if None or environment dictionary to look for.
+   - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
 
 tools.download()
 ----------------
