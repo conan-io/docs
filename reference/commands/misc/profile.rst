@@ -17,15 +17,12 @@ profile' install argument.
 
     positional arguments:
       {list,show,new,update,get,remove}
-                            sub-command help
-      list                list current profiles
-      show                show the values defined for a profile. Can be a path
-                          (relative or absolute) to a profile file in any
-                          location.
-      new                 Creates a new empty profile
-      update              Update a profile
-      get                 Get a profile key
-      remove              Remove a profile key
+        list                List current profiles
+        show                Show the values defined for a profile
+        new                 Creates a new empty profile
+        update              Update a profile with desired value
+        get                 Get a profile key
+        remove              Remove a profile key
 
     optional arguments:
       -h, --help            show this help message and exit
