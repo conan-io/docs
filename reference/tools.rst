@@ -255,7 +255,7 @@ tools.get_env()
 
 .. code-block:: python
 
-   def get_env(env_key, default=None, environment=os.environ)
+   def get_env(env_key, default=None, environment=None)
 
 Parses an environment and cast its value against the **default** type passed as an argument.
 
@@ -283,7 +283,7 @@ See an usage example with an environment variable defined while executing conan
 Parameters:
    - **env_key** (Required): environment variable name.
    - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
-   - **environment** (Optional, Defaulted to ``os.environ``): environment dictionary to look for.
+   - **environment** (Optional, Defaulted to ``None``): os.environ if None or environment dictionary to look for.
 
 tools.download()
 ----------------
