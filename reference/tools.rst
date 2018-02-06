@@ -261,7 +261,7 @@ Parses an environment and cast its value against the **default** type passed as 
 
 Following python conventions, returns **default** if **env_key** is not defined.
 
-See an usage exampel with an environment variable defined while executing conan
+See an usage example with an environment variable defined while executing conan
 
 .. code-block:: bash
 

@@ -366,9 +366,8 @@ It can be defined in your profile files at ``~/.conan/profiles``
     [env]
     CONAN_RUN_TESTS=False
 
-or declared in command line when invoking conan:
+or declared in command line when invoking ``conan install`` to reduce the variable scope for conan execution
 
 .. code-block:: bash
 
-    $ CONAN_RUN_TESTS=False conan <command> ...
-
+    $ conan install -e CONAN_RUN_TEST=0 ...
