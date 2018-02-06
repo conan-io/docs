@@ -253,7 +253,7 @@ configuration.
 
     - When a GCC **compiler >= 5.1** is detected, the setting modeling the c++ standard library:
       ``compiler.libcxx`` will be set to ``libstdc++`` that represent the old ABI compatibility for
-      better compatibility reasons.
+      better compatibility.
       Your compiler default is likely the new ABI so you might want to change it to ``libstdc++11``
       to use the new ABI compliant with CXX11 directives. :ref:`Read more<manage_gcc_abi>`.
 
