@@ -246,6 +246,18 @@ architecture...) automatically and stored as default in a profile. You can chang
 settings by editing ``~/.conan/profiles/default`` or create new profiles with the desired
 configuration.
 
+.. attention::
+
+    - It is strongly recommended to review the generated default profile and adjust the settings to
+      describe accurately your system.
+
+    - When a GCC **compiler >= 5.1** is detected, the setting modeling the c++ standard library:
+      ``compiler.libcxx`` will be set to ``libstdc++`` that represent the old ABI compatibility for
+      better compatibility.
+      Your compiler default is likely the new ABI so you might want to change it to ``libstdc++11``
+      to use the new ABI compliant with CXX11 directives. :ref:`Read more<manage_gcc_abi>`.
+
+
 For example, if we have a profile with a gcc configutarion for 32 bits in a profile called
 **gcc_x86**, we could issue the ``install`` command like this:
 
@@ -256,6 +268,7 @@ For example, if we have a profile with a gcc configutarion for 32 bits in a prof
 .. tip::
 
     Using profiles is strongly recommended. Learn more about them :ref:`here<profiles>`.
+
 
 However, the user can always override the default profile settings in **install** command with the
 **-s** parameter. As an exercise to the reader, let's try building the timer project with a

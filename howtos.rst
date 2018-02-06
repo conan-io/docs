@@ -10,6 +10,7 @@ This section shows common solutions and different approaches to typical problems
    howtos/cmake_launch
    howtos/visual_studio_packages
    howtos/makefiles
+   howtos/manage_gcc_abi
    howtos/python_code_reuse
    howtos/custom_generators
    howtos/manage_shared_libraries
