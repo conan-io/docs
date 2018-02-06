@@ -375,3 +375,27 @@ or declared in command line when invoking ``$ conan install`` to reduce the vari
 
 See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check an use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
+
+.. code-block:: python
+
+    from conans import ConanFile, CMake, tools
+
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        settings = "os", "compiler", "arch", "build_type"
+        exports_sources = "include/*", "CMakeLists.txt", "example.cpp"
+        no_copy_source = True
+
+        def build(self): # this is not building a library, just tests
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+            if tools.get_env("CONAN_RUN_TESTS", True):
+                cmake.test()
+
+        def package(self):
+            self.copy("*.h")
+
+        def package_id(self):
+            self.info.header_only()
