@@ -15,7 +15,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
     [general]
-    default_profile = %s
+    default_profile = default
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
