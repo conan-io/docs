@@ -603,7 +603,7 @@ To get a list of all the dependency names from ```deps_cpp_info```, you can call
     class PocoTimerConan(ConanFile):
         ...
         def build(self):
-            # Deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
+            # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
             deps = self.deps_cpp_info.deps
             
             
