@@ -876,7 +876,7 @@ tools.vs_comntools()
 
     def vs_comntools(compiler_version)
 
-Returns the value of the environment variable VS<compiler_version>.0COMNTOOLS`` for the compiler version indicated.
+Returns the value of the environment variable ``VS<compiler_version>.0COMNTOOLS`` for the compiler version indicated.
 
 .. code-block:: python
 
@@ -894,7 +894,7 @@ tools.vs_installation_path()
 
     def vs_installation_path(version, preference=None)
 
-Returns the Visual Studio installation path for the given version. It uses``tool.vswhere()`` and
+Returns the Visual Studio installation path for the given version. It uses ``tools.vswhere()`` and
 ``tool.vs_comntools()``. It will also look for the installation paths following
 ``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If the
 tool is not able to return the path it returns ``None``.
