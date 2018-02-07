@@ -371,7 +371,7 @@ or declared in command line when invoking ``$ conan install`` to reduce the vari
 
 .. code-block:: bash
 
-    $ conan install -e CONAN_RUN_TEST=0 ...
+    $ conan install . -e CONAN_RUN_TEST=0
 
 See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check an use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
