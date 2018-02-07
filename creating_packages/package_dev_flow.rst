@@ -47,8 +47,6 @@ This method outputs the source files into the source-folder.
     Cloning into 'hello'...
     ...
 
-The strategy here is that you’re testing your source method in isolation, and downloading the files to a temporary sub-folder relative to
-the *conanfile.py*. This just makes it easier to get to the sources and validate them.
 Once you’ve got your source method right and it contains the files you expect, you can move on to testing the various attributes and methods
 relating to the downloading of dependencies.
 
@@ -187,6 +185,21 @@ The finally step to test the package for consumer is the test command. This step
     ...
 
 There is often a need to repeatedly re-run the test to check the package is well generated for consumers.
+
+As a summary, you could use the default folders and the flow would be as simple as:
+
+.. code-block:: bash
+
+    $ git clone git@github.com:memsharded/example_conan_flow.git
+    $ cd example_conan_flow
+    $ conan source .
+    $ conan install .
+    $ conan build .
+    $ conan package .
+    ...
+    PROJECT package(): Copied 1 '.h' files: hello.h
+    PROJECT package(): Copied 2 '.lib' files: greet.lib, hello.lib
+    PROJECT: Package 'package' created
 
 $ conan create
 ^^^^^^^^^^^^^^
