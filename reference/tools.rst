@@ -111,9 +111,6 @@ environment:
         with tools.vcvars(self.settings):
             do_something()
 
-
-
-
 .. _build_sln_commmand:
 
 tools.build_sln_command()
@@ -857,7 +854,7 @@ a list with a dictionary for each installation found.
 
     vs_legacy_installations = tool.vswhere(legacy=True)
 
-**Parameters:**
+Parameters:
     - **all_** (Optional, Defaulted to ``False``): Finds all instances even if they are incomplete and may not launch.
     - **prerelease** (Optional, Defaulted to ``False``): Also searches prereleases. By default, only releases are searched.
     - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
@@ -871,6 +868,24 @@ a list with a dictionary for each installation found.
     - **property_** (Optional, Defaulted to ``""``): The name of a property to return. Use delimiters ``.``, ``/``, or ``_`` to separate
       object and property names. Example: ``"properties.nickname"`` will return the "nickname" property under "properties".
     - **nologo** (Optional, Defaulted to ``True``): Do not show logo information.
+
+tools.vs_comntools()
+--------------------
+
+.. code-block:: python
+
+    def vs_comntools(compiler_version)
+
+Returns the value of the environment variable VS<compiler_version>.0COMNTOOLS`` for the compiler version indicated.
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path = vs_comntools("14")
+
+Parameters:
+    - **compiler_version** (Required): String with the version number: ``"14"``, ``"12"``...
 
 tools.vs_installation_path()
 ----------------------------
@@ -890,7 +905,7 @@ tool is not able to return the path it returns ``None``.
 
     vs_path_2017 = tools.vs_installation_path("15", preference=["Community", "BuildTools", "Professional", "Enterprise"])
 
-**Parameters:**
+Parameters:
     - **version** (Required): Visual Studio version to locate. Valid version numbers
       are strings: ``"10"``, ``"11"``, ``"12"``, ``"13"``, ``"14"``, ``"15"``...
     - **preference** (Optional, Defaulted to ``None``): Set to value of
