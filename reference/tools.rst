@@ -248,6 +248,43 @@ Parameters:
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
 
+.. _tools_get_env:
+
+tools.get_env()
+---------------
+
+.. code-block:: python
+
+   def get_env(env_key, default=None, environment=None)
+
+Parses an environment and cast its value against the **default** type passed as an argument.
+
+Following python conventions, returns **default** if **env_key** is not defined.
+
+See an usage example with an environment variable defined while executing conan
+
+.. code-block:: bash
+
+   $ TEST_ENV="1" conan <command> ...
+
+.. code-block:: python
+
+   from conans import tools
+
+   tools.get_env("TEST_ENV") # returns "1", returns current value
+   tools.get_env("TEST_ENV_NOT_DEFINED") # returns None, TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV_NOT_DEFINED", []) # returns [], TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV", "2") # returns "1"
+   tools.get_env("TEST_ENV", False) # returns True (default value is boolean)
+   tools.get_env("TEST_ENV", 2) # returns 1
+   tools.get_env("TEST_ENV", 2.0) # returns 1.0
+   tools.get_env("TEST_ENV", []) # returns ["1"]
+
+Parameters:
+   - **env_key** (Required): environment variable name.
+   - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
+   - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
+
 tools.download()
 ----------------
 

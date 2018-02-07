@@ -351,3 +351,51 @@ uploading packages, as they will be read-only and that could have other side-eff
 
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
+
+.. _conan_run_tests:
+
+CONAN_RUN_TESTS
+---------------
+
+**Defaulted to**: Not defined (True/False if defined)
+
+This environment variable (if defined) can be used in ``conanfile.py`` to enable/disable the tests for a library or
+application.
+
+It can be used as a convention variable and it's specially useful if a library has unit tests
+and you are doing :ref:`cross building <cross_building>`, the target binary can't be executed in current
+host machine building the package.
+
+It can be defined in your profile files at ``~/.conan/profiles``
+
+.. code-block:: python
+
+    ...
+    [env]
+    CONAN_RUN_TESTS=False
+
+or declared in command line when invoking ``$ conan install`` to reduce the variable scope for conan execution
+
+.. code-block:: bash
+
+    $ conan install . -e CONAN_RUN_TEST=0
+
+See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check an use case
+with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
+
+See example of build method in ``conanfile.py`` to enable/disable running tests with CMake:
+
+.. code-block:: python
+
+    from conans import ConanFile, CMake, tools
+
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
+            if tools.get_env("CONAN_RUN_TESTS", True):
+                cmake.test()
