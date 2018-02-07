@@ -15,13 +15,19 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
     [general]
-    default_profile = default
+    default_profile = %s
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
+    vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
+    # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
+    # cache_no_locks = True
+    # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
+
+    # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -54,7 +60,6 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
     # Default settings now declared in the default profile
 
-
 Log
 +++
 
@@ -77,6 +82,11 @@ You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
 
 General
 +++++++
+
+The ``vs_installation_preference`` variable determines the preference of usage when searching a Visual installation. The order of preference
+by default is Enterprise, Professional, Community and BuildTools. It can be fixed to just one type of installation like only BuildTools. You
+can also adjust the environment variable ``CONAN_VS_INSTALLATION_PREFERENCE``.
+
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even in the conan code base, allowing
 to debug the detected error.
 
