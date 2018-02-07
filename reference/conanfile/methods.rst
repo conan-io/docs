@@ -744,7 +744,6 @@ in any other OS will be the standard one, as if the ``build_id()`` method was no
 the build folder will be wiped at each ``$ conan create`` command and a clean build will
 be done.
 
-
 deploy()
 --------
 
