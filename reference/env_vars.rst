@@ -351,3 +351,17 @@ uploading packages, as they will be read-only and that could have other side-eff
 
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
+
+CONAN_VS_INSTALLATION_PREFERENCE
+--------------------------------
+
+**Defaulted to**: ``Enterprise, Professional, Community, BuildTools``
+
+This envirnoment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
+that reusues ``tool.vs_installation_path()`` and will search in the order indicated.
+
+It can be used to fix the type of installation you want to use indicating just one product type:
+
+.. code-block:: bash
+
+    set CONAN_VS_INSTALLATION_PREFERENCE=BuildTools
