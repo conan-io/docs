@@ -640,7 +640,6 @@ It's not necessary to specify the extension.
         self.run("some command")
 
 
-
 tools.unix_path()
 -----------------
 
@@ -669,7 +668,6 @@ Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 Parameters:
     - **command** (Required): Command to execute.
 
-
 tools.sha1sum(), sha256sum(), md5sum()
 --------------------------------------
 
@@ -690,7 +688,6 @@ Return the respective hash or checksum for a file:
 
 Parameters:
     - **file_path** (Required): Path to the file.
-
 
 tools.md5()
 -----------
@@ -843,26 +840,64 @@ relative to the given directory.
 Parameters:
     - **path** (Required): Path of the directory.
 
-tools.vs_installation_path()
-----------------------------
+tools.vswhere()
+---------------
 
 .. code-block:: python
 
-    def vs_installation_path(version)
+    def vswhere(all_=False, prerelease=False, products=None, requires=None, version="",
+                latest=False, legacy=False, property_="", nologo=True)
 
-Returns the Visual Studio installation path for the given version.
-It only works when the tool ``vswhere`` is installed.
-If the tool is not able to return the path it returns ``None``.
+Wrapper of ``vswhere`` tool to look for details of Visual Studio installations. Its output is always
+a list with a dictionary for each installation found.
 
 .. code-block:: python
 
     from conans import tools
 
-    vs_path_2017 = tools.vs_installation_path("15")
+    vs_legacy_installations = tool.vswhere(legacy=True)
+
+**Parameters:**
+    - **all_** (Optional, Defaulted to ``False``): Finds all instances even if they are incomplete and may not launch.
+    - **prerelease** (Optional, Defaulted to ``False``): Also searches prereleases. By default, only releases are searched.
+    - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
+      Enterprise. Specify ``["*"]`` by itself to search all product instances installed.
+    - **requires** (Optional, Defaulted to ``None``): List of one or more workload or component IDs required when finding instances. See
+      https://aka.ms/vs/workloads for a list of workload and component IDs.
+    - **version** (Optional, Defaulted to ``""``): A version range for instances to find. Example: ``"[15.0,16.0)"`` will find versions 15.*.
+    - **latest** (Optional, Defaulted to ``False``): Return only the newest version and last installed.
+    - **legacy** (Optional, Defaulted to ``False``): Also searches Visual Studio 2015 and older products. Information is limited. This
+      option cannot be used with either ``products`` or ``requires`` parameters.
+    - **property_** (Optional, Defaulted to ``""``): The name of a property to return. Use delimiters ``.``, ``/``, or ``_`` to separate
+      object and property names. Example: ``"properties.nickname"`` will return the "nickname" property under "properties".
+    - **nologo** (Optional, Defaulted to ``True``): Do not show logo information.
+
+tools.vs_installation_path()
+----------------------------
+
+.. code-block:: python
+
+    def vs_installation_path(version, preference=None)
+
+Returns the Visual Studio installation path for the given version. It uses``tool.vswhere()`` and
+``tool.vs_comntools()``. It will also look for the installation paths following
+``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If the
+tool is not able to return the path it returns ``None``.
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path_2017 = tools.vs_installation_path("15", preference=["Community", "BuildTools", "Professional", "Enterprise"])
 
 **Parameters:**
     - **version** (Required): Visual Studio version to locate. Valid version numbers
       are strings: ``"10"``, ``"11"``, ``"12"``, ``"13"``, ``"14"``, ``"15"``...
+    - **preference** (Optional, Defaulted to ``None``): Set to value of
+      ``CONAN_VS_INSTALLATION_PREFERENCE`` or defaulted to
+      ``["Enterprise", "Professional", "Community", "BuildTools"]``. If only set to one type of
+      preference, it will return the installation path only for that Visual type and version,
+      otherwise ``None``.
 
 tools.replace_prefix_in_pc_file()
 ----------------------------------
