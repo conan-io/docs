@@ -108,18 +108,6 @@ users in CI, to retrieve and store per-project specific dependencies (useful for
 
     Read more about it in :ref:`custom_cache`
 
-CONAN_SYSREQUIRES_SUDO
-----------------------
-
-**Defaulted to**: ``True``/``1``
-
-This environment variable controls whether ``sudo`` is used for installing apt, yum, etc. system
-packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
-By default when the environment variable does not exist, "True" is assumed, and ``sudo`` is 
-automatically prefixed in front of package management commands.  If you set this to "False" or "0"
-``sudo`` will not be prefixed in front of the comands, however installation or updates of some 
-packages may fail due to a lack of privilege, depending on the user account Conan is running under.
-
 CONAN_USER, CONAN_CHANNEL
 -------------------------
 
@@ -354,6 +342,18 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
             cmake.build()
             if tools.get_env("CONAN_RUN_TESTS", True):
                 cmake.test()
+
+CONAN_SYSREQUIRES_SUDO
+----------------------
+
+**Defaulted to**: ``True``/``1``
+
+This environment variable controls whether ``sudo`` is used for installing apt, yum, etc. system
+packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
+By default when the environment variable does not exist, "True" is assumed, and ``sudo`` is
+automatically prefixed in front of package management commands.  If you set this to "False" or "0"
+``sudo`` will not be prefixed in front of the comands, however installation or updates of some
+packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
 .. _conan_trace_file:
 
