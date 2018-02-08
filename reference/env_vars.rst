@@ -132,26 +132,6 @@ in user space, where a user/channel has not been assigned yet (it is assigned wh
 
     Read more about it in :ref:`user_channel`
 
-CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
---------------------------------------------
-
-**Defaulted to**: Not defined
-
-You can define the authentication password using environment variables.
-Conan will use a variable **CONAN_PASSWORD_{REMOTE_NAME}**, if the variable is not
-declared Conan will use the variable **CONAN_PASSWORD**, if the variable is not declared either,
-Conan will request to the user to input a password.
-
-These variables are useful for unattended executions like CI servers or automated tasks.
-
-If the remote name contains "-" you have to replace it with "_" in the variable name:
-
-For example: For a remote named "conan-center":
-
-.. code-block:: bash
-
-    SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
-
 CONAN_ENV_XXXX_YYYY
 -------------------
 
@@ -259,6 +239,26 @@ For example:
     # Or only the exe name if it is in the path
 
     CONAN_MAKE_PROGRAM="mingw32-make"
+
+CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
+--------------------------------------------
+
+**Defaulted to**: Not defined
+
+You can define the authentication password using environment variables.
+Conan will use a variable **CONAN_PASSWORD_{REMOTE_NAME}**, if the variable is not
+declared Conan will use the variable **CONAN_PASSWORD**, if the variable is not declared either,
+Conan will request to the user to input a password.
+
+These variables are useful for unattended executions like CI servers or automated tasks.
+
+If the remote name contains "-" you have to replace it with "_" in the variable name:
+
+For example: For a remote named "conan-center":
+
+.. code-block:: bash
+
+    SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
 
 .. _conan_trace_file:
 
