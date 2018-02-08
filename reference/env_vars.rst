@@ -132,26 +132,6 @@ in user space, where a user/channel has not been assigned yet (it is assigned wh
 
     Read more about it in :ref:`user_channel`
 
-CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}
---------------------------------------------------------
-
-**Defaulted to**: Not defined
-
-You can define the username for the authentication process using environment variables.
-Conan will use a variable **CONAN_LOGIN_USERNAME_{REMOTE_NAME}**, if the variable is not
-declared Conan will use the variable **CONAN_LOGIN_USERNAME**, if the variable is not declared either,
-Conan will request to the user to input a username.
-
-These variables are useful for unattended executions like CI servers or automated tasks.
-
-If the remote name contains "-" you have to replace it with "_" in the variable name:
-
-For example: For a remote named "conan-center":
-
-.. code-block:: bash
-
-    SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
-
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------
 
@@ -237,6 +217,26 @@ CONAN_LOGGING_LEVEL
 By default conan logging level is only set for critical events. If you want
 to show more detailed logging information, set this variable to lower values, as ``10`` to show
 debug information.
+
+CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}
+--------------------------------------------------------
+
+**Defaulted to**: Not defined
+
+You can define the username for the authentication process using environment variables.
+Conan will use a variable **CONAN_LOGIN_USERNAME_{REMOTE_NAME}**, if the variable is not
+declared Conan will use the variable **CONAN_LOGIN_USERNAME**, if the variable is not declared either,
+Conan will request to the user to input a username.
+
+These variables are useful for unattended executions like CI servers or automated tasks.
+
+If the remote name contains "-" you have to replace it with "_" in the variable name:
+
+For example: For a remote named "conan-center":
+
+.. code-block:: bash
+
+    SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
 
 .. _conan_make_program:
 
