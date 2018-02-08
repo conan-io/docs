@@ -38,6 +38,16 @@ the :ref:`CMake build tool<cmake_reference>`:
 
     See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
+.. _conan_bash_path_env:
+
+CONAN_BASH_PATH
+---------------
+
+**Defaulted to**: Not defined
+
+Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
+to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the ``PATH`` or you want to use a different one.
+
 CONAN_CMAKE_GENERATOR
 ---------------------
 
@@ -189,16 +199,6 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
 .. code-block:: bash
 
     CONAN_ENV_ARCH = "x86"
-
-.. _conan_bash_path_env:
-
-CONAN_BASH_PATH
----------------
-
-**Defaulted to**: Not defined
-
-Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
-to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the ``PATH`` or you want to use a different one.
 
 .. _conan_make_program:
 
