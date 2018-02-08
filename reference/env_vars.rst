@@ -260,30 +260,6 @@ For example: For a remote named "conan-center":
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
 
-.. _conan_trace_file:
-
-CONAN_TRACE_FILE
-----------------
-
-**Defaulted to**: Not defined
-
-If you want extra logging information about your conan command executions, you can enable it by setting the ``CONAN_TRACE_FILE`` environment variable.
-Set it with an absolute path to a file.
-
-.. code-block:: bash
-
-    export CONAN_TRACE_FILE=/tmp/conan_trace.log
-
-When the conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
-``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
-
-The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
-
-.. seealso::
-
-    Read more here: :ref:`logging_and_debugging` 
-
 .. _conan_print_run_commands:
 
 CONAN_PRINT_RUN_COMMANDS
@@ -307,6 +283,30 @@ Will print to the output (stout and/or file):
     > cd zlib-1.2.9 && env LIBS="" LDFLAGS=" -m64   $LDFLAGS" CFLAGS="-mstackrealign -fPIC $CFLAGS -m64  -s -DNDEBUG  " CPPFLAGS="$CPPFLAGS -m64  -s -DNDEBUG  " C_INCLUDE_PATH=$C_INCLUDE_PATH: CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH: ./configure
     -----------------
     ...
+
+.. _conan_trace_file:
+
+CONAN_TRACE_FILE
+----------------
+
+**Defaulted to**: Not defined
+
+If you want extra logging information about your conan command executions, you can enable it by setting the ``CONAN_TRACE_FILE`` environment variable.
+Set it with an absolute path to a file.
+
+.. code-block:: bash
+
+    export CONAN_TRACE_FILE=/tmp/conan_trace.log
+
+When the conan command is executed, some traces will be appended to the specified file. 
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
+
+The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
+
+.. seealso::
+
+    Read more here: :ref:`logging_and_debugging` 
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
