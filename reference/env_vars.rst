@@ -78,6 +78,16 @@ CONAN_COLOR_DISPLAY
 
 Useful to remove colored output, set it to ``False``/``0`` to remove console output colors.
 
+CONAN_COMPRESSION_LEVEL
+-----------------------
+
+**Defaulted to**: ``9``
+
+Conan uses ``tgz`` compression for archives before uploading them to remotes. The default compression
+level is good and fast enough for most cases, but users with huge packages might want to change it and
+set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number, which is able to get slightly
+bigger archives but much better compression speed.
+
 CONAN_USER_HOME
 ---------------
 
@@ -98,16 +108,6 @@ CONAN_LOGGING_LEVEL
 By default conan logging level is only set for critical events. If you want
 to show more detailed logging information, set this variable to lower values, as ``10`` to show
 debug information.
-
-CONAN_COMPRESSION_LEVEL
------------------------
-
-**Defaulted to**: ``9``
-
-Conan uses ``tgz`` compression for archives before uploading them to remotes. The default compression
-level is good and fast enough for most cases, but users with huge packages might want to change it and
-set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number, which is able to get slightly
-bigger archives but much better compression speed.
 
 CONAN_SYSREQUIRES_SUDO
 ----------------------
