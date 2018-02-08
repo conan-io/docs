@@ -307,51 +307,6 @@ uploading packages, as they will be read-only and that could have other side-eff
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
-.. _conan_trace_file:
-
-CONAN_TRACE_FILE
-----------------
-
-**Defaulted to**: Not defined
-
-If you want extra logging information about your conan command executions, you can enable it by setting the ``CONAN_TRACE_FILE`` environment variable.
-Set it with an absolute path to a file.
-
-.. code-block:: bash
-
-    export CONAN_TRACE_FILE=/tmp/conan_trace.log
-
-When the conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
-``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
-
-The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
-
-.. seealso::
-
-    Read more here: :ref:`logging_and_debugging` 
-
-CONAN_VERBOSE_TRACEBACK
------------------------
-
-**Defaulted to**: ``0``
-
-When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
-
-CONAN_USER_HOME_SHORT
----------------------
-
-**Defaulted to**: Not defined
-
-Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
-marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
-
-If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
-
-.. note::
-
-    Please note that this only works with Python 3.6 and newer.
-
 .. _conan_run_tests:
 
 CONAN_RUN_TESTS
@@ -399,3 +354,48 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
             cmake.build()
             if tools.get_env("CONAN_RUN_TESTS", True):
                 cmake.test()
+
+.. _conan_trace_file:
+
+CONAN_TRACE_FILE
+----------------
+
+**Defaulted to**: Not defined
+
+If you want extra logging information about your conan command executions, you can enable it by setting the ``CONAN_TRACE_FILE`` environment variable.
+Set it with an absolute path to a file.
+
+.. code-block:: bash
+
+    export CONAN_TRACE_FILE=/tmp/conan_trace.log
+
+When the conan command is executed, some traces will be appended to the specified file. 
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
+
+The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
+
+.. seealso::
+
+    Read more here: :ref:`logging_and_debugging` 
+
+CONAN_VERBOSE_TRACEBACK
+-----------------------
+
+**Defaulted to**: ``0``
+
+When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
+
+CONAN_USER_HOME_SHORT
+---------------------
+
+**Defaulted to**: Not defined
+
+Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
+marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+
+If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
+
+.. note::
+
+    Please note that this only works with Python 3.6 and newer.
