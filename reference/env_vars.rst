@@ -71,6 +71,13 @@ Set it to ``True``/``1`` to use dark colors in the terminal output, instead of l
 Useful for terminal or consoles with light colors as white, so text is rendered in Blue, Black, Magenta,
 instead of Yellow, Cyan, White.
 
+CONAN_COLOR_DISPLAY
+-------------------
+
+**Defaulted to**: ``True``/``1``
+
+Useful to remove colored output, set it to ``False``/``0`` to remove console output colors.
+
 CONAN_USER_HOME
 ---------------
 
@@ -113,13 +120,6 @@ By default when the environment variable does not exist, "True" is assumed, and 
 automatically prefixed in front of package management commands.  If you set this to "False" or "0"
 ``sudo`` will not be prefixed in front of the comands, however installation or updates of some 
 packages may fail due to a lack of privilege, depending on the user account Conan is running under.
-
-CONAN_COLOR_DISPLAY
--------------------
-
-**Defaulted to**: ``True``/``1``
-
-Useful to remove colored output, set it to ``False``/``0`` to remove console output colors.
 
 CONAN_USER, CONAN_CHANNEL
 -------------------------
