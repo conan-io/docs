@@ -96,18 +96,6 @@ CONAN_CPU_COUNT
 Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
-CONAN_USER_HOME
----------------
-
-**Defaulted to**: Not defined
-
-Allows defining a custom conan cache directory. Can be useful for concurrent builds under different
-users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
-
-.. seealso::
-
-    Read more about it in :ref:`custom_cache`
-
 CONAN_ENV_XXXX_YYYY
 -------------------
 
@@ -378,6 +366,18 @@ in user space, where a user/channel has not been assigned yet (it is assigned wh
 .. seealso::
 
     Read more about it in :ref:`user_channel`
+
+CONAN_USER_HOME
+---------------
+
+**Defaulted to**: Not defined
+
+Allows defining a custom conan cache directory. Can be useful for concurrent builds under different
+users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
+
+.. seealso::
+
+    Read more about it in :ref:`custom_cache`
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
