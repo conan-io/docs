@@ -108,15 +108,6 @@ users in CI, to retrieve and store per-project specific dependencies (useful for
 
     Read more about it in :ref:`custom_cache`
 
-CONAN_LOGGING_LEVEL
--------------------
-
-**Defaulted to**: ``50``
-
-By default conan logging level is only set for critical events. If you want
-to show more detailed logging information, set this variable to lower values, as ``10`` to show
-debug information.
-
 CONAN_SYSREQUIRES_SUDO
 ----------------------
 
@@ -237,6 +228,15 @@ CONAN_LOG_RUN_TO_OUTPUT
 
 If set to ``0`` conan won't print the command output to the stdout.
 Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and not printing the output.
+
+CONAN_LOGGING_LEVEL
+-------------------
+
+**Defaulted to**: ``50``
+
+By default conan logging level is only set for critical events. If you want
+to show more detailed logging information, set this variable to lower values, as ``10`` to show
+debug information.
 
 .. _conan_make_program:
 
