@@ -88,6 +88,14 @@ level is good and fast enough for most cases, but users with huge packages might
 set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number, which is able to get slightly
 bigger archives but much better compression speed.
 
+CONAN_CPU_COUNT
+---------------
+
+**Defaulted to**: Number of available cores in your machine.
+
+Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
+Conan recipes can use the cpu_count() tool to build the library using more than one core.
+
 CONAN_USER_HOME
 ---------------
 
@@ -306,14 +314,6 @@ CONAN_VERBOSE_TRACEBACK
 **Defaulted to**: ``0``
 
 When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
-
-CONAN_CPU_COUNT
----------------
-
-**Defaulted to**: Number of available cores in your machine.
-
-Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
-Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
 CONAN_USER_HOME_SHORT
 ---------------------
