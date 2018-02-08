@@ -230,6 +230,13 @@ The file can be included in the conan package (for debugging purposes) using the
         def package(self):
             self.copy(pattern="conan_run.log", dst="", keep_path=False)
 
+CONAN_LOG_RUN_TO_OUTPUT
+-----------------------
+
+**Defaulted to**: ``1``
+
+If set to ``0`` conan won't print the command output to the stdout.
+Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and not printing the output.
 
 .. _conan_make_program:
 
@@ -276,14 +283,6 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 .. seealso::
 
     Read more here: :ref:`logging_and_debugging` 
-
-CONAN_LOG_RUN_TO_OUTPUT
------------------------
-
-**Defaulted to**: ``1``
-
-If set to ``0`` conan won't print the command output to the stdout.
-Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and not printing the output.
 
 .. _conan_print_run_commands:
 
