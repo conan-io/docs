@@ -7,6 +7,37 @@ These are the environment variables used to customize conan.
 
 Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
 
+CMAKE RELATED VARIABLES
+-----------------------
+
+There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
+the :ref:`CMake build tool<cmake_reference>`:
+
+
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| Variable                                | CMake set variable                                                                             |
++=========================================+================================================================================================+
+| CONAN_CMAKE_TOOLCHAIN_FILE              | CMAKE_TOOLCHAIN_FILE                                                                           |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSTEM_NAME                 | CMAKE_SYSTEM_NAME                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSTEM_VERSION              | CMAKE_SYSTEM_VERSION                                                                           |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSTEM_PROCESSOR            | CMAKE_SYSTEM_PROCESSOR                                                                         |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH              | CMAKE_FIND_ROOT_PATH                                                                           |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM | CMAKE_FIND_ROOT_PATH_MODE_PROGRAM                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY | CMAKE_FIND_ROOT_PATH_MODE_LIBRARY                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+
+.. seealso::
+
+    See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
+
 CONAN_CMAKE_GENERATOR
 ---------------------
 
@@ -275,37 +306,6 @@ CONAN_VERBOSE_TRACEBACK
 **Defaulted to**: ``0``
 
 When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
-
-CMAKE RELATED VARIABLES
------------------------
-
-There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
-the :ref:`CMake build tool<cmake_reference>`:
-
-
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| Variable                                | CMake set variable                                                                             |
-+=========================================+================================================================================================+
-| CONAN_CMAKE_TOOLCHAIN_FILE              | CMAKE_TOOLCHAIN_FILE                                                                           |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_SYSTEM_NAME                 | CMAKE_SYSTEM_NAME                                                                              |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_SYSTEM_VERSION              | CMAKE_SYSTEM_VERSION                                                                           |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_SYSTEM_PROCESSOR            | CMAKE_SYSTEM_PROCESSOR                                                                         |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH              | CMAKE_FIND_ROOT_PATH                                                                           |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM | CMAKE_FIND_ROOT_PATH_MODE_PROGRAM                                                              |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY | CMAKE_FIND_ROOT_PATH_MODE_LIBRARY                                                              |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-
-.. seealso::
-
-    See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
 CONAN_CPU_COUNT
 ---------------
