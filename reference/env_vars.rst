@@ -379,13 +379,6 @@ users in CI, to retrieve and store per-project specific dependencies (useful for
 
     Read more about it in :ref:`custom_cache`
 
-CONAN_VERBOSE_TRACEBACK
------------------------
-
-**Defaulted to**: ``0``
-
-When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
-
 CONAN_USER_HOME_SHORT
 ---------------------
 
@@ -399,3 +392,10 @@ If set to "None", it will disable the `short_paths` feature in Windows for moder
 .. note::
 
     Please note that this only works with Python 3.6 and newer.
+
+CONAN_VERBOSE_TRACEBACK
+-----------------------
+
+**Defaulted to**: ``0``
+
+When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
