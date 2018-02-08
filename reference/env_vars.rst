@@ -284,6 +284,29 @@ Will print to the output (stout and/or file):
     -----------------
     ...
 
+CONAN_READ_ONLY_CACHE
+---------------------
+
+**Defaulted to**: Not defined
+
+This environment variable if defined, will make the conan cache read-only. This could prevent
+developers to accidentally edit some header of their dependencies while navigating code in their
+IDEs.
+
+This variable can also be set in ``conan.conf`` as ``read_only_cache = True`` in the ``[general]``
+section.
+
+The packages are made read-only in two points: when a package is built from sources, and when
+a package is retrieved from a remote repository.
+
+The packages are not modified for upload, so users should take that into consideration before
+uploading packages, as they will be read-only and that could have other side-effects.
+
+.. warning::
+
+    It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
+    For better reproducibility we recommend that packages are created and uploaded by CI machines.
+
 .. _conan_trace_file:
 
 CONAN_TRACE_FILE
@@ -328,29 +351,6 @@ If set to "None", it will disable the `short_paths` feature in Windows for moder
 .. note::
 
     Please note that this only works with Python 3.6 and newer.
-
-CONAN_READ_ONLY_CACHE
----------------------
-
-**Defaulted to**: Not defined
-
-This environment variable if defined, will make the conan cache read-only. This could prevent 
-developers to accidentally edit some header of their dependencies while navigating code in their
-IDEs.
-
-This variable can also be set in ``conan.conf`` as ``read_only_cache = True`` in the ``[general]``
-section.
-
-The packages are made read-only in two points: when a package is built from sources, and when
-a package is retrieved from a remote repository. 
-
-The packages are not modified for upload, so users should take that into consideration before 
-uploading packages, as they will be read-only and that could have other side-effects.
-
-.. warning::
-
-    It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
-    For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
 .. _conan_run_tests:
 
