@@ -108,18 +108,6 @@ users in CI, to retrieve and store per-project specific dependencies (useful for
 
     Read more about it in :ref:`custom_cache`
 
-CONAN_USER, CONAN_CHANNEL
--------------------------
-
-Environment variables commonly used in ``test_package`` conanfiles, to allow package creation for
-different users and channel without modifying the code. They are also the environment variables
-that will be checked when using ``self.user`` or ``self.channel`` in ``conanfile.py`` package recipes
-in user space, where a user/channel has not been assigned yet (it is assigned when exported in the local cache).
-
-.. seealso::
-
-    Read more about it in :ref:`user_channel`
-
 CONAN_ENV_XXXX_YYYY
 -------------------
 
@@ -378,6 +366,18 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 .. seealso::
 
     Read more here: :ref:`logging_and_debugging` 
+
+CONAN_USER, CONAN_CHANNEL
+-------------------------
+
+Environment variables commonly used in ``test_package`` conanfiles, to allow package creation for
+different users and channel without modifying the code. They are also the environment variables
+that will be checked when using ``self.user`` or ``self.channel`` in ``conanfile.py`` package recipes
+in user space, where a user/channel has not been assigned yet (it is assigned when exported in the local cache).
+
+.. seealso::
+
+    Read more about it in :ref:`user_channel`
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
