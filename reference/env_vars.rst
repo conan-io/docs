@@ -62,6 +62,15 @@ underlying compiler settings. So it doesn't make sense to provide a setting or o
 So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
 to your desired cmake generator (as ``Ninja``).
 
+CONAN_COLOR_DARK
+----------------
+
+**Defaulted to**: ``False``/``0``
+
+Set it to ``True``/``1`` to use dark colors in the terminal output, instead of light ones.
+Useful for terminal or consoles with light colors as white, so text is rendered in Blue, Black, Magenta,
+instead of Yellow, Cyan, White.
+
 CONAN_USER_HOME
 ---------------
 
@@ -111,15 +120,6 @@ CONAN_COLOR_DISPLAY
 **Defaulted to**: ``True``/``1``
 
 Useful to remove colored output, set it to ``False``/``0`` to remove console output colors.
-
-CONAN_COLOR_DARK
-----------------
-
-**Defaulted to**: ``False``/``0``
-
-Set it to ``True``/``1`` to use dark colors in the terminal output, instead of light ones.
-Useful for terminal or consoles with light colors as white, so text is rendered in Blue, Black, Magenta,
-instead of Yellow, Cyan, White.
 
 CONAN_USER, CONAN_CHANNEL
 -------------------------
