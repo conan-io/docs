@@ -208,6 +208,29 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
 
     CONAN_ENV_ARCH = "x86"
 
+.. _conan_log_run_to_file:
+
+CONAN_LOG_RUN_TO_FILE
+---------------------
+
+**Defaulted to**: ``0``
+
+If set to ``1`` will log every ``self.run("{Some command}")`` command output in a file called ``conan_run.log``.
+That file will be located in the current execution directory, so if we call ``self.run`` in the conanfile.py's build method, the file
+will be located in the build folder.
+
+In case we execute ``self.run`` in our ``source()`` method, the ``conan_run.log`` will be created in the source directory, but then conan will copy it
+to the ``build`` folder following the regular execution flow. So the ``conan_run.log`` will contain all the logs from your conanfile.py command
+executions.
+
+The file can be included in the conan package (for debugging purposes) using the ``package`` method.
+
+.. code-block:: python
+
+        def package(self):
+            self.copy(pattern="conan_run.log", dst="", keep_path=False)
+
+
 .. _conan_make_program:
 
 CONAN_MAKE_PROGRAM
@@ -253,28 +276,6 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 .. seealso::
 
     Read more here: :ref:`logging_and_debugging` 
-
-.. _conan_log_run_to_file:
-
-CONAN_LOG_RUN_TO_FILE
----------------------
-
-**Defaulted to**: ``0``
-
-If set to ``1`` will log every ``self.run("{Some command}")`` command output in a file called ``conan_run.log``.
-That file will be located in the current execution directory, so if we call ``self.run`` in the conanfile.py's build method, the file
-will be located in the build folder.
-
-In case we execute ``self.run`` in our ``source()`` method, the ``conan_run.log`` will be created in the source directory, but then conan will copy it 
-to the ``build`` folder following the regular execution flow. So the ``conan_run.log`` will contain all the logs from your conanfile.py command
-executions.
-
-The file can be included in the conan package (for debugging purposes) using the ``package`` method.
-
-.. code-block:: python
-
-        def package(self):
-            self.copy(pattern="conan_run.log", dst="", keep_path=False)
 
 CONAN_LOG_RUN_TO_OUTPUT
 -----------------------
