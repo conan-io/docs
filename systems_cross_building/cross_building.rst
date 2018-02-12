@@ -273,8 +273,8 @@ RPI one:
     CXX=$target_host-$cxx_compiler
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS= -fPIE -fPIC
-    CXXFLAGS= -fPIE -fPIC
+    CFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
+    CXXFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
     LDFLAGS= -pie
 
 
@@ -310,8 +310,8 @@ match the gcc toolchain compiler:
     CXX=$target_host-$cxx_compiler
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS= -fPIC
-    CXXFLAGS= -fPIC
+    CFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
+    CXXFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
     LDFLAGS=
 
 - Clone, for example, the zlib library to try to build it to Android

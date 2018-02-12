@@ -20,13 +20,29 @@ Check the source code. You might be able to produce different outputs with diffe
 Running commands
 ----------------
 
+
+.. code-block:: python
+
+    run(self, command, output=True, cwd=None, win_bash=False, subsystem=None, msys_mingw=True):
+
+
 ``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
 so that command errors are do not pass unnoticed. It is just a wrapper for ``os.system()``
 
 Optional parameters:
 
-- ``output``: Defaulted to True, will write in stdout. You can pass any stream that accepts a ``write`` method like a ``StringIO.StringIO()``
-  Note: Be careful with the Python2 and Python3 compatibility, StringIO has been realocated between them.
+- **output** (Optional, Defaulted to ``True``) When True it will write in stdout.
+              You can pass any stream that accepts a ``write`` method like a ``io.StringIO()``:
 
-- ``cwd``: Current directory to run the command. Default "."
+..  code-block:: python
 
+    from io import StringIO # Python 2 and 3 compatible
+    mybuf = StringIO()
+    self.run("mycommand", output=mybuf)
+    self.output.warn(mybuf.getvalue())
+
+
+- **cwd** (Optional, Defaulted to ``.`` current directory): Current directory to run the command.
+- **win_bash** (Optional, Defaulted to ``False``): When True, it will run the configure/make commands inside a bash.
+- **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem). Used to escape the command according to the specified subsystem.
+- **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).

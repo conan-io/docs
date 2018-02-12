@@ -184,7 +184,7 @@ We could also use a :ref:`virtualenv generator<virtual_environment_generator>` t
     toolA:shared=True
 
     [generators]
-    virtualenvironment
+    virtualenv
 
 
 **In the terminal window:**
@@ -215,7 +215,7 @@ the environment variables poiting to the "lib" and "bin" folders.
     toolA:shared=True
 
     [generators]
-    virtualrunenvironment
+    virtualenv
 
 
 **In the terminal window:**
