@@ -38,6 +38,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: fixed wrong message for ``conan alias --help``.
 - Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
 
+1.0.3 (17-January-2018)
+-----------------------
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 
 1.0.2 (16-January-2018)
 -----------------------
