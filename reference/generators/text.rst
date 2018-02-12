@@ -38,7 +38,7 @@ For each requirement ``conanbuildinfo.txt`` file declares the following sections
 +-----------------------------+---------------------------------------------------------------------+
 | [libs_XXX]                  | List with library names of the requirement                          |
 +-----------------------------+---------------------------------------------------------------------+
-| [defines_XXX]               | List wit the defines of the requirement                             |
+| [defines_XXX]               | List with the defines of the requirement                            |
 +-----------------------------+---------------------------------------------------------------------+
 | [cflags_XXX]                | List with C compilation flags                                       |
 +-----------------------------+---------------------------------------------------------------------+
@@ -73,7 +73,7 @@ The values are ordered in the right order according to the dependency tree.
 +-----------------------------+---------------------------------------------------------------------+
 | [libs]                      | List with aggregated library names of the requirements              |
 +-----------------------------+---------------------------------------------------------------------+
-| [defines]                   | List with the aggregated defines of the requirements                 |
+| [defines]                   | List with the aggregated defines of the requirements                |
 +-----------------------------+---------------------------------------------------------------------+
 | [cflags]                    | List with aggregated C compilation flags                            |
 +-----------------------------+---------------------------------------------------------------------+
