@@ -3,25 +3,21 @@
 txt
 ===
 
-
 .. container:: out_reference_box
 
     This is the reference page for ``txt`` generator.
     Go to :ref:`Integrations/Custom integrations / Use the text generator<txt_integration>` to know how to use it.
-
 
 File format
 -----------
 
 The generated ``conanbuildinfo.txt`` file is a generic config file with ``[sections]`` and values.
 
-
 Package declared vars
 -----------------------
 
 For each requirement ``conanbuildinfo.txt`` file declares the following sections.
 ``XXX`` is the name of the require in lowercase. e.k "zlib" for ``zlib/1.2.8@lasote/stable`` requirement:
-
 
 +-----------------------------+---------------------------------------------------------------------+
 | SECTION                     | DESCRIPTION                                                         |
@@ -50,8 +46,6 @@ For each requirement ``conanbuildinfo.txt`` file declares the following sections
 +-----------------------------+---------------------------------------------------------------------+
 | [rootpath_XXX]              | Root path of the package                                            |
 +-----------------------------+---------------------------------------------------------------------+
-
-
 
 **Global declared vars**
 
