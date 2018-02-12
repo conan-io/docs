@@ -17,6 +17,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ----------------
 - Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
 - Feature: The ``CONAN_MAKE_PROGRAM`` environment variable now it is used by the CMake() build helper to set a custom make program.
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
+
 
 1.0.4 (30-January-2018)
 -----------------------
@@ -37,10 +39,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
 - Fix: fixed wrong message for ``conan alias --help``.
 - Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
-
-1.0.3 (17-January-2018)
------------------------
-- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 
 1.0.2 (16-January-2018)
 -----------------------
