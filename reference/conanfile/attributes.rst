@@ -196,14 +196,14 @@ to avoid re-typing them. Then, "arch": None is totally equivalent to "arch": ["x
 Check the reference or your ~/.conan/settings.yml file.
 
 As re-defining the whole settings attribute can be tedious, it is sometimes much simpler to
-remove or tune specific fields in the ``config()`` method. For example, if our package is runtime
+remove or tune specific fields in the ``configure()`` method. For example, if our package is runtime
 independent in VS, we can just remove that setting field:
 
 .. code-block:: python
 
     settings = "os", "compiler", "build_type", "arch"
 
-    def config(self):
+    def configure(self):
         self.settings.compiler["Visual Studio"].remove("runtime")
 
 .. _conanfile_options:
@@ -573,7 +573,7 @@ package:
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <package_info>` for more info.
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 
 deps_cpp_info
@@ -596,6 +596,17 @@ properties to obtain the absolute paths:
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
 +-------------------------------------------+---------------------------------------------------------------------+
 
+To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
+
+.. code-block:: python
+
+    class PocoTimerConan(ConanFile):
+        ...
+        def build(self):
+            # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
+            deps = self.deps_cpp_info.deps
+            
+            
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
 
@@ -626,7 +637,7 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <package_info>` for more info.
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 deps_env_info
 -------------
@@ -658,8 +669,8 @@ you want to access to the variable declared by some specific requirement you can
 info
 ----
 
-Object used in the :ref:`package_id()<package_id>` method to control the unique ID for a package.
-Check the :ref:`package_id()<package_id>` to see the details of the ``self.info`` object
+Object used to control the unique ID for a package. Check the :ref:`package_id() <method_package_id>` to see the details of the ``self.info``
+object.
 
 
 .. _apply_env:

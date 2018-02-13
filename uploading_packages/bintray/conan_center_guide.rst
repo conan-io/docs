@@ -13,6 +13,9 @@ you need to submit an inclusion request to Bintray, and the Bintray team will re
 
 - If you are packaging a third-party library you need to follow the guidelines below.
 
+.. image:: /images/add_to_conan-center.png
+    :align: center
+
 Inclusion guidelines for third party libraries
 **********************************************
 

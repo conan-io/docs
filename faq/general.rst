@@ -29,18 +29,6 @@ Yes. It runs offline very well. Package recipes and binary packages are stored i
 you can start new projects that depend on the same libraries without any Internet connection at all.
 Packages can be fully created, tested and consumed locally, without needing to upload them anywhere.
 
-How does conan compare to biicode dependency manager?
------------------------------------------------------
-A (probably incomplete) list of differences:
-
-- It has a fully decentralized, git-like architecture. The provided on-premises server is very easy to run.
-- It is build-system agnostic and highly decoupled from builds. It uses CMake extensively and integrates well with it, but there are packages built with perl+nmake, autotools, ..., etc. Consumers can use any available generator (Visual Studio, xcode, gcc, txt, CMake, qmake or qbs). They are not forced to use cmake.
-- Consumers are not locked-in to the technology. They are just provided with a file with include paths, lib paths, libs, ..., etc so that they can use that info as needed. System package managers can perfectly coexist with it.
-- It hosts and manages pre-built binaries. You can decide to build from source or use existing binaries. Binaries are cached on your computer at the user-level, so there is no need to build the same large binary twice for different projects. Many versions of binaries can coexist, different projects can use different versions, and it is easy to switch between versions in the same project (without rebuilding).
-- Python package recipes allow for very advanced configuration: static vs. dynamic; 32- vs. 64-bit; conditional dependencies (depending on OS, version, compiler, settings, options...) in a more intuitive cycle (source-build-package)
-- It is not required to host the source code. It can be retrieved from any origin such as github, sourceforge download+unzip, ..., etc.
-- Creating packages for existing libraries is much, much faster than with biicode, and practically zero-intrusive in the library project. The package itself can be an external repository with a URL to the existing library origin. You can fully create and test packages on your machine, prior to uploading them to any remote (including your own).
-
 Is it possible to install 2 different versions of the same library?
 -------------------------------------------------------------------
 Yes. You can install as many different versions of the same library as you need, and easily
@@ -60,13 +48,13 @@ Check :ref:`virtual environments<custom_cache>` for more details.
 
 Can I run the conan_server behind a firewall (on-premises)?
 -----------------------------------------------------------
-Yes. Conan does not require a connection to the conan.io repository at all for its operation. You can
-install packages from the conan.io repository if you want, test them, and only after approval, upload
+Yes. Conan does not require a connection to conan.io site or any other external service at all for its operation. You can
+install packages from the bintray conan-center repository if you want, test them, and only after approval, upload
 them to your on-premises server and forget about the original repository. Or you can just get
 the package recipes, re-build from source on your premises, and then upload the packages to your
 server.
 
-Can I connect to conan.io or other remotes through a corporate proxy?
+Can I connect to conan remote servers through a corporate proxy?
 ---------------------------------------------------------------------
 Yes, it can be configured in your **~/.conan/conan.conf** configuration file or with some
 environment variables. Check :ref:`proxy configuration <proxys>` for more details.

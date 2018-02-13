@@ -87,7 +87,7 @@ that will call ``conan install`` to install the requirements:
 
 - After the android block:
 
-.. code-block:: groovy
+.. code-block:: text
 
 
     task conanInstall {

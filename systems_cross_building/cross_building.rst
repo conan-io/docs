@@ -146,8 +146,8 @@ Linux to Windows
 A **bin/example.exe** for Win64 platform has been built.
 
 
-Windows to Raspberry PI
-.......................
+Windows to Raspberry PI (Linux/ARM)
+...................................
 
 - Install the toolchain: http://gnutoolchains.com/raspberry/
   You can choose different versions of the GCC cross compiler, choose one and adjust the following
@@ -157,22 +157,41 @@ Windows to Raspberry PI
 
 .. code-block:: text
 
+    target_host=arm-linux-gnueabihf
+    standalone_toolchain=C:/sysgcc/raspberry
+    cc_compiler=gcc
+    cxx_compiler=g++
+
     [settings]
     os_build=Windows
     arch_build=x86_64
     os=Linux
-    arch=armv7hf
+    arch=armv7 # Change to armv6 if you are using Raspberry 1
     compiler=gcc
-    compiler.version=6.3  # We have chosen gcc 6.3 installer
+    compiler.version=6
     compiler.libcxx=libstdc++11
     build_type=Release
 
     [env]
-    CC=arm-linux-gnueabihf-gcc
-    CXX=arm-linux-gnueabihf-g++
+    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host/sysroot
+    PATH=[$standalone_toolchain/bin]
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-as
+    RANLIB=$target_host-ranlib
+    LD=$target_host-ld
+    STRIP=$target_host-strip
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
+    CXXFLAGS=-I"$standalone_toolchain/$target_host/lib/include"
 
-The downloaded toolchain is an installer that puts the compilers in the path, so we can just specify
-the executable name in the ``CC`` and ``CXX`` variables.
+The profiles to target Linux are all very similar, probably you just need to adjust the variables
+declared in the top of the profile:
+
+    - **target_host**: All the executables in the toolchain starts with this prefix.
+    - **standalone_toolchain**: Path to the toolchain installation.
+    - **cc_compiler/cxx_compiler**: In this case ``gcc``/``g++``, but could be ``clang``/``clang++``.
+
 
 - Clone an example recipe or use your own recipe:
 
@@ -214,7 +233,7 @@ for you:
 .. code-block:: bash
 
    $ cd build/tools
-   $ python make_standalone_toolchain.py --arch=arm --api=21 --stl=libc++ --install-dir=/tmp/arm_21_toolchain
+   $ python make_standalone_toolchain.py --arch=arm --api=21 --stl=libc++ --install-dir=/myfolder/arm_21_toolchain
 
 
 .. note::
@@ -224,12 +243,15 @@ for you:
     Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_
 
 
-To use the ``clang`` compiler, create a profile ``android_21_arm_clang`` with the following contents:
+To use the ``clang`` compiler, create a profile ``android_21_arm_clang``. Once again, the profile is very similar to the
+RPI one:
 
 .. code-block:: text
 
-    standalone_toolchain=/tmp/arm_21_toolchain # Adjust this path
+    standalone_toolchain=/myfolder/arm_21_toolchain # Adjust this path
     target_host=arm-linux-androideabi
+    cc_compiler=clang
+    cxx_compiler=clang++
 
     [settings]
     compiler=clang
@@ -247,21 +269,26 @@ To use the ``clang`` compiler, create a profile ``android_21_arm_clang`` with th
     AR=$target_host-ar
     AS=$target_host-as
     RANLIB=$target_host-ranlib
-    CC=$target_host-clang
-    CXX=$target_host-clang++
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS= -fPIE -fPIC
-    CXXFLAGS= -fPIE -fPIC
+    CFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
+    CXXFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
     LDFLAGS= -pie
 
-You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``:
+
+You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``, changing the ``cc_compiler`` and
+``cxx_compiler`` variables, removing ``-fPIE`` flag and, of course, changing the ``[settings]`` to
+match the gcc toolchain compiler:
 
 
 .. code-block:: text
 
-    standalone_toolchain=/tmp/arm_21_toolchain # Adjust this path
+    standalone_toolchain=/myfolder/arm_21_toolchain
     target_host=arm-linux-androideabi
+    cc_compiler=gcc
+    cxx_compiler=g++
 
     [settings]
     compiler=gcc
@@ -278,13 +305,13 @@ You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``:
     CHOST=$target_host
     AR=$target_host-ar
     AS=$target_host-as
-    CC=$target_host-gcc
-    CXX=$target_host-g++
     RANLIB=$target_host-ranlib
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS=-fPIC
-    CXXFLAGS=-fPIC
+    CFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
+    CXXFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
     LDFLAGS=
 
 - Clone, for example, the zlib library to try to build it to Android
@@ -314,7 +341,7 @@ Using build requires
 
 Instead of downloading manually the toolchain and creating a profile, you can create a Conan package
 with it. The toolchain Conan package needs to fill the ``env_info`` object
-in the :ref:`package_info()<package_info>` method with the same variables we've specified in the examples
+in the :ref:`package_info()<method_package_info>` method with the same variables we've specified in the examples
 above in the ``[env]`` section of profiles.
 
 A layout of a Conan package for a toolchain could looks like this:
@@ -392,7 +419,9 @@ Here is a table with some typical ARM platorms:
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Platform                       | Conan setting                                                                                  |
 +================================+================================================================================================+
-| Raspberry PI 1 and 2           | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
+| Raspberry PI 1                 | ``armv6``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Raspberry PI 2                 | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
 +--------------------------------+------------------------------------------------------------------------------------------------+

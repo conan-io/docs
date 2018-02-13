@@ -14,7 +14,7 @@ different binary:
     class MyLibConanPackage(ConanFile):	
         name = "MyLib"
         version = "1.0"
-        settings = "os", "arch", "compiler", "build_type", "os_build", "arch_build"
+        settings = "os", "arch", "compiler", "build_type"
 
 When this package is installed by a *conanfile.txt*, another package *conanfile.py*, or directly:
 
@@ -48,13 +48,6 @@ build type, etc., generating multiple binaries, one for each configuration.
 When users of the package define the same settings as one of those binaries that have been uploaded,
 the computed package ID will be the same, such binary will be retrieved, and they will be able
 to reuse the binary without building it from sources.
-
-The ``os_build`` and ``arch_build`` are special settings. When ``os`` setting is declared, the ``os_build``
-setting will not be hashed so Conan will not generate different binary packages for different values of ``os_build``.
-The same happens with the ``arch`` and ``arch_build``. The rationale is that ``os_build`` represent the machine
-running Conan, so, for the consumer, the only setting that matters is where the built software will run,
-not where the compilation run.
-Learn more in the :ref:`Cross building <cross_building>` section.
 
 The use case for ``options`` is very similar, the main difference is that options can be more easily
 defined at the package level and they can be defaulted. Check the :ref:`conanfile_options`
@@ -171,12 +164,11 @@ values if necessary.
 
 .. seealso::
 
-    Check the :ref:`package_id() method reference<package_id>` too see the available helper methods
+    Check the :ref:`package_id() method reference<method_package_id>` too see the available helper methods
     to change the package_id() behavior, for example to:
 
         - Adjust our package recipe as a **header only**
         - Adjust **Visual Studio toolsets** compatibility
-        - Adjust when the **os_build/arch_build** are hashed.
 
 
 .. _problem_of_dependencies:

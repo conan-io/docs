@@ -71,7 +71,7 @@ tools.vcvars_dict()
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=True)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -87,7 +87,7 @@ Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
 Parameters:
     - Same as ``vcvars_command``.
-    - **filter_known_paths** (Optional, Defaulted to ``True``): The function will only keep the PATH
+    - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
 
@@ -97,7 +97,7 @@ tools.vcvars()
 
 .. code-block:: python
 
-    vcvars(settings, arch=None, compiler_version=None, force=False)
+    vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
@@ -248,6 +248,43 @@ Parameters:
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
 
+.. _tools_get_env:
+
+tools.get_env()
+---------------
+
+.. code-block:: python
+
+   def get_env(env_key, default=None, environment=None)
+
+Parses an environment and cast its value against the **default** type passed as an argument.
+
+Following python conventions, returns **default** if **env_key** is not defined.
+
+See an usage example with an environment variable defined while executing conan
+
+.. code-block:: bash
+
+   $ TEST_ENV="1" conan <command> ...
+
+.. code-block:: python
+
+   from conans import tools
+
+   tools.get_env("TEST_ENV") # returns "1", returns current value
+   tools.get_env("TEST_ENV_NOT_DEFINED") # returns None, TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV_NOT_DEFINED", []) # returns [], TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV", "2") # returns "1"
+   tools.get_env("TEST_ENV", False) # returns True (default value is boolean)
+   tools.get_env("TEST_ENV", 2) # returns 1
+   tools.get_env("TEST_ENV", 2.0) # returns 1.0
+   tools.get_env("TEST_ENV", []) # returns ["1"]
+
+Parameters:
+   - **env_key** (Required): environment variable name.
+   - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
+   - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
+
 tools.download()
 ----------------
 
@@ -341,6 +378,8 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
+
+.. _tools_check_with_algorithm_sum:
 
 tools.check_with_algorithm_sum()
 --------------------------------
@@ -556,7 +595,7 @@ Parameters:
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
 
-These are helpers to install system packages. Check :ref:`system_requirements`
+These are helpers to install system packages. Check :ref:`method_system_requirements`.
 
 .. _cross_building_reference:
 
@@ -611,6 +650,17 @@ Parameters:
     - **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).
     - **env** (Optional, Defaulted to ``None``) You can pass a dict with environment variable to be applied **at first place** so they will have more priority than others.
 
+
+tools.get_cased_path()
+----------------------
+
+.. code-block:: python
+
+    get_cased_path(abs_path)
+
+
+For Windows, for any ``abs_path`` parameter containing a case-insensitive absolute path, returns it case-sensitive, that is, with the real cased characters.
+Useful when using Windows subsystems where the file system is case-sensitive.
 
 
 tools.remove_from_path()

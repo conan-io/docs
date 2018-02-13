@@ -25,7 +25,8 @@ also done by the client application.
    :width: 400 px
    :align: center
 
-The different applications in the picture are:
+
+The different applications in the image above are:
 
 - The **conan client**: this is a console/terminal command line application, containing the heavy
   logic for package creation and consumption. Conan client has a local cache for package storage,
@@ -57,7 +58,7 @@ The different applications in the picture are:
 Binary management
 -----------------
 
-One of the powerful features of conan is that it can manage pre-compiled binaries for packages. To
+One of the most powerful features of Conan is that it can manage pre-compiled binaries for packages. To
 define a package, referenced by its name, version, user and channel, a package recipe is needed.
 Such a package recipe is a conanfile.py python script that defines how the package is built from
 sources, what the final binary artifacts are, the package dependencies, etc.
@@ -67,8 +68,8 @@ sources, what the final binary artifacts are, the package dependencies, etc.
    :width: 400 px
    :align: center
 
-When a package recipe is used in a conan client and a “binary package” is built from sources, that
-binary package will be compatible with certain settings, such as the OS it was created for, the
+When a package recipe is used in the Conan client, and a “binary package” is built from sources, that
+binary package will be compatible with specific settings, such as the OS it was created for, the
 compiler and compiler version, or the computer architecture. If the package is built again from the
 same sources but with different settings, (e.g. for a different architecture), a new, different
 binary will be generated. By the way, “binary package” is in quotes because, strictly, it is not

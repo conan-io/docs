@@ -36,7 +36,7 @@ If you are creating a **conan** package:
   external package recipe, this url should point to the package recipe repository **not** to the
   external source origin.
   If a **github** repository is detected, the conan website will link your github issues page from your conan's package page.
-- You can use **git** to :ref:`obtain your sources<retrieve_source>` (requires the git client in the path)
+- You can use **git** to :ref:`obtain your sources<method_source>` (requires the git client in the path)
   when creating external package recipes.
 
 .. |git_logo| image:: ../images/git_logo.png

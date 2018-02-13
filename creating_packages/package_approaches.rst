@@ -2,16 +2,16 @@ Packaging approaches
 ====================
 
 Package recipes have three methods to control the package's binary compatibility and to implement
-different packaging approaches: :ref:`package_id`, :ref:`build_id` and :ref:`package_info`.
+different packaging approaches: :ref:`method_package_id`, :ref:`method_build_id` and :ref:`method_package_info`.
 
-This methods provide package creators with the posibility to follow different packages approaches
-and chose the best one for each library.
+The above methods let package creators follow different package approaches to choose
+the best fit for each library.
 
 1 config (1 build) -> 1 package
 -------------------------------
 
-A typical approach is to have each package contain the artifacts just for one configuration. In this
-approach, for example, the debug pre-compiled libraries will be in a different package than the
+A typical approach is to have one configuration for each package containing the artifacts.
+In this approach, for example, the debug pre-compiled libraries will be in a different package than the
 release pre-compiled libraries.
 
 So if there is a package recipe that builds a “hello” library, there will be one package containing
@@ -71,7 +71,7 @@ distribution mistakes. For example, debug artifacts might contain symbols or sou
 could help or directly provide means for reverse engineering. So distributing debug artifacts by
 mistake could be a very risky issue.
 
-Read more about this in :ref:`package_info`.
+Read more about this in :ref:`method_package_info`.
 
 N configs -> 1 package
 ----------------------
@@ -96,32 +96,45 @@ library, in the same package.
 
         $ git clone https://github.com/memsharded/hello_multi_config
         $ cd hello_multi_config
-        $ conan create user/channel -s build_type=Release
-        $ conan create user/channel -s build_type=Debug --build=missing
+        $ conan create . user/channel -s build_type=Release
+        $ conan create . user/channel -s build_type=Debug --build=missing
 
 Creating a multi-configuration Debug/Release package is not difficult, see the following example
-using CMake:
+using CMake.
+
+The first step is to remove ``build_type`` from the settings. It will not be an input setting, the
+generated package will always be the same, containing both Debug and Release artifacts.
+The Visual Studio runtime is different for debug and release (``MDd`` or ``MD``), so if we are fine
+with the default runtime (MD/MDd), it is also good to remove the ``runtime`` subsetting in the
+``configure()`` method:
+
 
 .. code-block:: python
 
-    def package_id(self):
-        self.info.settings.build_type = "ANY" # For any build_type we will use 1 package
+    class Pkg(ConanFile):
+        # build_type has been ommitted. It is not an input setting.
+        settings = "os", "compiler", "arch"
 
-    def build(self):
-        cmake = CMake(self)
-        if cmake.is_multi_configuration:
-            cmd = 'cmake "%s" %s' % (self.source_folder, cmake.command_line)
-            self.run(cmd)
-            self.run("cmake --build . --config Debug")
-            self.run("cmake --build . --config Release")
-        else:
-            for config in ("Debug", "Release"):
-                self.output.info("Building %s" % config)
-                self.run('cmake "%s" %s -DCMAKE_BUILD_TYPE=%s'
-                         % (self.source_folder, cmake.command_line, config))
-                self.run("cmake --build .")
-                shutil.rmtree("CMakeFiles")
-                os.remove("CMakeCache.txt")
+        def configure(self):
+            # it is also necessary to remove the VS runtime
+            if self.settings.compiler == "Visual Studio":
+                del self.settings.compiler.runtime
+
+        def build(self):
+            cmake = CMake(self)
+            if cmake.is_multi_configuration:
+                cmd = 'cmake "%s" %s' % (self.source_folder, cmake.command_line)
+                self.run(cmd)
+                self.run("cmake --build . --config Debug")
+                self.run("cmake --build . --config Release")
+            else:
+                for config in ("Debug", "Release"):
+                    self.output.info("Building %s" % config)
+                    self.run('cmake "%s" %s -DCMAKE_BUILD_TYPE=%s'
+                            % (self.source_folder, cmake.command_line, config))
+                    self.run("cmake --build .")
+                    shutil.rmtree("CMakeFiles")
+                    os.remove("CMakeCache.txt")
 
 In this case, we are assuming that the binaries will be differentiated with a suffix, in cmake
 syntax:
@@ -154,6 +167,24 @@ helper.
 In this case you can still use the general, not config-specific variables. For example, the include
 directory, set by default to *include*, is still the same for both debug and release. Those general
 variables will be applied for all configurations.
+
+.. important::
+
+    The above code assumes that the package will always use the default Visual Studio runtime (MD/MDd).
+    If we want to keep the package configurable for supporting static(MT)/dynamic(MD) linking with the VS runtime
+    library, some extra work is needed. Basically:
+
+    - Keep, the ``compiler.runtime`` setting, i.e. do not implement the ``configure()`` method removing it
+    - Don't let the ``CMake`` helper define the ``CONAN_LINK_RUNTIME`` env-var to define the runtime, because
+      being defined by the consumer it would be incorrectly applied to both Debug and Release artifacts.
+      This can be done with a ``cmake.command_line.replace("CONAN_LINK_RUNTIME", "CONAN_LINK_RUNTIME_MULTI")``
+      to define a new variable
+    - Write a ``package_id()`` method that defines the packages to be built, one for MD/MDd, and other for MT/MTd
+    - In *CMakeLists.txt*, use the ``CONAN_LINK_RUNTIME_MULTI`` variable to correctly setup up the runtime for
+      debug and release flags
+
+    All these steps are already coded in the repo https://github.com/memsharded/hello_multi_config and commented
+    out as **"Alternative 2"**
 
 Also, you can use any custom configuration you want, they are not restricted. For example, if
 your package is a multi-library package, you could try doing something like:
@@ -219,4 +250,4 @@ every configuration (architecture, compiler version, etc). So if we just have De
 types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders,
 saving half of the build time.
 
-Read more about this in :ref:`build_id`.
+Read more about this in :ref:`method_build_id`.

@@ -20,7 +20,7 @@ We can crate a package that contains an executable, for example from the default
 
     $ conan new Hello/0.1
 
-The source code used contains an executable called ``greet``, but it is not packaged by default. Lets modify the recipe
+The source code used contains an executable called ``greet``, but it is not packaged by default. Let's modify the recipe
 ``package()`` method to also package the executable:
 
 .. code-block:: python
@@ -33,7 +33,7 @@ Now, we can create the package as usual, but if we try to run the executable, it
 
 .. code-block:: bash
 
-    $ conan create user/testing
+    $ conan create . user/testing
     ...
     Hello/0.1@user/testing package(): Copied 1 '.h' files: hello.h
     Hello/0.1@user/testing package(): Copied 1 '.exe' files: greet.exe
@@ -52,7 +52,7 @@ The ``virtualrunenv`` generator will generate files that add the packages defaul
 - It adds the dependencies ``lib`` subfolder to the ``LD_LIBRARY_PATH`` environment variable (for Linux shared libraries)
 - It adds the dependencies ``bin`` subfolder to the ``PATH`` environment variable (for executables)
 
-So if we install the package, specifying such ``virtualenv`` like:
+So if we install the package, specifying such ``virtualrunenv`` like:
 
 .. code-block:: bash
 
@@ -62,27 +62,34 @@ We will get some files, that can be called to activate and deactivate such envir
 
 .. code-block:: bash
 
-    $ activate # $ source activate in nix
+    $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
     > Hello World!
-
+    $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
 
 Imports
 --------
 It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
-cache the desired files. This approach, requires a user conanfile, so it might not be very convenient.
+cache the desired files. This approach, requires an user conanfile.
+For more details see example below :ref:`runtime packages<repackage>`
 
 
 Deployable packages
 --------------------
-With the ``deploy()`` method, a package can specify which files and artifacts to copy to user space, of to other locations
-in the system. In the above example we could add to our ``Hello`` conanfile.py, and run ``conan create`` again:
+With the ``deploy()`` method, a package can specify which files and artifacts to copy to user space or to other
+locations in the system. Let's modify the example recipe adding the ``deploy()`` method:
 
 .. code-block:: python
 
     def deploy(self):
         self.copy("*", dst="bin", src="bin")
 
+
+And run ``$ conan create``
+
+.. code-block:: bash
+
+    $ conan create . user/testing
 
 With that method in our package recipe, it will copy the executable when installed directly:
 
@@ -118,6 +125,15 @@ the ``Consumer`` package is willing to execute the ``greet`` app while building 
             env = RunEnvironment(self)
             with tools.environment_append(env.vars):
                 self.run("greet")
+
+Now run ``$ conan install`` and ``$ conan build`` for this consumer recipe:
+
+.. code-block:: bash
+
+    $ conan install . && conan build .
+    ...
+    Project: Running build()
+    Hello World!
 
 Instead of using the environment, it is also possible to access the path of the dependencies:
 
@@ -187,17 +203,23 @@ This recipe has the following characteristics:
   is not define, then using the default empty one), are kept and not removed after build
 - The ``package()`` method packages the imported artifacts that will be in the build folder.
 
+To create and upload to remote this package:
 
-Installing and running this package, can be done by any of the means presented above, for example, we could do:
+.. code-block:: bash
+
+    $ conan create . user/testing
+    $ conan upload HelloRun* --all -r=my-remote
+
+
+After that, installing and running this package, can be done by any of the means presented above,
+for example, we could do:
 
 .. code-block:: bash
 
     $ conan install HelloRun/0.1@user/testing -g virtualrunenv
+    # You can specify the remote with -r=my-remote
     # It will not install Hello/0.1@...
-    $ activate
+    $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
     > Hello World!
-
-
-
-
+    $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux

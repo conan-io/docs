@@ -9,8 +9,8 @@ conan package
                     path
 
 Calls your local conanfile.py 'package()' method. This command works locally,
-in the user space, and it will copy artifacts from the --build_folder and
---source_folder folder to the --package_folder one. It won't create a new
+in the user space, and it will copy artifacts from the --build-folder and
+--source-folder folder to the --package-folder one. It won't create a new
 package in the local cache, if you want to do it, use 'create' or use 'export-
 pkg' after a 'build' command.
 
@@ -48,7 +48,7 @@ requirements.
 
 All that information is saved automatically in the ``conaninfo.txt`` and ``conanbuildinfo.txt``
 files respectively, when you run the ``conan install`` command.
-Those files have to be located in the specified ``--build_folder``.
+Those files have to be located in the specified ``--build-folder``.
 
 .. code-block:: bash
 

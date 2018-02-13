@@ -6,12 +6,85 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+.. important::
+
+  Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries. 
+  There were some errors in the docs, using them for all packages.
+  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
+  
+  
+1.1.0 ( )
+----------------
+- Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
+- Feature: The ``CONAN_MAKE_PROGRAM`` environment variable now it is used by the CMake() build helper to set a custom make program.
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
+
+
+1.0.4 (30-January-2018)
+-----------------------
+- Bugfix: Fixed default profile defined in *conan.conf* that includes another profile
+- Bugfix: added missing management of ``sysroot`` in *conanbuildinfo.txt* affecting ``conan build`` and ``test_package``
+- Bugfix: Fixed warning in ``conan source`` because of incorrect management of settings.
+- Bugfix: Fixed priority order of environment variables defined in included profiles
+- Bugfix: NMake error for parallel builds from the ``CMake`` build helper have been fixed
+- Bugfix: Fixed options pattern not applied to root node (``-o *:shared=True`` not working for consuming package)
+- Bugfix: Fixed shadowed options by package name (``-o *:shared=True -o Pkg:other=False`` was not applying ``shared`` value to Pkg)
+- Fix: Using ``filter_known_paths=False`` as default to ``vcvars_dict()`` helper.
+- Fix: Fixed wrong package name for output messages regarding build-requires
+- Fix: Added correct metadata to conan.exe when generated via pyinstaller
+
+1.0.3 (22-January-2018)
+-----------------------
+- Bugfix: Correct load of stored settings in conaninfo.txt (for ``conan build``) when ``configure()`` remove some setting.
+- Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
+- Fix: fixed wrong message for ``conan alias --help``.
+- Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
+
+1.0.2 (16-January-2018)
+-----------------------
+- Fix: Adding a warning message for simultaneous use of ``os`` and ``os_build`` settings.
+- Fix: Do not raise error from *conanbuildinfo.cmake* for Intel MSVC toolsets.
+- Fix: Added more architectures to default *settings.yml* ``arch_build`` setting.
+- Fix: using ``--xxx-folder`` in command line help messages.
+- Bugfix: using quotes for Windows bash path with spaces.
+- Bugfix: vcvars/vcvars_dict not including windows and windows/system32 directories in the path.
+
+
+1.0.1 (12-January-2018)
+-----------------------
+- Fix: ``conan new`` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
+- Fix: ``conaninfo.txt`` file does not dump settings with None values
+
+
 1.0.0 (10-January-2018)
 -----------------------
 - Bugfix: Fixed bug from ``remove_from_path`` due to Windows path backslash
 - Bugfix: Compiler detection in *conanbuildinfo.cmake* for Visual Studio using toolchains like LLVM (Clang)
 - Bugfix: Added quotes to bash path.
 
+
+1.0.0-beta5 (8-January-2018)
+-----------------------------
+- Fix: Errors from remotes different to a 404 will raise an error. Disconnected remotes have to be removed from remotes or use explicit remote with ``-r myremote``
+- Fix: cross-building message when building different architecture in same OS
+- Fix: ``$ conan profile show`` now shows profile with same syntax as profile files
+- Fix: generated test code in ``$ conan new`` templates will not run example app if cross building.
+- Fix: ``$ conan export-pkg`` uses the *conanfile.py* folder as the default ``--source-folder``
+- Bugfix: ``$ conan download`` didn't download recipe if there are no binaries. Force recipe download.
+- Bugfix: Fixed blocked ``self.run()`` when stderr outputs large tests, due to full pipe.
+
+
+1.0.0-beta4 (4-January-2018)
+-----------------------------
+- Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories 
+- Fix: Adding all values to ``arch_target``
+- Fix: ``conan new`` templates now use new ``os_build`` and ``arch_build`` settings
+- Fix: Updated ``CMake`` helper to account for ``os_build`` and ``arch_build`` new settings
+- Fix: Automatic creation of *default* profile when it is needed by another one (like ``include(default)``)
+- BugFix: Failed installation (non existing package) was leaving lock files in the cache, reporting a package for ``conan search``
+- BugFix: Environment variables are now applied to ``build_requirements()`` for ``$ conan install .``
+- BugFix: Dependency graph was raising conflicts for diamonds with ``alias`` packages
+- BugFix: Fixed ``conan export-pkg`` after a ``conan install`` when recipe has options
 
 
 1.0.0-beta3 (28-December-2017)
