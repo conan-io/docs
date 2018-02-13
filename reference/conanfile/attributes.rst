@@ -673,6 +673,8 @@ Object used to control the unique ID for a package. Check the :ref:`package_id()
 object.
 
 
+.. _apply_env:
+
 apply_env
 ---------
 

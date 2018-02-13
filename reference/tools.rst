@@ -43,7 +43,7 @@ method, like this:
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         if self.settings.build_os == "Windows":
             vcvars = tools.vcvars_command(self.settings)
@@ -517,12 +517,17 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
+any PYTHONPATH inherited from the requirements will be automatically available.
+
 .. code-block:: python
 
     def pythonpath(conanfile)
 
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
+
+It is automatically applied
 
 .. code-block:: python
 
@@ -532,7 +537,20 @@ with python code, and reuse that code into your own recipes.
         with tools.pythonpath(self):
             from module_name import whatever
             whatever.do_something()
-            
+
+
+When the :ref:`apply_env<apply_env>` is activated (default) the above code could be simplified as:
+
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        from module_name import whatever
+        whatever.do_something()
+
+
 For that to work, one of the dependencies of the current recipe, must have a ``module_name``
 file or folder with a ``whatever`` file or object inside, and should have declared in its
 ``package_info()``:
@@ -546,6 +564,7 @@ file or folder with a ``whatever`` file or object inside, and should have declar
 
 Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
+
 
 tools.no_op()
 -------------

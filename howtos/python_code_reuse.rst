@@ -124,15 +124,14 @@ As the conan recipes are python code itself, it is easy to reuse python packages
 
 .. code-block:: python
 
-    from conans import ConanFile, tools
+    from conans import ConanFile
 
     class HelloPythonReuseConan(ConanFile):
         requires = "HelloPy/0.1@memsharded/testing"
 
         def build(self):
-            with tools.pythonpath(self):
-                from hello import hello
-                hello()
+            from hello import hello
+            hello()
 
 
 
@@ -140,11 +139,6 @@ The ``requires`` section is just referencing the previously created package. The
 methods of the recipe: ``source()``, ``build()``, ``package()`` and ``package_info()``, i.e. all of the methods used for creating the
 package itself. Note that in other places it is not possible, as it would require the dependencies of the recipe to be already retrieved,
 and such dependencies cannot be retrieved until the basic evaluation of the recipe has been executed.
-
-
-In the above example, the code is reused in the ``build()`` method as an example. Note the use of a helper context, which basically
-activates/deactivates the ``PYTHONPATH`` environment variable with the value assigned in the package. We didn't want to do this activation
-implicit for all conan packages, but rather make it explicit.
 
 .. code-block:: bash
 
