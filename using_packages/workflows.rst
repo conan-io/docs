@@ -43,7 +43,7 @@ Now you are ready to build:
 
 .. code-block:: bash
 
-    $ cmake ../example-hello -G "Visual Studio 14 Win64" //or other generator
+    $ cmake ../example-hello -G "Visual Studio 14 Win64"  # or other generator
     $ cmake --build . --config Release
     $ ./bin/greet
 
@@ -53,8 +53,7 @@ build with a new configuration with different settings, if needed:
 
 .. code-block:: bash
 
-    $ cd example-hello-build
-    $ rm -rf *
+    $ cd example-hello-build && rm -rf *
     $ conan install ../example-hello -s compiler="<other compiler>" --build=missing
     $ cmake ../example-hello -G "<other generator>"
     $ cmake --build . --config Release
