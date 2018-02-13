@@ -43,7 +43,7 @@ method, like this:
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         if self.settings.build_os == "Windows":
             vcvars = tools.vcvars_command(self.settings)
@@ -537,7 +537,20 @@ It is automatically applied
         with tools.pythonpath(self):
             from module_name import whatever
             whatever.do_something()
-            
+
+
+When the :ref:`apply_env<apply_env>` is activated (default) the above code could be simplified as:
+
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        from module_name import whatever
+        whatever.do_something()
+
+
 For that to work, one of the dependencies of the current recipe, must have a ``module_name``
 file or folder with a ``whatever`` file or object inside, and should have declared in its
 ``package_info()``:
@@ -551,6 +564,7 @@ file or folder with a ``whatever`` file or object inside, and should have declar
 
 Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
+
 
 tools.no_op()
 -------------
