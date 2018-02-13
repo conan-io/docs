@@ -17,7 +17,21 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ----------------
 - Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
 - Feature: The ``CONAN_MAKE_PROGRAM`` environment variable now it is used by the CMake() build helper to set a custom make program.
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 
+
+1.0.4 (30-January-2018)
+-----------------------
+- Bugfix: Fixed default profile defined in *conan.conf* that includes another profile
+- Bugfix: added missing management of ``sysroot`` in *conanbuildinfo.txt* affecting ``conan build`` and ``test_package``
+- Bugfix: Fixed warning in ``conan source`` because of incorrect management of settings.
+- Bugfix: Fixed priority order of environment variables defined in included profiles
+- Bugfix: NMake error for parallel builds from the ``CMake`` build helper have been fixed
+- Bugfix: Fixed options pattern not applied to root node (``-o *:shared=True`` not working for consuming package)
+- Bugfix: Fixed shadowed options by package name (``-o *:shared=True -o Pkg:other=False`` was not applying ``shared`` value to Pkg)
+- Fix: Using ``filter_known_paths=False`` as default to ``vcvars_dict()`` helper.
+- Fix: Fixed wrong package name for output messages regarding build-requires
+- Fix: Added correct metadata to conan.exe when generated via pyinstaller
 
 1.0.3 (22-January-2018)
 -----------------------
@@ -25,7 +39,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
 - Fix: fixed wrong message for ``conan alias --help``.
 - Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
-
 
 1.0.2 (16-January-2018)
 -----------------------

@@ -43,7 +43,7 @@ method, like this:
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         if self.settings.build_os == "Windows":
             vcvars = tools.vcvars_command(self.settings)
@@ -71,7 +71,7 @@ tools.vcvars_dict()
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=True)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -87,7 +87,7 @@ Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
 Parameters:
     - Same as ``vcvars_command``.
-    - **filter_known_paths** (Optional, Defaulted to ``True``): The function will only keep the PATH
+    - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
 
@@ -97,7 +97,7 @@ tools.vcvars()
 
 .. code-block:: python
 
-    vcvars(settings, arch=None, compiler_version=None, force=False)
+    vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
@@ -244,6 +244,43 @@ Parameters:
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+
+.. _tools_get_env:
+
+tools.get_env()
+---------------
+
+.. code-block:: python
+
+   def get_env(env_key, default=None, environment=None)
+
+Parses an environment and cast its value against the **default** type passed as an argument.
+
+Following python conventions, returns **default** if **env_key** is not defined.
+
+See an usage example with an environment variable defined while executing conan
+
+.. code-block:: bash
+
+   $ TEST_ENV="1" conan <command> ...
+
+.. code-block:: python
+
+   from conans import tools
+
+   tools.get_env("TEST_ENV") # returns "1", returns current value
+   tools.get_env("TEST_ENV_NOT_DEFINED") # returns None, TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV_NOT_DEFINED", []) # returns [], TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV", "2") # returns "1"
+   tools.get_env("TEST_ENV", False) # returns True (default value is boolean)
+   tools.get_env("TEST_ENV", 2) # returns 1
+   tools.get_env("TEST_ENV", 2.0) # returns 1.0
+   tools.get_env("TEST_ENV", []) # returns ["1"]
+
+Parameters:
+   - **env_key** (Required): environment variable name.
+   - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
+   - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
 
 tools.download()
 ----------------
@@ -477,12 +514,17 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
+any PYTHONPATH inherited from the requirements will be automatically available.
+
 .. code-block:: python
 
     def pythonpath(conanfile)
 
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
+
+It is automatically applied
 
 .. code-block:: python
 
@@ -492,7 +534,20 @@ with python code, and reuse that code into your own recipes.
         with tools.pythonpath(self):
             from module_name import whatever
             whatever.do_something()
-            
+
+
+When the :ref:`apply_env<apply_env>` is activated (default) the above code could be simplified as:
+
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        from module_name import whatever
+        whatever.do_something()
+
+
 For that to work, one of the dependencies of the current recipe, must have a ``module_name``
 file or folder with a ``whatever`` file or object inside, and should have declared in its
 ``package_info()``:
@@ -506,6 +561,7 @@ file or folder with a ``whatever`` file or object inside, and should have declar
 
 Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
+
 
 tools.no_op()
 -------------

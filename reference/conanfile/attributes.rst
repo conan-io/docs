@@ -596,6 +596,17 @@ properties to obtain the absolute paths:
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
 +-------------------------------------------+---------------------------------------------------------------------+
 
+To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
+
+.. code-block:: python
+
+    class PocoTimerConan(ConanFile):
+        ...
+        def build(self):
+            # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
+            deps = self.deps_cpp_info.deps
+            
+            
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
 
@@ -661,6 +672,8 @@ info
 Object used to control the unique ID for a package. Check the :ref:`package_id() <method_package_id>` to see the details of the ``self.info``
 object.
 
+
+.. _apply_env:
 
 apply_env
 ---------

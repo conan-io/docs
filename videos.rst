@@ -3,6 +3,16 @@
 Videos and links
 =================
 
+- Packaging C/C++ libraries with Conan. 30 min talk by Théo Delrieu at FOSDEM 2018.
+  Includes AndroidNDK package and cross build to Android
+
+.. raw:: html
+
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/RDsn0TKcdPQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+   <br/><br/>
+
+
 - Introduction to Conan C/C++ package manager. 30 min talk in CppCon 2016.
 
 .. raw:: html

@@ -49,9 +49,9 @@ team. Currently there are two central repositories:
 .. pull-quote::
 
    This repository is an exact copy of the old ``server.conan.io`` repository at **June 11, 2017
-   08:00 CET**. It is a read-only repository, sou you can download any packages that it hosts but
-   you are not able to upload packages to it. This repository only exists for backwards
-   compatibility and the packages there **will never be updated**.
+   08:00 CET**. It's a read-only repository, so you can only download hosted packages but
+   you won't be able to upload anything else. This repository only exists for backwards
+   compatibility and the currently hosted packages **will never be updated**.
 
 Conan comes with both **conan-center** and **conan-transit** repositories configured by default.
 Just in case you want to manually configure these repositories you can always add them like this:
