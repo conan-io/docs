@@ -75,7 +75,7 @@ Just remember to install four Conan dependencies first. They are not in the offi
 Install the binaries
 --------------------
 
-Go to the conan website and `download the installer for your platform <https://www.conan.io/downloads>`_!
+Go to the conan website and `download the installer for your platform <https://www.conan.io/downloads.html>`_!
 
 Execute the installer. You don't need to install python.
 
