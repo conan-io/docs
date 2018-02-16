@@ -49,11 +49,7 @@ The different applications in the image above are:
   from Bintray, doesn't require an account, an account is only needed to upload packages. Besides
   that, Bintray provides a central repository called `conan-center
   <https://bintray.com/conan/conan-center>`_ which is moderated, and packages are reviewed before
-  being accepted to ensure quality. This repository is currently empty, the process has just
-  started. In the meantime, the repository `conan-transit
-  <https://bintray.com/conan/conan-transit>`_ contains a copy of all the packages that were in the
-  conan.io repository, and were copied. Those were non-moderated packages, so quality and
-  cross-platform support of packages might vary.
+  being accepted to ensure quality.
 
 Binary management
 -----------------

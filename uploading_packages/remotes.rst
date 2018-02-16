@@ -33,7 +33,7 @@ Official repositories
 ---------------------
 
 Conan official repositories are hosted in Bintray. These repositories are maintained by the Conan
-team. Currently there are two central repositories:
+team. Currently there is one central repository:
 
 **conan-center**: https://bintray.com/conan/conan-center
 
@@ -41,28 +41,15 @@ team. Currently there are two central repositories:
 
    This repository has moderated, curated and well-maintained packages, and is the place where you
    can share your packages with the community. To share your package, you can upload it to your own
-   (or your organization’s) repositories and submit a request to include it in `conan-center`_.
+   (or your organization's) repositories and submit an inclusion request to `conan-center`_.
    Check :ref:`conan-center guide <conan_center_flow>` for more information.
 
-**conan-transit**: https://bintray.com/conan/conan-transit
-
-.. pull-quote::
-
-   This repository is an exact copy of the old ``server.conan.io`` repository at **June 11, 2017
-   08:00 CET**. It's a read-only repository, so you can only download hosted packages but
-   you won't be able to upload anything else. This repository only exists for backwards
-   compatibility and the currently hosted packages **will never be updated**.
-
-Conan comes with both **conan-center** and **conan-transit** repositories configured by default.
-Just in case you want to manually configure these repositories you can always add them like this:
+Conan comes with **conan-center** repository configured by default. Just in case you want to manually configure these repositories you can
+always add it like this:
 
 .. code-block:: bash
 
     $ conan remote add conan-center https://conan.bintray.com
-    $ conan remote add conan-transit https://conan-transit.bintray.com
-
-If you are just reading packages, this should be enough. You can navigate the bintray repos from:
-https://bintray.com/conan
 
 Community repositories
 ----------------------
@@ -84,7 +71,19 @@ packages from. Some of these repositories are not affiliated with the Conan team
 
         $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 
+**conan-community** : https://bintray.com/conan-community/conan
 
-.. _`conan-transit`: https://bintray.com/conan/conan-transit
+.. pull-quote::
+
+    Created by conan developers, it should be considered as an incubator to mature packages before contacting authors or including them in
+    `conan-center`_. This repository contains work-in-progress packages that may still not work and may not be fully featured.
+
+    Use the following command to add this remote to Conan:
+
+    .. code-block:: bash
+
+        $ conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+
+
 .. _`conan-center`: https://bintray.com/conan/conan-center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/RTF/Welcome+to+Artifactory

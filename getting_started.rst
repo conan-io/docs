@@ -131,8 +131,7 @@ For a command like ``$ conan install . -s os="Linux" -s compiler="gcc"``, the st
 
 - Check if the package recipe (for ``Poco/1.8.0.1@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
   cache will be empty.
-- Look for the package recipe in the defined remotes. By default, Conan comes with the Bintray remotes defined (you can change that), so the
-  Conan client will search in `conan-center` and `conan-transit` for the recipe.
+- Look for the package recipe in the defined remotes. Conan comes with **conan-center** Bintray remote by default (you can change that).
 - If the recipe exists, Conan client will fetch and store it in your local cache.
 - With the package recipe and the input settings (Linux, gcc), Conan client will check in the local cache if the corresponding binary is
   there, if we are installing for the first time, it won't.
