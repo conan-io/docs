@@ -11,12 +11,11 @@ remotes and from which remotes are each package retrieved:
 .. code-block:: text
 
     conan-center https://conan.bintray.com True
-    conan-transit https://conan-transit.bintray.com True
     local http://localhost:9300 True
-    
+
     Hello/0.1@demo/testing local
-    
-    
+
+
 The first section of the file is listing ``remote-name``: ``remote-url`` ``verify_ssl``. Adding, removing or changing
 those lines, will add, remove or change the respective remote. If verify_ssl, conan client will verify the SSL certificates
 for that remote server.

@@ -34,7 +34,6 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote list
       conan-center: https://conan.bintray.com [Verify SSL: True]
-      conan-transit: https://conan-transit.bintray.com [Verify SSL: True]
       local: http://localhost:9300 [Verify SSL: True]
 
 - Add a new remote:
@@ -97,4 +96,4 @@ Manages the remote list and the package recipes associated to a remote.
 
   .. code-block:: bash
 
-      $ conan remote update_ref OpenSSL/1.0.2i@conan/stable conan-transit
+      $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
