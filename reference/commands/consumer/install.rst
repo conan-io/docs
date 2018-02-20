@@ -76,6 +76,17 @@ concrete recipe/package specifying a reference in the "path" parameter.
                             similar to --build=never, but package recipes can
                             override it and decide to build with "build_policy"
 
+
+``$ conan install`` executes methods of a *conanfile.py* in the following order:
+
+1. ``config_options()``
+2. ``configure()``
+3. ``requirements()``
+4. ``package_id()``
+5. ``package_info()``
+
+Note this describes the process of installing a pre-built binary package and not building with ``--build``.
+
 **Examples**
 
 - Install a package requirement from a ``conanfile.txt``, saved in your current directory with one
