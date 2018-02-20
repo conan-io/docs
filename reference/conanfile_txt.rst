@@ -29,7 +29,7 @@ Also support :ref:`version ranges<version_ranges>`:
     zlib/1.2.11@conan/stable
 
 [build_requires]
-__________
+________________
 
 List of build requirements, specifing the full reference.
 
@@ -40,6 +40,14 @@ List of build requirements, specifing the full reference.
     7z_installer/1.0@conan/stable
 
 Also support :ref:`version ranges<version_ranges>`
+
+In practice the ``[build_requires]`` will be always installed, the same as ``[requires]``.
+Installing from a *conanfile.txt* means that something is going to be built, so the build
+requirements are indeed needed.
+
+Still, it is useful and conceptually cleaner to have them in separate sections, so users of
+this *conanfile.txt* might quickly identify some dev-tools that they have already installed
+on their machine, differentiating them from the required libraries to link with.
 
 
 [generators]
