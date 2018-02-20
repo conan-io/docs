@@ -202,6 +202,13 @@ Running conan server with SSL using nginx
            ssl_certificate_key /etc/nginx/ssl/server.key;
        }
 
+    **remote configuration in Conan client**
+
+    .. code-block:: text
+
+        conan remote add myremote https://myservername.mydomain.com/subdir
+
+
 
 Running conan server with SSL using nginx in a subdirectory
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -230,6 +237,11 @@ Running conan server with SSL using nginx in a subdirectory
                }
           }
 
+    **remote configuration in Conan client**
+
+    .. code-block:: text
+
+        conan remote add myremote https://myservername.mydomain.com/subdir
 
 
 Running conan server using Apache
