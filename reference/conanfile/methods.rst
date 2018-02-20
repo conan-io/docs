@@ -542,7 +542,7 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
 
 .. code-block:: python
 
-    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None)
+    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None, keep_path=True)
 
 Parameters:
     - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
@@ -557,6 +557,8 @@ Parameters:
     - **ignore_case** (Optional, Defaulted to ``False``): If enabled, it will do a case-insensitive pattern matching.
     - **excludes** (Optional, Defaulted to ``None``): Allows defining a list of patterns (even a single pattern) to be excluded from the
       copy, even if they match the main ``pattern``.
+    - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
+      folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
 
 Example to collect license files from dependencies:
 
