@@ -76,7 +76,7 @@ created correctly. Check the 'conan test' command to know more about the
 
 This is the recommended way to create packages.
 
-``conan create . demo/testing`` is equivalent to:
+``$ conan create . demo/testing`` is equivalent to:
 
 .. code-block:: bash
 
@@ -85,3 +85,21 @@ This is the recommended way to create packages.
     # package is created now, use test to test it
     $ cd test_package
     $ conan test . Hello/0.1@demo/testing
+
+``$ conan create`` executes methods of a *conanfile.py* in the following order:
+
+1. ``config_options()``
+2. ``configure()``
+3. ``requirements()``
+4. ``package_id()``
+5. ``build_requirements()``
+6. ``build_id()``
+7. ``system_requirements()``
+8. ``source()``
+9. ``imports()``
+10. ``build()``
+11. ``package()``
+12. ``package_info()``
+
+In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note ``package_info()`` is used for consumers, it should not
+be fired if there is no *test_package*. Note also that ``deploy()`` method is only used in ``$ conan install``.
