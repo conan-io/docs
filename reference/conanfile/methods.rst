@@ -691,6 +691,28 @@ With ``self.info.include_build_settings()``, Conan will generate different packa
         self.info.discard_build_settings()
         # self.info.include_build_settings()
 
+
+
+self.info.default_std_matching() / self.info.default_std_non_matching()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default (``default_std_matching()``) Conan will detect the default C++ standard of your compiler to
+not generate different binary packages.
+
+For example, you already built some ``gcc > 6.1`` packages, where the default std is ``gnu14``.
+If you introduce the ``cppstd`` setting in your recipes and specify the ``gnu14`` value, Conan won't generate
+new packages, because it was already the default of your compiler.
+
+With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``cppstd``
+even if it matches with the default of the compiler being used:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.default_std_non_matching()
+        # self.info.default_std_matching()
+
+
 .. _method_build_id:
 
 build_id()
