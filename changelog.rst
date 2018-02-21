@@ -17,8 +17,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ----------------
 - Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
 - Feature: The ``CONAN_MAKE_PROGRAM`` environment variable now it is used by the CMake() build helper to set a custom make program.
-- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 - Feature: Added ``--virify-ssl`` optional parameter to ``$ conan config install`` to allow self-signed SSL certificates in donwload.
+- Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 - Deprecation: Removed **conan-transit** from default remotes registry.
 
 1.0.4 (30-January-2018)
