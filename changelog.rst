@@ -21,6 +21,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.
 - Feature: Added setting ``cppstd`` to manage the C++ standard. Also improved ``AutoToolsBuildEnvironment``, ``CMake``, ``MSBuild`` and ``VisualStudioBuildEnvironment``
   build helpers to adjust the standard automatically when the user activates the setting.
+- Feature: The "Can't find a binary package" message now includes the Package ID.
 - Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 - Deprecation: Removed **conan-transit** from default remotes registry.
 
