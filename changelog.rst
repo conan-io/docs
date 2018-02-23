@@ -24,6 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: The "Can't find a binary package" message now includes the Package ID.
 - Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 - Deprecation: Removed **conan-transit** from default remotes registry.
+- Feature: Added ``CONAN_SYSREQUIRES_MODE`` environment variable to control mode of ``SystemPackageTool`` typically used in :ref:`method_system_requirements`.
 
 1.0.4 (30-January-2018)
 -----------------------
