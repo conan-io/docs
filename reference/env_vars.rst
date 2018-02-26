@@ -319,6 +319,17 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
             if tools.get_env("CONAN_RUN_TESTS", True):
                 cmake.test()
 
+.. _env_var_conan_skip_vs_project_upgrade:
+
+CONAN_SKIP_VS_PROJECTS_UPGRADE
+------------------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, the :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>`
+and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+the ``upgrade_project`` parameter value.
+
 CONAN_SYSREQUIRES_MODE
 ----------------------
 
@@ -419,14 +430,22 @@ CONAN_VERBOSE_TRACEBACK
 
 When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
 
+CONAN_VS_INSTALLATION_PREFERENCE
+--------------------------------
 
-.. _env_var_conan_skip_vs_project_upgrade:
+**Defaulted to**: ``Enterprise, Professional, Community, BuildTools``
 
-CONAN_SKIP_VS_PROJECTS_UPGRADE
-------------------------------
+This envirnoment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
+that uses ``tools.vs_installation_path()`` and will search in the order indicated.
 
-**Defaulted to**: ``False``/``0``
+For example:
 
-When set to ``True``/``1``, the :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>`
-and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
-the ``upgrade_project`` parameter value.
+.. code-block:: bash
+
+    set CONAN_VS_INSTALLATION_PREFERENCE=Enterprise, Professional, Community, BuildTools
+
+It can also be used to fix the type of installation you want to use indicating just one product type:
+
+.. code-block:: bash
+
+    set CONAN_VS_INSTALLATION_PREFERENCE=BuildTools

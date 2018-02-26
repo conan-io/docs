@@ -65,9 +65,6 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
     # Default settings now declared in the default profile
 
-
-
-
 Log
 +++
 
@@ -91,6 +88,14 @@ You can also adjust the environment variable ``CONAN_TRACE_FILE``.
 
 General
 +++++++
+
+The ``vs_installation_preference`` variable determines the preference of usage when searching a Visual installation. The order of preference
+by default is Enterprise, Professional, Community and BuildTools. It can be fixed to just one type of installation like only BuildTools. You
+can also adjust the environment variable ``CONAN_VS_INSTALLATION_PREFERENCE``.
+
+The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even in the conan code base, allowing
+to debug the detected error.
+
 The ``bash_path`` variable is used only in windows to help the
 :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function to locate our Cygwin/MSYS2 bash.
 Set it with the bash executable path if it's not in the PATH or you want to use a different one.
