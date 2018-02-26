@@ -940,7 +940,7 @@ Returns the value of the environment variable ``VS<compiler_version>.0COMNTOOLS`
 
     from conans import tools
 
-    vs_path = vs_comntools("14")
+    vs_path = tools.vs_comntools("14")
 
 Parameters:
     - **compiler_version** (Required): String with the version number: ``"14"``, ``"12"``...
