@@ -18,11 +18,18 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     default_profile = default
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
-    # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
+    # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
+    # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
+    # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
+    # cache_no_locks = True
+    # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
+    # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
+
+    # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -37,6 +44,9 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
     # cpu_count = 1             # environment CONAN_CPU_COUNT
 
+    # Change the default location for building test packages to a temporary folder
+    # which is deleted after the test.
+    # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -54,6 +64,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
 
     # Default settings now declared in the default profile
+
+
 
 
 Log

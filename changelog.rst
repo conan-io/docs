@@ -25,6 +25,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
 - Deprecation: Removed **conan-transit** from default remotes registry.
 - Feature: Added ``CONAN_SYSREQUIRES_MODE`` environment variable to control mode of ``SystemPackageTool`` typically used in :ref:`method_system_requirements`.
+- Feature: Added ``CONAN_SKIP_VS_PROJECTS_UPGRADE`` environment variable to skip the upgrade of Visual Studio project when
+  using :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>` and the :ref:`MSBuild()<msbuild>` build helper.
 
 1.0.4 (30-January-2018)
 -----------------------
