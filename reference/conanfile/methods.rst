@@ -542,7 +542,7 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
 
 .. code-block:: python
 
-    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None)
+    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None, keep_path=True)
 
 Parameters:
     - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
@@ -557,6 +557,8 @@ Parameters:
     - **ignore_case** (Optional, Defaulted to ``False``): If enabled, it will do a case-insensitive pattern matching.
     - **excludes** (Optional, Defaulted to ``None``): Allows defining a list of patterns (even a single pattern) to be excluded from the
       copy, even if they match the main ``pattern``.
+    - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
+      folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
 
 Example to collect license files from dependencies:
 
@@ -688,6 +690,28 @@ With ``self.info.include_build_settings()``, Conan will generate different packa
     def package_id(self):
         self.info.discard_build_settings()
         # self.info.include_build_settings()
+
+
+
+self.info.default_std_matching() / self.info.default_std_non_matching()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default (``default_std_matching()``) Conan will detect the default C++ standard of your compiler to
+not generate different binary packages.
+
+For example, you already built some ``gcc > 6.1`` packages, where the default std is ``gnu14``.
+If you introduce the ``cppstd`` setting in your recipes and specify the ``gnu14`` value, Conan won't generate
+new packages, because it was already the default of your compiler.
+
+With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``cppstd``
+even if it matches with the default of the compiler being used:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.default_std_non_matching()
+        # self.info.default_std_matching()
+
 
 .. _method_build_id:
 

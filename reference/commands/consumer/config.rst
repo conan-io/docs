@@ -41,7 +41,7 @@ Manages configuration. Edits the conan.conf or installs config files.
 .. _conan_config_install:
 
 conan config install
-____________________
+--------------------
 
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
 is important to have common ``settings.yml``, ``profiles``, etc.
@@ -82,6 +82,14 @@ so following calls to ``conan config install`` command doesn't need to specify t
       $ conan config install http://url/to/some/config.zip
 
   Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
+
+- Install from an url skipping SSL verification:
+
+  .. code-block:: bash
+
+      $ conan config install http://url/to/some/config.zip --verify-ssl=False
+
+  This will disable the SSL check of the certificate. This option is defaulted to ``True``.
 
 - Refresh the configuration again:
 

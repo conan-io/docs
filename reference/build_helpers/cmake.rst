@@ -145,6 +145,14 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+--------------------------------------------------------------------------+
 | CONAN_LINK_RUNTIME                        |  Runtime from self.settings.compiler.runtime for MSVS                    |
 +-------------------------------------------+--------------------------------------------------------------------------+
+| CONAN_CMAKE_CXX_STANDARD                  |  From setting ``cppstd``                                                 |
++-------------------------------------------+--------------------------------------------------------------------------+
+| CONAN_CMAKE_CXX_EXTENSIONS                |  From setting ``cppstd``, when GNU extensions are enabled                |
++-------------------------------------------+--------------------------------------------------------------------------+
+| CONAN_STD_CXX_FLAG                        |  From setting ``cppstd``. Flag for compiler directly (for CMake < 3.1)   |
++-------------------------------------------+--------------------------------------------------------------------------+
+
+
 
 But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property:
 

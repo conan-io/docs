@@ -319,6 +319,36 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
             if tools.get_env("CONAN_RUN_TESTS", True):
                 cmake.test()
 
+.. _env_var_conan_skip_vs_project_upgrade:
+
+CONAN_SKIP_VS_PROJECTS_UPGRADE
+------------------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, the :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>`
+and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+the ``upgrade_project`` parameter value.
+
+CONAN_SYSREQUIRES_MODE
+----------------------
+
+**Defaulted to**: ``enabled`` allowed values ``enabled``/``verify``/``disabled``
+
+This environment variable controls whether system packages should be installed into the system
+via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
+
+See values behaviour:
+
+    - ``enabled``: Default value and any call to install method of ``SystemPackageTool`` helper should modify
+      the system packages.
+    - ``verify``: Display a report of system packages to be installed and abort with exception.
+      Useful if you don't want to allow conan to modify your system but you want to get a report of
+      packages to be installed.
+    - ``disabled``: Display a report of system packages that should be installed but continue the conan execution and
+      doesn't install any package in your system. Useful if you want to keep manual control of these dependencies,
+      for example in your development environment.
+
 CONAN_SYSREQUIRES_SUDO
 ----------------------
 

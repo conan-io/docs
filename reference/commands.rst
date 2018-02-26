@@ -63,3 +63,4 @@ Other useful commands:
   commands/misc/download.rst
   commands/misc/remove.rst
   commands/misc/alias.rst
+  commands/misc/help.rst
