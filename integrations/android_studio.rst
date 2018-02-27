@@ -5,7 +5,7 @@
 ____________________________________
 
 
-Use can use Conan to :ref:`cross-build your libraries for Android<cross_building_android>` in different architectures.
+You can use Conan to :ref:`cross-build your libraries for Android<cross_building_android>` in different architectures.
 If you are using Android Studio for your Android application development, you can integrate it conan to automate the
 library building for the different architectures that you want to support in your project.
 

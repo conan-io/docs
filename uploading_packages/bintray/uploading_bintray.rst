@@ -1,3 +1,5 @@
+.. _uploading_to_bintray:
+
 Uploading to Bintray
 ====================
 
