@@ -131,8 +131,7 @@ For a command like ``$ conan install . -s os="Linux" -s compiler="gcc"``, the st
 
 - Check if the package recipe (for ``Poco/1.8.0.1@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
   cache will be empty.
-- Look for the package recipe in the defined remotes. By default, Conan comes with the Bintray remotes defined (you can change that), so the
-  Conan client will search in `conan-center` and `conan-transit` for the recipe.
+- Look for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote by default (you can change that).
 - If the recipe exists, Conan client will fetch and store it in your local cache.
 - With the package recipe and the input settings (Linux, gcc), Conan client will check in the local cache if the corresponding binary is
   there, if we are installing for the first time, it won't.
@@ -230,6 +229,15 @@ architecture...) automatically and stored as default in a profile. You can chang
 settings by editing ``~/.conan/profiles/default`` or create new profiles with the desired
 configuration.
 
+.. attention::
+
+    - It is strongly recommended to review the generated default profile and adjust the settings to describe accurately your system.
+
+    - When a GCC **compiler >= 5.1** is detected, the setting modeling the c++ standard library:
+      ``compiler.libcxx`` will be set to ``libstdc++`` that represent the old ABI compatibility for better compatibility. Your compiler
+      default is likely the new ABI so you might want to change it to ``libstdc++11`` to use the new ABI compliant with CXX11 directives.
+      :ref:`Read more here<manage_gcc_abi>`.
+
 For example, if we have a profile with a gcc configutarion for 32 bits in a profile called *gcc_x86*, we could issue the ``install`` command
 like this:
 
@@ -264,3 +272,5 @@ Got any doubts? Check out our :ref:`FAQ section <faq>` or |write_us|.
 .. |write_us| raw:: html
 
    <a href="mailto:info@conan.io" target="_blank">write us</a>
+
+.. _`conan-center`: https://bintray.com/conan/conan-center

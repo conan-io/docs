@@ -43,7 +43,7 @@ method, like this:
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         if self.settings.build_os == "Windows":
             vcvars = tools.vcvars_command(self.settings)
@@ -111,9 +111,6 @@ environment:
         with tools.vcvars(self.settings):
             do_something()
 
-
-
-
 .. _build_sln_commmand:
 
 tools.build_sln_command()
@@ -141,6 +138,8 @@ Parameters:
     - **sln_path** (Required):  Visual Studio project file path.
     - **targets** (Optional, Defaulted to ``None``):  List of targets to build.
     - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is older than current.
+
+      When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
     - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
     - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
     - **parallel** (Optional, Defaulted to ``True``): Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
@@ -247,6 +246,43 @@ Parameters:
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+
+.. _tools_get_env:
+
+tools.get_env()
+---------------
+
+.. code-block:: python
+
+   def get_env(env_key, default=None, environment=None)
+
+Parses an environment and cast its value against the **default** type passed as an argument.
+
+Following python conventions, returns **default** if **env_key** is not defined.
+
+See an usage example with an environment variable defined while executing conan
+
+.. code-block:: bash
+
+   $ TEST_ENV="1" conan <command> ...
+
+.. code-block:: python
+
+   from conans import tools
+
+   tools.get_env("TEST_ENV") # returns "1", returns current value
+   tools.get_env("TEST_ENV_NOT_DEFINED") # returns None, TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV_NOT_DEFINED", []) # returns [], TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV", "2") # returns "1"
+   tools.get_env("TEST_ENV", False) # returns True (default value is boolean)
+   tools.get_env("TEST_ENV", 2) # returns 1
+   tools.get_env("TEST_ENV", 2.0) # returns 1.0
+   tools.get_env("TEST_ENV", []) # returns ["1"]
+
+Parameters:
+   - **env_key** (Required): environment variable name.
+   - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
+   - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
 
 tools.download()
 ----------------
@@ -480,12 +516,17 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
+any PYTHONPATH inherited from the requirements will be automatically available.
+
 .. code-block:: python
 
     def pythonpath(conanfile)
 
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
+
+It is automatically applied
 
 .. code-block:: python
 
@@ -495,7 +536,20 @@ with python code, and reuse that code into your own recipes.
         with tools.pythonpath(self):
             from module_name import whatever
             whatever.do_something()
-            
+
+
+When the :ref:`apply_env<apply_env>` is activated (default) the above code could be simplified as:
+
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        from module_name import whatever
+        whatever.do_something()
+
+
 For that to work, one of the dependencies of the current recipe, must have a ``module_name``
 file or folder with a ``whatever`` file or object inside, and should have declared in its
 ``package_info()``:
@@ -509,6 +563,7 @@ file or folder with a ``whatever`` file or object inside, and should have declar
 
 Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
+
 
 tools.no_op()
 -------------
@@ -640,7 +695,6 @@ It's not necessary to specify the extension.
         self.run("some command")
 
 
-
 tools.unix_path()
 -----------------
 
@@ -669,7 +723,6 @@ Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 Parameters:
     - **command** (Required): Command to execute.
 
-
 tools.sha1sum(), sha256sum(), md5sum()
 --------------------------------------
 
@@ -690,7 +743,6 @@ Return the respective hash or checksum for a file:
 
 Parameters:
     - **file_path** (Required): Path to the file.
-
 
 tools.md5()
 -----------
@@ -843,26 +895,82 @@ relative to the given directory.
 Parameters:
     - **path** (Required): Path of the directory.
 
-tools.vs_installation_path()
-----------------------------
+tools.vswhere()
+---------------
 
 .. code-block:: python
 
-    def vs_installation_path(version)
+    def vswhere(all_=False, prerelease=False, products=None, requires=None, version="",
+                latest=False, legacy=False, property_="", nologo=True)
 
-Returns the Visual Studio installation path for the given version.
-It only works when the tool ``vswhere`` is installed.
-If the tool is not able to return the path it returns ``None``.
+Wrapper of ``vswhere`` tool to look for details of Visual Studio installations. Its output is always
+a list with a dictionary for each installation found.
 
 .. code-block:: python
 
     from conans import tools
 
-    vs_path_2017 = tools.vs_installation_path("15")
+    vs_legacy_installations = tool.vswhere(legacy=True)
 
-**Parameters:**
+Parameters:
+    - **all_** (Optional, Defaulted to ``False``): Finds all instances even if they are incomplete and may not launch.
+    - **prerelease** (Optional, Defaulted to ``False``): Also searches prereleases. By default, only releases are searched.
+    - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
+      Enterprise. Specify ``["*"]`` by itself to search all product instances installed.
+    - **requires** (Optional, Defaulted to ``None``): List of one or more workload or component IDs required when finding instances. See
+      https://aka.ms/vs/workloads for a list of workload and component IDs.
+    - **version** (Optional, Defaulted to ``""``): A version range for instances to find. Example: ``"[15.0,16.0)"`` will find versions 15.*.
+    - **latest** (Optional, Defaulted to ``False``): Return only the newest version and last installed.
+    - **legacy** (Optional, Defaulted to ``False``): Also searches Visual Studio 2015 and older products. Information is limited. This
+      option cannot be used with either ``products`` or ``requires`` parameters.
+    - **property_** (Optional, Defaulted to ``""``): The name of a property to return. Use delimiters ``.``, ``/``, or ``_`` to separate
+      object and property names. Example: ``"properties.nickname"`` will return the "nickname" property under "properties".
+    - **nologo** (Optional, Defaulted to ``True``): Do not show logo information.
+
+tools.vs_comntools()
+--------------------
+
+.. code-block:: python
+
+    def vs_comntools(compiler_version)
+
+Returns the value of the environment variable ``VS<compiler_version>.0COMNTOOLS`` for the compiler version indicated.
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path = tools.vs_comntools("14")
+
+Parameters:
+    - **compiler_version** (Required): String with the version number: ``"14"``, ``"12"``...
+
+tools.vs_installation_path()
+----------------------------
+
+.. code-block:: python
+
+    def vs_installation_path(version, preference=None)
+
+Returns the Visual Studio installation path for the given version. It uses ``tools.vswhere()`` and
+``tool.vs_comntools()``. It will also look for the installation paths following
+``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If the
+tool is not able to return the path it returns ``None``.
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path_2017 = tools.vs_installation_path("15", preference=["Community", "BuildTools", "Professional", "Enterprise"])
+
+Parameters:
     - **version** (Required): Visual Studio version to locate. Valid version numbers
       are strings: ``"10"``, ``"11"``, ``"12"``, ``"13"``, ``"14"``, ``"15"``...
+    - **preference** (Optional, Defaulted to ``None``): Set to value of
+      ``CONAN_VS_INSTALLATION_PREFERENCE`` or defaulted to
+      ``["Enterprise", "Professional", "Community", "BuildTools"]``. If only set to one type of
+      preference, it will return the installation path only for that Visual type and version,
+      otherwise ``None``.
 
 tools.replace_prefix_in_pc_file()
 ----------------------------------

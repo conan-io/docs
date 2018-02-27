@@ -13,6 +13,7 @@ that you get an error like the following one:
     WARN: Can't find a 'libzmq/4.2.0@memsharded/testing' package for the specified options and settings:
     - Settings: arch=x86_64, build_type=Release, compiler=gcc, compiler.libcxx=libstdc++, compiler.version=4.9, os=Windows
     - Options: shared=False
+    - Package ID: 7fe67dff831b24bc4a8b5db678a51f1be5e44e7c
 
     ERROR: Missing prebuilt package for 'libzmq/4.2.0@memsharded/testing'
     Try to build it from sources with "--build libzmq" or read "http://docs.conan.io/en/latest/faq.html"

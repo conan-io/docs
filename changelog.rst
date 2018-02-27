@@ -8,9 +8,56 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries. 
-  There were some errors in the docs, using them for all packages.
-  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
+  Conan 1.1 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Please read more :ref:`about conan stability here<stability>`.
+  
+  
+1.1.0 (27-Feb-2018)
+--------------------
+- Feature: New ``$ conan create --keep-build`` option that allows re-packaging from conan local cache, without re-building.
+- Feature: ``$ conan search <pattern> -r=all`` now searches in all defined remotes.
+- Feature: Added setting ``cppstd`` to manage the C++ standard. Also improved build helpers to adjust the standard automatically when the user activates the setting.``AutoToolsBuildEnvironment``, ``CMake``, ``MSBuild`` and ``VisualStudioBuildEnvironment``
+- Feature: New ``compiler_args`` generator, for directly calling the compiler from command line, for multiple compilers: VS, gcc, clang.
+- Feature: Defined ``sysrequires_mode`` variable (``CONAN_SYSREQUIRES_MODE`` env-var) with values ``enabled, verify, disabled`` to control the installation of system dependencies via ``SystemPackageTool`` typically used in :ref:`method_system_requirements`.
+- Feature: automatically apply ``pythonpath`` environment variable for dependencies containing python code to be reused to recipe ``source()``, ``build()``, ``package()`` methods.
+- Feature: ``CMake`` new ``patch_config_paths()`` methods that will replace absolute paths to conan package path variables, so cmake find scripts are relocatable.
+- Feature: new ``--test-build-folder`` command line argument to define the location of the *test_package* build folder, and new conan.conf ``temp_test_folder`` and environment variable ``CONAN_TEMP_TEST_FOLDER``, that if set to True will automatically clean the test_package build folder after running.
+- Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.
+- Feature: Added ``CONAN_SKIP_VS_PROJECTS_UPGRADE`` environment variable to skip the upgrade of Visual Studio project when using :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>` and the :ref:`MSBuild()<msbuild>` build helper.
+- Feature: Improved detection of Visual Studio installations, possible to prioritize between multiple installed Visual tools with the ``CONAN_VS_INSTALLATION_PREFERENCE`` env-var and ``vs_installation_preference`` conan.conf variable.
+- Feature: Added ``keep_path`` parameter to ``self.copy()`` within the ``imports()`` method.
+- Feature: Added ``[build_requires]`` section to *conanfile.txt*.
+- Feature: Added new ``$ conan help <command>`` command, as an alternative to ``--help``.
+- Feature: Added ``target`` parameter to ``AutoToolsBuildEnvironment.make`` method, allowing to select build target on running make
+- Feature: The ``CONAN_MAKE_PROGRAM`` environment variable now it is used by the ``CMake()`` build helper to set a custom make program.
+- Feature: Added ``--verify-ssl`` optional parameter to ``$ conan config install`` to allow self-signed SSL certificates in download.
+- Feature: ``tools.get_env()`` helper method to automatically convert environment variables to python types.
+- Fix: Added a visible warning about ``libcxx`` compatibility and the detected one for the default profile.
+- Fix: Wrong detection of compiler in OSX for gcc frontend to clang.
+- Fix: Disabled *conanbuildinfo.cmake* compiler checks for unknown compilers.
+- Fix: ``visual_studio`` generator added missing *ResourceCompile* information.
+- Fix: Don't output password from URL for ``conan config install`` command.
+- Fix: Signals exit with error code instead of 0.
+- Fix: Added package versions to generated SCons file.
+- Fix: Error message when package was not found in remotes has been improved.
+- Fix: ``conan profile`` help message.
+- Fix: Use gcc architecture flags -m32, -m64 for MinGW as well.
+- Fix: ``CMake`` helper do not require settins if ``CONAN_CMAKE_GENERATOR`` is defined.
+- Fix: improved output of package remote origins.
+- Fix: Profiles files use same structure as ``conan profile show`` command.
+- Fix: *conanpath.bat* file is removed after conan Windows installer uninstall.
+- Fix: Do not add GCC-style flags -m32, -m64, -g, -s to MSVC when using ``AutoToolsBuildEnvironment``
+- Fix: "Can't find a binary package" message now includes the Package ID.
+- Fix: added clang 5.0 and gcc 7.3 to default *settings.yml*.
+- Bugfix:  ``build_id()`` logic does not apply unless the ``build_id`` is effectively changed.
+- Bugfix: ``self.install_folder`` was not correctly set in all necessary cases.
+- Bugfix: ``-update`` option does not ignore local packages for version-ranges.
+- Bugfix: Set ``self.develop=True`` for ``export-pkg`` command.
+- Bugfix: Server HTTP responses were incorrectly captured, not showing errors for some server errors.
+- Bugfix: Fixed ``config`` section update for sequential calls over the python API.
+- Bugfix: Fixed wrong ``self.develop`` set to ``False`` for ``conan create`` with ``test_package``.
+- Deprecation: Removed **conan-transit** from default remotes registry.
+
 
 1.0.4 (30-January-2018)
 -----------------------
@@ -31,7 +78,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
 - Fix: fixed wrong message for ``conan alias --help``.
 - Fix: Normalized all arguments to ``--xxx-folder`` in command line help.
-
 
 1.0.2 (16-January-2018)
 -----------------------

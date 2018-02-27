@@ -10,9 +10,9 @@ Integrations
 
    integrations/cmake
    integrations/makefile
-   integrations/gcc
    integrations/visual_studio
    integrations/xcode
+   integrations/gcc
    integrations/android_studio
    integrations/clion
    integrations/ninja

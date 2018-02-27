@@ -542,7 +542,7 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
 
 .. code-block:: python
 
-    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None)
+    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None, keep_path=True)
 
 Parameters:
     - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
@@ -557,6 +557,8 @@ Parameters:
     - **ignore_case** (Optional, Defaulted to ``False``): If enabled, it will do a case-insensitive pattern matching.
     - **excludes** (Optional, Defaulted to ``None``): Allows defining a list of patterns (even a single pattern) to be excluded from the
       copy, even if they match the main ``pattern``.
+    - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
+      folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
 
 Example to collect license files from dependencies:
 
@@ -689,6 +691,28 @@ With ``self.info.include_build_settings()``, Conan will generate different packa
         self.info.discard_build_settings()
         # self.info.include_build_settings()
 
+
+
+self.info.default_std_matching() / self.info.default_std_non_matching()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default (``default_std_matching()``) Conan will detect the default C++ standard of your compiler to
+not generate different binary packages.
+
+For example, you already built some ``gcc > 6.1`` packages, where the default std is ``gnu14``.
+If you introduce the ``cppstd`` setting in your recipes and specify the ``gnu14`` value, Conan won't generate
+new packages, because it was already the default of your compiler.
+
+With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``cppstd``
+even if it matches with the default of the compiler being used:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.default_std_non_matching()
+        # self.info.default_std_matching()
+
+
 .. _method_build_id:
 
 build_id()
@@ -727,6 +751,22 @@ Other information like custom package options can also be changed:
     def build_id(self):
         self.info_build.options.myoption = 'MyValue' # any value possible
         self.info_build.options.fullsource = 'Always'
+
+If the ``build_id()`` method does not modify the ``build_id``, and produce a different one than
+the ``package_id``, then the standard behavior will be applied. Consider the following:
+
+..  code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+
+    def build_id(self):
+        if self.settings.os == "Windows":
+            self.info_build.settings.build_type = "Any"
+
+This will only produce a build ID different if the package is for Windows. So the behavior
+in any other OS will be the standard one, as if the ``build_id()`` method was not defined:
+the build folder will be wiped at each ``$ conan create`` command and a clean build will
+be done.
 
 deploy()
 --------

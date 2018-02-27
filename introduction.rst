@@ -49,11 +49,7 @@ The different applications in the image above are:
   from Bintray, doesn't require an account, an account is only needed to upload packages. Besides
   that, Bintray provides a central repository called `conan-center
   <https://bintray.com/conan/conan-center>`_ which is moderated, and packages are reviewed before
-  being accepted to ensure quality. This repository is currently empty, the process has just
-  started. In the meantime, the repository `conan-transit
-  <https://bintray.com/conan/conan-transit>`_ contains a copy of all the packages that were in the
-  conan.io repository, and were copied. Those were non-moderated packages, so quality and
-  cross-platform support of packages might vary.
+  being accepted to ensure quality.
 
 Binary management
 -----------------
@@ -102,6 +98,29 @@ it is portable and well known. But conan does not depend on CMake at all; it is 
 of popular build systems such as CMake or Autotools, but they are just helpers. Furthermore, it is
 not necessary that all the packages are built with the same build system. It is possible to depend
 on packages created with other build system than the one you are using to build your project.
+
+
+
+.. _stability:
+
+Stable
+------
+
+From conan 1.0, there is a commitment to stability, not breaking user space while evolving the tool and the platform. This means:
+
+- Moving forward to following minor versions 1.1, 1.2, …, 1.X should never break existing recipes, packages or command line flows
+- If something is breaking, it will be considered a bug and reverted
+- Bug fixes will not be considered breaking, recipes and packages relying on the incorrect behavior of such bug will be considered already broken.
+- Only documented features are considered part of the public interface of conan. Private implementation details, and everything not included in the documentation is subject to change.
+- Configuration and automatic tools detection, like the detection of the default profile might be subject to change. Users are encouraged to define their configurations in profiles for repeatability. New installations of conan might use different configuration.
+
+The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 1.X versions. Recipes and packages created with these features will be backwards incompatible with earlier conan versions.
+
+This means that public repositories, like conan-center assume the use of the latest version of the conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.
+
+If you have any question regarding conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
+
+
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
