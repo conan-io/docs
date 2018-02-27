@@ -10,6 +10,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.1 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
+1.2.0 ()
+---------------
+- Feature: Added a ``json`` generator.
+
+  
 1.1.0 (27-Feb-2018)
 --------------------
 
