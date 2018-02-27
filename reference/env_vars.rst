@@ -361,6 +361,13 @@ automatically prefixed in front of package management commands.  If you set this
 ``sudo`` will not be prefixed in front of the comands, however installation or updates of some
 packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
+CONAN_TEMP_TEST_FOLDER
+----------------------
+
+**Defaulted to**: ``False``/``0``
+
+Activating this variable will make build folder of *test_package* to be created in the temporary folder of your machine.
+
 .. _conan_trace_file:
 
 CONAN_TRACE_FILE
