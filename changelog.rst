@@ -19,7 +19,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added setting ``cppstd`` to manage the C++ standard. Also improved build helpers to adjust the standard automatically when the user activates the setting.``AutoToolsBuildEnvironment``, ``CMake``, ``MSBuild`` and ``VisualStudioBuildEnvironment``
 - Feature: New ``compiler_args`` generator, for directly calling the compiler from command line, for multiple compilers: VS, gcc, clang.
 - Feature: Defined ``sysrequires_mode`` variable (``CONAN_SYSREQUIRES_MODE`` env-var) with values ``enabled, verify, disabled`` to control the installation of system dependencies via ``SystemPackageTool`` typically used in :ref:`method_system_requirements`.
-- Feature: automatically apply ``pythonpath`` environment variable for dependencies containing python code to be reused to recipe ``source()``, ```build()``, ``package()`` methods.
+- Feature: automatically apply ``pythonpath`` environment variable for dependencies containing python code to be reused to recipe ``source()``, ``build()``, ``package()`` methods.
 - Feature: ``CMake`` new ``patch_config_paths()`` methods that will replace absolute paths to conan package path variables, so cmake find scripts are relocatable.
 - Feature: new ``--test-build-folder`` command line argument to define the location of the *test_package* build folder, and new conan.conf ``temp_test_folder`` and environment variable ``CONAN_TEMP_TEST_FOLDER``, that if set to True will automatically clean the test_package build folder after running.
 - Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.
