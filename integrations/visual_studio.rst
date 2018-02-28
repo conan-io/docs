@@ -13,14 +13,20 @@ Conan can be integrated with **Visual Studio** in two different ways:
 With CMake
 ----------
 
+Use this, or **cmake_multi**, if you are using cmake to machine-generate your Visual Studio projects.
+
 Check the :ref:`generator<generators>` section to read about the **cmake** generator.
 Check the official `CMake docs`_ to find out more about generating Visual Studio projects with CMake.
 
 
 .. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
 
+However, beware of some current cmake limitations, such as not dealing well with find-packages, because cmake doesn't know how to handle finding both debug and release packages.
+
 With *visual_studio* generator
 ------------------------------
+
+Use this, or **visual_studio_multi**, if you are maintaining your Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party dependencies.
 
 You can use the **visual_studio** generator to manage your requirements via your *Visual Studio*  project.
 
