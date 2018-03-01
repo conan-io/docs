@@ -72,7 +72,7 @@ The consumer project might write a ``CMakeLists.txt`` like:
 Targets approach
 -----------------
 
-Or, if using the modern cmake syntax with targets:
+Or, if using the modern cmake syntax with targets (where ``Hello1`` is an example package name that the executable ``say_hello`` depends on):
 
 .. code-block:: cmake
 
