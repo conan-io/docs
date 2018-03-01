@@ -19,4 +19,5 @@ This section shows common solutions and different approaches to typical problems
    howtos/collaborate_packages
    howtos/link_apple_framework
    howtos/collect_licenses
+   howtos/capture_version
    howtos/other_languages_package_manager
