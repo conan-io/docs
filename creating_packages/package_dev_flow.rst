@@ -138,7 +138,7 @@ $ conan export-pkg
 When you have checked that the packaged is done correctly, you can generate the package in the local cache. Note that the package is
 generated again to make sure this step is always reproducible.
 
-This parameters takes the same parameters as ``package()`` but in this case there is no ``package-folder`` as it is done in the cache.
+This parameters takes the same parameters as ``package()``.
 
 +--------------------+--------------------+
 | Input folders      | Output folders     |
@@ -148,7 +148,18 @@ This parameters takes the same parameters as ``package()`` but in this case ther
 | ``install-folder`` |                    |
 |                    |                    |
 | ``build-folder``   |                    |
+|                    |                    |
+| ``package-folder`` |                    |
 +--------------------+--------------------+
+
+There are 2 modes of operation:
+
+- Using ``source-folder`` and ``build-folder`` does not require the execution of the above ``$ conan package``.
+  It will use the ``package()`` method to extract the artifacts from those folders and create the package,
+  directly in the conan local cache.
+- Using the ``package-folder`` argument (incompatible with the above 2), will not use the ``package()`` method,
+  it will do an exact copy of the provided folder. It assumes the package has already been created by a previous
+  ``$ conan package`` command or with a ``$ conan build`` command with a ``build()`` method running a ``cmake.install()``.
 
 ..  code-block:: bash
 
