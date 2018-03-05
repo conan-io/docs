@@ -11,7 +11,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about conan stability here<stability>`.
 
 
-1.1.1 (5-March-2018)
+1.1.1 (5-Mar-2018)
 --------------------
 
 - Feature: ``build_sln_command`` and ``msvc_build_command`` receive a new optional parameter ``platforms`` to match the definition of the ``sln`` Visual Studio project architecture. (Typically Win32 vs x86 problem).
