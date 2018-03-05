@@ -154,9 +154,10 @@ This parameters takes the same parameters as ``package()``.
 
 There are 2 modes of operation:
 
-- Using ``source-folder`` and ``build-folder`` does not require the execution of the above ``$ conan package``.
-  It will use the ``package()`` method to extract the artifacts from those folders and create the package,
-  directly in the conan local cache.
+- Using ``source-folder`` and ``build-folder``will use the ``package()`` method to extract the artifacts from those 
+  folders and create the package, directly in the conan local cache. Strictly speaking, it doesn't require executing
+  a ``$ conan package`` before, as it packages directly from those source and build folder, though ``$ conan package``
+  is still recommended in the dev-flow to debug the ``package()`` method.
 - Using the ``package-folder`` argument (incompatible with the above 2), will not use the ``package()`` method,
   it will do an exact copy of the provided folder. It assumes the package has already been created by a previous
   ``$ conan package`` command or with a ``$ conan build`` command with a ``build()`` method running a ``cmake.install()``.
