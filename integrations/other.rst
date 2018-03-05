@@ -34,10 +34,10 @@ Specify the **json** generator in your conanfile:
 
       [requires]
       fmt/4.1.0@<user>/<stable>
+      Poco/1.7.8p3@pocoproject/stable
 
       [generators]
       json
-      Poco/1.7.8p3@pocoproject/stable
 
 
 A file named *conanbuildinfo.json* will be generated. It will contain the information about every dependency:
@@ -68,8 +68,6 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
         }
       ]
     }
-
-
 
 
 .. _txt_integration:
