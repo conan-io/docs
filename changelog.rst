@@ -10,6 +10,17 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.1 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
+
+1.1.1 (5-March-2018)
+--------------------
+
+- Feature: `build_sln_command` and `msvc_build_command` receive a new optional parameter `platforms` to match the definition of the `sln` Visual Studio project architecture. (Typically Win32 vs x86 problem).
+- Bufix:  Flags for Visual Studio command (cl.exe) using "-" instead of "/" to avoid problems in builds using AutoTools scripts with Visual Studio compiler.
+- Bugfix: Visual Studio runtime flags adjusted correctly in `AutoToolsBuildEnvironment` build helper
+- Bugfix: `AutoToolsBuildEnvironment` build helper now adjust the correct build flag, not using eabi suffix, for architecture x86.
+
+  
+
 1.1.0 (27-Feb-2018)
 --------------------
 
