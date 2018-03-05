@@ -14,10 +14,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.1.1 (5-March-2018)
 --------------------
 
-- Feature: `build_sln_command` and `msvc_build_command` receive a new optional parameter `platforms` to match the definition of the `sln` Visual Studio project architecture. (Typically Win32 vs x86 problem).
+- Feature: ``build_sln_command`` and ``msvc_build_command`` receive a new optional parameter ``platforms`` to match the definition of the ``sln`` Visual Studio project architecture. (Typically Win32 vs x86 problem).
 - Bufix:  Flags for Visual Studio command (cl.exe) using "-" instead of "/" to avoid problems in builds using AutoTools scripts with Visual Studio compiler.
-- Bugfix: Visual Studio runtime flags adjusted correctly in `AutoToolsBuildEnvironment` build helper
-- Bugfix: `AutoToolsBuildEnvironment` build helper now adjust the correct build flag, not using eabi suffix, for architecture x86.
+- Bugfix: Visual Studio runtime flags adjusted correctly in ``AutoToolsBuildEnvironment`` build helper
+- Bugfix: ``AutoToolsBuildEnvironment`` build helper now adjust the correct build flag, not using eabi suffix, for architecture x86.
 
   
 
@@ -26,7 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: New ``$ conan create --keep-build`` option that allows re-packaging from conan local cache, without re-building.
 - Feature: ``$ conan search <pattern> -r=all`` now searches in all defined remotes.
-- Feature: Added setting ``cppstd`` to manage the C++ standard. Also improved build helpers to adjust the standard automatically when the user activates the setting.``AutoToolsBuildEnvironment``, ``CMake``, ``MSBuild`` and ``VisualStudioBuildEnvironment``
+- Feature: Added setting ``cppstd`` to manage the C++ standard. Also improved build helpers to adjust the standard automatically when the user activates the setting. ``AutoToolsBuildEnvironment``, ``CMake``, ``MSBuild`` and ``VisualStudioBuildEnvironment``
 - Feature: New ``compiler_args`` generator, for directly calling the compiler from command line, for multiple compilers: VS, gcc, clang.
 - Feature: Defined ``sysrequires_mode`` variable (``CONAN_SYSREQUIRES_MODE`` env-var) with values ``enabled, verify, disabled`` to control the installation of system dependencies via ``SystemPackageTool`` typically used in :ref:`method_system_requirements`.
 - Feature: automatically apply ``pythonpath`` environment variable for dependencies containing python code to be reused to recipe ``source()``, ``build()``, ``package()`` methods.
