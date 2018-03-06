@@ -31,3 +31,4 @@ Available generators:
    generators/virtualrunenv
    generators/ycm
    generators/text
+   generators/json
