@@ -42,12 +42,12 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
 
 
 
-The generated ``conanbuildinfo.json`` file is a json file with the following fields:
+The generated ``conanbuildinfo.json`` file is a json file with the following keys:
 
 dependencies
 -------------
 
-The dependencies is a list, with each item belonging to one dependency, and each one with the following fields:
+The dependencies is a list, with each item belonging to one dependency, and each one with the following keys:
 - name
 - version
 - description
@@ -56,6 +56,10 @@ The dependencies is a list, with each item belonging to one dependency, and each
 - include_paths, lib_paths, bin_paths, build_paths, res_paths
 - libs
 - defines, cflags, cppflags, sharedlinkflags, exelinkflags
+
+Plese note it is an ordered list, not a map, and dependency order is relevant. Upstream dependencies, i.e. the
+ones that do not depend on other packages, will be first, and their direct dependencies after them, and so on.
+
 
 deps_env_info
 -------------
