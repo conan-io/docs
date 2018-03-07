@@ -13,7 +13,7 @@ Conan can be integrated with **Visual Studio** in two different ways:
 With CMake
 ----------
 
-Use this, or **cmake_multi**, if you are using cmake to machine-generate your Visual Studio projects.
+Use the **cmake** generator, or **cmake_multi**, if you are using cmake to machine-generate your Visual Studio projects.
 
 Check the :ref:`generator<generators>` section to read about the **cmake** generator.
 Check the official `CMake docs`_ to find out more about generating Visual Studio projects with CMake.
@@ -22,6 +22,11 @@ Check the official `CMake docs`_ to find out more about generating Visual Studio
 .. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
 
 However, beware of some current cmake limitations, such as not dealing well with find-packages, because cmake doesn't know how to handle finding both debug and release packages.
+
+.. note::
+
+    If you want to use the Visual Studio 2017 + CMake integration, :ref:`check this how-to<visual2017_cmake_howto>`
+
 
 With *visual_studio* generator
 ------------------------------
