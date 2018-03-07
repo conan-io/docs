@@ -95,6 +95,18 @@ environment variables for some specific package:
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
 
+
+.. note::
+
+    If you want to override existing system environment variables, you should use the ``key=value`` syntax. If you need to pre-pend to the
+    system environment variables you should use the syntax ``key=[value]`` or ``key=[value1, value2, ...]``. A typical example is the
+    ``PATH`` environment variable, when you want to add paths to the existing system PATH, not override it, you would use:
+
+    .. code-block:: text
+
+        [env]
+        PATH=[/some/path/to/my/tool]
+
 Profile includes
 ----------------
 
