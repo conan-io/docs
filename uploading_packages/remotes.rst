@@ -96,5 +96,12 @@ packages from. Some of these repositories are not affiliated with the Conan team
         $ conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
 
 
+.. note::
+
+    If you are working in a team, you probably want to use the same remotes everywhere: developer machines, CI. The ``conan config install``
+    command can automatically define the remotes in a conan client, as well as other resources as profiles. Have a look to the
+    :ref:`conan config install<conan_config_install>` command.
+
+
 .. _`conan-center`: https://bintray.com/conan/conan-center
 .. _Artifactory documentation: https://www.jfrog.com/confluence/display/RTF/Welcome+to+Artifactory
