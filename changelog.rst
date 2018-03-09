@@ -13,6 +13,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.2.0 ()
 ---------------
 - Feature: Added a ``json`` generator.
+- Fix: Split ``ycm`` generator generated file to allow more flexibility for user provided flags.
 
   
 1.1.0 (27-Feb-2018)
