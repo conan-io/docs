@@ -119,7 +119,7 @@ tools.build_sln_command()
 .. code-block:: python
 
     def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                          arch=None, parallel=True, toolset=None)
+                          arch=None, parallel=True, toolset=None, platforms=None)
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
 It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
@@ -137,14 +137,24 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use "self.settings".
     - **sln_path** (Required):  Visual Studio project file path.
     - **targets** (Optional, Defaulted to ``None``):  List of targets to build.
-    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is older than current.
-
-      When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
+    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is
+      older than current. When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to
+      ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
     - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
     - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
     - **parallel** (Optional, Defaulted to ``True``): Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
       or by the number of cores in the processor by default.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
+    - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
+      is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
+      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+
+      .. code-block:: python
+
+          msvc_arch = {'x86': 'x86',
+                       'x86_64': 'x64',
+                       'armv7': 'ARM',
+                       'armv8': 'ARM64'}
 
 .. _msvc_build_command:
 
@@ -154,14 +164,14 @@ tools.msvc_build_command()
 .. code-block:: python
 
     def msvc_build_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                           arch=None, parallel=True, force_vcvars=False, toolset=None)
+                           arch=None, parallel=True, force_vcvars=False, toolset=None, platforms=None)
 
 Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above
 ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
-    - Same arguments as the above ``tools.build_sln_command()``
-    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``
+    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
+    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
 tools.unzip()
 -------------
