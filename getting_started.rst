@@ -114,12 +114,12 @@ Then create a build folder, for temporary build files, and install the requireme
     $ mkdir build && cd build
     $ conan install ..
 
-This ``$ conan install`` command will download the binary package required for your configuration (detected the first time that you ran the
+This :command:`conan install` command will download the binary package required for your configuration (detected the first time that you ran the
 command), **together with other (transitively required by Poco) libraries, like OpenSSL and Zlib**. It will also create the
 *conanbuildinfo.cmake* file in the current directory, in which you can see the cmake defined variables, and a *conaninfo.txt* where
 information about settings, requirements and options is saved.
 
-It is very important to understand the installation process. When ``$ conan install`` command is issued, it will use some settings,
+It is very important to understand the installation process. When :command:`conan install` command is issued, it will use some settings,
 specified on the command line or taken from the defaults in ``<userhome>/.conan/profiles/default`` file.
 
 .. image:: images/install_flow.png
@@ -127,7 +127,7 @@ specified on the command line or taken from the defaults in ``<userhome>/.conan/
    :width: 500 px
    :align: center
 
-For a command like ``$ conan install . -s os="Linux" -s compiler="gcc"``, the steps are:
+For a command like :command:`conan install . -s os="Linux" -s compiler="gcc"`, the steps are:
 
 - Check if the package recipe (for ``Poco/1.8.0.1@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
   cache will be empty.
@@ -224,7 +224,7 @@ Building with other configurations
 In this example we have built our project using the default configuration detected by conan, this configuration is known as the
 :ref:`default profile<default_profile>`.
 
-The first time you run the command that requires profile, such as the ``$ conan install``, your settings are detected (compiler,
+The first time you run the command that requires a profile, such as :command:`conan install`, your settings are detected (compiler,
 architecture...) automatically and stored as default in a profile. You can change your those
 settings by editing ``~/.conan/profiles/default`` or create new profiles with the desired
 configuration.

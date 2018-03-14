@@ -48,11 +48,10 @@ Conan will install all dependencies, build your project, create a package and ru
 
 .. code-block:: bash
 
-   $ conan create . demo/testing
+    $ conan create . demo/testing
 
-The ``conan create`` automates all steps for you, however,
-you need to create the test directory and conanfile.py to make sure that your package is correct.
-
+The :command:`conan create` automates all steps for you. However, you need to create the test directory and *conanfile.py* to make sure that
+your package is correct.
 
 CMake
 -----
@@ -73,7 +72,7 @@ Build your project normally with CMake:
    $ cmake .. && cmake --build .
 
 If you just want to build the project, all steps can be executed directly
-by CMake, or just invoking ``conan build``.
+by CMake, or just invoking :command:`conan build`.
 
 
 Step by step
@@ -110,21 +109,20 @@ And run!
 
 .. code-block:: bash
 
-   $ bin/encryption_test
+    $ bin/encryption_test
 
-   [100%] Built target mytest
-	Running main() from gtest_main.cc
-	[==========] Running 1 test from 1 test case.
-	[----------] Global test environment set-up.
-	[----------] 1 test from TestingEncryption
-	[ RUN      ] TestingEncryption.cipher
+    [100%] Built target mytest
+    Running main() from gtest_main.cc
+    [==========] Running 1 test from 1 test case.
+    [----------] Global test environment set-up.
+    [----------] 1 test from TestingEncryption
+    [ RUN      ] TestingEncryption.cipher
 
+    Decrypted text is:
+    The quick brown fox jumps over the lazy dog
+    [       OK ] TestingEncryption.cipher (2 ms)
+    [----------] 1 test from TestingEncryption (2 ms total)
 
-	Decrypted text is:
-	The quick brown fox jumps over the lazy dog
-	[       OK ] TestingEncryption.cipher (2 ms)
-	[----------] 1 test from TestingEncryption (2 ms total)
-
-	[----------] Global test environment tear-down
-	[==========] 1 test from 1 test case ran. (2 ms total)
-	[  PASSED  ] 1 test.
+    [----------] Global test environment tear-down
+    [==========] 1 test from 1 test case ran. (2 ms total)
+    [  PASSED  ] 1 test.

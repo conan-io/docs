@@ -122,11 +122,11 @@ avoid this and use the same binary for different setups, modifying this behavior
     >>> poco.random_float()
     0.697845458984375
 
-Now the first invocation of ``$ conan install`` will build retrieve the dependencies and build the package. The next invocation will use the
+Now the first invocation of :command:`conan install` will build retrieve the dependencies and build the package. The next invocation will use the
 cached binaries and be much faster. Note how we have to specify ``-s arch=x86`` to build matching the architecture of the python interpreter
 to be used, in our case, 32 bits.
 
-We can also read in the output of the ``$ conan install`` the dependencies that are being pulled:
+We can also read in the output of the :command:`conan install` the dependencies that are being pulled:
 
 .. code-block:: bash
 

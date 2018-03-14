@@ -3,10 +3,9 @@
 registry.txt
 ============
 
-This file is generally automatically managed, and it has also access via the ``conan remote``
+This file is generally automatically managed, and it has also access via the :command:`conan remote`
 command but just in case you might need to change it. It contains information about the known
 remotes and from which remotes are each package retrieved:
-
 
 .. code-block:: text
 

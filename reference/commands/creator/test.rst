@@ -55,10 +55,9 @@ create`` command.
                             similar to --build=never, but package recipes can
                             override it and decide to build with "build_policy"
 
-This command is util for testing existing packages, that have been previously built (with
-``conan create``, for example). ``conan create`` will automatically run this test if a
-``test_package`` folder is found besides the conanfile.py, or if the ``--test-folder`` argument is
-provided to ``conan create``.
+This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).
+:command:`conan create` will automatically run this test if a *test_package* folder is found besides the *conanfile.py*, or if the
+:command:`--test-folder` argument is provided to :command:`conan create`.
 
 **Example**:
 

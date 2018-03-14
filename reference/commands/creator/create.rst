@@ -79,7 +79,7 @@ created correctly. Check the 'conan test' command to know more about the
 
 This is the recommended way to create packages.
 
-``$ conan create . demo/testing`` is equivalent to:
+:command:`conan create . demo/testing` is equivalent to:
 
 .. code-block:: bash
 
@@ -96,10 +96,11 @@ This is the recommended way to create packages.
     i.e: when you are cross compiling libraries and target code cannot be executed in current host platform.
     In that case you can skip/disable the test package stage:
 
-    ``conan create . demo/testing --test-folder=None``
+    .. code-block:: bash
 
+        $ conan create . demo/testing --test-folder=None
 
-``$ conan create`` executes methods of a *conanfile.py* in the following order:
+:command:`conan create` executes methods of a *conanfile.py* in the following order:
 
 1. ``config_options()``
 2. ``configure()``
@@ -115,5 +116,5 @@ This is the recommended way to create packages.
 12. ``package_info()``
 
 In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note ``package_info()`` is used for consumers, it should not
-be fired if there is no *test_package*. Note also that ``deploy()`` method is only used in ``$ conan install``.
+be fired if there is no *test_package*. Note also that ``deploy()`` method is only used in :command:`conan install`.
 

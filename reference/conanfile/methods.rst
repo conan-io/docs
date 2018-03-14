@@ -173,7 +173,7 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
 
 The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and ``True``. One will copy from the *source*
 folder (typically packaging the headers and other data files), and the other will copy from the *build* folder, packaging the libraries and
-other binary artifacts. Also, when the local ``$ conan package`` command is issued with ``--source-folder`` and ``--build-folder``, it will
+other binary artifacts. Also, when the local :command:`conan package` command is issued with :command:`--source-folder` and :command:`--build-folder`, it will
 execute two times, one in each folder, in the same way.
 
 .. _method_package_info:
@@ -372,7 +372,7 @@ can be done:
             del self.options.shared
 
 This will be executed before the actual assignment of ``options`` (then, such ``options`` values cannot be used inside this function), so
-the command ``$ conan install -o Pkg:shared=True`` will raise an exception in Windows saying that ``shared`` is not an option for such
+the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
 requirements()
@@ -577,7 +577,7 @@ do:
         self.copy("*.dll", dst=dest, src="bin")
         self.copy("*.dylib*", dst=dest, src="lib")
 
-And then use, for example: ``$ conan install . -e CONAN_IMPORT_PATH=Release -g cmake_multi``
+And then use, for example: :command:`conan install . -e CONAN_IMPORT_PATH=Release -g cmake_multi`
 
 When a conanfile recipe has an ``imports()`` method and it builds from sources, it will do the following:
 
@@ -765,7 +765,7 @@ the ``package_id``, then the standard behavior will be applied. Consider the fol
 
 This will only produce a build ID different if the package is for Windows. So the behavior
 in any other OS will be the standard one, as if the ``build_id()`` method was not defined:
-the build folder will be wiped at each ``$ conan create`` command and a clean build will
+the build folder will be wiped at each :command:`conan create` command and a clean build will
 be done.
 
 deploy()

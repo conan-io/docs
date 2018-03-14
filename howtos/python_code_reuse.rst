@@ -73,10 +73,10 @@ With this recipe, all we have to do is:
 
     $ conan export . memsharded/testing
 
-Of course if you want to share the package with your team, you can ``conan upload`` it to a remote server. But to create and test the
+Of course if you want to share the package with your team, you can :command:`conan upload` it to a remote server. But to create and test the
 package, we can do everything locally.
 
-Now the package is ready for consumption. In another folder, we can create a ``conanfile.txt`` (or a ``conanfile.py`` if we prefer):
+Now the package is ready for consumption. In another folder, we can create a *conanfile.txt* (or a *conanfile.py* if we prefer):
 
 .. code-block:: text
 
@@ -91,14 +91,11 @@ And install it with the following command:
 
     $ conan install . -g virtualenv
 
-
 Creating the above ``conanfile.txt`` might be unnecessary for this simple example, as you can directly run
-``conan install HelloPy/0.1@memsharded/testing -g virtualenv``, however, using the file is the canonical way.
+:command:`conan install HelloPy/0.1@memsharded/testing -g virtualenv`, however, using the file is the canonical way.
 
-
-The specified ``virtualenv`` generator will create an ``activate`` script (in Windows ``activate.bat``), that basically contains the
+The specified ``virtualenv`` generator will create an ``activate`` script (in Windows *activate.bat*), that basically contains the
 environment, in this case, the ``PYTHONPATH``. Once we activate it, we are able to find the package in the path and use it:
-
 
 .. code-block:: bash
 
@@ -110,7 +107,6 @@ environment, in this case, the ``PYTHONPATH``. Once we activate it, we are able 
     >>> hello.hello()
     Hello World from Python!
     >>>
-
 
 The above shows an interactive session, but you can import also the functionality in a regular python script.
 

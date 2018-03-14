@@ -22,7 +22,7 @@ requirements** in a file. They have this structure:
     Tool2/0.1@user/channel, Tool3/0.1@user/channel
     *: Tool4/0.1@user/channel
 
-Profile files can be used with ``-pr``/``--profile`` option in ``$ conan install`` and ``$ conan create`` commands.
+Profile files can be used with ``-pr``/``--profile`` option in :command:`conan install` and :command:`conan create` commands.
 
 .. code-block:: bash
 
@@ -219,7 +219,7 @@ parameters to specify the settings:
    export CXX=/usr/bin/clang++
    conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
-A profile can also be used in ``conan create`` and ``info`` command:
+A profile can also be used in :command:`conan create` and :command:`conan info`:
 
 .. code-block:: bash
 

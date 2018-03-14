@@ -34,9 +34,8 @@ The ``imports()`` method might use `settings`, `options` and `environment variab
 specified profile and dependencies information from the declared ``deps_XXX_info`` objects in the
 conanfile requirements.
 
-All that information is saved automatically in the ``conaninfo.txt`` and ``conanbuildinfo.txt``
-files respectively, when you run the ``conan install`` command. Those files have to be located in
-the specified ``--install-folder``.
+All that information is saved automatically in the *conaninfo.txt* and *conanbuildinfo.txt* files respectively, when you run
+:command:`conan install`. Those files have to be located in the specified :command:`--install-folder`.
 
 **Examples**
 

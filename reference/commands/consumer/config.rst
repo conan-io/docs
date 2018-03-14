@@ -74,7 +74,7 @@ The local cache *registry.txt* file contains the remotes definitions, as well as
 to remotes. In general it is not a good idea to add it to the installed files.
 
 The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
-so following calls to ``conan config install`` command doesn't need to specify the url.
+so following calls to :command:`conan config install` command doesn't need to specify the URL.
 
 **Examples**:
 

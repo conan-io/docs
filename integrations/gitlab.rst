@@ -8,7 +8,7 @@
 
 You can use `Gitlab CI`_ cloud or local service to automatically build and test your project in Linux/OSX/Windows environments.
 It is free for OSS projects, and offers an easy integration with Gitlab, so builds can be automatically
-fired in Gitlab CI after a ``git push`` to Gitlab.
+fired in Gitlab CI after a :command:`git push` to Gitlab.
 
 You can use Gitlab CI both for:
 
@@ -58,7 +58,7 @@ Creating, testing and uploading conan binary packages
 You can use Gitlab CI to automate the building of binary packages, which will be created in the
 cloud after pushing to Gitlab. You can probably setup your own way, but conan has some utilities to help in the process.
 
-The command ``conan new`` has arguments to create a default working ``.gitlab-ci.yml`` file.
+The command :command:`conan new` has arguments to create a default working ``.gitlab-ci.yml`` file.
 Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray.
 You could follow these steps:
 
@@ -66,16 +66,17 @@ You could follow these steps:
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
 #. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Under your project page, *Settings -> Pipelines -> Add a variable*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key. If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``
-#. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
-#. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -ciglg -ciglc -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
-#. You can inspect the created files: both ``.gitlab-ci.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds with different configurations in different GitLab CI jobs.
-#. You can test locally, before pushing, with ``$ conan create`` or by GitLab Runner
-#. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
+#. Clone the repo: :command:`git clone <your_repo/hello> && cd hello`.
+#. Create the package: :command:`conan new Hello/0.1@<user>/testing -t -s -ciglg -ciglc -cis -ciu=UPLOAD_URL` where **user** is your Bintray username.
+#. You can inspect the created files: both *.gitlab-ci.yml* and the *build.py* script, that is used by **conan-package-tools** utility to
+   split different builds with different configurations in different GitLab CI jobs.
+#. You can test locally, before pushing, with :command:`conan create` or by GitLab Runner.
+#. Add the changes, commit and push: :command:`git add . && git commit -m "first commit" && git push`.
 #. Go to Pipelines page and see the pipeline, with the different jobs.
-#. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations
-#. Check locally, searching in Bintray: ``$ conan search Hello/0.1@<user>/testing -r=mybintray``
+#. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations.
+#. Check locally, searching in Bintray: :command:`conan search Hello/0.1@<user>/testing -r=mybintray`.
 
-If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
+If something fails, please report an issue in the **conan-package-tools** github repository: https://github.com/conan-io/conan-package-tools
 
 .. |gitlab_logo| image:: ../images/gitlab_logo.png
 .. _`Gitlab CI`: https://gitlab.com/

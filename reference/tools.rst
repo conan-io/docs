@@ -729,7 +729,7 @@ tools.escape_windows_cmd()
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
-- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
+- Adds escapes for cmmd.exe so the argument survives cmmd.exe's substitutions.
 
 Parameters:
     - **command** (Required): Command to execute.

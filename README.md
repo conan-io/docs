@@ -76,9 +76,9 @@ Section Title
   anything special. The *test_package/conanfile.py* file is...
   ```
 
-- ``Inline literals with $`` to refer to command line commands.
+- ``Command inline literals`` to refer to command line commands.
   ```
-  To create a conan package you can use the ``$ conan create`` command.  You can see a ``$ git clone`` command...
+  To create a conan package you can use :command:`conan create`.  You can see a :command:`git clone` command...
   ```
 
 - ``Inline literals`` to refer to code or text inside recipies:
