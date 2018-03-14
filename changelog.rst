@@ -86,11 +86,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.0.3 (22-January-2018)
 -----------------------
 
-<<<<<<< HEAD
 - Bugfix: Correct load of stored settings in conaninfo.txt (for :command:`conan build`) when ``configure()`` remove some setting.
-=======
-- Bugfix: Correct load of stored settings in conaninfo.txt (for ``conan build``) when ``configure()`` remove some setting.
->>>>>>> master
 - Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
 - Fix: fixed wrong message for :command:`conan alias --help`.
 - Fix: Normalized all arguments to :command:`--xxx-folder` in command line help.
@@ -111,13 +107,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.0.1 (12-January-2018)
 -----------------------
 
-<<<<<<< HEAD
 - Fix: :command:`conan new` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
 - Fix: *conaninfo.txt* file does not dump settings with None values
-=======
-- Fix: ``conan new`` does not generate cross-building (like ``os_build``) settings by default. They make only sense for dev-tools used as ``build_requires``
-- Fix: ``conaninfo.txt`` file does not dump settings with None values
->>>>>>> master
 
 
 1.0.0 (10-January-2018)
@@ -166,13 +157,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.0.0-beta2 (23-December-2017)
 ------------------------------
 
-<<<<<<< HEAD
 - Feature: New command line UI. Most commands use now the path to the package recipe, like :command:`conan export . user/testing` or
   :command:`conan create folder/myconanfile.py user/channel`.
-=======
-- Feature: New command line UI. Most commands use now the path to the package recipe, like ``conan export . user/testing``
-  or ``conan create folder/myconanfile.py user/channel``.
->>>>>>> master
 - Feature: Better cross-compiling. New settings model for ``os_build``, ``arch_build``, ``os_target``, ``arch_target``.
 - Feature: Better Windows OSS ecosystem, with utilities and settings model for MSYS, Cygwin, Mingw, WSL
 - Feature: ``package()`` will not warn of not copied files for known use cases.
@@ -239,13 +225,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: typos in generator names, or non-existing generator now raise an Error instead of a warning
 - Fix: ``short_paths`` feature is active by default in Windows. If you want to opt-out, you can use ``CONAN_USER_HOME_SHORT=None``
 - Fix: ``SystemPackageTool`` doesn't use sudo in Windows
-<<<<<<< HEAD
 - BugFix: Not using parallel builds for Visual<10 in CMake build helper.
 - Deprecation: ``conanfile_directory` shouldn't be used anymore in recipes. Use ``source_folder``, ``build_folder``, etc.
-=======
-- BugFix: Not using parallel builds for Visual<10 in cmake build helper
-- Deprecation: ``conanfile_directory`` shouldn't be used anymore in recipes. Use ``source_folder``, ``build_folder``, etc
->>>>>>> master
 
 .. note::
 
@@ -401,11 +382,7 @@ thanks very much!
 0.27.0 (20-September-2017)
 --------------------------
 
-<<<<<<< HEAD
 - Feature: :command:`conan config install <url>` new command. Will install remotes, profiles, settings, conan.conf and other files into the local conan installation. Perfect to synchronize configuration among teams
-=======
-- Feature: ``conan config install <url>`` new command. Will install remotes, profiles, settings, conan.conf and other files into the local conan installation. Perfect to synchronize configuration among teams
->>>>>>> master
 - Feature: improved traceback printing when errors are raised for more context. Configurable via env
 - Feature: filtering out non existing directories in ``cpp_info`` (include, lib, etc), so some build systems don't complain about them.
 - Feature: Added include directories to ResourceCompiler and to MIDL compiler in ``visual_studio`` generator
@@ -487,17 +464,10 @@ thanks very much!
 
   This release introduces a new layout for the local cache, with dedicated ``export_source`` folder to store the source code exported with ``exports_sources`` feature, which is much cleaner than the old ``.c_src`` subfolder. A migration is included to remove from the local cache packages with the old layout.
 
-<<<<<<< HEAD
 - Feature: new :command:`conan create` command that supersedes *test_package* for creating and testing package. It works even without the test_package folder, and have improved management for user, channel. The test_package recipe no longer defines ``requires``
 - Feature: new :command:`conan get` command that display (with syntax highlight) package recipes, and any other file from conan: recipes, conaninfo.txt, manifests, etc.
 - Feature: new :command:`conan alias` command that creates a special package recipe, that works like an **alias** or a **proxy** to other package, allowing easy definition and transparent management of "using the latest minor" and similar policies. Those special alias packages do not appear in the dependency graph.
 - Feature: new :command:`conan search --table=file.html` command that will output an html file with a graphical representation of available binaries
-=======
-- Feature: new ``conan create`` command that supersedes ``test_package`` for creating and testing package. It works even without the test_package folder, and have improved management for user, channel. The test_package recipe no longer defines ``requires``
-- Feature: new ``conan get`` command that display (with syntax highlight) package recipes, and any other file from conan: recipes, conaninfo.txt, manifests, etc.
-- Feature: new ``conan alias`` command that creates a special package recipe, that works like an **alias** or a **proxy** to other package, allowing easy definition and transparent management of "using the latest minor" and similar policies. Those special alias packages do not appear in the dependency graph.
-- Feature: new ``conan search --table=file.html`` command that will output an html file with a graphical representation of available binaries
->>>>>>> master
 - Feature: created **default profile**, that replace the ``[settings_default]`` in **conan.conf** and augments it, allowing to define more things like env-vars, options, build_requires, etc.
 - Feature: new ``self.user_info`` member that can be used in ``package_info()`` to define custom user variables, that will be translated to general purpose variables by generators.
 - Feature: :command:`conan remove` learned the :command:`--outdated` argument, to remove those binary packages that are outdated from the recipe, both from local cache and remotes
@@ -533,11 +503,7 @@ thanks very much!
 0.24.0 (15-June-2017)
 ---------------------
 
-<<<<<<< HEAD
 - Feature: :command:`conan new` new arguments to generate **Travis-CI** and **Appveyor** files for Continuous Integration
-=======
-- Feature: ``conan new`` new arguments to generate **Travis-CI** and **Appveyor** files for Continuous Integration
->>>>>>> master
 - Feature: Profile files with ``include()`` and variable declaration
 - Feature: Added ``RelWithDebInfo/MinRelSize`` to cmake generators
 - Feature: Improved linter, removing false positives due to dynamic conanfile attributes
@@ -642,11 +608,7 @@ thanks very much!
 0.21.0 (21-March-2017)
 ----------------------
 
-<<<<<<< HEAD
 - Feature: :command:`conan info --graph` or graph=file.html`` will generate a dependency graph representation in dot or html formats.
-=======
-- Feature: ``conan info --graph`` or ``--graph=file.html`` will generate a dependency graph representation in dot or html formats.
->>>>>>> master
 - Feature: Added better support and tests for Solaris Sparc.
 - Feature: custom authenticators are now possible in :command:`conan_server`` with plugins.
 - Feature: extended :command:`conan info` command with path information and filter by packages.
@@ -760,11 +722,7 @@ that might be created with latest conan releases (like conan.io).
 0.19.1 (02-February-2017)
 -------------------------
 
-<<<<<<< HEAD
 - Bug fix: Fixed issue with :command:`conan copy`` followed by :command:`conan upload`` due to the new ``exports_sources``
-=======
-- Bug fix: Fixed issue with ``conan copy`` followed by ``conan upload`` due to the new ``exports_sources``
->>>>>>> master
   feature.
 
 
@@ -882,21 +840,13 @@ This has been a huge release with contributors of 11 developers. Thanks very muc
 0.16.1 (05-December-2016)
 -------------------------
 
-<<<<<<< HEAD
 - Solved bug with *test_package* with arguments, like scopes.
-=======
-- Solved bug with ``test_package`` with arguments, like scopes.
->>>>>>> master
 
 
 0.16.0 (19-November-2016)
 -------------------------
 
-<<<<<<< HEAD
 **Upgrade**: The build=outdated`` feature had a change in the hash computation, it might report
-=======
-**Upgrade**: The ``--build=outdated`` feature had a change in the hash computation, it might report
->>>>>>> master
 outdated binaries from recipes. You can re-build the binaries or ignore it (if you haven't changed
 your recipes without re-generating binaries)
 
@@ -1145,11 +1095,7 @@ feedback and contributions. Thanks very much again to all of them!
 0.10.0 (29-June-2016)
 ---------------------
 
-<<<<<<< HEAD
 - **conan new** command, that creates conan package conanfile.py templates, with a *test_package* package test (-t option),
-=======
-- **conan new** command, that creates conan package conanfile.py templates, with a ``test_package`` package test (-t option),
->>>>>>> master
   also for header only packages (-i option)
 - Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).
 - Definition of **dev_requires**. Those are requirements that are only retrieved when the package is in **dev** scope, otherwise they are not. They do not affect the binary packages. Typical use cases would be test libraries or build scripts.
