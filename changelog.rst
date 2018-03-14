@@ -45,7 +45,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Wrong detection of compiler in OSX for gcc frontend to clang.
 - Fix: Disabled *conanbuildinfo.cmake* compiler checks for unknown compilers.
 - Fix: ``visual_studio`` generator added missing *ResourceCompile* information.
-- Fix: Don't output password from URL for :comamnd:`conan config install` command.
+- Fix: Don't output password from URL for :command:`conan config install` command.
 - Fix: Signals exit with error code instead of 0.
 - Fix: Added package versions to generated SCons file.
 - Fix: Error message when package was not found in remotes has been improved.
