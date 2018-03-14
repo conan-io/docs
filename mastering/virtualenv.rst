@@ -42,18 +42,17 @@ Let's prepare a virtual environment to have available our cmake in the path, ope
 
 .. code-block:: text
 
-   [requires]
-   cmake-installer/0.1@lasote/testing
+    [requires]
+    cmake-installer/0.1@lasote/testing
 
-   [generators]
-   virtualenv
+    [generators]
+    virtualenv
 
-
-Run ``conan install``:
+Run :command:`conan install`:
 
 .. code-block:: bash
 
-   $ conan install
+    $ conan install
 
 And activate the virtual environment:
 
@@ -61,11 +60,9 @@ And activate the virtual environment:
 .. code-block:: bash
 
    $ source activate.sh # Windows: activate.bat without the source
-   
-
 
 Two sets of scripts are available for Windows - ``activate.bat``/``deactivate.bat`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
-   
+
 Now you can run ``cmake --version`` and check that you have the installed CMake in path.
 
 

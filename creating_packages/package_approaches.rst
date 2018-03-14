@@ -123,8 +123,8 @@ with the default runtime (MD/MDd), it is also good to remove the ``runtime`` sub
         def build(self):
             cmake = CMake(self)
             if cmake.is_multi_configuration:
-                cmd = 'cmake "%s" %s' % (self.source_folder, cmake.command_line)
-                self.run(cmd)
+                cmmd = 'cmake "%s" %s' % (self.source_folder, cmake.command_line)
+                self.run(cmmd)
                 self.run("cmake --build . --config Debug")
                 self.run("cmake --build . --config Release")
             else:

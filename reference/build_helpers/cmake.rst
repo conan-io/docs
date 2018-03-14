@@ -192,7 +192,7 @@ Parameters:
     - **build_folder**: CMake's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.
       The ``CMake`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
     - **cache_build_folder** (Optional, Defaulted to ``None``): Use the given subfolder as build folder when building the package in the local cache.
-      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_folder** when working in the local cache.
+      This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
 
 build()
@@ -209,9 +209,8 @@ Parameters:
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_dir`` from ``configure()`` will be used.
     - **target** (Optional, Defaulted to ``None``): Specifies the target to execute. The default *all* target will be built if ``None`` is specified. ``"install"`` can be used to relocate files to aid packaging.
 
-
 test()
-+++++++++
+++++++
 
 .. code-block:: python
 

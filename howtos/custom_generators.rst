@@ -248,7 +248,5 @@ Now, everything works, so you might want to share your generator:
 
 .. note::
 
-    This is a regular conan package. You could for example embed this example in a ``test_package``
-    folder, create a conanfile.py that invokes premake4 in the build() method, and use ``conan test``
-    to automatically test your custom generator with a real project
-    
+    This is a regular conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
+    invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.

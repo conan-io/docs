@@ -45,12 +45,10 @@ in the downstream package or project.
 
 The order of search for matching versions is as follows:
 
-- First, the local conan storage is searched for matching versions, unless the ``--update`` flag
-  is provided to ``conan install``
-- If a matching version is found, it is used in the dependency graph as a solution
-- If no matching version is locally found, it starts to search in the remotes, in order. If some
-  remote is specified with ``-r=remote``, then only that remote will be used.
-- If the ``--update`` parameter is used, then the existing packages in the local conan cache will
-  not be used, and the same search of the previous steps is carried out in the remotes. If new
-  matching versions are found, they will be retrieved, so subsequent calls to ``install`` will
-  find them locally and use them.
+- First, the local conan storage is searched for matching versions, unless the :command:`--update` flag is provided to :command:`conan install`.
+- If a matching version is found, it is used in the dependency graph as a solution.
+- If no matching version is locally found, it starts to search in the remotes, in order. If some remote is specified with :command:`-r=remote`,
+  then only that remote will be used.
+- If the :command:`--update` parameter is used, then the existing packages in the local conan cache will not be used, and the same search of the
+  previous steps is carried out in the remotes. If new matching versions are found, they will be retrieved, so subsequent calls to
+  :command:`install` will find them locally and use them.

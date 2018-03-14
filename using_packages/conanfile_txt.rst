@@ -3,11 +3,11 @@
 Installing dependencies
 -----------------------
 
-In :ref:`Getting started<getting_started>` we used ``$ conan install`` command to download the
+In :ref:`Getting started<getting_started>` we used :command:`conan install` command to download the
 **Poco** library and build an example.
 
 Please take a moment to inspect the generated ``conanbuildinfo.cmake`` file that was created when we
-did ``conan install``. You can see there that there are many CMake variables declared. For example
+did :command:`conan install`. You can see there that there are many CMake variables declared. For example
 ``CONAN_INCLUDE_DIRS_ZLIB``, which defines the include path to the ZLib headers, or
 ``CONAN_INCLUDE_DIRS`` that defines include paths for all dependencies headers.
 
@@ -19,13 +19,13 @@ did ``conan install``. You can see there that there are many CMake variables dec
 If you check the full path, you will see that they are pointing to a folder in your ``<userhome>``
 folder, this is called the **local cache**. It is the place where package recipes and binary
 packages are stored and cached, so they don't have to be retrieved again. You can inspect the
-**local cache** with ``conan search``, and you can also remove packages from it with
-``conan remove`` command.
+**local cache** with :command:`conan search`, and you can also remove packages from it with
+:command:`conan remove` command.
 
 If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the
 headers and the libraries for each package.
 
-If you execute a ``conan install Poco/1.7.8p3@pocoproject/stable`` command in your shell, conan will
+If you execute a :command:`conan install Poco/1.7.8p3@pocoproject/stable` command in your shell, conan will
 download the Poco package and its dependencies (*OpenSSL/1.0.2l@conan/stable* and
 *zlib/1.2.11@conan/stable*) to your local cache and print information about the folder of the where
 they are installed. You could handle them manually if you want. But the recommended approach is
@@ -109,7 +109,7 @@ with all the necessary information to link your program with the specified requi
 generated files are usually temporary, created in build folders and not committed to version
 control, as they have paths to local folder that will not exist in another machine. Also, it is very
 important to highlight that generated files match the given configuration (Debug/Release,
-x86/x86_64, etc), specified at ``conan install`` time. If the configuration changes, the files will
+x86/x86_64, etc), specified at :command:`conan install` time. If the configuration changes, the files will
 change.
 
 Check the complete :ref:`generators<generators_reference>` reference.
@@ -120,7 +120,7 @@ Options
 .......
 
 We have already seen that there are some **settings** that can be specified at install time, for
-example ``conan install . -s build_type=Debug``. The settings are typically a project-wide
+example :command:`conan install . -s build_type=Debug`. The settings are typically a project-wide
 configuration, defined by the client machine. So they cannot have a default value in the recipe. For
 example, it doesn't make sense for a package recipe to declare as default compiler "Visual Studio",
 because that is something defined by the end consumer, and unlikely to make sense if they are
@@ -132,31 +132,28 @@ and such default will be used if consumers don't specify otherwise.
 
 .. note:: 
 
-    You can see the available options for a package inspecting the recipe with ``conan get
-    <reference>`` command:
+    You can see the available options for a package inspecting the recipe with :command:`conan get <reference>` command:
 
     .. code-block:: text
 
         $ conan get Poco/1.7.8p3@pocoproject/stable
 
-As an example, we can modify the previous example to use dynamic linkage instead of the default one,
-which was static. Just edit the ``conanfile.txt``:
+As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the
+*conanfile.txt*:
 
 .. code-block:: text
 
     [requires]
     Poco/1.7.8p3@pocoproject/stable
-    
+
     [generators]
     cmake
-    
+
     [options]
     Poco:shared=True # PACKAGE:OPTION=VALUE
     OpenSSL:shared=True
-      
 
-Install the requirements and compile from the build folder (change the CMake generator if not in
-Windows):
+Install the requirements and compile from the build folder (change the CMake generator if not in Windows):
 
 .. code-block:: bash
 
@@ -173,8 +170,8 @@ command line:
     # or even with wildcards, to apply to many packages
     $ conan install .. -o *:shared=True
 
-Conan will install the shared library packages binaries, and the example will link with them. You
-can again inspect the different installed binaries, e.g. ``conan search zlib/1.2.8@lasote/stable``.
+Conan will install the shared library packages binaries, and the example will link with them. You can again inspect the different installed
+binaries, e.g. :command:`conan search zlib/1.2.8@lasote/stable`.
 
 Finally, launch the executable:
 

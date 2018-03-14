@@ -71,7 +71,7 @@ These are the special files and the rules applied to merge them:
 +--------------------------------+----------------------------------------------------------------------+
 
 The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
-so following calls to ``conan config install`` command doesn't need to specify the url.
+so following calls to :command:`conan config install` command doesn't need to specify the URL.
 
 **Examples**:
 
