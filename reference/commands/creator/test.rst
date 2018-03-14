@@ -25,6 +25,8 @@ create`` command.
 
     optional arguments:
       -h, --help            show this help message and exit
+      -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
+                            Optional. Working directory of the build process.
       -u, --update          check updates exist from upstream remotes
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
