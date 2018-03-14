@@ -79,6 +79,9 @@ Recipe quality
         if self.settings.os == "Windows":
             raise ConanException("Windows not supported")
 
+- **Without version ranges**: As many libraries does not follow semantic versioning and the dependency resolution of version ranges is not
+  always clear, recipes in conan center should fix the version of their dependencies and not use version ranges.
+
 - **LICENSE of the recipe:** The public repository must contain a ``LICENSE`` file with an OSS
   license.
 - **LICENSE of the library:** Every built binary package must contain one or more ``license*``
