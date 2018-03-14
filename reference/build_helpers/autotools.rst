@@ -191,6 +191,18 @@ Parameters:
       If ``None`` is specified but the conanfile is using the ``pkg_config`` generator, the ``self.build_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to
       locate the pc files of the requirements of the conanfile.
 
+
+A typical example of the ``args`` could be adding the ``--prefix`` argument, in case the configure script is using it, typically pointing to the
+package folder:
+
+.. code-block:: python
+
+    configure_args = ['--prefix=%s' % self.package_folder]
+    ... # You can add more args to the list
+    env_build = AutoToolsBuildEnvironment(self, win_bash=win_bash)
+    env_build.configure(args=configure_args)
+
+
 make()
 ++++++
 

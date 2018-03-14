@@ -236,3 +236,43 @@ Installs `CMake` project with the given parameters.
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+
+
+patch_config_paths() [EXPERIMENTAL]
++++++++++++++++++++++++++++++++++++
+
+.. code-block:: python
+
+    def patch_config_paths()
+
+
+This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
+variable. This makes most CMake config files portable.
+
+For example, if a package foo installs a file called *fooConfig.cmake* to be used by cmake's ``find_package`` method, normally this file
+will contain absolute paths to the installed package folder, for example it will contain a line such as:
+
+.. code-block:: text
+
+    SET(Foo_INSTALL_DIR /home/developer/.conan/data/Foo/1.0.0/...)
+
+This will cause cmake's ``find_package()`` method to fail when someone else installs the package via Conan. This function will replace such
+paths to:
+
+.. code-block:: text
+
+    SET(Foo_INSTALL_DIR ${CONAN_FOO_ROOT})
+
+Which is a variable that is set by *conanbuildinfo.cmake*, so that ``find_package()`` now correctly works on this Conan package.
+
+If the ``install()`` method of the CMake object in the conanfile is used, this function should be called **after** that invocation. For
+example:
+
+.. code-block:: python
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+        cmake.install()
+        cmake.patch_config_paths()

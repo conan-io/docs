@@ -63,7 +63,7 @@ build()
 .. code-block:: python
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
-              parallel=True, force_vcvars=False, toolset=None)
+              parallel=True, force_vcvars=False, toolset=None, platforms=None)
 
 Builds Visual Studio project with the given parameters. It will call ``tools.msvc_build_command()``.
 
@@ -76,6 +76,16 @@ Parameters:
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan.conf<conan_conf>` file (``cpu_count``).
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
+    - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
+      is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
+      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+
+      .. code-block:: python
+
+          msvc_arch = {'x86': 'x86',
+                       'x86_64': 'x64',
+                       'armv7': 'ARM',
+                       'armv8': 'ARM64'}
 
 .. _visual_studio_build:
 

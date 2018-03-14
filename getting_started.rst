@@ -23,7 +23,7 @@ First, let's create a folder for our project:
     If your code is in a GitHub repository you can simply clone the project, instead of creating this folder, using the following command:
 
     .. code-block:: bash
-    
+
         $ git clone https://github.com/memsharded/example-poco-timer.git mytimer
 
 Next, create the following source files inside this folder:
@@ -224,7 +224,7 @@ Building with other configurations
 In this example we have built our project using the default configuration detected by conan, this configuration is known as the
 :ref:`default profile<default_profile>`.
 
-The first time you run the :command:`conan` command, your settings are detected (compiler,
+The first time you run the command that requires a profile, such as :command:`conan install`, your settings are detected (compiler,
 architecture...) automatically and stored as default in a profile. You can change your those
 settings by editing ``~/.conan/profiles/default`` or create new profiles with the desired
 configuration.

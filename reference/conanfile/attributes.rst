@@ -458,17 +458,15 @@ while ``exports_sources`` files are only retrieved when it is necessary to build
 generators
 ----------
 
-Generators specify which is the output of the ``install`` command in your project folder. By
-default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators.
-
-Check the full generators list in :ref:`Reference/Generators<generators>`
-
-You can specify more than one generator:
+Generators specify which is the output of the ``install`` command in your project folder. By default, a *conanbuildinfo.txt* file is
+generated, but you can specify different generators and even use more than one.
 
 .. code-block:: python
 
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
+
+Check the full :ref:`generators list<generators>`.
 
 build_policy
 ------------

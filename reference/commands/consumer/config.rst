@@ -65,10 +65,13 @@ These are the special files and the rules applied to merge them:
 +--------------------------------+----------------------------------------------------------------------+
 | settings.yml                   | Overrides the local ~/.conan/settings.yml                            |
 +--------------------------------+----------------------------------------------------------------------+
-| remotes.txt                    | Overrides the ~/.conan/registry.txt                                  |
+| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file  |
 +--------------------------------+----------------------------------------------------------------------+
 | config/conan.conf              | Merges the variables, overriding only the declared variables         |
 +--------------------------------+----------------------------------------------------------------------+
+
+The local cache *registry.txt* file contains the remotes definitions, as well as the mapping from packages
+to remotes. In general it is not a good idea to add it to the installed files.
 
 The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
 so following calls to :command:`conan config install` command doesn't need to specify the URL.

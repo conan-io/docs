@@ -11,6 +11,7 @@ This section shows common solutions and different approaches to typical problems
    howtos/visual_studio_packages
    howtos/makefiles
    howtos/manage_gcc_abi
+   howtos/vs2017_cmake
    howtos/manage_cpp_standard
    howtos/python_code_reuse
    howtos/custom_generators
@@ -19,4 +20,5 @@ This section shows common solutions and different approaches to typical problems
    howtos/collaborate_packages
    howtos/link_apple_framework
    howtos/collect_licenses
+   howtos/capture_version
    howtos/other_languages_package_manager

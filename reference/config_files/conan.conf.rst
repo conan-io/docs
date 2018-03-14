@@ -45,7 +45,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # cpu_count = 1             # environment CONAN_CPU_COUNT
 
     # Change the default location for building test packages to a temporary folder
-    # which is deleted after the test.
+    # which is deleted after the test (Defaulted to False).
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
     [storage]
