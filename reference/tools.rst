@@ -99,6 +99,10 @@ tools.vcvars()
 
     vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
+.. note::
+
+    This context manager tool has no effect if used in a platform different from Windows.
+
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
 environment:
