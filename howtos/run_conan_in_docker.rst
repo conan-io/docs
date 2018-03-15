@@ -176,3 +176,6 @@ Available docker images
 +--------------------------------------------------------------------------------------------+-------------+
 | `lasote/conanclang50: clang 5.0 <https://hub.docker.com/r/lasote/conanclang50/>`_          | x86_64      |
 +--------------------------------------------------------------------------------------------+-------------+
+
+
+The Dockerfiles for all these images can be found `here <https://github.com/conan-io/conan-docker-tools>`_.
