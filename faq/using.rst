@@ -16,7 +16,7 @@ packages: settings and options. Read about them in :ref:`this section<settings_v
 How to obtain the dependents of a given package?
 ------------------------------------------------
 
-The search model for conan in commands such as ``$ conan install`` and ``$ conan info`` is done from the downstream or "consumer" pacakge as
+The search model for conan in commands such as :command:`conan install` and :command:`conan info` is done from the downstream or "consumer" pacakge as
 the starting node of the dependency graph and upstream.
 
 .. code-block:: bash
@@ -31,7 +31,7 @@ changes for every configuration. The graph can be different for different operat
 cannot query which packages are dependent on ``MyLib/0.1@user/channel``, but which packages are dependent on
 ``MyLib/0.1@user/channel:63da998e3642b50bee33`` binary package, and the response can contain many different binary packages for the same
 recipe, like ``MyDependent/0.1@user/channel:packageID1... ID2... MyDependent/0.1@user/channel:packageIDN``. That is the reason why
-``$ conan info`` and ``$ conan install`` need a profile (default profile or one given with ``--profile```) or installation files
+:command:`conan info` and :command:`conan install` need a profile (default profile or one given with ``--profile```) or installation files
 ``conanbuildinfo.txt`` to look for settings and options.
 
 In order to show the inverse graph model, the bottom node is neeed to build the graph upstream and an additonal node too to get the inverse

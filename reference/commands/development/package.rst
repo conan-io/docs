@@ -46,9 +46,8 @@ The ``package()`` method might use `settings`, `options` and `environment variab
 profile and dependencies information from the declared ``deps_XXX_info`` objects in the conanfile
 requirements.
 
-All that information is saved automatically in the ``conaninfo.txt`` and ``conanbuildinfo.txt``
-files respectively, when you run the ``conan install`` command.
-Those files have to be located in the specified ``--build-folder``.
+All that information is saved automatically in the *conaninfo.txt* and *conanbuildinfo.txt* files respectively, when you run
+:command:`conan install`. Those files have to be located in the specified :command:`--build-folder`.
 
 .. code-block:: bash
 
@@ -56,8 +55,7 @@ Those files have to be located in the specified ``--build-folder``.
 
 **Examples**
 
-This example shows how ``package`` works in a package which can be edited and built in user folders
-instead of the local cache.
+This example shows how ``package()`` works in a package which can be edited and built in user folders instead of the local cache.
 
 .. code-block:: bash
 
@@ -73,7 +71,7 @@ instead of the local cache.
     The packages created locally are just for the user, but cannot be directly consumed by other
     packages, nor they can be uploaded to a remote repository. In order to make these packages
     available to the system, they have to be put in the conan local cache, which can be done with
-    the ``conan export-pkg`` command instead of using ``conan package`` command:
+    the :command:`conan export-pkg` command instead of using :command:`conan package` command:
 
     .. code-block:: bash
 

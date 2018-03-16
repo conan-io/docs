@@ -42,6 +42,8 @@ Install conan:
       virtualenv in another location or upgrade your python installation.
     - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
+    - Windows, Python 3 installation can fail installing the ``wrapt`` dependency because a bug in **pip**. Information about the issue and 
+      workarounds is here: https://github.com/GrahamDumpleton/wrapt/issues/112. 
 
 Install from brew (OSX)
 -----------------------

@@ -1,7 +1,7 @@
 Package development flow
 ========================
 
-In the previous examples, we used ``$ conan create`` command to create a package of our library. Every time we run it, conan will perform
+In the previous examples, we used :command:`conan create` command to create a package of our library. Every time we run it, conan will perform
 some costly operations:
 
 1. Copy the sources to a new and clean build folder.
@@ -21,12 +21,12 @@ The local workflow encourages users to do trial-and-error in a local sub-directo
 typically test building their projects with other build tools. The strategy is to test the *conanfile.py* methods individually during this
 phase.
 
-We will use `this example <git@github.com:memsharded/example_conan_flow.git>`_ to follow the steps in the order below:
+We will use the following `conan flow example <https://github.com/memsharded/example_conan_flow.git>`_ to follow the steps in the order below:
 
 $ conan source
 ^^^^^^^^^^^^^^
 
-You will generally want to start off with the ``$ conan source`` command. The strategy here is that you’re testing your source method in
+You will generally want to start off with the :command:`conan source` command. The strategy here is that you’re testing your source method in
 isolation, and downloading the files to a temporary sub-folder relative to the *conanfile.py*. This just makes it easier to get to the
 sources and validate them.
 
@@ -54,7 +54,7 @@ $ conan install
 ^^^^^^^^^^^^^^^
 
 Conan has multiple methods and attributes which relate to dependencies (all the ones with the word "require" in the name). The command
-``$ conan install`` activates all them.
+:command:`conan install` activates all them.
 
 +---------------+--------------------+
 | Input folders | Output folders     |
@@ -219,7 +219,7 @@ $ conan create
 Now we know we have all the steps of a recipe working. Thus, now is an appropriate time to try to run the recipe all the way through, and
 put it completely in the local cache.
 
-The usual command for this is **$ conan create** and it basically performs the previous commands with ``$ conan test`` for *test_package*
+The usual command for this is **$ conan create** and it basically performs the previous commands with :command:`conan test` for *test_package*
 folder:
 
 .. code-block:: bash
@@ -230,7 +230,7 @@ Even with this command, the package creator can iterate over the local cache if 
 ``--keep-source`` and ``--keep-build`` flags.
 
 If you see in the traces that the ``source()`` method has been properly executed but the package creation finally failed, you can skip the
-``source()`` method the next time you issue ``$ conan create`` using ``--keep-source``:
+``source()`` method the next time you issue :command:`conan create` using :command:`--keep-source`:
 
 .. code-block:: bash
 

@@ -65,7 +65,7 @@ This command should be used when:
  - You are developing your package locally and want to export the built artifacts to the local
    cache.
 
-The command ``conan new <ref> --bare`` will create a simple recipe that could be used in combination
+The command :command:`conan new <ref> --bare` will create a simple recipe that could be used in combination
 with the ``export-pkg`` command. Check this :ref:`How to package existing binaries
 <existing_binaries>`.
 
@@ -159,9 +159,9 @@ This command will:
               self.copy("*.h", dst="include", src="include")
               self.copy("*.lib", dst="lib", keep_path=False)
 
-  First we will call ``conan source`` to get our source code in the ``src`` directory, then
-  ``conan install`` to install the requirements and generate the info files, ``conan build`` to
-  build the package, and finally ``conan export-pkg`` to send the binary files to a package in the
+  First we will call :command:`conan source` to get our source code in the *src* directory, then
+  :command:`conan install` to install the requirements and generate the info files, :command:`conan build` to
+  build the package, and finally :command:`conan export-pkg` to send the binary files to a package in the
   local cache:
 
   .. code-block:: bash
@@ -172,7 +172,6 @@ This command will:
       $ conan build . --build-folder build_x86 --source-folder src
       $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
 
-  In this case, in the ``conan export-pkg``, you don't need to specify the ``-s arch=x86`` or any
-  other setting, option, or profile, because it will all the information in the ``--build-folder``
-  the ``conaninfo.txt`` and ``conanbuildinfo.txt`` that have been created with the ``conan install``
-  command.
+  In this case, in the :command:`conan export-pkg`, you don't need to specify the :command:`-s arch=x86` or any other setting, option, or profile,
+  because it will all the information in the :command:`--build-folder` the *conaninfo.txt* and *conanbuildinfo.txt`* that have been created with
+  :command:`conan install`.

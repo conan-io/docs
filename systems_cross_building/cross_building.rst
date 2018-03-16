@@ -133,7 +133,7 @@ Linux to Windows
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call ``conan create`` using the created profile.win
+- Call :command:`conan create` using the created profile.win
 
 .. code-block:: bash
 
@@ -143,8 +143,7 @@ Linux to Windows
     [100%] Linking CXX executable bin/example.exe
     [100%] Built target example
 
-A **bin/example.exe** for Win64 platform has been built.
-
+A *bin/example.exe* for Win64 platform has been built.
 
 Windows to Raspberry PI (Linux/ARM)
 ...................................
@@ -199,7 +198,7 @@ declared in the top of the profile:
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call ``conan create`` using the created profile.
+- Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
@@ -209,8 +208,7 @@ declared in the top of the profile:
     [100%] Linking CXX executable bin/example
     [100%] Built target example
 
-A **bin/example** for Raspberry PI (Linux/armv7hf) platform has been built.
-
+A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
 .. _cross_building_android:
 
@@ -320,7 +318,7 @@ match the gcc toolchain compiler:
 
     git clone https://github.com/lasote/conan-zlib.git
 
-- Call ``conan create`` using the created profile.
+- Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 

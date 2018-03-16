@@ -8,7 +8,7 @@ Manual package creation and testing
 
 The previous **create** approach  using *test_package* subfolder, is not strictly necessary, though
 **very strongly recommended**. If we didn't want to use the *test_package* functionality, we could
-just write our recipe ourselves or use the ``$ conan new`` command without the ``-t``.
+just write our recipe ourselves or use the :command:`conan new` command without the :command:`-t`.
 command line argument.
 
 .. code-block:: bash
@@ -61,8 +61,8 @@ The *source* and *build* folders only exist when the packages have been built fr
     :width: 600 px
     :align: center
 
-The process starts when a package is "exported", via the ``$ conan export`` command or more
-typically, with the ``$ conan create`` command. The *conanfile.py* and files specified by the
+The process starts when a package is "exported", via the :command:`conan export` command or more
+typically, with the :command:`conan create` command. The *conanfile.py* and files specified by the
 ``exports_sources`` field are copied from the user space into the **local cache**.
 
 The *export* and *export_source* files are copied to the *source* folder, and then the ``source()``
