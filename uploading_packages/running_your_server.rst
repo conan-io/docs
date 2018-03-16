@@ -159,6 +159,8 @@ Other parameters (not recommended from Conan 1.1, but necessary for previous ver
    1. Use the :command:`conan remote` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
    2. Append the server *.crt* file contents to *~/.conan/cacert.pem* file.
 
+   Check the section :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>` section to know more about it.
+
 Conan has implemented an extensible storage backend, based on the abstract class ``StorageAdapter``.
 Currently the server only supports storage in ``disk``. The folder in which uploaded packages
 are stored (i.e., the folder you would want to backup) is defined in ``disk_storage_path``.
