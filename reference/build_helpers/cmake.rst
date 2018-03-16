@@ -1,6 +1,5 @@
 .. _cmake_reference:
 
-
 CMake
 =====
 
@@ -249,7 +248,7 @@ patch_config_paths() [EXPERIMENTAL]
 This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
 variable. This makes most CMake config files portable.
 
-For example, if a package foo installs a file called *fooConfig.cmake* to be used by cmake's ``find_package`` method, normally this file
+For example, if a package foo installs a file called *fooConfig.cmake* to be used by cmake's ``find_package()`` method, normally this file
 will contain absolute paths to the installed package folder, for example it will contain a line such as:
 
 .. code-block:: text
@@ -276,3 +275,9 @@ example:
         cmake.build()
         cmake.install()
         cmake.patch_config_paths()
+
+Environment variables
+---------------------
+
+There are some environment variables that will also affect the ``CMake()`` helper class. Check them in the
+:ref:`CMAKE RELATED VARIABLES<cmake_related_variables>` section.
