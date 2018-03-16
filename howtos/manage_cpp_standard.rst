@@ -1,4 +1,4 @@
-.. _manage_gcc_abi:
+.. _manage_gcc_standard:
 
 How to manage C++ standard
 ==========================
