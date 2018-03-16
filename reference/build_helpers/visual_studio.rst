@@ -87,6 +87,23 @@ Parameters:
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
 
+
+get_command()
+++++++++++++++
+
+Returns a string command calling ``msbuild``
+
+.. code-block:: python
+
+    def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True, build_type=None,
+                    arch=None, parallel=True, toolset=None, platforms=None, use_env=False):
+
+Parameters:
+    - **project_file** (Optional, defaulted to None): Path to a properties file to include in the project.
+    - Same other parameters than **build()**
+
+
+
 .. _visual_studio_build:
 
 
