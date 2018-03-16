@@ -861,49 +861,6 @@ Parameters:
     - **path** (Required): Path to the directory.
 
 
-tools.mkdir_tmp()
------------------
-
-Creates temporary folder and returns the path to the created folder.
-
-.. code-block:: python
-
-    def mkdir_tmp()
-
-Example:
-
-.. code-block:: python
-
-    from conans import tools
-
-    tools.mkdir_tmp("mydir") # Creates mydir in a tmp folder of your system
-
-
-tools.tmp_file()
-------------------
-
-.. code-block:: python
-
-    def tmp_file(contents)
-
-Context manager that generates a file in a tmp directory with the specified
-contents. The file is removed when the context exits.
-
-.. code-block:: python
-
-    from conans import tools
-
-    tools.mkdir_tmp("mydir") # Creates mydir in a tmp folder of your system
-
-    with tools.tmp_file("Some contents") as filepath:
-        # Here exists filepath tmp file with "mycontents" inside
-        pass
-
-
-
-
-
-
 tools.which()
 -------------
 
