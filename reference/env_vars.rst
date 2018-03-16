@@ -7,6 +7,8 @@ These are the environment variables used to customize conan.
 
 Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
 
+.. _cmake_related_variables:
+
 CMAKE RELATED VARIABLES
 -----------------------
 
