@@ -22,6 +22,7 @@ Integrations
    integrations/premake
    integrations/qbs
    integrations/meson
+   integrations/docker
    integrations/git
    integrations/jenkins
    integrations/travisci
