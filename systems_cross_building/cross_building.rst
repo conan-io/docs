@@ -393,8 +393,7 @@ Using Docker images
 You can use some :ref:`available docker images with Conan preinstalled images<available_docker_images>` to cross build conan packages.
 Currently there are ``i386``, ``armv7`` and ``armv7hf`` images with the needed packages and toolchains installed to cross build.
 
-Example: We can cross build a package and all the missing dependencies for ``Linux/armv7hf`` and
-finally uploading the built packages to a repository:
+**Example**: Cross-building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
 
 .. code-block:: bash
 
@@ -412,7 +411,6 @@ finally uploading the built packages to a repository:
 
 
 Check the section: :ref:`How to run Conan with Docker<docker_conan>` to know more.
-
 
 
 Preparing recipes to be cross-compiled
