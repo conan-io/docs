@@ -18,6 +18,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   or with a :command:`conan build` using a ``cmake.install()`` or equivalent feature.
 - Feature: Added a ``json`` generator.
 - Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
+- Fix: :command:`conan install --build` does not absorb more than one parameter.
+- Feature: :command:`conan dowloand` has new optional argument :command:`--recipe` to download only the recipe of a package.
 
 
 1.1.1 (5-Mar-2018)
