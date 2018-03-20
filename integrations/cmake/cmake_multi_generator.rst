@@ -48,8 +48,8 @@ and ``conanbuildinfo_multi.cmake``, which includes the other two, and enables it
 
 .. warning::
 
-    Please note, the ``cmake_multi`` generator is designed as a helper for consumers, but it is totally
-    discouraged to create packages. See last section on this page.
+    The ``cmake_multi`` generator is designed as a helper for consumers, but not for creating packages.
+    If you also want to create a package, see :ref:`Creating packages<cmake_multi_creating_packages>` section.
 
 
 Global variables approach
@@ -114,6 +114,8 @@ configurations, building the project, or from the command line:
     $ cmake --build . --config Debug
 
 
+.. _cmake_multi_creating_packages
+
 Creating packages
 -----------------
 
@@ -141,7 +143,11 @@ accordingly, something like:
 
 
 Then, make sure that the generator ``cmake_multi`` is **not** specified in the conanfiles, but the
-users specify it in the command line while installing dependencies.
+users specify it in the command line while installing dependencies:
+
+.. code-block:: bash
+
+    $ conan install . -g cmake_multi
 
 
 .. seealso:: Check the section :ref:`Reference/Generators/cmake <cmakemulti_generator>` to read more about this generator.
