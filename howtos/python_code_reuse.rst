@@ -195,3 +195,4 @@ And then:
     class ConanFileToolsTest(ConanBase):
         name = "test"
         version = "1.9"
+        exports = "base_conan.py"
