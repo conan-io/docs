@@ -117,8 +117,14 @@ environment:
 
 .. _build_sln_commmand:
 
-tools.build_sln_command()
--------------------------
+
+tools.build_sln_command() (DEPRECATED)
+--------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>` build helper instead.
 
 .. code-block:: python
 
@@ -162,8 +168,15 @@ Parameters:
 
 .. _msvc_build_command:
 
-tools.msvc_build_command()
---------------------------
+
+tools.msvc_build_command() (DEPRECATED)
+---------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>`.get_command() instead.
+
 
 .. code-block:: python
 
@@ -846,6 +859,7 @@ when ``no_copy_source=True``.
 
 Parameters:
     - **path** (Required): Path to the directory.
+
 
 tools.which()
 -------------
