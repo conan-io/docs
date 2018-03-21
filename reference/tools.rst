@@ -861,6 +861,24 @@ Returns the path to a specified executable searching in the ``PATH`` environment
 Parameters:
     - **filename** (Required): Name of the executable file. It doesn't require the extension of the executable.
 
+tools.unix2dos()
+-------------
+
+.. code-block:: python
+
+    def unix2dos(filepath)
+
+Converts line breaks in a text file from Unix format (LF) to DOS format (CRLF).
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.unix2dos("project.dsp")
+
+Parameters:
+    - **filepath** (Required): The file to convert.
+
 tools.touch()
 -------------
 
