@@ -76,9 +76,9 @@ Section Title
   anything special. The *test_package/conanfile.py* file is...
   ```
 
-- ``Command inline literals`` to refer to command line commands.
+- ``Command inline literals`` to refer to command line, both full commands and command line arguments, or any extract of a full command.
   ```
-  To create a conan package you can use :command:`conan create`.  You can see a :command:`git clone` command...
+  To create a conan package you can use :command:`conan create`.  You can see a :command:`git clone` command... You may call it with the :command:`--keep-source` option to avoid deleting and fetching the source.
   ```
 
 - ``Inline literals`` to refer to code or text inside recipies:
