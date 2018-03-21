@@ -13,6 +13,7 @@ This section shows common solutions and different approaches to typical problems
    howtos/manage_gcc_abi
    howtos/vs2017_cmake
    howtos/manage_cpp_standard
+   howtos/run_conan_in_docker
    howtos/python_code_reuse
    howtos/custom_generators
    howtos/manage_shared_libraries
