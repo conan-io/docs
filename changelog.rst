@@ -13,7 +13,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 1.2.0 ()
 --------
-- The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to execute an exact copy of the provided
+- Feature: The command :command:`conan build` has new ``--configure, --build, --install`` arguments to control the different stages of the ``build()`` method
+- Feature: The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to execute an exact copy of the provided
   folder, irrespective of the ``package()`` method. It assumes the package has been locally created with a previous :command:`conan package`
   or with a :command:`conan build` using a ``cmake.install()`` or equivalent feature.
 - Feature: Added a ``json`` generator.
