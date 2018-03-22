@@ -4,7 +4,7 @@
 |meson_logo| Meson Build
 ________________________
 
-If you are using **Meson Build** as your library buils system, you can use the **Meson** build helper.
+If you are using **Meson Build** as your library build system, you can use the **Meson** build helper.
 This helper have ``.configure()`` and ``.build()`` methods available to ease the call to meson build system.
 It also will take automatically the ``pc files`` of your dependencies when using the :ref:`pkg_config
 generator<pkg_config_generator_example>`.
