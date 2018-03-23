@@ -98,6 +98,19 @@ CONAN_CPU_COUNT
 Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
+CONAN_DISABLE_LOGIN_PROMPT
+--------------------------
+
+**Defaulted to**: Not defined.
+
+This environment variable if defined, will prevent interactive login prompts.
+Invocations of Conan commands where an interactive login prompt would otherwise appear, will fail instead.
+
+This variable can also be set in ``conan.conf`` as ``disable_login_prompt = True`` in the ``[general]``
+section.
+
+Invocations of :command:`conan user` are not affected.
+
 CONAN_ENV_XXXX_YYYY
 -------------------
 
