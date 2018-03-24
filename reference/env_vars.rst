@@ -101,9 +101,9 @@ Conan recipes can use the cpu_count() tool to build the library using more than 
 CONAN_DISABLE_LOGIN_PROMPT
 --------------------------
 
-**Defaulted to**: Not defined.
+**Defaulted to**: ``False``/``0``
 
-This environment variable if defined, will prevent interactive login prompts.
+This environment variable, if set to ``True``/``1``, will prevent interactive login prompts.
 Invocations of Conan commands where an interactive login prompt would otherwise appear, will fail instead.
 
 This variable can also be set in ``conan.conf`` as ``disable_login_prompt = True`` in the ``[general]``
