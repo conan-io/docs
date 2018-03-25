@@ -20,7 +20,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added a ``json`` generator.
 - Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
 - Fix: :command:`conan install --build` does not absorb more than one parameter.
-- Feature: :command:`conan dowloand` has new optional argument :command:`--recipe` to download only the recipe of a package.
+- Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
+- Feature: Added ``CONAN_DISABLE_LOGIN_PROMPT`` environment variable to disable login prompts.
 
 
 1.1.1 (5-Mar-2018)
