@@ -1,9 +1,9 @@
 .. _running_your_server:
 
-Running your server
-===================
+Running conan_server
+====================
 
-Running the pre-packaged server that comes with the conan installers (or pip packages) is simple. Just open
+Running the simple open source *conan_server* that comes with the conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
 .. code:: bash

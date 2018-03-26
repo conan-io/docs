@@ -8,31 +8,35 @@ for later reuse on another machine, project, or for sharing them.
 Conan packages can be uploaded to different remotes previously configured with a name and an URL.
 The remotes are just servers used as binary repositories that store packages by reference.
 
-There are 3 possibilities to have a server where to upload packages:
+There are several possibilities to have a server where to upload packages:
 
-- **Conan server**: You can run your own conan server that comes packaged with normal conan
-  installers. Check :ref:`running_your_server` for more information.
+For private development:
+
+- **Artifactory Community Edition for C/C++**: Artifactory Community Edition (CE) for C/C++ is a
+  completely free Artifactory server that implements both Conan and generic repositories. It is
+  the recommended server for companies and teams wanting to host their own private repository.
+  It has a web UI, advanced authentication and permissions, very good performance and scalability,
+  a Rest API, it can host generic artifacts (tarballs, zips, etc). Check :ref:`artifactory_ce`
+  for more information.
+- **Artifactory**: Artifactory is the binary repository manager for all major packaging formats. It
+  is the recommended remote type for enterprise and professional package management. Check
+  `Artifactory documentation`_ for more information.
+- **Conan server**: Simple, free and open source, MIT licensed server that comes bundled with the conan client.
+  Check :ref:`running_your_server` for more information.
+
+For distribution:
+
 - **Bintray**: Bintray is a cloud platform that gives you full control over how you publish, store,
   promote, and distribute software. You can create binary repositories in Bintray to share conan
-  packages or even create an organization. This is the recommended remote type for OSS
-  packages. Check :ref:`using_bintray` for more information.
-- **Artifactory**: Artifactory is a binary repository manager for all major packaging formats,
-  build tools and CI servers. It can host conan packages and manage them. It is the recommended
-  remote type for professional package distribution. Check
-  `Artifactory documentation`_ for more information.
+  packages or even create an organization. It is free for open source packages, and the recommended
+  server to distribute them to the C and C++ communities. Check :ref:`using_bintray` for more information.
 
-.. note::
 
-    If you are just evaluating conan, you can create an account on https://bintray.com and create
-    a Conan repository, or you can run a conan server.
 
-    - Go to the :doc:`running_your_server` to see how to launch it.
-    - Go to the :ref:`Using Bintray<using_bintray>` section to know more about how to use Bintray.
+Bintray official repositories
+-----------------------------
 
-Official repositories
----------------------
-
-Conan official repositories are hosted in Bintray. These repositories are maintained by the Conan
+Conan official repositories for open source libraries are hosted in Bintray. These repositories are maintained by the Conan
 team. Currently there are two central repositories:
 
 **conan-center**: https://bintray.com/conan/conan-center
@@ -62,11 +66,11 @@ always add it like this:
 
     $ conan remote add conan-center https://conan.bintray.com
 
-Community repositories
-----------------------
+Bintray community repositories
+------------------------------
 
 There are some popular community repositories that may be of interest for conan users to retrieve
-packages from. Some of these repositories are not affiliated with the Conan team.
+open source packages from. Some of these repositories are not affiliated with the Conan team.
 
 **bincrafters** : https://bintray.com/bincrafters/public-conan
 
