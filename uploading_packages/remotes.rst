@@ -18,7 +18,7 @@ For private development:
   It has a web UI, advanced authentication and permissions, very good performance and scalability,
   a Rest API, it can host generic artifacts (tarballs, zips, etc). Check :ref:`artifactory_ce`
   for more information.
-- **Artifactory**: Artifactory is the binary repository manager for all major packaging formats. It
+- **Artifactory Pro**: Artifactory is the binary repository manager for all major packaging formats. It
   is the recommended remote type for enterprise and professional package management. Check
   `Artifactory documentation`_ for more information.
 - **Conan server**: Simple, free and open source, MIT licensed server that comes bundled with the conan client.
