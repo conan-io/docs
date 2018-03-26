@@ -139,14 +139,14 @@ For a command like :command:`conan install . -s os="Linux" -s compiler="gcc"`, t
 - Conan client will then finish generating the requested files specified in ``generators``.
 
 If the binary package necessary for some given settings doesn't exist, Conan client will throw an error. It is possible to try to build the
-binary package from sources with the ``--build missing`` command line argument to install. A detailed description of how a binary package is
+binary package from sources with the ``--build=missing`` command line argument to install. A detailed description of how a binary package is
 built from sources will be given in a later section.
 
 .. warning::
 
     In the Bintray repositories there are binaries for several mainstream compilers and versions, such as Visual Studio 12, 14, linux-gcc
     4.9 and apple-clang 3.5. If you are using another setup, the command might fail because of the missing package. You could try to change
-    your settings or build the package from source, using the ``--build missing`` option, instead of retrieving the binaries. Such a build
+    your settings or build the package from source, using the ``--build=missing`` option, instead of retrieving the binaries. Such a build
     might not have been tested and eventually fail.
 
 Building the timer example
