@@ -97,7 +97,7 @@ Installation will be as easy as:
 
 .. code-block:: bash
 
-    $ conan install . -pr=./poco_apple_clang
+    $ conan install . -pr=./poco_clang_3.5
 
 .. seealso::
 
