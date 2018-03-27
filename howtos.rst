@@ -23,3 +23,4 @@ This section shows common solutions and different approaches to typical problems
    howtos/collect_licenses
    howtos/capture_version
    howtos/other_languages_package_manager
+   howtos/use_tls_certificates
