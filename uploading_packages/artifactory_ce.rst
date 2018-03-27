@@ -19,6 +19,8 @@ When the file is unzipped, Artifactory can be launched double clicking on the .b
 subfolder, depending on the OS. Java 8 update 45 or later runtime is required, if you don't have it, please install it first
 (newer Java versions preferred).
 
+.. image:: ../images/artifactory_ce.png
+
 Once Artifactory has started, navigate to the default URL http://localhost:8081, where the Web UI should be running.
 The default user and password are ``admin:password``.
 
