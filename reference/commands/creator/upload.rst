@@ -7,7 +7,7 @@ conan upload
 
     $ conan upload [-h] [-p PACKAGE] [-r REMOTE] [--all] [--skip-upload]
                    [--force] [--check] [-c] [--retry RETRY]
-                   [--retry-wait RETRY_WAIT] [-no {all,recipe}]
+                   [--retry-wait RETRY_WAIT] [-no [{all,recipe}]]
                    pattern
 
 Uploads a recipe and binary packages to a remote. If you use the --force
@@ -45,7 +45,7 @@ list' to list the remotes) will be used.
                             times
       --retry-wait RETRY_WAIT
                             Waits specified seconds before retry again
-      -no {all,recipe}, --no-overwrite {all,recipe}
+      -no [{all,recipe}], --no-overwrite [{all,recipe}]
                             Uploads package only if recipe is the same as the
                             remote one
 
@@ -80,7 +80,7 @@ Upload packages without overwriting the recipe and packages if the recipe has ch
 
 .. code-block:: bash
 
-    $ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite all
+    $ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite  # defaults to --no-overwrite all
 
 Upload packages without overwriting the recipe if the packages has changed:
 
