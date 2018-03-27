@@ -22,7 +22,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: New ``json`` generator.
 - Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
 - Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
-- Feature: Added ``CONAN_DISABLE_LOGIN_PROMPT`` environment variable to disable login prompts.
+- Feature: Added ``CONAN_NON_INTERACTIVE`` environment variable to disable interactive prompts.
 - Feature: New :command:`conan upload` parameter :command:`--no-overwrite` to forbid the overwriting of recipe/packages if they have
   changed.
 - Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property files. New method ``get_command()`` with the call
