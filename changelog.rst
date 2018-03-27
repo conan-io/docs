@@ -22,13 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: New ``json`` generator.
 - Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
 - Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
-- Feature: Added ``CONAN_DISABLE_LOGIN_PROMPT`` environment variable to disable login prompts.
+- Feature: Added ``CONAN_NON_INTERACTIVE`` environment variable to disable interactive prompts.
 - Feature: New :command:`conan upload` parameter :command:`--no-overwrite` to forbid the overwriting of recipe/packages if they have
   changed.
 - Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property files. New method ``get_command()`` with the call
   to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
 - Feature: Support for clang 6.0 correctly managing cppstd flags.
-- Feature: New :command:`--recipe` argument for :command:`conan download` to download only the recipe of a package.
 - Feature: Exports are now copied to ``source_folder`` when doing :command:`conan source`.
 - Feature: Added configuration to specify a client certificate to connect to SSL server.
 - Feature: Improved ``ycm`` generator to show json dependencies.
@@ -36,7 +35,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Made conanfile templates generated with :command:`conan new` PEP8 compliant.
 - Fix: :command:`conan search` output improved when there are no packages for the given reference.
 - Fix: Made :command:`conan download` also retrieve sources.
-- Fix: :command:`conan install` can use path argument after :command:`--build build_policy`.
 - Fix: Pylint now runs as an external process.
 - Fix: Made ``self.user`` and ``self.channel`` available in test_package.
 - Fix: Made files writable after a ``deploy()`` or ``imports()`` when ``CONAN_READ_ONLY_CACHE```/``general.read_only_cache``
