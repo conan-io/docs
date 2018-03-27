@@ -13,7 +13,7 @@ a terminal and type:
 .. note::
 
     On Windows, you might experience problems with the server, if you run it under bash/msys. It is
-    better to launch it in a regular ``cmmd`` window.
+    better to launch it in a regular ``cmd`` window.
 
 This server is mainly for testing (though it might work fine for small teams). If you need a 
 more stable, responsive and robust server, you should run it from source:
