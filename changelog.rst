@@ -23,6 +23,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
 - Feature: Added ``CONAN_DISABLE_LOGIN_PROMPT`` environment variable to disable login prompts.
 - Feature: New :command:`conan upload` parameter :command:`--no-overwrite` to forbid the overwriting of recipe/packages if they have changed.
+- Fix: Made conanfile templates generted with :command:`conan new` PEP8 compliant.
 
 
 1.1.1 (5-Mar-2018)
