@@ -27,33 +27,30 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   changed.
 - Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property files. New method ``get_command()`` with the call
   to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
-- Feature: Using decorator ``@deprecation.deprecated`` to tag features that will be deprecated in the future.
 - Feature: Support for clang 6.0 correctly managing cppstd flags.
 - Feature: New :command:`--recipe` argument for :command:`conan download` to download only the recipe of a package.
 - Feature: Exports are now copied to ``source_folder`` when doing :command:`conan source`.
 - Feature: Added configuration to specify a client certificate to connect to SSL server.
 - Feature: Improved ``ycm`` generator to show json dependencies.
-- Feature: New environment/config variable ``CONAN_RECIPE_LINTER``/``general.recipe_linter`` to enable/disable linter checks in recipes.
 - Fix: :command:`conan install --build` does not absorb more than one parameter.
-- Fix: Refactor to move listing logic out of authenticate function.
 - Fix: Made conanfile templates generated with :command:`conan new` PEP8 compliant.
 - Fix: :command:`conan search` output improved when there are no packages for the given reference.
 - Fix: Made :command:`conan download` also retrieve sources.
 - Fix: :command:`conan install` can use path argument after :command:`--build build_policy`.
-- Fix: Pylint now runs as an external process to avoid GPL license.
+- Fix: Pylint now runs as an external process.
 - Fix: Made ``self.user`` and ``self.channel`` available in test_package.
-- BugFix: Made files writable after a ``deploy()`` or ``imports()`` when ``CONAN_READ_ONLY_CACHE```/``general.read_only_cache``
+- Fix: Made files writable after a ``deploy()`` or ``imports()`` when ``CONAN_READ_ONLY_CACHE```/``general.read_only_cache``
   environment/config variable is ``True``.
+- Fix: Linter showing warnings with ``cpp_info`` object in ``deploy()`` method.
+- Fix: Disabled linter for Conan pyinstaller as it was not able to find the python modules.
+- Fix: :command:`conan user -r=remote_name` showed all users for all remotes, not the one given.
 - BugFix: Python reuse code failing to import module in ``package_info()``.
 - BugFix: Added escapes for backslashes in ``cmake`` generator.
 - BugFix: :command:`conan config install` now raises error if :command:`git clone` fails.
 - BugFix: Alias resolution not working in diamond shaped dependency trees.
-- BugFix: :command:`conan user -r=remote_name` showed all users for all remotes, not the one given.
 - BugFix: Fixed builds with Cygwin/MSYS2 failing in Windows with `self.short_paths=True` and NTFS file systems due to ACL permissions.
 - BugFix: Failed to adjust architecture when running Conan platform detection in ARM devices.
 - BugFix: Output to StringIO failing in Python 2.
-- BugFix: Linter showing warnings with ``cpp_info`` object in ``deploy()`` method.
-- BugFix: Disabled linter for Conan pyinstaller as it was not able to find the python modules.
 - BugFix: :command:`conan profile update` not working to update ``[env]`` section.
 - BugFix: :command:`conan search` not creating default remotes when running it as the very first command after Conan installation.
 - BugFix: Package folder was not cleaned after the installation and download of a package had failed.
