@@ -48,6 +48,8 @@ concrete recipe/package specifying a reference in the "path" parameter.
       -v [VERIFY], --verify [VERIFY]
                             Verify dependencies manifests against stored ones
       --no-imports          Install specified packages but avoid running imports
+      -j JSON, --json JSON  Path to a json file where the install information will
+                            be written
       -u, --update          check updates exist from upstream remotes
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
