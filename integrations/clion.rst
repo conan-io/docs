@@ -10,14 +10,15 @@ Just include the ``conanbuildinfo.cmake`` this way:
 
 .. code-block:: cmake
 
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       conan_basic_setup()
-   else()
-       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
+   if(NOT EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, running conan install")
+       execute_process(COMMAND conan install .. -s build_type=${CMAKE_BUILD_TYPE} --install-folder=${CMAKE_BINARY_DIR})
    endif()
 
-If the ``conanbuildinfo.cmake`` file is not found, it will print a warning message in the ``Messages`` console of your Clion IDE.
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   conan_basic_setup()
+
+If the ``conanbuildinfo.cmake`` file is not found, it will print a warning message in the ``Messages`` console of your Clion IDE and attempt to run ``conan install``.
 
 
 Using packages in a CLion project
@@ -30,25 +31,7 @@ the ``zlib`` conan package.
 
 |wizard_new|
 
-2. Edit the ``CMakeLists.txt`` file and add the following lines:
-
-.. code-block:: cmake
-
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       conan_basic_setup()
-   else()
-       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
-   endif()
-
-|cmakelists|
-
-3. CLion will reload your CMake project and you will be able to see a Warning in the console, because the
-``conanbuildinfo.cmake`` file still doesn't exists:
-
-|configure_warning_info|
-
-4. Create a ``conanfile.txt`` with all your requirements and use the ``cmake`` generator. In this case we are only
+2. Create a ``conanfile.txt`` with all your requirements and use the ``cmake`` generator. In this case we are only
 requiring zlib library from a conan package:
 
 .. code-block:: text
@@ -62,34 +45,38 @@ requiring zlib library from a conan package:
 
 |conanfile_txt|
 
-.. _step_five:
 
-5. Now you can :command:`conan install` for debug in the ``cmake-build-debug`` folder to install your requirements and
-generate the ``conanbuildinfo.cmake`` file there:
+3. Edit the ``CMakeLists.txt`` file and add the following lines:
+
+.. code-block:: cmake
+
+   if(NOT EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, running conan install")
+       execute_process(COMMAND conan install .. -s build_type=${CMAKE_BUILD_TYPE} --install-folder=${CMAKE_BINARY_DIR})
+   endif()
+
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   conan_basic_setup()
+
+|cmakelists|
 
 
-.. code-block:: bash
+4. CLion will reload your CMake project and you will be able to see a Warning in the console, notifying you that the
+``conanbuildinfo.cmake`` file did not exist and ``conan install`` has been run. If you have other build types configured
+in your CLion project, they will also be built.
 
-   $ conan install . -s build_type=Debug --install-folder=cmake-build-debug
 
-6. Repeat the last step if you have the release build types configured in your CLion IDE, but changing the build_type
-setting accordingly:
-
-.. code-block:: bash
-
-   $ conan install . -s build_type=Release --install-folder=cmake-build-release
-
-7. Now reconfigure your CLion project, the Warning message is not shown anymore:
+5. Now, if you reconfigure your CLion project, the Warning message is no longer shown:
 
 |configure_ok|
 
 
-8. Open the ``library.cpp`` file and include the ``zlib.h``, if you follow the link you can see that CLion automatically
+6. Open the ``library.cpp`` file and include the ``zlib.h``, if you follow the link you can see that CLion automatically
 detect the ``zlib.h`` header file from the local conan cache.
 
 |library_cpp|
 
-9. Build your project normally using your CLion IDE:
+7. Build your project normally using your CLion IDE:
 
 |built_ok|
 
