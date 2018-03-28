@@ -8,7 +8,8 @@ packages for a team or company. It is completely free, and it features a WebUI, 
 and scalability, a Rest API, a generic CLI tool and generic repositories to host any kind of source or binary
 artifact.
 
-This is a very brief introduction to Artifactory CE, for the complete Artifactory CE documentation, visit LINK.
+This is a very brief introduction to Artifactory CE, for the complete Artifactory CE documentation,
+visit `Artifactory docs <https://www.jfrog.com/confluence/>`_.
 
 Running Artifactory CE
 ----------------------
