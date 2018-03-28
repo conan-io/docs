@@ -16,7 +16,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: The command :command:`conan build` has new ``--configure, --build, --install`` arguments to control the different stages of the
   ``build()`` method.
-- Feature: The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to execute an exact copy of the
+- Feature: The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to export an exact copy of the
   provided folder, irrespective of the ``package()`` method. It assumes the package has been locally created with a previous
   :command:`conan package` or with a :command:`conan build` using a ``cmake.install()`` or equivalent feature.
 - Feature: New ``json`` generator, generates a json file with machine readable information from dependencies.
@@ -27,8 +27,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
 - Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
 - Feature: Added ``CONAN_NON_INTERACTIVE`` environment variable to disable interactive prompts.
-- Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property files. New method ``get_command()`` with the call
-  to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
+- Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property file to adjust the runtime automatically.
+  New method ``get_command()`` with the call to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
 - Feature: Support for clang 6.0 correctly managing cppstd flags.
 - Feature: Added configuration to specify a client certificate to connect to SSL server.
 - Feature: Improved ``ycm`` generator to show json dependencies.
