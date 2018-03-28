@@ -10,12 +10,13 @@ Just include the ``conanbuildinfo.cmake`` this way:
 
 .. code-block:: cmake
 
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       conan_basic_setup()
-   else()
-       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
+   if(NOT EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, running conan install")
+       execute_process(COMMAND conan install .. -s build_type=${CMAKE_BUILD_TYPE} --install-folder=${CMAKE_BINARY_DIR})
    endif()
+
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   conan_basic_setup()
 
 If the ``conanbuildinfo.cmake`` file is not found, it will print a warning message in the ``Messages`` console of your Clion IDE.
 
@@ -34,12 +35,13 @@ the ``zlib`` conan package.
 
 .. code-block:: cmake
 
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       conan_basic_setup()
-   else()
-       message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
+   if(NOT EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+       message(WARNING "The file conanbuildinfo.cmake doesn't exist, running conan install")
+       execute_process(COMMAND conan install .. -s build_type=${CMAKE_BUILD_TYPE} --install-folder=${CMAKE_BINARY_DIR})
    endif()
+
+   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   conan_basic_setup()
 
 |cmakelists|
 
