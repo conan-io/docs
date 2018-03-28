@@ -31,6 +31,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Exports are now copied to ``source_folder`` when doing :command:`conan source`.
 - Feature: Added configuration to specify a client certificate to connect to SSL server.
 - Feature: Improved ``ycm`` generator to show json dependencies.
+- Feature: Experimental ``--json`` parameter for :command:`conan install` and :command:`conan create` to generate a JSON file with install information.
 - Fix: :command:`conan install --build` does not absorb more than one parameter.
 - Fix: Made conanfile templates generated with :command:`conan new` PEP8 compliant.
 - Fix: :command:`conan search` output improved when there are no packages for the given reference.
