@@ -14,7 +14,7 @@ the local directory specified by --build-folder, reading the sources from
 --package-folder will be configured as destination folder for the install
 step.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       path                  path to a recipe (conanfile.py), e.g., conan build .

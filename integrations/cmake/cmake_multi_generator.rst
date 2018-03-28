@@ -114,7 +114,7 @@ configurations, building the project, or from the command line:
     $ cmake --build . --config Debug
 
 
-.. _cmake_multi_creating_packages
+.. _cmake_multi_creating_packages:
 
 Creating packages
 -----------------

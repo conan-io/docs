@@ -17,7 +17,7 @@ and '--build-folder' and creates a new package in the local cache for the
 specified 'reference' and for the specified '--settings', '--options' and or '
 --profile'.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       path                  path to a recipe (conanfile.py). e.j: "."
