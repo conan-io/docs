@@ -99,6 +99,10 @@ tools.vcvars()
 
     vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
+.. note::
+
+    This context manager tool has no effect if used in a platform different from Windows.
+
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
 environment:
@@ -113,8 +117,14 @@ environment:
 
 .. _build_sln_commmand:
 
-tools.build_sln_command()
--------------------------
+
+tools.build_sln_command() (DEPRECATED)
+--------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>` build helper instead.
 
 .. code-block:: python
 
@@ -158,8 +168,15 @@ Parameters:
 
 .. _msvc_build_command:
 
-tools.msvc_build_command()
---------------------------
+
+tools.msvc_build_command() (DEPRECATED)
+---------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>`.get_command() instead.
+
 
 .. code-block:: python
 
@@ -842,6 +859,7 @@ when ``no_copy_source=True``.
 
 Parameters:
     - **path** (Required): Path to the directory.
+
 
 tools.which()
 -------------

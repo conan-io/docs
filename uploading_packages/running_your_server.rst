@@ -1,9 +1,13 @@
 .. _running_your_server:
 
-Running your server
-===================
+Running conan_server
+====================
 
-Running the pre-packaged server that comes with the conan installers (or pip packages) is simple. Just open
+*conan_server* is a free and open source server that implements conan remote repositories. It is a very simple application,
+bundled with the regular conan client installation. For most cases, it is recommended to use the free Artifactory
+Community Edition for C/C++ server, check :ref:`artifactory_ce` for more information.
+
+Running the simple open source *conan_server* that comes with the conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
 .. code:: bash
@@ -158,6 +162,8 @@ Other parameters (not recommended from Conan 1.1, but necessary for previous ver
 
    1. Use the :command:`conan remote` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
    2. Append the server *.crt* file contents to *~/.conan/cacert.pem* file.
+
+   Check the section :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>` section to know more about it.
 
 Conan has implemented an extensible storage backend, based on the abstract class ``StorageAdapter``.
 Currently the server only supports storage in ``disk``. The folder in which uploaded packages
