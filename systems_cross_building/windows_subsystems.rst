@@ -74,15 +74,11 @@ the right order.
 
 There are some packages you can use as ``build_requires``:
 
-
-- From Bincrafters repository: :command:`conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan`
-
-    - **msys2_installer/latest@bincrafters/stable**: MSYS2 subsystem as a Conan package.
-    - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
-
 - From Conan-center:
 
     - **mingw_installer/1.0@conan/stable**: MinGW compiler installer as a Conan package.
+    - **msys2_installer/latest@bincrafters/stable**: MSYS2 subsystem as a Conan package.
+    - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
 
 For example, create a profile and name it *msys2_mingw* with the following contents:
 
