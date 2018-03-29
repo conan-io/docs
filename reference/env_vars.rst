@@ -109,7 +109,6 @@ Invocations of Conan commands where an interactive prompt would otherwise appear
 This variable can also be set in ``conan.conf`` as ``non_interactive = True`` in the ``[general]``
 section.
 
-Invocations of :command:`conan user` are not affected.
 
 CONAN_ENV_XXXX_YYYY
 -------------------
