@@ -11,26 +11,28 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about conan stability here<stability>`.
 
 
-1.2.0 ()
---------
+1.2.0 (28-Mar-2018)
+-------------------
 
 - Feature: The command :command:`conan build` has new ``--configure, --build, --install`` arguments to control the different stages of the
   ``build()`` method.
-- Feature: The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to execute an exact copy of the
+- Feature: The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to export an exact copy of the
   provided folder, irrespective of the ``package()`` method. It assumes the package has been locally created with a previous
   :command:`conan package` or with a :command:`conan build` using a ``cmake.install()`` or equivalent feature.
-- Feature: New ``json`` generator.
+- Feature: New ``json`` generator, generates a json file with machine readable information from dependencies.
+- Feature: Improved proxies configuration with ``no_proxy_match`` configuration variable.
+- Feature: New :command:`conan upload` parameter :command:`--no-overwrite` to forbid the overwriting of recipe/packages if they have
+  changed.
+- Feature: Exports are now copied to ``source_folder`` when doing :command:`conan source`.
 - Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
 - Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
 - Feature: Added ``CONAN_NON_INTERACTIVE`` environment variable to disable interactive prompts.
-- Feature: New :command:`conan upload` parameter :command:`--no-overwrite` to forbid the overwriting of recipe/packages if they have
-  changed.
-- Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property files. New method ``get_command()`` with the call
-  to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
+- Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property file to adjust the runtime automatically.
+  New method ``get_command()`` with the call to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
 - Feature: Support for clang 6.0 correctly managing cppstd flags.
-- Feature: Exports are now copied to ``source_folder`` when doing :command:`conan source`.
 - Feature: Added configuration to specify a client certificate to connect to SSL server.
 - Feature: Improved ``ycm`` generator to show json dependencies.
+- Feature: Experimental ``--json`` parameter for :command:`conan install` and :command:`conan create` to generate a JSON file with install information.
 - Fix: :command:`conan install --build` does not absorb more than one parameter.
 - Fix: Made conanfile templates generated with :command:`conan new` PEP8 compliant.
 - Fix: :command:`conan search` output improved when there are no packages for the given reference.
