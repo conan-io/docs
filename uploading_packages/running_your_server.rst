@@ -297,7 +297,7 @@ in the form:
 
 .. code-block:: text
 
-    # use a comma separated, no-spaces list of users
+    # use a comma-separated, no-spaces list of users
     package/version@user/channel: allowed_user1,allowed_user2
 
 E.g.:

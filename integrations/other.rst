@@ -214,7 +214,7 @@ and much more reusable to create a generator to simplify the task for your build
 
 
          # Environment variables (from requirements self.env_info objects)
-         # are automatically applied in the python ``os.environ`` but can be accesible as well:
+         # are automatically applied in the python ``os.environ`` but can be accessible as well:
          print("--------- Globally -------------")
          print(self.env)
 

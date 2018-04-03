@@ -457,7 +457,7 @@ thanks very much!
 - Fix: ``collect_libs`` moved to the ``tools`` module
 - Bugfix: fixed wrong regex in ``deps_cpp_info`` causing issues with dots and dashes in package names
 - Development: Several internal refactors (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor
-- Deprecation: ``dev_requires`` have been removed (it was not documented, but accesible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
+- Deprecation: ``dev_requires`` have been removed (it was not documented, but accessible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
 - Deprecation: sources tgz files for exported sources no longer contain ".c_src" subfolder. Packages created with 0.27 will be incompatible with conan < 0.25
 
 
