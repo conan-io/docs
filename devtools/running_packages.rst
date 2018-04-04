@@ -102,8 +102,8 @@ With that method in our package recipe, it will copy the executable when install
 
 The deploy will create a ``deploy_manifest.txt`` file with the files that have been deployed.
 
-Sometimes it could be useful to adjust the package ID of the deployable package in order to deploy it regardless of the compiler it was
-compiled with:
+Sometimes it is useful to adjust the package ID of the deployable package in order to deploy it regardless of the compiler it was compiled
+with:
 
 .. code-block:: python
 
