@@ -84,7 +84,6 @@ locations in the system. Let's modify the example recipe adding the ``deploy()``
     def deploy(self):
         self.copy("*", dst="bin", src="bin")
 
-
 And run :command:`conan create`
 
 .. code-block:: bash
@@ -103,10 +102,20 @@ With that method in our package recipe, it will copy the executable when install
 
 The deploy will create a ``deploy_manifest.txt`` file with the files that have been deployed.
 
-Read more about ``deploy()`` in the reference.
+Sometimes it could be useful to adjust the package ID of the deployable package in order to deploy it regardless of the compiler it was
+compiled with:
+
+.. code-block:: python
+
+    def package_id(self):
+        del self.info.settings.compiler
+
+.. seealso::
+
+    Read more about the :ref:`deploy() <method_deploy>` method.
 
 Running from packages
-----------------------
+---------------------
 
 If you want to directly run one executable from your dependencies, it is not necessary to use the generators
 and activate the environment, as it can be directly done in code with the ``RunEnvironment`` helper. So if
