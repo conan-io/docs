@@ -1,5 +1,5 @@
 
-.. _install_json::
+.. _install_json:
 
 
 Install and Create output [EXPERIMENTAL]
