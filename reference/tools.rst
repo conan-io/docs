@@ -869,6 +869,7 @@ tools.unix2dos()
     def unix2dos(filepath)
 
 Converts line breaks in a text file from Unix format (LF) to DOS format (CRLF).
+Returns True for success, False otherwise.
 
 .. code-block:: python
 
@@ -887,6 +888,7 @@ tools.dos2unix()
     def dos2unix(filepath)
 
 Converts line breaks in a text file from DOS format (CRLF) to Unix format (LF).
+Returns True for success, False otherwise.
 
 .. code-block:: python
 
