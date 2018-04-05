@@ -879,6 +879,24 @@ Converts line breaks in a text file from Unix format (LF) to DOS format (CRLF).
 Parameters:
     - **filepath** (Required): The file to convert.
 
+tools.dos2unix()
+-------------
+
+.. code-block:: python
+
+    def dos2unix(filepath)
+
+Converts line breaks in a text file from DOS format (CRLF) to Unix format (LF).
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.dos2unix("dosfile")
+
+Parameters:
+    - **filepath** (Required): The file to convert.
+
 tools.touch()
 -------------
 
