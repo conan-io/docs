@@ -130,7 +130,7 @@ typically used in :ref:`method_system_requirements`.
 You can also adjust the environment variable ``CONAN_SYSREQUIRES_MODE``.
 
 The ``sysrequires_sudo`` variable, defaulted to True, controls whether ``sudo`` is used for installing apt, yum, etc.
-system packages via ``SystemPackageTool``. Yo can also adjust the environment variable ``CONAN_SYSREQUIRES_SUDO``.
+system packages via ``SystemPackageTool``. You can also adjust the environment variable ``CONAN_SYSREQUIRES_SUDO``.
 
 
 The ``request_timeout`` variable, defaulted to 30 seconds, controls the time after Conan will stop waiting for a response.
