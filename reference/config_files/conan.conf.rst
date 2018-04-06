@@ -18,6 +18,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     default_profile = default
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
+    request_timeout = 30                  # environment CONAN_REQUEST_TIMEOUT
     # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
@@ -129,7 +130,13 @@ typically used in :ref:`method_system_requirements`.
 You can also adjust the environment variable ``CONAN_SYSREQUIRES_MODE``.
 
 The ``sysrequires_sudo`` variable, defaulted to True, controls whether ``sudo`` is used for installing apt, yum, etc.
-system packages via ``SystemPackageTool``. You can also adjust the environment variable ``CONAN_SYSREQUIRES_SUDO``.
+system packages via ``SystemPackageTool``. Yo can also adjust the environment variable ``CONAN_SYSREQUIRES_SUDO``.
+
+
+The ``request_timeout`` variable, defaulted to 30 seconds, controls the time after Conan will stop waiting for a response.
+Timeout is not a time limit on the entire response download; rather, an exception is raised if the server has not issued a
+response for timeout seconds (more precisely, if no bytes have been received on the underlying socket for timeout seconds).
+If no timeout is specified explicitly, it do not timeout.
 
 The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature.
 If not specified, the packages marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
