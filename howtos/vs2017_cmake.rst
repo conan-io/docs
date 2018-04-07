@@ -158,10 +158,10 @@ Using tasks with tasks.vs.json
 ------------------------------
 Another alternative is using file `tasks <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson>`_ feature of Visual Studio 2017. This way you can install dependencies by running conan install as task directly in the IDE.
 
-All you need is to right click on your `conanfile.py`-> Configure Tasks (see the `link above <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson>`_) and add the following to your `tasks.vs.json`.
+All you need is to right click on your `conanfile.py`-> Configure Tasks (see the `link above <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson>`_) and add the following to your *tasks.vs.json*.
 
 .. warning:
-    The file `tasks.vs.json` is added to your local .vs folder so it is not supposed to be added to your version control system. There is also feature `request <https://visualstudio.uservoice.com/forums/121579-visual-studio-ide/suggestions/33814138-add-macro-buildroot-to-tasks-vs-json>`_ to improve this process.
+    The file *tasks.vs.json* is added to your local *.vs* folder so it is not supposed to be added to your version control system. There is also feature `request <https://visualstudio.uservoice.com/forums/121579-visual-studio-ide/suggestions/33814138-add-macro-buildroot-to-tasks-vs-json>`_ to improve this process.
     
 .. code-block:: text
     :emphasize-lines: 7,9,16,18
