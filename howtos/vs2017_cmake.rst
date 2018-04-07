@@ -190,4 +190,4 @@ All you need is to right click on your `conanfile.py`-> Configure Tasks (see the
     "version": "0.2.1"
   }
 
-Then just right click on your `conanfile.py` and launch your `conan install` and regenerate your CMakeLists.txt.
+Then just right click on your *conanfile.py* and launch your ``conan install`` and regenerate your *CMakeLists.txt*.
