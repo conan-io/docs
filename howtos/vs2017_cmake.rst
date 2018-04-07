@@ -160,6 +160,9 @@ Another alternative is using file `tasks <https://docs.microsoft.com/en-us/cpp/i
 
 All you need is to right click on your `conanfile.py`-> Configure Tasks (see the `link above <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson>`_) and add the following to your `tasks.vs.json`.
 
+.. warning:
+    The file `tasks.vs.json` is added to your local .vs folder so it is not supposed to be added to your version control system. There is also feature `request <https://visualstudio.uservoice.com/forums/121579-visual-studio-ide/suggestions/33814138-add-macro-buildroot-to-tasks-vs-json>`_ to improve this process.
+    
 .. code-block:: text
     :emphasize-lines: 7,9,16,18
 
@@ -171,7 +174,7 @@ All you need is to right click on your `conanfile.py`-> Configure Tasks (see the
           "type": "launch",
           "command": "${env.COMSPEC}",
           "args": [
-            "conan install ${file} -if C:/Users/user/CMakeBuilds/4c2d87b9-ec5a-9a30-a47a-32ccb6cca172/build/x64-Debug/"
+            "conan install ${file} -s build_type=Debug -if C:/Users/user/CMakeBuilds/4c2d87b9-ec5a-9a30-a47a-32ccb6cca172/build/x64-Debug/"
           ]
         },
         {
@@ -180,7 +183,7 @@ All you need is to right click on your `conanfile.py`-> Configure Tasks (see the
           "type": "launch",
           "command": "${env.COMSPEC}",
           "args": [
-            "conan install ${file} -if C:/Users/user/CMakeBuilds/4c2d87b9-ec5a-9a30-a47a-32ccb6cca172/build/x64-Release/"
+            "conan install ${file} -s build_type=Release -if C:/Users/user/CMakeBuilds/4c2d87b9-ec5a-9a30-a47a-32ccb6cca172/build/x64-Release/"
           ]
         }
       ],
