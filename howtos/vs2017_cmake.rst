@@ -153,3 +153,41 @@ the *CMakeSettings.json* file, and there you can change the ``configurationType`
 
 Note that the above CMake code is only valid for consuming existing packages. If you are also creating a package, you
 would need to make sure the right CMake code is executed, please check https://github.com/conan-io/cmake-conan/blob/master/README.md#creating-packages
+
+Using tasks with tasks.vs.json
+------------------------------
+Another alternative is using file `tasks <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson>`_ feature of Visual Studio 2017. This way you can install dependencies by running conan install as task directly in the IDE.
+
+All you need is to right click on your `conanfile.py`-> Configure Tasks (see the `link above <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson>`_) and add the following to your *tasks.vs.json*.
+
+.. warning:
+    The file *tasks.vs.json* is added to your local *.vs* folder so it is not supposed to be added to your version control system. There is also feature `request <https://visualstudio.uservoice.com/forums/121579-visual-studio-ide/suggestions/33814138-add-macro-buildroot-to-tasks-vs-json>`_ to improve this process.
+    
+.. code-block:: text
+    :emphasize-lines: 7,9,16,18
+
+    {
+      "tasks": [
+        {
+          "taskName": "conan install debug",
+          "appliesTo": "conanfile.py",
+          "type": "launch",
+          "command": "${env.COMSPEC}",
+          "args": [
+            "conan install ${file} -s build_type=Debug -if C:/Users/user/CMakeBuilds/4c2d87b9-ec5a-9a30-a47a-32ccb6cca172/build/x64-Debug/"
+          ]
+        },
+        {
+          "taskName": "conan install release",
+          "appliesTo": "conanfile.py",
+          "type": "launch",
+          "command": "${env.COMSPEC}",
+          "args": [
+            "conan install ${file} -s build_type=Release -if C:/Users/user/CMakeBuilds/4c2d87b9-ec5a-9a30-a47a-32ccb6cca172/build/x64-Release/"
+          ]
+        }
+      ],
+    "version": "0.2.1"
+  }
+
+Then just right click on your *conanfile.py* and launch your ``conan install`` and regenerate your *CMakeLists.txt*.
