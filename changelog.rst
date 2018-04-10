@@ -11,6 +11,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about conan stability here<stability>`.
 
 
+1.2.2 (10-Apr-2017)
+-------------------
+
+- Bugfix: Removed invalid version field from scons generator.
+
+
 1.2.1 (3-Apr-2018)
 ------------------
 
