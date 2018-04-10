@@ -87,10 +87,12 @@ In this example we will use CMake to build the project, which is why the ``cmake
     If you are not a CMake user, change the ``[generators]`` section of your *conanfile.txt* to ``gcc`` or a more generic one ``txt`` to
     handle requirements with any build system. Learn more in :ref:`Using packages<using_packages>`.
 
-Just include the generated file and use these variables inside our *CMakeLists.txt*:
+All we will have to do is to include the generated file and use these variables inside our
+*CMakeLists.txt* like this:
 
 .. code-block:: cmake
    :caption: **CMakeLists.txt**
+   :emphasize-lines: 5
 
     project(FoundationTimer)
     cmake_minimum_required(VERSION 2.8.12)
@@ -116,7 +118,7 @@ Then create a build folder, for temporary build files, and install the requireme
 
 This :command:`conan install` command will download the binary package required for your configuration (detected the first time that you ran the
 command), **together with other (transitively required by Poco) libraries, like OpenSSL and Zlib**. It will also create the
-*conanbuildinfo.cmake* file in the current directory, in which you can see the cmake defined variables, and a *conaninfo.txt* where
+*conanbuildinfo.cmake* file in the current directory, in which you can see the CMake defined variables, and a *conaninfo.txt* where
 information about settings, requirements and options is saved.
 
 It is very important to understand the installation process. When :command:`conan install` command is issued, it will use some settings,
