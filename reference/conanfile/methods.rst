@@ -597,7 +597,7 @@ package creator specifies the values for any of thoses properties, it is telling
 package.
 
 However, sometimes a package creator would need to alter the default behavior, for example, to have only one binary package for several
-different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the pacakge ID will be
+different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the package ID will be
 computed with the given information:
 
 .. code-block:: python

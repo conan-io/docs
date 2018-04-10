@@ -22,7 +22,7 @@ With the ``build_policy`` attribute the package creator can change the default c
 
     class PocoTimerConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Poco/1.7.8p3@pocoproject/stable" # comma separated list of requirements
+        requires = "Poco/1.7.8p3@pocoproject/stable" # comma-separated list of requirements
         generators = "cmake", "gcc", "txt"
         default_options = "Poco:shared=True", "OpenSSL:shared=True"
         build_policy = "always" # "missing"
