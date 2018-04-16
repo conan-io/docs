@@ -661,6 +661,20 @@ Parameters:
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
 
+tools.get_gnu_triplet()
+-----------------------
+
+.. code-block:: python
+
+    def get_gnu_triplet(os, arch, compiler=None)
+
+Returns string with GNU like ``<machine>-<vendor>-<op_system>`` triplet.
+
+Parameters:
+    - **os** (Required): Operating system to be used to create the triplet.
+    - **arch** (Required): Architecture to be used to create the triplet.
+    - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
+
 .. _run_in_windows_bash_tool:
 
 tools.run_in_windows_bash()
