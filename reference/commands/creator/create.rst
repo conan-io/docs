@@ -35,7 +35,8 @@ created correctly. Check the 'conan test' command to know more about the
                             alternative test folder name, by default is
                             "test_package". "None" if test stage needs to be
                             disabled
-      -k, --keep-source     Optional. Do not remove the source folder in local
+      -k, -ks, --keep-source
+                            Optional. Do not remove the source folder in local
                             cache. Use for testing purposes only
       -kb, --keep-build     Optional. Do not remove the build folder in local
                             cache. Use for testing purposes only
