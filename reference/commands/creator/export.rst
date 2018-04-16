@@ -21,9 +21,10 @@ to any remote with the "conan upload" command.
                             declared in the recipe (conanfile.py)
 
     optional arguments:
-      -h, --help         show this help message and exit
-      -k, --keep-source  Optional. Do not remove the source folder in the local
-                         cache. Use for testing purposes only
+      -h, --help            show this help message and exit
+      -k, -ks, --keep-source
+                            Optional. Do not remove the source folder in the local
+                            cache. Use for testing purposes only
 
 The ``export`` command will run a linting of the package recipe, looking for possible
 inconsistencies, bugs and py2-3 incompatibilities. It is possible to customize the rules for this
