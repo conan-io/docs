@@ -71,6 +71,12 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote update remote_name new_url [verify_ssl]
 
+- Rename a remote:
+
+  .. code-block:: bash
+
+      $ conan remote rename remote_name new_remote_name
+
 - Change an existing remote to the first position:
 
   .. code-block:: bash
