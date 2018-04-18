@@ -99,6 +99,10 @@ tools.vcvars()
 
     vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
+.. note::
+
+    This context manager tool has no effect if used in a platform different from Windows.
+
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
 environment:
@@ -113,8 +117,14 @@ environment:
 
 .. _build_sln_commmand:
 
-tools.build_sln_command()
--------------------------
+
+tools.build_sln_command() (DEPRECATED)
+--------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>` build helper instead.
 
 .. code-block:: python
 
@@ -158,8 +168,15 @@ Parameters:
 
 .. _msvc_build_command:
 
-tools.msvc_build_command()
---------------------------
+
+tools.msvc_build_command() (DEPRECATED)
+---------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>`.get_command() instead.
+
 
 .. code-block:: python
 
@@ -601,7 +618,7 @@ tools.human_size()
 
     def human_size(size_bytes)
 
-Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
+Will return a string from a given number of bytes, rounding it to the most appropriate unit: GB, MB, KB, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
 
 .. code-block:: python
@@ -609,7 +626,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     from conans import tools
     
     tools.human_size(1024)
-    >> 1Kb
+    >> 1.0KB
 
 Parameters:
     - **size_bytes** (Required): Number of bytes.
@@ -842,6 +859,7 @@ when ``no_copy_source=True``.
 
 Parameters:
     - **path** (Required): Path to the directory.
+
 
 tools.which()
 -------------

@@ -39,6 +39,8 @@ created correctly. Check the 'conan test' command to know more about the
                             cache. Use for testing purposes only
       -kb, --keep-build     Optional. Do not remove the build folder in local
                             cache. Use for testing purposes only
+      -j JSON, --json JSON  Path to a json file where the install information will
+                            be written
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be

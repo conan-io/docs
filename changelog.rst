@@ -7,12 +7,71 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.1 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
 
+1.2.3 (10-Apr-2017)
+-------------------
+
+- Bugfix: Removed invalid version field from scons generator.
+
+
+1.2.1 (3-Apr-2018)
+------------------
+
+- Feature: Support for `apple-clang 9.1`
+- Bugfix: `compiler_args` generator manage correctly the flag for the `cppstd` setting.
+- Bugfix: Replaced exception with a warning message (recommending the `six` module) when using `StringIO` class from the `io` module.
+
+
+
+1.2.0 (28-Mar-2018)
+-------------------
+
+- Feature: The command :command:`conan build` has new ``--configure, --build, --install`` arguments to control the different stages of the
+  ``build()`` method.
+- Feature: The command :command:`conan export-pkg` now has a :command:`--package-folder` that can be used to export an exact copy of the
+  provided folder, irrespective of the ``package()`` method. It assumes the package has been locally created with a previous
+  :command:`conan package` or with a :command:`conan build` using a ``cmake.install()`` or equivalent feature.
+- Feature: New ``json`` generator, generates a json file with machine readable information from dependencies.
+- Feature: Improved proxies configuration with ``no_proxy_match`` configuration variable.
+- Feature: New :command:`conan upload` parameter :command:`--no-overwrite` to forbid the overwriting of recipe/packages if they have
+  changed.
+- Feature: Exports are now copied to ``source_folder`` when doing :command:`conan source`.
+- Feature: ``tools.vcvars()`` context manager has no effect if platform is different from Windows.
+- Feature: :command:`conan download` has new optional argument :command:`--recipe` to download only the recipe of a package.
+- Feature: Added ``CONAN_NON_INTERACTIVE`` environment variable to disable interactive prompts.
+- Feature: Improved ``MSbuild()`` build helper using ``vcvars()`` and generating property file to adjust the runtime automatically.
+  New method ``get_command()`` with the call to ``msbuild`` tool. Deprecates ``tools.build_sln_command()`` and ``tools.msvc_build_command()``.
+- Feature: Support for clang 6.0 correctly managing cppstd flags.
+- Feature: Added configuration to specify a client certificate to connect to SSL server.
+- Feature: Improved ``ycm`` generator to show json dependencies.
+- Feature: Experimental ``--json`` parameter for :command:`conan install` and :command:`conan create` to generate a JSON file with install information.
+- Fix: :command:`conan install --build` does not absorb more than one parameter.
+- Fix: Made conanfile templates generated with :command:`conan new` PEP8 compliant.
+- Fix: :command:`conan search` output improved when there are no packages for the given reference.
+- Fix: Made :command:`conan download` also retrieve sources.
+- Fix: Pylint now runs as an external process.
+- Fix: Made ``self.user`` and ``self.channel`` available in test_package.
+- Fix: Made files writable after a ``deploy()`` or ``imports()`` when ``CONAN_READ_ONLY_CACHE```/``general.read_only_cache``
+  environment/config variable is ``True``.
+- Fix: Linter showing warnings with ``cpp_info`` object in ``deploy()`` method.
+- Fix: Disabled linter for Conan pyinstaller as it was not able to find the python modules.
+- Fix: :command:`conan user -r=remote_name` showed all users for all remotes, not the one given.
+- BugFix: Python reuse code failing to import module in ``package_info()``.
+- BugFix: Added escapes for backslashes in ``cmake`` generator.
+- BugFix: :command:`conan config install` now raises error if :command:`git clone` fails.
+- BugFix: Alias resolution not working in diamond shaped dependency trees.
+- BugFix: Fixed builds with Cygwin/MSYS2 failing in Windows with `self.short_paths=True` and NTFS file systems due to ACL permissions.
+- BugFix: Failed to adjust architecture when running Conan platform detection in ARM devices.
+- BugFix: Output to StringIO failing in Python 2.
+- BugFix: :command:`conan profile update` not working to update ``[env]`` section.
+- BugFix: :command:`conan search` not creating default remotes when running it as the very first command after Conan installation.
+- BugFix: Package folder was not cleaned after the installation and download of a package had failed.
+
 1.1.1 (5-Mar-2018)
---------------------
+------------------
 
 - Feature: ``build_sln_command()`` and ``msvc_build_command()`` receive a new optional parameter ``platforms`` to match the definition of the *.sln* Visual Studio project architecture. (Typically Win32 vs x86 problem).
 - Bufix:  Flags for Visual Studio command (cl.exe) using "-" instead of "/" to avoid problems in builds using AutoTools scripts with Visual Studio compiler.
@@ -21,7 +80,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 1.1.0 (27-Feb-2018)
---------------------
+-------------------
 
 - Feature: New :command:`conan create --keep-build` option that allows re-packaging from conan local cache, without re-building.
 - Feature: :command:`conan search <pattern> -r=all` now searches in all defined remotes.
@@ -398,7 +457,7 @@ thanks very much!
 - Fix: ``collect_libs`` moved to the ``tools`` module
 - Bugfix: fixed wrong regex in ``deps_cpp_info`` causing issues with dots and dashes in package names
 - Development: Several internal refactors (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor
-- Deprecation: ``dev_requires`` have been removed (it was not documented, but accesible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
+- Deprecation: ``dev_requires`` have been removed (it was not documented, but accessible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
 - Deprecation: sources tgz files for exported sources no longer contain ".c_src" subfolder. Packages created with 0.27 will be incompatible with conan < 0.25
 
 

@@ -8,7 +8,7 @@ General information about the commands, configuration files, etc.
 Contents:
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    reference/commands
    reference/conanfile_txt

@@ -10,7 +10,7 @@ able to do so. There are several options.
 - First, search in bintray. Generators can now be created and contributed by users as regular
   packages, so you can depend on them, use versioning, evolve faster without depending on the
   conan releases, etc. Check :ref:`generator packages <dyn_generators>`.
-- You can use the **text generator**. It will generate a text file, simple to read and to parse
+- You can use the **text or json generator**. It will generate a text file, simple to read and to parse
   that you can easily parse with your tools to extract the information.
 - Use the **conanfile data model** and access its properties and values, so you can directly
   call your build system with that information, without requiring to generate a file.
@@ -21,6 +21,53 @@ able to do so. There are several options.
 .. note:: 
    
    Need help to integrate your build system? Tell us what you need. info@conan.io
+
+
+.. _json_integration:
+
+Use the JSON generator
+-----------------------
+
+Specify the **json** generator in your conanfile:
+
+  .. code-block:: ini
+
+      [requires]
+      fmt/4.1.0@<user>/<stable>
+      Poco/1.7.8p3@pocoproject/stable
+
+      [generators]
+      json
+
+
+A file named *conanbuildinfo.json* will be generated. It will contain the information about every dependency:
+
+.. code-block:: json
+
+    {
+      "dependencies":
+      [
+        {
+          "name": "fmt",
+          "version": "4.1.0",
+          "include_paths": [
+            "/path/to/.conan/data/fmt/4.1.0/<user>/<channel>/package/<id>/include"
+          ],
+          "lib_paths": [
+            "/path/to/.conan/data/fmt/4.1.0/<user>/<channel>/package/<id>/lib"
+          ],
+          "libs": [
+            "fmt"
+          ],
+          "...": "...",
+        },
+        {
+          "name": "Poco",
+          "version": "1.7.8p3",
+          "...": "..."
+        }
+      ]
+    }
 
 
 .. _txt_integration:
@@ -167,7 +214,7 @@ and much more reusable to create a generator to simplify the task for your build
 
 
          # Environment variables (from requirements self.env_info objects)
-         # are automatically applied in the python ``os.environ`` but can be accesible as well:
+         # are automatically applied in the python ``os.environ`` but can be accessible as well:
          print("--------- Globally -------------")
          print(self.env)
 
