@@ -153,7 +153,7 @@ Then the install command will retrieve the ``mytest_framework``, build and run t
 
 .. code-block:: bash
 
-    $ conan install --profile=mytest_profile
+    $ conan install . --profile=mytest_profile
 
 Common python code
 ------------------
