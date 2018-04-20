@@ -1,3 +1,4 @@
+
 .. _conan_config:
 
 conan config
@@ -7,17 +8,17 @@ conan config
 
     $ conan config [-h] {rm,set,get,install} ...
 
-Manages configuration. Edits the conan.conf or installs config files.
+Manages Conan configuration. Edits the conan.conf or installs config files.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       {rm,set,get,install}  sub-command help
-        rm                  rm an existing config element
-        set                 set/add value
-        get                 get the value of existing element
-        install             install a full configuration from a zip file, local or
-                            remote
+        rm                  Remove an existing config element
+        set                 Set a value for a configuration item
+        get                 Get the value of configuration item
+        install             install a full configuration from a local or remote
+                            zip file
 
     optional arguments:
       -h, --help            show this help message and exit

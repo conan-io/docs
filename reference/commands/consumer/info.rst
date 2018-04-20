@@ -1,46 +1,34 @@
 
+.. _conan_info:
+
 conan info
 ==========
 
 .. code-block:: bash
 
-    $ conan info [-h] [-n ONLY] [--paths] [--package-filter [PACKAGE_FILTER]]
-                 [-bo BUILD_ORDER] [-j [JSON]] [-g GRAPH]
-                 [-if INSTALL_FOLDER] [-u] [-pr PROFILE] [-r REMOTE]
-                 [-o OPTIONS] [-s SETTINGS] [-e ENV] [-b [BUILD [BUILD ...]]]
-                 reference
+    $ conan info [-h] [--paths] [-bo BUILD_ORDER] [-g GRAPH]
+                 [-if INSTALL_FOLDER] [-j [JSON]] [-n ONLY]
+                 [--package-filter [PACKAGE_FILTER]] [-b [BUILD]] [-e ENV]
+                 [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                 path_or_reference
 
-Gets information about the dependency graph of a recipe. You can use it for
-your current project, by passing a path to a conanfile.py as the reference, or
-for any existing package in your local cache.
+Gets information about the dependency graph of a recipe. It can be used with a
+recipe or a reference for any existing package in your local cache.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      reference             path to a folder containing a recipe (conanfile.py or
+      path_or_reference     Path to a folder containing a recipe (conanfile.py or
                             conanfile.txt) or to a recipe file. e.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
 
     optional arguments:
       -h, --help            show this help message and exit
-      -n ONLY, --only ONLY  show the specified fields only from: "id", "build_id",
-                            "remote", "url", "license", "requires", "update",
-                            "required", "date", "author", "None" or use --paths
-                            with options "export_folder", "build_folder",
-                            "package_folder", "source_folder". Use --only None to
-                            show only references.
       --paths               Show package paths in local cache
-      --package-filter [PACKAGE_FILTER]
-                            print information only for packages that match the
-                            filtere.g., MyPackage/1.2@user/channel or MyPackage*
       -bo BUILD_ORDER, --build-order BUILD_ORDER
                             given a modified reference, return an ordered list to
                             build (CI)
-      -j [JSON], --json [JSON]
-                            Only with --build_order option, return the information
-                            in a json. e.j --json=/path/to/filename.json or --json
-                            to output the json
       -g GRAPH, --graph GRAPH
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
@@ -52,23 +40,37 @@ for any existing package in your local cache.
                             unless --profile, -s or -o is specified. If you
                             specify both install-folder and any setting/option it
                             will raise an error.
-      -u, --update          check updates exist from upstream remotes
+      -j [JSON], --json [JSON]
+                            Only with --build_order option, return the information
+                            in a json. e.j --json=/path/to/filename.json or --json
+                            to output the json
+      -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
+                            "remote", "url", "license", "requires", "update",
+                            "required", "date", "author", "None". '--paths'
+                            information can also be filtered with options
+                            "export_folder", "build_folder", "package_folder",
+                            "source_folder". Use '--only None' to show only
+                            references.
+      --package-filter [PACKAGE_FILTER]
+                            Print information only for packages that match the
+                            filter pattern e.g., MyPackage/1.2@user/channel or
+                            MyPackage*
+      -b [BUILD], --build [BUILD]
+                            Given a build policy, return an ordered list of
+                            packages that would be built from sources during the
+                            install command
+      -e ENV, --env ENV     Environment variables that will be set during the
+                            package build, -e CXX=/usr/bin/clang++
+      -o OPTIONS, --options OPTIONS
+                            Define options values, e.g., -o Pkg:with_qt=true
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
-                            look in the specified remote server
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Look in the specified remote server
       -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
-                            given a build policy (same install command "build"
-                            parameter), return an ordered list of packages that
-                            would be built from sources in install command
-                            (simulation)
+      -u, --update          Check updates exist from upstream remotes
 
 
 **Examples**:

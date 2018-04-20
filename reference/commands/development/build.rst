@@ -1,54 +1,55 @@
 
+.. _conan_build:
+
 conan build
 ===========
 
 .. code-block:: bash
 
-    $ conan build [-h] [-sf SOURCE_FOLDER] [-bf BUILD_FOLDER]
-                  [-pf PACKAGE_FOLDER] [-if INSTALL_FOLDER] [-c] [-b] [-i]
+    $ conan build [-h] [-b] [-bf BUILD_FOLDER] [-c] [-i] [-if INSTALL_FOLDER]
+                  [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER]
                   path
 
 Calls your local conanfile.py 'build()' method. The recipe will be built in
 the local directory specified by --build-folder, reading the sources from
---source-folder. If you are using a build helper, like CMake(), the
---package-folder will be configured as destination folder for the install
-step.
+--source-folder. If you are using a build helper, like CMake(), the --package-
+folder will be configured as destination folder for the install step.
 
 .. code-block:: text
 
     positional arguments:
-      path                  path to a recipe (conanfile.py), e.g., conan build .
+      path                  Path to a folder containing a conanfile.py or to a
+                            recipe file e.g., my_folder/conanfile.py
 
     optional arguments:
       -h, --help            show this help message and exit
-      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            local folder containing the sources. Defaulted to the
-                            directory of the conanfile. A relative path can also
-                            be specified (relative to the current directory)
-      -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
-                            build folder, working directory of the build process.
-                            Defaulted to the current directory. A relative path
-                            can also be specified (relative to the current
-                            directory)
-      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
-                            folder to install the package (when the build system
-                            or build() method does it). Defaulted to the
-                            '{build_folder}/package' folder. A relative path can
-                            be specified, relative to the current folder. Also an
-                            absolute path is allowed.
-      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            Optional. Local folder containing the conaninfo.txt
-                            and conanbuildinfo.txt files (from a previous conan
-                            install execution). Defaulted to --build-folder
-      -c, --configure       Execute the configuration step (variable
-                            should_configure=True). When specified, build/install
-                            won't run unless --build/--install specified
       -b, --build           Execute the build step (variable should_build=True).
                             When specified, configure/install won't run unless
                             --configure/--install specified
+      -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
+                            Directory for the build process. Defaulted to the
+                            current directory. A relative path to current
+                            directory can also be specified
+      -c, --configure       Execute the configuration step (variable
+                            should_configure=True). When specified, build/install
+                            won't run unless --build/--install specified
       -i, --install         Execute the install step (variable
                             should_install=True). When specified, configure/build
                             won't run unless --configure/--build specified
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            Directory containing the conaninfo.txt and
+                            conanbuildinfo.txt files (from previous 'conan
+                            install'). Defaulted to --build-folder
+      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
+                            Directory to install the package (when the build
+                            system or build() method does it). Defaulted to the
+                            '{build_folder}/package' folder. A relative path can
+                            be specified, relative to the current folder. Also an
+                            absolute path is allowed.
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                            Directory containing the sources. Defaulted to the
+                            conanfile's directory. A relative path to current
+                            directory can also be specified
 
 
 The ``build()`` method might use `settings`, `options` and `environment variables` from the specified profile and dependencies information

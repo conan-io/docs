@@ -1,7 +1,8 @@
-.. _conan_profile_command:
+
+.. _conan_profile:
 
 conan profile
--------------
+=============
 
 .. code-block:: bash
 
@@ -13,7 +14,7 @@ But the 'show' subcommand is able to resolve absolute and relative paths, as
 well as to map names to '.conan/profiles' folder, in the same way as the '--
 profile' install argument.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       {list,show,new,update,get,remove}

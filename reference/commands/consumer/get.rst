@@ -1,7 +1,8 @@
+
 .. _conan_get:
 
 conan get
-==========
+=========
 
 .. code-block:: bash
 
@@ -9,7 +10,7 @@ conan get
 
 Gets a file or list a directory of a given reference or package.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       reference             package recipe reference
@@ -21,9 +22,9 @@ Gets a file or list a directory of a given reference or package.
     optional arguments:
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
-                        package ID
+                            Package ID
       -r REMOTE, --remote REMOTE
-                        Get from this specific remote
+                            Get from this specific remote
       -raw, --raw           Do not decorate the text
 
 
