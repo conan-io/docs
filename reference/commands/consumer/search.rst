@@ -42,6 +42,7 @@ argument.
                             package recipe reference: MyPackage/1.2@user/channel
       -o, --outdated        Show only outdated from recipe packages
 
+
 **Examples**
 
 .. code-block:: bash

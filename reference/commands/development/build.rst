@@ -50,6 +50,7 @@ step.
                             should_install=True). When specified, configure/build
                             won't run unless --configure/--build specified
 
+
 The ``build()`` method might use `settings`, `options` and `environment variables` from the specified profile and dependencies information
 from the declared ``deps_XXX_info`` objects in the conanfile requirements. All that information is saved automatically in the
 *conaninfo.txt* and *conanbuildinfo.txt* files respectively, when you run the :command:`conan install` command. Those files have to be located

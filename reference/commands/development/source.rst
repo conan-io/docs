@@ -30,6 +30,7 @@ package source.
                             conditional source() based on settings, options,
                             env_info and user_info
 
+
 The ``source()`` method might use (optional) `settings`, `options` and `environment variables` from
 the specified profile and dependencies information from the declared ``deps_XXX_info`` objects in
 the conanfile requirements.

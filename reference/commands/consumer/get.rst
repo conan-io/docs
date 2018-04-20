@@ -26,6 +26,7 @@ Gets a file or list a directory of a given reference or package.
                         Get from this specific remote
       -raw, --raw           Do not decorate the text
 
+
 **Examples**:
 
 - Print the conanfile.py from a remote package:

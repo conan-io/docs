@@ -42,6 +42,7 @@ pkg' after a 'build' command.
                             and conanbuildinfo.txt files (from a previous conan
                             install execution). Defaulted to --build-folder
 
+
 The ``package()`` method might use `settings`, `options` and `environment variables` from the specified
 profile and dependencies information from the declared ``deps_XXX_info`` objects in the conanfile
 requirements.

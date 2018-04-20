@@ -37,6 +37,7 @@ the local conan cache.
                             package recipe reference: MyPackage/1.2@user/channel
       -o, --outdated        Remove only outdated from recipe packages
 
+
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 
 **Examples**:
