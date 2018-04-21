@@ -5,6 +5,11 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
+PR output-color
+
+- Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable
+- If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
+
 .. important::
 
   Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.

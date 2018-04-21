@@ -76,9 +76,11 @@ instead of Yellow, Cyan, White.
 CONAN_COLOR_DISPLAY
 -------------------
 
-**Defaulted to**: ``True``/``1``
+**Defaulted to**: Not defined
 
-Useful to remove colored output, set it to ``False``/``0`` to remove console output colors.
+Useful to remove or require colored output.
+Set it to ``False``/``0`` to remove console output colors.
+Set it to ``True``/``1`` to require console output colors.
 
 CONAN_COMPRESSION_LEVEL
 -----------------------
