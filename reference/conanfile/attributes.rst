@@ -721,6 +721,9 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
             else:
                 # we are building the package in a local directory
 
+
+.. _develop_attribute:
+
 develop
 -------
 
