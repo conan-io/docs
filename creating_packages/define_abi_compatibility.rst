@@ -6,7 +6,7 @@ Define package ABI compatibility
 Each package recipe can generate *N* binary packages from it, depending on three things:
 ``settings``, ``options`` and ``requires``.
 
-When any of the :ref:`settings_property` of a package recipe changes, it will reference a
+When any of the :ref:`attribute_settings` of a package recipe changes, it will reference a
 different binary:
 
 .. code-block:: python
@@ -50,7 +50,7 @@ the computed package ID will be the same, such binary will be retrieved, and the
 to reuse the binary without building it from sources.
 
 The use case for ``options`` is very similar, the main difference is that options can be more easily
-defined at the package level and they can be defaulted. Check the :ref:`conanfile_options`
+defined at the package level and they can be defaulted. Check the :ref:`attribute_options`
 reference.
 
 Note the simple scenario of a **header-only** library. Such package does not need to be built, and

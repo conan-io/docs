@@ -22,7 +22,7 @@ The output JSON contains a two first level keys:
         - **time**: ``ISO 8601`` string with the time the recipe was downloaded/retrieved.
         - **error**: ``true``/``false``.
         - **id**: Reference. e.j: "OpenSSL/1.0.2n@conan/stable"
-        - **dependency**: ``true``/``false``. Is the package being installed/created or a dependency. Same as :ref:`develop conanfile attribute<develop_attribute>`.
+        - **dependency**: ``true``/``false``. Is the package being installed/created or a dependency. Same as :ref:`develop conanfile attribute<attribute_develop>`.
 
      - **packages**: List of elements, representing the binary packages downloaded for the recipe.
        Normally it will be only 1 element in this list, only in special cases with build requires, private

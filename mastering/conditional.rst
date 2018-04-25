@@ -40,4 +40,4 @@ Here is an example of what we could do in our **configure method**:
              self.requires("OpenSSL/1.0.2d@lasote/stable")
 
 
-.. seealso:: Check the section :ref:`Reference/conanfile.py/configure(), config_options() <method_configure_config_options>` to find out more.
+.. seealso:: Check the section :ref:`Reference/conanfile.py/configure(), config_options() <method_configure>` to find out more.

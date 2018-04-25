@@ -32,7 +32,7 @@ Package creators
 
 If you are creating a **conan** package:
 
-- You can use the :ref:`url field <package_url>` to indicate the origin of your package recipe. If you are using an
+- You can use the :ref:`url field <attribute_url>` to indicate the origin of your package recipe. If you are using an
   external package recipe, this url should point to the package recipe repository **not** to the
   external source origin.
   If a **github** repository is detected, the conan website will link your github issues page from your conan's package page.

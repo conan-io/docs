@@ -1,5 +1,3 @@
-.. _methods:
-
 Methods
 =======
 
@@ -77,6 +75,8 @@ verify that a package is downloaded correctly.
 
     If you need to patch the source code or build scripts differently for different variants of your packages, you can do it in the
     ``build()`` method, which uses a different folder and source code copy for each variant.
+
+.. _method_build:
 
 build()
 -------
@@ -332,7 +332,8 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         def build(self):
             self.out.warn(self.deps_user_info["MyLib"].var1)
 
-.. _method_configure_config_options:
+.. _method_configure:
+.. _method_config_options:
 
 configure(), config_options()
 -----------------------------
@@ -375,6 +376,8 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
+.. _method_requirements:
+
 requirements()
 --------------
 
@@ -404,6 +407,8 @@ It also has optional parameters that allow defining the special cases, as is sho
       upstream and override possible existing values.
     - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded (like a static lib linked
       into a shared lib), so it is not required to link.
+
+.. _method_build_requirements:
 
 build_requirements()
 --------------------
@@ -585,7 +590,7 @@ When a conanfile recipe has an ``imports()`` method and it builds from sources, 
 - Run the ``build()`` method, which could use such imported binaries.
 - Remove the copied (imported) artifacts after ``build()`` is finished.
 
-You can use the :ref:`keep_imports <keep_imports>` attribute to keep the imported artifacts, and maybe :ref:`repackage <repackage>` them.
+You can use the :ref:`keep_imports <attribute_keep_imports>` attribute to keep the imported artifacts, and maybe :ref:`repackage <repackage>` them.
 
 .. _method_package_id:
 

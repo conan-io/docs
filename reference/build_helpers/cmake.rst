@@ -192,7 +192,7 @@ Parameters:
       The ``CMake`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
     - **cache_build_folder** (Optional, Defaulted to ``None``): Use the given subfolder as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
-      See :ref:`self.in_local_cache<in_local_cache>`.
+      See :ref:`self.in_local_cache<attribute_in_local_cache>`.
 
 build()
 +++++++

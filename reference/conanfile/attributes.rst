@@ -1,6 +1,8 @@
 Attributes
 ==========
 
+.. _attribute_name:
+
 name
 ----
 This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
@@ -10,6 +12,8 @@ The name is only necessary for ``export``-ing the recipe into the local cache (`
 It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
 However, the most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
 
+
+.. _attribute_version:
 
 version
 -------
@@ -22,6 +26,8 @@ It might take its value from an environment variable, or even any python code th
 Please note that this value might be used in the recipe in other places (as in ``source()`` method to retrieve code from elsewhere), making this value not constant means that it may evaluate differently in different contexts (e.g., on different machines or for different users) leading to unrepeatable or unpredictable results.
 The most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
 
+
+.. _attribute_description:
 
 description
 -----------
@@ -38,6 +44,8 @@ short description of the package.
                         A fully featured, portable, C++ library to say Hello World in the stdout,
                         with incredible iostreams performance"""
 
+.. _attribute_homepage:
+
 homepage
 --------
 
@@ -52,7 +60,7 @@ as well as other related information.
         version = "3.3.4"
         homepage = "http://eigen.tuxfamily.org"
 
-.. _package_url:
+.. _attribute_url:
 
 url
 ---
@@ -76,6 +84,8 @@ you can point to it, and afterwards use the ``url`` in your ``source()`` method.
 
 This is a recommended, but not mandatory attribute.
 
+.. _attribute_license:
+
 license
 -------
 
@@ -95,6 +105,8 @@ contain any text, including hyperlinks to license files elsewhere.
 
 This is a recommended, but not mandatory attribute.
 
+.. _attribute_author:
+
 author
 ------
 
@@ -112,7 +124,8 @@ define who is the creator/maintainer of the package
 
 This is an optional attribute.
 
-.. _user_channel:
+.. _attribute_channel:
+.. _attribute_user:
 
 user, channel
 --------------
@@ -138,7 +151,7 @@ For package recipes working in user space, there is no current user/channel. The
 and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
 respectively. If they are not defined, an error will be raised.
 
-.. _settings_property:
+.. _attribute_settings:
 
 settings
 --------
@@ -207,7 +220,8 @@ independent in VS, we can just remove that setting field:
     def configure(self):
         self.settings.compiler["Visual Studio"].remove("runtime")
 
-.. _conanfile_options:
+.. _attribute_options:
+.. _attribute_default_options:
 
 options, default_options
 ---------------------------
@@ -320,6 +334,8 @@ You can inspect available package options, reading the package recipe, which is 
 
     $ conan get Pkg/0.1@user/channel
 
+.. _attribute_requires:
+
 requires
 --------
 
@@ -360,8 +376,6 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
-.. _version_ranges_reference:
-
 version ranges
 ++++++++++++++
 
@@ -387,6 +401,8 @@ but using a comma instead of spaces. Accepted expressions would be:
 
     Go to :ref:`Mastering/Version Ranges<version_ranges>` if you want to learn more about version ranges.
 
+.. _attribute_build_requires:
+
 build_requires
 --------------
 
@@ -400,6 +416,8 @@ They can be specified as a comma-separated tuple in the package recipe:
         build_requires = "ToolA/0.2@user/testing", "ToolB/0.2@user/testing"
 
 Read more: :ref:`Build requiremens <build_requires>`
+
+.. _attribute_build_exports:
 
 exports
 --------
@@ -426,6 +444,8 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
 This is an optional attribute, only to be used if the package recipe requires these other files
 for evaluation of the recipe.
+
+.. _attribute_exports_sources:
 
 exports_sources
 ---------------
@@ -455,6 +475,8 @@ This is an optional attribute, used typically when ``source()`` is not specified
 ``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
 while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
 
+.. _attribute_generators:
+
 generators
 ----------
 
@@ -466,7 +488,9 @@ generated, but you can specify different generators and even use more than one.
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
 
-Check the full :ref:`generators list<generators>`.
+Check the full :ref:`generators list<generators_reference>`.
+
+.. _attribute_build_policy:
 
 build_policy
 ------------
@@ -483,7 +507,7 @@ The allowed ``build_policy`` values are:
     class PocoTimerConan(ConanFile):
         build_policy = "always" # "missing"
 
-.. _short_paths_reference:
+.. _attribute_short_paths:
 
 short_paths
 -----------
@@ -509,6 +533,8 @@ From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path l
 Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
 Please note that this only works with Python 3.6 and newer.
 
+.. _attribute_no_copy_source:
+
 no_copy_source
 --------------
 
@@ -518,6 +544,11 @@ This is mostly an optimization for packages with large source codebases, to avoi
 To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``
 
 When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
+
+.. _attribute_source_folder:
+.. _attribute_build_folder:
+.. _attribute_install_folder:
+.. _attribute_package_folder:
 
 folders
 -------
@@ -533,6 +564,8 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 - ``self.package_folder``: the folder to copy the final artifacts for the binary package
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
+
+.. _attribute_cpp_info:
 
 cpp_info
 ---------
@@ -574,6 +607,7 @@ package:
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
 
+.. _attribute_deps_cpp_info:
 
 deps_cpp_info
 -------------
@@ -627,6 +661,8 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["OpenSSL"].sharedlinkflags
 
+.. _attribute_env_info:
+
 env_info
 --------
 
@@ -637,6 +673,8 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 .. seealso::
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
+
+.. _attribute_deps_env_info:
 
 deps_env_info
 -------------
@@ -664,6 +702,7 @@ you want to access to the variable declared by some specific requirement you can
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
 
+.. _attribute_info:
 
 info
 ----
@@ -672,7 +711,7 @@ Object used to control the unique ID for a package. Check the :ref:`package_id()
 object.
 
 
-.. _apply_env:
+.. _attribute_apply_env:
 
 apply_env
 ---------
@@ -699,7 +738,7 @@ You can apply manually the environment variables from the requires and build_req
                 # The same if we specified apply_env = True
                 pass
 
-.. _in_local_cache:
+.. _attribute_in_local_cache:
 
 in_local_cache
 --------------
@@ -721,8 +760,7 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
             else:
                 # we are building the package in a local directory
 
-
-.. _develop_attribute:
+.. _attribute_develop:
 
 develop
 -------
@@ -751,7 +789,7 @@ This recipe will output "Develop mode" if:
 
 But it will not output that when it is a transitive requirement or installed with :command:`conan install`.
 
-.. _keep_imports:
+.. _attribute_keep_imports:
 
 keep_imports
 -------------

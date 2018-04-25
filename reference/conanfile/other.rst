@@ -1,6 +1,8 @@
 Output and Running
 ==================
 
+.. _attribute_output:
+
 Output contents
 ---------------
 
@@ -16,6 +18,7 @@ Use the `self.output` to print contents to the output.
 
 Check the source code. You might be able to produce different outputs with different colors.
 
+.. _method_run:
 
 Running commands
 ----------------

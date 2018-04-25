@@ -63,7 +63,7 @@ Parameters:
     - **pkg_config_paths** (Optional, Defaulted to ``None``): A list containing paths to locate the pkg-config files (\*.pc). If ``None``, it will be set to ``conanfile.build_folder``.
     - **cache_build_folder** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
-      See :ref:`self.in_local_cache<in_local_cache>`.
+      See :ref:`self.in_local_cache<attribute_in_local_cache>`.
 
 build()
 +++++++

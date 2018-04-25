@@ -544,7 +544,7 @@ Parameters:
 tools.pythonpath()
 ------------------
 
-This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
+This tool is automatically applied in the conanfile methods unless :ref:`apply_env<attribute_apply_env>` is deactivated, so
 any PYTHONPATH inherited from the requirements will be automatically available.
 
 .. code-block:: python
@@ -566,7 +566,7 @@ It is automatically applied
             whatever.do_something()
 
 
-When the :ref:`apply_env<apply_env>` is activated (default) the above code could be simplified as:
+When the :ref:`apply_env<attribute_apply_env>` is activated (default) the above code could be simplified as:
 
 
 .. code-block:: python

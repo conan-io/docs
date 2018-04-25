@@ -131,7 +131,7 @@ You can also adjust the environment variable ``CONAN_SYSREQUIRES_MODE``.
 The ``sysrequires_sudo`` variable, defaulted to True, controls whether ``sudo`` is used for installing apt, yum, etc.
 system packages via ``SystemPackageTool``. You can also adjust the environment variable ``CONAN_SYSREQUIRES_SUDO``.
 
-The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature.
+The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<attribute_short_paths>` feature.
 If not specified, the packages marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
 
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
@@ -148,7 +148,7 @@ The ``storage.path`` variable define the path where all the packages will be sto
 On Windows:
 
 - It is recommended to assign it to some unit, e.g. map it to X: in order to avoid hitting the 260 chars path name length limit).
-- Also see the :ref:`short_paths docs<short_paths_reference>` to know more about how to mitigate the limitation of 260 chars path name length limit.
+- Also see the :ref:`short_paths docs<attribute_short_paths>` to know more about how to mitigate the limitation of 260 chars path name length limit.
 - It is recommended to disable the Windows indexer or exclude the storage path to avoid problems (busy resources).
 
 .. note::
