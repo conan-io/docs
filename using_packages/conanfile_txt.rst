@@ -25,7 +25,7 @@ packages are stored and cached, so they don't have to be retrieved again. You ca
 If you navigate to the paths pointed by the ``conanbuildinfo.cmake`` you will be able to see the
 headers and the libraries for each package.
 
-If you execute a :command:`conan install Poco/1.7.8p3@pocoproject/stable` command in your shell, conan will
+If you execute a :command:`conan install Poco/1.9.0@pocoproject/stable` command in your shell, conan will
 download the Poco package and its dependencies (*OpenSSL/1.0.2l@conan/stable* and
 *zlib/1.2.11@conan/stable*) to your local cache and print information about the folder of the where
 they are installed. You could handle them manually if you want. But the recommended approach is
@@ -40,12 +40,12 @@ The requirements look like this:
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
 Where:
 
   - ``Poco`` is the name of the package, usually the same of the project/library.
-  - ``1.7.3`` is the version, usually matching the one of the packaged project/library. Can be any
+  - ``1.9.0`` is the version, usually matching the one of the packaged project/library. Can be any
     string, not necessarily a number, so it is possible to have a "develop" or "master" version.
     Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that
     are regenerated periodically.
@@ -83,7 +83,7 @@ Not necessarily, just enter the new version in **[requires]**:
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     OpenSSL/1.0.2p@conan/stable
 
 The second line will override the OpenSSL/1.0.2l required by POCO, with the (non-existent yet)
@@ -95,7 +95,7 @@ requirement with one from another user or channel.
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     OpenSSL/1.0.2p@conan/stable
     zlib/1.2.11@otheruser/alpha
 
@@ -136,7 +136,7 @@ and such default will be used if consumers don't specify otherwise.
 
     .. code-block:: text
 
-        $ conan get Poco/1.7.8p3@pocoproject/stable
+        $ conan get Poco/1.9.0@pocoproject/stable
 
 As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the
 *conanfile.txt*:
@@ -144,7 +144,7 @@ As an example, we can modify the previous example to use dynamic linkage instead
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
     [generators]
     cmake
@@ -237,7 +237,7 @@ Edit the ``conanfile.txt`` file and paste the following **[imports]** section:
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     
     [generators]
     cmake
