@@ -74,7 +74,7 @@ Now create a *conanfile.txt* inside this folder with the following content:
    :caption: **conanfile.txt**
 
     [requires]
-    Poco/1.8.0.1@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
     [generators]
     cmake
@@ -87,12 +87,10 @@ In this example we will use CMake to build the project, which is why the ``cmake
     If you are not a CMake user, change the ``[generators]`` section of your *conanfile.txt* to ``gcc`` or a more generic one ``txt`` to
     handle requirements with any build system. Learn more in :ref:`Using packages<using_packages>`.
 
-All we will have to do is to include the generated file and use these variables inside our
-*CMakeLists.txt* like this:
+Just include the generated file and use these variables inside our *CMakeLists.txt*:
 
 .. code-block:: cmake
    :caption: **CMakeLists.txt**
-   :emphasize-lines: 5
 
     project(FoundationTimer)
     cmake_minimum_required(VERSION 2.8.12)
@@ -118,7 +116,7 @@ Then create a build folder, for temporary build files, and install the requireme
 
 This :command:`conan install` command will download the binary package required for your configuration (detected the first time that you ran the
 command), **together with other (transitively required by Poco) libraries, like OpenSSL and Zlib**. It will also create the
-*conanbuildinfo.cmake* file in the current directory, in which you can see the CMake defined variables, and a *conaninfo.txt* where
+*conanbuildinfo.cmake* file in the current directory, in which you can see the cmake defined variables, and a *conaninfo.txt* where
 information about settings, requirements and options is saved.
 
 It is very important to understand the installation process. When :command:`conan install` command is issued, it will use some settings,
@@ -131,7 +129,7 @@ specified on the command line or taken from the defaults in ``<userhome>/.conan/
 
 For a command like :command:`conan install . -s os="Linux" -s compiler="gcc"`, the steps are:
 
-- Check if the package recipe (for ``Poco/1.8.0.1@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
+- Check if the package recipe (for ``Poco/1.9.0@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
   cache will be empty.
 - Look for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote by default (you can change that).
 - If the recipe exists, Conan client will fetch and store it in your local cache.
@@ -185,7 +183,7 @@ Inspect binary package details (for different installed binaries for a given pac
 
 .. code-block:: bash
 
-    $ conan search Poco/1.8.0.1@pocoproject/stable
+    $ conan search Poco/1.9.0@pocoproject/stable
 
 There is also the option to generate a table for all binaries from a given recipe with the ``--table`` option, even in remotes:
 
