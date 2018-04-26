@@ -6,8 +6,9 @@ conan export-pkg
 .. code-block:: bash
 
     $ conan export-pkg [-h] [-sf SOURCE_FOLDER] [-bf BUILD_FOLDER]
-                       [-if INSTALL_FOLDER] [-pr PROFILE] [-o OPTIONS]
-                       [-s SETTINGS] [-e ENV] [-f]
+                       [-pf PACKAGE_FOLDER] [-if INSTALL_FOLDER] 
+                       [-pr PROFILE] [-o OPTIONS] [-s SETTINGS] [-e ENV]
+                       [-f]
                        path reference
 
 Exports a recipe & creates a package with given files calling 'package'. It
@@ -16,7 +17,7 @@ and '--build-folder' and creates a new package in the local cache for the
 specified 'reference' and for the specified '--settings', '--options' and or '
 --profile'.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       path                  path to a recipe (conanfile.py). e.j: "."
@@ -35,6 +36,10 @@ specified 'reference' and for the specified '--settings', '--options' and or '
                             Defaulted to the current directory. A relative path
                             can also be specified (relative to the current
                             directory)
+      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
+                            folder containing a locally created package. If a
+                            value is giving, it won't call the recipe 'package()'
+                            method, and will run a copy of the provided folder.
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             local folder containing the conaninfo.txt and
                             conanbuildinfo.txt files (from a previous conan
@@ -60,11 +65,19 @@ This command should be used when:
  - You are developing your package locally and want to export the built artifacts to the local
    cache.
 
-The command ``conan new <ref> --bare`` will create a simple recipe that could be used in combination
+The command :command:`conan new <ref> --bare` will create a simple recipe that could be used in combination
 with the ``export-pkg`` command. Check this :ref:`How to package existing binaries
 <existing_binaries>`.
 
-This command will use the ``package()`` method.
+
+:command:`export-pkg` has two different modes of operation:
+
+- Specifying :command:`--package-folder` will perform a copy of the given folder, without executing the ``package()`` method.
+  Use it if you have already created the package, for example with :command:`conan package` or
+  with ``cmake.install()`` from the ``build()`` step.
+- Specifying :command:`--build-folder` and/or :command:`--source-folder` will execute the ``package()`` method,
+  to filter, select and arrange the layout of the artifacts.
+
 
 **Examples**:
 
@@ -144,9 +157,9 @@ This command will use the ``package()`` method.
               self.copy("*.h", dst="include", src="include")
               self.copy("*.lib", dst="lib", keep_path=False)
 
-  First we will call ``conan source`` to get our source code in the ``src`` directory, then
-  ``conan install`` to install the requirements and generate the info files, ``conan build`` to
-  build the package, and finally ``conan export-pkg`` to send the binary files to a package in the
+  First we will call :command:`conan source` to get our source code in the *src* directory, then
+  :command:`conan install` to install the requirements and generate the info files, :command:`conan build` to
+  build the package, and finally :command:`conan export-pkg` to send the binary files to a package in the
   local cache:
 
   .. code-block:: bash
@@ -157,7 +170,6 @@ This command will use the ``package()`` method.
       $ conan build . --build-folder build_x86 --source-folder src
       $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
 
-  In this case, in the ``conan export-pkg``, you don't need to specify the ``-s arch=x86`` or any
-  other setting, option, or profile, because it will all the information in the ``--build-folder``
-  the ``conaninfo.txt`` and ``conanbuildinfo.txt`` that have been created with the ``conan install``
-  command.
+  In this case, in the :command:`conan export-pkg`, you don't need to specify the :command:`-s arch=x86` or any other setting, option, or profile,
+  because it will all the information in the :command:`--build-folder` the *conaninfo.txt* and *conanbuildinfo.txt`* that have been created with
+  :command:`conan install`.

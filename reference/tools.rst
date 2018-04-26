@@ -99,6 +99,10 @@ tools.vcvars()
 
     vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
+.. note::
+
+    This context manager tool has no effect if used in a platform different from Windows.
+
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
 environment:
@@ -113,13 +117,19 @@ environment:
 
 .. _build_sln_commmand:
 
-tools.build_sln_command()
--------------------------
+
+tools.build_sln_command() (DEPRECATED)
+--------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>` build helper instead.
 
 .. code-block:: python
 
     def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                          arch=None, parallel=True, toolset=None)
+                          arch=None, parallel=True, toolset=None, platforms=None)
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
 It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
@@ -137,31 +147,48 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use "self.settings".
     - **sln_path** (Required):  Visual Studio project file path.
     - **targets** (Optional, Defaulted to ``None``):  List of targets to build.
-    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is older than current.
-
-      When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
+    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is
+      older than current. When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to
+      ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
     - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
     - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
     - **parallel** (Optional, Defaulted to ``True``): Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
       or by the number of cores in the processor by default.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
+    - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
+      is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
+      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+
+      .. code-block:: python
+
+          msvc_arch = {'x86': 'x86',
+                       'x86_64': 'x64',
+                       'armv7': 'ARM',
+                       'armv8': 'ARM64'}
 
 .. _msvc_build_command:
 
-tools.msvc_build_command()
---------------------------
+
+tools.msvc_build_command() (DEPRECATED)
+---------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>`.get_command() instead.
+
 
 .. code-block:: python
 
     def msvc_build_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                           arch=None, parallel=True, force_vcvars=False, toolset=None)
+                           arch=None, parallel=True, force_vcvars=False, toolset=None, platforms=None)
 
 Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above
 ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
-    - Same arguments as the above ``tools.build_sln_command()``
-    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``
+    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
+    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
 tools.unzip()
 -------------
@@ -591,7 +618,7 @@ tools.human_size()
 
     def human_size(size_bytes)
 
-Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
+Will return a string from a given number of bytes, rounding it to the most appropriate unit: GB, MB, KB, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
 
 .. code-block:: python
@@ -599,7 +626,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     from conans import tools
     
     tools.human_size(1024)
-    >> 1Kb
+    >> 1.0KB
 
 Parameters:
     - **size_bytes** (Required): Number of bytes.
@@ -719,7 +746,7 @@ tools.escape_windows_cmd()
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
-- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
+- Adds escapes for cmmd.exe so the argument survives cmmd.exe's substitutions.
 
 Parameters:
     - **command** (Required): Command to execute.
@@ -832,6 +859,7 @@ when ``no_copy_source=True``.
 
 Parameters:
     - **path** (Required): Path to the directory.
+
 
 tools.which()
 -------------

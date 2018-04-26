@@ -11,7 +11,9 @@ This section shows common solutions and different approaches to typical problems
    howtos/visual_studio_packages
    howtos/makefiles
    howtos/manage_gcc_abi
+   howtos/vs2017_cmake
    howtos/manage_cpp_standard
+   howtos/run_conan_in_docker
    howtos/python_code_reuse
    howtos/custom_generators
    howtos/manage_shared_libraries
@@ -21,3 +23,4 @@ This section shows common solutions and different approaches to typical problems
    howtos/collect_licenses
    howtos/capture_version
    howtos/other_languages_package_manager
+   howtos/use_tls_certificates

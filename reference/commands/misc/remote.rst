@@ -97,3 +97,8 @@ Manages the remote list and the package recipes associated to a remote.
   .. code-block:: bash
 
       $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
+
+.. note::
+
+   Check the section :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>` section to
+   know more about server certificates verification and client certifications management .

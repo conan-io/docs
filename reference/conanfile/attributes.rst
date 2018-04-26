@@ -77,10 +77,11 @@ you can point to it, and afterwards use the ``url`` in your ``source()`` method.
 This is a recommended, but not mandatory attribute.
 
 license
----------
+-------
+
 This field is intended for the license of the **target** source code and binaries, i.e. the code
 that is being packaged, not the ``conanfile.py`` itself. This info is used to be displayed by
-the ``conan info`` command and possibly other search and report tools.
+the :command:`conan info` command and possibly other search and report tools.
 
 .. code-block:: python
 
@@ -295,7 +296,7 @@ You can also defined them in consumer ``conanfile.txt``, as described in :ref:`t
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
     [options]
     Poco:shared=True
@@ -457,17 +458,15 @@ while ``exports_sources`` files are only retrieved when it is necessary to build
 generators
 ----------
 
-Generators specify which is the output of the ``install`` command in your project folder. By
-default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators.
-
-Check the full generators list in :ref:`Reference/Generators<generators>`
-
-You can specify more than one generator:
+Generators specify which is the output of the ``install`` command in your project folder. By default, a *conanbuildinfo.txt* file is
+generated, but you can specify different generators and even use more than one.
 
 .. code-block:: python
 
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
+
+Check the full :ref:`generators list<generators>`.
 
 build_policy
 ------------
@@ -723,10 +722,10 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
                 # we are building the package in a local directory
 
 develop
---------
+-------
 
-A boolean attribute useful for conditional logic. It will be ``True`` if the package is created with
-``conan create``, or if the conanfile is in user space:
+A boolean attribute useful for conditional logic. It will be ``True`` if the package is created with :command:`conan create`, or if the
+*conanfile.py* is in user space:
 
 .. code-block:: python
 
@@ -747,7 +746,7 @@ This recipe will output "Develop mode" if:
     $ mkdir build && cd build && conan install ..
     $ conan build ..
 
-But it will not output that when it is a transitive requirement or installed with ``conan install``
+But it will not output that when it is a transitive requirement or installed with :command:`conan install`.
 
 .. _keep_imports:
 

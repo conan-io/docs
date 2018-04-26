@@ -7,4 +7,15 @@
     color:white;
     text-decoration: none;
  }
+
+ .command{
+    text-decoration: bold;
+    border: 1px solid #E6E6E6;
+    background-color: white;
+    border-radius: 1px;
+    padding: 2px;
+    font-family:monospace,serif;
+    font-size:0.8em
+ }
+
 /*# sourceMappingURL=theme.css.map */

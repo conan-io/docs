@@ -52,7 +52,7 @@ Recipe quality
 - **Recipe fields**: `description`, `license` and `url` are required. The `license` field refers to
   the library being packaged.
 
-- **Linter:** Is important to have a reasonable clean Linter, ``conan export`` and  ``conan create``
+- **Linter:** Is important to have a reasonable clean Linter, :command:`conan export` and  :command:`conan create`
   will output some warnings and errors, keep it as clean as possible to guarantee a recipe less
   error prone and more understandable.
 
@@ -78,6 +78,9 @@ Recipe quality
             raise ConanException("GCC > 7.0 is required")
         if self.settings.os == "Windows":
             raise ConanException("Windows not supported")
+
+- **Without version ranges**: As many libraries does not follow semantic versioning and the dependency resolution of version ranges is not
+  always clear, recipes in conan center should fix the version of their dependencies and not use version ranges.
 
 - **LICENSE of the recipe:** The public repository must contain a ``LICENSE`` file with an OSS
   license.
@@ -108,7 +111,7 @@ CI Integration
 --------------
 
 - If you are packaging a header only library, it is only needed to provide one CI configuration
-  (e.g. Travis with gcc 6.1) to check that the package is built correctly (use ``$ conan create``).
+  (e.g. Travis with gcc 6.1) to check that the package is built correctly (use :command:`conan create`).
 
 - Unless your library is a header only library or doesn't support a concrete operating system or
   compiler you will need to provide a CI systems integration to support:

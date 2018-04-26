@@ -7,6 +7,8 @@ These are the environment variables used to customize conan.
 
 Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
 
+.. _cmake_related_variables:
+
 CMAKE RELATED VARIABLES
 -----------------------
 
@@ -95,6 +97,18 @@ CONAN_CPU_COUNT
 
 Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
+
+CONAN_NON_INTERACTIVE
+---------------------
+
+**Defaulted to**: ``False``/``0``
+
+This environment variable, if set to ``True``/``1``, will prevent interactive prompts.
+Invocations of Conan commands where an interactive prompt would otherwise appear, will fail instead.
+
+This variable can also be set in ``conan.conf`` as ``non_interactive = True`` in the ``[general]``
+section.
+
 
 CONAN_ENV_XXXX_YYYY
 -------------------
@@ -293,7 +307,7 @@ It can be defined in your profile files at ``~/.conan/profiles``
     [env]
     CONAN_RUN_TESTS=False
 
-or declared in command line when invoking ``$ conan install`` to reduce the variable scope for conan execution
+or declared in command line when invoking :command:`conan install` to reduce the variable scope for conan execution
 
 .. code-block:: bash
 

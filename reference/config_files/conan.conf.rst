@@ -28,6 +28,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # cache_no_locks = True
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
+    # non_interactive = False             # environment CONAN_NON_INTERACTIVE
 
     # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
 
@@ -119,7 +120,7 @@ The ``pylintrc`` file has the form:
 
 Running ``pylint --generate-rcfile`` will output a complete rcfile with commments explaining the fields.
 
-The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at ``$ conan install``.
+The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
 Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
 
 The ``sysrequires_mode`` variable, defaulted to ``enabled`` (allowed modes ``enabled/verify/disabled``)
@@ -141,6 +142,7 @@ in the conan code base, allowing to debug the detected error.
 
 Storage
 +++++++
+
 The ``storage.path`` variable define the path where all the packages will be stored.
 
 On Windows:
@@ -149,12 +151,10 @@ On Windows:
 - Also see the :ref:`short_paths docs<short_paths_reference>` to know more about how to mitigate the limitation of 260 chars path name length limit.
 - It is recommended to disable the Windows indexer or exclude the storage path to avoid problems (busy resources).
 
-
 .. note::
 
     If you want to change the default "conan home" (directory where ``conan.conf`` file is) you can adjust
     the environment variable ``CONAN_USER_HOME``.
-
 
 .. _proxys:
 
@@ -162,7 +162,7 @@ Proxies
 +++++++
 
 If you are not using proxies at all, or you want to use the proxies specified by the operating system,
-just remove the ``[proxies]`` section completely. You can run ``conan config rm proxies``.
+just remove the ``[proxies]`` section completely. You can run :command:`conan config rm proxies`.
 
 If you leave leave the ``[proxies]`` section blank, conan will copy the system configured
 proxies, but if you configured some exclusion rule it won't work:
@@ -186,7 +186,6 @@ of urls that will skip the proxy:
     no-proxy: http://url1, http://url2
 
 Use `http=None` and/or `https=None` to disable the usage of a proxy.
-
 
 If this fails, you might also try to set environment variables:
 

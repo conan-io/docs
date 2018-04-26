@@ -71,7 +71,7 @@ to allow our project to locate the declared dependencies.
 
 The recipe contains also a ``test_package`` folder with a simple example consuming application.
 In this example, the consuming application is using cmake to build, but it could also use Visual Studio too.
-We have left the cmake one because it is the default generated with ``conan new``, and also to show that packages
+We have left the cmake one because it is the default generated with :command:`conan new`, and also to show that packages
 created from Visual Studio projects can also be consumed with other build systems like CMake.
 
 Once we want to create a package, it is advised to close VS IDE, clean the temporary build files from VS to avoid problems,
@@ -85,7 +85,7 @@ then create and test the package (here it is using system defaults, assuming the
    ...
    > Hello World Release!
 
-Instead of closing the IDE and running ``git clean`` we could also configure a smarter filter in ``exports_sources`` field, so temporary
+Instead of closing the IDE and running command:`git clean` we could also configure a smarter filter in ``exports_sources`` field, so temporary
 build files are not exported into the recipe.
 
 This process can be repeated to create and test packages for different configurations:
@@ -113,8 +113,8 @@ Uploading binaries
 ------------------
 
 Your locally created packages can already be uploaded to a conan remote.
-If you created them with the original username "memsharded", as from the git clone, you might want to do a ``$ conan copy``
-to put them on your own username. Of course, you can also directly use your user name in ``$ conan create``.
+If you created them with the original username "memsharded", as from the git clone, you might want to do a :command:`conan copy`
+to put them on your own username. Of course, you can also directly use your user name in :command:`conan create`.
 
 Another alternative is to configure the permissions in the remote, to allow uploading packages with
 different usernames. By default artifactory will do it but conan server won't:

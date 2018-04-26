@@ -48,6 +48,8 @@ concrete recipe/package specifying a reference in the "path" parameter.
       -v [VERIFY], --verify [VERIFY]
                             Verify dependencies manifests against stored ones
       --no-imports          Install specified packages but avoid running imports
+      -j JSON, --json JSON  Path to a json file where the install information will
+                            be written
       -u, --update          check updates exist from upstream remotes
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
@@ -77,7 +79,7 @@ concrete recipe/package specifying a reference in the "path" parameter.
                             override it and decide to build with "build_policy"
 
 
-``$ conan install`` executes methods of a *conanfile.py* in the following order:
+:command:`conan install` executes methods of a *conanfile.py* in the following order:
 
 1. ``config_options()``
 2. ``configure()``
@@ -85,7 +87,7 @@ concrete recipe/package specifying a reference in the "path" parameter.
 4. ``package_id()``
 5. ``package_info()``
 
-Note this describes the process of installing a pre-built binary package and not building with ``--build``.
+Note this describes the process of installing a pre-built binary package and not building with :command:`--build`.
 
 **Examples**
 
@@ -148,11 +150,11 @@ to build things or not:
 env variables
 -------------
 
-With the **-e** parameters you can define:
+With the :command:`-e` parameters you can define:
 
-- Global environment variables (``-e SOME_VAR="SOME_VALUE"``). These variables will be defined
+- Global environment variables (:command:`-e SOME_VAR="SOME_VALUE"`). These variables will be defined
   before the `build` step in all the packages and will be cleaned after the `build` execution.
-- Specific package environment variables (``-e zlib:SOME_VAR="SOME_VALUE"``). These variables will
+- Specific package environment variables (:command:`-e zlib:SOME_VAR="SOME_VALUE"`). These variables will
   be defined only in the specified packages (e.g. zlib).
 
 You can specify this variables not only for your direct ``requires`` but for any package in the
@@ -163,19 +165,19 @@ requirements you can use the [] syntax:
 
 .. code-block:: bash
 
-    conan install . -e PYTHONPATH=[/other/path]
+    $ conan install . -e PYTHONPATH=[/other/path]
 
-This way the first entry in the PYTHONPATH variable will be `/other/path` but the PYTHONPATH values
+This way the first entry in the PYTHONPATH variable will be :command:`/other/path` but the PYTHONPATH values
 declared in the requirements of the project will be appended at the end using the system path
 separator.
 
 settings
 --------
 
-With the **-s** parameters you can define:
+With the :command:`-s` parameters you can define:
 
-- Global settings (``-s compiler="Visual Studio"``). Will apply to all the requires.
-- Specific package settings (``-s zlib:compiler="MinGW"``). Those settings will be applied only to
+- Global settings (:command:`-s compiler="Visual Studio"`). Will apply to all the requires.
+- Specific package settings (:command:`-s zlib:compiler="MinGW"`). Those settings will be applied only to
   the specified packages.
 
 You can specify custom settings not only for your direct ``requires`` but for any package in the
@@ -184,7 +186,7 @@ dependency graph.
 options
 -------
 
-With the **-o** parameters you can only define specific package options.
+With the :command:`-o` parameters you can only define specific package options.
 
 .. code-block:: bash
 
@@ -196,4 +198,4 @@ With the **-o** parameters you can only define specific package options.
 .. note::
 
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
-    **options** and **environment variables**
+    **options** and **environment variables**.

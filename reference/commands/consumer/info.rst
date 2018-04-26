@@ -106,17 +106,17 @@ The output will look like:
      Requires:
         Hello0/0.1@user/channel
 
-``conan info`` builds the complete dependency graph, like ``conan install`` does. The machine
+:command:`conan info` builds the complete dependency graph, like :command:`conan install` does. The main
 difference is that it doesn't try to install or build the binaries, but the package recipes
 will be retrieved from remotes if necessary.
 
-It is very important to note, that the ``info`` command outputs the dependency graph for a
+It is very important to note, that the :command:`info` command outputs the dependency graph for a
 given configuration (settings, options), as the dependency graph can be different for different
-configurations. Then, the input to the ``conan info`` commmand is the same as ``conan install``,
+configurations. Then, the input to the :command:`conan info` commmand is the same as :command:`conan install`,
 the configuration can be specified directly with settings and options, or using profiles.
 
-Also, if you did a previous ``conan install`` with a specific configuration, or maybe different
-installs with different configurations, you can reuse that information with the ``--install-folder``
+Also, if you did a previous :command:`conan install` with a specific configuration, or maybe different
+installs with different configurations, you can reuse that information with the :command:`--install-folder`
 argument:
 
 .. code-block:: bash
@@ -132,8 +132,8 @@ argument:
     $ conan info . --install-folder=build_debug
     > info for the debug dependency graph install
 
-It is possible to use the ``conan info`` command to extract useful information for Continuous
-Integration systems. More precisely, it has the ``--build_order, -bo`` option, that will produce
+It is possible to use the :command:`conan info` command to extract useful information for Continuous
+Integration systems. More precisely, it has the :command:`--build_order, -bo` option, that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
 built. E.g., lets assume that we have a project that depends on Boost and Poco, which in turn
 depends on OpenSSL and ZLib transitively. So we can query our project with a reference that has

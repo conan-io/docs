@@ -34,14 +34,13 @@ The ``source()`` method might use (optional) `settings`, `options` and `environm
 the specified profile and dependencies information from the declared ``deps_XXX_info`` objects in
 the conanfile requirements.
 
-All that information is saved automatically in the ``conaninfo.txt`` and ``conanbuildinfo.txt``
-files respectively, when you run the ``conan install`` command.
-Those files have to be located in the specified ``--install-folder``.
+All that information is saved automatically in the *conaninfo.txt* and *conanbuildinfo.txt* files respectively, when you run the
+:command:`conan install` command. Those files have to be located in the specified :command:`--install-folder`.
 
 **Examples**:
 
-- Call a local recipe's source method: In user space, the command will execute a local conanfile.py
-  ``source()`` method, in the ``src`` folder in the current directory.
+- Call a local recipe's source method: In user space, the command will execute a local *conanfile.py* ``source()`` method, in the *src*
+  folder in the current directory.
 
   .. code-block:: bash
 

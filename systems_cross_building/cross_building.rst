@@ -133,7 +133,7 @@ Linux to Windows
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call ``conan create`` using the created profile.win
+- Call :command:`conan create` using the created profile.win
 
 .. code-block:: bash
 
@@ -143,8 +143,7 @@ Linux to Windows
     [100%] Linking CXX executable bin/example.exe
     [100%] Built target example
 
-A **bin/example.exe** for Win64 platform has been built.
-
+A *bin/example.exe* for Win64 platform has been built.
 
 Windows to Raspberry PI (Linux/ARM)
 ...................................
@@ -199,7 +198,7 @@ declared in the top of the profile:
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call ``conan create`` using the created profile.
+- Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
@@ -209,8 +208,7 @@ declared in the top of the profile:
     [100%] Linking CXX executable bin/example
     [100%] Built target example
 
-A **bin/example** for Raspberry PI (Linux/armv7hf) platform has been built.
-
+A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
 .. _cross_building_android:
 
@@ -320,7 +318,7 @@ match the gcc toolchain compiler:
 
     git clone https://github.com/lasote/conan-zlib.git
 
-- Call ``conan create`` using the created profile.
+- Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
@@ -387,6 +385,32 @@ You can
       more about how to create Conan packages for tools.
 
     - Check the `mingw-installer <https://github.com/lasote/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
+
+
+Using Docker images
++++++++++++++++++++
+
+You can use some :ref:`available docker images with Conan preinstalled images<available_docker_images>` to cross build conan packages.
+Currently there are ``i386``, ``armv7`` and ``armv7hf`` images with the needed packages and toolchains installed to cross build.
+
+**Example**: Cross-building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-community/conan-openssl
+    $ cd conan-openssl
+    $ docker run -it -v$(pwd):/home/conan/project --rm lasote/conangcc49-armv7hf /bin/bash
+
+    # Now we are running on the conangcc49-armv7hf container
+    $ sudo pip install conan --upgrade
+    $ cd project
+
+    $ conan create . user/channel --build missing
+    $ conan remote add myremoteARMV7 http://some.remote.url
+    $ conan upload "*" -r myremoteARMV7 --all
+
+
+Check the section: :ref:`How to run Conan with Docker<docker_conan>` to know more.
 
 
 Preparing recipes to be cross-compiled

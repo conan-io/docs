@@ -1,7 +1,7 @@
 Package development flow
 ========================
 
-In the previous examples, we used ``$ conan create`` command to create a package of our library. Every time we run it, conan will perform
+In the previous examples, we used :command:`conan create` command to create a package of our library. Every time we run it, conan will perform
 some costly operations:
 
 1. Copy the sources to a new and clean build folder.
@@ -12,8 +12,8 @@ some costly operations:
 But sometimes, specially with big libraries, while we are developing the recipe, **we cannot afford** to perform every time these
 operations.
 
-The following section is the local development flow description based on the Bincrafters community at
-`their Blog <https://bincrafters.github.io>`_.
+The following section is the local development flow description based on the
+`Bincrafters community blog <https://bincrafters.github.io>`_.
 
 ----
 
@@ -21,12 +21,12 @@ The local workflow encourages users to do trial-and-error in a local sub-directo
 typically test building their projects with other build tools. The strategy is to test the *conanfile.py* methods individually during this
 phase.
 
-We will use `this example <git@github.com:memsharded/example_conan_flow.git>`_ to follow the steps in the order below:
+We will use the following `conan flow example <https://github.com/memsharded/example_conan_flow.git>`_ to follow the steps in the order below:
 
-$ conan source
-^^^^^^^^^^^^^^
+conan source
+^^^^^^^^^^^^
 
-You will generally want to start off with the ``$ conan source`` command. The strategy here is that you’re testing your source method in
+You will generally want to start off with the :command:`conan source` command. The strategy here is that you’re testing your source method in
 isolation, and downloading the files to a temporary sub-folder relative to the *conanfile.py*. This just makes it easier to get to the
 sources and validate them.
 
@@ -50,11 +50,11 @@ This method outputs the source files into the source-folder.
 Once you’ve got your source method right and it contains the files you expect, you can move on to testing the various attributes and methods
 relating to the downloading of dependencies.
 
-$ conan install
-^^^^^^^^^^^^^^^
+conan install
+^^^^^^^^^^^^^
 
 Conan has multiple methods and attributes which relate to dependencies (all the ones with the word "require" in the name). The command
-``$ conan install`` activates all them.
+:command:`conan install` activates all them.
 
 +---------------+--------------------+
 | Input folders | Output folders     |
@@ -75,8 +75,8 @@ This also generates *conaninfo.txt* and *conanbuildinfo.xyz* (extension depends 
 (``install-folder``), which will be needed for the next step. Once you've got this command working with no errors, you can move on to
 testing the ``build()`` method.
 
-$ conan build
-^^^^^^^^^^^^^
+conan build
+^^^^^^^^^^^
 
 The build method takes a path to a folder that has sources and also to the install folder to get the information of the settings and
 dependencies. It uses a path to a folder where it will perform the build.
@@ -104,8 +104,8 @@ dependencies. It uses a path to a folder where it will perform the build.
 This is pretty strightforward, but it does add a very helpful new shortcut for people who are packaging their own library. Now, developers
 can make changes in their normal source directory and just pass that path as the ``--source-folder``.
 
-$ conan package
-^^^^^^^^^^^^^^^
+conan package
+^^^^^^^^^^^^^
 
 Just as it sounds, this command now simply runs the ``package()`` method of a recipe. It needs all the information of the other folders in
 order to collect the needed information for the package: header files from source folder, settings and depency information from the install
@@ -132,13 +132,13 @@ folder and built artifacts from the build folder.
     PROJECT package(): Copied 2 '.lib' files: greet.lib, hello.lib
     PROJECT: Package 'package' created
 
-$ conan export-pkg
-^^^^^^^^^^^^^^^^^^
+conan export-pkg
+^^^^^^^^^^^^^^^^
 
 When you have checked that the packaged is done correctly, you can generate the package in the local cache. Note that the package is
 generated again to make sure this step is always reproducible.
 
-This parameters takes the same parameters as ``package()`` but in this case there is no ``package-folder`` as it is done in the cache.
+This parameters takes the same parameters as ``package()``.
 
 +--------------------+--------------------+
 | Input folders      | Output folders     |
@@ -148,7 +148,19 @@ This parameters takes the same parameters as ``package()`` but in this case ther
 | ``install-folder`` |                    |
 |                    |                    |
 | ``build-folder``   |                    |
+|                    |                    |
+| ``package-folder`` |                    |
 +--------------------+--------------------+
+
+There are 2 modes of operation:
+
+- Using ``source-folder`` and ``build-folder``will use the ``package()`` method to extract the artifacts from those 
+  folders and create the package, directly in the conan local cache. Strictly speaking, it doesn't require executing
+  a ``$ conan package`` before, as it packages directly from those source and build folder, though ``$ conan package``
+  is still recommended in the dev-flow to debug the ``package()`` method.
+- Using the ``package-folder`` argument (incompatible with the above 2), will not use the ``package()`` method,
+  it will do an exact copy of the provided folder. It assumes the package has already been created by a previous
+  ``$ conan package`` command or with a ``$ conan build`` command with a ``build()`` method running a ``cmake.install()``.
 
 ..  code-block:: bash
 
@@ -162,8 +174,8 @@ This parameters takes the same parameters as ``package()`` but in this case ther
     Hello/0.1@user/channel package(): Copied 2 '.lib' files: greet.lib, hello.lib
     Hello/0.1@user/channel: Package '6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7' created
 
-$ conan test
-^^^^^^^^^^^^
+conan test
+^^^^^^^^^^
 
 The finally step to test the package for consumer is the test command. This step is quite straight-forward:
 
@@ -201,13 +213,13 @@ As a summary, you could use the default folders and the flow would be as simple 
     PROJECT package(): Copied 2 '.lib' files: greet.lib, hello.lib
     PROJECT: Package 'package' created
 
-$ conan create
-^^^^^^^^^^^^^^
+conan create
+^^^^^^^^^^^^
 
 Now we know we have all the steps of a recipe working. Thus, now is an appropriate time to try to run the recipe all the way through, and
 put it completely in the local cache.
 
-The usual command for this is **$ conan create** and it basically performs the previous commands with ``$ conan test`` for *test_package*
+The usual command for this is :command:`conan create` and it basically performs the previous commands with :command:`conan test` for the `test_package`
 folder:
 
 .. code-block:: bash
@@ -218,7 +230,7 @@ Even with this command, the package creator can iterate over the local cache if 
 ``--keep-source`` and ``--keep-build`` flags.
 
 If you see in the traces that the ``source()`` method has been properly executed but the package creation finally failed, you can skip the
-``source()`` method the next time you issue ``$ conan create`` using ``--keep-source``:
+``source()`` method the next time you issue :command:`conan create` using :command:`--keep-source`:
 
 .. code-block:: bash
 

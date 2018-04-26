@@ -1,9 +1,13 @@
 .. _running_your_server:
 
-Running your server
-===================
+Running conan_server
+====================
 
-Running the pre-packaged server that comes with the conan installers (or pip packages) is simple. Just open
+*conan_server* is a free and open source server that implements conan remote repositories. It is a very simple application,
+bundled with the regular conan client installation. For most cases, it is recommended to use the free Artifactory
+Community Edition for C/C++ server, check :ref:`artifactory_ce` for more information.
+
+Running the simple open source *conan_server* that comes with the conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
 .. code:: bash
@@ -156,10 +160,10 @@ Other parameters (not recommended from Conan 1.1, but necessary for previous ver
    **Important**: Conan client, by default, will validate the server SSL certificates and won't connect if it's not valid.
    If you have self signed certificates you have two options:
 
-   1. Use the ``conan remote`` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
-   2. Append the server ``.crt`` file contents to ``~/.conan/cacert.pem`` file.
+   1. Use the :command:`conan remote` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
+   2. Append the server *.crt* file contents to *~/.conan/cacert.pem* file.
 
-
+   Check the section :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>` section to know more about it.
 
 Conan has implemented an extensible storage backend, based on the abstract class ``StorageAdapter``.
 Currently the server only supports storage in ``disk``. The folder in which uploaded packages
@@ -172,15 +176,13 @@ are not rejected, but not too big to prevent hanging up the file transfers. The 
 tokens, generated with the secret ``updown_secret``. This value should be different from the above
 ``jwt_secret``.
 
-
-
 Running conan server with SSL using nginx
 +++++++++++++++++++++++++++++++++++++++++
 
     **server.conf**
-    
+
     .. code-block:: text
-      
+
        [server]
        port: 9300
 
@@ -188,8 +190,7 @@ Running conan server with SSL using nginx
     **nginx conf file**
     
     .. code-block:: text
-      
-      
+
        server { 
            listen 443;
            server_name myservername.mydomain.com;
@@ -206,9 +207,7 @@ Running conan server with SSL using nginx
 
     .. code-block:: text
 
-        conan remote add myremote https://myservername.mydomain.com/subdir
-
-
+        $ conan remote add myremote https://myservername.mydomain.com/subdir
 
 Running conan server with SSL using nginx in a subdirectory
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -241,12 +240,10 @@ Running conan server with SSL using nginx in a subdirectory
 
     .. code-block:: text
 
-        conan remote add myremote https://myservername.mydomain.com/subdir
-
+        $ conan remote add myremote https://myservername.mydomain.com/subdir
 
 Running conan server using Apache
 +++++++++++++++++++++++++++++++++
-
 
     You need to install ``mod_wsgi``. If you want to use Conan installed from ``pip``, the conf file should be roughly as follows:
 
@@ -281,16 +278,14 @@ Running conan server using Apache
             </Directory>
         </VirtualHost>
 
-
     The directive ``WSGIPassAuthorization On`` is needed to pass the HTTP basic authentication to Conan.
 
     Also take into account that the server config files are located in the home of the configured Apache user,
     e.j var/www/.conan_server, so remember to use that directory to configure your conan server.
 
-  
 Permissions parameters
 ++++++++++++++++++++++
-  
+
 By default, the server configuration is: Read can be done anonymous,
 but uploading requires registered users. Users can be easily registered in the ``[users]`` section,
 defining a pair of ``login: password`` for each one. Yes, plain text passwords at the moment, but
@@ -302,7 +297,7 @@ in the form:
 
 .. code-block:: text
 
-    # use a comma separated, no-spaces list of users
+    # use a comma-separated, no-spaces list of users
     package/version@user/channel: allowed_user1,allowed_user2
 
 E.g.:
@@ -316,10 +311,8 @@ E.g.:
 The rules are evaluated in order, if the left side of the pattern matches, the rule is applied
 and it will not look further.
 
-
-
 Authentication
-+++++++++++++++++
+++++++++++++++
 
 Conan provides by default a simple ``user: password`` users list in the ``server.conf`` file.
 
@@ -334,10 +327,8 @@ This is a list of available authenticators, visit their URLs to get them, but al
 - **htpasswd**: Use your server Apache htpasswd file to authenticate users. Get it: https://github.com/d-schiffner/conan-htpasswd
 - **LDAP**: Use your LDAP server to authenticate users. Get it: https://github.com/uilianries/conan-ldap-authentication
 
-
 Create your own custom Authenticator
-______________________________________
-
+____________________________________
 
 If you want to create your own Authenticator, create a python module
 in ``~/.conan_server/plugins/authenticator/my_authenticator.py``
@@ -358,9 +349,6 @@ The module has to implement:
 
 - A factory function ``get_class()`` that returns a class with a ``valid_user()`` method instance.
 - The class containing the ``valid_user()`` that has to return True if the user and password are valid or False otherwise.
-
-
-
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 

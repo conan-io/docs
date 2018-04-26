@@ -29,13 +29,15 @@ Build requirements can be declared in profiles, like:
   &: Tool6/0.1@user/channel
   &!: Tool7/0.1@user/channel
 
-Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all packages. Packages can be declared in different lines or by a comma separated list.
-In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running ``conan install`` or ``conan create``)
+Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all packages. Packages can be declared in different lines or by a comma-separated list.
+In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running :command:`conan install` or :command:`conan create`)
 
 If a pattern like ``MyPkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern. Tool5 will not be applied to Zlib, for example, but it will be applied to MyPkgZlib.
 
-The special case of a **consumer** conanfile, which might have no name or version, and thus impossible to match with a pattern, is handled with the ``&`` character. ``&`` means apply these build requirements to the consumer conanfile, while ``&!`` means apply the build requirements to all packages except the consumer one. Remember that the consumer conanfile is the one inside the ``test_package`` folder or the one referenced in the ``conan install`` command.
-
+The special case of a **consumer** conanfile, which might have no name or version, and thus impossible to match with a pattern, is handled
+with the ``&`` character. ``&`` means apply these build requirements to the consumer conanfile, while ``&!`` means apply the build
+requirements to all packages except the consumer one. Remember that the consumer conanfile is the one inside the *test_package* folder or
+the one referenced in the :command:`conan install` command.
 
 Build requirements can be also specified in a package recipe, with the ``build_requires`` attribute and the ``build_requirements()`` method:
 
@@ -68,7 +70,7 @@ The behavior of ``build_requires`` is the same, irrespective if they are defined
 - Each matching pattern will produce a different dependency graph of build requirements. These graphs are cached so that they are only computed once. If a build requirement applies to different packages with the same configuration it will only be installed once (same behavior as normal dependencies - once they are cached locally, there is no need to retrieve or build them again).
 - Build requirements do not affect the binary package ID. If using a different build requirement produces a different binary, you should consider adding an option or a setting to model that (if not already modeled).
 - Build requires can also use version-ranges, like ``Tool/[>0.3]@user/channel``.
-- Build requirements are not listed in ``conan info`` nor are represented in the graph (with ``conan info --graph``).
+- Build requirements are not listed in :command:`conan info` nor are represented in the graph (with :command:`conan info --graph`).
 
 
 Testing libraries

@@ -14,7 +14,7 @@ There are different approaches:
 Using virtual environments
 ---------------------------
 
-We can crate a package that contains an executable, for example from the default package template created by ``conan new``:
+We can crate a package that contains an executable, for example from the default package template created by :command:`conan new`:
 
 .. code-block:: bash
 
@@ -84,8 +84,7 @@ locations in the system. Let's modify the example recipe adding the ``deploy()``
     def deploy(self):
         self.copy("*", dst="bin", src="bin")
 
-
-And run ``$ conan create``
+And run :command:`conan create`
 
 .. code-block:: bash
 
@@ -103,10 +102,21 @@ With that method in our package recipe, it will copy the executable when install
 
 The deploy will create a ``deploy_manifest.txt`` file with the files that have been deployed.
 
-Read more about ``deploy()`` in the reference.
+Sometimes it is useful to adjust the package ID of the deployable package in order to deploy it regardless of the compiler it was compiled
+with:
+
+.. code-block:: python
+
+    def package_id(self):
+        del self.info.settings.compiler
+
+.. seealso::
+
+    Read more about the :ref:`deploy() <method_deploy>` method.
 
 Running from packages
-----------------------
+---------------------
+
 If you want to directly run one executable from your dependencies, it is not necessary to use the generators
 and activate the environment, as it can be directly done in code with the ``RunEnvironment`` helper. So if
 the ``Consumer`` package is willing to execute the ``greet`` app while building its own package, it can be done:
@@ -126,7 +136,7 @@ the ``Consumer`` package is willing to execute the ``greet`` app while building 
             with tools.environment_append(env.vars):
                 self.run("greet")
 
-Now run ``$ conan install`` and ``$ conan build`` for this consumer recipe:
+Now run :command:`conan install` and :command:`conan build` for this consumer recipe:
 
 .. code-block:: bash
 

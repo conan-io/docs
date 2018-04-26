@@ -35,7 +35,7 @@ This is a pure python script, not related to conan, and should be run as such:
 
 We have developed another FOSS tool for package creators, **Conan Package Tools** to ease the 
 task of generating multiple binary packages from a package recipe.
-It offers a simple way to define the different configurations and to call ``$ conan test``.
+It offers a simple way to define the different configurations and to call :command:`conan test`.
 Also offers CI integration like **Travis CI, Appveyor and Bamboo**, for cloud based automated
 binary package creation, testing and uploading.
 

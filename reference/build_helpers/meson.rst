@@ -62,7 +62,7 @@ Parameters:
       The ``Meson`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
     - **pkg_config_paths** (Optional, Defaulted to ``None``): A list containing paths to locate the pkg-config files (\*.pc). If ``None``, it will be set to ``conanfile.build_folder``.
     - **cache_build_folder** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
-      This argument doesn't have effect when the package is being built in user folder with ``conan build`` but overrides **build_folder** when working in the local cache.
+      This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
 
 build()
@@ -83,8 +83,8 @@ Parameters:
 Example
 -------
 
-A typical usage of the Meson build helper, if you want to be able to both execute ``conan create`` and also build your package for a library locally
-(in your user folder, not in the conan cache), could be:
+A typical usage of the Meson build helper, if you want to be able to both execute :command:`conan create` and also build your package for a
+library locally (in your user folder, not in the local cache), could be:
 
 .. code-block:: python
 
@@ -137,7 +137,7 @@ And the ``meson.build`` could be as simple as:
 
     library('hello', ['hello.cpp'])
 
-This allows, to create the package with ``conan create`` as well as to build the package locally:
+This allows, to create the package with :command:`conan create` as well as to build the package locally:
 
 .. code-block:: bash
 

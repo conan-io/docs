@@ -32,11 +32,11 @@ so that command errors are do not pass unnoticed. It is just a wrapper for ``os.
 Optional parameters:
 
 - **output** (Optional, Defaulted to ``True``) When True it will write in stdout.
-              You can pass any stream that accepts a ``write`` method like a ``io.StringIO()``:
+              You can pass any stream that accepts a ``write`` method like a ``six.StringIO()``:
 
 ..  code-block:: python
 
-    from io import StringIO # Python 2 and 3 compatible
+    from six import StringIO  # Python 2 and 3 compatible
     mybuf = StringIO()
     self.run("mycommand", output=mybuf)
     self.output.warn(mybuf.getvalue())
