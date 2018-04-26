@@ -10,12 +10,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
-
 1.2.3 (10-Apr-2017)
 -------------------
 
 - Bugfix: Removed invalid version field from scons generator.
-
 
 1.2.1 (3-Apr-2018)
 ------------------
@@ -23,8 +21,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Support for `apple-clang 9.1`
 - Bugfix: `compiler_args` generator manage correctly the flag for the `cppstd` setting.
 - Bugfix: Replaced exception with a warning message (recommending the `six` module) when using `StringIO` class from the `io` module.
-
-
 
 1.2.0 (28-Mar-2018)
 -------------------
