@@ -136,6 +136,8 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+--------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE   |  Definition only set if same environment variable is declared by user    |
 +-------------------------------------------+--------------------------------------------------------------------------+
+| CONAN_CMAKE_POSITION_INDEPENDENT_CODE     |  When ``fPIC`` or ``shared`` options are present and True                |
++-------------------------------------------+--------------------------------------------------------------------------+
 | CONAN_SHARED_LINKER_FLAGS                 |  -m32 and -m64 based on your architecture                                |
 +-------------------------------------------+--------------------------------------------------------------------------+
 | CONAN_C_FLAGS                             |  -m32 and -m64 based on your architecture and /MP for MSVS               |
