@@ -618,7 +618,7 @@ tools.human_size()
 
     def human_size(size_bytes)
 
-Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
+Will return a string from a given number of bytes, rounding it to the most appropriate unit: GB, MB, KB, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
 
 .. code-block:: python
@@ -626,7 +626,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     from conans import tools
     
     tools.human_size(1024)
-    >> 1Kb
+    >> 1.0KB
 
 Parameters:
     - **size_bytes** (Required): Number of bytes.

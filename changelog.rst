@@ -15,10 +15,24 @@ PR output-color
   Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
+
 1.3.0 ()
 --------
 
 - Added :command:`-ks` alias for :command:`--keep-source` argument in :command:`conan create` and :command:`conan expport`.
+
+1.2.3 (10-Apr-2017)
+-------------------
+
+- Bugfix: Removed invalid version field from scons generator.
+
+1.2.1 (3-Apr-2018)
+------------------
+
+- Feature: Support for `apple-clang 9.1`
+- Bugfix: `compiler_args` generator manage correctly the flag for the `cppstd` setting.
+- Bugfix: Replaced exception with a warning message (recommending the `six` module) when using `StringIO` class from the `io` module.
+
 
 1.2.0 (28-Mar-2018)
 -------------------
@@ -451,7 +465,7 @@ thanks very much!
 - Fix: ``collect_libs`` moved to the ``tools`` module
 - Bugfix: fixed wrong regex in ``deps_cpp_info`` causing issues with dots and dashes in package names
 - Development: Several internal refactors (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor
-- Deprecation: ``dev_requires`` have been removed (it was not documented, but accesible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
+- Deprecation: ``dev_requires`` have been removed (it was not documented, but accessible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
 - Deprecation: sources tgz files for exported sources no longer contain ".c_src" subfolder. Packages created with 0.27 will be incompatible with conan < 0.25
 
 

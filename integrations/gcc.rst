@@ -15,7 +15,7 @@ Open ``conanfile.txt`` and change (or add) **compiler_args** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.7.9@pocoproject/stable
+   Poco/1.9.0@pocoproject/stable
    
    [generators]
    compiler_args

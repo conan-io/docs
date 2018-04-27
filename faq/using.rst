@@ -16,7 +16,7 @@ packages: settings and options. Read about them in :ref:`this section<settings_v
 How to obtain the dependents of a given package?
 ------------------------------------------------
 
-The search model for conan in commands such as :command:`conan install` and :command:`conan info` is done from the downstream or "consumer" pacakge as
+The search model for conan in commands such as :command:`conan install` and :command:`conan info` is done from the downstream or "consumer" package as
 the starting node of the dependency graph and upstream.
 
 .. code-block:: bash

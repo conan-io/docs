@@ -13,7 +13,7 @@ This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`
 
    class ExampleConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.8p3@pocoproject/stable"
+      requires = "Poco/1.9.0@pocoproject/stable"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
      
       def imports(self):
