@@ -8,7 +8,8 @@ conan remove
 
     $ conan remove [-h] [-b [BUILDS [BUILDS ...]]] [-f] [-o]
                    [-p [PACKAGES [PACKAGES ...]]] [-q QUERY] [-r REMOTE] [-s]
-                   pattern_or_reference
+                   [-l]
+                   [pattern_or_reference]
 
 Removes packages or binaries matching pattern from local cache or remote. It
 can also be used to remove temporary source or build folders in the local
@@ -37,6 +38,7 @@ the local conan cache.
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -s, --src             Remove source folders
+      -l, --locks           Remove locks
 
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.

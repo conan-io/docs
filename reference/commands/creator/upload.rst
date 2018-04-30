@@ -8,7 +8,7 @@ conan upload
 
     $ conan upload [-h] [-p PACKAGE] [-r REMOTE] [--all] [--skip-upload]
                    [--force] [--check] [-c] [--retry RETRY]
-                   [--retry-wait RETRY_WAIT] [-no [{all,recipe}]]
+                   [--retry-wait RETRY_WAIT] [-no [{all,recipe}]] [-j JSON]
                    pattern_or_reference
 
 Uploads a recipe and binary packages to a remote. If no remote is specified,
@@ -42,6 +42,8 @@ to list the remotes) will be used.
       -no [{all,recipe}], --no-overwrite [{all,recipe}]
                             Uploads package only if recipe is the same as the
                             remote one
+      -j JSON, --json JSON  json file path where the install information will be
+                            written to
 
 
 **Examples**:
