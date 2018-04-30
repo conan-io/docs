@@ -28,6 +28,7 @@ Integrations
    integrations/travisci
    integrations/appveyor
    integrations/gitlab
+   integrations/circleci
    integrations/youcompleteme
    integrations/scons
    integrations/other

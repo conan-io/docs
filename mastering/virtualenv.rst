@@ -26,14 +26,22 @@ variables declared in the ``package_info()`` method and generate two scripts "ac
 
 **Example**:
 
-The recipe of ``cmake-installer/0.1@lasote/testing`` appends to the PATH variable the package folder/bin.
+The recipe of ``cmake_installer/3.9.0@conan/stable`` appends to the PATH variable the package folder/bin.
+
+You can check existing CMake conan package versions in conan-center with:
+
+.. code-block:: bash
+
+    $ conan search cmake* -r=conan-center
+
+
 In the **bin** folder there is a **cmake** executable:
 
 
 .. code-block:: python
 
   def package_info(self):
-        self.env_info.path.append(os.path.join(self.package_folder, "bin"))
+    self.env_info.path.append(os.path.join(self.package_folder, "bin"))
 
 
 
@@ -43,7 +51,7 @@ Let's prepare a virtual environment to have available our cmake in the path, ope
 .. code-block:: text
 
     [requires]
-    cmake-installer/0.1@lasote/testing
+    cmake_installer/3.9.0@conan/stable
 
     [generators]
     virtualenv
@@ -52,20 +60,23 @@ Run :command:`conan install`:
 
 .. code-block:: bash
 
-    $ conan install
+    $ conan install .
 
-And activate the virtual environment:
+You can also avoid the creation of the *conanfile.txt* completely and directly do:
+
+.. code-block:: bash
+
+    $ conan install cmake_installer/3.9.0@conan/stable -g=virtualenv
+
+And activate the virtual environment, and now you can run ``cmake --version`` and check that you have the installed CMake in path.
 
 
 .. code-block:: bash
 
    $ source activate.sh # Windows: activate.bat without the source
+   $ cmake --version
 
 Two sets of scripts are available for Windows - ``activate.bat``/``deactivate.bat`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
-
-Now you can run ``cmake --version`` and check that you have the installed CMake in path.
-
-
 Deactivate the virtual environment (or close the console) to restore the environment variables:
 
 

@@ -296,7 +296,7 @@ You can also defined them in consumer ``conanfile.txt``, as described in :ref:`t
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
     [options]
     Poco:shared=True

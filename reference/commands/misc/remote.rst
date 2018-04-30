@@ -64,6 +64,19 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote add remote_name remote_url [verify_ssl] --insert=1
 
+
+- Add or insert a remote:
+
+Adding the ``--force`` argument to ``conan remote add`` will always work, and won't raise an error.
+If an existing remote exists with that remote name or URL, it will be updated with the new information.
+The ``--insert`` works the same. If not specified, the remote will be appended the last one. If specified,
+the command will insert the remote in the specified position
+
+  .. code-block:: bash
+
+      $ conan remote add remote_name remote_url [verify_ssl] --force --insert=1
+
+
 - Remove a remote:
 
   .. code-block:: bash

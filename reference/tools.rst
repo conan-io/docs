@@ -618,7 +618,7 @@ tools.human_size()
 
     def human_size(size_bytes)
 
-Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
+Will return a string from a given number of bytes, rounding it to the most appropriate unit: GB, MB, KB, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
 
 .. code-block:: python
@@ -626,7 +626,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     from conans import tools
     
     tools.human_size(1024)
-    >> 1Kb
+    >> 1.0KB
 
 Parameters:
     - **size_bytes** (Required): Number of bytes.
@@ -660,6 +660,20 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
+
+tools.get_gnu_triplet()
+-----------------------
+
+.. code-block:: python
+
+    def get_gnu_triplet(os, arch, compiler=None)
+
+Returns string with GNU like ``<machine>-<vendor>-<op_system>`` triplet.
+
+Parameters:
+    - **os** (Required): Operating system to be used to create the triplet.
+    - **arch** (Required): Architecture to be used to create the triplet.
+    - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
 
 .. _run_in_windows_bash_tool:
 

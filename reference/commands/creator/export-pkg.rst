@@ -68,17 +68,15 @@ The command :command:`conan new <ref> --bare` will create a simple recipe that c
 with the ``export-pkg`` command. Check this :ref:`How to package existing binaries
 <existing_binaries>`.
 
-This command will:
 
-- Use the ``package()`` method if the ``build-folder`` or ``source-folder`` are specified.
-  The ``package()`` method will select which artifacts from those folders will be exported
-  to the local cache to create the package binary.
-- Do an exact copy of the folder referenced by ``--package-folder`` is specified. This can be useful
-  if the package has been already locally created, with a ``$ conan package`` command, or
-  if the package is created in the ``build()`` step, for example, using the ``cmake.install()``
-  feature.
-- If both ``--package-folder`` and ``--source-folder`` or ``--build-folder`` are specified, it will
-  throw an error.
+:command:`export-pkg` has two different modes of operation:
+
+- Specifying :command:`--package-folder` will perform a copy of the given folder, without executing the ``package()`` method.
+  Use it if you have already created the package, for example with :command:`conan package` or
+  with ``cmake.install()`` from the ``build()`` step.
+- Specifying :command:`--build-folder` and/or :command:`--source-folder` will execute the ``package()`` method,
+  to filter, select and arrange the layout of the artifacts.
+
 
 **Examples**:
 

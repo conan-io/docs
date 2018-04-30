@@ -99,7 +99,7 @@ Or if we want to create the ``conaninfo.txt`` and ``conanbuildinfo.txt`` files i
    :emphasize-lines: 3
 
     $ conan source . --source-folder src
-    $ conan install --install-folder install_x86 -s arch=x86
+    $ conan install . --install-folder install_x86 -s arch=x86
     $ conan build . --build-folder build_x86 --install-folder install_x86 --source-folder src
 
 However, we recommend the ``conaninfo.txt`` and ``conanbuildinfo.txt`` to be generated in the same

@@ -15,7 +15,7 @@ List of requirements, specifing the full reference.
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     zlib/1.2.11@conan/stable
 
 
@@ -59,7 +59,7 @@ List of :ref:`generators<generators_reference>`
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     zlib/1.2.11@conan/stable
 
     [generators]
@@ -78,7 +78,7 @@ List of :ref:`options<options_txt>`. Always specifying **package_name:option = V
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     zlib/1.2.11@conan/stable
 
     [generators]
@@ -98,7 +98,7 @@ List of files to be imported to a local directory. Read more: :ref:`imports<impo
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
     zlib/1.2.11@conan/stable
 
     [generators]

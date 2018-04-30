@@ -597,7 +597,7 @@ package creator specifies the values for any of thoses properties, it is telling
 package.
 
 However, sometimes a package creator would need to alter the default behavior, for example, to have only one binary package for several
-different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the pacakge ID will be
+different compiler versions. In that case you can set a custom ``self.info`` object implementing this method and the package ID will be
 computed with the given information:
 
 .. code-block:: python
@@ -614,6 +614,14 @@ self.info
 
 This ``self.info`` object stores the information that will be used to compute the package ID.
 
+This object can be manipulated to reflect the information you want in the computation of the package ID. For example, you can delete
+any setting or option:
+
+.. code-block:: python
+
+    def package_id(self):
+        del self.info.settings.compiler
+        del self.info.options.shared
 
 self.info.header_only()
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -675,6 +683,7 @@ This is the relation of Visual Studio versions and the compatible toolchain:
 | 8                     | v80                |
 +-----------------------+--------------------+
 
+.. _info_discard_include_build_settings:
 
 self.info.discard_build_settings() / self.info.include_build_settings()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -767,6 +776,8 @@ This will only produce a build ID different if the package is for Windows. So th
 in any other OS will be the standard one, as if the ``build_id()`` method was not defined:
 the build folder will be wiped at each :command:`conan create` command and a clean build will
 be done.
+
+.. _method_deploy:
 
 deploy()
 --------
