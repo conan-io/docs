@@ -1,19 +1,20 @@
+
 .. _conan_alias:
 
 conan alias
-============
+===========
 
 .. code-block:: bash
 
     $ conan alias [-h] reference target
 
-    Creates and exports an 'alias package recipe'. An "alias" package is a
-    symbolic name (reference) for another package (target). When some
-    package depends on an alias, the target one will be retrieved and used
-    instead, so the alias reference, the symbolic name, does not appear
-    in the final dependency graph.
+Creates and exports an 'alias package recipe'. An "alias" package is a
+symbolic name (reference) for another package (target). When some package
+depends on an alias, the target one will be retrieved and used instead, so the
+alias reference, the symbolic name, does not appear in the final dependency
+graph.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       reference   Alias reference. e.j: mylib/1.X@user/channel
@@ -21,6 +22,7 @@ conan alias
 
     optional arguments:
       -h, --help  show this help message and exit
+
 
 The command:
 

@@ -1,4 +1,5 @@
-.. _conan_install_command:
+
+.. _conan_install:
 
 conan install
 =============
@@ -7,25 +8,24 @@ conan install
 
     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-m [MANIFESTS]]
                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
-                    [--no-imports] [-u] [-pr PROFILE] [-r REMOTE]
-                    [-o OPTIONS] [-s SETTINGS] [-e ENV]
-                    [-b [BUILD [BUILD ...]]]
-                    path
+                    [--no-imports] [-j JSON] [-b [BUILD]] [-e ENV]
+                    [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                    path_or_reference
 
-Installs the requirements specified in a conanfile (.py or .txt). If any
-requirement is not found in the local cache it will retrieve the recipe from a
-remote, looking for it sequentially in the available configured remotes. When
-the recipes have been downloaded it will try to download a binary package
-matching the specified settings, only from the remote from which the recipe
-was retrieved. If no binary package is found you can build the package from
-sources using the '--build' option. When the package is installed, Conan will
-write the files for the specified generators. It can also be used to install a
-concrete recipe/package specifying a reference in the "path" parameter.
+Installs the requirements specified in a recipe (conanfile.py or
+conanfile.txt). It can also be used to install a concrete package specifying a
+reference. If any requirement is not found in the local cache, it will
+retrieve the recipe from a remote, looking for it sequentially in the
+configured remotes. When the recipes have been downloaded it will try to
+download a binary package matching the specified settings, only from the
+remote from which the recipe was retrieved. If no binary package is found, it
+can be build from sources using the '--build' option. When the package is
+installed, Conan will write the files for the specified generators.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      path                  path to a folder containing a recipe (conanfile.py or
+      path_or_reference     Path to a folder containing a recipe (conanfile.py or
                             conanfile.txt) or to a recipe file. e.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
@@ -36,7 +36,7 @@ concrete recipe/package specifying a reference in the "path" parameter.
                             Generators to use
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Use this directory as the directory where to put the
-                            generatorfiles, conaninfo/conanbuildinfo.txt etc.
+                            generatorfiles. e.g., conaninfo/conanbuildinfo.txt
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -50,19 +50,7 @@ concrete recipe/package specifying a reference in the "path" parameter.
       --no-imports          Install specified packages but avoid running imports
       -j JSON, --json JSON  Path to a json file where the install information will
                             be written
-      -u, --update          check updates exist from upstream remotes
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
-      -r REMOTE, --remote REMOTE
-                            look in the specified remote server
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-      -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
+      -b [BUILD], --build [BUILD]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
                             binary packages. --build=never Never build, use binary
@@ -72,11 +60,24 @@ concrete recipe/package specifying a reference in the "path" parameter.
                             binary is not built with the current recipe or when
                             missing binary package. --build=[pattern] Build always
                             these packages from source, but never build the
-                            others. Allows multiple --build parameters. "pattern"
+                            others. Allows multiple --build parameters. 'pattern'
                             is a fnmatch file pattern of a package name. Default
-                            behavior: If you dont specify anything, it will be
-                            similar to --build=never, but package recipes can
-                            override it and decide to build with "build_policy"
+                            behavior: If you don't specify anything, it will be
+                            similar to '--build=never', but package recipes can
+                            override it with their 'build_policy' attribute in the
+                            conanfile.py.
+      -e ENV, --env ENV     Environment variables that will be set during the
+                            package build, -e CXX=/usr/bin/clang++
+      -o OPTIONS, --options OPTIONS
+                            Define options values, e.g., -o Pkg:with_qt=true
+      -pr PROFILE, --profile PROFILE
+                            Apply the specified profile to the install command
+      -r REMOTE, --remote REMOTE
+                            Look in the specified remote server
+      -s SETTINGS, --settings SETTINGS
+                            Settings to build the package, overwriting the
+                            defaults. e.g., -s compiler=gcc
+      -u, --update          Check updates exist from upstream remotes
 
 
 :command:`conan install` executes methods of a *conanfile.py* in the following order:

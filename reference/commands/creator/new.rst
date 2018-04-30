@@ -11,10 +11,10 @@ conan new
                 [-ciu CI_UPLOAD_URL]
                 name
 
-Creates a new package recipe template with a ``conanfile.py`` and optionally, ``test_package``
-package testing files.
+Creates a new package recipe template with a 'conanfile.py' and optionally,
+'test_package' testing files.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       name                  Package name, e.g.: "Poco/1.7.3" or complete reference
@@ -55,6 +55,7 @@ package testing files.
                             excluded
       -ciu CI_UPLOAD_URL, --ci-upload-url CI_UPLOAD_URL
                             Define URL of the repository to upload
+
 
 **Examples**:
 

@@ -1,4 +1,6 @@
 
+.. _conan_source:
+
 conan source
 ============
 
@@ -6,29 +8,29 @@ conan source
 
     $ conan source [-h] [-sf SOURCE_FOLDER] [-if INSTALL_FOLDER] path
 
-Calls your local conanfile.py 'source()' method. I.e., downloads and unzip the
-package source.
+Calls your local conanfile.py 'source()' method. e.g., Downloads and unzip the
+package sources.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      path                  path to a folder containing a recipe (conanfile.py) or
-                            to a recipe file, e.g., conan package
-                            folder/conanfile.py
+      path                  Path to a folder containing a conanfile.py or to a
+                            recipe file e.g., my_folder/conanfile.py
 
     optional arguments:
       -h, --help            show this help message and exit
       -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             Destination directory. Defaulted to current directory
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            Optional. Local folder containing the conaninfo.txt
-                            and conanbuildinfo.txt files (from a previous conan
-                            install execution). Defaulted to the current
-                            directory. Optional, source method will run without
-                            the information retrieved from the conaninfo.txt and
+                            Directory containing the conaninfo.txt and
+                            conanbuildinfo.txt files (from previous 'conan
+                            install'). Defaulted to --build-folder Optional,
+                            source method will run without the information
+                            retrieved from the conaninfo.txt and
                             conanbuildinfo.txt, only required when using
                             conditional source() based on settings, options,
                             env_info and user_info
+
 
 The ``source()`` method might use (optional) `settings`, `options` and `environment variables` from
 the specified profile and dependencies information from the declared ``deps_XXX_info`` objects in

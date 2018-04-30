@@ -5,23 +5,44 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-PR output-color
-
-- Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable
-- If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
 
 .. important::
 
-  Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
 
-1.3.0 ()
---------
-
-- Added :command:`-ks` alias for :command:`--keep-source` argument in :command:`conan create` and :command:`conan expport`.
-- Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.  
-
+1.3.0 (30-April-2018)
+---------------------
+- Feature: Added new build types to default ``settings.yml``: **RelWithDebInfo** and **MinSizeRel**.
+  Compiler flags will be automatically defined in build helpers that do not understand them (``MSBuild``, ``AutotoolsBuildEnvironment``)
+- Feature: Improved package integrity. Interrupted downloads or builds shouldn't leave corrupted packages.
+- Feature: Added ``conan upload --json`` json output to the command.
+- Feature: new :command:`conan remove --locks` to clear cache locks. Useful when killing conan.
+- Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
+- Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
+- Feature: Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable.
+  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
+- Feature: New :command:`conan remote rename` and :command:`conan add --force` commands to handle remotes.
+- Feature: Added parameter ``use_env`` to the ``MSBuild().build()`` build helper method to control the ``/p:UseEnv`` msbuild argument.
+- Feature: Timeout for downloading files from remotes is now configurable (defaulted to 60 seconds)
+- Fix: Use International Units for download/upload transfer sizes (Mb, Kb, etc).
+- Fix: Removed duplicated paths in ``cmake_multi`` generated files.
+- Fix: Removed false positive linter warning for local imports.
+- Fix: Improved command line help for positional arguments
+- Fix :command:`-ks` alias for :command:`--keep-source` argument in :command:`conan create` and :command:`conan export`.
+- Fix: removed confusing warnings when ``self.copy()`` doesn't copy files in the ``package()`` method.
+- Fix: ``None`` is now a possible value for settings with nested subsettings in ``settings.yml``.
+- Fix: if ``vcvars_command`` is called and Visual is not found, raise an error instead of warning.
+- Bugfix: ``self.env_info.paths`` and ``self.env_info.PATHS`` both map now to PATHS env-var.
+- Bugfix: Local flow was not correctly recovering state for option values.
+- Bugfix: Windows NTFS permissions failed in case USERDOMAIN env-var was not defined.
+- Bugfix: Fixed generator ``pkg_config`` when there are absolute paths (not use prefix)
+- Bugfix: Fixed parsing of settings values with ``"="`` character in conaninfo.txt files.
+- Bugfix: Fixed misdetection of MSYS environments (generation of default profile)
+- Bugfix: Fixed string scaping in CMake files for preprocessor definitions.
+- Bugfix: ``upload --no-overwrite`` failed when the remote package didn't exist.
+- Bugfix: Don't raise an error if ``detect_windows_subsystem`` doesn't detect a subsystem.
 
 1.2.3 (10-Apr-2017)
 -------------------

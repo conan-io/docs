@@ -1,31 +1,35 @@
+
+.. _conan_user:
+
 conan user
 ==========
 
 .. code-block:: bash
 
-    $ conan user [-h] [-r REMOTE] [-c] [-p [PASSWORD]] [name]
+    $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [name]
 
 Authenticates against a remote with user/pass, caching the auth token. Useful
 to avoid the user and password being requested later. e.g. while you're
-uploading a package. You can have more than one user (one per remote).
-Changing the user, or introducing the password is only necessary to upload
-packages to a remote.
+uploading a package. You can have one user for each remote. Changing the user,
+or introducing the password is only necessary to perform changes in remote
+packages.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       name                  Username you want to use. If no name is provided it
-                            will show the current user.
+                            will show the current user
 
     optional arguments:
       -h, --help            show this help message and exit
-      -r REMOTE, --remote REMOTE
-                            look in the specified remote server
       -c, --clean           Remove user and tokens for all remotes
       -p [PASSWORD], --password [PASSWORD]
                             User password. Use double quotes if password with
                             spacing, and escape quotes if existing. If empty, the
                             password is requested interactively (not exposed)
+      -r REMOTE, --remote REMOTE
+                            Use the specified remote server
+
 
 **Examples**:
 

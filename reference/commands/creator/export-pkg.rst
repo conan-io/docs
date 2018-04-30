@@ -1,61 +1,60 @@
-.. _conan_export_pkg_command:
+
+.. _conan_export-pkg:
 
 conan export-pkg
 ================
 
 .. code-block:: bash
 
-    $ conan export-pkg [-h] [-sf SOURCE_FOLDER] [-bf BUILD_FOLDER]
-                       [-pf PACKAGE_FOLDER] [-if INSTALL_FOLDER] 
-                       [-pr PROFILE] [-o OPTIONS] [-s SETTINGS] [-e ENV]
-                       [-f]
+    $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-e ENV] [-f]
+                       [-if INSTALL_FOLDER] [-o OPTIONS] [-pr PROFILE]
+                       [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
                        path reference
 
-Exports a recipe & creates a package with given files calling 'package'. It
-executes the package() method applied to the local folders '--source-folder'
-and '--build-folder' and creates a new package in the local cache for the
-specified 'reference' and for the specified '--settings', '--options' and or '
---profile'.
+Exports a recipe & creates a package with given files calling the package()
+method applied to the local folders '--source-folder' and '--build-folder' and
+creates a new package in the local cache for the specified 'reference' and for
+the specified '--settings', '--options' and or '--profile'.
 
 .. code-block:: text
 
     positional arguments:
-      path                  path to a recipe (conanfile.py). e.j: "."
-      reference             user/channel, or a full package reference
-                            (Pkg/version@user/channel), if name and version are
-                            not declared in the recipe (conanfile.py)
+      path                  Path to a folder containing a conanfile.py or to a
+                            recipe file e.g., my_folder/conanfile.py
+      reference             user/channel or pkg/version@user/channel (if name and
+                            version are not declared in the conanfile.py)
 
     optional arguments:
       -h, --help            show this help message and exit
-      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            local folder containing the sources. Defaulted to the
-                            directory of the conanfile. A relative path can also
-                            be specified (relative to the current directory)
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
-                            build folder, working directory of the build process.
-                            Defaulted to the current directory. A relative path
-                            can also be specified (relative to the current
-                            directory)
-      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
-                            folder containing a locally created package. If a
-                            value is giving, it won't call the recipe 'package()'
-                            method, and will run a copy of the provided folder.
-      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            local folder containing the conaninfo.txt and
-                            conanbuildinfo.txt files (from a previous conan
-                            install execution). Defaulted to --build-folder. If
-                            these files are found in the specified folder, they
-                            will be used, then if you specify --profile, -s, -o,
-                            --env, it will raise an error.
-      -pr PROFILE, --profile PROFILE
-                            Profile for this package
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-      -s SETTINGS, --settings SETTINGS
-                            Define settings values, e.g., -s compiler=gcc
+                            Directory for the build process. Defaulted to the
+                            current directory. A relative path to current
+                            directory can also be specified
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -f, --force           Overwrite existing package if existing
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            Directory containing the conaninfo.txt and
+                            conanbuildinfo.txt files (from previous 'conan
+                            install'). Defaulted to --build-folder If these files
+                            are found in the specified folder and any of '-e',
+                            '-o', '-pr' or '-s' arguments are used, it will raise
+                            an error.
+      -o OPTIONS, --options OPTIONS
+                            Define options values, e.g., -o pkg:with_qt=true
+      -pr PROFILE, --profile PROFILE
+                            Profile for this package
+      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
+                            folder containing a locally created package. If a
+                            value is given, it won't call the recipe 'package()'
+                            method, and will run a copy of the provided folder.
+      -s SETTINGS, --settings SETTINGS
+                            Define settings values, e.g., -s compiler=gcc
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                            Directory containing the sources. Defaulted to the
+                            conanfile's directory. A relative path to current
+                            directory can also be specified
+
 
 Note that this is **not** the normal or recommended flow for creating conan packages,
 as packages created this way will not have a reproducible build from sources.

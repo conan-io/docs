@@ -1,46 +1,45 @@
-.. _search_command:
+
+.. _conan_search:
 
 conan search
 ============
 
 .. code-block:: bash
 
-    $ conan search [-h] [--case-sensitive] [-r REMOTE] [--raw]
-                   [--table TABLE] [-q QUERY] [-o]
-                   [pattern]
+    $ conan search [-h] [-o] [-q QUERY] [-r REMOTE] [--case-sensitive]
+                   [--raw] [--table TABLE]
+                   [pattern_or_reference]
 
 Searches package recipes and binaries in the local cache or in a remote. If
 you provide a pattern, then it will search for existing package recipes
-matching that pattern. If a full and complete package reference is provided,
-like Pkg/0.1@user/channel, then the existing binary packages for that
-reference will be displayed. You can search in a remote or in the local cache,
-if nothing is specified, the local conan cache is assumed. Search is case
+matching it. If a full reference is provided (pkg/0.1@user/channel) then the
+existing binary packages for that reference will be displayed. If no remote is
+specified, the serach will be done in the local cache. Search is case
 sensitive, exact case has to be used. For case insensitive file systems, like
-Windows, case sensitive search can be forced with the --case-sensitive
-argument.
+Windows, case sensitive search can be forced with '--case-sensitive'.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      pattern               Pattern name, e.g. openssl/* or package recipe
-                            reference if "-q" is used. e.g.
-                            MyPackage/1.2@user/channel
+      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
+                            'MyPackage/1.2@user/channel'
 
     optional arguments:
       -h, --help            show this help message and exit
+      -o, --outdated        Show only outdated from recipe packages
+      -q QUERY, --query QUERY
+                            Packages query: 'os=Windows AND (arch=x86 OR
+                            compiler=gcc)'. The 'pattern_or_reference' parameter
+                            has to be a reference: MyPackage/1.2@user/channel
+      -r REMOTE, --remote REMOTE
+                            Remote to search in. '-r all' searches all remotes
       --case-sensitive      Make a case-sensitive search. Use it to guarantee
                             case-sensitive search in Windows or other case-
-                            insensitive filesystems
-      -r REMOTE, --remote REMOTE
-                            Remote origin. `all` searches all remotes
+                            insensitive file systems
       --raw                 Print just the list of recipes
-     --table TABLE         Outputs html file with a table of binaries. Only valid
-                            if "pattern" is a package recipe reference
-      -q QUERY, --query QUERY
-                            Packages query: "os=Windows AND (arch=x86 OR
-                            compiler=gcc)". The "pattern" parameter has to be a
-                            package recipe reference: MyPackage/1.2@user/channel
-      -o, --outdated        Show only outdated from recipe packages
+      --table TABLE         Outputs html file with a table of binaries. Only valid
+                            for a reference search
+
 
 **Examples**
 
