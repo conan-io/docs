@@ -56,7 +56,18 @@ the specified '--settings', '--options' and or '--profile'.
                             directory can also be specified
 
 
-Note that this is **not** the normal or recommended flow for creating conan packages,
+:command:`conan export-pkg` executes the following methods of a *conanfile.py* whenever ``--package-folder`` is used:
+
+1. ``config_options()``
+2. ``configure()``
+3. ``requirements()``
+4. ``package_id()``
+
+In case a package folder is not specified, this command will also execute:
+
+5. ``package()``
+
+Note that this is **not** the normal or recommended flow for creating Conan packages,
 as packages created this way will not have a reproducible build from sources.
 This command should be used when:
 
@@ -68,7 +79,6 @@ The command :command:`conan new <ref> --bare` will create a simple recipe that c
 with the ``export-pkg`` command. Check this :ref:`How to package existing binaries
 <existing_binaries>`.
 
-
 :command:`export-pkg` has two different modes of operation:
 
 - Specifying :command:`--package-folder` will perform a copy of the given folder, without executing the ``package()`` method.
@@ -76,7 +86,6 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
   with ``cmake.install()`` from the ``build()`` step.
 - Specifying :command:`--build-folder` and/or :command:`--source-folder` will execute the ``package()`` method,
   to filter, select and arrange the layout of the artifacts.
-
 
 **Examples**:
 
