@@ -63,7 +63,7 @@ build()
 .. code-block:: python
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
-              parallel=True, force_vcvars=False, toolset=None, platforms=None)
+              parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True)
 
 Builds Visual Studio project with the given parameters. It will call ``tools.msvc_build_command()``.
 
@@ -86,6 +86,7 @@ Parameters:
                        'x86_64': 'x64',
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
+    - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the ``msbuild()`` call.
 
 
 get_command()

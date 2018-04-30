@@ -20,8 +20,8 @@ PR output-color
 --------
 
 - Added :command:`-ks` alias for :command:`--keep-source` argument in :command:`conan create` and :command:`conan expport`.
-- Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.  
-
+- Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
+- Feature: Added parameter ``use_env`` to the ``MSBuild().build()`` build helper method to control the ``/p:UseEnv`` msbuild argument.
 
 1.2.3 (10-Apr-2017)
 -------------------

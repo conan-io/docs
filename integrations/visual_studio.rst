@@ -97,26 +97,32 @@ Check :ref:`Build with Visual Studio<msbuild>` section for more info.
 Build an existing Visual Studio project
 ---------------------------------------
 
-You can build an existing Visual Studio from your ``build()`` method using the ``tools.build_sln_command``.
+You can build an existing Visual Studio from your ``build()`` method using the :ref:`MSBuild()<msbuild>` build helper.
 
+.. code-block:: python
 
-.. seealso:: Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
+    from conans import ConanFile, MSBuild
+
+    class ExampleConan(ConanFile):
+        ...
+
+        def build(self):
+            msbuild = MSBuild(self)
+            msbuild.build("MyProject.sln")
 
 
 Toolsets
 --------
 
 You can use the subsetting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
-It will be automatically applied when using the ``CMake()`` build helper, ``tools.build_sln_command`` or ``tools.msvc_build_command``.
+It will be automatically applied when using the ``CMake()`` and ``MSBuild()`` build helpers.
 The toolset can be also specified manually in these build helpers with the ``toolset`` parameter.
 
-By default, Conan will not generate a new binary package if
-the specified ``compiler.toolset`` matches an already generated package for the corresponding
-``compiler.version``. Check the :ref:`package_id()<method_package_id>` reference to know more.
+By default, Conan will not generate a new binary package if the specified ``compiler.toolset``
+matches an already generated package for the corresponding ``compiler.version``.
+Check the :ref:`package_id()<method_package_id>` reference to know more.
 
 
 
 
-.. seealso:: - Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
-             - Check the :ref:`tools.msvc_build_command()<msvc_build_command>` reference section for more info.
-             - Check the :ref:`CMake()<cmake_reference>` reference section for more info.
+.. seealso:: - Check the :ref:`CMake()<cmake_reference>` reference section for more info.
