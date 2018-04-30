@@ -87,8 +87,24 @@ installed, Conan will write the files for the specified generators.
 3. ``requirements()``
 4. ``package_id()``
 5. ``package_info()``
+6. ``deploy()``
 
-Note this describes the process of installing a pre-built binary package and not building with :command:`--build`.
+Note this describes the process of installing a pre-built binary package. If the package has to be built, :command:`conan install --build`
+executes the following:
+
+1. ``config_options()``
+2. ``configure()``
+3. ``requirements()``
+4. ``package_id()``
+5. ``build_requirements()``
+6. ``build_id()``
+7. ``system_requirements()``
+8. ``source()``
+9. ``imports()``
+10. ``build()``
+11. ``package()``
+12. ``package_info()``
+13. ``deploy()``
 
 **Examples**
 
