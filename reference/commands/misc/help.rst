@@ -1,19 +1,22 @@
+
+.. _conan_help:
+
 conan help
 ==========
 
 .. code-block:: bash
 
-    $ usage: conan help [-h] [command]
+    $ conan help [-h] [command]
 
 Show help of a specific commmand.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-    command     command
+      command     command
 
     optional arguments:
-    -h, --help  show this help message and exit
+      -h, --help  show this help message and exit
 
 
 This command is equivalent to the ``--help`` and ``-h`` arguments

@@ -1,4 +1,6 @@
 
+.. _conan_export:
+
 conan export
 ============
 
@@ -7,24 +9,24 @@ conan export
     $ conan export [-h] [-k] path reference
 
 Copies the recipe (conanfile.py & associated files) to your local cache. Use
-the 'reference' param to specify a user and channel where to export. Once the
-recipe is in the local cache it can be shared and reused. It can be uploaded
-to any remote with the "conan upload" command.
+the 'reference' param to specify a user and channel where to export it. Once
+the recipe is in the local cache it can be shared, reused and to any remote
+with the 'conan upload' command.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      path                  path to a folder containing a recipe (conanfile.py) or to
-                            a recipe file, e.g., conan package folder/conanfile.py
-      reference             user/channel, or a full package reference
-                            (Pkg/version@user/channel), if name and version are not
-                            declared in the recipe (conanfile.py)
+      path                  Path to a folder containing a conanfile.py or to a
+                            recipe file e.g., my_folder/conanfile.py
+      reference             user/channel, or Pkg/version@user/channel (if name and
+                            version are not declared in the conanfile.py
 
     optional arguments:
       -h, --help            show this help message and exit
       -k, -ks, --keep-source
-                            Optional. Do not remove the source folder in the local
-                            cache. Use for testing purposes only
+                            Do not remove the source folder in local cache. Use
+                            this for testing purposes only
+
 
 The ``export`` command will run a linting of the package recipe, looking for possible
 inconsistencies, bugs and py2-3 incompatibilities. It is possible to customize the rules for this

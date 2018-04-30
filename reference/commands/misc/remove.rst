@@ -1,41 +1,45 @@
 
+.. _conan_remove:
+
 conan remove
 ============
 
 .. code-block:: bash
 
-    $ conan remove [-h] [-p [PACKAGES [PACKAGES ...]]]
-                   [-b [BUILDS [BUILDS ...]]] [-s] [-f] [-r REMOTE]
-                   [-q QUERY] [-o]
-                   pattern
+    $ conan remove [-h] [-b [BUILDS [BUILDS ...]]] [-f] [-o]
+                   [-p [PACKAGES [PACKAGES ...]]] [-q QUERY] [-r REMOTE] [-s]
+                   [-l]
+                   [pattern_or_reference]
 
 Removes packages or binaries matching pattern from local cache or remote. It
 can also be used to remove temporary source or build folders in the local
 conan cache. If no remote is specified, the removal will be done by default in
 the local conan cache.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      pattern               Pattern name, e.g., openssl/*
+      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
+                            'MyPackage/1.2@user/channel'
 
     optional arguments:
       -h, --help            show this help message and exit
-      -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
-                            By default, remove all the packages or select one,
-                            specifying the package ID
       -b [BUILDS [BUILDS ...]], --builds [BUILDS [BUILDS ...]]
                             By default, remove all the build folders or select
                             one, specifying the package ID
-      -s, --src             Remove source folders
       -f, --force           Remove without requesting a confirmation
+      -o, --outdated        Remove only outdated from recipe packages
+      -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
+                            Select package to remove specifying the package ID
+      -q QUERY, --query QUERY
+                            Packages query: 'os=Windows AND (arch=x86 OR
+                            compiler=gcc)'. The 'pattern_or_reference' parameter
+                            has to be a reference: MyPackage/1.2@user/channel
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
-      -q QUERY, --query QUERY
-                            Packages query: "os=Windows AND (arch=x86 OR
-                            compiler=gcc)". The "pattern" parameter has to be a
-                            package recipe reference: MyPackage/1.2@user/channel
-      -o, --outdated        Remove only outdated from recipe packages
+      -s, --src             Remove source folders
+      -l, --locks           Remove locks
+
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 

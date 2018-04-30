@@ -1,3 +1,4 @@
+
 .. _conan_remote:
 
 conan remote
@@ -5,27 +6,30 @@ conan remote
 
 .. code-block:: bash
 
-   $ conan remote [-h] {list,add,remove,update,list_ref,add_ref,remove_ref,update_ref} ...
+    $ conan remote [-h]
+                   {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref}
+                   ...
 
 Manages the remote list and the package recipes associated to a remote.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      {list,add,remove,update,list_ref,add_ref,remove_ref,update_ref}
+      {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref}
                             sub-command help
-        list                list current remotes
-        add                 add a remote
-        remove              remove a remote
-        update              update the remote url
+        list                List current remotes
+        add                 Add a remote
+        remove              Remove a remote
+        update              Update the remote url
         rename              Update the remote name
-        list_ref            list the package recipes and its associated remotes
-        add_ref             associate a recipe's reference to a remote
-        remove_ref          dissociate a recipe's reference and its remote
-        update_ref          update the remote associated with a package recipe
+        list_ref            List the package recipes and its associated remotes
+        add_ref             Associate a recipe's reference to a remote
+        remove_ref          Dissociate a recipe's reference and its remote
+        update_ref          Update the remote associated with a package recipe
 
     optional arguments:
       -h, --help            show this help message and exit
+
 
 **Examples**
 

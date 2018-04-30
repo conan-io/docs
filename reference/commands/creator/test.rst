@@ -1,45 +1,35 @@
 
+.. _conan_test:
+
 conan test
-============
+==========
 
 .. code-block:: bash
 
-    $ conan test [-h] [-u] [-pr PROFILE] [-r REMOTE] [-o OPTIONS]
-                 [-s SETTINGS] [-e ENV] [-b [BUILD [BUILD ...]]]
+    $ conan test [-h] [-tbf TEST_BUILD_FOLDER] [-b [BUILD]] [-e ENV]
+                 [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
                  path reference
 
-Runs a test_folder/conanfile.py to test an existing package. The package to be
-tested must exist in the local cache or any configured remote. To create and
-test a binary package for a local directory conanfile.py use the ``conan
-create`` command.
+Test a package consuming it from a conanfile.py with a test() method. This
+command installs the conanfile dependencies (including the tested package),
+calls a 'conan build' to build test apps and finally executes the test()
+method. The testing recipe does not require name or version, neither
+definition of package() or package_info() methods. The package to be tested
+must exist in the local cache or in any configured remote.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      path                  path to the "testing" folder containing a recipe
-                            (conanfile.py) with a test() method or to a recipe
-                            file, e.g. conan test_package/conanfile.py
-                            pkg/version@user/channel
-      reference             a full package reference pkg/version@user/channel, of
-                            the package to be tested
+      path                  Path to the "testing" folder containing a conanfile.py
+                            or to a recipe file with test() methode.g. conan
+                            test_package/conanfile.py pkg/version@user/channel
+      reference             pkg/version@user/channel of the package to be tested
 
     optional arguments:
       -h, --help            show this help message and exit
       -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
-                            Optional. Working directory of the build process.
-      -u, --update          check updates exist from upstream remotes
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
-      -r REMOTE, --remote REMOTE
-                            look in the specified remote server
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-      -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -b [BUILD [BUILD ...]], --build [BUILD [BUILD ...]]
+                            Working directory of the build process.
+      -b [BUILD], --build [BUILD]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
                             binary packages. --build=never Never build, use binary
@@ -49,11 +39,25 @@ create`` command.
                             binary is not built with the current recipe or when
                             missing binary package. --build=[pattern] Build always
                             these packages from source, but never build the
-                            others. Allows multiple --build parameters. "pattern"
+                            others. Allows multiple --build parameters. 'pattern'
                             is a fnmatch file pattern of a package name. Default
-                            behavior: If you dont specify anything, it will be
-                            similar to --build=never, but package recipes can
-                            override it and decide to build with "build_policy"
+                            behavior: If you don't specify anything, it will be
+                            similar to '--build=never', but package recipes can
+                            override it with their 'build_policy' attribute in the
+                            conanfile.py.
+      -e ENV, --env ENV     Environment variables that will be set during the
+                            package build, -e CXX=/usr/bin/clang++
+      -o OPTIONS, --options OPTIONS
+                            Define options values, e.g., -o Pkg:with_qt=true
+      -pr PROFILE, --profile PROFILE
+                            Apply the specified profile to the install command
+      -r REMOTE, --remote REMOTE
+                            Look in the specified remote server
+      -s SETTINGS, --settings SETTINGS
+                            Settings to build the package, overwriting the
+                            defaults. e.g., -s compiler=gcc
+      -u, --update          Check updates exist from upstream remotes
+
 
 This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).
 :command:`conan create` will automatically run this test if a *test_package* folder is found besides the *conanfile.py*, or if the

@@ -1,34 +1,38 @@
 
+.. _conan_imports:
+
 conan imports
 =============
 
 .. code-block:: bash
 
-    $ conan imports [-h] [-imf IMPORT_FOLDER] [-if INSTALL_FOLDER] [-u] path
+    $ conan imports [-h] [-if INSTALL_FOLDER] [-imf IMPORT_FOLDER] [-u] path
 
 Calls your local conanfile.py or conanfile.txt 'imports' method. It requires
 to have been previously installed and have a conanbuildinfo.txt generated file
 in the --install-folder (defaulted to current directory).
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      path                  path to a recipe (conanfile.py). e.g.,
-                            ./my_project/With --undo option, this parameter is the
-                            folder containing the conan_imports_manifest.txt file
-                            generated in a previousexecution. e.j: conan imports
-                            ./imported_files --undo
+      path                  Path to a folder containing a conanfile.py or to a
+                            recipe file e.g., my_folder/conanfile.py With --undo
+                            option, this parameter is the folder containing the
+                            conan_imports_manifest.txt file generated in a
+                            previousexecution. e.j: conan imports ./imported_files
+                            --undo
 
     optional arguments:
       -h, --help            show this help message and exit
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            Directory containing the conaninfo.txt and
+                            conanbuildinfo.txt files (from previous 'conan
+                            install'). Defaulted to --build-folder
       -imf IMPORT_FOLDER, --import-folder IMPORT_FOLDER
                             Directory to copy the artifacts to. By default it will
                             be the current directory
-      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            local folder containing the conaninfo.txt and
-                            conanbuildinfo.txt files (from a previous conan
-                            install execution)
       -u, --undo            Undo imports. Remove imported files
+
 
 The ``imports()`` method might use `settings`, `options` and `environment variables` from the
 specified profile and dependencies information from the declared ``deps_XXX_info`` objects in the
