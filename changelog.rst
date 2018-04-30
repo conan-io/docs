@@ -26,6 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: New :command:`conan remote rename` and :command:`conan add --force` commands to handle remotes.
 - Feature: Added parameter ``use_env`` to the ``MSBuild().build()`` build helper method to control the ``/p:UseEnv`` msbuild argument.
 - Feature: Timeout for downloading files from remotes is now configurable (defaulted to 60 seconds)
+- Feature: Added ``--json`` flag to :command:`conan upload` generating a JSON output file with uploaded recipes and packages.
 - Fix: Use International Units for download/upload transfer sizes (Mb, Kb, etc).
 - Fix: Removed duplicated paths in ``cmake_multi`` generated files.
 - Fix: Removed false positive linter warning for local imports.
