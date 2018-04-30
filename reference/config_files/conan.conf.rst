@@ -180,8 +180,8 @@ proxies, but if you configured some exclusion rule it won't work:
     # Empty section will try to use system proxies.
     # If you don't want Conan to mess with proxies at all, remove section [proxies]
     
-You can specify http and https proxies as follows. Use the ``no_proxy`` keyword to specify a list
-of URLs that will skip the proxy or use ``no_proxy_match`` to do the same using patterns:
+You can specify http and https proxies as follows. Use the `no_proxy_match` keyword to specify a list
+of URLs or patterns that will skip the proxy:
 
 .. code-block:: text
 
@@ -190,8 +190,7 @@ of URLs that will skip the proxy or use ``no_proxy_match`` to do the same using 
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
-    no_proxy: http://url1, http://url2
-    no_proxy_match: https://url3*, https://*.custom_domain.*
+    no_proxy_match: http://url1, http://url2, https://url3*, https://*.custom_domain.*
 
 Use `http=None` and/or `https=None` to disable the usage of a proxy.
 
