@@ -122,6 +122,5 @@ This is the recommended way to create packages.
 11. ``package()``
 12. ``package_info()``
 
-In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note ``package_info()`` is used for consumers, it should not
-be fired if there is no *test_package*. Note also that ``deploy()`` method is only used in :command:`conan install`.
-
+In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
+:command:`conan install`.
