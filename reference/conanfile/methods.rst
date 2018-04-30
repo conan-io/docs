@@ -683,6 +683,7 @@ This is the relation of Visual Studio versions and the compatible toolchain:
 | 8                     | v80                |
 +-----------------------+--------------------+
 
+.. _info_discard_include_build_settings:
 
 self.info.discard_build_settings() / self.info.include_build_settings()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
