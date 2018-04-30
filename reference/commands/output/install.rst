@@ -5,13 +5,12 @@
 Install and Create output [EXPERIMENTAL]
 ----------------------------------------
 
-
 The :command:`conan install` and :command:`conan create` provide a ``--json`` parameter to generate
 a file containing the information of the installation process.
 
 The output JSON contains a two first level keys:
 
-  - **error**: True is the install completed without error, False otherwise.
+  - **error**: ``True`` if the install completed without error, ``False`` otherwise.
   - **installed**: A list of installed packages. Each element contains:
 
      - **recipe**: Document representing the downloaded recipe.
@@ -22,11 +21,13 @@ The output JSON contains a two first level keys:
         - **time**: ``ISO 8601`` string with the time the recipe was downloaded/retrieved.
         - **error**: ``true``/``false``.
         - **id**: Reference. e.j: "OpenSSL/1.0.2n@conan/stable"
-        - **dependency**: ``true``/``false``. Is the package being installed/created or a dependency. Same as :ref:`develop conanfile attribute<develop_attribute>`.
+        - **dependency**: ``true``/``false``. Is the package being installed/created or a
+          dependency. Same as :ref:`develop conanfile attribute<develop_attribute>`.
 
      - **packages**: List of elements, representing the binary packages downloaded for the recipe.
-       Normally it will be only 1 element in this list, only in special cases with build requires, private
-       dependencies and settings overriding this list could have more than one element.
+       Normally there will be only 1 element in this list, only in special cases with build
+       requires, private dependencies and settings overrided this list could have more than one
+       element.
 
         - **remote**: remote URL if the recipe has been downloaded. ``null`` otherwise.
         - **cache**: ``true``/``false``. Retrieved from cache (not downloaded).
@@ -35,9 +36,14 @@ The output JSON contains a two first level keys:
         - **error**: ``true``/``false``.
         - **id**: Package ID. e.j: "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
 
+**Example:**
+
+.. code-block:: bash
+
+    $ conan install OpenSSL/1.0.2n@conan/stable --json install.json
 
 .. code-block:: json
-    :caption: Example:
+   :caption: install.json
 
     {
        "installed":[
