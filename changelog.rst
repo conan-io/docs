@@ -5,22 +5,20 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-PR output-color
-
-- Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable
-- If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
 
 .. important::
 
-  Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
 
 1.3.0 ()
 --------
-
-- Added :command:`-ks` alias for :command:`--keep-source` argument in :command:`conan create` and :command:`conan expport`.
-- Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.  
+- Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
+- Feature: Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable.
+  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
+- Feature: New :command:`conan remote rename` and :command:`conan add --force` commands to handle remotes.
+- Fix :command:`-ks` alias for :command:`--keep-source` argument in :command:`conan create` and :command:`conan expport`. 
 
 
 1.2.3 (10-Apr-2017)
