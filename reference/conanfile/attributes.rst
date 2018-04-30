@@ -5,11 +5,11 @@ Attributes
 
 name
 ----
-This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
+This is a string, with a minimun of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
 It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
 The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
-It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). 
 However, the most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
 
 
@@ -17,7 +17,7 @@ However, the most common and suggested approach would be to define it in plain t
 
 version
 -------
-The version attribute will define the version part of the package reference: ``PkgName/<version>@user/channel``.
+The version attribute will define the version part of the package reference: ``PkgName/<version>@user/channel``
 It is a string, and can take any value, matching the same constraints as the ``name`` attribute.
 In case the version follows semantic versioning in the form ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through version ranges instead of exact versions.
 
@@ -100,7 +100,7 @@ the :command:`conan info` command and possibly other search and report tools.
         version = "0.1"
         license = "MIT"
 
-This attribute can contain several, comma-separated licenses. It is a text string, so it can
+This attribute can contain several, comma separated licenses. It is a text string, so it can
 contain any text, including hyperlinks to license files elsewhere.
 
 This is a recommended, but not mandatory attribute.
@@ -122,7 +122,7 @@ define who is the creator/maintainer of the package
         version = "0.1"
         author = "John J. Smith (john.smith@company.com)"
 
-This is an optional attribute.
+This is an optional attribute
 
 .. _attribute_channel:
 .. _attribute_user:
@@ -310,7 +310,7 @@ You can also defined them in consumer ``conanfile.txt``, as described in :ref:`t
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
     [options]
     Poco:shared=True
@@ -408,7 +408,7 @@ build_requires
 
 Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.
 
-They can be specified as a comma-separated tuple in the package recipe:
+They can be specified as a comma separated tuple in the package recipe:
 
 .. code-block:: python
 
@@ -759,6 +759,7 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
                 # we are installing the package
             else:
                 # we are building the package in a local directory
+
 
 .. _attribute_develop:
 
