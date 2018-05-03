@@ -15,11 +15,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.3.1 (3-May-2018)
 ------------------
 
-- Bugfix: Fixed regression with `AutoToolsBuildEnvironment` build helper that raised exception with not supported architectures during the calculation of the GNU triplet.
-- Bugfix: Fixed `pkg_config` generator, previously crashing when there was no library directories in the requirements.
-- Bugfix: Fixed `conanfile.run()` with `win_bash=True`  quoting the paths correctly.
-- Bugfix: Recovered parameter "append" to the `tools.save` function.
-- Bugfix: Added support (documented but missing) to delete options in `package_id()` method using `del self.info.options.<option>`
+- Bugfix: Fixed regression with ``AutoToolsBuildEnvironment`` build helper that raised exception with not supported architectures during the calculation of the GNU triplet.
+- Bugfix: Fixed ``pkg_config`` generator, previously crashing when there was no library directories in the requirements.
+- Bugfix: Fixed ``conanfile.run()`` with ``win_bash=True``  quoting the paths correctly.
+- Bugfix: Recovered parameter "append" to the ``tools.save`` function.
+- Bugfix: Added support (documented but missing) to delete options in ``package_id()`` method using ``del self.info.options.<option>``
 
 
 1.3.0 (30-April-2018)
