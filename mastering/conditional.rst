@@ -7,7 +7,14 @@ and you can use them to:
 * Add requirements dynamically
 * Change values of options
 
-The **configure** method is the right place to change values of options and settings.
+The **configure** method might be used to hardcode dependencies options values. 
+It is strongly discouraged to use it to change the settings values, please remember that ``settings``
+are a configuration *input*, so it doesn't make sense to modify it in the recipes.
+
+Also, for options, a more flexible solution is to define dependencies options values in the ``default_options``,
+not in the ``configure()`` method, as this would allow to override them. Hardcoding them in the ``configure()``
+method won't allow that and thus won't easily allow conflict resolution. Use it only when it is absolutely
+necessary that the package dependencies use those options.
 
 Here is an example of what we could do in our **configure method**:
 
