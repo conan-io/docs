@@ -8,7 +8,7 @@ Visual Studio 2017 comes with a CMake integration that allows to just open a fol
 and Visual will use it to define the project build.
 
 Conan can also be used in this setup to install dependencies. Let`s say that we are going to build an application, that depends
-on an existing conan package called ``Hello/0.1@user/testing``. For the purpuse of this example, you can quickly create
+on an existing conan package called ``Hello/0.1@user/testing``. For the purpose of this example, you can quickly create
 this package typing in your terminal:
 
 .. code-block:: bash
