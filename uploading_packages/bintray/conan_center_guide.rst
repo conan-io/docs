@@ -145,9 +145,9 @@ In the bintray page of your package fill the following fields:
     - Maturity
     - Website: If any, website of the library
     - Issues tracker: URL of the issue tracker from your github repository e.j:
-      https://github.com/lasote/conan-zlib/issues
+      https://github.com/conan-community/conan-zlib/issues
     - Version control: URL of your recipe github repository. e.j:
-      https://github.com/lasote/conan-zlib
+      https://github.com/conan-community/conan-zlib
     - GitHub repo (user/repo): e.j lasote/conan-zlib
 
 In each version page (optional, but welcomed):
@@ -155,5 +155,5 @@ In each version page (optional, but welcomed):
     - Select the README from github.
     - Select the Release Notes.
 
-.. _`zlib Conan package repository`: https://github.com/lasote/conan-zlib
+.. _`zlib Conan package repository`: https://github.com/conan-community/conan-zlib
 .. _`conan-center`: https://bintray.com/conan/conan-center

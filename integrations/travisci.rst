@@ -19,7 +19,7 @@ You can use Travis-CI both for:
 Building and testing your project
 ------------------------------------
 
-We are going to use the :ref:`Google Test example<google_test_example>` now, with **Travis CI** support to run the tests.
+We are going to use an example with GTest package now, with **Travis CI** support to run the tests.
 
 
 Clone the project from github:

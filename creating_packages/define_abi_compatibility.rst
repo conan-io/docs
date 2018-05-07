@@ -253,7 +253,7 @@ Versioning schema
 By default conan assumes **semver** compatibility, i.e, if a version changes from minor **2.0** to
 **2.1** conan will assume that the API is compatible (headers not changing), and that it is not
 necessary to build a new binary for it. Exactly the same for patches, changing from **2.1.10** to
-**2.1.11** doesn't require a re-build. Those rules are defined by `semver <http://semver.org/>`_.
+**2.1.11** doesn't require a re-build. Those rules are defined by `semver <https://semver.org/>`_.
 
 If it is necessary to change the default behavior, the applied versioning schema can be customized
 within the ``package_id()`` method:

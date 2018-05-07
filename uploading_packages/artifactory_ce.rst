@@ -22,7 +22,7 @@ subfolder, depending on the OS. Java 8 update 45 or later runtime is required, i
 
 .. image:: ../images/artifactory_ce.png
 
-Once Artifactory has started, navigate to the default URL http://localhost:8081, where the Web UI should be running.
+Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where the Web UI should be running.
 The default user and password are ``admin:password``.
 
 Creating and using a conan repo

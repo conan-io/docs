@@ -224,7 +224,7 @@ Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ a
 
     If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (C:\) to avoid issues with path lengths.
 
-Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_,
+Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_,
 we are going to target "arm" architecture and the Android API level 21, change the ``--install-dir`` to any other place that works
 for you:
 
@@ -238,7 +238,7 @@ for you:
 
     You can generate the standalone toolchain with several different options to target different architectures, api levels etc.
 
-    Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_
+    Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_
 
 
 To use the ``clang`` compiler, create a profile ``android_21_arm_clang``. Once again, the profile is very similar to the
@@ -384,7 +384,7 @@ You can
     - Check the :ref:`Creating conan packages to install dev tools<create_installer_packages>` to learn
       more about how to create Conan packages for tools.
 
-    - Check the `mingw-installer <https://github.com/lasote/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
+    - Check the `mingw-installer <https://github.com/conan-community/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
 
 
 Using Docker images
@@ -470,7 +470,7 @@ Here is a table with some typical ARM platorms:
 
     **ANDROID**
 
-    - https://developer.android.com/ndk/guides/standalone_toolchain.html
+    - https://developer.android.com/ndk/guides/standalone_toolchain
 
     **VISUAL STUDIO**
 
@@ -482,4 +482,4 @@ Here is a table with some typical ARM platorms:
     - See :ref:`conan.conf file<conan_conf>` and :ref:`Environment variables <env_vars>` sections to know more.
     - See :ref:`AutoToolsBuildEnvironment build helper<autotools_reference>` reference.
     - See :ref:`CMake build helper<cmake_reference>` reference.
-    - See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.
+    - See `CMake cross building wiki <https://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.

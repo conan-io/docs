@@ -37,7 +37,7 @@ The different applications in the image above are:
   daemon or service, behind a web server (apache, nginx), or easily as stand-alone application. Both
   the conan client and the conan_server are OSS, MIT license, so you can use them for free in your
   company, customize them, or redistribute them without any legal issue.
-- **JFrog** `Artifactory <https://www.jfrog.com/artifactory/>`_ offers conan repositories; so it can
+- **JFrog** `Artifactory <https://jfrog.com/artifactory/>`_ offers conan repositories; so it can
   also be used as an on-premises server. It is a more powerful solution, featuring a WebUI, multiple
   auth protocols, High Availability, etc. It also has cloud offerings that will allow you to have
   private packages without having any on-premises infrastructure.
