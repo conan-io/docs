@@ -20,7 +20,7 @@ def call(command, ignore_error=False):
 
 
 tmp_dir = os.getenv("CONANDOCS_TMP_DIR", "/tmp/docs")
-excluded_files = (".git", "CNAME")
+excluded_files = (".git", "CNAME", "index.html")
 
 if __name__ == "__main__":
 
@@ -40,6 +40,12 @@ if __name__ == "__main__":
         else:
             os.unlink(entry)
 
+    if os.path.exists("en"):
+        shutil.rmtree("en")
+
+    os.mkdir("en")
+    os.mkdir("en/latest")
+    
     copytree(tmp_dir, ".")
     call("git add -A .")
     call("git commit -m 'deploying web'", ignore_error=True)
