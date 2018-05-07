@@ -20,7 +20,7 @@ def call(command, ignore_error=False):
 
 
 tmp_dir = os.getenv("CONANDOCS_TMP_DIR", "/tmp/docs")
-excluded_files = (".git", "CNAME")
+excluded_files = (".git", "CNAME", "index.html")
 
 if __name__ == "__main__":
 
@@ -32,15 +32,15 @@ if __name__ == "__main__":
 
     copytree("_build/html/", tmp_dir)
     call("git checkout gh-pages")
-    for entry in os.listdir("."):
-        if entry in excluded_files:
-            continue
-        if os.path.isdir(entry):
-            shutil.rmtree(entry)
-        else:
-            os.unlink(entry)
+    call("git pull origin gh-pages")
 
-    copytree(tmp_dir, ".")
+    if os.path.exists("en"):
+        shutil.rmtree("en")
+
+    os.mkdir("en")
+    os.mkdir("en/latest")
+    
+    copytree(tmp_dir, "en/latest")
     call("git add -A .")
     call("git commit -m 'deploying web'", ignore_error=True)
     call("git push origin gh-pages", ignore_error=True)
