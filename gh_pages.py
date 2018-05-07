@@ -1,6 +1,6 @@
-
 import os
 import shutil
+import tempfile
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -19,7 +19,7 @@ def call(command, ignore_error=False):
         raise Exception("Command failed: %s" % command)
 
 
-tmp_dir = os.getenv("CONANDOCS_TMP_DIR", "/tmp/docs")
+tmp_dir = tempfile.mkdtemp()
 excluded_files = (".git", "CNAME", "index.html")
 
 if __name__ == "__main__":
@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     os.mkdir("en")
     os.mkdir("en/latest")
-    
+
     copytree(tmp_dir, "en/latest")
     call("git add -A .")
     call("git commit -m 'deploying web'", ignore_error=True)
