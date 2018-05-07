@@ -38,7 +38,7 @@ the :ref:`CMake build tool<cmake_reference>`:
 
 .. seealso::
 
-    See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
+    See `CMake cross building wiki <https://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
 
 .. _conan_bash_path_env:
 

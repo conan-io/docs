@@ -21,7 +21,7 @@ There are some packages that do not follow semver, a popular one would be the Op
 The process to manage plain versions vs version-ranges is also different. The second one requires a "search" in the remote, which is orders of magnitude slower than direct retrieval of the reference (plain versions), so take it into account if you plan to use it for very large projects.
 
 
-Expressions are those defined and implemented by https://pypi.python.org/pypi/node-semver,
+Expressions are those defined and implemented by https://pypi.org/project/node-semver/,
 but using a comma instead of spaces. Accepted expressions would be:
 
 ..  code-block:: python

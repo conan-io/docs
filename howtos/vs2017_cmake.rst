@@ -151,7 +151,7 @@ the *CMakeSettings.json* file, and there you can change the ``configurationType`
   }
 
 Note that the above CMake code is only valid for consuming existing packages. If you are also creating a package, you
-would need to make sure the right CMake code is executed, please check https://github.com/conan-io/cmake-conan/blob/master/README.md#creating-packages
+would need to make sure the right CMake code is executed, please check https://github.com/conan-io/cmake-conan/blob/master/README.md
 
 Using tasks with tasks.vs.json
 ------------------------------

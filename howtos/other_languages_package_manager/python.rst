@@ -6,7 +6,7 @@ was designed with a great flexibility in mind, trying to let the users do almost
 the scripting language for Conan package recipes.
 
 With this flexibility, Conan is able to do very different tasks: package
-`Visual Studio modules <http://blog.conan.io/2016/06/01/Building-and-packaging-C++-modules-in-VS2015.html>`_,
+`Visual Studio modules <https://blog.conan.io/2016/06/01/Building-and-packaging-C++-modules-in-VS2015.html>`_,
 :ref:`package Go code <go_package_manager>`, build packages from sources or from binaries retrieved from elsewhere, etc.
 
 :ref:`Python code can be reused and packaged with Conan <python_reuse>` to share functionalities or tools among *conanfile.py* files. Here we can

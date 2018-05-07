@@ -21,7 +21,7 @@ The local workflow encourages users to do trial-and-error in a local sub-directo
 typically test building their projects with other build tools. The strategy is to test the *conanfile.py* methods individually during this
 phase.
 
-We will use the following `conan flow example <https://github.com/memsharded/example_conan_flow.git>`_ to follow the steps in the order below:
+We will use the following `conan flow example <https://github.com/memsharded/example_conan_flow>`_ to follow the steps in the order below:
 
 conan source
 ^^^^^^^^^^^^

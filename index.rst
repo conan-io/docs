@@ -4,7 +4,7 @@ Welcome to conan
 Conan is a portable package manager, intended for C and C++ developers, but it is able to manage
 builds from source, dependencies, and precompiled binaries for any language.
 
-For more information, check `conan.io <http://www.conan.io>`_.
+For more information, check `conan.io <https://conan.io>`_.
 
 Contents:
 

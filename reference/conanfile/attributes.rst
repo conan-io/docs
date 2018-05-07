@@ -372,7 +372,7 @@ The syntax is using brackets:
     class HelloConan(ConanFile):
         requires = "Pkg/[>1.0,<1.8]@user/stable"
 
-Expressions are those defined and implemented by [python node-semver](https://pypi.python.org/pypi/node-semver),
+Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/),
 but using a comma instead of spaces. Accepted expressions would be:
 
 ..  code-block:: python
@@ -720,6 +720,10 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
                 # we are installing the package
             else:
                 # we are building the package in a local directory
+
+
+.. _develop_attribute:
+
 
 develop
 -------

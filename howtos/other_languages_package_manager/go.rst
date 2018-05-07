@@ -84,7 +84,7 @@ And run the server:
     $ cd src/server
     $ go run main.go
 
-Open your browser and go to `localhost:9300`__
+Open your browser and go to `localhost:9300`
 
 .. code-block:: html
 
@@ -167,4 +167,3 @@ Now we are able to use them easily and without the problems of versioning with g
 
 
 .. _localhost: http://localhost:9300
-__ localhost_

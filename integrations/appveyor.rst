@@ -19,7 +19,7 @@ You can use Appveyor both for:
 Building and testing your project
 ------------------------------------
 
-We are going to use the :ref:`Google Test example<google_test_example>` now, with **AppVeyor** support to run the tests.
+We are going to use an example with GTest package, with **AppVeyor** support to run the tests.
 
 
 Clone the project from github:

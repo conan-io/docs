@@ -343,7 +343,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.29.2 (2-December-2017)
 -------------------------
 
-- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.python.org/pypi/pyOpenSSL
+- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL
 
 
 0.29.1 (23-November-2017)
@@ -1228,7 +1228,7 @@ As always, thanks very much to all contributors and users providing feedback.
 - Create and share your **own custom generators for any build system or tool**. With "generator packages",
   you can write a generator just as any other package, upload it, modify and version it, etc. Require
   them by reference, as any other package, and pull it into your projects dynamically.
-- **Premake4** initial experimental support via a generator package. Check https://www.conan.io/source/PremakeGen/0.1/memsharded/testing
+- **Premake4** initial experimental support via a generator package.
 - Very large **re-write of the documentation**. New "creating packages" sections with in-source and out-source explicit examples.
   Please read it! :)
 - Improved :command:`conan test`. Renamed ``test`` to *test_package* both for the command and the folder,
