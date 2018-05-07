@@ -32,13 +32,7 @@ if __name__ == "__main__":
 
     copytree("_build/html/", tmp_dir)
     call("git checkout gh-pages")
-    for entry in os.listdir("."):
-        if entry in excluded_files:
-            continue
-        if os.path.isdir(entry):
-            shutil.rmtree(entry)
-        else:
-            os.unlink(entry)
+    call("git pull origin gh-pages")
 
     if os.path.exists("en"):
         shutil.rmtree("en")
@@ -46,7 +40,7 @@ if __name__ == "__main__":
     os.mkdir("en")
     os.mkdir("en/latest")
     
-    copytree(tmp_dir, ".")
+    copytree(tmp_dir, "en/latest")
     call("git add -A .")
     call("git commit -m 'deploying web'", ignore_error=True)
     call("git push origin gh-pages", ignore_error=True)
