@@ -360,12 +360,21 @@ header-only libraries will be used. In this case, the settings that would affect
 shared) do not make sense, so we just clear them. That means, if someone consumes MyLib with the ``header_only=True`` option, the package
 downloaded and used will be the same, irrespective of the OS, compiler or architecture the consumer is building with.
 
+You can also restrict the settings used deleting any specific one. For example, it is quite common
+for C libraries to delete the ``libcxx`` as your library does not depend on any C++ standard
+library:
+
+.. code-block:: python
+
+    def configure(self):
+        del self.settings.compiler.libcxx
+
 The most typical usage would be the one with ``configure()`` while ``config_options()`` should be used more sparingly. ``config_options()``
 is used to configure or constraint the available options in a package, **before** they are given a value. So when a value is tried to be
 assigned it will raise an error. For example, let's suppose that a certain package library cannot be built as shared library in Windows, it
 can be done:
 
-..  code-block:: python
+.. code-block:: python
 
     def config_options(self):
         if self.settings.os == "Windows":
