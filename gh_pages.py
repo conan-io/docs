@@ -1,4 +1,3 @@
-
 import os
 import shutil
 import tempfile
@@ -38,7 +37,7 @@ def build_and_copy(branch, folder_name):
     call("git pull origin %s" % branch)
 
     call("make html")
-    # call("make linkcheck")
+    call("make linkcheck")
     tmp_dir = tempfile.mkdtemp()
     if os.path.exists(tmp_dir):
         shutil.rmtree(tmp_dir)
