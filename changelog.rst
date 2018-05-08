@@ -21,7 +21,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Added apple-clang 9.1
 
 
-
 1.3.1 (3-May-2018)
 ------------------
 
