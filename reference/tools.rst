@@ -726,7 +726,7 @@ tools.remove_from_path()
     remove_from_path(command)
 
 This is a context manager that allows you to remove a tool from the PATH. Conan will locate the executable
-(using tools.which) and will remove from the PATH the directory entry that contains it.
+(using ``tools.which()``) and will remove from the PATH the directory entry that contains it.
 It's not necessary to specify the extension.
 
 .. code-block:: python
@@ -883,6 +883,11 @@ tools.which()
     def which(filename)
 
 Returns the path to a specified executable searching in the ``PATH`` environment variable. If not found, it returns ``None``.
+
+This tool also looks for filenames with following extensions if no extension provided:
+
+- ``.com``, ``.exe``, ``.bat`` ``.cmd`` for Windows.
+- ``.sh`` if not Windows.
 
 .. code-block:: python
 
