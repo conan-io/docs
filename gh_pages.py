@@ -26,6 +26,7 @@ excluded_files = (".git", "CNAME", "index.html")
 
 
 def clean_gh_pages():
+    call("git fetch")
     call("git checkout gh-pages")
     call("git pull origin gh-pages")
     if os.path.exists("en"):
@@ -34,6 +35,7 @@ def clean_gh_pages():
 
 def build_and_copy(branch, folder_name):
     call("git checkout %s" % branch)
+    call("git pull origin %s" % branch)
 
     call("make html")
     # call("make linkcheck")
