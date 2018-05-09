@@ -11,6 +11,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
+1.4.0 ()
+------------------
+- Bugfix: Fixed reusing MSBuild() helper object for multi-configuration packages.
+- Bugfix: Fixed authentication using env vars such as ``CONAN_PASSWORD`` when ``CONAN_NON_INTERACTIVE=True``.
+
 1.3.2 (7-May-2018)
 ------------------
 
