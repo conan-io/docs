@@ -11,6 +11,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
+
+1.3.3 (10-May-2018)
+-------------------
+
+- Bugfix: Fixed encoding issues writing to files and calculating md5 sums.
+
+
 1.3.2 (7-May-2018)
 ------------------
 
