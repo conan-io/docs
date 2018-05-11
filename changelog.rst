@@ -15,6 +15,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 --------
 
 - Feature: AutoTools build helper now handles ``fPIC`` automatically.
+- Bugfix: Fixed reusing MSBuild() helper object for multi-configuration packages.
+- Bugfix: Fixed authentication using env vars such as ``CONAN_PASSWORD`` when ``CONAN_NON_INTERACTIVE=True``.
 
 1.3.2 (7-May-2018)
 ------------------
