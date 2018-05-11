@@ -14,7 +14,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
-- Feature: AutoTools build helpers no handles ``fPIC`` automatically.
+- Feature: AutoTools build helper now handles ``fPIC`` automatically.
 
 1.3.2 (7-May-2018)
 ------------------
