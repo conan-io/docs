@@ -20,6 +20,11 @@ Install with pip (recommended)
 To install Conan using ``pip``, you need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
 with pip pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
 
+.. warning::
+
+    Python 2 will by deprecated soon by the Python maintainers. It is strongly recommended to use Python 3 for conan, especially if need to manage non-ascii filenames or file contents.
+    Conan still supports Python 2, but some of the dependencies have started to be Python 3 only too. The roadmap for deprecating Python 2 support in Conan will be defined soon.
+
 Install conan:
 
 .. code-block:: bash
