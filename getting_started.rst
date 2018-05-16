@@ -227,8 +227,7 @@ The packages that have been used are installed from the remote repository that i
 
     $ conan search "zlib*" -r=conan-center
 
-There are other community repositories that can be configured and used, if you want to check them,
-please read :ref:`this section about remotes<remotes>`.
+There are other community repositories that can be configured and used, check them in :ref:`this section about remotes<remotes>`.
 
 Building with other configurations
 ----------------------------------
