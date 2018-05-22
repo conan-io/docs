@@ -18,6 +18,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
+- Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
 
 1.3.2 (7-May-2018)
 ------------------
