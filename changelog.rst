@@ -9,7 +9,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 .. important::
 
   Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
-  Please read more :ref:`about conan stability here<stability>`.
+  Please read more :ref:`about Conan stability<stability>`.
+
+1.4.0 ()
+--------
+
+- Bugfix: ``tools.which()`` returning directories instead of only files.
+- Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
+- Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 
 1.3.2 (7-May-2018)
 ------------------
