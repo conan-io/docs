@@ -64,6 +64,9 @@ def build_and_copy(branch, folder_name):
 
 
 def deploy():
+    if not os.getenv("TRAVIS_BRANCH", None) == "master":
+        print("Skipping deploy for not master branch")
+        return
     if not os.getenv("GITHUB_API_KEY"):
         print("Deploy skipped, missing GITHUB_API_KEY. Is this a PR?")
         return
