@@ -8,32 +8,33 @@ update them so they can maintain compatibility with old versions of Conan.
 
 Let's have a look at a basic example of this:
 
-.. code-block:: text
+.. code-block:: python
    :caption: conanfile.py
 
-from conans import ConanFile, CMake, __version__ as conan_version
-from conans.model.version import Version
+    from conans import ConanFile, CMake, __version__ as conan_version
+    from conans.model.version import Version
 
 
-class MyLibraryConan(ConanFile):
-    name = "mylibrary"
-    version = "1.0"
+    class MyLibraryConan(ConanFile):
+        name = "mylibrary"
+        version = "1.0"
 
-    def build(self):
-        if conan_version < Version("0.29"):
-            cmake = CMake(self.settings)
-        else:
-            cmake = CMake(self)
-    ...
+        def build(self):
+            if conan_version < Version("0.29"):
+                cmake = CMake(self.settings)
+            else:
+                cmake = CMake(self)
+        ...
 
-Here we are using the Conan version to maintain compatibility of the CMake build helper for versions
+Here it checks the Conan version to maintain compatibility of the CMake build helper for versions
 lower than Conan 0.29. It also uses the internal ``Version()`` class to perform the semver
 comparison in the if clause.
 
-If you want a example of a real recipe, here you have part of the
-`mingw_installer <https://github.com/conan-community/conan-mingw-installer>`_ recipe:
+You can find a real example of this in the
+`mingw_installer <https://github.com/conan-community/conan-mingw-installer>`_. Here you have the
+interesting part of the recipe:
 
-.. code-block:: text
+.. code-block:: python
    :caption: conanfile.py
 
     from conans import ConanFile, tools, __version__ as conan_version
@@ -59,6 +60,7 @@ If you want a example of a real recipe, here you have part of the
                                         "libcxx": ["libstdc++", "libstdc++11"],
                                         "threads": ["posix", "win32"],
                                         "exception": ["dwarf2", "sjlj", "seh"]}}}
+        ...
 
 You can see here the ``mingw_installer`` recipe uses new settings ``os_build`` and ``arch_build``
 since Conan 1.0 as those are the right ones for
