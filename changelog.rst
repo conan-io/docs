@@ -19,6 +19,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
 - Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
+- Feature: Visual Studio generator creates conanbuildinfo.props file using $(USERPROFILE) macro.
 
 
 1.4.0 ()
