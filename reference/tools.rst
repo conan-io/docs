@@ -1129,3 +1129,45 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .variables                  | get list of variables defined by the module                         |
 +-----------------------------+---------------------------------------------------------------------+
+
+
+.. _tools_git:
+
+tools.Git()
+-----------
+
+
+.. code-block:: python
+
+    class Git(object):
+
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
+
+
+Wrapper of the ``git`` tool.
+
+
+Parameters of the constructor:
+
+    - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
+    - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
+    - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
+
+Methods:
+
+
+- **run(command)**:
+    Run any "git" command. ``e.j run("status")``
+- **get_url_with_credentials(url)**:
+    Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **clone(url, branch=None)**:
+    Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the specified **folder** already exist you have to specify a ``branch``.
+- **checkout(element)**:
+    Checkout a branch, commit or tag.
+- **get_remote_url(remote_name=None)**:
+    Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
+- **get_revision()**:
+    Gets the current commit hash.

@@ -26,6 +26,11 @@ control. But if the source code is available in a repository, you can directly g
             self.run("git clone https://github.com/memsharded/hello.git")
             # You can also change branch, commit or whatever
             # self.run("cd hello && git checkout 2fe5...")
+            #
+            # Or using the Git class:
+            # git = tools.Git(folder="hello")
+            # git.clone("https://github.com/memsharded/hello.git", "static_shared")
+
 
 This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use
 another VCS or direct download/unzip. For that purpose, we have provided some helpers, but you can use your own code or origin as well. This
