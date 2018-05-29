@@ -275,6 +275,19 @@ You can also specify default option values of the required dependencies:
         requires = "Pkg/0.1@user/channel"
         default_options = "Pkg:pkg_option=value"
 
+You can also specify default option values of the conditional required dependencies:
+
+.. code-block:: python
+
+    class OtherPkg(ConanFile):
+        default_options = "Pkg:pkg_option=value"
+
+        def requirements(self):
+            if self.settings.os != "Windows":
+                self.requires("Pkg/0.1@user/channel")
+
+This will always work, on Windows the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every other os.
+
 If you need to dynamically set some dependency options, you could do:
 
 .. code-block:: python
