@@ -14,30 +14,26 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
-- Bugfix: ``tools.which()`` returning directories instead of only files.
-- Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
+- Feature: CMake() build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
+- Feature: Introduced default settings for GCC 8, Clang 7.
+- Feature: Introduced support for c++ language standard c++20.
+- Feature: AutoTools build helper now handles ``fPIC`` automatically.
+- Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
-- Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
-
-
-1.4.0 ()
---------
+- Bugfix: ``tools.which()`` returning directories instead of only files.
+- Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
 - Bugfix: Fixed reusing MSBuild() helper object for multi-configuration packages.
 - Bugfix: Fixed authentication using env vars such as ``CONAN_PASSWORD`` when ``CONAN_NON_INTERACTIVE=True``.
 - Bugfix: Fixed Android api_level was not used to adjust CMAKE_SYSTEM_VERSION.
 - Bugfix: Fixed MSBuild() build helper creating empty XML node for runtime when the setting was not declared.
 - Bugfix: Fixed ``default_options`` not supporting ``=`` in value when specified as tuple.
-- Feature: CMake() build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles"
-- Feature: Introduced default settings for GCC 8, Clang 7.
-- Feature: Introduced support for c++ language standard c++20.
 
 
 1.3.3 (10-May-2018)
 -------------------
 
 - Bugfix: Fixed encoding issues writing to files and calculating md5 sums.
-
 
 
 1.3.2 (7-May-2018)

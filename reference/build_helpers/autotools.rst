@@ -121,7 +121,8 @@ You can adjust the automatically filled values modifying the attributes like thi
 fpic
 ++++
 
-**Defaulted to**: ``None``
+**Defaulted to**: ``True`` if ``fPIC`` option exists and ``True`` or when ``fPIC`` exists and
+                  ``False`` but option ``shared`` exists and ``True``. Otherwise ``None``.
 
 Set it to ``True`` if you want to append the ``-fPIC`` flag.
 
