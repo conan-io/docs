@@ -132,7 +132,7 @@ html_theme_path = conan.get_html_theme_path()
 # further.  For a list of options available for each theme, see the
 # documentation.
 html_theme_options = {
-  "base_url": "http://docs.conan.io/en/latest/",
+  "base_url": "https://docs.conan.io/en/latest/",
 }
 
 # Add any paths that contain custom themes here, relative to this directory.
