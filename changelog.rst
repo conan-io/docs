@@ -14,7 +14,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
-- Feature: CMake() build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
+- Feature: AutoToolsBuildEnvironment build helper's ``pkg_config_paths`` parameter now sets paths relative to the install folder or absolute
+  ones if provided.
+- Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
+- Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
 - Feature: Introduced default settings for GCC 8, Clang 7.
 - Feature: Introduced support for c++ language standard c++20.
 - Feature: AutoTools build helper now handles ``fPIC`` automatically.
