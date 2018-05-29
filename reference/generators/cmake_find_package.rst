@@ -47,4 +47,8 @@ A target named ``{name}:{name}`` target is generated with the following properti
 - ``INTERFACE_LINK_LIBRARIES``: Library paths to link.
 - ``INTERFACE_COMPILE_DEFINITIONS``: Definitions of the library.
 
+The targets are transitive. So, if your project depends on a packages ``A`` and ``B``, and at the same time
+``A`` depends on ``C``, the ``A`` target will contain automatically the properties of the ``C`` dependency, so
+in your `CMakeLists.txt` file you only need to ``find_package(A)`` and ``find_package(B)``.
+
 

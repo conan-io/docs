@@ -3,12 +3,12 @@
 ``cmake_paths`` generator
 =========================
 
-This generator is specially useful if you are using ``CMake`` based only in the ``find_package``
-feature to locate the external dependencies.
+This generator is especially useful if you are using ``CMake`` based only on the ``find_package``
+feature to locate the dependencies.
 
 The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declaring:
 
-- ``CMAKE_MODULE_PATH`` with the folders of the required packages, to allow CMake to locating the included cmake scripts and ``FindXXX.cmake`` files.
+- ``CMAKE_MODULE_PATH`` with the folders of the required packages, to allow CMake to locate the included cmake scripts and ``FindXXX.cmake`` files.
   The folder containing the ``conan_paths.cmake`` (`self.install_folder` when used in a recipe) is also included,
   so any custom file will be located too. Check :ref:`cmake_find_package <cmake_find_package_generator>` generator.
 - ``CMAKE_PREFIX_PATH`` used by ``FIND_LIBRARY()`` to locate library files (.a, .lib, .so, .dll) in your packages.
@@ -40,10 +40,10 @@ The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declari
 
 
 In the example above, the ``zlib/1.2.11@conan/stable`` package is not packaging a custom ``FindZLIB.cmake`` file, but the ``FindZLIB.cmake``
-included in the CMake installation directory `/Modules` will locate the zlib library from the Conan package because of the ``CMAKE_PREFIX_PATH``
+included in the CMake installation directory (`/Modules`) will locate the zlib library from the Conan package because of the ``CMAKE_PREFIX_PATH``
 used by the ``FIND_LIBRARY()``.
 
-If the ``zlib/1.2.11@conan/stable`` had included a custom ``FindZLIB.cmake`` in the package root folder or any declared :ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`,
+If the ``zlib/1.2.11@conan/stable`` would had included a custom ``FindZLIB.cmake`` in the package root folder or any declared :ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`,
 it would have been located because of the ``CMAKE_MODULE_PATH`` variable.
 
 
@@ -95,7 +95,7 @@ Included in your CMakeLists.txt
 
 .. note::
 
-    The ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` contains the paths to the ``builddirs`` of every required package.
+    The ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` contain the paths to the ``builddirs`` of every required package.
     By default, the root package folder is the only declared ``builddirs`` directory.
     Check the :ref:`Reference/conanfile.py/attributes <cpp_info_attributes_reference>`.
 
