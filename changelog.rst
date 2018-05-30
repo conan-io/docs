@@ -14,6 +14,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
+- Feature: Added ``scm`` conanfile attribute, to easily clone/checkout from remote repositories and
+  to capture the remote and commit in the exported recipe when the recipe and the sources lives in the same repository.
+  Read more in ":ref:`Recipe and sources in a different repo <external_repo>`" and ":ref:`Recipe and sources in the same repo <package_repo>`".
 - Feature: Added :command:`conan search --json` json output to the command.
 - Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
 - Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
