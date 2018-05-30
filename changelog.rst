@@ -11,9 +11,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
-1.4.0 ()
---------
-
+1.4.0 (30-May-2018)
+-------------------
 
 - Feature: Added ``scm`` conanfile attribute, to easily clone/checkout from remote repositories and
   to capture the remote and commit in the exported recipe when the recipe and the sources lives in the same repository.
