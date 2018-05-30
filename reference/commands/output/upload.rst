@@ -11,7 +11,7 @@ information of the upload process.
 The output JSON contains a two first level keys:
 
   - **error**: ``True`` if the upload completed without error, ``False`` otherwise.
-  - **uploaded**: A list of installed packages. Each element contains:
+  - **uploaded**: A list of uploaded packages. Each element contains:
 
      - **recipe**: Document representing the uploaded recipe.
 
