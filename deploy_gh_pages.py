@@ -67,6 +67,11 @@ def deploy():
     if not os.getenv("TRAVIS_BRANCH", None) == "master":
         print("Skipping deploy for not master branch")
         return
+
+    if os.getenv("TRAVIS_PULL_REQUEST", "false") == "false":
+        print("Deploy skipped, This is a PR in the main repository")
+        return
+
     if not os.getenv("GITHUB_API_KEY"):
         print("Deploy skipped, missing GITHUB_API_KEY. Is this a PR?")
         return
