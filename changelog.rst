@@ -19,10 +19,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
 - Feature: Introduced default settings for GCC 8, Clang 7.
 - Feature: Introduced support for c++ language standard c++20.
-- Feature: AutoTools build helper now handles ``fPIC`` automatically.
 - Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
 - Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
 - Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
+- Feature: Generator ``virtualbuildenv`` now sets Visual Studio env vars via ``tool.vcvars_dict()``.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
 - Bugfix: ``tools.which()`` returning directories instead of only files.
