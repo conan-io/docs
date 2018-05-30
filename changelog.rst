@@ -14,10 +14,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
+- Feature: Added :command:`conan search --json` json output to the command.
 - Feature: CMake() build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
 - Feature: Introduced default settings for GCC 8, Clang 7.
 - Feature: Introduced support for c++ language standard c++20.
 - Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
+- Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
+- Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
 - Feature: Generator ``virtualbuildenv`` now sets Visual Studio env vars via ``tool.vcvars_dict()``.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
@@ -61,7 +64,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added new build types to default ``settings.yml``: **RelWithDebInfo** and **MinSizeRel**.
   Compiler flags will be automatically defined in build helpers that do not understand them (``MSBuild``, ``AutotoolsBuildEnvironment``)
 - Feature: Improved package integrity. Interrupted downloads or builds shouldn't leave corrupted packages.
-- Feature: Added ``conan upload --json`` json output to the command.
+- Feature: Added :command:`conan upload --json` json output to the command.
 - Feature: new :command:`conan remove --locks` to clear cache locks. Useful when killing conan.
 - Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
 - Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
