@@ -9,6 +9,7 @@ This section shows how to create, build and test your packages.
    :maxdepth: 2
 
    creating_packages/getting_started
+   creating_packages/external_repo
    creating_packages/package_repo
    creating_packages/package_dev_flow
    creating_packages/existing_binaries
