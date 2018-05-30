@@ -15,7 +15,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 --------
 
 - Feature: Added :command:`conan search --json` json output to the command.
-- Feature: CMake() build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
+- Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
+- Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
 - Feature: Introduced default settings for GCC 8, Clang 7.
 - Feature: Introduced support for c++ language standard c++20.
 - Feature: AutoTools build helper now handles ``fPIC`` automatically.
@@ -31,6 +32,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fixed Android api_level was not used to adjust CMAKE_SYSTEM_VERSION.
 - Bugfix: Fixed MSBuild() build helper creating empty XML node for runtime when the setting was not declared.
 - Bugfix: Fixed ``default_options`` not supporting ``=`` in value when specified as tuple.
+- Bugfix: AutoToolsBuildEnvironment build helper's ``pkg_config_paths`` parameter now sets paths relative to the install folder or absolute
+  ones if provided.
 
 
 1.3.3 (10-May-2018)

@@ -49,16 +49,19 @@ Constructor
     class CMake(object):
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
-                     parallel=True, build_type=None, toolset=None)
+                     parallel=True, build_type=None, toolset=None, make_program=None,
+                     set_cmake_flags=False)
 
 Parameters:
-    - **conanfile** (Required): Conanfile object. Usually ``self`` in a conanfile.py
+    - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
     - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`.
     - **build_type** (Optional, Defaulted to ``None``): Force the build type to be declared in ``CMAKE_BUILD_TYPE``. If you set this parameter the build type
       not will be taken from the settings.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
+    - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
+    - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
 
 Attributes
 ----------
@@ -181,7 +184,7 @@ configure()
 .. code-block:: python
 
     def configure(self, args=None, defs=None, source_folder=None, build_folder=None,
-                  cache_build_folder=None)
+                  cache_build_folder=None, pkg_config_paths=None)
 
 Configures `CMake` project with the given parameters.
 
@@ -195,6 +198,10 @@ Parameters:
     - **cache_build_folder** (Optional, Defaulted to ``None``): Use the given subfolder as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
+    - **pkg_config_paths** (Optional, Defaulted to ``None``): Specify folders (in a list) of relative paths to the install folder or
+      absolute ones where to find ``*.pc`` files (by using the env var ``PKG_CONFIG_PATH``). If ``None`` is specified but the conanfile
+      is using the ``pkg_config`` generator, the ``self.install_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to locate the
+      pc files of the requirements of the conanfile.
 
 build()
 +++++++
