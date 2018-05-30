@@ -14,6 +14,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
+- Feature: Added ``cmake_paths`` generator to create a file setting ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the packages folders.
+  It can be used as a CMake toolchain to perform a transparent CMake usage, without include any line of cmake code related to Conan.
+  Read more :ref:`here <cmake_paths_generator>`.
+- Feature: Added ``cmake_find_package`` generator that generates one ``FindXXX.cmake`` file per each dependency both with classic CMake approach and modern
+  using transitive CMake targets. Read more :ref:`here <cmake_find_package_generator>`.
 - Feature: Added :command:`conan search --json` json output to the command.
 - Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
 - Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
