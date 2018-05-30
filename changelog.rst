@@ -14,14 +14,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.0 ()
 --------
 
-- Feature: AutoToolsBuildEnvironment build helper's ``pkg_config_paths`` parameter now sets paths relative to the install folder or absolute
-  ones if provided.
+- Feature: Added :command:`conan search --json` json output to the command.
 - Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
 - Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
 - Feature: Introduced default settings for GCC 8, Clang 7.
 - Feature: Introduced support for c++ language standard c++20.
 - Feature: AutoTools build helper now handles ``fPIC`` automatically.
 - Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
+- Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
+- Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
 - Bugfix: ``tools.which()`` returning directories instead of only files.
@@ -31,6 +32,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fixed Android api_level was not used to adjust CMAKE_SYSTEM_VERSION.
 - Bugfix: Fixed MSBuild() build helper creating empty XML node for runtime when the setting was not declared.
 - Bugfix: Fixed ``default_options`` not supporting ``=`` in value when specified as tuple.
+- Bugfix: AutoToolsBuildEnvironment build helper's ``pkg_config_paths`` parameter now sets paths relative to the install folder or absolute
+  ones if provided.
 
 
 1.3.3 (10-May-2018)
@@ -64,7 +67,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added new build types to default ``settings.yml``: **RelWithDebInfo** and **MinSizeRel**.
   Compiler flags will be automatically defined in build helpers that do not understand them (``MSBuild``, ``AutotoolsBuildEnvironment``)
 - Feature: Improved package integrity. Interrupted downloads or builds shouldn't leave corrupted packages.
-- Feature: Added ``conan upload --json`` json output to the command.
+- Feature: Added :command:`conan upload --json` json output to the command.
 - Feature: new :command:`conan remove --locks` to clear cache locks. Useful when killing conan.
 - Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
 - Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
