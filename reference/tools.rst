@@ -32,11 +32,13 @@ tools.vcvars_command()
 
 .. code-block:: python
 
-    def vcvars_command(settings, arch=None, compiler_version=None, force=False)
+    def vcvars_command(settings, arch=None, compiler_version=None, force=False, vcvars_ver=None,
+                       winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It does not execute
-the command, as that typically have to be done in the same command as the compilation,
+Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
 
@@ -65,13 +67,16 @@ Parameters:
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
+    - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
+    - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
 
 tools.vcvars_dict()
 -------------------
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
+                vcvars_ver=None, winsdk_version=None, only_diff=True)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -90,6 +95,8 @@ Parameters:
     - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
+    - **only_diff** (Optional, Defaulted to ``True``): Returns only the variables set by
+      ``vcvarsall`` and not the whole environment.
 
 
 tools.vcvars()
@@ -1129,3 +1136,45 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .variables                  | get list of variables defined by the module                         |
 +-----------------------------+---------------------------------------------------------------------+
+
+
+.. _tools_git:
+
+tools.Git()
+-----------
+
+
+.. code-block:: python
+
+    class Git(object):
+
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
+
+
+Wrapper of the ``git`` tool.
+
+
+Parameters of the constructor:
+
+    - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
+    - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
+    - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
+
+Methods:
+
+
+- **run(command)**:
+    Run any "git" command. ``e.j run("status")``
+- **get_url_with_credentials(url)**:
+    Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **clone(url, branch=None)**:
+    Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the specified **folder** already exist you have to specify a ``branch``.
+- **checkout(element)**:
+    Checkout a branch, commit or tag.
+- **get_remote_url(remote_name=None)**:
+    Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
+- **get_revision()**:
+    Gets the current commit hash.

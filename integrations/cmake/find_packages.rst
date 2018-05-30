@@ -4,7 +4,8 @@ Find Packages
 
 If a FindXXX.cmake file for the library you are packaging is already available, it should work automatically.
 
-Variables **CMAKE_INCLUDE_PATH** and **CMAKE_LIBRARY_PATH** are set with the right requirements paths. CMake **find_library** function will be able to locate the libraries in the package's folders.
+Variables **CMAKE_INCLUDE_PATH** and **CMAKE_LIBRARY_PATH** are set with the right requirements paths.
+CMake **find_library** function will be able to locate the libraries in the package's folders.
 
 So, you can use **find_package** normally:
 
@@ -28,7 +29,14 @@ So, you can use **find_package** normally:
     endif()
 
 
-In addition to automatic **find_package** support, **CMAKE_MODULE_PATH** variable is set with your requirements root package paths. You can override the default behavior of any find_package() by creating a ``findXXX.cmake`` file in your package.
+In addition to automatic **find_package** support, **CMAKE_MODULE_PATH** variable is set with your requirements root package paths.
+You can override the default behavior of any find_package() by creating a ``findXXX.cmake`` file in your package.
+
+
+
+
+
+
 
 Creating a custom FindXXX.cmake file
 ------------------------------------

@@ -9,7 +9,40 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 .. important::
 
   Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
-  Please read more :ref:`about conan stability here<stability>`.
+  Please read more :ref:`about Conan stability<stability>`.
+
+1.4.0 ()
+--------
+
+
+- Feature: Added ``scm`` conanfile attribute, to easily clone/checkout from remote repositories and
+  to capture the remote and commit in the exported recipe when the recipe and the sources lives in the same repository.
+  Read more in ":ref:`Recipe and sources in a different repo <external_repo>`" and ":ref:`Recipe and sources in the same repo <package_repo>`".
+- Feature: Added ``cmake_paths`` generator to create a file setting ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the packages folders.
+  It can be used as a CMake toolchain to perform a transparent CMake usage, without include any line of cmake code related to Conan.
+  Read more :ref:`here <cmake_paths_generator>`.
+- Feature: Added ``cmake_find_package`` generator that generates one ``FindXXX.cmake`` file per each dependency both with classic CMake approach and modern
+  using transitive CMake targets. Read more :ref:`here <cmake_find_package_generator>`.
+- Feature: Added :command:`conan search --json` json output to the command.
+- Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
+- Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
+- Feature: Introduced default settings for GCC 8, Clang 7.
+- Feature: Introduced support for c++ language standard c++20.
+- Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
+- Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
+- Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
+- Feature: Generator ``virtualbuildenv`` now sets Visual Studio env vars via ``tool.vcvars_dict()``.
+- Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
+- Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
+- Bugfix: ``tools.which()`` returning directories instead of only files.
+- Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
+- Bugfix: Fixed reusing MSBuild() helper object for multi-configuration packages.
+- Bugfix: Fixed authentication using env vars such as ``CONAN_PASSWORD`` when ``CONAN_NON_INTERACTIVE=True``.
+- Bugfix: Fixed Android api_level was not used to adjust CMAKE_SYSTEM_VERSION.
+- Bugfix: Fixed MSBuild() build helper creating empty XML node for runtime when the setting was not declared.
+- Bugfix: Fixed ``default_options`` not supporting ``=`` in value when specified as tuple.
+- Bugfix: AutoToolsBuildEnvironment build helper's ``pkg_config_paths`` parameter now sets paths relative to the install folder or absolute
+  ones if provided.
 
 
 1.3.3 (10-May-2018)
@@ -21,9 +54,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.3.2 (7-May-2018)
 ------------------
 
-- Bugfix: Fixed md5 computation of conan .tgz files for the recipe, exported sources and packages due to file ordering and flags.
-- Bugfix: Fixed broken ``run_in_windows_bash`` due to the wrong argument.
+- Bugfix: Fixed broken ``run_in_windows_bash`` due to wrong argument.
 - Bugfix: Fixed ``VisualStudioBuildEnvironment`` when toolset was not defined.
+- Bugfix: Fixed md5 computation of conan .tgz files for recipe, exported sources and packages due to file ordering and flags.
 - Bugfix: Fixed ``conan download -p=wrong_id`` command
 - Fix: Added apple-clang 9.1
 
@@ -43,7 +76,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added new build types to default ``settings.yml``: **RelWithDebInfo** and **MinSizeRel**.
   Compiler flags will be automatically defined in build helpers that do not understand them (``MSBuild``, ``AutotoolsBuildEnvironment``)
 - Feature: Improved package integrity. Interrupted downloads or builds shouldn't leave corrupted packages.
-- Feature: Added ``conan upload --json`` json output to the command.
+- Feature: Added :command:`conan upload --json` json output to the command.
 - Feature: new :command:`conan remove --locks` to clear cache locks. Useful when killing conan.
 - Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
 - Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.

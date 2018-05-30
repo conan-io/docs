@@ -440,6 +440,8 @@ Exclude patterns are also possible, with the ``!`` prefix:
 This is an optional attribute, only to be used if the package recipe requires these other files
 for evaluation of the recipe.
 
+.. _exports_sources_attribute:
+
 exports_sources
 ---------------
 There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
@@ -547,6 +549,8 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
+.. _cpp_info_attributes_reference:
+
 cpp_info
 ---------
 
@@ -555,33 +559,33 @@ This attribute is only defined inside ``package_info()`` method, being None else
 The ``self.cpp_info`` object can be filled with the needed information for the consumers of the current
 package:
 
-+-------------------------------------------+---------------------------------------------------------------------+
-| NAME                                      | DESCRIPTION                                                         |
-+===========================================+=====================================================================+
-| self.cpp_info.includedirs                 | Ordered list with include paths, by default ['include']             |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.libdirs                     | Ordered list with lib paths, by default ['lib']                     |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.resdirs                     | Ordered list of resource (data) paths, by default ['res']           |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                 |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.builddirs                   | Ordered list with build scripts paths, by default ['']              |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.libs                        | Ordered list with the library names, by default empty []            |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.defines                     | Preprocessor definitions, by default empty []                       |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.cflags                      | Ordered list with pure C flags, by default empty []                 |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.cppflags                    | Ordered list with C++ flags, by default empty []                    |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags             | Ordered list with linker flags (shared libs), by default empty []   |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.exelinkflags                | Ordered list with linker flags (executables), by default empty []   |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info    |
-+-------------------------------------------+---------------------------------------------------------------------+
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| NAME                                      | DESCRIPTION                                                                                                                 |
++===========================================+=============================================================================================================================+
+| self.cpp_info.includedirs                 | Ordered list with include paths, by default ['include']                                                                     |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs                     | Ordered list with lib paths, by default ['lib']                                                                             |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs                     | Ordered list of resource (data) paths, by default ['res']                                                                   |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                                                                         |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs                   | Ordered list with build scripts paths, by default ['']. CMake will search in these dirs for cmake files, like findXXX.cmake |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs                        | Ordered list with the library names, by default empty []                                                                    |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines                     | Preprocessor definitions, by default empty []                                                                               |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags                      | Ordered list with pure C flags, by default empty []                                                                         |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags                    | Ordered list with C++ flags, by default empty []                                                                            |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags             | Ordered list with linker flags (shared libs), by default empty []                                                           |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags                | Ordered list with linker flags (executables), by default empty []                                                           |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info                                                            |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 
 .. seealso::
 
@@ -777,3 +781,40 @@ so they are not later unnecessarily repackaged.
 
 This behavior can be avoided declaring the ``keep_imports=True`` attribute. This can be useful, for example
 to :ref:`repackage artifacts <repackage>`
+
+
+.. _scm_attribute:
+
+scm
+---
+
+Used to clone/checkout a repository. It is a dictionary with the following possible values:
+
+.. code-block:: python
+
+    from conans import ConanFile, CMake, tools
+
+    class HelloConan(ConanFile):
+         scm = {
+            "type": "git",
+            "subfolder": "hello",
+            "url": "https://github.com/memsharded/hello.git",
+            "revision": "static_shared"
+         }
+        ...
+
+
+
+- **type** (Required): Currently only ``git`` supported. Others like ``svn`` will be added eventually.
+- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local directory.
+- **revision** (Required):
+    When type is ``git``, it can be a string with a branch name, a commit or a tag.
+- **subfolder** (Optional, Defaulted to ``.``): A subfolder where the repository will be cloned.
+- **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
+- **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+- **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+
+To know more about the usage of ``scm`` check:
+
+- :ref:`Creating packages/Recipe and sources in a different repo <external_repo>`
+- :ref:`Creating packages/Recipe and sources in the same repo <package_repo>`

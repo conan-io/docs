@@ -121,7 +121,8 @@ You can adjust the automatically filled values modifying the attributes like thi
 fpic
 ++++
 
-**Defaulted to**: ``None``
+**Defaulted to**: ``True`` if ``fPIC`` option exists and ``True`` or when ``fPIC`` exists and
+                  ``False`` but option ``shared`` exists and ``True``. Otherwise ``None``.
 
 Set it to ``True`` if you want to append the ``-fPIC`` flag.
 
@@ -195,7 +196,8 @@ configure()
 
 .. code-block:: python
 
-    def configure(self, configure_dir=None, args=None, build=None, host=None, target=None, pkg_config_paths=None, vars=None)
+    def configure(self, configure_dir=None, args=None, build=None, host=None, target=None,
+                  pkg_config_paths=None, vars=None)
 
 Configures `Autotools` project with the given parameters.
 
@@ -215,9 +217,10 @@ Parameters:
       value if cross-building is detected according to the settings. If ``False``, it will not use this argument at all.
     - **target** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--target``. If ``None`` it will try to detect the
       value if cross-building is detected according to the settings. If ``False``, it will not use this argument at all.
-    - **pkg_config_paths** (Optional, Defaulted to ``None``): To specify folders (in a list) where to find ``*.pc`` files (by using the env
-      var ``PKG_CONFIG_PATH``). If ``None`` is specified but the conanfile is using the ``pkg_config`` generator, the ``self.build_folder``
-      will be added to the ``PKG_CONFIG_PATH`` in order to locate the pc files of the requirements of the conanfile.
+    - **pkg_config_paths** (Optional, Defaulted to ``None``): Specify folders (in a list) of relative paths to the install folder or
+      absolute ones where to find ``*.pc`` files (by using the env var ``PKG_CONFIG_PATH``). If ``None`` is specified but the conanfile is
+      using the ``pkg_config`` generator, the ``self.install_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to locate the pc
+      files of the requirements of the conanfile.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the configure step.
 
 make()
