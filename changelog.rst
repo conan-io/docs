@@ -31,6 +31,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
 - Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
 - Feature: Generator ``virtualbuildenv`` now sets Visual Studio env vars via ``tool.vcvars_dict()``.
+- Feature: New tools for Apple development including XCRun wrapper.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
 - Bugfix: ``tools.which()`` returning directories instead of only files.
@@ -80,10 +81,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
 - Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
 - Feature: Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable.
-  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
+  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output.
 - Feature: New :command:`conan remote rename` and :command:`conan add --force` commands to handle remotes.
 - Feature: Added parameter ``use_env`` to the ``MSBuild().build()`` build helper method to control the ``/p:UseEnv`` msbuild argument.
 - Feature: Timeout for downloading files from remotes is now configurable (defaulted to 60 seconds)
+- Feature: Improved Autotools build helper with new parameters and automatic set of ``--prefix`` to ``self.package_folder``.
+- Feature: Added new tool to compose GNU like triplets for cross-building: ``tools.get_gnu_triplet()``
 - Fix: Use International Units for download/upload transfer sizes (Mb, Kb, etc).
 - Fix: Removed duplicated paths in ``cmake_multi`` generated files.
 - Fix: Removed false positive linter warning for local imports.

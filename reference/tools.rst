@@ -1051,7 +1051,6 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 
     Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
 
-
 tools.collect_libs()
 ---------------------
 
@@ -1137,12 +1136,10 @@ Parameters of the constructor:
 | .variables                  | get list of variables defined by the module                         |
 +-----------------------------+---------------------------------------------------------------------+
 
-
 .. _tools_git:
 
 tools.Git()
 -----------
-
 
 .. code-block:: python
 
@@ -1150,9 +1147,7 @@ tools.Git()
 
         def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
 
-
 Wrapper of the ``git`` tool.
-
 
 Parameters of the constructor:
 
@@ -1164,7 +1159,6 @@ Parameters of the constructor:
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
 
 Methods:
-
 
 - **run(command)**:
     Run any "git" command. ``e.j run("status")``
@@ -1178,3 +1172,90 @@ Methods:
     Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
 - **get_revision()**:
     Gets the current commit hash.
+
+tools.is_apple_os()
+-------------------
+
+.. code-block:: python
+
+    def is_apple_os(os_)
+
+Returns ``True`` if OS is an Apple one: Macos, iOS, watchOS or tvOS.
+
+Parameters:
+    - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.
+
+
+tools.to_apple_arch()
+---------------------
+
+.. code-block:: python
+
+    def to_apple_arch(arch)
+
+Converts conan-style architecture into Apple-style architecture.
+
+Parameters:
+    - **arch** (Required): arch to perform the conversion. Usually this would be ``self.settings.arch``.
+
+tools.apple_sdk_name()
+----------------------
+
+.. code-block:: python
+
+    def apple_sdk_name(settings)
+
+Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
+
+Parameters:
+    - **settings** (Required): Conanfile settings.
+
+
+tools.apple_deployment_target_env()
+-----------------------------------
+
+.. code-block:: python
+
+    def apple_deployment_target_env(os_, os_version)
+
+Environment variable name which controls deployment target: ``MACOSX_DEPLOYMENT_TARGET``, ``IOS_DEPLOYMENT_TARGET``,
+``WATCHOS_DEPLOYMENT_TARGET`` or ``TVOS_DEPLOYMENT_TARGET``.
+
+Parameters:
+    - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
+    - **os_version** (Required): OS version.
+
+tools.apple_deployment_target_flag()
+------------------------------------
+
+.. code-block:: python
+
+    def apple_deployment_target_flag(os_, os_version)
+
+Compiler flag name which controls deployment target. For example: ``-mappletvos-version-min=9.0``
+
+Parameters:
+    - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
+    - **os_version** (Required): OS version.
+
+tools.XCRun()
+-----------
+
+.. code-block:: python
+
+    class XCRun(object):
+
+        def __init__(self, settings, sdk=None):
+
+XCRun wrapper used to get information for building.
+
+Properties:
+    - **sdk_path**: Obtain SDK path (a.k.a. Apple sysroot or -isysroot).
+    - **sdk_version**: Obtain SDK version.
+    - **sdk_platform_path**: Obtain SDK platform path.
+    - **sdk_platform_version**: Obtain SDK platform version.
+    - **cc**: Path to C compiler (CC).
+    - **cxx**: Path to C++ compiler (CXX).
+    - **ar**: Path to archiver (AR).
+    - **ranlib**: Path to archive indexer (RANLIB).
+    - **strip**: Path to symbol removal utility (STRIP).
