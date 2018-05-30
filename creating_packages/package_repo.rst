@@ -118,8 +118,6 @@ remote and commit of the local repository:
          }
         ...
 
-        def source(self):
-            ...
 
 The ``conanfile.py`` can be commited and pushed to your origin repository, and will keep always the "auto"
 values. But when the file is exported to the conan local cache, the copied recipe in the local cache,
@@ -138,9 +136,6 @@ will point to the captured remote and commit:
             "revision": "437676e15da7090a1368255097f51b1a470905a0"
          }
         ...
-
-        def source(self):
-            ...
 
 
 So when you :ref:`upload the recipe <uploading_packages>` to a conan remote, the recipe will contain

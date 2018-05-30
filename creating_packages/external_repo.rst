@@ -54,11 +54,8 @@ You can also use the :ref:`tools.Git <tools_git>` class:
          }
         ...
 
-        def source(self):
-            ...
 
-
-Before calling the ``source()`` method, conan will clone the ``scm url`` and will checkout the ``scm revision``.
+Conan will clone the ``scm url`` and will checkout the ``scm revision``.
 
 For ``git`` (currently the only supported scm), the ``revision`` field can be:
 
@@ -67,4 +64,4 @@ For ``git`` (currently the only supported scm), the ``revision`` field can be:
 - A tag
 
 The ``source()`` method will be called after the checkout process, so you can still use is to patch something or
-retrieve more sources.
+retrieve more sources, but it is not necessary in most cases.
