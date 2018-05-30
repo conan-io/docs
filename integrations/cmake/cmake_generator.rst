@@ -23,7 +23,7 @@ The inclusion of ``conanbuildinfo.cmake`` doesn't alter cmake environment at all
 
 
 Global variables approach
--------------------------------
+-------------------------
 
 The simplest way to consume it would be to invoke the ``conan_basic_setup()`` macro, which will basically
 set global include directories, libraries directories, definitions, etc. so typically is enough to do:
@@ -41,7 +41,7 @@ something different, you can just use them individually.
 
 
 Targets approach
--------------------------------
+----------------
 
 For **modern cmake (>=3.1.2)**, you can use the following approach:
 

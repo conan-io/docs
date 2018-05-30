@@ -40,8 +40,8 @@ version = "1.4"
 # The full version, including alpha/beta/rc tags.
 release = u'1.4.0'
 
-versions_dict = {"develop": "latest",  # Change with master
-                 "release/1.3.2": "1.3"}
+versions_dict = {"master": "latest",  # Change with master
+                 "release/1.3.3": "1.3"}
 
 
 # The version info for the project you're documenting, acts as replacement for
