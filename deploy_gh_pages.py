@@ -68,7 +68,7 @@ def deploy():
         print("Skipping deploy for not master branch")
         return
 
-    if os.getenv("TRAVIS_PULL_REQUEST", "false") == "false":
+    if os.getenv("TRAVIS_PULL_REQUEST", "") != "false":
         print("Deploy skipped, This is a PR in the main repository")
         return
 
