@@ -32,11 +32,13 @@ tools.vcvars_command()
 
 .. code-block:: python
 
-    def vcvars_command(settings, arch=None, compiler_version=None, force=False)
+    def vcvars_command(settings, arch=None, compiler_version=None, force=False, vcvars_ver=None,
+                       winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It does not execute
-the command, as that typically have to be done in the same command as the compilation,
+Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
 
@@ -65,13 +67,16 @@ Parameters:
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
+    - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
+    - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
 
 tools.vcvars_dict()
 -------------------
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
+                vcvars_ver=None, winsdk_version=None, only_diff=True)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -90,6 +95,8 @@ Parameters:
     - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
+    - **only_diff** (Optional, Defaulted to ``True``): Returns only the variables set by
+      ``vcvarsall`` and not the whole environment.
 
 
 tools.vcvars()
