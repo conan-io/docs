@@ -359,7 +359,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.29.2 (2-December-2017)
 -------------------------
 
-- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL
+- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL/
 
 
 0.29.1 (23-November-2017)
