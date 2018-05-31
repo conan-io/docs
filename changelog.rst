@@ -11,6 +11,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.4 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+
+1.4.1 (31-May-2018)
+-------------------
+
+- Bugfix: Solved issue with symlinks making recipes to fail with `self.copy`.
+- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the ``settings.yml`` containing the settings values.
+- Bugfix: Fixed error with cased directory names in Windows.
+- BugFix: Modified confusing warning message in the SCM tool when the remote couldn't be detected.
+
+
 1.4.0 (30-May-2018)
 -------------------
 
