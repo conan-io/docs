@@ -10,6 +10,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.2 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about conan stability here<stability>`.
 
+1.5.0 ()
+--------
+
+- Added new default os_targets in settings.yml
+
 1.3.0 ()
 --------
 
