@@ -38,7 +38,7 @@ extensions = [
 # The short X.Y version.
 version = "1.4"
 # The full version, including alpha/beta/rc tags.
-release = u'1.4.0'
+release = u'1.4.1'
 
 versions_dict = {"master": "latest",  # Change with master
                  "release/1.3.3": "1.3"}
