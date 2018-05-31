@@ -37,12 +37,13 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name):
+def build_and_copy(branch, folder_name, validate_links=False):
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
 
     call("make html")
-    call("make linkcheck")
+    if validate_links:
+        call("make linkcheck")
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
@@ -86,6 +87,6 @@ if __name__ == "__main__":
     clean_gh_pages()
 
     for branch, folder_name in versions_dict.items():
-        build_and_copy(branch, folder_name)
+        build_and_copy(branch, folder_name, validate_links=branch == "master")
 
     deploy()
