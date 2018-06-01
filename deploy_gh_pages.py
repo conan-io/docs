@@ -88,7 +88,7 @@ if __name__ == "__main__":
     config_git()
     clean_gh_pages()
 
-    versions_dict = {"master": "latest",
+    versions_dict = {"master": "1.4",
                      "release/1.3.3": "1.3"}
     for branch, folder_name in versions_dict.items():
         build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")

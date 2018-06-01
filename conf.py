@@ -42,7 +42,7 @@ version = "1.4"
 release = u'1.4.1'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-json_data=open(os.path.join(dir_path, "versions.json")).read()
+json_data = open(os.path.join(dir_path, "versions.json")).read()
 data = json.loads(json_data)
 versions_dict = data
 
