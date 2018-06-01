@@ -9,8 +9,8 @@
       <dl>
         <dt>{{ _('Versions') }}</dt>
         {% for slug, the_version in versions.items() %}
-           {% if the_version == "latest" %}
-                <dd><a href="/en/latest/index.html">{{ current_version }}</a></dd>
+           {% if slug == "master" %}
+                <dd><a href="/en/latest/index.html">{{ the_version }}</a></dd>
            {% else %}
                 <dd><a href="/en/{{ the_version }}/index.html">{{ the_version }}</a></dd>
            {% endif %}
