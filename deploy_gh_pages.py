@@ -1,8 +1,7 @@
+import json
 import os
 import shutil
 import tempfile
-
-from pylint.reporters import json
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
