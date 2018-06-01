@@ -2,7 +2,7 @@ import os
 import shutil
 import tempfile
 
-from conf import versions_dict
+from pylint.reporters import json
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -37,9 +37,12 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name, validate_links=False):
+def build_and_copy(branch, folder_name, versions_available, validate_links=False):
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
+
+    with open('versions.json', 'w') as f:
+        f.write(json.dumps(versions_available))
 
     call("make html")
     if validate_links:
@@ -86,7 +89,9 @@ if __name__ == "__main__":
     config_git()
     clean_gh_pages()
 
+    versions_dict = {"master": "latest",
+                     "release/1.3.3": "1.3"}
     for branch, folder_name in versions_dict.items():
-        build_and_copy(branch, folder_name, validate_links=branch == "master")
+        build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
 
     deploy()

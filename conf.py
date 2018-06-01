@@ -14,6 +14,7 @@
 
 import sys
 import os
+import json
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -40,9 +41,10 @@ version = "1.4"
 # The full version, including alpha/beta/rc tags.
 release = u'1.4.1'
 
-versions_dict = {"master": "latest",  # Change with master
-                 "release/1.3.3": "1.3"}
-
+dir_path = os.path.dirname(os.path.realpath(__file__))
+json_data=open(os.path.join(dir_path, "versions.json")).read()
+data = json.loads(json_data)
+versions_dict = data
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
