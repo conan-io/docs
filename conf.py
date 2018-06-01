@@ -12,6 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+import json
 import sys
 import os
 
@@ -39,8 +40,10 @@ extensions = [
 version = "1.3"
 # The full version, including alpha/beta/rc tags.
 release = u'1.3.3'
-versions_dict = {"master": "latest"}  #,
-               # "release/1.4.0": "1.4"}
+dir_path = os.path.dirname(os.path.realpath(__file__))
+json_data=open(os.path.join(dir_path, "versions.json")).read()
+data = json.loads(json_data)
+versions_dict = data
 
 
 # The version info for the project you're documenting, acts as replacement for
