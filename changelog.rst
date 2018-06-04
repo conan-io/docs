@@ -12,6 +12,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.4.2 (4-June-2018)
+-------------------
+
+- Bugfix: Fixed multi-config packages.
+- Bugfix: Fixed `cppstd` management with CMake and 20 standard version.
+
+
+
 1.4.1 (31-May-2018)
 -------------------
 
