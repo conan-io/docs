@@ -56,7 +56,7 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
     if not os.path.exists("en"):
         os.mkdir("en")
 
-    version_folder = "en/%s" % folder_name
+    version_folder = "en/%s" % (folder_name if branch != "master" else "latest")
     if os.path.exists(version_folder):
         shutil.rmtree(version_folder)
 
