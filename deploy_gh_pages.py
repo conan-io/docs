@@ -56,14 +56,18 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
     if not os.path.exists("en"):
         os.mkdir("en")
 
-    version_folder = "en/%s" % (folder_name if branch != "master" else "latest")
-    if os.path.exists(version_folder):
-        shutil.rmtree(version_folder)
+    version_folders = ["en/%s" % folder_name]
+    if branch == "master":
+        version_folders.append("latest")
 
-    os.mkdir(version_folder)
-    copytree(tmp_dir, version_folder)
-    call("git add -A .")
-    call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
+    for version_folder in version_folders:
+        if os.path.exists(version_folder):
+            shutil.rmtree(version_folder)
+
+        os.mkdir(version_folder)
+        copytree(tmp_dir, version_folder)
+        call("git add -A .")
+        call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
 
 
 def deploy():
