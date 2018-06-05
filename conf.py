@@ -42,8 +42,11 @@ version = "1.4"
 release = u'1.4.2'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-json_data = open(os.path.join(dir_path, "versions.json")).read()
-data = json.loads(json_data)
+if not os.path.exists(os.path.join(dir_path, "versions.json")):
+    data = {"master": version}
+else:
+    json_data = open().read()
+    data = json.loads(json_data)
 versions_dict = data
 
 # The version info for the project you're documenting, acts as replacement for
