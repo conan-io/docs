@@ -45,8 +45,9 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
     data = {"master": version}
 else:
-    json_data = open().read()
-    data = json.loads(json_data)
+    with open("versions.json") as f:
+        json_data = f.read()
+        data = json.loads(json_data)
 versions_dict = data
 
 # The version info for the project you're documenting, acts as replacement for
