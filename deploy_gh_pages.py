@@ -58,7 +58,7 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
 
     version_folders = ["en/%s" % folder_name]
     if branch == "master":
-        version_folders.append("latest")
+        version_folders.append("en/latest")
 
     for version_folder in version_folders:
         if os.path.exists(version_folder):
