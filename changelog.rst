@@ -12,6 +12,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.4.3 (6-June-2018)
+-------------------
+
+- Bugfix: Added system libraries to the cmake_find_package generator.
+- Fix: Added SIGTERM signal handler to quit safely.
+- Bugfix: Fixed miss-detection of gcc 1 when no gcc was on a Linux machine.
+
+
 1.4.2 (4-June-2018)
 -------------------
 
