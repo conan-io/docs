@@ -1173,6 +1173,10 @@ Methods:
 - **get_revision()**:
     Gets the current commit hash.
 
+
+.. _tools_apple:
+
+
 tools.is_apple_os()
 -------------------
 
@@ -1239,7 +1243,7 @@ Parameters:
     - **os_version** (Required): OS version.
 
 tools.XCRun()
------------
+-------------
 
 .. code-block:: python
 

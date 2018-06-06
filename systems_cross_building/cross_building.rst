@@ -377,7 +377,32 @@ Finally, when you want to cross-build a library, the profile to be used, will in
 section with the reference to our new packaged toolchain. Also will contain a ``[settings]`` section
 with the same settings of the examples above.
 
-You can
+
+.. _darwin_toolchain:
+
+Example: Darwin Toolchain
+.........................
+
+Check the `Darwin Toolchain <https://github.com/theodelrieu/conan-darwin-toolchain>`_  package in conan-center.
+You can use a profile like the following to cross build your packages for ``iOS``,  ``watchOS`` and ``tvOS``:
+
+.. code-block:: text
+    :caption: ios_profile
+
+    include(default)
+
+    [settings]
+    os=iOS
+    os.version=9.0
+    arch=armv7
+
+    [build_requires]
+    darwin-toolchain/1.0@theodelrieu/stable
+
+
+.. code-block:: bash
+
+    $ conan install . --profile ios_profile
 
 .. seealso::
 
