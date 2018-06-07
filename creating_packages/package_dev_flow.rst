@@ -64,7 +64,7 @@ Conan has multiple methods and attributes which relate to dependencies (all the 
 
 .. code-block:: bash
 
-    $ conan install . --install-folder=tmp/install_build [--profile XXXX]
+    $ conan install . --install-folder=tmp/build [--profile XXXX]
 
     PROJECT: Installing C:\Users\conan\example_conan_flow\conanfile.py
     Requirements
@@ -92,7 +92,7 @@ we will use the folder of the install step.
 
 .. code-block:: bash
 
-    $ conan build . --source-folder=tmp/source --install-folder=tmp/install_build --build-folder=tmp/install_build
+    $ conan build . --source-folder=tmp/source --build-folder=tmp/build
 
     Project: Running build()
     ...
@@ -101,6 +101,8 @@ we will use the folder of the install step.
         0 Error(s)
 
     Time Elapsed 00:00:03.34
+
+Here we can avoid the repetition of ``--install-folder=tmp/build`` and it will be defaulted to the ``--build-folder`` value.
 
 This is pretty straightforward, but it does add a very helpful new shortcut for people who are packaging their own library. Now, developers
 can make changes in their normal source directory and just pass that path as the ``--source-folder``.
@@ -124,7 +126,7 @@ install folder and built artifacts from the build folder.
 
 .. code-block:: bash
 
-    $ conan package . --source-folder=tmp/source --install-folder=tmp/install_build --build-folder=tmp/install_build --package-folder=tmp/package
+    $ conan package . --source-folder=tmp/source --build-folder=tmp/build --package-folder=tmp/package
 
     PROJECT: Generating the package
     PROJECT: Package folder C:\Users\conan\example_conan_flow\tmp\package
@@ -165,7 +167,7 @@ There are 2 modes of operation:
 
 ..  code-block:: bash
 
-    $ conan export-pkg . user/testing --source-folder=tmp/source --install-folder=tmp/install_build --build-folder=tmp/install_build
+    $ conan export-pkg . user/testing --source-folder=tmp/source --build-folder=tmp/build
 
     Packaging to 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
     Hello/0.1@user/channel: Generating the package
@@ -220,8 +222,8 @@ conan create
 Now we know we have all the steps of a recipe working. Thus, now is an appropriate time to try to run the recipe all the way through, and
 put it completely in the local cache.
 
-The usual command for this is :command:`conan create` and it basically performs the previous commands with :command:`conan test` for the `test_package`
-folder:
+The usual command for this is :command:`conan create` and it basically performs the previous commands with :command:`conan test` for the
+*test_package* folder:
 
 .. code-block:: bash
 
