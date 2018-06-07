@@ -1,8 +1,8 @@
 Package development flow
 ========================
 
-In the previous examples, we used :command:`conan create` command to create a package of our library. Every time we run it, conan will perform
-some costly operations:
+In the previous examples, we used :command:`conan create` command to create a package of our library. Every time we run it, Conan will
+perform some costly operations:
 
 1. Copy the sources to a new and clean build folder.
 2. Build the entire library from scratch.
@@ -21,13 +21,13 @@ The local workflow encourages users to do trial-and-error in a local sub-directo
 typically test building their projects with other build tools. The strategy is to test the *conanfile.py* methods individually during this
 phase.
 
-We will use the following `conan flow example <https://github.com/memsharded/example_conan_flow>`_ to follow the steps in the order below:
+We will use this `conan flow example <https://github.com/memsharded/example_conan_flow>`_ to follow the steps in the order below.
 
 conan source
 ^^^^^^^^^^^^
 
-You will generally want to start off with the :command:`conan source` command. The strategy here is that you’re testing your source method in
-isolation, and downloading the files to a temporary sub-folder relative to the *conanfile.py*. This just makes it easier to get to the
+You will generally want to start off with the :command:`conan source` command. The strategy here is that you’re testing your source method
+in isolation, and downloading the files to a temporary sub-folder relative to the *conanfile.py*. This just makes it easier to get to the
 sources and validate them.
 
 This method outputs the source files into the source-folder.
@@ -64,7 +64,7 @@ Conan has multiple methods and attributes which relate to dependencies (all the 
 
 .. code-block:: bash
 
-    $ conan install . --install-folder=tmp/install [--profile XXXX]
+    $ conan install . --install-folder=tmp/build [--profile XXXX]
 
     PROJECT: Installing C:\Users\conan\example_conan_flow\conanfile.py
     Requirements
@@ -79,7 +79,8 @@ conan build
 ^^^^^^^^^^^
 
 The build method takes a path to a folder that has sources and also to the install folder to get the information of the settings and
-dependencies. It uses a path to a folder where it will perform the build.
+dependencies. It uses a path to a folder where it will perform the build. In this case, as we are including the file *conanbuildinfo.cmake*
+we will use the folder of the install step.
 
 +--------------------+------------------+
 | Input folders      | Output folders   |
@@ -91,7 +92,7 @@ dependencies. It uses a path to a folder where it will perform the build.
 
 .. code-block:: bash
 
-    $ conan build . --source-folder=tmp/source --install-folder=tmp/install --build-folder=tmp/build
+    $ conan build . --source-folder=tmp/source --build-folder=tmp/build
 
     Project: Running build()
     ...
@@ -101,15 +102,17 @@ dependencies. It uses a path to a folder where it will perform the build.
 
     Time Elapsed 00:00:03.34
 
-This is pretty strightforward, but it does add a very helpful new shortcut for people who are packaging their own library. Now, developers
+Here we can avoid the repetition of ``--install-folder=tmp/build`` and it will be defaulted to the ``--build-folder`` value.
+
+This is pretty straightforward, but it does add a very helpful new shortcut for people who are packaging their own library. Now, developers
 can make changes in their normal source directory and just pass that path as the ``--source-folder``.
 
 conan package
 ^^^^^^^^^^^^^
 
 Just as it sounds, this command now simply runs the ``package()`` method of a recipe. It needs all the information of the other folders in
-order to collect the needed information for the package: header files from source folder, settings and depency information from the install
-folder and built artifacts from the build folder.
+order to collect the needed information for the package: header files from source folder, settings and dependency information from the
+install folder and built artifacts from the build folder.
 
 +--------------------+--------------------+
 | Input folders      | Output folders     |
@@ -123,7 +126,7 @@ folder and built artifacts from the build folder.
 
 .. code-block:: bash
 
-    $ conan package . --source-folder=tmp/source --install-folder=tmp/install --build-folder=tmp/build --package-folder=tmp/package
+    $ conan package . --source-folder=tmp/source --build-folder=tmp/build --package-folder=tmp/package
 
     PROJECT: Generating the package
     PROJECT: Package folder C:\Users\conan\example_conan_flow\tmp\package
@@ -155,16 +158,16 @@ This parameters takes the same parameters as ``package()``.
 There are 2 modes of operation:
 
 - Using ``source-folder`` and ``build-folder``will use the ``package()`` method to extract the artifacts from those 
-  folders and create the package, directly in the conan local cache. Strictly speaking, it doesn't require executing
-  a ``$ conan package`` before, as it packages directly from those source and build folder, though ``$ conan package``
+  folders and create the package, directly in the Conan local cache. Strictly speaking, it doesn't require executing
+  a :command:`conan package` before, as it packages directly from those source and build folder, though :command:`conan package`
   is still recommended in the dev-flow to debug the ``package()`` method.
 - Using the ``package-folder`` argument (incompatible with the above 2), will not use the ``package()`` method,
   it will do an exact copy of the provided folder. It assumes the package has already been created by a previous
-  ``$ conan package`` command or with a ``$ conan build`` command with a ``build()`` method running a ``cmake.install()``.
+  :command:`conan package` command or with a :command:`conan build` command with a ``build()`` method running a ``cmake.install()``.
 
 ..  code-block:: bash
 
-    $ conan export-pkg . user/testing --source-folder=tmp/source --install-folder=tmp/install --build-folder=tmp/build
+    $ conan export-pkg . user/testing --source-folder=tmp/source --build-folder=tmp/build
 
     Packaging to 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
     Hello/0.1@user/channel: Generating the package
@@ -219,8 +222,8 @@ conan create
 Now we know we have all the steps of a recipe working. Thus, now is an appropriate time to try to run the recipe all the way through, and
 put it completely in the local cache.
 
-The usual command for this is :command:`conan create` and it basically performs the previous commands with :command:`conan test` for the `test_package`
-folder:
+The usual command for this is :command:`conan create` and it basically performs the previous commands with :command:`conan test` for the
+*test_package* folder:
 
 .. code-block:: bash
 
