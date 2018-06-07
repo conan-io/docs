@@ -11,7 +11,8 @@ If you are using :ref:`Jenkins with Conan and Artifactory<jenkins_integration>`,
 any Conan package downloaded or uploaded during your build will be automatically recorded in
 the BuilInfo json file, that will be automatically uploaded to the specified Artifactory instance.
 
-Otherwise you can do it manually:
+However, you can gather and upload that information using other CI infraestructure with the following steps:
+
 
 1. Before calling Conan the first time in your build, set the environment variable `CONAN_TRACE_FILE` to a
    file path. The generated file will contain the `BuildInfo json <https://www.jfrog.com/confluence/display/RTF/Build+Integration#BuildIntegration-BuildInfoJSON>`_.
