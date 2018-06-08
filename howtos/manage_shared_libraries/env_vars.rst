@@ -66,7 +66,7 @@ Using the tool from a different package
 ---------------------------------------
 
 If we are creating now a package that uses the ``ToolA`` executable to compress some data. You can
-call directly``toolA.exe`` using RunEnvironment build helper to set the environment variables accrodingly:
+execute directly ``toolA`` using RunEnvironment build helper to set the environment variables accordingly:
 
 .. code-block:: python
 
