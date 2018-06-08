@@ -47,7 +47,6 @@ you will need to have the shared library available.
         options = {"shared": [True, False]}
         default_options = "shared=False"
 
-
         def build(self):
             # build your shared library
 
@@ -63,19 +62,11 @@ you will need to have the shared library available.
             else:
                 ...
 
-
-        def package_info(self):
-            self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
-            if self.options.shared:
-                self.env_info.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
-                self.env_info.DYLD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
-
 Using the tool from a different package
 ---------------------------------------
 
 If we are creating now a package that uses the ``ToolA`` executable to compress some data. You can
-call directly to the ``toolA.exe``, the required environment variables to locate both the executable
-and the shared libraries are automatically available:
+call directly``toolA.exe`` using RunEnvironment build helper to set the environment variables accrodingly:
 
 .. code-block:: python
 
@@ -83,18 +74,16 @@ and the shared libraries are automatically available:
     from conans import tools, ConanFile
 
     class PackageB(ConanFile):
-        ....
         name = "packageB"
         version = "1.0"
         requires = "toolA/1.0@myuser/stable"
 
-
         def build(self):
-            ...
-            # we can call directly the ``toolA`` executable. the shared library will be located too
             exe_name = "toolA.exe" if self.settings.os == "Windows" else "toolA"
-            self.run("%s --someparams" % exe_name)
-            ...
+            env_build = RunEnvironment(self)
+            with tools.environment_append(env_build.vars):
+                self.run("%s --someparams" % exe_name)
+                ...
 
 Building an application using the shared library from ``toolA``
 ---------------------------------------------------------------
@@ -149,47 +138,23 @@ runtime. In Windows, it is enough if the package added its binary folder to the 
 
 Security restrictions might apply in OSX
 (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
-``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitely in
-your conanfile.py:
+``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitly in
+your *conanfile.py*:
 
 .. code-block:: python
 
     def test(self):
         # self.run('./myexe") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
-        self.run('DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
+        with tools.environment_append({"DYLD_LIBRARY_PATH": [self.deps_cpp_info["toolA"].lib_paths]}):
+            self.run('DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
 
-Using ``virtualenv`` generator
-------------------------------
-
-We could also use a :ref:`virtualenv generator<virtual_environment_generator>` to get the
-``toolA`` executable available:
-
-.. code-block:: python
-   :caption: *conanfile.txt*
-
-    [requires]
-    toolA/1.0@myuser/stable
-
-    [options]
-    toolA:shared=True
-
-    [generators]
-    virtualenv
-
-In the terminal window:
-
-.. code-block:: bash
-
-    $ conan install .
-    $ source activate
-    $ toolA --someparams
+Or you could use ``RunEnvironment`` helper described above.
 
 Using ``virtualrunenv`` generator
 ---------------------------------
 
-Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
-the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically
-the environment variables pointing to *lib* and *bin* folders.
+:ref:`virtualrunenv generator<virtual_run_environment_generator>` will set the environment variables ``PATH``, ``LD_LIBRARY_PATH``,
+``DYLD_LIBRARY_PATH`` pointing to *lib* and *bin* folders automatically.
 
 .. code-block:: python
    :caption: *conanfile.txt*
