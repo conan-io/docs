@@ -14,6 +14,7 @@
 
 import sys
 import os
+from shutil import copyfile
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -372,3 +373,18 @@ epub_exclude_files = ['search.html']
 
 # If false, no index is generated.
 #epub_use_index = True
+
+
+redirect_files = ['creating_packages/package_dev_flow.html']
+
+# copy legacy redirects
+def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
+    if app.builder.name == 'html':
+        for html_src_path in redirect_files:
+            target_path = app.outdir + '/' + html_src_path
+            src_path = app.srcdir + '/' + html_src_path
+        if os.path.isfile(src_path):
+            copyfile(src_path, target_path)
+
+def setup(app):
+    app.connect('build-finished', copy_legacy_redirects)
