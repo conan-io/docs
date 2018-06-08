@@ -24,10 +24,8 @@ the right environment variable set, so they will be able to locate the (A) share
 Similarly if you use the :ref:`virtualenv generator<virtual_environment_generator>` and you
 activate it, you will get the paths needed to locate the shared libraries in your terminal.
 
-
 Example
 -------
-
 
 We are packaging a tool called ``toolA`` with a library and an executable that, for example, compress data.
 
@@ -72,8 +70,6 @@ you will need to have the shared library available.
                 self.env_info.LD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
                 self.env_info.DYLD_LIBRARY_PATH.append(os.path.join(self.package_folder, "lib"))
 
-
-
 Using the tool from a different package
 ---------------------------------------
 
@@ -107,9 +103,8 @@ As we are building a final application, probably we will want to distribute it t
 shared library from the ``toolA``, so we can use the :ref:`Imports<imports_txt>` to import the required
 shared libraries to our user space.
 
-**conanfile.txt**
-
 .. code-block:: python
+   :caption: *conanfile.txt*
 
     [requires]
     toolA/1.0@myuser/stable
@@ -125,8 +120,7 @@ shared libraries to our user space.
     lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
     lib, *.so* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
 
-
-**In the terminal window and build the project:**
+Now you can build the project:
 
 .. code-block:: bash
 
@@ -146,9 +140,8 @@ In Linux you still need to set the ``LD_LIBRARY_PATH``, or in OSX, the ``DYLD_LI
 
    $ cd bin && LD_LIBRARY_PATH=$(pwd) && ./mytool
 
-
 Using shared libraries from dependencies
-------------------------------------------
+----------------------------------------
 
 If you are executing something that depends on shared libraries belonging to your dependencies, such shared libraries have to be found at
 runtime. In Windows, it is enough if the package added its binary folder to the system ``PATH``. In Linux and OSX, it is necessary that the
@@ -165,17 +158,14 @@ your conanfile.py:
         # self.run('./myexe") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
         self.run('DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
 
-
-
-Using the **virtualenv** generator
-----------------------------------
+Using ``virtualenv`` generator
+------------------------------
 
 We could also use a :ref:`virtualenv generator<virtual_environment_generator>` to get the
 ``toolA`` executable available:
 
-**conanfile.txt**
-
 .. code-block:: python
+   :caption: *conanfile.txt*
 
     [requires]
     toolA/1.0@myuser/stable
@@ -186,27 +176,23 @@ We could also use a :ref:`virtualenv generator<virtual_environment_generator>` t
     [generators]
     virtualenv
 
-
-**In the terminal window:**
+In the terminal window:
 
 .. code-block:: bash
 
-    conan install .
-    source activate
-    toolA --someparams
+    $ conan install .
+    $ source activate
+    $ toolA --someparams
 
-
-Using the **virtualrunenv** generator
--------------------------------------
+Using ``virtualrunenv`` generator
+---------------------------------
 
 Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
 the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically
-the environment variables poiting to the "lib" and "bin" folders.
-
-
-**conanfile.txt**
+the environment variables pointing to *lib* and *bin* folders.
 
 .. code-block:: python
+   :caption: *conanfile.txt*
 
     [requires]
     toolA/1.0@myuser/stable
@@ -215,14 +201,12 @@ the environment variables poiting to the "lib" and "bin" folders.
     toolA:shared=True
 
     [generators]
-    virtualenv
+    virtualrunenv
 
-
-**In the terminal window:**
+In the terminal window:
 
 .. code-block:: bash
 
-    conan install .
-    source activate
-    toolA --someparams
-
+    $ conan install .
+    $ source activate_run
+    $ toolA --someparams
