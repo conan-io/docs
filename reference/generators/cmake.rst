@@ -143,7 +143,9 @@ There are other methods automatically called by ``conan_basic_setup()`` but you 
 +--------------------------------+----------------------------------------------------------------------+
 | NAME                           | DESCRIPTION                                                          |
 +================================+======================================================================+
-| conan_check_compiler()         |  Checks that your compiler matches with the declared in the settings |
+| conan_check_compiler()         |  Checks that your compiler matches the one declared in settings      |
+|                                |                                                                      |
+|                                |  Can be disabled setting ``CONAN_DISABLE_CHECK_COMPILER`` CMake var  |
 +--------------------------------+----------------------------------------------------------------------+
 | conan_output_dirs_setup()      |  Adjust the bin/ and lib/ output directories                         |
 +--------------------------------+----------------------------------------------------------------------+
