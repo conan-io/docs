@@ -176,10 +176,13 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
     If you are using CMake and you have an install target defined in your CMakeLists.txt, you might be able to reuse it for this
     ``package()`` method. Please check :ref:`reuse_cmake_install`.
 
-The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and ``True``. One will copy from the *source*
-folder (typically packaging the headers and other data files), and the other will copy from the *build* folder, packaging the libraries and
-other binary artifacts. Also, when the local :command:`conan package` command is issued with :command:`--source-folder` and :command:`--build-folder`, it will
-execute two times, one in each folder, in the same way.
+Normally during :command:`conan create` this method will copy all the indicated files from build folder (``src``) as source folder content is
+copied into it (build folder is the same as source folder). However, when :ref:`developing a package recipe<package_dev_flow>` build folder
+and source folder could be different and it will be always different when ``no_copy_source`` is defined and ``True`` (build folder is
+different from source folder). That is why in that situations ``package()`` method will be called twice: One will copy from the source
+folder (typically packaging the headers and other data files), and the other will copy from the build folder (packaging the libraries and
+other binary artifacts). Also as said before, when the local :command:`conan package` command is issued with :command:`--source-folder` and
+:command:`--build-folder`, it will be executed twice in the same way.
 
 .. _method_package_info:
 
