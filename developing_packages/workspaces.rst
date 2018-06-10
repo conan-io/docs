@@ -94,7 +94,7 @@ As defined in the *conanws.yml*, a root *CMakeLists.txt* was generated for us. W
     Hello World B Release!
     Hello World A Release!
 
-Now the project is editable, you can change the code of C hello.cpp to say "Bye World" and:
+Now the project is editable, you can change the code of folder C *hello.cpp* to say "Bye World" and:
 
 .. code-block:: bash
 
