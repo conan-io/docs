@@ -381,16 +381,26 @@ epub_exclude_files = ['search.html']
 #epub_use_index = True
 
 
-redirect_files = ['creating_packages/package_dev_flow.html']
-
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
+    # FILL in this dicts the necessary redirects
+    redirect_files = {'creating_packages/package_dev_flow.html': "../developing_packages/package_dev_flow.html"}
+
+    redirect_template = """<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="1; url=%s" />
+</head>
+</html>
+"""
+ 
     if app.builder.name == 'html':
-        for html_src_path in redirect_files:
+        for html_src_path, dst_path in redirect_files.items():
             target_path = app.outdir + '/' + html_src_path
-            src_path = app.srcdir + '/' + html_src_path
-        if os.path.isfile(src_path):
-            copyfile(src_path, target_path)
+            html = redirect_template % dst_path      
+            with open(target_path, "w") as f:
+                f.write(html)
 
 def setup(app):
     app.connect('build-finished', copy_legacy_redirects)
