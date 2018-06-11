@@ -39,7 +39,7 @@ extensions = [
 # The short X.Y version.
 version = "1.4"
 # The full version, including alpha/beta/rc tags.
-release = u'1.4.3'
+release = u'1.4.4'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
