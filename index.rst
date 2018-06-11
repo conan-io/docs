@@ -18,6 +18,7 @@ Contents:
    using_packages
    creating_packages
    uploading_packages
+   developing_packages
    devtools
    mastering
    systems_cross_building
