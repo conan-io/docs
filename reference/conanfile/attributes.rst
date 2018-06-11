@@ -524,6 +524,8 @@ From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path l
 Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
 Please note that this only works with Python 3.6 and newer.
 
+.. _no_copy_source:
+
 no_copy_source
 --------------
 
