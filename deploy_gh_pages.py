@@ -1,8 +1,7 @@
+import json
 import os
 import shutil
 import tempfile
-
-from conf import versions_dict
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -37,12 +36,16 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name):
+def build_and_copy(branch, folder_name, versions_available, validate_links=False):
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
 
+    with open('versions.json', 'w') as f:
+        f.write(json.dumps(versions_available))
+
     call("make html")
-    call("make linkcheck")
+    if validate_links:
+        call("make linkcheck")
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
@@ -53,14 +56,18 @@ def build_and_copy(branch, folder_name):
     if not os.path.exists("en"):
         os.mkdir("en")
 
-    version_folder = "en/%s" % folder_name
-    if os.path.exists(version_folder):
-        shutil.rmtree(version_folder)
+    version_folders = ["en/%s" % folder_name]
+    if branch == "master":
+        version_folders.append("en/latest")
 
-    os.mkdir(version_folder)
-    copytree(tmp_dir, version_folder)
-    call("git add -A .")
-    call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
+    for version_folder in version_folders:
+        if os.path.exists(version_folder):
+            shutil.rmtree(version_folder)
+
+        os.mkdir(version_folder)
+        copytree(tmp_dir, version_folder)
+        call("git add -A .")
+        call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
 
 
 def deploy():
@@ -68,7 +75,7 @@ def deploy():
         print("Skipping deploy for not master branch")
         return
 
-    if os.getenv("TRAVIS_PULL_REQUEST", "false") == "false":
+    if os.getenv("TRAVIS_PULL_REQUEST", "") != "false":
         print("Deploy skipped, This is a PR in the main repository")
         return
 
@@ -85,7 +92,9 @@ if __name__ == "__main__":
     config_git()
     clean_gh_pages()
 
+    versions_dict = {"master": "1.4",
+                     "release/1.3.3": "1.3"}
     for branch, folder_name in versions_dict.items():
-        build_and_copy(branch, folder_name)
+        build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
 
     deploy()

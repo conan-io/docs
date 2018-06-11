@@ -8,12 +8,37 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.4 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
-1.4.0 ()
---------
 
+1.4.3 (6-June-2018)
+-------------------
+
+- Bugfix: Added system libraries to the cmake_find_package generator.
+- Fix: Added SIGTERM signal handler to quit safely.
+- Bugfix: Fixed miss-detection of gcc 1 when no gcc was on a Linux machine.
+
+
+1.4.2 (4-June-2018)
+-------------------
+
+- Bugfix: Fixed multi-config packages.
+- Bugfix: Fixed `cppstd` management with CMake and 20 standard version.
+
+
+
+1.4.1 (31-May-2018)
+-------------------
+
+- Bugfix: Solved issue with symlinks making recipes to fail with `self.copy`.
+- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the ``settings.yml`` containing the settings values.
+- Bugfix: Fixed error with cased directory names in Windows.
+- BugFix: Modified confusing warning message in the SCM tool when the remote couldn't be detected.
+
+
+1.4.0 (30-May-2018)
+-------------------
 
 - Feature: Added ``scm`` conanfile attribute, to easily clone/checkout from remote repositories and
   to capture the remote and commit in the exported recipe when the recipe and the sources lives in the same repository.
@@ -32,6 +57,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
 - Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
 - Feature: Generator ``virtualbuildenv`` now sets Visual Studio env vars via ``tool.vcvars_dict()``.
+- Feature: New tools for Apple development including XCRun wrapper.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
 - Bugfix: ``tools.which()`` returning directories instead of only files.
@@ -81,10 +107,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
 - Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
 - Feature: Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable.
-  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
+  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output.
 - Feature: New :command:`conan remote rename` and :command:`conan add --force` commands to handle remotes.
 - Feature: Added parameter ``use_env`` to the ``MSBuild().build()`` build helper method to control the ``/p:UseEnv`` msbuild argument.
 - Feature: Timeout for downloading files from remotes is now configurable (defaulted to 60 seconds)
+- Feature: Improved Autotools build helper with new parameters and automatic set of ``--prefix`` to ``self.package_folder``.
+- Feature: Added new tool to compose GNU like triplets for cross-building: ``tools.get_gnu_triplet()``
 - Fix: Use International Units for download/upload transfer sizes (Mb, Kb, etc).
 - Fix: Removed duplicated paths in ``cmake_multi`` generated files.
 - Fix: Removed false positive linter warning for local imports.
@@ -392,7 +420,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.29.2 (2-December-2017)
 -------------------------
 
-- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL
+- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL/
 
 
 0.29.1 (23-November-2017)

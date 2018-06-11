@@ -64,6 +64,21 @@ Without modifying your **CMakeLists.txt** file you can use the ``conan_paths.cma
     $ cmake --build .
 
 
+Included using the CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE
+-------------------------------------------------------
+
+With ``CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE`` you can specify a file to be included by the project() command.
+If you already have a toolchain file you can use this variable to include the ``conan_paths.cmake``
+and insert your toolchain with the ``CMAKE_TOOLCHAIN_FILE``.
+
+.. code-block:: bash
+
+    $ mkdir build && cd build
+    $ conan install ..
+    $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PROJECT_helloworld_INCLUDE=build/conan_paths.cmake
+    $ cmake --build .
+
+
 Included in your CMakeLists.txt
 -------------------------------
 

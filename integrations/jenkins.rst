@@ -1,4 +1,6 @@
 
+.. _jenkins_integration:
+
 |jenkins_logo| Jenkins
 =============================
 
