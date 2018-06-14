@@ -3,7 +3,7 @@
 Profiles
 =========
 
-Profiles allows users to set a complete configurateion set for **settings**, **options**, **environment variables**, and **build
+Profiles allows users to set a complete configuration set for **settings**, **options**, **environment variables**, and **build
 requirements** in a file. They have this structure:
 
 .. code-block:: text
@@ -26,18 +26,18 @@ Profile files can be used with ``-pr``/``--profile`` option in :command:`conan i
 
 .. code-block:: bash
 
-    $ conan create demo/testing -pr=myprofile
+    $ conan create . demo/testing -pr=myprofile
 
-Profiles can be located in different folders, for example, the default ``<userhome>/.conan/profiles``, and be referenced by absolute or
+Profiles can be located in different folders. For example, the default *<userhome>/.conan/profiles*, and be referenced by absolute or
 relative path:
 
 .. code-block:: bash
 
-    $ conan install --profile /abs/path/to/profile  # abs path
-    $ conan install --profile ./relpath/to/profile  # resolved to current dir
-    $ conan install --profile profile  # resolved to user/.conan/profiles/profile
+    $ conan install . --profile /abs/path/to/profile  # abs path
+    $ conan install . --profile ./relpath/to/profile  # resolved to current dir
+    $ conan install . --profile profile  # resolved to user/.conan/profiles/profile
 
-Listing existing profiles can be done like this:
+Listing existing profiles in the *profiles* folder can be done like this:
 
 .. code-block:: bash
 
@@ -55,11 +55,11 @@ You can also show profile's content:
     Configuration for profile myprofile1:
 
     [settings]
-        os=Windows
-        arch=x86_64
-        compiler=Visual Studio
-        compiler.version=15
-        build_type=Release
+    os=Windows
+    arch=x86_64
+    compiler=Visual Studio
+    compiler.version=15
+    build_type=Release
     [options]
     [build_requires]
     [env]
@@ -94,7 +94,6 @@ environment variables for some specific package:
     zlib:CXX=/usr/bin/clang++
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
-
 
 .. note::
 
@@ -140,7 +139,7 @@ The ``include()`` statement has to be at the top of the profile file:
 Variable declaration
 --------------------
 
-In a profile you can declare variables that will be replaced automatically by conan before the profile is applied. The variables have to be
+In a profile you can declare variables that will be replaced automatically by Conan before the profile is applied. The variables have to be
 declared at the top of the file, after the ``include()`` statements.
 
 .. code-block:: text
@@ -188,7 +187,7 @@ variables will be available:
 Examples
 --------
 
-If you are working with Linux and you usually work with ``gcc`` compiler, but you have installed ``clang`` compiler and want to install some
+If you are working with Linux and you usually work with **gcc** compiler, but you have installed **clang** compiler and want to install some
 package for ``clang`` compiler, you could do:
 
 - Create a ``.conan/profiles/clang`` file:
@@ -204,30 +203,30 @@ package for ``clang`` compiler, you could do:
    CC=/usr/bin/clang
    CXX=/usr/bin/clang++
 
-- Execute conan install command passing the ``--profile`` or ``-pr`` parameter:
+- Execute an install command passing the :command:`--profile` or :command:`-pr` parameter:
 
 .. code-block:: bash
 
-   conan install --profile clang
+   $ conan install . --profile clang
 
-Without profiles you would have needed to set the CC and CXX variables in the environment to point to your clang compiler and use ``-s``
+Without profiles you would have needed to set CC and CXX variables in the environment to point to your clang compiler and use :command:`-s`
 parameters to specify the settings:
 
 .. code-block:: bash
 
-   export CC=/usr/bin/clang
-   export CXX=/usr/bin/clang++
-   conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
+    $ export CC=/usr/bin/clang
+    $ export CXX=/usr/bin/clang++
+    $ conan install -s compiler=clang -s compiler.version=3.5 -s compiler.libcxx=libstdc++11
 
 A profile can also be used in :command:`conan create` and :command:`conan info`:
 
 .. code-block:: bash
 
-   $ conan create demo/testing --profile clang
+    $ conan create . demo/testing --profile clang
 
 .. seealso::
 
-    - Check the section :ref:`build_requires` to read more about its ussage in a profile.
+    - Check the section :ref:`build_requires` to read more about its usage in a profile.
     - Check :ref:`conan_profile` for full reference.
     - Check :ref:`default_profile` for full reference.
     - Related section: :ref:`cross_building`.
