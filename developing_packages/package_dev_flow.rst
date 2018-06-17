@@ -1,3 +1,5 @@
+.. _package_dev_flow:
+
 Package development flow
 ========================
 

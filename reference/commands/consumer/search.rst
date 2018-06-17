@@ -7,7 +7,7 @@ conan search
 .. code-block:: bash
 
     $ conan search [-h] [-o] [-q QUERY] [-r REMOTE] [--case-sensitive]
-                   [--raw] [--table TABLE]
+                   [--raw] [--table TABLE] [-j JSON]
                    [pattern_or_reference]
 
 Searches package recipes and binaries in the local cache or in a remote. If
@@ -39,6 +39,8 @@ Windows, case sensitive search can be forced with '--case-sensitive'.
       --raw                 Print just the list of recipes
       --table TABLE         Outputs html file with a table of binaries. Only valid
                             for a reference search
+      -j JSON, --json JSON  json file path where the search information will be
+                            written to
 
 
 **Examples**

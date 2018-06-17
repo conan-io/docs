@@ -12,6 +12,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.4.4 (11-June-2018)
+--------------------
+
+- Bugfix: Fix link order with private requirements.
+- Bugfix: Removed duplicate `-std` flag in CMake < 3 or when the standard is not yet supported by `CMAKE_CXX_STANDARD`.
+- Bugfix: Check `scm` attribute to avoid breaking recipes with already defined one.
+- Feature: Conan workspaces.
+
+
 1.4.3 (6-June-2018)
 -------------------
 
