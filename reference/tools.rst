@@ -202,7 +202,7 @@ tools.unzip()
 
 .. code-block:: python
 
-    def unzip(filename, destination=".", keep_permissions=False, wildcard=None)
+    def unzip(filename, destination=".", keep_permissions=False, pattern=None)
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -226,7 +226,7 @@ You can keep the permissions of the files using the ``keep_permissions=True`` pa
 
     tools.unzip("myfile.zip", "myfolder", keep_permissions=True)
 
-Use the ``wildcard=None`` parameter if you want to filter specific files and
+Use the ``pattern=None`` parameter if you want to filter specific files and
 paths to decompress from the archive.
 
 .. code-block:: python
@@ -234,9 +234,9 @@ paths to decompress from the archive.
     from conans import tools
 
     # Extract only files inside relative folder "small"
-    tools.unzip("bigfile.zip", wildcard="small/*")
+    tools.unzip("bigfile.zip", pattern="small/*")
     # Extract only txt files
-    tools.unzip("bigfile.zip", wildcard="*.txt")
+    tools.unzip("bigfile.zip", pattern="*.txt")
 
 Parameters:
     - **filename** (Required): File to be unzipped.
@@ -244,8 +244,8 @@ Parameters:
     - **keep_permissions** (Optional, Defaulted to ``False``): Keep permissions of files. **WARNING:** Can be dangerous if the zip
       was not created in a NIX system, the bits could produce undefined permission schema. Use only this option if you are sure that
       the zip was created correctly.
-    - **wildcard** (Optional, Defaulted to ``None``): Extract from the archive
-      only paths matching the wildcard. This should be a Unix shell-style
+    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive
+      only paths matching the pattern. This should be a Unix shell-style
       wildcard, see `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
       documentation for more details.
 
@@ -254,7 +254,7 @@ tools.untargz()
 
 .. code-block:: python
 
-    def untargz(filename, destination=".", wildcard=None)
+    def untargz(filename, destination=".", pattern=None)
 
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
@@ -263,18 +263,18 @@ unless the file had a different extension.
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.untargz("myfile.tar.gz")
     # or to extract in "myfolder" sub-folder
     tools.untargz("myfile.tar.gz", "myfolder")
     # or to extract only txt files
-    tools.untargz("myfile.tar.gz", wildcard="*.txt")
+    tools.untargz("myfile.tar.gz", pattern="*.txt")
 
 Parameters:
     - **filename** (Required): File to be unzipped.
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
-    - **wildcard** (Optional, Defaulted to ``None``): Extract from the archive
-      only paths matching the wildcard. This should be a Unix shell-style
+    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive
+      only paths matching the pattern. This should be a Unix shell-style
       wildcard, see `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
       documentation for more details.
 
