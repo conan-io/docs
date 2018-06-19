@@ -17,7 +17,7 @@ Example:
 	conan install zlib/1.2.8@lasote/stable
 	
 
-The `/tmp/conan_trace.log` file:
+The */tmp/conan_trace.log* file:
 
 .. code-block:: json
 
@@ -54,7 +54,7 @@ If we execute conan install again:
 	conan install zlib/1.2.8@lasote/stable
 	
 
-The `/tmp/conan_trace.log` file only three lines will be appended:
+The */tmp/conan_trace.log* file only three lines will be appended:
 
 .. code-block:: json
 
@@ -71,8 +71,7 @@ The `/tmp/conan_trace.log` file only three lines will be appended:
 How to log the build process
 ------------------------------------------
 
-You can log your command executions ``self.run`` in a file named ``conan_run.log`` using the environment variable CONAN_LOG_RUN_FILE.
-Check for more details here: :ref:`conan_log_run_to_file`.
+You can log your command executions ``self.run`` in a file named *conan_run.log* using the environment variable :ref:`conan_log_run_to_file`.
 
 You can also use the variable :ref:`conan_print_run_commands` to log extra information about the commands being executed.
 
@@ -80,7 +79,7 @@ You can also use the variable :ref:`conan_print_run_commands` to log extra infor
 Package the log files
 +++++++++++++++++++++++++++
 
-The `conan_run.log`` file will be available in your ``build`` folder so you can package it the same way you package a library file:
+The *conan_run.log* file will be available in your *build* folder so you can package it the same way you package a library file:
 
 .. code-block:: python
 
