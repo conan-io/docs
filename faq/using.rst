@@ -45,9 +45,9 @@ dependecy graph in case OpenSSL is changed we could type:
 
 So, if OpenSSL is changed, we would need to rebuild it (of course) and rebuild Poco.
 
-A recipe upload from a different machine makes packages outdated without itself changing
-----------------------------------------------------------------------------------------
+Packages got outdated when uploading an unchanged recipe from a different machine
+---------------------------------------------------------------------------------
 
-Usually this is caused due to different line endings in Windows and Linux/MacOS. Noramlly this happens when Windows uploads it with CRLF
+Usually this is caused due to different line endings in Windows and Linux/MacOS. Normally this happens when Windows uploads it with CRLF
 while Linux/MacOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest going with LF line
 endings always. If this is being caused by git, it could be solved with :command:`git config --system core.autocrlf input`.
