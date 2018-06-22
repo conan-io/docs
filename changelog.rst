@@ -11,6 +11,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.4 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+Dev
+-------
+- Feature: Modifies user agent header to output the Conan client version and the Python version. Example: Conan/1.5.0 (Python 2.7.1)
+
 
 1.4.3 (6-June-2018)
 -------------------
