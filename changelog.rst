@@ -12,6 +12,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.4.5 (22-June-2018)
+--------------------
+
+- Bugfix: The package_id recipe method was being called twice causing issues with info objects being populated with wrong information.
+
+
 1.4.4 (11-June-2018)
 --------------------
 
