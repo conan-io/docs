@@ -76,8 +76,8 @@ There are two approaches for this situation:
 
 - **Constrain settings inside a recipe**:
 
-  This approach constrains the settings inside a recipe to a subset of them and it is normally used in recipes that are never supposed to be
-  used with the restricted settings.
+  This approach constrains the settings inside a recipe to a subset of them and it is normally used in recipes that are never supposed to
+  work out of the restricted settings.
 
   .. code-block:: python
 
@@ -95,6 +95,9 @@ There are two approaches for this situation:
 
       Note the use of ``None`` value in the ``os``, ``compiler`` and ``build_type`` settings described above will allow them to take the values
       from *settings.yml* file
+
+We strongly recommend the use if the first approach whenever it is possible and use the second one only for those cases where a stronger
+constrain is needed for a particular recipe.
 
 .. seealso::
 
