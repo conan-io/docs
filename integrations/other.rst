@@ -4,14 +4,14 @@
 Custom integrations
 ===================
 
-If you intend to use other build system that has not a built-in generator, you might still be 
-able to do so. There are several options.
+If you intend to use a build system that does not have a built-in generator, you may still be 
+able to do so. There are several options:
 
 - First, search in bintray. Generators can now be created and contributed by users as regular
-  packages, so you can depend on them, use versioning, evolve faster without depending on the
-  conan releases, etc. Check :ref:`generator packages <dyn_generators>`.
+  packages, so you can depend on them, use versioning, and evolve faster without depending on the
+  conan releases. See :ref:`generator packages <dyn_generators>`.
 - You can use the **text or json generator**. It will generate a text file, simple to read and to parse
-  that you can easily parse with your tools to extract the information.
+  that you can easily parse with your tools to extract the required information.
 - Use the **conanfile data model** and access its properties and values, so you can directly
   call your build system with that information, without requiring to generate a file.
 - Write and **create your own generator**. So you can upload it, version and reuse it, as well
@@ -20,7 +20,7 @@ able to do so. There are several options.
   
 .. note:: 
    
-   Need help to integrate your build system? Tell us what you need. info@conan.io
+   Need help integrating your build system? Tell us what you need. info@conan.io
 
 
 .. _json_integration:
@@ -234,7 +234,7 @@ Create your own generator
 
 There are two ways in which generators can be contributed:
 
-- Forking and adding the new generator in conan codebase. This will be a built-in generator.
+- Forking and adding the new generator in the conan codebase. This will be a built-in generator.
   It might have a much slower release and update cycle, it needs to pass some tests before being accepted,
   but it has the advantage than no extra things are needed to use that generator (once released in conan)
 - Creating a custom :ref:`generator package <dyn_generators>`. You can write a ``conanfile.py`` and add

@@ -39,7 +39,7 @@ This will generate the following files:
       example.cpp
 
 At the root level, there is a *conanfile.py* which is the main recipe file, the one actually
-defining our package. Also there is a *test_package* folder, which contains a simple example
+defining our package. Also, there is a *test_package* folder, which contains a simple example
 consuming project that will require and link with the created package. It is useful to make sure
 that our package is correctly created.
 
@@ -94,7 +94,7 @@ basics:
   generate a different binary package. Remember, Conan generates different binary packages for
   different introduced configuration (in this case settings) for the same recipe.
 
-  Note that the platform where the recipe is running and the package is being build can be different from
+  Note that the platform where the recipe is running and the package is being built can be different from
   the final platform where the code will be running (``self.settings.os`` and ``self.settings.arch``) if
   the package is being cross-built. So if you want to apply a different build depending on the current
   build machine, you need to check it:
@@ -119,13 +119,13 @@ basics:
 
 - The ``source()`` method executes a :command:`git clone` to retrieve the sources from github. Other
   origins, as downloading a zip file are also available. As you can see, any manipulation of the
-  code can be done, as checking out any branch or tag, or patching the source code. In this example,
+  code can be done, such as checking out any branch or tag, or patching the source code. In this example,
   we are adding two lines to the existing CMake code, to ensure binary compatibility. Don't worry
   too much about it now, we'll visit it later.
 
 - The ``build()`` first configures the project, then builds it, with standard CMake commands. The
   ``CMake`` object is just a helper to ease the translation of conan settings to CMake command line
-  arguments. Also remember that **CMake is not strictly required**. You can build packages directly
+  arguments. Remember that **CMake is not strictly required**. You can build packages directly
   invoking **make**, **MSBuild**, **SCons** or any other build system.
 
   .. seealso:: Check the :ref:`existing build helpers <build_helpers>`.
@@ -190,7 +190,7 @@ The main differences with the above *conanfile.py* are:
     An important difference with respect to normal package recipes, is that this one does not need
     to declare a ``requires`` attribute, to depend on the ``Hello/0.1@demo/testing`` package we are
     testing. This ``requires`` will be automatically injected by conan while running. You can
-    however declare it explicitely, it will work, but you will have to remember to bump the version,
+    however declare it explicitly, it will work, but you will have to remember to bump the version,
     and possibly the user and channel if you change them.
 
 .. _creating_and_testing_packages:
@@ -249,8 +249,8 @@ We have used settings as ``os``, ``arch`` and ``compiler``. But the above packag
 ``shared`` option (defined as ``options = {"shared": [True, False]}``). What is the difference between
 settings and options?
 
-**Settings** are project-wide configuration, something that typically affect to the whole project that
-is being built. For example the Operating System or the architecture would be naturally the same for all
+**Settings** are project-wide configuration, something that typically affects the whole project that
+is being built. For example, the Operating System or the architecture would be naturally the same for all
 packages in a dependency graph, linking a Linux library for a Windows app, or
 mixing architectures is impossible.
 
@@ -276,9 +276,9 @@ There are some exceptions to the above, for example, settings can be defined per
 
     $ conan install . -s MyPkg:compiler=gcc -s compiler=clang ..
 
-This will use ``gcc`` for MyPkg and ``clang`` for the rest of the dependencies (extremely unusual case)
+This will use ``gcc`` for MyPkg and ``clang`` for the rest of the dependencies (extremely unusual case).
 
-Or you can have a very widely used option in many packages and set its value all at once with patterns, like:
+You can also have a very widely-used option in many packages and set its value all at once with patterns, like:
 
 .. code-block:: bash
 
