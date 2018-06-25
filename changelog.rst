@@ -12,6 +12,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+
+1.5.0 ()
+-------------------
+
+- Fix: Fixed the parsing of invalid JSON when Microsoft `vswhere` tool outputs invalid non utf-8 text.
+
+
 1.4.3 (6-June-2018)
 -------------------
 
