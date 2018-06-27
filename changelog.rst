@@ -21,6 +21,7 @@ Dev
 -------------------
 
 - Fix: Fixed the parsing of invalid JSON when Microsoft ``vswhere`` tool outputs invalid non utf-8 text.
+- Feature : Added Manjaro support for ``SystemPackageTools``.
 
 
 1.4.5 (22-June-2018)
