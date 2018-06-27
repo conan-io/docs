@@ -36,7 +36,7 @@ conan_name = ""
 try:
     conan_name = sys.argv[1]
 except IndexError:
-    conan_name = "conandev"
+    conan_name = "conan"
 
 template = """
 .. _conan_{0}:

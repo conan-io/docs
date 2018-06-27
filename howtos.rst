@@ -24,3 +24,5 @@ This section shows common solutions and different approaches to typical problems
    howtos/capture_version
    howtos/other_languages_package_manager
    howtos/use_tls_certificates
+   howtos/check_conan_version_in_conanfile
+   howtos/generic_ci_artifactory

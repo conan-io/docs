@@ -218,6 +218,17 @@ Generate a graph of your dependencies in dot or html formats:
     :width: 200 px
     :align: center
 
+
+Searching packages
+------------------
+The packages that have been used are installed from the remote repository that is configured by default in the conan client, which is called "conan-center" and is in Bintray. You can search for existing packages there with:
+
+.. code-block:: bash
+
+    $ conan search "zlib*" -r=conan-center
+
+There are other community repositories that can be configured and used, check them in :ref:`this section about remotes<remotes>`.
+
 Building with other configurations
 ----------------------------------
 

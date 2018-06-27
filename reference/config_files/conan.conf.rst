@@ -171,7 +171,7 @@ Proxies
 If you are not using proxies at all, or you want to use the proxies specified by the operating system,
 just remove the ``[proxies]`` section completely. You can run :command:`conan config rm proxies`.
 
-If you leave leave the ``[proxies]`` section blank, conan will copy the system configured
+If you leave the ``[proxies]`` section blank, conan will copy the system configured
 proxies, but if you configured some exclusion rule it won't work:
 
 .. code-block:: text

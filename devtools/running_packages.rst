@@ -14,7 +14,7 @@ There are different approaches:
 Using virtual environments
 ---------------------------
 
-We can crate a package that contains an executable, for example from the default package template created by :command:`conan new`:
+We can create a package that contains an executable, for example from the default package template created by :command:`conan new`:
 
 .. code-block:: bash
 
@@ -29,7 +29,7 @@ The source code used contains an executable called ``greet``, but it is not pack
         self.copy("*greet*", src="hello/bin", dst="bin", keep_path=False)
 
 
-Now, we can create the package as usual, but if we try to run the executable, it won't be found:
+Now we create the package as usual, but if we try to run the executable it won't be found:
 
 .. code-block:: bash
 
@@ -43,10 +43,10 @@ Now, we can create the package as usual, but if we try to run the executable, it
     > ... not found...
 
 
-Conan does not modify by default the environment, it will just create the package in the local cache, and that is not
+By default, Conan does not modify by default the environment, it will just create the package in the local cache, and that is not
 in the system PATH, so the ``greet`` executable is not found.
 
-The ``virtualrunenv`` generator will generate files that add the packages default binary locations to the necessary paths:
+The ``virtualrunenv`` generator generates files that add the package's default binary locations to the necessary paths:
 
 - It adds the dependencies ``lib`` subfolder to the ``DYLD_LIBRARY_PATH`` environment variable (for OSX shared libraries)
 - It adds the dependencies ``lib`` subfolder to the ``LD_LIBRARY_PATH`` environment variable (for Linux shared libraries)
@@ -58,7 +58,7 @@ So if we install the package, specifying such ``virtualrunenv`` like:
 
     $ conan install Hello/0.1@user/testing -g virtualrunenv
 
-We will get some files, that can be called to activate and deactivate such environment variables
+This will generate a few files that can be called to activate and deactivate the required environment variables
 
 .. code-block:: bash
 
@@ -70,7 +70,7 @@ We will get some files, that can be called to activate and deactivate such envir
 Imports
 --------
 It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
-cache the desired files. This approach, requires an user conanfile.
+cache the desired files. This approach, requires a user conanfile.
 For more details see example below :ref:`runtime packages<repackage>`
 
 
@@ -100,7 +100,7 @@ With that method in our package recipe, it will copy the executable when install
     $ bin\greet.exe
     > Hello World!
 
-The deploy will create a ``deploy_manifest.txt`` file with the files that have been deployed.
+The deploy will create a *deploy_manifest.txt* file with the files that have been deployed.
 
 Sometimes it is useful to adjust the package ID of the deployable package in order to deploy it regardless of the compiler it was compiled
 with:
@@ -117,9 +117,8 @@ with:
 Running from packages
 ---------------------
 
-If you want to directly run one executable from your dependencies, it is not necessary to use the generators
-and activate the environment, as it can be directly done in code with the ``RunEnvironment`` helper. So if
-the ``Consumer`` package is willing to execute the ``greet`` app while building its own package, it can be done:
+If a dependency has an executable that we want to run in the conanfile it can be done directly in code
+using the ``RunEnvironment`` helper. For example, if we want to execute the ``greet`` app while building the ``Consumer`` package:
 
 .. code-block:: python
 
@@ -153,11 +152,10 @@ Instead of using the environment, it is also possible to access the path of the 
         path = os.path.join(self.deps_cpp_info["Hello"].rootpath, "bin")
         self.run("%s/greet" % path)
 
-Note, however, that this might not be enough if shared libraries exist, while using the above ``RunEnvironment``
-is a more complete solution
+Note that this might not be enough if shared libraries exist. Using the ``RunEnvironment`` helper above 
+is a more complete solution.
 
-
-Finally, there is another approach: the package containing the executable, adds its "bin" folder to the PATH.
+Finally, there is another approach: the package containing the executable can add its *bin* folder directly to the ``PATH``.
 In this case the **Hello** package conanfile would contain:
 
 .. code-block:: python
@@ -166,11 +164,9 @@ In this case the **Hello** package conanfile would contain:
         self.cpp_info.libs = ["hello"]
         self.env_info.PATH = os.path.join(self.package_folder, "bin")
 
-Note that this is not enough for shared libraries, and defining DYLD_LIBRARY_PATH and LD_LIBRARY_PATH could be
-necessary.
+We may also define ``DYLD_LIBRARY_PATH`` and ``LD_LIBRARY_PATH`` if they are required for the executable.
 
-The consumer package would be simple, as the PATH environment variable will already contain the desired path
-to greet executable:
+The consumer package is simple, as the ``PATH`` environment variable contains the ``greet`` executable:
 
 .. code-block:: python
 
@@ -183,7 +179,7 @@ to greet executable:
 Runtime packages and re-packaging
 ----------------------------------
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
-If we want to create a package from the above "Hello" one, but only containing the executable (rembember that the above
+If we want to create a package from the above "Hello" one, but only containing the executable (remember that the above
 package also contains a library, and the headers), we could do:
 
 .. code-block:: python
@@ -208,12 +204,12 @@ This recipe has the following characteristics:
 - It includes the ``Hello/0.1@user/testing`` package as ``build_requires``.
   That means that it will be used to build this "HelloRun" package, but once the "HelloRun" package is built,
   it will not be necessary to retrieve it.
-- It is using an ``imports()`` to copy from the dependencies, in this case, the executable
-- It is using ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which
+- It is using ``imports()`` to copy from the dependencies, in this case, the executable
+- It is using the ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which
   is not define, then using the default empty one), are kept and not removed after build
 - The ``package()`` method packages the imported artifacts that will be in the build folder.
 
-To create and upload to remote this package:
+To create and upload this package to a remote:
 
 .. code-block:: bash
 
@@ -221,8 +217,7 @@ To create and upload to remote this package:
     $ conan upload HelloRun* --all -r=my-remote
 
 
-After that, installing and running this package, can be done by any of the means presented above,
-for example, we could do:
+Installing and running this package can be done using any of the methods presented above. For example:
 
 .. code-block:: bash
 
