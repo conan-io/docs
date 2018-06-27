@@ -8,8 +8,8 @@ On an OSS account, all packages you upload are public, and anyone can use them b
 repository to their Conan remotes.
 
 To allow collaboration on open source projects, you can also create
-`Organizations <https://bintray.com/docs/usermanual/interacting/interacting_bintrayorganizations.html>`_
-in Bintray and add members who will be able to create and edit packages in your organization’s
+`Organizations <https://www.jfrog.com/confluence/display/BT/Bintray+Organizations>`_
+in Bintray and add members who will be able to create and edit packages in your organization's
 repositories.
 
 .. toctree::
