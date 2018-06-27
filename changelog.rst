@@ -16,7 +16,22 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.5.0 ()
 -------------------
 
-- Fix: Fixed the parsing of invalid JSON when Microsoft `vswhere` tool outputs invalid non utf-8 text.
+- Fix: Fixed the parsing of invalid JSON when Microsoft ``vswhere`` tool outputs invalid non utf-8 text.
+
+
+1.4.5 (22-June-2018)
+--------------------
+
+- Bugfix: The package_id recipe method was being called twice causing issues with info objects being populated with wrong information.
+
+
+1.4.4 (11-June-2018)
+--------------------
+
+- Bugfix: Fix link order with private requirements.
+- Bugfix: Removed duplicate ``-std`` flag in CMake < 3 or when the standard is not yet supported by ``CMAKE_CXX_STANDARD``.
+- Bugfix: Check ``scm`` attribute to avoid breaking recipes with already defined one.
+- Feature: Conan workspaces.
 
 
 1.4.3 (6-June-2018)
@@ -38,8 +53,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.1 (31-May-2018)
 -------------------
 
-- Bugfix: Solved issue with symlinks making recipes to fail with `self.copy`.
-- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the ``settings.yml`` containing the settings values.
+- Bugfix: Solved issue with symlinks making recipes to fail with ``self.copy``.
+- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the *settings.yml* containing the settings values.
 - Bugfix: Fixed error with cased directory names in Windows.
 - BugFix: Modified confusing warning message in the SCM tool when the remote couldn't be detected.
 

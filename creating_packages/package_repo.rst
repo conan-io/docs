@@ -3,18 +3,17 @@
 Recipe and sources in the same repo
 ===================================
 
-Sometimes, especially if you are developing and packaging your own libraries recipe (not third parties)
-it is more convenient to have the recipe together with your source code, in the same repository.
+Sometimes it is more convenient to have the recipe and source code together in the same repository.
+This is true especially if you are developing and packaging your own library, and not one from a third-party.
 
 There are two different approaches:
 
-1. Using the :ref:`exports sources attribute <exports_sources_attribute>` of the conanfile to exporting all the source code
-together with the recipe. This way it is self-contained and it doesn't require to fetch code from
-external origins when it is necessary to build from sources. It could be considered as a "snapshot"
-of the source code.
-
-2. Using the :ref:`scm attribute <scm_attribute>` of the conanfile to capture automatically
-the remote and commit of your repository.
+1. Using the :ref:`exports sources attribute <exports_sources_attribute>` of the conanfile to
+   export the source code together with the recipe. This way the recipe is self-contained and will
+   not need to fetch the code from external origins when building from sources. It can be considered
+   a "snapshot" of the source code.
+2. Using the :ref:`scm attribute <scm_attribute>` of the conanfile to capture the remote and
+   commit of your repository automatically.
 
 
 Exporting the sources with the recipe: ``exports_sources``
@@ -29,8 +28,8 @@ First, let's get the initial source code and create the basic package recipe:
 
     $ conan new Hello/0.1 -t -s
 
-A *src* folder will be created with the same "hello" source code than in the previous example. You
-can have a look at it, is straightforward code.
+A *src* folder will be created with the same "hello" source code as in the previous example. You
+can have a look at it, the code is straightforward.
 
 Now lets have a look to the *conanfile.py*:
 
@@ -74,7 +73,7 @@ There are two important changes:
 
 - Added the ``exports_sources`` field, to tell conan to copy all the files from the local *src*
   folder into the package recipe.
-- Removed the ``source()`` method, it is not necessary anymore to retrieve external sources.
+- Removed the ``source()`` method, since it is no longer necessary to retrieve external sources.
 
 Also, you can notice the two CMake lines:
 

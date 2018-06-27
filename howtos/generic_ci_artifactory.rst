@@ -9,9 +9,9 @@ Uploading the BuildInfo
 If you are using :ref:`Jenkins with Conan and Artifactory<jenkins_integration>`, with the
 `Jenkins Artifactory Plugin <https://www.jfrog.com/confluence/display/RTF/Jenkins+Artifactory+Plug-in>`_,
 any Conan package downloaded or uploaded during your build will be automatically recorded in
-the BuilInfo json file, that will be automatically uploaded to the specified Artifactory instance.
+the BuildInfo json file, that will be automatically uploaded to the specified Artifactory instance.
 
-However, you can gather and upload that information using other CI infraestructure with the following steps:
+However, you can gather and upload that information using other CI infrastructure with the following steps:
 
 
 1. Before calling Conan the first time in your build, set the environment variable `CONAN_TRACE_FILE` to a
@@ -27,7 +27,7 @@ However, you can gather and upload that information using other CI infraestructu
    artifact_property_build.timestamp=1487676992
 
 
-3. Call Conan any times you need, for example, if you are testing a Conan package and uploading it at the end, you will run
+3. Call Conan as many times as you need.  For example, if you are testing a Conan package and uploading it at the end, you will run
    something similar to:
 
 
