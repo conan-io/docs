@@ -136,7 +136,7 @@ The syntax of ``self.copy`` inside ``package()`` is as follows:
 
 .. code-block:: python
 
-    self.copy(pattern, dst="", src="", keep_path=True, links=False, symlinks=None, excludes=None, ignore_case=False)
+    self.copy(pattern, dst="", src="", keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
 Parameters:
     - **pattern** (Required): A pattern following fnmatch syntax of the files you want to copy, from the build to the package folders.
