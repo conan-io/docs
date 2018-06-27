@@ -289,8 +289,8 @@ consumers can use those executables easily:
     # assuming the binaries are in the "bin" subfolder
     self.env_info.PATH.append(os.path.join(self.package_folder, "bin")
 
-The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive
-a virtual environment.
+The :ref:`virtualenv<virtual_environment_generator>` generator will use the ``self.env_info`` variables to prepare a script to
+activate/deactive a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.
 
 They will be automatically applied before calling the consumer *conanfile.py* methods ``source()``, ``build()``, ``package()`` and
 ``imports()``.

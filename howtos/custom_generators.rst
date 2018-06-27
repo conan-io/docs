@@ -42,10 +42,10 @@ that file. The **name of the generator** itself will be taken from the class nam
         def content(self):     
             return "whatever contents the generator produces"
             
-This class is just included in a ``conanfile.py`` that must contain also a ``Conanfile`` class
+This class is just included in a ``conanfile.py`` that must contain also a ``ConanFile`` class
 that implements the package itself, with the name of the package, the version, etc. This
 class typically has no ``source()``, ``build()``, ``package()``, and even the ``package_info()`` method is
-overriden as it doesn't have to define any include paths or library paths.
+overridden as it doesn't have to define any include paths or library paths.
 
 If you want to create a generator that creates more than one file, you can leave the ``filename()`` empty, and return a dictionary of
 filenames->contents in the ``content()`` method:
