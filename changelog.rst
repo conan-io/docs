@@ -8,8 +8,37 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.4 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
+
+
+1.5.0 (27-June-2018)
+--------------------
+
+- Feature: ``conan search <pkg-ref> -r=all`` now is able to search for binaries too in all remotes
+- Feature: Dependency graph improvements: ``build_requires`` are represented in the graph (visible in ``conan info``, also in the HTML graph). ``conan install`` and ``conan info`` commands shows extended information of the binaries status (represented in colors in HTML graph). The dependencies declaration order in recipes is respected (as long as it doesn't break the dependency graph order).
+- Feature: improved remote management, it is possible to get binaries from different remotes.
+- Feature: ``conan user`` command is now able to show authenticated users.
+- Feature: New ``pattern`` argument to ``tools.unzip()`` and ``tools.untargz`` functions, that allow efficient extraction of certain files only.
+- Feature : Added Manjaro support for ``SystemPackageTools``.
+- Feature: Added ``Macos`` ``version`` subsettings in the default ``settings.yml`` file, to account for the "min OSX version" configuration.
+- Feature: SCM helper argument to recursively clone submodules
+- Feature: SCM helper management of subfolder, allows using ``exports`` and ``exports_sources``, manage symlinks, and do not copy files that are ".gitignored". Also, works better in the local development flow.
+- Feature: Modifies user agent header to output the Conan client version and the Python version. Example: Conan/1.5.0 (Python 2.7.1)
+- Fix: The ``CMake`` helper now doesn't require a compiler input to deduce the default generator.
+- Fix: ``conan search <pattern>`` now works consistently in local cache and remotes.
+- Fix: proxy related environment variables are removed if ``conan.conf`` declares proxy configuration.
+- Fix: Fixed the parsing of invalid JSON when Microsoft ``vswhere`` tool outputs invalid non utf-8 text.
+- Fix: Applying ``winsdk`` and ``vcvars_ver`` to MSBuild and vcvars_command for VS 14 too.
+- Fix: Workspaces now support ``build_requires``
+- Fix: ``CMake`` helper now defines by default CMAKE_EXPORT_NO_PACKAGE_REGISTRY
+- Fix: settings constraints declared in recipes now don't error for single strings (instead of a list with a string element)
+- Fix: ``cmake_minimum_required()`` is now before ``project()`` in templates and examples.
+- Fix: CONAN_SYSREQUIRES_MODE=Disabled now doesn't try to udpate the system packages registry.
+- Bugfix: Fixed SCM origin path of windows folder (with backslashes)
+- Bugfix: Fixed SCM dictionary order when doing replacement.
+- Bugfix: Fixed auto-detection of apple-clang 10.0
+- Bugfix: Fixed bug when doing a ``conan search`` without registry file (just before installation)
 
 
 1.4.5 (22-June-2018)
@@ -22,8 +51,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 --------------------
 
 - Bugfix: Fix link order with private requirements.
-- Bugfix: Removed duplicate `-std` flag in CMake < 3 or when the standard is not yet supported by `CMAKE_CXX_STANDARD`.
-- Bugfix: Check `scm` attribute to avoid breaking recipes with already defined one.
+- Bugfix: Removed duplicate ``-std`` flag in CMake < 3 or when the standard is not yet supported by ``CMAKE_CXX_STANDARD``.
+- Bugfix: Check ``scm`` attribute to avoid breaking recipes with already defined one.
 - Feature: Conan workspaces.
 
 
@@ -46,8 +75,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.4.1 (31-May-2018)
 -------------------
 
-- Bugfix: Solved issue with symlinks making recipes to fail with `self.copy`.
-- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the ``settings.yml`` containing the settings values.
+- Bugfix: Solved issue with symlinks making recipes to fail with ``self.copy``.
+- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the *settings.yml* containing the settings values.
 - Bugfix: Fixed error with cased directory names in Windows.
 - BugFix: Modified confusing warning message in the SCM tool when the remote couldn't be detected.
 

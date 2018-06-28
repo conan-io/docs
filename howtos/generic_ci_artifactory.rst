@@ -46,7 +46,7 @@ However, you can gather and upload that information using other CI infrastructur
     $ rm /tmp/traces.log
 
 5. Edit the `build_info.json` file to append ``name`` (build name), ``number`` (build number) and the ``started`` (started date) and
-   any other field that you need according to the `Build Info json format <https://github.com/JFrogDev/build-info>`_.
+   any other field that you need according to the `Build Info json format <https://github.com/jfrog/build-info>`_.
 
    The ``started`` field has to be in the format: ``yyyy-MM-dd'T'HH:mm:ss.SSSZ``
 
