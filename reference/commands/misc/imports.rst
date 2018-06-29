@@ -19,8 +19,8 @@ in the --install-folder (defaulted to current directory).
                             recipe file e.g., my_folder/conanfile.py With --undo
                             option, this parameter is the folder containing the
                             conan_imports_manifest.txt file generated in a
-                            previousexecution. e.j: conan imports ./imported_files
-                            --undo
+                            previous execution. e.g.: conan imports
+                            ./imported_files --undo
 
     optional arguments:
       -h, --help            show this help message and exit
