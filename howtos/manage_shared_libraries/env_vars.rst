@@ -141,11 +141,7 @@ runtime. In Windows, it is enough if the package added its binary folder to the 
 Security restrictions might apply in OSX
 (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
 ``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitly in
-<<<<<<< HEAD
-your conanfile.py:
-=======
 your *conanfile.py*:
->>>>>>> master
 
 .. code-block:: python
 
@@ -159,30 +155,8 @@ Or you could use ``RunEnvironment`` helper described above.
 Using ``virtualrunenv`` generator
 ---------------------------------
 
-<<<<<<< HEAD
-
-**In the terminal window:**
-
-.. code-block:: bash
-
-    conan install .
-    source activate
-    toolA --someparams
-
-
-Using the **virtualrunenv** generator
--------------------------------------
-
-Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
-the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically
-the environment variables pointing to the "lib" and "bin" folders.
-
-
-**conanfile.txt**
-=======
 :ref:`virtualrunenv generator<virtual_run_environment_generator>` will set the environment variables ``PATH``, ``LD_LIBRARY_PATH``,
 ``DYLD_LIBRARY_PATH`` pointing to *lib* and *bin* folders automatically.
->>>>>>> master
 
 .. code-block:: python
    :caption: *conanfile.txt*
@@ -200,14 +174,8 @@ In the terminal window:
 
 .. code-block:: bash
 
-<<<<<<< HEAD
-    conan install .
-    source activate
-    toolA --someparams
-=======
     $ conan install .
     $ source activate_run
     $ toolA --someparams
     # Only For Mac OS users to avoid restrictions:
     $ DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH toolA --someparams
->>>>>>> master
