@@ -1,3 +1,5 @@
+.. _manage_shared_libraries_env_vars:
+
 Manage Shared Libraries with Environment Variables
 ==================================================
 
