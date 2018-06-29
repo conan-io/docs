@@ -520,9 +520,9 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 This attribute will not have any effect in other OS, it will be discarded.
 
 From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link
-<https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info.
-Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
-Please note that this only works with Python 3.6 and newer.
+<https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_ for more info.
+Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is
+totally unnecessary. Please note that this only works with Python 3.6 and newer.
 
 .. _no_copy_source:
 
@@ -815,6 +815,9 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
 - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
 - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+- **submodule** (Optional, Defaulted to ``None``):
+   - ``shallow``: Will sync the git submodules using ``submodule sync``
+   - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
 
 To know more about the usage of ``scm`` check:
 

@@ -70,31 +70,38 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
         call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
 
 
-def deploy():
+def should_deploy():
     if not os.getenv("TRAVIS_BRANCH", None) == "master":
         print("Skipping deploy for not master branch")
-        return
+        return False
 
     if os.getenv("TRAVIS_PULL_REQUEST", "") != "false":
         print("Deploy skipped, This is a PR in the main repository")
-        return
+        return False
 
     if not os.getenv("GITHUB_API_KEY"):
         print("Deploy skipped, missing GITHUB_API_KEY. Is this a PR?")
-        return
+        return False
 
+    return True
+
+
+def deploy():
     call('git remote add origin-pages '
          'https://%s@github.com/conan-io/docs.git > /dev/null 2>&1' % os.getenv("GITHUB_API_KEY"))
     call('git push origin-pages gh-pages')
 
 
 if __name__ == "__main__":
-    config_git()
-    clean_gh_pages()
+    if should_deploy():
+        config_git()
+        clean_gh_pages()
+        versions_dict = {"master": "1.4",
+                         "release/1.3.3": "1.3"}
+        for branch, folder_name in versions_dict.items():
+            build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
 
-    versions_dict = {"master": "1.4",
-                     "release/1.3.3": "1.3"}
-    for branch, folder_name in versions_dict.items():
-        build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
-
-    deploy()
+        deploy()
+    else:
+        call("make html")
+        call("make linkcheck")
