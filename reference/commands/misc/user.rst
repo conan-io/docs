@@ -6,7 +6,7 @@ conan user
 
 .. code-block:: bash
 
-    $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [name]
+    $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [-j JSON] [name]
 
 Authenticates against a remote with user/pass, caching the auth token. Useful
 to avoid the user and password being requested later. e.g. while you're
@@ -29,6 +29,7 @@ packages.
                             password is requested interactively (not exposed)
       -r REMOTE, --remote REMOTE
                             Use the specified remote server
+      -j JSON, --json JSON  json file path where the user list will be written to
 
 
 **Examples**:
@@ -38,12 +39,18 @@ packages.
   .. code-block:: bash
 
       $ conan user
+      Current user of remote 'conan-center' set to: 'danimtb' [Authenticated]
+      Current user of remote 'bincrafters' set to: 'None' (anonymous)
+      Current user of remote 'upload_repo' set to: 'danimtb' [Authenticated]
+      Current user of remote 'conan-community' set to: 'danimtb' [Authenticated]
+      Current user of remote 'the_remote' set to: 'None' (anonymous)
 
 - Change **bar** remote user to **foo**:
 
   .. code-block:: bash
 
       $ conan user foo -r bar
+      Changed user of remote 'bar' from 'None' (anonymous) to 'foo'
 
 - Change **bar** remote user to **foo**, authenticating against the remote and storing the
   user and authentication token locally, so a later upload won't require entering credentials:
@@ -73,4 +80,4 @@ packages.
     `JWT <https://en.wikipedia.org/wiki/JSON_Web_Token>`_, so it gets a token (expirable by the
     server) checking the password against the remote credentials. If the password is correct, an
     authentication token will be obtained, and that token is the information cached locally. For
-    any subsequent interaction with the remotes, the conan client will only use that JWT token.
+    any subsequent interaction with the remotes, the Conan client will only use that JWT token.

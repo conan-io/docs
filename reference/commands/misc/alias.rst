@@ -17,8 +17,8 @@ graph.
 .. code-block:: text
 
     positional arguments:
-      reference   Alias reference. e.j: mylib/1.X@user/channel
-      target      Target reference. e.j: mylib/1.12@user/channel
+      reference   Alias reference. e.g.: mylib/1.X@user/channel
+      target      Target reference. e.g.: mylib/1.12@user/channel
 
     optional arguments:
       -h, --help  show this help message and exit

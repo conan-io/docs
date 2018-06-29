@@ -8,8 +8,9 @@ conan info
 
     $ conan info [-h] [--paths] [-bo BUILD_ORDER] [-g GRAPH]
                  [-if INSTALL_FOLDER] [-j [JSON]] [-n ONLY]
-                 [--package-filter [PACKAGE_FILTER]] [-b [BUILD]] [-e ENV]
-                 [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                 [--package-filter [PACKAGE_FILTER]] [-db [DRY_BUILD]]
+                 [-b [BUILD]] [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
+                 [-s SETTINGS] [-u]
                  path_or_reference
 
 Gets information about the dependency graph of a recipe. It can be used with a
@@ -42,7 +43,7 @@ recipe or a reference for any existing package in your local cache.
                             will raise an error.
       -j [JSON], --json [JSON]
                             Only with --build_order option, return the information
-                            in a json. e.j --json=/path/to/filename.json or --json
+                            in a json. e.g --json=/path/to/filename.json or --json
                             to output the json
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
@@ -55,6 +56,9 @@ recipe or a reference for any existing package in your local cache.
                             Print information only for packages that match the
                             filter pattern e.g., MyPackage/1.2@user/channel or
                             MyPackage*
+      -db [DRY_BUILD], --dry-build [DRY_BUILD]
+                            Apply the --build argument to output the information,
+                            as it would be done by the install command
       -b [BUILD], --build [BUILD]
                             Given a build policy, return an ordered list of
                             packages that would be built from sources during the
