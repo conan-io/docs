@@ -1,3 +1,5 @@
+.. _manage_shared_libraries_env_vars:
+
 Manage Shared Libraries with Environment Variables
 ==================================================
 
@@ -156,7 +158,7 @@ runtime. In Windows, it is enough if the package added its binary folder to the 
 
 Security restrictions might apply in OSX
 (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
-``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitely in
+``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitly in
 your conanfile.py:
 
 .. code-block:: python
@@ -201,7 +203,7 @@ Using the **virtualrunenv** generator
 
 Even if ``toolA`` doesn't declare the variables in the ``package_info`` method, you can use
 the :ref:`virtualrunenv generator<virtual_run_environment_generator>`. It will set automatically
-the environment variables poiting to the "lib" and "bin" folders.
+the environment variables pointing to the "lib" and "bin" folders.
 
 
 **conanfile.txt**
@@ -225,4 +227,3 @@ the environment variables poiting to the "lib" and "bin" folders.
     conan install .
     source activate
     toolA --someparams
-
