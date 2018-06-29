@@ -26,7 +26,7 @@ This helper is specially useful:
             # All the lib folders will be available in LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
 
 
-I sets the following environment variables:
+It sets the following environment variables:
 
 +--------------------+---------------------------------------------------------------------+
 | NAME               | DESCRIPTION                                                         |
