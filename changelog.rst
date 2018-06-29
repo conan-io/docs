@@ -14,8 +14,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.5.1 (29-June-2018)
 --------------------
 
-Bugfix: Sources in the local cache weren't removed when using scm pointing to the local source directory, causing changes in local sources not applied to the conan create process.
-Bugfix: Fixed bug causing duplication of build requires in the dependency graph.
+- Bugfix: Sources in the local cache weren't removed when using scm pointing to the local source directory, causing changes in local sources not applied to the conan create process.
+- Bugfix: Fixed bug causing duplication of build requires in the dependency graph.
 
 
 1.5.0 (27-June-2018)
