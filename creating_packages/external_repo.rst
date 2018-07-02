@@ -63,5 +63,5 @@ For ``git`` (currently the only supported scm), the ``revision`` field can be:
 - A branch
 - A tag
 
-The ``source()`` method will be called after the checkout process, so you can still use is to patch something or
+The ``source()`` method will be called after the checkout process, so you can still use it to patch something or
 retrieve more sources, but it is not necessary in most cases.

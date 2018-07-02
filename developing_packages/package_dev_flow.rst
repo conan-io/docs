@@ -182,7 +182,7 @@ There are 2 modes of operation:
 conan test
 ^^^^^^^^^^
 
-The finally step to test the package for consumer is the test command. This step is quite straight-forward:
+The final step to test the package for consumer is the test command. This step is quite straight-forward:
 
 .. code-block:: bash
 
