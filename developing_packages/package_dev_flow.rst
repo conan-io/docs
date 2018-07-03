@@ -159,7 +159,7 @@ This parameters takes the same parameters as ``package()``.
 
 There are 2 modes of operation:
 
-- Using ``source-folder`` and ``build-folder``will use the ``package()`` method to extract the artifacts from those 
+- Using ``source-folder`` and ``build-folder`` will use the ``package()`` method to extract the artifacts from those
   folders and create the package, directly in the Conan local cache. Strictly speaking, it doesn't require executing
   a :command:`conan package` before, as it packages directly from those source and build folder, though :command:`conan package`
   is still recommended in the dev-flow to debug the ``package()`` method.
@@ -182,7 +182,7 @@ There are 2 modes of operation:
 conan test
 ^^^^^^^^^^
 
-The finally step to test the package for consumer is the test command. This step is quite straight-forward:
+The final step to test the package for consumer is the test command. This step is quite straight-forward:
 
 .. code-block:: bash
 
