@@ -11,6 +11,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+
+1.5.2 (5-July-2018)
+--------------------
+
+- Bugfix: Fixed bug with pre-1.0 packages with sources.
+- Bugfix: Fixed regression in private requirements.
+
+
 1.5.1 (29-June-2018)
 --------------------
 
