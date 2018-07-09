@@ -11,6 +11,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.6.0 ()
+----------------------
+
+- Feature: ``conan remote list --raw`` prints remote info in a format valid for *remotes.txt*, so it can be used for ``conan config install``
 
 1.5.2 (5-July-2018)
 --------------------

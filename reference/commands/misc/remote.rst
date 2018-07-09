@@ -41,6 +41,16 @@ Manages the remote list and the package recipes associated to a remote.
       conan-center: https://conan.bintray.com [Verify SSL: True]
       local: http://localhost:9300 [Verify SSL: True]
 
+- List remotes in a format valid for *remotes.txt* (``conan config install``):
+
+  .. code-block:: bash
+
+      $ conan remote list --raw
+      conan-center https://conan.bintray.com True
+      local http://localhost:9300 True
+      # capture the current remotes in a text file
+      $ conan remote list --raw > remotes.txt
+
 - Add a new remote:
 
   .. code-block:: bash
