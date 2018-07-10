@@ -14,6 +14,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.6.0 ()
 ----------------------
 
+- Feature: The ``json`` generator now outputs the settings and options
 - Feature: ``conan remote list --raw`` prints remote info in a format valid for *remotes.txt*, so it can be used for ``conan config install``
 
 1.5.2 (5-July-2018)
