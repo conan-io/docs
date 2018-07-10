@@ -63,21 +63,21 @@ There is a brew recipe, so in OSX, you can install Conan as follows:
 Install from AUR (Arch Linux)
 -----------------------------
 
-You can find the package `here <https://aur.archlinux.org/packages/conan/>`_. The easiest way is using **pacaur** tool:
+The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers#Active>`_, eg. **yay**, **aurman**, or **pakku**.
+For example, the following command installs Conan using ``yay``:
 
 .. code-block:: bash
 
-    $ pacaur -S conan
+    $ yay -S conan
 
-Or you can also use ``makepkg`` and install it following the `AUR docs: installing packages
-<https://wiki.archlinux.org/index.php/Arch_User_Repository>`_.
-
-Just remember to install four Conan dependencies first. They are not in the official repositories but there are in **AUR** repository too:
+Alternatively, build and install Conan manually using ``makepkg`` and ``pacman`` as described in `the Arch Wiki <https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages>`_.
+Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
+Make sure to first install the three Conan dependencies which are also found in AUR:
 
 - python-patch 
 - python-node-semver
-- python-distro
 - python-pluginbase
+
 
 Install the binaries
 --------------------

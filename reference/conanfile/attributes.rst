@@ -815,6 +815,9 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
 - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
 - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+- **submodule** (Optional, Defaulted to ``None``):
+   - ``shallow``: Will sync the git submodules using ``submodule sync``
+   - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
 
 To know more about the usage of ``scm`` check:
 
