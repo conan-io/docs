@@ -107,11 +107,21 @@ Linux to Windows
 
 .. code-block:: text
 
+    $toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
+    target_host=x86_64-w64-mingw32
+    cc_compiler=gcc
+    cxx_compiler=g++
+
     [env]
-    # Where is our C compiler
-    CC=/usr/bin/x86_64-w64-mingw32-gcc
-    # Where is our CPP compiler
-    CXX=/usr/bin/x86_64-w64-mingw32-g++
+    CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-as
+    RANLIB=$target_host-ranlib
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
+    STRIP=$target_host-strip
+    RC=$target_host-windres
 
     [settings]
     # We are building in Ubuntu Linux
@@ -122,8 +132,9 @@ Linux to Windows
     os=Windows
     arch=x86_64
     compiler=gcc
+
     # Adjust to the gcc version of your MinGW package
-    compiler.version=6.3
+    compiler.version=7.3
     compiler.libcxx=libstdc++11
     build_type=Release
 
