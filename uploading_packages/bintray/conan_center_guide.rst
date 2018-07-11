@@ -13,6 +13,13 @@ you need to submit an inclusion request to Bintray, and the Bintray team will re
 
 - If you are packaging a third-party library you need to follow the guidelines below.
 
+When you know how to :ref:`upload your packages to your own Bintray repository<uploading_to_bintray>`, contributing a library to Conan
+Center is really straightforward. All you have to do is to navigate to the main page of the package in Bintray and click the
+**"Add to Conan Center"** button to start the inclusion request process.
+
+.. image:: /images/add_to_conan-center.png
+    :align: center
+
 Inclusion guidelines for third party libraries
 **********************************************
 
@@ -45,7 +52,7 @@ Recipe quality
 - **Recipe fields**: `description`, `license` and `url` are required. The `license` field refers to
   the library being packaged.
 
-- **Linter:** Is important to have a reasonable clean Linter, ``conan export`` and  ``conan create``
+- **Linter:** Is important to have a reasonable clean Linter, :command:`conan export` and  :command:`conan create`
   will output some warnings and errors, keep it as clean as possible to guarantee a recipe less
   error prone and more understandable.
 
@@ -71,6 +78,9 @@ Recipe quality
             raise ConanException("GCC > 7.0 is required")
         if self.settings.os == "Windows":
             raise ConanException("Windows not supported")
+
+- **Without version ranges**: As many libraries does not follow semantic versioning and the dependency resolution of version ranges is not
+  always clear, recipes in conan center should fix the version of their dependencies and not use version ranges.
 
 - **LICENSE of the recipe:** The public repository must contain a ``LICENSE`` file with an OSS
   license.
@@ -101,7 +111,7 @@ CI Integration
 --------------
 
 - If you are packaging a header only library, it is only needed to provide one CI configuration
-  (e.g. Travis with gcc 6.1) to check that the package is built correctly (use ``$ conan create``).
+  (e.g. Travis with gcc 6.1) to check that the package is built correctly (use :command:`conan create`).
 
 - Unless your library is a header only library or doesn't support a concrete operating system or
   compiler you will need to provide a CI systems integration to support:
@@ -135,9 +145,9 @@ In the bintray page of your package fill the following fields:
     - Maturity
     - Website: If any, website of the library
     - Issues tracker: URL of the issue tracker from your github repository e.j:
-      https://github.com/lasote/conan-zlib/issues
+      https://github.com/conan-community/conan-zlib/issues
     - Version control: URL of your recipe github repository. e.j:
-      https://github.com/lasote/conan-zlib
+      https://github.com/conan-community/conan-zlib
     - GitHub repo (user/repo): e.j lasote/conan-zlib
 
 In each version page (optional, but welcomed):
@@ -145,5 +155,5 @@ In each version page (optional, but welcomed):
     - Select the README from github.
     - Select the Release Notes.
 
-.. _`zlib Conan package repository`: https://github.com/lasote/conan-zlib
+.. _`zlib Conan package repository`: https://github.com/conan-community/conan-zlib
 .. _`conan-center`: https://bintray.com/conan/conan-center

@@ -13,10 +13,9 @@ your project.
 Single configuration
 --------------------
 
-The single configuration is simple. It is the one that has been used so far for the examples and
-tutorials. In :ref:`Getting started<getting_started>`, we ran the ``conan install ..`` command
-inside the ``build`` folder and the ``conaninfo.txt`` and ``conanbuildinfo.cmake`` files were
-generated there. The build folder is temporary, you should exclude it from version control, so those
+The single configuration is simple. It is the one that has been used so far for the examples and tutorials. In
+:ref:`Getting started<getting_started>`, we ran the :command:`conan install ..` command inside the *build* folder and the *conaninfo.txt* and
+*conanbuildinfo.cmake* files were generated there. The build folder is temporary, you should exclude it from version control, so those
 temporary files are excluded too.
 
 **Out-of-source builds** are also supported. Let's make a simple example:
@@ -43,7 +42,7 @@ Now you are ready to build:
 
 .. code-block:: bash
 
-    $ cmake ../example-hello -G "Visual Studio 14 Win64" //or other generator
+    $ cmake ../example-hello -G "Visual Studio 14 Win64"  # or other generator
     $ cmake --build . --config Release
     $ ./bin/greet
 
@@ -53,8 +52,7 @@ build with a new configuration with different settings, if needed:
 
 .. code-block:: bash
 
-    $ cd example-hello-build
-    $ rm -rf *
+    $ cd example-hello-build && rm -rf *
     $ conan install ../example-hello -s compiler="<other compiler>" --build=missing
     $ cmake ../example-hello -G "<other generator>"
     $ cmake --build . --config Release
@@ -63,8 +61,8 @@ Multi configuration
 -------------------
 
 You can also manage different configurations, in-source or out of source, and you can switch between
-them without taking the extra step of re-issuing the ``conan install`` command (even though this is
-not a speed-related issue, since the second time ``conan install`` is executed with the same
+them without taking the extra step of re-issuing the :command:`conan install` command (even though this is
+not a speed-related issue, since the second time :command:`conan install` is executed with the same
 parameters, it will run very fast: packages are installed in the local cache, not inside the
 project).
 
@@ -80,7 +78,7 @@ project).
 .. note::
 
     You can use the ``--install-folder`` or ``-if`` to specify where to generate the output files or
-    create manually the directory and change to it before execute the ``conan install`` command.
+    create manually the directory and change to it before execute the :command:`conan install` command.
 
 So the layout will be:
 

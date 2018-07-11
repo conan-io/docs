@@ -46,6 +46,11 @@ dependencies have to be installed:
 These commands will generate 3 files: ``conanbuildinfo_release.cmake``, ``conanbuildinfo_debug.cmake``,
 and ``conanbuildinfo_multi.cmake``, which includes the other two, and enables its use.
 
+.. warning::
+
+    The ``cmake_multi`` generator is designed as a helper for consumers, but not for creating packages.
+    If you also want to create a package, see :ref:`Creating packages<cmake_multi_creating_packages>` section.
+
 
 Global variables approach
 ----------------------------
@@ -72,7 +77,7 @@ The consumer project might write a ``CMakeLists.txt`` like:
 Targets approach
 -----------------
 
-Or, if using the modern cmake syntax with targets:
+Or, if using the modern cmake syntax with targets (where ``Hello1`` is an example package name that the executable ``say_hello`` depends on):
 
 .. code-block:: cmake
 
@@ -108,6 +113,41 @@ configurations, building the project, or from the command line:
     # And without having to conan install again, or do anything else
     $ cmake --build . --config Debug
 
+
+.. _cmake_multi_creating_packages:
+
+Creating packages
+-----------------
+
+The ``cmake_multi`` generator is just for consumption. It cannot be used to create packages. If you
+want to be able to both use the ``cmake_multi`` generator to install dependencies and build your
+project but also to create packages from that code, you need
+to specify the regular ``cmake`` generator for package creation, and prepare the *CMakeLists.txt*
+accordingly, something like:
+
+.. code-block:: cmake
+
+    project(MyHello)
+    cmake_minimum_required(VERSION 2.8.12)
+
+    if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+        include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    else()
+        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    endif()
+
+    conan_basic_setup()
+
+    add_executable(say_hello main.cpp)
+    conan_target_link_libraries(say_hello)
+
+
+Then, make sure that the generator ``cmake_multi`` is **not** specified in the conanfiles, but the
+users specify it in the command line while installing dependencies:
+
+.. code-block:: bash
+
+    $ conan install . -g cmake_multi
 
 
 .. seealso:: Check the section :ref:`Reference/Generators/cmake <cmakemulti_generator>` to read more about this generator.

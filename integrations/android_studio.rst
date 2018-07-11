@@ -5,7 +5,7 @@
 ____________________________________
 
 
-Use can use Conan to :ref:`cross-build your libraries for Android<cross_building_android>` in different architectures.
+You can use Conan to :ref:`cross-build your libraries for Android<cross_building_android>` in different architectures.
 If you are using Android Studio for your Android application development, you can integrate it conan to automate the
 library building for the different architectures that you want to support in your project.
 
@@ -71,8 +71,8 @@ the following contents:
     add_library(native-lib SHARED src/main/cpp/native-lib.cpp)
     target_link_libraries(native-lib CONAN_PKG::libpng)
 
-8. Open the ``app/build.gradle`` file, we are configuring the architectures we want to build specifying adding a new task ``conanInstall``
-that will call ``conan install`` to install the requirements:
+8. Open the *app/build.gradle* file, we are configuring the architectures we want to build specifying adding a new task ``conanInstall``
+that will call :command:`conan install` to install the requirements:
 
 - In the defaultConfig section, append:
 
@@ -84,27 +84,25 @@ that will call ``conan install`` to install the requirements:
        abiFilters 'armeabi-v7a'
     }
 
-
 - After the android block:
 
-.. code-block:: groovy
-
+.. code-block:: text
 
     task conanInstall {
         def buildDir = new File("app/conan_build")
         buildDir.mkdirs()
         // if you have problems running the command try to specify the absolute
         // path to conan (Known problem in MacOSX) /usr/local/bin/conan
-        def cmd = "conan install ../conanfile.txt --profile android_21_arm_clang --build missing "
-        print(">> ${cmd} \n")
+        def cmmd = "conan install ../conanfile.txt --profile android_21_arm_clang --build missing "
+        print(">> ${cmmd} \n")
 
         def sout = new StringBuilder(), serr = new StringBuilder()
-        def proc = cmd.execute(null, buildDir)
+        def proc = cmmd.execute(null, buildDir)
         proc.consumeProcessOutput(sout, serr)
         proc.waitFor()
         println "$sout $serr"
         if(proc.exitValue() != 0){
-            throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmd}")
+            throw new Exception("out> $sout err> $serr" + "\nCommand: ${cmmd}")
         }
     }
 

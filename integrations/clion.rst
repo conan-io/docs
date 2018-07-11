@@ -64,7 +64,7 @@ requiring zlib library from a conan package:
 
 .. _step_five:
 
-5. Now you can ``conan install`` for debug in the ``cmake-build-debug`` folder to install your requirements and
+5. Now you can :command:`conan install` for debug in the ``cmake-build-debug`` folder to install your requirements and
 generate the ``conanbuildinfo.cmake`` file there:
 
 
@@ -120,7 +120,7 @@ Now we are going to see how to create a conan package from the previous library.
 |cmakelists|
 
 
-3. Create a ``conanfile.py`` file. It's recommended to use the ``conan new`` command.
+3. Create a ``conanfile.py`` file. It's recommended to use the :command:`conan new` command.
 
 .. code-block:: bash
 
@@ -181,7 +181,7 @@ And edit the ``conanfile.py``:
 
 4. To build your library with CLion follow the guide of :ref:`Using packages from the step 5<step_five>`.
 
-5. To package your library use the ``conan export-pkg`` command passing the used build-folder. It
+5. To package your library use the :command:`conan export-pkg` command passing the used build-folder. It
 will call your ``package()`` method to extract the artifacts and push the conan package to the local
 cache:
 
@@ -196,7 +196,7 @@ cache:
    $ conan upload mylibrary/1.0@myuser/channel # This will upload only the recipe, use --all to upload all the generated binary packages.
 
 8. If you would like to see how the package looks like before exporting it to the local cache (conan export-pkg)
-you can use the ``conan package`` command to create the package in a local directory:
+you can use the :command:`conan package` command to create the package in a local directory:
 
 
 .. code-block:: bash

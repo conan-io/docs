@@ -1,3 +1,5 @@
+.. _uploading_to_bintray:
+
 Uploading to Bintray
 ====================
 
@@ -53,24 +55,21 @@ Setting the remotes in this way will make your Conan client resolve packages and
 repositories in the following order of priority:
 
   1. `conan-center`_
-  2. `conan-transit`_
-  3. Your own repository
+  2. Your own repository
 
-If you want to have your own repository prioritized, please remove the ``conan-transit`` and
-``conan-center`` repository, then add yours first, then the others:
+If you want to have your own repository prioritized, please use the ``--insert`` command line option
+when adding it:
 
 .. code-block:: bash
 
-    $ conan remote remove conan-center
-    $ conan remote remove conan-transit
-    $ conan remote add <your_remote <your_url>
-    $ conan remote add conan-center https://conan.bintray.com
-    $ conan remote add conan-transit https://conan-transit.bintray.com
+    $ conan remote add <your_remote> <your_url> --insert 0
+    $ conan remote list
+      <your remote>: <your_url> [Verify SSL: True]
+      conan-center: https://conan.bintray.com [Verify SSL: True]
 
 .. tip::
 
     Check the full reference of :ref:`$ conan remote<conan_remote>` command.
 
 
-.. _`conan-transit`: https://bintray.com/conan/conan-transit
 .. _`conan-center`: https://bintray.com/conan/conan-center

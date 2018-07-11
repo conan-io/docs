@@ -1,58 +1,73 @@
-.. _conan_export_pkg_command:
+
+.. _conan_export-pkg:
 
 conan export-pkg
 ================
 
 .. code-block:: bash
 
-    $ conan export-pkg [-h] [-sf SOURCE_FOLDER] [-bf BUILD_FOLDER]
-                       [-if INSTALL_FOLDER] [-pr PROFILE] [-o OPTIONS]
-                       [-s SETTINGS] [-e ENV] [-f]
+    $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-e ENV] [-f]
+                       [-if INSTALL_FOLDER] [-o OPTIONS] [-pr PROFILE]
+                       [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
                        path reference
 
-Exports a recipe & creates a package with given files calling 'package'. It
-executes the package() method applied to the local folders '--source_folder'
-and '--build_folder' and creates a new package in the local cache for the
-specified 'reference' and for the specified '--settings', '--options' and or '
---profile'.
+Exports a recipe & creates a package with given files calling the package()
+method applied to the local folders '--source-folder' and '--build-folder' and
+creates a new package in the local cache for the specified 'reference' and for
+the specified '--settings', '--options' and or '--profile'.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      path                  path to a recipe (conanfile.py). e.j: "."
-      reference             user/channel, or a full package reference
-                            (Pkg/version@user/channel), if name and version are
-                            not declared in the recipe (conanfile.py)
+      path                  Path to a folder containing a conanfile.py or to a
+                            recipe file e.g., my_folder/conanfile.py
+      reference             user/channel or pkg/version@user/channel (if name and
+                            version are not declared in the conanfile.py)
 
     optional arguments:
       -h, --help            show this help message and exit
-      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
-                            local folder containing the sources. Defaulted to the
-                            directory of the conanfile. A relative path can also
-                            be specified (relative to the current directory)
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
-                            build folder, working directory of the build process.
-                            Defaulted to the current directory. A relative path
-                            can also be specified (relative to the current
-                            directory)
-      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            local folder containing the conaninfo.txt and
-                            conanbuildinfo.txt files (from a previous conan
-                            install execution). Defaulted to --build-folder. If
-                            these files are found in the specified folder, they
-                            will be used, then if you specify --profile, -s, -o,
-                            --env, it will raise an error.
-      -pr PROFILE, --profile PROFILE
-                            Profile for this package
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-      -s SETTINGS, --settings SETTINGS
-                            Define settings values, e.g., -s compiler=gcc
+                            Directory for the build process. Defaulted to the
+                            current directory. A relative path to current
+                            directory can also be specified
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -f, --force           Overwrite existing package if existing
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            Directory containing the conaninfo.txt and
+                            conanbuildinfo.txt files (from previous 'conan
+                            install'). Defaulted to --build-folder If these files
+                            are found in the specified folder and any of '-e',
+                            '-o', '-pr' or '-s' arguments are used, it will raise
+                            an error.
+      -o OPTIONS, --options OPTIONS
+                            Define options values, e.g., -o pkg:with_qt=true
+      -pr PROFILE, --profile PROFILE
+                            Profile for this package
+      -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
+                            folder containing a locally created package. If a
+                            value is given, it won't call the recipe 'package()'
+                            method, and will run a copy of the provided folder.
+      -s SETTINGS, --settings SETTINGS
+                            Define settings values, e.g., -s compiler=gcc
+      -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                            Directory containing the sources. Defaulted to the
+                            conanfile's directory. A relative path to current
+                            directory can also be specified
 
-Note that this is **not** the normal or recommended flow for creating conan packages,
+
+:command:`conan export-pkg` executes the following methods of a *conanfile.py* whenever ``--package-folder`` is used:
+
+1. ``config_options()``
+2. ``configure()``
+3. ``requirements()``
+4. ``package_id()``
+
+In case a package folder is not specified, this command will also execute:
+
+5. ``package()``
+
+Note that this is **not** the normal or recommended flow for creating Conan packages,
 as packages created this way will not have a reproducible build from sources.
 This command should be used when:
 
@@ -60,11 +75,17 @@ This command should be used when:
  - You are developing your package locally and want to export the built artifacts to the local
    cache.
 
-The command ``conan new <ref> --bare`` will create a simple recipe that could be used in combination
+The command :command:`conan new <ref> --bare` will create a simple recipe that could be used in combination
 with the ``export-pkg`` command. Check this :ref:`How to package existing binaries
 <existing_binaries>`.
 
-This command will use the ``package()`` method.
+:command:`export-pkg` has two different modes of operation:
+
+- Specifying :command:`--package-folder` will perform a copy of the given folder, without executing the ``package()`` method.
+  Use it if you have already created the package, for example with :command:`conan package` or
+  with ``cmake.install()`` from the ``build()`` step.
+- Specifying :command:`--build-folder` and/or :command:`--source-folder` will execute the ``package()`` method,
+  to filter, select and arrange the layout of the artifacts.
 
 **Examples**:
 
@@ -84,7 +105,7 @@ This command will use the ``package()`` method.
   .. code-block:: bash
 
       $ conan new Hello/0.1 --bare  # In case you still don't have a recipe for the binaries
-      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --build_folder=Release_x86
+      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --build-folder=Release_x86
 
 - Create a package from a user folder build and sources folders:
 
@@ -110,7 +131,7 @@ This command will use the ``package()`` method.
 
   .. code-block:: bash
 
-      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source_folder=sources --build_folder=build
+      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build
 
   And such package will contain just the files:
 
@@ -144,9 +165,9 @@ This command will use the ``package()`` method.
               self.copy("*.h", dst="include", src="include")
               self.copy("*.lib", dst="lib", keep_path=False)
 
-  First we will call ``conan source`` to get our source code in the ``src`` directory, then
-  ``conan install`` to install the requirements and generate the info files, ``conan build`` to
-  build the package, and finally ``conan export-pkg`` to send the binary files to a package in the
+  First we will call :command:`conan source` to get our source code in the *src* directory, then
+  :command:`conan install` to install the requirements and generate the info files, :command:`conan build` to
+  build the package, and finally :command:`conan export-pkg` to send the binary files to a package in the
   local cache:
 
   .. code-block:: bash
@@ -157,7 +178,6 @@ This command will use the ``package()`` method.
       $ conan build . --build-folder build_x86 --source-folder src
       $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
 
-  In this case, in the ``conan export-pkg``, you don't need to specify the ``-s arch=x86`` or any
-  other setting, option, or profile, because it will all the information in the ``--build_folder``
-  the ``conaninfo.txt`` and ``conanbuildinfo.txt`` that have been created with the ``conan install``
-  command.
+  In this case, in the :command:`conan export-pkg`, you don't need to specify the :command:`-s arch=x86` or any other setting, option, or profile,
+  because it will all the information in the :command:`--build-folder` the *conaninfo.txt* and *conanbuildinfo.txt`* that have been created with
+  :command:`conan install`.

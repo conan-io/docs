@@ -105,17 +105,11 @@
           {% endif %}
           </a>
 
-          {% if theme_display_version %}
-            {%- set nav_version = version %}
-            {% if READTHEDOCS and current_version %}
-              {%- set nav_version = current_version %}
-            {% endif %}
             {% if nav_version %}
               <div class="version">
-                {{ nav_version }}
+                {{ current_version }}
               </div>
             {% endif %}
-          {% endif %}
 
           {% include "searchbox.html" %}
 
@@ -134,9 +128,9 @@
           {% endblock %}
           <div class="dark_newsletter-div">
              <p>Sign up for release updates:</p>
-              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
               <form id="mktoForm_1479"></form>
-              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
           </div>
         </div>
       </div>

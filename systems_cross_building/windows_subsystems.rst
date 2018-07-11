@@ -52,7 +52,7 @@ run in Windows-native mode, the compiler won't link against the ``msys-2.0.dll``
 
 
 AutoToolsBuildEnvironment
-__________________________
+_________________________
 
 In the constructor of the build helper, you have the ``win_bash`` parameter. Set it to ``True`` to
 run the ``configure`` and ``make`` commands inside a bash.
@@ -74,43 +74,35 @@ the right order.
 
 There are some packages you can use as ``build_requires``:
 
-
-- From Bincrafters repository: ``conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan``
-
-    - **msys2_installer/latest@bincrafters/stable**: MSYS2 subsystem as a Conan package.
-    - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
-
 - From Conan-center:
 
     - **mingw_installer/1.0@conan/stable**: MinGW compiler installer as a Conan package.
+    - **msys2_installer/latest@bincrafters/stable**: MSYS2 subsystem as a Conan package.
+    - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
 
-
-For example, create a profile and name it ``msys2_mingw`` with the following contents:
-
+For example, create a profile and name it *msys2_mingw* with the following contents:
 
 .. code-block:: text
 
-   [build_requires]
-   mingw_installer/1.0@conan/stable
-   msys2_installer/latest@bincrafters/stable
+    [build_requires]
+    mingw_installer/1.0@conan/stable
+    msys2_installer/latest@bincrafters/stable
 
-   [settings]
-   os_build=Windows
-   os=Windows
-   arch=x86_64
-   arch_build=x86_64
-   compiler=gcc
-   compiler.version=4.9
-   compiler.exception=seh
-   compiler.libcxx=libstdc++11
-   compiler.threads=posix
-   build_type=Release
+    [settings]
+    os_build=Windows
+    os=Windows
+    arch=x86_64
+    arch_build=x86_64
+    compiler=gcc
+    compiler.version=4.9
+    compiler.exception=seh
+    compiler.libcxx=libstdc++11
+    compiler.threads=posix
+    build_type=Release
 
-
-Then you can have a ``conanfile.py`` that can use **self.run()** with ``win_bash=True`` to run any
+Then you can have a *conanfile.py* that can use ``self.run()`` with ``win_bash=True`` to run any
 command in a bash terminal or use the ``AutoToolsBuildEnvironment`` to invoke ``configure/make``
 in the ``subsystem``:
-
 
 .. code-block:: python
 
@@ -132,14 +124,11 @@ in the ``subsystem``:
 
         ...
 
-
 And apply the profile in your recipe to create a package using the MSYS2 and MINGW:
-
 
 .. code-block:: bash
 
-    conan create . user/testing --profile msys2_mingw
-
+    $ conan create . user/testing --profile msys2_mingw
 
 As we included in the profile the ``MinGW`` and then the ``MSYS2`` build_require, when we run a command, the PATH
 will contain first the MinGW tools and finally the MSYS2.
@@ -147,21 +136,17 @@ will contain first the MinGW tools and finally the MSYS2.
 What could we do with the Visual Studio issue with ``link.exe``? You can pass an additional parameter to ``run_in_windows_bash``
 with a dictionary of environment variables to have more priority than the others:
 
-
 .. code-block:: python
 
     def build(self):
         # ...
         vs_path = tools.vcvars_dict(self.settings)["PATH"] # Extract the path from the vcvars_dict tool
-        tools.run_in_windows_bash(command, env={"PATH": vs_path})
-
+        tools.run_in_windows_bash(self, command, env={"PATH": vs_path})
 
 So you will get first the ``link.exe`` from the Visual Studio.
 
-
 Also, Conan has a tool ``tools.remove_from_path`` that you can use in a recipe to remove temporally a
 tool from the path if you know that it can interfere with your build script:
-
 
 .. code-block:: python
 
@@ -176,5 +161,3 @@ tool from the path if you know that it can interfere with your build script:
                self.run("some_command", win_bash=True)
 
         ...
-
-

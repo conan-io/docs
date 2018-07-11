@@ -13,14 +13,25 @@ Conan can be integrated with **Visual Studio** in two different ways:
 With CMake
 ----------
 
+Use the **cmake** generator, or **cmake_multi**, if you are using cmake to machine-generate your Visual Studio projects.
+
 Check the :ref:`generator<generators>` section to read about the **cmake** generator.
 Check the official `CMake docs`_ to find out more about generating Visual Studio projects with CMake.
 
 
 .. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
 
+However, beware of some current cmake limitations, such as not dealing well with find-packages, because cmake doesn't know how to handle finding both debug and release packages.
+
+.. note::
+
+    If you want to use the Visual Studio 2017 + CMake integration, :ref:`check this how-to<visual2017_cmake_howto>`
+
+
 With *visual_studio* generator
 ------------------------------
+
+Use this, or **visual_studio_multi**, if you are maintaining your Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party dependencies.
 
 You can use the **visual_studio** generator to manage your requirements via your *Visual Studio*  project.
 
@@ -86,26 +97,32 @@ Check :ref:`Build with Visual Studio<msbuild>` section for more info.
 Build an existing Visual Studio project
 ---------------------------------------
 
-You can build an existing Visual Studio from your ``build()`` method using the ``tools.build_sln_command``.
+You can build an existing Visual Studio from your ``build()`` method using the :ref:`MSBuild()<msbuild>` build helper.
 
+.. code-block:: python
 
-.. seealso:: Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
+    from conans import ConanFile, MSBuild
+
+    class ExampleConan(ConanFile):
+        ...
+
+        def build(self):
+            msbuild = MSBuild(self)
+            msbuild.build("MyProject.sln")
 
 
 Toolsets
 --------
 
 You can use the subsetting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
-It will be automatically applied when using the ``CMake()`` build helper, ``tools.build_sln_command`` or ``tools.msvc_build_command``.
+It will be automatically applied when using the ``CMake()`` and ``MSBuild()`` build helpers.
 The toolset can be also specified manually in these build helpers with the ``toolset`` parameter.
 
-By default, Conan will not generate a new binary package if
-the specified ``compiler.toolset`` matches an already generated package for the corresponding
-``compiler.version``. Check the :ref:`package_id()<package_id>` reference to know more.
+By default, Conan will not generate a new binary package if the specified ``compiler.toolset``
+matches an already generated package for the corresponding ``compiler.version``.
+Check the :ref:`package_id()<method_package_id>` reference to know more.
 
 
 
 
-.. seealso:: - Check the :ref:`tools.build_sln_command()<build_sln_commmand>` reference section for more info.
-             - Check the :ref:`tools.msvc_build_command()<msvc_build_command>` reference section for more info.
-             - Check the :ref:`CMake()<cmake_reference>` reference section for more info.
+.. seealso:: - Check the :ref:`CMake()<cmake_reference>` reference section for more info.

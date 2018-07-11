@@ -26,14 +26,14 @@ The process will be:
 
 1. Conan will get the user input settings and options, which can come from the command line, be
    default values defined in *~/.conan/profiles/default*, defined in a :ref:`profiles` file, or
-   cached from the latest ``$ conan install`` execution.
+   cached from the latest :command:`conan install` execution.
 2. Conan will retrieve the ``MyLib/1.0@user/channel`` recipe, read the ``settings`` attribute, and
    assign the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will
    compute a SHA1 hash, that will be the binary package ID, e.g.
    ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
 4. Conan will try to find the ``c6d75...`` binary package. If it's present conan will retrieve it,
-   if not, it can be built from sources with ``$ conan install --build``.
+   if not, it can be built from sources with :command:`conan install --build`.
 
 If the package is installed again with different settings, for example, for 32bits architecture:
 
@@ -164,7 +164,7 @@ values if necessary.
 
 .. seealso::
 
-    Check the :ref:`package_id() method reference<package_id>` too see the available helper methods
+    Check the :ref:`package_id() method reference<method_package_id>` too see the available helper methods
     to change the package_id() behavior, for example to:
 
         - Adjust our package recipe as a **header only**
@@ -253,7 +253,7 @@ Versioning schema
 By default conan assumes **semver** compatibility, i.e, if a version changes from minor **2.0** to
 **2.1** conan will assume that the API is compatible (headers not changing), and that it is not
 necessary to build a new binary for it. Exactly the same for patches, changing from **2.1.10** to
-**2.1.11** doesn't require a re-build. Those rules are defined by `semver <http://semver.org/>`_.
+**2.1.11** doesn't require a re-build. Those rules are defined by `semver <https://semver.org/>`_.
 
 If it is necessary to change the default behavior, the applied versioning schema can be customized
 within the ``package_id()`` method:

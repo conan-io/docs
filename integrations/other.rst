@@ -4,14 +4,14 @@
 Custom integrations
 ===================
 
-If you intend to use other build system that has not a built-in generator, you might still be 
-able to do so. There are several options.
+If you intend to use a build system that does not have a built-in generator, you may still be 
+able to do so. There are several options:
 
-- First, search in conan.io. Generators can now be created and contributed by users as regular
-  packages, so you can depend on them, use versioning, evolve faster without depending on the
-  conan.io releases, etc. Check :ref:`generator packages <dyn_generators>`.
-- You can use the **text generator**. It will generate a text file, simple to read and to parse
-  that you can easily parse with your tools to extract the information.
+- First, search in bintray. Generators can now be created and contributed by users as regular
+  packages, so you can depend on them, use versioning, and evolve faster without depending on the
+  conan releases. See :ref:`generator packages <dyn_generators>`.
+- You can use the **text or json generator**. It will generate a text file, simple to read and to parse
+  that you can easily parse with your tools to extract the required information.
 - Use the **conanfile data model** and access its properties and values, so you can directly
   call your build system with that information, without requiring to generate a file.
 - Write and **create your own generator**. So you can upload it, version and reuse it, as well
@@ -20,7 +20,54 @@ able to do so. There are several options.
   
 .. note:: 
    
-   Need help to integrate your build system? Tell us what you need. info@conan.io
+   Need help integrating your build system? Tell us what you need. info@conan.io
+
+
+.. _json_integration:
+
+Use the JSON generator
+-----------------------
+
+Specify the **json** generator in your conanfile:
+
+  .. code-block:: ini
+
+      [requires]
+      fmt/4.1.0@<user>/<stable>
+      Poco/1.9.0@pocoproject/stable
+
+      [generators]
+      json
+
+
+A file named *conanbuildinfo.json* will be generated. It will contain the information about every dependency:
+
+.. code-block:: json
+
+    {
+      "dependencies":
+      [
+        {
+          "name": "fmt",
+          "version": "4.1.0",
+          "include_paths": [
+            "/path/to/.conan/data/fmt/4.1.0/<user>/<channel>/package/<id>/include"
+          ],
+          "lib_paths": [
+            "/path/to/.conan/data/fmt/4.1.0/<user>/<channel>/package/<id>/lib"
+          ],
+          "libs": [
+            "fmt"
+          ],
+          "...": "...",
+        },
+        {
+          "name": "Poco",
+          "version": "1.7.8p3",
+          "...": "..."
+        }
+      ]
+    }
 
 
 .. _txt_integration:
@@ -33,13 +80,13 @@ Just specify the **txt** generator in your conanfile:
    .. code-block:: text
    
       [requires]
-      Poco/1.7.8p3@pocoproject/stable
+      Poco/1.9.0@pocoproject/stable
       
       [generators]
       txt
 
 And a file is generated, with the same information as in the case of CMake and gcc, only in a generic, text format,
-containing the information from the ``deps_cpp_info`` and ``deps_user_info``. Check the conanfile :ref:`package_info<package_info>`
+containing the information from the ``deps_cpp_info`` and ``deps_user_info``. Check the conanfile :ref:`package_info<method_package_info>`
 method to know more about these objects:
 
 .. code-block:: text
@@ -104,7 +151,7 @@ and much more reusable to create a generator to simplify the task for your build
 
    class MyProjectWithConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.8p3@pocoproject/stable"
+      requires = "Poco/1.9.0@pocoproject/stable"
       ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
       generators = "txt"
       default_options = "Poco:shared=False", "OpenSSL:shared=False"
@@ -187,7 +234,7 @@ Create your own generator
 
 There are two ways in which generators can be contributed:
 
-- Forking and adding the new generator in conan codebase. This will be a built-in generator.
+- Forking and adding the new generator in the conan codebase. This will be a built-in generator.
   It might have a much slower release and update cycle, it needs to pass some tests before being accepted,
   but it has the advantage than no extra things are needed to use that generator (once released in conan)
 - Creating a custom :ref:`generator package <dyn_generators>`. You can write a ``conanfile.py`` and add

@@ -6,7 +6,7 @@ was designed with a great flexibility in mind, trying to let the users do almost
 the scripting language for Conan package recipes.
 
 With this flexibility, Conan is able to do very different tasks: package
-`Visual Studio modules <http://blog.conan.io/2016/06/01/Building-and-packaging-C++-modules-in-VS2015.html>`_,
+`Visual Studio modules <https://blog.conan.io/2016/06/01/Building-and-packaging-C++-modules-in-VS2015.html>`_,
 :ref:`package Go code <go_package_manager>`, build packages from sources or from binaries retrieved from elsewhere, etc.
 
 :ref:`Python code can be reused and packaged with Conan <python_reuse>` to share functionalities or tools among *conanfile.py* files. Here we can
@@ -72,7 +72,7 @@ The *conanfile.py* has a few more lines than the above, but it is still quite ea
     class PocoPyReuseConan(ConanFile):
         name = "PocoPy"
         version = "0.1"
-        requires = "Poco/1.7.8p3@pocoproject/stable", "pybind11/any@memsharded/stable"
+        requires = "Poco/1.9.0@pocoproject/stable", "pybind11/any@memsharded/stable"
         settings = "os", "compiler", "arch", "build_type"
         exports = "*"
         generators = "cmake"
@@ -122,17 +122,17 @@ avoid this and use the same binary for different setups, modifying this behavior
     >>> poco.random_float()
     0.697845458984375
 
-Now the first invocation of ``$ conan install`` will build retrieve the dependencies and build the package. The next invocation will use the
+Now the first invocation of :command:`conan install` will build retrieve the dependencies and build the package. The next invocation will use the
 cached binaries and be much faster. Note how we have to specify ``-s arch=x86`` to build matching the architecture of the python interpreter
 to be used, in our case, 32 bits.
 
-We can also read in the output of the ``$ conan install`` the dependencies that are being pulled:
+We can also read in the output of the :command:`conan install` the dependencies that are being pulled:
 
 .. code-block:: bash
 
     Requirements
         OpenSSL/1.0.2l@conan/stable from conan.io
-        Poco/1.7.8p3@pocoproject/stable from conan.io
+        Poco/1.9.0@pocoproject/stable from conan.io
         PocoPy/0.1@memsharded/testing from local
         pybind11/any@memsharded/stable from conan.io
         zlib/1.2.11@conan/stable from conan.io

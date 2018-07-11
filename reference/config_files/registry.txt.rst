@@ -3,19 +3,18 @@
 registry.txt
 ============
 
-This file is generally automatically managed, and it has also access via the ``conan remote``
+This file is generally automatically managed, and it has also access via the :command:`conan remote`
 command but just in case you might need to change it. It contains information about the known
 remotes and from which remotes are each package retrieved:
 
-
 .. code-block:: text
 
-    conan.io https://server.conan.io True
+    conan-center https://conan.bintray.com True
     local http://localhost:9300 True
-    
+
     Hello/0.1@demo/testing local
-    
-    
+
+
 The first section of the file is listing ``remote-name``: ``remote-url`` ``verify_ssl``. Adding, removing or changing
 those lines, will add, remove or change the respective remote. If verify_ssl, conan client will verify the SSL certificates
 for that remote server.

@@ -3,7 +3,7 @@
 artifacts.properties
 ====================
 
-This file is used to send custom headers in the PUT requests that ``conan upload`` command does:
+This file is used to send custom headers in the PUT requests that :command:`conan upload` command does:
 
 **.conan/artifacts.properties**
 

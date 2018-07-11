@@ -15,7 +15,7 @@ doesn't satisfy your needs. There are several options:
 - Fork the conan codebase and write a built-in generator. Please make a pull request if possible to
   contribute it to the community.
 - Write a custom generator in a ``conanfile.py`` and manage it as a package. You can upload it
-  to your own server and share with your team, or share with the world uploading it to conan.io.
+  to your own server and share with your team, or share with the world uploading it to bintray.
   You can manage it as a package, you can version it, overwrite it, delete it, create channels (testing/stable...),
   and the most important: bring it to your projects as a regular dependency.
   
@@ -42,10 +42,10 @@ that file. The **name of the generator** itself will be taken from the class nam
         def content(self):     
             return "whatever contents the generator produces"
             
-This class is just included in a ``conanfile.py`` that must contain also a ``Conanfile`` class
+This class is just included in a ``conanfile.py`` that must contain also a ``ConanFile`` class
 that implements the package itself, with the name of the package, the version, etc. This
 class typically has no ``source()``, ``build()``, ``package()``, and even the ``package_info()`` method is
-overriden as it doesn't have to define any include paths or library paths.
+overridden as it doesn't have to define any include paths or library paths.
 
 If you want to create a generator that creates more than one file, you can leave the ``filename()`` empty, and return a dictionary of
 filenames->contents in the ``content()`` method:
@@ -82,25 +82,24 @@ Then, write in it the following **conanfile.py**:
 .. code-block:: python
 
     from conans.model import Generator
-    from conans.paths import BUILD_INFO
-    from conans import ConanFile, CMake
+    from conans import ConanFile
 
     class PremakeDeps(object):
-        def __init__(self, conanfile):
+        def __init__(self, deps_cpp_info):
             self.include_paths = ",\n".join('"%s"' % p.replace("\\", "/")
-                                           for p in conanfile.deps_cpp_info.include_paths)
+                                            for p in deps_cpp_info.include_paths)
             self.lib_paths = ",\n".join('"%s"' % p.replace("\\", "/")
-                                       for p in conanfile.deps_cpp_info.lib_paths)
+                                        for p in deps_cpp_info.lib_paths)
             self.bin_paths = ",\n".join('"%s"' % p.replace("\\", "/")
-                                       for p in conanfile.deps_cpp_info.bin_paths)
-            self.libs = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.libs)
-            self.defines = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.defines)
-            self.cppflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.cppflags)
-            self.cflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.cflags)
-            self.sharedlinkflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.sharedlinkflags)
-            self.exelinkflags = ", ".join('"%s"' % p for p in conanfile.deps_cpp_info.exelinkflags)
+                                        for p in deps_cpp_info.bin_paths)
+            self.libs = ", ".join('"%s"' % p for p in deps_cpp_info.libs)
+            self.defines = ", ".join('"%s"' % p for p in deps_cpp_info.defines)
+            self.cppflags = ", ".join('"%s"' % p for p in deps_cpp_info.cppflags)
+            self.cflags = ", ".join('"%s"' % p for p in deps_cpp_info.cflags)
+            self.sharedlinkflags = ", ".join('"%s"' % p for p in deps_cpp_info.sharedlinkflags)
+            self.exelinkflags = ", ".join('"%s"' % p for p in deps_cpp_info.exelinkflags)
 
-            self.rootpath = "%s" % conanfile.deps_cpp_info.rootpath.replace("\\", "/")
+            self.rootpath = "%s" % deps_cpp_info.rootpath.replace("\\", "/")
 
     class Premake(Generator):
         @property
@@ -109,7 +108,7 @@ Then, write in it the following **conanfile.py**:
 
         @property
         def content(self):
-            deps = PremakeDeps(self.conanfile)
+            deps = PremakeDeps(self.deps_build_info)
 
             template = ('conan_includedirs{dep} = {{{deps.include_paths}}}\n'
                         'conan_libdirs{dep} = {{{deps.lib_paths}}}\n'
@@ -128,6 +127,7 @@ Then, write in it the following **conanfile.py**:
 
             for dep_name, dep_cpp_info in self.deps_build_info.dependencies:
                 deps = PremakeDeps(dep_cpp_info)
+                dep_name = dep_name.replace("-", "_")
                 dep_flags = template_deps.format(dep="_" + dep_name, deps=deps)
                 sections.append(dep_flags)
 
@@ -141,14 +141,12 @@ Then, write in it the following **conanfile.py**:
         license = "MIT"
 
         def build(self):
-          pass
+            pass
 
         def package_info(self):
-          self.cpp_info.includedirs = []
-          self.cpp_info.libdirs = []
-          self.cpp_info.bindirs = []
-
-
+            self.cpp_info.includedirs = []
+            self.cpp_info.libdirs = []
+            self.cpp_info.bindirs = []
 
 This is a full working example. Note the ``PremakeDeps`` class as a helper. The generator is
 creating premake information for each individual library separately, then also an aggregated
@@ -248,7 +246,5 @@ Now, everything works, so you might want to share your generator:
 
 .. note::
 
-    This is a regular conan package. You could for example embed this example in a ``test_package``
-    folder, create a conanfile.py that invokes premake4 in the build() method, and use ``conan test``
-    to automatically test your custom generator with a real project
-    
+    This is a regular conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
+    invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.

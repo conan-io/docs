@@ -8,7 +8,7 @@
 
 You can use `AppVeyor`_ cloud service to automatically build and test your project in a Windows environment in the cloud.
 It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
-fired in Appveyor after a ``git push`` to Github.
+fired in Appveyor after a :command:`git push` to Github.
 
 You can use Appveyor both for:
 
@@ -19,7 +19,7 @@ You can use Appveyor both for:
 Building and testing your project
 ------------------------------------
 
-We are going to use the :ref:`Google Test example<google_test_example>` now, with **AppVeyor** support to run the tests.
+We are going to use an example with GTest package, with **AppVeyor** support to run the tests.
 
 
 Clone the project from github:
@@ -40,22 +40,22 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	  - x64
 	
 	install:
-	  - cmd: echo "Downloading conan..."
-	  - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
-	  - cmd: pip.exe install conan
-	  - cmd: conan user # Create the conan data directory
-	  - cmd: conan --version
+	  - cmmd: echo "Downloading conan..."
+	  - cmmd: set PATH=%PATH%;%PYTHON%/Scripts/
+	  - cmmd: pip.exe install conan
+	  - cmmd: conan user # Create the conan data directory
+	  - cmmd: conan --version
 	
 	build_script:
-	  - cmd: mkdir build 
-	  - cmd: conan install -o gtest:shared=True
-	  - cmd: cd build 
-	  - cmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
-	  - cmd: cmake --build . --config Release
+	  - cmmd: mkdir build 
+	  - cmmd: conan install -o gtest:shared=True
+	  - cmmd: cd build 
+	  - cmmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
+	  - cmmd: cmake --build . --config Release
 	
 	test_script:
-	  - cmd: cd bin
-	  - cmd: encryption_test.exe
+	  - cmmd: cd bin
+	  - cmmd: encryption_test.exe
 	  
 
 Appveyor will install the **conan** tool and will execute the **conan install** command.
@@ -67,7 +67,8 @@ Creating, testing and uploading conan binary packages
 You can use Appveyor to automate the building of binary packages, which will be created in the
 cloud after pushing to Github. You can probably setup your own way, but conan has some utilities to help in the process.
 
-The command ``conan new`` has arguments to create a default working ``appveyor.yml`` file. Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray. You could follow these steps:
+The command :command:`conan new` has arguments to create a default working *appveyor.yml* file. Other setups might be possible, but for this
+example we are assuming that you are using GitHub and also uploading your final packages to Bintray. You could follow these steps:
 
 #. First, create an empty github repository, lets call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
@@ -75,13 +76,14 @@ The command ``conan new`` has arguments to create a default working ``appveyor.y
 #. Activate the repo in your Appveyor account, so it is built when we push changes to it.
 #. Under *Appveyor Settings->Environment*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key, and encrypt it.  If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
-#. Create the package: ``$ conan new Hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL`` where ``user`` is your Bintray username
-#. You can inspect the created files: both ``appveyor.yml`` and the ``build.py`` script, that is used by ``conan-package-tools`` utility to split different builds 			 with different configurations in different appveyor jobs.
-#. You can test locally, before pushing, with ``$ conan create``
-#. Add the changes, commit and push: ``$ git add . && git commit -m "first commit" && git push``
+#. Create the package: :command:`conan new Hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL` where **user** is your Bintray username
+#. You can inspect the created files: both *appveyor.yml* and the *build.py* script, that is used by **conan-package-tools** utility to
+   split different builds with different configurations in different appveyor jobs.
+#. You can test locally, before pushing, with :command:`conan create`
+#. Add the changes, commit and push: :command:`git add . && git commit -m "first commit" && git push`
 #. Go to Appveyor and see the build, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations
-#. Check locally, searching in Bintray: ``$ conan search Hello/0.1@<user>/testing -r=mybintray``
+#. Check locally, searching in Bintray: :command:`conan search Hello/0.1@<user>/testing -r=mybintray`
 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 
