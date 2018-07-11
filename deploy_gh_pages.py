@@ -1,8 +1,7 @@
+import json
 import os
 import shutil
 import tempfile
-
-from conf import versions_dict
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -37,12 +36,16 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name):
+def build_and_copy(branch, folder_name, versions_available, validate_links=False):
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
 
+    with open('versions.json', 'w') as f:
+        f.write(json.dumps(versions_available))
+
     call("make html")
-    call("make linkcheck")
+    if validate_links:
+        call("make linkcheck")
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
@@ -53,34 +56,53 @@ def build_and_copy(branch, folder_name):
     if not os.path.exists("en"):
         os.mkdir("en")
 
-    version_folder = "en/%s" % folder_name
-    if os.path.exists(version_folder):
-        shutil.rmtree(version_folder)
+    version_folders = ["en/%s" % folder_name]
+    if branch == "master":
+        version_folders.append("en/latest")
 
-    os.mkdir(version_folder)
-    copytree(tmp_dir, version_folder)
-    call("git add -A .")
-    call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
+    for version_folder in version_folders:
+        if os.path.exists(version_folder):
+            shutil.rmtree(version_folder)
+
+        os.mkdir(version_folder)
+        copytree(tmp_dir, version_folder)
+        call("git add -A .")
+        call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
+
+
+def should_deploy():
+    if not os.getenv("TRAVIS_BRANCH", None) == "master":
+        print("Skipping deploy for not master branch")
+        return False
+
+    if os.getenv("TRAVIS_PULL_REQUEST", "") != "false":
+        print("Deploy skipped, This is a PR in the main repository")
+        return False
+
+    if not os.getenv("GITHUB_API_KEY"):
+        print("Deploy skipped, missing GITHUB_API_KEY. Is this a PR?")
+        return False
+
+    return True
 
 
 def deploy():
-    if not os.getenv("TRAVIS_BRANCH", None) == "master":
-        print("Skipping deploy for not master branch")
-        return
-    if not os.getenv("GITHUB_API_KEY"):
-        print("Deploy skipped, missing GITHUB_API_KEY. Is this a PR?")
-        return
-
     call('git remote add origin-pages '
          'https://%s@github.com/conan-io/docs.git > /dev/null 2>&1' % os.getenv("GITHUB_API_KEY"))
     call('git push origin-pages gh-pages')
 
 
 if __name__ == "__main__":
-    config_git()
-    clean_gh_pages()
+    if should_deploy():
+        config_git()
+        clean_gh_pages()
+        versions_dict = {"master": "1.5",
+                         "release/1.4.5": "1.4",
+                         "release/1.3.3": "1.3"}
+        for branch, folder_name in versions_dict.items():
+            build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
 
-    for branch, folder_name in versions_dict.items():
-        build_and_copy(branch, folder_name)
-
-    deploy()
+        deploy()
+    else:
+        call("make html")
+        call("make linkcheck")

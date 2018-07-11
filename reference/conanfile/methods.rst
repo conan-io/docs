@@ -26,6 +26,11 @@ control. But if the source code is available in a repository, you can directly g
             self.run("git clone https://github.com/memsharded/hello.git")
             # You can also change branch, commit or whatever
             # self.run("cd hello && git checkout 2fe5...")
+            #
+            # Or using the Git class:
+            # git = tools.Git(folder="hello")
+            # git.clone("https://github.com/memsharded/hello.git", "static_shared")
+
 
 This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use
 another VCS or direct download/unzip. For that purpose, we have provided some helpers, but you can use your own code or origin as well. This
@@ -131,7 +136,7 @@ The syntax of ``self.copy`` inside ``package()`` is as follows:
 
 .. code-block:: python
 
-    self.copy(pattern, dst="", src="", keep_path=True, links=False, symlinks=None, excludes=None, ignore_case=False)
+    self.copy(pattern, dst="", src="", keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
 Parameters:
     - **pattern** (Required): A pattern following fnmatch syntax of the files you want to copy, from the build to the package folders.
@@ -171,10 +176,15 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
     If you are using CMake and you have an install target defined in your CMakeLists.txt, you might be able to reuse it for this
     ``package()`` method. Please check :ref:`reuse_cmake_install`.
 
-The ``package()`` method will be called twice if the attribute ``no_copy_source`` is defined and ``True``. One will copy from the *source*
-folder (typically packaging the headers and other data files), and the other will copy from the *build* folder, packaging the libraries and
-other binary artifacts. Also, when the local :command:`conan package` command is issued with :command:`--source-folder` and :command:`--build-folder`, it will
-execute two times, one in each folder, in the same way.
+This method copies files from build/source folder to the package folder depending on two situations:
+
+- **Build folder and source folder are the same**: Normally during :command:`conan create` source folder content is copied to the build
+  folder. In this situation ``src`` parameter of ``self.copy()`` will point to the build folder in the local cache.
+
+- **Build folder is different from source folder**: When :ref:`developing a package recipe<package_dev_flow>` and source and build folder
+  are different (:command:`conan package . --source-folder=source --build-folder=build`) or when :ref:`no_copy_source` is defined,
+  ``package()`` method is called twice: One will copy from the source folder (``src`` parameter of ``self.copy()`` will point to the
+  source folder), and the other will copy from the build folder (``src`` parameter of ``self.copy()`` will point to the build folder).
 
 .. _method_package_info:
 
@@ -279,8 +289,8 @@ consumers can use those executables easily:
     # assuming the binaries are in the "bin" subfolder
     self.env_info.PATH.append(os.path.join(self.package_folder, "bin")
 
-The :ref:`virtualenv<virtual_environment_generator>` generator will use the self.env_info variables to prepare a script to activate/deactive
-a virtual environment.
+The :ref:`virtualenv<virtual_environment_generator>` generator will use the ``self.env_info`` variables to prepare a script to
+activate/deactive a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.
 
 They will be automatically applied before calling the consumer *conanfile.py* methods ``source()``, ``build()``, ``package()`` and
 ``imports()``.

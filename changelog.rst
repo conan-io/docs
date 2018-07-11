@@ -8,37 +8,142 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.3 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
-1.4.0 ()
---------
+1.6.0 ()
+----------------------
 
-- Bugfix: ``tools.which()`` returning directories instead of only files.
-- Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
+- Feature: The ``json`` generator now outputs the settings and options
+- Feature: ``conan remote list --raw`` prints remote info in a format valid for *remotes.txt*, so it can be used for ``conan config install``
+- Feature: Visual Studio generator creates *conanbuildinfo.props* file using ``$(USERPROFILE)`` macro.
+
+1.5.2 (5-July-2018)
+--------------------
+
+- Bugfix: Fixed bug with pre-1.0 packages with sources.
+- Bugfix: Fixed regression in private requirements.
+
+
+1.5.1 (29-June-2018)
+--------------------
+
+- Bugfix: Sources in the local cache weren't removed when using scm pointing to the local source directory, causing changes in local sources not applied to the conan create process.
+- Bugfix: Fixed bug causing duplication of build requires in the dependency graph.
+
+
+1.5.0 (27-June-2018)
+--------------------
+
+- Feature: :command:`conan search <pkg-ref> -r=all` now is able to search for binaries too in all remotes
+- Feature: Dependency graph improvements: ``build_requires`` are represented in the graph (visible in :command:`conan info``, also in the
+  HTML graph). :command:`conan install` and :command:`conan info` commands shows extended information of the binaries status (represented in
+  colors in HTML graph). The dependencies declaration order in recipes is respected (as long as it doesn't break the dependency graph order).
+- Feature: improved remote management, it is possible to get binaries from different remotes.
+- Feature: :command:`conan user` command is now able to show authenticated users.
+- Feature: Added :command:`conan user --json` json output to the command.
+- Feature: New ``pattern`` argument to ``tools.unzip()`` and ``tools.untargz`` functions, that allow efficient extraction of certain files
+  only.
+- Feature : Added Manjaro support for ``SystemPackageTools``.
+- Feature: Added ``Macos`` ``version`` subsetting in the default *settings.yml* file, to account for the "min OSX version" configuration.
+- Feature: SCM helper argument to recursively clone submodules
+- Feature: SCM helper management of subfolder, allows using ``exports`` and ``exports_sources``, manage symlinks, and do not copy files that
+  are *.gitignored*. Also, works better in the local development flow.
+- Feature: Modifies user agent header to output the Conan client version and the Python version. Example: ``Conan/1.5.0 (Python 2.7.1)``
+- Fix: The ``CMake()`` helper now doesn't require a compiler input to deduce the default generator.
+- Fix: :command:`conan search <pattern>` now works consistently in local cache and remotes.
+- Fix: Proxy related environment variables are removed if *conan.conf* declares proxy configuration.
+- Fix: Fixed the parsing of invalid JSON when Microsoft ``vswhere`` tool outputs invalid non utf-8 text.
+- Fix: Applying ``winsdk`` and ``vcvars_ver`` to MSBuild and ``vcvars_command`` for VS 14 too.
+- Fix: Workspaces now support ``build_requires``.
+- Fix: ``CMake()`` helper now defines by default ``CMAKE_EXPORT_NO_PACKAGE_REGISTRY``.
+- Fix: Settings constraints declared in recipes now don't error for single strings (instead of a list with a string element).
+- Fix: ``cmake_minimum_required()`` is now before ``project()`` in templates and examples.
+- Fix: ``CONAN_SYSREQUIRES_MODE=Disabled`` now doesn't try to update the system packages registry.
+- Bugfix: Fixed SCM origin path of windows folder (with backslashes).
+- Bugfix: Fixed SCM dictionary order when doing replacement.
+- Bugfix: Fixed auto-detection of apple-clang 10.0.
+- Bugfix: Fixed bug when doing a :command:`conan search` without registry file (just before installation).
+
+
+1.4.5 (22-June-2018)
+--------------------
+
+- Bugfix: The package_id recipe method was being called twice causing issues with info objects being populated with wrong information.
+
+
+1.4.4 (11-June-2018)
+--------------------
+
+- Bugfix: Fix link order with private requirements.
+- Bugfix: Removed duplicate ``-std`` flag in CMake < 3 or when the standard is not yet supported by ``CMAKE_CXX_STANDARD``.
+- Bugfix: Check ``scm`` attribute to avoid breaking recipes with already defined one.
+- Feature: Conan workspaces.
+
+
+1.4.3 (6-June-2018)
+-------------------
+
+- Bugfix: Added system libraries to the cmake_find_package generator.
+- Fix: Added SIGTERM signal handler to quit safely.
+- Bugfix: Fixed miss-detection of gcc 1 when no gcc was on a Linux machine.
+
+
+1.4.2 (4-June-2018)
+-------------------
+
+- Bugfix: Fixed multi-config packages.
+- Bugfix: Fixed `cppstd` management with CMake and 20 standard version.
+
+
+
+1.4.1 (31-May-2018)
+-------------------
+
+- Bugfix: Solved issue with symlinks making recipes to fail with ``self.copy``.
+- Bugfix: Fixed c++20 standard usage with modern compilers and the creation of the *settings.yml* containing the settings values.
+- Bugfix: Fixed error with cased directory names in Windows.
+- BugFix: Modified confusing warning message in the SCM tool when the remote couldn't be detected.
+
+
+1.4.0 (30-May-2018)
+-------------------
+
+- Feature: Added ``scm`` conanfile attribute, to easily clone/checkout from remote repositories and
+  to capture the remote and commit in the exported recipe when the recipe and the sources lives in the same repository.
+  Read more in ":ref:`Recipe and sources in a different repo <external_repo>`" and ":ref:`Recipe and sources in the same repo <package_repo>`".
+- Feature: Added ``cmake_paths`` generator to create a file setting ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the packages folders.
+  It can be used as a CMake toolchain to perform a transparent CMake usage, without include any line of cmake code related to Conan.
+  Read more :ref:`here <cmake_paths_generator>`.
+- Feature: Added ``cmake_find_package`` generator that generates one ``FindXXX.cmake`` file per each dependency both with classic CMake approach and modern
+  using transitive CMake targets. Read more :ref:`here <cmake_find_package_generator>`.
+- Feature: Added :command:`conan search --json` json output to the command.
+- Feature: CMake build helper now sets ``PKG_CONFIG_PATH`` automatically and receives new parameter ``pkg_config_paths`` to override it.
+- Feature: CMake build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles".
+- Feature: Introduced default settings for GCC 8, Clang 7.
+- Feature: Introduced support for c++ language standard c++20.
+- Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
+- Feature: ``tools.vcvars_command()`` and ``tools.vcvars_dict()`` now take ``vcvars_ver`` and ``winsdk_version`` as parameters.
+- Feature: ``tools.vcvars_dict()`` gets only the env vars set by vcvars with new parameter ``only_diff=True``.
+- Feature: Generator ``virtualbuildenv`` now sets Visual Studio env vars via ``tool.vcvars_dict()``.
+- Feature: New tools for Apple development including XCRun wrapper.
 - Fix: Message "Package '1' created" in package commands with ``short_paths=True`` now shows package ID.
 - Fix: ``tools.vcvars_dict()`` failing to create dictionary due to newlines in vcvars command output.
-- Feature: Auto-managed ``fPIC`` option in AutoTools build helper.
-- Feature: Visual Studio generator creates conanbuildinfo.props file using $(USERPROFILE) macro.
-
-
-1.4.0 ()
---------
+- Bugfix: ``tools.which()`` returning directories instead of only files.
+- Bugfix: Inconsistent local cache when developing a recipe with ``short_paths=True``.
 - Bugfix: Fixed reusing MSBuild() helper object for multi-configuration packages.
 - Bugfix: Fixed authentication using env vars such as ``CONAN_PASSWORD`` when ``CONAN_NON_INTERACTIVE=True``.
 - Bugfix: Fixed Android api_level was not used to adjust CMAKE_SYSTEM_VERSION.
 - Bugfix: Fixed MSBuild() build helper creating empty XML node for runtime when the setting was not declared.
 - Bugfix: Fixed ``default_options`` not supporting ``=`` in value when specified as tuple.
-- Feature: CMake() build helper doesn't require to specify "arch" nor "compiler" anymore when the generator is "Unix Makefiles"
-- Feature: Introduced default settings for GCC 8, Clang 7.
-- Feature: Introduced support for c++ language standard c++20.
+- Bugfix: AutoToolsBuildEnvironment build helper's ``pkg_config_paths`` parameter now sets paths relative to the install folder or absolute
+  ones if provided.
 
 
 1.3.3 (10-May-2018)
 -------------------
 
 - Bugfix: Fixed encoding issues writing to files and calculating md5 sums.
-
 
 
 1.3.2 (7-May-2018)
@@ -66,15 +171,17 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added new build types to default ``settings.yml``: **RelWithDebInfo** and **MinSizeRel**.
   Compiler flags will be automatically defined in build helpers that do not understand them (``MSBuild``, ``AutotoolsBuildEnvironment``)
 - Feature: Improved package integrity. Interrupted downloads or builds shouldn't leave corrupted packages.
-- Feature: Added ``conan upload --json`` json output to the command.
+- Feature: Added :command:`conan upload --json` json output to the command.
 - Feature: new :command:`conan remove --locks` to clear cache locks. Useful when killing conan.
 - Feature: New **CircleCI** template scripts can be generated with the :command:`conan new` command.
 - Feature: The CMake() build helper manages the fPIC flag automatically based on the options ``fPIC`` and ``shared`` when present.
 - Feature: Allowing requiring color output with ``CONAN_COLOR_DISPLAY=1`` environment variable.
-  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output
+  If ``CONAN_COLOR_DISPLAY`` is not set rely on tty detection for colored output.
 - Feature: New :command:`conan remote rename` and :command:`conan add --force` commands to handle remotes.
 - Feature: Added parameter ``use_env`` to the ``MSBuild().build()`` build helper method to control the ``/p:UseEnv`` msbuild argument.
 - Feature: Timeout for downloading files from remotes is now configurable (defaulted to 60 seconds)
+- Feature: Improved Autotools build helper with new parameters and automatic set of ``--prefix`` to ``self.package_folder``.
+- Feature: Added new tool to compose GNU like triplets for cross-building: ``tools.get_gnu_triplet()``
 - Fix: Use International Units for download/upload transfer sizes (Mb, Kb, etc).
 - Fix: Removed duplicated paths in ``cmake_multi`` generated files.
 - Fix: Removed false positive linter warning for local imports.
@@ -382,7 +489,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 0.29.2 (2-December-2017)
 -------------------------
 
-- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL
+- Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL/
 
 
 0.29.1 (23-November-2017)

@@ -71,8 +71,20 @@ These are the special files and the rules applied to merge them:
 | config/conan.conf              | Merges the variables, overriding only the declared variables         |
 +--------------------------------+----------------------------------------------------------------------+
 
+The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
+the ``~/.conan`` folder. Its format is a list of entries, one on each line, with the form
+
+.. code-block::
+
+    [remote name] [remote url] [bool]
+    
+where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. 
+
 The local cache *registry.txt* file contains the remotes definitions, as well as the mapping from packages
-to remotes. In general it is not a good idea to add it to the installed files.
+to remotes. In general it is not a good idea to add it to the installed files. That being said, the remote
+definitions part of the *registry.txt* file uses the format required for *remotes.txt*, so you may find it
+provides a helpful starting point when writing a *remotes.txt* to be packaged in a Conan
+client configuration.
 
 The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
 so following calls to :command:`conan config install` command doesn't need to specify the URL.

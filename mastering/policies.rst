@@ -4,7 +4,7 @@ Build policies
 By default, :command:`conan install` command will search for a binary package (corresponding to our settings and defined options) in a remote, 
 if it's not present the install command will fail.
 
-As previously demonstrated, we can use the **--build** option to change the default :command:`conan install` behaviour:
+As previously demonstrated, we can use the :command:`--build` option to change the default :command:`conan install` behaviour:
 
 - :command:`--build some_package` will build only "some_package".
 - :command:`--build missing` will build only the missing requires.

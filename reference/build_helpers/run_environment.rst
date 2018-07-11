@@ -1,4 +1,3 @@
-
 .. _run_environment_reference:
 
 RunEnvironment
@@ -27,7 +26,7 @@ This helper is specially useful:
             # All the lib folders will be available in LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
 
 
-Set environment variables:
+It sets the following environment variables:
 
 +--------------------+---------------------------------------------------------------------+
 | NAME               | DESCRIPTION                                                         |
@@ -39,5 +38,22 @@ Set environment variables:
 | DYLD_LIBRARY_PATH  | Containing all the requirements ``lib`` folders. (OSX)              |
 +--------------------+---------------------------------------------------------------------+
 
+.. important::
 
-.. seealso:: - :ref:`Reference/Tools/environment_append <environment_append_tool>`
+    Security restrictions might apply in OSX
+    (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
+    ``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitly in
+    your *conanfile.py*:
+
+    .. code-block:: python
+
+        def build(self):
+            env_build = RunEnvironment(self)
+            with tools.environment_append(env_build.vars):
+                # self.run('./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
+                self.run('DYLD_LIBRARY_PATH=%s ./myexetool" % os.environ['DYLD_LIBRARY_PATH'])
+
+.. seealso::
+
+    - :ref:`manage_shared_libraries_env_vars`
+    - :ref:`environment_append_tool`

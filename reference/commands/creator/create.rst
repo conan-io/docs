@@ -27,7 +27,7 @@ project.
                             recipe file e.g., my_folder/conanfile.py
       reference             user/channel or pkg/version@user/channel (if name and
                             version not declared in conanfile.py) where the
-                            pacakage will be created
+                            package will be created
 
     optional arguments:
       -h, --help            show this help message and exit

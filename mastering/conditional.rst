@@ -46,5 +46,59 @@ Here is an example of what we could do in our **configure method**:
           else:
              self.requires("OpenSSL/1.0.2d@lasote/stable")
 
+Constrain settings and options
+------------------------------
 
-.. seealso:: Check the section :ref:`Reference/conanfile.py/configure(), config_options() <method_configure_config_options>` to find out more.
+Sometimes there are libraries that are not compatible with specific settings like libraries
+that are not compatible with an architecture or options that only make sense for an operating system. It can be also useful when there are
+settings under development.
+
+There are two approaches for this situation:
+
+- **Use** ``configure()`` **to raise an error for non-supported configurations**:
+
+  This approach is the first one evaluated when Conan loads the recipe so it is quite handy to perform checks of the input settings. It
+  relies on the set of possible settings inside your *settings.yml* file so it can be used to constrain any recipe.
+
+  .. code-block:: python
+
+      def configure(self):
+          if self.settings.os == "Windows":
+            raise ConanException("This library is not compatible with Windows")
+
+  This same method is also valid for ``options`` and ``config_options()`` method and it is commonly used to remove options for one setting:
+
+  .. code-block:: python
+
+      def config_options(self):
+          if self.settings.os == "Windows":
+              del self.options.fPIC
+
+- **Constrain settings inside a recipe**:
+
+  This approach constrains the settings inside a recipe to a subset of them and it is normally used in recipes that are never supposed to
+  work out of the restricted settings.
+
+  .. code-block:: python
+
+      from conans import ConanFile
+
+      class MyConan(ConanFile):
+          name = "myconanlibrary"
+          version = "1.0.0"
+          settings = {"os": None, "build_type": None, "compiler": None, "arch": ["x86_64"]}
+
+  The disadvantage of this is that possible settings are hardcoded in the recipe and in case new values are used in the future, it will
+  require the recipe to be modified explicitly.
+
+  .. important::
+
+      Note the use of ``None`` value in the ``os``, ``compiler`` and ``build_type`` settings described above will allow them to take the values
+      from *settings.yml* file
+
+We strongly recommend the use if the first approach whenever it is possible and use the second one only for those cases where a stronger
+constrain is needed for a particular recipe.
+
+.. seealso::
+
+    Check the reference section :ref:`configure(), config_options() <method_configure_config_options>` to find out more.

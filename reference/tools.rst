@@ -32,11 +32,13 @@ tools.vcvars_command()
 
 .. code-block:: python
 
-    def vcvars_command(settings, arch=None, compiler_version=None, force=False)
+    def vcvars_command(settings, arch=None, compiler_version=None, force=False, vcvars_ver=None,
+                       winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It does not execute
-the command, as that typically have to be done in the same command as the compilation,
+Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
 
@@ -65,13 +67,16 @@ Parameters:
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
+    - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
+    - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
 
 tools.vcvars_dict()
 -------------------
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
+                vcvars_ver=None, winsdk_version=None, only_diff=True)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -90,6 +95,8 @@ Parameters:
     - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
+    - **only_diff** (Optional, Defaulted to ``True``): Returns only the variables set by
+      ``vcvarsall`` and not the whole environment.
 
 
 tools.vcvars()
@@ -195,7 +202,7 @@ tools.unzip()
 
 .. code-block:: python
 
-    def unzip(filename, destination=".", keep_permissions=False)
+    def unzip(filename, destination=".", keep_permissions=False, pattern=None)
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -219,19 +226,35 @@ You can keep the permissions of the files using the ``keep_permissions=True`` pa
 
     tools.unzip("myfile.zip", "myfolder", keep_permissions=True)
 
+Use the ``pattern=None`` parameter if you want to filter specific files and
+paths to decompress from the archive.
+
+.. code-block:: python
+
+    from conans import tools
+
+    # Extract only files inside relative folder "small"
+    tools.unzip("bigfile.zip", pattern="small/*")
+    # Extract only txt files
+    tools.unzip("bigfile.zip", pattern="*.txt")
+
 Parameters:
     - **filename** (Required): File to be unzipped.
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for unzipped files.
     - **keep_permissions** (Optional, Defaulted to ``False``): Keep permissions of files. **WARNING:** Can be dangerous if the zip
       was not created in a NIX system, the bits could produce undefined permission schema. Use only this option if you are sure that
       the zip was created correctly.
+    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive
+      only paths matching the pattern. This should be a Unix shell-style
+      wildcard, see `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+      documentation for more details.
 
 tools.untargz()
 ---------------
 
 .. code-block:: python
 
-    def untargz(filename, destination=".")
+    def untargz(filename, destination=".", pattern=None)
 
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
@@ -240,14 +263,20 @@ unless the file had a different extension.
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.untargz("myfile.tar.gz")
     # or to extract in "myfolder" sub-folder
     tools.untargz("myfile.tar.gz", "myfolder")
+    # or to extract only txt files
+    tools.untargz("myfile.tar.gz", pattern="*.txt")
 
 Parameters:
     - **filename** (Required): File to be unzipped.
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
+    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive
+      only paths matching the pattern. This should be a Unix shell-style
+      wildcard, see `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+      documentation for more details.
 
 tools.get()
 -----------
@@ -1044,7 +1073,6 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 
     Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
 
-
 tools.collect_libs()
 ---------------------
 
@@ -1129,3 +1157,131 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .variables                  | get list of variables defined by the module                         |
 +-----------------------------+---------------------------------------------------------------------+
+
+.. _tools_git:
+
+tools.Git()
+-----------
+
+.. code-block:: python
+
+    class Git(object):
+
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
+
+Wrapper of the ``git`` tool.
+
+Parameters of the constructor:
+
+    - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
+    - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
+    - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
+
+Methods:
+
+- **run(command)**:
+    Run any "git" command. ``e.j run("status")``
+- **get_url_with_credentials(url)**:
+    Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **clone(url, branch=None)**:
+    Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the specified **folder** already exist you have to specify a ``branch``.
+- **checkout(element)**:
+    Checkout a branch, commit or tag.
+- **get_remote_url(remote_name=None)**:
+    Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
+- **get_revision()**:
+    Gets the current commit hash.
+
+
+.. _tools_apple:
+
+
+tools.is_apple_os()
+-------------------
+
+.. code-block:: python
+
+    def is_apple_os(os_)
+
+Returns ``True`` if OS is an Apple one: Macos, iOS, watchOS or tvOS.
+
+Parameters:
+    - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.
+
+
+tools.to_apple_arch()
+---------------------
+
+.. code-block:: python
+
+    def to_apple_arch(arch)
+
+Converts conan-style architecture into Apple-style architecture.
+
+Parameters:
+    - **arch** (Required): arch to perform the conversion. Usually this would be ``self.settings.arch``.
+
+tools.apple_sdk_name()
+----------------------
+
+.. code-block:: python
+
+    def apple_sdk_name(settings)
+
+Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
+
+Parameters:
+    - **settings** (Required): Conanfile settings.
+
+
+tools.apple_deployment_target_env()
+-----------------------------------
+
+.. code-block:: python
+
+    def apple_deployment_target_env(os_, os_version)
+
+Environment variable name which controls deployment target: ``MACOSX_DEPLOYMENT_TARGET``, ``IOS_DEPLOYMENT_TARGET``,
+``WATCHOS_DEPLOYMENT_TARGET`` or ``TVOS_DEPLOYMENT_TARGET``.
+
+Parameters:
+    - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
+    - **os_version** (Required): OS version.
+
+tools.apple_deployment_target_flag()
+------------------------------------
+
+.. code-block:: python
+
+    def apple_deployment_target_flag(os_, os_version)
+
+Compiler flag name which controls deployment target. For example: ``-mappletvos-version-min=9.0``
+
+Parameters:
+    - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
+    - **os_version** (Required): OS version.
+
+tools.XCRun()
+-------------
+
+.. code-block:: python
+
+    class XCRun(object):
+
+        def __init__(self, settings, sdk=None):
+
+XCRun wrapper used to get information for building.
+
+Properties:
+    - **sdk_path**: Obtain SDK path (a.k.a. Apple sysroot or -isysroot).
+    - **sdk_version**: Obtain SDK version.
+    - **sdk_platform_path**: Obtain SDK platform path.
+    - **sdk_platform_version**: Obtain SDK platform version.
+    - **cc**: Path to C compiler (CC).
+    - **cxx**: Path to C++ compiler (CXX).
+    - **ar**: Path to archiver (AR).
+    - **ranlib**: Path to archive indexer (RANLIB).
+    - **strip**: Path to symbol removal utility (STRIP).
