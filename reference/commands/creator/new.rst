@@ -7,13 +7,14 @@ conan new
 .. code-block:: bash
 
     $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-cis] [-cilg] [-cilc] [-cio]
-                [-ciw] [-ciglg] [-ciglc] [-gi] [-ciu CI_UPLOAD_URL]
+                [-ciw] [-ciglg] [-ciglc] [-ciccg] [-ciccc] [-cicco] [-gi]
+                [-ciu CI_UPLOAD_URL]
                 name
 
-Creates a new package recipe template with a ``conanfile.py`` and optionally, ``test_package``
-package testing files.
+Creates a new package recipe template with a 'conanfile.py' and optionally,
+'test_package' testing files.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       name                  Package name, e.g.: "Poco/1.7.3" or complete reference
@@ -44,10 +45,17 @@ package testing files.
                             Generate GitLab files for linux gcc
       -ciglc, --ci-gitlab-clang
                             Generate GitLab files for linux clang
+      -ciccg, --ci-circleci-gcc
+                            Generate CicleCI files for linux gcc
+      -ciccc, --ci-circleci-clang
+                            Generate CicleCI files for linux clang
+      -cicco, --ci-circleci-osx
+                            Generate CicleCI files for OSX apple-clang
       -gi, --gitignore      Generate a .gitignore with the known patterns to
                             excluded
       -ciu CI_UPLOAD_URL, --ci-upload-url CI_UPLOAD_URL
                             Define URL of the repository to upload
+
 
 **Examples**:
 

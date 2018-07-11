@@ -15,10 +15,13 @@ Available generators:
 
    generators/cmake
    generators/cmakemulti
+   generators/cmake_paths
+   generators/cmake_find_package
    generators/visualstudio
    generators/visualstudiomulti
    generators/visualstudiolegacy
    generators/xcode
+   generators/compiler_args
    generators/gcc
    generators/boost_build
    generators/qbs
@@ -30,3 +33,4 @@ Available generators:
    generators/virtualrunenv
    generators/ycm
    generators/text
+   generators/json

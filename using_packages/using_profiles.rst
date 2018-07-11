@@ -6,7 +6,7 @@ Using profiles
 So far we have used the default settings stored in ``~/.conan/profiles/default`` and defined as command line arguments.
 
 However, configurations can be large, settings can be very different, and we might want to switch easily between different configurations
-with different settings, options, etc.. The best way to this is using profiles.
+with different settings, options, etc. The best way to do it is using profiles.
 
 A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` and has this
 structure:
@@ -58,9 +58,9 @@ You can store them in the default profile folder or anywhere in you project and 
     $ conan create demo/testing -pr=clang_3.5
 
 If we continue with the example of Poco, we could have a handy profile to help us build our project with the desired configuration and avoid
-the ussage of all the command line arguments when installing the dependency packages.
+the usage of all the command line arguments when installing the dependency packages.
 
-A profile to install depenencies as **shared** and in **debug** mode will look like this:
+A profile to install dependencies as **shared** and in **debug** mode will look like this:
 
 .. code-block:: text
    :caption: *debug_shared*
@@ -97,7 +97,7 @@ Installation will be as easy as:
 
 .. code-block:: bash
 
-    $ conan install . -pr=./poco_apple_clang
+    $ conan install . -pr=./poco_clang_3.5
 
 .. seealso::
 

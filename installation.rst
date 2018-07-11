@@ -3,25 +3,27 @@
 Install
 =======
 
-Conan can be installed in many Operating Systems. It is extensively used and tested in Windows,
-Linux (different distros), OSX, and also actively used in FreeBSD and Solaris SunOS, but it has been
-reported to work in other systems too.
+Conan can be installed in many Operating Systems. It has been extensively used and tested in Windows, Linux (different distros), OSX, and is
+also actively used in FreeBSD and Solaris SunOS. There are also several additional operating systems on which it has been reported to work.
 
 There are three ways to install conan:
 
-1. The preferred and **strongly recommended way to install conan** is from PyPI, the Python Package
-   Index, with the ``pip`` command.
-2. There are other available installers for different systems, which might come with a bundled
-   python interpreter, so it is not necessary to install python first. Please note that some of
-   **these installers might have some limitations**, specially those created with pyinstaller
-   (like Windows exe & Linux deb).
+1. The preferred and **strongly recommended way to install Conan** is from PyPI, the Python Package Index, using the ``pip`` command.
+2. There are other available installers for different systems, which might come with a bundled python interpreter, so that you don't have to
+   install python first. Please note that some of **these installers might have some limitations**, specially those created with pyinstaller
+   (such as Windows exe & Linux deb).
 3. Running conan from sources.
 
 Install with pip (recommended)
 ------------------------------
 
-You need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
-with pip pre-installed, if not, install pip following `pip docs`_.
+To install Conan using ``pip``, you need a python 2.7 or 3.X distribution installed in your machine. Modern python distros come 
+with pip pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
+
+.. warning::
+
+    Python 2 will by deprecated soon by the Python maintainers. It is strongly recommended to use Python 3 for conan, especially if need to manage non-ascii filenames or file contents.
+    Conan still supports Python 2, but some of the dependencies have started to be Python 3 only too. The roadmap for deprecating Python 2 support in Conan will be defined soon.
 
 Install conan:
 
@@ -35,74 +37,60 @@ Install conan:
 
     - Make sure that your **pip** installation matches your **python (2.7 or 3.X)** one.
     - In Linux if you want to install it globally, you might need **sudo** permissions.
-    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything
-      python related
-    - In **Windows** and with Python 2.7, you might need to use **32bits** python distribution
-      (which is the Windows default one), instead of 64bits.
-    - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip
-      might fail. Try with virtualenvs, or install with other user ``$ pip install --user conan``.
-    - If you are in Windows, and using python <3.5, you might have problems if python is installed
-      in a path with spaces, like "C:/Program Files(x86)/Python". This is a known python limitation,
-      not conan. Install python in a path without spaces, use a virtualenv in another location or
-      upgrade your python installation.
-    - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart,
-      or logout/system if not enough) after installation, so conan is found in the path.
-
+    - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything python related
+    - In **Windows** and with Python 2.7, you might need to use **32bits** python distribution (which is the Windows default one), instead
+      of 64 bits.
+    - In **OSX**, specially latest versions that might have **System Integrity Protection**, pip might fail. Try with virtualenvs, or
+      install with other user ``$ pip install --user conan``.
+    - If you are in Windows, and using python <3.5, you might have problems if python is installed in a path with spaces, like
+      "C:/Program Files(x86)/Python". This is a known python's limitation, not Conan's. Install python in a path without spaces, use a
+      virtualenv in another location or upgrade your python installation.
+    - In some Linux distros, like Linux Mint, it is possible that you need a restart (shell restart, or logout/system if not enough) after
+      installation, so Conan is found in the path.
+    - Windows, Python 3 installation can fail installing the ``wrapt`` dependency because a bug in **pip**. Information about the issue and 
+      workarounds is here: https://github.com/GrahamDumpleton/wrapt/issues/112. 
 
 Install from brew (OSX)
 -----------------------
 
-There is a brew recipe, so in OSX, you can install conan with 
+There is a brew recipe, so in OSX, you can install Conan as follows:
 
 .. code-block:: bash
 
     $ brew update
     $ brew install conan
-   
 
 Install from AUR (Arch Linux)
 -----------------------------
 
-You can find the package `here <https://aur.archlinux.org/packages/conan/>`_.
-The easiest way is using **pacaur** tool:
+The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers#Active>`_, eg. **yay**, **aurman**, or **pakku**.
+For example, the following command installs Conan using ``yay``:
 
 .. code-block:: bash
 
-    $ pacaur -S conan
+    $ yay -S conan
 
-Or you can also use ``makepkg`` and install it following the `AUR docs: installing packages
-<https://wiki.archlinux.org/index.php/Arch_User_Repository>`_.
-
-Just remember to install four conan dependencies first. They are not in the official repositories
-but there are in **AUR** repository too:
+Alternatively, build and install Conan manually using ``makepkg`` and ``pacman`` as described in `the Arch Wiki <https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages>`_.
+Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
+Make sure to first install the three Conan dependencies which are also found in AUR:
 
 - python-patch 
 - python-node-semver
-- python-distro
 - python-pluginbase
+
 
 Install the binaries
 --------------------
 
-Go to the conan website and `download the installer for your platform
-<https://www.conan.io/downloads>`_!
+Go to the conan website and `download the installer for your platform <https://conan.io/downloads.html>`_!
 
 Execute the installer. You don't need to install python.
-
-.. note::
-
-    You can also use the latest version's links to download the latest installer:
-
-    .. code-block:: text
-
-        http://downloads.conan.io/latest_debian
-        http://downloads.conan.io/latest_windows
 
 
 Initial configuration
 ---------------------
 
-Let's check if conan is correctly installed. Execute in your console:
+Let's check if conan is correctly installed. In your console, run the following:
 
 .. code-block:: bash
 
@@ -133,7 +121,7 @@ Clone (or download and unzip) the git repository and install its requirements:
     $ cd conan
     $ pip install -r conans/requirements.txt
 
-Create a script to execute conan and add it to your ``PATH``.
+Create a script to run Conan and add it to your ``PATH``.
 
 .. code-block:: text
 
@@ -153,6 +141,6 @@ Test your ``conan`` script.
 
     $ conan
 
-You should see the conan commands help.
+You should see the Conan commands help.
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/

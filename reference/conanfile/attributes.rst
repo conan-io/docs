@@ -77,10 +77,11 @@ you can point to it, and afterwards use the ``url`` in your ``source()`` method.
 This is a recommended, but not mandatory attribute.
 
 license
----------
+-------
+
 This field is intended for the license of the **target** source code and binaries, i.e. the code
 that is being packaged, not the ``conanfile.py`` itself. This info is used to be displayed by
-the ``conan info`` command and possibly other search and report tools.
+the :command:`conan info` command and possibly other search and report tools.
 
 .. code-block:: python
 
@@ -196,14 +197,14 @@ to avoid re-typing them. Then, "arch": None is totally equivalent to "arch": ["x
 Check the reference or your ~/.conan/settings.yml file.
 
 As re-defining the whole settings attribute can be tedious, it is sometimes much simpler to
-remove or tune specific fields in the ``config()`` method. For example, if our package is runtime
+remove or tune specific fields in the ``configure()`` method. For example, if our package is runtime
 independent in VS, we can just remove that setting field:
 
 .. code-block:: python
 
     settings = "os", "compiler", "build_type", "arch"
 
-    def config(self):
+    def configure(self):
         self.settings.compiler["Visual Studio"].remove("runtime")
 
 .. _conanfile_options:
@@ -274,6 +275,19 @@ You can also specify default option values of the required dependencies:
         requires = "Pkg/0.1@user/channel"
         default_options = "Pkg:pkg_option=value"
 
+You can also specify default option values of the conditional required dependencies:
+
+.. code-block:: python
+
+    class OtherPkg(ConanFile):
+        default_options = "Pkg:pkg_option=value"
+
+        def requirements(self):
+            if self.settings.os != "Windows":
+                self.requires("Pkg/0.1@user/channel")
+
+This will always work, on Windows the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every other os.
+
 If you need to dynamically set some dependency options, you could do:
 
 .. code-block:: python
@@ -295,7 +309,7 @@ You can also defined them in consumer ``conanfile.txt``, as described in :ref:`t
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    Poco/1.9.0@pocoproject/stable
 
     [options]
     Poco:shared=True
@@ -371,7 +385,7 @@ The syntax is using brackets:
     class HelloConan(ConanFile):
         requires = "Pkg/[>1.0,<1.8]@user/stable"
 
-Expressions are those defined and implemented by [python node-semver](https://pypi.python.org/pypi/node-semver),
+Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/),
 but using a comma instead of spaces. Accepted expressions would be:
 
 ..  code-block:: python
@@ -426,6 +440,8 @@ Exclude patterns are also possible, with the ``!`` prefix:
 This is an optional attribute, only to be used if the package recipe requires these other files
 for evaluation of the recipe.
 
+.. _exports_sources_attribute:
+
 exports_sources
 ---------------
 There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
@@ -457,17 +473,15 @@ while ``exports_sources`` files are only retrieved when it is necessary to build
 generators
 ----------
 
-Generators specify which is the output of the ``install`` command in your project folder. By
-default, a ``conanbuildinfo.txt`` file is generated, but you can specify different generators.
-
-Check the full generators list in :ref:`Reference/Generators<generators>`
-
-You can specify more than one generator:
+Generators specify which is the output of the ``install`` command in your project folder. By default, a *conanbuildinfo.txt* file is
+generated, but you can specify different generators and even use more than one.
 
 .. code-block:: python
 
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
+
+Check the full :ref:`generators list<generators>`.
 
 build_policy
 ------------
@@ -506,9 +520,11 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 This attribute will not have any effect in other OS, it will be discarded.
 
 From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link
-<https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath>`_ for more info.
-Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is totally unnecessary.
-Please note that this only works with Python 3.6 and newer.
+<https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_ for more info.
+Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is
+totally unnecessary. Please note that this only works with Python 3.6 and newer.
+
+.. _no_copy_source:
 
 no_copy_source
 --------------
@@ -535,6 +551,8 @@ In the package recipe methods, some attributes pointing to the relevant folders 
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
 
+.. _cpp_info_attributes_reference:
+
 cpp_info
 ---------
 
@@ -543,37 +561,37 @@ This attribute is only defined inside ``package_info()`` method, being None else
 The ``self.cpp_info`` object can be filled with the needed information for the consumers of the current
 package:
 
-+-------------------------------------------+---------------------------------------------------------------------+
-| NAME                                      | DESCRIPTION                                                         |
-+===========================================+=====================================================================+
-| self.cpp_info.includedirs                 | Ordered list with include paths, by default ['include']             |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.libdirs                     | Ordered list with lib paths, by default ['lib']                     |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.resdirs                     | Ordered list of resource (data) paths, by default ['res']           |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                 |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.builddirs                   | Ordered list with build scripts paths, by default ['']              |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.libs                        | Ordered list with the library names, by default empty []            |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.defines                     | Preprocessor definitions, by default empty []                       |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.cflags                      | Ordered list with pure C flags, by default empty []                 |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.cppflags                    | Ordered list with C++ flags, by default empty []                    |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags             | Ordered list with linker flags (shared libs), by default empty []   |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.exelinkflags                | Ordered list with linker flags (executables), by default empty []   |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info    |
-+-------------------------------------------+---------------------------------------------------------------------+
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| NAME                                      | DESCRIPTION                                                                                                                 |
++===========================================+=============================================================================================================================+
+| self.cpp_info.includedirs                 | Ordered list with include paths, by default ['include']                                                                     |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs                     | Ordered list with lib paths, by default ['lib']                                                                             |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs                     | Ordered list of resource (data) paths, by default ['res']                                                                   |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                                                                         |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs                   | Ordered list with build scripts paths, by default ['']. CMake will search in these dirs for cmake files, like findXXX.cmake |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs                        | Ordered list with the library names, by default empty []                                                                    |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines                     | Preprocessor definitions, by default empty []                                                                               |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags                      | Ordered list with pure C flags, by default empty []                                                                         |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags                    | Ordered list with C++ flags, by default empty []                                                                            |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags             | Ordered list with linker flags (shared libs), by default empty []                                                           |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags                | Ordered list with linker flags (executables), by default empty []                                                           |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info                                                            |
++-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <package_info>` for more info.
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 
 deps_cpp_info
@@ -596,6 +614,17 @@ properties to obtain the absolute paths:
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
 +-------------------------------------------+---------------------------------------------------------------------+
 
+To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
+
+.. code-block:: python
+
+    class PocoTimerConan(ConanFile):
+        ...
+        def build(self):
+            # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
+            deps = self.deps_cpp_info.deps
+            
+            
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
 
@@ -626,7 +655,7 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <package_info>` for more info.
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 deps_env_info
 -------------
@@ -658,9 +687,11 @@ you want to access to the variable declared by some specific requirement you can
 info
 ----
 
-Object used in the :ref:`package_id()<package_id>` method to control the unique ID for a package.
-Check the :ref:`package_id()<package_id>` to see the details of the ``self.info`` object
+Object used to control the unique ID for a package. Check the :ref:`package_id() <method_package_id>` to see the details of the ``self.info``
+object.
 
+
+.. _apply_env:
 
 apply_env
 ---------
@@ -709,11 +740,15 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
             else:
                 # we are building the package in a local directory
 
-develop
---------
 
-A boolean attribute useful for conditional logic. It will be ``True`` if the package is created with
-``conan create``, or if the conanfile is in user space:
+.. _develop_attribute:
+
+
+develop
+-------
+
+A boolean attribute useful for conditional logic. It will be ``True`` if the package is created with :command:`conan create`, or if the
+*conanfile.py* is in user space:
 
 .. code-block:: python
 
@@ -734,7 +769,7 @@ This recipe will output "Develop mode" if:
     $ mkdir build && cd build && conan install ..
     $ conan build ..
 
-But it will not output that when it is a transitive requirement or installed with ``conan install``
+But it will not output that when it is a transitive requirement or installed with :command:`conan install`.
 
 .. _keep_imports:
 
@@ -748,3 +783,43 @@ so they are not later unnecessarily repackaged.
 
 This behavior can be avoided declaring the ``keep_imports=True`` attribute. This can be useful, for example
 to :ref:`repackage artifacts <repackage>`
+
+
+.. _scm_attribute:
+
+scm
+---
+
+Used to clone/checkout a repository. It is a dictionary with the following possible values:
+
+.. code-block:: python
+
+    from conans import ConanFile, CMake, tools
+
+    class HelloConan(ConanFile):
+         scm = {
+            "type": "git",
+            "subfolder": "hello",
+            "url": "https://github.com/memsharded/hello.git",
+            "revision": "static_shared"
+         }
+        ...
+
+
+
+- **type** (Required): Currently only ``git`` supported. Others like ``svn`` will be added eventually.
+- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local directory.
+- **revision** (Required):
+    When type is ``git``, it can be a string with a branch name, a commit or a tag.
+- **subfolder** (Optional, Defaulted to ``.``): A subfolder where the repository will be cloned.
+- **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
+- **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+- **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+- **submodule** (Optional, Defaulted to ``None``):
+   - ``shallow``: Will sync the git submodules using ``submodule sync``
+   - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
+
+To know more about the usage of ``scm`` check:
+
+- :ref:`Creating packages/Recipe and sources in a different repo <external_repo>`
+- :ref:`Creating packages/Recipe and sources in the same repo <package_repo>`

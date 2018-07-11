@@ -58,7 +58,7 @@ just want to check if we can download the binaries and use them:
 
 .. code-block:: bash
 
-    $ conan create . demo/testing --no-export --build=never
+    $ conan create . demo/testing --not-export --build=never
 
 You will see that the test is built, but the packages are not. The binaries are simply downloaded
 from your local server. You can check their existence on your local computer again with:

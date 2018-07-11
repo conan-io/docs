@@ -1,3 +1,4 @@
+
 .. _conan_config:
 
 conan config
@@ -7,17 +8,17 @@ conan config
 
     $ conan config [-h] {rm,set,get,install} ...
 
-Manages configuration. Edits the conan.conf or installs config files.
+Manages Conan configuration. Edits the conan.conf or installs config files.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       {rm,set,get,install}  sub-command help
-        rm                  rm an existing config element
-        set                 set/add value
-        get                 get the value of existing element
-        install             install a full configuration from a zip file, local or
-                            remote
+        rm                  Remove an existing config element
+        set                 Set a value for a configuration item
+        get                 Get the value of configuration item
+        install             install a full configuration from a local or remote
+                            zip file
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -41,7 +42,7 @@ Manages configuration. Edits the conan.conf or installs config files.
 .. _conan_config_install:
 
 conan config install
-____________________
+--------------------
 
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
 is important to have common ``settings.yml``, ``profiles``, etc.
@@ -65,13 +66,28 @@ These are the special files and the rules applied to merge them:
 +--------------------------------+----------------------------------------------------------------------+
 | settings.yml                   | Overrides the local ~/.conan/settings.yml                            |
 +--------------------------------+----------------------------------------------------------------------+
-| remotes.txt                    | Overrides the ~/.conan/registry.txt                                  |
+| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file  |
 +--------------------------------+----------------------------------------------------------------------+
 | config/conan.conf              | Merges the variables, overriding only the declared variables         |
 +--------------------------------+----------------------------------------------------------------------+
 
+The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
+the ``~/.conan`` folder. Its format is a list of entries, one on each line, with the form
+
+.. code-block::
+
+    [remote name] [remote url] [bool]
+    
+where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. 
+
+The local cache *registry.txt* file contains the remotes definitions, as well as the mapping from packages
+to remotes. In general it is not a good idea to add it to the installed files. That being said, the remote
+definitions part of the *registry.txt* file uses the format required for *remotes.txt*, so you may find it
+provides a helpful starting point when writing a *remotes.txt* to be packaged in a Conan
+client configuration.
+
 The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
-so following calls to ``conan config install`` command doesn't need to specify the url.
+so following calls to :command:`conan config install` command doesn't need to specify the URL.
 
 **Examples**:
 
@@ -82,6 +98,14 @@ so following calls to ``conan config install`` command doesn't need to specify t
       $ conan config install http://url/to/some/config.zip
 
   Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
+
+- Install from an url skipping SSL verification:
+
+  .. code-block:: bash
+
+      $ conan config install http://url/to/some/config.zip --verify-ssl=False
+
+  This will disable the SSL check of the certificate. This option is defaulted to ``True``.
 
 - Refresh the configuration again:
 

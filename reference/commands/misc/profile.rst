@@ -1,7 +1,8 @@
-.. _conan_profile_command:
+
+.. _conan_profile:
 
 conan profile
--------------
+=============
 
 .. code-block:: bash
 
@@ -13,22 +14,20 @@ But the 'show' subcommand is able to resolve absolute and relative paths, as
 well as to map names to '.conan/profiles' folder, in the same way as the '--
 profile' install argument.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
       {list,show,new,update,get,remove}
-                            sub-command help
-      list                list current profiles
-      show                show the values defined for a profile. Can be a path
-                          (relative or absolute) to a profile file in any
-                          location.
-      new                 Creates a new empty profile
-      update              Update a profile
-      get                 Get a profile key
-      remove              Remove a profile key
+        list                List current profiles
+        show                Show the values defined for a profile
+        new                 Creates a new empty profile
+        update              Update a profile with desired value
+        get                 Get a profile key
+        remove              Remove a profile key
 
     optional arguments:
       -h, --help            show this help message and exit
+
 
 **Examples**
 

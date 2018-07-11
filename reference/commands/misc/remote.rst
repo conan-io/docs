@@ -1,3 +1,4 @@
+
 .. _conan_remote:
 
 conan remote
@@ -5,26 +6,30 @@ conan remote
 
 .. code-block:: bash
 
-   $ conan remote [-h] {list,add,remove,update,list_ref,add_ref,remove_ref,update_ref} ...
+    $ conan remote [-h]
+                   {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref}
+                   ...
 
 Manages the remote list and the package recipes associated to a remote.
 
-.. code-block:: bash
+.. code-block:: text
 
     positional arguments:
-      {list,add,remove,update,list_ref,add_ref,remove_ref,update_ref}
+      {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref}
                             sub-command help
-        list                list current remotes
-        add                 add a remote
-        remove              remove a remote
-        update              update the remote url
-        list_ref            list the package recipes and its associated remotes
-        add_ref             associate a recipe's reference to a remote
-        remove_ref          dissociate a recipe's reference and its remote
-        update_ref          update the remote associated with a package recipe
+        list                List current remotes
+        add                 Add a remote
+        remove              Remove a remote
+        update              Update the remote url
+        rename              Update the remote name
+        list_ref            List the package recipes and its associated remotes
+        add_ref             Associate a recipe's reference to a remote
+        remove_ref          Dissociate a recipe's reference and its remote
+        update_ref          Update the remote associated with a package recipe
 
     optional arguments:
       -h, --help            show this help message and exit
+
 
 **Examples**
 
@@ -34,7 +39,6 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote list
       conan-center: https://conan.bintray.com [Verify SSL: True]
-      conan-transit: https://conan-transit.bintray.com [Verify SSL: True]
       local: http://localhost:9300 [Verify SSL: True]
 
 - Add a new remote:
@@ -60,6 +64,19 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote add remote_name remote_url [verify_ssl] --insert=1
 
+
+- Add or insert a remote:
+
+Adding the ``--force`` argument to ``conan remote add`` will always work, and won't raise an error.
+If an existing remote exists with that remote name or URL, it will be updated with the new information.
+The ``--insert`` works the same. If not specified, the remote will be appended the last one. If specified,
+the command will insert the remote in the specified position
+
+  .. code-block:: bash
+
+      $ conan remote add remote_name remote_url [verify_ssl] --force --insert=1
+
+
 - Remove a remote:
 
   .. code-block:: bash
@@ -71,6 +88,12 @@ Manages the remote list and the package recipes associated to a remote.
   .. code-block:: bash
 
       $ conan remote update remote_name new_url [verify_ssl]
+
+- Rename a remote:
+
+  .. code-block:: bash
+
+      $ conan remote rename remote_name new_remote_name
 
 - Change an existing remote to the first position:
 
@@ -97,4 +120,9 @@ Manages the remote list and the package recipes associated to a remote.
 
   .. code-block:: bash
 
-      $ conan remote update_ref OpenSSL/1.0.2i@conan/stable conan-transit
+      $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
+
+.. note::
+
+   Check the section :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>` section to
+   know more about server certificates verification and client certifications management .

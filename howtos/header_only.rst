@@ -76,6 +76,20 @@ If you want to run the library unit test while packaging, you would need this re
             self.info.header_only()
 
 
+.. tip::
+    .. _header_only_unit_tests_tip:
+
+    If you are :ref:`cross building <cross_building>` your **library** or **app** you'll probably need
+    to skip the **unit tests** because your target binary cannot be executed in current building host.
+    To do it you can use :ref:`tools.get_env() <tools_get_env>` in combination with
+    :ref:`CONAN_RUN_TESTS <conan_run_tests>` env variable, defined as **False**
+    in profile for cross building and replace ``cmake.test()`` with:
+
+    .. code-block:: python
+
+        if tools.get_env("CONAN_RUN_TESTS", True):
+            cmake.test()
+
 Which will use a ``CMakeLists.txt`` file in the root folder:
 
 .. code-block:: cmake
@@ -126,9 +140,7 @@ Package is created with:
 
 .. note::
 
-    This with/without tests is referring to running full unitary tests over the library, which is different
-    to the ``test`` functionality that checks the integrityg of the package.
-    The above examples are describing the approaches for unit-testing the library within the recipe.
-    In either case, it is recommended to have a ``test_package`` folder, so the ``conan create``
-    command checks the package once it is created.
-    Check the :ref:`packaging getting started guide<packaging_getting_started>`
+    This with/without tests is referring to running full unitary tests over the library, which is different to the :command:`test` functionality
+    that checks the integrityg of the package. The above examples are describing the approaches for unit-testing the library within the
+    recipe. In either case, it is recommended to have a *test_package* folder, so the :command:`conan create` command checks the package once
+    it is created. Check the :ref:`packaging getting started guide<packaging_getting_started>`

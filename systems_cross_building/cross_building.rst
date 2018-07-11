@@ -107,11 +107,21 @@ Linux to Windows
 
 .. code-block:: text
 
+    $toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
+    target_host=x86_64-w64-mingw32
+    cc_compiler=gcc
+    cxx_compiler=g++
+
     [env]
-    # Where is our C compiler
-    CC=/usr/bin/x86_64-w64-mingw32-gcc
-    # Where is our CPP compiler
-    CXX=/usr/bin/x86_64-w64-mingw32-g++
+    CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-as
+    RANLIB=$target_host-ranlib
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
+    STRIP=$target_host-strip
+    RC=$target_host-windres
 
     [settings]
     # We are building in Ubuntu Linux
@@ -122,8 +132,9 @@ Linux to Windows
     os=Windows
     arch=x86_64
     compiler=gcc
+
     # Adjust to the gcc version of your MinGW package
-    compiler.version=6.3
+    compiler.version=7.3
     compiler.libcxx=libstdc++11
     build_type=Release
 
@@ -133,7 +144,7 @@ Linux to Windows
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call ``conan create`` using the created profile.win
+- Call :command:`conan create` using the created profile.win
 
 .. code-block:: bash
 
@@ -143,11 +154,10 @@ Linux to Windows
     [100%] Linking CXX executable bin/example.exe
     [100%] Built target example
 
-A **bin/example.exe** for Win64 platform has been built.
+A *bin/example.exe* for Win64 platform has been built.
 
-
-Windows to Raspberry PI
-.......................
+Windows to Raspberry PI (Linux/ARM)
+...................................
 
 - Install the toolchain: http://gnutoolchains.com/raspberry/
   You can choose different versions of the GCC cross compiler, choose one and adjust the following
@@ -157,22 +167,41 @@ Windows to Raspberry PI
 
 .. code-block:: text
 
+    target_host=arm-linux-gnueabihf
+    standalone_toolchain=C:/sysgcc/raspberry
+    cc_compiler=gcc
+    cxx_compiler=g++
+
     [settings]
     os_build=Windows
     arch_build=x86_64
     os=Linux
-    arch=armv7hf
+    arch=armv7 # Change to armv6 if you are using Raspberry 1
     compiler=gcc
-    compiler.version=6.3  # We have chosen gcc 6.3 installer
+    compiler.version=6
     compiler.libcxx=libstdc++11
     build_type=Release
 
     [env]
-    CC=arm-linux-gnueabihf-gcc
-    CXX=arm-linux-gnueabihf-g++
+    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host/sysroot
+    PATH=[$standalone_toolchain/bin]
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-as
+    RANLIB=$target_host-ranlib
+    LD=$target_host-ld
+    STRIP=$target_host-strip
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
+    CXXFLAGS=-I"$standalone_toolchain/$target_host/lib/include"
 
-The downloaded toolchain is an installer that puts the compilers in the path, so we can just specify
-the executable name in the ``CC`` and ``CXX`` variables.
+The profiles to target Linux are all very similar, probably you just need to adjust the variables
+declared in the top of the profile:
+
+    - **target_host**: All the executables in the toolchain starts with this prefix.
+    - **standalone_toolchain**: Path to the toolchain installation.
+    - **cc_compiler/cxx_compiler**: In this case ``gcc``/``g++``, but could be ``clang``/``clang++``.
+
 
 - Clone an example recipe or use your own recipe:
 
@@ -180,7 +209,7 @@ the executable name in the ``CC`` and ``CXX`` variables.
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call ``conan create`` using the created profile.
+- Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
@@ -190,8 +219,7 @@ the executable name in the ``CC`` and ``CXX`` variables.
     [100%] Linking CXX executable bin/example
     [100%] Built target example
 
-A **bin/example** for Raspberry PI (Linux/armv7hf) platform has been built.
-
+A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
 .. _cross_building_android:
 
@@ -207,29 +235,32 @@ Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ a
 
     If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (C:\) to avoid issues with path lengths.
 
-Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_,
+Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_,
 we are going to target "arm" architecture and the Android API level 21, change the ``--install-dir`` to any other place that works
 for you:
 
 .. code-block:: bash
 
    $ cd build/tools
-   $ python make_standalone_toolchain.py --arch=arm --api=21 --stl=libc++ --install-dir=/tmp/arm_21_toolchain
+   $ python make_standalone_toolchain.py --arch=arm --api=21 --stl=libc++ --install-dir=/myfolder/arm_21_toolchain
 
 
 .. note::
 
     You can generate the standalone toolchain with several different options to target different architectures, api levels etc.
 
-    Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain.html>`_
+    Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_
 
 
-To use the ``clang`` compiler, create a profile ``android_21_arm_clang`` with the following contents:
+To use the ``clang`` compiler, create a profile ``android_21_arm_clang``. Once again, the profile is very similar to the
+RPI one:
 
 .. code-block:: text
 
-    standalone_toolchain=/tmp/arm_21_toolchain # Adjust this path
+    standalone_toolchain=/myfolder/arm_21_toolchain # Adjust this path
     target_host=arm-linux-androideabi
+    cc_compiler=clang
+    cxx_compiler=clang++
 
     [settings]
     compiler=clang
@@ -247,21 +278,26 @@ To use the ``clang`` compiler, create a profile ``android_21_arm_clang`` with th
     AR=$target_host-ar
     AS=$target_host-as
     RANLIB=$target_host-ranlib
-    CC=$target_host-clang
-    CXX=$target_host-clang++
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS= -fPIE -fPIC
-    CXXFLAGS= -fPIE -fPIC
+    CFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
+    CXXFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
     LDFLAGS= -pie
 
-You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``:
+
+You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``, changing the ``cc_compiler`` and
+``cxx_compiler`` variables, removing ``-fPIE`` flag and, of course, changing the ``[settings]`` to
+match the gcc toolchain compiler:
 
 
 .. code-block:: text
 
-    standalone_toolchain=/tmp/arm_21_toolchain # Adjust this path
+    standalone_toolchain=/myfolder/arm_21_toolchain
     target_host=arm-linux-androideabi
+    cc_compiler=gcc
+    cxx_compiler=g++
 
     [settings]
     compiler=gcc
@@ -278,13 +314,13 @@ You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``:
     CHOST=$target_host
     AR=$target_host-ar
     AS=$target_host-as
-    CC=$target_host-gcc
-    CXX=$target_host-g++
     RANLIB=$target_host-ranlib
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS=-fPIC
-    CXXFLAGS=-fPIC
+    CFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
+    CXXFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
     LDFLAGS=
 
 - Clone, for example, the zlib library to try to build it to Android
@@ -293,7 +329,7 @@ You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``:
 
     git clone https://github.com/lasote/conan-zlib.git
 
-- Call ``conan create`` using the created profile.
+- Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
@@ -314,7 +350,7 @@ Using build requires
 
 Instead of downloading manually the toolchain and creating a profile, you can create a Conan package
 with it. The toolchain Conan package needs to fill the ``env_info`` object
-in the :ref:`package_info()<package_info>` method with the same variables we've specified in the examples
+in the :ref:`package_info()<method_package_info>` method with the same variables we've specified in the examples
 above in the ``[env]`` section of profiles.
 
 A layout of a Conan package for a toolchain could looks like this:
@@ -352,14 +388,65 @@ Finally, when you want to cross-build a library, the profile to be used, will in
 section with the reference to our new packaged toolchain. Also will contain a ``[settings]`` section
 with the same settings of the examples above.
 
-You can
+
+.. _darwin_toolchain:
+
+Example: Darwin Toolchain
+.........................
+
+Check the `Darwin Toolchain <https://github.com/theodelrieu/conan-darwin-toolchain>`_  package in conan-center.
+You can use a profile like the following to cross build your packages for ``iOS``,  ``watchOS`` and ``tvOS``:
+
+.. code-block:: text
+    :caption: ios_profile
+
+    include(default)
+
+    [settings]
+    os=iOS
+    os.version=9.0
+    arch=armv7
+
+    [build_requires]
+    darwin-toolchain/1.0@theodelrieu/stable
+
+
+.. code-block:: bash
+
+    $ conan install . --profile ios_profile
 
 .. seealso::
 
     - Check the :ref:`Creating conan packages to install dev tools<create_installer_packages>` to learn
       more about how to create Conan packages for tools.
 
-    - Check the `mingw-installer <https://github.com/lasote/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
+    - Check the `mingw-installer <https://github.com/conan-community/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
+
+
+Using Docker images
++++++++++++++++++++
+
+You can use some :ref:`available docker images with Conan preinstalled images<available_docker_images>` to cross build conan packages.
+Currently there are ``i386``, ``armv7`` and ``armv7hf`` images with the needed packages and toolchains installed to cross build.
+
+**Example**: Cross-building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-community/conan-openssl
+    $ cd conan-openssl
+    $ docker run -it -v$(pwd):/home/conan/project --rm lasote/conangcc49-armv7hf /bin/bash
+
+    # Now we are running on the conangcc49-armv7hf container
+    $ sudo pip install conan --upgrade
+    $ cd project
+
+    $ conan create . user/channel --build missing
+    $ conan remote add myremoteARMV7 http://some.remote.url
+    $ conan upload "*" -r myremoteARMV7 --all
+
+
+Check the section: :ref:`How to run Conan with Docker<docker_conan>` to know more.
 
 
 Preparing recipes to be cross-compiled
@@ -392,7 +479,9 @@ Here is a table with some typical ARM platorms:
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Platform                       | Conan setting                                                                                  |
 +================================+================================================================================================+
-| Raspberry PI 1 and 2           | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
+| Raspberry PI 1                 | ``armv6``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Raspberry PI 2                 | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
 +--------------------------------+------------------------------------------------------------------------------------------------+
@@ -417,7 +506,7 @@ Here is a table with some typical ARM platorms:
 
     **ANDROID**
 
-    - https://developer.android.com/ndk/guides/standalone_toolchain.html
+    - https://developer.android.com/ndk/guides/standalone_toolchain
 
     **VISUAL STUDIO**
 
@@ -429,4 +518,4 @@ Here is a table with some typical ARM platorms:
     - See :ref:`conan.conf file<conan_conf>` and :ref:`Environment variables <env_vars>` sections to know more.
     - See :ref:`AutoToolsBuildEnvironment build helper<autotools_reference>` reference.
     - See :ref:`CMake build helper<cmake_reference>` reference.
-    - See `CMake cross building wiki <http://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.
+    - See `CMake cross building wiki <https://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.

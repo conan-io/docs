@@ -32,18 +32,20 @@ tools.vcvars_command()
 
 .. code-block:: python
 
-    def vcvars_command(settings, arch=None, compiler_version=None, force=False)
+    def vcvars_command(settings, arch=None, compiler_version=None, force=False, vcvars_ver=None,
+                       winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It does not execute
-the command, as that typically have to be done in the same command as the compilation,
+Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
 
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         if self.settings.build_os == "Windows":
             vcvars = tools.vcvars_command(self.settings)
@@ -65,13 +67,16 @@ Parameters:
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
+    - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
+    - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
 
 tools.vcvars_dict()
 -------------------
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=True)
+    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
+                vcvars_ver=None, winsdk_version=None, only_diff=True)
 
 Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
@@ -87,9 +92,11 @@ Returns a dictionary with the variables set by the **tools.vcvars_command**.
 
 Parameters:
     - Same as ``vcvars_command``.
-    - **filter_known_paths** (Optional, Defaulted to ``True``): The function will only keep the PATH
+    - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
+    - **only_diff** (Optional, Defaulted to ``True``): Returns only the variables set by
+      ``vcvarsall`` and not the whole environment.
 
 
 tools.vcvars()
@@ -97,7 +104,11 @@ tools.vcvars()
 
 .. code-block:: python
 
-    vcvars(settings, arch=None, compiler_version=None, force=False)
+    vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
+
+.. note::
+
+    This context manager tool has no effect if used in a platform different from Windows.
 
 This is a context manager that allows to append to the environment all the variables set by the **tools.vcvars_dict()**.
 You can replace **tools.vcvars_command()** and use this context manager to get a cleaner way to activate the Visual Studio
@@ -111,18 +122,21 @@ environment:
         with tools.vcvars(self.settings):
             do_something()
 
-
-
-
 .. _build_sln_commmand:
 
-tools.build_sln_command()
--------------------------
+
+tools.build_sln_command() (DEPRECATED)
+--------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>` build helper instead.
 
 .. code-block:: python
 
     def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                          arch=None, parallel=True, toolset=None)
+                          arch=None, parallel=True, toolset=None, platforms=None)
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
 It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
@@ -140,36 +154,55 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use "self.settings".
     - **sln_path** (Required):  Visual Studio project file path.
     - **targets** (Optional, Defaulted to ``None``):  List of targets to build.
-    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is older than current.
+    - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is
+      older than current. When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to
+      ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
     - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
     - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
     - **parallel** (Optional, Defaulted to ``True``): Enables VS parallel build with ``/m:X`` argument, where X is defined by CONAN_CPU_COUNT environment variable
       or by the number of cores in the processor by default.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
+    - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
+      is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
+      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+
+      .. code-block:: python
+
+          msvc_arch = {'x86': 'x86',
+                       'x86_64': 'x64',
+                       'armv7': 'ARM',
+                       'armv8': 'ARM64'}
 
 .. _msvc_build_command:
 
-tools.msvc_build_command()
---------------------------
+
+tools.msvc_build_command() (DEPRECATED)
+---------------------------------------
+
+.. warning::
+
+    This tool is deprecated and will be removed in Conan 2.0.
+    Use :ref:`MSBuild()<msbuild>`.get_command() instead.
+
 
 .. code-block:: python
 
     def msvc_build_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                           arch=None, parallel=True, force_vcvars=False, toolset=None)
+                           arch=None, parallel=True, force_vcvars=False, toolset=None, platforms=None)
 
 Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above
 ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
-    - Same arguments as the above ``tools.build_sln_command()``
-    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``
+    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
+    - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
 tools.unzip()
 -------------
 
 .. code-block:: python
 
-    def unzip(filename, destination=".", keep_permissions=False)
+    def unzip(filename, destination=".", keep_permissions=False, pattern=None)
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
@@ -193,19 +226,35 @@ You can keep the permissions of the files using the ``keep_permissions=True`` pa
 
     tools.unzip("myfile.zip", "myfolder", keep_permissions=True)
 
+Use the ``pattern=None`` parameter if you want to filter specific files and
+paths to decompress from the archive.
+
+.. code-block:: python
+
+    from conans import tools
+
+    # Extract only files inside relative folder "small"
+    tools.unzip("bigfile.zip", pattern="small/*")
+    # Extract only txt files
+    tools.unzip("bigfile.zip", pattern="*.txt")
+
 Parameters:
     - **filename** (Required): File to be unzipped.
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for unzipped files.
     - **keep_permissions** (Optional, Defaulted to ``False``): Keep permissions of files. **WARNING:** Can be dangerous if the zip
       was not created in a NIX system, the bits could produce undefined permission schema. Use only this option if you are sure that
       the zip was created correctly.
+    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive
+      only paths matching the pattern. This should be a Unix shell-style
+      wildcard, see `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+      documentation for more details.
 
 tools.untargz()
 ---------------
 
 .. code-block:: python
 
-    def untargz(filename, destination=".")
+    def untargz(filename, destination=".", pattern=None)
 
 Extract tar gz files (or in the family). This is the function called by the previous ``unzip()``
 for the matching extensions, so generally not needed to be called directly, call ``unzip()`` instead
@@ -214,14 +263,20 @@ unless the file had a different extension.
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.untargz("myfile.tar.gz")
     # or to extract in "myfolder" sub-folder
     tools.untargz("myfile.tar.gz", "myfolder")
+    # or to extract only txt files
+    tools.untargz("myfile.tar.gz", pattern="*.txt")
 
 Parameters:
     - **filename** (Required): File to be unzipped.
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
+    - **pattern** (Optional, Defaulted to ``None``): Extract from the archive
+      only paths matching the pattern. This should be a Unix shell-style
+      wildcard, see `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+      documentation for more details.
 
 tools.get()
 -----------
@@ -247,6 +302,43 @@ Parameters:
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+
+.. _tools_get_env:
+
+tools.get_env()
+---------------
+
+.. code-block:: python
+
+   def get_env(env_key, default=None, environment=None)
+
+Parses an environment and cast its value against the **default** type passed as an argument.
+
+Following python conventions, returns **default** if **env_key** is not defined.
+
+See an usage example with an environment variable defined while executing conan
+
+.. code-block:: bash
+
+   $ TEST_ENV="1" conan <command> ...
+
+.. code-block:: python
+
+   from conans import tools
+
+   tools.get_env("TEST_ENV") # returns "1", returns current value
+   tools.get_env("TEST_ENV_NOT_DEFINED") # returns None, TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV_NOT_DEFINED", []) # returns [], TEST_ENV_NOT_DEFINED not declared
+   tools.get_env("TEST_ENV", "2") # returns "1"
+   tools.get_env("TEST_ENV", False) # returns True (default value is boolean)
+   tools.get_env("TEST_ENV", 2) # returns 1
+   tools.get_env("TEST_ENV", 2.0) # returns 1.0
+   tools.get_env("TEST_ENV", []) # returns ["1"]
+
+Parameters:
+   - **env_key** (Required): environment variable name.
+   - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
+   - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
 
 tools.download()
 ----------------
@@ -341,6 +433,8 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
+
+.. _tools_check_with_algorithm_sum:
 
 tools.check_with_algorithm_sum()
 --------------------------------
@@ -450,7 +544,8 @@ in your conanfile:
         with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx"}):
             do_something()
 
-When the context manager block ends, the environment variables will be unset.
+The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. When the context
+manager block ends, the environment variables will be unset.
 
 Parameters:
     - **env_vars** (Required): Dictionary object with environment variable name and its value.
@@ -478,12 +573,17 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
+any PYTHONPATH inherited from the requirements will be automatically available.
+
 .. code-block:: python
 
     def pythonpath(conanfile)
 
 This is a context manager that allows to load the PYTHONPATH for dependent packages, create packages
 with python code, and reuse that code into your own recipes.
+
+It is automatically applied
 
 .. code-block:: python
 
@@ -493,7 +593,20 @@ with python code, and reuse that code into your own recipes.
         with tools.pythonpath(self):
             from module_name import whatever
             whatever.do_something()
-            
+
+
+When the :ref:`apply_env<apply_env>` is activated (default) the above code could be simplified as:
+
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        from module_name import whatever
+        whatever.do_something()
+
+
 For that to work, one of the dependencies of the current recipe, must have a ``module_name``
 file or folder with a ``whatever`` file or object inside, and should have declared in its
 ``package_info()``:
@@ -507,6 +620,7 @@ file or folder with a ``whatever`` file or object inside, and should have declar
 
 Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
+
 
 tools.no_op()
 -------------
@@ -533,7 +647,7 @@ tools.human_size()
 
     def human_size(size_bytes)
 
-Will return a string from a given number of bytes, rounding it to the most appropriate unit: Gb, Mb, Kb, etc.
+Will return a string from a given number of bytes, rounding it to the most appropriate unit: GB, MB, KB, etc.
 It is mostly used by the conan downloads and unzip progress, but you can use it if you want too.
 
 .. code-block:: python
@@ -541,7 +655,7 @@ It is mostly used by the conan downloads and unzip progress, but you can use it 
     from conans import tools
     
     tools.human_size(1024)
-    >> 1Kb
+    >> 1.0KB
 
 Parameters:
     - **size_bytes** (Required): Number of bytes.
@@ -551,7 +665,7 @@ Parameters:
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
 
-These are helpers to install system packages. Check :ref:`system_requirements`
+These are helpers to install system packages. Check :ref:`method_system_requirements`.
 
 .. _cross_building_reference:
 
@@ -575,6 +689,20 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
+
+tools.get_gnu_triplet()
+-----------------------
+
+.. code-block:: python
+
+    def get_gnu_triplet(os, arch, compiler=None)
+
+Returns string with GNU like ``<machine>-<vendor>-<op_system>`` triplet.
+
+Parameters:
+    - **os** (Required): Operating system to be used to create the triplet.
+    - **arch** (Required): Architecture to be used to create the triplet.
+    - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
 
 .. _run_in_windows_bash_tool:
 
@@ -607,6 +735,17 @@ Parameters:
     - **env** (Optional, Defaulted to ``None``) You can pass a dict with environment variable to be applied **at first place** so they will have more priority than others.
 
 
+tools.get_cased_path()
+----------------------
+
+.. code-block:: python
+
+    get_cased_path(abs_path)
+
+
+For Windows, for any ``abs_path`` parameter containing a case-insensitive absolute path, returns it case-sensitive, that is, with the real cased characters.
+Useful when using Windows subsystems where the file system is case-sensitive.
+
 
 tools.remove_from_path()
 ------------------------
@@ -616,7 +755,7 @@ tools.remove_from_path()
     remove_from_path(command)
 
 This is a context manager that allows you to remove a tool from the PATH. Conan will locate the executable
-(using tools.which) and will remove from the PATH the directory entry that contains it.
+(using ``tools.which()``) and will remove from the PATH the directory entry that contains it.
 It's not necessary to specify the extension.
 
 .. code-block:: python
@@ -625,7 +764,6 @@ It's not necessary to specify the extension.
 
     with tools.remove_from_path("make"):
         self.run("some command")
-
 
 
 tools.unix_path()
@@ -651,11 +789,10 @@ tools.escape_windows_cmd()
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
-- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
+- Adds escapes for cmmd.exe so the argument survives cmmd.exe's substitutions.
 
 Parameters:
     - **command** (Required): Command to execute.
-
 
 tools.sha1sum(), sha256sum(), md5sum()
 --------------------------------------
@@ -677,7 +814,6 @@ Return the respective hash or checksum for a file:
 
 Parameters:
     - **file_path** (Required): Path to the file.
-
 
 tools.md5()
 -----------
@@ -767,6 +903,7 @@ when ``no_copy_source=True``.
 Parameters:
     - **path** (Required): Path to the directory.
 
+
 tools.which()
 -------------
 
@@ -775,6 +912,11 @@ tools.which()
     def which(filename)
 
 Returns the path to a specified executable searching in the ``PATH`` environment variable. If not found, it returns ``None``.
+
+This tool also looks for filenames with following extensions if no extension provided:
+
+- ``.com``, ``.exe``, ``.bat`` ``.cmd`` for Windows.
+- ``.sh`` if not Windows.
 
 .. code-block:: python
 
@@ -830,26 +972,82 @@ relative to the given directory.
 Parameters:
     - **path** (Required): Path of the directory.
 
-tools.vs_installation_path()
-----------------------------
+tools.vswhere()
+---------------
 
 .. code-block:: python
 
-    def vs_installation_path(version)
+    def vswhere(all_=False, prerelease=False, products=None, requires=None, version="",
+                latest=False, legacy=False, property_="", nologo=True)
 
-Returns the Visual Studio installation path for the given version.
-It only works when the tool ``vswhere`` is installed.
-If the tool is not able to return the path it returns ``None``.
+Wrapper of ``vswhere`` tool to look for details of Visual Studio installations. Its output is always
+a list with a dictionary for each installation found.
 
 .. code-block:: python
 
     from conans import tools
 
-    vs_path_2017 = tools.vs_installation_path("15")
+    vs_legacy_installations = tool.vswhere(legacy=True)
 
-**Parameters:**
+Parameters:
+    - **all_** (Optional, Defaulted to ``False``): Finds all instances even if they are incomplete and may not launch.
+    - **prerelease** (Optional, Defaulted to ``False``): Also searches prereleases. By default, only releases are searched.
+    - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
+      Enterprise. Specify ``["*"]`` by itself to search all product instances installed.
+    - **requires** (Optional, Defaulted to ``None``): List of one or more workload or component IDs required when finding instances. See
+      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids for a list of workload and component IDs.
+    - **version** (Optional, Defaulted to ``""``): A version range for instances to find. Example: ``"[15.0,16.0)"`` will find versions 15.*.
+    - **latest** (Optional, Defaulted to ``False``): Return only the newest version and last installed.
+    - **legacy** (Optional, Defaulted to ``False``): Also searches Visual Studio 2015 and older products. Information is limited. This
+      option cannot be used with either ``products`` or ``requires`` parameters.
+    - **property_** (Optional, Defaulted to ``""``): The name of a property to return. Use delimiters ``.``, ``/``, or ``_`` to separate
+      object and property names. Example: ``"properties.nickname"`` will return the "nickname" property under "properties".
+    - **nologo** (Optional, Defaulted to ``True``): Do not show logo information.
+
+tools.vs_comntools()
+--------------------
+
+.. code-block:: python
+
+    def vs_comntools(compiler_version)
+
+Returns the value of the environment variable ``VS<compiler_version>.0COMNTOOLS`` for the compiler version indicated.
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path = tools.vs_comntools("14")
+
+Parameters:
+    - **compiler_version** (Required): String with the version number: ``"14"``, ``"12"``...
+
+tools.vs_installation_path()
+----------------------------
+
+.. code-block:: python
+
+    def vs_installation_path(version, preference=None)
+
+Returns the Visual Studio installation path for the given version. It uses ``tools.vswhere()`` and
+``tool.vs_comntools()``. It will also look for the installation paths following
+``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If the
+tool is not able to return the path it returns ``None``.
+
+.. code-block:: python
+
+    from conans import tools
+
+    vs_path_2017 = tools.vs_installation_path("15", preference=["Community", "BuildTools", "Professional", "Enterprise"])
+
+Parameters:
     - **version** (Required): Visual Studio version to locate. Valid version numbers
       are strings: ``"10"``, ``"11"``, ``"12"``, ``"13"``, ``"14"``, ``"15"``...
+    - **preference** (Optional, Defaulted to ``None``): Set to value of
+      ``CONAN_VS_INSTALLATION_PREFERENCE`` or defaulted to
+      ``["Enterprise", "Professional", "Community", "BuildTools"]``. If only set to one type of
+      preference, it will return the installation path only for that Visual type and version,
+      otherwise ``None``.
 
 tools.replace_prefix_in_pc_file()
 ----------------------------------
@@ -874,7 +1072,6 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
 .. seealso::
 
     Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
-
 
 tools.collect_libs()
 ---------------------
@@ -960,3 +1157,131 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .variables                  | get list of variables defined by the module                         |
 +-----------------------------+---------------------------------------------------------------------+
+
+.. _tools_git:
+
+tools.Git()
+-----------
+
+.. code-block:: python
+
+    class Git(object):
+
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
+
+Wrapper of the ``git`` tool.
+
+Parameters of the constructor:
+
+    - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
+    - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
+    - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
+
+Methods:
+
+- **run(command)**:
+    Run any "git" command. ``e.j run("status")``
+- **get_url_with_credentials(url)**:
+    Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **clone(url, branch=None)**:
+    Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the specified **folder** already exist you have to specify a ``branch``.
+- **checkout(element)**:
+    Checkout a branch, commit or tag.
+- **get_remote_url(remote_name=None)**:
+    Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
+- **get_revision()**:
+    Gets the current commit hash.
+
+
+.. _tools_apple:
+
+
+tools.is_apple_os()
+-------------------
+
+.. code-block:: python
+
+    def is_apple_os(os_)
+
+Returns ``True`` if OS is an Apple one: Macos, iOS, watchOS or tvOS.
+
+Parameters:
+    - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.
+
+
+tools.to_apple_arch()
+---------------------
+
+.. code-block:: python
+
+    def to_apple_arch(arch)
+
+Converts conan-style architecture into Apple-style architecture.
+
+Parameters:
+    - **arch** (Required): arch to perform the conversion. Usually this would be ``self.settings.arch``.
+
+tools.apple_sdk_name()
+----------------------
+
+.. code-block:: python
+
+    def apple_sdk_name(settings)
+
+Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
+
+Parameters:
+    - **settings** (Required): Conanfile settings.
+
+
+tools.apple_deployment_target_env()
+-----------------------------------
+
+.. code-block:: python
+
+    def apple_deployment_target_env(os_, os_version)
+
+Environment variable name which controls deployment target: ``MACOSX_DEPLOYMENT_TARGET``, ``IOS_DEPLOYMENT_TARGET``,
+``WATCHOS_DEPLOYMENT_TARGET`` or ``TVOS_DEPLOYMENT_TARGET``.
+
+Parameters:
+    - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
+    - **os_version** (Required): OS version.
+
+tools.apple_deployment_target_flag()
+------------------------------------
+
+.. code-block:: python
+
+    def apple_deployment_target_flag(os_, os_version)
+
+Compiler flag name which controls deployment target. For example: ``-mappletvos-version-min=9.0``
+
+Parameters:
+    - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
+    - **os_version** (Required): OS version.
+
+tools.XCRun()
+-------------
+
+.. code-block:: python
+
+    class XCRun(object):
+
+        def __init__(self, settings, sdk=None):
+
+XCRun wrapper used to get information for building.
+
+Properties:
+    - **sdk_path**: Obtain SDK path (a.k.a. Apple sysroot or -isysroot).
+    - **sdk_version**: Obtain SDK version.
+    - **sdk_platform_path**: Obtain SDK platform path.
+    - **sdk_platform_version**: Obtain SDK platform version.
+    - **cc**: Path to C compiler (CC).
+    - **cxx**: Path to C++ compiler (CXX).
+    - **ar**: Path to archiver (AR).
+    - **ranlib**: Path to archive indexer (RANLIB).
+    - **strip**: Path to symbol removal utility (STRIP).
