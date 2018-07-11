@@ -106,7 +106,7 @@ For example, if you are sure your package ABI compatibility is fine for GCC vers
 
     class PkgConan(ConanFile):
         name = "Pkg"
-        version = "0.1"
+        version = "1.0"
         settings = "compiler", "build_type"
     
         def package_id(self):
@@ -161,15 +161,12 @@ Now the computed package ID is different, that means that we need a different bi
 The same way we have adjusted the ``self.info.settings`` we could set the ``self.info.options``
 values if necessary.
 
-
 .. seealso::
 
-    Check the :ref:`package_id() method reference<method_package_id>` too see the available helper methods
-    to change the package_id() behavior, for example to:
+    Check :ref:`method_package_id` to see the available helper methods and change its behavior for things like:
 
-        - Adjust our package recipe as a **header only**
-        - Adjust **Visual Studio toolsets** compatibility
-
+        - Recipes packaging **header only** libraries.
+        - Adjusting **Visual Studio toolsets** compatibility.
 
 .. _problem_of_dependencies:
 
@@ -178,7 +175,7 @@ The problem of dependencies
 
 Let's define a simple scenario in which there are two packages, one for ``MyLib/1.0`` which depends
 on (requires) ``MyOtherLib/2.0``. The recipes and binaries for them have been created and uploaded
-to a conan server.
+to a Conan remote.
 
 A new release for ``MyOtherLib/2.1`` comes out, with improved recipe and new binaries. The
 ``MyLib/1.0`` is modified to upgrade the requires to ``MyOtherLib/2.1``. (Note that this is not
@@ -213,17 +210,16 @@ To the *myadd.h* file in ``2.1``:
 
 And the ``addition()`` function is being called from compiled ``.cpp`` files of ``MyLib/1.0``?
 
-Then, in this case, **MyLib/0.1 has to build a new binary for the new dependency version**.
-Otherwise, it will maintain the old, buggy ``addition()`` version. Even if ``MyLib/0.1`` hasn't
+Then, in this case, **MyLib/1.0 has to build a new binary for the new dependency version**.
+Otherwise, it will maintain the old, buggy ``addition()`` version. Even if ``MyLib/1.0`` hasn't
 change a line, not the code, neither the recipe, still the resulting binary would be different.
 
 Using package_id() for package dependencies
 -------------------------------------------
 
-The ``self.info`` object also have a ``requires`` object. It is a dictionary with the necessary
-information for each requirement, all direct and transitive dependencies. E.g.
-``self.info.requires["MyOtherLib"]`` is a ``RequirementInfo`` object.
-    
+The ``self.info`` object has also a ``requires`` object. It is a dictionary with the necessary information for each requirement, all direct
+and transitive dependencies. e.g. ``self.info.requires["MyOtherLib"]`` is a ``RequirementInfo`` object.
+
 - Each ``RequirementInfo`` has the following `read only` reference fields:
 
     - ``full_name``: Full require's name. E.g **MyOtherLib**
@@ -244,19 +240,17 @@ information for each requirement, all direct and transitive dependencies. E.g.
 
 When defining a package ID to model dependencies, it is necessary to take into account two factors:
 
-- The versioning schema followed by our requirements (semver?, custom?)
-- Type of library being built and type of library being reused (shared: so, dll, dylib, static).
+- The versioning schema followed by our requirements (semver?, custom?).
+- Type of library being built and type of library being reused (shared (*.so*, *.dll*, *.dylib*), static).
 
 Versioning schema
 +++++++++++++++++
 
-By default conan assumes **semver** compatibility, i.e, if a version changes from minor **2.0** to
-**2.1** conan will assume that the API is compatible (headers not changing), and that it is not
-necessary to build a new binary for it. Exactly the same for patches, changing from **2.1.10** to
-**2.1.11** doesn't require a re-build. Those rules are defined by `semver <https://semver.org/>`_.
+By default conan assumes `semver <https://semver.org/>`_ compatibility. e.g., if a version changes from minor **2.0** to **2.1** Conan will
+assume that the API is compatible (headers not changing), and that it is not necessary to build a new binary for it. Exactly the same for
+patches, changing from **2.1.10** to **2.1.11** doesn't require a re-build.
 
-If it is necessary to change the default behavior, the applied versioning schema can be customized
-within the ``package_id()`` method:
+If it is necessary to change the default behavior, the applied versioning schema can be customized within the ``package_id()`` method:
 
 .. code-block:: python
 
@@ -283,10 +277,43 @@ Besides the ``version``, there are some other helpers that can be used, to decid
 **channel** and **user** of one dependency also affects the binary package, or even the required
 package ID can change your own package ID:
 
+Not only the ``version`` can change the package ID. The list of variables that might affect the ID is:
+
+- ``name``
+- ``version``
+- ``user``
+- ``channel``
+- ``package_id`` (from a requirement)
+
+You can decide if those variables will change the ID of your binary package using the following modes:
+
+- ``semver_mode()``: This is the default mode. In this mode only major release version changes the package ID.
+
+  +-----------------+--------------------------------+
+  | **Variable**    | **Affects Package ID?**        |
+  +=================+================================+
+  | ``name``        | Yes                            |
+  +-----------------+--------------------------------+
+  | ``version``     | Only major version (**1**.Y.Z) |
+  +-----------------+--------------------------------+
+  | ``version``     | No                             |
+  +-----------------+--------------------------------+
+  | ``channel``     | No                             |
+  +-----------------+--------------------------------+
+  | ``package_id``  | No                             |
+  +-----------------+--------------------------------+
+
+  .. code-block::python
+
+    def package_id(self):
+        self.info.requires["MyOtherLib"].semver_mode()
+
+- ``full_version_mode()``:
+
 .. code-block:: python
 
     def package_id(self):
-        # Default behavior, only major release changes the package ID
+        # Default behavior, only major release version changes the package ID
         self.info.requires["MyOtherLib"].semver_mode()
 
         # Any change in the require version will change the package ID
