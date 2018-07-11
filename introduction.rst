@@ -28,24 +28,24 @@ also done by the client application.
 
 The different applications in the image above are:
 
-- The **conan client**: this is a console/terminal command line application, containing the heavy
+- The **Conan client**: this is a console/terminal command line application, containing the heavy
   logic for package creation and consumption. Conan client has a local cache for package storage,
   and so it allows you to fully create and test packages offline.  You can also **work offline** so
   long as no new packages are needed from remote servers.
-- The **conan server**: this is a TCP server that can be easily run as your **own server
+- The **Conan server**: this is a TCP server that can be easily run as your **own server
   on-premises** to host your private packages. It is also a service application that can be run as a
   daemon or service, behind a web server (apache, nginx), or easily as stand-alone application. Both
-  the conan client and the conan_server are OSS, MIT license, so you can use them for free in your
+  the Conan client and the conan_server are OSS, MIT license, so you can use them for free in your
   company, customize them, or redistribute them without any legal issue.
-- **JFrog** `Artifactory <https://jfrog.com/artifactory/>`_ offers conan repositories; so it can
+- **JFrog** `Artifactory <https://jfrog.com/artifactory/>`_ offers Conan repositories; so it can
   also be used as an on-premises server. It is a more powerful solution, featuring a WebUI, multiple
   auth protocols, High Availability, etc. It also has cloud offerings that will allow you to have
   private packages without having any on-premises infrastructure.
 - **JFrog** `Bintray <https://bintray.com/>`_ provides a public and free hosting service for OSS
-  conan packages. Users can create their own repositories under their accounts and organizations,
-  and freely upload conan packages there, without moderation. You should, however, take into account
+  Conan packages. Users can create their own repositories under their accounts and organizations,
+  and freely upload Conan packages there, without moderation. You should, however, take into account
   that those packages will be public, and so they must conform to the respective licenses,
-  especially if the packages contain third party code. Just reading or retrieving conan packages
+  especially if the packages contain third party code. Just reading or retrieving Conan packages
   from Bintray, doesn't require an account, an account is only needed to upload packages. Besides
   that, Bintray provides a central repository called `conan-center
   <https://bintray.com/conan/conan-center>`_ which is moderated, and packages are reviewed before
@@ -90,8 +90,8 @@ is portable, it might work in any other platform that can run python. In the doc
 as :command:`conan install . -s compiler="Visual Studio"`, which will be specific for Windows users. If on a different system, the reader should
 adapt to their own platform and settings (for example :command:`conan install . -s compiler=gcc`).
 
-Also **conan works with any build system**. In the documentation, CMake will be widely used, because
-it is portable and well known. But conan does not depend on CMake at all; it is not a requirement.
+Also **Conan works with any build system**. In the documentation, CMake will be widely used, because
+it is portable and well known. But Conan does not depend on CMake at all; it is not a requirement.
 **Conan is totally orthogonal to the build system**. There are some utilities that improve the usage
 of popular build systems such as CMake or Autotools, but they are just helpers. Furthermore, it is
 not necessary that all the packages are built with the same build system. It is possible to depend
@@ -104,19 +104,19 @@ on packages created with other build system than the one you are using to build 
 Stable
 ------
 
-From conan 1.0, there is a commitment to stability, not breaking user space while evolving the tool and the platform. This means:
+From Conan 1.0, there is a commitment to stability, not breaking user space while evolving the tool and the platform. This means:
 
 - Moving forward to following minor versions 1.1, 1.2, …, 1.X should never break existing recipes, packages or command line flows
 - If something is breaking, it will be considered a bug and reverted
 - Bug fixes will not be considered breaking, recipes and packages relying on the incorrect behavior of such bug will be considered already broken.
-- Only documented features are considered part of the public interface of conan. Private implementation details, and everything not included in the documentation is subject to change.
+- Only documented features are considered part of the public interface of Conan. Private implementation details, and everything not included in the documentation is subject to change.
 - Configuration and automatic tools detection, like the detection of the default profile might be subject to change. Users are encouraged to define their configurations in profiles for repeatability. New installations of conan might use different configuration.
 
 The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 1.X versions. Recipes and packages created with these features will be backwards incompatible with earlier conan versions.
 
-This means that public repositories, like conan-center assume the use of the latest version of the conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.
+This means that public repositories, like conan-center assume the use of the latest version of the Conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.
 
-If you have any question regarding conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
+If you have any question regarding Conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
 
 
 
