@@ -207,7 +207,7 @@ tools.unzip()
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
 
-This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz`` and ``.zip`` files, 
+This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``, ``tar.xz``, and ``.zip`` files,
 and decompress them into the given destination folder (the current one by default).
 
 .. code-block:: python
