@@ -41,7 +41,7 @@ Deprecations/removals
 
 - scopes were completely removed in conan 0.30.X
 - ``self.conanfile_directory`` has been removed. Instead, use ``self.source_folder``, ``self.build_folder``, etc.
-- ``self.cpp_info``, ``self.env_info`` and ``self.user_info`` scope has been reduced to only include the ``package_info()`` method
+- ``self.cpp_info``, ``self.env_info`` and ``self.user_info`` scope are now only included the ``package_info()`` method
 - ``gcc`` and ``ConfigureEnvironment`` were removed in conan 0.30.1
 - ``werror`` doesn't exist anymore. It is now built-in behavior.
 - The ``test_package`` command has been removed. Instead, use :command:`conan create` and :command:`conan test`.
@@ -52,7 +52,7 @@ Deprecations/removals
 Settings and profiles. GCC/CLang versioning
 -------------------------------------------
 
-The GCC and Clang compilers have modified their versioning approach. From GCC version 5 and above and Clang versiom 4 and above, minor versions are really bug fixes, and then, they have binary compatibility. To adapt to this, Conan now includes a major version in the *settings.yml* default settings file:
+The GCC and Clang compilers have modified their versioning approach. From GCC version 5 and above and Clang version 4 and above, minor versions are really bug fixes, and then, they have binary compatibility. To adapt to this, Conan now includes a major version in the *settings.yml* default settings file:
 
 .. code-block:: yaml
 
