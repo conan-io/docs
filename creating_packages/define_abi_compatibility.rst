@@ -24,7 +24,7 @@ When this package is installed by a *conanfile.txt*, another package *conanfile.
 
 The process will be:
 
-1. Conan will get the user input settings and options. Those settings an options can come from command line, profiles or from the values
+1. Conan will get the user input settings and options. Those settings and options can come from command line, profiles or from the values
    cached in the latest :command:`conan install` execution.
 2. Conan will retrieve the ``MyLib/1.0@user/channel`` recipe, read the ``settings`` attribute, and assign the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will compute a SHA1 hash that will be the binary
@@ -264,43 +264,37 @@ affects the binary package, or even the required package ID can change your own 
 
 You can decide if those variables of any requirement will change the ID of your binary package using the following modes:
 
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| **Modes / Variables**   | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` |
++=========================+==========+=========================================+==========+=============+================+
+| ``semver_mode()``       | Yes      | Yes, only > 1.0.0 (e.g. **1**.2.Z+b102) | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``major_mode()``        | Yes      | Yes (e.g. **1**.2.Z+b102)               | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``minor_mode()``        | Yes      | Yes (e.g. **1.2**.Z+b102)               | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``patch_mode()``        | Yes      | Yes (e.g. **1.2.3**\+b102)              | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``base_mode()``         | Yes      | Yes (e.g. **1.7**\+b102)                | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``full_version_mode()`` | Yes      | Yes (e.g. **1.2.3+b102**)               | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``full_recipe_mode()``  | Yes      | Yes (e.g. **1.2.3+b102**)               | Yes      | Yes         | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``full_package_mode()`` | Yes      | Yes (e.g. **1.2.3+b102**)               | Yes      | Yes         | Yes            |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+| ``unrelated_mode()``    | No       | No                                      | No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
+
 - ``semver_mode()``: This is the default mode. In this mode only major release version (starting from **1.0.0**) changes the package ID.
   Every version change before 1.0.0 will change the package ID, but only major changes after 1.0.0 will do.
 
-  +-----------------+------------------------------------------------------+
-  | **Variable**    | **Affects Package ID?**                              |
-  +=================+======================================================+
-  | ``name``        | Yes                                                  |
-  +-----------------+------------------------------------------------------+
-  | ``version``     | Only major version after 1.0.0 (e.g. **1**.2.Z+b102) |
-  +-----------------+------------------------------------------------------+
-  | ``version``     | No                                                   |
-  +-----------------+------------------------------------------------------+
-  | ``channel``     | No                                                   |
-  +-----------------+------------------------------------------------------+
-  | ``package_id``  | No                                                   |
-  +-----------------+------------------------------------------------------+
-
-  .. code-block::python
+  .. code-block:: python
 
       def package_id(self):
           self.info.requires["MyOtherLib"].semver_mode()
 
 - ``major_mode()``: Any change in the major release version (starting from **0.0.0**) changes the package ID.
-
-  +-----------------+--------------------------------+
-  | **Variable**    | **Affects Package ID?**        |
-  +=================+================================+
-  | ``name``        | Yes                            |
-  +-----------------+--------------------------------+
-  | ``version``     | Yes (e.g. **1**.2.Z+b102)      |
-  +-----------------+--------------------------------+
-  | ``version``     | No                             |
-  +-----------------+--------------------------------+
-  | ``channel``     | No                             |
-  +-----------------+--------------------------------+
-  | ``package_id``  | No                             |
-  +-----------------+--------------------------------+
 
   .. code-block:: python
 
@@ -309,40 +303,12 @@ You can decide if those variables of any requirement will change the ID of your 
 
 - ``minor_mode()``: Any change in major or minor (not patch nor build) version of the required dependency changes the package ID.
 
-  +-----------------+--------------------------------+
-  | **Variable**    | **Affects Package ID?**        |
-  +=================+================================+
-  | ``name``        | Yes                            |
-  +-----------------+--------------------------------+
-  | ``version``     | Yes (e.g. **1.2**.Z+b102)      |
-  +-----------------+--------------------------------+
-  | ``version``     | No                             |
-  +-----------------+--------------------------------+
-  | ``channel``     | No                             |
-  +-----------------+--------------------------------+
-  | ``package_id``  | No                             |
-  +-----------------+--------------------------------+
-
   .. code-block:: python
 
       def package_id(self):
           self.info.requires["MyOtherLib"].patch_mode()
 
 - ``patch_mode()``: Any change in major, minor or patch (not build) version of the required dependency changes the package ID.
-
-  +-----------------+--------------------------------+
-  | **Variable**    | **Affects Package ID?**        |
-  +=================+================================+
-  | ``name``        | Yes                            |
-  +-----------------+--------------------------------+
-  | ``version``     | Yes (e.g. **1.2.3**\+b102)     |
-  +-----------------+--------------------------------+
-  | ``version``     | No                             |
-  +-----------------+--------------------------------+
-  | ``channel``     | No                             |
-  +-----------------+--------------------------------+
-  | ``package_id``  | No                             |
-  +-----------------+--------------------------------+
 
   .. code-block:: python
 
@@ -353,40 +319,12 @@ You can decide if those variables of any requirement will change the ID of your 
   case of semver notation this may produce same result as ``patch_mode()``, but it is actually intended to dismiss the build part of the
   version even without strict semver.
 
-  +-----------------+--------------------------------+
-  | **Variable**    | **Affects Package ID?**        |
-  +=================+================================+
-  | ``name``        | Yes                            |
-  +-----------------+--------------------------------+
-  | ``version``     | Yes (e.g. **1.7**\+b102)       |
-  +-----------------+--------------------------------+
-  | ``version``     | No                             |
-  +-----------------+--------------------------------+
-  | ``channel``     | No                             |
-  +-----------------+--------------------------------+
-  | ``package_id``  | No                             |
-  +-----------------+--------------------------------+
-
   .. code-block:: python
 
       def package_id(self):
           self.info.requires["MyOtherLib"].base_mode()
 
 - ``full_version_mode()``: Any change in the version of the required dependency changes the package ID.
-
-  +-----------------+------------------------------------------------------------+
-  | **Variable**    | **Affects Package ID?**                                    |
-  +=================+============================================================+
-  | ``name``        | Yes                                                        |
-  +-----------------+------------------------------------------------------------+
-  | ``version``     | Yes, all major, minor, patch & build (e.g. **1.2.3+b102**) |
-  +-----------------+------------------------------------------------------------+
-  | ``version``     | No                                                         |
-  +-----------------+------------------------------------------------------------+
-  | ``channel``     | No                                                         |
-  +-----------------+------------------------------------------------------------+
-  | ``package_id``  | No                                                         |
-  +-----------------+------------------------------------------------------------+
 
   .. code-block:: python
 
@@ -395,20 +333,6 @@ You can decide if those variables of any requirement will change the ID of your 
 
 - ``full_recipe_mode()``: Any change in the reference of the requirement (user & channel too) changes the package ID.
 
-  +-----------------+-------------------------+
-  | **Variable**    | **Affects Package ID?** |
-  +=================+=========================+
-  | ``name``        | Yes                     |
-  +-----------------+-------------------------+
-  | ``version``     | Yes                     |
-  +-----------------+-------------------------+
-  | ``version``     | Yes                     |
-  +-----------------+-------------------------+
-  | ``channel``     | Yes                     |
-  +-----------------+-------------------------+
-  | ``package_id``  | No                      |
-  +-----------------+-------------------------+
-
   .. code-block:: python
 
       def package_id(self):
@@ -416,40 +340,12 @@ You can decide if those variables of any requirement will change the ID of your 
 
 - ``full_package_mode()``: Any change in the required version, user, channel or package ID changes the package ID.
 
-  +-----------------+-------------------------+
-  | **Variable**    | **Affects Package ID?** |
-  +=================+=========================+
-  | ``name``        | Yes                     |
-  +-----------------+-------------------------+
-  | ``version``     | Yes                     |
-  +-----------------+-------------------------+
-  | ``version``     | Yes                     |
-  +-----------------+-------------------------+
-  | ``channel``     | Yes                     |
-  +-----------------+-------------------------+
-  | ``package_id``  | Yes                     |
-  +-----------------+-------------------------+
-
   .. code-block:: python
 
       def package_id(self):
           self.info.requires["MyOtherLib"].full_package_mode()
 
 - ``unrelated_mode()``: Requirements do not change the package ID.
-
-  +-----------------+-------------------------+
-  | **Variable**    | **Affects Package ID?** |
-  +=================+=========================+
-  | ``name``        | No                      |
-  +-----------------+-------------------------+
-  | ``version``     | No                      |
-  +-----------------+-------------------------+
-  | ``version``     | No                      |
-  +-----------------+-------------------------+
-  | ``channel``     | No                      |
-  +-----------------+-------------------------+
-  | ``package_id``  | No                      |
-  +-----------------+-------------------------+
 
   .. code-block:: python
 
