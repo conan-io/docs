@@ -74,7 +74,7 @@ These are the special files and the rules applied to merge them:
 The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
 the ``~/.conan`` folder. Its format is a list of entries, one on each line, with the form
 
-.. code-block::
+.. code-block:: text
 
     [remote name] [remote url] [bool]
     
