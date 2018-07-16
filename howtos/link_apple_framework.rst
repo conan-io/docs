@@ -38,6 +38,9 @@ In the example above we are assigning in the last line ``sharedlinkflags`` with 
 it will indicate to the linker to link with the specified frameworks.
 
 
+.. _package_apple_framework:
+
+
 How to package Apple Frameworks
 ===============================
 
