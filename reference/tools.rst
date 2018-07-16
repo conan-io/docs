@@ -207,7 +207,7 @@ tools.unzip()
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
 
-This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz`` and ``.zip`` files, 
+This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``, ``tar.xz``, and ``.zip`` files,
 and decompress them into the given destination folder (the current one by default).
 
 .. code-block:: python
@@ -283,7 +283,7 @@ tools.get()
 
 .. code-block:: python
 
-    def get(url, md5="", sha1="", sha256="")
+    def get(url, filenname="", md5="", sha1="", sha256="")
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
@@ -298,7 +298,8 @@ will be checked, if any of them doesn't match, it will raise a ``ConanException`
     tools.get("http://url/file", destination="subfolder")
 
 Parameters:
-    - **url** (Required): URL to download
+    - **url** (Required): URL to download.
+    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from URL.
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.

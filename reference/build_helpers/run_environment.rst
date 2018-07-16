@@ -1,5 +1,12 @@
 .. _run_environment_reference:
 
+
+.. warning::
+
+    The ``RunEnvironment`` is no longer needed, at least explicitly in conanfile.py. It has been integrated
+    in the ``self.run(..., run_environment=True)`` argument. Check :ref:`self.run() docs <running_commands>`.
+
+
 RunEnvironment
 ==============
 
@@ -52,6 +59,8 @@ It sets the following environment variables:
             with tools.environment_append(env_build.vars):
                 # self.run('./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
                 self.run('DYLD_LIBRARY_PATH=%s ./myexetool" % os.environ['DYLD_LIBRARY_PATH'])
+
+    This is already automatically handled by the ``self.run(..., run_environment=True)`` argument.
 
 .. seealso::
 

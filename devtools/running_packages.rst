@@ -118,7 +118,8 @@ Running from packages
 ---------------------
 
 If a dependency has an executable that we want to run in the conanfile it can be done directly in code
-using the ``RunEnvironment`` helper. For example, if we want to execute the ``greet`` app while building the ``Consumer`` package:
+using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment`` helper. 
+For example, if we want to execute the ``greet`` app while building the ``Consumer`` package:
 
 .. code-block:: python
 
@@ -131,9 +132,8 @@ using the ``RunEnvironment`` helper. For example, if we want to execute the ``gr
         requires = "Hello/0.1@user/testing"
 
         def build(self):
-            env = RunEnvironment(self)
-            with tools.environment_append(env.vars):
-                self.run("greet")
+            self.run("greet", run_environment=True)
+
 
 Now run :command:`conan install` and :command:`conan build` for this consumer recipe:
 
@@ -144,7 +144,7 @@ Now run :command:`conan install` and :command:`conan build` for this consumer re
     Project: Running build()
     Hello World!
 
-Instead of using the environment, it is also possible to access the path of the dependencies:
+Instead of using the environment, it is also possible to explicitly access the path of the dependencies:
 
 .. code-block:: python
 
@@ -152,7 +152,7 @@ Instead of using the environment, it is also possible to access the path of the 
         path = os.path.join(self.deps_cpp_info["Hello"].rootpath, "bin")
         self.run("%s/greet" % path)
 
-Note that this might not be enough if shared libraries exist. Using the ``RunEnvironment`` helper above 
+Note that this might not be enough if shared libraries exist. Using the ``run_environment=True`` helper above 
 is a more complete solution.
 
 Finally, there is another approach: the package containing the executable can add its *bin* folder directly to the ``PATH``.

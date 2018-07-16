@@ -11,6 +11,18 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.6.0 ()
+----------------------
+
+- Feature: Added new ``self.run(..., run_environment=True)`` argument, that applies automatically ``PATH``, ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH``
+  environment variable, from the dependencies, to the execution of the current command.
+- Feature: Added new ``self.run(..., ignore_errors=True)`` argument, that inhibits launching an exception if the commands fails, user can
+  capture the return code.
+- Feature: The ``json`` generator now outputs the settings and options
+- Feature: ``conan remote list --raw`` prints remote info in a format valid for *remotes.txt*, so it can be used for ``conan config install``
+- Feature: Visual Studio generator creates *conanbuildinfo.props* file using ``$(USERPROFILE)`` macro.
+- Feature: Added ``filename`` parameter to ``tools.get()`` in case it cannot be deduced from URL.
+- Feature: Added XZ extensions to ``unzip()``. It will only work in Python 3 with lzma support enabled, producing an error otherwise.
 
 1.5.2 (5-July-2018)
 --------------------

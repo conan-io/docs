@@ -34,3 +34,4 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/youcompleteme
    integrations/scons
    integrations/other
+   integrations/pylint
