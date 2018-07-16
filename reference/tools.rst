@@ -197,6 +197,8 @@ Parameters:
     - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
     - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
+.. _tools_unzip:
+
 tools.unzip()
 -------------
 
@@ -283,7 +285,7 @@ tools.get()
 
 .. code-block:: python
 
-    def get(url, filenname="", md5="", sha1="", sha256="")
+    def get(url, filenname="", md5="", sha1="", sha256="", keep_permissions=False, pattern=None)
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
@@ -303,6 +305,8 @@ Parameters:
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+    - **keep_permissions** (Optional, Defaulted to ``False``): Propagates parameter to :ref:`tools_unzip`.
+    - **pattern** (Optional, Defaulted to ``None``): Propagates parameter to :ref:`tools_unzip`.
 
 .. _tools_get_env:
 
