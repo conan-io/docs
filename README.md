@@ -1,8 +1,6 @@
-Documentation for conan C/C++ package manager. https://conan.io
+Documentation for Conan C/C++ package manager: https://conan.io
 
-Built and served by readthedocs: 
-
-[![Documentation Status](https://readthedocs.org/projects/conanio/badge/?version=latest)](http://conanio.readthedocs.io/en/latest/?badge=latest)
+[![Build Status](https://travis-ci.org/conan-io/docs.svg?branch=master)](https://travis-ci.org/conan-io/docs)
 
 How to build
 ============
@@ -81,7 +79,7 @@ Section Title
   To create a conan package you can use :command:`conan create`.  You can see a :command:`git clone` command... You may call it with the :command:`--keep-source` option to avoid deleting and fetching the source.
   ```
 
-- ``Inline literals`` to refer to code or text inside recipies:
+- ``Inline literals`` to refer to code or text inside recipes:
 
   ```
    ``package()`` -> conanfile.py method
@@ -138,7 +136,7 @@ indentation. Documentation makes an extensive use of bash, python, txt and cmake
 ### Indentation and line length
 
 Make sure all indentation is done with spaces. Normally 2 space indentation for bulleted lists and 4 space indentation for code blocks. In some
-cases a 3 space indentation is needed for reStructuredText specifics like toctrees:
+cases a 3 space indentation is needed for reStructuredText specifics like toc-trees:
 
 ```
 .. toctree::
@@ -154,7 +152,7 @@ Do not leave any unnecessary or trailing spaces.
 
 ### Text boxes
 
-Also called **Admonitions**, they are eyecatching texts with a clear purpose like warnings, tips or important content.
+Also called **Admonitions**, they are eye-catching texts with a clear purpose like warnings, tips or important content.
 
 Use them in the following importance order:
 
@@ -184,8 +182,8 @@ to something.
 
 #### Internal reference
 
-Use an internal reference when you want to refer to a specific section in this documentation. Most of the sections have a reference mark just
-before their names so you can reference it.
+Use an internal reference when you want to refer to a specific section in this documentation. Most of the sections have a reference mark
+just before their names so you can reference it.
 
 ```
 .. _conan_export_pkg_command:
@@ -200,11 +198,12 @@ To add a reference to the `conan export-pkg` command from another text:
 
 ```
 Read more about the :ref:`conan export-pkg<conan_export_pkg_command>` command.
+Or reference the :ref:`conan_export_pkg_command``directly.
 ```
 
 #### External references
 
-Use external references with external url at the bottom of the file like this:
+Use external references with external URL at the bottom of the file like this:
 
 ```
 Submit a request to include it in `conan-center`_.
