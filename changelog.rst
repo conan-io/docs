@@ -14,8 +14,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.6.0 ()
 ----------------------
 
-- Feature: Added new ``self.run(..., run_environment=True)`` argument, that applies automatically ``PATH``, ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH``
-  environment variable, from the dependencies, to the execution of the current command.
+- Feature: Added new ``self.run(..., run_environment=True)`` argument, that applies automatically ``PATH``, ``LD_LIBRARY_PATH`` and
+  ``DYLD_LIBRARY_PATH`` environment variable, from the dependencies, to the execution of the current command.
 - Feature: Added new ``self.run(..., ignore_errors=True)`` argument, that inhibits launching an exception if the commands fails, user can
   capture the return code.
 - Feature: The ``json`` generator now outputs the settings and options
@@ -24,7 +24,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added ``filename`` parameter to ``tools.get()`` in case it cannot be deduced from URL.
 - Feature: Propagated ``keep_permissions`` and ``pattern`` parameters from ``tools.get()`` to ``tools.unzip()``.
 - Feature: Added XZ extensions to ``unzip()``. It will only work in Python 3 with lzma support enabled, producing an error otherwise.
-- Feature: Added `FRAMEWORK_SEARCH_PATHS` var to the xcode generator to support packaging Apple Frameworks. Read more :ref:`here<package_apple_framework>`.
+- Feature: Added `FRAMEWORK_SEARCH_PATHS` var to the xcode generator to support packaging Apple Frameworks. Read more
+  :ref:`here<package_apple_framework>`.
+- Feature: Added :command:`conan build --test` and ``should_configure`` attribute to control test stage. Read more
+  :ref:`here<attribute_build_stages>`.
 
 
 1.5.2 (5-July-2018)

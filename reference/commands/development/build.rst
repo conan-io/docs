@@ -6,8 +6,9 @@ conan build
 
 .. code-block:: bash
 
-    $ conan build [-h] [-b] [-bf BUILD_FOLDER] [-c] [-i] [-if INSTALL_FOLDER]
-                  [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER]
+    $ conan build [-h] [-b] [-bf BUILD_FOLDER] [-c] [-i] [-t]
+                  [-if INSTALL_FOLDER] [-pf PACKAGE_FOLDER]
+                  [-sf SOURCE_FOLDER]
                   path
 
 Calls your local conanfile.py 'build()' method. The recipe will be built in
@@ -24,18 +25,23 @@ folder will be configured as destination folder for the install step.
     optional arguments:
       -h, --help            show this help message and exit
       -b, --build           Execute the build step (variable should_build=True).
-                            When specified, configure/install won't run unless
-                            --configure/--install specified
+                            When specified, configure/install/test won't run
+                            unless --configure/--install/--test specified
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             Directory for the build process. Defaulted to the
                             current directory. A relative path to current
                             directory can also be specified
       -c, --configure       Execute the configuration step (variable
-                            should_configure=True). When specified, build/install
-                            won't run unless --build/--install specified
+                            should_configure=True). When specified,
+                            build/install/test won't run unless
+                            --build/--install/--test specified
       -i, --install         Execute the install step (variable
-                            should_install=True). When specified, configure/build
-                            won't run unless --configure/--build specified
+                            should_install=True). When specified,
+                            configure/build/test won't run unless
+                            --configure/--build/--test specified
+      -t, --test            Execute the test step (variable should_test=True).
+                            When specified, configure/build/install won't run
+                            unless --configure/--build/--install specified
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Directory containing the conaninfo.txt and
                             conanbuildinfo.txt files (from previous 'conan
@@ -109,41 +115,20 @@ the files generators file. e.j ``conanbuildinfo.cmake``
 
 **Example**: Control the build stages
 
-Given a conanfile with this ``build()`` method:
-
-.. code-block:: python
-
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-        cmake.install()
-
-If nothing is specified, all three methods will be called. But using command line arguments, this can be changed:
-
+You can control the build stages using :command:`--configure`/:command:`--build`/:command:`--install`/:command:`--test` arguments. Here is
+an example using the CMake build helper:
 
 .. code-block:: bash
 
-    $ conan build . -c # only run cmake.configure(). Other methods will do nothing
-    $ conan build . -b # only run cmake.build(). Other methods will do nothing
-    $ conan build . -i # only run cmake.install(). Other methods will do nothing
+    $ conan build . --confiure # only run cmake.configure(). Other methods will do nothing
+    $ conan build . --build    # only run cmake.build(). Other methods will do nothing
+    $ conan build . --install  # only run cmake.install(). Other methods will do nothing
+    $ conan build . --test     # only run cmake.test(). Other methods will do nothing
     # They can be combined
-    $ conan build . -c -b # run cmake.configure() + cmake.build(), but not cmake.install()
+    $ conan build . -c -b # run cmake.configure() + cmake.build(), but not cmake.install() nor cmake.test
 
+If nothing is specified, all the methods will be called.
 
-Autotools and Meson helpers already implement the same functionality. For other build systems, you can use
-the following variables in the ``build()`` method:
+.. seealso::
 
-.. code-block:: python
-
-    def build(self):
-        if self.should_configure:
-            # Run my configure stage
-        if self.should_build:
-            # Run my build stage
-        if self.should_install: # If my build has install, otherwise use package()
-            # Run my install stage
-
-
-Note these ``should_configure, should_build, should_install`` variables will always be ``True`` while
-building in the local cache. They can only be modified for the local flow with :command:`conan build`.
+    Read more about :ref:`attribute_build_stages`.
