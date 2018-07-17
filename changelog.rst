@@ -24,6 +24,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added ``filename`` parameter to ``tools.get()`` in case it cannot be deduced from URL.
 - Feature: Propagated ``keep_permissions`` and ``pattern`` parameters from ``tools.get()`` to ``tools.unzip()``.
 - Feature: Added XZ extensions to ``unzip()``. It will only work in Python 3 with lzma support enabled, producing an error otherwise.
+- Feature: Added `FRAMEWORK_SEARCH_PATHS` var to the xcode generator to support packaging Apple Frameworks. Read more :ref:`here<package_apple_framework>`.
+
 
 1.5.2 (5-July-2018)
 --------------------
