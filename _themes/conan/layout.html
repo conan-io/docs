@@ -127,6 +127,16 @@
             {% endif %}
           {% endblock %}
           <div class="dark_newsletter-div">
+              <p>Download docs:</p>
+              <dl>
+                    {% if versions["master"] == current_version %}
+                        <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+                    {% else %}
+                        <dd><a href="/en/{{ the_version }}/conan.pdf">PDF</a></dd>
+                    {% endif %}
+              </dl>
+          </div>
+          <div class="dark_newsletter-div">
              <p>Sign up for release updates:</p>
               <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
               <form id="mktoForm_1479"></form>
