@@ -50,7 +50,7 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
-    copytree("_build/latex/conan.pdf", tmp_dir)
+    shutil.copy2("_build/latex/conan.pdf", tmp_dir)
     shutil.rmtree("_build")
 
     # Go to deploy branch, copy new files and commit
