@@ -932,6 +932,8 @@ This tool also looks for filenames with following extensions if no extension pro
 Parameters:
     - **filename** (Required): Name of the executable file. It doesn't require the extension of the executable.
 
+.. _tools_unix2dos:
+
 tools.unix2dos()
 ----------------
 
@@ -949,6 +951,8 @@ Converts line breaks in a text file from Unix format (LF) to DOS format (CRLF).
 
 Parameters:
     - **filepath** (Required): The file to convert.
+
+.. _tools_dos2unix:
 
 tools.dos2unix()
 ----------------
