@@ -207,7 +207,7 @@ Running conan server with SSL using nginx
 
     .. code-block:: text
 
-        $ conan remote add myremote https://myservername.mydomain.com/subdir
+        $ conan remote add myremote https://myservername.mydomain.com
 
 Running conan server with SSL using nginx in a subdirectory
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -231,8 +231,8 @@ Running conan server with SSL using nginx in a subdirectory
                ssl_certificate_key /usr/local/etc/nginx/ssl/server.key;
                server_name myservername.mydomain.com;
 
-               location ~/subdir/(.*)$ {
-                  proxy_pass http://0.0.0.0:9300/$1;
+               location /subdir/ {
+                  proxy_pass http://0.0.0.0:9300/;
                }
           }
 
@@ -240,7 +240,7 @@ Running conan server with SSL using nginx in a subdirectory
 
     .. code-block:: text
 
-        $ conan remote add myremote https://myservername.mydomain.com/subdir
+        $ conan remote add myremote https://myservername.mydomain.com/subdir/
 
 Running conan server using Apache
 +++++++++++++++++++++++++++++++++
