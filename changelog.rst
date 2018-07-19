@@ -11,6 +11,40 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.6.0 (19-July-2018)
+------------------------
+
+- Feature: Added new ``self.run(..., run_environment=True)`` argument, that applies automatically ``PATH``, ``LD_LIBRARY_PATH`` and
+  ``DYLD_LIBRARY_PATH`` environment variable, from the dependencies, to the execution of the current command.
+- Feature: Added new ``tools.run_environment()`` as a shortcut of using ``tools.environment_append`` and ``RunEnvironment()`` together.
+- Feature: Added new ``self.run(..., ignore_errors=True)`` argument, that inhibits launching an exception if the commands fails, user can
+  capture the return code.
+- Feature: Improved ``tools.Git`` to allow capturing the current branch and enabling to export a package with version based on the branch and commit.
+- Feature: The ``json`` generator now outputs the settings and options
+- Feature: :command:`conan remote list --raw` prints remote info in a format valid for *remotes.txt*, so it can be used for ``conan config install``
+- Feature: Visual Studio generator creates *conanbuildinfo.props* file using ``$(USERPROFILE)`` macro.
+- Feature: Added ``filename`` parameter to ``tools.get()`` in case it cannot be deduced from URL.
+- Feature: Propagated ``keep_permissions`` and ``pattern`` parameters from ``tools.get()`` to ``tools.unzip()``.
+- Feature: Added XZ extensions to ``unzip()``. It will only work in Python 3 with lzma support enabled, producing an error otherwise.
+- Feature: Added ``FRAMEWORK_SEARCH_PATHS`` var to the XCode generator to support packaging Apple Frameworks. Read more
+  :ref:`here<package_apple_framework>`.
+- Feature: Added :command:`conan build --test` and ``should_configure`` attribute to control test stage. Read more
+  :ref:`here<attribute_build_stages>`.
+- Feature: New tools to convert between files with LF and CRLF line endings: :ref:`tools_unix2dos` and :ref:`tools_dos2unix`.
+- Feature: Added :command:`conan config install [url] --type=git` to force cloning git repo for ``http://...`` git urls.
+- Feature: Improved output information when a package is missing in a remote, showing who is the package requiring the missing one.
+- Feature: Improved the management of an upload interruption, avoiding uploads of incomplete tarballs.
+- Feature: Added new ``LLVM`` toolsets to the base ``settings.yml`` (Visual Studio).
+- Feature: Created plugin for pylint with the previous Conan checks (run in the export), enabling to use the plugin in IDEs and command line to check the correctness of the recipes.
+- Feature: Improved ``deb`` installer to guarantee that runs correctly in Debian 9 and other distros.
+- Fix: Fixed :command:`conan search -q` and :command:`conan remove -q` to not return packages that don't have the setting specified in the query.
+- Fix: Fixed ``SystemPackageTool`` when calling to update with ``sudo`` not enabled  and ``mode=verify``.
+- Fix: Removed ``pyinstaller`` shared libraries from the linker environment for any conan subprocess.
+- BugFix: The ``YumTool`` now calls ``yum update`` instead of ``yum check-update``.
+- Bugfix: Solved bug using ``--manifest`` parameter with  :command:`conan create` causing the deletion of information of the dependency graph.
+- Bugfix: Solved bug in the ``build`` method of the ``Version`` model, not showing correctly the version build field.
+- Bugfix: Fixed Conan crash with a dependency tree containing transitive private nodes.
+
 
 1.5.2 (5-July-2018)
 --------------------

@@ -36,3 +36,36 @@ frameworks if we are building an executable and ``sharedlinkflags`` will only ap
 If we are not using CMake to consume this package ``sharedlinkflags`` and ``exelinkflags`` are used indistinctly.
 In the example above we are assigning in the last line ``sharedlinkflags`` with ``exelinkflags``, so no matter what the consumer will build,
 it will indicate to the linker to link with the specified frameworks.
+
+
+.. _package_apple_framework:
+
+
+How to package Apple Frameworks
+===============================
+
+To package an Apple framework:
+
+- Copy/Create a framework folder ``XXX.framework`` (being ``XXX`` the name of your framework),
+  to your package folder, putting there all the subdirectories (``Headers``, ``Modules``, etc).
+
+.. code-block:: python
+
+    def package(self):
+        # If you have the framework folder built in your build_folder:
+        self.copy("XXX.framework/*", symlinks=True)
+        # Or build the destination folder:
+        tools.mkdir("XXX.framework/Headers")
+        self.copy("*.h", dst="XXX.framework/Headers")
+        # ...
+
+
+- Declare the framework in the ``cpp_info`` object.
+
+.. code-block:: python
+
+    def package_info(self):
+        ...
+
+        self.cpp_info.exelinkflags.append("-framework XXX")
+        self.cpp_info.sharedlinkflags = self.cpp_info.exelinkflags

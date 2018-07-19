@@ -483,13 +483,61 @@ generated, but you can specify different generators and even use more than one.
 
 Check the full :ref:`generators list<generators>`.
 
+.. _attribute_build_stages:
+
+should_configure, should_build, should_install, should_test
+-----------------------------------------------------------
+
+Read only variables defaulted to ``True``.
+
+This variables allow you control the build stages of a recipe during a :command:`conan build` command with the optional arguments
+:command:`--configure`/:command:`--build`/:command:`--install`/:command:`--test`. For example, given this ``build()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+        cmake.install()
+        cmake.test()
+
+If nothing is specified, all four methods will be called. But using command line arguments, this can be changed:
+
+.. code-block:: bash
+
+    $ conan build . --configure  # only run cmake.configure(). Other methods will do nothing
+    $ conan build . --build      # only run cmake.build(). Other methods will do nothing
+    $ conan build . --install    # only run cmake.install(). Other methods will do nothing
+    $ conan build . --test       # only run cmake.test(). Other methods will do nothing
+    # They can be combined
+    $ conan build . -c -b # run cmake.configure() + cmake.build(), but not cmake.install() nor cmake.test()
+
+Autotools and Meson helpers already implement the same functionality. For other build systems, you can use the these variables in the
+``build()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        if self.should_configure:
+            # Run my configure stage
+        if self.should_build:
+            # Run my build stage
+        if self.should_install: # If my build has install, otherwise use package()
+            # Run my install stage
+        if self.should_test:
+            # Run my test stage
+
+Note these ``should_configure``, ``should_build``, ``should_install``, ``should_test`` variables will always be ``True`` while building in
+the cache and can be only modified for the local flow with :command:`conan build`.
+
 build_policy
 ------------
 
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``missing``: If no binary package is found, Conan will build it without the need of invoke :command:`conan install --build missing` option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
 
 .. code-block:: python

@@ -3,7 +3,7 @@
 json
 ====
 
-A file named *conanbuildinfo.json* will be generated. It will contain the information about every dependency:
+A file named *conanbuildinfo.json* will be generated. It will contain the information about every dependency and the installed settings and options:
 
 .. code-block:: json
 
@@ -38,6 +38,15 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
           "...": "..."
         }
       ],
+      "settings": {
+        "os": "Linux",
+        "arch": "armv7"
+      },
+      "options": {
+        "curl": {
+          "shared": true,
+        }
+      }
     }
 
 
@@ -70,3 +79,13 @@ deps_user_info
 --------------
 
 The user variables defined by upstream dependencies
+
+settings
+--------
+
+The settings used during `conan install`
+
+options
+-------
+
+The options of each dependency

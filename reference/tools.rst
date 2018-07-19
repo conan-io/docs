@@ -197,6 +197,8 @@ Parameters:
     - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
     - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
+.. _tools_unzip:
+
 tools.unzip()
 -------------
 
@@ -207,7 +209,7 @@ tools.unzip()
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as
 when retrieving pre-built binaries from the Internet.
 
-This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz`` and ``.zip`` files, 
+This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``, ``tar.xz``, and ``.zip`` files,
 and decompress them into the given destination folder (the current one by default).
 
 .. code-block:: python
@@ -283,7 +285,7 @@ tools.get()
 
 .. code-block:: python
 
-    def get(url, md5="", sha1="", sha256="")
+    def get(url, filenname="", md5="", sha1="", sha256="", keep_permissions=False, pattern=None)
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
@@ -298,10 +300,13 @@ will be checked, if any of them doesn't match, it will raise a ``ConanException`
     tools.get("http://url/file", destination="subfolder")
 
 Parameters:
-    - **url** (Required): URL to download
+    - **url** (Required): URL to download.
+    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from URL.
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+    - **keep_permissions** (Optional, Defaulted to ``False``): Propagates parameter to :ref:`tools_unzip`.
+    - **pattern** (Optional, Defaulted to ``None``): Propagates parameter to :ref:`tools_unzip`.
 
 .. _tools_get_env:
 
@@ -433,6 +438,17 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
+
+.. _tools_run_environment:
+
+tools.run_environment()
+-----------------------
+
+.. code-block:: python
+
+    def run_environment(conanfile)
+
+Context manager that sets temporary environment variables set by :ref:`run_environment_reference`.
 
 .. _tools_check_with_algorithm_sum:
 
@@ -926,6 +942,46 @@ This tool also looks for filenames with following extensions if no extension pro
 
 Parameters:
     - **filename** (Required): Name of the executable file. It doesn't require the extension of the executable.
+
+.. _tools_unix2dos:
+
+tools.unix2dos()
+----------------
+
+.. code-block:: python
+
+    def unix2dos(filepath)
+
+Converts line breaks in a text file from Unix format (LF) to DOS format (CRLF).
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.unix2dos("project.dsp")
+
+Parameters:
+    - **filepath** (Required): The file to convert.
+
+.. _tools_dos2unix:
+
+tools.dos2unix()
+----------------
+
+.. code-block:: python
+
+    def dos2unix(filepath)
+
+Converts line breaks in a text file from DOS format (CRLF) to Unix format (LF).
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.dos2unix("dosfile.txt")
+
+Parameters:
+    - **filepath** (Required): The file to convert.
 
 tools.touch()
 -------------
