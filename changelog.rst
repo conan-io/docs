@@ -36,6 +36,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Improved the management of an upload interruption, avoiding uploads of incomplete tarballs.
 - Feature: Added new ``LLVM`` toolsets to the base ``settings.yml`` (Visual Studio).
 - Feature: Created plugin for pylint with the previous Conan checks (run in the export), enabling to use the plugin in IDEs and command line to check the correctness of the recipes.
+- Feature: Improved ``deb`` installer to guarantee that runs correctly in Debian 9 and other distros.
 - Fix: Fixed :command:`conan search -q` and :command:`conan remove -q` to not return packages that don't have the setting specified in the query.
 - Fix: Fixed ``SystemPackageTool`` when calling to update with ``sudo`` not enabled  and ``mode=verify`.
 - Fix: Removed ``pyinstaller`` shared libraries from the linker environment for any conan subprocess.
