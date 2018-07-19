@@ -31,9 +31,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added :command:`conan build --test` and ``should_configure`` attribute to control test stage. Read more
   :ref:`here<attribute_build_stages>`.
 - Feature: New tools to convert between files with LF and CRLF line endings: :ref:`tools_unix2dos` and :ref:`tools_dos2unix`.
-- Feature: The  :command:`conan config install` command accepts a ``--type`` parameter to indicate the repository type from where to install.
+- Feature: Added :command:`conan config install [url] --type=git` to force cloning git repo for ``http://...`` git urls.
 - Feature: Improved output information when a package is missing in a remote, showing who is the package requiring the missing one.
-- Feature: The ``visual_studio`` generator now uses the USERPROFILE environment variable to write relative paths (to the USERPROFILE path).
 - Feature: Improved the management of an upload interruption, avoiding uploads of incomplete tarballs.
 - Feature: Added new ``LLVM`` toolsets to the base ``settings.yml`` (Visual Studio).
 - Feature: Created plugin for pylint with the previous Conan checks (run in the export), enabling to use the plugin in IDEs and command line to check the correctness of the recipes.
