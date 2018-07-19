@@ -439,6 +439,17 @@ Parameters:
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
 
+.. _tools_run_environment:
+
+tools.run_environment()
+-----------------------
+
+.. code-block:: python
+
+    def run_environment(conanfile)
+
+Context manager that sets temporary environment variables set by :ref:`run_environment_reference`.
+
 .. _tools_check_with_algorithm_sum:
 
 tools.check_with_algorithm_sum()
