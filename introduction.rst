@@ -122,13 +122,13 @@ If you have any question regarding Conan updates, stability, or any clarificatio
 
 Python 2 Deprecation Notice
 ---------------------------
-Through 1.6, all Conan features are fully supported in both Python2 and Python3.
-After 1.6, all features built prior to 1.6 will continue to be fully tested in Python 2 and
-Python3 moving forward, and the 'default' expectation will be to test new features in both
-Python 2 and Python 3.  However, where a new feature wishes to make use of a feature available
-in Python 3 or more easily available in Python 3, those features will be implemented and tested
-only in Python 3, and versions of Conan using Python 2 will not have it.  Such features will
-be clearly documented in code and documentation.
+Before 1.6, all Conan features are fully supported in both Python2 and Python3.
+For Conan 1.6 and beyond, all features built prior to 1.6 will continue to be fully tested 
+in Python 2 and Python3 moving forward, and the 'default' expectation will be to test new
+features in both Python 2 and Python 3.  However, where a new feature wishes to make use of a
+feature available in Python 3 or more easily available in Python 3, those features will be
+implemented and tested only in Python 3, and versions of Conan using Python 2 will not have
+access to that feature. Such features will be clearly documented in code and documentation.
 
 If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with
 Python 2 may be reduced further.
