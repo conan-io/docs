@@ -11,6 +11,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.7.0 ()
+--------
+
+- BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
+
+
 1.6.0 (19-July-2018)
 ------------------------
 
