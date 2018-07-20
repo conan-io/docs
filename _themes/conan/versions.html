@@ -16,7 +16,14 @@
            {% endif %}
         {% endfor %}
       </dl>
-      <hr/>
+      <dl>
+        <dt>Downloads</dt>
+        {% if versions["master"] == current_version %}
+          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+        {% else %}
+          <dd><a href="/en/{{ current_version }}/conan.pdf">PDF</a></dd>
+        {% endif %}
+      </dl>
     </div>
   </div>
 
