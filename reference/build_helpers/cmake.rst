@@ -30,15 +30,15 @@ There are two ways to invoke your cmake tools:
 
     class ExampleConan(ConanFile):
         ...
-        
+
         def build(self):
             cmake = CMake(self)
             # same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)
-            cmake.configure()  
+            cmake.configure()
             cmake.build()
             cmake.test() # Build the "RUN_TESTS" or "test" target
             # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder
-            cmake.install() 
+            cmake.install()
 
 
 Constructor
@@ -292,3 +292,42 @@ Environment variables
 
 There are some environment variables that will also affect the ``CMake()`` helper class. Check them in the
 :ref:`CMAKE RELATED VARIABLES<cmake_related_variables>` section.
+
+Example
+-------
+The following example of ``conanfile.py`` shows you how to manage a project with conan and CMake.
+
+.. code-block:: python
+
+    import conans
+    import conans.tools
+
+    class SomePackage(conans.ConanFile):
+        name = "SomePackage"
+        version = "1.0.0"
+        settings = "os", "compiler", "build_type", "arch"
+        options = {"shared": [True, False]}
+        generators = "cmake"
+        keep_imports = True
+
+        requires = (
+            ("boost/1.66.0@conan/stable")
+        )
+
+        default_options = (
+            "shared=True",
+            "boost:shared=True"
+        )
+
+    def build(self):
+        cmake = conans.CMake(self)
+        cmake.configure()
+        cmake.build()
+
+    def test(self):
+        cmake = conans.CMake(self)
+        self.run("make check")
+
+    def package(self):
+        cmake = conans.CMake(self)
+        cmake.install()
