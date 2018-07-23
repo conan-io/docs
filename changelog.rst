@@ -11,6 +11,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.7.0 (??-??-2018)
+------------------------
+
+- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+
 1.6.0 (19-July-2018)
 ------------------------
 
