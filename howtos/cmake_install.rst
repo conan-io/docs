@@ -5,16 +5,13 @@ How to reuse cmake install for package() method
 
 It is possible that your project's *CMakeLists.txt* has already defined some
 functionality that extracts the artifacts (headers, libraries, binaries) from
-the build and source folder to a predetermined place.
+the build and source folder to a predetermined place and does the post-processing (*e.g.*, strips rpaths). For example,
+one common practice is to use CMake `install <https://cmake.org/cmake/help/latest/command/install.html>`_ directive
+to that end.
 
-The conan ``package()`` method does exactly that: it defines which files
-have to be copied from the build folder to the package folder.
+When using conan, you need to wrap that functionality in the conan ``package()`` method.
 
-If you want to reuse that functionality, you can do it with cmake.
-
-Invoke cmake with ``CMAKE_INSTALL_PREFIX`` using the ``package_folder`` variable.
-If the ``cmake install`` target correctly copies all the required libraries, headers, etc. to the ``package_folder``,
-then the ``package()`` method is not required.
+The following excerpt shows how to build and package with CMake within conan:
 
 .. code-block:: python
 
@@ -22,16 +19,34 @@ then the ``package()`` method is not required.
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
-        cmake.install()
-        # equivalent to
-        # args += ['-DCMAKE_INSTALL_PREFIX="%s"' % self.package_folder]
-        # self.run('cmake "%s/src" %s %s'
-        #          % (self.source_folder, cmake.command_line, ' '.join( args ) ) )
-        # self.run("cmake --build . --target install %s" % cmake.build_config)
 
     def package(self):
-        # nothing to do here now
+        cmake = CMake(self)
+        cmake.install()
 
-The ``package_info()`` method is still necessary, as there is no possible way to
-automatically extract the information of the necessary libraries, defines and flags for different
-build configurations from the cmake install.
+If you want to specify a different ``CMAKE_INSTALL_PREFIX`` for your package, you need to specify it as
+``package_folder`` argument both in a call to conan ``build()`` and ``package()``, respectively.
+(Maybe a bit unexpectedly, you can not specify ``package_folder`` only in the call to ``package()`` since CMake needs
+to know the install prefix already at the building stage.)
+
+The following excerpt from a custom script (meant to install conan, build and package the code) shows you how to set
+``package_folder`` properly:
+
+.. code-block:: python
+
+    import conans
+
+    def conan_build_and_install_my_codebase():
+        conan, _, _ = conans.client.conan_api.ConanAPIV1.factory()
+
+        source_folder = "/some/path/to/the/sources"
+        build_folder = "/some/path/to/the/build/folder"
+        package_folder = "/some/path/to/the/install/prefix"
+
+        conan.install(cwd=build_folder, path=source_folder, build=["missing"])
+
+        # We already need to specify the package_folder in the build() since CMake already needs
+        # the install prefix at this stage.
+        conan.build(cwd=build_folder, conanfile_path=source_folder, package_folder=package_folder)
+
+        conan.package(build_folder=build_folder, path=source_folder, package_folder=package_folder)
