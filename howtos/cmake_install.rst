@@ -11,17 +11,23 @@ to that end.
 
 When using conan, you need to wrap that functionality in the conan ``package()`` method.
 
-The following excerpt shows how to build and package with CMake within conan:
+The following excerpt shows how to build and package with CMake within conan. Mind that you need to configure CMake
+both in ``build()`` and in ``package()`` since these methods are called independently.
 
 .. code-block:: python
 
-    def build(self):
+    def configure_cmake(self):
         cmake = CMake(self)
-        cmake.configure()
+        cmake.definitions["SOME_DEFINITION"] = "On"
+
+        return cmake
+
+    def build(self):
+        cmake = self.configure_cmake()
         cmake.build()
 
     def package(self):
-        cmake = CMake(self)
+        cmake = self.configure_cmake()
         cmake.install()
 
 If you want to specify a different ``CMAKE_INSTALL_PREFIX`` for your package, you need to specify it as
