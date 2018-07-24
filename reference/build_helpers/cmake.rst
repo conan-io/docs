@@ -299,35 +299,31 @@ The following example of ``conanfile.py`` shows you how to manage a project with
 
 .. code-block:: python
 
-    import conans
-    import conans.tools
+    from conans import ConanFile, CMake
 
-    class SomePackage(conans.ConanFile):
+    class SomePackage(ConanFile):
         name = "SomePackage"
         version = "1.0.0"
         settings = "os", "compiler", "build_type", "arch"
-        options = {"shared": [True, False]}
         generators = "cmake"
-        keep_imports = True
 
-        requires = (
-            ("boost/1.66.0@conan/stable")
-        )
+    def configure_cmake(self):
+        cmake = CMake(self)
 
-        default_options = (
-            "shared=True",
-            "boost:shared=True"
-        )
+        # put definitions here so that they are re-used in cmake between
+        # build(), test() and package()
+        cmake.definitions["SOME_DEFINITION_NAME"] = "On"
+
+        return cmake
 
     def build(self):
-        cmake = conans.CMake(self)
-        cmake.configure()
+        cmake = self.configure_cmake()
         cmake.build()
 
     def test(self):
-        cmake = conans.CMake(self)
+        cmake = self.configure_cmake()
         self.run("make check")
 
     def package(self):
-        cmake = conans.CMake(self)
+        cmake = self.configure_cmake()
         cmake.install()
