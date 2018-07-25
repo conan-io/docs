@@ -91,7 +91,7 @@ so following calls to :command:`conan config install` command doesn't need to sp
 
 **Examples**:
 
-- Install the configuration from an URL:
+- Install the configuration from a URL:
 
   .. code-block:: bash
 
@@ -99,19 +99,19 @@ so following calls to :command:`conan config install` command doesn't need to sp
 
   Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
 
-- Install the configuration from a git repository:
+- Install the configuration from a Git repository:
 
   .. code-block:: bash
 
       $ conan config install http://github.com/user/conan_config/.git
 
-  You can also force the git download by using :command:`--type git` (in case it is not deduced from URL automatically):
+  You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
   .. code-block:: bash
 
       $ conan config install http://github.com/user/conan_config/.git --type git
 
-- Install from an url skipping SSL verification:
+- Install from a URL skipping SSL verification:
 
   .. code-block:: bash
 

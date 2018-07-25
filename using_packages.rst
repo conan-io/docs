@@ -4,7 +4,7 @@ Using packages
 ==============
 
 This section shows how to setup your project and manage your dependencies (install existing
-packages) with conan.
+packages) with Conan.
 
 .. toctree::
    :maxdepth: 2
