@@ -4,7 +4,7 @@
 Upgrading to conan 1.0
 ======================
 
-If you werehave been using a 0.X version of Conan, there are some things to consider when upgrading to version 1.0. These are reflected in the :ref:`changelog<changelog>`., however, this section summarizes the most important ones:
+If you have been using a 0.X version of Conan, there are some things to consider when upgrading to version 1.0. These are reflected in the :ref:`changelog<changelog>`., however, this section summarizes the most important ones:
 
 
 Command line changes
