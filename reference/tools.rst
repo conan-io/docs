@@ -210,7 +210,7 @@ Function mainly used in ``source()``, but could be used in ``build()`` in specia
 when retrieving pre-built binaries from the Internet.
 
 This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``, ``tar.xz``, and ``.zip`` files,
-and decompress them into the given destination folder (the current one by default).
+and decompresses them into the given destination folder (the current one by default).
 
 .. code-block:: python
 
@@ -301,12 +301,12 @@ will be checked, if any of them doesn't match, it will raise a ``ConanException`
 
 Parameters:
     - **url** (Required): URL to download.
-    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from URL.
+    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from the URL.
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
-    - **keep_permissions** (Optional, Defaulted to ``False``): Propagates parameter to :ref:`tools_unzip`.
-    - **pattern** (Optional, Defaulted to ``None``): Propagates parameter to :ref:`tools_unzip`.
+    - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
+    - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
 
 .. _tools_get_env:
 
@@ -1106,7 +1106,7 @@ Parameters:
       otherwise ``None``.
 
 tools.replace_prefix_in_pc_file()
-----------------------------------
+---------------------------------
 
 .. code-block:: python
 
@@ -1130,7 +1130,7 @@ Replaces the ``prefix`` variable in a package config file ``.pc`` with the speci
     Check section integrations/:ref:`pkg-config and pc files<pc_files>` to know more.
 
 tools.collect_libs()
----------------------
+--------------------
 
 .. code-block:: python
 

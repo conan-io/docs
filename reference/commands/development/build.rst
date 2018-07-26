@@ -26,7 +26,7 @@ folder will be configured as destination folder for the install step.
       -h, --help            show this help message and exit
       -b, --build           Execute the build step (variable should_build=True).
                             When specified, configure/install/test won't run
-                            unless --configure/--install/--test specified
+                            unless --configure/--install/--test are specified
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             Directory for the build process. Defaulted to the
                             current directory. A relative path to current
@@ -34,11 +34,11 @@ folder will be configured as destination folder for the install step.
       -c, --configure       Execute the configuration step (variable
                             should_configure=True). When specified,
                             build/install/test won't run unless
-                            --build/--install/--test specified
+                            --build/--install/--test are specified
       -i, --install         Execute the install step (variable
                             should_install=True). When specified,
                             configure/build/test won't run unless
-                            --configure/--build/--test specified
+                            --configure/--build/--test are specified
       -t, --test            Execute the test step (variable should_test=True).
                             When specified, configure/build/install won't run
                             unless --configure/--build/--install specified
