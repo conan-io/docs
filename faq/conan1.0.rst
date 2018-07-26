@@ -49,7 +49,7 @@ Deprecations/removals
 - :command:`conan package_files` command was replaced in conan 0.28 by :command:`conan export-pkg` command.
 
 
-Settings and profiles. Gcc/Clang versioning
+Settings and profiles. GCC/Clang versioning
 -------------------------------------------
 
 GCC and Clang compilers have modified their versioning approach, from GCC > 5 and Clang > 4.
