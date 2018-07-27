@@ -311,7 +311,7 @@ The following example of ``conanfile.py`` shows you how to manage a project with
         cmake = CMake(self)
 
         # put definitions here so that they are re-used in cmake between
-        # build(), test() and package()
+        # build() and package()
         cmake.definitions["SOME_DEFINITION_NAME"] = "On"
 
         return cmake
@@ -320,9 +320,11 @@ The following example of ``conanfile.py`` shows you how to manage a project with
         cmake = self.configure_cmake()
         cmake.build()
 
-    def test(self):
-        cmake = self.configure_cmake()
-        self.run("make check")
+        # run unit tests after the build
+        cmake.test()
+
+        # run custom make command
+        self.run("make -j3 check)
 
     def package(self):
         cmake = self.configure_cmake()
