@@ -11,9 +11,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.6 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.7.0 (??-??-2018)
+------------------
+
+- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+
 
 1.6.1 (27-July-2018)
 --------------------
+
 - Bugfix: :command:`conan info --build-order` was showing duplicated nodes for build-requires and private dependencies.
 - Fix: Fixed failure with the ``alias`` packages when the name of the package (excluded the version) was different from the aliased package. Now it is limited in the :command:`conan alias` command.
 
