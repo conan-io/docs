@@ -8,8 +8,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.6 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
+
+
+1.6.1 (27-July-2018)
+--------------------
+- Bugfix: :command:`conan info --build-order` was showing duplicated nodes for build-requires and private dependencies.
+- Fix: Fixed failure with the ``alias`` packages when the name of the package (excluded the version) was different from the aliased package. Now it is limited in the :command:`conan alias` command.
+
 
 1.6.0 (19-July-2018)
 --------------------
