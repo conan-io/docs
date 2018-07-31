@@ -30,3 +30,5 @@ The file declare these variables:
 +--------------------------------+----------------------------------------------------------------------+
 | OTHER_CPLUSPLUSFLAGS           | The requirements cxxflags                                            |
 +--------------------------------+----------------------------------------------------------------------+
+| FRAMEWORK_SEARCH_PATHS         | The requirements root folders, so xcode can find packaged frameworks |
++--------------------------------+----------------------------------------------------------------------+

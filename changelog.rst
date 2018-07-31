@@ -8,12 +8,53 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.5 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.6 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
 
-1.5.2 (5-July-2018)
+1.6.1 (27-July-2018)
 --------------------
+- Bugfix: :command:`conan info --build-order` was showing duplicated nodes for build-requires and private dependencies.
+- Fix: Fixed failure with the ``alias`` packages when the name of the package (excluded the version) was different from the aliased package. Now it is limited in the :command:`conan alias` command.
+
+
+1.6.0 (19-July-2018)
+--------------------
+
+- Feature: Added a new ``self.run(..., run_environment=True)`` argument, that automatically applies ``PATH``, ``LD_LIBRARY_PATH`` and
+  ``DYLD_LIBRARY_PATH`` environment variables from the dependencies, to the execution of the current command.
+- Feature: Added a new ``tools.run_environment()`` method as a shortcut to using ``tools.environment_append`` and ``RunEnvironment()`` together.
+- Feature: Added a new ``self.run(..., ignore_errors=True)`` argument that represses launching an exception if the commands fails, so user can
+  capture the return code.
+- Feature: Improved ``tools.Git`` to allow capturing the current branch and enabling the export of a package whose version is based on the branch and commit.
+- Feature: The ``json`` generator now outputs settings and options
+- Feature: :command:`conan remote list --raw` prints remote information in a format valid for *remotes.txt*, so it can be used for ``conan config install``
+- Feature: Visual Studio generator creates the *conanbuildinfo.props* file using the ``$(USERPROFILE)`` macro.
+- Feature: Added a ``filename`` parameter to ``tools.get()`` in case it cannot be deduced from the URL.
+- Feature: Propagated ``keep_permissions`` and ``pattern`` parameters from ``tools.get()`` to ``tools.unzip()``.
+- Feature: Added XZ extensions to ``unzip()``. This will only work in Python 3 with lzma support enabled, otherwise, and error is produced.
+- Feature: Added ``FRAMEWORK_SEARCH_PATHS`` var to the XCode generator to support packaging Apple Frameworks. Read more
+  :ref:`here<package_apple_framework>`.
+- Feature: Added :command:`conan build --test` and a ``should_configure`` attribute to control the test stage. Read more
+  :ref:`here<attribute_build_stages>`.
+- Feature: New tools to convert between files with LF and CRLF line endings: :ref:`tools_unix2dos` and :ref:`tools_dos2unix`.
+- Feature: Added :command:`conan config install [url] --type=git` to force cloning of a Git repo for ``http://...`` git urls.
+- Feature: Improved output information when a package is missing in a remote to show which package requires the missing one.
+- Feature: Improved the management of an upload interruption to avoid uploads of incomplete tarballs.
+- Feature: Added new ``LLVM`` toolsets to the base ``settings.yml`` (Visual Studio).
+- Feature: Created a plugin for pylint with the previous Conan checks (run in the export) enabling usage of the plugin in IDEs and command line to check if recipes are correct.
+- Feature: Improved the ``deb`` installer to guarantee that it runs correctly in Debian 9 and other distros.
+- Fix: Fixed :command:`conan search -q` and :command:`conan remove -q` to not return packages that don't have the setting specified in the query.
+- Fix: Fixed ``SystemPackageTool`` when calling to update with ``sudo`` is not enabled  and ``mode=verify``.
+- Fix: Removed ``pyinstaller`` shared libraries from the linker environment for any Conan subprocess.
+- BugFix: The ``YumTool`` now calls ``yum update`` instead of ``yum check-update``.
+- Bugfix: Solved a bug in which using ``--manifest`` parameter with :command:`conan create` caused the deletion of information in the dependency graph.
+- Bugfix: Solved bug in which the ``build`` method of the ``Version`` model was not showing the version build field correctly .
+- Bugfix: Fixed a Conan crash caused by a dependency tree containing transitive private nodes.
+
+
+1.5.2 (5-July-2018)
+-------------------
 
 - Bugfix: Fixed bug with pre-1.0 packages with sources.
 - Bugfix: Fixed regression in private requirements.
@@ -481,7 +522,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 0.29.2 (2-December-2017)
--------------------------
+------------------------
 
 - Updated python cryptography requirement for OSX due the pyOpenSSL upgrade. See more: https://pypi.org/project/pyOpenSSL/
 

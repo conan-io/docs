@@ -38,9 +38,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.5"
+version = "1.6"
 # The full version, including alpha/beta/rc tags.
-release = u'1.5.2'
+release = u'1.6.1'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -384,7 +384,9 @@ epub_exclude_files = ['search.html']
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
-    redirect_files = {'creating_packages/package_dev_flow.html': "../developing_packages/package_dev_flow.html"}
+    redirect_files = {
+        "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
+        "conan1.0.html": "faq/conan1.0.html"}
 
     redirect_template = """<!DOCTYPE html>
 <html>
@@ -398,7 +400,7 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     if app.builder.name == 'html':
         for html_src_path, dst_path in redirect_files.items():
             target_path = app.outdir + '/' + html_src_path
-            html = redirect_template % dst_path      
+            html = redirect_template % dst_path
             with open(target_path, "w") as f:
                 f.write(html)
 

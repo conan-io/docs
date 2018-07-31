@@ -63,7 +63,8 @@ build()
 .. code-block:: python
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
-              parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True)
+              parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
+              vcvars_ver=None, winsdk_version=None)
 
 Builds Visual Studio project with the given parameters. It will call ``tools.msvc_build_command()``.
 
@@ -86,8 +87,10 @@ Parameters:
                        'x86_64': 'x64',
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
-    - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the ``msbuild()`` call.
 
+    - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the ``msbuild()`` call.
+    - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
+    - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
 
 get_command()
 ++++++++++++++
@@ -103,10 +106,7 @@ Parameters:
     - **project_file** (Optional, defaulted to None): Path to a properties file to include in the project.
     - Same other parameters than **build()**
 
-
-
 .. _visual_studio_build:
-
 
 VisualStudioBuildEnvironment
 ============================
@@ -163,10 +163,7 @@ Set environment variables:
 | .link_flags                 |  List with linker flags (from requirements cpp_info.sharedlinkflags and cpp_info.exelinkflags                              |
 +-----------------------------+----------------------------------------------------------------------------------------------------------------------------+
 
-
-
 You can adjust the automatically filled values modifying the attributes above:
-
 
 .. code-block:: python
    :emphasize-lines: 3, 4, 5
@@ -182,5 +179,6 @@ You can adjust the automatically filled values modifying the attributes above:
                 self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
                 self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
 
+.. seealso::
 
-.. seealso:: - :ref:`Reference/Tools/environment_append <environment_append_tool>`
+    - :ref:`environment_append_tool`

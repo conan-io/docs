@@ -115,7 +115,7 @@ This is an optional attribute
 .. _user_channel:
 
 user, channel
---------------
+-------------
 
 The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
 Though their usage is usually not encouraged, it could be useful in different cases,
@@ -210,7 +210,7 @@ independent in VS, we can just remove that setting field:
 .. _conanfile_options:
 
 options, default_options
----------------------------
+------------------------
 Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
 
 A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
@@ -415,7 +415,7 @@ They can be specified as a comma separated tuple in the package recipe:
 Read more: :ref:`Build requiremens <build_requires>`
 
 exports
---------
+-------
 
 If a package recipe ``conanfile.py`` requires other external files, like other python files that
 it is importing (python importing), or maybe some text file with data it is reading, those files
@@ -483,13 +483,61 @@ generated, but you can specify different generators and even use more than one.
 
 Check the full :ref:`generators list<generators>`.
 
+.. _attribute_build_stages:
+
+should_configure, should_build, should_install, should_test
+-----------------------------------------------------------
+
+Read only variables defaulted to ``True``.
+
+These variables allow you to control the build stages of a recipe during a :command:`conan build` command with the optional arguments
+:command:`--configure`/:command:`--build`/:command:`--install`/:command:`--test`. For example, consider this ``build()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+        cmake.install()
+        cmake.test()
+
+If nothing is specified, all four methods will be called. But using command line arguments, this can be changed:
+
+.. code-block:: bash
+
+    $ conan build . --configure  # only run cmake.configure(). Other methods will do nothing
+    $ conan build . --build      # only run cmake.build(). Other methods will do nothing
+    $ conan build . --install    # only run cmake.install(). Other methods will do nothing
+    $ conan build . --test       # only run cmake.test(). Other methods will do nothing
+    # They can be combined
+    $ conan build . -c -b # run cmake.configure() + cmake.build(), but not cmake.install() nor cmake.test()
+
+Autotools and Meson helpers already implement the same functionality. For other build systems, you can use these variables in the
+``build()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        if self.should_configure:
+            # Run my configure stage
+        if self.should_build:
+            # Run my build stage
+        if self.should_install: # If my build has install, otherwise use package()
+            # Run my install stage
+        if self.should_test:
+            # Run my test stage
+
+Note that the ``should_configure``, ``should_build``, ``should_install``, ``should_test`` variables will always be ``True`` while building in
+the cache and can be only modified for the local flow with :command:`conan build`.
+
 build_policy
 ------------
 
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, conan will build it without the need of invoke conan install with **--build missing** option.
+- ``missing``: If no binary package is found, Conan will build it without the need to invoke :command:`conan install --build missing` option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
 
 .. code-block:: python
@@ -554,7 +602,7 @@ When executing local conan commands (for a package not in the local cache, but i
 .. _cpp_info_attributes_reference:
 
 cpp_info
----------
+--------
 
 This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
 
@@ -774,7 +822,7 @@ But it will not output that when it is a transitive requirement or installed wit
 .. _keep_imports:
 
 keep_imports
--------------
+------------
 
 Just before the ``build()`` method is executed, if the conanfile has an ``imports()`` method, it is
 executed into the build folder, to copy binaries from dependencies that might be necessary for

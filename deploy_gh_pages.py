@@ -98,7 +98,8 @@ if __name__ == "__main__":
     if should_deploy():
         config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.5",
+        versions_dict = {"master": "1.6",
+                         "release/1.5.2": "1.5",
                          "release/1.4.5": "1.4",
                          "release/1.3.3": "1.3"}
         for branch, folder_name in versions_dict.items():
