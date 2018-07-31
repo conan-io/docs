@@ -3,7 +3,7 @@
 Using packages
 ==============
 
-This section shows how to setup your project and manage your dependencies (install existing
+This section shows how to setup your project and manage dependencies (i.e., install existing
 packages) with Conan.
 
 .. toctree::
