@@ -219,7 +219,7 @@ There are some differences between shared libraries on Linux (\*.so), Windows (\
 (\*.dylib). The shared libraries must be located in a folder where they can be found, either by
 the linker, or by the OS runtime.
 
-You acn add the libraries' folders to the path (dynamic linker LD_LIBRARY_PATH path
+You can add the libraries' folders to the path (dynamic linker LD_LIBRARY_PATH path
 in Linux, DYLD_LIBRARY_PATH in OSX, or system PATH in Windows), or copy those shared libraries to
 some system folder where they can be found by the OS. But these operations are are typical operations deployments or
 final installation of apps; they are not desired during development, and Conan is intended for developers, so
