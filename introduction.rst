@@ -116,22 +116,10 @@ The compatibility is always considered forward. New APIs, tools, methods, helper
 
 This means that public repositories, like conan-center assume the use of the latest version of the Conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.
 
+Additionally, starting in version 1.6, we began the process of deprecating Python2 support.  Features already working with python2 will continue to do so, but new ones may require Python3.
+See the :ref: `deprecation notice <python2>` for more details
+
 If you have any question regarding Conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
-
-.. _python2:
-
-Python 2 Deprecation Notice
----------------------------
-Before 1.6, all Conan features are fully supported in both Python2 and Python3.
-For Conan 1.6 and beyond, all features built prior to 1.6 will continue to be fully tested 
-in Python 2 and Python3 moving forward, and the 'default' expectation will be to test new
-features in both Python 2 and Python 3.  However, where a new feature wishes to make use of a
-feature available in Python 3 or more easily available in Python 3, those features will be
-implemented and tested only in Python 3, and versions of Conan using Python 2 will not have
-access to that feature. Such features will be clearly documented in code and documentation.
-
-If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with
-Python 2 may be reduced further.
 
 Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
