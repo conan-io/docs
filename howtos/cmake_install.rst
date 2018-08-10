@@ -9,8 +9,44 @@ the build and source folder to a predetermined place and does the post-processin
 one common practice is to use CMake `install <https://cmake.org/cmake/help/latest/command/install.html>`_ directive
 to that end.
 
-When using conan, you need to wrap that functionality in the conan ``package()`` method.
+When using conan, the install phase of CMake is wrapped in the conan ``package()`` method.
 
+The ``package_info()`` method specifies the list of the necessary libraries, defines and flags for different
+build configurations for the consumers of the package. This is necessary as there is no possible way to extract this
+information from the CMake install automatically.
+
+``no_copy_source``
+------------------
+When ``no_copy_source = False``, the building and packaging follows what we expect from the usual CMake pipeline.
+However, when ``no_copy_source = True``, conan workflow might be surprising to users familiar with CMake, but still
+unfamiliar with intricacies of conan.
+
+Let us recap briefly the building and packaging process of conan and see then how a special case, when
+``no_copy_source = True`` is set, affects the usage of conan with CMake.
+
+Conan retrieves the sources and put them in a source folder. Before compiling, conan creates a copy of the source folder
+into the build folder and starts the build. Once the build is done, conan creates the package by collecting the
+artifacts from the build folder using ``package()`` method. When ``no_copy_source = False``, there is nothing unexpected
+in the workflow.
+
+If you set ``no_copy_source = True``, conan still retrieves the sources, but does not copy them to the
+build folder. The build starts and once the artefacts are built, ``package()`` method needs to be called *twice*.
+First, source files are copied from the source folder into the package folder (which involves calling ``package()``
+once) and second, artifacts are copied from the build folder into the package folder (which again calls ``package()``
+for the second time).
+
+Please mind that CMake usually uses ``install`` directive to package both the artifacts and source code (*i.e.* header
+files) into the package folder. Hence calling ``package()`` twice, while having no side effects, is wasting a couple of
+cycles, since source code is already copied in the first invokation of ``package()`` and the install step will be done
+twice. Files will be simply overwritten, but install steps are sometimes time-expensive and this doubles the "packaging"
+time.
+
+This might be unintuitive if you only use CMake, but mind that conan needs to cater to many different build systems and
+scenarios (*e.g.* where you don't control the CMake configuration directly) and hence this workflow, though potentially
+unintuitive, is indispensable.
+
+Example
+-------
 The following excerpt shows how to build and package with CMake within conan. Mind that you need to configure CMake
 both in ``build()`` and in ``package()`` since these methods are called independently.
 
@@ -18,6 +54,7 @@ both in ``build()`` and in ``package()`` since these methods are called independ
 
     def configure_cmake(self):
         cmake = CMake(self)
+        cmake.configure()
         cmake.definitions["SOME_DEFINITION"] = "On"
 
         return cmake
@@ -30,29 +67,7 @@ both in ``build()`` and in ``package()`` since these methods are called independ
         cmake = self.configure_cmake()
         cmake.install()
 
-If you want to specify a different ``CMAKE_INSTALL_PREFIX`` for your package, you need to specify it as
-``package_folder`` argument both in a call to conan ``build()`` and ``package()``, respectively.
-(Maybe a bit unexpectedly, you can not specify ``package_folder`` only in the call to ``package()`` since CMake needs
-to know the install prefix already at the building stage.)
-
-The following excerpt from a custom script (meant to install conan, build and package the code) shows you how to set
-``package_folder`` properly:
-
-.. code-block:: python
-
-    import conans
-
-    def conan_build_and_install_my_codebase():
-        conan, _, _ = conans.client.conan_api.ConanAPIV1.factory()
-
-        source_folder = "/some/path/to/the/sources"
-        build_folder = "/some/path/to/the/build/folder"
-        package_folder = "/some/path/to/the/install/prefix"
-
-        conan.install(cwd=build_folder, path=source_folder, build=["missing"])
-
-        # We already need to specify the package_folder in the build() since CMake already needs
-        # the install prefix at this stage.
-        conan.build(cwd=build_folder, conanfile_path=source_folder, package_folder=package_folder)
-
-        conan.package(build_folder=build_folder, path=source_folder, package_folder=package_folder)
+    def package_info(self):
+        self.cpp_info.includedirs = ['include']
+        self.cpp_info.libdirs = ['lib']
+        self.cpp_info.bindirs = ['bin']
