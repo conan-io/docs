@@ -34,10 +34,11 @@ project.
       -j JSON, --json JSON  json file path where the install information will be
                             written to
       -k, -ks, --keep-source
-                            Do not remove the source folder in local cache. Use
-                            this for testing purposes only
-      -kb, --keep-build     Do not remove the build folder in local cache. Use
-                            this for testing purposes only
+                            Do not remove the source folder in local cache, even
+                            if the recipe changed. Use this for testing purposes
+                            only
+      -kb, --keep-build     Do not remove the build folder in local cache. Implies
+                            --keep-source. Use this for testing purposes only
       -ne, --not-export     Do not export the conanfile.py
       -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
                             Working directory for the build of the test project.
