@@ -48,7 +48,7 @@ to list the remotes) will be used.
 
 **Examples**:
 
-Uploads a package recipe (conanfile.py and the exported files):
+Uploads a package recipe (*conanfile.py* and the exported files):
 
 .. code-block:: bash
 
@@ -71,7 +71,7 @@ between upload attempts:
 
 .. code-block:: bash
 
-    $ conan upload "Op*" --all -r my_remote -c --retry 3 --retry_wait 10
+    $ conan upload "Op*" --all -r my_remote -c --retry 3 --retry-wait 10
 
 Upload packages without overwriting the recipe and packages if the recipe has changed:
 
@@ -79,7 +79,7 @@ Upload packages without overwriting the recipe and packages if the recipe has ch
 
     $ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite  # defaults to --no-overwrite all
 
-Upload packages without overwriting the recipe if the packages has changed:
+Upload packages without overwriting the recipe if the packages have changed:
 
 .. code-block:: bash
 

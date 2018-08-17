@@ -46,8 +46,8 @@ Optional parameters:
 - **win_bash** (Optional, Defaulted to ``False``): When True, it will run the configure/make commands inside a bash.
 - **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem). Used to escape the command according to the specified subsystem.
 - **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).
-- **ignore_errors** (Optional, Defaulted to ``False``). The method raises an exception if the command fails. If ``ignore_errors=True``, it
-  will not raise, and the user can use the return code instead to check for errors.
-- **run_environment** (Optional, Defaulted to ``False``). Applies a ``RunEnvironment``, so the environment variables PATH, LD_LIBRARY_PATH,
-  DYLIB_LIBRARY_PATH are defined in the command execution, adding the values of the "lib" and "bin" folders of the dependencies.
-  Allows executables to be run using shared libraries from its dependencies easily.
+- **ignore_errors** (Optional, Defaulted to ``False``). This method raises an exception if the command fails. If ``ignore_errors=True``, it
+  will not raise an exception. Instead, the user can use the return code to check for errors.
+- **run_environment** (Optional, Defaulted to ``False``). Applies a ``RunEnvironment``, so the environment variables PATH, LD_LIBRARY_PATH and
+  DYLIB_LIBRARY_PATH are defined in the command execution adding the values of the "lib" and "bin" folders of the dependencies.
+  Allows executables to be easily run using shared libraries from its dependencies.

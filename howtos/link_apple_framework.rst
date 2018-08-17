@@ -46,8 +46,8 @@ How to package Apple Frameworks
 
 To package an Apple framework:
 
-- Copy/Create a framework folder ``XXX.framework`` (being ``XXX`` the name of your framework),
-  to your package folder, putting there all the subdirectories (``Headers``, ``Modules``, etc).
+- Copy/create a framework folder ``XXX.framework`` (``XXX`` being the name of your framework),
+  to your package folder, where you should put all the subdirectories (``Headers``, ``Modules``, etc).
 
 .. code-block:: python
 
