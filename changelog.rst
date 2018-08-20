@@ -15,10 +15,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 --------
 
 - BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
+- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+- Fix: conan messages correctly spell "overridden" now
 
 
 1.6.1 (27-July-2018)
 --------------------
+
 - Bugfix: :command:`conan info --build-order` was showing duplicated nodes for build-requires and private dependencies.
 - Fix: Fixed failure with the ``alias`` packages when the name of the package (excluded the version) was different from the aliased package. Now it is limited in the :command:`conan alias` command.
 
