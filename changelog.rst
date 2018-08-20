@@ -15,6 +15,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ------------------
 
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+- Fix: conan messages correctly spell "overridden" now
 - Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
 
 

@@ -287,7 +287,7 @@ consumers can use those executables easily:
 .. code-block:: python
 
     # assuming the binaries are in the "bin" subfolder
-    self.env_info.PATH.append(os.path.join(self.package_folder, "bin")
+    self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
 
 The :ref:`virtualenv<virtual_environment_generator>` generator will use the ``self.env_info`` variables to prepare a script to
 activate/deactive a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.

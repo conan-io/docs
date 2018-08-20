@@ -30,15 +30,15 @@ There are two ways to invoke your cmake tools:
 
     class ExampleConan(ConanFile):
         ...
-        
+
         def build(self):
             cmake = CMake(self)
             # same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)
-            cmake.configure()  
+            cmake.configure()
             cmake.build()
             cmake.test() # Build the "RUN_TESTS" or "test" target
             # Build the "install" target, defining CMAKE_INSTALL_PREFIX to self.package_folder
-            cmake.install() 
+            cmake.install()
 
 
 Constructor
@@ -145,7 +145,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_C_FLAGS                             |  -m32 and -m64 based on your architecture and /MP for MSVS                                                                   |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_C_FLAGS                             |  -m32 and -m64 based on your architecture and /MP for MSVS                                                                   |
+| CONAN_CXX_FLAGS                           |  -m32 and -m64 based on your architecture and /MP for MSVS                                                                   |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_LINK_RUNTIME                        |  Runtime from self.settings.compiler.runtime for MSVS                                                                        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
@@ -306,3 +306,41 @@ Environment variables
 
 There are some environment variables that will also affect the ``CMake()`` helper class. Check them in the
 :ref:`CMAKE RELATED VARIABLES<cmake_related_variables>` section.
+
+Example
+-------
+The following example of ``conanfile.py`` shows you how to manage a project with conan and CMake.
+
+.. code-block:: python
+
+    from conans import ConanFile, CMake
+
+    class SomePackage(ConanFile):
+        name = "SomePackage"
+        version = "1.0.0"
+        settings = "os", "compiler", "build_type", "arch"
+        generators = "cmake"
+
+    def configure_cmake(self):
+        cmake = CMake(self)
+        cmake.configure()
+
+        # put definitions here so that they are re-used in cmake between
+        # build() and package()
+        cmake.definitions["SOME_DEFINITION_NAME"] = "On"
+
+        return cmake
+
+    def build(self):
+        cmake = self.configure_cmake()
+        cmake.build()
+
+        # run unit tests after the build
+        cmake.test()
+
+        # run custom make command
+        self.run("make -j3 check)
+
+    def package(self):
+        cmake = self.configure_cmake()
+        cmake.install()
