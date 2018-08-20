@@ -18,6 +18,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: conan messages correctly spell "overridden" now
 - Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
+- Fix: The SCM feature now exclude correctly the ignored folders by git during the copy of a local directory to the local cache.
 
 
 1.6.1 (27-July-2018)
