@@ -30,9 +30,15 @@ our ``my_local_server`` remote, but you could use any other.
 You might be prompted for a username and password. The default conan server remote has a
 **demo/demo** account we can use for testing.
 
-The ``--all`` option will upload the package recipe plus all the binary packages. Now try again to
-read the information from the remote (we refer to it as remote, even if it is running on your local
-machine, as it could be run on another server in your LAN):
+The ``--all`` option will upload the package recipe plus all the binary packages. Omitting the
+``--all`` option will upload the package recipe *only*. For fine-grained control over which binary
+packages are upload to the server, consider using the ``--packages/-p`` or ``--query/-q`` flags.
+``--packages`` allows you to explicitly declare which package gets uploaded to the server.
+``--query`` accepts a query parameter, e.g. ``arch=armv8 and os=Linux``, and only uploads binary
+packages which match this query.
+
+Now try again to read the information from the remote (we refer to it as remote, even if it is
+running on your local machine, as it could be run on another server in your LAN):
 
 .. code-block:: bash
 
