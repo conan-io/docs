@@ -1165,7 +1165,7 @@ tools.PkgConfig()
 
     class PkgConfig(object):
 
-        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None)
+        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None, print_errors=True)
 
 Wrapper of the ``pkg-config`` tool.
 
@@ -1185,6 +1185,7 @@ Parameters of the constructor:
     - **static** (Optional, Defaulted to ``False``): Output libraries suitable for static linking (adds ``--static`` to ``pkg-config`` command line).
     - **msvc_syntax** (Optional, Defaulted to ``False``): MSVC compatibility (adds ``--msvc-syntax`` to ``pkg-config`` command line).
     - **variables** (Optional, Defaulted to ``None``): Dictionary of pkg-config variables (passed as ``--define-variable=VARIABLENAME=VARIABLEVALUE``).
+    - **print_errors** (Optional, Defaulted to ``True``): Output error messages (adds --print-errors)
 
 **Properties:**
 
