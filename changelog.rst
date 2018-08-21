@@ -15,7 +15,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ------------------
 
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
-- Fix: conan messages correctly spell "overridden" now
+- Fix: Conan messages correctly spell "overridden" now.
+- Fix: ``MSBuild`` build helper arguments using quotes.
 - Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
 - Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 
