@@ -174,7 +174,7 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
       :emphasize-lines: 4
 
       $ conan source . --source-folder src
-      $ conan install --install-folder build_x86 -s arch=x86
+      $ conan install . --install-folder build_x86 -s arch=x86
       $ conan build . --build-folder build_x86 --source-folder src
       $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
 

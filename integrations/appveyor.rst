@@ -48,7 +48,7 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	
 	build_script:
 	  - cmmd: mkdir build 
-	  - cmmd: conan install -o gtest:shared=True
+	  - cmmd: conan install . -o gtest:shared=True
 	  - cmmd: cd build 
 	  - cmmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
 	  - cmmd: cmake --build . --config Release
