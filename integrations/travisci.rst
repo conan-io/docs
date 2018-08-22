@@ -52,7 +52,7 @@ Create a ``.travis.yml`` file and paste this code in it:
 	
 	script:
 	# Download dependencies, build, test and create package
-	- conan create user/channel
+	- conan create . user/channel
 
 
 Travis will install the **conan** tool and will execute the **conan install** command.
