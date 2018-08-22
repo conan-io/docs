@@ -812,7 +812,7 @@ This recipe will output "Develop mode" if:
 
 .. code-block:: bash
 
-    $ conan create user/testing
+    $ conan create . user/testing
     # or
     $ mkdir build && cd build && conan install ..
     $ conan build ..
