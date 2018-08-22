@@ -45,7 +45,7 @@ Install the requirements:
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install .
    
 Go to your **Xcode** project, click on the project and select **Add files to**. 
 

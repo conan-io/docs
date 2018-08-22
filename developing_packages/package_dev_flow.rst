@@ -267,4 +267,4 @@ If you see that library builds correctly too, you can do the same to skip also t
 
 .. code-block:: bash
 
-    $ conan create --keep-build
+    $ conan create . user/testing --keep-build

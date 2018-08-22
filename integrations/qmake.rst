@@ -49,7 +49,7 @@ This project will depend on a multi-configuration (debug/release) "Hello World" 
 
     $ git clone https://github.com/memsharded/hello_multi_config
     $ cd hello_multi_config
-    $ conan create user/channel
+    $ conan create . user/channel
 
 This hello package is created with cmake, but that doesn't matter, it can be consumed from a qmake project:
 
