@@ -44,7 +44,7 @@ Note that this folder contains a file *conanws.yml* in the root, with the follow
     name: MyProject
 
 
-Next, run a ``conan install`` as usual, using a *build* folder to output the dependencies information:
+Next, run a :command:`conan install` as usual, using a *build* folder to output the dependencies information:
 
 .. code-block:: bash
 
@@ -126,8 +126,8 @@ user folders.
 
 conanws.yml syntax
 ------------------
-The *conanws.yml* file can be located in any parent folder of the location pointed by the ``conan install`` command.
-Conan will search up the folder hierarchy looking for a *conanws.yml* file. If it is not found, the normal ``conan install``
+The *conanws.yml* file can be located in any parent folder of the location pointed by the :command:`conan install` command.
+Conan will search up the folder hierarchy looking for a *conanws.yml* file. If it is not found, the normal :command:`conan install`
 for a single package will be executed.
 
 
