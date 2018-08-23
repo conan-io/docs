@@ -93,7 +93,7 @@ Parameters:
     - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the ``msbuild()`` call.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
-    - **properties** (Optiona, Defaulted to ``None``): Dictionary with new properties, for each element in the dict {name: value}
+    - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dict {name: value}
       it will append a ``/p:name="value"`` option.
 
 get_command()
