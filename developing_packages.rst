@@ -3,7 +3,7 @@
 Developing packages
 ===================
 
-This section shows how to work on packages which source code is being modified.
+This section shows how to work on packages with source code continuously being modified.
 
 .. toctree::
    :maxdepth: 2
