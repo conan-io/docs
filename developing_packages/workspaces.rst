@@ -5,12 +5,12 @@ Workspaces [experimental]
 
 .. warning::
 
-    This is an experimental feature. Actually, a preview of the feature, with the main goal of receiving feedback and improving it.
-    Consider the file formats, commands and flows to be unstable and subject of change in next releases.
+    This is an experimental feature. This is actually a preview of the feature, with the main goal of receiving feedbacks and improving it.
+    Consider the file formats, commands and flows to be unstable and subject to changes in the next releases.
 
 Sometimes, it is necessary to work simultaneously on more than one package. In theory, each package should be a "work unit", and developers
-should be able to work on them in isolation. But sometimes, some changes require modifications in more than 1 package at the same time.
-The local development flow can help, but it still requires doing ``export-pkg`` to put the artifacts in the local cache, where other packages
+should be able to work on them in isolation. But sometimes, some changes require modifications in more than one package at the same time.
+The local development flow can help, but it still requires using ``export-pkg`` to put the artifacts in the local cache, where other packages
 under development will consume them.
 
 The conan workspaces allow to have more than one package in user folders, and have them to directly use other packages from user folders
@@ -23,7 +23,7 @@ Lets introduce them with a practical example:
     $ git clone https://github.com/memsharded/conan-workspace-example.git
     $ cd conan-workspace-example
 
-Note this folder contains a file *conanws.yml* in the root, with the following contents:
+Note that this folder contains a file *conanws.yml* in the root, with the following contents:
 
 .. code-block:: text
 
@@ -44,7 +44,7 @@ Note this folder contains a file *conanws.yml* in the root, with the following c
     name: MyProject
 
 
-Then, we will run a ``conan install`` as usual, using a *build* folder to output the dependencies information:
+Next, run a :command:`conan install` as usual, using a *build* folder to output the dependencies information:
 
 .. code-block:: bash
 
@@ -71,17 +71,17 @@ Then, we will run a ``conan install`` as usual, using a *build* folder to output
     Workspace HelloA: Generated conanbuildinfo.txt
 
 
-Note that nothing was really installed in the local cache, all the dependencies are resolved locally:
+Note that nothing will really be installed in the local cache, all the dependencies are resolved locally:
 
 .. code-block:: bash
 
     $ conan search
     There are no packages
 
-Also, all the generated *conanbuildinfo.cmake* for each dependencies were installed to the *build* folder. You can inspect them to check
+Also, all the generated *conanbuildinfo.cmake* for each dependencies are installed in the *build* folder. You can inspect them to check
 that the paths they define for their dependencies, are user folders, not pointing to the local cache.
 
-As defined in the *conanws.yml*, a root *CMakeLists.txt* was generated for us. We can use it to generate the super-project and build it:
+As defined in the *conanws.yml*, a root *CMakeLists.txt* is generated for us. We can use it to generate the super-project and build it:
 
 .. code-block:: bash
 
@@ -113,7 +113,7 @@ same build system, CMake. However, without using a super-project, it is still po
 work on different packages with different build systems. 
 
 For this case, the *conanws.yml* won't have the ``generator`` or ``name`` fields.
-The installation will be done without specifying a install folder:
+The installation will be done without specifying an install folder:
 
 .. code-block:: bash
 
@@ -126,8 +126,8 @@ user folders.
 
 conanws.yml syntax
 ------------------
-The *conanws.yml* file can be located in any parent folder of the location pointed by the ``conan install`` command.
-Conan will search up the folder hierarchy looking for a *conanws.yml* file. If it is not found, the normal ``conan install``
+The *conanws.yml* file can be located in any parent folder of the location pointed by the :command:`conan install` command.
+Conan will search up the folder hierarchy looking for a *conanws.yml* file. If it is not found, the normal :command:`conan install`
 for a single package will be executed.
 
 
@@ -167,5 +167,5 @@ it is ongoing work, not yet available.
 
 .. important:: 
 
-    We really want your feedback. For any suggestion, problem, idea, please submit an issue to https://github.com/conan-io/conan/issues
-    and use the [workspaces] prefix in the issue title. 
+    We really want your feedback. Please submit any issues to https://github.com/conan-io/conan/issues
+    with any suggestion, problem, idea, and make sure to use the [workspaces] prefix in the issue title.
