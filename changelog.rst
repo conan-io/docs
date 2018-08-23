@@ -14,11 +14,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.7.0 (??-??-2018)
 ------------------
 
+
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+- Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
+- Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 - Fix: Conan messages correctly spell "overridden" now.
 - Fix: ``MSBuild`` build helper arguments using quotes.
+- Fix: The ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual > 12 and cross building for x86.
 - Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
-- Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 
 
 1.6.1 (27-July-2018)
