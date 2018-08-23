@@ -5,7 +5,7 @@ Workspaces [experimental]
 
 .. warning::
 
-    This is an experimental feature. This is acutally a preview of the feature, with the main goal of receiving feedbacks and improving it.
+    This is an experimental feature. This is actually a preview of the feature, with the main goal of receiving feedbacks and improving it.
     Consider the file formats, commands and flows to be unstable and subject to changes in the next releases.
 
 Sometimes, it is necessary to work simultaneously on more than one package. In theory, each package should be a "work unit", and developers
