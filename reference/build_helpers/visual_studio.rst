@@ -75,7 +75,9 @@ Parameters:
     - **build_type** (Optional, Defaulted to ``None``): Optional. Defaulted to None, will use the ``settings.build_type``
     - **arch** (Optional, Defaulted to ``None``): Optional. Defaulted to None, will use ``settings.arch``
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
-    - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan.conf<conan_conf>` file (``cpu_count``).
+    - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan.conf<conan_conf>` file (``cpu_count``):
+        - **In the solution**: Building the solution with the projects in parallel. (``/m:`` parameter)
+        - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag)
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
     - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
       is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
@@ -91,6 +93,8 @@ Parameters:
     - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the ``msbuild()`` call.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
+    - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dict {name: value}
+      it will append a ``/p:name="value"`` option.
 
 get_command()
 ++++++++++++++
@@ -162,6 +166,11 @@ Set environment variables:
 +-----------------------------+----------------------------------------------------------------------------------------------------------------------------+
 | .link_flags                 |  List with linker flags (from requirements cpp_info.sharedlinkflags and cpp_info.exelinkflags                              |
 +-----------------------------+----------------------------------------------------------------------------------------------------------------------------+
+| .std                        |  If the setting `cppstd` is set, the property will contain the corresponding flag of the language standard                 |
++-----------------------------+----------------------------------------------------------------------------------------------------------------------------+
+| .parallel                   |  Default False, when True, the flag `/MP` will be adjusted in order to compiler the sources in parallel (using cpu_count)  |
++-----------------------------+----------------------------------------------------------------------------------------------------------------------------+
+
 
 You can adjust the automatically filled values modifying the attributes above:
 

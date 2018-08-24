@@ -47,7 +47,7 @@ that you receive a message like this:
 
 .. code-block:: bash
 
-    $ conan install -s compiler.version=4.19 ...
+    $ conan install . -s compiler.version=4.19 ...
 
     ERROR: Invalid setting '4.19' is not a valid 'settings.compiler.version' value.
     Possible values are ['4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.1', '5.2', '5.3', '5.4', '6.1', '6.2']

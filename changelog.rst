@@ -16,7 +16,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
-- Fix: conan messages correctly spell "overridden" now
+- Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
+- Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
+- Fix: Conan messages correctly spell "overridden" now.
+- Fix: ``MSBuild`` build helper arguments using quotes.
+- Fix: The ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual > 12 and cross building for x86.
+- Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
 
 
 1.6.1 (27-July-2018)

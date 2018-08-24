@@ -21,9 +21,9 @@ following script in the package root folder. Name it *build.py*:
         params = " ".join(sys.argv[1:])
    
         if platform.system() == "Windows":
-            system('conan create demo/testing -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
-            system('conan create demo/testing -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
-            system('conan create demo/testing -s compiler="gcc" -s compiler.version=4.8 %s' % params)
+            system('conan create . demo/testing -s compiler="Visual Studio" -s compiler.version=14 %s' % params)
+            system('conan create . demo/testing -s compiler="Visual Studio" -s compiler.version=12 %s' % params)
+            system('conan create . demo/testing -s compiler="gcc" -s compiler.version=4.8 %s' % params)
         else:
             pass
 
