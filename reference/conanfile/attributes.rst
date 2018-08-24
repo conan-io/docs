@@ -302,7 +302,7 @@ Option values can be given in command line, and they will have priority over the
 
 .. code-block:: bash
 
-    $ conan install -o Pkg:shared=True -o OtherPkg:option=value
+    $ conan install . -o Pkg:shared=True -o OtherPkg:option=value
 
 You can also defined them in consumer ``conanfile.txt``, as described in :ref:`this section<options_txt>`
 
@@ -812,7 +812,7 @@ This recipe will output "Develop mode" if:
 
 .. code-block:: bash
 
-    $ conan create user/testing
+    $ conan create . user/testing
     # or
     $ mkdir build && cd build && conan install ..
     $ conan build ..

@@ -78,7 +78,12 @@ tools.vcvars_dict()
     vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
                 vcvars_ver=None, winsdk_version=None, only_diff=True)
 
-Returns a dictionary with the variables set by the **tools.vcvars_command**.
+Returns a dictionary with the variables set by the **tools.vcvars_command** that can be directly
+applied to ``tools.environment_append``.
+
+The values of the variables ``INCLUDE``,  ``LIB``, ``LIBPATH`` and ``PATH`` will be returned
+as a list, so when used with ``tools.environment_append``, the previous environment values that these variables
+could have, will be appended automatically.
 
 .. code-block:: python
 
@@ -95,8 +100,10 @@ Parameters:
     - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
-    - **only_diff** (Optional, Defaulted to ``True``): Returns only the variables set by
+    - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by
       ``vcvarsall`` and not the whole environment.
+      If `vcvars` modifies an environment variable by appending values to the old value (separated by ``;``),
+      only the new values will be returned, as a list.
 
 
 tools.vcvars()
@@ -1165,7 +1172,7 @@ tools.PkgConfig()
 
     class PkgConfig(object):
 
-        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None)
+        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None, print_errors=True)
 
 Wrapper of the ``pkg-config`` tool.
 
@@ -1185,6 +1192,7 @@ Parameters of the constructor:
     - **static** (Optional, Defaulted to ``False``): Output libraries suitable for static linking (adds ``--static`` to ``pkg-config`` command line).
     - **msvc_syntax** (Optional, Defaulted to ``False``): MSVC compatibility (adds ``--msvc-syntax`` to ``pkg-config`` command line).
     - **variables** (Optional, Defaulted to ``None``): Dictionary of pkg-config variables (passed as ``--define-variable=VARIABLENAME=VARIABLEVALUE``).
+    - **print_errors** (Optional, Defaulted to ``True``): Output error messages (adds --print-errors)
 
 **Properties:**
 

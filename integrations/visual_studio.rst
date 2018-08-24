@@ -58,7 +58,7 @@ Install the requirements:
 
 .. code-block:: bash
 
-   $ conan install
+   $ conan install .
    
 Go to your Visual Studio project, and open the **Property Manager**, usually in **View -> Other Windows -> Property Manager**.
 

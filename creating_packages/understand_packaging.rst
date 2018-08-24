@@ -20,7 +20,7 @@ This will create just the *conanfile.py* recipe file. Now we could create our pa
 
 .. code-block:: bash
 
-    $ conan create demo/testing
+    $ conan create . demo/testing
 
 This would be equivalent to:
 

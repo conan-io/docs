@@ -31,14 +31,14 @@ If you want to override an environment variable that a package has inherited fro
 
 .. code-block:: bash
 
-    conan install -e MyPackage:PATH=/other/path
+    conan install . -e MyPackage:PATH=/other/path
 
 If you want to define an environment variable but you want to append the variables declared in your requirements you can use the ``[]``
 syntax:
 
 .. code-block:: bash
 
-    $ conan install -e PYTHONPATH=[/other/path]
+    $ conan install . -e PYTHONPATH=[/other/path]
 
 This way the first entry in the PYTHONPATH variable will be */other/path* but the PYTHONPATH values declared in the requirements
 of the project will be appended at the end using the system path separator.
