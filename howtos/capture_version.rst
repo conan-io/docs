@@ -23,7 +23,7 @@ the *conanfile.py* recipe lives, and use it to define the version of the conan p
         def build(self):
             ...
 
-In this example, the package created with ``conan create`` will be called 
+In this example, the package created with :command:`conan create` will be called 
 ``Hello/branch_commit@user/channel``. Note that the ``get_version()`` returns ``None``
 if it is not able to get the git data. This is necessary, when the recipe is already in the
 conan cache, and the git repository might not be there, a ``None`` value makes conan
