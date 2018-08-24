@@ -235,6 +235,9 @@ There is an special value ``ANY`` to allow any value for a given option. The ran
         def build(self):
             if not self.options.commit:
                 self.output.info("This evaluates to True")
+            # WARNING: Following comparisons are not recommended as this may cause trouble
+            # with the type conversion (String <-> None) applied to default_options.
+            # Use the above check instead.
             if self.options.commit == "None":
                 self.output.info("This also evaluates to True")
             if self.options.commit is None:
