@@ -1250,6 +1250,10 @@ Methods:
     Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
 - **get_revision()**:
     Gets the current commit hash.
+- **get_branch()**:
+    Gets the current branch.
+- **excluded_files()**:
+    Gets a list of the files and folders that would be excluded by *.gitignore* file.
 
 
 .. _tools_apple:
