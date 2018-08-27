@@ -16,6 +16,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+- Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
+- Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
+- Fix: The SCM feature now exclude correctly the ignored folders by git during the copy of a local directory to the local cache.
 - Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
 - Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 - Fix: Conan messages correctly spell "overridden" now.
