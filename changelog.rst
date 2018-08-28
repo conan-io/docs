@@ -25,6 +25,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: ``MSBuild`` build helper arguments using quotes.
 - Fix: The ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual > 12 and cross building for x86.
 - Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
+- Feature: New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build`` generator.
 
 
 1.6.1 (27-July-2018)

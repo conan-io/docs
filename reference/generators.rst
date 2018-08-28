@@ -23,7 +23,7 @@ Available generators:
    generators/xcode
    generators/compiler_args
    generators/gcc
-   generators/boost_build
+   generators/b2
    generators/qbs
    generators/qmake
    generators/scons
