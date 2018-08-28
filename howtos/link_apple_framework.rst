@@ -67,7 +67,6 @@ To package an Apple framework:
         ...
         self.cpp_info.includedirs = ['XXX.framework/Headers']
         self.cpp_info.exelinkflags.append("-framework XXX")
-        self.cpp_info.exelinkflags.append("-F path/to/the/framework -framework XXX")
         # Note that -F flags are not automatically adjusted in "cmake"
         # generator so it will be needed to declare its path like this:
         # self.cpp_info.exelinkflags.append("-F path/to/the/framework -framework XXX")
