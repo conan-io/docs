@@ -81,7 +81,20 @@ Note that nothing will really be installed in the local cache. All the dependenc
 Also, all the generated *conanbuildinfo.cmake* files for the dependencies are installed in the *build* folder. You can inspect them to check
 that the paths they define for their dependencies are user folders. They don't point to the local cache.
 
-As defined in the *conanws.yml*, a root *CMakeLists.txt* is generated for us. We can use it to generate the super-project and build it:
+Additionally, a *conanws.cmake* file was generated for us in the build folder. This file contains a list of *add_subdirectory* commands. It will be updated everytime you run *conan install*, we only have to include it in our root *CMakeLists.txt*:
+
+.. code-block:: cmake
+
+      cmake_minimum_required(VERSION 3.3)
+
+      project(Hello VERSION 0.1 LANGUAGES CXX)
+
+      set(CMAKE_CXX_STANDARD 11)
+      set(CMAKE_CXX_EXTENSIONS OFF)
+
+      include(${CMAKE_CURRENT_BINARY_DIR}/conanws.cmake)
+
+Now, we can generate the super-project and build it:
 
 .. code-block:: bash
 

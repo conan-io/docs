@@ -23,6 +23,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.8.1 (??-??-2018)
+------------------
+
+  **Breaking changes**
+
+- Feature: **[Experimental]** Workspaces generate a *conanws.cmake* file instead of a root *CMakeLists.txt*. You have to write the latter yourself (and include the newly generated file).
+
+
 1.8.0 (9-October-2018)
 -----------------------
 
@@ -149,7 +157,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - BugFix: Deactivate script in ``virtualenv`` generator causes PS1 to go unset.
 - BugFix: Apply general scope options to a consumer ConanFile first.
 - BugFix: Fixed detection of a valid repository for Git in the SCM feature.
-
 
 
 1.6.1 (27-July-2018)
