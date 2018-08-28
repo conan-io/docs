@@ -439,7 +439,7 @@ CONAN_USER_HOME_SHORT
 **Defaulted to**: Not defined
 
 Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
-marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+marked as `short_paths` will be stored in the ``C:\.conan`` (or the current drive letter).
 
 If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 

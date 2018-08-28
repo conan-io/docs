@@ -141,7 +141,7 @@ response for timeout seconds (more precisely, if no bytes have been received on 
 If no timeout is specified explicitly, it do not timeout.
 
 The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature.
-If not specified, the packages marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+If not specified, the packages marked as `short_paths` will be stored in the ``C:\.conan`` (or the current drive letter).
 
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
 for modern Windows that enable long paths at the system level.
