@@ -42,7 +42,7 @@ recipe or a reference for any existing package in your local cache.
                             specify both install-folder and any setting/option it
                             will raise an error.
       -j [JSON], --json [JSON]
-                            Only with --build_order option, return the information
+                            Only with --build-order option, return the information
                             in a json. e.g --json=/path/to/filename.json or --json
                             to output the json
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
@@ -140,7 +140,7 @@ argument:
     > info for the debug dependency graph install
 
 It is possible to use the :command:`conan info` command to extract useful information for Continuous
-Integration systems. More precisely, it has the :command:`--build_order, -bo` option, that will produce
+Integration systems. More precisely, it has the :command:`--build-order, -bo` option, that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
 built. E.g., lets assume that we have a project that depends on Boost and Poco, which in turn
 depends on OpenSSL and ZLib transitively. So we can query our project with a reference that has
@@ -158,7 +158,7 @@ You can also specify the ``ALL`` argument, if you want just to compute the whole
 
 .. code-block:: bash
 
-    $ conan info . --build_order=ALL
+    $ conan info . --build-order=ALL
     > [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
 
 
