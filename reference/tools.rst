@@ -1058,7 +1058,7 @@ Parameters:
     - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
       Enterprise. Specify ``["*"]`` by itself to search all product instances installed.
     - **requires** (Optional, Defaulted to ``None``): List of one or more workload or component IDs required when finding instances. See
-      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids for a list of workload and component IDs.
+      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids?view=vs-2017 for a list of workload and component IDs.
     - **version** (Optional, Defaulted to ``""``): A version range for instances to find. Example: ``"[15.0,16.0)"`` will find versions 15.*.
     - **latest** (Optional, Defaulted to ``False``): Return only the newest version and last installed.
     - **legacy** (Optional, Defaulted to ``False``): Also searches Visual Studio 2015 and older products. Information is limited. This
