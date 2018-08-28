@@ -93,6 +93,12 @@ the command will insert the remote in the specified position
 
       $ conan remote remove remote_name
 
+  Adding the ``--force`` argument to ``conan remote remove`` won't raise an error if the specified remote doesn't exist
+
+  .. code-block:: bash
+
+      $ conan remote remove --force remote_name
+
 - Update a remote:
 
   .. code-block:: bash
