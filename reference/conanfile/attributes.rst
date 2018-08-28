@@ -230,7 +230,18 @@ There is an special value ``ANY`` to allow any value for a given option. The ran
     class MyPkg(ConanFile):
         ...
         options = {"shared": [True, False], "commit": "ANY"}
+        default_options = "shared=False", "commit=None"
 
+        def build(self):
+            if not self.options.commit:
+                self.output.info("This evaluates to True")
+            # WARNING: Following comparisons are not recommended as this may cause trouble
+            # with the type conversion (String <-> None) applied to default_options.
+            # Use the above check instead.
+            if self.options.commit == "None":
+                self.output.info("This also evaluates to True")
+            if self.options.commit is None:
+                self.output.info("This evaluates to False")
 
 When a package is installed, it will need all its options be defined a value. Those values can be defined in command line, profiles, but they can also (and they will be typically) defined in conan package recipes:
 

@@ -11,10 +11,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.6 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
-1.7.0 (??-??-2018)
-------------------
+1.7.0 ()
+--------
 
-
+- BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
 - Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
