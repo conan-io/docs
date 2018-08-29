@@ -14,18 +14,35 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.7.0 (29-August-2018)
 ----------------------
 
-- Feature: **Experimental** ``python_requires`` function allows to require Conan packages with python code even to extend the Conanfile class.
-- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
-- Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
+- Feature: Support for C++20 in CMake > 3.12.
+- Feature: Included support for Python 3.7 in all platforms.
+- Feature: **[Experimental]** ``python_requires`` function allows to require Conan packages with python code even to extend the
+  ``ConanFile`` class.
+- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to Conan package's dependencies as well as Conan package itself.
+- Feature: ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple
+  cores.
 - Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
+- Feature: Added :command:`--query` flag to :command:`conan upload`.
+- Feature: ``virtualenv``/``virtualbuildenv``/``virtualrunenv`` generators now create bash scripts in Windows for its use in subsystems.
+- Feature: Improved graph computation times with a cache for commands such as :command:`conan info --build-order`.
+- Feature: Improved result of ``tools.vcvars_dict(only_diff=True)`` including a list return type that can be used with
+  ``tools.environment_append()``.
 - Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
 - Fix: The SCM feature now exclude correctly the ignored folders by git during the copy of a local directory to the local cache.
 - Fix: Conan messages correctly spell "overridden" now.
 - Fix: ``MSBuild`` build helper arguments using quotes.
-- Fix: The ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual > 12 and cross building for x86.
-- Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
+- Fix: ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual Studio > 12 and cross building for x86.
+- Fix: Disabled ``-c init.TemplateDir`` in :command:`conan config install` from a git repository.
+- Fix: Clang compiler check in ``cmake`` generator.
+- Fix: Detection of zypper package tool on latest versions of openSUSE.
+- Fix: Improved help output of some commands.
+- BugFix: ``qmake`` generator hyphen.
+- Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using ``scm`` attribute.
 - BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
+- BugFix: Deactivate script in ``virtualenv`` generator causes PS1 to go unset.
+- BugFix: Apply general scope options to a consumer ConanFile first.
+- BugFix: Fixed detection of valid repository for git in SCM feature.
 
 
 1.6.1 (27-July-2018)
