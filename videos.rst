@@ -45,7 +45,7 @@ Videos and links
     <br/><br/>
     
     
-Do you have your own video, tutorial, blog post that could be useful for other users? Please
-tell us and we will link it here, or directly send a PR to the docs: https://github.com/conan-io/docs.
-    
+Do you have a video, tutorial, blog post that could be useful for other users and would like to share?
+Please tell us about it or directly send a PR to our docs: https://github.com/conan-io/docs, and we will link it here.
+
 

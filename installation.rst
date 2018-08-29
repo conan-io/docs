@@ -23,7 +23,7 @@ with pip pre-installed. However, if necessary you can install pip by following t
 .. warning::
 
     Python 2 will soon be deprecated by the Python maintainers. It is strongly recommended to use Python 3 with Conan, especially if need to manage non-ascii filenames or file contents.
-    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. The roadmap for deprecating Python 2 support in Conan will be defined soon.
+    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See `python2`_ deprecation notice for details.
 
 Install Conan:
 
@@ -49,6 +49,7 @@ Install Conan:
       installation, so Conan is found in the path.
     - Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
       workarounds is available here: https://github.com/GrahamDumpleton/wrapt/issues/112.
+    - Conan works with Python 2.7, but not all features are available when not using Python 3.x starting with version 1.6
 
 Install from brew (OSX)
 -----------------------
@@ -142,5 +143,20 @@ Test your ``conan`` script.
     $ conan
 
 You should see the Conan commands help.
+
+.. _python2:
+
+Python 2 Deprecation Notice
+---------------------------
+Before 1.6, all Conan features are fully supported in both Python2 and Python3.
+For Conan 1.6 and beyond, all features built prior to 1.6 will continue to be fully tested
+in Python 2 and Python3 moving forward, and the 'default' expectation will be to test new
+features in both Python 2 and Python 3.  However, where a new feature wishes to make use of a
+feature available in Python 3 or more easily available in Python 3, those features will be
+implemented and tested only in Python 3, and versions of Conan using Python 2 will not have
+access to that feature. Such features will be clearly documented in code and documentation.
+
+If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with
+Python 2 may be reduced further.
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
