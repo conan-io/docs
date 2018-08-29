@@ -17,14 +17,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Support for C++20 in CMake > 3.12.
 - Feature: Included support for Python 3.7 in all platforms.
 - Feature: **[Experimental]** ``python_requires`` function allows to require Conan packages with python code even to extend the
-  ``ConanFile`` class.
+  ``ConanFile`` class. See: :ref:`Python requires: reusing python code in recipes<python_requires>`
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to Conan package's dependencies as well as Conan package itself.
 - Feature: ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple
   cores.
 - Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
-- Feature: Added :command:`--query` flag to :command:`conan upload`.
+- Feature: Added :command:`--query` argument to :command:`conan upload`.
 - Feature: ``virtualenv``/``virtualbuildenv``/``virtualrunenv`` generators now create bash scripts in Windows for its use in subsystems.
-- Feature: Improved graph computation times with a cache for commands such as :command:`conan info --build-order`.
+- Feature: Improved version ranges resolution speed trough caching of remote requests.
 - Feature: Improved result of ``tools.vcvars_dict(only_diff=True)`` including a list return type that can be used with
   ``tools.environment_append()``.
 - Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
