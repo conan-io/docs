@@ -6,8 +6,8 @@ conan upload
 
 .. code-block:: bash
 
-    $ conan upload [-h] [-p PACKAGE] [-r REMOTE] [--all] [--skip-upload]
-                   [--force] [--check] [-c] [--retry RETRY]
+    $ conan upload [-h] [-p PACKAGE] [-q QUERY] [-r REMOTE] [--all]
+                   [--skip-upload] [--force] [--check] [-c] [--retry RETRY]
                    [--retry-wait RETRY_WAIT] [-no [{all,recipe}]] [-j JSON]
                    pattern_or_reference
 
@@ -18,13 +18,18 @@ to list the remotes) will be used.
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
-                            'MyPackage/1.2@user/channel'
+      pattern_or_reference  Pattern or package recipe reference, e.g.,
+                            'MyPackage/1.2@user/channel', 'boost/*'
 
     optional arguments:
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
                             package ID to upload
+      -q QUERY, --query QUERY
+                            Only upload packages matching a specific query.
+                            Packages query: 'os=Windows AND (arch=x86 OR
+                            compiler=gcc)'. The 'pattern_or_reference' parameter
+                            has to be a reference: MyPackage/1.2@user/channel
       -r REMOTE, --remote REMOTE
                             upload to this specific remote
       --all                 Upload both package recipe and packages
@@ -65,6 +70,13 @@ Uploads all recipes and binary packages from our local cache to ``my_remote`` wi
 .. code-block:: bash
 
     $ conan upload "*" --all -r my_remote -c
+
+Uploads the recipe for OpenCV alongside any of its binary packages which are built with settings
+``arch=x86_64`` and ``os=Linux`` from our local cache to ``my_remote``:
+
+.. code-block:: bash
+
+    $ conan upload OpenCV/1.4.0@lasote/stable -q 'arch=x86_64 and os=Linux' -r my_remote
 
 Upload all local packages and recipes beginning with "Op" retrying 3 times and waiting 10 seconds
 between upload attempts:

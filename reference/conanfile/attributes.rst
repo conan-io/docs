@@ -230,7 +230,18 @@ There is an special value ``ANY`` to allow any value for a given option. The ran
     class MyPkg(ConanFile):
         ...
         options = {"shared": [True, False], "commit": "ANY"}
+        default_options = "shared=False", "commit=None"
 
+        def build(self):
+            if not self.options.commit:
+                self.output.info("This evaluates to True")
+            # WARNING: Following comparisons are not recommended as this may cause trouble
+            # with the type conversion (String <-> None) applied to default_options.
+            # Use the above check instead.
+            if self.options.commit == "None":
+                self.output.info("This also evaluates to True")
+            if self.options.commit is None:
+                self.output.info("This evaluates to False")
 
 When a package is installed, it will need all its options be defined a value. Those values can be defined in command line, profiles, but they can also (and they will be typically) defined in conan package recipes:
 
@@ -567,17 +578,17 @@ something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is m
 
 This attribute will not have any effect in other OS, it will be discarded.
 
-From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check `this link
-<https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_ for more info.
+From Windows 10 (ver. 10.0.14393), it is possible to `opt-in disabling the path limits
+<https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
 Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is
-totally unnecessary. Please note that this only works with Python 3.6 and newer.
+totally unnecessary.
 
 .. _no_copy_source:
 
 no_copy_source
 --------------
 
-The attribute ``no_copy_source`` tells the recipe that the source code will not be copied from the ``source`` folder to the ``build`` folder. 
+The attribute ``no_copy_source`` tells the recipe that the source code will not be copied from the ``source`` folder to the ``build`` folder.
 This is mostly an optimization for packages with large source codebases, to avoid extra copies. It is **mandatory** that the source code must not be modified at all by the configure or build scripts, as the source code will be shared among all builds.
 
 To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``

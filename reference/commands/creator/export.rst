@@ -24,8 +24,9 @@ with the 'conan upload' command.
     optional arguments:
       -h, --help            show this help message and exit
       -k, -ks, --keep-source
-                            Do not remove the source folder in local cache. Use
-                            this for testing purposes only
+                            Do not remove the source folder in local cache, even
+                            if the recipe changed. Use this for testing purposes
+                            only
 
 
 The ``export`` command will run a linting of the package recipe, looking for possible
