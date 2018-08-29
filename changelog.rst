@@ -30,7 +30,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
 - Fix: The SCM feature now exclude correctly the ignored folders by git during the copy of a local directory to the local cache.
-- Fix: Improved detection of valid repository for git in SCM feature.
 - Fix: Conan messages correctly spell "overridden" now.
 - Fix: ``MSBuild`` build helper arguments using quotes.
 - Fix: ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual Studio > 12 and cross building for x86.
@@ -41,8 +40,9 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - BugFix: ``qmake`` generator hyphen.
 - Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using ``scm`` attribute.
 - BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
-- BugFix: Deactivate scrip in ``virtualenv`` generator causes PS1 to go unset.
+- BugFix: Deactivate script in ``virtualenv`` generator causes PS1 to go unset.
 - BugFix: Apply general scope options to a consumer ConanFile first.
+- BugFix: Fixed detection of valid repository for git in SCM feature.
 
 
 1.6.1 (27-July-2018)
