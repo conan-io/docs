@@ -31,7 +31,8 @@ First, let's get the initial source code and create the basic package recipe:
 A *src* folder will be created with the same "hello" source code as in the previous example. You
 can have a look at it and see that the code is straightforward.
 
-Now lets have a look at *conanfile.py*:
+Now let's have a look at *conanfile.py*:
+
 
 .. code-block:: python
 

@@ -142,7 +142,7 @@ This allows, to create the package with :command:`conan create` as well as to bu
 .. code-block:: bash
 
     $ cd <folder>
-    $ conan create user/testing
+    $ conan create . user/testing
     # Now local build
     $ mkdir build && cd build
     $ conan install ..

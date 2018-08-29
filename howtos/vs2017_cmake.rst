@@ -85,7 +85,7 @@ the default one created by conan if VS2017 is present), then all we need to spec
 
 Now, you should be able to regenerate the CMake project from the IDE, Menu->CMake, build it, select the "example" executable to run, and run it.
 
-Now, lets say that you want to build the Release application. You switch configuration from the IDE, and then the above error happens again.
+Now, let's say that you want to build the Release application. You switch configuration from the IDE, and then the above error happens again.
 The dependencies for Release mode need to be installed too:
 
 .. code-block:: bash

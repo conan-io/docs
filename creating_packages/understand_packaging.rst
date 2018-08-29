@@ -20,7 +20,7 @@ This will create just the *conanfile.py* recipe file. Now we can create our pack
 
 .. code-block:: bash
 
-    $ conan create demo/testing
+    $ conan create . demo/testing
 
 This is equivalent to:
 

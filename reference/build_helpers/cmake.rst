@@ -257,7 +257,9 @@ patch_config_paths() [EXPERIMENTAL]
 
 
 This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
-variable. This makes most CMake config files portable.
+variable. Method also changes references to other packages installation paths in export CMake config files to Conan variable
+with their installation roots.
+This makes most CMake config files portable.
 
 For example, if a package foo installs a file called *fooConfig.cmake* to be used by cmake's ``find_package()`` method, normally this file
 will contain absolute paths to the installed package folder, for example it will contain a line such as:
@@ -274,6 +276,18 @@ paths to:
     SET(Foo_INSTALL_DIR ${CONAN_FOO_ROOT})
 
 Which is a variable that is set by *conanbuildinfo.cmake*, so that ``find_package()`` now correctly works on this Conan package.
+
+For dependent packages method replaces lines with references to dependencies installation paths such as:
+
+.. code-block:: text
+
+    SET_TARGET_PROPERTIES(foo PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "/home/developer/.conan/data/Bar/1.0.0/user/channel/id/include")
+
+to following lines:
+
+.. code-block:: text
+
+    SET_TARGET_PROPERTIES(foo PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${CONAN_BAR_ROOT}/include")
 
 If the ``install()`` method of the CMake object in the conanfile is used, this function should be called **after** that invocation. For
 example:

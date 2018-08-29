@@ -8,6 +8,7 @@ This section provides an introduction to important productivity features and use
 .. toctree::
    :maxdepth: 2
 
+   mastering/python_requires
    mastering/conanfile_py
    mastering/conditional
    mastering/version_ranges

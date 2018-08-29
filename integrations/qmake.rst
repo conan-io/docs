@@ -37,7 +37,7 @@ If you'd rather like to manually add the variables for each dependency, you can 
    # you may now modify your variables manually for each library, such as
    # INCLUDEPATH += CONAN_INCLUDEPATH_POCO
 
-The ``qmake`` generator allows multi-configuration packages, i.e. packages that contains both debug and release artifacts. Lets see an example:
+The ``qmake`` generator allows multi-configuration packages, i.e. packages that contains both debug and release artifacts. Let's see an example:
 
 Example
 ----------
@@ -49,7 +49,7 @@ This project will depend on a multi-configuration (debug/release) "Hello World" 
 
     $ git clone https://github.com/memsharded/hello_multi_config
     $ cd hello_multi_config
-    $ conan create user/channel
+    $ conan create . user/channel
 
 This hello package is created with cmake, but that doesn't matter, it can be consumed from a qmake project:
 
@@ -64,7 +64,7 @@ Then, you can get the qmake project and build it, both for debug and release (th
     $ make
     $ ./helloworld
     > Hello World Release!
-    # now lets build the debug one
+    # now let's build the debug one
     $ make clean
     $ qmake CONFIG+=debug
     $ make

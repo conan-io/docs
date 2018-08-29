@@ -3,6 +3,13 @@
 How to reuse Python code in recipes
 ===================================
 
+.. warning::
+
+    To reuse python code, from conan 1.7 there is a new ``python_requires()`` feature.
+    See: :ref:`Python requires: reusing python code in recipes<python_requires>`
+    This "how to" might be deprecated and removed in the future, it is left here for reference only.
+
+
 First, if you feel that you are repeating a lot of Python code, and that repeated code could be
 useful for other Conan users, please propose it in a github issue.
 
@@ -150,7 +157,7 @@ Another approach is sharing a python module and exporting within the recipe.
 
 .. _split_conanfile:
 
-Lets write for example a ``msgs.py`` file and put it besides the ``conanfile.py``:
+Let's write for example a ``msgs.py`` file and put it besides the ``conanfile.py``:
 
 .. code-block:: python
 
