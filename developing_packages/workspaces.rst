@@ -16,7 +16,7 @@ under development will consume them.
 The conan workspaces allow to have more than one package in user folders, and have them to directly use other packages from user folders
 without needing to put them in the local cache.
 
-Lets introduce them with a practical example:
+Let's introduce them with a practical example:
 
 .. code-block:: bash
 
