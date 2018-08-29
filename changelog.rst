@@ -14,17 +14,18 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.7.0 ()
 --------
 
-- BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
+- Feature: The **experimental** ``python_requires`` feature allows to require Conan packages with python code even to extend the Conanfile class.
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
+- Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
+- Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 - Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
 - Fix: The SCM feature now exclude correctly the ignored folders by git during the copy of a local directory to the local cache.
-- Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
-- Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 - Fix: Conan messages correctly spell "overridden" now.
 - Fix: ``MSBuild`` build helper arguments using quotes.
 - Fix: The ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual > 12 and cross building for x86.
 - Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using scm attribute.
+- BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
 
 
 1.6.1 (27-July-2018)
