@@ -69,7 +69,7 @@ The command :command:`conan new` has arguments to create a default working *.tra
 Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray. 
 You could follow these steps:
 
-#. First, create an empty github repository, lets call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
+#. First, create an empty github repository, let's call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
 #. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Activate the repo in your Travis account, so it is built when we push changes to it.

@@ -34,7 +34,7 @@ How to capture package version from text or build files
 =======================================================
 
 It is common that a library version number would be already encoded in a text file, in some build scripts, etc.
-Lets take as an example that we have the following library layout, that we want to create a package from it:
+Let's take as an example that we have the following library layout, that we want to create a package from it:
 
 .. code-block:: text
 
@@ -45,7 +45,7 @@ Lets take as an example that we have the following library layout, that we want 
        ...
 
 
-The *CMakeLists.txt* will have some variables to define the library version number. Lets assume for simplicity
+The *CMakeLists.txt* will have some variables to define the library version number. Let's assume for simplicity
 that it has some line like:
 
 .. code-block:: cmake
