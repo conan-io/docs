@@ -134,7 +134,7 @@ CI Integration
 - Take a look at the :ref:`Travis CI<travis_integration>`, :ref:`Appveyor<appveyor_ci>` and
   :ref:`GitLab CI<gitlab_integration>` integration guides.
 
-Bintray Package Information
+Bintray Package Data
 ---------------------------
 
 In the Bintray page of your package, fill in the following fields:
