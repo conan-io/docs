@@ -596,6 +596,11 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+.. warning::
+
+    This way of reusing python code from other recipes can be improved via ``python_requires()``.
+    See this section: :ref:`Python requires: reusing python code in recipes<python_requires>`
+
 This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
 any PYTHONPATH inherited from the requirements will be automatically available.
 
