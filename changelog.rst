@@ -11,10 +11,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.6 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
-1.7.0 ()
---------
+1.7.0 (29-August-2018)
+----------------------
 
-- Feature: The **experimental** ``python_requires`` feature allows to require Conan packages with python code even to extend the Conanfile class.
+- Feature: **Experimental** ``python_requires`` function allows to require Conan packages with python code even to extend the Conanfile class.
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to conan package's dependencies as well as conan package itself
 - Feature: The ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple cores.
 - Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
