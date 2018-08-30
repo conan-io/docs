@@ -443,10 +443,6 @@ marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive
 
 If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
-.. note::
-
-    Please note that this only works with Python 3.6 and newer.
-
 CONAN_VERBOSE_TRACEBACK
 -----------------------
 

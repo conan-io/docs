@@ -232,7 +232,7 @@ Let's install the requirements and build the project:
 
 .. code-block:: bash
 
-   $ conan install  -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
+   $ conan install . -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
    $ premake4 gmake
    $ make (or mingw32-make if in windows-mingw)
    $ ./MyApplication
