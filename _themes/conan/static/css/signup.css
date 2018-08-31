@@ -73,6 +73,10 @@
     width: 20px !important;
 }
 
+.mktoForm .mktoError .mktoErrorMsg {
+    display: block !important;
+}
+
 .dark_newsletter-div {
     margin-left: 8px;
     margin-top: 20px;
