@@ -16,7 +16,7 @@ A full Python and C/C++ package manager
 ----------------------------------------
 
 The real utility of this is that Conan is a C and C++ package manager. So if we want to create a python package that wraps the functionality
-of, lets say the Poco C++ library, it can be easily done. Poco itself has transitive (C/C++) dependencies, but they are already handled by
+of, let's say the Poco C++ library, it can be easily done. Poco itself has transitive (C/C++) dependencies, but they are already handled by
 Conan. Furthermore, a very interesting thing is that nothing has to be done in advance for that library, thanks to useful tools as
 **pybind11**, that allows to create python bindings easily.
 

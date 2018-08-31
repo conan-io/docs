@@ -142,7 +142,7 @@ argument:
 It is possible to use the :command:`conan info` command to extract useful information for Continuous
 Integration systems. More precisely, it has the :command:`--build-order, -bo` option, that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
-built. E.g., lets assume that we have a project that depends on Boost and Poco, which in turn
+built. E.g., let's assume that we have a project that depends on Boost and Poco, which in turn
 depends on OpenSSL and ZLib transitively. So we can query our project with a reference that has
 changed (most likely due to a git push on that package):
 

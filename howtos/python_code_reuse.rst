@@ -157,7 +157,7 @@ Another approach is sharing a python module and exporting within the recipe.
 
 .. _split_conanfile:
 
-Lets write for example a ``msgs.py`` file and put it besides the ``conanfile.py``:
+Let's write for example a ``msgs.py`` file and put it besides the ``conanfile.py``:
 
 .. code-block:: python
 

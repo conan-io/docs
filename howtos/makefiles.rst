@@ -87,7 +87,7 @@ With this *conanfile.py* you can create the package:
 Using packages
 ------------------
 
-Now lets move to the application folder:
+Now let's move to the application folder:
 
 .. code-block:: bash
 
