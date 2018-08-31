@@ -11,6 +11,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.7 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.7.1 (31-August-2018)
+----------------------
+
+- Fix: Trailing sentences in Conan help command.
+- Fix: Removed hardcoded :command:`-c init.templateDir=` argument in :command:`git clone` for :command:`conan config install`, in favor of
+  a new :command:`--args` parameter that allows custom arguments.
+- Fix: SCM can now handle nested subfolders.
+- BugFix: Fix :command:`conan export-pkg` unnecessarily checking remotes.
+
 1.7.0 (29-August-2018)
 ----------------------
 
