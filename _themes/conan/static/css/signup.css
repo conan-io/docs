@@ -12,80 +12,75 @@
 }
 
 
+.mktoForm{
+    display: inline !important;
+    color: white;
+}
+
+
 .dark_newsletter-div div, .dark_newsletter-div span, .dark_newsletter-div label{
-    display:block !important;
-    float:left !important;
+    display:inline !important;
     width: 100%;
 }
 
-.dark_newsletter-div .mktoButtonRow{
-    float: left !important;
 
+.dark_newsletter-div .mktoLabel a{
+    display: inline !important;
+    padding: 0px;
+    color: #538cc3 !important;
 }
-
-.dark_newsletter-div form{
-     width: auto !important;
-}
-
-.dark_newsletter-div .mktoClear, .dark_newsletter-div .mktoFormRow{
-    float:left !important;
-    clear:none !important;
-}
-
 
 .dark_newsletter-div p {
       font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif !important;
-      color: #C3C4C5 !important;
+      color:white;
       font-size: 14.4px;
       margin-bottom: 0px;
 }
 
-.dark_newsletter-div{
-      display: block !important;
-      border-top: 1px solid grey;
-      margin-top: 0.618em;
-      padding-top: 0.618em;
-      padding-left: 1.618em
-
+.mktoForm .mktoRequiredField label.mktoLabel {
+    font-weight: bold;
+    color: white;
+    width: 80% !important;
 }
 
-.mktoFieldWrap .mktoLabel{
-    width: 0px !important;
+.mktoForm .mktoAsterix {
+    float: none !important;
+    padding-left: 0px !important;
+    display: none !important;
 }
 
-.mktoFieldWrap .mktoHasWidth{
-    width: 0px !important;
+.mktoForm .mktoFormCol {
+    float: none;
+    width: 100%;
+    color:white;
 }
 
-
-.dark_newsletter-div button[type="submit"] {
-  background-color: #468BC7 !important;
-  background-image: none !important;
-  border: 1px solid #848484 !important;
-  color: #fff !important;
-  font-weight: 200 !important;
-  display: flex !important;
-  justify-content: center !important;
-  cursor: pointer !important;
-  clear:both;
+.mktoForm .mktoFieldWrap label{
+    width: 0 !important;
+    margin-left: 0px !important;
 }
 
-.dark_newsletter-div button i {
-  font-size: 28px !important;
-  padding: 0 5px !important;
+.mktoForm .mktoGutter {
+    float: left;
+    height: 1.2em;
+    margin: 0;
+    width: 0 !important;
 }
 
-.dark_newsletter-div input[type="email"] {
-    background-color: #444546 !important;
-    padding: 3px !important;
-    border: 1px solid #848484 !important;
-    max-width: 170px !important;
-    font-weight: 200 !important;
-    font-size: 17px !important;
-    color: #C3C4C5 !important;
-    width: 200px !important;
+.mktoForm .mktoRadioList, .mktoForm .mktoCheckboxList {
+    padding: 0.3em;
+    float: left;
+    width: 20px !important;
 }
 
+.dark_newsletter-div {
+    margin-left: 8px;
+    margin-top: 20px;
+    border: 1px solid #80808080;
+    padding: 10px;
+    width: 88%;
+    margin-bottom: 50px;
+}
 
 .out-reference-box{
     border: 1px solid #848484;
