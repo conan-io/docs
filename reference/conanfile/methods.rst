@@ -248,7 +248,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
             self.cpp_info.cppflags = ["-pthread"]
 
 Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
-be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT",
+be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
 for example, might fail when using CMake targets mode, so the following is preferred and works both
 in the global and targets mode of CMake:
 
