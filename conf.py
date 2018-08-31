@@ -380,6 +380,9 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
+# A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
+linkcheck_ignore = [r'http://localhost:\d+/']
+
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
