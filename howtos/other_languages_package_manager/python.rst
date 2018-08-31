@@ -26,7 +26,7 @@ So let's build a package with the following files:
 - *__init__.py*: A required file which should remain blank.
 - *pypoco.cpp*: The C++ code with the ``pybind11`` wrapper for Poco that generates a Python extension (a shared library that can be imported
   from Python).
-- *CMakeLists.txt*: The cmake build file that is able to compile *pypoco.cpp* into a Python extension (*pypoco.pyd* in Windows,
+- *CMakeLists.txt*: The CMake build file that is able to compile *pypoco.cpp* into a Python extension (*pypoco.pyd* in Windows,
   *pypoco.so* in Linux)
 - *poco.py*: A Python file that makes use of the pypoco Python binary extension built with *pypoco.cpp*.
 - *test_package/conanfile.py*: A test consumer "convenience" recipe to create and test the package.
