@@ -247,6 +247,17 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
         if not self.settings.os == "Windows":
             self.cpp_info.cppflags = ["-pthread"]
 
+Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
+be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
+for example, might fail when using CMake targets mode, so the following is preferred and works both
+in the global and targets mode of CMake:
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
+                                      "-DEFAULTLIB:LIBCMT"]
+
 If your recipe has requirements, you can access to your requirements ``cpp_info`` as well using the ``deps_cpp_info`` object.
 
 .. code-block:: python
