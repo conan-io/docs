@@ -38,7 +38,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Detection of Zypper package tool on latest versions of openSUSE.
 - Fix: Improved help output of some commands.
 - BugFix: ``qmake`` generator hyphen.
-- Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using the ``scm`` attribute.
+- Bugfix: Git submodules are now initialized from repo *HEAD* **after** checking out the referenced revision when using the ``scm`` attribute.
 - BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
 - BugFix: Deactivate script in ``virtualenv`` generator causes PS1 to go unset.
 - BugFix: Apply general scope options to a consumer ConanFile first.
