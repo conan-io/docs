@@ -1,7 +1,7 @@
 .. _define_abi_compatibility:
 
 Defining Package ABI Compatibility
-================================
+==================================
 
 Each package recipe can generate *N* binary packages from it, depending on these three items:
 ``settings``, ``options`` and ``requires``.
@@ -157,10 +157,10 @@ The same way we have adjusted the ``self.info.settings``, we could set the ``sel
 .. _problem_of_dependencies:
 
 Dependency Issues
----------------------------
+-----------------
 
-Let's define a simple scenario whereby there are two packages: ``MyOtherLib/2.0`` and ``MyLib/1.0`` which are dependent
-on ``MyOtherLib/2.0``. Let's assume that their recipes and binaries have already been created and uploaded to a Conan remote.
+Let's define a simple scenario whereby there are two packages: ``MyOtherLib/2.0`` and ``MyLib/1.0`` which depends on
+``MyOtherLib/2.0``. Let's assume that their recipes and binaries have already been created and uploaded to a Conan remote.
 
 Now, a new release for ``MyOtherLib/2.1`` is released with an improved recipe and new binaries. The ``MyLib/1.0`` is modified and is required to be upgraded to ``MyOtherLib/2.1``.
 
