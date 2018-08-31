@@ -1,4 +1,4 @@
-Uploading packages to remotes
+Uploading Packages to Remotes
 =============================
 
 First, check if the remote you want to upload to is already in your current remote list:
@@ -7,28 +7,29 @@ First, check if the remote you want to upload to is already in your current remo
 
     $ conan remote list
 
-You can add any remote easily. For a remote running in your machine, you could run:
+You can easily add any remote. To run a remote on your machine::
 
 .. code-block:: bash
 
     $ conan remote add my_local_server http://localhost:9300
 
-You can search any remote in the same way you search your computer. Actually, many conan commands
+You can search any remote in the same way you search your computer. Actually, many Conan commands
 can specify a specific remote.
 
 .. code-block:: bash
 
     $ conan search -r=my_local_server
 
-Now, upload the package recipe and all the packages to your remote. In this example we are using
+Now, upload the package recipe and all the packages to your remote. In this example, we are using
 our ``my_local_server`` remote, but you could use any other.
 
 .. code-block:: bash
 
     $ conan upload Hello/0.1@demo/testing --all -r=my_local_server
 
-You might be prompted for a username and password. The default conan server remote has a
+You might be prompted for a username and password. The default Conan server remote has a
 **demo/demo** account we can use for testing.
+
 
 The ``--all`` option will upload the package recipe plus all the binary packages. Omitting the
 ``--all`` option will upload the package recipe *only*. For fine-grained control over which binary
@@ -40,8 +41,8 @@ that your query string is enclosed in quotes to make the parameter explicit to y
 example, ``conan upload <package> -q 'arch=x86_64 and os=Linux' ...`` is appropriate use of the
 ``--query`` flag.
 
-Now try again to read the information from the remote (we refer to it as remote, even if it is
-running on your local machine, as it could be run on another server in your LAN):
+Now try again to read the information from the remote. We refer to it as remote, even if it is running on your local
+machine, as it could be running on another server in your LAN:
 
 .. code-block:: bash
 
@@ -52,7 +53,7 @@ running on your local machine, as it could be run on another server in your LAN)
     If package upload fails, you can try to upload it again. Conan keeps track of the
     upload integrity and will only upload missing files.
 
-Now we can check if we are able to download and use them in a project. For that purpose, we first
+Now we can check if we can download and use them in a project. For that purpose, we first
 have to **remove the local copies**, otherwise the remote packages will not be downloaded. Since we
 have just uploaded them, they are identical to the local ones.
 

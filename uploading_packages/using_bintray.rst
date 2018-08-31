@@ -3,7 +3,7 @@
 Using Bintray
 -------------
 
-On Bintray, you can create and manage as many free, personal Conan repositories as you like.
+In Bintray, you can create and manage as many free, personal Conan repositories as you like.
 On an OSS account, all packages you upload are public, and anyone can use them by simply adding your
 repository to their Conan remotes.
 

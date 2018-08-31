@@ -1,9 +1,9 @@
 .. _developing_packages:
 
-Developing packages
+Developing Packages
 ===================
 
-This section shows how to work on packages with source code continuously being modified.
+This section describes how to work on packages which source code is being modified.
 
 .. toctree::
    :maxdepth: 2

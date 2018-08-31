@@ -1,7 +1,7 @@
-Inspecting packages
+Inspecting Packages
 ===================
 
-You can inspect the uploaded packages and also the packages in the local cache with the
+You can inspect the uploaded packages and also the packages in the local cache by running the
 :command:`conan get` command.
 
 - List the files of a local recipe folder:
