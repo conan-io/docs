@@ -3,11 +3,11 @@
 Running conan_server
 ====================
 
-*conan_server* is a free and open source server that implements conan remote repositories. It is a very simple application,
-bundled with the regular conan client installation. For most cases, it is recommended to use the free Artifactory
+The *conan_server* is a free and open source server that implements Conan remote repositories. It is a very simple application,
+bundled with the regular Conan client installation. In most cases, it is recommended to use the free Artifactory
 Community Edition for C/C++ server, check :ref:`artifactory_ce` for more information.
 
-Running the simple open source *conan_server* that comes with the conan installers (or pip packages) is simple. Just open
+Running the simple open source *conan_server* that comes with the Conan installers (or pip packages) is simple. Just open
 a terminal and type:
 
 .. code:: bash
@@ -16,21 +16,21 @@ a terminal and type:
    
 .. note::
 
-    On Windows, you might experience problems with the server, if you run it under bash/msys. It is
+    On Windows, you may experience problems with the server if you run it under bash/msys. It is
     better to launch it in a regular ``cmd`` window.
 
-This server is mainly for testing (though it might work fine for small teams). If you need a 
+This server is mainly used for testing (though it might work fine for small teams). If you need a
 more stable, responsive and robust server, you should run it from source:
 
-Running from source (linux)
+Running from Source (linux)
 ---------------------------
 
-The conan installer includes a simple executable **conan_server** for a server quick start.
+The Conan installer includes a simple executable **conan_server** for a server quick start.
 But you can use the **conan server** through the WSGI application, which means that you can use gunicorn
 to run the app, for example.
 
 
-First, clone the conan repository from source and install the requirements:
+First, clone the Conan repository from source and install the requirements:
 
 .. code-block:: bash
 
@@ -42,7 +42,7 @@ First, clone the conan repository from source and install the requirements:
     $ pip install gunicorn
     
     
-Run the server application with ``gunicorn``. In the following example we will run server on port 9300 with 4 workers and a timeout of 5 minutes (300 seconds, for large uploads/downloads, you can also decrease it if you don't have very large binaries):
+Run the server application with ``gunicorn``. In the following example, we run the server on port 9300 with four workers and a timeout of 5 minutes (300 seconds, for large uploads/downloads, you can also decrease it if you don't have very large binaries):
 
 
 .. code-block:: bash
@@ -52,18 +52,18 @@ Run the server application with ``gunicorn``. In the following example we will r
 
 .. note::
 
-    Please note the timeout of ``-t 300`` seconds, 5 minutes parameter. If your transfers are very large or in a slow network, you might need to increase that value.
+    Please note the timeout of ``-t 300`` seconds, resulting in a 5 minute parameter. If your transfers are very large or on a slow network, you might need to increase that value.
 
-You can also bind to an IPV6 address or specify both IPv4 and IPv6 addresses:
+You can also bind to an IPv6 address or specify both IPv4 and IPv6 addresses:
 
 .. code-block:: bash
 
     $ gunicorn -b 0.0.0.0:9300 -b [::1]:9300 -w 4 -t 300 conans.server.server_launcher:app
 
 
-Server configuration
+Server Configuration
 --------------------
-Your server configuration lives in ``~/.conan_server/server.conf``. You can change values
+Your server configuration is saved under ``~/.conan_server/server.conf``. You can change values
 there, prior to launching the server. Note that the server is not reloaded when the values are changed. You
 have to stop and restart it manually.
 
@@ -102,35 +102,35 @@ The server configuration file is by default:
    demo: demo
    
 
-Server parameters
+Server Parameters
 +++++++++++++++++
 
-.. note::
+.. note:
 
-    Conan server from v1.1 supports relative URLs, so you can avoid setting ``host_name``, ``public_port`` and ``ssl_enabled``.
+    The Conan server from v1.1 supports relative URLs, allowing you to avoid setting ``host_name``, ``public_port`` and ``ssl_enabled``.
     The URLs used to upload/download packages will be automatically generated in the client following the URL of the remote.
-    It allows to access the conan server from different networks.
+    This allows accessing the Conan server from different networks.
 
 * ``port``: Port where **conan_server** will run.
 * The client server authorization is done with JWT. ``jwt_secret`` is a random string used to 
-  generate authentication tokens. You can change it safely anytime (in fact it is a good practice),
-  the change will just force users to log in again. ``jwt_expire_minutes`` is the amount of time
+  generate authentication tokens. You can change it safely anytime (in fact it is a good practice).
+  The change will just force users to log in again. ``jwt_expire_minutes`` is the amount of time
   that users remain logged-in within the client without having to introduce their credentials
   again.
 
 Other parameters (not recommended from Conan 1.1, but necessary for previous versions):
 
-* ``host_name`` If you set ``host_name`` you must use the machine's IP
+* ``host_name``: If you set ``host_name``, you must use the machine's IP
   where you are running your server (or domain name), something like **host_name: 192.168.1.100**.
-  This IP (or domain name) has to be visible (and resolved) by the conan client, so take it in account
+  This IP (or domain name) has to be visible (and resolved) by the Conan client, so take it into account
   if your server has multiple network interfaces.
 
-* ``public_port`` Which might be needed if running virtualized, docker or any other kind of port redirection.
-  Files uploads/downloads are served with their own URLs, generated by the system, so the file storage backend is independent.
+* ``public_port``:  Might be needed when running virtualized, Docker or any other kind of port redirection.
+  File uploads/downloads are served with their own URLs, generated by the system, so the file storage backend is independent.
   Those URLs need the public port they have to communicate from the outside. If you leave it 
-  blank, it will use the ``port`` value. 
+  blank, the ``port`` value is used.
   
-  **Example:** Use conan_server in a docker container that internally runs in the 9300 port but it
+  **Example:** Use conan_server in a Docker container that internally runs in the 9300 port but
   exposes the 9999 port (where the clients will connect to):
   
     .. code-block:: bash 
@@ -150,34 +150,34 @@ Other parameters (not recommended from Conan 1.1, but necessary for previous ver
        public_port: 9999
        host_name: localhost
   
-* ``ssl_enabled`` Conan doesn't handle the SSL traffic by itself, but you can use a proxy like nginx to redirect the SSL traffic to your conan server.
-  If your conan clients are connecting with "https" set `ssl_enabled` to True. This way conan_server will generate the upload/download urls with "https" instead of "http".
+* ``ssl_enabled`` Conan doesn't handle the SSL traffic by itself, but you can use a proxy like Nginx to redirect the SSL traffic to your Conan server.
+  If your Conan clients are connecting with "https", set `ssl_enabled` to True. This way the conan_server will generate the upload/download urls with "https" instead of "http".
 
 
 
 .. note::
 
-   **Important**: Conan client, by default, will validate the server SSL certificates and won't connect if it's not valid.
+   **Important**: The Conan client, by default, will validate the server SSL certificates and won't connect if it's invalid.
    If you have self signed certificates you have two options:
 
-   1. Use the :command:`conan remote` command to disable the SSL certifate checks. e.j: *conan remote add/update myremote https://somedir False*
+   1. Use the :command:`conan remote` command to disable the SSL certificate checks. e.j: *conan remote add/update myremote https://somedir False*
    2. Append the server *.crt* file contents to *~/.conan/cacert.pem* file.
 
-   Check the section :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>` section to know more about it.
+   To learn more, see :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>`.
 
-Conan has implemented an extensible storage backend, based on the abstract class ``StorageAdapter``.
-Currently the server only supports storage in ``disk``. The folder in which uploaded packages
-are stored (i.e., the folder you would want to backup) is defined in ``disk_storage_path``.
+Conan has implemented an extensible storage backend based on the abstract class ``StorageAdapter``.
+Currently, the server only supports storage on ``disk``. The folder in which the uploaded packages
+are stored (i.e., the folder you would want to backup) is defined in the ``disk_storage_path``.
 
 The storage backend might use a different channel, and uploads/downloads are authorized up to
-a maximum of ``authorize_timeout`` seconds. The value should be enough so large downloads/uploads
+a maximum of ``authorize_timeout`` seconds. The value should sufficient so that large downloads/uploads
 are not rejected, but not too big to prevent hanging up the file transfers. The value
 ``disk_authorize_timeout`` is not currently used. File transfers are authorized with their own
 tokens, generated with the secret ``updown_secret``. This value should be different from the above
 ``jwt_secret``.
 
-Running conan server with SSL using nginx
-+++++++++++++++++++++++++++++++++++++++++
+Running the Conan Server with SSL using Nginx
++++++++++++++++++++++++++++++++++++++++++++++
 
     **server.conf**
 
@@ -209,7 +209,7 @@ Running conan server with SSL using nginx
 
         $ conan remote add myremote https://myservername.mydomain.com/subdir
 
-Running conan server with SSL using nginx in a subdirectory
+Running the Conan Server with SSL using Nginx in a Subdirectory
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     **server.conf**
@@ -242,10 +242,10 @@ Running conan server with SSL using nginx in a subdirectory
 
         $ conan remote add myremote https://myservername.mydomain.com/subdir
 
-Running conan server using Apache
+Running Conan Server using Apache
 +++++++++++++++++++++++++++++++++
 
-    You need to install ``mod_wsgi``. If you want to use Conan installed from ``pip``, the conf file should be roughly as follows:
+    You need to install ``mod_wsgi``. If you want to use Conan installed from ``pip``, the conf file should be similar to the following example:
 
     **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
 
@@ -262,7 +262,7 @@ Running conan server using Apache
         </VirtualHost>
 
 
-    If you want to use Conan checked out from source in, say, `/srv/conan`, the conf file should be as follows:
+    If you want to use Conan checked out from source in, for example in `/srv/conan`, the conf file should be as follows:
 
     **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
 
@@ -281,18 +281,18 @@ Running conan server using Apache
     The directive ``WSGIPassAuthorization On`` is needed to pass the HTTP basic authentication to Conan.
 
     Also take into account that the server config files are located in the home of the configured Apache user,
-    e.j var/www/.conan_server, so remember to use that directory to configure your conan server.
+    e.j var/www/.conan_server, so remember to use that directory to configure your Conan server.
 
-Permissions parameters
+Permissions Parameters
 ++++++++++++++++++++++
 
-By default, the server configuration is: Read can be done anonymous,
-but uploading requires registered users. Users can be easily registered in the ``[users]`` section,
-defining a pair of ``login: password`` for each one. Yes, plain text passwords at the moment, but
+By default, the server configuration when set to Read can be done anonymous,
+but uploading requires you to be  registered users. Users can easily be registered in the ``[users]`` section,
+by defining a pair of ``login: password`` for each one. Plain text passwords are used at the moment, but
 as the server is on-premises (behind firewall), you just need to trust your sysadmin :)
 
-If you want to restrict read/write access to specific packages, configure it in the ``[read_permissions]``
-and ``[write_permissions]`` sections. These sections allow a sequence of patterns and allowed users,
+If you want to restrict read/write access to specific packages, configure the ``[read_permissions]``
+and ``[write_permissions]`` sections. These sections specify the sequence of patterns and authorized users,
 in the form:
 
 .. code-block:: text
@@ -308,29 +308,29 @@ E.g.:
    PackageA/*@*/*: john,peter # allow john and peter access to any PackageA
    */*@project/*: john # Allow john to access any package from the "project" user
    
-The rules are evaluated in order, if the left side of the pattern matches, the rule is applied
-and it will not look further.
+The rules are evaluated in order. If the left side of the pattern matches, the rule is applied
+and it will not continue searching for matches.
 
 Authentication
 ++++++++++++++
 
-Conan provides by default a simple ``user: password`` users list in the ``server.conf`` file.
+By default, Conan provides a simple ``user: password`` users list in the ``server.conf`` file.
 
 There is also a plugin mechanism for setting other authentication methods. The process to install any of them 
-is a simple 2 step process:
+is a simple two-step process:
 
-1. Copy the authenticator source file into the ``.conan_server/plugins/authenticator`` folder
-2. Add ``custom_authenticator: authenticator_name`` in the ``server.conf`` [server] section
+1. Copy the authenticator source file into the ``.conan_server/plugins/authenticator`` folder.
+2. Add ``custom_authenticator: authenticator_name`` to the ``server.conf`` [server] section.
 
-This is a list of available authenticators, visit their URLs to get them, but also to report issues and collaborate:
+This is a list of available authenticators, visit their URLs to retrieve them, but also to report issues and collaborate:
 
 - **htpasswd**: Use your server Apache htpasswd file to authenticate users. Get it: https://github.com/d-schiffner/conan-htpasswd
 - **LDAP**: Use your LDAP server to authenticate users. Get it: https://github.com/uilianries/conan-ldap-authentication
 
-Create your own custom Authenticator
+Create Your Own Custom Authenticator
 ____________________________________
 
-If you want to create your own Authenticator, create a python module
+If you want to create your own Authenticator, create a Python module
 in ``~/.conan_server/plugins/authenticator/my_authenticator.py``
 
 **Example:**

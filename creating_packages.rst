@@ -1,6 +1,6 @@
 .. _packaging:
 
-Creating packages
+Creating Packages
 =================
 
 This section shows how to create, build and test your packages.

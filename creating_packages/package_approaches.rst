@@ -1,17 +1,16 @@
-Packaging approaches
+Packaging Approaches
 ====================
 
-Package recipes have three methods to control the package's binary compatibility and to implement
+Package recipes have three methods for controlling the package's binary compatibility and for implementing
 different packaging approaches: :ref:`method_package_id`, :ref:`method_build_id` and :ref:`method_package_info`.
 
-The above methods let package creators follow different package approaches to choose
-the best fit for each library.
+These methods let package creators select the method most suitable for each library.
 
 1 config (1 build) -> 1 package
 -------------------------------
 
 A typical approach is to have one configuration for each package containing the artifacts.
-In this approach, for example, the debug pre-compiled libraries will be in a different package than the
+Using this approach, for example, the debug pre-compiled libraries will be in a different package than the
 release pre-compiled libraries.
 
 So if there is a package recipe that builds a “hello” library, there will be one package containing
@@ -24,8 +23,8 @@ different names).
     :width: 400 px
     :align: center
 
-In this approach, the ``package_info()`` method can just set the appropriate values for consumers,
-to let them know about the package library names, and necessary definitions and compile flags.
+Using this approach, the ``package_info()`` method, allows you to set the appropriate values for consumers,
+letting them know about the package library names, necessary definitions and compile flags.
 
 .. code-block:: python
 
@@ -39,10 +38,10 @@ to let them know about the package library names, and necessary definitions and 
 It is very important to note that it is declaring the ``build_type`` as a setting. This means that a
 different package will be generated for each different value of such setting.
 
-The values that packages declare here (the *include*, *lib* and *bin* subfolders are already
+The values declared by the packages (the *include*, *lib* and *bin* subfolders are already
 defined by default, so they define the include and library path to the package) are translated
-to variables of the respective build system by the used generators. That is, if using the ``cmake``
-generator, such above definition will be translated in *conanbuildinfo.cmake* to something like:
+to variables of the respective build system by the used generators. That is, running the ``cmake``
+generator will translate the above definition in the *conanbuildinfo.cmake* to something like:
 
 .. code-block:: cmake
 
@@ -50,7 +49,7 @@ generator, such above definition will be translated in *conanbuildinfo.cmake* to
     # ...
     set(CONAN_LIBS mylib ${CONAN_LIBS})
 
-Those variables, will be used in the ``conan_basic_setup()`` macro to actually set cmake relevant
+Those variables, will be used in the ``conan_basic_setup()`` macro to actually set the relevant cmake
 variables.
 
 If the developer wants to switch configuration of the dependencies, he will usually switch with:
@@ -63,9 +62,11 @@ If the developer wants to switch configuration of the dependencies, he will usua
 
 These switches will be fast, since all the dependencies are already cached locally.
 
-This process has some advantages: it is quite easy to implement and maintain. The packages are of
-minimal size, so disk space and transfers are faster, and builds from sources are also kept to the
-necessary minimum. The decoupling of configurations might help with isolating issues related to
+This process offers a number of advantages:
+- It is quite easy to implement and maintain.
+- The packages are of minimal size, so disk space and transfers are faster, and builds from sources are also kept to the
+necessary minimum.
+- The decoupling of configurations might help with isolating issues related to
 mixing different types of artifacts, and also protecting valuable information from deploy and
 distribution mistakes. For example, debug artifacts might contain symbols or source code, which
 could help or directly provide means for reverse engineering. So distributing debug artifacts by
@@ -76,10 +77,10 @@ Read more about this in :ref:`method_package_info`.
 N configs -> 1 package
 ----------------------
 
-It is possible that someone wants to package both debug and release artifacts in the same package,
-so it can be consumed from IDEs like Visual Studio changing debug/release configuration from the
-IDE, and not having to specify it in the command line. This type of package will include different
-artifacts for different configurations, like both the release and debug version of the "hello"
+You may want to package both debug and release artifacts in the same package,
+so it can be consumed from IDEs like Visual Studio. This will change the debug/release configuration from the
+IDE, without having to specify it in the command line. This type of package can contain different
+artifacts for different configurations, and can be used for example to include both the release and debug version of the "hello"
 library, in the same package.
 
 .. image:: /images/multi_conf_packages.png
@@ -99,13 +100,12 @@ library, in the same package.
         $ conan create . user/channel -s build_type=Release
         $ conan create . user/channel -s build_type=Debug --build=missing
 
-Creating a multi-configuration Debug/Release package is not difficult, see the following example
+Creating a multi-configuration Debug/Release package is simple, see the following example
 using CMake.
 
-The first step is to remove ``build_type`` from the settings. It will not be an input setting, the
+The first step will be to remove ``build_type`` from the settings. It will not be an input setting, the
 generated package will always be the same, containing both Debug and Release artifacts.
-The Visual Studio runtime is different for debug and release (``MDd`` or ``MD``), so if we are fine
-with the default runtime (MD/MDd), it is also good to remove the ``runtime`` subsetting in the
+The Visual Studio runtime is different for debug and release (``MDd`` or ``MD``) and is set using the default runtime (MD/MDd). If this meets your needs, we recommend removing the ``runtime`` subsetting in the
 ``configure()`` method:
 
 
@@ -136,7 +136,7 @@ with the default runtime (MD/MDd), it is also good to remove the ``runtime`` sub
                     shutil.rmtree("CMakeFiles")
                     os.remove("CMakeCache.txt")
 
-In this case, we are assuming that the binaries will be differentiated with a suffix, in cmake
+In this case, we assume that the binaries will be differentiated with a suffix in the Cmake
 syntax:
 
 .. code-block:: cmake
@@ -164,29 +164,28 @@ This will translate to the cmake variables:
 And these variables will be correctly applied to each configuration by ``conan_basic_setup()``
 helper.
 
-In this case you can still use the general, not config-specific variables. For example, the include
-directory, set by default to *include*, is still the same for both debug and release. Those general
-variables will be applied for all configurations.
+In this case you can still use the general and not config-specific variables. For example, the include
+directory when set by default to *include* remains the same for both debug and release. Those general
+variables will be applied to all configurations.
 
 .. important::
 
     The above code assumes that the package will always use the default Visual Studio runtime (MD/MDd).
-    If we want to keep the package configurable for supporting static(MT)/dynamic(MD) linking with the VS runtime
-    library, some extra work is needed. Basically:
-
+    To keep the package configurable for supporting static(MT)/dynamic(MD) linking with the VS runtime
+    library, do the following:
     - Keep, the ``compiler.runtime`` setting, i.e. do not implement the ``configure()`` method removing it
     - Don't let the ``CMake`` helper define the ``CONAN_LINK_RUNTIME`` env-var to define the runtime, because
-      being defined by the consumer it would be incorrectly applied to both Debug and Release artifacts.
+      defining it by the consumer will cause it to be incorrectly applied to both the Debug and Release artifacts.
       This can be done with a ``cmake.command_line.replace("CONAN_LINK_RUNTIME", "CONAN_LINK_RUNTIME_MULTI")``
       to define a new variable
-    - Write a ``package_id()`` method that defines the packages to be built, one for MD/MDd, and other for MT/MTd
+    - Write a separate ``package_id()`` methods for MD/MDd and for MT/MTd defining the packages to be built
     - In *CMakeLists.txt*, use the ``CONAN_LINK_RUNTIME_MULTI`` variable to correctly setup up the runtime for
       debug and release flags
 
     All these steps are already coded in the repo https://github.com/memsharded/hello_multi_config and commented
     out as **"Alternative 2"**
 
-Also, you can use any custom configuration you want, they are not restricted. For example, if
+Also, you can use any custom configuration as they are not restricted. For example, if
 your package is a multi-library package, you could try doing something like:
 
 .. code-block:: python
@@ -202,20 +201,20 @@ in your consumer CMake build script.
 
     The automatic conversion of multi-config variables to generators is currently only implemented
     in the ``cmake`` and ``txt`` generators. If you want to have support for them in another
-    build system, please open a GitHub issue for it.
+    build system, please open a GitHub issue.
 
 N configs (1 build) -> N packages
 ---------------------------------
 
-It’s possible that an already existing build script is building binaries for different
-configurations at once, like debug/release, or different architectures (32/64bits), or library types
-(shared/static). If such build script is used in the previous “Single configuration packages”
-approach, it will definitely work without problems, but we’ll be wasting precious build time, as
-we’ll be re-building the whole project for each package, then extracting the relevant artifacts for
-the given configuration, leaving the others.
+It’s possible that an existing build script is simultaneously building binaries for different
+configurations, like debug/release, or different architectures (32/64bits), or library types
+(shared/static). If such a build script is used in the previous “Single configuration packages”
+approach, it will definitely work without problems. However, we’ll be wasting precious build time, as
+we’ll be re-building the rebuilding project for each package, then extracting the relevant artifacts for
+the relevant configuration, while ignoring the others.
 
-It is possible to specify the logic, so the same build can be reused to create different packages,
-which will be more efficient:
+It is more efficient to build the logic, whereby the same build can be reused to create different packages:
+
 
 .. image:: /images/build_once.png
     :height: 300 px
@@ -240,12 +239,12 @@ logic.
 
 Note that the ``build_id()`` method uses the ``self.info_build`` object to alter the build hash. If
 the method doesn’t change it, the hash will match the package folder one. By setting
-``build_type="Any"``, we are forcing that for both Debug and Release values of ``build_type``, the
+``build_type="Any"``, we are forcing that for both the Debug and Release values of ``build_type``, the
 hash will be the same (the particular string is mostly irrelevant, as long as it is the same for
 both configurations). Note that the build hash ``sha3`` will be different of both ``sha1`` and
 ``sha2`` package identifiers.
 
-This doesn’t imply that there will be strictly one build folder. There will be a build folder for
+This doesn not imply that there will be strictly one build folder. There will be a build folder for
 every configuration (architecture, compiler version, etc). So if we just have Debug/Release build
 types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders,
 saving half of the build time.
