@@ -36,8 +36,8 @@ tools.vcvars_command()
                        winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
-`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+Studio environment variables for a certain Visual Studio version. It wraps the functionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2017>`_ but
 does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
@@ -426,7 +426,7 @@ tools.replace_in_file()
 
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
-conan dependencies without forking or modifying the original project:
+Conan dependencies without forking or modifying the original project:
 
 .. code-block:: python
 
