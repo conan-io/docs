@@ -33,7 +33,6 @@ can have a look at it and see that the code is straightforward.
 
 Now let's have a look at *conanfile.py*:
 
-
 .. code-block:: python
 
     from conans import ConanFile, CMake

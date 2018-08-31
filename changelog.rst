@@ -8,7 +8,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.7 shouldn't break any existing 1.0 recipe, or command line invocation. If it does, please report in github.
+  Conan 1.7 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Please read more :ref:`about Conan stability<stability>`.
 
 1.7.0 (29-August-2018)
@@ -16,33 +16,33 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: Support for C++20 in CMake > 3.12.
 - Feature: Included support for Python 3.7 in all platforms.
-- Feature: **[Experimental]** ``python_requires`` function allows to require Conan packages with python code even to extend the
+- Feature: **[Experimental]** New ``python_requires`` function that allows you to reuse Pyton code by "requiring" it in Conan packages, even to extend the
   ``ConanFile`` class. See: :ref:`Python requires: reusing python code in recipes<python_requires>`
-- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to Conan package's dependencies as well as Conan package itself.
+- Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to a Conan package's dependencies as well as to the Conan package itself.
 - Feature: ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple
   cores.
-- Feature: Added ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
+- Feature: Added a ``print_errors`` parameter to ``tools.PkgConfig()`` helper.
 - Feature: Added :command:`--query` argument to :command:`conan upload`.
-- Feature: ``virtualenv``/``virtualbuildenv``/``virtualrunenv`` generators now create bash scripts in Windows for its use in subsystems.
-- Feature: Improved version ranges resolution speed trough caching of remote requests.
-- Feature: Improved result of ``tools.vcvars_dict(only_diff=True)`` including a list return type that can be used with
+- Feature: ``virtualenv``/``virtualbuildenv``/``virtualrunenv`` generators now create bash scripts in Windows for use in subsystems.
+- Feature: Improved resolution speed for version ranges through caching of remote requests.
+- Feature: Improved the result of ``tools.vcvars_dict(only_diff=True)`` including a "list" return type that can be used with
   ``tools.environment_append()``.
-- Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` already set in the environment previously.
+- Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` variable previously set in the environment.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
-- Fix: The SCM feature now exclude correctly the ignored folders by git during the copy of a local directory to the local cache.
-- Fix: Conan messages correctly spell "overridden" now.
+- Fix: The SCM feature now correctly excludes the folders ignored by Git during the copy of a local directory to the local cache.
+- Fix: Conan messages now spell "overridden" correctly.
 - Fix: ``MSBuild`` build helper arguments using quotes.
-- Fix: ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` when Visual Studio > 12 and cross building for x86.
-- Fix: Disabled ``-c init.TemplateDir`` in :command:`conan config install` from a git repository.
+- Fix: ``vcvars_command`` and ``MSBuild`` build helper use the ``amd64_x86`` parameter when Visual Studio > 12 and when cross building for x86.
+- Fix: Disabled ``-c init.TemplateDir`` in :command:`conan config install` from a Git repository.
 - Fix: Clang compiler check in ``cmake`` generator.
-- Fix: Detection of zypper package tool on latest versions of openSUSE.
+- Fix: Detection of Zypper package tool on latest versions of openSUSE.
 - Fix: Improved help output of some commands.
 - BugFix: ``qmake`` generator hyphen.
-- Bugfix: Git submodules being initialized from repo *HEAD* prior to checking out the referenced revision when using ``scm`` attribute.
+- Bugfix: Git submodules are now initialized from repo *HEAD* **after** checking out the referenced revision when using the ``scm`` attribute.
 - BugFix: Declaration ``default_options`` without value, e.g. ``default_options = "config="``. Now it will throw an exception.
 - BugFix: Deactivate script in ``virtualenv`` generator causes PS1 to go unset.
 - BugFix: Apply general scope options to a consumer ConanFile first.
-- BugFix: Fixed detection of valid repository for git in SCM feature.
+- BugFix: Fixed detection of a valid repository for Git in the SCM feature.
 
 
 1.6.1 (27-July-2018)

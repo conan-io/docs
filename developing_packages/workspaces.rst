@@ -5,25 +5,25 @@ Workspaces [experimental]
 
 .. warning::
 
-    This is an experimental feature. This is actually a preview of the feature, with the main goal of receiving feedbacks and improving it.
+    This is an experimental feature. It is actually a preview of the feature, with the main goal of receiving feedback and improving it.
     Consider the file formats, commands and flows to be unstable and subject to changes in the next releases.
 
-Sometimes, it is necessary to work simultaneously on more than one package. In theory, each package should be a "work unit", and developers
-should be able to work on them in isolation. But sometimes, some changes require modifications in more than one package at the same time.
+Sometimes, it is necessary to work on more than one package simultaneously. In theory, each package should be a distinct "work unit", and developers
+should be able to work on them in isolation. However, some changes require modifications in more than one package at the same time.
 The local development flow can help, but it still requires using ``export-pkg`` to put the artifacts in the local cache, where other packages
-under development will consume them.
+under development can consume them.
 
-The conan workspaces allow to have more than one package in user folders, and have them to directly use other packages from user folders
-without needing to put them in the local cache.
+Conan Workspaces allow having more than one package in user folders, and have them directly use other packages from user folders
+without having to put them in the local cache.
 
-Let's introduce them with a practical example:
+Let's introduce Workspaces with a practical example:
 
 .. code-block:: bash
 
     $ git clone https://github.com/memsharded/conan-workspace-example.git
     $ cd conan-workspace-example
 
-Note that this folder contains a file *conanws.yml* in the root, with the following contents:
+Note that this folder contains a *conanws.yml* file in the root, with the following contents:
 
 .. code-block:: text
 
@@ -71,15 +71,15 @@ Next, run a :command:`conan install` as usual, using a *build* folder to output 
     Workspace HelloA: Generated conanbuildinfo.txt
 
 
-Note that nothing will really be installed in the local cache, all the dependencies are resolved locally:
+Note that nothing will really be installed in the local cache. All the dependencies are resolved locally:
 
 .. code-block:: bash
 
     $ conan search
     There are no packages
 
-Also, all the generated *conanbuildinfo.cmake* for each dependencies are installed in the *build* folder. You can inspect them to check
-that the paths they define for their dependencies, are user folders, not pointing to the local cache.
+Also, all the generated *conanbuildinfo.cmake* files for the dependencies are installed in the *build* folder. You can inspect them to check
+that the paths they define for their dependencies are user folders. They don't point to the local cache.
 
 As defined in the *conanws.yml*, a root *CMakeLists.txt* is generated for us. We can use it to generate the super-project and build it:
 
@@ -94,7 +94,7 @@ As defined in the *conanws.yml*, a root *CMakeLists.txt* is generated for us. We
     Hello World B Release!
     Hello World A Release!
 
-Now the project is editable, you can change the code of folder C *hello.cpp* to say "Bye World" and:
+Now the project is editable. You can change the code of folder C *hello.cpp* to say "Bye World" and:
 
 .. code-block:: bash
 
@@ -107,9 +107,9 @@ Now the project is editable, you can change the code of folder C *hello.cpp* to 
     Hello World A Release!
 
 In-source builds
------------------
-The current approach with the super-project automatic generation, is only valid if all the opened packages are using the 
-same build system, CMake. However, without using a super-project, it is still possible to use workspaces to simultaneously
+----------------
+The current approach with automatic generation of the super-project is only valid if all the opened packages are using the
+same build system, CMake. However, without using a super-project, you can still use Workspaces to simultaneously
 work on different packages with different build systems. 
 
 For this case, the *conanws.yml* won't have the ``generator`` or ``name`` fields.
@@ -119,16 +119,16 @@ The installation will be done without specifying an install folder:
 
     $ conan install .
 
-Each local package will have their own build folder, and the generated *conanbuildinfo.cmake* will be located in it.
+Each local package will have its own build folder, which will contain the generated *conanbuildinfo.cmake* file.
 You can do local builds in each of the packages, and they will be referring and linking the other opened packages in
 user folders.
 
 
 conanws.yml syntax
 ------------------
-The *conanws.yml* file can be located in any parent folder of the location pointed by the :command:`conan install` command.
-Conan will search up the folder hierarchy looking for a *conanws.yml* file. If it is not found, the normal :command:`conan install`
-for a single package will be executed.
+The *conanws.yml* file can be located in any parent folder of the location pointed to by the :command:`conan install` command.
+Conan will search up through the folder hierarchy looking for a *conanws.yml* file. If the file is not found, the normal :command:`conan install`
+command for a single package will be executed.
 
 
 Any "opened" package will have an entry in the *conanws.yml* file. This entry will define the relative location of different
@@ -143,12 +143,12 @@ folders:
         build: "'build' if '{os}'=='Windows' else 'build_{build_type}'.lower()"
         libdirs: "'build/{build_type}' if '{os}'=='Windows' else 'build_{build_type}'.lower()"
 
-The ``build`` and ``libdirs`` local folders can be parameterized with the build type and the architecture (``arch``) if necessary, to account for
+If necessary, the local ``build`` and ``libdirs`` folders can be parameterized with the build type and the architecture (``arch``) to account for
 different layouts and configurations.
 
 
-The ``root`` field of *conanws.yml* defines which are the end consumers. They are needed as an input to define the dependency graph.
-There can be more than one ``root``, in a comma separated list, but all of them will share the same dependency graph, so if they
+The ``root`` field of *conanws.yml* defines the end consumers. They are needed as an input to define the dependency graph.
+There can be more than one ``root`` in a comma separated list, but all of them will share the same dependency graph, so if they
 require different versions of the same dependencies, they will conflict.
 
 .. code-block:: text
@@ -159,13 +159,12 @@ require different versions of the same dependencies, they will conflict.
 
 
 Known limitations
-------------------
+-----------------
 
-So far, only the CMake super-project generator is implemented. A Visual Studio one is being under development, and seems feasible, but
-it is ongoing work, not yet available.
+So far, only the CMake super-project generator is implemented. A Visual Studio version seems feasible, but is currently still under development and not yet available.
 
 
 .. important:: 
 
-    We really want your feedback. Please submit any issues to https://github.com/conan-io/conan/issues
-    with any suggestion, problem, idea, and make sure to use the [workspaces] prefix in the issue title.
+    We really want your feedback. Please submit any suggestions, problems or ideas as issues to https://github.com/conan-io/conan/issues
+    making sure to use the [workspaces] prefix in the issue title.

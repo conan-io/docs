@@ -2,7 +2,7 @@ Conan: A Python package manager
 ===============================
 
 Conan is a C and C++ package manager, and to deal with the vast variability of C and C++ build systems, compilers, configurations, etc., it
-was designed with a great flexibility in mind, trying to let the users do almost what they want. This is one of the reasons to use Python as
+was designed to be extremely flexible, to allow users the freedom to configure builds in virtually any manner required. This is one of the reasons to use Python as
 the scripting language for Conan package recipes.
 
 With this flexibility, Conan is able to do very different tasks: package
@@ -13,23 +13,23 @@ With this flexibility, Conan is able to do very different tasks: package
 see a full example of Conan as a Python package manager.
 
 A full Python and C/C++ package manager
-----------------------------------------
+---------------------------------------
 
-The real utility of this is that Conan is a C and C++ package manager. So if we want to create a python package that wraps the functionality
-of, let's say the Poco C++ library, it can be easily done. Poco itself has transitive (C/C++) dependencies, but they are already handled by
-Conan. Furthermore, a very interesting thing is that nothing has to be done in advance for that library, thanks to useful tools as
-**pybind11**, that allows to create python bindings easily.
+The real utility of this is that Conan is a C and C++ package manager. So, for example, you are able to create a Python package that wraps the functionality
+of the Poco C++ library. Poco itself has transitive (C/C++) dependencies, but they are already handled by
+Conan. Furthermore, a very interesting thing is that nothing has to be done in advance for that library, thanks to useful tools
+such as **pybind11**, that lets you easily create Python bindings.
 
 So let's build a package with the following files:
 
 - *conanfile.py*: The package recipe.
-- *__init__.py*: necessary file, blank.
-- *pypoco.cpp*: The C++ code with the ``pybind11`` wrapper for Poco that generates a python extension (a shared library that can be imported
-  from python).
-- *CMakeLists.txt*: cmake build file that is able to compile *pypoco.cpp* into a Python extension (*pypoco.pyd* in Windows,
+- *__init__.py*: A required file which should remain blank.
+- *pypoco.cpp*: The C++ code with the ``pybind11`` wrapper for Poco that generates a Python extension (a shared library that can be imported
+  from Python).
+- *CMakeLists.txt*: The CMake build file that is able to compile *pypoco.cpp* into a Python extension (*pypoco.pyd* in Windows,
   *pypoco.so* in Linux)
 - *poco.py*: A Python file that makes use of the pypoco Python binary extension built with *pypoco.cpp*.
-- *test_package/conanfile.py*: A test consumer recipe for convenience to create and test the package.
+- *test_package/conanfile.py*: A test consumer "convenience" recipe to create and test the package.
 
 The *pypoco.cpp* file can be coded easily thanks to the elegant ``pybind11`` library:
 
@@ -62,7 +62,7 @@ And the *poco.py* file is straigthforward:
         r = pypoco.Random()
         return r.nextFloat()
 
-The *conanfile.py* has a few more lines than the above, but it is still quite easy to understand:
+The *conanfile.py* is a bit longer, but is still quite easy to understand:
 
 .. code-block:: python
    :caption: *conanfile.py*
@@ -91,25 +91,24 @@ The *conanfile.py* has a few more lines than the above, but it is still quite ea
         def package_info(self):
             self.env_info.PYTHONPATH.append(self.package_folder)
 
-The recipe now declares 2 ``requires``, the **Poco library** and the **pybind11 library** that we will be using to create the binary
-extension.
+The recipe now declares 2 ``requires`` that we will be used to create the binary extension: the **Poco library** and the **pybind11 library**.
 
-As we are actually building some C++ code, we need a few important things:
+As we are actually building C++ code, there are a few important things that we need:
 
 - Input ``settings`` that define the OS, compiler, version and architecture we are using to build our extension. This is necessary because
-  the binary we are building must match the architecture of the python interpreter that we will be using.
+  the binary we are building must match the architecture of the Python interpreter that we will be using.
 
-- The ``build()`` method is used actually to invoke CMake. See we had to hardcode the python path in the example, as the *CMakeLists.txt*
-  call to ``find_package(PythonLibs)`` didn't find my python installed in *C:/Python27*, quite a standard path. I have added the ``cmake``
-  generator too to be able to easily use the declared ``requires`` build information inside my *CMakeLists.txt*.
+- The ``build()`` method is actually used to invoke CMake. You may see that we had to hardcode the Python path in the example, as the *CMakeLists.txt*
+  call to ``find_package(PythonLibs)`` didn't find my Python installation in *C:/Python27*, even though that is a standard path. I have also added the ``cmake``
+  generator to be able to easily use the declared ``requires`` build information inside my *CMakeLists.txt*.
 
-- The *CMakeLists.txt* is not posted here, but is basically the one used in the pybind11 example with just 2 lines to include the conan
-  generated cmake file for dependencies. It can be inspected in the github repo.
+- The *CMakeLists.txt* is not posted here, but is basically the one used in the pybind11 example with just 2 lines to include the cmake file generated by Conan
+  for dependencies. It can be inspected in the GitHub repo.
 
 - Note that we are using Python 2.7 as an input option. If necessary, more options for other interpreters/architectures could be easily
-  provided, as well as avoiding the hardcoded paths. Even the Python interpreter itself could be packaged in a conan package.
+  provided, as well as avoiding the hardcoded paths. Even the Python interpreter itself could be packaged in a Conan package.
 
-The above recipe will generate a different binary for different compilers or versions. As the binary is being wrapped by python, we could
+The above recipe will generate a different binary for different compilers or versions. As the binary is being wrapped by Python, we could
 avoid this and use the same binary for different setups, modifying this behavior with the ``conan_info()`` method.
 
 .. code-block:: bash
@@ -122,11 +121,11 @@ avoid this and use the same binary for different setups, modifying this behavior
     >>> poco.random_float()
     0.697845458984375
 
-Now the first invocation of :command:`conan install` will build retrieve the dependencies and build the package. The next invocation will use the
-cached binaries and be much faster. Note how we have to specify ``-s arch=x86`` to build matching the architecture of the python interpreter
+Now, the first invocation of :command:`conan install` will retrieve the dependencies and build the package. The next invocation will use the
+cached binaries and be much faster. Note how we have to specify ``-s arch=x86`` to match the architecture of the Python interpreter
 to be used, in our case, 32 bits.
 
-We can also read in the output of the :command:`conan install` the dependencies that are being pulled:
+The output of the :command:`conan install` command also shows us the dependencies that are being pulled:
 
 .. code-block:: bash
 
@@ -137,9 +136,9 @@ We can also read in the output of the :command:`conan install` the dependencies 
         pybind11/any@memsharded/stable from conan.io
         zlib/1.2.11@conan/stable from conan.io
 
-This is the great thing about using Conan for this task, by depending on Poco, other C and C++ transitive dependencies are being retrieved
+This is one of the great advantages of using Conan for this task, because by depending on Poco, other C and C++ transitive dependencies are retrieved
 and used in the application.
 
-If you want to have a further look to the code of these examples, you can check
-`this github repo <https://github.com/memsharded/python-conan-packages>`_. The above examples and code have been tested only in Win10, VS14u2,
-but might work with other configurations with little or no extra work.
+For a deeper look into the code of these examples, please refer to
+`this github repo <https://github.com/memsharded/python-conan-packages>`_. The above examples and code have only been tested on Win10, VS14u2,
+but may work on other configurations with little or no extra work.
