@@ -15,8 +15,9 @@ Your request is dealt with differently depending on the submitted package type:
 
 - If you are packaging a third-party library, follow these guidelines:
 
-Contributing a library to Conan-Center is really straightforward when you know how to :ref:`upload your packages to your own Bintray repository<uploading_to_bintray>`. All you have to do is to navigate to the main page of the package in Bintray and click the
-**"Add to Conan Center"** button to start the inclusion request process.
+Contributing a library to Conan-Center is really straightforward when you know how to
+:ref:`upload your packages to your own Bintray repository<uploading_to_bintray>`. All you have to do is to navigate to the main page of the
+package in Bintray and click the **"Add to Conan Center"** button to start the inclusion request process.
 
 .. image:: /images/add_to_conan-center.png
     :align: center
@@ -41,8 +42,7 @@ Before creating packages for third-party libraries, please read these general gu
   When possible, open a pull request to the original repository of the library with the required Conan
   files or suggest to open a new repository with the recipe.
 
-- If you are going to collaborate with different users to maintain the Conan package, open a Bintray
-  organization.
+- If you are going to collaborate with different users to maintain the Conan package, open a Bintray organization.
 
 Recipe Quality
 --------------
@@ -94,8 +94,8 @@ Recipe Quality
     def package():
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
-Sometimes there is no ``license`` file, and you will need to extract the license from a header file, as in the
-following
+Sometimes there is no ``license`` file, and you will need to extract the license from a header file, as in the following example:
+
 .. code-block:: python
 
     def package():
@@ -116,7 +116,7 @@ CI Integration
 - Unless your library is a header-only library or doesn't support a concrete operating system or
   compiler, you will need to provide a CI systems integration to support:
 
-    - **Linux:** GCC, latest version recommeded from each major (4.9, 5.4, 6.3)
+    - **Linux:** GCC, latest version recommended from each major (4.9, 5.4, 6.3)
     - **Linux:** Clang, latest version recommended from each major (3.9, 4.0)
     - **Mac OSX:** Two latest versions of apple-clang, e.j (8.0, 8.1) or newer.
     - **Windows:** Visual Studio 12, 14 and 15 (or newer)
@@ -135,7 +135,7 @@ CI Integration
   :ref:`GitLab CI<gitlab_integration>` integration guides.
 
 Bintray Package Data
----------------------------
+--------------------
 
 In the Bintray page of your package, fill in the following fields:
 

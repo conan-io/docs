@@ -173,14 +173,15 @@ variables will be applied to all configurations.
     The above code assumes that the package will always use the default Visual Studio runtime (MD/MDd).
     To keep the package configurable for supporting static(MT)/dynamic(MD) linking with the VS runtime
     library, do the following:
-    - Keep, the ``compiler.runtime`` setting, i.e. do not implement the ``configure()`` method removing it
-    - Don't let the ``CMake`` helper define the ``CONAN_LINK_RUNTIME`` env-var to define the runtime, because
+
+    - Keep the ``compiler.runtime`` setting, i.e. do not implement the ``configure()`` method removing it.
+    - Don't let the CMake helper define the ``CONAN_LINK_RUNTIME`` env-var to define the runtime, because
       defining it by the consumer will cause it to be incorrectly applied to both the Debug and Release artifacts.
       This can be done with a ``cmake.command_line.replace("CONAN_LINK_RUNTIME", "CONAN_LINK_RUNTIME_MULTI")``
-      to define a new variable
-    - Write a separate ``package_id()`` methods for MD/MDd and for MT/MTd defining the packages to be built
+      to define a new variable.
+    - Write a separate ``package_id()`` methods for MD/MDd and for MT/MTd defining the packages to be built.
     - In *CMakeLists.txt*, use the ``CONAN_LINK_RUNTIME_MULTI`` variable to correctly setup up the runtime for
-      debug and release flags
+      debug and release flags.
 
     All these steps are already coded in the repo https://github.com/memsharded/hello_multi_config and commented
     out as **"Alternative 2"**
@@ -244,7 +245,7 @@ hash will be the same (the particular string is mostly irrelevant, as long as it
 both configurations). Note that the build hash ``sha3`` will be different of both ``sha1`` and
 ``sha2`` package identifiers.
 
-This doesn not imply that there will be strictly one build folder. There will be a build folder for
+This does not imply that there will be strictly one build folder. There will be a build folder for
 every configuration (architecture, compiler version, etc). So if we just have Debug/Release build
 types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders,
 saving half of the build time.
