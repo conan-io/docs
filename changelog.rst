@@ -27,7 +27,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Improved resolution speed for version ranges through caching of remote requests.
 - Feature: Improved the result of ``tools.vcvars_dict(only_diff=True)`` including a "list" return type that can be used with
   ``tools.environment_append()``.
-- Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` parameter previously set in the environment.
+- Fix: ``AutoToolsBuildEnvironment`` build helper now keeps the ``PKG_CONFIG_PATHS`` variable previously set in the environment.
 - Fix: The SCM feature keeps the ``.git`` folder during the copy of a local directory to the local cache.
 - Fix: The SCM feature now correctly excludes the folders ignored by Git during the copy of a local directory to the local cache.
 - Fix: Conan messages now spell "overridden" correctly.
