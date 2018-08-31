@@ -3,7 +3,7 @@
 Running conan_server
 ====================
 
-THER *conan_server* is a free and open source server that implements Conan remote repositories. It is a very simple application,
+The *conan_server* is a free and open source server that implements Conan remote repositories. It is a very simple application,
 bundled with the regular Conan client installation. In most cases, it is recommended to use the free Artifactory
 Community Edition for C/C++ server, check :ref:`artifactory_ce` for more information.
 
