@@ -4,7 +4,7 @@ Understanding Packaging
 ========================
 
 Creating and Testing Packages Manually
--------------------------------------
+--------------------------------------
 
 The previous **create** approach using *test_package* subfolder, is not strictly necessary, though
 **very strongly recommended**. If we didn't want to use the *test_package* functionality, we could

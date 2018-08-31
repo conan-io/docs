@@ -210,7 +210,7 @@ Running the Conan Server with SSL using Nginx
         $ conan remote add myremote https://myservername.mydomain.com
 
 Running the Conan Server with SSL using Nginx in a Subdirectory
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
     **server.conf**
 
