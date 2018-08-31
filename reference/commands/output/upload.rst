@@ -15,13 +15,13 @@ The output JSON contains a two first level keys:
 
      - **recipe**: Document representing the uploaded recipe.
 
-        - **id**: Reference. e.j: "OpenSSL/1.0.2n@conan/stable"
+        - **id**: Reference, e.g., "OpenSSL/1.0.2n@conan/stable"
         - **remote_name**: Remote name where the recipe was uploaded.
         - **remote_url**: Remote URL where the recipe was uploaded.
         - **time**: ``ISO 8601`` string with the time the recipe was uploaded.
 
      - **packages**: List of elements, representing the binary packages uploaded for the recipe.
-        - **id**: Package ID. e.j: "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
+        - **id**: Package ID, e.g., "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
         - **time**: ISO 8601 string with the time the recipe was uploaded.
 
 **Example:**

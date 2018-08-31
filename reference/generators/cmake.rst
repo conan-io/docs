@@ -86,7 +86,7 @@ method a set of variables will be declared following this naming:
 | CONAN_USER_XXXX_YYYY           | User declared value                                                  |
 +--------------------------------+----------------------------------------------------------------------+
 
-``XXXX`` is the name of the requirement in uppercase and ``YYYY`` the variable name. e.j:
+``XXXX`` is the name of the requirement in uppercase and ``YYYY`` the variable name, e.g.:
 
 
 .. code-block:: python
@@ -123,7 +123,7 @@ _________________
 
 Setup all the CMake vars according to our settings, by default with the global approach (no targets).
 
-**parameters**: You can combine several parameters to the ``conan_basic_setup`` macro. e.j: ``conan_basic_setup(TARGETS KEEP_RPATHS)``
+**parameters**: You can combine several parameters to the ``conan_basic_setup`` macro, e.g., ``conan_basic_setup(TARGETS KEEP_RPATHS)``
 
     - ``TARGETS``:  Setup all the CMake vars by target (only CMake > 3.1.2)
     - ``NO_OUTPUT_DIRS``: Do not adjust the output directories

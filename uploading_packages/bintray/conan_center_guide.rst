@@ -69,7 +69,7 @@ Recipe Quality
   poorly maintained package or replace it with better alternatives.
 
 - **Raise errors on invalid configurations:** If the library doesn't work for a specific
-  configuration, e.g. requires **gcc>7**, the recipe must contain a ``configure(self)`` method  that
+  configuration, e.g., requires **gcc>7**, the recipe must contain a ``configure(self)`` method  that
   raises an exception in case of invalid settings/options.
 
 .. code-block:: python
@@ -111,14 +111,14 @@ CI Integration
 --------------
 
 - If you are packaging a header-only library, you will only need to provide one CI configuration
-  (e.g. Travis with gcc 6.1) to validate that the package is built correctly (use :command:`conan create`).
+  (e.g., Travis with gcc 6.1) to validate that the package is built correctly (use :command:`conan create`).
 
 - Unless your library is a header-only library or doesn't support a concrete operating system or
   compiler, you will need to provide a CI systems integration to support:
 
     - **Linux:** GCC, latest version recommended from each major (4.9, 5.4, 6.3)
     - **Linux:** Clang, latest version recommended from each major (3.9, 4.0)
-    - **Mac OSX:** Two latest versions of apple-clang, e.j (8.0, 8.1) or newer.
+    - **Mac OSX:** Two latest versions of apple-clang, e.g., (8.0, 8.1) or newer.
     - **Windows:** Visual Studio 12, 14 and 15 (or newer)
 
 - The easiest way to provide the CI integration (with Appveyor for Windows builds, Travis.ci for
@@ -144,11 +144,11 @@ In the Bintray page of your package, fill in the following fields:
     - Tags
     - Maturity
     - Website: If any, website of the library
-    - Issues tracker: URL of the issue tracker from your github repository e.j:
+    - Issues tracker: URL of the issue tracker from your github repository e.g.,
       https://github.com/conan-community/conan-zlib/issues
-    - Version control: URL of your recipe github repository. e.j:
+    - Version control: URL of your recipe github repository, e.g.,
       https://github.com/conan-community/conan-zlib
-    - GitHub repo (user/repo): e.j lasote/conan-zlib
+    - GitHub repo (user/repo): e.g., lasote/conan-zlib
 
 For each version page (optional, but recommended):
 
