@@ -11,6 +11,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.7 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Please read more :ref:`about Conan stability<stability>`.
 
+1.7.2 (??-??-2018)
+------------------
+
+- Fix: `self.develop` and `self.in_local_cache` are respectively `True` and `False` for workspace packages.
+
 1.7.1 (31-August-2018)
 ----------------------
 
