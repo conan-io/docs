@@ -323,12 +323,12 @@ The following example of ``conanfile.py`` shows you how to manage a project with
 
     def configure_cmake(self):
         cmake = CMake(self)
-        cmake.configure()
 
         # put definitions here so that they are re-used in cmake between
         # build() and package()
         cmake.definitions["SOME_DEFINITION_NAME"] = "On"
 
+        cmake.configure()
         return cmake
 
     def build(self):
