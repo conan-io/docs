@@ -11,6 +11,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.7 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Please read more :ref:`about Conan stability<stability>`.
 
+Next
+----------------------
+
+- Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
+  the local conan cache as package and building in user space.
+
 1.7.1 (31-August-2018)
 ----------------------
 
