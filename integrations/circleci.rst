@@ -6,7 +6,7 @@
 |circleci_logo| Circle CI
 =============================
 
-You can use `Circle CI`_ cloud to automatically build and test your project in Linux/OSX environments.
+You can use `Circle CI`_ cloud to automatically build and test your project in Linux/macOS environments.
 It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
 fired in CircleCI after a ``git push`` to Github.
 

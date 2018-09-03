@@ -17,12 +17,12 @@ that you get an error like the following one:
 
     ERROR: Missing prebuilt package for 'libzmq/4.2.0@memsharded/testing'
     Try to build it from sources with "--build libzmq" or read "http://docs.conan.io/en/latest/faq.html"
-    
+
 
 This means that the package recipe ``libzmq/4.2.0@memsharded/testing`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build
 and shared pre-built packages at all and only uploaded the package recipe, or maybe they are only
-providing packages for some platforms or compilers. E.g. the package creator built packages 
+providing packages for some platforms or compilers. E.g. the package creator built packages
 from the recipe for gcc 4.8 and 4.9, but you are using gcc 5.4.
 
 By default, conan doesn't build packages from sources. There are several possibilities:
@@ -30,7 +30,7 @@ By default, conan doesn't build packages from sources. There are several possibi
 - You can try to build the package for your settings from sources, indicating some build
   policy as argument, like ``--build libzmq`` or ``--build missing``. If the package recipe and the source
   code work for your settings you will have your binaries built locally and ready for use.
-  
+
 - If building from sources fail, you might want to fork the original recipe, improve it until it
   supports your configuration, and then use it. Most likely contributing back to the original
   package creator is the way to go. But you can also upload your modified recipe and pre-built

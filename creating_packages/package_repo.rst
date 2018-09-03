@@ -149,5 +149,5 @@ remote. If you are building the package, the source code will be fetched from th
     While you are in the same computer (the same conan cache), even when you have exported the recipe and
     Conan has captured the absolute url and commit, Conan will store the local folder where your source code lives.
     If you build your package locally, it will use the local repository (in the local folder) instead of the remote URL,
-    even if the local directory contains uncommited changes.
+    even if the local directory contains uncommitted changes.
     This allows you to speed up the development of your packages when cloning from a local repository.

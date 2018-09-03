@@ -1,3 +1,8 @@
+.. spelling::
+
+  Théo
+  Delrieu
+
 .. _videos:
 
 Videos and links

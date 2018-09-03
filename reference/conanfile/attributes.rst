@@ -1,13 +1,19 @@
+.. spelling::
+
+  ing
+  ver
+
+
 Attributes
 ==========
 
 name
 ----
-This is a string, with a minimun of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
+This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
 It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
 The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
-It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk). 
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
 However, the most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.
 
 
@@ -57,7 +63,7 @@ as well as other related information.
 url
 ---
 
-It is possible, even typical, if you are packaging a thid party lib, that you just develop
+It is possible, even typical, if you are packaging a third party lib, that you just develop
 the packaging code. Such code is also subject to change, often via collaboration, so it should be stored
 in a VCS like git, and probably put on GitHub or a similar service. If you do indeed maintain such a
 repository, please indicate it in the ``url`` attribute, so that it can be easily found.
@@ -100,7 +106,7 @@ author
 
 Intended to add information about the author, in case it is different from the conan user. It is
 possible that the conan user is the name of an organization, project, company or group, and many
-users have permissions over that account. In this case, the author information can explicitely
+users have permissions over that account. In this case, the author information can explicitly
 define who is the creator/maintainer of the package
 
 .. code-block:: python
@@ -605,7 +611,7 @@ In the package recipe methods, some attributes pointing to the relevant folders 
   to ensure isolation and avoiding modifications of shared common source code among builds for different configurations.
   Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
 - ``self.build_folder``: the folder in which the build is being done
-- ``self.install_folder``: the folder in which the install has outputed the generator files, by default, and always in the local cache, is the same ``self.build_folder``
+- ``self.install_folder``: the folder in which the install has output the generator files, by default, and always in the local cache, is the same ``self.build_folder``
 - ``self.package_folder``: the folder to copy the final artifacts for the binary package
 
 When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
@@ -722,7 +728,7 @@ deps_env_info
 You can access to the declared environment variables of the requirements of the recipe.
 
 **Note:** The environment variables declared in the requirements of a recipe are automatically applied
-and it can be accesed with the python ``os.environ`` dictionary. Nevertheless if
+and it can be accessed with the python ``os.environ`` dictionary. Nevertheless if
 you want to access to the variable declared by some specific requirement you can use the ``self.deps_env_info`` object.
 
 .. code-block:: python
@@ -871,8 +877,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **revision** (Required):
     When type is ``git``, it can be a string with a branch name, a commit or a tag.
 - **subfolder** (Optional, Defaulted to ``.``): A subfolder where the repository will be cloned.
-- **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
-- **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+- **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
+- **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
 - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``

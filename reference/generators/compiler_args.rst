@@ -1,3 +1,8 @@
+.. spelling::
+
+  Wl
+  Zi
+
 
 .. _compiler_args_generator:
 

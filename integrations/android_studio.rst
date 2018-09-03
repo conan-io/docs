@@ -137,7 +137,7 @@ that will call :command:`conan install` to install the requirements:
     }
 
 
-Build your project normally, conan will create a “conan” folder with a folder for each different architecture you have speified in the abiFilters with a ``conanbuildinfo.cmake`` file.
+Build your project normally, conan will create a ``conan`` folder with a folder for each different architecture you have specified in the abiFilters with a ``conanbuildinfo.cmake`` file.
 
 Then run the app using an x86 emulator for best performance:
 

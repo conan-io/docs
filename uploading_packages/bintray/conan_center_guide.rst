@@ -81,7 +81,7 @@ Recipe Quality
             raise ConanException("Windows not supported")
 
 - **Without version ranges**: Due to the fact that many libraries do not follow semantic versioning, and that dependency resolution of version ranges is not
-  always clear, recipes in thre Conan center should fix the version of their dependencies and not use version ranges.
+  always clear, recipes in the Conan center should fix the version of their dependencies and not use version ranges.
 
 - **LICENSE of the recipe:** The public repository must contain a ``LICENSE`` file with an OSS
   license.

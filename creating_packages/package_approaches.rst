@@ -235,11 +235,11 @@ logic.
     def package(self):
         if self.settings.build_type == "Debug":
             #package debug artifacts
-        else: 
+        else:
             # package release
 
 Note that the ``build_id()`` method uses the ``self.info_build`` object to alter the build hash. If
-the method doesn’t change it, the hash will match the package folder one. By setting
+the method doesn't change it, the hash will match the package folder one. By setting
 ``build_type="Any"``, we are forcing that for both the Debug and Release values of ``build_type``, the
 hash will be the same (the particular string is mostly irrelevant, as long as it is the same for
 both configurations). Note that the build hash ``sha3`` will be different of both ``sha1`` and

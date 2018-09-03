@@ -38,7 +38,7 @@ You can also use the :ref:`tools.Git <tools_git>` class:
             ...
 
 
-2. Using the :ref:`scm attribute <scm_attribute>` of the conanFile [EXPERIMENTAL]:
+2. Using the :ref:`scm attribute <scm_attribute>` of the ConanFile [EXPERIMENTAL]:
 
 
 .. code-block:: python

@@ -194,7 +194,7 @@ package also contains a library, and the headers), we could do:
 
         def imports(self):
             self.copy("*.exe", dst="bin")
-            
+
         def package(self):
             self.copy("*")
 
@@ -202,7 +202,7 @@ package also contains a library, and the headers), we could do:
 This recipe has the following characteristics:
 
 - It includes the ``Hello/0.1@user/testing`` package as ``build_requires``.
-  That means that it will be used to build this "HelloRun" package, but once the "HelloRun" package is built,
+  That means that it will be used to build this `HelloRun` package, but once the `HelloRun` package is built,
   it will not be necessary to retrieve it.
 - It is using ``imports()`` to copy from the dependencies, in this case, the executable
 - It is using the ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which

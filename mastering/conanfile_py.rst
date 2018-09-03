@@ -1,3 +1,8 @@
+.. spelling::
+
+  mytimer
+
+
 Use conanfile.py for consumers
 ===============================
 
@@ -6,19 +11,19 @@ You can use a ``conanfile.py`` for installing/consuming packages, even if you ar
 Let's take a look at the complete ``conanfile.txt`` from the previous *timer* example with POCO library, in which we have added a couple of extra generators
 
 .. code-block:: text
-   
+
       [requires]
       Poco/1.7.8p3@pocoproject/stable
-      
+
       [generators]
       gcc
       cmake
       txt
-      
+
       [options]
       Poco:shared=True
       OpenSSL:shared=True
-      
+
       [imports]
       bin, *.dll -> ./bin # Copies all dll files from the package "bin" folder to my project "bin" folder
       lib, *.dylib* -> ./bin # Copies all dylib files from the package "lib" folder to my project "bin" folder
@@ -29,13 +34,13 @@ The equivalent ``conanfile.py`` file is:
 .. code-block:: python
 
    from conans import ConanFile, CMake
-   
+
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.7.8p3@pocoproject/stable" # comma-separated list of requirements
       generators = "cmake", "gcc", "txt"
       default_options = "Poco:shared=True", "OpenSSL:shared=True"
-            
+
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin

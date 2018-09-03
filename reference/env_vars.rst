@@ -285,7 +285,7 @@ uploading packages, as they will be read-only and that could have other side-eff
 
 .. warning::
 
-    It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
+    It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to inconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
 .. _conan_run_tests:
@@ -343,7 +343,7 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>`
+When set to ``True``/``1``, the :ref:`build_sln_command<build_sln_command>`, the :ref:`msvc_build_command<msvc_build_command>`
 and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
@@ -355,7 +355,7 @@ CONAN_SYSREQUIRES_MODE
 This environment variable controls whether system packages should be installed into the system
 via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
 
-See values behaviour:
+See values behavior:
 
     - ``enabled``: Default value and any call to install method of ``SystemPackageTool`` helper should modify
       the system packages.
@@ -375,7 +375,7 @@ This environment variable controls whether ``sudo`` is used for installing apt, 
 packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
 By default when the environment variable does not exist, "True" is assumed, and ``sudo`` is
 automatically prefixed in front of package management commands.  If you set this to "False" or "0"
-``sudo`` will not be prefixed in front of the comands, however installation or updates of some
+``sudo`` will not be prefixed in front of the commands, however installation or updates of some
 packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
 CONAN_TEMP_TEST_FOLDER
@@ -455,7 +455,7 @@ CONAN_VS_INSTALLATION_PREFERENCE
 
 **Defaulted to**: ``Enterprise, Professional, Community, BuildTools``
 
-This envirnoment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
+This environment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
 that uses ``tools.vs_installation_path()`` and will search in the order indicated.
 
 For example:

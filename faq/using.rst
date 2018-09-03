@@ -34,9 +34,9 @@ recipe, like ``MyDependent/0.1@user/channel:packageID1... ID2... MyDependent/0.1
 :command:`conan info` and :command:`conan install` need a profile (default profile or one given with ``--profile```) or installation files
 ``conanbuildinfo.txt`` to look for settings and options.
 
-In order to show the inverse graph model, the bottom node is neeed to build the graph upstream and an additonal node too to get the inverse
+In order to show the inverse graph model, the bottom node is needed to build the graph upstream and an additional node too to get the inverse
 list. This is usually done to get the build order in case a package is updated. For example, if we want to know the build order of the Poco
-dependecy graph in case OpenSSL is changed we could type:
+dependency graph in case OpenSSL is changed we could type:
 
 .. code-block:: bash
 
@@ -48,6 +48,6 @@ So, if OpenSSL is changed, we would need to rebuild it (of course) and rebuild P
 Packages got outdated when uploading an unchanged recipe from a different machine
 ---------------------------------------------------------------------------------
 
-Usually this is caused due to different line endings in Windows and Linux/MacOS. Normally this happens when Windows uploads it with CRLF
-while Linux/MacOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest going with LF line
+Usually this is caused due to different line endings in Windows and Linux/macOS. Normally this happens when Windows uploads it with CRLF
+while Linux/macOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest going with LF line
 endings always. If this is being caused by git, it could be solved with :command:`git config --system core.autocrlf input`.

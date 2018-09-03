@@ -50,7 +50,7 @@ The *pypoco.cpp* file can be coded easily thanks to the elegant ``pybind11`` lib
         return m.ptr();
     }
 
-And the *poco.py* file is straigthforward:
+And the *poco.py* file is straightforward:
 
 .. code-block:: cpp
    :caption: *poco.py*

@@ -8,7 +8,7 @@ Conan can create packages and reuse them with Makefiles. The ``AutoToolsBuildEnv
 build helper helps with most of the necessary task.
 
 This how-to has been tested in Windows with MinGW and Linux with gcc. It is using static libraries
-but could be exteded to shared libraries too. The Makefiles surely can be improved they are just an example.
+but could be extended to shared libraries too. The Makefiles surely can be improved they are just an example.
 
 
 Creating packages
@@ -20,7 +20,7 @@ Start cloning the existing example repository, containing a simple "Hello World"
 
     $ git clone https://github.com/memsharded/conan-example-makefiles
     $ cd conan-example-makefiles
-    $ cd hellolib 
+    $ cd hellolib
 
 
 It contains a *src* folder with the source code and a *conanfile.py* file for creating a package.
@@ -47,7 +47,7 @@ standard variables like ``$(CPPFLAGS)`` or ``$(CXX)`` to build it:
 
 
 The *conanfile.py* file uses the ``AutoToolsBuildEnvironment`` build helper. This helper defines
-the necessasry environment variables with information from dependencies, as well as other variables
+the necessary environment variables with information from dependencies, as well as other variables
 to match the current conan settings (like ``-m32`` or ``-m64`` based on the conan ``arch`` setting)
 
 .. code-block:: python

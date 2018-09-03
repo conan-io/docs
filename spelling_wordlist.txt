@@ -20,6 +20,7 @@ auth
 autodetect
 autotools
 Autotools
+Autodetected
 backend
 bindirs
 bintray
@@ -47,6 +48,7 @@ cmd
 cmder
 codebase
 codebases
+comntools
 composable
 conan
 conanbuildinfo
@@ -101,6 +103,7 @@ expirable
 findXXX
 FindXXX
 foo
+fpic
 fPIC
 frontend
 ftp
@@ -134,9 +137,11 @@ iOS
 IPv
 java
 JFrog
+jN
 jpeg
 json
 Kitware
+lasote
 libB
 libc
 libC
@@ -218,6 +223,7 @@ Raspbian
 rcfile
 Readme
 refactor
+refactorings
 Refactor
 refactored
 regex

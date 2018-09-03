@@ -274,7 +274,7 @@ To use the 32-bit binaries, you will also have to change your project build:
 
 - In Windows, change the CMake invocation to ``Visual Studio 14``.
 - In Linux, you have to add the ``-m32`` flag to your ``CMakeLists.txt`` by running ``SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")``, and the
-  same applies nto ``CMAKE_C_FLAGS, CMAKE_SHARED_LINK_FLAGS and CMAKE_EXE_LINKER_FLAGS``. This can also be done more easily, by automatically using
+  same applies to ``CMAKE_C_FLAGS, CMAKE_SHARED_LINK_FLAGS and CMAKE_EXE_LINKER_FLAGS``. This can also be done more easily, by automatically using
   Conan, as we'll show later.
   - In Mac, you need to add the definition ``-DCMAKE_OSX_ARCHITECTURES=i386``.
 

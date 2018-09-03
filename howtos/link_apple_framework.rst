@@ -3,15 +3,15 @@
 How to link with Apple Frameworks
 =================================
 
-It is common in OSx that your conan package needs to link with a complete Apple framework, 
+It is common in macOS that your conan package needs to link with a complete Apple framework,
 and, of course, you want to propagate this information to all projects/libraries that uses your package.
 
 With regular libraries we use ``self.cpp_info.libs`` object to append to it all the libraries:
 
 .. code-block:: python
 
-    def package_info(self):  
-                
+    def package_info(self):
+
         self.cpp_info.libs = ["SDL2"]
         self.cpp_info.libs.append("OpenGL32")
 
@@ -19,15 +19,15 @@ With frameworks we need to declare the "-framework flag" as a linker flag:
 
 .. code-block:: python
 
-    def package_info(self):  
-                
-        self.cpp_info.libs = ["SDL2"] 
-          
+    def package_info(self):
+
+        self.cpp_info.libs = ["SDL2"]
+
         self.cpp_info.exelinkflags.append("-framework Carbon")
         self.cpp_info.exelinkflags.append("-framework CoreAudio")
         self.cpp_info.exelinkflags.append("-framework Security")
         self.cpp_info.exelinkflags.append("-framework IOKit")
-        
+
         self.cpp_info.sharedlinkflags = self.cpp_info.exelinkflags
 
 In the previous example we are using ``self.cpp_info.exelinkflags``. If we are using CMake to consume this package, it will only link those

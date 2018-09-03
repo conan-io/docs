@@ -72,7 +72,7 @@ always add it like this:
 Bintray Community Repositories
 ------------------------------
 
-There are a numnber of popular community repositories that may be of interest for Conan users for retrieving
+There are a number of popular community repositories that may be of interest for Conan users for retrieving
 open source packages. A number of these repositories are not affiliated with the Conan team.
 
 **bincrafters** : https://bintray.com/bincrafters/public-conan
