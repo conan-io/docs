@@ -77,6 +77,7 @@ devs
 devtools
 df
 dict
+didn
 diff
 dirs
 DIRS
@@ -87,6 +88,7 @@ dll
 dlls
 Dockerfiles
 dockerized
+doesn
 downloader
 dst
 dylib
@@ -237,6 +239,7 @@ sdk
 semver
 sha
 sharedlinkflags
+shouldn
 shutil
 sln
 Solaris
@@ -285,6 +288,7 @@ usernames
 utf
 util
 vcvars
+ve
 versioned
 versioning
 Versioning
