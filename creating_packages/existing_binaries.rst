@@ -3,7 +3,7 @@
 Packaging Existing Binaries
 ===========================
 
-There are specific scenerios in which it is necessary to create packages from existing binaries, for example from 3rd
+There are specific scenarios in which it is necessary to create packages from existing binaries, for example from 3rd
 parties or binaries previously built by another process or team that are not using Conan. Under these circumstances building from sources is
 not what you want. You should package the local files in the following situations:
 

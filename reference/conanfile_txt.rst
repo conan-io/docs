@@ -9,7 +9,7 @@ Sections
 [requires]
 __________
 
-List of requirements, specifing the full reference.
+List of requirements, specifying the full reference.
 
 
 .. code-block:: text
@@ -31,7 +31,7 @@ Also support :ref:`version ranges<version_ranges>`:
 [build_requires]
 ________________
 
-List of build requirements, specifing the full reference.
+List of build requirements, specifying the full reference.
 
 
 .. code-block:: text

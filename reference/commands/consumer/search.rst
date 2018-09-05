@@ -14,7 +14,7 @@ Searches package recipes and binaries in the local cache or in a remote. If
 you provide a pattern, then it will search for existing package recipes
 matching it. If a full reference is provided (pkg/0.1@user/channel) then the
 existing binary packages for that reference will be displayed. If no remote is
-specified, the serach will be done in the local cache. Search is case
+specified, the search will be done in the local cache. Search is case
 sensitive, exact case has to be used. For case insensitive file systems, like
 Windows, case sensitive search can be forced with '--case-sensitive'.
 

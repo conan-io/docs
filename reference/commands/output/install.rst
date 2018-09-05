@@ -26,7 +26,7 @@ The output JSON contains a two first level keys:
 
      - **packages**: List of elements, representing the binary packages downloaded for the recipe.
        Normally there will be only 1 element in this list, only in special cases with build
-       requires, private dependencies and settings overrided this list could have more than one
+       requires, private dependencies and settings overridden this list could have more than one
        element.
 
         - **remote**: remote URL if the recipe has been downloaded. ``null`` otherwise.

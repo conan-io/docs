@@ -64,7 +64,7 @@ There is a brew recipe, so in OSX, you can install Conan as follows:
 Install from AUR (Arch Linux)
 -----------------------------
 
-The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers>`_, eg. **yay**, **aurman**, or **pakku**.
+The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers>`_, e.g., **yay**, **aurman**, or **pakku**.
 For example, the following command installs Conan using ``yay``:
 
 .. code-block:: bash

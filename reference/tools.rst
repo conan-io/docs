@@ -1,3 +1,8 @@
+.. spelling::
+
+  isysroot
+
+
 .. _tools:
 
 Tools
@@ -129,7 +134,7 @@ environment:
         with tools.vcvars(self.settings):
             do_something()
 
-.. _build_sln_commmand:
+.. _build_sln_command:
 
 
 tools.build_sln_command() (DEPRECATED)
@@ -201,7 +206,7 @@ Returns a string with a joint command consisting in setting the environment vari
 ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
-    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
+    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_command>`.
     - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
 .. _tools_unzip:
@@ -817,7 +822,7 @@ tools.escape_windows_cmd()
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
-- Adds escapes for cmmd.exe so the argument survives cmmd.exe's substitutions.
+- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
 
 Parameters:
     - **command** (Required): Command to execute.
@@ -912,7 +917,7 @@ tools.mkdir(), tools.rmdir()
     def rmdir(path)
 
 Utility functions to create/delete a directory.
-The existance of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
+The existence of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
 already exists and ``rmdir()`` will do nothing if the directory does not exists.
 
 This makes it safe to use these functions in the ``package()`` method of a ``conanfile.py``
@@ -921,10 +926,10 @@ when ``no_copy_source=True``.
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.mkdir("mydir") # Creates mydir if it does not already exist
     tools.mkdir("mydir") # Does nothing
-    
+
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
 
@@ -1002,7 +1007,7 @@ tools.touch()
 
     def touch(fname, times=None)
 
-Updates the timestamp (last access and last modificatiion times) of a file.
+Updates the timestamp (last access and last modification times) of a file.
 This is similar to Unix' ``touch`` command, except the command fails if the file does not exist.
 
 Optionally, a tuple of two numbers can be specified, which denotes the new values for the
@@ -1012,7 +1017,7 @@ Optionally, a tuple of two numbers can be specified, which denotes the new value
 
     from conans import tools
     import time
-   
+
     tools.touch("myfile")                            # Sets atime and mtime to the current time
     tools.touch("myfile", (time.time(), time.time()) # Similar to above
     tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
@@ -1244,8 +1249,8 @@ Parameters of the constructor:
 
     - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
     - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
-    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
-    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
     - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
 
@@ -1279,7 +1284,7 @@ tools.is_apple_os()
 
     def is_apple_os(os_)
 
-Returns ``True`` if OS is an Apple one: Macos, iOS, watchOS or tvOS.
+Returns ``True`` if OS is an Apple one: macOS, iOS, watchOS or tvOS.
 
 Parameters:
     - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.

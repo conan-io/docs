@@ -8,7 +8,7 @@ In :ref:`Getting started<getting_started>` we used the :command:`conan install` 
 
 If you inspect the ``conanbuildinfo.cmake`` file that was created when running :command:`conan install`,
 you can see there that there are many CMake variables declared. For example
-``CONAN_INCLUDE_DIRS_ZLIB``, that defines the include path to the ZLib headers, and
+``CONAN_INCLUDE_DIRS_ZLIB``, that defines the include path to the zlib headers, and
 ``CONAN_INCLUDE_DIRS`` that defines include paths for all dependencies headers.
 
 .. image:: /images/local_cache_cmake.png

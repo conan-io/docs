@@ -223,10 +223,10 @@ A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
 .. _cross_building_android:
 
-Linux/Windows/Macos to Android
+Linux/Windows/macOS to Android
 ..............................
 
-Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
+Cross building a library for Android is very similar to the previous examples, except the complexity of managing different
 architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
 
 Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ and unzip it.
@@ -474,7 +474,7 @@ Conan has different architecture settings for ARM: ``armv6``, ``armv7``, ``armv7
 The "problem" with ARM architecture is that frequently are named in different ways, so maybe you are wondering what setting
 do you need to specify in your case.
 
-Here is a table with some typical ARM platorms:
+Here is a table with some typical ARM platforms:
 
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Platform                       | Conan setting                                                                                  |

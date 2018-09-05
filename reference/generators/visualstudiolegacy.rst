@@ -1,3 +1,7 @@
+.. spelling::
+
+  PropertyManager
+
 .. _visualstudiolegacy_generator:
 
 visual_studio_legacy

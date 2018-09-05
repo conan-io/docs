@@ -119,7 +119,7 @@ will be retrieved from remotes if necessary.
 
 It is very important to note, that the :command:`info` command outputs the dependency graph for a
 given configuration (settings, options), as the dependency graph can be different for different
-configurations. Then, the input to the :command:`conan info` commmand is the same as :command:`conan install`,
+configurations. Then, the input to the :command:`conan info` command is the same as :command:`conan install`,
 the configuration can be specified directly with settings and options, or using profiles.
 
 Also, if you did a previous :command:`conan install` with a specific configuration, or maybe different
@@ -143,7 +143,7 @@ It is possible to use the :command:`conan info` command to extract useful inform
 Integration systems. More precisely, it has the :command:`--build-order, -bo` option, that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
 built. E.g., let's assume that we have a project that depends on Boost and Poco, which in turn
-depends on OpenSSL and ZLib transitively. So we can query our project with a reference that has
+depends on OpenSSL and zlib transitively. So we can query our project with a reference that has
 changed (most likely due to a git push on that package):
 
 .. code-block:: bash

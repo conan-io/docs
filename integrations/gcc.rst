@@ -1,3 +1,8 @@
+.. spelling::
+
+  mytimer
+
+
 .. _gcc_integration:
 
 
@@ -11,15 +16,15 @@ Now we are going to compile the :ref:`getting started<getting_started>` example 
 
 Open ``conanfile.txt`` and change (or add) **compiler_args** generator:
 
-    
+
 .. code-block:: text
 
    [requires]
    Poco/1.9.0@pocoproject/stable
-   
+
    [generators]
    compiler_args
-   
+
 Install the requirements (from the mytimer/build folder):
 
 .. code-block:: bash
@@ -31,12 +36,12 @@ Install the requirements (from the mytimer/build folder):
 
    Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults.
    You can always change them by editing the ``~/.conan/profiles/default`` or override them with "-s" parameters.
- 
+
 
 The generated ``conanbuildinfo.args``:
 
 .. code-block:: text
-   
+
    -DPOCO_STATIC=ON -DPOCO_NO_AUTOMATIC_LIBS
    -Ipath/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/include
    -Ipath/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/include

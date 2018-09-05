@@ -121,7 +121,7 @@ The ``pylintrc`` file has the form:
     [FORMAT]
     indent-string='  '
 
-Running ``pylint --generate-rcfile`` will output a complete rcfile with commments explaining the fields.
+Running ``pylint --generate-rcfile`` will output a complete rcfile with comments explaining the fields.
 
 The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
 Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.

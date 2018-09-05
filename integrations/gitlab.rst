@@ -6,7 +6,7 @@
 |gitlab_logo| Gitlab
 =============================
 
-You can use `Gitlab CI`_ cloud or local service to automatically build and test your project in Linux/OSX/Windows environments.
+You can use `Gitlab CI`_ cloud or local service to automatically build and test your project in Linux/macOS/Windows environments.
 It is free for OSS projects, and offers an easy integration with Gitlab, so builds can be automatically
 fired in Gitlab CI after a :command:`git push` to Gitlab.
 

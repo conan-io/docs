@@ -9,11 +9,11 @@ repository follow these steps:
 1. **Create a Bintray Open Source account**
 
    Browse to https://bintray.com/signup/oss and submit the form to create your account. Note that
-   you don’t have to use the same username that you use for your Conan account.
+   you don't have to use the same username that you use for your Conan account.
 
    .. warning::
 
-       Please **make sure you use the Open Source Software OSS account**. 
+       Please **make sure you use the Open Source Software OSS account**.
        Follow this link: https://bintray.com/signup/oss.
        Bintray provides free Conan repositories for OSS projects, so there is no need to open a Pro or
        Enterprise Trial account.

@@ -250,7 +250,7 @@ install()
 
 Performs the install step of autotools calling ``make(target="install")``.
 
-Paramenters:
+Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
     - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. The

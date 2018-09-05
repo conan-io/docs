@@ -6,7 +6,7 @@
 |travisci_logo| Travis Ci
 =============================
 
-You can use `Travis CI`_ cloud service to automatically build and test your project in Linux/OSX environments in the cloud.
+You can use `Travis CI`_ cloud service to automatically build and test your project in Linux/macOS environments in the cloud.
 It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
 fired in Travis-CI after a :command:`git push` to Github.
 
@@ -30,11 +30,11 @@ Clone the project from github:
    $ git clone https://github.com/lasote/conan-gtest-example
 
 
-Create a ``.travis.yml`` file and paste this code in it: 
+Create a ``.travis.yml`` file and paste this code in it:
 
 
 .. code-block:: text
-   
+
 	language: cpp
 	compiler:
 	- gcc
@@ -42,14 +42,14 @@ Create a ``.travis.yml`` file and paste this code in it:
 	# Upgrade GCC
 	- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 	- sudo apt-get update -qq
-	- sudo apt-get install -qq g++-4.9 
+	- sudo apt-get install -qq g++-4.9
 	- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
-	
+
 	# Install conan
 	- pip install conan
 	# Automatic detection of your arch, compiler, etc.
 	- conan user
-	
+
 	script:
 	# Download dependencies, build, test and create package
 	- conan create . user/channel

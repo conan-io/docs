@@ -1,3 +1,14 @@
+.. spelling::
+
+  dragly
+  mathieu
+  melmdk
+  raulbocanegra
+  rhel
+  tivek
+  tru
+  yogeva
+
 .. _changelog:
 
 Changelog
@@ -33,7 +44,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: Support for C++20 in CMake > 3.12.
 - Feature: Included support for Python 3.7 in all platforms.
-- Feature: **[Experimental]** New ``python_requires`` function that allows you to reuse Pyton code by "requiring" it in Conan packages, even to extend the
+- Feature: **[Experimental]** New ``python_requires`` function that allows you to reuse Python code by "requiring" it in Conan packages, even to extend the
   ``ConanFile`` class. See: :ref:`Python requires: reusing python code in recipes<python_requires>`
 - Feature: ``CMake`` method ``patch_config_paths`` replaces absolute paths to a Conan package's dependencies as well as to the Conan package itself.
 - Feature: ``MSBuild`` and ``VisualStudioBuildEnvironment`` build helpers adjust the ``/MP`` flag to build code in parallel using multiple
@@ -84,7 +95,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Added a ``filename`` parameter to ``tools.get()`` in case it cannot be deduced from the URL.
 - Feature: Propagated ``keep_permissions`` and ``pattern`` parameters from ``tools.get()`` to ``tools.unzip()``.
 - Feature: Added XZ extensions to ``unzip()``. This will only work in Python 3 with lzma support enabled, otherwise, and error is produced.
-- Feature: Added ``FRAMEWORK_SEARCH_PATHS`` var to the XCode generator to support packaging Apple Frameworks. Read more
+- Feature: Added ``FRAMEWORK_SEARCH_PATHS`` var to the Xcode generator to support packaging Apple Frameworks. Read more
   :ref:`here<package_apple_framework>`.
 - Feature: Added :command:`conan build --test` and a ``should_configure`` attribute to control the test stage. Read more
   :ref:`here<attribute_build_stages>`.
@@ -282,7 +293,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fixed generator ``pkg_config`` when there are absolute paths (not use prefix)
 - Bugfix: Fixed parsing of settings values with ``"="`` character in conaninfo.txt files.
 - Bugfix: Fixed misdetection of MSYS environments (generation of default profile)
-- Bugfix: Fixed string scaping in CMake files for preprocessor definitions.
+- Bugfix: Fixed string escaping in CMake files for preprocessor definitions.
 - Bugfix: ``upload --no-overwrite`` failed when the remote package didn't exist.
 - Bugfix: Don't raise an error if ``detect_windows_subsystem`` doesn't detect a subsystem.
 
@@ -347,7 +358,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 ------------------
 
 - Feature: ``build_sln_command()`` and ``msvc_build_command()`` receive a new optional parameter ``platforms`` to match the definition of the *.sln* Visual Studio project architecture. (Typically Win32 vs x86 problem).
-- Bufix:  Flags for Visual Studio command (cl.exe) using "-" instead of "/" to avoid problems in builds using AutoTools scripts with Visual Studio compiler.
+- Bugfix:  Flags for Visual Studio command (cl.exe) using "-" instead of "/" to avoid problems in builds using AutoTools scripts with Visual Studio compiler.
 - Bugfix: Visual Studio runtime flags adjusted correctly in ``AutoToolsBuildEnvironment()`` build helper
 - Bugfix: ``AutoToolsBuildEnvironment()`` build helper now adjust the correct build flag, not using eabi suffix, for architecture x86.
 
@@ -364,7 +375,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: ``CMake`` new ``patch_config_paths()`` methods that will replace absolute paths to conan package path variables, so cmake find scripts are relocatable.
 - Feature: new :command:`--test-build-folder` command line argument to define the location of the *test_package* build folder, and new conan.conf ``temp_test_folder`` and environment variable ``CONAN_TEMP_TEST_FOLDER``, that if set to True will automatically clean the test_package build folder after running.
 - Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.
-- Feature: Added ``CONAN_SKIP_VS_PROJECTS_UPGRADE`` environment variable to skip the upgrade of Visual Studio project when using :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>` and the :ref:`MSBuild()<msbuild>` build helper.
+- Feature: Added ``CONAN_SKIP_VS_PROJECTS_UPGRADE`` environment variable to skip the upgrade of Visual Studio project when using :ref:`build_sln_command<build_sln_command>`, the :ref:`msvc_build_command<msvc_build_command>` and the :ref:`MSBuild()<msbuild>` build helper.
 - Feature: Improved detection of Visual Studio installations, possible to prioritize between multiple installed Visual tools with the ``CONAN_VS_INSTALLATION_PREFERENCE`` env-var and ``vs_installation_preference`` conan.conf variable.
 - Feature: Added ``keep_path`` parameter to ``self.copy()`` within the ``imports()`` method.
 - Feature: Added ``[build_requires]`` section to *conanfile.txt*.
@@ -383,7 +394,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Error message when package was not found in remotes has been improved.
 - Fix: :command:`conan profile` help message.
 - Fix: Use gcc architecture flags -m32, -m64 for MinGW as well.
-- Fix: ``CMake()`` helper do not require settins if ``CONAN_CMAKE_GENERATOR`` is defined.
+- Fix: ``CMake()`` helper do not require settings if ``CONAN_CMAKE_GENERATOR`` is defined.
 - Fix: improved output of package remote origins.
 - Fix: Profiles files use same structure as :command:`conan profile show` command.
 - Fix: *conanpath.bat* file is removed after conan Windows installer uninstall.
@@ -419,7 +430,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 -----------------------
 
 - Bugfix: Correct load of stored settings in conaninfo.txt (for :command:`conan build`) when ``configure()`` remove some setting.
-- Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwing) when needed.
+- Bugfix: Correct use of unix paths in Windows subsystems (msys, cygwin) when needed.
 - Fix: fixed wrong message for :command:`conan alias --help`.
 - Fix: Normalized all arguments to :command:`--xxx-folder` in command line help.
 
@@ -466,7 +477,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.0.0-beta4 (4-January-2018)
 ----------------------------
 
-- Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritised inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories 
+- Feature: ``run_in_windows_bash`` accepts a dict of environment variables to be prioritized inside the bash shell, mainly intended to control the priority of the tools in the path. Use with ``vcvars`` context manager and ``vcvars_dict``, that returns the PATH environment variable only with the Visual Studio related directories
 - Fix: Adding all values to ``arch_target``
 - Fix: :command:`conan new` templates now use new ``os_build`` and ``arch_build`` settings
 - Fix: Updated ``CMake`` helper to account for ``os_build`` and ``arch_build`` new settings
@@ -596,7 +607,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: new ``tools.PkgConfig`` helper to parse pkg-config (.pc) files.
 - Feature: Added ``self.develop`` conanfile variable. It is true for :command:`conan create` packages and for local development.
 - Feature: Added ``self.keep_imports`` to avoid removal of imported files in the ``build()`` method. Convenient for re-packaging.
-- Feature: Autodected MSYS2 for ``SystemPackageTool``
+- Feature: Autodetected MSYS2 for ``SystemPackageTool``
 - Feature: ``AutoToolsBuildEnvironment`` now auto-loads ``pkg_config_path`` (to use with ``pkg_config`` generator)
 - Feature: Changed search for profiles. Profiles not found in the default ``profiles`` folder, will be searched for locally. Use ``./myprofile`` to force local search only.
 - Feature: Parallel builds for Visual Studio (previously it was only parallel compilation within builds)
@@ -607,11 +618,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Locks for concurrent access to local cache now use process IDs (PIDs) to handle interruptions and inconsistent states. Also, adding messages when locking.
 - Fix: Not remove the .zip file after a :command:`conan config install` if such file is local
 - Fix: Fixed ``CMake.test()`` for the Ninja generator
-- Fix: Do not crete local conaninfo.txt file for :command:`conan install <pkg-ref>` commands.
+- Fix: Do not create local conaninfo.txt file for :command:`conan install <pkg-ref>` commands.
 - Fix: Solved issue with multiple repetitions of the same command line argument
 - BugFix: Don't rebuild conan created (with conan-create) packages when ``build_policy="always"``
 - BugFix: :command:`conan copy` was always copying binaries, now can copy only recipes
-- BugFix: A bug in download was causing appends insteads of overwriting for repeated downloads.
+- BugFix: A bug in download was causing appends instead of overwriting for repeated downloads.
 - Development: Large restructuring of files (new cmd and build folders)
 - Deprecation: Removed old CMake helper methods (only valid constructor is ``CMake(self)``)
 - Deprecation: Removed old ``conan_info()`` method, that was superseded by ``package_id()``
@@ -729,7 +740,7 @@ thanks very much!
 - Fix: unzip crashed for 0 Bytes zip files
 - Fix: ``collect_libs`` moved to the ``tools`` module
 - Bugfix: fixed wrong regex in ``deps_cpp_info`` causing issues with dots and dashes in package names
-- Development: Several internal refactors (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor
+- Development: Several internal refactorings (tools module, installer), testing (using VS2015 as default, removing VS 12 in testing). Conditional CI in travis for faster builds in developers, downgrading to CMake 3.7 in appveyor
 - Deprecation: ``dev_requires`` have been removed (it was not documented, but accessible via the ``requires(dev=True)`` parameter. Superseded by ``build_requires``.
 - Deprecation: sources tgz files for exported sources no longer contain ".c_src" subfolder. Packages created with 0.27 will be incompatible with conan < 0.25
 
@@ -854,7 +865,7 @@ thanks very much!
 - Fix: Improved some cmake robustness using quotes to avoid cmake errors
 - BugFix: Fixed incorrect firing of building due to build`` patterns error
 - BugFix: Fixed bug with options incorrectly applied to ``build_requires`` and crashing
-- Refactor: internal refactors toward having a python api to conan functionality
+- Refactor: internal refactorings toward having a python api to conan functionality
 
 
 0.23.1 (05-June-2017)
@@ -919,7 +930,7 @@ thanks very much!
 - Fix: added new ``mips`` architectures and latest compiler versions to default settings.yml
 - Fix: Unified username allowed patterns to those used in package references.
 - Fix: hardcoded vs15 version in tools.vcvars
-- BugFix: Clean crash and improved error messages when manifests mistmatch exists in conan upload.
+- BugFix: Clean crash and improved error messages when manifests mismatch exists in conan upload.
 
 
 0.21.2 (04-April-2017)
@@ -1112,7 +1123,7 @@ This has been a huge release with contributors of 11 developers. Thanks very muc
 - Feature: added **SCons** generator
 - Feature: support for **Python 3.6**, with several fixes. Added Python 3.6 to CI.
 - Feature: show package dates in :command:`conan info` command
-- Feature: new ``cmake_multi`` generator for multi-configuration IDEs like Visual Studio and XCode
+- Feature: new ``cmake_multi`` generator for multi-configuration IDEs like Visual Studio and Xcode
 - Feature: support for **Visual Studio 2017**, VS-15
 - Feature: **FreeBSD** now passes test suite
 - Feature: :command:`conan upload` showing error messages or URL of remote
@@ -1278,7 +1289,7 @@ reset your local cache. You could manually remove packages or just run :command:
   retrieved, otherwise some build systems as Ninja can have problems with them.
 - Bug fix: ``qmake`` generator now uses quotes to handle paths with spaces
 - Bug fix: Fixed ``OSInfo`` to return the short distro name instead of the long one.
-- Bug fix: fixed transitivy of ``private`` dependencies
+- Bug fix: fixed transitivity of ``private`` dependencies
 
 
 0.13.3 (13-October-2016)
@@ -1314,7 +1325,7 @@ all binaries first (:command:`conan remove -p`, works both locally and remotely)
 Features:
 
 - Streaming from/to disk for all uploads/downloads. Previously, this was done for memory, but conan
-  started to have issues for huge packages (>many hundreds Mbs), that sometimes could be alleviated
+  started to have issues for huge packages (>many hundreds MBs), that sometimes could be alleviated
   using Python 64 bits distros. This issues should be alleviated now
 - New security system that allows capturing and checking the package recipes and binaries manifests
   into user folders (project or any other folder). That ensures that packages cannot be replaced,
@@ -1332,7 +1343,7 @@ Features:
 - New methods for defining requires effect over binary packages ID (hash) in ``conan_info()``
 - Many bugs fixes: error in ``tools.download`` with python 3, restore correct prompt in virtualenvs,
   bug if removing an option in ``config_options()``, setup.py bug...
-  
+
 This release has contributions from @tru, @raulbocanegra, @tivek, @mathieu, and the feedback of many
 other conan users, thanks very much to all of them!
 
@@ -1411,7 +1422,7 @@ other conan users, thanks very much to all of them!
   CONAN_SYSREQUIRES_SUDO, so using sudo is opt-in/out, for users with different sudo needs. Useful for ``system_requirements()``
 - Deprecated the ``config()`` method (still works, for backwards compatibility), but has been replaced
   by a ``config_options()`` to modify options based on settings, and a ``configure()`` method for
-  most use cases. This removes a nasty behaviour of having the ``config()`` method called twice with 
+  most use cases. This removes a nasty behavior of having the ``config()`` method called twice with 
   side effects.
 - Now, running a :command:`conan install MyLib/0.1@user/channel` to directly install packages without any
   consuming project, is also able to generate files with the ``-g`` option. Useful for installing
@@ -1429,7 +1440,7 @@ feedback and contributions. Thanks very much again to all of them!
 
 - **conan new** command, that creates conan package conanfile.py templates, with a *test_package* package test (-t option),
   also for header only packages (-i option)
-- Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binares, and are not included in the package IDs (hash).
+- Definition of **scopes**. There is a default **dev** scope for the user project, but any other scope (test, profile...) can be defined and used in packages. They can be used to fire extra processes (as running tests), but they do not affect the package binaries, and are not included in the package IDs (hash).
 - Definition of **dev_requires**. Those are requirements that are only retrieved when the package is in **dev** scope, otherwise they are not. They do not affect the binary packages. Typical use cases would be test libraries or build scripts.
 - Allow **shorter paths** for specific packages, which can be necessary to build packages with very long path names (e.g. Qt) in Windows.
 - Support for bzip2 and gzip decompression in ``tools``
@@ -1477,7 +1488,7 @@ As always, thanks very much to all contributors and users providing feedback.
 0.8.4 (28-Mar-2016)
 -------------------
 
-- Fixed linker problems with the new apple-clang 7.3 due to libraries with no setted timestamp.
+- Fixed linker problems with the new apple-clang 7.3 due to libraries with no timestamp set.
 - Added apple-clang 7.3 to default settings
 - Fixed default libcxx for apple-clang in auto detection of base conan.conf
 
@@ -1509,7 +1520,7 @@ As always, thanks very much to all contributors and users providing feedback.
 - Introduced the concept of **"package recipe"** that refers to conanfile.py and exported files.
 - Improved settings display in web, with new "copy install command to clipboard" to assist in
   installing packages discovered in web.
-- The OSX installer, problematic with latest OSX releases, has been deprecated in favour
+- The macOS installer, problematic with latest macOS releases, has been deprecated in favor
   of homebrew and pip install procedures.
 
 

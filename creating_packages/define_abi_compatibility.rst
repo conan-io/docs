@@ -98,14 +98,14 @@ For example, if you are sure your package ABI compatibility is fine for GCC vers
         name = "Pkg"
         version = "1.0"
         settings = "compiler", "build_type"
-    
+
         def package_id(self):
             v = Version(str(self.settings.compiler.version))
             if self.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
                 self.info.settings.compiler.version = "GCC version between 4.5 and 5.0"
 
 We have set the ``self.info.settings.compiler.version`` with an arbitrary string, the value of which is not important (could be any string). The
-only importantance is that it is the same for any GCC version between 4.5 and 5.0. For all those versions, the compiler version will
+only important thing is that it is the same for any GCC version between 4.5 and 5.0. For all those versions, the compiler version will
 always be hashed to the same ID.
 
 Let's try and check that it works properly when installing the package for GCC 4.5:
@@ -132,7 +132,7 @@ We can see that the computed package ID is ``af04...46ad`` (not real). What happ
     Packages
         Pkg/1.0@myuser/mychannel:mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
 
-The required package has the same resulte again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
+The required package has the same result again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
 
 .. code-block:: bash
 

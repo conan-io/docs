@@ -7,13 +7,13 @@ No. It isn't. Conan is build-system agnostic. Package creators could very well u
 create their packages, but you will only need it if you want to build packages from source, or
 if there are no available precompiled packages for your system/settings. We use CMake extensively
 in our examples and documentation, but only because it is very convenient and most C/C++ devs are
-familiar with it. 
+familiar with it.
 
 Is build-system XXXXX supported?
 --------------------------------
 Yes. It is. Conan makes no assumption about the build system. It just wraps any build commands
 specified by the package creators. There are already some helper methods in code to ease the
-use of CMake, but similar functions can be very easily added for your favourite build system. 
+use of CMake, but similar functions can be very easily added for your favorite build system.
 Please check out the alternatives explained in :ref:`generator packages <dyn_generators>`
 
 Is my compiler, version, architecture, or setting supported?
@@ -35,8 +35,8 @@ Yes. You can install as many different versions of the same library as you need,
 switch among them in the same project, or have different projects use different versions simultaneously,
 and without having to install/uninstall or re-build any of them.
 
-Package binaries are stored per user in (e.g.) ``~/.conan/data/Boost/1.59/user/stable/package/{sha_0, sha_1, sha_2...}`` 
-with a different SHA signature for every different configuration (debug, release, 32-bit, 64-bit, compiler...). 
+Package binaries are stored per user in (e.g.) ``~/.conan/data/Boost/1.59/user/stable/package/{sha_0, sha_1, sha_2...}``
+with a different SHA signature for every different configuration (debug, release, 32-bit, 64-bit, compiler...).
 Packages are managed per user, but additionally differentiated by version and channel, and also by their configuration.
 So large packages, like Boost, don't have to be compiled or downloaded for every project.
 

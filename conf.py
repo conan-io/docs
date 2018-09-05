@@ -35,6 +35,7 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 extensions = [
     'sphinx.ext.todo',
     'conan',
+    'sphinxcontrib.spelling',
 ]
 
 # The short X.Y version.
