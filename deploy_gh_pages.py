@@ -43,9 +43,9 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
     with open('versions.json', 'w') as f:
         f.write(json.dumps(versions_available))
 
-    call("make spelling")
     call("make html")
     if validate_links:
+        call("make spelling")
         call("make linkcheck")
     call("make latexpdf")
     tmp_dir = tempfile.mkdtemp()
