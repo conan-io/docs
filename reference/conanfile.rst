@@ -3,7 +3,7 @@
 conanfile.py
 ============
 
-Reference for `conanfile.py`: attributes, methods, etc.
+Reference for *conanfile.py*: attributes, methods, etc.
 
 Contents:
 
