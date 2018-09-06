@@ -23,8 +23,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
-1.7.2 (4-Sept-2018)
-----------------------
+1.7.3 (6-September-2018)
+------------------------
+
+- Bugfix: Uncontrolled exception was raised while printing the output of an error downloading a file.
+- Bugfix: Fxed :command:`*:option` pattern for conanfile consumers.
+
+1.7.2 (4-September-2018)
+------------------------
 
 - Bugfix: Reverted default options initialisation to empty string with "varname=".
 - Bugfix: Fixed `conan build` command with `--test` and `--install` arguments.
