@@ -233,7 +233,7 @@ Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ a
 
 .. note::
 
-    If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (C:\) to avoid issues with path lengths.
+    If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (``C:\``) to avoid issues with path lengths.
 
 Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_,
 we are going to target "arm" architecture and the Android API level 21, change the ``--install-dir`` to any other place that works
