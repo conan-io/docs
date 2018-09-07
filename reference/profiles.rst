@@ -74,7 +74,7 @@ folders:
 
 .. tip::
 
-    You can manage your profiles wisely and share them using :ref:`conan_config_install`.
+    You can manage your profiles and share them using :ref:`conan_config_install`.
 
 Package settings and env vars
 -----------------------------
