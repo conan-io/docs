@@ -59,3 +59,8 @@ which defines cmake ``INTERFACE IMPORTED`` targets, one per package. These targe
 
 .. seealso:: Check the section :ref:`Reference/Generators/cmake <cmake_generator>` to read more about this generator.
 
+.. note::
+
+    The ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` contain the paths to the ``builddirs`` of every required package.
+    By default, the root package folder is the only declared ``builddirs`` directory.
+    Check the :ref:`Reference/conanfile.py/attributes <cpp_info_attributes_reference>`.
