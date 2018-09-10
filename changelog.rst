@@ -26,7 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.7.2 (4-Sept-2018)
 ----------------------
 
-- Bugfix: Reverted default options initialisation to empty string with "varname=".
+- Bugfix: Reverted default options initialization to empty string with `varname=`.
 - Bugfix: Fixed `conan build` command with `--test` and `--install` arguments.
 
 
