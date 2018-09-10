@@ -78,7 +78,7 @@ You can adjust the `PKG_CONFIG_PATH` to let ``pkg-config`` tool locate your ``.p
 
             with tools.environment_append({"PKG_CONFIG_PATH": os.getcwd()}):
                # CALL YOUR BUILD SYSTEM (configure, make etc)
-               # E.j: self.run('g++ main.cpp $(pkg-config libB --libs --cflags) -o main')
+               # E.g., self.run('g++ main.cpp $(pkg-config libB --libs --cflags) -o main')
 
 
 Approach 2: Prepare and package `pc` files before package them

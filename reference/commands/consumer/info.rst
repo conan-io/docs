@@ -20,7 +20,7 @@ recipe or a reference for any existing package in your local cache.
 
     positional arguments:
       path_or_reference     Path to a folder containing a recipe (conanfile.py or
-                            conanfile.txt) or to a recipe file. e.g.,
+                            conanfile.txt) or to a recipe file. E.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
 
@@ -43,7 +43,7 @@ recipe or a reference for any existing package in your local cache.
                             will raise an error.
       -j [JSON], --json [JSON]
                             Only with --build-order option, return the information
-                            in a json. e.g --json=/path/to/filename.json or --json
+                            in a json. E.g., --json=/path/to/filename.json or --json
                             to output the json
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
@@ -73,7 +73,7 @@ recipe or a reference for any existing package in your local cache.
                             Look in the specified remote server
       -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
+                            defaults. E.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
 
 
@@ -162,9 +162,9 @@ You can also specify the ``ALL`` argument, if you want just to compute the whole
     > [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
 
 
-Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter:
+Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter.
 
-e.g., If I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
+E.g., if I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
 
 .. code-block:: bash
 

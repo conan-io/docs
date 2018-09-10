@@ -29,10 +29,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Uncontrolled exception was raised while printing the output of an error downloading a file.
 - Bugfix: Fixed :command:`*:option` pattern for conanfile consumers.
 
+
 1.7.2 (4-September-2018)
 ------------------------
 
-- Bugfix: Reverted default options initialization to empty string with "varname=".
+- Bugfix: Reverted default options initialization to empty string with `varname=`.
 - Bugfix: Fixed `conan build` command with `--test` and `--install` arguments.
 
 
@@ -44,6 +45,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   a new :command:`--args` parameter that allows custom arguments.
 - Fix: SCM can now handle nested subfolders.
 - BugFix: Fix :command:`conan export-pkg` unnecessarily checking remotes.
+
 
 1.7.0 (29-August-2018)
 ----------------------
