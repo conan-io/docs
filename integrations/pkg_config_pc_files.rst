@@ -3,33 +3,28 @@
 pkg-config and pc files
 =======================
 
-Intro
------
-
 If you are creating a Conan package for a library (A) and the build system uses ``.pc`` files to locate
-its dependencies (B and C), Conan packages too, you can follow different approaches.
+its dependencies (B and C) that are Conan packages too, you can follow different approaches.
 
 The main issue to solve is the absolute paths. When an user installs a package in the local cache,
-the directory will probably be different from the directory where the package was created,
-because of the different computer, conan home directory or even different user or channel:
+the directory will probably be different from the directory where the package was created. This could be
+because of the different computer, the change in Conan home directory or even a different user or channel:
 
-In the machine where the packages were created:
+For example, in the machine where the packages were created:
 
 .. code-block:: text
 
     /home/user/lasote/.data/storage/zlib/1.2.11/conan/stable
 
-In the machine where some user are reusing the library:
+In the machine where the library is being reused:
 
 .. code-block:: text
 
     /custom/dir/.data/storage/zlib/1.2.11/conan/testing
 
-So the ``.pc``  files containing absolute paths won't work to locate the dependencies.
+You can see that *.pc* files containing absolute paths won't work to locate the dependencies.
 
-
-Example of a ``.pc`` file with an absolute path:
-
+Example of a **.pc** file with an absolute path:
 
 .. code-block:: text
 
@@ -47,16 +42,17 @@ Example of a ``.pc`` file with an absolute path:
     Libs: -L${libdir} -L${sharedlibdir} -lz
     Cflags: -I${includedir}
 
+To solve this problem there are different approaches that can be followed.
 
-Approach 1: Import and patch the prefix in the `pc` files
----------------------------------------------------------
+Approach 1: Import and patch the prefix in the *.pc* files
+----------------------------------------------------------
 
-Following this approach your library `A` will import to a local directory the ``.pc`` files from `B` and `C`, then,
-as they will contain absolute paths, the recipe for `A` will patch the paths to match the current installation
+In this approach your **library A** will import to a local directory the ``.pc`` files from **B** and **C**, then,
+as they will contain absolute paths, the recipe for **A** will patch the paths to match the current installation
 directory.
 
-You will need to package the `pc` files from your dependencies.
-You can adjust the `PKG_CONFIG_PATH` to let ``pkg-config`` tool locate your ``.pc`` files.
+You will need to package the *.pc* files from your dependencies. You can adjust the ``PKG_CONFIG_PATH`` to let :command:`pkg-config` tool
+locate them.
 
 .. code-block:: python
 
@@ -80,28 +76,25 @@ You can adjust the `PKG_CONFIG_PATH` to let ``pkg-config`` tool locate your ``.p
                # CALL YOUR BUILD SYSTEM (configure, make etc)
                # E.g., self.run('g++ main.cpp $(pkg-config libB --libs --cflags) -o main')
 
+Approach 2: Prepare and package *.pc* files before package them
+---------------------------------------------------------------
 
-Approach 2: Prepare and package `pc` files before package them
---------------------------------------------------------------
-
-With this approach you will patch the ``pc`` files from B and C before package them.
+With this approach you will patch the *.pc* files from B and C before packaging them.
 The goal is to replace the absolute path (the variable part of the path) with a variable placeholder.
 Then in the consumer package A, declare the variable using ``--define-variable`` when calling the
-`pkg-config` command.
+:command:`pkg-config` command.
 
 This approach is cleaner than approach 1, because the packaged files are already prepared to be
-reused with or without conan, just declaring the needed variable. And it's not needed to import the ``pc``
-files to the consumer package. However, you need B and C libraries to package the ``pc`` files correctly.
+reused with or without Conan by declaring the needed variable. And it's not needed to import the *.pc*
+files to the consumer package. However, you need B and C libraries to package the *.pc* files correctly.
 
-
-Library B recipe (preparing the ``pc`` file):
-
+Library B recipe (preparing the *.pc* file):
 
 .. code-block:: python
 
     from conans import ConanFile, tools
 
-    class LibraryBrecipe(ConanFile):
+    class LibBConan(ConanFile):
         ....
 
         def build(self):
@@ -111,13 +104,11 @@ Library B recipe (preparing the ``pc`` file):
         def package(self):
             self.copy(pattern="*.pc", dst="", keep_path=False)
 
-
-Library A recipe (importing and consuming ``pc`` file):
-
+Library A recipe (importing and consuming *.pc* file):
 
 .. code-block:: python
 
-    class LibraryArecipe(ConanFile):
+    class LibAConan(ConanFile):
         ....
 
         requires = "libB/1.0@conan/stable, libC/1.0@conan/stable"
@@ -137,24 +128,22 @@ Library A recipe (importing and consuming ``pc`` file):
                 # Or directly declare the variables:
                 self.run('g++ main.cpp $(pkg-config %s libB --libs --cflags) -o main' % args)
 
+Approach 3: Use ``--define-prefix``
+-----------------------------------
 
-
-Approach 3: Use `--define-prefix`
----------------------------------
-
-If you have available ``pkg-config`` >= 0.29 and you have only one dependency, you can use directly
+If you have available :command:`pkg-config` >= 0.29 and you have only one dependency, you can use directly
 the ``--define-prefix`` option to declare a custom ``prefix`` variable. With this approach you won't
 need to patch anything, just declare the correct variable.
 
-Approach 4: Use `PKG_CONFIG_$PACKAGE_$VARIABLE`
------------------------------------------------
+Approach 4: Use ``PKG_CONFIG_$PACKAGE_$VARIABLE``
+-------------------------------------------------
 
-If you have available ``pkg-config`` >= 0.29.1 you can manage multiple dependencies declaring N variables
+If you have ``pkg-config`` >= 0.29.1 available, you can manage multiple dependencies declaring **N** variables
 with the prefixes:
 
 .. code-block:: python
 
-    class LibraryArecipe(ConanFile):
+    class LibAConan(ConanFile):
         ....
 
         requires = "libB/1.0@conan/stable, libC/1.0@conan/stable"
@@ -169,20 +158,17 @@ with the prefixes:
             with tools.environment_append(vars):
                 # Call the build system
 
-
 .. _pkg_config_generator_example:
-
 
 Approach 5: Use the ``pkg_config`` generator
 --------------------------------------------
 
-If you use ``package_info()`` in libB and libC, and specify all the library names and any other needed flag,
-you can use the ``pkg_config`` generator during the ``libA``. Those files doesn't need to be patched, because
+If you use ``package_info()`` in library B and library C, and specify all the library names and any other needed flag,
+you can use the ``pkg_config`` generator for **library bA**. Those files doesn't need to be patched, because
 are dynamically generated with the correct path.
 
-So it can be a good solution in case you are building ``libA`` with a build system that manages ``pc files`` like
+So it can be a good solution in case you are building **library A** with a build system that manages *.pc* files like
 :ref:`Meson Build<meson_build_tool>` or :ref:`AutoTools<autotools_build_tool>`:
-
 
 **Meson Build**
 
@@ -202,13 +188,12 @@ So it can be a good solution in case you are building ``libA`` with a build syst
             meson.configure()
             meson.build()
 
-
 **Autotools**
 
 .. code-block:: python
    :emphasize-lines: 5, 10, 11, 12, 13
 
-    from conans import ConanFile, tools, Meson
+    from conans import ConanFile, tools, AutoToolsBuildEnvironment
     import os
 
     class ConanFileToolsTest(ConanFile):
@@ -223,7 +208,7 @@ So it can be a good solution in case you are building ``libA`` with a build syst
             autotools.configure()
             autotools.make()
 
+.. seealso::
 
-
-.. seealso:: Check the :ref:`tools.PkgConfig() class<pkgconfigtool>`,
-             a wrapper of the ``pkg-config`` tool that allows to extract flags, library paths, etc for any ``pc`` file.
+    Check the :ref:`tools.PkgConfig() class<pkgconfigtool>`, a wrapper of the :command:`pkg-config` tool that allows to extract flags,
+    library paths, etc. for any *.pc* file.
