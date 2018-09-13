@@ -210,7 +210,7 @@ Configures `Autotools` project with the given parameters.
 
 .. warning::
 
-    From Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib```. This means that
+    From Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib``. This means that
     if you are using the ``install()`` to package with AutoTools, library artifacts will be stored in the ``lib`` directory unless indicated
     explicitly by the user.
 
