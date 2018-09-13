@@ -206,11 +206,30 @@ Configures `Autotools` project with the given parameters.
     This method sets by default the ``--prefix`` argument to ``self.package_folder`` whenever ``--prefix`` is not provided in the ``args``
     parameter during the configure step.
 
+.. warning::
+
+    From Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib```. This means that
+    if you are using the ``install()`` to package with AutoTools, library artifacts will be stored in the ``lib`` directory unless indicated
+    explicitly by the user.
+
+    This change was introduced in order to fix issues detected in some Linux distributions that will install libraries to ``lib64`` folder
+    (instead of ``lib``) when rebuilding a package from sources. In those cases, if ``package_info()`` was declaring
+    ``self.cpp_info.libdirs`` as ``lib``, the consumption of the package was broken.
+
+    If you were already modelling the ``lib64`` folder in your recipe, make sure you use ``lib`` ``self.cpp_info.libdirs`` or inject
+    that folder via arguments from now on:
+
+    .. code-block:: python
+
+        atools = AutoToolsBuildEnvironment()
+        atools.configure(args=["--libdir=${prefix}/lib64"])
+
 Parameters:
     - **configure_dir** (Optional, Defaulted to ``None``): Directory where the ``configure`` script is. If ``None``, it will use the current
       directory.
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument
-      will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
+      will be escaped according to the current shell. ``--prefix`` and ``--libdir`` will be adjusted automatically if not indicated
+      specifically.
     - **build** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--build``. If ``None`` it will try to detect the
       value if cross-building is detected according to the settings. If ``False``, it will not use this argument at all.
     - **host** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--host``. If ``None`` it will try to detect the
