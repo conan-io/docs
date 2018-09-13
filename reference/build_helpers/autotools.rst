@@ -218,8 +218,8 @@ Configures `Autotools` project with the given parameters.
     ``lib64`` folder (instead of ``lib``) when rebuilding a package from sources. In those cases, if ``package_info()`` was declaring
     ``self.cpp_info.libdirs`` as ``lib``, the consumption of the package was broken.
 
-    If you were already modelling the ``lib64`` folder in your recipe, make sure you use ``lib`` ``self.cpp_info.libdirs`` or inject
-    that folder in the ``configure()`` step via arguments:
+    If you were already modelling the ``lib64`` folder in your recipe, make sure you use ``lib`` for ``self.cpp_info.libdirs`` or inject
+    the argument in the Autotools' ``configure()`` method:
 
     .. code-block:: python
 
