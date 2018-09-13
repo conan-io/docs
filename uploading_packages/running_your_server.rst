@@ -160,7 +160,7 @@ Other parameters (not recommended from Conan 1.1, but necessary for previous ver
    **Important**: The Conan client, by default, will validate the server SSL certificates and won't connect if it's invalid.
    If you have self signed certificates you have two options:
 
-   1. Use the :command:`conan remote` command to disable the SSL certificate checks. e.j: *conan remote add/update myremote https://somedir False*
+   1. Use the :command:`conan remote` command to disable the SSL certificate checks. E.g., *conan remote add/update myremote https://somedir False*
    2. Append the server *.crt* file contents to *~/.conan/cacert.pem* file.
 
    To learn more, see :ref:`How to manage SSL (TLS) certificates <use_tls_certificates>`.
@@ -247,7 +247,7 @@ Running Conan Server using Apache
 
     You need to install ``mod_wsgi``. If you want to use Conan installed from ``pip``, the conf file should be similar to the following example:
 
-    **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
+    **Apache conf file** (e.g., /etc/apache2/sites-available/0_conan.conf)
 
     .. code-block:: text
 
@@ -264,7 +264,7 @@ Running Conan Server using Apache
 
     If you want to use Conan checked out from source in, for example in `/srv/conan`, the conf file should be as follows:
 
-    **Apache conf file** (e.j /etc/apache2/sites-available/0_conan.conf)
+    **Apache conf file** (e.g., /etc/apache2/sites-available/0_conan.conf)
 
     .. code-block:: text
 
@@ -281,7 +281,7 @@ Running Conan Server using Apache
     The directive ``WSGIPassAuthorization On`` is needed to pass the HTTP basic authentication to Conan.
 
     Also take into account that the server config files are located in the home of the configured Apache user,
-    e.j var/www/.conan_server, so remember to use that directory to configure your Conan server.
+    e.g., var/www/.conan_server, so remember to use that directory to configure your Conan server.
 
 Permissions Parameters
 ++++++++++++++++++++++

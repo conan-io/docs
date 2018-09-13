@@ -72,6 +72,10 @@ folders:
     [env]
     PYTHONPATH=$PROFILE_DIR/my_python_tools
 
+.. tip::
+
+    You can manage your profiles and share them using :ref:`conan_config_install`.
+
 Package settings and env vars
 -----------------------------
 
@@ -227,6 +231,5 @@ A profile can also be used in :command:`conan create` and :command:`conan info`:
 .. seealso::
 
     - Check the section :ref:`build_requires` to read more about its usage in a profile.
-    - Check :ref:`conan_profile` for full reference.
-    - Check :ref:`default_profile` for full reference.
+    - Check :ref:`conan_profile` and :ref:`default_profile` for full reference.
     - Related section: :ref:`cross_building`.
