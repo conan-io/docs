@@ -54,7 +54,7 @@ Constructor
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
-    - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
+    - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.g., "MinGW Makefiles"
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`.
     - **build_type** (Optional, Defaulted to ``None``): Force the build type to be declared in ``CMAKE_BUILD_TYPE``. If you set this parameter the build type
@@ -156,6 +156,8 @@ The CMake helper will automatically append some definitions based on your settin
 | CONAN_STD_CXX_FLAG                        |  From setting ``cppstd``. Flag for compiler directly (for CMake < 3.1)                                                       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_EXPORT_NO_PACKAGE_REGISTRY          |  By default, disable the package registry                                                                                    |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_EXPORTED                            |  Defined when CMake is called using Conan CMake helper                                                                       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
 

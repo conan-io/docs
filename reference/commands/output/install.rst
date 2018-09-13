@@ -20,7 +20,7 @@ The output JSON contains a two first level keys:
         - **downloaded**: ``true``/``false``. Downloaded from a remote (not in cache).
         - **time**: ``ISO 8601`` string with the time the recipe was downloaded/retrieved.
         - **error**: ``true``/``false``.
-        - **id**: Reference. e.j: "OpenSSL/1.0.2n@conan/stable"
+        - **id**: Reference. E.g., "OpenSSL/1.0.2n@conan/stable"
         - **dependency**: ``true``/``false``. Is the package being installed/created or a
           dependency. Same as :ref:`develop conanfile attribute<develop_attribute>`.
 
@@ -34,7 +34,7 @@ The output JSON contains a two first level keys:
         - **downloaded**: ``true``/``false``. Downloaded from a remote (not in cache).
         - **time**: ISO 8601 string with the time the recipe was downloaded/retrieved.
         - **error**: ``true``/``false``.
-        - **id**: Package ID. e.j: "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
+        - **id**: Package ID. E.g., "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
 
 **Example:**
 

@@ -110,7 +110,7 @@ Or if we want to create the ``conaninfo.txt`` and ``conanbuildinfo.txt`` files i
 
 However, we recommend the ``conaninfo.txt`` and ``conanbuildinfo.txt`` to be generated in the same
 --build-folder, otherwise, you will need to specify a different folder in your build system to include
-the files generators file. e.j ``conanbuildinfo.cmake``
+the files generators file. E.g., ``conanbuildinfo.cmake``
 
 
 **Example**: Control the build stages
