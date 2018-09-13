@@ -23,6 +23,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.8.0 (##-October-2018)
+-----------------------
+
+- BugFix: ``AutotoolsBuildEnvironment`` packaging library artifacts to ``lib64`` folder in some Linux distros. Setting ``--libdirs`` to
+  ``lib`` by default to avoid broken consumption of packages when rebuilding from sources. Read more: :ref:`here <autotools_lib64_warning>`.
+
+
 1.7.3 (6-September-2018)
 ------------------------
 

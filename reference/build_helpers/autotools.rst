@@ -206,23 +206,26 @@ Configures `Autotools` project with the given parameters.
     This method sets by default the ``--prefix`` argument to ``self.package_folder`` whenever ``--prefix`` is not provided in the ``args``
     parameter during the configure step.
 
+.. _autotools_lib64_warning:
+
 .. warning::
 
     From Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib```. This means that
     if you are using the ``install()`` to package with AutoTools, library artifacts will be stored in the ``lib`` directory unless indicated
     explicitly by the user.
 
-    This change was introduced in order to fix issues detected in some Linux distributions that will install libraries to ``lib64`` folder
-    (instead of ``lib``) when rebuilding a package from sources. In those cases, if ``package_info()`` was declaring
+    This change was introduced in order to fix issues detected in some Linux distributions where libraries were being installed to the
+    ``lib64`` folder (instead of ``lib``) when rebuilding a package from sources. In those cases, if ``package_info()`` was declaring
     ``self.cpp_info.libdirs`` as ``lib``, the consumption of the package was broken.
 
     If you were already modelling the ``lib64`` folder in your recipe, make sure you use ``lib`` ``self.cpp_info.libdirs`` or inject
-    that folder via arguments from now on:
+    that folder in the ``configure()`` step via arguments:
 
     .. code-block:: python
 
         atools = AutoToolsBuildEnvironment()
         atools.configure(args=["--libdir=${prefix}/lib64"])
+        atools.install()
 
 Parameters:
     - **configure_dir** (Optional, Defaulted to ``None``): Directory where the ``configure`` script is. If ``None``, it will use the current
