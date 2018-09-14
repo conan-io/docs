@@ -22,6 +22,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.7 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Please read more :ref:`about Conan stability<stability>`.
 
+- Fix: improve error messages if conanfile.* was not found
 
 1.7.3 (6-September-2018)
 ------------------------
