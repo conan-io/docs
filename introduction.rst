@@ -110,6 +110,7 @@ From Conan 1.0, there is a commitment to stability, not breaking user space whil
 - If something is breaking, it will be considered a bug and reverted
 - Bug fixes will not be considered breaking, recipes and packages relying on the incorrect behavior of such bug will be considered already broken.
 - Only documented features are considered part of the public interface of Conan. Private implementation details, and everything not included in the documentation is subject to change.
+- *conanfile.py* recipes should be defined according to the documentation in :ref:`conanfile_reference`
 - Configuration and automatic tools detection, like the detection of the default profile might be subject to change. Users are encouraged to define their configurations in profiles for repeatability. New installations of conan might use different configuration.
 
 The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 1.X versions. Recipes and packages created with these features will be backwards incompatible with earlier conan versions.
