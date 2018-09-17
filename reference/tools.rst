@@ -1198,7 +1198,7 @@ Wrapper of the ``pkg-config`` tool.
 
 Parameters of the constructor:
     - **library** (Required): Library (package) name, such as ``libastral``.
-    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g. for cross-compilation).
+    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g., for cross-compilation).
     - **static** (Optional, Defaulted to ``False``): Output libraries suitable for static linking (adds ``--static`` to ``pkg-config`` command line).
     - **msvc_syntax** (Optional, Defaulted to ``False``): MSVC compatibility (adds ``--msvc-syntax`` to ``pkg-config`` command line).
     - **variables** (Optional, Defaulted to ``None``): Dictionary of pkg-config variables (passed as ``--define-variable=VARIABLENAME=VARIABLEVALUE``).
@@ -1221,7 +1221,7 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .libs_only_l                | get -l flags                                                        |
 +-----------------------------+---------------------------------------------------------------------+
-| .libs_only_other            | get other libs (e.g. -pthread)                                      |
+| .libs_only_other            | get other libs (e.g., -pthread)                                     |
 +-----------------------------+---------------------------------------------------------------------+
 | .provides                   | get which packages the package provides                             |
 +-----------------------------+---------------------------------------------------------------------+
@@ -1257,7 +1257,7 @@ Parameters of the constructor:
 Methods:
 
 - **run(command)**:
-    Run any "git" command. ``e.j run("status")``
+    Run any "git" command, e.g., ``run("status")``
 - **get_url_with_credentials(url)**:
     Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
 - **clone(url, branch=None)**:

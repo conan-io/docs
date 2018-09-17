@@ -3,14 +3,15 @@
 conanfile.txt
 =============
 
+Reference for *conanfile.txt* sections: requires, generators, etc.
+
 Sections
 --------
 
 [requires]
-__________
+++++++++++
 
 List of requirements, specifying the full reference.
-
 
 .. code-block:: text
 
@@ -19,8 +20,7 @@ List of requirements, specifying the full reference.
     zlib/1.2.11@conan/stable
 
 
-Also support :ref:`version ranges<version_ranges>`:
-
+This section supports references with :ref:`version ranges<version_ranges>`:
 
 .. code-block:: text
 
@@ -29,32 +29,27 @@ Also support :ref:`version ranges<version_ranges>`:
     zlib/1.2.11@conan/stable
 
 [build_requires]
-________________
+++++++++++++++++
 
-List of build requirements, specifying the full reference.
-
+List of build requirements specifying the full reference.
 
 .. code-block:: text
 
     [build_requires]
     7z_installer/1.0@conan/stable
 
-Also support :ref:`version ranges<version_ranges>`
+This section supports references with :ref:`version ranges<version_ranges>`.
 
-In practice the ``[build_requires]`` will be always installed, the same as ``[requires]``.
-Installing from a *conanfile.txt* means that something is going to be built, so the build
-requirements are indeed needed.
+In practice the ``[build_requires]`` will be always installed (same as ``[requires]``) as installing from a *conanfile.txt* means that
+something is going to be built, so the build requirements are indeed needed.
 
-Still, it is useful and conceptually cleaner to have them in separate sections, so users of
-this *conanfile.txt* might quickly identify some dev-tools that they have already installed
-on their machine, differentiating them from the required libraries to link with.
-
+It is useful and conceptually cleaner to have them in separate sections, so users of this *conanfile.txt* might quickly identify some
+dev-tools that they have already installed on their machine, differentiating them from the required libraries to link with.
 
 [generators]
-____________
+++++++++++++
 
-List of :ref:`generators<generators_reference>`
-
+List of :ref:`generators<generators_reference>`.
 
 .. code-block:: text
 
@@ -67,13 +62,10 @@ List of :ref:`generators<generators_reference>`
     cmake
     qmake
 
-
 [options]
-_________
++++++++++
 
-
-List of :ref:`options<options_txt>`. Always specifying **package_name:option = Value**
-
+List of :ref:`options<options_txt>` scoped for each package like **package_name:option = Value**.
 
 .. code-block:: text
 
@@ -88,12 +80,10 @@ List of :ref:`options<options_txt>`. Always specifying **package_name:option = V
     Poco:shared=True
     OpenSSL:shared=True
 
-
 [imports]
-_________
++++++++++
 
 List of files to be imported to a local directory. Read more: :ref:`imports<imports_txt>`.
-
 
 .. code-block:: text
 
@@ -127,10 +117,9 @@ The ``[imports]`` section also support the same arguments as the equivalent ``im
 - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
   folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
 
-Example to collect license files from dependencies, into a *licenses* folder, excluding (just an example) html and jpeg files:
+Example to collect license files from dependencies into a *licenses* folder, excluding (just an example) *.html* and *.jpeg* files:
 
 .. code-block:: text
 
     [imports]
     ., license* -> ./licenses @ folder=True, ignore_case=True, excludes=*.html *.jpeg
-

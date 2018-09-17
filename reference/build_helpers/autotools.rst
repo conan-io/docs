@@ -235,9 +235,9 @@ Builds `Autotools` project with the given parameters.
 Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
-    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. The
+    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.g., ``mingw32-make``. The
       environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used too.
-    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g. docs, shared libraries or
+    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
       install for some AutoTools projects.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the make step.
 
@@ -253,7 +253,7 @@ Performs the install step of autotools calling ``make(target="install")``.
 Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
-    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. The
+    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.g., ``mingw32-make``. The
       environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used too.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the install step.
 
