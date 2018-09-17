@@ -1,9 +1,9 @@
 .. _pc_files:
 
-pkg-config and pc files
-=======================
+:command:`pkg-config` and *.pc* files
+=====================================
 
-If you are creating a Conan package for a library (A) and the build system uses ``.pc`` files to locate
+If you are creating a Conan package for a library (A) and the build system uses *.pc* files to locate
 its dependencies (B and C) that are Conan packages too, you can follow different approaches.
 
 The main issue to solve is the absolute paths. When an user installs a package in the local cache,
@@ -24,7 +24,7 @@ In the machine where the library is being reused:
 
 You can see that *.pc* files containing absolute paths won't work to locate the dependencies.
 
-Example of a **.pc** file with an absolute path:
+Example of a *.pc* file with an absolute path:
 
 .. code-block:: text
 
@@ -47,7 +47,7 @@ To solve this problem there are different approaches that can be followed.
 Approach 1: Import and patch the prefix in the *.pc* files
 ----------------------------------------------------------
 
-In this approach your **library A** will import to a local directory the ``.pc`` files from **B** and **C**, then,
+In this approach your **library A** will import to a local directory the *.pc* files from **B** and **C**, then,
 as they will contain absolute paths, the recipe for **A** will patch the paths to match the current installation
 directory.
 
@@ -128,17 +128,17 @@ Library A recipe (importing and consuming *.pc* file):
                 # Or directly declare the variables:
                 self.run('g++ main.cpp $(pkg-config %s libB --libs --cflags) -o main' % args)
 
-Approach 3: Use ``--define-prefix``
------------------------------------
+Approach 3: Use :command:`--define-prefix`
+-----------------------------------------
 
 If you have available :command:`pkg-config` >= 0.29 and you have only one dependency, you can use directly
-the ``--define-prefix`` option to declare a custom ``prefix`` variable. With this approach you won't
+the :command:`--define-prefix` option to declare a custom ``prefix`` variable. With this approach you won't
 need to patch anything, just declare the correct variable.
 
 Approach 4: Use ``PKG_CONFIG_$PACKAGE_$VARIABLE``
 -------------------------------------------------
 
-If you have ``pkg-config`` >= 0.29.1 available, you can manage multiple dependencies declaring **N** variables
+If you have :command:`pkg-config` >= 0.29.1 available, you can manage multiple dependencies declaring **N** variables
 with the prefixes:
 
 .. code-block:: python
@@ -210,5 +210,5 @@ So it can be a good solution in case you are building **library A** with a build
 
 .. seealso::
 
-    Check the :ref:`tools.PkgConfig() class<pkgconfigtool>`, a wrapper of the :command:`pkg-config` tool that allows to extract flags,
+    Check the :ref:`pkgconfigtool`, a wrapper of the :command:`pkg-config` tool that allows to extract flags,
     library paths, etc. for any *.pc* file.
