@@ -73,7 +73,7 @@ and parenthesis, with settings and also options.
     $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
 If you specify a query filter for a setting and the package recipe is not restricted by this
-setting, Conan won't find the packages. e.j:
+setting, Conan won't find the packages. e.g:
 
 .. code-block:: python
 
