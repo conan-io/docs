@@ -14,7 +14,7 @@ These virtual environment generators create two executable script files (.sh or 
 for ``activate`` the virtual environment (set the environment variables) and one for ``deactivate`` it.
 
 You can aggregate two or more virtual environments, that means that you can activate a ``virtualenv`` and then activate a ``virtualrunenv`` so you will
-have available the environment variables declared in the ``env_info`` object of the requirements plus the special enviroment variables to locate executables
+have available the environment variables declared in the ``env_info`` object of the requirements plus the special environment variables to locate executables
 and shared libraries.
 
 

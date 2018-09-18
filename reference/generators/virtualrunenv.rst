@@ -18,7 +18,7 @@ Created files
 Usage
 -----
 
-Linux/OSX:
+Linux/macOS:
 
 .. code-block:: bash
 

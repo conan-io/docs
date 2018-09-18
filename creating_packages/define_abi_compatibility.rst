@@ -28,7 +28,7 @@ The process is:
    cached in the latest :command:`conan install` execution.
 2. Conan retrieves the ``MyLib/1.0@user/channel`` recipe, reads the ``settings`` attribute, and assigns the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will compute a SHA1 hash that will serve as the binary
-   package ID, e.g. ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
+   package ID, e.g., ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
 4. Conan will try to find the ``c6d75...`` binary package. If it exists, it will be retrieved. If it cannot be found, it will fail and indicate that it
    can be built from sources using :command:`conan install --build`.
 
@@ -79,10 +79,10 @@ The default ``package_id()`` uses the ``settings`` and ``options`` directly as d
 This ``package_id()`` method can be overridden to control the package ID generation. Within the ``package_id()``, we have access to the
 ``self.info`` object, which is hashed to compute the binary ID and contains:
 
-- **self.info.settings**: Contains all the declared settings, always as string values. We can access/modify the settings. e.g:
+- **self.info.settings**: Contains all the declared settings, always as string values. We can access/modify the settings, e.g.,
   ``self.info.settings.compiler.version``.
 
-- **self.info.options**: Contains all the declared options, always as string values too. e.g: ``self.info.options.shared``.
+- **self.info.options**: Contains all the declared options, always as string values too, e.g., ``self.info.options.shared``.
 
 Initially this ``info`` object contains the original settings and options, but they can be changed without constraints to any other
 string value.
@@ -98,14 +98,14 @@ For example, if you are sure your package ABI compatibility is fine for GCC vers
         name = "Pkg"
         version = "1.0"
         settings = "compiler", "build_type"
-    
+
         def package_id(self):
             v = Version(str(self.settings.compiler.version))
             if self.settings.compiler == "gcc" and (v >= "4.5" and v < "5.0"):
                 self.info.settings.compiler.version = "GCC version between 4.5 and 5.0"
 
 We have set the ``self.info.settings.compiler.version`` with an arbitrary string, the value of which is not important (could be any string). The
-only importantance is that it is the same for any GCC version between 4.5 and 5.0. For all those versions, the compiler version will
+only important thing is that it is the same for any GCC version between 4.5 and 5.0. For all those versions, the compiler version will
 always be hashed to the same ID.
 
 Let's try and check that it works properly when installing the package for GCC 4.5:
@@ -132,7 +132,7 @@ We can see that the computed package ID is ``af04...46ad`` (not real). What happ
     Packages
         Pkg/1.0@myuser/mychannel:mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
 
-The required package has the same resulte again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
+The required package has the same result again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
 
 .. code-block:: bash
 
@@ -206,17 +206,17 @@ and transitive dependencies. For example, ``self.info.requires["MyOtherLib"]`` i
 
 - Each ``RequirementInfo`` has the following `read only` reference fields:
 
-    - ``full_name``: Full require's name. E.g **MyOtherLib**
-    - ``full_version``: Full require's version. E.g **1.2**
-    - ``full_user``: Full require's user. E.g **my_user**
-    - ``full_channel``: Full require's channel. E.g **stable**
-    - ``full_package_id``: Full require's package ID. E.g **c6d75a...**
+    - ``full_name``: Full require's name, e.g., **MyOtherLib**
+    - ``full_version``: Full require's version, e.g., **1.2**
+    - ``full_user``: Full require's user, e.g., **my_user**
+    - ``full_channel``: Full require's channel, e.g., **stable**
+    - ``full_package_id``: Full require's package ID, e.g., **c6d75a...**
 
 - The following fields are used in the ``package_id()`` evaluation:
 
-    - ``name``: By default same value as full_name. E.g **MyOtherLib**.
+    - ``name``: By default same value as full_name, e.g., **MyOtherLib**.
     - ``version``: By default the major version representation of the ``full_version``.
-      E.g **1.Y** for a **1.2** ``full_version`` field and **1.Y.Z** for a **1.2.3**
+      E.g., **1.Y** for a **1.2** ``full_version`` field and **1.Y.Z** for a **1.2.3**
       ``full_version`` field.
     - ``user``: By default ``None`` (doesn't affect the package ID).
     - ``channel``: By default ``None`` (doesn't affect the package ID).
@@ -254,7 +254,7 @@ If it is necessary to change the default behavior, the applied versioning schema
             myotherlib.version = myotherlib.full_version
 
             # Changes in major and minor versions will change the Package ID but
-            # only a MyOtherLib patch won't. E.j: From 1.2.3 to 1.2.89 won't change.
+            # only a MyOtherLib patch won't. E.g., from 1.2.3 to 1.2.89 won't change.
             myotherlib.version = myotherlib.full_version.minor()
 
 Besides ``version``, there are additional helpers that can be used to determine whether the **channel** and **user** of one dependency also
@@ -265,21 +265,21 @@ You can determine if the following variables within any requirement change the I
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | **Modes / Variables**   | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` |
 +=========================+==========+=========================================+==========+=============+================+
-| ``semver_mode()``       | Yes      | Yes, only > 1.0.0 (e.g. **1**.2.Z+b102) | No       | No          | No             |
+| ``semver_mode()``       | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``major_mode()``        | Yes      | Yes (e.g. **1**.2.Z+b102)               | No       | No          | No             |
+| ``major_mode()``        | Yes      | Yes (e.g., **1**.2.Z+b102)              | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``minor_mode()``        | Yes      | Yes (e.g. **1.2**.Z+b102)               | No       | No          | No             |
+| ``minor_mode()``        | Yes      | Yes (e.g., **1.2**.Z+b102)              | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``patch_mode()``        | Yes      | Yes (e.g. **1.2.3**\+b102)              | No       | No          | No             |
+| ``patch_mode()``        | Yes      | Yes (e.g., **1.2.3**\+b102)             | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``base_mode()``         | Yes      | Yes (e.g. **1.7**\+b102)                | No       | No          | No             |
+| ``base_mode()``         | Yes      | Yes (e.g., **1.7**\+b102)               | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``full_version_mode()`` | Yes      | Yes (e.g. **1.2.3+b102**)               | No       | No          | No             |
+| ``full_version_mode()`` | Yes      | Yes (e.g., **1.2.3+b102**)              | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``full_recipe_mode()``  | Yes      | Yes (e.g. **1.2.3+b102**)               | Yes      | Yes         | No             |
+| ``full_recipe_mode()``  | Yes      | Yes (e.g., **1.2.3+b102**)              | Yes      | Yes         | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``full_package_mode()`` | Yes      | Yes (e.g. **1.2.3+b102**)               | Yes      | Yes         | Yes            |
+| ``full_package_mode()`` | Yes      | Yes (e.g., **1.2.3+b102**)              | Yes      | Yes         | Yes            |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | ``unrelated_mode()``    | No       | No                                      | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+

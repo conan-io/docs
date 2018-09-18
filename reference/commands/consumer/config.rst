@@ -1,3 +1,7 @@
+.. spelling::
+
+  MyProfile
+
 
 .. _conan_config:
 

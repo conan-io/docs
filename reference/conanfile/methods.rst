@@ -301,7 +301,7 @@ consumers can use those executables easily:
     self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
 
 The :ref:`virtualenv<virtual_environment_generator>` generator will use the ``self.env_info`` variables to prepare a script to
-activate/deactive a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.
+activate/deactivate a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.
 
 They will be automatically applied before calling the consumer *conanfile.py* methods ``source()``, ``build()``, ``package()`` and
 ``imports()``.
@@ -467,14 +467,14 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 
 - ``os_info.is_linux``: True if Linux.
 - ``os_info.is_windows``: True if Windows.
-- ``os_info.is_macos``: True if OSx.
+- ``os_info.is_macos``: True if macOS.
 - ``os_info.is_freebsd``: True if FreeBSD.
 - ``os_info.is_solaris``: True if SunOS.
 - ``os_info.os_version``: OS version.
 - ``os_info.os_version_name``: Common name of the OS (Windows 7, Mountain Lion, Wheezy...).
 - ``os_info.linux_distro``: Linux distribution name (None if not Linux).
 - ``os_info.bash_path``: Returns the absolute path to a bash in the system.
-- ``os_info.uname(options=None)``: Runs the "uname" command and returns the ouput. You can pass arguments with the `options` parameter.
+- ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
 You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
@@ -579,7 +579,7 @@ Parameters:
     - **dst** (Optional, Defaulted to ``""``): Destination local folder, with reference to current directory, to which the files will be
       copied.
     - **src** (Optional, Defaulted to ``""``): Source folder in which those files will be searched. This folder will be stripped from the
-      dst parameter. Eg.: lib/Debug/x86
+      dst parameter. E.g., `lib/Debug/x86`
     - **root_package** (Optional, Defaulted to *all packages in deps*): An fnmatch pattern of the package name ("OpenCV", "Boost") from
       which files will be copied.
     - **folder** (Optional, Defaulted to ``False``): If enabled, it will copy the files from the local cache to a subfolder named as the
@@ -623,7 +623,7 @@ package_id()
 ------------
 
 Creates a unique ID for the package. Default package ID is calculated using ``settings``, ``options`` and ``requires`` properties. When a
-package creator specifies the values for any of thoses properties, it is telling that any value change will require a different binary
+package creator specifies the values for any of those properties, it is telling that any value change will require a different binary
 package.
 
 However, sometimes a package creator would need to alter the default behavior, for example, to have only one binary package for several
@@ -826,7 +826,7 @@ Where:
 - ``self.copy_deps()`` is the same as ``self.copy()`` method inside :ref:`imports() method <method_imports>`.
 
 Both methods allow the definition of absolute paths (to install in the system), in the ``dst`` argument. By default, the ``dst``
-destionation folder will be the current one.
+destination folder will be the current one.
 
 The ``deploy()`` method is designed to work on a package that is installed directly from its reference, as:
 

@@ -35,12 +35,13 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 extensions = [
     'sphinx.ext.todo',
     'conan',
+    'sphinxcontrib.spelling',
 ]
 
 # The short X.Y version.
 version = "1.7"
 # The full version, including alpha/beta/rc tags.
-release = u'1.7.1'
+release = u'1.7.3'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -255,7 +256,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+latex_logo = "_static/conan_logo.png"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.

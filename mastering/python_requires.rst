@@ -144,7 +144,7 @@ There are a few important considerations regarding ``python_requires()``:
   the ``MyBase`` package should be already available in the local cache or to be downloaded from the remotes. Otherwise, conan
   will raise a "missing package" error.
 - They do not affect the package binary ID (hash). Depending on different version, or different channel of
-  such ``python_requires()`` do not change the package IDs as the normal dependencies do. 
+  such ``python_requires()`` do not change the package IDs as the normal dependencies do.
 - They are imported only once. The python code that is reused is imported only once, the first time it is required.
   Subsequent requirements of that conan recipe will reuse the previously imported module. Global initialization at
   parsing time and global state are discouraged.
@@ -153,7 +153,6 @@ There are a few important considerations regarding ``python_requires()``:
 - They are not automatically updated with the ``--update`` argument from remotes.
 - Different packages can require different versions in their ``python_requires()``. They are private to each recipe,
   so they do not conflict with each other, but it is the responsibility of the user to keep consistency.
-- They are not overriden from downstream consumers. Again, as they are private, they are not affected by other packages,
+- They are not overridden from downstream consumers. Again, as they are private, they are not affected by other packages,
   even consumers
 
-  

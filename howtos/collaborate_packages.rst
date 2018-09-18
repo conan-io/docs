@@ -39,7 +39,7 @@ Copy a package
 --------------
 
 If you don't need to modify the original package creator recipe, it is fine to just copy the package in your local storage. You can copy the
-recipes and existing binary packages. This could be enough for caching existing binary packages from the orginal remote into your own
+recipes and existing binary packages. This could be enough for caching existing binary packages from the original remote into your own
 remote, under your own username:
 
 .. code-block:: bash

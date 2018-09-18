@@ -45,6 +45,7 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
 
     call("make html")
     if validate_links:
+        call("make spelling")
         call("make linkcheck")
     call("make latexpdf")
     tmp_dir = tempfile.mkdtemp()
@@ -108,5 +109,6 @@ if __name__ == "__main__":
 
         deploy()
     else:
+        call("make spelling")
         call("make html")
         call("make linkcheck")

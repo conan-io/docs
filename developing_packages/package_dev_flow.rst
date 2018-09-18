@@ -48,7 +48,7 @@ This method outputs the source files into the source-folder.
     Cloning into 'hello'...
     ...
 
-Once you’ve got your source method right and it contains the files you expect, you can move on to testing the various attributes and methods
+Once you've got your source method right and it contains the files you expect, you can move on to testing the various attributes and methods
 related to downloading dependencies.
 
 conan install
@@ -72,7 +72,7 @@ Conan has multiple methods and attributes which relate to dependencies (all the 
     Packages
     ...
 
-This also generates the *conaninfo.txt* and *conanbuildinfo.xyz* files (extensions depends on the generator you’ve used) in the temp folder
+This also generates the *conaninfo.txt* and *conanbuildinfo.xyz* files (extensions depends on the generator you've used) in the temp folder
 (``install-folder``), which will be needed for the next step. Once you've got this command working with no errors, you can move on to
 testing the ``build()`` method.
 

@@ -66,7 +66,7 @@ The dependencies is a list, with each item belonging to one dependency, and each
 - libs
 - defines, cflags, cppflags, sharedlinkflags, exelinkflags
 
-Plese note it is an ordered list, not a map, and dependency order is relevant. Upstream dependencies, i.e. the
+Please note it is an ordered list, not a map, and dependency order is relevant. Upstream dependencies, i.e. the
 ones that do not depend on other packages, will be first, and their direct dependencies after them, and so on.
 
 

@@ -54,7 +54,7 @@ Constructor
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
-    - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.j: "MinGW Makefiles"
+    - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.g., "MinGW Makefiles"
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`.
     - **build_type** (Optional, Defaulted to ``None``): Force the build type to be declared in ``CMAKE_BUILD_TYPE``. If you set this parameter the build type
@@ -158,6 +158,8 @@ The CMake helper will automatically append some definitions based on your settin
 | CMAKE_EXPORT_NO_PACKAGE_REGISTRY          |  By default, disable the package registry                                                                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_IN_LOCAL_CACHE                      |  ``ON`` if installing the package (runs in local cache), "OFF" if running in a user folder                                   |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_EXPORTED                            |  Defined when CMake is called using Conan CMake helper                                                                       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -325,12 +327,12 @@ The following example of ``conanfile.py`` shows you how to manage a project with
 
     def configure_cmake(self):
         cmake = CMake(self)
-        cmake.configure()
 
         # put definitions here so that they are re-used in cmake between
         # build() and package()
         cmake.definitions["SOME_DEFINITION_NAME"] = "On"
 
+        cmake.configure()
         return cmake
 
     def build(self):

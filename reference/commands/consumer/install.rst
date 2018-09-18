@@ -26,7 +26,7 @@ installed, Conan will write the files for the specified generators.
 
     positional arguments:
       path_or_reference     Path to a folder containing a recipe (conanfile.py or
-                            conanfile.txt) or to a recipe file. e.g.,
+                            conanfile.txt) or to a recipe file. E.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
 
@@ -36,7 +36,7 @@ installed, Conan will write the files for the specified generators.
                             Generators to use
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Use this directory as the directory where to put the
-                            generatorfiles. e.g., conaninfo/conanbuildinfo.txt
+                            generatorfiles. E.g., conaninfo/conanbuildinfo.txt
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -76,7 +76,7 @@ installed, Conan will write the files for the specified generators.
                             Look in the specified remote server
       -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
+                            defaults. E.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
 
 
@@ -157,10 +157,10 @@ to build things or not:
   requested configuration was not found on any of the active remotes.
 * :command:`--build=outdated`: Conan will try to build from code if the binary is not built with the
   current recipe or when missing binary package.
-* :command:`--build=[pattern]`: A fnmatch file pattern of a package name. e.j ``zl*`` will match
+* :command:`--build=[pattern]`: A fnmatch file pattern of a package name. E.g., ``zl*`` will match
   ``zlib`` package. Conan will force the build of the packages, the name of which matches the given
   **pattern**. Several patterns can be specified, chaining multiple options,
-  e.g. :command:`--build=pattern1 --build=pattern2`.
+  e.g., :command:`--build=pattern1 --build=pattern2`.
 * :command:`--build`: Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
 
@@ -172,7 +172,7 @@ With the :command:`-e` parameters you can define:
 - Global environment variables (:command:`-e SOME_VAR="SOME_VALUE"`). These variables will be defined
   before the `build` step in all the packages and will be cleaned after the `build` execution.
 - Specific package environment variables (:command:`-e zlib:SOME_VAR="SOME_VALUE"`). These variables will
-  be defined only in the specified packages (e.g. zlib).
+  be defined only in the specified packages (e.g., zlib).
 
 You can specify this variables not only for your direct ``requires`` but for any package in the
 dependency graph.
