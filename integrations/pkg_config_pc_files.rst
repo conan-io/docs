@@ -129,7 +129,7 @@ Library A recipe (importing and consuming *.pc* file):
                 self.run('g++ main.cpp $(pkg-config %s libB --libs --cflags) -o main' % args)
 
 Approach 3: Use :command:`--define-prefix`
------------------------------------------
+------------------------------------------
 
 If you have available :command:`pkg-config` >= 0.29 and you have only one dependency, you can use directly
 the :command:`--define-prefix` option to declare a custom ``prefix`` variable. With this approach you won't
