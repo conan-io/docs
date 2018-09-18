@@ -157,7 +157,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_EXPORT_NO_PACKAGE_REGISTRY          |  By default, disable the package registry                                                                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_IN_LOCAL_CACHE                      |  ``ON`` if installing the package (runs in local cache), "OFF" if running in a user folder                                   |
+| CONAN_IN_LOCAL_CACHE                      |  ``ON`` if installing the package (runs in local cache), ``OFF`` if running in a user folder                                 |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_EXPORTED                            |  Defined when CMake is called using Conan CMake helper                                                                       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
