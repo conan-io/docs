@@ -23,6 +23,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.8.0 (##-October-2018)
+----------------------
+
+- Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
+  the local conan cache as package and building in user space.
+
+
 1.7.3 (6-September-2018)
 ------------------------
 
