@@ -4,9 +4,8 @@ Meson
 =====
 
 If you are using **Meson Build** as your build system, you can use the **Meson** build helper.
-Specially useful with the :ref:`pkg_config generator<pkg_config_generator>` that will generate the ``*.pc``
+Specially useful with the :ref:`pkg_config_generator` that will generate the ``*.pc``
 files of our requirements, then ``Meson()`` build helper will locate them automatically.
-
 
 .. code-block:: python
    :emphasize-lines: 5, 10, 11, 12
@@ -21,9 +20,8 @@ files of our requirements, then ``Meson()`` build helper will locate them automa
 
         def build(self):
             meson = Meson(self)
-            meson.configure()
+            meson.configure(build_folder="build")
             meson.build()
-
 
 Constructor
 -----------
@@ -50,7 +48,7 @@ configure()
     def configure(self, args=None, defs=None, source_folder=None, build_folder=None,
                   pkg_config_paths=None, cache_build_folder=None)
 
-Configures `Meson` project with the given parameters.
+Configures Meson project with the given parameters.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument will
@@ -96,6 +94,7 @@ library locally (in your user folder, not in the local cache), could be:
         settings = "os", "compiler", "build_type", "arch"
         generators = "pkg_config"
         exports_sources = "src/*"
+        requires = "zlib/1.2.11@conan/stable"
 
         def build(self):
             meson = Meson(self)
@@ -114,8 +113,8 @@ library locally (in your user folder, not in the local cache), could be:
         def package_info(self):
             self.cpp_info.libs = ["hello"]
 
-
-Note the **pkg_config** generator, which generates .pc files, which are understood by Meson to process dependencies informations (no need for a "meson" generator).
+Note the ``pkg_config`` generator, which generates *.pc* files (*zlib.pc* from the example above ), which are understood by Meson to process
+dependencies information (no need for a ``meson`` generator).
 
 The layout is:
 
@@ -128,14 +127,20 @@ The layout is:
           | - hello.cpp
           | - hello.h
 
-And the ``meson.build`` could be as simple as:
+And the *meson.build* could be as simple as:
 
 .. code-block:: text
 
-    project('hello', 'cpp', version : '0.1.0',
-		     default_options : ['cpp_std=c++11'])
+    project('hello',
+            'cpp',
+            version : '0.1.0'
+            default_options : ['cpp_std=c++11']
+            )
 
-    library('hello', ['hello.cpp'])
+    library('hello',
+            ['hello.cpp'],
+            dependencies: [dependency('zlib')]
+            )
 
 This allows, to create the package with :command:`conan create` as well as to build the package locally:
 
