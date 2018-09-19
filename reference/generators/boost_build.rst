@@ -3,7 +3,7 @@
 Boost Build
 ===========
 
-.. container:: out_reference_box
+.. caution::
 
     This generator is deprecated in favor of the ``b2`` generator. See :ref:`generator b2<b2_generator>`.
 

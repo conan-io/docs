@@ -13,8 +13,11 @@ Usage
 
 .. code-block:: bash
 
+    # Use release dependencies:
     $ conan install -g b2 -s build_type=Release ...
+    # Optionally, also use debug dependencies:
     $ conan install -g b2 -s build_type=Debug ...
+    # And so on for any number of configurations you need.
 
 The commands will generate 3 files:
 
