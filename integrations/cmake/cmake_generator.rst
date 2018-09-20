@@ -40,12 +40,13 @@ The ``conan_basic_setup()`` is split in smaller macros, that should be self expl
 something different, you can just use them individually.
 
 .. note::
-   
-   This approach makes all dependencies visible to all CMake targets and may also
-   increase the build times due to unneeded include and library path components.
-   This is particularly relevant if you have multiple targets with different dependencies.
-   In that case, you should consider using the :ref:`gen_cmake_targets`.   
 
+    This approach makes all dependencies visible to all CMake targets and may also
+    increase the build times due to unneeded include and library path components.
+    This is particularly relevant if you have multiple targets with different dependencies.
+    In that case, you should consider using the :ref:`cmake_targets_approach`.
+
+.. _cmake_targets_approach:
 
 Targets approach
 ----------------
@@ -64,5 +65,6 @@ Using ``TARGETS`` as argument, ``conan_basic_setup()`` will internally call the 
 which defines cmake ``INTERFACE IMPORTED`` targets, one per package. These targets, named ``CONAN_PKG::PackageName`` can be used to link with, instead of using global cmake setup.
 
 
-.. seealso:: Check the section :ref:`Reference/Generators/cmake <cmake_generator>` to read more about this generator.
+.. seealso::
 
+    Check the :ref:`CMake generator<cmake_generator>` section to read more.
