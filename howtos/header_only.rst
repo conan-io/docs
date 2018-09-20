@@ -141,6 +141,6 @@ Package is created with:
 .. note::
 
     This with/without tests is referring to running full unitary tests over the library, which is different to the :command:`test` functionality
-    that checks the integrityg of the package. The above examples are describing the approaches for unit-testing the library within the
+    that checks the integrity of the package. The above examples are describing the approaches for unit-testing the library within the
     recipe. In either case, it is recommended to have a *test_package* folder, so the :command:`conan create` command checks the package once
     it is created. Check the :ref:`packaging getting started guide<packaging_getting_started>`

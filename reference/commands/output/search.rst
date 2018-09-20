@@ -18,10 +18,10 @@ The output JSON contains a two first level keys:
                   recipe and optionally also packages when searching them.
 
         - **recipe**: Document representing the uploaded recipe.
-            - **id**: Reference. e.j: "OpenSSL/1.0.2n@conan/stable"
+            - **id**: Reference, e.g., "OpenSSL/1.0.2n@conan/stable"
 
         - **packages**: List of elements representing the binary packages found for the recipe.
-            - **id**: Package ID. e.j: "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
+            - **id**: Package ID, e.g., "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
             - **options**: Dictionary of options of the package.
             - **settings**: Dictionary with settings of the package.
             - **requires**: List of requires of the package.

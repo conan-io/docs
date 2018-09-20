@@ -2,8 +2,8 @@
 =========================
 
 
-``cmake_multi`` generator is intended for CMake multi-configuration environments, like Visual Studio and XCode IDEs that do not configure for a specific
-``build_type``, like Debug or Release, but rather can be used for both and switch among Debug andRelease configurations with a combo box or similar control.
+``cmake_multi`` generator is intended for CMake multi-configuration environments, like Visual Studio and Xcode IDEs that do not configure for a specific
+``build_type``, like Debug or Release, but rather can be used for both and switch among Debug and Release configurations with a combo box or similar control.
 The project configuration for cmake is different, in multi-configuration environments, the flow would be:
 
 .. code-block:: bash

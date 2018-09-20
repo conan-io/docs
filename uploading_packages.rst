@@ -1,9 +1,9 @@
 .. _uploading_packages:
 
-Uploading packages
+Uploading Packages
 ==================
 
-This section shows how to upload packages using remotes as well as the different binary repositories
+This section shows how to upload packages using remotes and specifies the different binary repositories
 you can use.
 
 .. toctree::

@@ -1,10 +1,40 @@
 
+How to capture package version from SCM: git
+============================================
+
+The ``Git()`` helper from tools, can be used to capture data from the Git repo in which
+the *conanfile.py* recipe resides, and use it to define the version of the Conan package.
+
+.. code-block:: python
+
+    from conans import ConanFile, tools
+
+    def get_version():
+        git = tools.Git()
+        try:
+            return "%s_%s" % (git.get_branch(), git.get_revision())
+        except:
+            return None
+
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = get_version()
+
+        def build(self):
+            ...
+
+In this example, the package created with :command:`conan create` will be called 
+``Hello/branch_commit@user/channel``. Note that ``get_version()`` returns ``None``
+if it is not able to get the Git data. This is necessary when the recipe is already in the
+Conan cache, and the Git repository may not be there,. A value of ``None`` makes Conan
+get the version from the metadata.
+
 
 How to capture package version from text or build files
 =======================================================
 
-It is common that a library version number would be already encoded in a text file, in some build scripts, etc.
-Lets take as an example that we have the following library layout, that we want to create a package from it:
+It is common that a library version number would be already encoded in a text file, build scripts, etc.
+As an example, let's assume we have the following library layout, and that we want to create a package from it:
 
 .. code-block:: text
 
@@ -15,8 +45,8 @@ Lets take as an example that we have the following library layout, that we want 
        ...
 
 
-The *CMakeLists.txt* will have some variables to define the library version number. Lets assume for simplicity
-that it has some line like:
+The *CMakeLists.txt* will have some variables to define the library version number. For simplicity, let's also assume
+that it includes a line such as the following:
 
 .. code-block:: cmake
 
@@ -25,7 +55,7 @@ that it has some line like:
     add_library(hello src/hello.cpp)
 
 
-We will typically have in our *conanfile.py* package recipe:
+Typically, our *conanfile.py* package recipe will include:
 
 
 .. code-block:: python
@@ -35,8 +65,8 @@ We will typically have in our *conanfile.py* package recipe:
         version = "1.2.3"
 
 
-Usually this takes very little maintenance, and when the CMakeLists version is bumped, the *conanfile.py* version is bumped too.
-But if you want to only have to update the *CMakeLists.txt* version, you can extract the version dynamically, with:
+This usually requires very little maintenance, and when the CMakeLists version is bumped, so is the *conanfile.py* version.
+However, if you only want to have to update the *CMakeLists.txt* version, you can extract the version dynamically, using:
 
 
 .. code-block:: python
@@ -59,4 +89,4 @@ But if you want to only have to update the *CMakeLists.txt* version, you can ext
 
 
 Even if the *CMakeLists.txt* file is not exported to the local cache, it will still work, as the ``get_version()`` function returns None
-when it is not found, then taking the version number from the package metadata (layout).
+when it is not found, and then takes the version number from the package metadata (layout).

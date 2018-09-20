@@ -1,3 +1,8 @@
+.. spelling::
+
+  ps
+
+
 .. _virtualenv_generator:
 
 virtualenv
@@ -19,7 +24,7 @@ Created files
 Usage
 -----
 
-Linux/OSX:
+Linux/macOS:
 
 .. code-block:: bash
 

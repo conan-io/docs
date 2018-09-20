@@ -1,3 +1,7 @@
+.. spelling::
+
+  tf
+
 
 .. _conan_create:
 

@@ -41,7 +41,7 @@ You can override the default behavior of any find_package() by creating a ``find
 Creating a custom FindXXX.cmake file
 ------------------------------------
 
-Sometimes the "official" CMake FindXXX.cmake scripts are not ready to find our libraries (not supported library names for specific settings, fixed installation directories like C:\\OpenSSL... etc)
+Sometimes the "official" CMake FindXXX.cmake scripts are not ready to find our libraries (not supported library names for specific settings, fixed installation directories like ``C:\OpenSSL``, etc.)
 Or maybe there is no "official" CMake script for our library.
 
 So in these cases we can provide a custom **FindXXX.cmake** file in our conan packages.

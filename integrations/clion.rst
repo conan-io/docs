@@ -17,7 +17,7 @@ Just include the ``conanbuildinfo.cmake`` this way:
        message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
    endif()
 
-If the ``conanbuildinfo.cmake`` file is not found, it will print a warning message in the ``Messages`` console of your Clion IDE.
+If the ``conanbuildinfo.cmake`` file is not found, it will print a warning message in the ``Messages`` console of your CLion IDE.
 
 
 Using packages in a CLion project

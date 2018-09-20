@@ -24,5 +24,5 @@ And in *conanfile.py* we will use the ``imports()`` method:
     def imports(self):
          self.copy("license*", dst="licenses", folder=True, ignore_case=True)
 
-In both cases, after :command:`conan install`, it will store all the found License files inside the local **licenses** folder, wich will contain
+In both cases, after :command:`conan install`, it will store all the found License files inside the local **licenses** folder, which will contain
 one subfolder per dependency with the license file inside.

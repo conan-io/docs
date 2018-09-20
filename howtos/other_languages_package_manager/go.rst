@@ -1,3 +1,8 @@
+.. spelling::
+
+  codegangsta
+
+
 .. _go_package_manager:
 
 Conan: A Go package manager

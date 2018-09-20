@@ -1,3 +1,8 @@
+.. spelling::
+
+  isysroot
+
+
 .. _tools:
 
 Tools
@@ -36,8 +41,8 @@ tools.vcvars_command()
                        winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
-`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+Studio environment variables for a certain Visual Studio version. It wraps the functionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2017>`_ but
 does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
@@ -129,7 +134,7 @@ environment:
         with tools.vcvars(self.settings):
             do_something()
 
-.. _build_sln_commmand:
+.. _build_sln_command:
 
 
 tools.build_sln_command() (DEPRECATED)
@@ -201,7 +206,7 @@ Returns a string with a joint command consisting in setting the environment vari
 ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
-    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
+    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_command>`.
     - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
 .. _tools_unzip:
@@ -426,7 +431,7 @@ tools.replace_in_file()
 
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
-conan dependencies without forking or modifying the original project:
+Conan dependencies without forking or modifying the original project:
 
 .. code-block:: python
 
@@ -595,6 +600,11 @@ Parameters:
 
 tools.pythonpath()
 ------------------
+
+.. warning::
+
+    This way of reusing python code from other recipes can be improved via ``python_requires()``.
+    See this section: :ref:`Python requires: reusing python code in recipes<python_requires>`
 
 This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
 any PYTHONPATH inherited from the requirements will be automatically available.
@@ -812,7 +822,7 @@ tools.escape_windows_cmd()
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
-- Adds escapes for cmmd.exe so the argument survives cmmd.exe's substitutions.
+- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
 
 Parameters:
     - **command** (Required): Command to execute.
@@ -907,7 +917,7 @@ tools.mkdir(), tools.rmdir()
     def rmdir(path)
 
 Utility functions to create/delete a directory.
-The existance of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
+The existence of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
 already exists and ``rmdir()`` will do nothing if the directory does not exists.
 
 This makes it safe to use these functions in the ``package()`` method of a ``conanfile.py``
@@ -916,10 +926,10 @@ when ``no_copy_source=True``.
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.mkdir("mydir") # Creates mydir if it does not already exist
     tools.mkdir("mydir") # Does nothing
-    
+
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
 
@@ -997,7 +1007,7 @@ tools.touch()
 
     def touch(fname, times=None)
 
-Updates the timestamp (last access and last modificatiion times) of a file.
+Updates the timestamp (last access and last modification times) of a file.
 This is similar to Unix' ``touch`` command, except the command fails if the file does not exist.
 
 Optionally, a tuple of two numbers can be specified, which denotes the new values for the
@@ -1007,7 +1017,7 @@ Optionally, a tuple of two numbers can be specified, which denotes the new value
 
     from conans import tools
     import time
-   
+
     tools.touch("myfile")                            # Sets atime and mtime to the current time
     tools.touch("myfile", (time.time(), time.time()) # Similar to above
     tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
@@ -1058,7 +1068,7 @@ Parameters:
     - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
       Enterprise. Specify ``["*"]`` by itself to search all product instances installed.
     - **requires** (Optional, Defaulted to ``None``): List of one or more workload or component IDs required when finding instances. See
-      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids for a list of workload and component IDs.
+      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids?view=vs-2017 for a list of workload and component IDs.
     - **version** (Optional, Defaulted to ``""``): A version range for instances to find. Example: ``"[15.0,16.0)"`` will find versions 15.*.
     - **latest** (Optional, Defaulted to ``False``): Return only the newest version and last installed.
     - **legacy** (Optional, Defaulted to ``False``): Also searches Visual Studio 2015 and older products. Information is limited. This
@@ -1188,7 +1198,7 @@ Wrapper of the ``pkg-config`` tool.
 
 Parameters of the constructor:
     - **library** (Required): Library (package) name, such as ``libastral``.
-    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g. for cross-compilation).
+    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g., for cross-compilation).
     - **static** (Optional, Defaulted to ``False``): Output libraries suitable for static linking (adds ``--static`` to ``pkg-config`` command line).
     - **msvc_syntax** (Optional, Defaulted to ``False``): MSVC compatibility (adds ``--msvc-syntax`` to ``pkg-config`` command line).
     - **variables** (Optional, Defaulted to ``None``): Dictionary of pkg-config variables (passed as ``--define-variable=VARIABLENAME=VARIABLEVALUE``).
@@ -1211,7 +1221,7 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .libs_only_l                | get -l flags                                                        |
 +-----------------------------+---------------------------------------------------------------------+
-| .libs_only_other            | get other libs (e.g. -pthread)                                      |
+| .libs_only_other            | get other libs (e.g., -pthread)                                     |
 +-----------------------------+---------------------------------------------------------------------+
 | .provides                   | get which packages the package provides                             |
 +-----------------------------+---------------------------------------------------------------------+
@@ -1239,15 +1249,15 @@ Parameters of the constructor:
 
     - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
     - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
-    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
-    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
     - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
 
 Methods:
 
 - **run(command)**:
-    Run any "git" command. ``e.j run("status")``
+    Run any "git" command, e.g., ``run("status")``
 - **get_url_with_credentials(url)**:
     Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
 - **clone(url, branch=None)**:
@@ -1258,6 +1268,10 @@ Methods:
     Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
 - **get_revision()**:
     Gets the current commit hash.
+- **get_branch()**:
+    Gets the current branch.
+- **excluded_files()**:
+    Gets a list of the files and folders that would be excluded by *.gitignore* file.
 
 
 .. _tools_apple:
@@ -1270,7 +1284,7 @@ tools.is_apple_os()
 
     def is_apple_os(os_)
 
-Returns ``True`` if OS is an Apple one: Macos, iOS, watchOS or tvOS.
+Returns ``True`` if OS is an Apple one: macOS, iOS, watchOS or tvOS.
 
 Parameters:
     - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.
