@@ -39,6 +39,13 @@ set global include directories, libraries directories, definitions, etc. so typi
 The ``conan_basic_setup()`` is split in smaller macros, that should be self explanatory. If you need to do
 something different, you can just use them individually.
 
+.. note::
+   
+   This approach makes all dependencies visible to all CMake targets and may also
+   increase the build times due to unneeded include and library path components.
+   This is particularly relevant if you have multiple targets with different dependencies.
+   In that case, you should consider using the :ref:`gen_cmake_targets`.   
+
 
 Targets approach
 ----------------
