@@ -3,6 +3,10 @@
 Boost Build
 ===========
 
+.. caution::
+
+    This generator is deprecated in favor of the ``b2`` generator. See :ref:`generator b2<b2_generator>`.
+
 The **boost-build** generator creates a file named ``project-root.jam`` that can be used with your *Boost Build* build system script.
 
 The generated ``project-root.jam`` will generate several sections, and an alias ``conan-deps`` with the sections name:
