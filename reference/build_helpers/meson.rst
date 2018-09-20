@@ -4,7 +4,7 @@ Meson
 =====
 
 If you are using **Meson Build** as your build system, you can use the **Meson** build helper.
-Specially useful with the :ref:`pkg_config_generator` that will generate the ``*.pc``
+Specially useful with the :ref:`pkg_config_generator` that will generate the *.pc*
 files of our requirements, then ``Meson()`` build helper will locate them automatically.
 
 .. code-block:: python
@@ -58,7 +58,7 @@ Parameters:
       Relative paths are allowed and will be relative to ``self.source_folder``.
     - **build_folder** (Optional, Defaulted to ``None``): Meson's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.
       The ``Meson`` object will store ``build_folder`` internally for subsequent calls to ``build()``.
-    - **pkg_config_paths** (Optional, Defaulted to ``None``): A list containing paths to locate the pkg-config files (\*.pc). If ``None``, it will be set to ``conanfile.build_folder``.
+    - **pkg_config_paths** (Optional, Defaulted to ``None``): A list containing paths to locate the pkg-config files (*\*.pc*). If ``None``, it will be set to ``conanfile.build_folder``.
     - **cache_build_folder** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
