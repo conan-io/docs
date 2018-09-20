@@ -28,7 +28,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
   the local conan cache as package and building in user space.
-- Feature: New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build`` generator. 
+- Feature: **[Experimental]**  New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build`` generator.
 
 1.7.3 (6-September-2018)
 ------------------------

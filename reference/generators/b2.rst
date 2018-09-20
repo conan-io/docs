@@ -1,7 +1,7 @@
 .. _b2_generator:
 
-`B2`
-====
+`B2` [EXPERIMENTAL]
+===================
 
 .. container:: out_reference_box
 
