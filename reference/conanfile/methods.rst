@@ -405,13 +405,17 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
+.. seealso::
+
+    Setting conditional default options using ``config_options()``: :ref:`conanfile_default_options`.
+
 requirements()
 --------------
 
 Besides the ``requires`` field, more advanced requirement logic can be defined in the ``requirements()`` optional method, using for example
 values from the package ``settings`` or ``options``:
 
-..  code-block:: python
+.. code-block:: python
 
     def requirements(self):
         if self.options.myoption:
