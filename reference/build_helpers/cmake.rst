@@ -305,6 +305,20 @@ example:
         cmake.install()
         cmake.patch_config_paths()
 
+
+get_version()
++++++++++++++
+
+.. code-block:: python
+
+    @staticmethod
+    def get_version()
+
+
+Returns the CMake version in a ``conans.model.Version`` object as it is evaluated by the
+command line. Will raise if cannot resolve it to valid version.
+
+
 Environment variables
 ---------------------
 
