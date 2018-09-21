@@ -1153,8 +1153,8 @@ tools.collect_libs()
 
     def collect_libs(conanfile, folder="lib")
 
-Returns a list of library names from the libraries (iles with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the **folder**
-directory relative to the package folder.Useful to collect not inter-dependent libraries or with complex names like
+Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the **folder**
+directory relative to the package folder. Useful to collect not inter-dependent libraries or with complex names like
 ``libmylib-x86-debug-en.lib``.
 
 .. code-block:: python
