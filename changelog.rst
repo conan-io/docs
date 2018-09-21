@@ -23,6 +23,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Please read more :ref:`about Conan stability<stability>`.
 
 
+1.8.0 (##-October-2018)
+------------------------
+
+- Feature: Add SCM support for SVN.
+
+
 1.7.3 (6-September-2018)
 ------------------------
 

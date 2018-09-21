@@ -55,13 +55,10 @@ You can also use the :ref:`tools.Git <tools_git>` class:
         ...
 
 
-Conan will clone the ``scm url`` and will checkout the ``scm revision``.
+Conan will clone the ``scm url`` and will checkout the ``scm revision``. Head to
+:ref:`creating package documentation <scm_feature>`
+to know more details about SCM feature.
 
-For ``git`` (currently the only supported scm), the ``revision`` field can be:
-
-- A commit hash
-- A branch
-- A tag
 
 The ``source()`` method will be called after the checkout process, so you can still use it to patch something or
 retrieve more sources, but it is not necessary in most cases.
