@@ -138,6 +138,11 @@ basics:
   information is used for files created by generators to be used by consumers, as
   *conanbuildinfo.cmake*.
 
+.. note::
+
+    When writing your own *conanfile.py* references, please bear in mind that you should follow the rules in
+    :ref:`conanfile_reference`
+
 The test_package Folder
 -----------------------
 

@@ -19,14 +19,17 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.7 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+  Conan 1.8 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Please read more :ref:`about Conan stability<stability>`.
 
 
 1.8.0 (##-October-2018)
-------------------------
+-----------------------
 
-- Feature: Add SCM support for SVN.
+- Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
+  the local conan cache as package and building in user space.
+- Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build`` generator.
+- Feature: **[Experimental]** Add SCM support for SVN.
 
 
 1.7.3 (6-September-2018)
@@ -85,6 +88,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - BugFix: Deactivate script in ``virtualenv`` generator causes PS1 to go unset.
 - BugFix: Apply general scope options to a consumer ConanFile first.
 - BugFix: Fixed detection of a valid repository for Git in the SCM feature.
+
 
 
 1.6.1 (27-July-2018)
