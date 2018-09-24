@@ -1151,29 +1151,31 @@ tools.collect_libs()
 
 .. code-block:: python
 
-    def collect_libs(conanfile, folder="lib")
+    def collect_libs(conanfile, folder=None)
 
-Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the **folder**
-directory relative to the package folder. Useful to collect not inter-dependent libraries or with complex names like
-``libmylib-x86-debug-en.lib``.
+Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
+``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
+inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
 .. code-block:: python
 
     from conans import tools
 
     def package_info(self):
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Deafult value is 'lib'
         self.cpp_info.libs = tools.collect_libs(self)
 
 For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collect the library name **math**.
 
 **Parameters:**
-    - **conanfile** (Required): A `ConanFile` object from which to get the `package_folder`.
-    - **folder** (Optional, Defaulted to ``"lib"``): The subfolder where the library files are.
+    - **conanfile** (Required): A `ConanFile` object to get the `package_folder` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ```None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+      the library files are.
 
 .. warning::
 
     This tool collects the libraries searching directly inside the package folder and returns them
-    in no specific order. If libraries are inter-dependent, then package_info() method should order
+    in no specific order. If libraries are inter-dependent, then ``package_info()`` method should order
     them to achieve correct linking order.
 
 .. _pkgconfigtool:
