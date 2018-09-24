@@ -30,6 +30,10 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   the local conan cache as package and building in user space.
 - Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build``
   generator.
+- Fix: More complete architecture list in the detection of the gnu triplet and the detection of the build machine architecture.
+- Bugfix: Renamed ``os`` (reserved symbol) parameter to ``os_`` in the ``get_gnu_triplet`` tool.
+- Bugfix: Warning message printed if Conan cannot deduce an architecture of a GNU triplet.
+
 
 
 1.7.4 (18-September-2018)

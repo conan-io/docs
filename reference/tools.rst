@@ -728,12 +728,12 @@ tools.get_gnu_triplet()
 
 .. code-block:: python
 
-    def get_gnu_triplet(os, arch, compiler=None)
+    def get_gnu_triplet(os_, arch, compiler=None)
 
 Returns string with GNU like ``<machine>-<vendor>-<op_system>`` triplet.
 
 Parameters:
-    - **os** (Required): Operating system to be used to create the triplet.
+    - **os_** (Required): Operating system to be used to create the triplet.
     - **arch** (Required): Architecture to be used to create the triplet.
     - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
 
