@@ -21,6 +21,7 @@ Contents:
    devtools
    mastering
    systems_cross_building
+   extending
    integrations
    howtos
    reference
