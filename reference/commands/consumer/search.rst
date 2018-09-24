@@ -73,7 +73,7 @@ and parenthesis, with settings and also options.
     $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
 If you specify a query filter for a setting and the package recipe is not restricted by this
-setting, will find all packages:
+setting, Conan won't find the packages. e.g:
 
 .. code-block:: python
 
@@ -84,8 +84,13 @@ setting, will find all packages:
 
     $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
 
-The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare
-"os" as a setting.
+The query above won't find the ``MyRecipe`` binary packages (because the recipe doesn't declare
+"os" as a setting) unless you specify the ``None`` value:
+
+.. code-block:: bash
+
+    $ conan search MyRecipe/1.0@lasote/stable -q os=None
+
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:
 
