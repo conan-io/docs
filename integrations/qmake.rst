@@ -50,16 +50,16 @@ This example project will depend on a multi-configuration (Debug/Release) "Hello
 
     $ git clone https://github.com/memsharded/hello_multi_config
     $ cd hello_multi_config
-    $ conan create . diego/testing
-    Hello/0.1@diego/testing export: Copied 1 '.txt' file: CMakeLists.txt
-    Hello/0.1@diego/testing export: Copied 1 '.cpp' file: hello.cpp
-    Hello/0.1@diego/testing export: Copied 1 '.h' file: hello.h
-    Hello/0.1@diego/testing: A new conanfile.py version was exported
+    $ conan create . memsharded/testing
+    Hello/0.1@memsharded/testing export: Copied 1 '.txt' file: CMakeLists.txt
+    Hello/0.1@memsharded/testing export: Copied 1 '.cpp' file: hello.cpp
+    Hello/0.1@memsharded/testing export: Copied 1 '.h' file: hello.h
+    Hello/0.1@memsharded/testing: A new conanfile.py version was exported
 
 This hello package is created with CMake but that doesn't matter for this example, as it can be consumed from a qmake project with the
 configuration showed before.
 
-Now let's get the qmake project and install its `Hello/0.1@diego/testing` dependency:
+Now let's get the qmake project and install its `Hello/0.1@memsharded/testing` dependency:
 
 .. code-block:: bash
 
@@ -68,11 +68,11 @@ Now let's get the qmake project and install its `Hello/0.1@diego/testing` depend
     $ conan install .
     PROJECT: Installing C:\Users\memsharded\qmake_example\conanfile.txt
     Requirements
-        Hello/0.1@diego/testing from local cache - Cache
+        Hello/0.1@memsharded/testing from local cache - Cache
     Packages
-        Hello/0.1@diego/testing:15af85373a5688417675aa1e5065700263bf257e - Cache
+        Hello/0.1@memsharded/testing:15af85373a5688417675aa1e5065700263bf257e - Cache
 
-    Hello/0.1@diego/testing: Already installed!
+    Hello/0.1@memsharded/testing: Already installed!
     PROJECT: Generator qmake created conanbuildinfo.pri
     PROJECT: Generator txt created conanbuildinfo.txt
     PROJECT: Generated conaninfo.txt
