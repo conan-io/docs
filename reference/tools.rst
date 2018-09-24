@@ -1168,8 +1168,8 @@ inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib
 For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collect the library name **math**.
 
 **Parameters:**
-    - **conanfile** (Required): A `ConanFile` object to get the `package_folder` and ``cpp_info``.
-    - **folder** (Optional, Defaulted to ```None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+    - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ``None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
       the library files are.
 
 .. warning::
