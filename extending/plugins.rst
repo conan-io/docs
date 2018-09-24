@@ -6,41 +6,11 @@ Plugins
 The Conan plugins is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
 points.
 
-Storage, activation and sharing
--------------------------------
-
-Plugins are Python files stored under *~/.conan/plugins* folder and their file name should be the same used for activation.
-
-The activation of the plugins is done in the *conan.conf* section named ``[plugins]``. The plugin names listed under this section will be
-considered activated.
-
-.. code-block:: text
-   :caption: *conan.conf*
-
-    ...
-    [plugins]
-    attribute_checker
-    conan-center
-
-They can be easily activated and deactivated from the command line using the :command:`conan config set` command:
-
-.. code-block:: bash
-
-    $ conan config set plugins.attribute_checker  # Activates 'attribute_checker'
-
-    $ conan config rm plugins.attribute_checker  # Deactivates 'attribute_checker'
-
-There is also an environment varibale ``CONAN_PLUGINS`` to list the active plugins. Plugins listerd in *conan.conf* will be loaded into
-this variable and values in the environment variable will be used to load the plugins.
-
-Plugins are considered part of the Conan client configuration and can be shared as usual with the :ref:`conan_config_install` command.
-
 Plugin structure
 ----------------
 
-As indicaterd above, plugins are Python files containing **pre** and **post** functions that will be executed prior and after a determined
-task performed by the Conan client. Those tasks could be Conan commands, recipe interactions such as exporting or packaging or interactions
-with the remotes.
+Plugins are Python files containing **pre** and **post** functions that will be executed prior and after a determined task performed by the
+Conan client. Those tasks could be Conan commands, recipe interactions such as exporting or packaging or interactions with the remotes.
 
 Here you can see an example of a simple plugin:
 
@@ -83,12 +53,15 @@ Here you can see an example of a simple plugin:
                             "commit/tag or download a compressed source file" % test)
 
 This plugin is only checking the recipe content prior to the recipe being exported and prior to downloadin the sources. Basically the
-``pre_export()`` function is checking the attributes of the ``conanfile`` object to see if there is an url, a license and a description and
-warning the user with a message through the ``output`` (LINK). This is done **before** the recipe is exported to the local cache.
+``pre_export()`` function is checking the attributes of the ``conanfile`` object to see if there is an URL, a license and a description and
+warning the user with a message through the ``output``. This is done **before** the recipe is exported to the local cache.
 
 The ``pre_source()`` function checks if the recipe contains a ``source()`` method (this time it is using the conanfile content instead of
 the ``conanfile`` object) and in that case it checks if the download of the sources are likely coming from inmutable places (a compressed
 file or a determined :command:`git checkout`). This is done **before** the **source()** method of the recipe is called.
+
+Any kind of Python scripting can be executed. You can create global functions and called them from different plugin functions, import them
+from a relative module and warn, error or even raise to block the Conan client execution.
 
 As you can see each function receives some parameters but not all of them are available for all functions as this may change depending on
 the context of the commands being executed such as the recipe being in the local cache or not.
@@ -96,7 +69,7 @@ the context of the commands being executed such as the recipe being in the local
 .. important::
 
     A detailed description of the functions allowed and its parameters as well as their execution can be found in it dedicated reference
-    section: :ref:`reference_plugins`.
+    section: :ref:`plugins_reference`.
 
 Other useful task where a plugin may come handy are the upload and download actions. There are **pre** and **post** functions for every
 donwload/upload as a whole and for fine download task such as recipe and package downloads/uploads.
@@ -124,6 +97,41 @@ For example they can be used to sign the packages before being uploaded and chec
 Official Plugins
 ----------------
 
-Attribute checker
+There are two official plugins ready to be used in Conan. You could take as an starting point to create your own ones.
+
+attribute_checker
++++++++++++++++++
+
+The first one is the *attribute_checker.py* plugin that it is shipped with the Conan client. It has the functionality of warning when
+recipes do not contain some metada attributes.
+
+.. code-block:: python
+   :caption: *attribute_checker.py*
+
+    def pre_export(output, conanfile, conanfile_path, reference, **kwargs):
+        # Check basic meta-data
+        for field in ["url", "license", "description"]:
+            field_value = getattr(conanfile, field, None)
+            if not field_value:
+                output.warn("Conanfile doesn't have '%s'. It is recommended to add it as attribute"
+                            % field)
+
+This plugin comes activated by default.
 
 Conan Center plugin
++++++++++++++++++++
+
+This plugin has been created to perform some the checks that the Conan team make as part of the process of accepting a new library into the
+Conan Center central respository in Bintray (LINK).
+
+This plugin is not shipped with the Conan plugin but stored in a repository to improve it separeted from the Conan source code.
+
+The plugin performs various checks during development (LINK) of a package and also during the creation and it has been designed to not
+block the Conan client execution and only printing error traces.
+
+.. info::
+
+    Conan Center plugin GitHub repository: (LINK)
+
+It has been preliminary tested with some recipes but will require some iterations for it to be mature. However, it is a good plugin to use
+for anyone willing to :ref:`include their recipe into Conan Center<conan_center_flow>`.
