@@ -128,7 +128,7 @@ block the Conan client execution and only printing error traces.
 
 .. tip::
 
-    Check the Conan Center plugin repository: https://github.com/danimtb/conan-plugins
+    Check the Conan Center plugin repository: https://github.com/conan-io/plugins
 
 It has been preliminary tested with some recipes but will require some iterations for it to be mature. However, it is a good plugin to use
 for anyone willing to :ref:`include their recipe into Conan Center<conan_center_flow>`.
