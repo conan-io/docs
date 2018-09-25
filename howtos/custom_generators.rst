@@ -67,6 +67,21 @@ Once, it is defined in the ``conanfile.py`` you can treat is as a regular packag
 will ``export`` it first to your local cache, test it, and once it is working fine, you would
 ``upload`` it to a server.
 
+
+You have access to the ``conanfile`` instance at ``self.conanfile`` and get information from the requirements:
+
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| Variable                                | Description                                                                                    |
++=========================================+================================================================================================+
+| self.conanfile.deps_cpp_info            | :ref:`deps_cpp_info<deps_cpp_info_attributes_reference>`                                       |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| self.conanfile.deps_env_info            | :ref:`deps_env_info<deps_env_info_attributes_reference>`                                       |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| self.conanfile.deps_user_info           | :ref:`deps_user_info<deps_user_info_attributes_reference>`                                     |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| self.conanfile.env                      | dict with the applied env vars declared in the requirements                                    |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+
             
 Premake generator example
 -------------------------
