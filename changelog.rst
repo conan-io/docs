@@ -35,8 +35,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.7.4 (18-September-2018)
 -------------------------
 
-- Bugfix: Fixed a bug in apiv2.
-- Fix: Disabled apiv2 by default until it gets more stability.
+- Bugfix: Fixed a bug in `apiv2`.
+- Fix: Disabled `apiv2` by default until it gets more stability.
 
 
 1.7.3 (6-September-2018)
