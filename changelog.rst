@@ -24,11 +24,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 1.8.0 (##-October-2018)
-----------------------
+-----------------------
 
 - Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
   the local conan cache as package and building in user space.
 - Feature: **[Experimental]**  New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build`` generator.
+- Feature: Add environment variable ```CONAN_DEFAULT_PROFILE_PATH`` to override the profile used
+  by default.
 
 1.7.3 (6-September-2018)
 ------------------------
