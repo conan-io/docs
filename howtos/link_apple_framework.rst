@@ -44,30 +44,33 @@ it will indicate to the linker to link with the specified frameworks.
 How to package Apple Frameworks
 ===============================
 
-To package an Apple framework:
-
-- Copy/create a framework folder ``XXX.framework`` (``XXX`` being the name of your framework),
-  to your package folder, where you should put all the subdirectories (``Headers``, ``Modules``, etc).
+To package a **MyFramework** Apple framework, copy/create a folder
+``MyFramework.framework`` to your package folder, where you should put all the subdirectories
+(``Headers``, ``Modules``, etc).
 
 .. code-block:: python
 
     def package(self):
         # If you have the framework folder built in your build_folder:
-        self.copy("XXX.framework/*", symlinks=True)
+        self.copy("MyFramework.framework/*", symlinks=True)
         # Or build the destination folder:
-        tools.mkdir("XXX.framework/Headers")
-        self.copy("*.h", dst="XXX.framework/Headers")
+        tools.mkdir("MyFramework.framework/Headers")
+        self.copy("*.h", dst="MyFramework.framework/Headers")
         # ...
 
-- Declare the framework in the ``cpp_info`` object.
+Declare the framework in the ``cpp_info`` object, passing a compiler flag ``-F`` with the
+directory of the framework folder (self.package_folder) and linker flags with the ``-F`` and ``-framework`` with
+the framework name.
 
 .. code-block:: python
 
     def package_info(self):
         ...
-        self.cpp_info.includedirs = ['XXX.framework/Headers']
-        self.cpp_info.exelinkflags.append("-framework XXX")
         # Note that -F flags are not automatically adjusted in "cmake"
         # generator so it will be needed to declare its path like this:
-        # self.cpp_info.exelinkflags.append("-F path/to/the/framework -framework XXX")
-        self.cpp_info.sharedlinkflags = self.cpp_info.exelinkflags
+        # self.cpp_info.exelinkflags.append("-F path/to/the/framework -framework MyFramework")
+
+        f_location = '-F "%s"' % self.package_folder
+        self.cpp_info.cflags.append(f_location) # or cpp_info.cppflags if cpp library
+        self.cpp_info.sharedlinkflags.extend([f_location, "-framework MyFramework"])
+        self.cpp_info.exelinkflags = self.cpp_info.sharedlinkflags

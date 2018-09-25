@@ -7,7 +7,7 @@ First, check if the remote you want to upload to is already in your current remo
 
     $ conan remote list
 
-You can easily add any remote. To run a remote on your machine::
+You can easily add any remote. To run a remote on your machine:
 
 .. code-block:: bash
 
