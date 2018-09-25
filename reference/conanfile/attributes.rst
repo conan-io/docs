@@ -756,24 +756,22 @@ you want to access to the variable declared by some specific requirement you can
 
 
 user_info
---------
+---------
 
 This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
 
-The ``self.userinfo`` object can be filled with any custom variable to be accessed in the packages reusing the recipe.
+The ``self.user_info`` object can be filled with any custom variable to be accessed in the packages reusing the recipe.
 
 .. seealso::
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
-
-
 
 .. _deps_user_info_attributes_reference:
 
 deps_user_info
 --------------
 
-You can access to the declared ``user_info.XXX`` variables of the requirements of the recipe.
+You can access the declared ``user_info.XXX`` variables of the requirements through the ``self.deps_user_info`` object like this:
 
 
 .. code-block:: python
