@@ -10,35 +10,6 @@ Plugins
 The Conan plugins are Python functions that are intended to extend the Conan functionalities and let users customize the client behavior at
 determined execution points.
 
-Storage, activation and sharing
--------------------------------
-
-Plugins are Python files stored under *~/.conan/plugins* folder and their file name should be the same used for activation.
-
-The activation of the plugins is done in the *conan.conf* section named ``[plugins]``. The plugin names listed under this section will be
-considered activated.
-
-.. code-block:: text
-   :caption: *conan.conf*
-
-    ...
-    [plugins]
-    attribute_checker
-    conan-center
-
-They can be easily activated and deactivated from the command line using the :command:`conan config set` command:
-
-.. code-block:: bash
-
-    $ conan config set plugins.attribute_checker  # Activates 'attribute_checker'
-
-    $ conan config rm plugins.attribute_checker  # Deactivates 'attribute_checker'
-
-There is also an environment variable ``CONAN_PLUGINS`` to list the active plugins. Plugins listed in *conan.conf* will be loaded into
-this variable and values in the environment variable will be used to load the plugins.
-
-Plugins are considered part of the Conan client configuration and can be shared as usual with the :ref:`conan_config_install` command.
-
 Plugin interface
 ----------------
 
@@ -235,48 +206,3 @@ living in the local cache or in user space). However, they can be checked with t
 
     Plugin functions should have a ``**kwargs`` parameter to keep compatibility of new parameters that may be introduced in future versions
     of Conan.
-
-Importing from a module
------------------------
-
-The plugin interface should always be placed inside a Python file with the name of the plugin and stored in the *plugins* folder. However,
-you can use functionalities from imported modules if you have them installed in your system or if they are installed with Conan:
-
-.. code-block:: python
-   :caption: example_plugin.py
-
-    import requests
-    from conans import tools
-
-    def post_export(output, conanfile, conanfile_path, reference, **kwargs):
-        cmakelists_path = os.path.join(os.path.dirname(conanfile_path), "CMakeLists.txt")
-        tools.replace_in_file(cmakelists_path, "PROJECT(MyProject)", "PROJECT(MyProject CPP)")
-        r = requests.get('https://api.github.com/events')
-
-You can also import functionalities from a relative module:
-
-.. code-block:: text
-
-    plugins
-    |   my_plugin.py
-    |
-    \---custom_module
-            custom.py
-            __init__.py
-
-Inside the *custom.py* from my *custom_module* there is:
-
-.. code-block:: python
-
-    def my_printer(output):
-        output.info("my_printer(): CUSTOM MODULE")
-
-And it can be used in plugin importing the module:
-
-.. code-block:: python
-
-    from custom_module.custom import my_printer
-
-
-    def pre_export(output, conanfile, conanfile_path, reference, **kwargs):
-        my_printer(output)

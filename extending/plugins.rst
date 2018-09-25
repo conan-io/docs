@@ -36,7 +36,7 @@ Here you can see an example of a simple plugin:
         if "def source(self):" in conanfile_content:
             test = "[IMMUTABLE SOURCES]"
             valid_content = [".zip", ".tar", ".tgz", ".tbz2", ".txz"]
-            invalid_content = ["git checkout master", "git checkout devel", "git chekcout develop"]
+            invalid_content = ["git checkout master", "git checkout devel", "git checkout develop"]
             if "git clone" in conanfile_content and "git checkout" in conanfile_content:
                 fixed_sources = True
                 for invalid in invalid_content:
@@ -72,9 +72,10 @@ the context of the commands being executed such as the recipe being in the local
     section: :ref:`plugins_reference`.
 
 Other useful task where a plugin may come handy are the upload and download actions. There are **pre** and **post** functions for every
-download/upload as a whole and for fine download task such as recipe and package downloads/uploads.
+download/upload as a whole and for fine download tasks such as recipe and package downloads/uploads.
 
-For example they can be used to sign the packages before being uploaded and checking that signature when they are downloaded.
+For example they can be used to sign the packages (including a file with the signature) when the package is created and and checking that
+signature everytime they are downloaded.
 
 .. code-block:: python
    :caption: *signing_plugin.py*
@@ -82,19 +83,99 @@ For example they can be used to sign the packages before being uploaded and chec
     import os
     from conans import tools
 
+    SIGNATURE = "this is my signature"
 
-    def pre_upload_package(output, conanfile_path, reference, package_id, remote, **kwargs):
-        package_path = os.path.abspath(os.path.join(os.path.dirname(conanfile_path), "..", "package", package_id, "conan_package.tgz"))
-        my_signing_package_function(package_path)
+    def post_package(output, conanfile, conanfile_path, **kwargs):
+        sign_path = os.path.join(conanfile.package_folder, ".sign")
+        tools.save(sign_path, SIGNATURE)
+        output.success("Package signed successfully")
 
-    def post_download_package(output, conanfile_path, reference, package_id, remote, **kwargs):
-        package_path = os.path.abspath(os.path.join(os.path.dirname(conanfile_path), "..", "package", package_id, "conan_package.tgz"))
-        my_sign_checker_function(package_path)
+    def post_download_package(output, conanfile_path, reference, package_id, remote_name, **kwargs):
+        package_path = os.path.abspath(os.path.join(os.path.dirname(conanfile_path), "..", "package", package_id))
+        sign_path = os.path.join(package_path, ".sign")
+        content = tools.load(sign_path)
+        if content != SIGNATURE:
+            raise Exception("Wrong signature")
+
+Importing from a module
+-----------------------
+
+The plugin interface should always be placed inside a Python file with the name of the plugin and stored in the *plugins* folder. However,
+you can use functionalities from imported modules if you have them installed in your system or if they are installed with Conan:
+
+.. code-block:: python
+   :caption: example_plugin.py
+
+    import requests
+    from conans import tools
+
+    def post_export(output, conanfile, conanfile_path, reference, **kwargs):
+        cmakelists_path = os.path.join(os.path.dirname(conanfile_path), "CMakeLists.txt")
+        tools.replace_in_file(cmakelists_path, "PROJECT(MyProject)", "PROJECT(MyProject CPP)")
+        r = requests.get('https://api.github.com/events')
+
+You can also import functionalities from a relative module:
+
+.. code-block:: text
+
+    plugins
+    |   my_plugin.py
+    |
+    \---custom_module
+            custom.py
+            __init__.py
+
+Inside the *custom.py* from my *custom_module* there is:
+
+.. code-block:: python
+
+    def my_printer(output):
+        output.info("my_printer(): CUSTOM MODULE")
+
+And it can be used in plugin importing the module:
+
+.. code-block:: python
+
+    from custom_module.custom import my_printer
+
+
+    def pre_export(output, conanfile, conanfile_path, reference, **kwargs):
+        my_printer(output)
+
+Storage, activation and sharing
+-------------------------------
+
+Plugins are Python files stored under *~/.conan/plugins* folder and their file name should be the same used for activation.
+
+The activation of the plugins is done in the *conan.conf* section named ``[plugins]``. The plugin names listed under this section will be
+considered activated.
+
+.. code-block:: text
+   :caption: *conan.conf*
+
+    ...
+    [plugins]
+    attribute_checker
+    conan-center
+
+They can be easily activated and deactivated from the command line using the :command:`conan config set` command:
+
+.. code-block:: bash
+
+    $ conan config set plugins.attribute_checker  # Activates 'attribute_checker'
+
+    $ conan config rm plugins.attribute_checker  # Deactivates 'attribute_checker'
+
+There is also an environment variable ``CONAN_PLUGINS`` to list the active plugins. Plugins listed in *conan.conf* will be loaded into
+this variable and values in the environment variable will be used to load the plugins.
+
+Plugins are considered part of the Conan client configuration and can be shared as usual with the :ref:`conan_config_install` command.
 
 Official Plugins
 ----------------
 
-There are two official plugins ready to be used in Conan. You could take as a starting point to create your own ones.
+There is a simple *attribute_checker* plugin ready to be used in Conan and a Conan Center one under development. You can take them as a
+starting point to create your own ones.
 
 attribute_checker
 +++++++++++++++++
@@ -118,6 +199,10 @@ This plugin comes activated by default.
 Conan Center plugin
 +++++++++++++++++++
 
+.. warning:
+
+    This plugin is still under development.
+
 This plugin has been created to perform some the checks that the Conan team make as part of the process of accepting a new library into the
 :ref:`conan_center` central repository in Bintray.
 
@@ -130,5 +215,5 @@ block the Conan client execution and only printing error traces.
 
     Check the Conan Center plugin repository: https://github.com/conan-io/plugins
 
-It has been preliminary tested with some recipes but will require some iterations for it to be mature. However, it is a good plugin to use
-for anyone willing to :ref:`include their recipe into Conan Center<conan_center_flow>`.
+It has been preliminary tested with some recipes but will require some iterations for it to be mature but it will be a useful utility for
+anyone willing to :ref:`include their recipe into Conan Center<conan_center_flow>`.
