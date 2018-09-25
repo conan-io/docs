@@ -57,8 +57,8 @@ The zip can contain only a subset of all the allowed configuration files, only t
 replaced, except the **conan.conf** file, that will apply only the declared variables in the zipped ``conan.conf`` file
 and will keep the rest of the local variables.
 
-The **profiles files**, that will be overwritten if already present, but won't delete any other profile file that the user
-has in the local machine.
+The **profiles** and **plugins** files will be overwritten if there are existing ones with same name. However, this command won't delete
+any other profile or plugin file that the user may already have.
 
 All files in the zip will be copied to the conan home directory.
 These are the special files and the rules applied to merge them:
