@@ -3,16 +3,17 @@
 Environment variables
 =====================
 
-These are the environment variables used to customize conan.
+These are the environment variables used to customize Conan.
 
-Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
+ Most of them can be set in the *conan.conf* configuration file (inside your ``<userhome>/.conan`` folder). However, this environment
+ variables will take precedence over the *conan.conf* configuration.
 
 .. _cmake_related_variables:
 
 CMAKE RELATED VARIABLES
 -----------------------
 
-There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
+There are some Conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`:
 
 
@@ -240,6 +241,13 @@ For example: For a remote named "conan-center":
 .. code-block:: bash
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+
+CONAN_PLUGINS
+-------------
+
+**Defaulted to**: Not defined
+
+Can be set to a comma separated list with the names of the plugins that will be executed when running a Conan command.
 
 .. _conan_print_run_commands:
 

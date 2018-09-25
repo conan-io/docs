@@ -21,15 +21,12 @@ Here you can see an example of a simple plugin:
 
 
     def pre_export(output, conanfile, conanfile_path, reference, **kwargs):
-        conanfile_content = tools.load(conanfile_path)
-        test = "[RECIPE METADATA]"
-        metadata_error = False
+        test = "%s/%s" % (reference.name, reference.version)
         for field in ["url", "license", "description"]:
             field_value = getattr(conanfile, field, None)
             if not field_value:
-                metadata_error = True
-                output.error("%s Conanfile doesn't have '%s'. It is recommended to add it as attribute"
-                            % (test, field))
+                output.error("%s Conanfile doesn't have '%s'. It is recommended to add it as attribute: %s"
+                            % (test, field, conanfile_path))
 
     def pre_source(output, conanfile, conanfile_path, **kwargs):
         conanfile_content = tools.load(conanfile_path)
@@ -50,7 +47,7 @@ Here you can see an example of a simple plugin:
 
             if not fixed_sources:
                 output.error("%s Source files does not come from and immutable place. Checkout to a "
-                            "commit/tag or download a compressed source file" % test)
+                            "commit/tag or download a compressed source file for %s" % (test, str(reference)))
 
 This plugin is only checking the recipe content prior to the recipe being exported and prior to downloading the sources. Basically the
 ``pre_export()`` function is checking the attributes of the ``conanfile`` object to see if there is an URL, a license and a description and
@@ -60,8 +57,8 @@ The ``pre_source()`` function checks if the recipe contains a ``source()`` metho
 the ``conanfile`` object) and in that case it checks if the download of the sources are likely coming from immutable places (a compressed
 file or a determined :command:`git checkout`). This is done **before** the **source()** method of the recipe is called.
 
-Any kind of Python scripting can be executed. You can create global functions and called them from different plugin functions, import them
-from a relative module and warn, error or even raise to block the Conan client execution.
+Any kind of Python scripting can be executed. You can create global functions and call them from different plugin functions, import from a
+relative module and warn, error or even raise to abort the Conan client execution.
 
 As you can see each function receives some parameters but not all of them are available for all functions as this may change depending on
 the context of the commands being executed such as the recipe being in the local cache or not.
@@ -174,14 +171,12 @@ Plugins are considered part of the Conan client configuration and can be shared 
 Official Plugins
 ----------------
 
-There is a simple *attribute_checker* plugin ready to be used in Conan and a Conan Center one under development. You can take them as a
-starting point to create your own ones.
+There is a simple *attribute_checker* plugin ready to be used in Conan. You can take it as a starting point to create your own ones.
 
 attribute_checker
 +++++++++++++++++
 
-The first one is the *attribute_checker.py* plugin that it is shipped with the Conan client. It has the functionality of warning when
-recipes do not contain some metadata attributes.
+This plugin is shipped together with the Conan client and its functionality is warning when recipes do not contain some metadata attributes.
 
 .. code-block:: python
    :caption: *attribute_checker.py*
@@ -195,25 +190,3 @@ recipes do not contain some metadata attributes.
                             % field)
 
 This plugin comes activated by default.
-
-Conan Center plugin
-+++++++++++++++++++
-
-.. warning:
-
-    This plugin is still under development.
-
-This plugin has been created to perform some the checks that the Conan team make as part of the process of accepting a new library into the
-:ref:`conan_center` central repository in Bintray.
-
-This plugin is not shipped with the Conan plugin but stored in a different repository to improve it separated from the Conan source code.
-
-The plugin performs various checks during development of a package and also during the creation and it has been designed to not
-block the Conan client execution and only printing error traces.
-
-.. tip::
-
-    Check the Conan Center plugin repository: https://github.com/conan-io/plugins
-
-It has been preliminary tested with some recipes but will require some iterations for it to be mature but it will be a useful utility for
-anyone willing to :ref:`include their recipe into Conan Center<conan_center_flow>`.
