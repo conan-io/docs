@@ -217,138 +217,136 @@ independent in VS, we can just remove that setting field:
 
 options, default_options
 ------------------------
-Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
+A recipe can define an attribute ``options`` to customize the binary that is generated, these
+options are applied to the package itself and will be different across the project (unlike the
+``settings``), even the same recipe can appear several times in the build graph with different
+options applied to it.
 
-A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
-
-Options are defined in package recipes as dictionaries of name and allowed values:
-
-.. code-block:: python
-
-    class MyPkg(ConanFile):
-        ...
-        options = {"shared": [True, False]}
-
-There is an special value ``ANY`` to allow any value for a given option. The range of values for such an option will not be checked, and any value (as string) will be accepted:
+Options are defined as a python dictionary inside the ``ConanFile`` where each key must be a
+string with the identifier of the option and the value be a list with all the possible option
+values:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
         ...
-        options = {"shared": [True, False], "commit": "ANY"}
-        default_options = "shared=False", "commit=None"
+        options = {"shared": [True, False],
+                   "option1": ["value1", "value2"],}
 
-        def build(self):
-            if not self.options.commit:
-                self.output.info("This evaluates to True")
-            # WARNING: Following comparisons are not recommended as this may cause trouble
-            # with the type conversion (String <-> None) applied to default_options.
-            # Use the above check instead.
-            if self.options.commit == "None":
-                self.output.info("This also evaluates to True")
-            if self.options.commit is None:
-                self.output.info("This evaluates to False")
+Values for each option can be typed or plain strings, and there is an special value, ``ANY``, for
+options that can take any value.
 
-When a package is installed, it will need all its options be defined a value. Those values can be defined in command line, profiles, but they can also (and they will be typically) defined in conan package recipes:
+The attribute ``default_options`` has the purpose of defining the default values for the options
+if the consumer (consuming recipe, project, profile or the user through the command line) does
+not define them. It is worth noticing that **an uninitialized option will get the value** ``None``
+**and it will be a valid value if its contained in the list of valid values**. This attribute
+should be defined as a python dictionary too, although other definitions could be valid for
+legacy reasons.
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
         ...
-        options = {"shared": [True, False], "fPIC": [True, False]}
-        default_options = "shared=False", "fPIC=False"
-
-The options will typically affect the ``build()`` of the package in some way, for example:
-
-.. code-block:: python
-
-    class MyPkg(ConanFile):
-        ...
-        options = {"shared": [True, False]}
-        default_options = "shared=False"
+        options = {"shared": [True, False],
+                   "option1": ["value1", "value2"],
+                   "option2": "ANY"}
+        default_options = {"shared": True,
+                           "option1": "value1",
+                           "option2": 42}
 
         def build(self):
             shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
             cmake = CMake(self)
             self.run("cmake . %s %s" % (cmake.command_line, shared))
-            self.run("cmake --build . %s" % cmake.build_config)
+            ...
 
-Note that you have to consider the option properly in your build scripts. In this case, we are using the CMake way. So if you had explicit **STATIC** linkage in the **CMakeLists.txt** file, you have to remove it. If you are using VS, you also need to change your code to correctly import/export symbols for the dll.
 
-This is only an example. Actually, the ``CMake`` helper already automates this, so it is enough to do:
+.. tip::
 
-.. code-block:: python
+    You can inspect available package options reading the package recipe, which can be
+    done with the command :command:`conan get MyPkg/0.1@user/channel`.
 
-    def build(self):
-        cmake = CMake(self) # internally it will check self.options.shared
-        self.run("cmake . %s" % cmake.command_line) # or cmake.configure()
-        self.run("cmake --build . %s" % cmake.build_config) # or cmake.build()
 
-You can also specify default option values of the required dependencies:
+As we mentioned before, values for options in a recipe can be defined using different ways, let's
+go over all of them for the example recipe ``MyPkg`` defined above:
 
-.. code-block:: python
+- Using the attribute ``default_options`` in the recipe itself.
+- In the ``default_options`` of a recipe that requires this one: the values defined here
+  will override the default ones in the recipe.
 
-    class OtherPkg(ConanFile):
-        requires = "Pkg/0.1@user/channel"
-        default_options = "Pkg:pkg_option=value"
+  .. code-block:: python
 
-You can also specify default option values of the conditional required dependencies:
+      class OtherPkg(ConanFile):
+          requires = "MyPkg/0.1@user/channel"
+          default_options = {"MyPkg:shared": False}
 
-.. code-block:: python
+  Of course, this will work in the same way working with a *conanfile.txt*:
 
-    class OtherPkg(ConanFile):
-        default_options = "Pkg:pkg_option=value"
+  .. code-block:: text
 
-        def requirements(self):
-            if self.settings.os != "Windows":
-                self.requires("Pkg/0.1@user/channel")
+      [requires]
+      MyPkg/0.1@user/channel
 
-This will always work, on Windows the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every other os.
+      [options]
+      MyPkg:shared=False
 
-If you need to dynamically set some dependency options, you could do:
+- Through :ref:`profiles<profiles>` it is also possible to define default values for the
+  options of a recipe, and would be used whenever that recipe is used:
 
-.. code-block:: python
+  .. code-block:: text
 
-    class OtherPkg(ConanFile):
-        requires = "Pkg/0.1@user/channel"
+      # file "myprofile"
+      # use it as $ conan install -pr=myprofile
+      [settings]
+      setting=value
 
-        def configure(self):
-            self.options["Pkg"].pkg_option = "value"
+      [options]
+      MyPkg:shared=False
 
-Option values can be given in command line, and they will have priority over the default values in the recipe:
+- Last way of defining values for options, with the highest priority over them all, is to pass
+  these values using the command argument :command:`-o` in the command line:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ conan install . -o Pkg:shared=True -o OtherPkg:option=value
+    $ conan install . -o MyPkg:shared=True -o OtherPkg:option=value
 
-You can also defined them in consumer ``conanfile.txt``, as described in :ref:`this section<options_txt>`
+Values for options can be also conditionally assigned (or even deleted) in the methods
+``configure()`` and ``config_options()``, the
+:ref:`corresponding section<method_configure_config_options>` has examples documenting these
+use cases.
 
-.. code-block:: text
+One important notice is how these options values are evaluated and how the different conditionals
+that we can implement in Python will behave. As seen before, values for options can be defined
+in Python code (assigning a dictionary to ``default_options``) or through strings (using a
+``conanfile.txt``, a profile file, or through the command line). In order to provide a
+consistent implementation take into account these considerations:
 
-    [requires]
-    Poco/1.9.0@pocoproject/stable
+- Evaluation for the typed value and the string one is the same, so all these inputs would
+  behave the same:
 
-    [options]
-    Poco:shared=True
-    OpenSSL:shared=True
+    - ``default_options = {"shared": True, "option": None}``
+    - ``default_options = {"shared": "True", "option": "None"}``
+    - ``MyPkg:shared=True``, ``MyPkg:option=None`` on profiles, command line or *conanfile.txt*
 
-And finally, you can define options in :ref:`profiles<profiles>` too, with the same syntax:
+- **Implicit conversion to boolean is case insensitive**, so the
+  expression ``bool(self.options.option)``:
 
-.. code-block:: text
+    - equals ``True`` for the values ``True``, ``"True"`` and ``"true"``, and any other value that
+      would be evaluated the same way in Python code.
+    - equals ``False`` for the values ``False``, ``"False"`` and ``"false"``, also for the empty
+      string and for ``0`` and ``"0"`` as expected.
 
-    # file "myprofile"
-    # use it as $ conan install -pr=myprofile
-    [settings]
-    setting=value
+- Comparaison using ``is`` is always equals to ``False`` because the types would be different as
+  the option value is encapsulated inside a Conan class.
 
-    [options]
-    MyLib:shared=True
+- Explicit comparaisons with the ``==`` symbol **are case sensitive**, so:
 
-You can inspect available package options, reading the package recipe, which is conveniently done with:
+    - ``self.options.option = "False"`` satisfies ``assert self.options.option == False``,
+      ``assert self.options.option == "False"``, but ``assert self.options.option != "false"``.
 
-.. code-block:: bash
+- A different behaviour has ``self.options.option = None``, because
+  ``assert self.options.option != None``.
 
-    $ conan get Pkg/0.1@user/channel
 
 requires
 --------
