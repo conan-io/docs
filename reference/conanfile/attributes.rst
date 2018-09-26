@@ -313,7 +313,8 @@ go over all of them for the example recipe ``MyPkg`` defined above:
 Values for options can be also conditionally assigned (or even deleted) in the methods
 ``configure()`` and ``config_options()``, the
 :ref:`corresponding section<method_configure_config_options>` has examples documenting these
-use cases.
+use cases. However, conditionally assigning values to options can have it drawbacks as it is
+explained in the :ref:`mastering section<conditional_settings_options_requirements>`.
 
 One important notice is how these options values are evaluated and how the different conditionals
 that we can implement in Python will behave. As seen before, values for options can be defined

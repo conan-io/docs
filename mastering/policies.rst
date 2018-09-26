@@ -24,7 +24,7 @@ With the ``build_policy`` attribute the package creator can change the default c
         settings = "os", "compiler", "build_type", "arch"
         requires = "Poco/1.7.8p3@pocoproject/stable" # comma-separated list of requirements
         generators = "cmake", "gcc", "txt"
-        default_options = "Poco:shared=True", "OpenSSL:shared=True"
+        default_options = {"Poco:shared": True, "OpenSSL:shared": True}
         build_policy = "always" # "missing"
 
 These build policies are especially useful if the package creator doesn't want to provide binary package, for example, with header only

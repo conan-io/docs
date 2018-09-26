@@ -39,7 +39,7 @@ The equivalent ``conanfile.py`` file is:
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.7.8p3@pocoproject/stable" # comma-separated list of requirements
       generators = "cmake", "gcc", "txt"
-      default_options = "Poco:shared=True", "OpenSSL:shared=True"
+      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -74,7 +74,7 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.7.8p3@pocoproject/stable"
       generators = "cmake", "gcc", "txt"
-      default_options = "Poco:shared=True", "OpenSSL:shared=True"
+      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin

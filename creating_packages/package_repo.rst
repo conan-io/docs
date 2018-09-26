@@ -45,7 +45,7 @@ Now let's have a look at *conanfile.py*:
         description = "<Description of Hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
         exports_sources = "src/*"
 
