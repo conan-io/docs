@@ -658,6 +658,7 @@ package:
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
 
+.. _deps_cpp_info_attributes_reference:
 
 deps_cpp_info
 -------------
@@ -722,6 +723,10 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
 
+
+
+.. _deps_env_info_attributes_reference:
+
 deps_env_info
 -------------
 
@@ -747,6 +752,40 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
+
+
+
+user_info
+---------
+
+This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
+
+The ``self.user_info`` object can be filled with any custom variable to be accessed in the packages reusing the recipe.
+
+.. seealso::
+
+    Read :ref:`package_info() method docs <method_package_info>` for more info.
+
+.. _deps_user_info_attributes_reference:
+
+deps_user_info
+--------------
+
+You can access the declared ``user_info.XXX`` variables of the requirements through the ``self.deps_user_info`` object like this:
+
+
+.. code-block:: python
+   :emphasize-lines: 2
+
+    import os
+
+    class RecipeConan(ConanFile):
+        ...
+        requires = "package1/1.0@conan/stable"
+        ...
+
+        def build(self):
+            self.deps_user_info["package1"].SOMEVAR
 
 
 info
