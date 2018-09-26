@@ -64,7 +64,7 @@ build()
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
-              vcvars_ver=None, winsdk_version=None)
+              vcvars_ver=None, winsdk_version=None, output_binary_log=False)
 
 Builds Visual Studio project with the given parameters. It will call ``tools.msvc_build_command()``.
 
@@ -95,6 +95,8 @@ Parameters:
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dict {name: value}
       it will append a ``/p:name="value"`` option.
+    - **output_binary_log** (Optional, Defaulted to ``False``): If set to ``True`` then msbuild will output a binary log file called ``msbuild.binlog``
+      in the working directory.
 
 get_command()
 ++++++++++++++
