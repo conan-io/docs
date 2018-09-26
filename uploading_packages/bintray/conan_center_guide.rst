@@ -72,7 +72,7 @@ Recipe Quality
   configuration, e.g., requires **gcc>7**, the recipe must contain a ``configure(self)`` method  that
   raises an exception in case of invalid settings/options.
 
-.. code-block:: python
+  .. code-block:: python
 
     def configure():
         if self.settings.compiler == "gcc" and self.settings.compiler.version < "7.0":
@@ -85,18 +85,19 @@ Recipe Quality
 
 - **LICENSE of the recipe:** The public repository must contain a ``LICENSE`` file with an OSS
   license.
+
 - **LICENSE of the library:** Every built binary package must contain one or more ``license*``
   file(s), so make sure that in the ``package()`` method of your recipe, you include the library
   licenses in the ``licenses`` subfolder.
 
-.. code-block:: python
+  .. code-block:: python
 
     def package():
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
-Sometimes there is no ``license`` file, and you will need to extract the license from a header file, as in the following example:
+  Sometimes there is no ``license`` file, and you will need to extract the license from a header file, as in the following example:
 
-.. code-block:: python
+  .. code-block:: python
 
     def package():
         # Extract the License/s from the header to a file
@@ -106,6 +107,12 @@ Sometimes there is no ``license`` file, and you will need to extract the license
 
         # Package it
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
+
+- **Invalid configurations:** There is an special exception, ``conans.errors.ConanInvalidConfiguration`` to be launched
+  from ``configure()`` function in a recipe if the given configuration/options is known not to work. This way the recipe
+  owner can declare an invalid configuration and consumers (e.g. CI tools like ``conan-package-tools``) will be able to
+  handle it.  
+
 
 CI Integration
 --------------

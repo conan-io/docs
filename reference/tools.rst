@@ -1153,8 +1153,9 @@ tools.collect_libs()
 
     def collect_libs(conanfile, folder="lib")
 
-Fetches a list of all libraries in the package folder. Useful to collect not inter-dependent
-libraries or with complex names like ``libmylib-x86-debug-en.lib``.
+Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the **folder**
+directory relative to the package folder. Useful to collect not inter-dependent libraries or with complex names like
+``libmylib-x86-debug-en.lib``.
 
 .. code-block:: python
 
@@ -1162,6 +1163,8 @@ libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
+
+For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collect the library name **math**.
 
 **Parameters:**
     - **conanfile** (Required): A `ConanFile` object from which to get the `package_folder`.

@@ -20,7 +20,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 .. important::
 
   Conan 1.8 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
-  Please read more :ref:`about Conan stability<stability>`.
+  Read more about the :ref:`Conan stability commitment<stability>`.
 
 
 1.8.0 (##-October-2018)
@@ -28,8 +28,18 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
   the local conan cache as package and building in user space.
-- Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build`` generator.
+- Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to
+  replace non-functional ``boost-build`` generator.
 - Feature: **[Experimental]** Add SCM support for SVN.
+- Feature: Add exception ``ConanInvalidConfiguration`` to be raised for invalid configurations
+  from ``configure()`` method.
+
+
+1.7.4 (18-September-2018)
+-------------------------
+
+- Bugfix: Fixed a bug in `apiv2`.
+- Fix: Disabled `apiv2` by default until it gets more stability.
 
 
 1.7.3 (6-September-2018)
