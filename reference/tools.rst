@@ -1372,10 +1372,7 @@ tools.latest_visual_studio_version_installed()
 
 .. code-block:: python
 
-    msvc_version = tools.latest_visual_studio_version_installed(self.output)
+    def latest_visual_studio_version_installed()
 
-Returns major version of latest Microsoft Visual Studio available on machine.
-If no Microsoft Visual Studio installed, returns ``None``.
-
-Parameters:
-    - **output** (Required): Object of type ``ConanOutput`` used to write informational messages, usually ``self.output``.
+Returns a string with the major version of latest Microsoft Visual Studio available on machine. If no Microsoft Visual Studio installed,
+it returns ``None``.
