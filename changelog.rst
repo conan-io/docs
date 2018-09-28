@@ -32,6 +32,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   generator.
 - Feature: Add environment variable ```CONAN_DEFAULT_PROFILE_PATH`` to override the profile used
   by default.
+- Feature: ``tools.vcvars_command()`` helper will use latest Microsoft Visual Studio version available on machine for compilers other than Visual Studio (e.g. clang-cl).
+- Feature: Added a new ``tools.latest_visual_studio_version_installed()`` method.
 
 
 1.7.4 (18-September-2018)
