@@ -1312,15 +1312,16 @@ Parameters of the constructor:
 
 Methods:
 
+- **version()**:
+    Retrieve version from the installed SVN client.
 - **run(command)**:
     Run any "svn" command, e.g., ``run("status")``
 - **get_url_with_credentials(url)**:
-    Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
-- **clone(url, submodule=None)**:
-    Checkout the repository at ``url`` in the working folder. If it already exists, will revert it
-    to a clean working copy. Argument ``submodule`` is not used.
-- **checkout(element, submodule=None)**:
-    Checkout the revision number given by ``element``. Argument ``submodule`` is not used.
+    Return the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **checkout(url, revision="HEAD")**:
+    Checkout the revision number given by ``revision`` from the specified ``url``.
+- **update(revision="HEAD")**:
+    Update working copy to revision number given by ``revision``.
 - **get_remote_url()**:
     Returns the remote url of working copy.
 - **get_qualified_remote_url()**:
