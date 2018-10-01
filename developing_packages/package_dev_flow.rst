@@ -168,7 +168,7 @@ There are 2 modes of operation:
 
 ..  code-block:: bash
 
-    $ conan export-pkg . user/testing --source-folder=tmp/source --build-folder=tmp/build
+    $ conan export-pkg . user/channel --source-folder=tmp/source --build-folder=tmp/build
 
     Packaging to 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
     Hello/0.1@user/channel: Generating the package
@@ -266,4 +266,4 @@ If you see that the library is also built correctly, you can also skip the ``bui
 
 .. code-block:: bash
 
-    $ conan create . user/testing --keep-build
+    $ conan create . user/channel --keep-build
