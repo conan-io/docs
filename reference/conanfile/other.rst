@@ -51,6 +51,10 @@ Running commands
 ``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
 so that command errors are do not pass unnoticed. It is just a wrapper for ``os.system()``
 
+When the environment variable ``CONAN_PRINT_RUN_COMMANDS`` is set to true (or its equivalent
+``print_run_commands`` *conan.conf* configuration variable, under ``[general]``) then all the
+invocations of ``self.run()`` will print to output the command to be executed.
+
 Optional parameters:
 
 - **output** (Optional, Defaulted to ``True``) When True it will write in stdout.
