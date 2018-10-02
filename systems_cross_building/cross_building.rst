@@ -144,7 +144,7 @@ Linux to Windows
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call :command:`conan create` using the created profile.win
+- Call :command:`conan create` using the created **linux_to_win64**
 
 .. code-block:: bash
 
