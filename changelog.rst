@@ -28,11 +28,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: ``CMake()`` helper now defines ``CONAN_IN_LOCAL_CACHE`` to differentiate building in
   the local conan cache as package and building in user space.
-- Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build``
-  generator.
+- Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to
+  replace non-functional ``boost-build`` generator.
+- Feature: **[Experimental]** Add SCM support for SVN.
+- Feature: Add exception ``ConanInvalidConfiguration`` to be raised for invalid configurations
+  from ``configure()`` method.
+- Feature: ``tools.vcvars_command()`` helper will use latest Microsoft Visual Studio version
+  available on machine for compilers other than Visual Studio (e.g. clang-cl).
 - Feature: Add environment variable ```CONAN_DEFAULT_PROFILE_PATH`` to override the profile used
   by default.
-- Feature: ``tools.vcvars_command()`` helper will use latest Microsoft Visual Studio version available on machine for compilers other than Visual Studio (e.g. clang-cl).
 - Feature: Added new ``tools.latest_vs_version_installed()`` to get the latest VS installed.
 - Fix: More complete architecture list in the detection of the gnu triplet and the detection of the build machine architecture.
 - Bugfix: Renamed ``os`` (reserved symbol) parameter to ``os_`` in the ``get_gnu_triplet`` tool.
@@ -43,12 +47,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Bugfix: Fixed a bug in `apiv2`.
 - Fix: Disabled `apiv2` by default until it gets more stability.
-
-
-1.8.0 (##-October-2018)
------------------------
-
-- Feature: Add exception ``ConanInvalidConfiguration`` to be raised for invalid configurations from ``configure()`` method.
 
 
 1.7.3 (6-September-2018)
