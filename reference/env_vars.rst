@@ -106,8 +106,8 @@ CONAN_DEFAULT_PROFILE_PATH
 
 **Defaulted to**: Not defined
 
-This variable can be used to define an absolute path to an existing profile file that Conan will use
-as default.
+This variable can be used to define a path to an existing profile file that Conan will use
+as default. If relative, the path will be resolved from the *conan.conf* location.
 
 CONAN_NON_INTERACTIVE
 ---------------------
