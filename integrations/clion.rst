@@ -153,7 +153,7 @@ And edit the ``conanfile.py``:
         description = "<Description of Mylibrary here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
         requires = "zlib/1.2.11@conan/stable"
 

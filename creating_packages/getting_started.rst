@@ -54,7 +54,7 @@ Let's have a look at the root package recipe *conanfile.py*:
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
 
         def source(self):
