@@ -606,6 +606,8 @@ To be able to use it, the package recipe can access the ``self.source_folder`` a
 
 When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
 
+.. _folders_attributes_reference:
+
 folders
 -------
 

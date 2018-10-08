@@ -42,6 +42,11 @@ Bintray Official Repositories
 Conan official repositories for open source libraries are hosted in Bintray. These repositories are maintained by the Conan
 team. Currently there are two central repositories:
 
+.. _conan_center:
+
+Conan Center
+++++++++++++
+
 **conan-center**: https://bintray.com/conan/conan-center
 
 .. pull-quote::
@@ -50,6 +55,9 @@ team. Currently there are two central repositories:
    can share your packages with the community. To share your package, upload it to your own
    (or your organization's) repositories and submit an inclusion request to `conan-center`_.
    Check :ref:`conan-center guide <conan_center_flow>` for more information.
+
+Conan Transit
++++++++++++++
 
 **conan-transit**: https://bintray.com/conan/conan-transit (DEPRECATED)
 
@@ -75,6 +83,9 @@ Bintray Community Repositories
 There are a number of popular community repositories that may be of interest for Conan users for retrieving
 open source packages. A number of these repositories are not affiliated with the Conan team.
 
+Bincrafters
++++++++++++
+
 **bincrafters** : https://bintray.com/bincrafters/public-conan
 
 .. pull-quote::
@@ -89,6 +100,9 @@ open source packages. A number of these repositories are not affiliated with the
 
         $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 
+Conan Community
++++++++++++++++
+
 **conan-community** : https://bintray.com/conan-community/conan
 
 .. pull-quote::
@@ -101,7 +115,6 @@ open source packages. A number of these repositories are not affiliated with the
     .. code-block:: bash
 
         $ conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
-
 
 .. note::
 

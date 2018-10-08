@@ -19,3 +19,4 @@ Contents:
    reference/tools
    reference/config_files
    reference/env_vars
+   reference/plugins
