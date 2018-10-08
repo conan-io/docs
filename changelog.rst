@@ -31,7 +31,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: **[Experimental]** New and improved ``b2`` generator for generic B2 (Boost Build) to replace non-functional ``boost-build``
   generator.
 - Feature: ``tools.vcvars_command()`` helper will use latest Microsoft Visual Studio version available on machine for compilers other than Visual Studio (e.g. clang-cl).
-- Feature: Added a new ``tools.latest_visual_studio_version_installed()`` method.
+- Feature: Added new ``tools.latest_vs_version_installed()`` to get the latest VS installed.
 
 
 1.7.4 (18-September-2018)
