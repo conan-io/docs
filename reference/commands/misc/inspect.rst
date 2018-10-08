@@ -10,8 +10,6 @@ conan inspect
 
 .. code-block:: bash
 
-    $ .. code-block:: bash
-
     $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON]
                      path_or_reference
 
