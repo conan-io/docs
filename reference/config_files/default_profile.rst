@@ -40,4 +40,10 @@ statement:
     CC=/usr/bin/clang
     CXX=/usr/bin/clang++
 
+
+.. tip::
+
+   Default profile can be overriden using the environment variable ``CONAN_DEFAULT_PROFILE_PATH``.
+
+
 .. seealso:: Check the section :ref:`Mastering conan/Profiles <profiles>` to read more about this feature.

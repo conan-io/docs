@@ -102,6 +102,14 @@ CONAN_CPU_COUNT
 Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
 
+CONAN_DEFAULT_PROFILE_PATH
+--------------------------
+
+**Defaulted to**: Not defined
+
+This variable can be used to define a path to an existing profile file that Conan will use
+as default. If relative, the path will be resolved from the profiles folder.
+
 CONAN_NON_INTERACTIVE
 ---------------------
 

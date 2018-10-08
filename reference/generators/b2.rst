@@ -148,8 +148,8 @@ For each requirement ``conanbuildinfo-XXX.cmake`` file declares the following
 constants. ``variation`` is the name of the package and variation. That
 ``YYY`` variation takes the form of a comma separated list of: package name,
 address-model, architecture, target-os, toolset with version, and variant
-(debug, release, relwithdebinfo, and minsizerel). All are lower case and use
-the values of the corresponding ``B2`` features. For example a boost_predef
+(``debug``, ``release``, ``relwithdebinfo``, and ``minsizerel``). All are lower case and use
+the values of the corresponding ``B2`` features. For example a ``boost_predef``
 package dependency when building with apple-clang 9.0 and debug would be:
 ``boost_predef,64,x86,darwin,clang-9.0,debug``.
 
@@ -181,9 +181,9 @@ other constants.
 
 - **Global declared constants**
 
-The generator also defines an corresponding set of constants that aggregate
+The generator also defines a corresponding set of constants that aggregate
 the values of all the package requirements. The constants for this are the same
-as the package specific ones buth with "conan" as the name of the project.
+as the package-specific ones but with "conan" as the name of the project.
 
 - **Constants from user_info**
 

@@ -99,6 +99,12 @@ the :command:`conan info` command and possibly other search and report tools.
 This attribute can contain several, comma separated licenses. It is a text string, so it can
 contain any text, including hyperlinks to license files elsewhere.
 
+However, we strongly recommend packagers of Open-Source projects to use
+[SPDX](https://spdx.org/) identifiers from the [SPDX license
+list](https://spdx.org/licenses/) instead of free-formed text. This will help
+people wanting to automate license compatibility checks, like consumers of your
+package, or you if your package has Open-Source dependencies.
+
 This is a recommended, but not mandatory attribute.
 
 author
@@ -166,7 +172,7 @@ For these reasons, the most common convention among Conan recipes is to distingu
 
     settings = "os", "compiler", "build_type", "arch"
 
-When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings. 
+When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings.
 
 But what happens for example to **header only libraries**? The final package for such libraries is not
 binary and, in most cases it will be identical, unless it is automatically generating code.
@@ -690,8 +696,7 @@ To get a list of all the dependency names from ```deps_cpp_info```, you can call
         def build(self):
             # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
             deps = self.deps_cpp_info.deps
-            
-            
+
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
 
