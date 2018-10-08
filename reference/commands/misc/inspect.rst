@@ -34,7 +34,7 @@ in local cache and remote
       -j JSON, --json JSON  json output file
 
 
-Example:
+Examples:
 
 .. code-block:: bash
 
@@ -50,3 +50,22 @@ Example:
     $ conan inspect zlib/1.2.11@conan/stable -a=license -a=url
     license: http://www.zlib.net/zlib_license.html
     url: http://github.com/lasote/conan-zlib
+
+
+If no specific attributes are defined via ``-a``, then, some default attributes will be displayed:
+
+.. code-block:: bash
+
+    $ conan inspect zlib/1.2.11@conan/stable
+    name: zlib
+    version: 1.2.11
+    url: http://github.com/lasote/conan-zlib
+    license: http://www.zlib.net/zlib_license.html
+    author: None
+    description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
+    generators: cmake
+    exports: None
+    exports_sources: ['CMakeLists.txt']
+    short_paths: False
+    apply_env: True
+    build_policy: None
