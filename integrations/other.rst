@@ -154,7 +154,7 @@ and much more reusable to create a generator to simplify the task for your build
       requires = "Poco/1.9.0@pocoproject/stable"
       ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
       generators = "txt"
-      default_options = "Poco:shared=False", "OpenSSL:shared=False"
+      default_options = {"Poco:shared": False, "OpenSSL:shared": False}
    
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin

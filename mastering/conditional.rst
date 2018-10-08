@@ -1,3 +1,5 @@
+.. _conditional_settings_options_requirements:
+
 Conditional settings, options and requirements
 ==============================================
 

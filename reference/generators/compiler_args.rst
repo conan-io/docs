@@ -102,7 +102,7 @@ You can also use it in a recipe:
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.9.0@pocoproject/stable"
       generators = "compiler_args"
-      default_options = "Poco:shared=True", "OpenSSL:shared=True"
+      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
