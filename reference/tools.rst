@@ -1367,12 +1367,12 @@ Properties:
     - **ranlib**: Path to archive indexer (RANLIB).
     - **strip**: Path to symbol removal utility (STRIP).
 
-tools.latest_visual_studio_version_installed()
-----------------------------------------------
+tools.latest_vs_version_installed()
+-----------------------------------
 
 .. code-block:: python
 
-    def latest_visual_studio_version_installed()
+    def latest_vs_version_installed()
 
 Returns a string with the major version of latest Microsoft Visual Studio available on machine. If no Microsoft Visual Studio installed,
 it returns ``None``.
