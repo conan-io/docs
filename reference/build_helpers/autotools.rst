@@ -206,6 +206,15 @@ Configures `Autotools` project with the given parameters.
     This method sets by default the ``--prefix`` argument to ``self.package_folder`` whenever ``--prefix`` is not provided in the ``args``
     parameter during the configure step.
 
+    There are other flags set automatically to fix the output directories by default:
+
+    - ``--bindir``, ``--sbin`` and ``--libexec`` set to *bin* folder.
+    - ``--libdir`` set to *lib* folder.
+    - ``--includedir``, ``--oldincludedir`` set to *include* folder.
+    - ``--datarootdir`` set to *res* folder.
+
+    These parameters can be skipped using ``use_default_install_dirs=False`` as described in the section below.
+
 .. _autotools_lib64_warning:
 
 .. warning::
@@ -230,11 +239,13 @@ Configures `Autotools` project with the given parameters.
         atools.configure(args=["--libdir=${prefix}/lib64"])
         atools.install()
 
+    You can also skip its default value using the parameter ``use_default_install_dirs=False``.
+
 Parameters:
     - **configure_dir** (Optional, Defaulted to ``None``): Directory where the ``configure`` script is. If ``None``, it will use the current
       directory.
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument
-      will be escaped according to the current shell. ``--prefix`` and ``--libdir`` will be adjusted automatically if not indicated
+      will be escaped according to the current shell. ``--prefix`` and ``--libdir``, will be adjusted automatically if not indicated
       specifically.
     - **build** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--build``. If ``None`` it will try to detect the
       value if cross-building is detected according to the settings. If ``False``, it will not use this argument at all.
@@ -247,6 +258,8 @@ Parameters:
       using the ``pkg_config`` generator, the ``self.install_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to locate the pc
       files of the requirements of the conanfile.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the configure step.
+    - **use_default_install_dirs** (Optional, Defaulted to ``True``): Use or not the defaulted installation dirs such as ``--libdir``,
+      ``--bindir``...
 
 make()
 ++++++
