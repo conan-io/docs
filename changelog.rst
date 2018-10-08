@@ -35,7 +35,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   from ``configure()`` method.
 - Feature: ``tools.vcvars_command()`` helper will use latest Microsoft Visual Studio version
   available on machine for compilers other than Visual Studio (e.g. clang-cl).
+- Feature: Add environment variable ```CONAN_DEFAULT_PROFILE_PATH`` to override the profile used
+  by default.
 - Feature: Added a new ``tools.latest_visual_studio_version_installed()`` method.
+- Fix: More complete architecture list in the detection of the gnu triplet and the detection of the build machine architecture.
+- Bugfix: Renamed ``os`` (reserved symbol) parameter to ``os_`` in the ``get_gnu_triplet`` tool.
+- Bugfix: Warning message printed if Conan cannot deduce an architecture of a GNU triplet.
 
 
 1.7.4 (18-September-2018)
