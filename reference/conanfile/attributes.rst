@@ -290,8 +290,8 @@ go over all of them for the example recipe ``MyPkg`` defined above:
       [options]
       MyPkg:shared=False
 
-- Through :ref:`profiles<profiles>` it is also possible to define default values for the
-  options of a recipe, and would be used whenever that recipe is used:
+- It is also possible to define default values for the options of a recipe using
+  :ref:`profiles<profiles>`. They will apply whenever that recipe is used:
 
   .. code-block:: text
 
