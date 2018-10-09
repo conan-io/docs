@@ -104,8 +104,8 @@ This is a recommended, but not mandatory attribute.
 author
 ------
 
-Intended to add information about the author, in case it is different from the conan user. It is
-possible that the conan user is the name of an organization, project, company or group, and many
+Intended to add information about the author, in case it is different from the Conan user. It is
+possible that the Conan user is the name of an organization, project, company or group, and many
 users have permissions over that account. In this case, the author information can explicitly
 define who is the creator/maintainer of the package
 
@@ -215,8 +215,9 @@ independent in VS, we can just remove that setting field:
 
 .. _conanfile_options:
 
-options, default_options
-------------------------
+options
+-------
+
 Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.
 
 A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)
@@ -284,27 +285,6 @@ This is only an example. Actually, the ``CMake`` helper already automates this, 
         self.run("cmake . %s" % cmake.command_line) # or cmake.configure()
         self.run("cmake --build . %s" % cmake.build_config) # or cmake.build()
 
-You can also specify default option values of the required dependencies:
-
-.. code-block:: python
-
-    class OtherPkg(ConanFile):
-        requires = "Pkg/0.1@user/channel"
-        default_options = "Pkg:pkg_option=value"
-
-You can also specify default option values of the conditional required dependencies:
-
-.. code-block:: python
-
-    class OtherPkg(ConanFile):
-        default_options = "Pkg:pkg_option=value"
-
-        def requirements(self):
-            if self.settings.os != "Windows":
-                self.requires("Pkg/0.1@user/channel")
-
-This will always work, on Windows the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every other os.
-
 If you need to dynamically set some dependency options, you could do:
 
 .. code-block:: python
@@ -321,7 +301,7 @@ Option values can be given in command line, and they will have priority over the
 
     $ conan install . -o Pkg:shared=True -o OtherPkg:option=value
 
-You can also defined them in consumer ``conanfile.txt``, as described in :ref:`this section<options_txt>`
+You can also define them in consumer *conanfile.txt* as described in :ref:`options_txt`.
 
 .. code-block:: text
 
@@ -332,7 +312,7 @@ You can also defined them in consumer ``conanfile.txt``, as described in :ref:`t
     Poco:shared=True
     OpenSSL:shared=True
 
-And finally, you can define options in :ref:`profiles<profiles>` too, with the same syntax:
+And finally, you can define options in :ref:`profiles` too, with the same syntax:
 
 .. code-block:: text
 
@@ -349,6 +329,60 @@ You can inspect available package options, reading the package recipe, which is 
 .. code-block:: bash
 
     $ conan get Pkg/0.1@user/channel
+
+.. _conanfile_default_options:
+
+default_options
+---------------
+
+As you have seen in the examples above, recipe's default options can be assigned to the desired value. However, you can also specify
+default option values of the required dependencies:
+
+.. code-block:: python
+
+    class OtherPkg(ConanFile):
+        requires = "Pkg/0.1@user/channel"
+        default_options = "Pkg:pkg_option=value"
+
+And it also works with default option values of conditional required dependencies:
+
+.. code-block:: python
+
+    class OtherPkg(ConanFile):
+        default_options = "Pkg:pkg_option=value"
+
+        def requirements(self):
+            if self.settings.os != "Windows":
+                self.requires("Pkg/0.1@user/channel")
+
+For this example running in Windows, the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every
+other OS.
+
+You can also set the options conditionally to a final value with ``config_options()`` instead of using ``default_options``:
+
+.. code-block:: python
+
+    class OtherPkg(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        options = {"some_option": [True, False]}
+        # Do NOT declare 'default_options', use 'config_options()'
+
+        def config_options(self):
+            if self.options.some_option == None:
+                if self.settings.os == 'Android':
+                    self.options.some_option = True
+                else:
+                    self.options.some_option = False
+
+.. important::
+
+    Setting options conditionally without a default value works only to define a default value if not defined in command line. However,
+    doing it this way will assign a final value to the option and not an initial one, so those option values will not be overridable from
+    downstream dependent packages.
+
+.. seealso::
+
+    Read more about the :ref:`config_options()<method_configure_config_options>` method.
 
 requires
 --------
