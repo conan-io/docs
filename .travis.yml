@@ -3,7 +3,7 @@ python:
   - "3.6"
 install:
   - sudo apt-get update 
-  - sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra latexmk enchant
+  - sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra latexmk
   - pip install -r requirements.txt
 script:
   - python deploy_gh_pages.py
