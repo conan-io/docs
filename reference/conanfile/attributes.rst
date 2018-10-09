@@ -358,14 +358,14 @@ And it also works with default option values of conditional required dependencie
 For this example running in Windows, the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every
 other OS.
 
-You can even make default options conditional using ``config_options()``:
+You can also set the options conditionally to a final value with ``config_options()`` instead of using ``default_options``:
 
 .. code-block:: python
 
     class OtherPkg(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
         options = {"some_option": [True, False]}
-        # Do NOT declare 'default_options', use 'config_options()' to set them conditionally
+        # Do NOT declare 'default_options', use 'config_options()'
 
         def config_options(self):
             if self.options.some_option == None:
@@ -373,6 +373,12 @@ You can even make default options conditional using ``config_options()``:
                     self.options.some_option = True
                 else:
                     self.options.some_option = False
+
+.. important::
+
+    Setting options conditionally without a default value works only to define a default value if not defined in command line. However,
+    doing it this way will assign a final value to the option and not an initial one, so those option values will not be overridable from
+    downstream dependent packages.
 
 .. seealso::
 
