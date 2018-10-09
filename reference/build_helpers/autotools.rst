@@ -206,14 +206,15 @@ Configures `Autotools` project with the given parameters.
     This method sets by default the ``--prefix`` argument to ``self.package_folder`` whenever ``--prefix`` is not provided in the ``args``
     parameter during the configure step.
 
-    There are other flags set automatically to fix the output directories by default:
+    There are other flags set automatically to fix the install directories by default:
 
     - ``--bindir``, ``--sbin`` and ``--libexec`` set to *bin* folder.
     - ``--libdir`` set to *lib* folder.
     - ``--includedir``, ``--oldincludedir`` set to *include* folder.
     - ``--datarootdir`` set to *res* folder.
 
-    These parameters can be skipped using ``use_default_install_dirs=False`` as described in the section below.
+    These flags will be set on demand, so only the available options in the *./configure* are actually set. They can also be totally skipped
+    using ``use_default_install_dirs=False`` as described in the section below.
 
 .. _autotools_lib64_warning:
 
