@@ -93,6 +93,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Disabled `apiv2` by default until it gets more stability.
 
 
+1.8.0 (##-October-2018)
+-----------------------
+
+- BugFix: ``AutotoolsBuildEnvironment`` was not defaulting the output library directory causing broken consumption of packages when
+  rebuilding from sources in different Linux distros using ``lib64`` folder as default. Read more :ref:`here <autotools_lib64_warning>`.
+
+
 1.7.3 (6-September-2018)
 ------------------------
 

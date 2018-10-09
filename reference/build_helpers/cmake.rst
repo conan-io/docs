@@ -162,7 +162,27 @@ The CMake helper will automatically append some definitions based on your settin
 | CONAN_EXPORTED                            |  Defined when CMake is called using Conan CMake helper                                                                       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
+There are some definitions set to be used later on the the ``install()`` step too:
 
++-----------------------------+---------------------------------------------+
+| Variable                    | Description                                 |
++=============================+=============================================+
+| CMAKE_INSTALL_PREFIX        | Set to ``conanfile.package_folder``         |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_BINDIR        | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_SBINDIR       | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_LIBEXECDIR    | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_LIBDIR        | Set to *lib* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_INCLUDEDIR    | Set to *include* inside the package folder. |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_OLDINCLUDEDIR | Set to *include* inside the package folder. |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_DATAROOTDIR   | Set to *res* inside the package folder.     |
++-----------------------------+---------------------------------------------+
 
 But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property:
 
@@ -179,7 +199,6 @@ But you can change the automatic definitions after the ``CMake()`` object creati
             cmake.configure()
             cmake.build()
             cmake.install() # Build --target=install
-
 
 Methods
 -------
