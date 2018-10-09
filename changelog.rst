@@ -83,7 +83,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - BugFix: Fixed failures when Conan walk directories with files containing not ASCCI characters in the file name. `#3505 <https://github.com/conan-io/conan/pull/3505>`_
 - Bugfix: The `scm` feature now looks for the repo root even when the `conanfile.py` is in a subfolder. `#3479 <https://github.com/conan-io/conan/pull/3479>`_
 - Bugfix: Fixed `OSInfo.bash_path()` when there is no `windows_subsystem`. `#3455 <https://github.com/conan-io/conan/pull/3455>`_
-- Bugfix: AutotoolsBuildEnvironment was not defaulting the output library directory causing broken consumption of packages when rebuilding from sources in different Linux distros using lib64 default. `#3388 <https://github.com/conan-io/conan/pull/3388>`_
+- Bugfix: AutotoolsBuildEnvironment was not defaulting the output library directory causing broken consumption of packages when rebuilding from sources in different Linux distros using lib64 default. Read more :ref:`here<autotools_lib64_warning>`. `#3388 <https://github.com/conan-io/conan/pull/3388>`_
 
 
 1.7.4 (18-September-2018)
@@ -91,13 +91,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Bugfix: Fixed a bug in `apiv2`.
 - Fix: Disabled `apiv2` by default until it gets more stability.
-
-
-1.8.0 (##-October-2018)
------------------------
-
-- BugFix: ``AutotoolsBuildEnvironment`` was not defaulting the output library directory causing broken consumption of packages when
-  rebuilding from sources in different Linux distros using ``lib64`` folder as default. Read more :ref:`here <autotools_lib64_warning>`.
 
 
 1.7.3 (6-September-2018)
