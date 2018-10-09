@@ -405,9 +405,20 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
-.. seealso::
+Invalid configuration
++++++++++++++++++++++
 
-    Setting conditional default options using ``config_options()``: :ref:`conanfile_default_options`.
+Conan allows the recipe creator to declare invalid configurations, those that are known not to work 
+with the library being packaged. There is an especial kind of exception that can be raised from
+the ``configure()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
+it is an example of a recipe for a library that doesn't support Windows operating system:
+
+.. code-block:: python
+
+    def configure(self):
+        if self.settings.os == "Windows":
+            raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
+
 
 requirements()
 --------------

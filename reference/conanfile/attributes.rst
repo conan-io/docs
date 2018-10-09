@@ -99,6 +99,12 @@ the :command:`conan info` command and possibly other search and report tools.
 This attribute can contain several, comma separated licenses. It is a text string, so it can
 contain any text, including hyperlinks to license files elsewhere.
 
+However, we strongly recommend packagers of Open-Source projects to use
+[SPDX](https://spdx.org/) identifiers from the [SPDX license
+list](https://spdx.org/licenses/) instead of free-formed text. This will help
+people wanting to automate license compatibility checks, like consumers of your
+package, or you if your package has Open-Source dependencies.
+
 This is a recommended, but not mandatory attribute.
 
 author
@@ -166,7 +172,7 @@ For these reasons, the most common convention among Conan recipes is to distingu
 
     settings = "os", "compiler", "build_type", "arch"
 
-When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings. 
+When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings.
 
 But what happens for example to **header only libraries**? The final package for such libraries is not
 binary and, in most cases it will be identical, unless it is automatically generating code.
@@ -230,105 +236,130 @@ Options are defined in package recipes as dictionaries of name and allowed value
         ...
         options = {"shared": [True, False]}
 
-There is an special value ``ANY`` to allow any value for a given option. The range of values for such an option will not be checked, and any value (as string) will be accepted:
+Options are defined as a python dictionary inside the ``ConanFile`` where each key must be a
+string with the identifier of the option and the value be a list with all the possible option
+values:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
         ...
-        options = {"shared": [True, False], "commit": "ANY"}
-        default_options = "shared=False", "commit=None"
+        options = {"shared": [True, False],
+                   "option1": ["value1", "value2"],}
 
-        def build(self):
-            if not self.options.commit:
-                self.output.info("This evaluates to True")
-            # WARNING: Following comparisons are not recommended as this may cause trouble
-            # with the type conversion (String <-> None) applied to default_options.
-            # Use the above check instead.
-            if self.options.commit == "None":
-                self.output.info("This also evaluates to True")
-            if self.options.commit is None:
-                self.output.info("This evaluates to False")
+Values for each option can be typed or plain strings, and there is an special value, ``ANY``, for
+options that can take any value.
 
-When a package is installed, it will need all its options be defined a value. Those values can be defined in command line, profiles, but they can also (and they will be typically) defined in conan package recipes:
+The attribute ``default_options`` has the purpose of defining the default values for the options
+if the consumer (consuming recipe, project, profile or the user through the command line) does
+not define them. It is worth noticing that **an uninitialized option will get the value** ``None``
+**and it will be a valid value if its contained in the list of valid values**. This attribute
+should be defined as a python dictionary too, although other definitions could be valid for
+legacy reasons.
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
         ...
-        options = {"shared": [True, False], "fPIC": [True, False]}
-        default_options = "shared=False", "fPIC=False"
-
-The options will typically affect the ``build()`` of the package in some way, for example:
-
-.. code-block:: python
-
-    class MyPkg(ConanFile):
-        ...
-        options = {"shared": [True, False]}
-        default_options = "shared=False"
+        options = {"shared": [True, False],
+                   "option1": ["value1", "value2"],
+                   "option2": "ANY"}
+        default_options = {"shared": True,
+                           "option1": "value1",
+                           "option2": 42}
 
         def build(self):
             shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
             cmake = CMake(self)
             self.run("cmake . %s %s" % (cmake.command_line, shared))
-            self.run("cmake --build . %s" % cmake.build_config)
+            ...
 
-Note that you have to consider the option properly in your build scripts. In this case, we are using the CMake way. So if you had explicit **STATIC** linkage in the **CMakeLists.txt** file, you have to remove it. If you are using VS, you also need to change your code to correctly import/export symbols for the dll.
+.. tip::
 
-This is only an example. Actually, the ``CMake`` helper already automates this, so it is enough to do:
+    You can inspect available package options reading the package recipe, which can be
+    done with the command :command:`conan get MyPkg/0.1@user/channel`.
 
-.. code-block:: python
+As we mentioned before, values for options in a recipe can be defined using different ways, let's
+go over all of them for the example recipe ``MyPkg`` defined above:
 
-    def build(self):
-        cmake = CMake(self) # internally it will check self.options.shared
-        self.run("cmake . %s" % cmake.command_line) # or cmake.configure()
-        self.run("cmake --build . %s" % cmake.build_config) # or cmake.build()
+- Using the attribute ``default_options`` in the recipe itself.
+- In the ``default_options`` of a recipe that requires this one: the values defined here
+  will override the default ones in the recipe.
 
-If you need to dynamically set some dependency options, you could do:
+  .. code-block:: python
 
-.. code-block:: python
+      class OtherPkg(ConanFile):
+          requires = "MyPkg/0.1@user/channel"
+          default_options = {"MyPkg:shared": False}
 
-    class OtherPkg(ConanFile):
-        requires = "Pkg/0.1@user/channel"
+  Of course, this will work in the same way working with a *conanfile.txt*:
 
-        def configure(self):
-            self.options["Pkg"].pkg_option = "value"
+  .. code-block:: text
 
-Option values can be given in command line, and they will have priority over the default values in the recipe:
+      [requires]
+      MyPkg/0.1@user/channel
 
-.. code-block:: bash
+      [options]
+      MyPkg:shared=False
 
-    $ conan install . -o Pkg:shared=True -o OtherPkg:option=value
+- It is also possible to define default values for the options of a recipe using
+  :ref:`profiles<profiles>`. They will apply whenever that recipe is used:
 
-You can also define them in consumer *conanfile.txt* as described in :ref:`options_txt`.
+  .. code-block:: text
 
-.. code-block:: text
+      # file "myprofile"
+      # use it as $ conan install -pr=myprofile
+      [settings]
+      setting=value
 
-    [requires]
-    Poco/1.9.0@pocoproject/stable
+      [options]
+      MyPkg:shared=False
 
-    [options]
-    Poco:shared=True
-    OpenSSL:shared=True
+- Last way of defining values for options, with the highest priority over them all, is to pass
+  these values using the command argument :command:`-o` in the command line:
 
-And finally, you can define options in :ref:`profiles` too, with the same syntax:
+  .. code-block:: bash
 
-.. code-block:: text
+    $ conan install . -o MyPkg:shared=True -o OtherPkg:option=value
 
-    # file "myprofile"
-    # use it as $ conan install -pr=myprofile
-    [settings]
-    setting=value
+Values for options can be also conditionally assigned (or even deleted) in the methods
+``configure()`` and ``config_options()``, the
+:ref:`corresponding section<method_configure_config_options>` has examples documenting these
+use cases. However, conditionally assigning values to options can have it drawbacks as it is
+explained in the :ref:`mastering section<conditional_settings_options_requirements>`.
 
-    [options]
-    MyLib:shared=True
+One important notice is how these options values are evaluated and how the different conditionals
+that we can implement in Python will behave. As seen before, values for options can be defined
+in Python code (assigning a dictionary to ``default_options``) or through strings (using a
+``conanfile.txt``, a profile file, or through the command line). In order to provide a
+consistent implementation take into account these considerations:
 
-You can inspect available package options, reading the package recipe, which is conveniently done with:
+- Evaluation for the typed value and the string one is the same, so all these inputs would
+  behave the same:
 
-.. code-block:: bash
+    - ``default_options = {"shared": True, "option": None}``
+    - ``default_options = {"shared": "True", "option": "None"}``
+    - ``MyPkg:shared=True``, ``MyPkg:option=None`` on profiles, command line or *conanfile.txt*
 
-    $ conan get Pkg/0.1@user/channel
+- **Implicit conversion to boolean is case insensitive**, so the
+  expression ``bool(self.options.option)``:
+
+    - equals ``True`` for the values ``True``, ``"True"`` and ``"true"``, and any other value that
+      would be evaluated the same way in Python code.
+    - equals ``False`` for the values ``False``, ``"False"`` and ``"false"``, also for the empty
+      string and for ``0`` and ``"0"`` as expected.
+
+- Comparaison using ``is`` is always equals to ``False`` because the types would be different as
+  the option value is encapsulated inside a Conan class.
+
+- Explicit comparaisons with the ``==`` symbol **are case sensitive**, so:
+
+    - ``self.options.option = "False"`` satisfies ``assert self.options.option == False``,
+      ``assert self.options.option == "False"``, but ``assert self.options.option != "false"``.
+
+- A different behaviour has ``self.options.option = None``, because
+  ``assert self.options.option != None``.
+
 
 .. _conanfile_default_options:
 
@@ -635,6 +666,8 @@ To be able to use it, the package recipe can access the ``self.source_folder`` a
 
 When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
 
+.. _folders_attributes_reference:
+
 folders
 -------
 
@@ -723,8 +756,7 @@ To get a list of all the dependency names from ```deps_cpp_info```, you can call
         def build(self):
             # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
             deps = self.deps_cpp_info.deps
-            
-            
+
 It can be used to get information about the dependencies, like used compilation flags or the
 root folder of the package:
 
@@ -945,10 +977,11 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 
 
 
-- **type** (Required): Currently only ``git`` supported. Others like ``svn`` will be added eventually.
-- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local directory.
-- **revision** (Required):
-    When type is ``git``, it can be a string with a branch name, a commit or a tag.
+- **type** (Required): Currently only ``git`` and ``svn`` are supported. Others can be added eventually.
+- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working copy.
+  When type is ``svn`` it can contain the `peg_revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_.
+- **revision** (Required): id of the revision or ``auto`` to capture the current working copy one.
+  When type is ``git``, it can also be the branch name or a tag.
 - **subfolder** (Optional, Defaulted to ``.``): A subfolder where the repository will be cloned.
 - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
 - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.

@@ -728,12 +728,12 @@ tools.get_gnu_triplet()
 
 .. code-block:: python
 
-    def get_gnu_triplet(os, arch, compiler=None)
+    def get_gnu_triplet(os_, arch, compiler=None)
 
 Returns string with GNU like ``<machine>-<vendor>-<op_system>`` triplet.
 
 Parameters:
-    - **os** (Required): Operating system to be used to create the triplet.
+    - **os_** (Required): Operating system to be used to create the triplet.
     - **arch** (Required): Architecture to be used to create the triplet.
     - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
 
@@ -1151,29 +1151,31 @@ tools.collect_libs()
 
 .. code-block:: python
 
-    def collect_libs(conanfile, folder="lib")
+    def collect_libs(conanfile, folder=None)
 
-Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the **folder**
-directory relative to the package folder. Useful to collect not inter-dependent libraries or with complex names like
-``libmylib-x86-debug-en.lib``.
+Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
+``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
+inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
 .. code-block:: python
 
     from conans import tools
 
     def package_info(self):
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Deafult value is 'lib'
         self.cpp_info.libs = tools.collect_libs(self)
 
 For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collect the library name **math**.
 
 **Parameters:**
-    - **conanfile** (Required): A `ConanFile` object from which to get the `package_folder`.
-    - **folder** (Optional, Defaulted to ``"lib"``): The subfolder where the library files are.
+    - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ``None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+      the library files are.
 
 .. warning::
 
     This tool collects the libraries searching directly inside the package folder and returns them
-    in no specific order. If libraries are inter-dependent, then package_info() method should order
+    in no specific order. If libraries are inter-dependent, then ``package_info()`` method should order
     them to achieve correct linking order.
 
 .. _pkgconfigtool:
@@ -1244,7 +1246,8 @@ tools.Git()
 
     class Git(object):
 
-        def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None,
+                     force_english=True, runner=None):
 
 Wrapper of the ``git`` tool.
 
@@ -1265,16 +1268,84 @@ Methods:
     Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
 - **clone(url, branch=None)**:
     Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the specified **folder** already exist you have to specify a ``branch``.
-- **checkout(element)**:
-    Checkout a branch, commit or tag.
+- **checkout(element, submodule=None)**:
+    Checkout a branch, commit or tag given by ``element``. Argument ``submodule`` can get values in
+    ``shallow`` or ``recursive`` to instruct what to do with submodules.
 - **get_remote_url(remote_name=None)**:
     Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
-- **get_revision()**:
+- **get_qualified_remote_url()**:
+    Returns the remote url (see ``get_remote_url()``) but with forward slashes if it is a local folder.
+- **get_revision(), get_commit()**:
     Gets the current commit hash.
 - **get_branch()**:
     Gets the current branch.
 - **excluded_files()**:
     Gets a list of the files and folders that would be excluded by *.gitignore* file.
+- **is_local_repository()**:
+    Returns `True` if the remote is a local folder.
+- **is_pristine()**:
+    Returns `True` if there aren't modified or uncommitted files in the working copy.
+- **get_repo_root()**:
+    Returns the root folder of the working copy.
+
+
+.. _tools_svn:
+
+tools.SVN()
+-----------
+
+.. code-block:: python
+
+    class SVN(object):
+
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None,
+                     force_english=True, runner=None):
+
+Wrapper of the ``svn`` tool.
+
+Parameters of the constructor:
+
+    - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
+    - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+    - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
+    - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``svn`` tool.
+
+Methods:
+
+- **version()**:
+    Retrieve version from the installed SVN client.
+- **run(command)**:
+    Run any "svn" command, e.g., ``run("status")``
+- **get_url_with_credentials(url)**:
+    Return the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **checkout(url, revision="HEAD")**:
+    Checkout the revision number given by ``revision`` from the specified ``url``.
+- **update(revision="HEAD")**:
+    Update working copy to revision number given by ``revision``.
+- **get_remote_url()**:
+    Returns the remote url of working copy.
+- **get_qualified_remote_url()**:
+    Returns the remote url of the working copy with the
+    `peg revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_ appended to it.
+- **get_revision()**:
+    Gets the current revision number from the repo server.
+- **get_last_changed_revision(use_wc_root=True)**:
+    Returns the revision number corresponding to the last changed item in the working folder
+    (``use_wc_root=False``) or in the working copy root (``use_wc_root=True``).
+- **get_branch()**:
+    Tries to deduce the branch name from the
+    `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Will
+    raise if cannot resolve it.
+- **excluded_files()**:
+    Gets a list of the files and folders that are marked to be ignored.
+- **is_local_repository()**:
+    Returns `True` if the remote is a local folder.
+- **is_pristine()**:
+    Returns `True` if there aren't modified or uncommitted files in the working copy.
+- **get_repo_root()**:
+    Returns the root folder of the working copy.
 
 
 .. _tools_apple:
@@ -1366,3 +1437,13 @@ Properties:
     - **ar**: Path to archiver (AR).
     - **ranlib**: Path to archive indexer (RANLIB).
     - **strip**: Path to symbol removal utility (STRIP).
+
+tools.latest_vs_version_installed()
+-----------------------------------
+
+.. code-block:: python
+
+    def latest_vs_version_installed()
+
+Returns a string with the major version of latest Microsoft Visual Studio available on machine. If no Microsoft Visual Studio installed,
+it returns ``None``.

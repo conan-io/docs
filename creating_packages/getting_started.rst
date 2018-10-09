@@ -54,7 +54,7 @@ Let's have a look at the root package recipe *conanfile.py*:
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
 
         def source(self):
@@ -137,6 +137,11 @@ basics:
   when using this package. Other information as include or lib paths can be defined as well. This
   information is used for files created by generators to be used by consumers, as
   *conanbuildinfo.cmake*.
+
+.. note::
+
+    When writing your own *conanfile.py* references, please bear in mind that you should follow the rules in
+    :ref:`conanfile_reference`
 
 The test_package Folder
 -----------------------

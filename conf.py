@@ -390,7 +390,8 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
     redirect_files = {
         "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
-        "conan1.0.html": "faq/conan1.0.html"}
+        "conan1.0.html": "faq/conan1.0.html",
+        "mastering/python_requires.html": "../extending/python_requires.html"}
 
     redirect_template = """<!DOCTYPE html>
 <html>

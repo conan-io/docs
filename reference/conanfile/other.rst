@@ -22,6 +22,8 @@ See this section: :ref:`Python requires: reusing python code in recipes<python_r
 Output and Running
 ==================
 
+.. _conanfile_output:
+
 Output contents
 ---------------
 

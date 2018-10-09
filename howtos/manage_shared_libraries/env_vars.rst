@@ -47,7 +47,7 @@ you will need to have the shared library available.
         name = "toolA"
         version = "1.0"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
 
         def build(self):
             # build your shared library

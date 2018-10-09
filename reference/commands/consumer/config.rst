@@ -51,16 +51,17 @@ conan config install
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
 is important to have common ``settings.yml``, ``profiles``, etc.
 
-It retrieves a zip file from a local directory or url and apply the files in the local Conan configuration.
+It can get its configuration files from a local or remote zip file, or a local directory. It then installs the files
+in the local Conan configuration.
 
-The zip can contain only a subset of all the allowed configuration files, only the present files will be
-replaced, except the **conan.conf** file, that will apply only the declared variables in the zipped ``conan.conf`` file
-and will keep the rest of the local variables.
+The configuration may contain all or a subset of the allowed configuration files. Only the files that are present will be
+replaced. The only exception is the **conan.conf** file for which only the variables declared will be installed,
+leaving the other variables unchanged.
 
-The **profiles files**, that will be overwritten if already present, but won't delete any other profile file that the user
-has in the local machine.
+This means for example that **profiles** and **plugins** files will be overwritten if already present, but no profile or
+plugin file that the user has in the local machine will be deleted.
 
-All files in the zip will be copied to the conan home directory.
+All the configuration files will be copied to the conan home directory.
 These are the special files and the rules applied to merge them:
 
 +--------------------------------+----------------------------------------------------------------------+
@@ -81,8 +82,8 @@ the ``~/.conan`` folder. Its format is a list of entries, one on each line, with
 .. code-block:: text
 
     [remote name] [remote url] [bool]
-    
-where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. 
+
+where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote.
 
 The local cache *registry.txt* file contains the remotes definitions, as well as the mapping from packages
 to remotes. In general it is not a good idea to add it to the installed files. That being said, the remote

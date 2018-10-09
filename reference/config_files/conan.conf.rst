@@ -66,6 +66,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
+    [plugins]  # environment CONAN_PLUGINS
+    attribute_checker
 
     # Default settings now declared in the default profile
 

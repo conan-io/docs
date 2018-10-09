@@ -150,7 +150,7 @@ For example, the command :command:`conan install . -s os="Linux" -s compiler="gc
 
 The Conan client will throw an error If the binary package required for specific settings doesn't exist. It is possible to try to build the
 binary package from sources using the :command:`--build=missing` command line argument to install. A detailed description on how to build a
-binary package is from sources is described in the below sections.
+binary package from sources is described in the below sections.
 
 .. warning::
 
