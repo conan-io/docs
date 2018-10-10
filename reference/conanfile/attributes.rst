@@ -366,7 +366,7 @@ consistent implementation take into account these considerations:
 default_options
 ---------------
 
-As you have seen in the examples above, recipe's default options are declared as a dictionary and can be assigned an initial desired value.
+As you have seen in the examples above, recipe's default options are declared as a dictionary with the initial desired value of the options.
 However, you can also specify default option values of the required dependencies:
 
 .. code-block:: python
