@@ -27,7 +27,7 @@ Clone the project from github:
 
 .. code-block:: bash
 
-   $ git clone https://github.com/conanio/-gtest-example
+   $ git clone https://github.com/lasote/conan-gtest-example
 
 
 Create an ``appveyor.yml`` file and paste this code in it: 

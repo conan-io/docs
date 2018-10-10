@@ -327,7 +327,7 @@ match the gcc toolchain compiler:
 
 .. code-block:: bash
 
-    git clone https://github.com/conanio/-zlib.git
+    git clone https://github.com/conan-community/conan-zlib.git
 
 - Call :command:`conan create` using the created profile.
 
