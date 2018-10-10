@@ -23,8 +23,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Read more about the :ref:`Conan stability commitment<stability>`.
 
 
-1.8.0 (9-October-2018)
+1.8.1 (10-October-2018)
 -----------------------
+
+- Fix: Remove warnings related to ``python_requires()``, both in linter and due to Python2. `#3706 <https://github.com/conan-io/conan/pull/3706>`_
+- Fix: Use *share* folder for ``DATAROOTDIR`` in CMake and AutoTools build helpers. `#3705 <https://github.com/conan-io/conan/pull/3705>`_
+- Fix: Disabled apiv2 until the new protocol becomes stable. `#3703 <https://github.com/conan-io/conan/pull/3703>`_
+
+
+1.8.0 (9-October-2018)
+----------------------
 
 - Feature: Allow `conan config install` to install configuration from a folder and not only from compressed files. `#3680 <https://github.com/conan-io/conan/pull/3680>`_
 - Feature: The environment variable CONAN_DEFAULT_PROFILE_PATH allows the user to define the path (existing) to the default profile that will be used by Conan. `#3675 <https://github.com/conan-io/conan/pull/3675>`_
