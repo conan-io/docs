@@ -211,7 +211,7 @@ Configures `Autotools` project with the given parameters.
     - ``--bindir``, ``--sbin`` and ``--libexec`` set to *bin* folder.
     - ``--libdir`` set to *lib* folder.
     - ``--includedir``, ``--oldincludedir`` set to *include* folder.
-    - ``--datarootdir`` set to *res* folder.
+    - ``--datarootdir`` set to *share* folder.
 
     These flags will be set on demand, so only the available options in the *./configure* are actually set. They can also be totally skipped
     using ``use_default_install_dirs=False`` as described in the section below.
