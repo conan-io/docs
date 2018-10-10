@@ -66,7 +66,7 @@ There are two approaches for this situation:
 
       def configure(self):
           if self.settings.os == "Windows":
-            raise ConanException("This library is not compatible with Windows")
+            raise ConanInvalidConfiguration("This library is not compatible with Windows")
 
   This same method is also valid for ``options`` and ``config_options()`` method and it is commonly used to remove options for one setting:
 
