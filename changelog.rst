@@ -24,7 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 1.8.1 (10-October-2018)
-----------------------
+-----------------------
 
 - Fix: Remove warnings related to ``python_requires()``, both in linter and due to Python2. `#3706 <https://github.com/conan-io/conan/pull/3706>`_
 - Fix: Use *share* folder for ``DATAROOTDIR`` in CMake and AutoTools build helpers. `#3705 <https://github.com/conan-io/conan/pull/3705>`_
