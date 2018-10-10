@@ -142,7 +142,8 @@ And it can be used in plugin importing the module:
 Storage, activation and sharing
 -------------------------------
 
-Plugins are Python files stored under *~/.conan/plugins* folder and their file name should be the same used for activation.
+Plugins are Python files stored under *~/.conan/plugins* folder and **their file name should be the same used for activation** (without the
+*.py* extension).
 
 The activation of the plugins is done in the *conan.conf* section named ``[plugins]``. The plugin names listed under this section will be
 considered activated.
