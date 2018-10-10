@@ -181,7 +181,7 @@ There are some definitions set to be used later on the the ``install()`` step to
 +-----------------------------+---------------------------------------------+
 | CMAKE_INSTALL_OLDINCLUDEDIR | Set to *include* inside the package folder. |
 +-----------------------------+---------------------------------------------+
-| CMAKE_INSTALL_DATAROOTDIR   | Set to *res* inside the package folder.     |
+| CMAKE_INSTALL_DATAROOTDIR   | Set to *share* inside the package folder.   |
 +-----------------------------+---------------------------------------------+
 
 But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property:
