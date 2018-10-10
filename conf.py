@@ -59,7 +59,12 @@ versions_dict = data
 
 html_context = {
     "versions": versions_dict,
-    "current_version": version
+    "current_version": version,
+    "display_github": True, # Integrate GitHub
+    "github_user": "conan-io", # Username
+    "github_repo": "docs", # Repo name
+    "github_version": "master", # Version
+    "conf_py_path": "/" # Path in the checkout to the docs root
 }
 
 # Add any paths that contain templates here, relative to this directory.
