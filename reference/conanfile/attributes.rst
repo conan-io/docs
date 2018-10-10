@@ -349,15 +349,15 @@ consistent implementation take into account these considerations:
     - equals ``False`` for the values ``False``, ``"False"`` and ``"false"``, also for the empty
       string and for ``0`` and ``"0"`` as expected.
 
-- Comparaison using ``is`` is always equals to ``False`` because the types would be different as
+- Comparison using ``is`` is always equals to ``False`` because the types would be different as
   the option value is encapsulated inside a Conan class.
 
-- Explicit comparaisons with the ``==`` symbol **are case sensitive**, so:
+- Explicit comparisons with the ``==`` symbol **are case sensitive**, so:
 
     - ``self.options.option = "False"`` satisfies ``assert self.options.option == False``,
       ``assert self.options.option == "False"``, but ``assert self.options.option != "false"``.
 
-- A different behaviour has ``self.options.option = None``, because
+- A different behavior has ``self.options.option = None``, because
   ``assert self.options.option != None``.
 
 
@@ -366,21 +366,21 @@ consistent implementation take into account these considerations:
 default_options
 ---------------
 
-As you have seen in the examples above, recipe's default options can be assigned to the desired value. However, you can also specify
-default option values of the required dependencies:
+As you have seen in the examples above, recipe's default options are declared as a dictionary with the initial desired value of the options.
+However, you can also specify default option values of the required dependencies:
 
 .. code-block:: python
 
     class OtherPkg(ConanFile):
         requires = "Pkg/0.1@user/channel"
-        default_options = "Pkg:pkg_option=value"
+        default_options = {"Pkg:pkg_option": "value"}
 
 And it also works with default option values of conditional required dependencies:
 
 .. code-block:: python
 
     class OtherPkg(ConanFile):
-        default_options = "Pkg:pkg_option=value"
+        default_options = {"Pkg:pkg_option": "value"}
 
         def requirements(self):
             if self.settings.os != "Windows":

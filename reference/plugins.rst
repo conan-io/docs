@@ -146,7 +146,7 @@ subsequent **pre**/**post** ``download_package()``/``upload_package()`` if that 
     using :command:`conan create` or :command:`conan install`.
 
 Function parameters
---------------------
+-------------------
 
 Here you can find the description for each parameter:
 
@@ -193,14 +193,14 @@ Table legend:
   - **post**: Only available in ``post`` function.
   - **cache**: Only available when the context of the command executed is the local cache. e.g. :command:`conan create`,
     :command:`conan install`...
-  - **user space**: Only available when the context of the command executed is the local cache. e.g. :command:`conan build`
+  - **user space**: Only available when the context of the command executed is the user space. e.g. :command:`conan build`
 
 .. note::
 
     Path to the different folders of the Conan execution flow may be accessible as usual through the ``conanfile`` object. See
     :ref:`folders_attributes_reference` to learn more.
 
-Some of this parameters does not appear in the signature of the function as they may not be available always (Mostly depending on the recipe
+Some of this parameters does not appear in the signature of the function as they may not be always available (Mostly depending on the recipe
 living in the local cache or in user space). However, they can be checked with the ``kwargs`` parameter.
 
 .. important::
