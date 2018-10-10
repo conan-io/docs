@@ -208,7 +208,7 @@ Configures `Autotools` project with the given parameters.
 
     There are other flags set automatically to fix the install directories by default:
 
-    - ``--bindir``, ``--sbin`` and ``--libexec`` set to *bin* folder.
+    - ``--bindir``, ``--sbindir`` and ``--libexecdir`` set to *bin* folder.
     - ``--libdir`` set to *lib* folder.
     - ``--includedir``, ``--oldincludedir`` set to *include* folder.
     - ``--datarootdir`` set to *share* folder.
