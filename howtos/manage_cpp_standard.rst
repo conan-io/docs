@@ -5,7 +5,7 @@ How to manage C++ standard
 
 .. warning::
 
-    This feature is experimental
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 The setting representing the C++ standard is ``cppstd``.
 The detected default profile doesn't set any value for the ``cppstd`` setting.

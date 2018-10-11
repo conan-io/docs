@@ -5,6 +5,10 @@
 Upload output [EXPERIMENTAL]
 ----------------------------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 The :command:`conan upload` provides a ``--json`` parameter to generate a file containing the
 information of the upload process.
 
