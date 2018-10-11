@@ -21,6 +21,10 @@ The output JSON contains a two first level keys:
         - **time**: ``ISO 8601`` string with the time the recipe was downloaded/retrieved.
         - **error**: ``true``/``false``.
         - **id**: Reference. E.g., "OpenSSL/1.0.2n@conan/stable"
+        - **name**: name of the packaged library. E.g., "OpenSSL"
+        - **version**: version of the packaged library. E.g., "1.0.2n"
+        - **user**: user of the packaged library. E.g., "conan"
+        - **channel**: channel of the packaged library. E.g., "stable"
         - **dependency**: ``true``/``false``. Is the package being installed/created or a
           dependency. Same as :ref:`develop conanfile attribute<develop_attribute>`.
 
@@ -35,6 +39,8 @@ The output JSON contains a two first level keys:
         - **time**: ISO 8601 string with the time the recipe was downloaded/retrieved.
         - **error**: ``true``/``false``.
         - **id**: Package ID. E.g., "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
+        - **cpp_info**: dictionary containing the build information defined in the ``package_info``
+          method on the recipe.
 
 **Example:**
 
