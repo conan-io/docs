@@ -451,7 +451,6 @@ Parameters:
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
 
-
 tools.replace_path_in_file()
 ----------------------------
 
@@ -473,15 +472,14 @@ Parameters:
     - **file_path** (Required): File path of the file to perform the replace in.
     - **search** (Required): String with the path you want to be replaced.
     - **replace** (Required): String to replace the searched path.
-    - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
-      is not found, so nothing is actually replaced.
-    - **windows_paths** (Optional, Defaulted to ``None``): Controls when the casing of the path and the different directory separators are take into account:
+    - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the search string
+      is not found and nothing is actually replaced.
+    - **windows_paths** (Optional, Defaulted to ``None``): Controls whether the casing of the path and the different
+      directory separators are taken into account:
 
-      - ``None``: only when Windows operating system is detected.
-      - ``False``: deactivated, it will match exact patterns (like replace_in_file function).
-      - ``True``: always activated, irrespective of the detected operating system.
-
-
+      - ``None``: Only when Windows operating system is detected.
+      - ``False``: Deactivated, it will match exact patterns (like ``tools.replace_in_file()``).
+      - ``True``: Always activated, irrespective of the detected operating system.
 
 .. _tools_run_environment:
 
