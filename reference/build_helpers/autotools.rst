@@ -310,7 +310,7 @@ The following environment variables will also affect the `AutoToolsBuildEnvironm
 +--------------------+-------------------------------------------------------------------------------------+
 | CFLAGS             | Options for the C compiler (-g, -s, -m64, -m32, -fPIC)                              |
 +--------------------+-------------------------------------------------------------------------------------+
-| CXXFLAGS           | Options for the C++ compiler (-g, -s, -stdlib, -m64, -m32, -fPIC, -std)             |
+| CXXFLAGS           | Options for the C++ compiler (-g, -s, -stdlib, -m64, -m32, -fPIC, -std)          |
 +--------------------+-------------------------------------------------------------------------------------+
 | CPPFLAGS           | Preprocessor definitions (-D, -I)                                                   |
 +--------------------+-------------------------------------------------------------------------------------+
