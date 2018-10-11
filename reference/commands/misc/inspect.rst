@@ -1,12 +1,12 @@
 
 .. _conan_inspect:
 
-conan inspect
-=============
+conan inspect [EXPERIMENTAL]
+============================
 
-.. note::
+.. warning::
 
-    This is an EXPERIMENTAL new command in Conan 1.8, and might be subject to changes in future releases.
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 .. code-block:: bash
 

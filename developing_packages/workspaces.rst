@@ -1,12 +1,12 @@
 .. _workspaces:
 
-Workspaces [experimental]
+Workspaces [EXPERIMENTAL]
 =========================
 
 .. warning::
 
-    This is an experimental feature. It is actually a preview of the feature, with the main goal of receiving feedback and improving it.
-    Consider the file formats, commands and flows to be unstable and subject to changes in the next releases.
+    This is an **experimental** feature (actually a preview of the feature). File formats, commands and flows are subject to breaking
+    changes in future releases.
 
 Sometimes, it is necessary to work on more than one package simultaneously. In theory, each package should be a distinct "work unit", and developers
 should be able to work on them in isolation. However, some changes require modifications in more than one package at the same time.

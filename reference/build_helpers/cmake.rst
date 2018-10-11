@@ -278,6 +278,9 @@ patch_config_paths() [EXPERIMENTAL]
 
     def patch_config_paths()
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
 variable. Method also changes references to other packages installation paths in export CMake config files to Conan variable

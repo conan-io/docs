@@ -5,6 +5,10 @@
 Install and Create output [EXPERIMENTAL]
 ----------------------------------------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 The :command:`conan install` and :command:`conan create` provide a ``--json`` parameter to generate
 a file containing the information of the installation process.
 
