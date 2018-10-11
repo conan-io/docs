@@ -47,7 +47,7 @@ Examples:
 
     $ conan inspect zlib/1.2.11@conan/stable -a=license -a=url
     license: http://www.zlib.net/zlib_license.html
-    url: http://github.com/lasote/conan-zlib
+    url: http://github.com/conan-community/conan-zlib
 
 
 If no specific attributes are defined via ``-a``, then, some default attributes will be displayed:
@@ -57,7 +57,7 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
     $ conan inspect zlib/1.2.11@conan/stable
     name: zlib
     version: 1.2.11
-    url: http://github.com/lasote/conan-zlib
+    url: http://github.com/conan-community/conan-zlib
     license: http://www.zlib.net/zlib_license.html
     author: None
     description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)

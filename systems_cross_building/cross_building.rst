@@ -327,7 +327,7 @@ match the gcc toolchain compiler:
 
 .. code-block:: bash
 
-    git clone https://github.com/lasote/conan-zlib.git
+    git clone https://github.com/conan-community/conan-zlib.git
 
 - Call :command:`conan create` using the created profile.
 
@@ -435,7 +435,7 @@ Currently there are ``i386``, ``armv7`` and ``armv7hf`` images with the needed p
 
     $ git clone https://github.com/conan-community/conan-openssl
     $ cd conan-openssl
-    $ docker run -it -v$(pwd):/home/conan/project --rm lasote/conangcc49-armv7hf /bin/bash
+    $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc49-armv7hf /bin/bash
 
     # Now we are running on the conangcc49-armv7hf container
     $ sudo pip install conan --upgrade
