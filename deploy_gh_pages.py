@@ -110,6 +110,6 @@ if __name__ == "__main__":
 
         deploy()
     else:
-        call("make spelling")
         call("make html")
+        call("make spelling")
         call("make linkcheck")

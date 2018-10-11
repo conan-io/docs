@@ -411,6 +411,8 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
         for html_src_path, dst_path in redirect_files.items():
             target_path = app.outdir + '/' + html_src_path
             html = redirect_template % dst_path
+            if not os.path.exists(os.path.dirname(target_path)):
+                os.makedirs(os.path.dirname(target_path))
             with open(target_path, "w") as f:
                 f.write(html)
 
