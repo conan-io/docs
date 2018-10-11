@@ -49,8 +49,8 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
                 dirty = ""
             else:
                 dirty = ".dirty"
-            return "%s-%s+%s.%s" % (version, revision, branch, dirty) # e.g. 1.2.0-1234+trunk.dirty
-        except:
+            return "%s-%s+%s%s" % (version, revision, branch, dirty) # e.g. 1.2.0-1234+trunk.dirty
+        except Exception:
             return None
 
     class HelloLibrary(ConanFile):
@@ -63,7 +63,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
 In this example, the package created with :command:`conan create` will be called 
 ``Hello/generated_version@user/channel``. Note that ``get_svn_version()`` returns ``None``
 if it is not able to get the subversion data. This is necessary when the recipe is already in the
-Conan cache, and the subversion repository may not be there,. A value of ``None`` makes Conan
+Conan cache, and the subversion repository may not be there. A value of ``None`` makes Conan
 get the version from the metadata.
 
 How to capture package version from text or build files
