@@ -1,7 +1,7 @@
-.. _manage_gcc_standard:
+.. _manage_cpp_standard:
 
-How to manage C++ standard
-==========================
+How to manage C++ standard [EXPERIMENTAL]
+=========================================
 
 .. warning::
 
