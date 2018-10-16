@@ -26,6 +26,7 @@ Manages the remote list and the package recipes associated to a remote.
         add_ref             Associate a recipe's reference to a remote
         remove_ref          Dissociate a recipe's reference and its remote
         update_ref          Update the remote associated with a package recipe
+        clean               Clean the list of remotes and all recipe-remote associations
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -92,6 +93,12 @@ the command will insert the remote in the specified position
   .. code-block:: bash
 
       $ conan remote remove remote_name
+
+- Remove all configured remotes (this will also remove all recipe-remote associations):
+
+  .. code-block:: bash
+
+      $ conan remote clean
 
 - Update a remote:
 
