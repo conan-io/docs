@@ -155,7 +155,7 @@ In the Bintray page of your package, fill in the following fields:
       https://github.com/conan-community/conan-zlib/issues
     - Version control: URL of your recipe github repository, e.g.,
       https://github.com/conan-community/conan-zlib
-    - GitHub repo (user/repo): e.g., lasote/conan-zlib
+    - GitHub repo (user/repo): e.g., conan-community/conan-zlib
 
 For each version page (optional, but recommended):
 

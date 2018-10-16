@@ -1,11 +1,11 @@
 .. _python_requires:
 
-Python requires: reusing python code in recipes
-===============================================
+Python requires: reusing python code in recipes [EXPERIMENTAL]
+==============================================================
 
 .. warning::
 
-    This is an EXPERIMENTAL feature released in 1.7. Subject to breaking changes.
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 The ``python_requires()`` feature allows to extend the recipes reusing Python code from other **conanfile.py** easily, even for inheritance
 approaches. The code to be reused will be in a *conanfile.py* recipe, and will be managed as any other Conan package.

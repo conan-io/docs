@@ -8,6 +8,10 @@
     This is the reference page for the ``B2``, aka *Boost Build*, generator. It is
     a multi-generator to match the multi-build nature of ``B2``.
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 Usage
 -----
 

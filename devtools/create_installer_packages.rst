@@ -27,7 +27,7 @@ A Conan package for a tool follows always a similar structure, this is a recipe 
        name = "nasm"
        version = "2.13.01"
        license = "BSD-2-Clause"
-       url = "https://github.com/lasote/conan-nasm-installer"
+       url = "https://github.com/conan-community/conan-nasm-installer"
        settings = "os_build", "arch_build"
        build_policy = "missing"
        description="Nasm for windows. Useful as a build_require."

@@ -3,6 +3,10 @@
 Plugins [EXPERIMENTAL]
 ======================
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 The Conan plugins is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
 points.
 

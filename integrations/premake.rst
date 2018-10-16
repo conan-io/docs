@@ -2,24 +2,31 @@
 |premake_logo| Premake
 _________________________
 
-From conan 0.9, generator packages are available. Premake4 has experimental support in one
-of those packages. You can use it as:
+`Premake`_ version 4 has **experimental** support as a generator package.
+
+You can find this generator in this repository: https://github.com/memsharded/conan-premake
+
+In order to use it, clone the repository and export the recipe to the local cache:
+
+.. code-block:: bash
+
+    $ git clone https://github.com/memsharded/conan-premake
+    $ conan export conan-premake memsharded/testing
+
+Now you can use this generator as a requirement in your recipes **but also as a generator**:
 
 .. code-block:: text
 
     [requires]
     PremakeGen@0.1@memsharded/testing
-    
+
     [generators]
     Premake
-    
 
-Check the :ref:`generator package examples<dyn_generators>`
+.. seealso::
 
-https://github.com/memsharded/conan-premake
-
-Link to conan package:
-
+    Check the :ref:`generator package examples<dyn_generators>` to learn how to create and share custom generators like this one.
 
 
 .. |premake_logo| image:: ../images/premake_logo.png
+.. _`Premake`: https://premake.github.io/

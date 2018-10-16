@@ -1,12 +1,12 @@
 
 .. _conan_inspect:
 
-conan inspect
-=============
+conan inspect [EXPERIMENTAL]
+============================
 
-.. note::
+.. warning::
 
-    This is an EXPERIMENTAL new command in Conan 1.8, and might be subject to changes in future releases.
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 .. code-block:: bash
 
@@ -47,7 +47,7 @@ Examples:
 
     $ conan inspect zlib/1.2.11@conan/stable -a=license -a=url
     license: http://www.zlib.net/zlib_license.html
-    url: http://github.com/lasote/conan-zlib
+    url: http://github.com/conan-community/conan-zlib
 
 
 If no specific attributes are defined via ``-a``, then, some default attributes will be displayed:
@@ -57,7 +57,7 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
     $ conan inspect zlib/1.2.11@conan/stable
     name: zlib
     version: 1.2.11
-    url: http://github.com/lasote/conan-zlib
+    url: http://github.com/conan-community/conan-zlib
     license: http://www.zlib.net/zlib_license.html
     author: None
     description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)

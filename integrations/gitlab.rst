@@ -35,7 +35,7 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 
 .. code-block:: text
 
-    image: lasote/conangcc63
+    image: conanio/gcc63
 
     build:
       before_script:

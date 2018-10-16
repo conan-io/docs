@@ -451,6 +451,36 @@ Parameters:
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
 
+tools.replace_path_in_file()
+----------------------------
+
+.. code-block:: python
+
+    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None)
+
+Replace a path in a file with another string. In Windows, it will match the path even if the
+casing and the path separator doesn't match.
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        tools.replace_path_in_file("hello/somefile.cmake", "c:\Some/PATH/to\File.txt","PATTERN/file.txt")
+
+Parameters:
+    - **file_path** (Required): File path of the file to perform the replace in.
+    - **search** (Required): String with the path you want to be replaced.
+    - **replace** (Required): String to replace the searched path.
+    - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the search string
+      is not found and nothing is actually replaced.
+    - **windows_paths** (Optional, Defaulted to ``None``): Controls whether the casing of the path and the different
+      directory separators are taken into account:
+
+      - ``None``: Only when Windows operating system is detected.
+      - ``False``: Deactivated, it will match exact patterns (like ``tools.replace_in_file()``).
+      - ``True``: Always activated, irrespective of the detected operating system.
+
 .. _tools_run_environment:
 
 tools.run_environment()
