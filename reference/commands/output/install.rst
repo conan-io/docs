@@ -46,55 +46,69 @@ The output JSON contains a two first level keys:
 
 .. code-block:: bash
 
-    $ conan install OpenSSL/1.0.2n@conan/stable --json install.json
+    $ conan install zlib/1.2.11@conan/stable --json install.json
 
 .. code-block:: json
    :caption: install.json
 
-    {
-       "installed":[
-          {
-             "packages":[
-                {
-                   "remote":null,
-                   "built":false,
-                   "cache":true,
-                   "downloaded":false,
-                   "time":"2018-03-28T08:39:41.385285",
-                   "error":null,
-                   "id":"227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c"
-                }
-             ],
-             "recipe":{
-                "remote":null,
-                "cache":true,
-                "downloaded":false,
-                "time":"2018-03-28T08:39:41.365836",
-                "error":null,
-                "id":"OpenSSL/1.0.2n@conan/stable"
-             }
-          },
-          {
-             "packages":[
-                {
-                   "remote":null,
-                   "built":false,
-                   "cache":true,
-                   "downloaded":false,
-                   "time":"2018-03-28T08:39:41.384952",
-                   "error":null,
-                   "id":"8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
-                }
-             ],
-             "recipe":{
-                "remote":null,
-                "cache":true,
-                "downloaded":false,
-                "time":"2018-03-28T08:39:41.379354",
-                "error":null,
-                "id":"zlib/1.2.11@conan/stable"
-             }
-          }
-       ],
-       "error":false
-    }
+   {
+       "error": false,
+       "installed": [
+           {
+               "recipe": {
+                   "id": "zlib/1.2.11@conan/stable",
+                   "name": "zlib",
+                   "version": "1.2.11",
+                   "user": "conan",
+                   "channel": "stable",
+                   "downloaded": false,
+                   "cache": true,
+                   "error": null,
+                   "remote": null,
+                   "time": "2018-10-10T10:28:28.351753",
+                   "dependency": true
+               },
+               "packages": [
+                   {
+                       "id": "0eaf3bfbc94fb6d2c8f230d052d75c6c1a57a4ce",
+                       "downloaded": false,
+                       "cache": true,
+                       "error": null,
+                       "remote": null,
+                       "time": "2018-10-10T10:28:28.356103",
+                       "built": false,
+                       "cpp_info": {
+                           "includedirs": [
+                               "include"
+                           ],
+                           "libdirs": [
+                               "lib"
+                           ],
+                           "resdirs": [
+                               "res"
+                           ],
+                           "bindirs": [
+                               "bin"
+                           ],
+                           "builddirs": [
+                               ""
+                           ],
+                           "libs": [
+                               "z"
+                           ],
+                           "rootpath": "/Users/jgsogo/.conan/data/zlib/1.2.11/conan/stable/package/0eaf3bfbc94fb6d2c8f230d052d75c6c1a57a4ce",
+                           "version": "1.2.11",
+                           "description": "A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)"
+                       }
+                   }
+               ]
+           }
+       ]
+   }
+
+
+.. note::
+
+    As this is a marked as *experimental*, some fields may be removed or added: fields
+    ``version`` and ``description`` inside ``cpp_info`` will eventually be removed and paths
+    may be changed for absolute ones.
