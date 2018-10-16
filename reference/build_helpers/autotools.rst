@@ -8,18 +8,18 @@ This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`
 
 .. code-block:: python
    :emphasize-lines: 13, 14, 15
-   
+
    from conans import ConanFile, AutoToolsBuildEnvironment
 
    class ExampleConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.9.0@pocoproject/stable"
       default_options = {"Poco:shared": True, "OpenSSL:shared": True}
-     
+
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin")
          self.copy("*.dylib*", dst="bin", src="lib")
-   
+
       def build(self):
          autotools = AutoToolsBuildEnvironment(self)
          autotools.configure()
@@ -220,8 +220,8 @@ Configures `Autotools` project with the given parameters.
 
 .. warning::
 
-    From Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib``. This means that
-    if you are using the ``install()`` to package with AutoTools, library artifacts will be stored in the ``lib`` directory unless indicated
+    Since Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib``. This means that
+    if you are using the ``install()`` method to package with AutoTools, library artifacts will be stored in the ``lib`` directory unless indicated
     explicitly by the user.
 
     This change was introduced in order to fix issues detected in some Linux distributions where libraries were being installed to the
@@ -231,7 +231,7 @@ Configures `Autotools` project with the given parameters.
     This was considered a bug in the build helper, as it should be as much deterministic as possible when building the same package for the
     same settings and generally for any other user input.
 
-    If you were already modelling the ``lib64`` folder in your recipe, make sure you use ``lib`` for ``self.cpp_info.libdirs`` or inject
+    If you were already modeling the ``lib64`` folder in your recipe, make sure you use ``lib`` for ``self.cpp_info.libdirs`` or inject
     the argument in the Autotools' ``configure()`` method:
 
     .. code-block:: python
