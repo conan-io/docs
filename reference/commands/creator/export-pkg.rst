@@ -176,8 +176,14 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
       $ conan source . --source-folder src
       $ conan install . --install-folder build_x86 -s arch=x86
       $ conan build . --build-folder build_x86 --source-folder src
-      $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
+      $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86 -s arch=x86
 
-  In this case, in the :command:`conan export-pkg`, you don't need to specify the :command:`-s arch=x86` or any other setting, option, or profile,
-  because it will all the information in the :command:`--build-folder` the *conaninfo.txt* and *conanbuildinfo.txt`* that have been created with
-  :command:`conan install`.
+
+.. note::
+
+  The :command:`conan export-pkg`, if no ``--profile`` (or settings, options, etc) arguments are provided,
+  tries to obtain the previously installed configuration (from previous :command:`conan install`),
+  which is stored in a *conaninfo.txt* file in the install folder. In that case, it might be possible to skip
+  those arguments. However, there are some corner cases (like header only libraries with dependencies), in
+  which the *conaninfo.txt* information won't be enough, so it is recommended to always provide those arguments.
+  
