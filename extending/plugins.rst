@@ -120,11 +120,10 @@ You can also import functionalities from a relative module:
 .. code-block:: text
 
     plugins
-    |   my_plugin.py
-    |
-    \---custom_module
-            custom.py
-            __init__.py
+    ├── custom_module
+    │   ├── custom.py
+    │   └── __init__.py
+    └── my_plugin.py
 
 Inside the *custom.py* from my *custom_module* there is:
 

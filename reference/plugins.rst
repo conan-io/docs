@@ -158,7 +158,7 @@ Here you can find the description for each parameter:
 
 - **conanfile_path**: Path to the *conanfile.py* file whether it is in local cache or in user space.
 
-- **reference**: Named tuple with attributes ``name``, ``version``, ``user, and ``channel``. It's representation will be a reference like:
+- **reference**: Named tuple with attributes ``name``, ``version``, ``user``, and ``channel``. Its representation will be a reference like:
   ``box2d/2.1.0@user/channel``
 
 - **package_id**: String with the computed package ID.
