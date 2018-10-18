@@ -2,31 +2,6 @@
 |premake_logo| Premake
 _________________________
 
-`Premake`_ version 4 has **experimental** support as a generator package.
-
-You can find this generator in this repository: https://github.com/memsharded/conan-premake
-
-In order to use it, clone the repository and export the recipe to the local cache:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/memsharded/conan-premake
-    $ conan export conan-premake memsharded/testing
-
-Now you can use this generator as a requirement in your recipes **but also as a generator**:
-
-.. code-block:: text
-
-    [requires]
-    PremakeGen@0.1@memsharded/testing
-
-    [generators]
-    Premake
-
-.. seealso::
-
-    Check the :ref:`generator package examples<dyn_generators>` to learn how to create and share custom generators like this one.
-
 Since conan 1.9.0, premake generator is built-in, so the following should be enough to use it:
 
 .. code-block:: text
@@ -105,8 +80,8 @@ on Linux or macOS, run:
 
 The following happens under the hood:
 
-- conan install ``OpenCV`` package
-- conan install ``premake_installer`` as build requirement
+- conan installs ``OpenCV`` package
+- conan installs ``premake_installer`` as build requirement
 - conan generates ``conanbuildinfo.lua`` file which contains build information for premake
 - conan generates ``activate.sh`` or ``activate.bat`` file with virtual environment which has ``premake5`` executable
 - virtual environment is getting activated
