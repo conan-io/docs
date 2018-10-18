@@ -16,10 +16,10 @@ in the --install-folder (defaulted to current directory).
 
     positional arguments:
       path                  Path to a folder containing a conanfile.py or to a
-                            recipe file, e.g., my_folder/conanfile.py With --undo
+                            recipe file e.g., my_folder/conanfile.py With --undo
                             option, this parameter is the folder containing the
                             conan_imports_manifest.txt file generated in a
-                            previous execution. E.g., conan imports
+                            previous execution. e.g.: conan imports
                             ./imported_files --undo
 
     optional arguments:

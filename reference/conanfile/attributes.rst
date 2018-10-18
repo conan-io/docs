@@ -148,7 +148,35 @@ channel than the current package, which could be achieved with something like:
 Only package recipes that are in the conan local cache (i.e. "exported") have an user/channel assigned.
 For package recipes working in user space, there is no current user/channel. The properties ``self.user``
 and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
-respectively. If they are not defined, an error will be raised.
+respectively. If they are not defined, an error will be raised unless ``default_user`` and ``default_channel``
+are declared.
+
+
+default_user, default_channel
+-----------------------------
+
+For package recipes working in the user space, with local methods like :command:`conan install .` and :command:`conan build .`,
+there is no current user/channel. If you are accessing to ``self.user`` or ``self.channel`` in your recipe,
+you need to declare the environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` or you can set the attributes
+``default_user`` and ``default_channel``. You can also use python @properties:
+
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        default_user = "myuser"
+
+        @property
+        def default_channel(self):
+            return "mydefaultchannel"
+
+        def requirements(self):
+            self.requires("Pkg/0.1@%s/%s" % (self.user, self.channel))
+
 
 .. _settings_property:
 
