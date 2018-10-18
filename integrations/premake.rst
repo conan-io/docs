@@ -1,3 +1,7 @@
+.. _premake:
+
+premake
+=======
 
 |premake_logo| Premake
 _________________________
@@ -93,4 +97,7 @@ The following happens under the hood:
     This complete examples is stored in https://github.com/SSE4/conan-premake-demo
 
 .. |premake_logo| image:: ../images/premake_logo.png
-.. _`Premake`: https://premake.github.io/
+
+.. seealso::
+
+    Check the complete reference of the :ref:`premake generator<premake_generator>`.
