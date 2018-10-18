@@ -3,8 +3,8 @@
 |scons_logo| SCons
 ____________________
 
-SCons can be used both to generate and consume Conan packages, via the :ref:`generator <scons_generator>` generator. The package recipe
-``build()`` method could be similar to:
+SCons can be used both to generate and consume Conan packages via the :ref:`scons_generator`
+generator. The package recipe ``build()`` method could be similar to:
 
 .. code-block:: python
 
@@ -24,7 +24,8 @@ SCons can be used both to generate and consume Conan packages, via the :ref:`gen
         ...
 
 
-The ``SConscript`` build script can load the generated ``SConscript_conan`` file that contains the information of the dependencies, and use it to build
+The ``SConscript`` build script can load the generated ``SConscript_conan`` file that contains the
+information of the dependencies, and use it to build
 
 .. code-block:: python
 
@@ -39,7 +40,8 @@ The ``SConscript`` build script can load the generated ``SConscript_conan`` file
     env.MergeFlags(flags)
     env.Library("hello", "hello.cpp")
 
-A complete example with a *test_package* that uses SCons too is available in the following GitHub repository. Give it a try!
+A complete example with a *test_package* that uses SCons too is available in the following GitHub
+repository. Give it a try!
 
 .. code-block:: bash
 
