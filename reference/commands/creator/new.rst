@@ -17,7 +17,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 .. code-block:: text
 
     positional arguments:
-      name                  Package name, e.g., "Poco/1.7.3" or complete reference
+      name                  Package name, e.g.: "Poco/1.7.3" or complete reference
                             for CI scripts: "Poco/1.7.3@conan/stable"
 
     optional arguments:
