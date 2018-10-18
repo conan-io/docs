@@ -11,10 +11,11 @@ conan export-pkg
                        [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
                        path reference
 
-Exports a recipe & creates a package with given files calling the package()
-method applied to the local folders '--source-folder' and '--build-folder' and
-creates a new package in the local cache for the specified 'reference' and for
-the specified '--settings', '--options' and or '--profile'.
+Exports a recipe, then creates a package from local source and build folders.
+The package is created by calling the package() method applied to the local
+folders '--source-folder' and '--build-folder' It's created in the local cache
+for the specified 'reference' and for the specified '--settings', '--options'
+and or '--profile'.
 
 .. code-block:: text
 
