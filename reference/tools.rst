@@ -778,7 +778,7 @@ tools.run_in_windows_bash()
 
     def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None)
 
-Runs an unix command inside a bash shell. It requires to have "bash" in the path.
+Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path``
