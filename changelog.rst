@@ -23,6 +23,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.8.4 (19-October-2018)
+-----------------------
+
+- Feature: Increase debugging information when an error uploading a recipe with different timestamp occurs. `#3801 <https://github.com/conan-io/conan/pull/3801>`_
+- Fix: Changed `tqdm` dependency to a temporarily forked removing the "man" directory write permissions issue installing the `pip` package. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
+- Fix: Removed `ndg-httpsclient` and `pyasn` dependencies from OSX requirements file because they shouldn't be necessary. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
+
+
 1.8.3 (17-October-2018)
 -----------------------
 
