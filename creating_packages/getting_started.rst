@@ -213,7 +213,7 @@ You can create and test the package with our default settings simply by running:
 
 If "Hello world!" is displayed, it worked.
 
-This following steps run:
+The :command:`conan create` command does the following:
 
 - Copies ("export" in conan terms) the *conanfile.py* from the user folder into the **local cache**.
 - Installs the package, forcing it to be built from the sources.
