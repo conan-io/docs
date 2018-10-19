@@ -17,4 +17,4 @@ If you want to distribute a unified ``settings.yml`` file you can use the :ref:`
 .. note::
    
    The ``settings.yml`` file is not perfect nor definitive, surely incomplete. Please send us any suggestion (or
-   better a PR) with settings and values that could make sense for other users.
+   better yet, a PR) with settings and values that could make sense for other users.
