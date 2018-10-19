@@ -34,8 +34,8 @@ This will generate the following files:
 
     conanfile.py
     test_package
-      conanfile.py
       CMakeLists.txt
+      conanfile.py
       example.cpp
 
 On the root level, there is a *conanfile.py* which is the main recipe file, responsible for
