@@ -108,10 +108,10 @@ Recipe Quality
         # Package it
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
-- **Invalid configurations:** There is an special exception, ``conans.errors.ConanInvalidConfiguration`` to be launched
+- **Invalid configurations:** There is a special exception, ``conans.errors.ConanInvalidConfiguration`` to be launched
   from ``configure()`` function in a recipe if the given configuration/options is known not to work. This way the recipe
   owner can declare an invalid configuration and consumers (e.g. CI tools like ``conan-package-tools``) will be able to
-  handle it.  
+  handle it.
 
 
 CI Integration

@@ -332,7 +332,7 @@ or declared in command line when invoking :command:`conan install` to reduce the
 
     $ conan install . -e CONAN_RUN_TEST=0
 
-See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check an use case
+See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check a use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
 
 See example of build method in ``conanfile.py`` to enable/disable running tests with CMake:

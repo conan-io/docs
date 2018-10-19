@@ -145,7 +145,7 @@ channel than the current package, which could be achieved with something like:
         def requirements(self):
             self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
 
-Only package recipes that are in the conan local cache (i.e. "exported") have an user/channel assigned.
+Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
 For package recipes working in user space, there is no current user/channel. The properties ``self.user``
 and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
 respectively. If they are not defined, an error will be raised unless ``default_user`` and ``default_channel``
@@ -275,7 +275,7 @@ values:
         options = {"shared": [True, False],
                    "option1": ["value1", "value2"],}
 
-Values for each option can be typed or plain strings, and there is an special value, ``ANY``, for
+Values for each option can be typed or plain strings, and there is a special value, ``ANY``, for
 options that can take any value.
 
 The attribute ``default_options`` has the purpose of defining the default values for the options
