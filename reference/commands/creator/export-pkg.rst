@@ -181,9 +181,7 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
 
 .. note::
 
-  The :command:`conan export-pkg`, if no ``--profile`` (or settings, options, etc) arguments are provided,
-  tries to obtain the previously installed configuration (from previous :command:`conan install`),
-  which is stored in a *conaninfo.txt* file in the install folder. In that case, it might be possible to skip
-  those arguments. However, there are some corner cases (like header only libraries with dependencies), in
-  which the *conaninfo.txt* information won't be enough, so it is recommended to always provide those arguments.
-  
+    Note that if :command:`--profile` or settings, options, are not provided to :command:`export-pkg`,
+    the configuration will be extracted from the information from a previous :command:`conan install`.
+    That information might be incomplete in some edge cases, so we strongly recommend the usage of
+    :command:`--profile` or :command:`--settings, --options`, etc.
