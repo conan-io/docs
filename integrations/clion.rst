@@ -187,7 +187,7 @@ cache:
 
 .. code-block:: bash
 
-   $ conan export-pkg . mylibrary/1.0@myuser/channel --build-folder cmake-build-debug
+   $ conan export-pkg . mylibrary/1.0@myuser/channel --build-folder cmake-build-debug -pr=myprofile
 
 7. Now you can upload it to a conan server if needed:
 
