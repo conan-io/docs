@@ -32,6 +32,8 @@ tools.cpu_count()
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1.
 Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan.conf file<conan_conf>`.
 
+.. _vcvars_command:
+
 tools.vcvars_command()
 ----------------------
 
