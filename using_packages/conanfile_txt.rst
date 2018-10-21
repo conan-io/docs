@@ -137,6 +137,14 @@ and this is the linkage that should be used if consumers don't specify otherwise
 
         $ conan get Poco/1.9.0@pocoproject/stable
 
+    That outputs the whole package recipe, where you can see the options and how they are used for the build.
+    But the output might be a bit noisy, you could use instead the :command:`inspect` command for specific fields:
+
+    .. code-block:: text
+
+        $ conan inspect Poco/1.9.0@pocoproject/stable -a=options
+        $ conan inspect Poco/1.9.0@pocoproject/stable -a=default_options
+
 For example, we can modify the previous example to use dynamic linkage instead of the default one, which was static, by editing the
 *conanfile.txt*:
 
