@@ -137,8 +137,7 @@ and this is the linkage that should be used if consumers don't specify otherwise
 
         $ conan get Poco/1.9.0@pocoproject/stable
 
-    That outputs the whole package recipe, where you can see the options and how they are used for the build.
-    But the output might be a bit noisy, you could use instead the :command:`inspect` command for specific fields:
+    To see only specific fields of the recipe you can use the :command:`conan inspect` command instead:
 
     .. code-block:: text
 

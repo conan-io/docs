@@ -49,8 +49,8 @@ Now you are ready to build:
     $ ./bin/timer
 
 We have created a separate build configuration of the project without affecting the original
-source directory in any way. The benefit is that we can freely experiment with the configuration, and, if necessary, erase the build folder, and rerun the build with a new configuration with different settings,
-for example, building the Debug configuration:
+source directory in any way. The benefit is that we can freely experiment with the configuration: 
+We can clear the build folder and build another. For example, changing the build type to Debug:
 
 .. code-block:: bash
 
@@ -121,6 +121,6 @@ directory, otherwise it will not find the necessary file:
 
 .. seealso::
 
-    There exist 2 generators, ``cmake_multi`` and ``visual_studio_multi`` that could help to avoid the
+    There are two generators, ``cmake_multi`` and ``visual_studio_multi`` that could help to avoid the
     context switch and using Debug and Release configurations simultaneously. Read more about them in
     :ref:`cmakemulti_generator` and :ref:`visual_studio_multi` 
