@@ -68,8 +68,8 @@ Let's have a look at the root package recipe *conanfile.py*:
             # properly
             tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)",
                                   '''PROJECT(MyHello)
- include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
- conan_basic_setup()''')
+    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    conan_basic_setup()''')
 
         def build(self):
             cmake = CMake(self)
