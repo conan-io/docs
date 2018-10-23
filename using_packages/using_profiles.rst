@@ -54,7 +54,7 @@ A profile file can be stored in the default profile folder, or anywhere else in 
 
 .. code-block:: bash
 
-    $ conan create demo/testing -pr=clang_3.5
+    $ conan create . demo/testing -pr=clang_3.5
 
 Continuing with the example of Poco, instead of passing in a long list of command line arguments, we can define a handy profile that defines them all and pass that to the command line when installing the different project dependencies.
 
@@ -99,4 +99,6 @@ To install dependencies using this new profile, we would use:
 
 .. seealso::
 
-    Read more about :ref:`profiles` for full reference.
+    Read more about :ref:`profiles` for full reference. There is a conan command, :ref:`conan_profile`,
+    that can help inspecting and managing profiles. Profiles can be also shared and installed with the
+    :ref:`conan_config_install` command.
