@@ -124,10 +124,10 @@ define who is the creator/maintainer of the package
 
 This is an optional attribute
 
-tags
+topics
 ----
 
-Tags provide a useful way to group related topics together and to quickly tell developers what a
+Topics provide a useful way to group related tags together and to quickly tell developers what a
 package is about. Tags also make it easier for customers to find your recipe. It could be useful
 when filtering packages by topics or reusing on Bintray package page.
 
@@ -136,7 +136,7 @@ when filtering packages by topics or reusing on Bintray package page.
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        tags = ["foo", "baz", "qux"]
+        topics = ["foo", "baz", "qux"]
 
 This is an optional attribute
 
