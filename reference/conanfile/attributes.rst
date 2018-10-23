@@ -125,7 +125,7 @@ define who is the creator/maintainer of the package
 This is an optional attribute
 
 topics
-----
+------
 
 Topics provide a useful way to group related tags together and to quickly tell developers what a
 package is about. Tags also make it easier for customers to find your recipe. It could be useful
