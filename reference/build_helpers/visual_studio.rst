@@ -119,7 +119,6 @@ Parameters:
 VisualStudioBuildEnvironment
 ============================
 
-
 Prepares the needed environment variables to invoke the Visual Studio compiler.
 Use it together with :ref:`vcvars_command`.
 
