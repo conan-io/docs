@@ -172,7 +172,6 @@ Parameters:
       according to the ``build_type`` setting. e.g: `-Zi`, `-Ob0`, `-Od`...
 
 
-
 Environment variables
 ---------------------
 
