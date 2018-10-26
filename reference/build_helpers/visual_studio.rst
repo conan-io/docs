@@ -119,6 +119,7 @@ Parameters:
 VisualStudioBuildEnvironment
 ============================
 
+
 Prepares the needed environment variables to invoke the Visual Studio compiler.
 Use it together with :ref:`vcvars_command`.
 
@@ -154,6 +155,23 @@ You can adjust the automatically filled attribures:
             vcvars = tools.vcvars_command(self.settings)
             self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
             self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
+
+
+Constructor
+-----------
+
+.. code-block:: python
+
+    class VisualStudioBuildEnvironment(object):
+
+        def __init__(self, conanfile, with_build_type_flags=True)
+
+Parameters:
+    - **conanfile** (Required): ConanFile object. Usually ``self`` in a *conanfile.py*.
+    - **with_build_type_flags** (Optional, Defaulted to ``True``): If ``True``, it adjusts the compiler flags
+      according to the ``build_type`` setting. e.g: `-Zi`, `-Ob0`, `-Od`...
+
+
 
 Environment variables
 ---------------------
