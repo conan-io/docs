@@ -144,6 +144,20 @@ Test your ``conan`` script.
 
 You should see the Conan commands help.
 
+Update
+------
+If installed via ``pip``, do an upgrade:
+
+.. code-block:: bash
+
+    $ pip install conan --upgrade # Might need sudo or --user
+
+If installed via the "installers" (.exe, .deb), download the new installer and execute it.
+
+The upgrade shouldn't affect the installed packages or cache information.
+If something goes wrong, you can try removing the conan cache (``<userhome>/.conan``)
+folder.
+
 .. _python2:
 
 Python 2 Deprecation Notice
