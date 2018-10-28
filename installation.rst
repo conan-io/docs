@@ -154,6 +154,11 @@ If installed via ``pip``, do an upgrade:
 
 If installed via the "installers" (.exe, .deb), download the new installer and execute it.
 
+The default ``<userhome>/.conan/settings.yml`` file, containing the definition of compiler versions, etc.,
+will be upgraded if possible. But if Conan detects some local changes, it will not overwrite it.
+In that case, you can remove the ``settings.yml`` file manually, it will be created with the new information
+the first time it is required.
+
 The upgrade shouldn't affect the installed packages or cache information.
 If something goes wrong, you can try removing the conan cache (``<userhome>/.conan``)
 folder.
