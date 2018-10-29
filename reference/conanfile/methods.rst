@@ -405,6 +405,8 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
+.. _invalid_configuration:
+
 Invalid configuration
 +++++++++++++++++++++
 
