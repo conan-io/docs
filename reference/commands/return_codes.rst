@@ -50,4 +50,6 @@ Invalid configuration
 
 Return code: ``6``
 
-Execution terminated due to an exception caused by a ``ConanInvalidConfiguration``.
+Execution terminated due to an exception caused by a ``ConanInvalidConfiguration``. This exit code
+can be considered a success as it is expected for
+:ref:`configurations not supported by the recipe <invalid_configuration>`.
