@@ -157,7 +157,7 @@ If installed via the installers (*.exe*, *.deb*), download the new installer and
 
 The default *<userhome>/.conan/settings.yml* file, containing the definition of compiler versions, etc.,
 will be upgraded if Conan does not detect local changes, otherwise it will create a *settings.yml.new* with the new settings. 
-If you want to regenerate the settings, you can remove the ``settings.yml`` file manually and it will be created with the new information the first time it is required.
+If you want to regenerate the settings, you can remove the *settings.yml* file manually and it will be created with the new information the first time it is required.
 
 The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (*<userhome>/.conan*).
 
