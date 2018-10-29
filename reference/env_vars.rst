@@ -250,12 +250,12 @@ For example: For a remote named "conan-center":
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
 
-CONAN_PLUGINS
+CONAN_HOOKS
 -------------
 
 **Defaulted to**: Not defined
 
-Can be set to a comma separated list with the names of the plugins that will be executed when running a Conan command.
+Can be set to a comma separated list with the names of the hooks that will be executed when running a Conan command.
 
 .. _conan_print_run_commands:
 
