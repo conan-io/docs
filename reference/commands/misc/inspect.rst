@@ -67,3 +67,4 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
     short_paths: False
     apply_env: True
     build_policy: None
+    topics: None

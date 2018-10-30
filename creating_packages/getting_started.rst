@@ -34,8 +34,8 @@ This will generate the following files:
 
     conanfile.py
     test_package
-      conanfile.py
       CMakeLists.txt
+      conanfile.py
       example.cpp
 
 On the root level, there is a *conanfile.py* which is the main recipe file, responsible for
@@ -52,6 +52,9 @@ Let's have a look at the root package recipe *conanfile.py*:
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
+        license = "<Put the package license here>"
+        url = "<Package recipe repository url here, for issues about the package>"
+        description = "<Description of Hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = {"shared": False}
@@ -60,11 +63,13 @@ Let's have a look at the root package recipe *conanfile.py*:
         def source(self):
             self.run("git clone https://github.com/memsharded/hello.git")
             self.run("cd hello && git checkout static_shared")
-            # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
-            # if the packaged project doesn't have variables to set it properly
-            tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)", '''PROJECT(MyHello)
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()''')
+            # This small hack might be useful to guarantee proper /MT /MD linkage
+            # in MSVC if the packaged project doesn't have variables to set it
+            # properly
+            tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)",
+                                  '''PROJECT(MyHello)
+ include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+ conan_basic_setup()''')
 
         def build(self):
             cmake = CMake(self)
@@ -72,7 +77,8 @@ Let's have a look at the root package recipe *conanfile.py*:
             cmake.build()
 
             # Explicit way:
-            # self.run('cmake "%s/hello" %s' % (self.source_folder, cmake.command_line))
+            # self.run('cmake %s/hello %s'
+            #          % (self.source_folder, cmake.command_line))
             # self.run("cmake --build . %s" % cmake.build_config)
 
         def package(self):
@@ -213,7 +219,7 @@ You can create and test the package with our default settings simply by running:
 
 If "Hello world!" is displayed, it worked.
 
-This following steps run:
+The :command:`conan create` command does the following:
 
 - Copies ("export" in conan terms) the *conanfile.py* from the user folder into the **local cache**.
 - Installs the package, forcing it to be built from the sources.

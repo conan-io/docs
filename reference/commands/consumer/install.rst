@@ -26,7 +26,7 @@ installed, Conan will write the files for the specified generators.
 
     positional arguments:
       path_or_reference     Path to a folder containing a recipe (conanfile.py or
-                            conanfile.txt) or to a recipe file. E.g.,
+                            conanfile.txt) or to a recipe file. e.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
 
@@ -36,7 +36,7 @@ installed, Conan will write the files for the specified generators.
                             Generators to use
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Use this directory as the directory where to put the
-                            generatorfiles. E.g., conaninfo/conanbuildinfo.txt
+                            generatorfiles. e.g., conaninfo/conanbuildinfo.txt
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -76,7 +76,7 @@ installed, Conan will write the files for the specified generators.
                             Look in the specified remote server
       -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
-                            defaults. E.g., -s compiler=gcc
+                            defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
 
 

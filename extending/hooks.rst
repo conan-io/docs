@@ -1,25 +1,25 @@
-.. _plugins:
+.. _hooks:
 
-Plugins [EXPERIMENTAL]
+Hooks [EXPERIMENTAL]
 ======================
 
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-The Conan plugins is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
+The Conan hooks is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
 points.
 
-Plugin structure
+Hook structure
 ----------------
 
-Plugins are Python files containing **pre** and **post** functions that will be executed prior and after a determined task performed by the
+Hooks are Python files containing **pre** and **post** functions that will be executed prior and after a determined task performed by the
 Conan client. Those tasks could be Conan commands, recipe interactions such as exporting or packaging or interactions with the remotes.
 
-Here you can see an example of a simple plugin:
+Here you can see an example of a simple hook:
 
 .. code-block:: python
-   :caption: *example_plugin.py*
+   :caption: *example_hook.py*
 
     from conans import tools
 
@@ -53,7 +53,7 @@ Here you can see an example of a simple plugin:
                 output.error("%s Source files does not come from and immutable place. Checkout to a "
                             "commit/tag or download a compressed source file for %s" % (test, str(reference)))
 
-This plugin is only checking the recipe content prior to the recipe being exported and prior to downloading the sources. Basically the
+This hook is only checking the recipe content prior to the recipe being exported and prior to downloading the sources. Basically the
 ``pre_export()`` function is checking the attributes of the ``conanfile`` object to see if there is an URL, a license and a description and
 warning the user with a message through the ``output``. This is done **before** the recipe is exported to the local cache.
 
@@ -61,7 +61,7 @@ The ``pre_source()`` function checks if the recipe contains a ``source()`` metho
 the ``conanfile`` object) and in that case it checks if the download of the sources are likely coming from immutable places (a compressed
 file or a determined :command:`git checkout`). This is done **before** the **source()** method of the recipe is called.
 
-Any kind of Python scripting can be executed. You can create global functions and call them from different plugin functions, import from a
+Any kind of Python scripting can be executed. You can create global functions and call them from different hook functions, import from a
 relative module and warn, error or even raise to abort the Conan client execution.
 
 As you can see each function receives some parameters but not all of them are available for all functions as this may change depending on
@@ -70,16 +70,16 @@ the context of the commands being executed such as the recipe being in the local
 .. important::
 
     A detailed description of the functions allowed and its parameters as well as their execution can be found in it dedicated reference
-    section: :ref:`plugins_reference`.
+    section: :ref:`hooks_reference`.
 
-Other useful task where a plugin may come handy are the upload and download actions. There are **pre** and **post** functions for every
+Other useful task where a hook may come handy are the upload and download actions. There are **pre** and **post** functions for every
 download/upload as a whole and for fine download tasks such as recipe and package downloads/uploads.
 
 For example they can be used to sign the packages (including a file with the signature) when the package is created and and checking that
-signature everytime they are downloaded.
+signature every time they are downloaded.
 
 .. code-block:: python
-   :caption: *signing_plugin.py*
+   :caption: *signing_hook.py*
 
     import os
     from conans import tools
@@ -101,11 +101,11 @@ signature everytime they are downloaded.
 Importing from a module
 -----------------------
 
-The plugin interface should always be placed inside a Python file with the name of the plugin and stored in the *plugins* folder. However,
+The hook interface should always be placed inside a Python file with the name of the hook and stored in the *hooks* folder. However,
 you can use functionalities from imported modules if you have them installed in your system or if they are installed with Conan:
 
 .. code-block:: python
-   :caption: example_plugin.py
+   :caption: example_hook.py
 
     import requests
     from conans import tools
@@ -119,12 +119,11 @@ You can also import functionalities from a relative module:
 
 .. code-block:: text
 
-    plugins
-    |   my_plugin.py
-    |
-    \---custom_module
-            custom.py
-            __init__.py
+    hooks
+    ├── custom_module
+    │   ├── custom.py
+    │   └── __init__.py
+    └── my_hook.py
 
 Inside the *custom.py* from my *custom_module* there is:
 
@@ -133,7 +132,7 @@ Inside the *custom.py* from my *custom_module* there is:
     def my_printer(output):
         output.info("my_printer(): CUSTOM MODULE")
 
-And it can be used in plugin importing the module:
+And it can be used in hook importing the module:
 
 .. code-block:: python
 
@@ -146,17 +145,17 @@ And it can be used in plugin importing the module:
 Storage, activation and sharing
 -------------------------------
 
-Plugins are Python files stored under *~/.conan/plugins* folder and **their file name should be the same used for activation** (without the
+Hooks are Python files stored under *~/.conan/hooks* folder and **their file name should be the same used for activation** (without the
 *.py* extension).
 
-The activation of the plugins is done in the *conan.conf* section named ``[plugins]``. The plugin names listed under this section will be
+The activation of the hooks is done in the *conan.conf* section named ``[hooks]``. The hook names listed under this section will be
 considered activated.
 
 .. code-block:: text
    :caption: *conan.conf*
 
     ...
-    [plugins]
+    [hooks]
     attribute_checker
     conan-center
 
@@ -164,24 +163,24 @@ They can be easily activated and deactivated from the command line using the :co
 
 .. code-block:: bash
 
-    $ conan config set plugins.attribute_checker  # Activates 'attribute_checker'
+    $ conan config set hooks.attribute_checker  # Activates 'attribute_checker'
 
-    $ conan config rm plugins.attribute_checker  # Deactivates 'attribute_checker'
+    $ conan config rm hooks.attribute_checker  # Deactivates 'attribute_checker'
 
-There is also an environment variable ``CONAN_PLUGINS`` to list the active plugins. Plugins listed in *conan.conf* will be loaded into
-this variable and values in the environment variable will be used to load the plugins.
+There is also an environment variable ``CONAN_HOOKS`` to list the active hooks. Hooks listed in *conan.conf* will be loaded into
+this variable and values in the environment variable will be used to load the hooks.
 
-Plugins are considered part of the Conan client configuration and can be shared as usual with the :ref:`conan_config_install` command.
+Hooks are considered part of the Conan client configuration and can be shared as usual with the :ref:`conan_config_install` command.
 
-Official Plugins
+Official Hooks
 ----------------
 
-There is a simple *attribute_checker* plugin ready to be used in Conan. You can take it as a starting point to create your own ones.
+There is a simple *attribute_checker* hook ready to be used in Conan. You can take it as a starting point to create your own ones.
 
 attribute_checker
 +++++++++++++++++
 
-This plugin is shipped together with the Conan client and its functionality is warning when recipes do not contain some metadata attributes.
+This hook is shipped together with the Conan client and its functionality is warning when recipes do not contain some metadata attributes.
 
 .. code-block:: python
    :caption: *attribute_checker.py*
@@ -194,4 +193,4 @@ This plugin is shipped together with the Conan client and its functionality is w
                 output.warn("Conanfile doesn't have '%s'. It is recommended to add it as attribute"
                             % field)
 
-This plugin comes activated by default.
+This hook comes activated by default.

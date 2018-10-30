@@ -9,4 +9,4 @@ This section provides an introduction to extension capabilities of Conan:
    :maxdepth: 2
 
    extending/python_requires
-   extending/plugins
+   extending/hooks
