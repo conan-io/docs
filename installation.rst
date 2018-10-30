@@ -23,7 +23,7 @@ with pip pre-installed. However, if necessary you can install pip by following t
 .. warning::
 
     Python 2 will soon be deprecated by the Python maintainers. It is strongly recommended to use Python 3 with Conan, especially if need to manage non-ascii filenames or file contents.
-    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See `python2`_ deprecation notice for details.
+    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See :ref:`python2` for details.
 
 Install Conan:
 
@@ -165,15 +165,16 @@ The upgrade shouldn't affect the installed packages or cache information. If the
 
 Python 2 Deprecation Notice
 ---------------------------
-Before 1.6, all Conan features are fully supported in both Python2 and Python3.
-For Conan 1.6 and beyond, all features built prior to 1.6 will continue to be fully tested
-in Python 2 and Python3 moving forward, and the 'default' expectation will be to test new
-features in both Python 2 and Python 3.  However, where a new feature wishes to make use of a
-feature available in Python 3 or more easily available in Python 3, those features will be
-implemented and tested only in Python 3, and versions of Conan using Python 2 will not have
-access to that feature. Such features will be clearly documented in code and documentation.
 
-If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with
-Python 2 may be reduced further.
+All features of Conan until version 1.6 are fully supported in both Python 2 and Python 3. However, new features in upcoming Conan releases
+that are only available in Python 3 or more easily available in Python 3 will be implemented and tested only in Python 3, and versions of
+Conan using Python 2 will not have access to that feature. This will be clearly described in code and documentation.
+
+If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with Python 2 may be reduced further.
+
+We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
+Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
 
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
+
+.. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334
