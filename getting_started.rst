@@ -281,7 +281,7 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
 
 There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
-can try to build the binary package from sources using :command:` conan install --build=missing`. You will find more info
+can build the binary package from sources using :command:` conan install --build=missing`, it will succeed if your configuration is supported by the recipe. You will find more info
 the :ref:`getting_started_other_configurations` section.
 
 .. attention::
