@@ -677,7 +677,23 @@ The allowed ``build_policy`` values are:
 short_paths
 -----------
 
-If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
+This attribute is specific to Windows, and ignored on other operating systems.
+It tells Conan to workaround the limitation of 260 chars in Windows paths.
+
+.. important::
+
+    ``short_paths`` is globally enabled by default on Windows since Conan 0.30.1.
+    It is thus not required explicitly in recipes anymore.
+
+    Moreover, since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
+    <https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
+    Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
+    and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
+    through the ``CONAN_USER_HOME_SHORT`` environment variable.
+
+Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to the drive root,
+something like ``C:\.conan\tmpdir``. All the folder layout in the conan cache is maintained.
+
 ``short_paths=True`` in your conanfile.py:
 
 ..  code-block:: python
@@ -687,16 +703,6 @@ If one of the packages you are creating hits the limit of 260 chars path length 
     class ConanFileTest(ConanFile):
         ...
         short_paths = True
-
-This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root,
-something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
-
-This attribute will not have any effect in other OS, it will be discarded.
-
-From Windows 10 (ver. 10.0.14393), it is possible to `opt-in disabling the path limits
-<https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
-Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is
-totally unnecessary.
 
 .. _no_copy_source:
 

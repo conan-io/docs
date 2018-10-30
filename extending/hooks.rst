@@ -76,7 +76,7 @@ Other useful task where a hook may come handy are the upload and download action
 download/upload as a whole and for fine download tasks such as recipe and package downloads/uploads.
 
 For example they can be used to sign the packages (including a file with the signature) when the package is created and and checking that
-signature everytime they are downloaded.
+signature every time they are downloaded.
 
 .. code-block:: python
    :caption: *signing_hook.py*
