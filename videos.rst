@@ -8,6 +8,16 @@
 Videos and links
 =================
 
+- CppCon 2018: Mateusz Pusz "Git, CMake, Conan - How to ship and reuse our C++ projects"
+
+.. raw:: html
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/S4QSKLXdTtA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+
+    <br/><br/>
+
+
 - Packaging C/C++ libraries with Conan. 30 min talk by Théo Delrieu at FOSDEM 2018.
   Includes AndroidNDK package and cross build to Android
 
