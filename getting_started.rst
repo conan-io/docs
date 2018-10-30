@@ -3,12 +3,12 @@
 Getting Started
 ===============
 
-Let's get started with an example: We are going to create a Timer application that uses one of the most popular C++ libraries: Poco_.
+Let's get started with an example: We are going to create a an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any build system** and is not limited to using CMake.
 
-A Timer Using the Poco Libraries
---------------------------------
+An MD5 Encrypter using the Poco Libraries
+-----------------------------------------
 
 .. note::
 
@@ -17,60 +17,33 @@ A Timer Using the Poco Libraries
 
     .. code-block:: bash
 
-        $ git clone https://github.com/memsharded/example-poco-timer.git mytimer
+        $ git clone https://github.com/conan-community/poco-md5-example.git
 
 1. Let's create a folder for our project:
 
     .. code-block:: bash
 
-        $ mkdir mytimer
-        $ cd mytimer
+        $ mkdir poco-md5-example
+        $ cd poco-md5-example
 
 2. Create the following source file inside this folder. This will be the source file of our application:
 
     .. code-block:: cpp
-       :caption: **timer.cpp**
+       :caption: **md5.cpp**
 
-        // $Id: //poco/1.4/Foundation/samples/Timer/src/Timer.cpp#1 $
-        // This sample demonstrates the Timer and Stopwatch classes.
-        // Copyright (c) 2004-2006, Applied Informatics Software Engineering GmbH.
-        // and Contributors.
-        // SPDX-License-Identifier:    BSL-1.0
+        #include "Poco/MD5Engine.h"
+        #include "Poco/DigestStream.h"
 
-        #include "Poco/Timer.h"
-        #include "Poco/Thread.h"
-        #include "Poco/Stopwatch.h"
         #include <iostream>
 
-        using Poco::Timer;
-        using Poco::TimerCallback;
-        using Poco::Thread;
-        using Poco::Stopwatch;
-
-        class TimerExample 
-        {
-        public:
-            TimerExample()
-            {
-                _sw.start();
-            }
-
-            void onTimer(Timer& timer)
-            {
-                std::cout << "Callback called after " << _sw.elapsed()/1000 << " milliseconds." << std::endl;
-            }
-        private:
-            Stopwatch _sw;
-        };
 
         int main(int argc, char** argv)
         {
-            TimerExample example;
-            Timer timer(250, 500);
-            timer.start(TimerCallback<TimerExample>(example, &TimerExample::onTimer));
-
-            Thread::sleep(5000);
-            timer.stop();
+            Poco::MD5Engine md5;
+            Poco::DigestOutputStream ds(md5);
+            ds << "abcdefghijklmnopqrstuvwxyz";
+            ds.close();
+            std::cout << Poco::DigestEngine::digestToHex(md5.digest()) << std::endl;
             return 0;
         }
 
@@ -114,8 +87,8 @@ A Timer Using the Poco Libraries
         apply_env: True
         build_policy: None
 
-5. Ok, it looks like this is the dependency we need to build our Timer app. We should indicate which are the requirements and the generator
-for our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
+5. Ok, it looks like this is the dependency we need to build our Encrypter app. We should indicate which are the requirements and the
+generator for our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
 
     .. code-block:: text
        :caption: **conanfile.txt**
@@ -138,20 +111,8 @@ for our build system. Let's create a *conanfile.txt* inside our project's folder
 
     .. code-block:: bash
 
+        $ mkdir build && cd build
         $ conan install ..
-        Configuration:
-        [settings]
-        os=Windows
-        os_build=Windows
-        arch=x86_64
-        arch_build=x86_64
-        compiler=Visual Studio
-        compiler.version=15
-        build_type=Release
-        [options]
-        [build_requires]
-        [env]
-
         OpenSSL/1.0.2o@conan/stable: Not found in local cache, looking in remotes...
         OpenSSL/1.0.2o@conan/stable: Trying with 'conan-center'...
         Downloading conanmanifest.txt
@@ -163,14 +124,7 @@ for our build system. Let's create a *conanfile.txt* inside our project's folder
         Downloading conanmanifest.txt
         [==================================================] 121B/121B
         Downloading conanfile.py
-        [==================================================] 7.9KB/7.9KB
-        Downloading conaninfo.txt
-        [==================================================] 438B/438B
-        Downloading conaninfo.txt
-
-        Downloading conaninfo.txt
-
-        PROJECT: Installing C:\Users\danimtb\repos\mytimer\conanfile.txt
+        ...
         Requirements
             OpenSSL/1.0.2o@conan/stable from 'conan-center' - Downloaded
             Poco/1.9.0@pocoproject/stable from 'conan-center' - Cache
@@ -181,37 +135,28 @@ for our build system. Let's create a *conanfile.txt* inside our project's folder
             zlib/1.2.11@conan/stable:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
 
         zlib/1.2.11@conan/stable: Retrieving package 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 from remote 'conan-center'
-        Downloading conanmanifest.txt
-        [==================================================] 289B/289B
-        Downloading conaninfo.txt
-        [==================================================] 438B/438B
+        ...
         Downloading conan_package.tgz
         [==================================================] 99.8KB/99.8KB
-        Decompressing conan_package.tgz: 100%|██████████| 97.4k/97.4k [00:00<00:00, 2.17MB/s]
+        ...
         zlib/1.2.11@conan/stable: Package installed 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
         OpenSSL/1.0.2o@conan/stable: Retrieving package 606fdb601e335c2001bdf31d478826b644747077 from remote 'conan-center'
-        Downloading conanmanifest.txt
-        [==================================================] 4.6KB/4.6KB
-        Downloading conaninfo.txt
-        [==================================================] 1.2KB/1.2KB
+        ...
         Downloading conan_package.tgz
         [==================================================] 5.5MB/5.5MB
-        Decompressing conan_package.tgz: 100%|██████████| 5.29M/5.29M [00:00<00:00, 9.17MB/s]
+        ...
         OpenSSL/1.0.2o@conan/stable: Package installed 606fdb601e335c2001bdf31d478826b644747077
         Poco/1.9.0@pocoproject/stable: Retrieving package 09378ed7f51185386e9f04b212b79fe2d12d005c from remote 'conan-center'
-        Downloading conanmanifest.txt
-        [==================================================] 50.8KB/50.8KB
-        Downloading conaninfo.txt
-        [==================================================] 2.3KB/2.3KB
+        ...
         Downloading conan_package.tgz
         [==================================================] 11.5MB/11.5MB
-        Decompressing conan_package.tgz: 100%|██████████| 11.0M/11.0M [00:03<00:00, 2.78MB/s]
+        ...
         Poco/1.9.0@pocoproject/stable: Package installed 09378ed7f51185386e9f04b212b79fe2d12d005c
         PROJECT: Generator cmake created conanbuildinfo.cmake
         PROJECT: Generator txt created conanbuildinfo.txt
         PROJECT: Generated conaninfo.txt
 
-    Conan installed our Poco dependency but also the transitive dependencies from it: OpenSSL and zlib. I has also generated a
+    Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. I has also generated a
     *conanbuildinfo.cmake* file for our build system.
 
 7. Now let's create our build file. We are going to use CMake in this case. To inject the Conan information, include the generated
@@ -221,16 +166,17 @@ for our build system. Let's create a *conanfile.txt* inside our project's folder
        :caption: **CMakeLists.txt**
 
         cmake_minimum_required(VERSION 2.8.12)
-        project(FoundationTimer)
-        set(CMAKE_CXX_STANDARD 11)
+        project(MD5Encrypter)
+
+        add_definitions("-std=c++11")
 
         include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
         conan_basic_setup()
 
-        add_executable(timer timer.cpp)
-        target_link_libraries(timer ${CONAN_LIBS})
+        add_executable(md5 md5.cpp)
+        target_link_libraries(md5 ${CONAN_LIBS})
 
-8. Now we are ready to build and run our Timer app:
+8. Now we are ready to build and run our Encrypter app:
 
     .. code-block:: bash
 
@@ -242,11 +188,9 @@ for our build system. Let's create a *conanfile.txt* inside our project's folder
         $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
         $ cmake --build .
         ...
-        [100%] Built target timer
-        $ ./bin/timer
-        Callback called after 250 milliseconds.
-        Callback called after 750 milliseconds.
-        ...
+        [100%] Built target md5
+        $ ./bin/md5
+        c3fcd3d76192e4007dfb496cca67e13b
 
 Installing Dependencies
 -----------------------
@@ -281,15 +225,16 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
 
 There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
-can build the binary package from sources using :command:` conan install --build=missing`, it will succeed if your configuration is supported by the recipe. You will find more info
-the :ref:`getting_started_other_configurations` section.
+can build the binary package from sources using :command:` conan install --build=missing`, it will succeed if your configuration is
+supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
 
 .. attention::
 
     When a GCC **compiler >= 5.1** is detected, the setting modeling for the c++ standard library is set as follows: The ``compiler.libcxx``
     is set to ``libstdc++`` that represents the old ABI compatibility for better compatibility. Your compiler default is most likely to be
-    set to the new ABI, so you might want to change it to ``libstdc++11`` in the definition of the default profile to use the new ABI compliant with CXX11 directives and run
-    :command:`conan install ..` again to install the right binaries. Read more in :ref:`manage_gcc_abi`.
+    set to the new ABI, so you might want to change it to ``libstdc++11`` in the definition of the default profile to use the new ABI
+    compliant with CXX11 directives and run :command:`conan install ..` again to install the right binaries. Read more in
+    :ref:`manage_gcc_abi`.
 
 Inspecting Dependencies
 -----------------------
@@ -305,7 +250,6 @@ local cache run:
 
     OpenSSL/1.0.2o@conan/stable
     Poco/1.9.0@pocoproject/stable
-    mongo-c-driver/1.11.0@bincrafters/stable
     zlib/1.2.11@conan/stable
 
 To inspect the different binary packages of a reference run:
@@ -450,13 +394,13 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
     We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
 However, the user can always override the default profile settings in the :command:`conan install` command using the :command:`-s`
-parameter. As an exercise, try building your timer project with a different configuration. For example, try building the 32-bit version:
+parameter. As an exercise, try building the Encrypter project with a different configuration. For example, try building the 32-bit version:
 
 .. code-block:: bash
 
-    $ conan install . --settings arch=x86
+    $ conan install . --profile gcc_x86 --settings arch=x86_64
 
-The above command installs a different package, using the :command:`-s arch=x86` setting, instead of the default used previously.
+The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the profile used previously.
 
 To use the 32-bit binaries, you will also have to change your project build:
 
