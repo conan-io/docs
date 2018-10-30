@@ -202,8 +202,8 @@ requirements and optional information is saved.
 
 .. note::
     Conan generates a default :ref:`profile<profiles>` with your detected settings (OS, compiler, architecture...) and that configuration is
-    printed at the top of every :command:`install` command. However, it is strongly recommended to review it and adjust the settings to
-    accurately describe your system as shown in the :ref:`getting_started_other_configurations` section.
+    printed at the top of every :command:`conan install` command. However, it is strongly recommended to review it and adjust the settings
+    to accurately describe your system as shown in the :ref:`getting_started_other_configurations` section.
 
 It is very important to understand the installation process. When the :command:`conan install` command runs, settings specified on the
 command line or taken from the defaults in *<userhome>/.conan/profiles/default* file are applied.
@@ -225,7 +225,7 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
 
 There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
-can build the binary package from sources using :command:` conan install --build=missing`, it will succeed if your configuration is
+can build the binary package from sources using :command:`conan install --build=missing`, it will succeed if your configuration is
 supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
 
 .. attention::
@@ -377,7 +377,7 @@ Building with Other Configurations
 ----------------------------------
 
 In this example, we have built our project using the default configuration detected by Conan. This configuration is known as the
-:ref:`default_profile`.
+:ref:`default profile <default_profile>`.
 
 A profile needs to be available prior to running commands such as :command:`conan install`. When running the command, your settings are
 automatically detected (compiler, architecture...) and stored as the default profile. You can edit these settings
