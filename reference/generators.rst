@@ -35,3 +35,4 @@ Available generators:
    generators/ycm
    generators/text
    generators/json
+   generators/premake
