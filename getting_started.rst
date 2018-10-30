@@ -277,7 +277,7 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
 - If the recipe exists, the Conan client fetches and stores it in your local cache.
 - With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary is in the local cache.
 - Then Conan searches the corresponding binary package in the remote and fetches it.
-- Finally, it generates an appropriate file for the build system specified the ``[generators]`` section.
+- Finally, it generates an appropriate file for the build system specified in the ``[generators]`` section.
 
 There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
