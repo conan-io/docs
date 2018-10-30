@@ -22,11 +22,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.8 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
 
-upcoming
------------------------
-- Feature: Add the ``clean`` subcommand to ``conan remote``, to clean all configured remotes.
-
-
 1.8.2 (10-October-2018)
 -----------------------
 
