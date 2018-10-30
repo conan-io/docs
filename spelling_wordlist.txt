@@ -18,10 +18,11 @@ astroid
 Astroid
 auth
 autodetect
+Autodetected
 autotools
 Autotools
-Autodetected
 backend
+Bincrafters
 bindirs
 bintray
 Bintray
@@ -184,6 +185,7 @@ OpenSSL
 openSUSE
 os
 OSInfo
+overridable
 param
 pc
 PkgConfig
@@ -223,9 +225,9 @@ Raspbian
 rcfile
 Readme
 refactor
-refactorings
 Refactor
 refactored
+refactorings
 regex
 repo
 Repo
@@ -262,6 +264,8 @@ subfolders
 subsetting
 subsettings
 sudo
+svn
+SVN
 symlink
 symlinked
 symlinks

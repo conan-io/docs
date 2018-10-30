@@ -168,7 +168,7 @@ There are 2 modes of operation:
 
 ..  code-block:: bash
 
-    $ conan export-pkg . user/channel --source-folder=tmp/source --build-folder=tmp/build
+    $ conan export-pkg . user/channel --source-folder=tmp/source --build-folder=tmp/build --profile=myprofile
 
     Packaging to 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
     Hello/1.1@user/channel: Generating the package
@@ -209,13 +209,16 @@ As a summary, you could use the default folders and the flow would be as simple 
     $ git clone git@github.com:memsharded/example_conan_flow.git
     $ cd example_conan_flow
     $ conan source .
-    $ conan install .
+    $ conan install . -pr=default
     $ conan build .
     $ conan package .
+    # So far, this is local. Now put the local binaries in cache
+    $ conan export-pkg . Hello/1.1@user/testing -pr=default
+    # And test it, to check it is working in the local cache
+    $ conan test test_package Hello/1.1@user/testing
     ...
-    PROJECT package(): Copied 1 '.h' files: hello.h
-    PROJECT package(): Copied 2 '.lib' files: greet.lib, hello.lib
-    PROJECT: Package 'package' created
+    Hello/1.1@user/testing (test package): Running test()
+    Hello World!
 
 conan create
 ^^^^^^^^^^^^

@@ -58,8 +58,8 @@ The configuration may contain all or a subset of the allowed configuration files
 replaced. The only exception is the **conan.conf** file for which only the variables declared will be installed,
 leaving the other variables unchanged.
 
-This means for example that **profiles** and **plugins** files will be overwritten if already present, but no profile or
-plugin file that the user has in the local machine will be deleted.
+This means for example that **profiles** and **hooks** files will be overwritten if already present, but no profile or
+hook file that the user has in the local machine will be deleted.
 
 All the configuration files will be copied to the conan home directory.
 These are the special files and the rules applied to merge them:

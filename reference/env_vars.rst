@@ -250,12 +250,12 @@ For example: For a remote named "conan-center":
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
 
-CONAN_PLUGINS
+CONAN_HOOKS
 -------------
 
 **Defaulted to**: Not defined
 
-Can be set to a comma separated list with the names of the plugins that will be executed when running a Conan command.
+Can be set to a comma separated list with the names of the hooks that will be executed when running a Conan command.
 
 .. _conan_print_run_commands:
 
@@ -457,7 +457,18 @@ CONAN_USER_HOME_SHORT
 Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
 marked as `short_paths` will be stored in the ``C:\.conan`` (or the current drive letter).
 
-If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
+If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
+
+
+CONAN_USE_ALWAYS_SHORT_PATHS
+----------------------------
+
+**Defaulted to**: Not defined
+
+If defined to ``True`` or ``1``, every package will be stored in the *short paths directory* resolved
+by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
+overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
+
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------

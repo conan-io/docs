@@ -124,6 +124,22 @@ define who is the creator/maintainer of the package
 
 This is an optional attribute
 
+topics
+------
+
+Topics provide a useful way to group related tags together and to quickly tell developers what a
+package is about. Tags also make it easier for customers to find your recipe. It could be useful
+when filtering packages by topics or reusing on Bintray package page.
+
+.. code-block:: python
+
+    class HelloConan(ConanFile):
+        name = "Hello"
+        version = "0.1"
+        topics = ["foo", "baz", "qux"]
+
+This is an optional attribute
+
 .. _user_channel:
 
 user, channel
@@ -661,8 +677,21 @@ The allowed ``build_policy`` values are:
 short_paths
 -----------
 
-If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
-``short_paths=True`` in your conanfile.py:
+This attribute is specific to Windows, and ignored on other operating systems.
+It tells Conan to workaround the limitation of 260 chars in Windows paths.
+
+.. important::
+
+    Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
+    <https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
+    Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
+    and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
+    through the ``CONAN_USER_HOME_SHORT`` environment variable.
+
+Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to the drive root, something like
+``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
+
+Set ``short_paths=True`` in your *conanfile.py*:
 
 ..  code-block:: python
 
@@ -672,15 +701,9 @@ If one of the packages you are creating hits the limit of 260 chars path length 
         ...
         short_paths = True
 
-This will automatically "link" the ``source`` and ``build`` directories of the package to the drive root,
-something like `C:/.conan/tmpdir`. All the folder layout in the conan cache is maintained.
+.. seealso::
 
-This attribute will not have any effect in other OS, it will be discarded.
-
-From Windows 10 (ver. 10.0.14393), it is possible to `opt-in disabling the path limits
-<https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
-Latest python installers might offer to enable this while installing python. With this limit removed, the ``short_paths`` functionality is
-totally unnecessary.
+    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to globally enable this behavior for all packages.
 
 .. _no_copy_source:
 

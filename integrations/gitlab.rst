@@ -52,6 +52,9 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 Gitlab CI will install the **conan** tool and will execute the **conan install** command.
 Then, the **script** section creates the build folder, compiles the project with **cmake** and runs the **tests**.
 
+.. hint:
+
+On Windows the Gitlab runner may be running as a service and not have a home directory.  In which case you need to set a custom value for ``CONAN_USER_HOME``.
 
 Creating, testing and uploading conan binary packages
 ------------------------------------------------------

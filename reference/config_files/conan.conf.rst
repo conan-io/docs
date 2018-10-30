@@ -28,6 +28,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
     # cache_no_locks = True               # Disable locking mechanism of local cache
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
+    # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
 
@@ -66,7 +67,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
-    [plugins]  # environment CONAN_PLUGINS
+    [hooks]  # environment CONAN_HOOKS
     attribute_checker
 
     # Default settings now declared in the default profile
