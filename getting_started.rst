@@ -275,7 +275,7 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
   cache is empty.
 - Looks for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote as the default, but can be changed.
 - If the recipe exists, the Conan client fetches and stores it in your local cache.
-- With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary is in the local cache.
+- With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary in the local cache.
 - Then Conan searches the corresponding binary package in the remote and fetches it.
 - Finally, it generates an appropriate file for the build system specified in the ``[generators]`` section.
 
