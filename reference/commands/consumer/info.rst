@@ -20,7 +20,7 @@ recipe or a reference for any existing package in your local cache.
 
     positional arguments:
       path_or_reference     Path to a folder containing a recipe (conanfile.py or
-                            conanfile.txt) or to a recipe file. E.g.,
+                            conanfile.txt) or to a recipe file. e.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
 
@@ -43,7 +43,7 @@ recipe or a reference for any existing package in your local cache.
                             will raise an error.
       -j [JSON], --json [JSON]
                             Only with --build-order option, return the information
-                            in a json. E.g., --json=/path/to/filename.json or --json
+                            in a json. e.g --json=/path/to/filename.json or --json
                             to output the json
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
@@ -73,7 +73,7 @@ recipe or a reference for any existing package in your local cache.
                             Look in the specified remote server
       -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
-                            defaults. E.g., -s compiler=gcc
+                            defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
 
 

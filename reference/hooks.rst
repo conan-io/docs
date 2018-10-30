@@ -1,19 +1,19 @@
-.. _plugins_reference:
+.. _hooks_reference:
 
-Plugins [EXPERIMENTAL]
+Hooks [EXPERIMENTAL]
 ======================
 
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-The Conan plugins are Python functions that are intended to extend the Conan functionalities and let users customize the client behavior at
+The Conan hooks are Python functions that are intended to extend the Conan functionalities and let users customize the client behavior at
 determined execution points.
 
-Plugin interface
+Hook interface
 ----------------
 
-Here you can see a complete example of all the plugin functions available and the different parameters for each of them depending on the
+Here you can see a complete example of all the hook functions available and the different parameters for each of them depending on the
 context:
 
 .. code-block:: python
@@ -132,7 +132,7 @@ context:
         output.info("package_id=%s" % package_id)
         output.info("remote.name=%s" % remote.name)
 
-Functions of the plugins are intended to be self-descriptive regarding to the execution of them. For example, the ``pre_package()`` function
+Functions of the hooks are intended to be self-descriptive regarding to the execution of them. For example, the ``pre_package()`` function
 is called just before the ``package()`` method of the recipe is executed.
 
 For download/upload functions, the ``pre_download()``/``pre_upload()`` function is executed first in an
@@ -150,15 +150,15 @@ Function parameters
 
 Here you can find the description for each parameter:
 
-- **output**: :ref:`Output object<conanfile_output>` to print formatted messages during execution with the name of the plugin and the
-  function executed, e.g., ``[PLUGIN - complete_plugin] post_download_package(): This is the remote name: default``.
+- **output**: :ref:`Output object<conanfile_output>` to print formatted messages during execution with the name of the hook and the
+  function executed, e.g., ``[HOOK - complete_hook] post_download_package(): This is the remote name: default``.
 
 - **conanfile**: It is a regular ``ConanFile`` object loaded from the recipe that received the Conan command. It has its normal attributes
   and dynamic objects such as ``build_folder``, ``package_folder``...
 
 - **conanfile_path**: Path to the *conanfile.py* file whether it is in local cache or in user space.
 
-- **reference**: Named tuple with attributes ``name``, ``version``, ``user, and ``channel``. It's representation will be a reference like:
+- **reference**: Named tuple with attributes ``name``, ``version``, ``user``, and ``channel``. Its representation will be a reference like:
   ``box2d/2.1.0@user/channel``
 
 - **package_id**: String with the computed package ID.
@@ -166,8 +166,8 @@ Here you can find the description for each parameter:
 - **remote**: Named tuple with attributes ``name``, ``url`` and ``verify_ssl``.
 
 +-------------------------------------+---------------------------------------------------------------------------------------------------------------+
-| | Availability of parameters for    | **Plugin Functions***                                                                                         |
-| | each Plugin function depending on +--------------+--------------+-------------+---------------+------------------------+--------------------------+
+| | Availability of parameters for    | **Hook Functions***                                                                                           |
+| | each Hook function depending on   +--------------+--------------+-------------+---------------+------------------------+--------------------------+
 | | the context                       | ``export()`` | ``source()`` | ``build()`` | ``package()`` | | ``upload()``         | | ``download()``         |
 |                                     |              |              |             |               | | ``upload_recipe()``  | | ``download_recipe()``  |
 |                                     |              |              |             |               | | ``upload_package()`` | | ``download_package()`` |
@@ -183,7 +183,7 @@ Here you can find the description for each parameter:
 |                | ``remote``         | No           | No           | No          | No            | Yes                    | Yes                      |
 +----------------+--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
 
-\*Plugin functions are indicated without ``pre`` and ``post`` prefixes for simplicity.
+\*Hook functions are indicated without ``pre`` and ``post`` prefixes for simplicity.
 
 Table legend:
   - **Yes**: Availability in ``pre`` and ``post`` functions in any context.
@@ -205,5 +205,5 @@ living in the local cache or in user space). However, they can be checked with t
 
 .. important::
 
-    Plugin functions should have a ``**kwargs`` parameter to keep compatibility of new parameters that may be introduced in future versions
+    Hook functions should have a ``**kwargs`` parameter to keep compatibility of new parameters that may be introduced in future versions
     of Conan.

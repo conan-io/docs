@@ -21,12 +21,13 @@ Windows, case sensitive search can be forced with '--case-sensitive'.
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
-                            'MyPackage/1.2@user/channel'
+      pattern_or_reference  Pattern or package recipe reference, e.g.,
+                            'MyPackage/1.2@user/channel', 'boost/*'
 
     optional arguments:
       -h, --help            show this help message and exit
-      -o, --outdated        Show only outdated from recipe packages
+      -o, --outdated        Show only outdated from recipe packages. This flag can
+                            only be used with a reference
       -q QUERY, --query QUERY
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter

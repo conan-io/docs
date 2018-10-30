@@ -22,12 +22,26 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.8 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.8.4 (19-October-2018)
+-----------------------
+
+- Feature: Increase debugging information when an error uploading a recipe with different timestamp occurs. `#3801 <https://github.com/conan-io/conan/pull/3801>`_
+- Fix: Changed `tqdm` dependency to a temporarily forked removing the "man" directory write permissions issue installing the `pip` package. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
+- Fix: Removed `ndg-httpsclient` and `pyasn` dependencies from OSX requirements file because they shouldn't be necessary. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
+
+
+1.8.3 (17-October-2018)
+-----------------------
+
+- Feature: New attributes ``default_user`` and ``default_channel`` that can be declared in a conanfile to specify the `user` and `channel` for conan local methods when neither `CONAN_USERNAME` and `CONAN_CHANNEL` environment variables exist. `#3758 <https://github.com/conan-io/conan/pull/3758>`_
+- Bugfix: AST parsing of ``conanfile.py`` with shebang and encoding header lines was failing in python 2. This fix also allows non-ascii chars in ``conanfile.py`` if proper encoding is declared. `#3750 <https://github.com/conan-io/conan/pull/3750>`_
+
+
 1.8.2 (10-October-2018)
 -----------------------
 
 - Fix: Fix misleading warning message in ``tools.collect_libs()`` `#3718 <https://github.com/conan-io/conan/pull/3718>`_
 - BugFix: Fixed wrong naming of ``--sbindir`` and ``--libexecdir`` in AutoTools build helper. `#3715 <https://github.com/conan-io/conan/pull/3715>`_
-
 
 
 1.8.1 (10-October-2018)
