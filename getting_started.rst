@@ -68,12 +68,7 @@ An MD5 Encrypter using the Poco Libraries
     .. code-block:: bash
 
         $ conan inspect Poco/1.9.0@pocoproject/stable
-        Poco/1.9.0@pocoproject/stable: Not found in local cache, looking in remotes...
-        Poco/1.9.0@pocoproject/stable: Trying with 'conan-center'...
-        Downloading conanmanifest.txt
-        [==================================================] 186B/186B
-        Downloading conanfile.py
-        [==================================================] 8.4KB/8.4KB
+        ...
         name: Poco
         version: 1.9.0
         url: http://github.com/pocoproject/conan-poco
@@ -87,8 +82,8 @@ An MD5 Encrypter using the Poco Libraries
         apply_env: True
         build_policy: None
 
-5. Ok, it looks like this is the dependency we need to build our Encrypter app. We should indicate which are the requirements and the
-generator for our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
+5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
+   our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
 
     .. code-block:: text
        :caption: **conanfile.txt**
@@ -100,30 +95,27 @@ generator for our build system. Let's create a *conanfile.txt* inside our projec
         cmake
 
     In this example we are using CMake to build the project, which is why the ``cmake`` generator is specified. This generator creates a
-    *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build.
-
-    .. note::
-
-        You can change the ``[generators]`` section of your *conanfile.txt* to ``gcc`` or to the more generic ``txt`` in order to handle
-        requirements for any build system. Learn more in :ref:`Using packages<using_packages>`.
+    *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build. Read more
+    about :ref:`generators_reference`.
 
 6. Next step: We are going to install the required dependencies and generate the information for the build system:
+
+    .. important::
+
+        If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old ABI for backwards compatibility. You can
+        change this with the following commands:
+
+        .. code-block:: bash
+
+            $ conan profile new default --detect  # Generates default profile detecting GCC and sets old ABI
+            $ conan profile update settings.compiler.libcxx=libstdc++11 default  # Sets libcxx to C++11 ABI
+
+        You will find more information in :ref:`manage_gcc_abi`.
 
     .. code-block:: bash
 
         $ mkdir build && cd build
         $ conan install ..
-        OpenSSL/1.0.2o@conan/stable: Not found in local cache, looking in remotes...
-        OpenSSL/1.0.2o@conan/stable: Trying with 'conan-center'...
-        Downloading conanmanifest.txt
-        [==================================================] 58B/58B
-        Downloading conanfile.py
-        [==================================================] 19.5KB/19.5KB
-        zlib/1.2.11@conan/stable: Not found in local cache, looking in remotes...
-        zlib/1.2.11@conan/stable: Trying with 'conan-center'...
-        Downloading conanmanifest.txt
-        [==================================================] 121B/121B
-        Downloading conanfile.py
         ...
         Requirements
             OpenSSL/1.0.2o@conan/stable from 'conan-center' - Downloaded
@@ -159,8 +151,7 @@ generator for our build system. Let's create a *conanfile.txt* inside our projec
     Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. I has also generated a
     *conanbuildinfo.cmake* file for our build system.
 
-7. Now let's create our build file. We are going to use CMake in this case. To inject the Conan information, include the generated
-*conanbuildinfo.cmake* file like this:
+7. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
 
     .. code-block:: cmake
        :caption: **CMakeLists.txt**
@@ -201,9 +192,9 @@ command), **together with other (transitively required by Poco) libraries, like 
 requirements and optional information is saved.
 
 .. note::
-    Conan generates a default :ref:`profile<profiles>` with your detected settings (OS, compiler, architecture...) and that configuration is
-    printed at the top of every :command:`conan install` command. However, it is strongly recommended to review it and adjust the settings
-    to accurately describe your system as shown in the :ref:`getting_started_other_configurations` section.
+    Conan generates a :ref:`default profile <default_profile>` with your detected settings (OS, compiler, architecture...) and that
+    configuration is printed at the top of every :command:`conan install` command. However, it is strongly recommended to review it and
+    adjust the settings to accurately describe your system as shown in the :ref:`getting_started_other_configurations` section.
 
 It is very important to understand the installation process. When the :command:`conan install` command runs, settings specified on the
 command line or taken from the defaults in *<userhome>/.conan/profiles/default* file are applied.
@@ -227,14 +218,6 @@ There are binaries for several mainstream compilers and versions available in Co
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
 can build the binary package from sources using :command:`conan install --build=missing`, it will succeed if your configuration is
 supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
-
-.. attention::
-
-    When a GCC **compiler >= 5.1** is detected, the setting modeling for the c++ standard library is set as follows: The ``compiler.libcxx``
-    is set to ``libstdc++`` that represents the old ABI compatibility for better compatibility. Your compiler default is most likely to be
-    set to the new ABI, so you might want to change it to ``libstdc++11`` in the definition of the default profile to use the new ABI
-    compliant with CXX11 directives and run :command:`conan install ..` again to install the right binaries. Read more in
-    :ref:`manage_gcc_abi`.
 
 Inspecting Dependencies
 -----------------------
@@ -295,7 +278,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         ID: 606fdb601e335c2001bdf31d478826b644747077
         BuildID: None
         Remote: conan-center=https://conan.bintray.com
-        URL: http://github.com/lasote/conan-openssl
+        URL: http://github.com/conan-community/conan-openssl
         License: The current OpenSSL licence is an 'Apache style' license: https://www.openssl.org/source/license.html
         Recipe: Cache
         Binary: Cache
@@ -323,7 +306,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         ID: 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
         BuildID: None
         Remote: conan-center=https://conan.bintray.com
-        URL: http://github.com/lasote/conan-zlib
+        URL: http://github.com/conan-community/conan-zlib
         License: Zlib
         Recipe: Cache
         Binary: Cache
@@ -393,8 +376,8 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
 
     We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
-However, the user can always override the default profile settings in the :command:`conan install` command using the :command:`-s`
-parameter. As an exercise, try building the Encrypter project with a different configuration. For example, try building the 32-bit version:
+However, the user can always override the default profile settings in the :command:`conan install` command using the :command:`--settings`
+parameter. As an exercise, try building the Encrypter project 32-bit version:
 
 .. code-block:: bash
 
