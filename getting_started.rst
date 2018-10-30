@@ -51,7 +51,7 @@ An MD5 Encrypter using the Poco Libraries
 
     .. code-block:: bash
 
-        $ conan search Poco* --remote conan-center
+        $ conan search Poco* --remote=conan-center
         Existing package recipes:
 
         Poco/1.7.8p3@pocoproject/stable
@@ -228,7 +228,7 @@ local cache run:
 
 .. code-block:: bash
 
-    $ conan search
+    $ conan search "*"
     Existing package recipes:
 
     OpenSSL/1.0.2o@conan/stable
@@ -337,7 +337,7 @@ You can search packages in Conan Center using this command:
 
 .. code-block:: bash
 
-    $ conan search --remote conan-center
+    $ conan search "*" --remote=conan-center
     Existing package recipes:
 
     Assimp/4.1.0@jacmoe/stable
@@ -370,7 +370,7 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
 
 .. code-block:: bash
 
-    $ conan install . --profile gcc_x86
+    $ conan install . --profile=gcc_x86
 
 .. tip::
 
@@ -381,7 +381,7 @@ parameter. As an exercise, try building the Encrypter project 32-bit version:
 
 .. code-block:: bash
 
-    $ conan install . --profile gcc_x86 --settings arch=x86_64
+    $ conan install . --profile=gcc_x86 --settings arch=x86_64
 
 The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the profile used previously.
 
