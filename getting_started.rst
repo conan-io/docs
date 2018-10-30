@@ -288,7 +288,7 @@ the :ref:`getting_started_other_configurations` section.
 
     When a GCC **compiler >= 5.1** is detected, the setting modeling for the c++ standard library is set as follows: The ``compiler.libcxx``
     is set to ``libstdc++`` that represents the old ABI compatibility for better compatibility. Your compiler default is most likely to be
-    set to the new ABI, so you might want to change it to ``libstdc++11`` to use the new ABI compliant with CXX11 directives and run
+    set to the new ABI, so you might want to change it to ``libstdc++11`` in the definition of the default profile to use the new ABI compliant with CXX11 directives and run
     :command:`conan install ..` again to install the right binaries. Read more in :ref:`manage_gcc_abi`.
 
 Inspecting Dependencies
