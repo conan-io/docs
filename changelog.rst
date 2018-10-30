@@ -22,7 +22,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.8 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
 
-
 1.8.4 (19-October-2018)
 -----------------------
 

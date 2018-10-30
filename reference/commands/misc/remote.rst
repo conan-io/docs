@@ -99,6 +99,12 @@ the command will insert the remote in the specified position
 
       $ conan remote remove remote_name
 
+- Remove all configured remotes (this will also remove all recipe-remote associations):
+
+  .. code-block:: bash
+
+      $ conan remote clean
+
 - Update a remote:
 
   .. code-block:: bash
