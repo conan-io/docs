@@ -172,4 +172,9 @@ Conan using Python 2 will not have access to that feature. This will be clearly 
 
 If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with Python 2 may be reduced further.
 
+We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
+Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
+
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
+
+.. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334
