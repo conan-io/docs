@@ -1,12 +1,9 @@
 .. _premake:
 
-premake
-=======
-
 |premake_logo| Premake
-_________________________
+======================
 
-Since conan 1.9.0, premake generator is built-in, so the following should be enough to use it:
+Since Conan 1.9.0 the ``premake`` generator is built-in and works with :command:`premake5`, so the following should be enough to use it:
 
 .. code-block:: text
 
@@ -16,85 +13,104 @@ Since conan 1.9.0, premake generator is built-in, so the following should be eno
 Example
 -------
 
-In order to use new generator within your project, use the following as a reference:
+We are going to use the same example from :ref:`getting_started`, a MD5 Encrypter app.
+
+This is the main file for it:
+
+.. code-block:: cpp
+   :caption: main.cpp
+
+    #include "Poco/MD5Engine.h"
+    #include "Poco/DigestStream.h"
+
+    #include <iostream>
+
+
+    int main(int argc, char** argv)
+    {
+        Poco::MD5Engine md5;
+        Poco::DigestOutputStream ds(md5);
+        ds << "abcdefghijklmnopqrstuvwxyz";
+        ds.close();
+        std::cout << Poco::DigestEngine::digestToHex(md5.digest()) << std::endl;
+        return 0;
+    }
+
+As this project has relies on the Poco Libraries we are going to create a *conanfile.txt* with our requirement and declare there the
+Premake generator too:
+
+.. code-block:: text
+   :caption: conanfile.txt
+
+    [requires]
+    Poco/1.9.0@pocoproject/stable
+
+    [generators]
+    premake
+
+In order to use new generator within your project, use the following Premake script as a reference:
 
 .. code-block:: lua
+   :caption: premake5.lua
 
-   -- premake5.lua
+    -- premake5.lua
 
-   require 'conanbuildinfo'
+    require 'conanbuildinfo'
 
-   workspace "ConanPremakeDemo"
-     configurations { "Debug", "Release" }
-     platforms { "Win32", "x64" }
+    workspace "ConanPremakeDemo"
+        configurations { "Debug", "Release" }
+        platforms { "Win32", "x64" }
 
-     filter { "platforms:Win32" }
-      system "Windows"
-      architecture "x32"
+        filter { "platforms:Win32" }
+        system "Windows"
+        architecture "x32"
 
-     filter { "platforms:x64" }
-      system "Windows"
-      architecture "x64"
+        filter { "platforms:x64" }
+        system "Windows"
+        architecture "x64"
 
-   project "ConanPremakeDemo"
-     kind "ConsoleApp"
-     language "C++"
-     targetdir "bin/%{cfg.buildcfg}"
+    project "ConanPremakeDemo"
+        kind "ConsoleApp"
+        language "C++"
+        targetdir "bin/%{cfg.buildcfg}"
 
-     includedirs { conan_includedirs }
-     libdirs { conan_libdirs }
-     links { conan_libs }
-     linkoptions { conan_exelinkflags }
+        includedirs { conan_includedirs }
+        libdirs { conan_libdirs }
+        links { conan_libs }
+        linkoptions { conan_exelinkflags }
 
-     files { "**.h", "**.cpp" }
+        files { "**.h", "**.cpp" }
 
-     filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
+        filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
 
-     filter "configurations:Release"
-      defines { "NDEBUG" }
-      optimize "On"
+        filter "configurations:Release"
+        defines { "NDEBUG" }
+        optimize "On"
 
-Demo requires two remotes to run: ``bincrafters`` and ``conan-community``. Add them, if necessary:
-
-.. code-block:: bash
-
-    $ conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
-    $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
-
-Now let's get the premake project and build it:
+Now we are going to let Conan retrieve the dependencies and generate the dependency information in a *conanbuildinfo.lua*:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/SSE4/conan-premake-demo.git
-    $ cd conan-premake-demo
+    $ conan install .
 
-then, on Windows run:
+Then let's call :command:`premake` to generate our project:
 
-.. code-block:: bash
+- Use this command for Windows Visual Studio:
 
-    $ ./run.cmd
+  .. code-block:: bash
 
-on Linux or macOS, run:
+      $ premake5 vs2017  # Generates a .sln
 
-.. code-block:: bash
+- Use this command for Linux or macOS:
 
-    $ ./run.cmd
+  .. code-block:: bash
 
-The following happens under the hood:
+      $ premake5 gmake  # Generates a makefile
 
-- conan installs ``OpenCV`` package
-- conan installs ``premake_installer`` as build requirement
-- conan generates ``conanbuildinfo.lua`` file which contains build information for premake
-- conan generates ``activate.sh`` or ``activate.bat`` file with virtual environment which has ``premake5`` executable
-- virtual environment is getting activated
-- ``premake5`` invoked to generate native project files
-- either ``make`` or ``msbuild`` used to build native project files
+Now you can build your project with Visual Studio or Make.
 
-.. tip::
-
-    This complete examples is stored in https://github.com/SSE4/conan-premake-demo
 
 .. |premake_logo| image:: ../images/premake_logo.png
 
