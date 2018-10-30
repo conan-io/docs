@@ -34,7 +34,7 @@ For distribution:
   packages or even create an organization. It is free for open source packages, and the recommended
   server to distribute to the C and C++ communities. Check :ref:`using_bintray` for more information.
 
-
+.. _bintray_repositories:
 
 Bintray Official Repositories
 -----------------------------
