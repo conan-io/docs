@@ -242,9 +242,10 @@ Conan will request to the user to input a password.
 
 These variables are useful for unattended executions like CI servers or automated tasks.
 
-If the remote name contains "-" you have to replace it with "_" in the variable name:
+The remote name is transformed to all uppercase. If the remote name contains "-",
+you have to replace it with "_" in the variable name.
 
-For example: For a remote named "conan-center":
+For example, for a remote named "conan-center":
 
 .. code-block:: bash
 
