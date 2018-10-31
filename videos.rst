@@ -8,59 +8,82 @@
 Videos and links
 =================
 
-- CppCon 2018: Mateusz Pusz "Git, CMake, Conan - How to ship and reuse our C++ projects"
+- CppCon 2018: "Git, CMake, Conan - How to ship and reuse our C++ projects" by Mateusz Pusz.
 
-.. raw:: html
+  .. raw:: html
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/S4QSKLXdTtA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-    </iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/S4QSKLXdTtA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+      </iframe>
 
     <br/><br/>
 
+- JFrog swampUP 2018: "Managing dependencies and toolchains with Conan and Artifactory" by Tobias Hieta
 
-- Packaging C/C++ libraries with Conan. 30 min talk by Théo Delrieu at FOSDEM 2018.
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/jKG6cETLN3M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+- JFrog swampUP 2018: "Cross building... It's almost too easy!" by Théo Delrieu.
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/Gm2h8ZWCEH4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+- JFrog Conan Playlist: "Conan - The C/C++ Package Manager"
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/?listType=playlist&list=PLY0Zjn5rFo4OTu5_-pErorGBm0_-UNgCV" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+- FOSDEM 2018: "Packaging C/C++ libraries with Conan" by Théo Delrieu.
+
   Includes AndroidNDK package and cross build to Android
 
-.. raw:: html
+  .. raw:: html
 
-   <iframe width="560" height="315" src="https://www.youtube.com/embed/RDsn0TKcdPQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/RDsn0TKcdPQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+      </iframe>
 
-   <br/><br/>
-
-
-- Introduction to Conan C/C++ package manager. 30 min talk in CppCon 2016.
-
-.. raw:: html
-
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/xvqH_ck-5Q8" frameborder="0" allowfullscreen>
-    </iframe>
-    
-
-    <br/><br/>
+      <br/><br/>
 
 
-- Faster Delivery of Large C/C++ Projects with Conan Package Manager and Efficient Continuous Integration. 60 min talk in CppCon 2017.
+- CppCon 2016: "Introduction to Conan C/C++ Package Manager" by Diego Rodriguez-Losada.
 
-.. raw:: html
+  .. raw:: html
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/xA9yRX4Mdz0" frameborder="0" allowfullscreen>
-    </iframe>
-    
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/xvqH_ck-5Q8" frameborder="0" allowfullscreen>
+      </iframe>
 
-    <br/><br/>
+      <br/><br/>
 
-    
-- Conan.io c++ package manager demo with SFML, by `Charl Botha <http://charlbotha.com/>`_
 
-.. raw:: html
+- CppCon 2017: "Faster Delivery of Large C/C++ Projects with Conan Package Manager and Efficient Continuous Integration" by Diego Rodriguez-Losada.
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/RFjvz_Ppbv8" frameborder="0" allowfullscreen>   
-    </iframe>
-    
-    <br/><br/>
-    
-    
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/xA9yRX4Mdz0" frameborder="0" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+
+- "Conan.io C++ Package Manager demo with SFML" by `Charl Botha <http://charlbotha.com/>`_
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/RFjvz_Ppbv8" frameborder="0" allowfullscreen>   
+      </iframe>
+
+      <br/><br/>
+
 Do you have a video, tutorial, blog post that could be useful for other users and would like to share?
 Please tell us about it or directly send a PR to our docs: https://github.com/conan-io/docs, and we will link it here.
-
-
