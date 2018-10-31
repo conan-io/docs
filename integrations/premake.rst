@@ -82,11 +82,11 @@ In order to use new generator within your project, use the following Premake scr
         files { "**.h", "**.cpp" }
 
         filter "configurations:Debug"
-        defines { "DEBUG" }
+        defines { "DEBUG", conan_cppdefines }
         symbols "On"
 
         filter "configurations:Release"
-        defines { "NDEBUG" }
+        defines { "NDEBUG", conan_cppdefines }
         optimize "On"
 
 Now we are going to let Conan retrieve the dependencies and generate the dependency information in a *conanbuildinfo.lua*:
