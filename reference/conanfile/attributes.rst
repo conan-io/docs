@@ -136,7 +136,7 @@ when filtering packages by topics or reusing on Bintray package page.
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        topics = ["foo", "baz", "qux"]
+        topics = ("foo", "baz", "qux")
 
 This is an optional attribute
 
