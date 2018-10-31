@@ -167,6 +167,9 @@ and ``self.channel`` will then look for environment variables ``CONAN_USERNAME``
 respectively. If they are not defined, an error will be raised unless ``default_user`` and ``default_channel``
 are declared.
 
+.. seealso::
+
+    FAQ: :ref:`faq_recommendation_user_channel`
 
 default_user, default_channel
 -----------------------------
