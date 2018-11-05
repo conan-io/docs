@@ -122,23 +122,25 @@ define who is the creator/maintainer of the package
         version = "0.1"
         author = "John J. Smith (john.smith@company.com)"
 
-This is an optional attribute
+This is an optional attribute.
 
 topics
 ------
 
 Topics provide a useful way to group related tags together and to quickly tell developers what a
-package is about. Tags also make it easier for customers to find your recipe. It could be useful
-when filtering packages by topics or reusing on Bintray package page.
+package is about. Topics also make it easier for customers to find your recipe. It could be useful
+to filter packages by topics or to reuse them in Bintray package page.
+
+The ``topics`` attribute should be a tuple with the needed topics inside.
 
 .. code-block:: python
 
-    class HelloConan(ConanFile):
-        name = "Hello"
+    class ProtocInstallerConan(ConanFile):
+        name = "protoc_installer"
         version = "0.1"
-        topics = ("foo", "baz", "qux")
+        topics = ("protocol-buffers", "protocol-compiler", "serialization", "rpc")
 
-This is an optional attribute
+This is an optional attribute.
 
 .. _user_channel:
 
