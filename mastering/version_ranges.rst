@@ -31,6 +31,16 @@ but using a comma instead of spaces. Accepted expressions would be:
    ~=3.0        # compatible, according to semver
    >1.1 || 0.8  # conditions can be OR'ed
 
+There are two options for the version range:
+   * *strict*: As default Conan uses the `loose` mode. With this you can set the strict mode, so that only valid Semantic Versioning strings are accepted.
+   * *prerelease*: Includes prerelase versions in the search range. 
+
+..  code-block:: python
+
+   >1.1,<2.1,prerelease # Would e.g. accept "2.0.0-pre.1" as match
+   ~1.2.3,strict        # Would only accept correct Semantic Versioning strings. 
+                        # E.g. version "1.2.3.4" would not be acctepted. 
+
 Version range expressions are evaluated at the time of building the dependency graph, from
 downstream to upstream dependencies. No joint-compatibility of the full graph is computed, instead,
 version ranges are evaluated when dependencies are first retrieved.
