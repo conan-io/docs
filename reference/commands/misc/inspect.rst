@@ -69,6 +69,7 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
     build_policy: None
     topics: None
     settings: ('os', 'arch', 'compiler', 'build_type')
-    options
+    options:
         shared: [True, False]
-    default_options: shared=False
+    default_options:
+        shared=False

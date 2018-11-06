@@ -82,58 +82,12 @@ An MD5 Encrypter using the Poco Libraries
         apply_env: True
         build_policy: None
         settings: ('os', 'arch', 'compiler', 'build_type')
-        options
-            cxx_14: [True, False]
+        options:
             enable_apacheconnector: [True, False]
-            enable_cppparser: [True, False]
-            enable_crypto: [True, False]
-            enable_data: [True, False]
-            enable_data_mysql: [True, False]
-            enable_data_odbc: [True, False]
-            enable_data_sqlite: [True, False]
-            enable_json: [True, False]
-            enable_mongodb: [True, False]
-            enable_net: [True, False]
-            enable_netssl: [True, False]
-            enable_netssl_win: [True, False]
-            enable_pagecompiler: [True, False]
-            enable_pagecompiler_file2page: [True, False]
-            enable_pdf: [True, False]
-            enable_pocodoc: [True, False]
-            enable_sevenzip: [True, False]
-            enable_tests: [True, False]
-            enable_util: [True, False]
-            enable_xml: [True, False]
-            enable_zip: [True, False]
-            force_openssl: [True, False]
-            poco_unbundled: [True, False]
             shared: [True, False]
-        default_options: 
-            shared=False
-            enable_xml=True
-            enable_json=True
-            enable_mongodb=True
-            enable_pdf=False
-            enable_util=True
-            enable_net=True
-            enable_netssl=True
-            enable_netssl_win=True
-            enable_crypto=True
-            enable_data=True
-            enable_data_sqlite=True
-            enable_data_mysql=False
-            enable_data_odbc=False
-            enable_sevenzip=False
-            enable_zip=True
+        default_options:
             enable_apacheconnector=False
-            enable_cppparser=False
-            enable_pocodoc=False
-            enable_pagecompiler=False
-            enable_pagecompiler_file2page=False
-            force_openssl=True
-            enable_tests=False
-            poco_unbundled=False
-            cxx_14=False
+            shared=False
 
 
 5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
