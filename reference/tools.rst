@@ -77,6 +77,13 @@ Parameters:
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
 
+
+.. note::
+
+    When cross-building from x64 to x86 the toolchain by default is ``x86``.
+    If you want to use ``amd64_x86`` instead, set the environment variable ``PreferredToolArchitecture=x64``.
+
+
 tools.vcvars_dict()
 -------------------
 

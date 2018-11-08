@@ -78,6 +78,8 @@ Parameters:
     - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv` to upgrade the solution to your current Visual Studio.
     - **build_type** (Optional, Defaulted to ``None``): Use a custom build type name instead of the detault ``settings.build_type`` one.
     - **arch** (Optional, Defaulted to ``None``): Use a custom architecture name instead of the ``settings.arch`` one.
+      It will be used to build the ``/p:Configuration=`` parameter of ``msbuild``.
+      It can be used as the key of the **platforms** parameter. E.g. ``arch="x86", platforms={"x86": "i386"}``
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or :ref:`cpu_count`:
 
@@ -100,6 +102,13 @@ Parameters:
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dictionary ``{name: value}``
       it will append a ``/p:name="value"`` option.
+
+.. note::
+
+    The ``MSBuild()`` build helper will, before calling to ``msbuild``, call :ref:`vcvars_command<vcvars_command>` to adjust the environment according to the settings.
+    When cross-building from x64 to x86 the toolchain by default is ``x86``.
+    If you want to use ``amd64_x86`` instead, set the environment variable ``PreferredToolArchitecture=x64``.
+
 
 get_command()
 +++++++++++++
