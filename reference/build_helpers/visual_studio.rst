@@ -78,8 +78,8 @@ Parameters:
     - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv` to upgrade the solution to your current Visual Studio.
     - **build_type** (Optional, Defaulted to ``None``): Use a custom build type name instead of the detault ``settings.build_type`` one.
     - **arch** (Optional, Defaulted to ``None``): Use a custom architecture name instead of the ``settings.arch`` one.
-               It will be used to build the ``/p:Configuration=`` parameter of ``msbuild``.
-               You can use it to specify a key of the **platforms** parameter. E.g. ``arch="x86", platforms={"x86": "i386"}``
+      It will be used to build the ``/p:Configuration=`` parameter of ``msbuild``.
+      It can be used as the key of the **platforms** parameter. E.g. ``arch="x86", platforms={"x86": "i386"}``
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or :ref:`cpu_count`:
 
