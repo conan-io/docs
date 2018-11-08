@@ -549,6 +549,8 @@ Methods:
     - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it
       will execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
       parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
+      **Note**: This list of packages is intended for providing **alternative** names for the same package, to account for small variations
+      of the name for the same package in different distros. To install different packages, one call to ``install()`` per package is necessary.
 
 The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the ``CONAN_SYSREQUIRES_SUDO``
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
