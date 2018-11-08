@@ -22,6 +22,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.9 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.9.1 (08-Nov-2018)
+-------------------
+
+- Fix: Fix regression introduced in 1.7, setting ``amd64_x86`` when no ``arch_build`` is defined. `#3918 <https://github.com/conan-io/conan/pull/3918>`_
+- Fix: Do not look for binaries in other remotes than the recipe, if it is defined. `#3890 <https://github.com/conan-io/conan/pull/3890>`_
+- Bugfix: `sudo --askpass` breaks Centos 6 package installation. The sudo version on Centos 6 is 1.8.6. The option of askpass for sudo version 1.8.7 or older is `sudo -A`. `#3885 <https://github.com/conan-io/conan/pull/3885>`_
+
 
 1.9.0 (30-October-2018)
 -----------------------
