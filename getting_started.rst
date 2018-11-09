@@ -86,8 +86,8 @@ An MD5 Encrypter using the Poco Libraries
             enable_apacheconnector: [True, False]
             shared: [True, False]
         default_options:
-            enable_apacheconnector=False
-            shared=False
+            enable_apacheconnector: False
+            shared: False
 
 
 5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for

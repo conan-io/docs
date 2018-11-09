@@ -72,4 +72,4 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
     options:
         shared: [True, False]
     default_options:
-        shared=False
+        shared: False
