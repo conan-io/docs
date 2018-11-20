@@ -22,6 +22,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Conan 1.9 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
 
+
+1.9.2 (20-Nov-2018)
+-------------------
+
+- Bugfix: SVN API changes are relevant since version 1.9 `#3954 <https://github.com/conan-io/conan/pull/3954>`_
+- Bugfix: Fixed bug in `vcvars_dict` tool when using `filter_known_paths` argument. `#3941 <https://github.com/conan-io/conan/pull/3941>`_
+
+
 1.9.1 (08-Nov-2018)
 -------------------
 
