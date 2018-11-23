@@ -744,9 +744,9 @@ When executing local conan commands (for a package not in the local cache, but i
 cpp_info
 --------
 
-.. note::
+.. important::
 
-    This attribute is only defined inside ``package_info()`` method.
+    This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
 The ``self.cpp_info`` is responsible for storing all the information needed by consumers of a package: include directories, library names,
 library paths... There are some default values that will be applied automatically if not indicated otherwise.
