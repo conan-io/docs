@@ -36,20 +36,17 @@ The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declari
        target_link_libraries (helloworld ${ZLIB_LIBRARIES})
     endif()
 
-In the example above, the ``zlib/1.2.11@conan/stable`` package is not packaging a custom ``Findzlib.cmake`` file, but the ``Findzlib.cmake``
+In the example above, the ``zlib/1.2.11@conan/stable`` package is not packaging a custom ``FindZLIB.cmake`` file, but the ``FindZLIB.cmake``
 included in the CMake installation directory (`/Modules`) will locate the zlib library from the Conan package because of the
 ``CMAKE_PREFIX_PATH`` used by the ``find_library()``.
 
-If the ``zlib/1.2.11@conan/stable`` would had included a custom ``Findzlib.cmake`` in the package root folder or any declared
+If the ``zlib/1.2.11@conan/stable`` would had included a custom ``FindZLIB.cmake`` in the package root folder or any declared
 :ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`, it would have been located because of the ``CMAKE_MODULE_PATH`` variable.
-
-You can use the generated *conan_paths.cmake* file as a **cmake toolchain**, include it in a *CMakeLists.txt* or even include it from
-another toolchain:
 
 Included as a toolchain
 -----------------------
 
-Without modifying your *CMakeLists.txt* file you can use the ``conan_paths.cmake`` as a toolchain:
+You can use the *conan_paths.cmake* as a toolchain without modifying your *CMakeLists.txt* file:
 
 .. code-block:: bash
    :emphasize-lines: 3
@@ -90,8 +87,8 @@ Included in your *CMakeLists.txt*
     find_package(zlib)
 
     if(ZLIB_FOUND)
-       include_directories(${zlib_INCLUDE_DIRS})
-       target_link_libraries (helloworld ${zlib_LIBRARIES})
+       include_directories(${ZLIB_INCLUDE_DIRS})
+       target_link_libraries (helloworld ${ZLIB_LIBRARIES})
     endif()
 
 .. code-block:: bash
