@@ -144,7 +144,7 @@ Linux to Windows
 
     git clone https://github.com/memsharded/conan-hello.git
 
-- Call :command:`conan create` using the created profile.win
+- Call :command:`conan create` using the created **linux_to_win64**
 
 .. code-block:: bash
 
@@ -223,17 +223,17 @@ A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
 .. _cross_building_android:
 
-Linux/Windows/Macos to Android
+Linux/Windows/macOS to Android
 ..............................
 
-Cross bulding a library for Android is very similar to the previous examples, except the complexity of managing different
+Cross building a library for Android is very similar to the previous examples, except the complexity of managing different
 architectures (armeabi, armeabi-v7a, x86, arm64-v8a) and the Android API levels.
 
 Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ and unzip it.
 
 .. note::
 
-    If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (C:\) to avoid issues with path lengths.
+    If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (``C:\``) to avoid issues with path lengths.
 
 Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_,
 we are going to target "arm" architecture and the Android API level 21, change the ``--install-dir`` to any other place that works
@@ -327,7 +327,7 @@ match the gcc toolchain compiler:
 
 .. code-block:: bash
 
-    git clone https://github.com/lasote/conan-zlib.git
+    git clone https://github.com/conan-community/conan-zlib.git
 
 - Call :command:`conan create` using the created profile.
 
@@ -435,7 +435,7 @@ Currently there are ``i386``, ``armv7`` and ``armv7hf`` images with the needed p
 
     $ git clone https://github.com/conan-community/conan-openssl
     $ cd conan-openssl
-    $ docker run -it -v$(pwd):/home/conan/project --rm lasote/conangcc49-armv7hf /bin/bash
+    $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc49-armv7hf /bin/bash
 
     # Now we are running on the conangcc49-armv7hf container
     $ sudo pip install conan --upgrade
@@ -474,7 +474,7 @@ Conan has different architecture settings for ARM: ``armv6``, ``armv7``, ``armv7
 The "problem" with ARM architecture is that frequently are named in different ways, so maybe you are wondering what setting
 do you need to specify in your case.
 
-Here is a table with some typical ARM platorms:
+Here is a table with some typical ARM platforms:
 
 +--------------------------------+------------------------------------------------------------------------------------------------+
 | Platform                       | Conan setting                                                                                  |

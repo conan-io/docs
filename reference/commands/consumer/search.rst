@@ -14,19 +14,20 @@ Searches package recipes and binaries in the local cache or in a remote. If
 you provide a pattern, then it will search for existing package recipes
 matching it. If a full reference is provided (pkg/0.1@user/channel) then the
 existing binary packages for that reference will be displayed. If no remote is
-specified, the serach will be done in the local cache. Search is case
+specified, the search will be done in the local cache. Search is case
 sensitive, exact case has to be used. For case insensitive file systems, like
 Windows, case sensitive search can be forced with '--case-sensitive'.
 
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
-                            'MyPackage/1.2@user/channel'
+      pattern_or_reference  Pattern or package recipe reference, e.g.,
+                            'MyPackage/1.2@user/channel', 'boost/*'
 
     optional arguments:
       -h, --help            show this help message and exit
-      -o, --outdated        Show only outdated from recipe packages
+      -o, --outdated        Show only outdated from recipe packages. This flag can
+                            only be used with a reference
       -q QUERY, --query QUERY
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter
@@ -73,7 +74,7 @@ and parenthesis, with settings and also options.
     $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
 If you specify a query filter for a setting and the package recipe is not restricted by this
-setting, will find all packages:
+setting, Conan won't find the packages. e.g:
 
 .. code-block:: python
 
@@ -84,8 +85,13 @@ setting, will find all packages:
 
     $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
 
-The query above will find all the ``MyRecipe`` binary packages, because the recipe doesn't declare
-"os" as a setting.
+The query above won't find the ``MyRecipe`` binary packages (because the recipe doesn't declare
+"os" as a setting) unless you specify the ``None`` value:
+
+.. code-block:: bash
+
+    $ conan search MyRecipe/1.0@lasote/stable -q os=None
+
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:
 

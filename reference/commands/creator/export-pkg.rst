@@ -11,10 +11,11 @@ conan export-pkg
                        [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
                        path reference
 
-Exports a recipe & creates a package with given files calling the package()
-method applied to the local folders '--source-folder' and '--build-folder' and
-creates a new package in the local cache for the specified 'reference' and for
-the specified '--settings', '--options' and or '--profile'.
+Exports a recipe, then creates a package from local source and build folders.
+The package is created by calling the package() method applied to the local
+folders '--source-folder' and '--build-folder' It's created in the local cache
+for the specified 'reference' and for the specified '--settings', '--options'
+and or '--profile'.
 
 .. code-block:: text
 
@@ -174,10 +175,14 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
       :emphasize-lines: 4
 
       $ conan source . --source-folder src
-      $ conan install --install-folder build_x86 -s arch=x86
+      $ conan install . --install-folder build_x86 -s arch=x86
       $ conan build . --build-folder build_x86 --source-folder src
-      $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
+      $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86 -s arch=x86
 
-  In this case, in the :command:`conan export-pkg`, you don't need to specify the :command:`-s arch=x86` or any other setting, option, or profile,
-  because it will all the information in the :command:`--build-folder` the *conaninfo.txt* and *conanbuildinfo.txt`* that have been created with
-  :command:`conan install`.
+
+.. note::
+
+    Note that if :command:`--profile` or settings, options, are not provided to :command:`export-pkg`,
+    the configuration will be extracted from the information from a previous :command:`conan install`.
+    That information might be incomplete in some edge cases, so we strongly recommend the usage of
+    :command:`--profile` or :command:`--settings, --options`, etc.

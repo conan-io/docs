@@ -1,5 +1,28 @@
+Python requires
+==================
+
+It is possible to reuse python code existing in other *conanfile.py* recipes with the ``python_requires()``
+functionality, doing something like:
+
+.. code-block:: python
+
+    from conans import python_requires
+    
+    base = python_requires("MyBuild/0.1@user/channel")
+
+    class PkgTest(base.MyBase):
+        ...
+        def build(self):
+            base.my_build(self.settings)
+
+See this section: :ref:`Python requires: reusing python code in recipes<python_requires>`
+
+
+
 Output and Running
 ==================
+
+.. _conanfile_output:
 
 Output contents
 ---------------
@@ -29,6 +52,10 @@ Running commands
 
 ``self.run()`` is a helper to run system commands and throw exceptions when errors occur,
 so that command errors are do not pass unnoticed. It is just a wrapper for ``os.system()``
+
+When the environment variable ``CONAN_PRINT_RUN_COMMANDS`` is set to true (or its equivalent
+``print_run_commands`` *conan.conf* configuration variable, under ``[general]``) then all the
+invocations of ``self.run()`` will print to output the command to be executed.
 
 Optional parameters:
 

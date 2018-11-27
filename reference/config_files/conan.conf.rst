@@ -28,6 +28,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
     # cache_no_locks = True               # Disable locking mechanism of local cache
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
+    # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
 
@@ -66,6 +67,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
+    [hooks]  # environment CONAN_HOOKS
+    attribute_checker
 
     # Default settings now declared in the default profile
 
@@ -121,7 +124,7 @@ The ``pylintrc`` file has the form:
     [FORMAT]
     indent-string='  '
 
-Running ``pylint --generate-rcfile`` will output a complete rcfile with commments explaining the fields.
+Running ``pylint --generate-rcfile`` will output a complete rcfile with comments explaining the fields.
 
 The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
 Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
@@ -141,7 +144,7 @@ response for timeout seconds (more precisely, if no bytes have been received on 
 If no timeout is specified explicitly, it do not timeout.
 
 The ``user_home_short`` specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature.
-If not specified, the packages marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+If not specified, the packages marked as `short_paths` will be stored in the ``C:\.conan`` (or the current drive letter).
 
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
 for modern Windows that enable long paths at the system level.

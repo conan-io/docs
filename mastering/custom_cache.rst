@@ -6,7 +6,7 @@ Conan local cache: concurrency, Continuous Integration, isolation
 Conan needs access to some, per user, configuration files, as the **conan.conf** file that
 defines the basic client app configuration. By convention, this file will be located in the
 user home folder **~/.conan/**. This folder will typically also store the package cache, in
-**~/.conan/data**. Though the latter is configurable in *conan.conf*, still conan needs
+**~/.conan/data**. Though the latter is configurable in *conan.conf*, conan needs
 some place to look for this initial configuration file.
 
 There are some scenarios in which you might want to use different initial locations for the
@@ -18,15 +18,13 @@ conan client application:
   isolated machine instances (virtual machines), or with sequential jobs is perfectly possible. For
   example, we use a lot CI cloud services of travis-ci and appveyor.
 - Independent per project management and storage. If as a single developer you want to
-  manage different projects with different user credentials (for the same remote, having different
-  users for different remotes is also fine), consuming packages from different remotes, you might
-  find that having a single user configuration is not enough. Having independent caches might
-  allow also to take away with you very easily the requirements of a certain project.
+  manage different projects with different user credentials and/or different remotes, you might find
+  that having multiple independent caches makes it easier.
 
 Using different caches is very simple. You can just define the environment variable **CONAN_USER_HOME**.
-By setting this variable to different paths, you have multiple conan caches, 
-something like python "virtualenvs". Just changing the value of **CONAN_USER_HOME** you can 
-switch among isolated conan instantes that will have independent package storage caches, but also
+By setting this variable to different paths, you have multiple conan caches,
+something like python "virtualenvs". Just changing the value of **CONAN_USER_HOME** you can
+switch among isolated conan instances that will have independent package storage caches, but also
 different user credentials, different user default settings, and different remotes configuration.
 
 .. note::
@@ -41,7 +39,7 @@ Windows users:
    $ conan install . # call conan normally, config & data will be in c:\data
 
 
-Linux/OSx users:
+Linux/macOS users:
 
 .. code-block:: bash
 
@@ -50,7 +48,7 @@ Linux/OSx users:
 
 You can now:
 
-- Build concurrent jobs, parallel builds in Continous Integration or locally, just setting the variable before launching conan commands.
+- Build concurrent jobs, parallel builds in Continuous Integration or locally, just setting the variable before launching conan commands.
 - You can test locally different user credentials, default configurations, different remotes, just by switching from one cache to the
   others.
 

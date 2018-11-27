@@ -1,6 +1,6 @@
 .. _package_repo:
 
-Recipe and sources in the same repo
+Recipe and Sources in the Same Repo
 ===================================
 
 Sometimes it is more convenient to have the recipe and source code together in the same repository.
@@ -8,15 +8,15 @@ This is true especially if you are developing and packaging your own library, an
 
 There are two different approaches:
 
-1. Using the :ref:`exports sources attribute <exports_sources_attribute>` of the conanfile to
+- Using the :ref:`exports sources attribute <exports_sources_attribute>` of the conanfile to
    export the source code together with the recipe. This way the recipe is self-contained and will
    not need to fetch the code from external origins when building from sources. It can be considered
    a "snapshot" of the source code.
-2. Using the :ref:`scm attribute <scm_attribute>` of the conanfile to capture the remote and
+-  Using the :ref:`scm attribute <scm_attribute>` of the conanfile to capture the remote and
    commit of your repository automatically.
 
 
-Exporting the sources with the recipe: ``exports_sources``
+Exporting the Sources with the Recipe: ``exports_sources``
 ----------------------------------------------------------
 
 This could be an appropriate approach if we want the package recipe to live in the same repository
@@ -29,9 +29,9 @@ First, let's get the initial source code and create the basic package recipe:
     $ conan new Hello/0.1 -t -s
 
 A *src* folder will be created with the same "hello" source code as in the previous example. You
-can have a look at it, the code is straightforward.
+can have a look at it and see that the code is straightforward.
 
-Now lets have a look to the *conanfile.py*:
+Now let's have a look at *conanfile.py*:
 
 .. code-block:: python
 
@@ -45,7 +45,7 @@ Now lets have a look to the *conanfile.py*:
         description = "<Description of Hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
         exports_sources = "src/*"
 
@@ -71,7 +71,7 @@ Now lets have a look to the *conanfile.py*:
 
 There are two important changes:
 
-- Added the ``exports_sources`` field, to tell conan to copy all the files from the local *src*
+- Added the ``exports_sources`` field, indicating to Conan to copy all the files from the local *src*
   folder into the package recipe.
 - Removed the ``source()`` method, since it is no longer necessary to retrieve external sources.
 
@@ -82,10 +82,10 @@ Also, you can notice the two CMake lines:
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
-They are not added in the package recipe, as they can be directly put in the ``src/CMakeLists.txt``
+They are not added in the package recipe, as they can be directly added to the ``src/CMakeLists.txt``
 file.
 
-And simply create the package for user and channel **demo/testing** as previously:
+And simply create the package for user and channel **demo/testing** as described previously:
 
 .. code-block:: bash
 
@@ -95,9 +95,10 @@ And simply create the package for user and channel **demo/testing** as previousl
     Hello world!
 
 
+.. _scm_feature:
 
-Capturing the remote and commit from git: ``scm`` [EXPERIMENTAL]
-----------------------------------------------------------------
+Capturing the Remote and Commit: ``scm`` [EXPERIMENTAL]
+-------------------------------------------------------
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when ``conan create`` is called) the exported recipe will capture the
@@ -110,7 +111,7 @@ remote and commit of the local repository:
 
     class HelloConan(ConanFile):
          scm = {
-            "type": "git",
+            "type": "git",  # Use "type": "svn", if local repo is managed using SVN
             "subfolder": "hello",
             "url": "auto",
             "revision": "auto"
@@ -118,8 +119,8 @@ remote and commit of the local repository:
         ...
 
 
-The ``conanfile.py`` can be commited and pushed to your origin repository, and will keep always the "auto"
-values. But when the file is exported to the conan local cache, the copied recipe in the local cache,
+You can commit and push the ``conanfile.py`` to your origin repository, which will always preserve the "auto"
+values. But when the file is exported to the conan local cache, the copied recipe in the local cache
 will point to the captured remote and commit:
 
 .. code-block:: python
@@ -138,16 +139,16 @@ will point to the captured remote and commit:
 
 
 So when you :ref:`upload the recipe <uploading_packages>` to a conan remote, the recipe will contain
-the "absolute" url and commit.
+the "absolute" URL and commit.
 
-When you are requiring your ``HelloConan`` the ``conan install`` will retrieve the recipe from the
-remote and if you build the package, the source code will be fetched from the captured url/commit.
+When you are requiring your ``HelloConan``, the ``conan install`` will retrieve the recipe from the
+remote. If you are building the package, the source code will be fetched from the captured url/commit.
 
 
 .. tip::
 
-    While you are in the same computer (same conan cache), even when you have exported the recipe and
-    conan has captured the absolute url and commit, conan will store the local folder where your source code lives.
-    If you build your package locally it will use the local repository (in the local folder) instead of the remote URL,
-    even if the local directory contains uncommited changes.
-    It allows to speed up the development of your packages cloning from a local repository.
+    While you are in the same computer (the same conan cache), even when you have exported the recipe and
+    Conan has captured the absolute url and commit, Conan will store the local folder where your source code lives.
+    If you build your package locally, it will use the local repository (in the local folder) instead of the remote URL,
+    even if the local directory contains uncommitted changes.
+    This allows you to speed up the development of your packages when cloning from a local repository.

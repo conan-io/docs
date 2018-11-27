@@ -45,6 +45,7 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
 
     call("make html")
     if validate_links:
+        call("make spelling")
         call("make linkcheck")
     call("make latexpdf")
     tmp_dir = tempfile.mkdtemp()
@@ -98,7 +99,10 @@ if __name__ == "__main__":
     if should_deploy():
         config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.6",
+        versions_dict = {"master": "1.9",
+                         "release/1.8.4": "1.8",
+                         "release/1.7.4": "1.7",
+                         "release/1.6.1": "1.6",
                          "release/1.5.2": "1.5",
                          "release/1.4.5": "1.4",
                          "release/1.3.3": "1.3"}
@@ -108,4 +112,5 @@ if __name__ == "__main__":
         deploy()
     else:
         call("make html")
+        call("make spelling")
         call("make linkcheck")

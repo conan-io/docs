@@ -6,7 +6,7 @@
 |travisci_logo| Travis Ci
 =============================
 
-You can use `Travis CI`_ cloud service to automatically build and test your project in Linux/OSX environments in the cloud.
+You can use `Travis CI`_ cloud service to automatically build and test your project in Linux/macOS environments in the cloud.
 It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
 fired in Travis-CI after a :command:`git push` to Github.
 
@@ -30,11 +30,11 @@ Clone the project from github:
    $ git clone https://github.com/lasote/conan-gtest-example
 
 
-Create a ``.travis.yml`` file and paste this code in it: 
+Create a ``.travis.yml`` file and paste this code in it:
 
 
 .. code-block:: text
-   
+
 	language: cpp
 	compiler:
 	- gcc
@@ -42,17 +42,17 @@ Create a ``.travis.yml`` file and paste this code in it:
 	# Upgrade GCC
 	- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 	- sudo apt-get update -qq
-	- sudo apt-get install -qq g++-4.9 
+	- sudo apt-get install -qq g++-4.9
 	- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
-	
+
 	# Install conan
 	- pip install conan
 	# Automatic detection of your arch, compiler, etc.
 	- conan user
-	
+
 	script:
 	# Download dependencies, build, test and create package
-	- conan create user/channel
+	- conan create . user/channel
 
 
 Travis will install the **conan** tool and will execute the **conan install** command.
@@ -69,7 +69,7 @@ The command :command:`conan new` has arguments to create a default working *.tra
 Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray. 
 You could follow these steps:
 
-#. First, create an empty github repository, lets call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
+#. First, create an empty github repository, let's call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
 #. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Activate the repo in your Travis account, so it is built when we push changes to it.

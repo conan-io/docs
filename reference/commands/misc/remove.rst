@@ -19,8 +19,8 @@ the local conan cache.
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
-                            'MyPackage/1.2@user/channel'
+      pattern_or_reference  Pattern or package recipe reference, e.g.,
+                            'MyPackage/1.2@user/channel', 'boost/*'
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -28,7 +28,8 @@ the local conan cache.
                             By default, remove all the build folders or select
                             one, specifying the package ID
       -f, --force           Remove without requesting a confirmation
-      -o, --outdated        Remove only outdated from recipe packages
+      -o, --outdated        Remove only outdated from recipe packages. This flag
+                            can only be used with a reference
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
                             Select package to remove specifying the package ID
       -q QUERY, --query QUERY

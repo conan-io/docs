@@ -2,8 +2,8 @@
 =========================
 
 
-``cmake_multi`` generator is intended for CMake multi-configuration environments, like Visual Studio and XCode IDEs that do not configure for a specific
-``build_type``, like Debug or Release, but rather can be used for both and switch among Debug andRelease configurations with a combo box or similar control.
+``cmake_multi`` generator is intended for CMake multi-configuration environments, like Visual Studio and Xcode IDEs that do not configure for a specific
+``build_type``, like Debug or Release, but rather can be used for both and switch among Debug and Release configurations with a combo box or similar control.
 The project configuration for cmake is different, in multi-configuration environments, the flow would be:
 
 .. code-block:: bash
@@ -29,9 +29,9 @@ switch among configurations:
 
 .. code-block:: bash
 
-    $ conan install -s build_type=Release ...
+    $ conan install . -s build_type=Release ...
     # Work in release, then, to switch to Debug dependencies
-    $ conan install -s build_type=Debug ...
+    $ conan install . -s build_type=Debug ...
 
 
 However, end consumers with heavy usage of the IDE, might want a multi-configuration build. The
@@ -40,8 +40,8 @@ dependencies have to be installed:
 
 .. code-block:: bash
 
-    $ conan install -g cmake_multi -s build_type=Release ...
-    $ conan install -g cmake_multi -s build_type=Debug  ...
+    $ conan install . -g cmake_multi -s build_type=Release ...
+    $ conan install . -g cmake_multi -s build_type=Debug  ...
 
 These commands will generate 3 files: ``conanbuildinfo_release.cmake``, ``conanbuildinfo_debug.cmake``,
 and ``conanbuildinfo_multi.cmake``, which includes the other two, and enables its use.

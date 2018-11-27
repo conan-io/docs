@@ -1,4 +1,5 @@
 import os
+import platform
 import subprocess
 import sys
 
@@ -38,8 +39,7 @@ try:
 except IndexError:
     conan_name = "conan"
 
-template = """
-.. _conan_{0}:
+template = """.. _conan_{0}:
 
 conan {0}
 ======{1}
@@ -60,7 +60,7 @@ for command in commands:
     output = output.rstrip()
     search_string = "conan %s [-h]" % command
     output = search_string + output.split(search_string)[1]
-    output = output.split("\\r\\n\\r\\n", 2)
+    output = output.split("\\r\\n\\r\\n" if platform.system() == "Windows" else "\n\n", 2)
 
     underline = ""
     for char in command:
@@ -75,30 +75,34 @@ for command in commands:
     text_help = output[1].replace("\\r", "").replace("\\n", "\n").rstrip()
 
     arguments_help = ""
-    for line in output[2].replace("\\r", "").split("\\n"):
+    for line in output[2].replace("\\r", "").splitlines():
         arguments_help += ("    %s\n" % line) if line else "\n"
-    arguments_help = arguments_help
 
-    text = template.format(command, underline, small_help, text_help, arguments_help)[:-7]
+    arguments_help = arguments_help.rstrip()
+
+    text = template.format(command, underline, small_help, text_help, arguments_help)
     text = text.replace("\\'", "\'")
 
     filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "reference", "commands",
                             folder[command], command)
     print("filepath:", filepath)
-    file = open("%s.rst" % filepath, "r")
-    content = file.read()
-    file.close()
+    the_file = open("%s.rst" % filepath, "r")
+    content = the_file.read()
+    the_file.close()
 
-    file = open("%s.rst" % filepath, "w")
+    the_file = open("%s.rst" % filepath, "w")
 
     separator = "\n\n\n"
 
-    if content:
-        content = content.split(separator, 1)
-        if len(content) > 1:
-            file.write(text + separator + content[1])
+    begin = content.find(".. _conan_%s" % command) # To avoid deleting ..spelling:: and other stuff
+    prev_content = content[0:begin]
+    rest_content = content[begin + 1:]
+    if rest_content:
+        rest_content = rest_content.split(separator, 1)
+        if len(rest_content) > 1:
+            the_file.write(prev_content + text + separator + rest_content[1])
         else:
             raise Exception("Separator (two consecutive newlines) not found")
     else:
-        file.write(text)
-    file.close()
+        the_file.write(text)
+    the_file.close()

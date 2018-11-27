@@ -1,3 +1,8 @@
+.. spelling::
+
+  isysroot
+
+
 .. _tools:
 
 Tools
@@ -27,6 +32,8 @@ tools.cpu_count()
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1.
 Can be overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan.conf file<conan_conf>`.
 
+.. _vcvars_command:
+
 tools.vcvars_command()
 ----------------------
 
@@ -36,8 +43,8 @@ tools.vcvars_command()
                        winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual
-Studio environment variables for a certain Visual Studio version. It wraps thefunctionality of
-`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line>`_ but
+Studio environment variables for a certain Visual Studio version. It wraps the functionality of
+`vcvarsall <https://docs.microsoft.com/en-us/cpp/build/building-on-the-command-line?view=vs-2017>`_ but
 does not execute the command, as that typically have to be done in the same command as the compilation,
 so the variables are loaded for the same subprocess. It will be typically used in the ``build()``
 method, like this:
@@ -70,6 +77,13 @@ Parameters:
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
 
+
+.. note::
+
+    When cross-building from x64 to x86 the toolchain by default is ``x86``.
+    If you want to use ``amd64_x86`` instead, set the environment variable ``PreferredToolArchitecture=x64``.
+
+
 tools.vcvars_dict()
 -------------------
 
@@ -78,7 +92,12 @@ tools.vcvars_dict()
     vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
                 vcvars_ver=None, winsdk_version=None, only_diff=True)
 
-Returns a dictionary with the variables set by the **tools.vcvars_command**.
+Returns a dictionary with the variables set by the **tools.vcvars_command** that can be directly
+applied to ``tools.environment_append``.
+
+The values of the variables ``INCLUDE``,  ``LIB``, ``LIBPATH`` and ``PATH`` will be returned
+as a list, so when used with ``tools.environment_append``, the previous environment values that these variables
+could have, will be appended automatically.
 
 .. code-block:: python
 
@@ -95,8 +114,10 @@ Parameters:
     - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH
       entries that follows some known patterns, filtering all the non-Visual Studio ones. When False,
       it will keep the PATH will all the system entries.
-    - **only_diff** (Optional, Defaulted to ``True``): Returns only the variables set by
+    - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by
       ``vcvarsall`` and not the whole environment.
+      If `vcvars` modifies an environment variable by appending values to the old value (separated by ``;``),
+      only the new values will be returned, as a list.
 
 
 tools.vcvars()
@@ -122,7 +143,7 @@ environment:
         with tools.vcvars(self.settings):
             do_something()
 
-.. _build_sln_commmand:
+.. _build_sln_command:
 
 
 tools.build_sln_command() (DEPRECATED)
@@ -194,7 +215,7 @@ Returns a string with a joint command consisting in setting the environment vari
 ``tools.vcvars_command()`` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
-    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_commmand>`.
+    - Same parameters as the above :ref:`tools.build_sln_command()<build_sln_command>`.
     - **force_vcvars**: Optional. Defaulted to False. Will set ``vcvars_command(force=force_vcvars)``.
 
 .. _tools_unzip:
@@ -419,7 +440,7 @@ tools.replace_in_file()
 
 This function is useful for a simple "patch" or modification of source files. A typical use would
 be to augment some library existing ``CMakeLists.txt`` in the ``source()`` method, so it uses
-conan dependencies without forking or modifying the original project:
+Conan dependencies without forking or modifying the original project:
 
 .. code-block:: python
 
@@ -438,6 +459,36 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string
       is not found, so nothing is actually replaced.
+
+tools.replace_path_in_file()
+----------------------------
+
+.. code-block:: python
+
+    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None)
+
+Replace a path in a file with another string. In Windows, it will match the path even if the
+casing and the path separator doesn't match.
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        tools.replace_path_in_file("hello/somefile.cmake", "c:\Some/PATH/to\File.txt","PATTERN/file.txt")
+
+Parameters:
+    - **file_path** (Required): File path of the file to perform the replace in.
+    - **search** (Required): String with the path you want to be replaced.
+    - **replace** (Required): String to replace the searched path.
+    - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the search string
+      is not found and nothing is actually replaced.
+    - **windows_paths** (Optional, Defaulted to ``None``): Controls whether the casing of the path and the different
+      directory separators are taken into account:
+
+      - ``None``: Only when Windows operating system is detected.
+      - ``False``: Deactivated, it will match exact patterns (like ``tools.replace_in_file()``).
+      - ``True``: Always activated, irrespective of the detected operating system.
 
 .. _tools_run_environment:
 
@@ -589,6 +640,11 @@ Parameters:
 tools.pythonpath()
 ------------------
 
+.. warning::
+
+    This way of reusing python code from other recipes can be improved via ``python_requires()``.
+    See this section: :ref:`Python requires: reusing python code in recipes<python_requires>`
+
 This tool is automatically applied in the conanfile methods unless :ref:`apply_env<apply_env>` is deactivated, so
 any PYTHONPATH inherited from the requirements will be automatically available.
 
@@ -711,12 +767,12 @@ tools.get_gnu_triplet()
 
 .. code-block:: python
 
-    def get_gnu_triplet(os, arch, compiler=None)
+    def get_gnu_triplet(os_, arch, compiler=None)
 
 Returns string with GNU like ``<machine>-<vendor>-<op_system>`` triplet.
 
 Parameters:
-    - **os** (Required): Operating system to be used to create the triplet.
+    - **os_** (Required): Operating system to be used to create the triplet.
     - **arch** (Required): Architecture to be used to create the triplet.
     - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
 
@@ -729,7 +785,7 @@ tools.run_in_windows_bash()
 
     def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None)
 
-Runs an unix command inside a bash shell. It requires to have "bash" in the path.
+Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
 
 You can customize the path of the bash executable using the environment variable ``CONAN_BASH_PATH`` or the :ref:`conan.conf<conan_conf>` ``bash_path``
@@ -805,7 +861,7 @@ tools.escape_windows_cmd()
 Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 - Adds escapes so the argument can be unpacked by ``CommandLineToArgvW()``.
-- Adds escapes for cmmd.exe so the argument survives cmmd.exe's substitutions.
+- Adds escapes for cmd.exe so the argument survives cmd.exe's substitutions.
 
 Parameters:
     - **command** (Required): Command to execute.
@@ -900,7 +956,7 @@ tools.mkdir(), tools.rmdir()
     def rmdir(path)
 
 Utility functions to create/delete a directory.
-The existance of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
+The existence of the specified directory is checked, so ``mkdir()`` will do nothing if the directory
 already exists and ``rmdir()`` will do nothing if the directory does not exists.
 
 This makes it safe to use these functions in the ``package()`` method of a ``conanfile.py``
@@ -909,10 +965,10 @@ when ``no_copy_source=True``.
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.mkdir("mydir") # Creates mydir if it does not already exist
     tools.mkdir("mydir") # Does nothing
-    
+
     tools.rmdir("mydir") # Deletes mydir
     tools.rmdir("mydir") # Does nothing
 
@@ -990,7 +1046,7 @@ tools.touch()
 
     def touch(fname, times=None)
 
-Updates the timestamp (last access and last modificatiion times) of a file.
+Updates the timestamp (last access and last modification times) of a file.
 This is similar to Unix' ``touch`` command, except the command fails if the file does not exist.
 
 Optionally, a tuple of two numbers can be specified, which denotes the new values for the
@@ -1000,7 +1056,7 @@ Optionally, a tuple of two numbers can be specified, which denotes the new value
 
     from conans import tools
     import time
-   
+
     tools.touch("myfile")                            # Sets atime and mtime to the current time
     tools.touch("myfile", (time.time(), time.time()) # Similar to above
     tools.touch("myfile", (time.time(), 1))          # Modified long, long ago
@@ -1051,7 +1107,7 @@ Parameters:
     - **products** (Optional, Defaulted to ``None``): List of one or more product IDs to find. Defaults to Community, Professional, and
       Enterprise. Specify ``["*"]`` by itself to search all product instances installed.
     - **requires** (Optional, Defaulted to ``None``): List of one or more workload or component IDs required when finding instances. See
-      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids for a list of workload and component IDs.
+      https://docs.microsoft.com/en-us/visualstudio/install/workload-and-component-ids?view=vs-2017 for a list of workload and component IDs.
     - **version** (Optional, Defaulted to ``""``): A version range for instances to find. Example: ``"[15.0,16.0)"`` will find versions 15.*.
     - **latest** (Optional, Defaulted to ``False``): Return only the newest version and last installed.
     - **legacy** (Optional, Defaulted to ``False``): Also searches Visual Studio 2015 and older products. Information is limited. This
@@ -1134,26 +1190,31 @@ tools.collect_libs()
 
 .. code-block:: python
 
-    def collect_libs(conanfile, folder="lib")
+    def collect_libs(conanfile, folder=None)
 
-Fetches a list of all libraries in the package folder. Useful to collect not inter-dependent
-libraries or with complex names like ``libmylib-x86-debug-en.lib``.
+Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
+``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
+inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
 .. code-block:: python
 
     from conans import tools
 
     def package_info(self):
+        self.cpp_info.libdirs = ["lib", "other_libdir"]  # Deafult value is 'lib'
         self.cpp_info.libs = tools.collect_libs(self)
 
+For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collect the library name **math**.
+
 **Parameters:**
-    - **conanfile** (Required): A `ConanFile` object from which to get the `package_folder`.
-    - **folder** (Optional, Defaulted to ``"lib"``): The subfolder where the library files are.
+    - **conanfile** (Required): A ``ConanFile`` object to get the ``package_folder`` and ``cpp_info``.
+    - **folder** (Optional, Defaulted to ``None``): String indicating the subfolder name inside ``conanfile.package_folder`` where
+      the library files are.
 
 .. warning::
 
     This tool collects the libraries searching directly inside the package folder and returns them
-    in no specific order. If libraries are inter-dependent, then package_info() method should order
+    in no specific order. If libraries are inter-dependent, then ``package_info()`` method should order
     them to achieve correct linking order.
 
 .. _pkgconfigtool:
@@ -1165,7 +1226,7 @@ tools.PkgConfig()
 
     class PkgConfig(object):
 
-        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None)
+        def __init__(self, library, pkg_config_executable="pkg-config", static=False, msvc_syntax=False, variables=None, print_errors=True)
 
 Wrapper of the ``pkg-config`` tool.
 
@@ -1181,10 +1242,11 @@ Wrapper of the ``pkg-config`` tool.
 
 Parameters of the constructor:
     - **library** (Required): Library (package) name, such as ``libastral``.
-    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g. for cross-compilation).
+    - **pkg_config_executable** (Optional, Defaulted to ``"pkg-config"``): Specify custom pkg-config executable (e.g., for cross-compilation).
     - **static** (Optional, Defaulted to ``False``): Output libraries suitable for static linking (adds ``--static`` to ``pkg-config`` command line).
     - **msvc_syntax** (Optional, Defaulted to ``False``): MSVC compatibility (adds ``--msvc-syntax`` to ``pkg-config`` command line).
     - **variables** (Optional, Defaulted to ``None``): Dictionary of pkg-config variables (passed as ``--define-variable=VARIABLENAME=VARIABLEVALUE``).
+    - **print_errors** (Optional, Defaulted to ``True``): Output error messages (adds --print-errors)
 
 **Properties:**
 
@@ -1203,7 +1265,7 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | .libs_only_l                | get -l flags                                                        |
 +-----------------------------+---------------------------------------------------------------------+
-| .libs_only_other            | get other libs (e.g. -pthread)                                      |
+| .libs_only_other            | get other libs (e.g., -pthread)                                     |
 +-----------------------------+---------------------------------------------------------------------+
 | .provides                   | get which packages the package provides                             |
 +-----------------------------+---------------------------------------------------------------------+
@@ -1223,7 +1285,8 @@ tools.Git()
 
     class Git(object):
 
-        def __init__(self, folder=None, verify_ssl=True, username=None, password=None, force_english=True, runner=None):
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None,
+                     force_english=True, runner=None):
 
 Wrapper of the ``git`` tool.
 
@@ -1231,25 +1294,97 @@ Parameters of the constructor:
 
     - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
     - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
-    - **username** (Optional, Defauted to ``None``): When present, it will be used as the login to authenticate with the remote.
-    - **password** (Optional, Defauted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
     - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
     - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``git`` tool.
 
 Methods:
 
 - **run(command)**:
-    Run any "git" command. ``e.j run("status")``
+    Run any "git" command, e.g., ``run("status")``
 - **get_url_with_credentials(url)**:
     Returns the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
 - **clone(url, branch=None)**:
     Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the specified **folder** already exist you have to specify a ``branch``.
-- **checkout(element)**:
-    Checkout a branch, commit or tag.
+- **checkout(element, submodule=None)**:
+    Checkout a branch, commit or tag given by ``element``. Argument ``submodule`` can get values in
+    ``shallow`` or ``recursive`` to instruct what to do with submodules.
 - **get_remote_url(remote_name=None)**:
     Returns the remote url of the specified remote. If not ``remote_name`` is specified ``origin`` will be used.
-- **get_revision()**:
+- **get_qualified_remote_url()**:
+    Returns the remote url (see ``get_remote_url()``) but with forward slashes if it is a local folder.
+- **get_revision(), get_commit()**:
     Gets the current commit hash.
+- **get_branch()**:
+    Gets the current branch.
+- **excluded_files()**:
+    Gets a list of the files and folders that would be excluded by *.gitignore* file.
+- **is_local_repository()**:
+    Returns `True` if the remote is a local folder.
+- **is_pristine()**:
+    Returns `True` if there aren't modified or uncommitted files in the working copy.
+- **get_repo_root()**:
+    Returns the root folder of the working copy.
+
+
+.. _tools_svn:
+
+tools.SVN()
+-----------
+
+.. code-block:: python
+
+    class SVN(object):
+
+        def __init__(self, folder=None, verify_ssl=True, username=None, password=None,
+                     force_english=True, runner=None):
+
+Wrapper of the ``svn`` tool.
+
+Parameters of the constructor:
+
+    - **folder** (Optional, Defaulted to ``None``): Specify a subfolder where the code will be cloned. If not specified it will clone in the current directory.
+    - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+    - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
+    - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
+    - **force_english** (Optional, Defaulted to ``True``): The encoding of the tool will be forced to use ``en_US.UTF-8`` to ease the output parsing.
+    - **runner** (Optional, Defaulted to ``None``): By default ``subprocess.check_output`` will be used to invoke the ``svn`` tool.
+
+Methods:
+
+- **version()**:
+    Retrieve version from the installed SVN client.
+- **run(command)**:
+    Run any "svn" command, e.g., ``run("status")``
+- **get_url_with_credentials(url)**:
+    Return the passed url but containing the ``username`` and ``password`` in the URL to authenticate (only if ``username`` and ``password`` is specified)
+- **checkout(url, revision="HEAD")**:
+    Checkout the revision number given by ``revision`` from the specified ``url``.
+- **update(revision="HEAD")**:
+    Update working copy to revision number given by ``revision``.
+- **get_remote_url()**:
+    Returns the remote url of working copy.
+- **get_qualified_remote_url()**:
+    Returns the remote url of the working copy with the
+    `peg revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_ appended to it.
+- **get_revision()**:
+    Gets the current revision number from the repo server.
+- **get_last_changed_revision(use_wc_root=True)**:
+    Returns the revision number corresponding to the last changed item in the working folder
+    (``use_wc_root=False``) or in the working copy root (``use_wc_root=True``).
+- **get_branch()**:
+    Tries to deduce the branch name from the
+    `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Will
+    raise if cannot resolve it.
+- **excluded_files()**:
+    Gets a list of the files and folders that are marked to be ignored.
+- **is_local_repository()**:
+    Returns `True` if the remote is a local folder.
+- **is_pristine()**:
+    Returns `True` if there aren't modified or uncommitted files in the working copy.
+- **get_repo_root()**:
+    Returns the root folder of the working copy.
 
 
 .. _tools_apple:
@@ -1262,7 +1397,7 @@ tools.is_apple_os()
 
     def is_apple_os(os_)
 
-Returns ``True`` if OS is an Apple one: Macos, iOS, watchOS or tvOS.
+Returns ``True`` if OS is an Apple one: macOS, iOS, watchOS or tvOS.
 
 Parameters:
     - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.
@@ -1341,3 +1476,13 @@ Properties:
     - **ar**: Path to archiver (AR).
     - **ranlib**: Path to archive indexer (RANLIB).
     - **strip**: Path to symbol removal utility (STRIP).
+
+tools.latest_vs_version_installed()
+-----------------------------------
+
+.. code-block:: python
+
+    def latest_vs_version_installed()
+
+Returns a string with the major version of latest Microsoft Visual Studio available on machine. If no Microsoft Visual Studio installed,
+it returns ``None``.

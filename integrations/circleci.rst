@@ -6,7 +6,7 @@
 |circleci_logo| Circle CI
 =============================
 
-You can use `Circle CI`_ cloud to automatically build and test your project in Linux/OSX environments.
+You can use `Circle CI`_ cloud to automatically build and test your project in Linux/macOS environments.
 It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
 fired in CircleCI after a ``git push`` to Github.
 
@@ -38,7 +38,7 @@ Create a ``.circleci/config.yml`` file and paste this code in it:
   version: 2
   gcc-6:
     docker:
-      - image: lasote/conangcc6
+      - image: conanio/gcc6
     steps:
       - checkout
       - run:
@@ -67,7 +67,7 @@ The command ``conan new`` has arguments to create a default working ``.circleci/
 Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray.
 You could follow these steps:
 
-#. First, create an empty Github repository, lets call it "hello", for creating a "hello world" package. Github allows to create it with a Readme, license and .gitignore.
+#. First, create an empty Github repository, let's call it "hello", for creating a "hello world" package. Github allows to create it with a Readme, license and .gitignore.
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
 #. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Under your project page, *Settings -> Pipelines -> Add a variable*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key. If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``

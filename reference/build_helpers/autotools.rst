@@ -8,18 +8,18 @@ This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`
 
 .. code-block:: python
    :emphasize-lines: 13, 14, 15
-   
+
    from conans import ConanFile, AutoToolsBuildEnvironment
 
    class ExampleConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
       requires = "Poco/1.9.0@pocoproject/stable"
-      default_options = "Poco:shared=True", "OpenSSL:shared=True"
-     
+      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
+
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin")
          self.copy("*.dylib*", dst="bin", src="lib")
-   
+
       def build(self):
          autotools = AutoToolsBuildEnvironment(self)
          autotools.configure()
@@ -206,11 +206,48 @@ Configures `Autotools` project with the given parameters.
     This method sets by default the ``--prefix`` argument to ``self.package_folder`` whenever ``--prefix`` is not provided in the ``args``
     parameter during the configure step.
 
+    There are other flags set automatically to fix the install directories by default:
+
+    - ``--bindir``, ``--sbindir`` and ``--libexecdir`` set to *bin* folder.
+    - ``--libdir`` set to *lib* folder.
+    - ``--includedir``, ``--oldincludedir`` set to *include* folder.
+    - ``--datarootdir`` set to *share* folder.
+
+    These flags will be set on demand, so only the available options in the *./configure* are actually set. They can also be totally skipped
+    using ``use_default_install_dirs=False`` as described in the section below.
+
+.. _autotools_lib64_warning:
+
+.. warning::
+
+    Since Conan 1.8 this build helper sets the output library directory via ``--libdir`` automatically to ``${prefix}/lib``. This means that
+    if you are using the ``install()`` method to package with AutoTools, library artifacts will be stored in the ``lib`` directory unless indicated
+    explicitly by the user.
+
+    This change was introduced in order to fix issues detected in some Linux distributions where libraries were being installed to the
+    ``lib64`` folder (instead of ``lib``) when rebuilding a package from sources. In those cases, if ``package_info()`` was declaring
+    ``self.cpp_info.libdirs`` as ``lib``, the consumption of the package was broken.
+
+    This was considered a bug in the build helper, as it should be as much deterministic as possible when building the same package for the
+    same settings and generally for any other user input.
+
+    If you were already modeling the ``lib64`` folder in your recipe, make sure you use ``lib`` for ``self.cpp_info.libdirs`` or inject
+    the argument in the Autotools' ``configure()`` method:
+
+    .. code-block:: python
+
+        atools = AutoToolsBuildEnvironment()
+        atools.configure(args=["--libdir=${prefix}/lib64"])
+        atools.install()
+
+    You can also skip its default value using the parameter ``use_default_install_dirs=False``.
+
 Parameters:
     - **configure_dir** (Optional, Defaulted to ``None``): Directory where the ``configure`` script is. If ``None``, it will use the current
       directory.
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``configure`` script. Each argument
-      will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
+      will be escaped according to the current shell. ``--prefix`` and ``--libdir``, will be adjusted automatically if not indicated
+      specifically.
     - **build** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--build``. If ``None`` it will try to detect the
       value if cross-building is detected according to the settings. If ``False``, it will not use this argument at all.
     - **host** (Optional, Defaulted to ``None``): To specify a value for the parameter ``--host``. If ``None`` it will try to detect the
@@ -222,6 +259,8 @@ Parameters:
       using the ``pkg_config`` generator, the ``self.install_folder`` will be added to the ``PKG_CONFIG_PATH`` in order to locate the pc
       files of the requirements of the conanfile.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the configure step.
+    - **use_default_install_dirs** (Optional, Defaulted to ``True``): Use or not the defaulted installation dirs such as ``--libdir``,
+      ``--bindir``...
 
 make()
 ++++++
@@ -235,9 +274,9 @@ Builds `Autotools` project with the given parameters.
 Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
-    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. The
+    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.g., ``mingw32-make``. The
       environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used too.
-    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g. docs, shared libraries or
+    - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
       install for some AutoTools projects.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the make step.
 
@@ -250,10 +289,10 @@ install()
 
 Performs the install step of autotools calling ``make(target="install")``.
 
-Paramenters:
+Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
-    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.j: ``mingw32-make``. The
+    - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.g., ``mingw32-make``. The
       environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used too.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the install step.
 

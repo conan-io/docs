@@ -1,191 +1,257 @@
 .. _getting_started:
 
-Getting started
+Getting Started
 ===============
 
-Let's start with an example using one of the most popular C++ libraries: POCO_. For convenience purposes we'll use CMake. Keep in mind that
-Conan **works with any build system** and does not depend on CMake.
+Let's get started with an example: We are going to create a an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
 
-.. _POCO: https://pocoproject.org/
+We'll use CMake as build system in this case but keep in mind that Conan **works with any build system** and is not limited to using CMake.
 
-A Timer using POCO libraries
-----------------------------
-
-First, let's create a folder for our project:
-
-.. code-block:: bash
-
-    $ mkdir mytimer
-    $ cd mytimer
+An MD5 Encrypter using the Poco Libraries
+-----------------------------------------
 
 .. note::
 
-    If your code is in a GitHub repository you can simply clone the project, instead of creating this folder, using the following command:
+    The source files to recreate this project are available in the following GitHub repository.
+    You can skip the manual creation of folder an sources with this command:
 
     .. code-block:: bash
 
-        $ git clone https://github.com/memsharded/example-poco-timer.git mytimer
+        $ git clone https://github.com/conan-community/poco-md5-example.git
 
-Next, create the following source files inside this folder:
+1. Let's create a folder for our project:
 
-.. code-block:: cpp
-   :caption: **timer.cpp**
+    .. code-block:: bash
 
-    // $Id: //poco/1.4/Foundation/samples/Timer/src/Timer.cpp#1 $
-    // This sample demonstrates the Timer and Stopwatch classes.
-    // Copyright (c) 2004-2006, Applied Informatics Software Engineering GmbH.
-    // and Contributors.
-    // SPDX-License-Identifier:    BSL-1.0
+        $ mkdir poco-md5-example
+        $ cd poco-md5-example
 
-    #include "Poco/Timer.h"
-    #include "Poco/Thread.h"
-    #include "Poco/Stopwatch.h"
-    #include <iostream>
+2. Create the following source file inside this folder. This will be the source file of our application:
 
-    using Poco::Timer;
-    using Poco::TimerCallback;
-    using Poco::Thread;
-    using Poco::Stopwatch;
+    .. code-block:: cpp
+       :caption: **md5.cpp**
 
-    class TimerExample{
-    public:
-        TimerExample(){ _sw.start();}
+        #include "Poco/MD5Engine.h"
+        #include "Poco/DigestStream.h"
 
-        void onTimer(Timer& timer){
-            std::cout << "Callback called after " << _sw.elapsed()/1000 << " milliseconds." << std::endl;
+        #include <iostream>
+
+
+        int main(int argc, char** argv)
+        {
+            Poco::MD5Engine md5;
+            Poco::DigestOutputStream ds(md5);
+            ds << "abcdefghijklmnopqrstuvwxyz";
+            ds.close();
+            std::cout << Poco::DigestEngine::digestToHex(md5.digest()) << std::endl;
+            return 0;
         }
-    private:
-        Stopwatch _sw;
-    };
 
-    int main(int argc, char** argv){
-        TimerExample example;
-        Timer timer(250, 500);
-        timer.start(TimerCallback<TimerExample>(example, &TimerExample::onTimer));
+3. We know that our application relies on the Poco libraries. Let's look for it in the Conan Center remote:
 
-        Thread::sleep(5000);
-        timer.stop();
-        return 0;
-    }
+    .. code-block:: bash
 
-Now create a *conanfile.txt* inside this folder with the following content:
+        $ conan search Poco* --remote=conan-center
+        Existing package recipes:
 
-.. code-block:: text
-   :caption: **conanfile.txt**
+        Poco/1.7.8p3@pocoproject/stable
+        Poco/1.7.9@pocoproject/stable
+        Poco/1.7.9p1@pocoproject/stable
+        Poco/1.7.9p2@pocoproject/stable
+        Poco/1.8.0.1@pocoproject/stable
+        Poco/1.8.0@pocoproject/stable
+        Poco/1.8.1@pocoproject/stable
+        Poco/1.9.0@pocoproject/stable
 
-    [requires]
-    Poco/1.9.0@pocoproject/stable
+4. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
 
-    [generators]
-    cmake
+    .. code-block:: bash
 
-In this example we will use CMake to build the project, which is why the ``cmake`` generator is specified. This generator will create a
-*conanbuildinfo.cmake* file that defines CMake variables as include paths and library names, that can be used in our build.
+        $ conan inspect Poco/1.9.0@pocoproject/stable
+        ...
+        name: Poco
+        version: 1.9.0
+        url: http://github.com/pocoproject/conan-poco
+        license: The Boost Software License 1.0
+        author: None
+        description: Modern, powerful open source C++ class libraries for building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
+        generators: ('cmake', 'txt')
+        exports: None
+        exports_sources: ('CMakeLists.txt', 'PocoMacros.cmake')
+        short_paths: False
+        apply_env: True
+        build_policy: None
 
-.. note::
+5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
+   our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
 
-    If you are not a CMake user, change the ``[generators]`` section of your *conanfile.txt* to ``gcc`` or a more generic one ``txt`` to
-    handle requirements with any build system. Learn more in :ref:`Using packages<using_packages>`.
+    .. code-block:: text
+       :caption: **conanfile.txt**
 
-Just include the generated file and use these variables inside our *CMakeLists.txt*:
+        [requires]
+        Poco/1.9.0@pocoproject/stable
 
-.. code-block:: cmake
-   :caption: **CMakeLists.txt**
+        [generators]
+        cmake
 
-    project(FoundationTimer)
-    cmake_minimum_required(VERSION 2.8.12)
-    add_definitions("-std=c++11")
+    In this example we are using CMake to build the project, which is why the ``cmake`` generator is specified. This generator creates a
+    *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build. Read more
+    about :ref:`generators_reference`.
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
+6. Next step: We are going to install the required dependencies and generate the information for the build system:
 
-    add_executable(timer timer.cpp)
-    target_link_libraries(timer ${CONAN_LIBS})
+    .. important::
 
-Installing dependencies
+        If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old ABI for backwards compatibility. You can
+        change this with the following commands:
+
+        .. code-block:: bash
+
+            $ conan profile new default --detect  # Generates default profile detecting GCC and sets old ABI
+            $ conan profile update settings.compiler.libcxx=libstdc++11 default  # Sets libcxx to C++11 ABI
+
+        You will find more information in :ref:`manage_gcc_abi`.
+
+    .. code-block:: bash
+
+        $ mkdir build && cd build
+        $ conan install ..
+        ...
+        Requirements
+            OpenSSL/1.0.2o@conan/stable from 'conan-center' - Downloaded
+            Poco/1.9.0@pocoproject/stable from 'conan-center' - Cache
+            zlib/1.2.11@conan/stable from 'conan-center' - Downloaded
+        Packages
+            OpenSSL/1.0.2o@conan/stable:606fdb601e335c2001bdf31d478826b644747077 - Download
+            Poco/1.9.0@pocoproject/stable:09378ed7f51185386e9f04b212b79fe2d12d005c - Download
+            zlib/1.2.11@conan/stable:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
+
+        zlib/1.2.11@conan/stable: Retrieving package 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 from remote 'conan-center'
+        ...
+        Downloading conan_package.tgz
+        [==================================================] 99.8KB/99.8KB
+        ...
+        zlib/1.2.11@conan/stable: Package installed 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+        OpenSSL/1.0.2o@conan/stable: Retrieving package 606fdb601e335c2001bdf31d478826b644747077 from remote 'conan-center'
+        ...
+        Downloading conan_package.tgz
+        [==================================================] 5.5MB/5.5MB
+        ...
+        OpenSSL/1.0.2o@conan/stable: Package installed 606fdb601e335c2001bdf31d478826b644747077
+        Poco/1.9.0@pocoproject/stable: Retrieving package 09378ed7f51185386e9f04b212b79fe2d12d005c from remote 'conan-center'
+        ...
+        Downloading conan_package.tgz
+        [==================================================] 11.5MB/11.5MB
+        ...
+        Poco/1.9.0@pocoproject/stable: Package installed 09378ed7f51185386e9f04b212b79fe2d12d005c
+        PROJECT: Generator cmake created conanbuildinfo.cmake
+        PROJECT: Generator txt created conanbuildinfo.txt
+        PROJECT: Generated conaninfo.txt
+
+    Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. I has also generated a
+    *conanbuildinfo.cmake* file for our build system.
+
+7. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
+
+    .. code-block:: cmake
+       :caption: **CMakeLists.txt**
+
+        cmake_minimum_required(VERSION 2.8.12)
+        project(MD5Encrypter)
+
+        add_definitions("-std=c++11")
+
+        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+        conan_basic_setup()
+
+        add_executable(md5 md5.cpp)
+        target_link_libraries(md5 ${CONAN_LIBS})
+
+8. Now we are ready to build and run our Encrypter app:
+
+    .. code-block:: bash
+
+        (win)
+        $ cmake .. -G "Visual Studio 15 Win64"
+        $ cmake --build . --config Release
+
+        (linux, mac)
+        $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+        $ cmake --build .
+        ...
+        [100%] Built target md5
+        $ ./bin/md5
+        c3fcd3d76192e4007dfb496cca67e13b
+
+Installing Dependencies
 -----------------------
 
-If you have a terminal with light colors, like the default gnome terminal in Ubuntu, set ``CONAN_COLOR_DARK=1`` to have a better contrast.
-Then create a build folder, for temporary build files, and install the requirements (pointing to the parent directory, as it is where the
-*conanfile.txt* is):
-
-.. code-block:: bash
-
-    $ mkdir build && cd build
-    $ conan install ..
-
-This :command:`conan install` command will download the binary package required for your configuration (detected the first time that you ran the
+The :command:`conan install` command downloads the binary package required for your configuration (detected the first time you ran the
 command), **together with other (transitively required by Poco) libraries, like OpenSSL and Zlib**. It will also create the
-*conanbuildinfo.cmake* file in the current directory, in which you can see the cmake defined variables, and a *conaninfo.txt* where
-information about settings, requirements and options is saved.
+*conanbuildinfo.cmake* file in the current directory, in which you can see the CMake variables, and a *conaninfo.txt* in which the settings,
+requirements and optional information is saved.
 
-It is very important to understand the installation process. When :command:`conan install` command is issued, it will use some settings,
-specified on the command line or taken from the defaults in ``<userhome>/.conan/profiles/default`` file.
+.. note::
+    Conan generates a :ref:`default profile <default_profile>` with your detected settings (OS, compiler, architecture...) and that
+    configuration is printed at the top of every :command:`conan install` command. However, it is strongly recommended to review it and
+    adjust the settings to accurately describe your system as shown in the :ref:`getting_started_other_configurations` section.
+
+It is very important to understand the installation process. When the :command:`conan install` command runs, settings specified on the
+command line or taken from the defaults in *<userhome>/.conan/profiles/default* file are applied.
 
 .. image:: images/install_flow.png
    :height: 400 px
    :width: 500 px
    :align: center
 
-For a command like :command:`conan install . -s os="Linux" -s compiler="gcc"`, the steps are:
+For example, the command :command:`conan install . --settings os="Linux" --settings compiler="gcc"`, performs these steps:
 
-- Check if the package recipe (for ``Poco/1.9.0@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
-  cache will be empty.
-- Look for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote by default (you can change that).
-- If the recipe exists, Conan client will fetch and store it in your local cache.
-- With the package recipe and the input settings (Linux, gcc), Conan client will check in the local cache if the corresponding binary is
-  there, if we are installing for the first time, it won't.
-- Conan client will search for the corresponding binary package in the remote, if it exists, it will be fetched.
-- Conan client will then finish generating the requested files specified in ``generators``.
+- Checks if the package recipe (for ``Poco/1.9.0@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
+  cache is empty.
+- Looks for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote as the default, but can be changed.
+- If the recipe exists, the Conan client fetches and stores it in your local cache.
+- With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary in the local cache.
+- Then Conan searches the corresponding binary package in the remote and fetches it.
+- Finally, it generates an appropriate file for the build system specified in the ``[generators]`` section.
 
-If the binary package necessary for some given settings doesn't exist, Conan client will throw an error. It is possible to try to build the
-binary package from sources with the ``--build=missing`` command line argument to install. A detailed description of how a binary package is
-built from sources will be given in a later section.
+There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
+15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
+can build the binary package from sources using :command:`conan install --build=missing`, it will succeed if your configuration is
+supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
 
-.. warning::
-
-    In the Bintray repositories there are binaries for several mainstream compilers and versions, such as Visual Studio 12, 14, linux-gcc
-    4.9 and apple-clang 3.5. If you are using another setup, the command might fail because of the missing package. You could try to change
-    your settings or build the package from source, using the ``--build=missing`` option, instead of retrieving the binaries. Such a build
-    might not have been tested and eventually fail.
-
-Building the timer example
---------------------------
-
-Now you are ready to build and run your project:
-
-.. code-block:: bash
-
-    (win)
-    $ cmake .. -G "Visual Studio 14 Win64"
-    $ cmake --build . --config Release
-
-    (linux, mac)
-    $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
-    $ cmake --build .
-    ...
-    [100%] Built target timer
-    $ ./bin/timer
-    Callback called after 250 milliseconds.
-    ...
-
-Inspecting dependencies
+Inspecting Dependencies
 -----------------------
 
-The retrieved packages are installed to your local user cache (typically ``.conan/data``), and can be reused from there in other projects.
-This allows to clean your current project and keep working even without network connection. Search packages in the local cache using:
+The retrieved packages are installed to your local user cache (typically *.conan/data*), and can be reused from this location for other
+projects. This allows to clean your current project and continue working even without network connection. To search for packages in the
+local cache run:
 
 .. code-block:: bash
 
-    $ conan search
+    $ conan search "*"
+    Existing package recipes:
 
-Inspect binary package details (for different installed binaries for a given package recipe) using:
+    OpenSSL/1.0.2o@conan/stable
+    Poco/1.9.0@pocoproject/stable
+    zlib/1.2.11@conan/stable
+
+To inspect the different binary packages of a reference run:
 
 .. code-block:: bash
 
     $ conan search Poco/1.9.0@pocoproject/stable
+    Existing packages for recipe Poco/1.9.0@pocoproject/stable:
 
-There is also the option to generate a table for all binaries from a given recipe with the ``--table`` option, even in remotes:
+    Package_ID: 09378ed7f51185386e9f04b212b79fe2d12d005c
+        [options]
+            cxx_14: False
+            enable_apacheconnector: False
+            enable_cppparser: False
+            enable_crypto: True
+            enable_data: True
+    ...
+
+There is also the possibility to generate a table for all package binaries available in a remote:
 
 .. code-block:: bash
 
@@ -197,16 +263,59 @@ There is also the option to generate a table for all binaries from a given recip
     :width: 300 px
     :align: center
 
-Check the reference for more information on how to search in remotes, how to remove or clean packages from the local cache, and how to
-define custom cache directory per user or per project.
-
-Inspect your current project's dependencies with the ``info`` command, pointing it to the folder where the *conanfile.txt* is:
+To inspect all your current project's dependencies use the :command:`conan info` command by pointing it to the location of the
+*conanfile.txt* folder:
 
 .. code-block:: bash
 
     $ conan info ..
+    PROJECT
+        ID: 6ecacba4f2b7535e0acb633a0cc4de0234445fea
+        BuildID: None
+        Requires:
+            Poco/1.9.0@pocoproject/stable
+    OpenSSL/1.0.2o@conan/stable
+        ID: 606fdb601e335c2001bdf31d478826b644747077
+        BuildID: None
+        Remote: conan-center=https://conan.bintray.com
+        URL: http://github.com/conan-community/conan-openssl
+        License: The current OpenSSL licence is an 'Apache style' license: https://www.openssl.org/source/license.html
+        Recipe: Cache
+        Binary: Cache
+        Binary remote: conan-center
+        Creation date: 2018-08-27 09:12:47
+        Required by:
+            Poco/1.9.0@pocoproject/stable
+        Requires:
+            zlib/1.2.11@conan/stable
+    Poco/1.9.0@pocoproject/stable
+        ID: 09378ed7f51185386e9f04b212b79fe2d12d005c
+        BuildID: None
+        Remote: conan-center=https://conan.bintray.com
+        URL: http://github.com/pocoproject/conan-poco
+        License: The Boost Software License 1.0
+        Recipe: Cache
+        Binary: Cache
+        Binary remote: conan-center
+        Creation date: 2018-08-30 13:28:08
+        Required by:
+            PROJECT
+        Requires:
+            OpenSSL/1.0.2o@conan/stable
+    zlib/1.2.11@conan/stable
+        ID: 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+        BuildID: None
+        Remote: conan-center=https://conan.bintray.com
+        URL: http://github.com/conan-community/conan-zlib
+        License: Zlib
+        Recipe: Cache
+        Binary: Cache
+        Binary remote: conan-center
+        Creation date: 2018-10-24 12:40:49
+        Required by:
+            OpenSSL/1.0.2o@conan/stable
 
-Generate a graph of your dependencies in dot or html formats:
+Or generate a graph of your dependencies using Dot or HTML formats:
 
 .. code-block:: bash
 
@@ -218,70 +327,82 @@ Generate a graph of your dependencies in dot or html formats:
     :width: 200 px
     :align: center
 
-
-Searching packages
+Searching Packages
 ------------------
-The packages that have been used are installed from the remote repository that is configured by default in the conan client, which is called "conan-center" and is in Bintray. You can search for existing packages there with:
+
+The remote repository where packages are installed from is configured by default in Conan. It is called Conan Center (configured as
+:command:`conan-center` remote) and it is located in Bintray_.
+
+You can search packages in Conan Center using this command:
 
 .. code-block:: bash
 
-    $ conan search "zlib*" -r=conan-center
+    $ conan search "*" --remote=conan-center
+    Existing package recipes:
 
-There are other community repositories that can be configured and used, check them in :ref:`this section about remotes<remotes>`.
+    Assimp/4.1.0@jacmoe/stable
+    CLI11/1.6.1@cliutils/stable
+    CTRE/2.1@ctre/stable
+    Catch/1.12.1@bincrafters/stable
+    Expat/2.2.5@pix4d/stable
+    FakeIt/2.0.5@gasuketsu/stable
+    IlmBase/2.2.0@Mikayex/stable
+    IrrXML/1.2@conan/stable
+    OpenSSL/1.0.2@conan/stable
+    ...
 
-Building with other configurations
+There are additional community repositories that can be configured and used. See :ref:`Bintray Repositories <bintray_repositories>` for more
+information.
+
+.. _getting_started_other_configurations:
+
+Building with Other Configurations
 ----------------------------------
 
-In this example we have built our project using the default configuration detected by conan, this configuration is known as the
-:ref:`default profile<default_profile>`.
+In this example, we have built our project using the default configuration detected by Conan. This configuration is known as the
+:ref:`default profile <default_profile>`.
 
-The first time you run the command that requires a profile, such as :command:`conan install`, your settings are detected (compiler,
-architecture...) automatically and stored as default in a profile. You can change your those
-settings by editing ``~/.conan/profiles/default`` or create new profiles with the desired
-configuration.
+A profile needs to be available prior to running commands such as :command:`conan install`. When running the command, your settings are
+automatically detected (compiler, architecture...) and stored as the default profile. You can edit these settings
+*~/.conan/profiles/default* or create new profiles with your desired configuration.
 
-.. attention::
-
-    - It is strongly recommended to review the generated default profile and adjust the settings to describe accurately your system.
-
-    - When a GCC **compiler >= 5.1** is detected, the setting modeling the c++ standard library:
-      ``compiler.libcxx`` will be set to ``libstdc++`` that represent the old ABI compatibility for better compatibility. Your compiler
-      default is likely the new ABI so you might want to change it to ``libstdc++11`` to use the new ABI compliant with CXX11 directives.
-      :ref:`Read more here<manage_gcc_abi>`.
-
-For example, if we have a profile with a gcc configutarion for 32 bits in a profile called *gcc_x86*, we could issue the ``install`` command
-like this:
+For example, if we have a profile with a 32-bit GCC configuration in a profile called *gcc_x86*, we can run the following:
 
 .. code-block:: bash
 
-    $ conan install . -pr gcc_x86
+    $ conan install . --profile=gcc_x86
 
 .. tip::
 
-    Using profiles is strongly recommended. Learn more about them :ref:`here<profiles>`.
+    We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
-However, the user can always override the default profile settings in ``install`` command with the ``-s`` parameter. As an exercise, try
-building your timer project with a different configuration. For example, you could try building the 32 bits version:
+However, the user can always override the default profile settings in the :command:`conan install` command using the :command:`--settings`
+parameter. As an exercise, try building the Encrypter project 32-bit version:
 
 .. code-block:: bash
 
-    $ conan install . -s arch=x86
+    $ conan install . --profile=gcc_x86 --settings arch=x86_64
 
-This will install a different package, using the ``-s arch=x86`` setting, instead of the default used previously, that in most cases will be
-``x86_64``.
+The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the profile used previously.
 
-To use the 32 bits binaries you will also have to change your project build:
+To use the 32-bit binaries, you will also have to change your project build:
 
-- In Windows, change the CMake invocation accordingly to ``Visual Studio 14``.
-- In Linux, you have to add the ``-m32`` flag to your ``CMakeLists.txt`` with ``SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")``, and the
-  same to ``CMAKE_C_FLAGS, CMAKE_SHARED_LINK_FLAGS and CMAKE_EXE_LINKER_FLAGS``. This can also be done more easily, automatically with
-  Conan, as we'll see later.
-  - In Mac, you need to add the definition ``-DCMAKE_OSX_ARCHITECTURES=i386``.
+- In Windows, change the CMake invocation to ``Visual Studio 14``.
+- In Linux, you have to add the ``-m32`` flag to your ``CMakeLists.txt`` by running ``SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")``, and
+  the same applies to ``CMAKE_C_FLAGS, CMAKE_SHARED_LINK_FLAGS and CMAKE_EXE_LINKER_FLAGS``. This can also be done more easily, by
+  automatically using Conan, as we'll show later.
+- In macOS, you need to add the definition ``-DCMAKE_OSX_ARCHITECTURES=i386``.
 
-Got any doubts? Check out our :ref:`FAQ section <faq>` or |write_us|.
+Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cpplang Slack`_ ``#conan`` channel!
 
 .. |write_us| raw:: html
 
    <a href="mailto:info@conan.io" target="_blank">write us</a>
 
+.. _`Poco`: https://pocoproject.org/
+
 .. _`conan-center`: https://bintray.com/conan/conan-center
+
+.. _`Bintray`: https://bintray.com/conan/conan-center
+
+.. _`Cpplang Slack`: https://cpplang.now.sh/

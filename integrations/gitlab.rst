@@ -6,7 +6,7 @@
 |gitlab_logo| Gitlab
 =============================
 
-You can use `Gitlab CI`_ cloud or local service to automatically build and test your project in Linux/OSX/Windows environments.
+You can use `Gitlab CI`_ cloud or local service to automatically build and test your project in Linux/macOS/Windows environments.
 It is free for OSS projects, and offers an easy integration with Gitlab, so builds can be automatically
 fired in Gitlab CI after a :command:`git push` to Gitlab.
 
@@ -35,7 +35,7 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 
 .. code-block:: text
 
-    image: lasote/conangcc63
+    image: conanio/gcc63
 
     build:
       before_script:
@@ -46,12 +46,15 @@ Create a ``.gitlab-ci.yml`` file and paste this code in it:
 
       script:
         # Download dependencies, build, test and create package
-        - conan create user/channel
+        - conan create . user/channel
 
 
 Gitlab CI will install the **conan** tool and will execute the **conan install** command.
 Then, the **script** section creates the build folder, compiles the project with **cmake** and runs the **tests**.
 
+.. hint:
+
+On Windows the Gitlab runner may be running as a service and not have a home directory.  In which case you need to set a custom value for ``CONAN_USER_HOME``.
 
 Creating, testing and uploading conan binary packages
 ------------------------------------------------------
@@ -62,7 +65,7 @@ The command :command:`conan new` has arguments to create a default working ``.gi
 Other setups might be possible, but for this example we are assuming that you are using github and also uploading your final packages to Bintray.
 You could follow these steps:
 
-#. First, create an empty gitlab repository, lets call it "hello", for creating a "hello world" package. Gitlab allows to create it with a Readme, license and .gitignore.
+#. First, create an empty gitlab repository, let's call it "hello", for creating a "hello world" package. Gitlab allows to create it with a Readme, license and .gitignore.
 #. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
 #. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Under your project page, *Settings -> Pipelines -> Add a variable*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key. If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``

@@ -5,7 +5,6 @@ profiles/default
 
 This is the typical *~/.conan/profiles/default* file:
 
-
 .. code-block:: text
 
     [build_requires]
@@ -22,9 +21,9 @@ This is the typical *~/.conan/profiles/default* file:
 The settings defaults are the setting values used whenever you issue a :command:`conan install` command over a *conanfile* in one of your
 projects. The initial values for these default settings are auto-detected the first time you run a :command:`conan` command.
 
-You can override the default settings using the :command:`-s` parameter in :command:`conan install` and :command:`conan info` commands but when you
-specify a profile, :command:`conan install --profile gcc48`, the default profile won't be applied, unless you specify it with an ``include()``
-statement:
+You can override the default settings using the :command:`-s` parameter in :command:`conan install` and :command:`conan info` commands but
+when you specify a profile, :command:`conan install --profile gcc48`, the default profile won't be applied, unless you specify it with an
+``include()`` statement:
 
 .. code-block:: text
    :caption: my_clang_profile
@@ -40,4 +39,12 @@ statement:
     CC=/usr/bin/clang
     CXX=/usr/bin/clang++
 
-.. seealso:: Check the section :ref:`Mastering conan/Profiles <profiles>` to read more about this feature.
+
+.. tip::
+
+    Default profile can be overridden using the environment variable ``CONAN_DEFAULT_PROFILE_PATH``.
+
+
+.. seealso::
+
+    Check the section :ref:`profiles` to read more about this feature.

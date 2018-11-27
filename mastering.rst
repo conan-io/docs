@@ -1,9 +1,9 @@
 .. _mastering:
 
-Mastering conan
-------------------
+Mastering Conan
+---------------
 
-This section provides an introduction to important productivity features and useful functionalities of conan:
+This section provides an introduction to important productivity features and useful functionalities of Conan:
 
 .. toctree::
    :maxdepth: 2

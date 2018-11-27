@@ -5,6 +5,10 @@
 Upload output [EXPERIMENTAL]
 ----------------------------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 The :command:`conan upload` provides a ``--json`` parameter to generate a file containing the
 information of the upload process.
 
@@ -15,13 +19,13 @@ The output JSON contains a two first level keys:
 
      - **recipe**: Document representing the uploaded recipe.
 
-        - **id**: Reference. e.j: "OpenSSL/1.0.2n@conan/stable"
+        - **id**: Reference, e.g., "OpenSSL/1.0.2n@conan/stable"
         - **remote_name**: Remote name where the recipe was uploaded.
         - **remote_url**: Remote URL where the recipe was uploaded.
         - **time**: ``ISO 8601`` string with the time the recipe was uploaded.
 
      - **packages**: List of elements, representing the binary packages uploaded for the recipe.
-        - **id**: Package ID. e.j: "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
+        - **id**: Package ID, e.g., "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
         - **time**: ISO 8601 string with the time the recipe was uploaded.
 
 **Example:**
@@ -46,18 +50,26 @@ The output JSON contains a two first level keys:
                 "packages":[
                     {
                         "id":"3f3387d49612e03a5306289405a2101383b861f0",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:21.534877"
                     },
                     {
                         "id":"6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:23.934152"
                     },
                     {
                         "id":"889d5d7812b4723bd3ef05693ffd190b1106ea43",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:28.195266"
                     },
                     {
                         "id":"e98aac15065fc710dffd1b4fbee382b087c3ad1d",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:30.495989"
                     }
                 ]
@@ -72,6 +84,8 @@ The output JSON contains a two first level keys:
                 "packages":[
                     {
                         "id":"5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:34.991721"
                     }
                 ]
@@ -86,6 +100,8 @@ The output JSON contains a two first level keys:
                 "packages":[
                     {
                         "id":"6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:39.243895"
                     }
                 ]
@@ -100,6 +116,8 @@ The output JSON contains a two first level keys:
                 "packages":[
                     {
                         "id":"5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:43.749422"
                     }
                 ]
@@ -114,6 +132,8 @@ The output JSON contains a two first level keys:
                 "packages":[
                     {
                         "id":"6a051b2648c89dbd1f8ada0031105b287deea9d2",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:47.942491"
                     }
                 ]
@@ -139,6 +159,8 @@ The output JSON contains a two first level keys:
                 "packages":[
                     {
                         "id":"6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7",
+                        "remote_name":"conan-center",
+                        "remote_url":"https://conan.bintray.com",
                         "time":"2018-04-30T11:18:51.125189"
                     }
                 ]

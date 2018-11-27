@@ -3,16 +3,17 @@
 Environment variables
 =====================
 
-These are the environment variables used to customize conan.
+These are the environment variables used to customize Conan.
 
-Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
+ Most of them can be set in the *conan.conf* configuration file (inside your ``<userhome>/.conan`` folder). However, this environment
+ variables will take precedence over the *conan.conf* configuration.
 
 .. _cmake_related_variables:
 
 CMAKE RELATED VARIABLES
 -----------------------
 
-There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
+There are some Conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`:
 
 
@@ -100,6 +101,14 @@ CONAN_CPU_COUNT
 
 Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
+
+CONAN_DEFAULT_PROFILE_PATH
+--------------------------
+
+**Defaulted to**: Not defined
+
+This variable can be used to define a path to an existing profile file that Conan will use
+as default. If relative, the path will be resolved from the profiles folder.
 
 CONAN_NON_INTERACTIVE
 ---------------------
@@ -233,13 +242,21 @@ Conan will request to the user to input a password.
 
 These variables are useful for unattended executions like CI servers or automated tasks.
 
-If the remote name contains "-" you have to replace it with "_" in the variable name:
+The remote name is transformed to all uppercase. If the remote name contains "-",
+you have to replace it with "_" in the variable name.
 
-For example: For a remote named "conan-center":
+For example, for a remote named "conan-center":
 
 .. code-block:: bash
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+
+CONAN_HOOKS
+-------------
+
+**Defaulted to**: Not defined
+
+Can be set to a comma separated list with the names of the hooks that will be executed when running a Conan command.
 
 .. _conan_print_run_commands:
 
@@ -285,7 +302,7 @@ uploading packages, as they will be read-only and that could have other side-eff
 
 .. warning::
 
-    It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to insconsistencies.
+    It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to inconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
 .. _conan_run_tests:
@@ -316,7 +333,7 @@ or declared in command line when invoking :command:`conan install` to reduce the
 
     $ conan install . -e CONAN_RUN_TEST=0
 
-See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check an use case
+See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check a use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
 
 See example of build method in ``conanfile.py`` to enable/disable running tests with CMake:
@@ -343,7 +360,7 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`build_sln_commmand<build_sln_commmand>`, the :ref:`msvc_build_command<msvc_build_command>`
+When set to ``True``/``1``, the :ref:`build_sln_command<build_sln_command>`, the :ref:`msvc_build_command<msvc_build_command>`
 and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
@@ -355,7 +372,7 @@ CONAN_SYSREQUIRES_MODE
 This environment variable controls whether system packages should be installed into the system
 via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
 
-See values behaviour:
+See values behavior:
 
     - ``enabled``: Default value and any call to install method of ``SystemPackageTool`` helper should modify
       the system packages.
@@ -375,7 +392,7 @@ This environment variable controls whether ``sudo`` is used for installing apt, 
 packages via ``SystemPackageTool`` helper, typically used in ``system_requirements()``.
 By default when the environment variable does not exist, "True" is assumed, and ``sudo`` is
 automatically prefixed in front of package management commands.  If you set this to "False" or "0"
-``sudo`` will not be prefixed in front of the comands, however installation or updates of some
+``sudo`` will not be prefixed in front of the commands, however installation or updates of some
 packages may fail due to a lack of privilege, depending on the user account Conan is running under.
 
 CONAN_TEMP_TEST_FOLDER
@@ -439,13 +456,20 @@ CONAN_USER_HOME_SHORT
 **Defaulted to**: Not defined
 
 Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
-marked as `short_paths` will be stored in the `C:\\.conan` (or the current drive letter).
+marked as `short_paths` will be stored in the ``C:\.conan`` (or the current drive letter).
 
-If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
+If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
-.. note::
 
-    Please note that this only works with Python 3.6 and newer.
+CONAN_USE_ALWAYS_SHORT_PATHS
+----------------------------
+
+**Defaulted to**: Not defined
+
+If defined to ``True`` or ``1``, every package will be stored in the *short paths directory* resolved
+by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
+overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
+
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
@@ -459,7 +483,7 @@ CONAN_VS_INSTALLATION_PREFERENCE
 
 **Defaulted to**: ``Enterprise, Professional, Community, BuildTools``
 
-This envirnoment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
+This environment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
 that uses ``tools.vs_installation_path()`` and will search in the order indicated.
 
 For example:

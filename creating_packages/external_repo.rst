@@ -1,15 +1,15 @@
 .. _external_repo:
 
-Recipe and sources in a different repo
+Recipe and Sources in a Different Repo
 ======================================
 
 
-In the previous section we fetched the sources of our library from an external repository.
+In the previous section, we fetched the sources of our library from an external repository.
 It is a typical workflow for packaging third party libraries.
 
 There are two different ways to fetch the sources from an external repository:
 
-1. Using the ``source()`` method as we saw in the previous section:
+1. Using the ``source()`` method as we displayed in the previous section:
 
 .. code-block:: python
 
@@ -38,7 +38,7 @@ You can also use the :ref:`tools.Git <tools_git>` class:
             ...
 
 
-2. Using the :ref:`scm attribute <scm_attribute>` of the conanfile [EXPERIMENTAL]:
+2. Using the :ref:`scm attribute <scm_attribute>` of the ConanFile [EXPERIMENTAL]:
 
 
 .. code-block:: python
@@ -55,13 +55,10 @@ You can also use the :ref:`tools.Git <tools_git>` class:
         ...
 
 
-Conan will clone the ``scm url`` and will checkout the ``scm revision``.
+Conan will clone the ``scm url`` and will checkout the ``scm revision``. Head to
+:ref:`creating package documentation <scm_feature>`
+to know more details about SCM feature.
 
-For ``git`` (currently the only supported scm), the ``revision`` field can be:
-
-- A commit hash
-- A branch
-- A tag
 
 The ``source()`` method will be called after the checkout process, so you can still use it to patch something or
 retrieve more sources, but it is not necessary in most cases.

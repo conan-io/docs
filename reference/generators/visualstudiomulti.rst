@@ -1,4 +1,4 @@
-.. visual_studio_multi:
+.. _visual_studio_multi:
 
 
 `visual_studio_multi`

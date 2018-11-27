@@ -157,10 +157,10 @@ to build things or not:
   requested configuration was not found on any of the active remotes.
 * :command:`--build=outdated`: Conan will try to build from code if the binary is not built with the
   current recipe or when missing binary package.
-* :command:`--build=[pattern]`: A fnmatch file pattern of a package name. e.j ``zl*`` will match
+* :command:`--build=[pattern]`: A fnmatch file pattern of a package name. E.g., ``zl*`` will match
   ``zlib`` package. Conan will force the build of the packages, the name of which matches the given
   **pattern**. Several patterns can be specified, chaining multiple options,
-  e.g. :command:`--build=pattern1 --build=pattern2`.
+  e.g., :command:`--build=pattern1 --build=pattern2`.
 * :command:`--build`: Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
 
@@ -172,7 +172,7 @@ With the :command:`-e` parameters you can define:
 - Global environment variables (:command:`-e SOME_VAR="SOME_VALUE"`). These variables will be defined
   before the `build` step in all the packages and will be cleaned after the `build` execution.
 - Specific package environment variables (:command:`-e zlib:SOME_VAR="SOME_VALUE"`). These variables will
-  be defined only in the specified packages (e.g. zlib).
+  be defined only in the specified packages (e.g., zlib).
 
 You can specify this variables not only for your direct ``requires`` but for any package in the
 dependency graph.

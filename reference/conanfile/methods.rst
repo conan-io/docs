@@ -247,6 +247,17 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
         if not self.settings.os == "Windows":
             self.cpp_info.cppflags = ["-pthread"]
 
+Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
+be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
+for example, might fail when using CMake targets mode, so the following is preferred and works both
+in the global and targets mode of CMake:
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
+                                      "-DEFAULTLIB:LIBCMT"]
+
 If your recipe has requirements, you can access to your requirements ``cpp_info`` as well using the ``deps_cpp_info`` object.
 
 .. code-block:: python
@@ -287,10 +298,10 @@ consumers can use those executables easily:
 .. code-block:: python
 
     # assuming the binaries are in the "bin" subfolder
-    self.env_info.PATH.append(os.path.join(self.package_folder, "bin")
+    self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
 
 The :ref:`virtualenv<virtual_environment_generator>` generator will use the ``self.env_info`` variables to prepare a script to
-activate/deactive a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.
+activate/deactivate a virtual environment. However, this could be directly done using the :ref:`virtualrunenv_generator` generator.
 
 They will be automatically applied before calling the consumer *conanfile.py* methods ``source()``, ``build()``, ``package()`` and
 ``imports()``.
@@ -394,13 +405,31 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
+.. _invalid_configuration:
+
+Invalid configuration
++++++++++++++++++++++
+
+Conan allows the recipe creator to declare invalid configurations, those that are known not to work 
+with the library being packaged. There is an especial kind of exception that can be raised from
+the ``configure()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
+it is an example of a recipe for a library that doesn't support Windows operating system:
+
+.. code-block:: python
+
+    def configure(self):
+        if self.settings.os == "Windows":
+            raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
+
+This exception will be propagated and Conan application will exit with the error code ``6``.
+
 requirements()
 --------------
 
 Besides the ``requires`` field, more advanced requirement logic can be defined in the ``requirements()`` optional method, using for example
 values from the package ``settings`` or ``options``:
 
-..  code-block:: python
+.. code-block:: python
 
     def requirements(self):
         if self.options.myoption:
@@ -456,14 +485,14 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 
 - ``os_info.is_linux``: True if Linux.
 - ``os_info.is_windows``: True if Windows.
-- ``os_info.is_macos``: True if OSx.
+- ``os_info.is_macos``: True if macOS.
 - ``os_info.is_freebsd``: True if FreeBSD.
 - ``os_info.is_solaris``: True if SunOS.
 - ``os_info.os_version``: OS version.
 - ``os_info.os_version_name``: Common name of the OS (Windows 7, Mountain Lion, Wheezy...).
 - ``os_info.linux_distro``: Linux distribution name (None if not Linux).
 - ``os_info.bash_path``: Returns the absolute path to a bash in the system.
-- ``os_info.uname(options=None)``: Runs the "uname" command and returns the ouput. You can pass arguments with the `options` parameter.
+- ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
 You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
@@ -520,6 +549,8 @@ Methods:
     - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it
       will execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
       parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
+      **Note**: This list of packages is intended for providing **alternative** names for the same package, to account for small variations
+      of the name for the same package in different distros. To install different packages, one call to ``install()`` per package is necessary.
 
 The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the ``CONAN_SYSREQUIRES_SUDO``
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
@@ -568,7 +599,7 @@ Parameters:
     - **dst** (Optional, Defaulted to ``""``): Destination local folder, with reference to current directory, to which the files will be
       copied.
     - **src** (Optional, Defaulted to ``""``): Source folder in which those files will be searched. This folder will be stripped from the
-      dst parameter. Eg.: lib/Debug/x86
+      dst parameter. E.g., `lib/Debug/x86`
     - **root_package** (Optional, Defaulted to *all packages in deps*): An fnmatch pattern of the package name ("OpenCV", "Boost") from
       which files will be copied.
     - **folder** (Optional, Defaulted to ``False``): If enabled, it will copy the files from the local cache to a subfolder named as the
@@ -612,7 +643,7 @@ package_id()
 ------------
 
 Creates a unique ID for the package. Default package ID is calculated using ``settings``, ``options`` and ``requires`` properties. When a
-package creator specifies the values for any of thoses properties, it is telling that any value change will require a different binary
+package creator specifies the values for any of those properties, it is telling that any value change will require a different binary
 package.
 
 However, sometimes a package creator would need to alter the default behavior, for example, to have only one binary package for several
@@ -815,7 +846,7 @@ Where:
 - ``self.copy_deps()`` is the same as ``self.copy()`` method inside :ref:`imports() method <method_imports>`.
 
 Both methods allow the definition of absolute paths (to install in the system), in the ``dst`` argument. By default, the ``dst``
-destionation folder will be the current one.
+destination folder will be the current one.
 
 The ``deploy()`` method is designed to work on a package that is installed directly from its reference, as:
 

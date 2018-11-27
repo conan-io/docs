@@ -23,7 +23,7 @@ with pip pre-installed. However, if necessary you can install pip by following t
 .. warning::
 
     Python 2 will soon be deprecated by the Python maintainers. It is strongly recommended to use Python 3 with Conan, especially if need to manage non-ascii filenames or file contents.
-    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. The roadmap for deprecating Python 2 support in Conan will be defined soon.
+    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See :ref:`python2` for details.
 
 Install Conan:
 
@@ -49,6 +49,7 @@ Install Conan:
       installation, so Conan is found in the path.
     - Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
       workarounds is available here: https://github.com/GrahamDumpleton/wrapt/issues/112.
+    - Conan works with Python 2.7, but not all features are available when not using Python 3.x starting with version 1.6
 
 Install from brew (OSX)
 -----------------------
@@ -63,7 +64,7 @@ There is a brew recipe, so in OSX, you can install Conan as follows:
 Install from AUR (Arch Linux)
 -----------------------------
 
-The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers#Active>`_, eg. **yay**, **aurman**, or **pakku**.
+The easiest way to install Conan on Arch Linux is by using one of the `Arch User Repository (AUR) helpers <https://wiki.archlinux.org/index.php/AUR_helpers>`_, e.g., **yay**, **aurman**, or **pakku**.
 For example, the following command installs Conan using ``yay``:
 
 .. code-block:: bash
@@ -143,4 +144,37 @@ Test your ``conan`` script.
 
 You should see the Conan commands help.
 
+Update
+------
+
+If installed via ``pip``, Conan can be easily updated:
+
+.. code-block:: bash
+
+    $ pip install conan --upgrade  # Might need sudo or --user
+
+If installed via the installers (*.exe*, *.deb*), download the new installer and execute it.
+
+The default *<userhome>/.conan/settings.yml* file, containing the definition of compiler versions, etc.,
+will be upgraded if Conan does not detect local changes, otherwise it will create a *settings.yml.new* with the new settings. 
+If you want to regenerate the settings, you can remove the *settings.yml* file manually and it will be created with the new information the first time it is required.
+
+The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (*<userhome>/.conan*).
+
+.. _python2:
+
+Python 2 Deprecation Notice
+---------------------------
+
+All features of Conan until version 1.6 are fully supported in both Python 2 and Python 3. However, new features in upcoming Conan releases
+that are only available in Python 3 or more easily available in Python 3 will be implemented and tested only in Python 3, and versions of
+Conan using Python 2 will not have access to that feature. This will be clearly described in code and documentation.
+
+If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with Python 2 may be reduced further.
+
+We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
+Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
+
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
+
+.. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334

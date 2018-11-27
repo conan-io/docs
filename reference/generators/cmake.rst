@@ -86,7 +86,7 @@ method a set of variables will be declared following this naming:
 | CONAN_USER_XXXX_YYYY           | User declared value                                                  |
 +--------------------------------+----------------------------------------------------------------------+
 
-``XXXX`` is the name of the requirement in uppercase and ``YYYY`` the variable name. e.j:
+``XXXX`` is the name of the requirement in uppercase and ``YYYY`` the variable name, e.g.:
 
 
 .. code-block:: python
@@ -123,7 +123,7 @@ _________________
 
 Setup all the CMake vars according to our settings, by default with the global approach (no targets).
 
-**parameters**: You can combine several parameters to the ``conan_basic_setup`` macro. e.j: ``conan_basic_setup(TARGETS KEEP_RPATHS)``
+**parameters**: You can combine several parameters to the ``conan_basic_setup`` macro, e.g., ``conan_basic_setup(TARGETS KEEP_RPATHS)``
 
     - ``TARGETS``:  Setup all the CMake vars by target (only CMake > 3.1.2)
     - ``NO_OUTPUT_DIRS``: Do not adjust the output directories
@@ -176,7 +176,7 @@ These targets are:
   it could be a header-only library, or the package could even contain several libraries. It contains all the
   properties (include paths, compile flags, etc) that are defined in the ``package_info()`` method of the package.
 - Inside each package a ``CONAN_LIB::PkgName_LibName`` target will be generated for each library. Its type is ``IMPORTED
-  UNKNOWN``, its mainly purpose is to provide a correct link order. Their only properties are the location and the
+  UNKNOWN``, its main purpose is to provide a correct link order. Their only properties are the location and the
   dependencies
 - A ``CONAN_PKG`` depends on every ``CONAN_LIB`` that belongs to it, and to its direct public dependencies (i.e. other ``CONAN_PKG``
   targets from its ``requires``)

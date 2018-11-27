@@ -35,12 +35,13 @@ sys.path.insert(0, os.path.abspath('./_themes'))
 extensions = [
     'sphinx.ext.todo',
     'conan',
+    'sphinxcontrib.spelling',
 ]
 
 # The short X.Y version.
-version = "1.6"
+version = "1.9"
 # The full version, including alpha/beta/rc tags.
-release = u'1.6.1'
+release = u'1.9.2'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -58,7 +59,12 @@ versions_dict = data
 
 html_context = {
     "versions": versions_dict,
-    "current_version": version
+    "current_version": version,
+    "display_github": True, # Integrate GitHub
+    "github_user": "conan-io", # Username
+    "github_repo": "docs", # Repo name
+    "github_version": "master", # Version
+    "conf_py_path": "/" # Path in the checkout to the docs root
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -95,7 +101,7 @@ language = None
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', '**/site-packages']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -255,7 +261,7 @@ latex_documents = [
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
-#latex_logo = None
+latex_logo = "_static/conan_logo.png"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
@@ -380,13 +386,17 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #epub_use_index = True
 
+# A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
+linkcheck_ignore = [r'http://localhost:\d+']
+
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
     redirect_files = {
         "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
-        "conan1.0.html": "faq/conan1.0.html"}
+        "conan1.0.html": "faq/conan1.0.html",
+        "mastering/python_requires.html": "../extending/python_requires.html"}
 
     redirect_template = """<!DOCTYPE html>
 <html>
@@ -401,6 +411,8 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
         for html_src_path, dst_path in redirect_files.items():
             target_path = app.outdir + '/' + html_src_path
             html = redirect_template % dst_path
+            if not os.path.exists(os.path.dirname(target_path)):
+                os.makedirs(os.path.dirname(target_path))
             with open(target_path, "w") as f:
                 f.write(html)
 

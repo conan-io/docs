@@ -11,11 +11,11 @@ In short:
 - There are requirements that are only needed when you need to build a package from sources, but if the binary package already exists, you
   don't want to install or retrieve them.
 - These could be dev tools, compilers, build systems, code analyzers, testing libraries, etc.
-- They can be very orthogonal to the creation of the package. It doesn't matter whether you build ZLib with CMake 3.4, 3.5 or 3.6. As long
+- They can be very orthogonal to the creation of the package. It doesn't matter whether you build zlib with CMake 3.4, 3.5 or 3.6. As long
   as the *CMakeLists.txt* is compatible, it will produce the same final package.
 - You don't want to add a lot of different versions (like those of CMake) to be able to use them to build the package. You want to easily
-  change the requirements, without needing to edit the ZLib package recipe.
-- Some of them might not be even be taken into account when a package like ZLib is created, such as cross-compiling it to Android (in which
+  change the requirements, without needing to edit the zlib package recipe.
+- Some of them might not be even be taken into account when a package like zlib is created, such as cross-compiling it to Android (in which
   the Android toolchain would be a build requirement too).
 
 To address these needs Conan implements ``build_requires``.

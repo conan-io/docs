@@ -1,3 +1,8 @@
+.. spelling::
+
+  codegangsta
+
+
 .. _go_package_manager:
 
 Conan: A Go package manager
@@ -10,7 +15,7 @@ You can just clone the following example repository:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/lasote/conan-goserver-example
+    $ git clone https://github.com/conan-community/conan-goserver-example
 
 Or, alternatively, manually create the folder and copy the following files inside:
 

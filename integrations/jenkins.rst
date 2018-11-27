@@ -83,7 +83,7 @@ and then upload it to Artifactory. We also upload the `build information`_:
 
     def artifactory_name = "artifactory"
     def artifactory_repo = "conan-local"
-    def repo_url = 'https://github.com/lasote/conan-zlib.git'
+    def repo_url = 'https://github.com/conan-community/conan-zlib.git'
     def repo_branch = "release/1.2.11"
 
     node {
