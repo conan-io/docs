@@ -33,7 +33,7 @@ but using a comma instead of spaces. Accepted expressions would be:
 
 There are two options for the version range:
    * *loose=True|False*: As default Conan uses the `loose=True` mode. When using `loose=False` the loose mode is deactivated, so that only valid Semantic Versioning strings are accepted.
-   * *include_prerelease=True|False*: Default is `include_prerelease=False`. When set to `include_prerelease=True' Includes prerelease versions in the search range. 
+   * *include_prerelease=True|False*: Default is `include_prerelease=False`. When set to `include_prerelease=True`, it will include prerelease versions in the search range. 
 
 ..  code-block:: python
 
