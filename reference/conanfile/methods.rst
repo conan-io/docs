@@ -355,8 +355,7 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 .. important::
 
     Both ``env_info`` and ``user_info`` objects store information in a "key <-> value" form and the values are always considered strings.
-    This is done for serialization purposes to *conanbuildinfo.txt* files and to avoid the deserialization of complex structures. However,
-    the information can still be consumed:
+    This is done for serialization purposes to *conanbuildinfo.txt* files and to avoid the deserialization of complex structures. It is up to the consumer to convert the string to the expected type:
 
     .. code-block:: python
 
