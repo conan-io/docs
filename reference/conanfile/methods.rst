@@ -361,7 +361,7 @@ recipe has requirements, you can access to your requirements ``user_info`` using
     .. code-block:: python
 
         # In a dependency
-        self.user_info.jars="jar1.jar, jar2.jar, jar3.jar"
+        self.user_info.jars="jar1.jar, jar2.jar, jar3.jar"  # Use a string, not a list
         ...
 
         # In the dependent conanfile
