@@ -41,7 +41,7 @@ Being {name} the package name:
 Target in Find<package_name>.cmake
 ----------------------------------
 
-A target named ``{name}:{name}`` target is generated with the following properties adjusted:
+A target named ``{name}::{name}`` target is generated with the following properties adjusted:
 
 - ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the package.
 - ``INTERFACE_LINK_LIBRARIES``: Library paths to link.
