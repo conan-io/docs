@@ -25,10 +25,11 @@ Expressions are those defined and implemented by https://pypi.org/project/node-s
 
 ..  code-block:: python
 
-   [>1.1 <2.1]    # In such range
-   [2.8]          # equivalent to =2.8
-   [~=3.0]        # compatible, according to semver
-   [>1.1 || 0.8]  # conditions can be OR'ed
+   [>1.1 <2.1]                # In such range
+   [2.8]                      # equivalent to =2.8
+   [~=3.0]                    # compatible, according to semver
+   [>1.1 || 0.8]              # conditions can be OR'ed
+   [1.2.7 || >=1.2.9 <2.0.0]  # This range would match the versions 1.2.7, 1.2.9, and 1.4.6, but not the versions 1.2.8 or 2.0.0.
 
 Version range expressions are evaluated at the time of building the dependency graph, from
 downstream to upstream dependencies. No joint-compatibility of the full graph is computed, instead,
