@@ -8,26 +8,24 @@ feature to locate the dependencies.
 
 The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declaring:
 
-- ``CMAKE_MODULE_PATH`` with the folders of the required packages, to allow CMake to locate the included cmake scripts and ``FindXXX.cmake`` files.
-  The folder containing the ``conan_paths.cmake`` (`self.install_folder` when used in a recipe) is also included,
-  so any custom file will be located too. Check :ref:`cmake_find_package <cmake_find_package_generator>` generator.
-- ``CMAKE_PREFIX_PATH`` used by ``FIND_LIBRARY()`` to locate library files (.a, .lib, .so, .dll) in your packages.
-
+- ``CMAKE_MODULE_PATH`` with the folders of the required packages, to allow CMake to locate the included cmake scripts and ``FindXXX.cmake``
+  files. The folder containing the *conan_paths.cmake* (`self.install_folder` when used in a recipe) is also included, so any custom file
+  will be located too. Check :ref:`cmake_find_package_generator` generator.
+- ``CMAKE_PREFIX_PATH`` used by ``find_library()`` to locate library files (*.a*, *.lib*, *.so*, *.dll*) in your packages.
 
 .. code-block:: text
    :caption: conanfile.txt
 
-   [requires]
-   zlib/1.2.11@conan/stable
-   ...
+    [requires]
+    zlib/1.2.11@conan/stable
+    ...
 
-   [generators]
-   cmake_paths
-
+    [generators]
+    cmake_paths
 
 .. code-block:: cmake
-    :emphasize-lines: 4
-    :caption: CMakeList.txt
+   :emphasize-lines: 4
+   :caption: CMakeList.txt
 
     cmake_minimum_required(VERSION 3.0)
     project(helloworld)
@@ -38,22 +36,17 @@ The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declari
        target_link_libraries (helloworld ${ZLIB_LIBRARIES})
     endif()
 
-
 In the example above, the ``zlib/1.2.11@conan/stable`` package is not packaging a custom ``FindZLIB.cmake`` file, but the ``FindZLIB.cmake``
-included in the CMake installation directory (`/Modules`) will locate the zlib library from the Conan package because of the ``CMAKE_PREFIX_PATH``
-used by the ``FIND_LIBRARY()``.
+included in the CMake installation directory (`/Modules`) will locate the zlib library from the Conan package because of the
+``CMAKE_PREFIX_PATH`` used by the ``find_library()``.
 
-If the ``zlib/1.2.11@conan/stable`` would had included a custom ``FindZLIB.cmake`` in the package root folder or any declared :ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`,
-it would have been located because of the ``CMAKE_MODULE_PATH`` variable.
-
-
-You can use the generated ``conan_paths.cmake`` file as a **cmake toolchain** or including it in a **CMakeLists.txt** of even including it in another toolchain:
-
+If the ``zlib/1.2.11@conan/stable`` would had included a custom ``FindZLIB.cmake`` in the package root folder or any declared
+:ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`, it would have been located because of the ``CMAKE_MODULE_PATH`` variable.
 
 Included as a toolchain
 -----------------------
 
-Without modifying your **CMakeLists.txt** file you can use the ``conan_paths.cmake`` as a toolchain:
+You can use the *conan_paths.cmake* as a toolchain without modifying your *CMakeLists.txt* file:
 
 .. code-block:: bash
    :emphasize-lines: 3
@@ -63,13 +56,12 @@ Without modifying your **CMakeLists.txt** file you can use the ``conan_paths.cma
     $ cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
 
+Included using the ``CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE``
+-----------------------------------------------------------
 
-Included using the CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE
--------------------------------------------------------
-
-With ``CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE`` you can specify a file to be included by the project() command.
-If you already have a toolchain file you can use this variable to include the ``conan_paths.cmake``
-and insert your toolchain with the ``CMAKE_TOOLCHAIN_FILE``.
+With ``CMAKE_PROJECT_<PROJECT-NAME>_INCLUDE`` you can specify a file to be included by the ``project()`` command.
+If you already have a toolchain file you can use this variable to include the ``conan_paths.cmake`` and insert your toolchain with the
+``CMAKE_TOOLCHAIN_FILE``.
 
 .. code-block:: bash
 
@@ -78,24 +70,26 @@ and insert your toolchain with the ``CMAKE_TOOLCHAIN_FILE``.
     $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PROJECT_helloworld_INCLUDE=build/conan_paths.cmake
     $ cmake --build .
 
-
-Included in your CMakeLists.txt
--------------------------------
+Included in your *CMakeLists.txt*
+---------------------------------
 
 .. code-block:: cmake
-    :emphasize-lines: 3
-    :caption: CMakeList.txt
+   :emphasize-lines: 3
+   :caption: CMakeList.txt
 
     cmake_minimum_required(VERSION 3.0)
     project(helloworld)
+
     include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
+
     add_executable(helloworld hello.c)
-    find_package(Zlib)
+
+    find_package(zlib)
+
     if(ZLIB_FOUND)
        include_directories(${ZLIB_INCLUDE_DIRS})
        target_link_libraries (helloworld ${ZLIB_LIBRARIES})
     endif()
-
 
 .. code-block:: bash
 
@@ -104,13 +98,11 @@ Included in your CMakeLists.txt
     $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
     $ cmake --build .
 
+.. seealso::
 
-.. seealso:: Check the section :ref:`Reference/Generators/cmake_paths <cmake_paths_generator_reference>` to read more about this generator.
-
+    Check the section :ref:`cmake_paths_generator_reference` to read more about this generator.
 
 .. note::
 
-    The ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` contain the paths to the ``builddirs`` of every required package.
-    By default, the root package folder is the only declared ``builddirs`` directory.
-    Check the :ref:`Reference/conanfile.py/attributes <cpp_info_attributes_reference>`.
-
+    The ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` contain the paths to the ``builddirs`` of every required package. By default the
+    root package folder is the only declared ``builddirs`` directory. Check :ref:`cpp_info_attributes_reference`.
