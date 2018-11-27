@@ -68,3 +68,8 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
     apply_env: True
     build_policy: None
     topics: None
+    settings: ('os', 'arch', 'compiler', 'build_type')
+    options:
+        shared: [True, False]
+    default_options:
+        shared: False
