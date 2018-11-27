@@ -339,7 +339,6 @@ Currently only the ``cmake``, ``cmake_multi`` and ``txt`` generators supports ``
         def package_info(self):
             self.user_info.var1 = 2
 
-
 For the example above, in the ``cmake`` and ``cmake_multi`` generators, a variable ``CONAN_USER_MYLIB_var1`` will be declared. If your
 recipe has requirements, you can access to your requirements ``user_info`` using the ``deps_user_info`` object.
 
@@ -352,6 +351,21 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 
         def build(self):
             self.out.warn(self.deps_user_info["MyLib"].var1)
+
+.. important::
+
+    Both ``env_info`` and ``user_info`` objects store information in a "key <-> value" form and the values are always considered strings.
+    This is done for serialization purposes to *conanbuildinfo.txt* files and to avoid the deserialization of complex structures. It is up to the consumer to convert the string to the expected type:
+
+    .. code-block:: python
+
+        # In a dependency
+        self.user_info.jars="jar1.jar, jar2.jar, jar3.jar"  # Use a string, not a list
+        ...
+
+        # In the dependent conanfile
+        jars = self.deps_user_info["Pkg"].jars
+        jar_list = jars.replace(" ", "").split(",")
 
 .. _method_configure_config_options:
 
