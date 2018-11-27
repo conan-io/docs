@@ -12,7 +12,7 @@ It creates a file named ``conanbuildinfo.cmake`` that can be imported from your 
    [generators]
    cmake
 
-When :commad:`conan install` is executed, a file named *conanbuildinfo.cmake* is created.
+When :command:`conan install` is executed, a file named *conanbuildinfo.cmake* is created.
 
 You can include *conanbuildinfo.cmake* in your project's *CMakeLists.txt* to manage our requirements.
 The inclusion of *conanbuildinfo.cmake* doesn't alter the CMake environment at all, it just provides ``CONAN_`` variables and some useful macros.
