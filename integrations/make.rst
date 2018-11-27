@@ -69,7 +69,7 @@ In order to use this generator within your project, use the following Makefile a
     #----------------------------------------
 
     CXX_SRCS = \
-    src/main.cpp
+    main.cpp
 
     CXX_OBJ_FILES = \
     main.o
@@ -82,10 +82,10 @@ In order to use this generator within your project, use the following Makefile a
     #     Prepare flags from variables
     #----------------------------------------
 
-    INC_PATH_FLAGS  += $(addprefix -I, $(CONAN_INC_PATHS))
-    LD_PATH_FLAGS   += $(addprefix -L, $(CONAN_LIB_PATHS))
-    LD_LIB_FLAGS    += $(addprefix -l, $(CONAN_LIBS))
-    DEFINES         += $(addprefix -D, $(CONAN_DEFINES))
+    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_PATHS))
+    CPPFLAGS        += $(addprefix -D, $(CONAN_DEFINES))
+    LDFLAGS         += $(addprefix -L, $(CONAN_LIB_PATHS))
+    LIBS            += $(addprefix -l, $(CONAN_LIBS))
 
 
     #----------------------------------------
@@ -93,12 +93,12 @@ In order to use this generator within your project, use the following Makefile a
     #----------------------------------------
 
     COMPILE_CXX_COMMAND         ?= \
-    	g++ -c $(CXXFLAGS) $(DEFINES) $(INC_PATH_FLAGS) $< -o $@
+        g++ -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
 
     CREATE_EXE_COMMAND          ?= \
-    	g++ $(CXX_OBJ_FILES) \
-    	$(LDFLAGS) $(LDFLAGS_EXE) $(LD_PATH_FLAGS) $(LD_LIB_FLAGS) \
-    	-o $(EXE_FILENAME)
+        g++ $(CXX_OBJ_FILES) \
+        $(LDFLAGS) $(LIBS) \
+        -o $(EXE_FILENAME)
 
 
     #----------------------------------------
@@ -109,10 +109,10 @@ In order to use this generator within your project, use the following Makefile a
     exe                     :   $(EXE_FILENAME)
 
     $(EXE_FILENAME)         :   $(CXX_OBJ_FILES)
-    	$(CREATE_EXE_COMMAND)
+        $(CREATE_EXE_COMMAND)
 
     %.o                     :   $(CXX_SRCS)
-    	$(COMPILE_CXX_COMMAND)
+        $(COMPILE_CXX_COMMAND)
 
 Now we are going to let Conan retrieve the dependencies and generate the dependency information in a *conanbuildinfo.mak*:
 
