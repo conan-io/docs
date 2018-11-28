@@ -4,7 +4,7 @@
 MSBuild
 =======
 
-Calls Visual Studio ``msbuild`` command to build a ``sln`` project:
+Calls Visual Studio ``MSBuild`` command to build a *.sln* project:
 
 .. code-block:: python
 
@@ -21,7 +21,7 @@ Internally the ``MSBuild`` build helper uses:
 
     - :ref:`VisualStudioBuildEnvironment<visual_studio_build>` to adjust the ``LIB`` and ``CL``
       environment variables with all the information from the requirements: include directories, library names, flags etc.
-    - :ref:`tools.msvc_build_command<msvc_build_command>` to call msbuild.
+    - :ref:`tools.msvc_build_command<msvc_build_command>` to call ``MSBuild``.
 
 You can adjust all the information from the requirements accessing to the ``build_env`` that it is a
 :ref:`VisualStudioBuildEnvironment<visual_studio_build>` object:
@@ -95,22 +95,39 @@ Parameters:
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dict {name: value}
       it will append a ``/p:name="value"`` option.
-    - **output_binary_log** (Optional, Defaulted to ``False``): If set to ``True`` then msbuild will output a binary log file called ``msbuild.binlog``
-      in the working directory.
+    - **output_binary_log** (Optional, Defaulted to ``None``): If set to ``True`` then MSBuild will output a binary log file called
+      ``msbuild.binlog`` in the working directory. It can also be used to set the name of log file like this
+      ``output_binary_log="my_log.binlog"``. This parameter is only supported
+      :ref:`from MSBuild version 15.3 onwards<http://msbuildlog.com/>`.
 
 get_command()
 ++++++++++++++
 
-Returns a string command calling ``msbuild``
+Returns a string command calling ``MSbuild``.
 
 .. code-block:: python
 
     def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True, build_type=None,
-                    arch=None, parallel=True, toolset=None, platforms=None, use_env=False):
+                    arch=None, parallel=True, toolset=None, platforms=None, use_env=False)
 
 Parameters:
     - **project_file** (Optional, defaulted to None): Path to a properties file to include in the project.
     - Same other parameters than **build()**
+
+get_version()
++++++++++++++
+
+Static method that returns the version of MSBuild for the specified settings.
+
+.. code-block:: python
+
+    def get_version(settings)
+
+Result is returned in a ``conans.model.Version`` object as it is evaluated by the command line. It will raise an exception if it cannot
+resolve it to a valid result.
+
+Parameters:
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.
 
 .. _visual_studio_build:
 
@@ -192,4 +209,4 @@ You can adjust the automatically filled values modifying the attributes above:
 
 .. seealso::
 
-    - :ref:`environment_append_tool`
+    :ref:`environment_append_tool`
