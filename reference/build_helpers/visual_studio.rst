@@ -76,7 +76,7 @@ Parameters:
     - **project_file** (Required): Path to the *.sln* file.
     - **targets** (Optional, Defaulted to ``None``): List of targets to build.
     - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv` to upgrade the solution to your current Visual Studio.
-    - **build_type** (Optional, Defaulted to ``None``): Use a custom build type name instead of the detault ``settings.build_type`` one.
+    - **build_type** (Optional, Defaulted to ``None``): Use a custom build type name instead of the default ``settings.build_type`` one.
     - **arch** (Optional, Defaulted to ``None``): Use a custom architecture name instead of the ``settings.arch`` one.
       It will be used to build the ``/p:Configuration=`` parameter of ``msbuild``.
       It can be used as the key of the **platforms** parameter. E.g. ``arch="x86", platforms={"x86": "i386"}``
@@ -148,7 +148,7 @@ Use it together with :ref:`vcvars_command`.
                   self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
                   self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
 
-You can adjust the automatically filled attribures:
+You can adjust the automatically filled attributes:
 
 .. code-block:: python
    :emphasize-lines: 3, 4, 5

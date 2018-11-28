@@ -18,6 +18,7 @@ astroid
 Astroid
 auth
 autodetect
+autodetected
 Autodetected
 autotools
 Autotools
@@ -75,6 +76,7 @@ Cygwin
 defaultConfig
 dependants
 deps
+deserialization
 dev
 devs
 devtools
@@ -96,6 +98,7 @@ downloader
 dst
 dylib
 eabi
+encrypter
 env
 envs
 exe
@@ -179,6 +182,7 @@ nginx
 Nginx
 NMake
 offline
+Ok
 OpenCV
 openssl
 OpenSSL
@@ -189,6 +193,7 @@ overridable
 param
 pc
 PkgConfig
+Playlist
 plugin
 pluginbase
 plugins
