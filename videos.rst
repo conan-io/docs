@@ -1,7 +1,12 @@
 .. spelling::
 
-  Théo
   Delrieu
+  Hieta
+  Losada
+  Mateusz
+  Pusz
+  swampUP
+  Théo
 
 .. _videos:
 

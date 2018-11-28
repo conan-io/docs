@@ -1,3 +1,7 @@
+.. spelling::
+
+  cppdefines
+
 .. _premake_generator:
 
 `premake` [EXPERIMENTAL]
