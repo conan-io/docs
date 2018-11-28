@@ -98,5 +98,5 @@ Then the same for the library names with CONAN_LIBS_XXX and the paths where the 
 
 
 
-.. _`conan's boost package`: https://github.com/lasote/conan-boost.git
-.. _`conan's zlib package`: https://github.com/lasote/conan-zlib.git
+.. _`conan's boost package`: https://github.com/conan-community/conan-boost.git
+.. _`conan's zlib package`: https://github.com/conan-community/conan-zlib.git

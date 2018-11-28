@@ -38,7 +38,7 @@ Create a ``.circleci/config.yml`` file and paste this code in it:
   version: 2
   gcc-6:
     docker:
-      - image: lasote/conangcc6
+      - image: conanio/gcc6
     steps:
       - checkout
       - run:

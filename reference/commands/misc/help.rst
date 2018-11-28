@@ -8,7 +8,7 @@ conan help
 
     $ conan help [-h] [command]
 
-Show help of a specific command.
+Show help of a specific commmand.
 
 .. code-block:: text
 

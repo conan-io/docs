@@ -153,7 +153,7 @@ And edit the ``conanfile.py``:
         description = "<Description of Mylibrary here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
         requires = "zlib/1.2.11@conan/stable"
 
@@ -187,7 +187,7 @@ cache:
 
 .. code-block:: bash
 
-   $ conan export-pkg . mylibrary/1.0@myuser/channel --build-folder cmake-build-debug
+   $ conan export-pkg . mylibrary/1.0@myuser/channel --build-folder cmake-build-debug -pr=myprofile
 
 7. Now you can upload it to a conan server if needed:
 

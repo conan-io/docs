@@ -99,7 +99,9 @@ if __name__ == "__main__":
     if should_deploy():
         config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.7",
+        versions_dict = {"master": "1.9",
+                         "release/1.8.4": "1.8",
+                         "release/1.7.4": "1.7",
                          "release/1.6.1": "1.6",
                          "release/1.5.2": "1.5",
                          "release/1.4.5": "1.4",
@@ -109,6 +111,6 @@ if __name__ == "__main__":
 
         deploy()
     else:
-        call("make spelling")
         call("make html")
+        call("make spelling")
         call("make linkcheck")

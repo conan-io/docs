@@ -108,10 +108,10 @@ Recipe Quality
         # Package it
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
-- **Invalid configurations:** There is an special exception, ``conans.errors.ConanInvalidConfiguration`` to be launched
+- **Invalid configurations:** There is a special exception, ``conans.errors.ConanInvalidConfiguration`` to be launched
   from ``configure()`` function in a recipe if the given configuration/options is known not to work. This way the recipe
   owner can declare an invalid configuration and consumers (e.g. CI tools like ``conan-package-tools``) will be able to
-  handle it.  
+  handle it.
 
 
 CI Integration
@@ -155,7 +155,7 @@ In the Bintray page of your package, fill in the following fields:
       https://github.com/conan-community/conan-zlib/issues
     - Version control: URL of your recipe github repository, e.g.,
       https://github.com/conan-community/conan-zlib
-    - GitHub repo (user/repo): e.g., lasote/conan-zlib
+    - GitHub repo (user/repo): e.g., conan-community/conan-zlib
 
 For each version page (optional, but recommended):
 

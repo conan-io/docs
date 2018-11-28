@@ -45,7 +45,7 @@ interesting part of the recipe:
         name = "mingw_installer"
         version = "1.0"
         license = "http://www.mingw.org/license"
-        url = "http://github.com/lasote/conan-mingw-installer"
+        url = "http://github.com/conan-community/conan-mingw-installer"
 
         if conan_version < Version("0.99"):
             os_name = "os"

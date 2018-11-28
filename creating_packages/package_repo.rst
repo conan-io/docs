@@ -45,7 +45,7 @@ Now let's have a look at *conanfile.py*:
         description = "<Description of Hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
-        default_options = "shared=False"
+        default_options = {"shared": False}
         generators = "cmake"
         exports_sources = "src/*"
 
@@ -95,9 +95,10 @@ And simply create the package for user and channel **demo/testing** as described
     Hello world!
 
 
+.. _scm_feature:
 
-Capturing the Remote and Commit from Git: ``scm`` [EXPERIMENTAL]
-----------------------------------------------------------------
+Capturing the Remote and Commit: ``scm`` [EXPERIMENTAL]
+-------------------------------------------------------
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when ``conan create`` is called) the exported recipe will capture the
@@ -110,7 +111,7 @@ remote and commit of the local repository:
 
     class HelloConan(ConanFile):
          scm = {
-            "type": "git",
+            "type": "git",  # Use "type": "svn", if local repo is managed using SVN
             "subfolder": "hello",
             "url": "auto",
             "revision": "auto"

@@ -29,6 +29,42 @@ if it is not able to get the Git data. This is necessary when the recipe is alre
 Conan cache, and the Git repository may not be there,. A value of ``None`` makes Conan
 get the version from the metadata.
 
+How to capture package version from SCM: svn
+============================================
+
+The ``SVN()`` helper from tools, can be used to capture data from the subversion repo in which
+the *conanfile.py* recipe resides, and use it to define the version of the Conan package.
+
+.. code-block:: python
+
+    from conans import ConanFile, tools
+
+    def get_svn_version(version):
+        try:
+            scm = tools.SVN()
+            revision = scm.get_revision()
+            branch = scm.get_branch() # Delivers e.g trunk, tags/v1.0.0, branches/my_branch
+            branch = branch.replace("/","_")
+            if scm.is_pristine():
+                dirty = ""
+            else:
+                dirty = ".dirty"
+            return "%s-%s+%s%s" % (version, revision, branch, dirty) # e.g. 1.2.0-1234+trunk.dirty
+        except Exception:
+            return None
+
+    class HelloLibrary(ConanFile):
+        name = "Hello"
+        version = get_svn_version("1.2.0")
+        
+        def build(self):
+            ...
+
+In this example, the package created with :command:`conan create` will be called 
+``Hello/generated_version@user/channel``. Note that ``get_svn_version()`` returns ``None``
+if it is not able to get the subversion data. This is necessary when the recipe is already in the
+Conan cache, and the subversion repository may not be there. A value of ``None`` makes Conan
+get the version from the metadata.
 
 How to capture package version from text or build files
 =======================================================

@@ -39,9 +39,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.7"
+version = "1.9"
 # The full version, including alpha/beta/rc tags.
-release = u'1.7.4'
+release = u'1.9.1'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -59,7 +59,12 @@ versions_dict = data
 
 html_context = {
     "versions": versions_dict,
-    "current_version": version
+    "current_version": version,
+    "display_github": True, # Integrate GitHub
+    "github_user": "conan-io", # Username
+    "github_repo": "docs", # Repo name
+    "github_version": "master", # Version
+    "conf_py_path": "/" # Path in the checkout to the docs root
 }
 
 # Add any paths that contain templates here, relative to this directory.
@@ -390,7 +395,8 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     # FILL in this dicts the necessary redirects
     redirect_files = {
         "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
-        "conan1.0.html": "faq/conan1.0.html"}
+        "conan1.0.html": "faq/conan1.0.html",
+        "mastering/python_requires.html": "../extending/python_requires.html"}
 
     redirect_template = """<!DOCTYPE html>
 <html>
@@ -405,6 +411,8 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
         for html_src_path, dst_path in redirect_files.items():
             target_path = app.outdir + '/' + html_src_path
             html = redirect_template % dst_path
+            if not os.path.exists(os.path.dirname(target_path)):
+                os.makedirs(os.path.dirname(target_path))
             with open(target_path, "w") as f:
                 f.write(html)
 

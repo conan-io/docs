@@ -6,7 +6,7 @@
 If you are creating a Conan package for a library (A) and the build system uses *.pc* files to locate
 its dependencies (B and C) that are Conan packages too, you can follow different approaches.
 
-The main issue to solve is the absolute paths. When an user installs a package in the local cache,
+The main issue to solve is the absolute paths. When a user installs a package in the local cache,
 the directory will probably be different from the directory where the package was created. This could be
 because of the different computer, the change in Conan home directory or even a different user or channel:
 

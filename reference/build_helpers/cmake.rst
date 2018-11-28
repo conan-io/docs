@@ -139,7 +139,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE   |  Definition only set if same environment variable is declared by user                                                        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_POSITION_INDEPENDENT_CODE     |  When ``fPIC`` option is present and True or when ``fPIC`` is present and False but and option ``shared`` is present and True|
+| CONAN_CMAKE_POSITION_INDEPENDENT_CODE     |  When ``fPIC`` option is present and True or when ``fPIC`` is present and False but option ``shared`` is present and True    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_SHARED_LINKER_FLAGS                 |  -m32 and -m64 based on your architecture                                                                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
@@ -162,7 +162,27 @@ The CMake helper will automatically append some definitions based on your settin
 | CONAN_EXPORTED                            |  Defined when CMake is called using Conan CMake helper                                                                       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
+There are some definitions set to be used later on the the ``install()`` step too:
 
++-----------------------------+---------------------------------------------+
+| Variable                    | Description                                 |
++=============================+=============================================+
+| CMAKE_INSTALL_PREFIX        | Set to ``conanfile.package_folder``         |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_BINDIR        | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_SBINDIR       | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_LIBEXECDIR    | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_LIBDIR        | Set to *lib* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_INCLUDEDIR    | Set to *include* inside the package folder. |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_OLDINCLUDEDIR | Set to *include* inside the package folder. |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_DATAROOTDIR   | Set to *share* inside the package folder.   |
++-----------------------------+---------------------------------------------+
 
 But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property:
 
@@ -179,7 +199,6 @@ But you can change the automatic definitions after the ``CMake()`` object creati
             cmake.configure()
             cmake.build()
             cmake.install() # Build --target=install
-
 
 Methods
 -------
@@ -259,6 +278,9 @@ patch_config_paths() [EXPERIMENTAL]
 
     def patch_config_paths()
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
 variable. Method also changes references to other packages installation paths in export CMake config files to Conan variable

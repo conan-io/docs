@@ -8,8 +8,8 @@ conan source
 
     $ conan source [-h] [-sf SOURCE_FOLDER] [-if INSTALL_FOLDER] path
 
-Calls your local conanfile.py 'source()' method. e.g., Downloads and unzip the
-package sources.
+Calls your local conanfile.py 'source()' method. Usually downloads and
+uncompresses the package sources.
 
 .. code-block:: text
 

@@ -3,16 +3,17 @@
 Environment variables
 =====================
 
-These are the environment variables used to customize conan.
+These are the environment variables used to customize Conan.
 
-Most of them can be set in the ``conan.conf`` configuration file (inside your ``<userhome>/.conan`` folder).
+ Most of them can be set in the *conan.conf* configuration file (inside your ``<userhome>/.conan`` folder). However, this environment
+ variables will take precedence over the *conan.conf* configuration.
 
 .. _cmake_related_variables:
 
 CMAKE RELATED VARIABLES
 -----------------------
 
-There are some conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
+There are some Conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`:
 
 
@@ -100,6 +101,14 @@ CONAN_CPU_COUNT
 
 Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
 Conan recipes can use the cpu_count() tool to build the library using more than one core.
+
+CONAN_DEFAULT_PROFILE_PATH
+--------------------------
+
+**Defaulted to**: Not defined
+
+This variable can be used to define a path to an existing profile file that Conan will use
+as default. If relative, the path will be resolved from the profiles folder.
 
 CONAN_NON_INTERACTIVE
 ---------------------
@@ -233,13 +242,21 @@ Conan will request to the user to input a password.
 
 These variables are useful for unattended executions like CI servers or automated tasks.
 
-If the remote name contains "-" you have to replace it with "_" in the variable name:
+The remote name is transformed to all uppercase. If the remote name contains "-",
+you have to replace it with "_" in the variable name.
 
-For example: For a remote named "conan-center":
+For example, for a remote named "conan-center":
 
 .. code-block:: bash
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+
+CONAN_HOOKS
+-------------
+
+**Defaulted to**: Not defined
+
+Can be set to a comma separated list with the names of the hooks that will be executed when running a Conan command.
 
 .. _conan_print_run_commands:
 
@@ -316,7 +333,7 @@ or declared in command line when invoking :command:`conan install` to reduce the
 
     $ conan install . -e CONAN_RUN_TEST=0
 
-See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check an use case
+See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check a use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
 
 See example of build method in ``conanfile.py`` to enable/disable running tests with CMake:
@@ -441,7 +458,18 @@ CONAN_USER_HOME_SHORT
 Specify the base folder to be used with the :ref:`short paths<short_paths_reference>` feature. When not specified, the packages
 marked as `short_paths` will be stored in the ``C:\.conan`` (or the current drive letter).
 
-If set to "None", it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
+If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
+
+
+CONAN_USE_ALWAYS_SHORT_PATHS
+----------------------------
+
+**Defaulted to**: Not defined
+
+If defined to ``True`` or ``1``, every package will be stored in the *short paths directory* resolved
+by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
+overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
+
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
