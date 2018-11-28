@@ -198,7 +198,7 @@ To add a reference to the `conan export-pkg` command from another text:
 
 ```
 Read more about the :ref:`conan export-pkg<conan_export_pkg_command>` command.
-Or reference the :ref:`conan_export_pkg_command``directly.
+Or reference the :ref:`conan_export_pkg_command` directly.
 ```
 
 #### External references
