@@ -23,6 +23,7 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/b2
    integrations/qmake
    integrations/premake
+   integrations/make
    integrations/qbs
    integrations/meson
    integrations/docker
