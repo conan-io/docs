@@ -72,7 +72,7 @@ build()
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
-              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=False)
+              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None)
 
 Builds Visual Studio project with the given parameters.
 
