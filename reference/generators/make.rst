@@ -6,14 +6,15 @@ make
 .. container:: out_reference_box
 
     This is the reference page for ``make`` generator.
-    Go to :ref:`Integrations/Qmake<qmake>` if you want to learn how to integrate your project or recipes with make.
+    Go to :ref:`Integrations/make<make>` if you want to learn how to integrate your project or recipes with make.
 
-Generates a file named *conanbuildinfo.mak* that can be used for your make builds.
+This generators creates a file named *conanbuildinfo.mak* with information of dependencies in different variables that can be used for your
+make builds.
 
 Variables
 ---------
 
-Variables per package. ``<PKG-NAME>`` place holder is filled with the name of the Conan package.
+Variables per package. ``<PKG-NAME>`` placeholder is filled with the name of the Conan package.
 
 +--------------------------------------+----------------------------------------------------------------------+
 | NAME                                 | VALUE                                                                |

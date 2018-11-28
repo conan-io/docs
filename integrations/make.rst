@@ -3,7 +3,7 @@
 Make
 ====
 
-Conan provide integration with plain Makefiles by means of the ``make`` generator. If you are using ``Makefile`` to build your project you
+Conan provides integration with plain Makefiles by means of the ``make`` generator. If you are using ``Makefile`` to build your project you
 could get the information of the dependencies in a *conanbuildinfo.mak* file. All you have to do is indicate the generator like this:
 
 .. code-block:: text
