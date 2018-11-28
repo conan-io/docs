@@ -109,7 +109,7 @@ Parameters:
     - **output_binary_log** (Optional, Defaulted to ``None``): If set to ``True`` then MSBuild will output a binary log file called
       ``msbuild.binlog`` in the working directory. It can also be used to set the name of log file like this
       ``output_binary_log="my_log.binlog"``. This parameter is only supported
-      `from MSBuild version 15.3 onwards <http://msbuildlog.com/>`_.
+      `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
 
 .. note::
 
