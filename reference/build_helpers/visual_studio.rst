@@ -115,14 +115,14 @@ Parameters:
 
 .. note::
 
-    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`vcvars_command<vcvars_command>` to adjust the
-    environment according to the settings. When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use
-    ``amd64_x86`` instead, set the environment variable ``PreferredToolArchitecture=x64``.
+    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`vcvars_command` to adjust the environment
+    according to the settings. When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use ``amd64_x86``
+    instead, set the environment variable ``PreferredToolArchitecture=x64``.
 
 get_command()
 +++++++++++++
 
-Returns a string command calling :command:`MSbuild`.
+Returns a string command calling :command:`MSBuild`.
 
 .. code-block:: python
 
@@ -131,6 +131,8 @@ Returns a string command calling :command:`MSbuild`.
                     use_env=False, properties=None, output_binary_log=None)
 
 Parameters:
+    - **props_file_path* (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This
+      parameter is automatically set by the ``build()`` method to set the runtime from settings.
     - Same parameters as the ``build()`` method.
 
 get_version()
@@ -189,7 +191,6 @@ You can adjust the automatically filled attribures:
             self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
             self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
 
-
 Constructor
 -----------
 
@@ -201,9 +202,8 @@ Constructor
 
 Parameters:
     - **conanfile** (Required): ConanFile object. Usually ``self`` in a *conanfile.py*.
-    - **with_build_type_flags** (Optional, Defaulted to ``True``): If ``True``, it adjusts the compiler flags
-      according to the ``build_type`` setting. e.g: `-Zi`, `-Ob0`, `-Od`...
-
+    - **with_build_type_flags** (Optional, Defaulted to ``True``): If ``True``, it adjusts the compiler flags according to the
+      ``build_type`` setting. e.g: `-Zi`, `-Ob0`, `-Od`...
 
 Environment variables
 ---------------------
@@ -265,8 +265,7 @@ parallel
 
 Defaulted to ``False``.
 
-Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by
-:ref:`cpu_count`.
+Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`cpu_count`.
 
 .. seealso::
 
