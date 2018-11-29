@@ -3,10 +3,14 @@
 Generators
 ==========
 
+Generators are specific components that provide the information of dependencies calculated by Conan in a suitable format for a build system.
+They normally provide Conan users with a *conanbuildinfo.XXX* file that can be included or injected to the specific build system. The file
+generated contains information of dependencies in form of different variables and sometimes function helpers too.
+
 You can specify a generator in:
 
-- The **[generators]** section from :ref:`conanfile.txt<conanfile_txt_reference>`
-- The **generators** attribute in :ref:`conanfile.py<conanfile_reference>`
+- The ``[generators]`` section from :ref:`conanfile.txt<conanfile_txt_reference>`
+- The ``generators`` attribute in :ref:`conanfile.py<conanfile_reference>`
 
 Available generators:
 
