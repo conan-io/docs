@@ -82,10 +82,12 @@ In order to use this generator within your project, use the following Makefile a
     #     Prepare flags from variables
     #----------------------------------------
 
-    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_PATHS))
     CPPFLAGS        += $(addprefix -D, $(CONAN_DEFINES))
+    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_PATHS))
     LDFLAGS         += $(addprefix -L, $(CONAN_LIB_PATHS))
     LIBS            += $(addprefix -l, $(CONAN_LIBS))
+    CFLAGS          += $(CONAN_CFLAGS)
+    CXXFLAGS        += $(CONAN_CPPFLAGS)
 
 
     #----------------------------------------
