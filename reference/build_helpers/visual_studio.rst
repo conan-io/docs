@@ -131,7 +131,7 @@ Returns a string command calling :command:`MSBuild`.
                     use_env=False, properties=None, output_binary_log=None)
 
 Parameters:
-    - **props_file_path* (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This
+    - **props_file_path** (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This
       parameter is automatically set by the ``build()`` method to set the runtime from settings.
     - Same parameters as the ``build()`` method.
 
