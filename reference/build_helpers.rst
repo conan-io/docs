@@ -3,7 +3,7 @@
 Build helpers
 =============
 
-Build helpers are Python wrappers of a build tool that help with the conversion of the Conan settings to the build system's ones. They are
+Build helpers are Python wrappers of a build tool that help with the conversion of the Conan settings to the build system's ones. They
 assist users with the compilation of libraries and applications in the ``build()`` method of a recipe.
 
 Contents:
