@@ -114,7 +114,10 @@ The output JSON contains a two first level keys:
                     }
                 ]
             },
-            ...
+            {"...":"..."
+            }
+        ]
+    }
 
 .. note::
 
