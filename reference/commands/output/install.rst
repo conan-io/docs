@@ -114,57 +114,7 @@ The output JSON contains a two first level keys:
                     }
                 ]
             },
-            {
-                "recipe":{
-                    "id":"zlib/1.2.11@conan/stable",
-                    "downloaded":false,
-                    "exported":false,
-                    "error":null,
-                    "remote":null,
-                    "time":"2018-11-29T11:59:53.622853",
-                    "dependency":true,
-                    "name":"zlib",
-                    "version":"1.2.11",
-                    "user":"conan",
-                    "channel":"stable"
-                },
-                "packages":[
-                    {
-                        "id":"6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7",
-                        "downloaded":false,
-                        "exported":false,
-                        "error":null,
-                        "remote":null,
-                        "time":"2018-11-29T11:59:54.981027",
-                        "built":false,
-                        "cpp_info":{  
-                            "includedirs":[
-                                "include"
-                            ],
-                            "libdirs":[
-                                "lib"
-                            ],
-                            "resdirs":[
-                                "res"
-                            ],
-                            "bindirs":[
-                                "bin"
-                            ],
-                            "builddirs":[
-                                ""
-                            ],
-                            "libs":[
-                                "zlib"
-                            ],
-                            "rootpath":"C:/Users/user/.conan/data/zlib/1.2.11/conan/stable/package/6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7",
-                            "version":"1.2.11",
-                            "description":"A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)"
-                        }
-                    }
-                ]
-            }
-        ]
-    }
+            ...
 
 .. note::
 
