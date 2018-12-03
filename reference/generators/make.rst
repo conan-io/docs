@@ -78,3 +78,24 @@ according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_EXELINKFLAGS             | Aggregated Executable linker flags                                   |
 +--------------------------------+----------------------------------------------------------------------+
+
+.. important::
+
+    Note that the mapping of the Conan variables to the Make ones is done taking the following rules into account and we suggest to use the
+    variables indicated under the *Makefile* column to apply to a common naming:
+
+    +--------------+----------------------+------------+
+    | ``cpp_info`` | *conanbuildinfo.mak* | *Makefile* |
+    +==============+======================+============+
+    | defines      | CONAN_DEFINES        | CPPFLAGS   |
+    +--------------+----------------------+------------+
+    | includedirs  | CONAN_INCLUDE_PATHS  | CPPFLAGS   |
+    +--------------+----------------------+------------+
+    | libdirs      | CONAN_LIB_PATHS      | LDFLAGS    |
+    +--------------+----------------------+------------+
+    | libs         | CONAN_LIBS           | LDLIBS     |
+    +--------------+----------------------+------------+
+    | cflags       | CONAN_CFLAGS         | CFLAGS     |
+    +--------------+----------------------+------------+
+    | cppflags     | CONAN_CPPFLAGS       | CXXFLAGS   |
+    +--------------+----------------------+------------+

@@ -82,12 +82,12 @@ In order to use this generator within your project, use the following Makefile a
     #     Prepare flags from variables
     #----------------------------------------
 
-    CPPFLAGS        += $(addprefix -D, $(CONAN_DEFINES))
-    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_PATHS))
-    LDFLAGS         += $(addprefix -L, $(CONAN_LIB_PATHS))
-    LIBS            += $(addprefix -l, $(CONAN_LIBS))
     CFLAGS          += $(CONAN_CFLAGS)
     CXXFLAGS        += $(CONAN_CPPFLAGS)
+    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_PATHS))
+    CPPFLAGS        += $(addprefix -D, $(CONAN_DEFINES))
+    LDFLAGS         += $(addprefix -L, $(CONAN_LIB_PATHS))
+    LDLIBS          += $(addprefix -l, $(CONAN_LIBS))
 
 
     #----------------------------------------
@@ -95,11 +95,11 @@ In order to use this generator within your project, use the following Makefile a
     #----------------------------------------
 
     COMPILE_CXX_COMMAND         ?= \
-        g++ -c $(CXXFLAGS) $(CPPFLAGS) $< -o $@
+        g++ -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
 
     CREATE_EXE_COMMAND          ?= \
         g++ $(CXX_OBJ_FILES) \
-        $(LDFLAGS) $(LIBS) \
+        $(CXXFLAGS) $(LDFLAGS) $(LDLIBS) \
         -o $(EXE_FILENAME)
 
 
