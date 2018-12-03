@@ -306,7 +306,8 @@ tools.get()
 
 .. code-block:: python
 
-    def get(url, filenname="", md5="", sha1="", sha256="", keep_permissions=False, pattern=None)
+    def get(url, filenname="", md5="", sha1="", sha256="", keep_permissions=False, pattern=None,
+            verify=True, retry=2, retry_wait=5, overwrite=False, auth=None, headers=None)
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped.
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms
@@ -328,6 +329,13 @@ Parameters:
     - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
+    - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure.
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
+    - **overwrite**: (Optional, Defaulted to ``False``): When `True` Conan will overwrite the destination file if exists, if False it will raise.
+    - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed directly to the
+      requests python library, check here other uses of the **auth** parameter: http://docs.python-requests.org/en/master/user/authentication
+    - **headers** (Optional, Defaulted to ``None``): A dict with additional headers.
 
 .. _tools_get_env:
 
