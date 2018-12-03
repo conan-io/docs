@@ -57,8 +57,8 @@ Parameters:
     - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.g., "MinGW Makefiles"
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`.
-    - **build_type** (Optional, Defaulted to ``None``): Force the build type to be declared in ``CMAKE_BUILD_TYPE``. If you set this
-      parameter the build type will **not** be taken from the settings.
+    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. Note this will
+      also make the ``CMAKE_BUILD_TYPE`` to be declared for multi configuration generators.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
@@ -87,28 +87,28 @@ Set it to ``True`` or ``False`` to automatically set the definition ``CMAKE_VERB
             cmake.build()
 
 
-build_folder (read only)
+build_folder (Read only)
 ++++++++++++++++++++++++
 
 Build folder where the ``configure()`` and ``build()`` methods will be called.
 
-build_type (read only)
-++++++++++++++++++++++++
+build_type [Deprecated]
++++++++++++++++++++++++
 
-Final build type that will be applied for the compilation (if not indicated otherwise via ``definitions`` or command line).
+Build type can be forced with this variable instead of taking it from the settings.
 
-flags (read only)
+flags (Read only)
 +++++++++++++++++
 
 Flag conversion of ``definitions`` to be used in the command line invocation (``-D``).
 
-is_multi_configuration (read only)
+is_multi_configuration (Read only)
 ++++++++++++++++++++++++++++++++++
 
-Indicates if the generator selected allows builds with multi configuration: Release, Debug...
+Indicates whether the generator selected allows builds with multi configuration: Release, Debug...
 Multi configuration generators are Visual Studio and Xcode ones.
 
-command_line (read only)
+command_line (Read only)
 ++++++++++++++++++++++++
 
 Arguments and flags calculated by the build helper that will be applied. It indicates the generator, the Conan definitions and the flags
@@ -118,7 +118,7 @@ converted from the specified Conan settings. For example:
 
     -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ... -DCONAN_C_FLAGS=-m64 -Wno-dev
 
-build_config (read only)
+build_config (Read only)
 ++++++++++++++++++++++++
 
 Value for :command:`--config` option for Multi-configuration IDEs. This flag will only be set if the generator ``is_multi_configuration``
@@ -138,7 +138,7 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | Variable                                  | Description                                                                                                                  |
 +===========================================+==============================================================================================================================+
-| CMAKE_BUILD_TYPE                          | Debug, Release... from ``self.settings.build_type`` if ``is_multi_configuration`` or forced by ``build_type`` in constructor |
+| CMAKE_BUILD_TYPE                          | Debug, Release... from ``self.settings.build_type`` or ``build_type`` attribute **only** if ``is_multi_configuration``       |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_OSX_ARCHITECTURES                   | ``i386`` if architecture is x86 in an OSX system                                                                             |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
