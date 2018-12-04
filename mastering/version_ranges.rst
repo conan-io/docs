@@ -37,9 +37,10 @@ There are two options for the version range:
 
 ..  code-block:: python
 
-   [>1.1 <2.1, include_prerelease=True] # Would e.g. accept "2.0.0-pre.1" as match
-   [~1.2.3, loose=False]                # Would only accept correct Semantic Versioning strings. 
-                                        # E.g. version "1.2.3.4" would not be accepted. 
+   [>1.1 <2.1, include_prerelease=True]            # Would e.g. accept "2.0.0-pre.1" as match
+   [~1.2.3, loose=False]                           # Would only accept correct Semantic Versioning strings. 
+                                                   # E.g. version "1.2.3.4" would not be accepted. 
+   [~1.2.3, loose=False, include_prerelease=True]  # Both options can be used for the same version range.
 
 Version range expressions are evaluated at the time of building the dependency graph, from
 downstream to upstream dependencies. No joint-compatibility of the full graph is computed, instead,
