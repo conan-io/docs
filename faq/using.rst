@@ -93,7 +93,16 @@ When packages are created, Conan stores some metadata of the package such as the
 it also saves the recipe hash of the recipe contents they were generated with. This way Conan is able to know the real relation between a
 recipe and a package.
 
+Basically outdated packages appear when you modify a recipe and export and/or upload it, without re-building binary packages with it. This
+information is displayed in yellow with:
+
+.. code-block:: bash
+
+    $ conan search Pkg/0.1@user/channel --table=file.html
+    # open file.html
+    It will show outdated binaries in yellow.
+
 This information is important to know if the packages are up to date with the recipe or even if the package are still "accessible" from the
-recipe. This means that if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
-that were generated with that option, that package will be impossible to install as the package ID is calculated from the recipe file (and
-that option does not exist anymore).
+recipe. That means: if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
+that were generated previously with that option, that package will be impossible to install as the package ID is calculated from the recipe
+file (and that option does not exist anymore).
