@@ -19,8 +19,28 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.9 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+  Conan 1.10 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.10.0 (4-Dec-2018)
+-------------------
+
+- Feature: Merged "revisions" feature code in develop branch, still disabled by default until it gets stabilized.  `#3055 <https://github.com/conan-io/conan/pull/3055>`_
+- Feature: CMake global variable to disable Conan output ``CONAN_CMAKE_SILENT_OUTPUT`` `#4042 <https://github.com/conan-io/conan/pull/4042>`_
+- Feature: Added new ``make`` generator. `#4003 <https://github.com/conan-io/conan/pull/4003>`_
+- Feature: Deploy a conan snapshot package to [test.pypi.org](https://test.pypi.org/project/conan/) for every develop commit. `#4000 <https://github.com/conan-io/conan/pull/4000>`_
+- Fix: Using the `scm` feature when Conan is not able to read the gitignored files (local optimization mechanism) print a warning to improve the debug information but not crash. `#4045 <https://github.com/conan-io/conan/pull/4045>`_
+- Fix: The `tools.get` tool (download + unzip) now supports all the arguments of the `download` tool. e.g: `verify`, `retry`,  `retry_wait` etc. `#4041 <https://github.com/conan-io/conan/pull/4041>`_
+- Fix: Improve ``make`` generator test `#4018 <https://github.com/conan-io/conan/pull/4018>`_
+- Fix: Add space and dot in ``conan new --help`` `#3999 <https://github.com/conan-io/conan/pull/3999>`_
+- Fix: Resolve aliased packages in python_requires `#3957 <https://github.com/conan-io/conan/pull/3957>`_
+- Bugfix: Better checks of package reference ``pkg/version@user/channel``, avoids bugs for conanfile in 4 nested folders and ``conan install path/to/the/file`` `#4044 <https://github.com/conan-io/conan/pull/4044>`_
+- Bugfix: Running Windows subsystem scripts crashed when the PATH environment variable passed as a list. `#4039 <https://github.com/conan-io/conan/pull/4039>`_
+- Bugfix: Fix removal of conanfile.py with :command:`conan source` command and the removal of source folder in the local cache when something fails `#4033 <https://github.com/conan-io/conan/pull/4033>`_
+- Bugfix: A :command:`conan install` with a reference failed when running in the operating system root folder because python tried to create the directory even when nothing is going to be written. `#4012 <https://github.com/conan-io/conan/pull/4012>`_
+- Bugfix: Fix qbs generator mixing sharedlinkflags and exelinkflags `#3980 <https://github.com/conan-io/conan/pull/3980>`_
+- Bugfix: compiler_args generated "mytool.lib.lib" for Visual Studio libraries that were defined with the ``.lib`` extension in the ``self.cpp_info.libs`` field of ``package_info()``. `#3976 <https://github.com/conan-io/conan/pull/3976>`_
 
 
 1.9.2 (20-Nov-2018)
