@@ -460,6 +460,10 @@ You can also set the options conditionally to a final value with ``config_option
     doing it this way will assign a final value to the option and not an initial one, so those option values will not be overridable from
     downstream dependent packages.
 
+.. important::
+
+    Default options can be specified as a dictionary only for Conan version >= 1.8.
+
 .. seealso::
 
     Read more about the :ref:`config_options()<method_configure_config_options>` method.
