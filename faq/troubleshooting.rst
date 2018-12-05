@@ -148,4 +148,4 @@ When installing a Conan package and the follow error occurs:
 
 Problably your Conan version is outdated.
 The error is related to `default_options` be used as dictionary and only can be handled by Conan >= 1.8.
-To fix this error, update Conan package to 1.8 or higher.
+To fix this error, update Conan to 1.8 or higher.
