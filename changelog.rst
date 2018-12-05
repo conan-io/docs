@@ -26,6 +26,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.10.0 (4-Dec-2018)
 -------------------
 
+- Feature: Add `include_prerelease` and `loose` option to version range expression  `#3898 <https://github.com/conan-io/conan/pull/3898>`_
 - Feature: Merged "revisions" feature code in develop branch, still disabled by default until it gets stabilized.  `#3055 <https://github.com/conan-io/conan/pull/3055>`_
 - Feature: CMake global variable to disable Conan output ``CONAN_CMAKE_SILENT_OUTPUT`` `#4042 <https://github.com/conan-io/conan/pull/4042>`_
 - Feature: Added new ``make`` generator. `#4003 <https://github.com/conan-io/conan/pull/4003>`_
