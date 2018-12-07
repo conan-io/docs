@@ -124,11 +124,9 @@ Now we are going to let Conan retrieve the dependencies and generate the depende
 
 Then let's call :command:`make` to generate our project:
 
-- Use this command for Windows Visual Studio:
+.. code-block:: bash
 
-  .. code-block:: bash
-
-      $ make exe
+    $ make exe
 
 Now you can run your application with ``./main``.
 

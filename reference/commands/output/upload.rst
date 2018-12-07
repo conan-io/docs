@@ -35,7 +35,7 @@ The output JSON contains a two first level keys:
     $ conan upload h* -all -r conan-center --json upload.json
 
 .. code-block:: json
-   :caption: install.json
+   :caption: upload.json
 
     {
         "error":false,

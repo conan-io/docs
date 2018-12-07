@@ -50,69 +50,76 @@ The output JSON contains a two first level keys:
 
 .. code-block:: bash
 
-    $ conan install zlib/1.2.11@conan/stable --json install.json
+    $ conan install OpenSSL/1.0.2l@conan/stable --json install.json
 
 .. code-block:: json
    :caption: install.json
 
-   {
-       "error": false,
-       "installed": [
-           {
-               "recipe": {
-                   "id": "zlib/1.2.11@conan/stable",
-                   "name": "zlib",
-                   "version": "1.2.11",
-                   "user": "conan",
-                   "channel": "stable",
-                   "downloaded": false,
-                   "cache": true,
-                   "error": null,
-                   "remote": null,
-                   "time": "2018-10-10T10:28:28.351753",
-                   "dependency": true
-               },
-               "packages": [
-                   {
-                       "id": "0eaf3bfbc94fb6d2c8f230d052d75c6c1a57a4ce",
-                       "downloaded": false,
-                       "cache": true,
-                       "error": null,
-                       "remote": null,
-                       "time": "2018-10-10T10:28:28.356103",
-                       "built": false,
-                       "cpp_info": {
-                           "includedirs": [
-                               "include"
-                           ],
-                           "libdirs": [
-                               "lib"
-                           ],
-                           "resdirs": [
-                               "res"
-                           ],
-                           "bindirs": [
-                               "bin"
-                           ],
-                           "builddirs": [
-                               ""
-                           ],
-                           "libs": [
-                               "z"
-                           ],
-                           "rootpath": "/Users/jgsogo/.conan/data/zlib/1.2.11/conan/stable/package/0eaf3bfbc94fb6d2c8f230d052d75c6c1a57a4ce",
-                           "version": "1.2.11",
-                           "description": "A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)"
-                       }
-                   }
-               ]
-           }
-       ]
-   }
-
+    {
+        "error":false,
+        "installed":[
+            {
+                "recipe":{
+                    "id":"OpenSSL/1.0.2l@conan/stable",
+                    "downloaded":true,
+                    "exported":false,
+                    "error":null,
+                    "remote":"https://api.bintray.com/conan/conan/conan-center",
+                    "time":"2018-11-29T11:59:53.601813",
+                    "dependency":true,
+                    "name":"OpenSSL",
+                    "version":"1.0.2l",
+                    "user":"conan",
+                    "channel":"stable"
+                },
+                "packages":[
+                    {
+                        "id":"606fdb601e335c2001bdf31d478826b644747077",
+                        "downloaded":true,
+                        "exported":false,
+                        "error":null,
+                        "remote":"https://api.bintray.com/conan/conan/conan-center",
+                        "time":"2018-11-29T12:00:03.874284",
+                        "built":false,
+                        "cpp_info":{
+                            "includedirs":[
+                                "include"
+                            ],
+                            "libdirs":[
+                                "lib"
+                            ],
+                            "resdirs":[
+                                "res"
+                            ],
+                            "bindirs":[
+                                "bin"
+                            ],
+                            "builddirs":[
+                                ""
+                            ],
+                            "libs":[
+                                "ssleay32",
+                                "libeay32",
+                                "crypt32",
+                                "msi",
+                                "ws2_32"
+                            ],
+                            "rootpath":"C:/Users/user/.conan/data/OpenSSL/1.0.2l/conan/stable/package/606fdb601e335c2001bdf31d478826b644747077",
+                            "version":"1.0.2l",
+                            "description":"OpenSSL is an open source project that provides a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols",
+                            "public_deps":[
+                                "zlib"
+                            ]
+                        }
+                    }
+                ]
+            },
+            {"...":"..."
+            }
+        ]
+    }
 
 .. note::
 
-    As this is a marked as *experimental*, some fields may be removed or added: fields
-    ``version`` and ``description`` inside ``cpp_info`` will eventually be removed and paths
-    may be changed for absolute ones.
+    As this is a marked as *experimental*, some fields may be removed or added: fields ``version`` and ``description`` inside ``cpp_info``
+    will eventually be removed and paths may be changed for absolute ones.

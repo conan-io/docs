@@ -19,15 +19,44 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-  Conan 1.9 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+  Conan 1.10 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
   Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.10.0 (4-Dec-2018)
+-------------------
+
+- Feature: Add `include_prerelease` and `loose` option to version range expression  `#3898 <https://github.com/conan-io/conan/pull/3898>`_
+- Feature: Merged "revisions" feature code in develop branch, still disabled by default until it gets stabilized.  `#3055 <https://github.com/conan-io/conan/pull/3055>`_
+- Feature: CMake global variable to disable Conan output ``CONAN_CMAKE_SILENT_OUTPUT`` `#4042 <https://github.com/conan-io/conan/pull/4042>`_
+- Feature: Added new ``make`` generator. `#4003 <https://github.com/conan-io/conan/pull/4003>`_
+- Feature: Deploy a conan snapshot package to [test.pypi.org](https://test.pypi.org/project/conan/) for every develop commit. `#4000 <https://github.com/conan-io/conan/pull/4000>`_
+- Fix: Using the `scm` feature when Conan is not able to read the gitignored files (local optimization mechanism) print a warning to improve the debug information but not crash. `#4045 <https://github.com/conan-io/conan/pull/4045>`_
+- Fix: The `tools.get` tool (download + unzip) now supports all the arguments of the `download` tool. e.g: `verify`, `retry`,  `retry_wait` etc. `#4041 <https://github.com/conan-io/conan/pull/4041>`_
+- Fix: Improve ``make`` generator test `#4018 <https://github.com/conan-io/conan/pull/4018>`_
+- Fix: Add space and dot in ``conan new --help`` `#3999 <https://github.com/conan-io/conan/pull/3999>`_
+- Fix: Resolve aliased packages in python_requires `#3957 <https://github.com/conan-io/conan/pull/3957>`_
+- Bugfix: Better checks of package reference ``pkg/version@user/channel``, avoids bugs for conanfile in 4 nested folders and ``conan install path/to/the/file`` `#4044 <https://github.com/conan-io/conan/pull/4044>`_
+- Bugfix: Running Windows subsystem scripts crashed when the PATH environment variable passed as a list. `#4039 <https://github.com/conan-io/conan/pull/4039>`_
+- Bugfix: Fix removal of conanfile.py with :command:`conan source` command and the removal of source folder in the local cache when something fails `#4033 <https://github.com/conan-io/conan/pull/4033>`_
+- Bugfix: A :command:`conan install` with a reference failed when running in the operating system root folder because python tried to create the directory even when nothing is going to be written. `#4012 <https://github.com/conan-io/conan/pull/4012>`_
+- Bugfix: Fix qbs generator mixing sharedlinkflags and exelinkflags `#3980 <https://github.com/conan-io/conan/pull/3980>`_
+- Bugfix: compiler_args generated "mytool.lib.lib" for Visual Studio libraries that were defined with the ``.lib`` extension in the ``self.cpp_info.libs`` field of ``package_info()``. `#3976 <https://github.com/conan-io/conan/pull/3976>`_
+
+
+1.9.2 (20-Nov-2018)
+-------------------
+
+- Bugfix: SVN API changes are relevant since version 1.9 `#3954 <https://github.com/conan-io/conan/pull/3954>`_
+- Bugfix: Fixed bug in `vcvars_dict` tool when using `filter_known_paths` argument. `#3941 <https://github.com/conan-io/conan/pull/3941>`_
+
 
 1.9.1 (08-Nov-2018)
 -------------------
 
 - Fix: Fix regression introduced in 1.7, setting ``amd64_x86`` when no ``arch_build`` is defined. `#3918 <https://github.com/conan-io/conan/pull/3918>`_
 - Fix: Do not look for binaries in other remotes than the recipe, if it is defined. `#3890 <https://github.com/conan-io/conan/pull/3890>`_
-- Bugfix: `sudo --askpass` breaks Centos 6 package installation. The sudo version on Centos 6 is 1.8.6. The option of askpass for sudo version 1.8.7 or older is `sudo -A`. `#3885 <https://github.com/conan-io/conan/pull/3885>`_
+- Bugfix: ``sudo --askpass`` breaks CentOS 6 package installation. The sudo version on CentOS 6 is 1.8.6. The option of ``askpass`` for sudo version 1.8.7 or older is `sudo -A`. `#3885 <https://github.com/conan-io/conan/pull/3885>`_
 
 
 1.9.0 (30-October-2018)
@@ -44,7 +73,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Now the default templates of the :command:`conan new` command use the docker images from the `conanio` organization: https://hub.docker.com/u/conanio `#3710 <https://github.com/conan-io/conan/pull/3710>`_
 - Feature: Added ``topics`` attribute to the `ConanFile` to specify topics (a.k.a tags, a.k.a keywords) to the recipe. `#3702 <https://github.com/conan-io/conan/pull/3702>`_
 - Feature: Internal refactor to the remote registry to manage a json file. Also improved internal interface. `#3676 <https://github.com/conan-io/conan/pull/3676>`_
-- Feature: Implement reusage of sources (``exports_sources``) in recipes used as ``python_requires()``. `#3661 <https://github.com/conan-io/conan/pull/3661>`_
+- Feature: Implement reuse of sources (``exports_sources``) in recipes used as ``python_requires()``. `#3661 <https://github.com/conan-io/conan/pull/3661>`_
 - Feature: Added support for Clang >=8 and the new versioning schema, where only the major and the patch is used. `#3643 <https://github.com/conan-io/conan/pull/3643>`_
 - Fix: Renamed Plugins as Hooks `#3867 <https://github.com/conan-io/conan/pull/3867>`_
 - Fix: Adds GCC 8.2 to default settings.yml `#3865 <https://github.com/conan-io/conan/pull/3865>`_
@@ -60,13 +89,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Implement dirty checks in the cache build folder, so failed builds are not packaged when there is a ``build_id()`` method. `#3834 <https://github.com/conan-io/conan/pull/3834>`_
 - Fix: ``vcvars`` is also called in the ``CMake()`` build helper when `clang` compiler is used, not only with `Visual Studio`compiler. `#3832 <https://github.com/conan-io/conan/pull/3832>`_
 - Fix: Ignore empty line when parsing output inside ``SVN::excluded_files`` function. `#3830 <https://github.com/conan-io/conan/pull/3830>`_
-- Fix: Bump version of tqdm requirement to ``>=4.28.0`` `#3823 <https://github.com/conan-io/conan/pull/3823>`_
+- Fix: Bump version of ``tqdm`` requirement to ``>=4.28.0`` `#3823 <https://github.com/conan-io/conan/pull/3823>`_
 - Fix: Handling corrupted lock files in cache `#3816 <https://github.com/conan-io/conan/pull/3816>`_
 - Fix: Implement download concurrency checks, to allow simultaneous download of the same package (as header-only) while installing different configurations that depend on that package. `#3806 <https://github.com/conan-io/conan/pull/3806>`_
 - Fix: ``vcvars`` is also called in the `CMake()` build helper when using `Ninja` or `NMake` generators. `#3803 <https://github.com/conan-io/conan/pull/3803>`_
 - Fix: Fixed ``link_flags`` management in ``MSBuild`` build helper `#3791 <https://github.com/conan-io/conan/pull/3791>`_
 - Fix: Allow providing ``--profile`` argument (and settings, options, env, too) to :command:`conan export-pkg`, so it is able to correctly compute the binary package_id in case the information captured in the installed conaninfo.txt in previous :command:`conan install` does not contain all information to reconstruct the graph. `#3768 <https://github.com/conan-io/conan/pull/3768>`_
-- Fix: Upgrade dependency of tqdm to >=4.27: solves issue with weakref assertion. `#3763 <https://github.com/conan-io/conan/pull/3763>`_
+- Fix: Upgrade dependency of ``tqdm`` to >=4.27: solves issue with weakref assertion. `#3763 <https://github.com/conan-io/conan/pull/3763>`_
 - Fix: Use XML output to retrieve information from SVN command line if its client version is less than 1.8 (command ``--show-item`` is not available). `#3757 <https://github.com/conan-io/conan/pull/3757>`_
 - Fix: SVN v1.7 does not have ``-r`` argument in ``svn status``, so functionality ``SVN::is_pristine`` won't be available. `#3757 <https://github.com/conan-io/conan/pull/3757>`_
 - Fix: Add ``--askpass`` argument to ``sudo`` if it is not an interactive terminal `#3727 <https://github.com/conan-io/conan/pull/3727>`_
@@ -76,14 +105,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Improve error messages if conanfile was not found `#3554 <https://github.com/conan-io/conan/pull/3554>`_
 - BugFix: Fix conflicting multiple local imports for python_requires `#3876 <https://github.com/conan-io/conan/pull/3876>`_
 - Bugfix: do not ask for the username if it is already given when login into a remote. `#3839 <https://github.com/conan-io/conan/pull/3839>`_
-- Bugfix: ``yum update`` needs user's confirmation, which breaks system update in Centos non-interactive terminal. `#3747 <https://github.com/conan-io/conan/pull/3747>`_
+- Bugfix: ``yum update`` needs user's confirmation, which breaks system update in CentOS non-interactive terminal. `#3747 <https://github.com/conan-io/conan/pull/3747>`_
 
 
 1.8.4 (19-October-2018)
 -----------------------
 
 - Feature: Increase debugging information when an error uploading a recipe with different timestamp occurs. `#3801 <https://github.com/conan-io/conan/pull/3801>`_
-- Fix: Changed `tqdm` dependency to a temporarily forked removing the "man" directory write permissions issue installing the `pip` package. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
+- Fix: Changed ``tqdm`` dependency to a temporarily forked removing the "man" directory write permissions issue installing the `pip` package. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
 - Fix: Removed `ndg-httpsclient` and `pyasn` dependencies from OSX requirements file because they shouldn't be necessary. `#3802 <https://github.com/conan-io/conan/pull/3802>`_
 
 

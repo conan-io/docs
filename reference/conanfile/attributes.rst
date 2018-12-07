@@ -744,50 +744,58 @@ When executing local conan commands (for a package not in the local cache, but i
 cpp_info
 --------
 
-This attribute is only defined inside ``package_info()`` method, being None elsewhere, so please use it only inside this method.
+.. important::
 
-The ``self.cpp_info`` object can be filled with the needed information for the consumers of the current
-package:
+    This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| NAME                                      | DESCRIPTION                                                                                                                 |
-+===========================================+=============================================================================================================================+
-| self.cpp_info.includedirs                 | Ordered list with include paths, by default ['include']                                                                     |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libdirs                     | Ordered list with lib paths, by default ['lib']                                                                             |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.resdirs                     | Ordered list of resource (data) paths, by default ['res']                                                                   |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.bindirs                     | Ordered list with include paths, by default ['bin']                                                                         |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.builddirs                   | Ordered list with build scripts paths, by default ['']. CMake will search in these dirs for cmake files, like findXXX.cmake |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libs                        | Ordered list with the library names, by default empty []                                                                    |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.defines                     | Preprocessor definitions, by default empty []                                                                               |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cflags                      | Ordered list with pure C flags, by default empty []                                                                         |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cppflags                    | Ordered list with C++ flags, by default empty []                                                                            |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags             | Ordered list with linker flags (shared libs), by default empty []                                                           |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.exelinkflags                | Ordered list with linker flags (executables), by default empty []                                                           |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
-| self.cpp_info.rootpath                    | Filled with the root directory of the package, see deps_cpp_info                                                            |
-+-------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------+
+The ``self.cpp_info`` is responsible for storing all the information needed by consumers of a package: include directories, library names,
+library paths... There are some default values that will be applied automatically if not indicated otherwise.
+
+This object should be filled in ``package_info()`` method.
+
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| NAME                           | DESCRIPTION                                                                                             |
++================================+=========================================================================================================+
+| self.cpp_info.includedirs      | Ordered list with include paths. Defaulted to ``["include"]``                                           |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs          | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs          | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs          | Ordered list with include paths. Defaulted to ``["bin"]``                                               |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs        | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
+|                                | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs             | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines          | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags           | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags         | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags  | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags     | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+
+The paths of the directories in the directory variables indicated above are relative to the
+:ref:`self.package_folder<folders_attributes_reference>` directory.
 
 .. seealso::
 
-    Read :ref:`package_info() method docs <method_package_info>` for more info.
+    Read :ref:`method_package_info` for more info.
 
 .. _deps_cpp_info_attributes_reference:
 
 deps_cpp_info
 -------------
 
-Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also
-properties to obtain the absolute paths:
+Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also properties to obtain the
+absolute paths:
 
 +-------------------------------------------+---------------------------------------------------------------------+
 | NAME                                      | DESCRIPTION                                                         |

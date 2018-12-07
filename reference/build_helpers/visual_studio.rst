@@ -175,7 +175,7 @@ Use it together with :ref:`vcvars_command`.
                   self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
                   self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
 
-You can adjust the automatically filled attribures:
+You can adjust the automatically filled attributes:
 
 .. code-block:: python
    :emphasize-lines: 3, 4, 5
