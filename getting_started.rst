@@ -81,6 +81,14 @@ An MD5 Encrypter using the Poco Libraries
         short_paths: False
         apply_env: True
         build_policy: None
+        settings: ('os', 'arch', 'compiler', 'build_type')
+        options:
+            enable_apacheconnector: [True, False]
+            shared: [True, False]
+        default_options:
+            enable_apacheconnector: False
+            shared: False
+
 
 5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
    our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:

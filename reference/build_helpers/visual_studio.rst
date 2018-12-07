@@ -4,7 +4,7 @@
 MSBuild
 =======
 
-Calls Visual Studio :command:'msbuild` command to build a *.sln* project:
+Calls Visual Studio :command:`MSBuild` command to build a *.sln* project:
 
 .. code-block:: python
 
@@ -18,7 +18,11 @@ Calls Visual Studio :command:'msbuild` command to build a *.sln* project:
             msbuild.build("MyProject.sln")
 
 Internally the ``MSBuild`` build helper uses :ref:`visual_studio_build` to adjust the ``LIB`` and ``CL`` environment variables with all the
-information from the requirements: include directories, library names, flags etc. and then calls :command:`msbuild`.
+information from the requirements: include directories, library names, flags etc. and then calls :command:`MSBuild`.
+
+    - :ref:`VisualStudioBuildEnvironment<visual_studio_build>` to adjust the ``LIB`` and ``CL``
+      environment variables with all the information from the requirements: include directories, library names, flags etc.
+    - :ref:`tools.msvc_build_command<msvc_build_command>` to call ``MSBuild``.
 
 You can adjust all the information from the requirements accessing to the ``build_env`` that it is a :ref:`visual_studio_build` object:
 
@@ -68,7 +72,7 @@ build()
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
-              vcvars_ver=None, winsdk_version=None, properties=None)
+              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None)
 
 Builds Visual Studio project with the given parameters.
 
@@ -78,10 +82,12 @@ Parameters:
     - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv` to upgrade the solution to your current Visual Studio.
     - **build_type** (Optional, Defaulted to ``None``): Use a custom build type name instead of the default ``settings.build_type`` one.
     - **arch** (Optional, Defaulted to ``None``): Use a custom architecture name instead of the ``settings.arch`` one.
-      It will be used to build the ``/p:Configuration=`` parameter of ``msbuild``.
+      It will be used to build the ``/p:Configuration=`` parameter of :command:`MSBuild`.
       It can be used as the key of the **platforms** parameter. E.g. ``arch="x86", platforms={"x86": "i386"}``
-    - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
-    - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or :ref:`cpu_count`:
+    - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
+      version.
+    - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or
+      :ref:`cpu_count`:
 
         - **In the solution**: Building the solution with the projects in parallel. (``/m:`` parameter).
         - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag)
@@ -97,31 +103,52 @@ Parameters:
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
 
-    - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the :command:`msbuild` call.
+    - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the :command:`MSBuild` call.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dictionary ``{name: value}``
       it will append a ``/p:name="value"`` option.
+    - **output_binary_log** (Optional, Defaulted to ``None``): If set to ``True`` then MSBuild will output a binary log file called
+      *msbuild.binlog* in the working directory. It can also be used to set the name of log file like this
+      ``output_binary_log="my_log.binlog"``. This parameter is only supported
+      `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
 
 .. note::
 
-    The ``MSBuild()`` build helper will, before calling to ``msbuild``, call :ref:`vcvars_command<vcvars_command>` to adjust the environment according to the settings.
-    When cross-building from x64 to x86 the toolchain by default is ``x86``.
-    If you want to use ``amd64_x86`` instead, set the environment variable ``PreferredToolArchitecture=x64``.
-
+    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`vcvars_command` to adjust the environment
+    according to the settings. When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use ``amd64_x86``
+    instead, set the environment variable ``PreferredToolArchitecture=x64``.
 
 get_command()
 +++++++++++++
 
-Returns a string command calling :command:`msbuild`.
+Returns a string command calling :command:`MSBuild`.
 
 .. code-block:: python
 
-    def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True, build_type=None,
-                    arch=None, parallel=True, toolset=None, platforms=None, use_env=False):
+    def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True,
+                    build_type=None, arch=None, parallel=True, toolset=None, platforms=None,
+                    use_env=False, properties=None, output_binary_log=None)
 
 Parameters:
+    - **props_file_path** (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This
+      parameter is automatically set by the ``build()`` method to set the runtime from settings.
     - Same parameters as the ``build()`` method.
+
+get_version()
++++++++++++++
+
+Static method that returns the version of MSBuild for the specified settings.
+
+.. code-block:: python
+
+    def get_version(settings)
+
+Result is returned in a ``conans.model.Version`` object as it is evaluated by the command line. It will raise an exception if it cannot
+resolve it to a valid result.
+
+Parameters:
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.
 
 .. _visual_studio_build:
 
@@ -164,7 +191,6 @@ You can adjust the automatically filled attributes:
             self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
             self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
 
-
 Constructor
 -----------
 
@@ -176,9 +202,8 @@ Constructor
 
 Parameters:
     - **conanfile** (Required): ConanFile object. Usually ``self`` in a *conanfile.py*.
-    - **with_build_type_flags** (Optional, Defaulted to ``True``): If ``True``, it adjusts the compiler flags
-      according to the ``build_type`` setting. e.g: `-Zi`, `-Ob0`, `-Od`...
-
+    - **with_build_type_flags** (Optional, Defaulted to ``True``): If ``True``, it adjusts the compiler flags according to the
+      ``build_type`` setting. e.g: `-Zi`, `-Ob0`, `-Od`...
 
 Environment variables
 ---------------------
@@ -240,8 +265,7 @@ parallel
 
 Defaulted to ``False``.
 
-Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by
-:ref:`cpu_count`.
+Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`cpu_count`.
 
 .. seealso::
 

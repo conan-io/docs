@@ -141,14 +141,11 @@ Build your project normally, conan will create a ``conan`` folder with a folder 
 
 Then run the app using an x86 emulator for best performance:
 
-
 |wizard9|
 
+.. seealso::
 
-
-.. seealso:: Check the section :ref:`howtos/Cross building/Android <cross_building_android>` to read more about cross
-             building for Android.
-
+    Check the section :ref:`cross_building_android` to read more about cross building for Android.
 
 
 .. |android_studio_logo| image:: ../images/android_studio_logo.png

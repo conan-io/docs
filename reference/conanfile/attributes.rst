@@ -543,7 +543,7 @@ They can be specified as a comma separated tuple in the package recipe:
     class MyPkg(ConanFile):
         build_requires = "ToolA/0.2@user/testing", "ToolB/0.2@user/testing"
 
-Read more: :ref:`Build requiremens <build_requires>`
+Read more: :ref:`Build requirements <build_requires>`
 
 exports
 -------

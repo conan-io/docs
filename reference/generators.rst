@@ -40,3 +40,4 @@ Available generators:
    generators/text
    generators/json
    generators/premake
+   generators/make
