@@ -48,6 +48,7 @@ bytecode
 bzip
 cflags
 Changelog
+checksum
 chdir
 Chocolatey
 ci
@@ -161,6 +162,7 @@ internet
 io
 iOS
 IPv
+isn
 java
 JFrog
 jN
@@ -348,6 +350,7 @@ utf
 util
 vcvars
 ve
+verifiers
 versioned
 versioning
 Versioning

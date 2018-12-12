@@ -13,15 +13,15 @@ Conan can be integrated with **Visual Studio** in two different ways:
 With CMake
 ----------
 
-Use the **cmake** generator, or **cmake_multi**, if you are using cmake to machine-generate your Visual Studio projects.
+Use the ``cmake`` generator or ``cmake_multi`` if you are using CMake to machine-generate your Visual Studio projects.
 
-Check the :ref:`generator<generators>` section to read about the **cmake** generator.
+Check the :ref:`generators` section to read about the ``cmake`` generator.
 Check the official `CMake docs`_ to find out more about generating Visual Studio projects with CMake.
 
 
 .. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
 
-However, beware of some current cmake limitations, such as not dealing well with find-packages, because cmake doesn't know how to handle finding both debug and release packages.
+However, beware of some current CMake limitations, such as not dealing well with find-packages, because CMake doesn't know how to handle finding both debug and release packages.
 
 .. note::
 
@@ -39,7 +39,7 @@ You can use the **visual_studio** generator to manage your requirements via your
 .. |visual_logo| image:: ../images/visual-studio-logo.png
 
 
-This generator creates a `Visual Studio project properties`_ file, with all the *include paths*, *lib paths*, *libs*, *flags* etc, that can be imported in your project.
+This generator creates a `Visual Studio project properties`_ file, with all the *include paths*, *lib paths*, *libs*, *flags* etc., that can be imported in your project.
 
 .. _`Visual Studio project properties`: https://docs.microsoft.com/en-us/previous-versions/669zx6zc(v=vs.140)
 
@@ -114,7 +114,7 @@ You can build an existing Visual Studio from your ``build()`` method using the :
 Toolsets
 --------
 
-You can use the subsetting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
+You can use the sub-setting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
 It will be automatically applied when using the ``CMake()`` and ``MSBuild()`` build helpers.
 The toolset can be also specified manually in these build helpers with the ``toolset`` parameter.
 
