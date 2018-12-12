@@ -108,8 +108,12 @@ encrypter
 env
 envs
 exe
+executable
+executables
 exelinkflags
 expirable
+filename
+filenames
 findXXX
 FindXXX
 foo
@@ -117,6 +121,7 @@ fpic
 fPIC
 frontend
 ftp
+functionalities:
 gcc
 GCC
 github
@@ -167,6 +172,7 @@ Linting
 linux
 localhost
 login
+logins
 logout
 lXXX
 lzma
@@ -174,6 +180,10 @@ macOS
 Manjaro
 md
 MDd
+make
+Make
+Makefile
+Makefiles
 memsharded
 metadata
 mingw
@@ -257,7 +267,8 @@ rootpath
 rpath
 rpaths
 rpathXXX
-tuntime
+runtime
+Runtime
 runtimes
 scm
 scons
@@ -277,6 +288,8 @@ stderr
 stdlib
 stdout
 str
+subcommand
+subcommands
 subfolder
 Subfolder
 subfolders
@@ -341,6 +354,8 @@ wildcards
 workflow
 workflows
 Workflows
+workspaces
+Worspaces
 www
 xcode
 Xcode
@@ -351,3 +366,4 @@ youcompleteme
 zlib
 Zlib
 Zypper
+
