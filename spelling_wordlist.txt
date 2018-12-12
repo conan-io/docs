@@ -5,7 +5,9 @@ app
 apps
 appveyor
 Appveyor
+archiver
 archs
+aren
 Arduino
 args
 armbeabi
@@ -17,6 +19,10 @@ ascii
 astroid
 Astroid
 auth
+authenticator
+authenticators
+Authenticator
+Authenticator
 autodetect
 autodetected
 Autodetected
@@ -116,6 +122,7 @@ GCC
 github
 Github
 gitignore
+gitignored
 gitlab
 GitLab
 GTest
@@ -151,12 +158,16 @@ libc
 libC
 libcxx
 libdirs
+libs
 libstdc
 lifecycle
+linter
 linting
 Linting
 linux
 localhost
+login
+logout
 lXXX
 lzma
 macOS
@@ -175,6 +186,8 @@ msys
 MSYS
 msysgit
 MTd
+multi
+Multi
 multipart
 mutex
 namespace
@@ -244,6 +257,7 @@ rootpath
 rpath
 rpaths
 rpathXXX
+tuntime
 runtimes
 scm
 scons
@@ -280,6 +294,7 @@ SystemPackageTool
 tarball
 tarballs
 tgz
+tty
 timestamp
 toolchain
 Toolchain
@@ -319,6 +334,7 @@ virtualrunenv
 Virtualrunenv
 vswhere
 watchOS
+weren
 werror
 wildcard
 wildcards
