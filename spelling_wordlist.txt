@@ -404,7 +404,7 @@ Workflows
 workflows
 workspace
 workspaces
-Worspaces
+Workspaces
 www
 Xcode
 xcode
