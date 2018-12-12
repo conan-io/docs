@@ -41,7 +41,7 @@ You can use the **visual_studio** generator to manage your requirements via your
 
 This generator creates a `Visual Studio project properties`_ file, with all the *include paths*, *lib paths*, *libs*, *flags* etc, that can be imported in your project.
 
-.. _`Visual Studio project properties`: https://msdn.microsoft.com/en-us/library/669zx6zc.aspx
+.. _`Visual Studio project properties`: https://docs.microsoft.com/en-us/previous-versions/669zx6zc(v=vs.140)
 
 Open ``conanfile.txt`` and change (or add) the **visual_studio** generator:
 

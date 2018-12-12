@@ -510,7 +510,7 @@ Here is a table with some typical ARM platforms:
 
     **VISUAL STUDIO**
 
-    - https://msdn.microsoft.com/en-us/library/dn736986.aspx
+    - https://docs.microsoft.com/en-us/previous-versions/dn736986(v=vs.140)
 
 
 .. seealso::
