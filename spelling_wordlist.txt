@@ -1,5 +1,6 @@
 abiFilters
 Admin
+apache
 api
 app
 apps
@@ -35,6 +36,8 @@ bintray
 Bintray
 Bitbucket
 bjam
+boolean
+Boolean
 Borland
 boto
 Boto
@@ -81,6 +84,8 @@ cygwin
 Cygwin
 defaultConfig
 dependants
+deployable
+Deployable
 deps
 deserialization
 dev
@@ -121,7 +126,8 @@ fpic
 fPIC
 frontend
 ftp
-functionalities:
+functionality
+functionalities
 gcc
 GCC
 github
@@ -147,6 +153,10 @@ https
 hyperlinks
 includedirs
 inlined
+integration
+Integration
+integrations
+Integrations
 internet
 io
 iOS
@@ -200,7 +210,9 @@ multi
 Multi
 multipart
 mutex
+mytool
 namespace
+natively
 nginx
 Nginx
 NMake
@@ -229,6 +241,7 @@ precompiled
 premake
 Premake
 prepended
+prerelease
 prereleases
 pri
 proxying
@@ -293,6 +306,8 @@ subcommands
 subfolder
 Subfolder
 subfolders
+submodule
+submodules
 subsetting
 subsettings
 sudo
@@ -323,6 +338,7 @@ uname
 unicode
 uninstall
 unix
+unlink
 untargz
 url
 urls
