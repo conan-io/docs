@@ -184,7 +184,7 @@ libdirs
 libs
 libstdc
 lifecycle
-linkable:
+linkable
 linter
 linting
 Linting
