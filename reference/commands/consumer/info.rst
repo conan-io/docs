@@ -192,3 +192,6 @@ files in the root of the configuration folder:
 
 - *vis.min.js*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
 - *vis.min.css*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
+
+It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
+present, or the internet ones if not.
