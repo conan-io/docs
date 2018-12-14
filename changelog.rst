@@ -23,6 +23,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.10.1 (11-Dec-2018)
+--------------------
+
+- Fix: Handle some corner cases of python_requires `#4099 <https://github.com/conan-io/conan/pull/4099>`_
+- Bugfix: Add v1_only argument in Conan server class `#4096 <https://github.com/conan-io/conan/pull/4096>`_
+- Bugfix: Handle invalid use of `python_requires` when imported like `conans.python_requires` `#4090 <https://github.com/conan-io/conan/pull/4090>`_
+
+
 1.10.0 (4-Dec-2018)
 -------------------
 
