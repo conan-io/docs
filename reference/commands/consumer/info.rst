@@ -183,3 +183,12 @@ You can generate a graph of your dependencies, in dot or html formats:
     :height: 250 px
     :width: 300 px
     :align: center
+
+
+The generated html output contains links to third party resources, the *vis.js* library (2 files: *vis.min.js*, *vis.min.css*).
+They are by default retrieved from cloudfare. For environments where internet connection is not available, these files
+could be also used from the local cache, and thus, can be installed with ``conan config install``, by putting the following
+files in the root of the configuration folder:
+
+- *vis.min.js*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"
+- *vis.min.css*: Default link to "https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"
