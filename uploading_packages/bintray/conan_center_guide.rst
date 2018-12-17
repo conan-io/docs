@@ -152,7 +152,7 @@ In the Bintray page of your package, fill in the following fields:
     - Maturity
     - Website: If any, website of the library
     - Issues tracker: URL of the issue tracker from your github repository e.g.,
-      https://github.com/conan-community/conan-zlib/issues
+      https://github.com/conan-community/community/issues
     - Version control: URL of your recipe github repository, e.g.,
       https://github.com/conan-community/conan-zlib
     - GitHub repo (user/repo): e.g., conan-community/conan-zlib
