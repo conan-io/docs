@@ -56,7 +56,7 @@ that you receive a message like this:
 
 This doesn't mean that such architecture is not supported by conan, it is just that it is not present in the actual
 defaults settings. You can find in your user home folder ``~/.conan/settings.yml`` a settings file that you
-can modify, edit, add any setting or any value, with any nesting if necessary. 
+can modify, edit, add any setting or any value, with any nesting if necessary.
 
 As long as your team or users have the same settings (you can share with them the file), everything will work. The ``settings.yml`` file is just a
 mechanism so users agree on a common spelling for typically settings. Also, if you think that some settings would
@@ -78,7 +78,7 @@ When you install or create a package, it is possible to see an error like this:
 
     ERROR: Hello/0.1@user/testing: 'settings.arch' value not defined
 
-This means that the recipe defined ``settings = "os", "arch", ...`` but a value for the ``arch`` setting was 
+This means that the recipe defined ``settings = "os", "arch", ...`` but a value for the ``arch`` setting was
 not provided either in a profile or in the command line. Make sure to specify a value for it in your profile,
 or in the command line:
 
@@ -92,7 +92,7 @@ If you are building a pure C library with gcc/clang, you might encounter an erro
 
     ERROR: Hello/0.1@user/testing: 'settings.compiler.libcxx' value not defined
 
-Indeed, for building a C library, it is not necessary to define a C++ standard library. And if you provide a value, 
+Indeed, for building a C library, it is not necessary to define a C++ standard library. And if you provide a value,
 you might end with multiple packages for exactly the same binary. What has to be done is to remove such subsetting
 in your recipe:
 
@@ -136,3 +136,16 @@ It is possible that operating conan, some random exceptions (some with complete 
 - The user has some file or folder open (in a file editor, in the terminal), so it cannot be removed, and the process fails. Make sure to close files, specially if you are opening or inspecting the local conan cache.
 - In Windows, the Search Indexer might be opening and locking the files, producing random, difficult to reproduce and annoying errors. Please **disable the Windows Search Indexer for the conan local storage folder**
 
+
+ERROR: Error while initializing Options
+---------------------------------------
+
+When installing a Conan package and the follow error occurs:
+
+.. code-block:: text
+
+    ERROR: conanfile.py: Error while initializing options. Please define your default_options as list or multiline string
+
+Problably your Conan version is outdated.
+The error is related to `default_options` be used as dictionary and only can be handled by Conan >= 1.8.
+To fix this error, update Conan to 1.8 or higher.
