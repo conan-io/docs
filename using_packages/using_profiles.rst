@@ -99,6 +99,6 @@ To install dependencies using this new profile, we would use:
 
 .. seealso::
 
-    Read more about :ref:`profiles` for full reference. There is a conan command, :ref:`conan_profile`,
+    Read more about :ref:`profiles` for full reference. There is a Conan command, :ref:`conan_profile`,
     that can help inspecting and managing profiles. Profiles can be also shared and installed with the
     :ref:`conan_config_install` command.
