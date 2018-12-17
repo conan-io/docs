@@ -23,6 +23,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.10.1 (17-Dec-2018)
+--------------------
+
+- Bugfix: Fixed bad URL schema in ApiV2 that could cause URLs collisions `#4138 <https://github.com/conan-io/conan/pull/4138>`_
+
+
+
 1.10.1 (11-Dec-2018)
 --------------------
 
