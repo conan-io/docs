@@ -104,11 +104,11 @@ need to specify them.
 
   Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
 
-- Install the configuration from a Git repository:
+- Install the configuration from a Git repository with submodules:
 
   .. code-block:: bash
 
-      $ conan config install http://github.com/user/conan_config/.git
+      $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
