@@ -95,18 +95,7 @@ Recipe Quality
     def package():
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
-  Sometimes there is no ``license`` file, and you will need to extract the license from a header file, as in the following example:
-
-  .. code-block:: python
-
-    def package():
-        # Extract the License/s from the header to a file
-        tmp = tools.load("header.h")
-        license_contents = tmp[2:tmp.find("*/", 1)] # The license begins with a C comment /* and ends with */
-        tools.save("LICENSE", license_contents)
-
-        # Package it
-        self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
+  Sometimes there is no ``license`` file, for that, read :ref:`Howtos/Extract licenses from headers<extract_licenses_from_headers>`.
 
 - **Invalid configurations:** There is a special exception, ``conans.errors.ConanInvalidConfiguration`` to be launched
   from ``configure()`` function in a recipe if the given configuration/options is known not to work. This way the recipe
