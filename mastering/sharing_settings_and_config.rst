@@ -9,4 +9,4 @@ You can use the :command:`conan config install`.
 If you want to try this feature without affecting to your current configuration you can declare the ``CONAN_USER_HOME`` environment variable
 and point to a different directory.
 
-Read more in the section :ref:`reference/commands/conan config install<conan_config_install>`.
+Read more in the section :ref:`conan_config_install`.

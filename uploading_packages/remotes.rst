@@ -119,8 +119,8 @@ Conan Community
 .. note::
 
     If you are working in a team, you probably want to use the same remotes everywhere: developer machines, CI. The ``conan config install``
-    command can automatically define the remotes in a conan client, as well as other resources as profiles. Have a look at the
-    :ref:`conan config install<conan_config_install>` command.
+    command can automatically define the remotes in a Conan client, as well as other resources as profiles. Have a look at the
+    :ref:`conan_config_install` command.
 
 
 .. _`conan-center`: https://bintray.com/conan/conan-center
