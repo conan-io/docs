@@ -122,8 +122,8 @@ need to specify them.
 
       $ conan config install http://url/to/some/config.zip --verify-ssl=False
 
-  This will disable the SSL check of the certificate. This option is defaulted to ``True`` and it is not stored in *conan.conf*, so
-  following calls to this command will need to specify it again.
+  This will disable the SSL check of the certificate. This option is defaulted to ``True`` and it is also stored in *conan.conf*, so
+  following calls to this command don't need to specify it again.
 
 - Refresh the configuration again:
 
