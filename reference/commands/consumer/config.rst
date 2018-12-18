@@ -55,11 +55,11 @@ It can get its configuration files from a local or remote zip file, from a local
 files in the local Conan configuration.
 
 The configuration may contain all or a subset of the allowed configuration files. Only the files that are present will be
-replaced. The only exception is the **conan.conf** file for which only the variables declared will be installed,
+replaced. The only exception is the *conan.conf* file for which only the variables declared will be installed,
 leaving the other variables unchanged.
 
-This means for example that **profiles** and **hooks** files will be overwritten if already present, but no profile or
-hook file that the user has in the local machine will be deleted.
+This means for example that **profiles** and **hooks** files will be overwritten if already present, but no profile or hook file that the
+user has in the local machine will be deleted.
 
 All the configuration files will be copied to the Conan home directory. These are the special files and the rules applied to merge them:
 
@@ -74,9 +74,11 @@ All the configuration files will be copied to the Conan home directory. These ar
 +--------------------------------+----------------------------------------------------------------------+
 | config/conan.conf              | Merges the variables, overriding only the declared variables         |
 +--------------------------------+----------------------------------------------------------------------+
+| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists      |
++--------------------------------+----------------------------------------------------------------------+
 
 The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
-the ``~/.conan`` folder. Its format is a list of entries, one on each line, with the form
+the *~/.conan* folder. Its format is a list of entries, one on each line, with the form of
 
 .. code-block:: text
 
@@ -90,8 +92,8 @@ definitions part of the *registry.txt* file uses the format required for *remote
 provides a helpful starting point when writing a *remotes.txt* to be packaged in a Conan
 client configuration.
 
-The specified URL or path, the arguments used (if any) and the source type (from git, from dir, from zip file or from URL) will be stored in the
-``general.config_install`` variable of the ``conan.conf`` file, so as following calls to :command:`conan config install` command doesn't
+The specified URL or path, the arguments used (if any) and the source type (from git, from dir, from zip file or from URL) will be stored in
+the ``general.config_install`` variable of the *conan.conf* file, so as following calls to :command:`conan config install` command doesn't
 need to specify them.
 
 **Examples**:

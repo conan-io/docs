@@ -1,7 +1,7 @@
 .. _hooks:
 
 Hooks [EXPERIMENTAL]
-======================
+====================
 
 .. warning::
 
@@ -11,7 +11,7 @@ The Conan hooks is a feature intended to extend the Conan functionalities and le
 points.
 
 Hook structure
-----------------
+--------------
 
 Hooks are Python files containing **pre** and **post** functions that will be executed prior and after a determined task performed by the
 Conan client. Those tasks could be Conan commands, recipe interactions such as exporting or packaging or interactions with the remotes.
@@ -148,7 +148,7 @@ Storage, activation and sharing
 Hooks are Python files stored under *~/.conan/hooks* folder and **their file name should be the same used for activation** (without the
 *.py* extension).
 
-The activation of the hooks is done in the *conan.conf* section named ``[hooks]``. The hook names listed under this section will be
+The activation of the hooks is done in the *conan.conf* section named ``[hooks]``. The hook names or paths listed under this section will be
 considered activated.
 
 .. code-block:: text
@@ -158,22 +158,32 @@ considered activated.
     [hooks]
     attribute_checker
     conan-center
+    my_custom_hook/hook.py
 
 They can be easily activated and deactivated from the command line using the :command:`conan config set` command:
 
 .. code-block:: bash
 
-    $ conan config set hooks.attribute_checker  # Activates 'attribute_checker'
+    $ conan config set hooks.my_custom_hook/hook.py  # Activates 'my_custom_hook'
 
-    $ conan config rm hooks.attribute_checker  # Deactivates 'attribute_checker'
+    $ conan config rm hooks.my_custom_hook/hook.py  # Deactivates 'my_custom_hook'
 
 There is also an environment variable ``CONAN_HOOKS`` to list the active hooks. Hooks listed in *conan.conf* will be loaded into
 this variable and values in the environment variable will be used to load the hooks.
 
 Hooks are considered part of the Conan client configuration and can be shared as usual with the :ref:`conan_config_install` command.
+However, they can also be managed in isolated git repositories cloned into the *hooks* folder:
+
+.. code-block:: bash
+
+    $ cd ~/.conan/hooks
+    $ git clone https://github.com/conan-io/hooks.git conan_hooks
+    $ conan set hooks.conan_hooks/hooks/conan-center.py
+
+This way you can easily change from one version to another.
 
 Official Hooks
-----------------
+--------------
 
 There is a simple *attribute_checker* hook ready to be used in Conan. You can take it as a starting point to create your own ones.
 
