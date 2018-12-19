@@ -1382,7 +1382,7 @@ Methods:
 .. warning::
 
     SVN allows to checkout a subdirectory of the remote repository, take into account that the
-    return value of some of these function may depend on the root of the working copy that has been
+    return value of some of these functions may depend on the root of the working copy that has been
     checked out.
 
 
