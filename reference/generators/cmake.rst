@@ -33,6 +33,8 @@ For each requirement ``conanbuildinfo.cmake`` file declares the following variab
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_BIN_DIRS_XXX             | Binary folders  (default {CONAN_XXX_ROOT}/bin)                       |
 +--------------------------------+----------------------------------------------------------------------+
+| CONAN_SRC_DIRS_XXX             | Sources folders                                                      |
++--------------------------------+----------------------------------------------------------------------+
 | CONAN_LIBS_XXX                 | Library names to link                                                |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_DEFINES_XXX              | Library defines                                                      |
@@ -60,6 +62,8 @@ The values are ordered in the right order according to the dependency tree.
 | CONAN_LIB_DIRS                 | Aggregated library folders                                           |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_BIN_DIRS                 | Aggregated binary folders                                            |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_SRC_DIRS                 | Aggregated sources folders                                           |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_LIBS                     | Aggregated library names to link                                     |
 +--------------------------------+----------------------------------------------------------------------+
