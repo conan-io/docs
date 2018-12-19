@@ -36,6 +36,7 @@ bintray
 Bintray
 Bitbucket
 bjam
+blog
 boolean
 Boolean
 Borland
@@ -54,6 +55,7 @@ checksums
 Chocolatey
 ci
 CLion
+cloudflare
 cmake
 CMAKE
 CMake
@@ -85,6 +87,7 @@ cxx
 cxxflags
 cygwin
 Cygwin
+Debian
 defaultConfig
 dependants
 deployable
@@ -170,6 +173,7 @@ iOS
 IPv
 isn
 java
+jenkins
 JFrog
 jN
 jpeg
@@ -195,6 +199,7 @@ logins
 logout
 lXXX
 lzma
+Macos
 macOS
 Make
 make
@@ -232,6 +237,7 @@ OpenCV
 OpenSSL
 openssl
 openSUSE
+org
 os
 OSInfo
 overridable
@@ -355,6 +361,7 @@ toolchains
 toolset
 Toolsets
 toolsets
+Tox
 tracebacks
 travis
 tty
