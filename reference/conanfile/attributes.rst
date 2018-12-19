@@ -549,6 +549,8 @@ They can be specified as a comma separated tuple in the package recipe:
 
 Read more: :ref:`Build requirements <build_requires>`
 
+.. _exports_attribute:
+
 exports
 -------
 
@@ -1057,6 +1059,13 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
+
+SCM attributes are evaluated in the workspace context where the *conanfile.py* is located before
+exporting it to the Conan cache, so these values can be returned from arbitrary functions that
+depend on the workspace layout. Nevertheless, all the other code in the recipe must be able to
+run in the export folder inside the cache, where it has access only to the files exported (see
+attribute :ref:`exports <exports_attribute>`) and to any other functionality
+from a :ref:`python_requires <python_requires>`.
 
 To know more about the usage of ``scm`` check:
 

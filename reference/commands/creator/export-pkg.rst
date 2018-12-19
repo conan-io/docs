@@ -9,6 +9,7 @@ conan export-pkg
     $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-e ENV] [-f]
                        [-if INSTALL_FOLDER] [-o OPTIONS] [-pr PROFILE]
                        [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
+                       [-j JSON]
                        path reference
 
 Exports a recipe, then creates a package from local source and build folders.
@@ -55,6 +56,8 @@ and or '--profile'.
                             Directory containing the sources. Defaulted to the
                             conanfile's directory. A relative path to current
                             directory can also be specified
+      -j JSON, --json JSON  Path to a json file where the install information will
+                            be written
 
 
 :command:`conan export-pkg` executes the following methods of a *conanfile.py* whenever ``--package-folder`` is used:

@@ -1394,6 +1394,12 @@ Methods:
 - **get_repo_root()**:
     Returns the root folder of the working copy.
 
+.. warning::
+
+    SVN allows to checkout a subdirectory of the remote repository, take into account that the
+    return value of some of these functions may depend on the root of the working copy that has been
+    checked out.
+
 
 .. _tools_apple:
 
@@ -1494,3 +1500,18 @@ tools.latest_vs_version_installed()
 
 Returns a string with the major version of latest Microsoft Visual Studio available on machine. If no Microsoft Visual Studio installed,
 it returns ``None``.
+
+
+tools.apple_dot_clean()
+-----------------------
+
+.. code-block:: python
+
+    def apple_dot_clean(folder)
+
+Remove recursively all ``._`` files inside ``folder`` containing metadata information for Apple
+operating systems, these files can appear when unzipping a file that has been created in Macos.
+This tool will remove only files matching the pattern if there is file without the prefix too.
+
+Parameters:
+    - **folder** (Required): root folder to start deleting ``._`` files.

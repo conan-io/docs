@@ -51,18 +51,17 @@ conan config install
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
 is important to have common ``settings.yml``, ``profiles``, etc.
 
-It can get its configuration files from a local or remote zip file, or a local directory. It then installs the files
-in the local Conan configuration.
+It can get its configuration files from a local or remote zip file, from a local directory or from a git repository. It then installs the
+files in the local Conan configuration.
 
 The configuration may contain all or a subset of the allowed configuration files. Only the files that are present will be
-replaced. The only exception is the **conan.conf** file for which only the variables declared will be installed,
+replaced. The only exception is the *conan.conf* file for which only the variables declared will be installed,
 leaving the other variables unchanged.
 
-This means for example that **profiles** and **hooks** files will be overwritten if already present, but no profile or
-hook file that the user has in the local machine will be deleted.
+This means for example that **profiles** and **hooks** files will be overwritten if already present, but no profile or hook file that the
+user has in the local machine will be deleted.
 
-All the configuration files will be copied to the conan home directory.
-These are the special files and the rules applied to merge them:
+All the configuration files will be copied to the Conan home directory. These are the special files and the rules applied to merge them:
 
 +--------------------------------+----------------------------------------------------------------------+
 | File                           | How it is applied                                                    |
@@ -75,9 +74,11 @@ These are the special files and the rules applied to merge them:
 +--------------------------------+----------------------------------------------------------------------+
 | config/conan.conf              | Merges the variables, overriding only the declared variables         |
 +--------------------------------+----------------------------------------------------------------------+
+| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists      |
++--------------------------------+----------------------------------------------------------------------+
 
 The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
-the ``~/.conan`` folder. Its format is a list of entries, one on each line, with the form
+the *~/.conan* folder. Its format is a list of entries, one on each line, with the form of
 
 .. code-block:: text
 
@@ -91,8 +92,9 @@ definitions part of the *registry.txt* file uses the format required for *remote
 provides a helpful starting point when writing a *remotes.txt* to be packaged in a Conan
 client configuration.
 
-The specified URL will be stored in the ``general.config_install`` variable of the ``conan.conf`` file,
-so following calls to :command:`conan config install` command doesn't need to specify the URL.
+The specified URL or path, the arguments used (if any) and the source type (from git, from dir, from zip file or from URL) will be stored in
+the ``general.config_install`` variable of the *conan.conf* file, so as following calls to :command:`conan config install` command doesn't
+need to specify them.
 
 **Examples**:
 
@@ -104,11 +106,11 @@ so following calls to :command:`conan config install` command doesn't need to sp
 
   Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
 
-- Install the configuration from a Git repository:
+- Install the configuration from a Git repository with submodules:
 
   .. code-block:: bash
 
-      $ conan config install http://github.com/user/conan_config/.git
+      $ conan config install http://github.com/user/conan_config/.git --args "--recursive"
 
   You can also force the git download by using :command:`--type git` (in case it is not deduced from the URL automatically):
 
@@ -122,7 +124,8 @@ so following calls to :command:`conan config install` command doesn't need to sp
 
       $ conan config install http://url/to/some/config.zip --verify-ssl=False
 
-  This will disable the SSL check of the certificate. This option is defaulted to ``True``.
+  This will disable the SSL check of the certificate. This option is defaulted to ``True`` and it is also stored in *conan.conf*, so
+  following calls to this command don't need to specify it again.
 
 - Refresh the configuration again:
 

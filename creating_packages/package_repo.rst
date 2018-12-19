@@ -119,7 +119,7 @@ remote and commit of the local repository:
         ...
 
 
-You can commit and push the ``conanfile.py`` to your origin repository, which will always preserve the "auto"
+You can commit and push the ``conanfile.py`` to your origin repository, which will always preserve the ``auto``
 values. But when the file is exported to the conan local cache, the copied recipe in the local cache
 will point to the captured remote and commit:
 
@@ -139,10 +139,35 @@ will point to the captured remote and commit:
 
 
 So when you :ref:`upload the recipe <uploading_packages>` to a conan remote, the recipe will contain
-the "absolute" URL and commit.
+the "resolved" URL and commit.
 
 When you are requiring your ``HelloConan``, the ``conan install`` will retrieve the recipe from the
 remote. If you are building the package, the source code will be fetched from the captured url/commit.
+
+As SCM attributes are evaluated in the workspace context (see :ref:`scm attribute <scm_attribute>`),
+you can write more complex functions to retrieve the proper values, this source *conanfile.py* will
+be valid too:
+
+.. code-block:: python
+   :emphasize-lines: 7, 8
+
+    import os
+    from conans import ConanFile, CMake, tools
+
+    def get_remote_url():
+         """ Get remote url regardless of the cloned directory """
+         here = os.path.dirname(__file__)
+         svn = tools.SVN(here)
+         return svn.get_remote_url()
+
+    class HelloConan(ConanFile):
+         scm = {
+            "type": "svn",
+            "subfolder": "hello",
+            "url": get_remote_url(),
+            "revision": "auto"
+         }
+        ...
 
 
 .. tip::

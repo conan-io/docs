@@ -5,7 +5,7 @@ import sys
 
 commands = ["config", "get", "info", "install", "search", "create", "export-pkg", "export", "new",
             "test", "upload", "build", "package", "source", "alias", "copy", "download", "help",
-            "imports", "profile", "remote", "remove", "user"]
+            "imports", "inspect", "profile", "remote", "remove", "user"]
 
 folder = {
     "config": "consumer",
@@ -27,6 +27,7 @@ folder = {
     "download": "misc",
     "help": "misc",
     "imports": "misc",
+    "inspect": "misc",
     "profile": "misc",
     "remote": "misc",
     "remove": "misc",
@@ -75,10 +76,13 @@ for command in commands:
     text_help = output[1].replace("\\r", "").replace("\\n", "\n").rstrip()
 
     arguments_help = ""
-    for line in output[2].replace("\\r", "").splitlines():
+    for line in output[2].replace("\\r", "").replace("\\n", "\n").splitlines():
+        if line == "'" or line == "\"":
+            continue
         arguments_help += ("    %s\n" % line) if line else "\n"
 
     arguments_help = arguments_help.rstrip()
+    print(arguments_help)
 
     text = template.format(command, underline, small_help, text_help, arguments_help)
     text = text.replace("\\'", "\'")

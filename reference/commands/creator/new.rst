@@ -31,7 +31,8 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
                             folder, using "exports_sources" instead of retrieving
                             external code with the "source()" method
       -b, --bare            Create the minimum package recipe, without build()
-                            methodUseful in combination with "export-pkg" command
+                            method. Useful in combination with "export-pkg"
+                            command
       -cis, --ci-shared     Package will have a "shared" option to be used in CI
       -cilg, --ci-travis-gcc
                             Generate travis-ci files for linux gcc
@@ -46,11 +47,11 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
       -ciglc, --ci-gitlab-clang
                             Generate GitLab files for linux clang
       -ciccg, --ci-circleci-gcc
-                            Generate CicleCI files for linux gcc
+                            Generate CircleCI files for linux gcc
       -ciccc, --ci-circleci-clang
-                            Generate CicleCI files for linux clang
+                            Generate CircleCI files for linux clang
       -cicco, --ci-circleci-osx
-                            Generate CicleCI files for OSX apple-clang
+                            Generate CircleCI files for OSX apple-clang
       -gi, --gitignore      Generate a .gitignore with the known patterns to
                             excluded
       -ciu CI_UPLOAD_URL, --ci-upload-url CI_UPLOAD_URL
