@@ -206,6 +206,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
     self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
+    self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
     self.cpp_info.cppflags = []  # C++ compilation flags
@@ -231,6 +232,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
   default it is initialized to ``['res']``, and it is rarely changed.
 - **bindirs**: List of relative paths (starting from the package root) of directories in which to find library runtime binaries (like
   Windows .dlls). By default it is initialized to ``['bin']``, and it is rarely changed.
+- **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
+  .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
+  them in other packages too).
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
   so that including the library headers matches the binaries:
 - **cflags**, **cppflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
