@@ -158,6 +158,11 @@ Then the install command will retrieve the ``mytest_framework``, build and run t
 Common python code
 ------------------
 
+.. warning::
+
+    This way of reusing python code has been superseded by ``python_requires``.
+    Please check :ref:`python_requires`
+
 The same technique can be even used to inject and reuse python code in the package recipes, without having to declare dependencies to such
 python packages.
 
