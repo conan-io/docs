@@ -100,6 +100,7 @@ if __name__ == "__main__":
         config_git()
         clean_gh_pages()
         versions_dict = {"master": "1.10",
+                         "release/1.10.2": "1.10",
                          "release/1.9.4": "1.9",
                          "release/1.8.4": "1.8",
                          "release/1.7.4": "1.7",
