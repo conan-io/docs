@@ -42,6 +42,11 @@ You can adjust all the information from the requirements accessing to the ``buil
 
             msbuild.build("MyProject.sln")
 
+
+Also, to inject the flags corresponding to the ``compiler.runtime``, ``build_type`` and ``cppstd`` settings, the build helper
+generates a properties file (in the build folder) that is passed to ``msbuild`` with ``/p:ForceImportBeforeCppTargets="conan_build.props"``.
+
+
 Constructor
 -----------
 
@@ -112,6 +117,8 @@ Parameters:
       *msbuild.binlog* in the working directory. It can also be used to set the name of log file like this
       ``output_binary_log="my_log.binlog"``. This parameter is only supported
       `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
+    - **property_file_name** (Optional, Defaulted to ``None``): When ``None`` it will generate a file named ``conan_build.props``.
+      You can specify a different name for the generated properties file.
 
 .. note::
 
