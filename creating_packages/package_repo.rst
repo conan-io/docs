@@ -162,7 +162,7 @@ be valid too:
 
     class HelloConan(ConanFile):
          scm = {
-            "type": "git",
+            "type": "svn",
             "subfolder": "hello",
             "url": get_remote_url(),
             "revision": "auto"
