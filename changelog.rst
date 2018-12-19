@@ -32,7 +32,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Server prints the configuration used at startup to help debugging issues. `#4128 <https://github.com/conan-io/conan/pull/4128>`_
 - Feature: Allow hooks to be stored in folders `#4106 <https://github.com/conan-io/conan/pull/4106>`_ . Docs `here <https://github.com/conan-io/docs/pull/979>`__
 - Feature: Remove files containing Macos meta-data (files beginning by `._`) `#4103 <https://github.com/conan-io/conan/pull/4103>`_ . Docs `here <https://github.com/conan-io/docs/pull/978>`__
-- Feature: Allow arguments in :command:`git clone` for `:command:`conan config install` `#4083 <https://github.com/conan-io/conan/pull/4083>`_ . Docs `here <https://github.com/conan-io/docs/pull/975>`__
+- Feature: Allow arguments in :command:`git clone` for :command:`conan config install` `#4083 <https://github.com/conan-io/conan/pull/4083>`_ . Docs `here <https://github.com/conan-io/docs/pull/975>`__
 - Feature: Display the version-ranges resolutions in a cleaner way. `#4065 <https://github.com/conan-io/conan/pull/4065>`_
 - Feature: allow ``conan export . version@user/channel`` and ``conan create . version@user/channel`` `#4062 <https://github.com/conan-io/conan/pull/4062>`_ . Docs `here <https://github.com/conan-io/docs/pull/982>`__
 - Fix: `cmake_find_package` generator not forwarding all dependency properties `#4125 <https://github.com/conan-io/conan/pull/4125>`_
