@@ -16,33 +16,32 @@ Changelog
 
 Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
-
 .. important::
 
-  Conan 1.10 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
-  Read more about the :ref:`Conan stability commitment<stability>`.
+    Conan 1.11 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Read more about the :ref:`Conan stability commitment<stability>`.
 
 
-1.11.2 (19-Dec-2018)
+1.11.0 (19-Dec-2018)
 --------------------
 
-- Feature: Store verify_ssl argument in `conan config install` `#4158 <https://github.com/conan-io/conan/pull/4158>`_ . Docs `here <https://github.com/conan-io/docs/pull/976>`__
+- Feature: Store ``verify_ssl`` argument in :command:`conan config install` `#4158 <https://github.com/conan-io/conan/pull/4158>`_ . Docs `here <https://github.com/conan-io/docs/pull/976>`__
 - Feature: Tox launcher to run the test suite. `#4151 <https://github.com/conan-io/conan/pull/4151>`_
-- Feature: Allow ``--graph=file.html`` html output using local *vis.min.js* and *vis.min.css* resources if they are found in the local cache (can be deployed via ``conan config install``) `#4133 <https://github.com/conan-io/conan/pull/4133>`_ . Docs `here <https://github.com/conan-io/docs/pull/972>`__
+- Feature: Allow ``--graph=file.html`` html output using local *vis.min.js* and *vis.min.css* resources if they are found in the local cache (can be deployed via :command:`conan config install`) `#4133 <https://github.com/conan-io/conan/pull/4133>`_ . Docs `here <https://github.com/conan-io/docs/pull/972>`__
 - Feature: Improve client DEBUG traces with better and more complete messages. `#4128 <https://github.com/conan-io/conan/pull/4128>`_
 - Feature: Server prints the configuration used at startup to help debugging issues. `#4128 <https://github.com/conan-io/conan/pull/4128>`_
 - Feature: Allow hooks to be stored in folders `#4106 <https://github.com/conan-io/conan/pull/4106>`_ . Docs `here <https://github.com/conan-io/docs/pull/979>`__
 - Feature: Remove files containing Macos meta-data (files beginning by `._`) `#4103 <https://github.com/conan-io/conan/pull/4103>`_ . Docs `here <https://github.com/conan-io/docs/pull/978>`__
-- Feature: Allow arguments in git clone for `conan config install` `#4083 <https://github.com/conan-io/conan/pull/4083>`_ . Docs `here <https://github.com/conan-io/docs/pull/975>`__
+- Feature: Allow arguments in :command:`git clone` for `:command:`conan config install` `#4083 <https://github.com/conan-io/conan/pull/4083>`_ . Docs `here <https://github.com/conan-io/docs/pull/975>`__
 - Feature: Display the version-ranges resolutions in a cleaner way. `#4065 <https://github.com/conan-io/conan/pull/4065>`_
 - Feature: allow ``conan export . version@user/channel`` and ``conan create . version@user/channel`` `#4062 <https://github.com/conan-io/conan/pull/4062>`_ . Docs `here <https://github.com/conan-io/docs/pull/982>`__
 - Fix: `cmake_find_package` generator not forwarding all dependency properties `#4125 <https://github.com/conan-io/conan/pull/4125>`_
-- Fix: Recent updates in python break ConfigParser with % in values, like in path names containing % (jenkins) `#4122 <https://github.com/conan-io/conan/pull/4122>`_
-- Fix: The property file that the `MSBuild()` is now generated in the `build_folder` instead of a temporary folder to allow more reproducible builds. `#4113 <https://github.com/conan-io/conan/pull/4113>`_ . Docs `here <https://github.com/conan-io/docs/pull/980>`__
+- Fix: Recent updates in python break ``ConfigParser`` with ``%`` in values, like in path names containing % (jenkins) `#4122 <https://github.com/conan-io/conan/pull/4122>`_
+- Fix: The property file that the ``MSBuild()`` is now generated in the `build_folder` instead of a temporary folder to allow more reproducible builds. `#4113 <https://github.com/conan-io/conan/pull/4113>`_ . Docs `here <https://github.com/conan-io/docs/pull/980>`__
 - Fix: Fixed the check of the return code from Artifactory when using the checksum deploy feature. `#4100 <https://github.com/conan-io/conan/pull/4100>`_
 - Fix: Evaluate always SCM attribute before exporting the recipe `#4088 <https://github.com/conan-io/conan/pull/4088>`_ . Docs `here <https://github.com/conan-io/docs/pull/981>`__
 - Fix: Reordered Python imports `#4064 <https://github.com/conan-io/conan/pull/4064>`_
-- Bugfix: In ftp_download function there is extra call to ftp.login() with empty args. This causes ftp lib to login again with empty credentials and throwing exception because authentication is required by server. `#4092 <https://github.com/conan-io/conan/pull/4092>`_
+- Bugfix: In ftp_download function there is extra call to ``ftp.login()`` with empty args. This causes ftp lib to login again with empty credentials and throwing exception because authentication is required by server. `#4092 <https://github.com/conan-io/conan/pull/4092>`_
 - Bugfix: Take into account ``os_build`` and ``arch_build`` for search queries. `#4061 <https://github.com/conan-io/conan/pull/4061>`_
 
 
@@ -50,7 +49,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 --------------------
 
 - Bugfix: Fixed bad URL schema in ApiV2 that could cause URLs collisions `#4138 <https://github.com/conan-io/conan/pull/4138>`_
-
 
 
 1.10.1 (11-Dec-2018)
