@@ -28,6 +28,15 @@ with the 'conan upload' command.
                             if the recipe changed. Use this for testing purposes
                             only
 
+The ``reference`` field can be:
+
+- A complete package reference: ``pkg/version@user/channel``. In this case, the recipe doesn't need
+  to declare the name or the version. If the recipe declares them, they should match the provided values
+  in the command line.
+- The user and channel: ``user/channel``. The command will assume that the name and version are provided
+  by the recipe.
+- The version, user and channel: ``version@user/channel``. The recipe must provide the name, and if it
+  does provide the version, it should match the command line one.
 
 The ``export`` command will run a linting of the package recipe, looking for possible
 inconsistencies, bugs and py2-3 incompatibilities. It is possible to customize the rules for this
