@@ -84,13 +84,14 @@ the *~/.conan* folder. Its format is a list of entries, one on each line, with t
 
     [remote name] [remote url] [bool]
 
-where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote.
+where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. The remote definitions can be
+found in the *registry.txt*/*registry.json* files and they provide a helpful starting point when writing the *remotes.txt* to be packaged in
+a Conan client configuration.
 
-The local cache *registry.txt* file contains the remotes definitions, as well as the mapping from packages
-to remotes. In general it is not a good idea to add it to the installed files. That being said, the remote
-definitions part of the *registry.txt* file uses the format required for *remotes.txt*, so you may find it
-provides a helpful starting point when writing a *remotes.txt* to be packaged in a Conan
-client configuration.
+.. important::
+    The local cache *registry.txt*/*registry.json* file contains the remotes definitions as well as the mapping of installed packages from
+    remotes. Sharing the complete contents of this file via this command is not recommended as this records the status of the local cache,
+    which may be different from one machine to another.
 
 The specified URL or path, the arguments used (if any) and the source type (from git, from dir, from zip file or from URL) will be stored in
 the ``general.config_install`` variable of the *conan.conf* file, so as following calls to :command:`conan config install` command doesn't
