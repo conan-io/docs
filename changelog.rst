@@ -22,6 +22,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+
+1.11.1 (20-Dec-2018)
+--------------------
+
+- BugFix: Fix `conan config install` requester for zip file download `#4172 <https://github.com/conan-io/conan/pull/4172>`_
+
+
 1.11.0 (19-Dec-2018)
 --------------------
 
