@@ -179,8 +179,7 @@ default_user, default_channel
 For package recipes working in the user space, with local methods like :command:`conan install .` and :command:`conan build .`,
 there is no current user/channel. If you are accessing to ``self.user`` or ``self.channel`` in your recipe,
 you need to declare the environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` or you can set the attributes
-``default_user`` and ``default_channel``. You can also use python @properties:
-
+``default_user`` and ``default_channel``. You can also use python ``@properties``:
 
 .. code-block:: python
 

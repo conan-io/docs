@@ -377,9 +377,9 @@ See values behavior:
     - ``enabled``: Default value and any call to install method of ``SystemPackageTool`` helper should modify
       the system packages.
     - ``verify``: Display a report of system packages to be installed and abort with exception.
-      Useful if you don't want to allow conan to modify your system but you want to get a report of
+      Useful if you don't want to allow Conan to modify your system but you want to get a report of
       packages to be installed.
-    - ``disabled``: Display a report of system packages that should be installed but continue the conan execution and
+    - ``disabled``: Display a report of system packages that should be installed but continue the Conan execution and
       doesn't install any package in your system. Useful if you want to keep manual control of these dependencies,
       for example in your development environment.
 
@@ -409,14 +409,14 @@ CONAN_TRACE_FILE
 
 **Defaulted to**: Not defined
 
-If you want extra logging information about your conan command executions, you can enable it by setting the ``CONAN_TRACE_FILE`` environment variable.
+If you want extra logging information about your Conan command executions, you can enable it by setting the ``CONAN_TRACE_FILE`` environment variable.
 Set it with an absolute path to a file.
 
 .. code-block:: bash
 
     export CONAN_TRACE_FILE=/tmp/conan_trace.log
 
-When the conan command is executed, some traces will be appended to the specified file. 
+When the Conan command is executed, some traces will be appended to the specified file. 
 Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
 ``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
 
@@ -426,13 +426,11 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 
     Read more here: :ref:`logging_and_debugging` 
 
-CONAN_USER, CONAN_CHANNEL
--------------------------
+CONAN_USERNAME, CONAN_CHANNEL
+-----------------------------
 
-Environment variables commonly used in ``test_package`` conanfiles, to allow package creation for
-different users and channel without modifying the code. They are also the environment variables
-that will be checked when using ``self.user`` or ``self.channel`` in ``conanfile.py`` package recipes
-in user space, where a user/channel has not been assigned yet (it is assigned when exported in the local cache).
+These environment variables will be checked when using ``self.user`` or ``self.channel`` in package recipes in user space, where the user
+and channel have not been assigned yet (they are assigned when exported in the local cache).
 
 .. seealso::
 
@@ -443,7 +441,7 @@ CONAN_USER_HOME
 
 **Defaulted to**: Not defined
 
-Allows defining a custom conan cache directory. Can be useful for concurrent builds under different
+Allows defining a custom Conan cache directory. Can be useful for concurrent builds under different
 users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
 
 .. seealso::
@@ -476,7 +474,7 @@ CONAN_VERBOSE_TRACEBACK
 
 **Defaulted to**: ``0``
 
-When an error is raised in a recipe or even in the conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
+When an error is raised in a recipe or even in the Conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
 
 CONAN_VS_INSTALLATION_PREFERENCE
 --------------------------------
