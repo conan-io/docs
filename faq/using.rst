@@ -100,7 +100,7 @@ information is displayed in yellow with:
 
     $ conan search Pkg/0.1@user/channel --table=file.html
     # open file.html
-    It will show outdated binaries in yellow.
+    # It will show outdated binaries in yellow.
 
 This information is important to know if the packages are up to date with the recipe or even if the package are still "accessible" from the
 recipe. That means: if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
