@@ -102,7 +102,7 @@ information is displayed in yellow with:
     # open file.html
     # It will show outdated binaries in yellow.
 
-This information is important to know if the packages are up to date with the recipe or even if the package are still "accessible" from the
+ This information is important to know if the packages are up to date with the recipe or even if the packages are still "accessible" from the
 recipe. That means: if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
 that were generated previously with that option, that package will be impossible to install as the package ID is calculated from the recipe
 file (and that option does not exist anymore).
