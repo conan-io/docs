@@ -158,15 +158,15 @@ considered activated.
     [hooks]
     attribute_checker
     conan-center
-    my_custom_hook/hook.py
+    my_custom_hook/hook
 
 They can be easily activated and deactivated from the command line using the :command:`conan config set` command:
 
 .. code-block:: bash
 
-    $ conan config set hooks.my_custom_hook/hook.py  # Activates 'my_custom_hook'
+    $ conan config set hooks.my_custom_hook/hook  # Activates 'my_custom_hook'
 
-    $ conan config rm hooks.my_custom_hook/hook.py  # Deactivates 'my_custom_hook'
+    $ conan config rm hooks.my_custom_hook/hook  # Deactivates 'my_custom_hook'
 
 There is also an environment variable ``CONAN_HOOKS`` to list the active hooks. Hooks listed in *conan.conf* will be loaded into
 this variable and values in the environment variable will be used to load the hooks.
