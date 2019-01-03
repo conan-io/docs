@@ -84,3 +84,48 @@ to distribute a unified *settings.yml* file you can use the :ref:`conan config i
 
     The *settings.yml* file is not perfect nor definitive and surely incomplete. Please share any suggestion in the Conan issue tracker
     with any missing settings and values that could make sense for other users.
+
+
+Architectures
+-------------
+
+Here you can find a brief explanation of each of the architectures defined as ``arch``, ``arch_build`` and ``arch_target`` settings.
+
+- **x86**: The popular 32 bit x86 architecture.
+
+- **x86_64**: The popular 64 bit x64 architecture.
+
+- **ppc32**: The PowerPC 32 bit architecture.
+
+- **ppc64le**: The PowerPC 64 bit Little Endian architecture.
+
+- **ppc64**: The PowerPC 64 bit Big Endian architecture.
+
+- **armv6**: The ARM 32 bit version 6 architecture.
+
+- **armv7**: The ARM 32 bit version 7 architecture.
+
+- **armv7hf**: The ARM 32 bit version 7 hard-float architecture.
+
+- **armv7s**: The ARM 32 bit version 7 *swift* architecture mostly used in Apple's A6 and A6X chips on iPhone 5, iPhone 5C and iPad 4.
+
+- **armv7k**: The ARM 32 bit version 7 *k* architecture mostly used in Apple's WatchOS.
+
+- **armv8**: The ARM 64 bit and 32 bit compatible version 8 architecture. It covers only the ``aarch64`` instruction set.
+
+- **armv8_32**: The ARM 32 bit version 8 architecture. It covers only the ``aarch32`` instruction set (a.k.a. ``ILP32``).
+
+- **armv8.3**: The ARM 64 bit and 32 bit compatible version 8.3 architecture. Also known as ``arm64e``, it is used on the A12 chipset added
+  in the latest iPhone models (XS/XS Max/XR).
+
+- **sparc**: The SPARC (Scalable Processor Architecture) originally developed by Sun Microsystems.
+
+- **sparcv9**: The SPARC version 9 architecture.
+
+- **mips**: The 32 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
+  Systems).
+
+- **mips64**: The 64 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
+  Systems).
+
+- **avr**: The 8 bit AVR microcontroller architecture developed by Atmel (Microchip Technology).
