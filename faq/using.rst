@@ -82,3 +82,27 @@ configurations).
 From the perspective of a library developer, channels could be used to create different scopes of your library. For example, use ``rc``
 channel for release candidates, maybe ``experimental`` for those kind of features, or even ``qa``/``testing`` before the library is checked
 by QA department or testers.
+
+What does "outdated from recipe" mean exactly?
+----------------------------------------------
+
+In some output or commands there are references to "outdated" or "outdated from recipe". For example, there is a flag :command:`--outdated`
+in :command:`conan search` and :command:`conan remove` to filter by outdated packages.
+
+When packages are created, Conan stores some metadata of the package such as the settings, the final resolution of the dependencies... and
+it also saves the recipe hash of the recipe contents they were generated with. This way Conan is able to know the real relation between a
+recipe and a package.
+
+Basically outdated packages appear when you modify a recipe and export and/or upload it, without re-building binary packages with it. This
+information is displayed in yellow with:
+
+.. code-block:: bash
+
+    $ conan search Pkg/0.1@user/channel --table=file.html
+    # open file.html
+    # It will show outdated binaries in yellow.
+
+This information is important to know if the packages are up to date with the recipe or even if the packages are still "accessible" from the
+recipe. That means: if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
+that were generated previously with that option, those packages will be impossible to install as their package ID are calculated from the
+recipe file (and that option does not exist anymore).
