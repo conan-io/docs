@@ -1048,8 +1048,9 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 
 
 - **type** (Required): Currently only ``git`` and ``svn`` are supported. Others can be added eventually.
-- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working copy.
-  When type is ``svn`` it can contain the `peg_revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_.
+- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working
+  copy (credentials will be removed from it). When type is ``svn`` it can contain
+  the `peg_revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_.
 - **revision** (Required): id of the revision or ``auto`` to capture the current working copy one.
   When type is ``git``, it can also be the branch name or a tag.
 - **subfolder** (Optional, Defaulted to ``.``): A subfolder where the repository will be cloned.
