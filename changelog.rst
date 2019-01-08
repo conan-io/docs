@@ -22,6 +22,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.11.2 (8-Jan-2018)
+--------------------
+
+- Bugfix: The migrated data in the server from a version previous to Conan `1.10.0` was not migrated creating the needed indexes.
+  This fixes the migration and creates the index on the fly for fixing broken migrations.
+  Also the server doesn't try to migrate while running but warns the user to run `conan server --migrate` after
+  doing a backup of the data, avoiding issues when running the production servers like gunicorn where the process
+  doesn't accept input from the user. `#4229 <https://github.com/conan-io/conan/pull/4229>`_
+
+
 
 1.11.1 (20-Dec-2018)
 --------------------
