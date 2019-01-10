@@ -1026,8 +1026,12 @@ to :ref:`repackage artifacts <repackage>`
 
 .. _scm_attribute:
 
-scm
----
+scm [EXPERIMENTAL]
+------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 Used to clone/checkout a repository. It is a dictionary with the following possible values:
 
