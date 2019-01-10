@@ -616,11 +616,12 @@ in your conanfile:
     from conans import tools
     
     def build(self):
-        with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx"}):
+        with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx", "CPPFLAGS": None}):
             do_something()
 
-The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. When the context
-manager block ends, the environment variables will be unset.
+The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. 
+Additionally, if value is ``None``, the given environment variable is unset (In the previous example, ``CPPFLAGS`` environment
+variable will be unset). When the context manager block ends, the environment variables will recover their previous state.
 
 Parameters:
     - **env_vars** (Required): Dictionary object with environment variable name and its value.
