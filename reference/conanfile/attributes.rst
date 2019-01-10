@@ -517,14 +517,13 @@ The syntax is using brackets:
 ..  code-block:: python
 
     class HelloConan(ConanFile):
-        requires = "Pkg/[>1.0,<1.8]@user/stable"
+        requires = "Pkg/[>1.0 <1.8]@user/stable"
 
-Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/),
-but using a comma instead of spaces. Accepted expressions would be:
+Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/). Accepted expressions would be:
 
 ..  code-block:: python
 
-    >1.1,<2.1    # In such range
+    >1.1 <2.1    # In such range
     2.8          # equivalent to =2.8
     ~=3.0        # compatible, according to semver
     >1.1 || 0.8  # conditions can be OR'ed
