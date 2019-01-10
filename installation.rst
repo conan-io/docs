@@ -51,6 +51,18 @@ Install Conan:
       workarounds is available here: https://github.com/GrahamDumpleton/wrapt/issues/112.
     - Conan works with Python 2.7, but not all features are available when not using Python 3.x starting with version 1.6
 
+Known installation issues with pip
+++++++++++++++++++++++++++++++++++
+
+- With Python 3.4 the installation sometimes fails with ``NameError: name 'implementation_name' is not defined``. This issue seems to
+  happen when using `pip` without a virtual environment. You can fix it by upgrading `pip` this way:
+
+.. code-block:: bash
+
+    $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    $ python3.4 get-pip.py
+    $ pip install conan
+
 Install from brew (OSX)
 -----------------------
 

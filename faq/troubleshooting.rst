@@ -142,10 +142,10 @@ ERROR: Error while initializing Options
 
 When installing a Conan package and the follow error occurs:
 
-.. code-block:: text
+.. code-block:: bash
 
     ERROR: conanfile.py: Error while initializing options. Please define your default_options as list or multiline string
 
-Problably your Conan version is outdated.
+Probably your Conan version is outdated.
 The error is related to `default_options` be used as dictionary and only can be handled by Conan >= 1.8.
 To fix this error, update Conan to 1.8 or higher.
