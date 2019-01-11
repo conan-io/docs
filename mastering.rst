@@ -17,3 +17,4 @@ This section provides an introduction to important productivity features and use
    mastering/logging
    mastering/sharing_settings_and_config
    mastering/custom_cache
+   mastering/editable_packages
