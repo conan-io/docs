@@ -1026,8 +1026,8 @@ to :ref:`repackage artifacts <repackage>`
 
 .. _scm_attribute:
 
-scm [EXPERIMENTAL]
-------------------
+scm
+---
 
 .. warning::
 
