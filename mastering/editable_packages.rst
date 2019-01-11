@@ -1,3 +1,5 @@
+.. _editable_packages:
+
 Packages in editable mode
 =========================
 
