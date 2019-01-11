@@ -1,5 +1,9 @@
-Packages in editable mode [EXPERIMENTAL]
-========================================
+Packages in editable mode
+=========================
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 When working in big projects with several functionalities interconnected it is recomended to avoid
 the one-and-only huge project approach in favor of several libraries each one of them specialized
@@ -39,15 +43,15 @@ resources of ``cool`` are used from the Conan local cache.
 Put a package in editable mode
 ------------------------------
 
-To avoid creating the package ``cool/version@user/dev`` in the cache for every change, we can
-create **a link from the package in the cache to the local working directory**:
+To avoid creating the package ``cool/version@user/dev`` in the cache for every change, we are going
+to create **a link from the package in the cache to the local working directory**:
 
 .. code-block:: bash
 
     $ conan link <path/to/local/dev/libcool> cool/version@user/dev
 
-and we need a file to tell Conan what is the layout of your local project in order to provide the
-proper paths to the build system. There are several ways to achieve this objective:
+and all we need is a file to tell Conan what is the layout of our local project in order to provide
+the proper paths to the build system. There are several ways to achieve this objective:
 
  * A file next to the *conanfile.py* with the name *.conan_layout*:
 
@@ -108,18 +112,11 @@ In order to revert the editable mode just remove the link using:
 
     $ conan link --remove cool/version@user/dev
 
-It will remove the link (the local directory won't be affected) and all the packages using this
-requirement will use the one in the cache again.
+It will remove the link (the local directory won't be affected) and all the packages consuming this
+requirement will get it from the cache again.
 
 .. warning::
 
-   Packages that are built using an editable package in its graph upstreams can generate binaries
+   Packages that are built consuming an editable package in its graph upstreams can generate binaries
    and packages incompatible with the released version of the editable package. Avoid uploading
    these packages without re-creating them with the in-cache version of all the libraries.
-
-
-.. note::
-
-   This is an experimental feature and it is in its early stage, it can suffer changes on its
-   interface, behavior or be totally removed. But, if you start to use it, we would very
-   pleased to hear from your experience and receive feedback. Thanks.
