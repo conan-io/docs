@@ -99,11 +99,12 @@ where the editable package has been linked to.
 Using a package in editable mode
 --------------------------------
 
-Once a package is in editable mode it is used **system wide** by Conan (by every Conan client that
-uses the same cache), no changes are required in the consumers. Every :command:`conan install`
-command that requires our editable ``cool/version@user/dev`` package will use the paths to
-the local directory and the changes made to this project will be taken into account by the
-packages using its headers or linking against it.
+Once a reference is in editable mode it is used **system wide** (for every set of ``settings`` and
+``options``) by Conan (by every Conan client that uses the same cache), no changes are
+required in the consumers. Every :command:`conan install` command that requires our editable
+``cool/version@user/dev`` package will use the paths to the local directory and the changes
+made to this project will be taken into account by the packages using its headers or linking
+against it.
 
 Revert the editable mode
 ------------------------
