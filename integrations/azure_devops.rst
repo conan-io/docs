@@ -21,13 +21,12 @@ In this section we will show you how to add Conan tasks to your pipelines using 
 Extension and push the generated buildinfo metadata to Artifactory where it can be used to track
 and automate your builds.
 
-
 Configuring DevOps Azure to use Artifactory with Conan
 ------------------------------------------------------
 
 To use the Conan support provided by the JFrog Artifactory Extension you must
 `configure a self-hosted agent`_
-that will enable Conan builds for your Azure Pipelines environment. Afterward you can install
+that will enable Conan builds for your Azure Pipelines environment. Afterwards you can install
 the JFrog Artifactory Extension from the Visual Studio Marketplace and follow the installation
 instructions in the Overview.
 
@@ -36,7 +35,6 @@ instructions in the Overview.
    :alt: Azure DevOps
 
 When completed, proceed to create builds and access buildinfo from within Azure DevOps or TFS.
-
 
 Steps to follow
 ---------------
@@ -68,7 +66,6 @@ To add Artifactory to Azure DevOps:
       :width: 800 px
       :alt: Azure DevOps
 
-
 STEP 2: Add a Conan task
 ++++++++++++++++++++++++
 
@@ -99,9 +96,7 @@ To add a Conan task:
       :width: 800 px
       :alt: Azure DevOps
 
-
 Continue to add Conan tasks as you need for each pipeline.
-
 
 STEP 3: Configure the Push task buildinfo to Artifactory
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
