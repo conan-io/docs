@@ -22,10 +22,8 @@ consumption in your local working directory? Not need to package, just tell Cona
 artifacts you have just generated with your IDE, sounds good? This is what the feature
 *editable packages* will do for you.
 
-
 Let's see this feature over an example where a developer is creating a ``CoolApp`` but at the same
 time he/she wants to work on ``cool/version@user/dev`` which is tightly coupled to the app.
-
 
 Setting it all up
 -----------------
@@ -36,8 +34,7 @@ a :command:`conan create . libCool/version@user/dev` to create the package.
 
 Also, there is a *conanfile.txt* (or a more complex recipe) for the application ``CoolApp`` that
 has ``cool/version@user/dev`` among its requirements. When building this application, the
-resources of ``cool`` are used from the *data* directory inside the Conan local cache.
-
+resources of ``cool`` are used from the Conan local cache.
 
 Put a package in editable mode
 ------------------------------
@@ -85,14 +82,13 @@ proper paths to the build system. There are several ways to achieve this objecti
 
    This file can be very handy inside a company where all the packages have the same layout.
 
-As you can see, you can use inside these files some **placeholders** that will be substituted with
+As you can see, you can use some **placeholders** inside these files that will be substituted with
 the values of the ``settings`` and the ``options`` of the package.
 
-About the precedence if both files are present, Conan will use the one inside the repository if
+Regarding the precedence if both files are present, Conan will use the one inside the repository if
 present, then the one in the Conan cache, and if none is available, Conan will fallback to the
-directories defined in the ``package_info`` method of the recipe itself but related to the path
+directories defined in the ``package_info`` method of the recipe itself but relative to the path
 where the editable package has been linked to.
-
 
 Using a package in editable mode
 --------------------------------
@@ -103,11 +99,10 @@ command that requires our editable ``cool/version@user/dev`` package will use th
 the local directory and the changes made to this project will be taken into account by the
 packages using its headers or linking against it.
 
-
 Revert the editable mode
 ------------------------
 
-In order to revert the editable mode, only the link has to be removed, there is command for that:
+In order to revert the editable mode just remove the link using:
 
 .. code-block:: bash
 
@@ -115,7 +110,6 @@ In order to revert the editable mode, only the link has to be removed, there is 
 
 It will remove the link (the local directory won't be affected) and all the packages using this
 requirement will use the one in the cache again.
-
 
 .. warning::
 
