@@ -44,7 +44,7 @@ Put a package in editable mode
 ------------------------------
 
 To avoid creating the package ``cool/version@user/dev`` in the cache for every change, we are going
-to create **a link from the package in the cache to the local working directory**:
+to create **a link from the reference in the cache to the local working directory**:
 
 .. code-block:: bash
 
