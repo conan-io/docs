@@ -45,6 +45,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # cmake_find_root_path_mode_library   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY
     # cmake_find_root_path_mode_include   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE
 
+    # msbuild_verbosity = minimal         # environment CONAN_MSBUILD_VERBOSITY
+
     # cpu_count = 1             # environment CONAN_CPU_COUNT
 
     # Change the default location for building test packages to a temporary folder
@@ -109,6 +111,13 @@ Set it with the bash executable path if it's not in the PATH or you want to use 
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
+
+The ``msbuild_verbosity`` variable is used only by :ref:`MSBuild<msbuild>` and :ref:`CMake<cmake_reference>` build helpers.
+For the :ref:`CMake<cmake_reference>` build helper, it has an effect only for ```Visual Studio``` generators.
+Variable defines verbosity level used by the ```msbuild``` tool, as documented on `MSDN <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017>`.
+By default, ```minimal`` verbosity level is used, matching the Visual Studio IDE behavior.
+Allowed values are (in ascending order): ```quiet```, ```minimal```, ```normal```, ```detailed```, ```diagnostic```.
+You can also adjust the environment variable ``CONAN_BSBUILD_VERBOSITY``.
 
 The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return,
 by default the number of cores available in your machine.
