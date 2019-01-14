@@ -1,8 +1,8 @@
 .. _azure_devops:
 
 
-|azure_logo| Azure DevOps
-=========================
+|azure_logo| Microsoft's Azure DevOps (TFS, VSTS)
+=================================================
 
 Thanks to the `JFrog Artifactory Extension for Azure DevOps and TFS`_ it is possible to support
 Conan tasks and integrate it with the CI development platform provided by `Microsoft’s Azure DevOps`_
@@ -17,7 +17,7 @@ tasks in Azure DevOps or TFS:
  * Publish BuildInfo metadata
  * Import a Conan configuration
 
-In this section we will show you how to add Conan tasks to your pipelines using the Artifactory
+In this section we will show you how to add Conan tasks to your pipelines using the Artifactory/Conan
 Extension and push the generated buildinfo metadata to Artifactory where it can be used to track
 and automate your builds.
 
@@ -131,6 +131,9 @@ in Artifactory.
    :width: 800 px
    :alt: Azure DevOps
 
+.. seealso::
+
+   The documentation for this integration is taken from the `JFrog blog`_.
 
 
 .. |azure_logo| image:: ../images/azure_logo.png
@@ -140,3 +143,4 @@ in Artifactory.
 .. _`JFrog Artifactory Extension for Azure DevOps and TFS`: https://marketplace.visualstudio.com/items?itemName=JFrog.jfrog-artifactory-vsts-extension
 .. _`Artifactory binary repository manager`: https://jfrog.com/artifactory/
 .. _`configure a self-hosted agent`: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=vsts
+.. _`JFrog blog`: https://jfrog.com/blog/accelerate-azure-devops-or-tfs-with-jfrog-artifactory-and-conan/
