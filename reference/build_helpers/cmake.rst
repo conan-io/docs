@@ -50,7 +50,7 @@ Constructor
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
-                     set_cmake_flags=False, msbuild_verbosity)
+                     set_cmake_flags=False, msbuild_verbosity=None)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
