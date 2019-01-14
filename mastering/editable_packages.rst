@@ -55,7 +55,7 @@ to create **a link from the reference in the cache to the local working director
 and all we need is a file to tell Conan what is the layout of our local project in order to provide
 the proper paths to the build system. There are several ways to achieve this objective:
 
- * A file next to the *conanfile.py* (of the package ``cool``) with the name *.conan_layout*:
+ * A file next to the *conanfile.py* (of the package ``cool``) exists with the name *.conan_layout*:
 
    .. code-block:: ini
 
@@ -69,9 +69,9 @@ the proper paths to the build system. There are several ways to achieve this obj
        [bindirs]
        build/{settings.build_type}/{options.shared}
 
- * A file inside the Conan cache in the path *layouts/default*. As this file can contain information
-   for several packages, each section must declare which packages it applies to, this is achieved
-   using a *namespace* with the name of the package or the wildcard ``*``:
+ * A file is present inside the Conan cache in the path *layouts/default*. As this file can contain
+   information for several packages, each section must declare which packages it applies to, this
+   is achieved using a *namespace* with the name of the package or the wildcard ``*``:
 
    .. code-block:: ini
 
