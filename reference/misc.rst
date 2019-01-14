@@ -161,3 +161,51 @@ discard additional items. Useful to check compatibility with major/minor version
     False
     >>> Version("1.2.3").compatible(Version("1.2.2").minor())
     True
+
+Comparison
+++++++++++
+
+This class also provides users with the common comparison methods for versions following semantic versioning. Here are some examples to
+illustrate its behavior.
+
+Equality
+^^^^^^^^
+
+.. code-block:: bash
+
+    >>> Version("1.2.3") == "1.3.0"
+    True
+
+Greater than
+^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    >>> Version("1.2.3") > "1.1"
+    True
+    >>> Version("1.2.3") > None
+    True
+    >>> Version("1.2.3") > "1.2.2.2"
+    True
+
+Less than
+^^^^^^^^^
+
+.. code-block:: bash
+
+    >>> Version("1.2.3") < "1.11"
+    True
+    >>> Version("1.2.3") < "1.2.3.2"
+    True
+    >>> Version("1.2.1-dev") < Version("1.2.1")
+    True
+
+Non Equality
+^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    >>> Version("4.0.1") != "4"
+    True
+    >>> Version("1.2.3") != Version("1.2.3.4")
+    True
