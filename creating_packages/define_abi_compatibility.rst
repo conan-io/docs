@@ -91,8 +91,7 @@ For example, if you are sure your package ABI compatibility is fine for GCC vers
 
 .. code-block:: python
 
-    from conans import ConanFile, CMake, tools
-    from conans.model.version import Version
+    from conans import ConanFile, CMake, tools, Version
 
     class PkgConan(ConanFile):
         name = "Pkg"
@@ -238,8 +237,7 @@ If it is necessary to change the default behavior, the applied versioning schema
 
 .. code-block:: python
 
-    from conans import ConanFile, CMake, tools
-    from conans.model.version import Version
+    from conans import ConanFile, CMake, tools, Version
 
     class PkgConan(ConanFile):
         name = "Mylib"

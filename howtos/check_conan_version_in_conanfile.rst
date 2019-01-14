@@ -11,8 +11,7 @@ Let's have a look at a basic example of this:
 .. code-block:: python
    :caption: conanfile.py
 
-    from conans import ConanFile, CMake, __version__ as conan_version
-    from conans.model.version import Version
+    from conans import ConanFile, CMake, Version, __version__ as conan_version
 
 
     class MyLibraryConan(ConanFile):
@@ -37,8 +36,7 @@ interesting part of the recipe:
 .. code-block:: python
    :caption: conanfile.py
 
-    from conans import ConanFile, tools, __version__ as conan_version
-    from conans.model.version import Version
+    from conans import ConanFile, tools, Version, __version__ as conan_version
 
 
     class MingwInstallerConan(ConanFile):
