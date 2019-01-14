@@ -20,3 +20,4 @@ Contents:
    reference/config_files
    reference/env_vars
    reference/hooks
+   reference/misc
