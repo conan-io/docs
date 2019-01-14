@@ -55,7 +55,7 @@ to create **a link from the reference in the cache to the local working director
 and all we need is a file to tell Conan what is the layout of our local project in order to provide
 the proper paths to the build system. There are several ways to achieve this objective:
 
- * A file next to the *conanfile.py* with the name *.conan_layout*:
+ * A file next to the *conanfile.py* (of the package ``cool``) with the name *.conan_layout*:
 
    .. code-block:: ini
 
@@ -95,6 +95,14 @@ Regarding the precedence if both files are present, Conan will use the one insid
 present, then the one in the Conan cache, and if none is available, Conan will fallback to the
 directories defined in the ``package_info`` method of the recipe itself but relative to the path
 where the editable package has been linked to.
+
+In every case the directories that will be affected by the editable mode will be ``includedirs``,
+``libdirs``, ``bindirs`` and ``resdirs``, all of them declared in the
+:ref:`cpp_info_attributes_reference` dictionary; the rest of values in that dictionary won't
+be modified. And those folders should be absolute ones or Conan will build them relative
+to the directory where the *conanfile.py* of the editable package is (which is the path used
+to create the link).
+
 
 Using a package in editable mode
 --------------------------------
