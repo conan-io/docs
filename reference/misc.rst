@@ -10,7 +10,7 @@ Version
 
     class Version(str)
 
-Represents a version string providing useful comparison methods following semver criteria.
+Represents a version string providing useful comparison methods following semantic versioning criteria.
 
 .. code-block:: python
 
@@ -34,7 +34,7 @@ Return the version as a list of items splitting the string by points.
 build
 ^^^^^
 
-Return the build number of the version if any. Build number is separated by `+` in semver.
+Return the build number of the version if any. Build number is separated by `+` in semantic versioning.
 
 .. code-block:: bash
 
@@ -117,8 +117,8 @@ stable()
 
     def stable()
 
-Get the major item from the version string only if stable. `0.Y.Z` is not considered stable in semver.
-If version is not stable it will return the actual version
+Get the stable version in a `<major>.Y.Z format, otherwise return the version `0.Y.Z` is not considered stable in semantic versioning. If
+version is not stable it will return the actual version.
 
 .. code-block:: bash
 
@@ -140,8 +140,8 @@ Get version with the pre-release part.
 
     >>> Version("1.2.3-alpha").pre()
     '1.2.3-alpha'
-    >>> Version("0.2.3+9328043").major()
-    '1.2.3'
+    >>> Version("0.2.3-alpha+9328043").pre()
+    '1.2.3-alpha'
 
 compatible()
 ^^^^^^^^^^^^
@@ -150,6 +150,14 @@ compatible()
 
     def compatible(self, other)
 
-Compare two Version classes and determine if they are semver compatible.
+Compare two Version classes and determine if they are semantic version compatible. This will check for same major, minor and patch items and
+discard additional items. Useful to check compatibility with major/minor versions with `<major>.Y.Z` format.
 
 .. code-block:: bash
+
+    >>> Version("1.2.3").compatible("1.3.0")
+    False
+    >>> Version("1.2.3").compatible(Version("1.2.2"))
+    False
+    >>> Version("1.2.3").compatible(Version("1.2.2").minor())
+    True
