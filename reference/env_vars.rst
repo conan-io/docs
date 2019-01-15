@@ -230,6 +230,18 @@ For example:
 
     CONAN_MAKE_PROGRAM="mingw32-make"
 
+CONAN_MSBUILD_VERBOSITY
+-----------------------
+
+**Defaulted to**: Not defined
+
+Specify ```MSBuild``` verbosity level to use with:
+
+    - The build helper :ref:`CMake<cmake_reference>`.
+    - The build helper :ref:`MSBuild<msbuild>`.
+
+For list of allowed values and their meaning, check out the `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017l>`_.
+
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------
 
