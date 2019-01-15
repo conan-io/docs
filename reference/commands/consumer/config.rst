@@ -98,7 +98,7 @@ the ``general.config_install`` variable of the *conan.conf* file, so as followin
 need to specify them.
 
 .. note::
-    Files with the name „README.md“ or „LICENSE.txt“ are skipt during the installation.
+    During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.
 
 **Examples**:
 
