@@ -26,7 +26,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
-    # cache_no_locks = True               # Disable locking mechanism of local cache
+    # cache_no_locks = True               # environment CONAN_CACHE_NO_LOCKS
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
@@ -106,6 +106,10 @@ to debug the detected error.
 The ``bash_path`` variable is used only in windows to help the
 :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function to locate our Cygwin/MSYS2 bash.
 Set it with the bash executable path if it's not in the PATH or you want to use a different one.
+
+The ``cache_no_locks`` variable is used to disable locking mechanism of local cache.
+This is primary used for debugging purposes, and in general it's not recommended to disable locks otherwise,
+as it may result in corrupted packages.
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
