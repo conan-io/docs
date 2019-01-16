@@ -51,6 +51,16 @@ CONAN_BASH_PATH
 Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the ``PATH`` or you want to use a different one.
 
+CONAN_CACHE_NO_LOCKS
+--------------------
+
+**Defaulted to**: ``False``/``0``
+
+Set it to ``True``/``1`` to disable locking mechanism of local cache.
+Set it to ``False``/``0`` to enable locking mechanism of local cache.
+Use it with caution, and only for debugging purposes. Disabling locks may easily lead to corrupted packages.
+Not recommended for production environments, and in general should be used for conan development and contributions only.
+
 CONAN_CMAKE_GENERATOR
 ---------------------
 
