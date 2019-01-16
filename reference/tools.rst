@@ -1326,9 +1326,9 @@ Methods:
 - **get_revision(), get_commit()**:
     Gets the current commit hash.
 - **get_branch()**:
-    Gets the current branch.
+    Gets the current checkout branch.
 - **get_tag()**:
-    Gets the current tag (``git describe --tags``). Raises if there is no existing tag.
+    Gets the current checkout tag (``git describe --exact-match --tags``) and returns ``None`` if not in a tag.
 - **excluded_files()**:
     Gets a list of the files and folders that would be excluded by *.gitignore* file.
 - **is_local_repository()**:
@@ -1385,12 +1385,11 @@ Methods:
     Returns the revision number corresponding to the last changed item in the working folder
     (``use_wc_root=False``) or in the working copy root (``use_wc_root=True``).
 - **get_branch()**:
-    Tries to deduce the branch name from the
-    `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Will
-    raise if cannot resolve it.
+    Tries to deduce the branch name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_ and
+    returns the current branch name. Will raise if cannot resolve it.
 - **get_tag()**:
-    Tries to deduce the tag name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Raises if
-    there is no existing tag.
+    Tries to deduce the tag name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_ and
+    returns the current tag name. Otherwise it will return ``None``. Will raise if cannot resolve it.
 - **excluded_files()**:
     Gets a list of the files and folders that are marked to be ignored.
 - **is_local_repository()**:
