@@ -166,8 +166,8 @@ Parameters:
     - **sln_path** (Required):  Visual Studio project file path.
     - **targets** (Optional, Defaulted to ``None``):  List of targets to build.
     - **upgrade_project** (Optional, Defaulted to ``True``): If ``True``, the project file will be upgraded if the project's VS version is
-      older than current. When :ref:`CONAN_SKIP_VS_PROJECTS_UPGRADE<env_var_conan_skip_vs_project_upgrade>` environment variable is set to
-      ``True``/``1``, this parameter will be ignored and the project won't be upgraded.
+      older than current. When :ref:`env_vars_conan_skip_vs_project_upgrade` environment variable is set to ``True``/``1``, this parameter
+      will be ignored and the project won't be upgraded.
     - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
     - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
     - **parallel** (Optional, Defaulted to ``True``): Enables Visual Studio parallel build with ``/m:X`` argument, where X is defined by
