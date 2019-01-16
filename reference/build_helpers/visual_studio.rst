@@ -77,7 +77,8 @@ build()
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
-              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None)
+              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None,
+              property_file_name=None, verbosity=None)
 
 Builds Visual Studio project with the given parameters.
 
@@ -119,6 +120,7 @@ Parameters:
       `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
     - **property_file_name** (Optional, Defaulted to ``None``): When ``None`` it will generate a file named ``conan_build.props``.
       You can specify a different name for the generated properties file.
+    - **verbosity** (Optional, Defaulted to ``None``): Specifies verbosity level (``/verbosity:`` parameter).
 
 .. note::
 
@@ -135,7 +137,7 @@ Returns a string command calling :command:`MSBuild`.
 
     def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True,
                     build_type=None, arch=None, parallel=True, toolset=None, platforms=None,
-                    use_env=False, properties=None, output_binary_log=None)
+                    use_env=False, properties=None, output_binary_log=None, verbosity=None)
 
 Parameters:
     - **props_file_path** (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This

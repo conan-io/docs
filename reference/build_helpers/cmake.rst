@@ -50,7 +50,7 @@ Constructor
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
-                     set_cmake_flags=False)
+                     set_cmake_flags=False, msbuild_verbosity=None)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
@@ -63,6 +63,7 @@ Parameters:
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
+    - **msbuild_verbosity** (Optional, Defaulted to ``None``): verbosity level for MSBuild (in case of Visual Studio generator).
 
 Attributes
 ----------
