@@ -29,7 +29,7 @@ tools.cpu_count()
     def tools.cpu_count()
 
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. Can be
-overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan_conf`.
+overwritten with the environment variable :ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
 
 .. _tools_vcvars_command:
 
@@ -171,7 +171,7 @@ Parameters:
     - **build_type** (Optional, Defaulted to ``None``): Override the build type defined in the settings (``settings.build_type``).
     - **arch** (Optional, Defaulted to ``None``): Override the architecture defined in the settings (``settings.arch``).
     - **parallel** (Optional, Defaulted to ``True``): Enables Visual Studio parallel build with ``/m:X`` argument, where X is defined by
-      ``CONAN_CPU_COUNT`` environment variable or by the number of cores in the processor by default.
+      :ref:`env_vars_conan_cpu_count` environment variable or by the number of cores in the processor by default.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
     - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
       is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
@@ -1171,8 +1171,8 @@ tools.vs_installation_path()
     def vs_installation_path(version, preference=None)
 
 Returns the Visual Studio installation path for the given version. It uses :ref:`tools_vswhere` and :ref:`tools_vs_comntools`. It will also
-look for the installation paths following ``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If
-the tool is not able to return the path it will return ``None``.
+look for the installation paths following :ref:`env_vars_conan_vs_installation_preference` environment variable or the preference parameter
+itself. If the tool is not able to return the path it will return ``None``.
 
 .. code-block:: python
 
@@ -1183,7 +1183,7 @@ the tool is not able to return the path it will return ``None``.
 Parameters:
     - **version** (Required): Visual Studio version to locate. Valid version numbers are strings: ``"10"``, ``"11"``, ``"12"``, ``"13"``,
       ``"14"``, ``"15"``...
-    - **preference** (Optional, Defaulted to ``None``): Set to value of ``CONAN_VS_INSTALLATION_PREFERENCE`` or defaulted to
+    - **preference** (Optional, Defaulted to ``None``): Set to value of :ref:`env_vars_conan_vs_installation_preference` or defaulted to
       ``["Enterprise", "Professional", "Community", "BuildTools"]``. If only set to one type of preference, it will return the installation
       path only for that Visual type and version, otherwise ``None``.
 

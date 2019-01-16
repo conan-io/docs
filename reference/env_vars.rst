@@ -93,6 +93,8 @@ level is good and fast enough for most cases, but users with huge packages might
 set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number, which is able to get slightly
 bigger archives but much better compression speed.
 
+.. _env_vars_conan_cpu_count:
+
 CONAN_CPU_COUNT
 ---------------
 
@@ -471,6 +473,8 @@ CONAN_VERBOSE_TRACEBACK
 **Defaulted to**: ``0``
 
 When an error is raised in a recipe or even in the Conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
+
+.. _env_vars_conan_vs_installation_preference:
 
 CONAN_VS_INSTALLATION_PREFERENCE
 --------------------------------
