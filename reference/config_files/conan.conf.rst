@@ -117,7 +117,7 @@ For the :ref:`CMake<cmake_reference>` build helper, it has an effect only for ``
 Variable defines verbosity level used by the ```msbuild``` tool, as documented on `MSDN <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017>`.
 By default, ```minimal`` verbosity level is used, matching the Visual Studio IDE behavior.
 Allowed values are (in ascending order): ```quiet```, ```minimal```, ```normal```, ```detailed```, ```diagnostic```.
-You can also adjust the environment variable ``CONAN_BSBUILD_VERBOSITY``.
+You can also adjust the environment variable ``CONAN_MSBUILD_VERBOSITY``.
 
 The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return,
 by default the number of cores available in your machine.
