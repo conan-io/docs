@@ -256,6 +256,8 @@ Parameters:
     - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
 
+.. _tools_untargz:
+
 tools.untargz()
 ---------------
 
@@ -281,6 +283,8 @@ Parameters:
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
     - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+
+.. _tools_get:
 
 tools.get()
 -----------
@@ -356,6 +360,8 @@ Parameters:
     - **default** (Optional, Defaulted to ``None``): default value to return if not defined or cast value against.
     - **environment** (Optional, Defaulted to ``None``): ``os.environ`` if ``None`` or environment dictionary to look for.
 
+.. _tools_download:
+
 tools.download()
 ----------------
 
@@ -399,6 +405,8 @@ Parameters:
       ``requests`` Python library. Check other uses here: http://docs.python-requests.org/en/master/user/authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
+.. _tools_ftp_download:
+
 tools.ftp_download()
 --------------------
 
@@ -421,6 +429,8 @@ Parameters:
     - **filename** (Required): The filename, including the path/folder where it is located.
     - **login** (Optional, Defaulted to ``""``): Login credentials for the ftp server.
     - **password** (Optional, Defaulted to ``""``): Password credentials for the ftp server.
+
+.. _tools_replace_in_file:
 
 tools.replace_in_file()
 -----------------------
@@ -451,6 +461,8 @@ Parameters:
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string is not found, so nothing is
       actually replaced.
 
+.. _tools_replace_path_in_file:
+
 tools.replace_path_in_file()
 ----------------------------
 
@@ -477,7 +489,7 @@ Parameters:
       directory separators are taken into account:
 
       - ``None``: Only when Windows operating system is detected.
-      - ``False``: Deactivated, it will match exact patterns (like ``tools.replace_in_file()``).
+      - ``False``: Deactivated, it will match exact patterns (like :ref:`tools_replace_in_file`).
       - ``True``: Always activated, irrespective of the detected operating system.
 
 .. _tools_run_environment:
@@ -534,6 +546,8 @@ The previous is equivalent to:
     tools.check_with_algorithm_sum("sha1", "myfile.zip",
                                     "eb599ec83d383f0f25691c184f656d40384f9435")
 
+.. _tools_patch:
+
 tools.patch()
 -------------
 
@@ -565,7 +579,7 @@ If the patch to be applied uses alternate paths that have to be stripped like th
     - old content
     + new content
 
-Then, the number of folders to be stripped from the path can be specifyed :
+Then, the number of folders to be stripped from the path can be specified:
 
 .. code-block:: python
 
@@ -605,6 +619,8 @@ manager block ends, the environment variables will be unset.
 Parameters:
     - **env_vars** (Required): Dictionary object with environment variable name and its value.
 
+.. _tools_chdir:
+
 tools.chdir()
 -------------
 
@@ -624,6 +640,8 @@ This is a context manager that allows to temporary change the current directory 
 
 Parameters:
     - **newdir** (Required): Directory path name to change the current directory.
+
+.. _tools_pythonpath:
 
 tools.pythonpath()
 ------------------
@@ -676,6 +694,8 @@ object inside, and should have declared in its ``package_info()``:
 Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
 
+.. _tools_no_op:
+
 tools.no_op()
 -------------
 
@@ -693,6 +713,8 @@ Context manager that performs nothing. Useful to condition any other context man
         with tools.chdir("some_dir") if self.options.myoption else tools.no_op():
             # if not self.options.myoption, we are not in the "some_dir"
             pass
+
+.. _tools_human_size:
 
 tools.human_size()
 ------------------
@@ -714,7 +736,8 @@ downloads and unzip progress.
 Parameters:
     - **size_bytes** (Required): Number of bytes.
 
-.. _osinfo_reference:
+.. _tools_osinfo:
+.. _tools_systempackagetool:
 
 tools.OSInfo and tools.SystemPackageTool
 ----------------------------------------
@@ -744,6 +767,8 @@ Parameters:
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
 
+.. _tools_get_gnu_triplet:
+
 tools.get_gnu_triplet()
 -----------------------
 
@@ -758,7 +783,7 @@ Parameters:
     - **arch** (Required): Architecture to be used to create the triplet.
     - **compiler** (Optional, Defaulted to ``None``): Compiler used to create the triplet (only needed for Windows).
 
-.. _run_in_windows_bash_tool:
+.. _tools_run_in_windows_bash:
 
 tools.run_in_windows_bash()
 ---------------------------
@@ -791,6 +816,8 @@ Parameters:
     - **env** (Optional, Defaulted to ``None``) You can pass a dictionary with environment variable to be applied **at first place** so they
       will have more priority than others.
 
+.. _tools_get_cased_path:
+
 tools.get_cased_path()
 ----------------------
 
@@ -801,6 +828,8 @@ tools.get_cased_path()
 This function converts a case-insensitive absolute path to a case-sensitive one. That is, with the real cased characters. Useful when using
 Windows subsystems where the file system is case-sensitive.
 
+.. _tools_remove_from_path:
+
 tools.remove_from_path()
 ------------------------
 
@@ -808,8 +837,8 @@ tools.remove_from_path()
 
     remove_from_path(command)
 
-This is a context manager that allows you to remove a tool from the ``PATH``. Conan will locate the executable (using :ref:`which`) and will
-remove from the ``PATH`` the directory entry that contains it. It's not necessary to specify the extension.
+This is a context manager that allows you to remove a tool from the ``PATH``. Conan will locate the executable (using :ref:`tools_which`)
+and will remove from the ``PATH`` the directory entry that contains it. It's not necessary to specify the extension.
 
 .. code-block:: python
 
@@ -817,6 +846,8 @@ remove from the ``PATH`` the directory entry that contains it. It's not necessar
 
     with tools.remove_from_path("make"):
         self.run("some command")
+
+.. _tools_unix_path:
 
 tools.unix_path()
 -----------------
@@ -832,6 +863,8 @@ Parameters:
     - **path_flavor** (Optional, Defaulted to ``None``, will try to autodetect the subsystem): Type of Unix path to be returned. Options are
       ``MSYS``, ``MSYS2``, ``CYGWIN``, ``WSL`` and ``SFU``.
 
+.. _tools_escape_windows_cmd:
+
 tools.escape_windows_cmd()
 --------------------------
 
@@ -846,6 +879,8 @@ Useful to escape commands to be executed in a windows bash (msys2, cygwin etc).
 
 Parameters:
     - **command** (Required): Command to execute.
+
+.. _tools_sha1sum_sha256sum_md5sum:
 
 tools.sha1sum(), sha256sum(), md5sum()
 --------------------------------------
@@ -868,6 +903,8 @@ Return the respective hash or checksum for a file.
 Parameters:
     - **file_path** (Required): Path to the file.
 
+.. _tools_md5:
+
 tools.md5()
 -----------
 
@@ -885,6 +922,8 @@ Returns the MD5 hash for a string or byte object.
 
 Parameters:
     - **content** (Required): String or bytes to calculate its md5.
+
+.. _tools_save:
 
 tools.save()
 ------------
@@ -906,6 +945,8 @@ Parameters:
     - **content** (Required): Content that should be saved into the file.
     - **append** (Optional, Defaulted to ``False``): If ``True``, it will append the content.
 
+.. _tools_load:
+
 tools.load()
 ------------
 
@@ -925,6 +966,8 @@ the file.
 Parameters:
     - **path** (Required): Path to the file.
     - **binary** (Optional, Defaulted to ``False``): If ``True``, it reads the the file as binary code.
+
+.. _tools_mkdir_rmdir:
 
 tools.mkdir(), tools.rmdir()
 ----------------------------
@@ -952,7 +995,7 @@ This makes it safe to use these functions in the ``package()`` method of a *cona
 Parameters:
     - **path** (Required): Path to the directory.
 
-.. _which:
+.. _tools_which:
 
 tools.which()
 -------------
@@ -1017,6 +1060,8 @@ Converts line breaks in a text file from DOS format (CRLF) to Unix format (LF).
 Parameters:
     - **filepath** (Required): The file to convert.
 
+.. tools_tocuh:
+
 tools.touch()
 -------------
 
@@ -1041,6 +1086,8 @@ Optionally, a tuple of two numbers can be specified, which denotes the new value
 Parameters:
     - **fname** (Required): File name of the file to be touched.
     - **times** (Optional, Defaulted to ``None``: Tuple with 'last access' and 'last modified' times.
+
+.. _tools_relative_dirs:
 
 tools.relative_dirs()
 ---------------------

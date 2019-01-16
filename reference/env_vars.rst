@@ -48,7 +48,7 @@ CONAN_BASH_PATH
 
 **Defaulted to**: Not defined
 
-Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
+Used only in windows to help the :ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the ``PATH`` or you want to use a different one.
 
 CONAN_CMAKE_GENERATOR
