@@ -111,6 +111,8 @@ Parameters:
       the whole environment. If `vcvars` modifies an environment variable by appending values to the old value (separated by ``;``), only
       the new values will be returned, as a list.
 
+.. tools_vcvars:
+
 tools.vcvars()
 --------------
 
@@ -133,7 +135,7 @@ This is a context manager that allows to append to the environment all the varia
         with tools.vcvars(self.settings):
             do_something()
 
-.. _build_sln_command:
+.. _tools_build_sln_command:
 
 tools.build_sln_command() [DEPRECATED]
 --------------------------------------
@@ -197,10 +199,10 @@ tools.msvc_build_command() [DEPRECATED]
                            arch=None, parallel=True, force_vcvars=False, toolset=None, platforms=None)
 
 Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above
-:ref:`tools_vcvars_command` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
+:ref:`tools_vcvars_command` function, and building a Visual Studio project with the :ref:`tools_build_sln_command` function.
 
 Parameters:
-    - Same parameters as the above :ref:`build_sln_command`.
+    - Same parameters as the above :ref:`tools_build_sln_command`.
     - **force_vcvars**: Optional. Defaulted to False. Will set ``tools.vcvars_command(force=force_vcvars)``.
 
 .. _tools_unzip:

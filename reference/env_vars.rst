@@ -360,7 +360,7 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`build_sln_command<build_sln_command>`, the :ref:`msvc_build_command<msvc_build_command>`
+When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`msvc_build_command<msvc_build_command>`
 and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
