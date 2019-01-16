@@ -19,7 +19,7 @@ Under the tools module there are several functions and utilities that can be use
     class ExampleConan(ConanFile):
         ...
 
-.. _cpu_count:
+.. _tools_cpu_count:
 
 tools.cpu_count()
 -----------------

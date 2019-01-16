@@ -99,8 +99,8 @@ CONAN_CPU_COUNT
 
 **Defaulted to**: Number of available cores in your machine.
 
-Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
-Conan recipes can use the cpu_count() tool to build the library using more than one core.
+Set the number of cores that the :ref:`tools_cpu_count` will return.
+Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
 
 CONAN_DEFAULT_PROFILE_PATH
 --------------------------

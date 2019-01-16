@@ -92,7 +92,7 @@ Parameters:
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
       version.
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or
-      :ref:`cpu_count`:
+      :ref:`tools_cpu_count`:
 
         - **In the solution**: Building the solution with the projects in parallel. (``/m:`` parameter).
         - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag)
@@ -272,7 +272,7 @@ parallel
 
 Defaulted to ``False``.
 
-Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`cpu_count`.
+Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`tools_cpu_count`.
 
 .. seealso::
 

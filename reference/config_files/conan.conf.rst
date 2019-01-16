@@ -110,9 +110,9 @@ Set it with the bash executable path if it's not in the PATH or you want to use 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
 
-The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return,
+The ``cpu_count`` variable set the number of cores that the :ref:`tools_cpu_count` will return,
 by default the number of cores available in your machine.
-Conan recipes can use the cpu_count() tool to build the library using more than one core.
+Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
 
 The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules
 for the python linter executed at ``export`` time. A use case could be to define some custom indents
