@@ -276,4 +276,4 @@ Sets the flag ``/MP`` in order to compile the sources in parallel using cores fo
 
 .. seealso::
 
-    Read more about :ref:`environment_append_tool`.
+    Read more about :ref:`tools_environment_append`.

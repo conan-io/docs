@@ -25,7 +25,7 @@ This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`
          autotools.configure()
          autotools.make()
 
-It also works using the :ref:`environment_append <environment_append_tool>` context manager applied to your **configure and make** commands,
+It also works using the :ref:`environment_append <tools_environment_append>` context manager applied to your **configure and make** commands,
 calling `configure` and `make` manually:
 
 .. code-block:: python
@@ -317,4 +317,4 @@ The following environment variables will also affect the `AutoToolsBuildEnvironm
 
 .. seealso::
 
-    - :ref:`Reference/Tools/environment_append <environment_append_tool>`
+    - :ref:`Reference/Tools/environment_append <tools_environment_append>`

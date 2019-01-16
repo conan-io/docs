@@ -63,4 +63,4 @@ It sets the following environment variables:
 .. seealso::
 
     - :ref:`manage_shared_libraries_env_vars`
-    - :ref:`environment_append_tool`
+    - :ref:`tools_environment_append`

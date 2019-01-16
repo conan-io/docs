@@ -123,4 +123,4 @@ using the virtualrunenv generator, the ``bin`` folder of the package will be ava
 we will be executing the cmake of the package.
 
 
-.. seealso:: - :ref:`Reference/Tools/environment_append <environment_append_tool>`
+.. seealso:: - :ref:`Reference/Tools/environment_append <tools_environment_append>`
