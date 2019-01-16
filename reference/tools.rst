@@ -1393,7 +1393,7 @@ Methods:
     SVN allows to checkout a subdirectory of the remote repository, take into account that the return value of some of these functions may
     depend on the root of the working copy that has been checked out.
 
-.. _tools_apple:
+.. _tools_is_apple_os:
 
 tools.is_apple_os()
 -------------------
@@ -1407,6 +1407,8 @@ Returns ``True`` if OS is an Apple one: macOS, iOS, watchOS or tvOS.
 Parameters:
     - **os_** (Required): OS to perform the check. Usually this would be ``self.settings.os``.
 
+.. _tools_to_apple_arch:
+
 tools.to_apple_arch()
 ---------------------
 
@@ -1414,10 +1416,12 @@ tools.to_apple_arch()
 
     def to_apple_arch(arch)
 
-Converts conan-style architecture into Apple-style architecture.
+Converts Conan style architecture into Apple style architecture.
 
 Parameters:
     - **arch** (Required): arch to perform the conversion. Usually this would be ``self.settings.arch``.
+
+.. _tools_apple_sdk_name:
 
 tools.apple_sdk_name()
 ----------------------
@@ -1430,6 +1434,9 @@ Returns proper SDK name suitable for OS and architecture you are building for (c
 
 Parameters:
     - **settings** (Required): Conanfile settings.
+
+
+.. _tools_apple_deployment_target_env:
 
 tools.apple_deployment_target_env()
 -----------------------------------
@@ -1445,6 +1452,8 @@ Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
     - **os_version** (Required): OS version.
 
+.. _tools_apple_deployment_target_flag:
+
 tools.apple_deployment_target_flag()
 ------------------------------------
 
@@ -1457,6 +1466,8 @@ Compiler flag name which controls deployment target. For example: ``-mappletvos-
 Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
     - **os_version** (Required): OS version.
+
+.. _tools_xcrun:
 
 tools.XCRun()
 -------------
@@ -1480,6 +1491,8 @@ Properties:
     - **ranlib**: Path to archive indexer (RANLIB).
     - **strip**: Path to symbol removal utility (STRIP).
 
+.. _tools_latest_vs_version_installed:
+
 tools.latest_vs_version_installed()
 -----------------------------------
 
@@ -1489,6 +1502,8 @@ tools.latest_vs_version_installed()
 
 Returns a string with the major version of latest Microsoft Visual Studio available on machine. If no Microsoft Visual Studio installed,
 it returns ``None``.
+
+.. _tools.apple_dot_clean:
 
 tools.apple_dot_clean()
 -----------------------
