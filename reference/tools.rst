@@ -184,7 +184,7 @@ Parameters:
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
 
-.. _msvc_build_command:
+.. _tools_msvc_build_command:
 
 tools.msvc_build_command() [DEPRECATED]
 ---------------------------------------

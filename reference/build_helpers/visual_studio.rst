@@ -22,7 +22,7 @@ information from the requirements: include directories, library names, flags etc
 
     - :ref:`VisualStudioBuildEnvironment<visual_studio_build>` to adjust the ``LIB`` and ``CL``
       environment variables with all the information from the requirements: include directories, library names, flags etc.
-    - :ref:`tools.msvc_build_command<msvc_build_command>` to call ``MSBuild``.
+    - :ref:`tools_msvc_build_command` to call ``msbuild``.
 
 You can adjust all the information from the requirements accessing to the ``build_env`` that it is a :ref:`visual_studio_build` object:
 
