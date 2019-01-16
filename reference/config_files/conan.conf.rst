@@ -104,15 +104,15 @@ The ``verbose_traceback`` variable will print the complete traceback when an err
 to debug the detected error.
 
 The ``bash_path`` variable is used only in windows to help the
-:ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function to locate our Cygwin/MSYS2 bash.
+:ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function to locate our Cygwin/MSYS2 bash.
 Set it with the bash executable path if it's not in the PATH or you want to use a different one.
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
 
-The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return,
+The ``cpu_count`` variable set the number of cores that the :ref:`tools_cpu_count` will return,
 by default the number of cores available in your machine.
-Conan recipes can use the cpu_count() tool to build the library using more than one core.
+Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
 
 The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules
 for the python linter executed at ``export`` time. A use case could be to define some custom indents

@@ -22,7 +22,7 @@ information from the requirements: include directories, library names, flags etc
 
     - :ref:`VisualStudioBuildEnvironment<visual_studio_build>` to adjust the ``LIB`` and ``CL``
       environment variables with all the information from the requirements: include directories, library names, flags etc.
-    - :ref:`tools.msvc_build_command<msvc_build_command>` to call ``MSBuild``.
+    - :ref:`tools_msvc_build_command` to call ``msbuild``.
 
 You can adjust all the information from the requirements accessing to the ``build_env`` that it is a :ref:`visual_studio_build` object:
 
@@ -92,7 +92,7 @@ Parameters:
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
       version.
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or
-      :ref:`cpu_count`:
+      :ref:`tools_cpu_count`:
 
         - **In the solution**: Building the solution with the projects in parallel. (``/m:`` parameter).
         - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag)
@@ -122,7 +122,7 @@ Parameters:
 
 .. note::
 
-    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`vcvars_command` to adjust the environment
+    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`tools_vcvars_command` to adjust the environment
     according to the settings. When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use ``amd64_x86``
     instead, set the environment variable ``PreferredToolArchitecture=x64``.
 
@@ -163,7 +163,7 @@ VisualStudioBuildEnvironment
 ============================
 
 Prepares the needed environment variables to invoke the Visual Studio compiler.
-Use it together with :ref:`vcvars_command`.
+Use it together with :ref:`tools_vcvars_command`.
 
 .. code-block:: python
    :emphasize-lines: 9, 10, 11
@@ -272,8 +272,8 @@ parallel
 
 Defaulted to ``False``.
 
-Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`cpu_count`.
+Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`tools_cpu_count`.
 
 .. seealso::
 
-    Read more about :ref:`environment_append_tool`.
+    Read more about :ref:`tools_environment_append`.
