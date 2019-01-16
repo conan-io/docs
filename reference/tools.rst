@@ -1327,6 +1327,8 @@ Methods:
     Gets the current commit hash.
 - **get_branch()**:
     Gets the current branch.
+- **get_tag()**:
+    Gets the current tag (``git describe --tags``). Raises if there is no existing tag.
 - **excluded_files()**:
     Gets a list of the files and folders that would be excluded by *.gitignore* file.
 - **is_local_repository()**:
@@ -1386,6 +1388,9 @@ Methods:
     Tries to deduce the branch name from the
     `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Will
     raise if cannot resolve it.
+- **get_tag()**:
+    Tries to deduce the tag name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Raises if
+    there is no existing tag.
 - **excluded_files()**:
     Gets a list of the files and folders that are marked to be ignored.
 - **is_local_repository()**:
