@@ -78,7 +78,7 @@ Parameters:
     When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use ``amd64_x86`` instead, set the environment
     variable ``PreferredToolArchitecture=x64``.
 
-.. _vcvars_dict:
+.. _tools_vcvars_dict:
 
 tools.vcvars_dict()
 -------------------
@@ -122,7 +122,7 @@ tools.vcvars()
 
     This context manager tool has no effect if used in a platform different from Windows.
 
-This is a context manager that allows to append to the environment all the variables set by the :ref:`vcvars_dict`. You can replace
+This is a context manager that allows to append to the environment all the variables set by the :ref:`tools_vcvars_dict`. You can replace
 :ref:`tools_vcvars_command` and use this context manager to get a cleaner way to activate the Visual Studio environment:
 
 .. code-block:: python
