@@ -31,7 +31,7 @@ tools.cpu_count()
 Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. Can be
 overwritten with the environment variable ``CONAN_CPU_COUNT`` and configured in the :ref:`conan_conf`.
 
-.. _vcvars_command:
+.. _tools_vcvars_command:
 
 tools.vcvars_command()
 ----------------------
@@ -88,9 +88,10 @@ tools.vcvars_dict()
     vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
                 vcvars_ver=None, winsdk_version=None, only_diff=True)
 
-Returns a dictionary with the variables set by the :ref:`vcvars_command` that can be directly applied to :ref:`tools_environment_append`.
+Returns a dictionary with the variables set by the :ref:`tools_vcvars_command` that can be directly applied to
+:ref:`tools_environment_append`.
 
-The values of the variables ``INCLUDE``,  ``LIB``, ``LIBPATH`` and ``PATH`` will be returned as a list. When used with
+The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will be returned as a list. When used with
 :ref:`tools_environment_append`, the previous environment values that these variables may have will be appended automatically.
 
 .. code-block:: python
@@ -103,7 +104,7 @@ The values of the variables ``INCLUDE``,  ``LIB``, ``LIBPATH`` and ``PATH`` will
             # Do something
 
 Parameters:
-    - Same as :ref:`vcvars_command`.
+    - Same as :ref:`tools_vcvars_command`.
     - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the ``PATH`` entries that follows
       some known patterns, filtering all the non-Visual Studio ones. When False, it will keep the ``PATH`` will all the system entries.
     - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by ``vcvarsall`` and not
@@ -122,7 +123,7 @@ tools.vcvars()
     This context manager tool has no effect if used in a platform different from Windows.
 
 This is a context manager that allows to append to the environment all the variables set by the :ref:`vcvars_dict`. You can replace
-:ref:`vcvars_command` and use this context manager to get a cleaner way to activate the Visual Studio environment:
+:ref:`tools_vcvars_command` and use this context manager to get a cleaner way to activate the Visual Studio environment:
 
 .. code-block:: python
 
@@ -146,8 +147,8 @@ tools.build_sln_command() [DEPRECATED]
     def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
                           arch=None, parallel=True, toolset=None, platforms=None)
 
-Returns the command to call `devenv` and `msbuild` to build a Visual Studio project. It's recommended to use it with :ref:`vcvars_command`,
-so that the Visual Studio tools will be in path.
+Returns the command to call `devenv` and `msbuild` to build a Visual Studio project. It's recommended to use it with
+:ref:`tools_vcvars_command`, so that the Visual Studio tools will be in path.
 
 .. code-block:: python
 
@@ -196,7 +197,7 @@ tools.msvc_build_command() [DEPRECATED]
                            arch=None, parallel=True, force_vcvars=False, toolset=None, platforms=None)
 
 Returns a string with a joint command consisting in setting the environment variables via ``vcvars.bat`` with the above
-:ref:`vcvars_command` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
+:ref:`tools_vcvars_command` function, and building a Visual Studio project with the ``tools.build_sln_command()`` function.
 
 Parameters:
     - Same parameters as the above :ref:`build_sln_command`.

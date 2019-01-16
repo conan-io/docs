@@ -122,7 +122,7 @@ Parameters:
 
 .. note::
 
-    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`vcvars_command` to adjust the environment
+    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`tools_vcvars_command` to adjust the environment
     according to the settings. When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use ``amd64_x86``
     instead, set the environment variable ``PreferredToolArchitecture=x64``.
 
@@ -163,7 +163,7 @@ VisualStudioBuildEnvironment
 ============================
 
 Prepares the needed environment variables to invoke the Visual Studio compiler.
-Use it together with :ref:`vcvars_command`.
+Use it together with :ref:`tools_vcvars_command`.
 
 .. code-block:: python
    :emphasize-lines: 9, 10, 11
