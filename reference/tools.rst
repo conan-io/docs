@@ -1107,7 +1107,7 @@ Recursively walks a given directory (using ``os.walk()``) and returns a list of 
 Parameters:
     - **path** (Required): Path of the directory.
 
-.. _vswhere:
+.. _tools_vswhere:
 
 tools.vswhere()
 ---------------
@@ -1141,7 +1141,7 @@ Parameters:
       object and property names. Example: ``"properties.nickname"`` will return the "nickname" property under "properties".
     - **nologo** (Optional, Defaulted to ``True``): Do not show logo information.
 
-.. _vs_comntools:
+.. _tools_vs_comntools:
 
 tools.vs_comntools()
 --------------------
@@ -1161,6 +1161,8 @@ Returns the value of the environment variable ``VS<compiler_version>.0COMNTOOLS`
 Parameters:
     - **compiler_version** (Required): String with the version number: ``"14"``, ``"12"``...
 
+.. tools_vs_installation_path:
+
 tools.vs_installation_path()
 ----------------------------
 
@@ -1168,9 +1170,9 @@ tools.vs_installation_path()
 
     def vs_installation_path(version, preference=None)
 
-Returns the Visual Studio installation path for the given version. It uses :ref:`vswhere` and :ref:`vs_comntools`. It will also look for the
-installation paths following ``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If the tool is
-not able to return the path it will return ``None``.
+Returns the Visual Studio installation path for the given version. It uses :ref:`tools_vswhere` and :ref:`tools_vs_comntools`. It will also
+look for the installation paths following ``CONAN_VS_INSTALLATION_PREFERENCE`` environment variable or the preference parameter itself. If
+the tool is not able to return the path it will return ``None``.
 
 .. code-block:: python
 
@@ -1184,6 +1186,8 @@ Parameters:
     - **preference** (Optional, Defaulted to ``None``): Set to value of ``CONAN_VS_INSTALLATION_PREFERENCE`` or defaulted to
       ``["Enterprise", "Professional", "Community", "BuildTools"]``. If only set to one type of preference, it will return the installation
       path only for that Visual type and version, otherwise ``None``.
+
+.. _tools_replace_prefix_in_pc_file:
 
 tools.replace_prefix_in_pc_file()
 ---------------------------------
@@ -1208,6 +1212,8 @@ Replaces the ``prefix`` variable in a package config file *.pc* with the specifi
 .. seealso::
 
     Check section :ref:`pc_files` to know more.
+
+.. _tools_collect_libs:
 
 tools.collect_libs()
 --------------------
@@ -1240,7 +1246,7 @@ For UNIX libraries staring with **lib**, like *libmath.a*, this tool will collec
     This tool collects the libraries searching directly inside the package folder and returns them in no specific order. If libraries are
     inter-dependent, then ``package_info()`` method should order them to achieve correct linking order.
 
-.. _pkgconfigtool:
+.. _tools_pkgconfig:
 
 tools.PkgConfig()
 -----------------
