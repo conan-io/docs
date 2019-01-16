@@ -104,8 +104,8 @@ The values of the variables ``INCLUDE``,  ``LIB``, ``LIBPATH`` and ``PATH`` will
 
 Parameters:
     - Same as :ref:`vcvars_command`.
-    - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the PATH entries that follows some
-      known patterns, filtering all the non-Visual Studio ones. When False, it will keep the PATH will all the system entries.
+    - **filter_known_paths** (Optional, Defaulted to ``False``): When True, the function will only keep the ``PATH`` entries that follows
+      some known patterns, filtering all the non-Visual Studio ones. When False, it will keep the ``PATH`` will all the system entries.
     - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by ``vcvarsall`` and not
       the whole environment. If `vcvars` modifies an environment variable by appending values to the old value (separated by ``;``), only
       the new values will be returned, as a list.
