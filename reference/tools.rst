@@ -621,7 +621,8 @@ in your conanfile:
 
 The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. 
 Additionally, if value is ``None``, the given environment variable is unset (In the previous example, ``CPPFLAGS`` environment
-variable will be unset). When the context manager block ends, the environment variables will recover their previous state.
+variable will be unset), and in case variable wasn't set prior to the invocation, it has no effect on the given variable (``CPPFLAGS``).
+When the context manager block ends, the environment variables will recover their previous state.
 
 Parameters:
     - **env_vars** (Required): Dictionary object with environment variable name and its value.
