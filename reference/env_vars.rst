@@ -240,6 +240,19 @@ For example:
 
     CONAN_MAKE_PROGRAM="mingw32-make"
 
+CONAN_CMAKE_PROGRAM
+-------------------
+
+**Defaulted to**: Not defined
+
+Specify an alternative ``cmake`` program to use with :ref:`CMake<cmake_reference>` build helper.
+
+For example:
+
+.. code-block:: bash
+
+    CONAN_MAKE_PROGRAM="scan-build cmake"
+
 CONAN_MSBUILD_VERBOSITY
 -----------------------
 
