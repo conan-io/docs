@@ -33,6 +33,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
 
     # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
+    # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -122,6 +123,14 @@ Variable defines verbosity level used by the ```msbuild``` tool, as documented o
 By default, ```minimal`` verbosity level is used, matching the Visual Studio IDE behavior.
 Allowed values are (in ascending order): ```quiet```, ```minimal```, ```normal```, ```detailed```, ```diagnostic```.
 You can also adjust the environment variable ``CONAN_MSBUILD_VERBOSITY``.
+
+The ``conan_make_program`` variable used by :ref:`CMake<cmake_reference>` and :ref:`AutotoolsBuildEnvironment <autotools_reference>` build helpers.
+It overrides a default ```make``` executable, might be useful in case you need to use a different make (e.g. BSD Make instead of GNU Make, or MinGW Make).
+Set it with the make executable path if it's not in the PATH or you want to use a different one.
+
+The ``conan_cmake_program`` variable used only by :ref:`CMake<cmake_reference>` build helper.
+It overrides a default ```cmake``` executable, might be useful in case you need to use a CMake wrapper tool (such as scan build).
+Set it with the cmake executable path if it's not in the PATH or you want to use a different one.
 
 The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return,
 by default the number of cores available in your machine.
