@@ -157,7 +157,8 @@ tools.build_sln_command() (DEPRECATED)
 .. code-block:: python
 
     def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                          arch=None, parallel=True, toolset=None, platforms=None)
+                          arch=None, parallel=True, toolset=None, platforms=None, output=None,
+                          verbosity=None, definitions=None)
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project.
 It's recommended to use it along with ``vcvars_command()``, so that the Visual Studio tools will be in path.
@@ -186,6 +187,10 @@ Parameters:
     - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
       is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
       solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+    - **output** (Optional, Defaulted to ``None``): Stream object.
+    - **verbosity** (Optional, Defaulted to ``None``): Specifies verbosity level (``/verbosity:`` parameter).
+    - **definitions** (Optional, Defaulted to ``None``): Dictionary with additional compiler definitions to be applied during the build.
+      Use value of None to set compiler definition with no value.
 
       .. code-block:: python
 
