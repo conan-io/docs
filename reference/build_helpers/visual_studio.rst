@@ -122,7 +122,7 @@ Parameters:
       You can specify a different name for the generated properties file.
     - **verbosity** (Optional, Defaulted to ``None``): Specifies verbosity level (``/verbosity:`` parameter).
     - **definitions** (Optional, Defaulted to ``None``): Dictionary with additional compiler definitions to be applied during the build.
-      Use value of None to set compiler definition with no value.
+      Use a dictionary with the desired key and its value set to ``None`` to set a compiler definition with no value.
 
 .. note::
 
