@@ -1,7 +1,7 @@
 .. _hooks:
 
-Hooks [EXPERIMENTAL]
-====================
+Hooks
+=====
 
 .. warning::
 
