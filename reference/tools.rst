@@ -1328,7 +1328,7 @@ Methods:
 - **get_branch()**:
     Gets the current checkout branch.
 - **get_tag()**:
-    Gets the current checkout tag (``git describe --exact-match --tags``) and returns ``None`` if not in a tag.
+    Gets the current checkout tag (:command:`git describe --exact-match --tags`) and returns ``None`` if not in a tag.
 - **excluded_files()**:
     Gets a list of the files and folders that would be excluded by *.gitignore* file.
 - **is_local_repository()**:
