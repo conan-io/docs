@@ -1386,10 +1386,10 @@ Methods:
     (``use_wc_root=False``) or in the working copy root (``use_wc_root=True``).
 - **get_branch()**:
     Tries to deduce the branch name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_ and
-    returns the current branch name. Will raise if cannot resolve it.
+    returns the current branch name.
 - **get_tag()**:
     Tries to deduce the tag name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_ and
-    returns the current tag name. Otherwise it will return ``None``. Will raise if cannot resolve it.
+    returns the current tag name. Otherwise it will return ``None``.
 - **excluded_files()**:
     Gets a list of the files and folders that are marked to be ignored.
 - **is_local_repository()**:
