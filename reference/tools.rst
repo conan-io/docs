@@ -1311,6 +1311,10 @@ Parameters of the constructor:
 tools.Git()
 -----------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     class Git(folder=None, verify_ssl=True, username=None, password=None,
@@ -1350,6 +1354,10 @@ Methods:
 
 tools.SVN()
 -----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 .. code-block:: python
 
