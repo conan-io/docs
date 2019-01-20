@@ -123,3 +123,9 @@ Example to collect license files from dependencies into a *licenses* folder, exc
 
     [imports]
     ., license* -> ./licenses @ folder=True, ignore_case=True, excludes=*.html *.jpeg
+
+Comments
+++++++++
+
+A comment starts with a hash character (`#`) and ends at the end of the physical line.
+Comments are ignored by the syntax; they are not tokens.
