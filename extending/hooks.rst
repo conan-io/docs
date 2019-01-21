@@ -1,7 +1,7 @@
 .. _hooks:
 
-Hooks [EXPERIMENTAL]
-====================
+Hooks
+=====
 
 .. warning::
 
@@ -145,8 +145,8 @@ And it can be used in hook importing the module:
 Storage, activation and sharing
 -------------------------------
 
-Hooks are Python files stored under *~/.conan/hooks* folder and **their file name should be the same used for activation** (without the
-*.py* extension).
+Hooks are Python files stored under *~/.conan/hooks* folder and **their file name should be the same used for activation** (the
+*.py* extension could be indicated or not).
 
 The activation of the hooks is done in the *conan.conf* section named ``[hooks]``. The hook names or paths listed under this section will be
 considered activated.
@@ -156,9 +156,9 @@ considered activated.
 
     ...
     [hooks]
-    attribute_checker
-    conan-center
-    my_custom_hook/hook
+    attribute_checker.py
+    conan-center.py
+    my_custom_hook/hook.py
 
 They can be easily activated and deactivated from the command line using the :command:`conan config set` command:
 
