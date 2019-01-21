@@ -110,7 +110,6 @@ Your build tool will locate **clang** compiler only for the **zlib** package and
         [env]
         PATH=[/some/path/to/my/tool]
 
-
 Profile composition
 -------------------
 
@@ -123,7 +122,6 @@ need to inject ``cmake`` as a build require.
 
 You can specify both profiles instead:
 
-
 .. code-block:: text
    :caption: *.conan/profiles/cmake_39*
 
@@ -133,7 +131,6 @@ You can specify both profiles instead:
 .. code-block:: bash
 
    $ conan install . --profile clang --profile cmake_39
-
 
 Profile includes
 ----------------
