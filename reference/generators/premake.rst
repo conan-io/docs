@@ -5,7 +5,7 @@
 .. _premake_generator:
 
 premake
-========
+=======
 
 .. warning::
 
@@ -17,6 +17,7 @@ premake
     Go to :ref:`Integrations/premake<premake>` if you want to learn how to integrate your project or recipes with premake.
 
 Generates a file name *conanbuildinfo.premake.lua* that can be used for your premake builds (both premake 4 and premake 5 are supported).
+
 The file contains:
 
 - N groups of variables, one group per require, declaring the same individual values: include dirs, libs, bin dirs, defines, etc.
