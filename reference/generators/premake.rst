@@ -4,8 +4,12 @@
 
 .. _premake_generator:
 
-`premake` [EXPERIMENTAL]
-========================
+premake
+========
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 .. container:: out_reference_box
 
