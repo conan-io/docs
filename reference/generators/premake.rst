@@ -16,7 +16,7 @@ premake
     This is the reference page for ``premake`` generator.
     Go to :ref:`Integrations/premake<premake>` if you want to learn how to integrate your project or recipes with premake.
 
-Generates a file name ``conanbuildinfo.premake.lua`` that can be used for your premake builds (both premake 4 and premake 5 are supported).
+Generates a file name *conanbuildinfo.premake.lua* that can be used for your premake builds (both premake 4 and premake 5 are supported).
 The file contains:
 
 - N groups of variables, one group per require, declaring the same individual values: include dirs, libs, bin dirs, defines, etc.
@@ -29,8 +29,8 @@ Variables
 Package declared variables
 ++++++++++++++++++++++++++
 
-For each requirement ``conanbuildinfo.premake.lua`` file declares the following variables.
-```XXX``` is the name of the require. e.g. "zlib" for ``zlib/1.2.11@lasote/stable`` requirement:
+For each requirement *conanbuildinfo.premake.lua* file declares the following variables.
+``XXX`` is the name of the require. e.g. "zlib" for ``zlib/1.2.11@lasote/stable`` requirement:
 
 +---------------------------+------------------------------------------------------+
 | NAME                      | VALUE                                                |
