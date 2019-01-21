@@ -40,6 +40,7 @@ the local conan cache.
                             Will remove from the specified remote
       -s, --src             Remove source folders
       -l, --locks           Remove locks
+      -sr, --system-reqs    Remove system_reqs folders
 
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
