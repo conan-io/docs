@@ -740,7 +740,7 @@ source code is copied from the ``source`` folder to the ``build`` folder to ensu
 source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package
 ``source`` folder in the local cache.
 
-When executing Conan commands in the :ref:`package_dev_flow:` like :command:`conan source`, this attribute will be pointing to the folder
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan source`, this attribute will be pointing to the folder
 specified in the command line.
 
 .. _attribute_install_folder:
@@ -751,7 +751,7 @@ install_folder
 The folder in which the installation of packages outputs the generator files with the information of dependencies.
 By default in the the local cache its value is the same as ``self.build_folder`` one.
 
-When executing Conan commands in the :ref:`package_dev_flow:` like :command:`conan install` or :command:`conan build`, this attribute will
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan install` or :command:`conan build`, this attribute will
 be pointing to the folder specified in the command line.
 
 .. _attribute_build_folder:
@@ -761,7 +761,7 @@ build_folder
 
 The folder used to build the source code. In the local cache a build folder is created with the name of the package ID that will be built.
 
-When executing Conan commands in the :ref:`package_dev_flow:` like :command:`conan build`, this attribute will be pointing to the folder
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan build`, this attribute will be pointing to the folder
 specified in the command line.
 
 .. _attribute_package_folder:
@@ -772,7 +772,7 @@ package_folder
 The folder to copy the final artifacts for the binary package. In the local cache a package folder is created for every different package
 ID.
 
-When executing Conan commands in the :ref:`package_dev_flow:` like :command:`conan package`, this attribute will be pointing to the folder
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan package`, this attribute will be pointing to the folder
 specified in the command line.
 
 .. _cpp_info_attributes_reference:
