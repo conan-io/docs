@@ -28,6 +28,7 @@ the local conan cache.
                             By default, remove all the build folders or select
                             one, specifying the package ID
       -f, --force           Remove without requesting a confirmation
+      -l, --locks           Remove locks
       -o, --outdated        Remove only outdated from recipe packages. This flag
                             can only be used with a reference
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
@@ -39,7 +40,6 @@ the local conan cache.
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -s, --src             Remove source folders
-      -l, --locks           Remove locks
       -sr, --system-reqs    Remove system_reqs folders
 
 
