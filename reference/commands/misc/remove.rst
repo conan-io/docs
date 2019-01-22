@@ -81,3 +81,5 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 .. code-block:: bash
 
       $ conan remove --system-reqs package/version@user/channel
+
+This command does not remove the system installed packages, but only the Conan lock to indicate they were installed.
