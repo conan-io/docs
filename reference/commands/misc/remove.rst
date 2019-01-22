@@ -76,7 +76,7 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 
 .. _conan_remove_system_reqs:
 
-- Remove ``system_reqs`` globally for the package name referred, inclusive for all package ids:
+- Remove system requirements installation registry for the package name referred globally for all package ids:
 
 .. code-block:: bash
 
