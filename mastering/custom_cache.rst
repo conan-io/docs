@@ -96,11 +96,5 @@ When ``system_requirements()`` runs, Conan creates the ``system_reqs`` folder. T
 globally when ``global_system_requirements`` is **True**.
 
 However, sometimes you want to run ``system_requirements()`` again for a specific package, so you
-could either remove the ``system_reqs.txt`` file for the specific package id, or you could remove it by the following command:
-
-.. code-block:: bash
-
-    $ conan remove --system-reqs package/version@user/channel
-
-Conan will remove ``system_reqs`` globally for the package name referred, inclusive for all package ids.
-Once removed, you will be able to install all system requirements indirectly when building your package again.
+could either remove the ``system_reqs.txt`` file for the specific package id, or you could
+:ref:`remove system_reqs globally for the package name referred<conan_remove_system_reqs>`.

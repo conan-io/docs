@@ -6,9 +6,9 @@ conan remove
 
 .. code-block:: bash
 
-    $ conan remove [-h] [-b [BUILDS [BUILDS ...]]] [-f] [-o]
+    $ conan remove [-h] [-b [BUILDS [BUILDS ...]]] [-f] [-l] [-o]
                    [-p [PACKAGES [PACKAGES ...]]] [-q QUERY] [-r REMOTE] [-s]
-                   [-l]
+                   [-t]
                    [pattern_or_reference]
 
 Removes packages or binaries matching pattern from local cache or remote. It
@@ -40,7 +40,8 @@ the local conan cache.
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -s, --src             Remove source folders
-      -sr, --system-reqs    Remove system_reqs folders
+      -t, --system-reqs     Remove system_reqs folders
+
 
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
@@ -72,3 +73,11 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
   .. code-block:: bash
 
       $ conan remove OpenSSL/1.0.2@lasote/stable -q "os=Windows"
+
+.. _conan_remove_system_reqs:
+
+- Remove ``system_reqs`` globally for the package name referred, inclusive for all package ids:
+
+.. code-block:: bash
+
+      $ conan remove --system-reqs package/version@user/channel
