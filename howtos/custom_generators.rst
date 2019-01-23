@@ -21,8 +21,7 @@ doesn't satisfy your needs. There are several options:
   
   
 This **how to** will show you how to do the latest one. We will build a generator for **premake** (https://premake.github.io/)
-build system: 
-  
+build system:
 
 Creating a custom generator
 ---------------------------
@@ -82,7 +81,6 @@ You have access to the ``conanfile`` instance at ``self.conanfile`` and get info
 | self.conanfile.env                      | dict with the applied env vars declared in the requirements                                    |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 
-            
 Premake generator example
 -------------------------
 
@@ -244,7 +242,6 @@ reference in conanfile.txt.
 
 Let's install the requirements and build the project:
 
-
 .. code-block:: bash
 
    $ conan install . -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
@@ -266,11 +263,11 @@ Now, everything works, so you might want to share your generator:
 
 
 Using template files for custom generators
---------------------------------------------
+------------------------------------------
 
 If your generator has a lot of common, non-parameterized text, you might want to use files that contain the template.
-It is possible making sure to export the template file. The following example uses a simple text file, but you could
-use other templating engines:
+It is possible to do this as long as the template file is exported in the recipe. The following example uses a simple text file,
+but you could use other templating formats:
 
 .. code-block:: python
 
