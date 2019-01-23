@@ -4,15 +4,20 @@
 
 .. _premake_generator:
 
-`premake` [EXPERIMENTAL]
-========================
+premake
+=======
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 .. container:: out_reference_box
 
     This is the reference page for ``premake`` generator.
     Go to :ref:`Integrations/premake<premake>` if you want to learn how to integrate your project or recipes with premake.
 
-Generates a file name ``conanbuildinfo.lua`` that can be used for your premake builds (both premake 4 and premake 5 are supported).
+Generates a file name *conanbuildinfo.premake.lua* that can be used for your premake builds (both premake 4 and premake 5 are supported).
+
 The file contains:
 
 - N groups of variables, one group per require, declaring the same individual values: include dirs, libs, bin dirs, defines, etc.
@@ -25,8 +30,8 @@ Variables
 Package declared variables
 ++++++++++++++++++++++++++
 
-For each requirement ``conanbuildinfo.lua`` file declares the following variables.
-```XXX``` is the name of the require. e.g. "zlib" for ``zlib/1.2.11@lasote/stable`` requirement:
+For each requirement *conanbuildinfo.premake.lua* file declares the following variables.
+``XXX`` is the name of the require. e.g. "zlib" for ``zlib/1.2.11@lasote/stable`` requirement:
 
 +---------------------------+------------------------------------------------------+
 | NAME                      | VALUE                                                |
@@ -39,9 +44,9 @@ For each requirement ``conanbuildinfo.lua`` file declares the following variable
 +---------------------------+------------------------------------------------------+
 | conan_libs_XXX            | Library names to link                                |
 +---------------------------+------------------------------------------------------+
-| conan_cppdefines_XXX      | Compile definitions                                  |
+| conan_defines_XXX         | Compile definitions                                  |
 +---------------------------+------------------------------------------------------+
-| conan_cppflags_XXX        | CXX flags                                            |
+| conan_cxxflags_XXX        | CXX flags                                            |
 +---------------------------+------------------------------------------------------+
 | conan_cflags_XXX          | C flags                                              |
 +---------------------------+------------------------------------------------------+
@@ -66,9 +71,9 @@ Global declared variables
 +---------------------------+------------------------------------------------------+
 | conan_libs                | Aggregated library names to link                     |
 +---------------------------+------------------------------------------------------+
-| conan_cppdefines          | Aggregated compile definitions                       |
+| conan_defines             | Aggregated compile definitions                       |
 +---------------------------+------------------------------------------------------+
-| conan_cppflags            | Aggregated CXX flags                                 |
+| conan_cxxflags            | Aggregated CXX flags                                 |
 +---------------------------+------------------------------------------------------+
 | conan_cflags              | Aggregated C flags                                   |
 +---------------------------+------------------------------------------------------+

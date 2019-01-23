@@ -25,7 +25,7 @@ This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`
          autotools.configure()
          autotools.make()
 
-It also works using the :ref:`environment_append <environment_append_tool>` context manager applied to your **configure and make** commands,
+It also works using the :ref:`environment_append <tools_environment_append>` context manager applied to your **configure and make** commands,
 calling `configure` and `make` manually:
 
 .. code-block:: python
@@ -275,7 +275,7 @@ Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
     - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.g., ``mingw32-make``. The
-      environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used too.
+      environment variable :ref:`env_vars_conan_make_program` can be used too.
     - **target** (Optional, Defaulted to ``None``): Choose which target to build. This allows building of e.g., docs, shared libraries or
       install for some AutoTools projects.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the make step.
@@ -293,7 +293,7 @@ Parameters:
     - **args** (Optional, Defaulted to ``""``): A list of additional arguments to be passed to the ``make`` command. Each argument will be
       escaped accordingly to the current shell. No extra arguments will be added if ``args=""``.
     - **make_program** (Optional, Defaulted to ``None``): Allows to specify a different ``make`` executable, e.g., ``mingw32-make``. The
-      environment variable :ref:`CONAN_MAKE_PROGRAM<conan_make_program>` can be used too.
+      environment variable :ref:`env_vars_conan_make_program` can be used too.
     - **vars** (Optional, Defaulted to ``None``): Overrides custom environment variables in the install step.
 
 Environment variables
@@ -317,4 +317,4 @@ The following environment variables will also affect the `AutoToolsBuildEnvironm
 
 .. seealso::
 
-    - :ref:`Reference/Tools/environment_append <environment_append_tool>`
+    - :ref:`Reference/Tools/environment_append <tools_environment_append>`

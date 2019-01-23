@@ -1028,6 +1028,10 @@ to :ref:`repackage artifacts <repackage>`
 scm
 ---
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 Used to clone/checkout a repository. It is a dictionary with the following possible values:
 
 .. code-block:: python

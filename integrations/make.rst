@@ -83,10 +83,10 @@ In order to use this generator within your project, use the following Makefile a
     #----------------------------------------
 
     CFLAGS          += $(CONAN_CFLAGS)
-    CXXFLAGS        += $(CONAN_CPPFLAGS)
-    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_PATHS))
+    CXXFLAGS        += $(CONAN_CXXFLAGS)
+    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_DIRS))
     CPPFLAGS        += $(addprefix -D, $(CONAN_DEFINES))
-    LDFLAGS         += $(addprefix -L, $(CONAN_LIB_PATHS))
+    LDFLAGS         += $(addprefix -L, $(CONAN_LIB_DIRS))
     LDLIBS          += $(addprefix -l, $(CONAN_LIBS))
 
 

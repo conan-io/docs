@@ -622,7 +622,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: ``CMake`` new ``patch_config_paths()`` methods that will replace absolute paths to conan package path variables, so cmake find scripts are relocatable.
 - Feature: new :command:`--test-build-folder` command line argument to define the location of the *test_package* build folder, and new conan.conf ``temp_test_folder`` and environment variable ``CONAN_TEMP_TEST_FOLDER``, that if set to True will automatically clean the test_package build folder after running.
 - Feature: Conan manages relative urls for upload/download to allow access the server from different configured networks or in domain subdirectories.
-- Feature: Added ``CONAN_SKIP_VS_PROJECTS_UPGRADE`` environment variable to skip the upgrade of Visual Studio project when using :ref:`build_sln_command<build_sln_command>`, the :ref:`msvc_build_command<msvc_build_command>` and the :ref:`MSBuild()<msbuild>` build helper.
+- Feature: Added ``CONAN_SKIP_VS_PROJECTS_UPGRADE`` environment variable to skip the upgrade of Visual Studio project when using :ref:`tools_build_sln_command`, the :ref:`msvc_build_command<tools_msvc_build_command>` and the :ref:`MSBuild()<msbuild>` build helper.
 - Feature: Improved detection of Visual Studio installations, possible to prioritize between multiple installed Visual tools with the ``CONAN_VS_INSTALLATION_PREFERENCE`` env-var and ``vs_installation_preference`` conan.conf variable.
 - Feature: Added ``keep_path`` parameter to ``self.copy()`` within the ``imports()`` method.
 - Feature: Added ``[build_requires]`` section to *conanfile.txt*.

@@ -55,7 +55,7 @@ In order to use new generator within your project, use the following Premake scr
 
     -- premake5.lua
 
-    include("conanbuildinfo.lua")
+    include("conanbuildinfo.premake.lua")
 
     workspace("ConanPremakeDemo")
         conan_basic_setup()
