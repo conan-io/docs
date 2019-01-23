@@ -22,7 +22,7 @@ actually trigger a build to generate the binaries in the cache or to run :comman
 to copy locally built artifacts into the conan cache and make them available to consumers.
 
 What about if you just can tell Conan where to find the headers and the artifacts ready for
-consumption in your local working directory? Not need to package, just tell Conan to use those
+consumption in your local working directory? No need to package, just tell Conan to use those
 artifacts you have just generated with your IDE, sounds good? This is what the feature
 *editable packages* will do for you.
 
@@ -180,6 +180,27 @@ layout from the local cache.
 
 You can switch layout files by passing a different argument to new calls to :command:`conan link`.
 
+Evaluation order and priority
++++++++++++++++++++++++++++++
+
+It is important to understand the evaluation order and priorities regarding the definitions of layouts:
+
+- The first thing that will always execute is the recipe ``package_info()``. That will define
+  the flags, definitions, as well as some values for the layout folders: ``includedirs``, ``libdirs``, etc.
+- If a layout file is defined, either explicitly or using the implicit ``.conan/layouts/default``,
+  conan will look for matches, based on its package reference.
+- If a match is found, either because of global definitions like ``[includedirs]``
+  or because a match like ``[pkg/version@user/channel:includedirs]``, then the layout folders
+  (includedirs, libdirs, resdirs, builddirs, bindirs), will be invalidated and replaced by the ones
+  defined in the file.
+- If a specific match like ``[pkg/version@user/channel:includedirs]`` is found, it is expected to
+  have defined also its specific ``[pkg/version@user/channel:libdirs]``, etc. The global layout
+  folders specified without package reference won't be applied once a match is found.
+- It no match is found, the original values for the layout folders defined in ``package_info()`` will
+  be respected.
+- The layout file to be used is defined at ``conan link`` time. If a ``.conan/layouts/default`` file
+  is added after the ``conan link``, it will not be used at all.
+
 
 Using a package in editable mode
 --------------------------------
@@ -196,11 +217,11 @@ To try that it is working, the following flow should work:
 
 - get sources of ``cool/version@user/dev``: :command:`git/svn clone... && cd folder`
 - Put package in editable mode: :command:`conan link . cool/version@user/dev --layout=mylayout`
-- Build it usin the local flow: :command:`conan install` + build
-- Go to the consumer project: `CoolApp`
-- Build it usin the local flow: :command:`conan install` + build
+- Build it using the local flow: :command:`conan install` + build
+- Go to the consumer project: ``CoolApp``
+- Build it using the local flow: :command:`conan install` + build
 - Go back to ``cool/version@user/dev`` source folder, do some changes, and just build. No conan commands necessary
-- Go to the consumer project: `CoolApp` and rebuild. It should get the changes from the ``cool`` library.
+- Go to the consumer project: ``CoolApp`` and rebuild. It should get the changes from the ``cool`` library.
 
 In that way, it is possible to be developing both the ``cool`` library and the ``CoolApp`` application, at the same
 time, without any Conan command.

@@ -13,17 +13,18 @@ in editable mode:
     [includedirs]
     src/include
 
-    # Affects only to cool/version@user/dev
-    [cool/version@user/dev:includedirs]
-    src/core/include
-    src/cmp_a/include
-
     # using placeholders from conan settings and options
     [libdirs]
     build/{settings.build_type}/{settings.arch}
 
     [bindirs]
     build/{settings.build_type}/{settings.arch}
+
+    # Affects only to cool/version@user/dev
+    [cool/version@user/dev:includedirs]
+    src/core/include
+    src/cmp_a/include
+
 
 The specific sections using a package reference will have higher priority than the general ones.
 
