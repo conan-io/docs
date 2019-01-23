@@ -1,6 +1,5 @@
 .. _dyn_generators:
 
-
 How to create and share a custom generator with generator packages
 ==================================================================
 
@@ -18,8 +17,7 @@ doesn't satisfy your needs. There are several options:
   to your own server and share with your team, or share with the world uploading it to bintray.
   You can manage it as a package, you can version it, overwrite it, delete it, create channels (testing/stable...),
   and the most important: bring it to your projects as a regular dependency.
-  
-  
+
 This **how to** will show you how to do the latest one. We will build a generator for **premake** (https://premake.github.io/)
 build system:
 
@@ -260,7 +258,6 @@ Now, everything works, so you might want to share your generator:
 
     This is a regular conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
     invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.
-
 
 Using template files for custom generators
 ------------------------------------------
