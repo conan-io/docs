@@ -263,3 +263,31 @@ Now, everything works, so you might want to share your generator:
 
     This is a regular conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
     invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.
+
+
+Using template files for custom generators
+--------------------------------------------
+
+If your generator has a lot of common, non-parameterized text, you might want to use files that contain the template.
+It is possible making sure to export the template file. The following example uses a simple text file, but you could
+use other templating engines:
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile, load
+    from conans.model import Generator
+
+    class MyCustomGenerator(Generator):
+        @property
+        def filename(self):
+            return "customfile.gen"
+        @property
+        def content(self):
+            template = load(os.path.join(os.path.dirname(__file__), "mytemplate.txt"))
+            return template % "Hello"
+
+    class MyCustomGeneratorPackage(ConanFile):
+        name = "custom"
+        version = "0.1"
+        exports = "mytemplate.txt"
