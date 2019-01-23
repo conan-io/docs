@@ -76,7 +76,7 @@ Note that nothing will really be installed in the local cache, all the dependenc
     $ conan search
     There are no packages
 
-Also, all the generated *conanbuildinfo.cmake* for each dependencies are installed in the *build* folder. You can inspect them to check
+Also, each dependency generates one *conanbuildinfo.cmake* file and all of them are installed in the *build* folder. You can inspect them to check
 that the paths they define for their dependencies are user folders, not pointing to the local cache.
 
 As defined in the *conanws.yml*, a root *CMakeLists.txt* is generated for us. We can use it to generate the super-project and build it:
