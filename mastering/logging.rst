@@ -6,7 +6,7 @@ Logging
 How to log and debug a conan execution
 ------------------------------------------
 
-You can use the :ref:`conan_trace_file` environment variable to log and debug several conan command execution.
+You can use the :ref:`env_vars_conan_trace_file` environment variable to log and debug several conan command execution.
 Set the ``CONAN_TRACE_FILE`` environment variable pointing to a log file.
 
 Example:
@@ -71,9 +71,9 @@ The */tmp/conan_trace.log* file only three lines will be appended:
 How to log the build process
 ------------------------------------------
 
-You can log your command executions ``self.run`` in a file named *conan_run.log* using the environment variable :ref:`conan_log_run_to_file`.
+You can log your command executions ``self.run`` in a file named *conan_run.log* using the environment variable :ref:`env_vars_conan_log_run_to_file`.
 
-You can also use the variable :ref:`conan_print_run_commands` to log extra information about the commands being executed.
+You can also use the variable :ref:`env_vars_conan_print_run_commands` to log extra information about the commands being executed.
 
 
 Package the log files

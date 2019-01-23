@@ -41,7 +41,7 @@ self.run()
 __________
 
 In a Conan recipe, you can use the ``self.run`` method specifying the parameter ``win_bash=True``
-that will call automatically to the tool :ref:`tools.run_in_windows_bash<run_in_windows_bash_tool>`.
+that will call automatically to the tool :ref:`tools.run_in_windows_bash<tools_run_in_windows_bash>`.
 
 It will use the **bash** in the path or the **bash** specified for the environment variable :ref:`CONAN_BASH_PATH<conan_bash_path_env>`
 to run the specified command.

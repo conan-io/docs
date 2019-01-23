@@ -61,14 +61,17 @@ Click on the project again. In the **info/configurations** section, choose **con
 
 Build your project as usual.
 
+.. seealso::
+
+    Check the :ref:`Reference/Generators/xcode <xcode_generator>` for the complete reference.
+
+.. seealso::
+
+    Check the :ref:`Tools section about Apple tools<tools_is_apple_os>` to ease the integration with the Apple development tools in your
+    recipes using the toolchain as a :ref:`build require<build_requires>`.
 
 
-.. seealso:: Check the :ref:`Reference/Generators/xcode <xcode_generator>` for the complete reference.
+.. seealso::
 
-
-.. seealso:: Check the :ref:`Tools section about Apple tools<tools_apple>` to ease the integration with the Apple development tools
-             in your recipes using the toolchain as a :ref:`build require<build_requires>`.
-
-
-.. seealso:: Check the :ref:`Darwin Toolchain package<darwin_toolchain>` section to know how to **cross build** for ``iOS``, ``watchOS`` and ``tvOS``.
-
+    Check the :ref:`Darwin Toolchain package<darwin_toolchain>` section to know how to **cross build** for ``iOS``, ``watchOS`` and
+    ``tvOS``.
