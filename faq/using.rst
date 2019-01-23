@@ -12,7 +12,7 @@ There are different approaches depending on if you want Conan to run the library
 When to use settings or options?
 --------------------------------
 
-While creating a package, you may want to add different configurations and variants of the package. There are 2 main inputs that define
+While creating a package, you may want to add different configurations and variants of the package. There are two main inputs that define
 packages: settings and options. Read more about them in :ref:`this section<settings_vs_options>`.
 
 How to obtain the dependents of a given package?
