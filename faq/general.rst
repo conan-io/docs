@@ -17,9 +17,9 @@ use of CMake, but similar functions can be very easily added for your favorite b
 Please check out the alternatives explained in :ref:`generator packages <dyn_generators>`
 
 Is my compiler, version, architecture, or setting supported?
----------------------------------------------------------------
+------------------------------------------------------------
 Yes. Conan is very general, and does not restrict any configuration at all.
-However, conan comes with some compilers, versions, architectures, ..., etc. pre-configured in the
+However, Conan comes with some compilers, versions, architectures, ..., etc. pre-configured in the
 ``~/.conan/settings.yml`` file, and you can get an error if using settings not present in that file.
 Go to :ref:`invalid settings<error_invalid_setting>` to learn more about it.
 
@@ -40,9 +40,9 @@ with a different SHA signature for every different configuration (debug, release
 Packages are managed per user, but additionally differentiated by version and channel, and also by their configuration.
 So large packages, like Boost, don't have to be compiled or downloaded for every project.
 
-Can I run multiple conan isolated instances (virtual environments) on the same machine?
+Can I run multiple Conan isolated instances (virtual environments) on the same machine?
 ----------------------------------------------------------------------------------------
-Yes, conan supports the concept of virtual environments; so it manages all the information (packages, remotes, user credentials, ..., etc.) in different, isolated environments.
+Yes, Conan supports the concept of virtual environments; so it manages all the information (packages, remotes, user credentials, ..., etc.) in different, isolated environments.
 Check :ref:`virtual environments<custom_cache>` for more details.
 
 
@@ -54,7 +54,7 @@ them to your on-premises server and forget about the original repository. Or you
 the package recipes, re-build from source on your premises, and then upload the packages to your
 server.
 
-Can I connect to conan remote servers through a corporate proxy?
+Can I connect to Conan remote servers through a corporate proxy?
 ---------------------------------------------------------------------
 Yes, it can be configured in your **~/.conan/conan.conf** configuration file or with some
 environment variables. Check :ref:`proxy configuration <proxys>` for more details.
@@ -77,7 +77,7 @@ No. But it is highly recommended. If you want, you can just directly start with 
 build elsewhere, and upload them directly. Maybe your ``build()`` step can download pre-compiled
 binaries from another source and unzip them, instead of actually compiling from sources.
 
-Does conan use semantic versioning (semver) for dependencies?
+Does Conan use semantic versioning (semver) for dependencies?
 -------------------------------------------------------------
 It uses a convention by which package dependencies follow semver by default; thus it intelligently
 avoids recompilation/repackaging if you update upstream minor versions, but will correctly do so if you
