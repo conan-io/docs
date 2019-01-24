@@ -226,6 +226,11 @@ To try that it is working, the following flow should work:
 In that way, it is possible to be developing both the ``cool`` library and the ``CoolApp`` application, at the same
 time, without any Conan command.
 
+.. note::
+
+    When a package is in editable mode, most of the commands will not work. It is not possible to ``conan upload``,
+    ``conan export`` or ``conan create`` when a package is in editable mode.
+
 Revert the editable mode
 ------------------------
 
