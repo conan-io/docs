@@ -9,5 +9,6 @@ This section describes how to work on packages which source code is being modifi
    :maxdepth: 2
 
    developing_packages/package_dev_flow
+   developing_packages/editable_packages
    developing_packages/workspaces
 
