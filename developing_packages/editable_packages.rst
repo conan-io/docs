@@ -81,7 +81,7 @@ The custom layout of a package while it is in editable mode can be defined in di
 Recipe defined layout
 ++++++++++++++++++++++
 
-A recipe can defined a custom layout when it is not living in the local cache, in its ``package_info()`` method,
+A recipe can define a custom layout when it is not living in the local cache, in its ``package_info()`` method,
 something like:
 
 .. code-block:: python
