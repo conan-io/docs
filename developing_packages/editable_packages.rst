@@ -117,7 +117,10 @@ That is only an example, the real layout used by VS would be different.
 Layout files
 +++++++++++++
 
-Layout files have the following syntax:
+Instead of changing the recipe file to match the local layout, it's possible to define the
+layout in a separate file. This is especially useful if you have a large number of libraries
+with the structure so you can write it one and use it for several packages. Layout files have
+the following syntax:
 
    .. code-block:: ini
 
@@ -215,12 +218,13 @@ against it.
 To summarize, consumption of packages in editable mode is transparent to their consumers.
 To try that it is working, the following flow should work:
 
-- get sources of ``cool/version@user/dev``: :command:`git/svn clone... && cd folder`
+- Get sources of ``cool/version@user/dev``: :command:`git/svn clone... && cd folder`
 - Put package in editable mode: :command:`conan link . cool/version@user/dev --layout=mylayout`
-- Build it using the local flow: :command:`conan install` + build
+- Work with it and build using any tool. Check that your local layout is reflected in the layout
+  file *mylayout* specified in the previous step.
 - Go to the consumer project: ``CoolApp``
-- Build it using the local flow: :command:`conan install` + build
-- Go back to ``cool/version@user/dev`` source folder, do some changes, and just build. No conan commands necessary
+- Build it using any local flow: :command:`conan install` and build
+- Go back to ``cool/version@user/dev`` source folder, do some changes, and just build. No Conan commands necessary
 - Go to the consumer project: ``CoolApp`` and rebuild. It should get the changes from the ``cool`` library.
 
 In that way, it is possible to be developing both the ``cool`` library and the ``CoolApp`` application, at the same
