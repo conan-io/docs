@@ -31,7 +31,7 @@ installed, Conan will write the files for the specified generators.
                             reference
       reference             Reference for the conanfile path of the first
                             argument: user/channel, version@user/channel or
-                            pkg/version@user/channel(if name or version declared
+                            pkg/version@user/channel (if name or version declared
                             in conanfile.py, they should match)
 
     optional arguments:
@@ -120,7 +120,7 @@ executes the following:
 
       $ conan install . -o PkgName:use_debug_mode=on -s compiler=clang
 
-- Install the requirements defined in a ``conanfile.py``, file in your current directory, with the
+- Install the requirements defined in a ``conanfile.py`` file in your current directory, with the
   default settings in default profile ``<userhome>/.conan/profiles/default``, and specifying the
   version, user and channel (as they might be used in the recipe):
 
@@ -238,6 +238,8 @@ reference
 ---------
 
 An optional positional argument, if used the first argument should be a path.
+If the reference specifies name and/or version, and they are also declared in the ``conanfile.py``,
+they should match, otherwise, an error will be raised.
 
 .. code-block:: bash
 
