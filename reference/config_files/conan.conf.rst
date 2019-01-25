@@ -26,13 +26,14 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
-    # cache_no_locks = True               # Disable locking mechanism of local cache
+    # cache_no_locks = True               # environment CONAN_CACHE_NO_LOCKS
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
 
     # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
+    # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
     # http://www.vtk.org/Wiki/CMake_Cross_Compiling
@@ -44,6 +45,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # cmake_find_root_path_mode_program   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM
     # cmake_find_root_path_mode_library   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY
     # cmake_find_root_path_mode_include   # environment CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE
+
+    # msbuild_verbosity = minimal         # environment CONAN_MSBUILD_VERBOSITY
 
     # cpu_count = 1             # environment CONAN_CPU_COUNT
 
@@ -104,15 +107,35 @@ The ``verbose_traceback`` variable will print the complete traceback when an err
 to debug the detected error.
 
 The ``bash_path`` variable is used only in windows to help the
-:ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function to locate our Cygwin/MSYS2 bash.
+:ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function to locate our Cygwin/MSYS2 bash.
 Set it with the bash executable path if it's not in the PATH or you want to use a different one.
+
+The ``cache_no_locks`` variable is used to disable locking mechanism of local cache.
+This is primary used for debugging purposes, and in general it's not recommended to disable locks otherwise,
+as it may result in corrupted packages.
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
 
-The ``cpu_count`` variable set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return,
+
+The ``msbuild_verbosity`` variable is used only by :ref:`MSBuild<msbuild>` and :ref:`CMake<cmake_reference>` build helpers.
+For the :ref:`CMake<cmake_reference>` build helper, it has an effect only for ```Visual Studio``` generators.
+Variable defines verbosity level used by the ```msbuild``` tool, as documented on `MSDN <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017>`.
+By default, ```minimal`` verbosity level is used, matching the Visual Studio IDE behavior.
+Allowed values are (in ascending order): ```quiet```, ```minimal```, ```normal```, ```detailed```, ```diagnostic```.
+You can also adjust the environment variable ``CONAN_MSBUILD_VERBOSITY``.
+
+The ``conan_make_program`` variable used by :ref:`CMake<cmake_reference>` and :ref:`AutotoolsBuildEnvironment <autotools_reference>` build helpers.
+It overrides a default ```make``` executable, might be useful in case you need to use a different make (e.g. BSD Make instead of GNU Make, or MinGW Make).
+Set it with the make executable path if it's not in the PATH or you want to use a different one.
+
+The ``conan_cmake_program`` variable used only by :ref:`CMake<cmake_reference>` build helper.
+It overrides a default ```cmake``` executable, might be useful in case you need to use a CMake wrapper tool (such as scan build).
+Set it with the cmake executable path if it's not in the PATH or you want to use a different one.
+
+The ``cpu_count`` variable set the number of cores that the :ref:`tools_cpu_count` will return,
 by default the number of cores available in your machine.
-Conan recipes can use the cpu_count() tool to build the library using more than one core.
+Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
 
 The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules
 for the python linter executed at ``export`` time. A use case could be to define some custom indents

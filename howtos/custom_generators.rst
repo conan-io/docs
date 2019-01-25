@@ -1,6 +1,5 @@
 .. _dyn_generators:
 
-
 How to create and share a custom generator with generator packages
 ==================================================================
 
@@ -18,11 +17,9 @@ doesn't satisfy your needs. There are several options:
   to your own server and share with your team, or share with the world uploading it to bintray.
   You can manage it as a package, you can version it, overwrite it, delete it, create channels (testing/stable...),
   and the most important: bring it to your projects as a regular dependency.
-  
-  
+
 This **how to** will show you how to do the latest one. We will build a generator for **premake** (https://premake.github.io/)
-build system: 
-  
+build system:
 
 Creating a custom generator
 ---------------------------
@@ -82,7 +79,6 @@ You have access to the ``conanfile`` instance at ``self.conanfile`` and get info
 | self.conanfile.env                      | dict with the applied env vars declared in the requirements                                    |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 
-            
 Premake generator example
 -------------------------
 
@@ -244,7 +240,6 @@ reference in conanfile.txt.
 
 Let's install the requirements and build the project:
 
-
 .. code-block:: bash
 
    $ conan install . -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
@@ -263,3 +258,30 @@ Now, everything works, so you might want to share your generator:
 
     This is a regular conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
     invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.
+
+Using template files for custom generators
+------------------------------------------
+
+If your generator has a lot of common, non-parameterized text, you might want to use files that contain the template.
+It is possible to do this as long as the template file is exported in the recipe. The following example uses a simple text file,
+but you could use other templating formats:
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile, load
+    from conans.model import Generator
+
+    class MyCustomGenerator(Generator):
+        @property
+        def filename(self):
+            return "customfile.gen"
+        @property
+        def content(self):
+            template = load(os.path.join(os.path.dirname(__file__), "mytemplate.txt"))
+            return template % "Hello"
+
+    class MyCustomGeneratorPackage(ConanFile):
+        name = "custom"
+        version = "0.1"
+        exports = "mytemplate.txt"

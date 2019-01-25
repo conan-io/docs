@@ -210,5 +210,5 @@ So it can be a good solution in case you are building **library A** with a build
 
 .. seealso::
 
-    Check the :ref:`pkgconfigtool`, a wrapper of the :command:`pkg-config` tool that allows to extract flags,
-    library paths, etc. for any *.pc* file.
+    Check the :ref:`tools_pkgconfig`, a wrapper of the :command:`pkg-config` tool that allows to extract flags, library paths, etc. for any
+    *.pc* file.

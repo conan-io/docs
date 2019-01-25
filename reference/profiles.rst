@@ -110,6 +110,28 @@ Your build tool will locate **clang** compiler only for the **zlib** package and
         [env]
         PATH=[/some/path/to/my/tool]
 
+Profile composition
+-------------------
+
+You can specify multiple profiles in the command line. The applied configuration will be the composition
+of all the profiles applied in the order they are specified.
+
+If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree, 
+it won't be very practical adding the `cmake` installer reference, e.g  ``cmake_installer/3.9.0@conan/stable`` to all your profiles where you could
+need to inject ``cmake`` as a build require.
+
+You can specify both profiles instead:
+
+.. code-block:: text
+   :caption: *.conan/profiles/cmake_39*
+
+    [build_requires]
+    cmake_installer/3.9.0@conan/stable
+
+.. code-block:: bash
+
+   $ conan install . --profile clang --profile cmake_39
+
 Profile includes
 ----------------
 

@@ -74,7 +74,7 @@ Calling Visual Studio compiler
 ------------------------------
 
 You can call your Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment`` and the
-``tools.vcvars_command``.
+:ref:`tools_vcvars_command`.
 
 Check the :ref:`msbuild` section for more info.
 

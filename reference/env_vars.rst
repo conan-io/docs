@@ -16,7 +16,6 @@ CMAKE RELATED VARIABLES
 There are some Conan environment variables that will set the equivalent CMake variable using the :ref:`cmake generator<cmake_generator>` and
 the :ref:`CMake build tool<cmake_reference>`:
 
-
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | Variable                                | CMake set variable                                                                             |
 +=========================================+================================================================================================+
@@ -48,22 +47,32 @@ CONAN_BASH_PATH
 
 **Defaulted to**: Not defined
 
-Used only in windows to help the :ref:`tools.run_in_windows_bash()<run_in_windows_bash_tool>` function
+Used only in windows to help the :ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the ``PATH`` or you want to use a different one.
+
+CONAN_CACHE_NO_LOCKS
+--------------------
+
+**Defaulted to**: ``False``/``0``
+
+Set it to ``True``/``1`` to disable locking mechanism of local cache.
+Set it to ``False``/``0`` to enable locking mechanism of local cache.
+Use it with caution, and only for debugging purposes. Disabling locks may easily lead to corrupted packages.
+Not recommended for production environments, and in general should be used for conan development and contributions only.
 
 CONAN_CMAKE_GENERATOR
 ---------------------
 
-Conan ``CMake`` helper class is just a convenience to help to translate conan
-settings and options into cmake parameters, but you can easily do it yourself, or adapt it.
+Conan ``CMake`` helper class is just a convenience to help to translate Conan
+settings and options into CMake parameters, but you can easily do it yourself, or adapt it.
 
 For some compiler configurations, as ``gcc`` it will use by default the ``Unix Makefiles``
-cmake generator. Note that this is not a package settings, building it with makefiles or other
+CMake generator. Note that this is not a package settings, building it with makefiles or other
 build system, as Ninja, should lead to the same binary if using appropriately the same
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
 So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
-to your desired cmake generator (as ``Ninja``).
+to your desired CMake generator (as ``Ninja``).
 
 CONAN_COLOR_DARK
 ----------------
@@ -79,7 +88,7 @@ CONAN_COLOR_DISPLAY
 
 **Defaulted to**: Not defined
 
-By default if undefined conan output will use color if a tty is detected.
+By default if undefined Conan output will use color if a tty is detected.
 
 Set it to ``False``/``0`` to remove console output colors.
 Set it to ``True``/``1`` to force console output colors.
@@ -89,18 +98,20 @@ CONAN_COMPRESSION_LEVEL
 
 **Defaulted to**: ``9``
 
-Conan uses ``tgz`` compression for archives before uploading them to remotes. The default compression
+Conan uses *.tgz* compression for archives before uploading them to remotes. The default compression
 level is good and fast enough for most cases, but users with huge packages might want to change it and
 set ``CONAN_COMPRESSION_LEVEL`` environment variable to a lower number, which is able to get slightly
 bigger archives but much better compression speed.
+
+.. _env_vars_conan_cpu_count:
 
 CONAN_CPU_COUNT
 ---------------
 
 **Defaulted to**: Number of available cores in your machine.
 
-Set the number of cores that the :ref:`tools.cpu_count()<cpu_count>` will return.
-Conan recipes can use the cpu_count() tool to build the library using more than one core.
+Set the number of cores that the :ref:`tools_cpu_count` will return.
+Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
 
 CONAN_DEFAULT_PROFILE_PATH
 --------------------------
@@ -120,7 +131,6 @@ Invocations of Conan commands where an interactive prompt would otherwise appear
 
 This variable can also be set in ``conan.conf`` as ``non_interactive = True`` in the ``[general]``
 section.
-
 
 CONAN_ENV_XXXX_YYYY
 -------------------
@@ -149,7 +159,7 @@ The ``XXXX`` is the setting name upper-case, and the ``YYYY`` (optional) is the 
 
     CONAN_ENV_ARCH = "x86"
 
-.. _conan_log_run_to_file:
+.. _env_vars_conan_log_run_to_file:
 
 CONAN_LOG_RUN_TO_FILE
 ---------------------
@@ -164,7 +174,7 @@ In case we execute ``self.run`` in our ``source()`` method, the ``conan_run.log`
 to the ``build`` folder following the regular execution flow. So the ``conan_run.log`` will contain all the logs from your conanfile.py command
 executions.
 
-The file can be included in the conan package (for debugging purposes) using the ``package`` method.
+The file can be included in the Conan package (for debugging purposes) using the ``package`` method.
 
 .. code-block:: python
 
@@ -176,7 +186,7 @@ CONAN_LOG_RUN_TO_OUTPUT
 
 **Defaulted to**: ``1``
 
-If set to ``0`` conan won't print the command output to the stdout.
+If set to ``0`` Conan won't print the command output to the stdout.
 Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and not printing the output.
 
 CONAN_LOGGING_LEVEL
@@ -184,7 +194,7 @@ CONAN_LOGGING_LEVEL
 
 **Defaulted to**: ``50``
 
-By default conan logging level is only set for critical events. If you want
+By default Conan logging level is only set for critical events. If you want
 to show more detailed logging information, set this variable to lower values, as ``10`` to show
 debug information.
 
@@ -208,7 +218,7 @@ For example: For a remote named "conan-center":
 
     SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
 
-.. _conan_make_program:
+.. _env_vars_conan_make_program:
 
 CONAN_MAKE_PROGRAM
 ------------------
@@ -229,6 +239,31 @@ For example:
     # Or only the exe name if it is in the path
 
     CONAN_MAKE_PROGRAM="mingw32-make"
+
+CONAN_CMAKE_PROGRAM
+-------------------
+
+**Defaulted to**: Not defined
+
+Specify an alternative ``cmake`` program to use with :ref:`CMake<cmake_reference>` build helper.
+
+For example:
+
+.. code-block:: bash
+
+    CONAN_MAKE_PROGRAM="scan-build cmake"
+
+CONAN_MSBUILD_VERBOSITY
+-----------------------
+
+**Defaulted to**: Not defined
+
+Specify ```MSBuild``` verbosity level to use with:
+
+    - The build helper :ref:`CMake<cmake_reference>`.
+    - The build helper :ref:`MSBuild<msbuild>`.
+
+For list of allowed values and their meaning, check out the `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017l>`_.
 
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------
@@ -252,13 +287,13 @@ For example, for a remote named "conan-center":
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
 
 CONAN_HOOKS
--------------
+-----------
 
 **Defaulted to**: Not defined
 
 Can be set to a comma separated list with the names of the hooks that will be executed when running a Conan command.
 
-.. _conan_print_run_commands:
+.. _env_vars_conan_print_run_commands:
 
 CONAN_PRINT_RUN_COMMANDS
 ------------------------
@@ -287,7 +322,7 @@ CONAN_READ_ONLY_CACHE
 
 **Defaulted to**: Not defined
 
-This environment variable if defined, will make the conan cache read-only. This could prevent
+This environment variable if defined, will make the Conan cache read-only. This could prevent
 developers to accidentally edit some header of their dependencies while navigating code in their
 IDEs.
 
@@ -305,7 +340,7 @@ uploading packages, as they will be read-only and that could have other side-eff
     It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to inconsistencies.
     For better reproducibility we recommend that packages are created and uploaded by CI machines.
 
-.. _conan_run_tests:
+.. _env_vars_conan_run_tests:
 
 CONAN_RUN_TESTS
 ---------------
@@ -353,14 +388,14 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
             if tools.get_env("CONAN_RUN_TESTS", True):
                 cmake.test()
 
-.. _env_var_conan_skip_vs_project_upgrade:
+.. _env_vars_conan_skip_vs_project_upgrade:
 
 CONAN_SKIP_VS_PROJECTS_UPGRADE
 ------------------------------
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`build_sln_command<build_sln_command>`, the :ref:`msvc_build_command<msvc_build_command>`
+When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`tools_msvc_build_command`
 and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
@@ -402,7 +437,7 @@ CONAN_TEMP_TEST_FOLDER
 
 Activating this variable will make build folder of *test_package* to be created in the temporary folder of your machine.
 
-.. _conan_trace_file:
+.. _env_vars_conan_trace_file:
 
 CONAN_TRACE_FILE
 ----------------
@@ -458,7 +493,6 @@ marked as `short_paths` will be stored in the ``C:\.conan`` (or the current driv
 
 If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
-
 CONAN_USE_ALWAYS_SHORT_PATHS
 ----------------------------
 
@@ -468,13 +502,14 @@ If defined to ``True`` or ``1``, every package will be stored in the *short path
 by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
 overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
 
-
 CONAN_VERBOSE_TRACEBACK
 -----------------------
 
 **Defaulted to**: ``0``
 
 When an error is raised in a recipe or even in the Conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
+
+.. _env_vars_conan_vs_installation_preference:
 
 CONAN_VS_INSTALLATION_PREFERENCE
 --------------------------------

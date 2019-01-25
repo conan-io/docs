@@ -15,4 +15,5 @@ These are the most important configuration files, used to customize conan.
    config_files/registry.txt
    config_files/client_certificates
    config_files/artifacts.properties
+   config_files/editable_layout
 

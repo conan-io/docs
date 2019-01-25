@@ -97,6 +97,9 @@ The specified URL or path, the arguments used (if any) and the source type (from
 the ``general.config_install`` variable of the *conan.conf* file, so as following calls to :command:`conan config install` command doesn't
 need to specify them.
 
+.. note::
+    During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.
+
 **Examples**:
 
 - Install the configuration from a URL:
