@@ -164,10 +164,16 @@ channel than the current package, which could be achieved with something like:
             self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
 
 Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
-For package recipes working in user space, there is no current user/channel. The properties ``self.user``
-and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
-respectively. If they are not defined, an error will be raised unless ``default_user`` and ``default_channel``
-are declared.
+For package recipes working in user space, there is no current user/channel by default. They can be
+defined at ``conan install`` time with:
+
+.. code-block:: bash
+
+    $ conan install <path to conanfile.py> user/channel
+
+If they are not defined via command line, the properties ``self.user`` and ``self.channel`` will then look 
+for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` respectively. If they are not defined, 
+an error will be raised unless ``default_user`` and ``default_channel`` are declared in the recipe.
 
 .. seealso::
 
