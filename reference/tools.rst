@@ -187,7 +187,7 @@ Parameters:
     - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
       is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
       solution uses "Win32" instead of "x86"). This dictionary will update the following default one:
-      
+
       .. code-block:: python
 
           msvc_arch = {'x86': 'x86',
