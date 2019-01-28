@@ -188,3 +188,9 @@ These targets are:
   targets from its ``requires``)
 - Each ``CONAN_LIB`` depends on the direct public dependencies ``CONAN_PKG`` targets of its container package. This guarantees
   correct link order.
+
+Default used generators
+-----------------------
+
+When a compiler or its version is not detected, the CMake helper uses a default generator based on the platform operating system.
+For Windows it generates ``MinGW Makefiles``, otherwise it will generate ``Unix Makefiles``.

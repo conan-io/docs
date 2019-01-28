@@ -1,7 +1,7 @@
 Build policies
 ==============
 
-By default, :command:`conan install` command will search for a binary package (corresponding to our settings and defined options) in a remote, 
+By default, :command:`conan install` command will search for a binary package (corresponding to our settings and defined options) in a remote,
 if it's not present the install command will fail.
 
 As previously demonstrated, we can use the :command:`--build` option to change the default :command:`conan install` behavior:
@@ -32,3 +32,5 @@ libraries.
 
 The ``always`` policy, will retrieve the sources each time the package is installed so it can be useful for providing a "latest" mechanism
 or ignoring the uploaded binary packages.
+
+The package pattern can be referred as the package name only or a full reference e.g :command:`--build Poco` or :command:`--build zlib/1.2.11@conan/stable`.

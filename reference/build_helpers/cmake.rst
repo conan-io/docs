@@ -50,13 +50,13 @@ Constructor
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
-                     set_cmake_flags=False, msbuild_verbosity=None)
+                     set_cmake_flags=False, msbuild_verbosity=None, cmake_program=None)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
     - **generator** (Optional, Defaulted to ``None``): Specify a custom generator instead of autodetect it. e.g., "MinGW Makefiles"
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
-    - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<cpu_count>`.
+    - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<tools_cpu_count>`.
       Also applies to parallel test execution (by defining ``CTEST_PARALLEL_LEVEL`` environment variable).
     - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. Note this will
       also make the ``CMAKE_BUILD_TYPE`` to be declared for multi configuration generators.
@@ -64,6 +64,7 @@ Parameters:
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
     - **msbuild_verbosity** (Optional, Defaulted to ``None``): verbosity level for MSBuild (in case of Visual Studio generator).
+    - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
 
 Attributes
 ----------
