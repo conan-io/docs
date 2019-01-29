@@ -324,8 +324,10 @@ legacy reasons.
 
 .. tip::
 
-    You can inspect available package options reading the package recipe, which can be
-    done with the command :command:`conan get MyPkg/0.1@user/channel`.
+    - You can inspect available package options reading the package recipe, which can be
+      done with the command :command:`conan inspect MyPkg/0.1@user/channel`.
+    - Options ``"shared": [True, False]`` and ``"fPIC": [True, False]`` are automatically managed in :ref:`cmake_reference` and
+      :ref:`autotools_reference` build helpers.
 
 As we mentioned before, values for options in a recipe can be defined using different ways, let's
 go over all of them for the example recipe ``MyPkg`` defined above:
