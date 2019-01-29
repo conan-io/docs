@@ -87,11 +87,11 @@ Parameters:
     - **targets** (Optional, Defaulted to ``None``): Sets ``/target`` flag to the specified list of targets to build.
     - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv /upgrade` to upgrade the solution to your current
       Visual Studio.
-    - **build_type** (Optional, Defaulted to ``None``): Sets ``/p:Configuration`` flag to the specified value. Use a custom build type name
-      instead of the default ``settings.build_type`` one.
-    - **arch** (Optional, Defaulted to ``None``): Sets ``/p:Platform`` flag to the specified value. Use a custom architecture name instead
-      of the ``settings.arch`` one. It can be used as the key of the **platforms** parameter.
-      E.g. ``arch="x86", platforms={"x86": "i386"}``.
+    - **build_type** (Optional, Defaulted to ``None``): Sets ``/p:Configuration`` flag to the specified value. It will override the value
+      from ``settings.build_type``.
+    - **arch** (Optional, Defaulted to ``None``): Sets ``/p:Platform`` flag to the specified value. It will override the value from
+      ``settings.arch``. This value (or the ``settings.arch`` one if not overridden) will be used as the key for the ``msvc_arch``
+      dictionary that returns the final string used for the ``/p:Platform`` flag (see **platforms** argument documentation below).
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or
       :ref:`cpu_count`:
 
@@ -100,9 +100,9 @@ Parameters:
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
       version.
     - **toolset** (Optional, Defaulted to ``None``): Sets ``/p:PlatformToolset`` to the specified toolset.
-    - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
-      is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
-      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+    - **platforms** (Optional, Defaulted to ``None``): This dictionary will update the default one (see ``msvc_arch`` below) and will be
+      used to get the mapping of architectures to platforms from the Conan naming to another one. It is useful for Visual Studio solutions
+      that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual solution uses "Win32" instead of "x86").
 
       .. code-block:: python
 
