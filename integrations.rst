@@ -26,6 +26,7 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/make
    integrations/qbs
    integrations/meson
+   integrations/scons
    integrations/docker
    integrations/git
    integrations/jenkins
@@ -34,6 +35,6 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/gitlab
    integrations/circleci
    integrations/youcompleteme
-   integrations/scons
    integrations/other
    integrations/pylint
+   integrations/azure_devops

@@ -94,11 +94,14 @@ And simply create the package for user and channel **demo/testing** as described
     Hello/0.1@demo/testing test package: Running test()
     Hello world!
 
-
 .. _scm_feature:
 
-Capturing the Remote and Commit: ``scm`` [EXPERIMENTAL]
--------------------------------------------------------
+Capturing the Remote and Commit: ``scm``
+----------------------------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when ``conan create`` is called) the exported recipe will capture the
@@ -118,7 +121,6 @@ remote and commit of the local repository:
          }
         ...
 
-
 You can commit and push the ``conanfile.py`` to your origin repository, which will always preserve the ``auto``
 values. But when the file is exported to the conan local cache, the copied recipe in the local cache
 will point to the captured remote and commit:
@@ -136,7 +138,6 @@ will point to the captured remote and commit:
             "revision": "437676e15da7090a1368255097f51b1a470905a0"
          }
         ...
-
 
 So when you :ref:`upload the recipe <uploading_packages>` to a conan remote, the recipe will contain
 the "resolved" URL and commit.
@@ -168,7 +169,6 @@ be valid too:
             "revision": "auto"
          }
         ...
-
 
 .. tip::
 
