@@ -22,7 +22,7 @@ information from the requirements: include directories, library names, flags etc
 
     - :ref:`VisualStudioBuildEnvironment<visual_studio_build>` to adjust the ``LIB`` and ``CL``
       environment variables with all the information from the requirements: include directories, library names, flags etc.
-    - :ref:`tools.msvc_build_command<msvc_build_command>` to call :command:``MSBuild``.
+    - :ref:`tools_msvc_build_command` to call :command:``MSBuild``.
 
 You can adjust all the information from the requirements accessing to the ``build_env`` that it is a :ref:`visual_studio_build` object:
 
@@ -78,7 +78,7 @@ build()
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
               vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None,
-              property_file_name=None, verbosity=None)
+              property_file_name=None, verbosity=None, definitions=None)
 
 Builds Visual Studio project with the given parameters.
 
@@ -93,7 +93,7 @@ Parameters:
       ``settings.arch``. This value (or the ``settings.arch`` one if not overridden) will be used as the key for the ``msvc_arch``
       dictionary that returns the final string used for the ``/p:Platform`` flag (see **platforms** argument documentation below).
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or
-      :ref:`cpu_count`:
+      :ref:`tools_cpu_count`:
 
         - **In the solution**: Building the solution with the projects in parallel. (``/m:`` parameter).
         - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag).
@@ -121,13 +121,15 @@ Parameters:
       ``output_binary_log="my_log.binlog"``. This parameter is only supported
       `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
     - **property_file_name** (Optional, Defaulted to ``None``): Sets ``p:ForceImportBeforeCppTargets``. When ``None`` it will generate a
-      file named ``conan_build.props``. You can specify a different name for the generated properties file.
+      file named *conan_build.props*. You can specify a different name for the generated properties file.
     - **verbosity** (Optional, Defaulted to ``None``): Sets the ``/verbosity`` flag to the specified verbosity level. Possible values are
       ``"quiet"``, ``"minimal"``, ``"normal"``, ``"detailed"`` and ``"diagnostic"``.
+    - **definitions** (Optional, Defaulted to ``None``): Dictionary with additional compiler definitions to be applied during the build.
+      Use a dictionary with the desired key and its value set to ``None`` to set a compiler definition with no value.
 
 .. note::
 
-    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`vcvars_command` to adjust the environment
+    The ``MSBuild()`` build helper will, before calling to :command:`MSBuild`, call :ref:`tools_vcvars_command` to adjust the environment
     according to the settings. When cross-building from x64 to x86 the toolchain by default is ``x86``. If you want to use ``amd64_x86``
     instead, set the environment variable ``PreferredToolArchitecture=x64``.
 
@@ -168,7 +170,7 @@ VisualStudioBuildEnvironment
 ============================
 
 Prepares the needed environment variables to invoke the Visual Studio compiler.
-Use it together with :ref:`vcvars_command`.
+Use it together with :ref:`tools_vcvars_command`.
 
 .. code-block:: python
    :emphasize-lines: 9, 10, 11
@@ -277,8 +279,8 @@ parallel
 
 Defaulted to ``False``.
 
-Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`cpu_count`.
+Sets the flag ``/MP`` in order to compile the sources in parallel using cores found by :ref:`tools_cpu_count`.
 
 .. seealso::
 
-    Read more about :ref:`environment_append_tool`.
+    Read more about :ref:`tools_environment_append`.
