@@ -2,8 +2,8 @@
 .. _search_json:
 
 
-Search output [EXPERIMENTAL]
-----------------------------
+Search output
+-------------
 
 The :command:`conan search` provides a :command:`--json` parameter to generate a file containing the
 information of the search process.

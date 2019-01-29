@@ -42,9 +42,8 @@ recipe or a reference for any existing package in your local cache.
                             specify both install-folder and any setting/option it
                             will raise an error.
       -j [JSON], --json [JSON]
-                            Only with --build-order option, return the information
-                            in a json. e.g --json=/path/to/filename.json or --json
-                            to output the json
+                            Path to a joon file where the information will be
+                            written
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
                             "required", "date", "author", "None". '--paths'
@@ -154,7 +153,7 @@ changed (most likely due to a git push on that package):
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.
 
-You can also specify the ``ALL`` argument, if you want just to compute the whole dependency graph build order
+You can also specify the :command:`--build-order=ALL` argument, if you want just to compute the whole dependency graph build order
 
 .. code-block:: bash
 
