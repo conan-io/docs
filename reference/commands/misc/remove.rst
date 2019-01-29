@@ -6,9 +6,9 @@ conan remove
 
 .. code-block:: bash
 
-    $ conan remove [-h] [-b [BUILDS [BUILDS ...]]] [-f] [-o]
+    $ conan remove [-h] [-b [BUILDS [BUILDS ...]]] [-f] [-l] [-o]
                    [-p [PACKAGES [PACKAGES ...]]] [-q QUERY] [-r REMOTE] [-s]
-                   [-l]
+                   [-t]
                    [pattern_or_reference]
 
 Removes packages or binaries matching pattern from local cache or remote. It
@@ -28,6 +28,7 @@ the local conan cache.
                             By default, remove all the build folders or select
                             one, specifying the package ID
       -f, --force           Remove without requesting a confirmation
+      -l, --locks           Remove locks
       -o, --outdated        Remove only outdated from recipe packages. This flag
                             can only be used with a reference
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
@@ -39,7 +40,8 @@ the local conan cache.
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -s, --src             Remove source folders
-      -l, --locks           Remove locks
+      -t, --system-reqs     Remove system_reqs folders
+
 
 
 The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
@@ -71,3 +73,13 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
   .. code-block:: bash
 
       $ conan remove OpenSSL/1.0.2@lasote/stable -q "os=Windows"
+
+.. _conan_remove_system_reqs:
+
+- Remove system requirements installation registry for the package name referred globally for all package ids:
+
+.. code-block:: bash
+
+      $ conan remove --system-reqs package/version@user/channel
+
+This command does not remove the system installed packages, but only the Conan lock to indicate they were installed.
