@@ -22,7 +22,69 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
-1.11.2 (8-Jan-2018)
+1.12.0 (30-Jan-2019)
+--------------------
+
+- Feature: Add JSON output to 'info' command `#4359 <https://github.com/conan-io/conan/pull/4359>`_ . Docs `here <https://github.com/conan-io/docs/pull/1050>`__
+- Feature: Remove system requirements conan folders (not installed binaries) from cache `#4354 <https://github.com/conan-io/conan/pull/4354>`_ . Docs `here <https://github.com/conan-io/docs/pull/1038>`__
+- Feature: Updated *CONTRIBUTING.md* with code style `#4348 <https://github.com/conan-io/conan/pull/4348>`_
+- Feature: Updated OS versions for apple products `#4345 <https://github.com/conan-io/conan/pull/4345>`_
+- Feature: add environment variable CONAN_CACHE_NO_LOCKS to simplify debugging `#4309 <https://github.com/conan-io/conan/pull/4309>`_ . Docs `here <https://github.com/conan-io/docs/pull/1019>`__
+- Feature: The commands :command:`conan install`, :command:`conan info`, :command:`conan create` and :command:`conan export-pkg` now can receive multiple profile arguments. The applied profile will be the composition of them, prioritizing the latest applied. `#4308 <https://github.com/conan-io/conan/pull/4308>`_ . Docs `here <https://github.com/conan-io/docs/pull/1036>`__
+- Feature: Added ``get_tag()`` methods to ``tools.Git()`` and ``tools.SVN()`` helpers. `#4306 <https://github.com/conan-io/conan/pull/4306>`_ . Docs `here <https://github.com/conan-io/docs/pull/1020>`__
+- Feature: Package reference is now accepted as an argument in ``conan install --build`` `#4305 <https://github.com/conan-io/conan/pull/4305>`_ . Docs `here <https://github.com/conan-io/docs/pull/1017>`__
+- Feature: define environment variables for CTest `#4299 <https://github.com/conan-io/conan/pull/4299>`_ . Docs `here <https://github.com/conan-io/docs/pull/1018>`__
+- Feature: Added a configuration entry at the `conan.conf` file to be able to specify a custom `CMake` executable. `#4298 <https://github.com/conan-io/conan/pull/4298>`_ . Docs `here <https://github.com/conan-io/docs/pull/1025>`__
+- Feature: Skip "README.md" and "LICENSE.txt" during the installation of a custom config via `conan config install`. `#4259 <https://github.com/conan-io/conan/pull/4259>`_ . Docs `here <https://github.com/conan-io/docs/pull/1016>`__
+- Feature: allow to specify MSBuild verbosity level `#4251 <https://github.com/conan-io/conan/pull/4251>`_ . Docs `here <https://github.com/conan-io/docs/pull/1012>`__
+- Feature: add definitions to MSBuild build helper (and ``tools.build_sln_command()``) `#4239 <https://github.com/conan-io/conan/pull/4239>`_ . Docs `here <https://github.com/conan-io/docs/pull/1024>`__
+- Feature: Generate deterministic short paths on Windows `#4238 <https://github.com/conan-io/conan/pull/4238>`_
+- Feature: The `tools.environment_append()` now accepts unsetting variables by means of appending such variable with a value equal to None. `#4224 <https://github.com/conan-io/conan/pull/4224>`_ . Docs `here <https://github.com/conan-io/docs/pull/1003>`__
+- Feature: Enable a new ``reference`` argument in ``conan install <path> <reference>``, where ``reference`` can be a partial reference too (identical to what is passed to :command:`conan create` or :command:`conan export`. This allows defining all pkg,version,user,channel fields of the recipe for the local flow. `#4197 <https://github.com/conan-io/conan/pull/4197>`_ . Docs `here <https://github.com/conan-io/docs/pull/1045>`__
+- Feature: Added support for new architecture ``ppc32`` `#4195 <https://github.com/conan-io/conan/pull/4195>`_ . Docs `here <https://github.com/conan-io/docs/pull/1001>`__
+- Feature: Added support for new architecture ``armv8.3`` `#4195 <https://github.com/conan-io/conan/pull/4195>`_ . Docs `here <https://github.com/conan-io/docs/pull/1001>`__
+- Feature: Added support for new architecture ``armv8_32`` `#4195 <https://github.com/conan-io/conan/pull/4195>`_ . Docs `here <https://github.com/conan-io/docs/pull/1001>`__
+- Feature: Add experimental support for packages in editable mode `#4181 <https://github.com/conan-io/conan/pull/4181>`_ . Docs `here <https://github.com/conan-io/docs/pull/1009>`__
+- Fix: Conditionally expand list-like environment variables in ``virtualenv`` generator `#4396 <https://github.com/conan-io/conan/pull/4396>`_
+- Fix: get_cross_building_settings for MSYS `#4390 <https://github.com/conan-io/conan/pull/4390>`_
+- Fix: Implemented retrial of output to stdout stream when the OS (Windows) is holding it and producing IOError for output `#4375 <https://github.com/conan-io/conan/pull/4375>`_
+- Fix: Validate CONAN_CPU_COUNT and output user-friendly message for invalid values `#4372 <https://github.com/conan-io/conan/pull/4372>`_
+- Fix: Map ``cpp_info.cppflags`` to ``CONAN_CXXFLAGS`` in ``make`` generator. `#4349 <https://github.com/conan-io/conan/pull/4349>`_ . Docs `here <https://github.com/conan-io/docs/pull/1037>`__
+- Fix: Use ``*_DIRS`` instead of ``*_PATHS`` ending for varaibles generated by the ``make`` generator: ``INCLUDE_DIRS``, ``LIB_DIRS``, ``BIN_DIRS``, ``BUILD_DIRS`` and ``RES_DIRS`` `#4349 <https://github.com/conan-io/conan/pull/4349>`_ . Docs `here <https://github.com/conan-io/docs/pull/1037>`__
+- Fix: Bumped requirement of pyOpenSSL on OSX to `>=16.0.0, <19.0.0` `#4333 <https://github.com/conan-io/conan/pull/4333>`_
+- Fix: Fixed a bug in the migration of the server storage to the revisions layout. `#4325 <https://github.com/conan-io/conan/pull/4325>`_
+- Fix: ensure tools.environment_append doesn't raise trying to unset variables `#4324 <https://github.com/conan-io/conan/pull/4324>`_ . Docs `here <https://github.com/conan-io/docs/pull/1023>`__
+- Fix: Improve error message when a server (like a proxy), returns 200-OK for a conan api call, but with an unexpected message. `#4317 <https://github.com/conan-io/conan/pull/4317>`_
+- Fix: ensure is_windows, detect_windows_subsystem, uname work under MSYS/Cygwin `#4313 <https://github.com/conan-io/conan/pull/4313>`_
+- Fix: uname shouldn't use -o flag, which is GNU extention `#4311 <https://github.com/conan-io/conan/pull/4311>`_
+- Fix: ``get_branch()`` method of ``tools.SVN()`` helper now returns only the branch name, not the tag when present. `#4306 <https://github.com/conan-io/conan/pull/4306>`_ . Docs `here <https://github.com/conan-io/docs/pull/1020>`__
+- Fix: Conan client now always include the `X-Checksum-Sha1` header in the file uploads, not only when checking if the file is already there with a remote supporting checksum deploy (Artifactory) `#4303 <https://github.com/conan-io/conan/pull/4303>`_
+- Fix: SCM optimization related to `scm_folder.txt` is taken into account only for packages under development. `#4301 <https://github.com/conan-io/conan/pull/4301>`_
+- Fix: Update premake generator, rename conanbuildinfo.premake -> conanbuildinfo.premake.lua, conan_cppdefines -> conan_defines `#4296 <https://github.com/conan-io/conan/pull/4296>`_ . Docs `here <https://github.com/conan-io/docs/pull/1032>`__
+- Fix: Using ``yaml.safe_load`` instead of ``load`` `#4285 <https://github.com/conan-io/conan/pull/4285>`_
+- Fix: Fixes default CMake generator on Windows to use MinGW Makefiles. `#4281 <https://github.com/conan-io/conan/pull/4281>`_ . Docs `here <https://github.com/conan-io/docs/pull/1026>`__
+- Fix: Visual Studio toolset is passed from settings to the MSBuild helper `#4250 <https://github.com/conan-io/conan/pull/4250>`_ . Docs `here <https://github.com/conan-io/docs/pull/1052>`__
+- Fix: Handle corner cases related to SCM with local sources optimization `#4249 <https://github.com/conan-io/conan/pull/4249>`_
+- Fix: Allow referring to projects created by b2 generator for dependencies with absolute paths. `#4211 <https://github.com/conan-io/conan/pull/4211>`_
+- Fix: Credentials are removed from SCM `url` attribute if Conan is automatically resolving it. `#4207 <https://github.com/conan-io/conan/pull/4207>`_ . Docs `here <https://github.com/conan-io/docs/pull/996>`__
+- Fix: Remove client/server versions check on every request. Return server capabilities only in `ping` endpoint. `#4205 <https://github.com/conan-io/conan/pull/4205>`_
+- Fix: Updated contributing guidelines to the new workflow `#4173 <https://github.com/conan-io/conan/pull/4173>`_
+- Bugfix: Fixes config install when copying hooks `#4412 <https://github.com/conan-io/conan/pull/4412>`_
+- BugFix: Meson generator was failing in case of package_folder == None (test_package using Meson) `#4391 <https://github.com/conan-io/conan/pull/4391>`_
+- BugFix: Prepend environment variables are applied twice in conanfile `#4380 <https://github.com/conan-io/conan/pull/4380>`_
+- Bugfix: Caching of several internal loaders broke the conan_api usage `#4362 <https://github.com/conan-io/conan/pull/4362>`_
+- Bugfix: Removing usage of FileNotFoundError which is Py3 only `#4361 <https://github.com/conan-io/conan/pull/4361>`_
+- Bugfix: Custom generator allow to use imports `#4358 <https://github.com/conan-io/conan/pull/4358>`_ . Docs `here <https://github.com/conan-io/docs/pull/1043>`__
+- Bugfix: conanbuildinfo.cmake won't fail if ``project()`` LANGUAGE is None, but the user defines ``CONAN_DISABLE_CHECK_COMPILER``. `#4276 <https://github.com/conan-io/conan/pull/4276>`_
+- Bugfix: Fix version ranges containing spaces and not separated by commas. `#4273 <https://github.com/conan-io/conan/pull/4273>`_
+- Bugfix: When running consecutively Conan python API calls to `create` the default profile object became modified and cached between calls. `#4256 <https://github.com/conan-io/conan/pull/4256>`_
+- Bugfix: Fixes a bug in the CMake build helper about how flags are appended `#4227 <https://github.com/conan-io/conan/pull/4227>`_
+- Bugfix: Apply the environment to the local conan package command `#4204 <https://github.com/conan-io/conan/pull/4204>`_
+- Bugfix: b2 generator was failing when package recipe didn't use compiler setting `#4202 <https://github.com/conan-io/conan/pull/4202>`_
+
+
+
+1.11.2 (8-Jan-2019)
 --------------------
 
 - Bugfix: The migrated data in the server from a version previous to Conan `1.10.0` was not migrated creating the needed indexes.
