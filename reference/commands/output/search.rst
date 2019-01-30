@@ -5,6 +5,10 @@
 Search output
 -------------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
 The :command:`conan search` provides a :command:`--json` parameter to generate a file containing the
 information of the search process.
 
