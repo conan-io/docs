@@ -99,7 +99,8 @@ Parameters:
         - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag).
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
       version.
-    - **toolset** (Optional, Defaulted to ``None``): Sets ``/p:PlatformToolset`` to the specified toolset.
+    - **toolset** (Optional, Defaulted to ``None``): Sets ``/p:PlatformToolset`` to the specified toolset. When ``None`` it will apply the
+      setting ``compiler.toolset`` if specified.
     - **platforms** (Optional, Defaulted to ``None``): This dictionary will update the default one (see ``msvc_arch`` below) and will be
       used to get the mapping of architectures to platforms from the Conan naming to another one. It is useful for Visual Studio solutions
       that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual solution uses "Win32" instead of "x86").
