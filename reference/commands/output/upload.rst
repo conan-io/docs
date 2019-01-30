@@ -2,8 +2,8 @@
 .. _upload_json:
 
 
-Upload output [EXPERIMENTAL]
-----------------------------
+Upload output
+-------------
 
 .. warning::
 
