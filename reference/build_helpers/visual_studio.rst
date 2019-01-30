@@ -22,7 +22,7 @@ information from the requirements: include directories, library names, flags etc
 
     - :ref:`VisualStudioBuildEnvironment<visual_studio_build>` to adjust the ``LIB`` and ``CL``
       environment variables with all the information from the requirements: include directories, library names, flags etc.
-    - :ref:`tools_msvc_build_command` to call ``msbuild``.
+    - :ref:`tools_msvc_build_command` to call :command:``MSBuild``.
 
 You can adjust all the information from the requirements accessing to the ``build_env`` that it is a :ref:`visual_studio_build` object:
 
@@ -43,9 +43,9 @@ You can adjust all the information from the requirements accessing to the ``buil
             msbuild.build("MyProject.sln")
 
 
-Also, to inject the flags corresponding to the ``compiler.runtime``, ``build_type`` and ``cppstd`` settings, the build helper
-generates a properties file (in the build folder) that is passed to ``msbuild`` with ``/p:ForceImportBeforeCppTargets="conan_build.props"``.
-
+To inject the flags corresponding to the ``compiler.runtime``, ``build_type`` and ``cppstd`` settings, this build helper also generates a
+properties file (in the build folder) that is passed to :command:``MSBuild`` with
+:command:``/p:ForceImportBeforeCppTargets="conan_build.props"``.
 
 Constructor
 -----------
@@ -77,29 +77,33 @@ build()
 
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
-              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None)
+              vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None,
+              property_file_name=None, verbosity=None, definitions=None)
 
 Builds Visual Studio project with the given parameters.
 
 Parameters:
     - **project_file** (Required): Path to the *.sln* file.
-    - **targets** (Optional, Defaulted to ``None``): List of targets to build.
-    - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv` to upgrade the solution to your current Visual Studio.
-    - **build_type** (Optional, Defaulted to ``None``): Use a custom build type name instead of the default ``settings.build_type`` one.
-    - **arch** (Optional, Defaulted to ``None``): Use a custom architecture name instead of the ``settings.arch`` one.
-      It will be used to build the ``/p:Configuration=`` parameter of :command:`MSBuild`.
-      It can be used as the key of the **platforms** parameter. E.g. ``arch="x86", platforms={"x86": "i386"}``
-    - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
-      version.
+    - **targets** (Optional, Defaulted to ``None``): Sets ``/target`` flag to the specified list of targets to build.
+    - **upgrade_project** (Optional, Defaulted to ``True``): Will call :command:`devenv /upgrade` to upgrade the solution to your current
+      Visual Studio.
+    - **build_type** (Optional, Defaulted to ``None``): Sets ``/p:Configuration`` flag to the specified value. It will override the value
+      from ``settings.build_type``.
+    - **arch** (Optional, Defaulted to ``None``): Sets ``/p:Platform`` flag to the specified value. It will override the value from
+      ``settings.arch``. This value (or the ``settings.arch`` one if not overridden) will be used as the key for the ``msvc_arch``
+      dictionary that returns the final string used for the ``/p:Platform`` flag (see **platforms** argument documentation below).
     - **parallel** (Optional, Defaulted to ``True``): Will use the configured number of cores in the :ref:`conan_conf` file or
       :ref:`tools_cpu_count`:
 
         - **In the solution**: Building the solution with the projects in parallel. (``/m:`` parameter).
-        - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag)
-    - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
-    - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
-      is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
-      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+        - **CL compiler**: Building the sources in parallel. (``/MP:`` compiler flag).
+    - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
+      version.
+    - **toolset** (Optional, Defaulted to ``None``): Sets ``/p:PlatformToolset`` to the specified toolset. When ``None`` it will apply the
+      setting ``compiler.toolset`` if specified.
+    - **platforms** (Optional, Defaulted to ``None``): This dictionary will update the default one (see ``msvc_arch`` below) and will be
+      used to get the mapping of architectures to platforms from the Conan naming to another one. It is useful for Visual Studio solutions
+      that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual solution uses "Win32" instead of "x86").
 
       .. code-block:: python
 
@@ -108,17 +112,21 @@ Parameters:
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
 
-    - **use_env** (Optional, Defaulted to ``True``: Applies the argument ``/p:UseEnv=true`` to the :command:`MSBuild` call.
+    - **use_env** (Optional, Defaulted to ``True``: Sets ``/p:UseEnv=true`` flag.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dictionary ``{name: value}``
       it will append a ``/p:name="value"`` option.
-    - **output_binary_log** (Optional, Defaulted to ``None``): If set to ``True`` then MSBuild will output a binary log file called
-      *msbuild.binlog* in the working directory. It can also be used to set the name of log file like this
+    - **output_binary_log** (Optional, Defaulted to ``None``): Sets ``/bl`` flag. If set to ``True`` then MSBuild will output a binary log
+      file called *msbuild.binlog* in the working directory. It can also be used to set the name of log file like this
       ``output_binary_log="my_log.binlog"``. This parameter is only supported
       `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
-    - **property_file_name** (Optional, Defaulted to ``None``): When ``None`` it will generate a file named ``conan_build.props``.
-      You can specify a different name for the generated properties file.
+    - **property_file_name** (Optional, Defaulted to ``None``): Sets ``p:ForceImportBeforeCppTargets``. When ``None`` it will generate a
+      file named *conan_build.props*. You can specify a different name for the generated properties file.
+    - **verbosity** (Optional, Defaulted to ``None``): Sets the ``/verbosity`` flag to the specified verbosity level. Possible values are
+      ``"quiet"``, ``"minimal"``, ``"normal"``, ``"detailed"`` and ``"diagnostic"``.
+    - **definitions** (Optional, Defaulted to ``None``): Dictionary with additional compiler definitions to be applied during the build.
+      Use a dictionary with the desired key and its value set to ``None`` to set a compiler definition with no value.
 
 .. note::
 
@@ -135,7 +143,7 @@ Returns a string command calling :command:`MSBuild`.
 
     def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True,
                     build_type=None, arch=None, parallel=True, toolset=None, platforms=None,
-                    use_env=False, properties=None, output_binary_log=None)
+                    use_env=False, properties=None, output_binary_log=None, verbosity=None)
 
 Parameters:
     - **props_file_path** (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This
@@ -168,19 +176,19 @@ Use it together with :ref:`tools_vcvars_command`.
 .. code-block:: python
    :emphasize-lines: 9, 10, 11
 
-   from conans import ConanFile, VisualStudioBuildEnvironment
+    from conans import ConanFile, VisualStudioBuildEnvironment
 
-   class ExampleConan(ConanFile):
+    class ExampleConan(ConanFile):
 
-       ...
+        ...
 
-       def build(self):
-           if self.settings.compiler == "Visual Studio":
-              env_build = VisualStudioBuildEnvironment(self)
-              with tools.environment_append(env_build.vars):
-                  vcvars = tools.vcvars_command(self.settings)
-                  self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
-                  self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
+        def build(self):
+            if self.settings.compiler == "Visual Studio":
+                env_build = VisualStudioBuildEnvironment(self)
+                with tools.environment_append(env_build.vars):
+                    vcvars = tools.vcvars_command(self.settings)
+                    self.run('%s && cl /c /EHsc hello.cpp' % vcvars)
+                    self.run('%s && lib hello.obj -OUT:hello.lib' % vcvars
 
 You can adjust the automatically filled attributes:
 

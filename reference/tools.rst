@@ -147,7 +147,8 @@ tools.build_sln_command() [DEPRECATED]
 .. code-block:: python
 
     def build_sln_command(settings, sln_path, targets=None, upgrade_project=True, build_type=None,
-                          arch=None, parallel=True, toolset=None, platforms=None)
+                          arch=None, parallel=True, toolset=None, platforms=None, verbosity=None,
+                          definitions=None)
 
 Returns the command to call `devenv` and `msbuild` to build a Visual Studio project. It's recommended to use it with
 :ref:`tools_vcvars_command`, so that the Visual Studio tools will be in path.
@@ -175,7 +176,7 @@ Parameters:
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset. Will append a ``/p:PlatformToolset`` option.
     - **platforms** (Optional, Defaulted to ``None``): Dictionary with the mapping of archs/platforms from Conan naming to another one. It
       is useful for Visual Studio solutions that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual
-      solution uses "Win32" instead of "x86"). This dictionary will update the default one:
+      solution uses "Win32" instead of "x86"). This dictionary will update the following default one:
 
       .. code-block:: python
 
@@ -183,6 +184,10 @@ Parameters:
                        'x86_64': 'x64',
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
+
+    - **verbosity** (Optional, Defaulted to ``None``): Specifies verbosity level (``/verbosity:`` parameter).
+    - **definitions** (Optional, Defaulted to ``None``): Dictionary with additional compiler definitions to be applied during the build.
+      Use value of None to set compiler definition with no value.
 
 .. _tools_msvc_build_command:
 
@@ -610,11 +615,13 @@ This is a context manager that allows to temporary use environment variables for
     from conans import tools
 
     def build(self):
-        with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx"}):
+        with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx", "CPPFLAGS": None}):
             do_something()
 
-The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. When the context
-manager block ends, the environment variables will be unset.
+The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. 
+Additionally, if value is ``None``, the given environment variable is unset (In the previous example, ``CPPFLAGS`` environment
+variable will be unset), and in case variable wasn't set prior to the invocation, it has no effect on the given variable (``CPPFLAGS``).
+When the context manager block ends, the environment variables will recover their previous state.
 
 Parameters:
     - **env_vars** (Required): Dictionary object with environment variable name and its value.
@@ -1345,6 +1352,7 @@ Methods:
     - **get_qualified_remote_url()**: Returns the remote url (see ``get_remote_url()``) but with forward slashes if it is a local folder.
     - **get_revision(), get_commit()**: Gets the current commit hash.
     - **get_branch()**: Gets the current branch.
+    - **get_tag()**: Gets the current checkout tag (:command:`git describe --exact-match --tags`) and returns ``None`` if not in a tag.
     - **excluded_files()**: Gets a list of the files and folders that would be excluded by *.gitignore* file.
     - **is_local_repository()**: Returns `True` if the remote is a local folder.
     - **is_pristine()**: Returns `True` if there aren't modified or uncommitted files in the working copy.
@@ -1391,10 +1399,13 @@ Methods:
       folder (``use_wc_root=False``) or in the working copy root (``use_wc_root=True``).
     - **get_branch()**: Tries to deduce the branch name from the
       `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_. Will raise if cannot resolve it.
+    - **get_tag()**: Tries to deduce the tag name from the `standard SVN layout <http://svnbook.red-bean.com/en/1.7/svn.branchmerge.maint.html>`_ and
+      returns the current tag name. Otherwise it will return ``None``.
     - **excluded_files()**: Gets a list of the files and folders that are marked to be ignored.
     - **is_local_repository()**: Returns `True` if the remote is a local folder.
     - **is_pristine()**: Returns `True` if there aren't modified or uncommitted files in the working copy.
     - **get_repo_root()**: Returns the root folder of the working copy.
+
 
 .. warning::
 

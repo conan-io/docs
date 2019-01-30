@@ -23,15 +23,15 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_SYSROOT_<PKG-NAME>             | System root folder                                                      |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_INCLUDE_PATHS_<PKG-NAME>       | Headers folders                                                         |
+| CONAN_INCLUDE_DIRS_<PKG-NAME>        | Headers folders                                                         |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_LIB_PATHS_<PKG-NAME>           | Library folders                                                         |
+| CONAN_LIB_DIRS_<PKG-NAME>            | Library folders                                                         |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_BIN_PATHS_<PKG-NAME>           | Binary folders                                                          |
+| CONAN_BIN_DIRS_<PKG-NAME>            | Binary folders                                                          |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_BUILD_PATHS_<PKG-NAME>         | Build folders                                                           |
+| CONAN_BUILD_DIRS_<PKG-NAME>          | Build folders                                                           |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_RES_PATHS_<PKG-NAME>           | Resources folders                                                       |
+| CONAN_RES_DIRS_<PKG-NAME>            | Resources folders                                                       |
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_LIBS_<PKG-NAME>                | Library names to link with                                              |
 +--------------------------------------+-------------------------------------------------------------------------+
@@ -39,7 +39,7 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_CFLAGS_<PKG-NAME>              | Options for the C compiler (-g, -s, -m64, -m32, -fPIC)                  |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_CPPFLAGS_<PKG-NAME>            | Options for the C++ compiler (-g, -s, -stdlib, -m64, -m32, -fPIC, -std) |
+| CONAN_CXXFLAGS_<PKG-NAME>            | Options for the C++ compiler (-g, -s, -stdlib, -m64, -m32, -fPIC, -std) |
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_SHAREDLINKFLAGS_<PKG-NAME>     | Library Shared linker flags                                             |
 +--------------------------------------+-------------------------------------------------------------------------+
@@ -56,15 +56,15 @@ according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_SYSROOT                  | Aggregated system root folders                                       |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_INCLUDE_PATHS            | Aggregated header folders                                            |
+| CONAN_INCLUDE_DIRS             | Aggregated header folders                                            |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_LIB_PATHS                | Aggregated library folders                                           |
+| CONAN_LIB_DIRS                 | Aggregated library folders                                           |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_BIN_PATHS                | Aggregated binary folders                                            |
+| CONAN_BIN_DIRS                 | Aggregated binary folders                                            |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_BUILD_PATHS              | Aggregated build folders                                             |
+| CONAN_BUILD_DIRS               | Aggregated build folders                                             |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_RES_PATHS                | Aggregated resource folders                                          |
+| CONAN_RES_DIRS                 | Aggregated resource folders                                          |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_LIBS                     | Aggregated library names to link with                                |
 +--------------------------------+----------------------------------------------------------------------+
@@ -72,7 +72,7 @@ according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_CFLAGS                   | Aggregated options for the C compiler                                |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_CPPFLAGS                 | Aggregated options for the C++ compiler                              |
+| CONAN_CXXFLAGS                 | Aggregated options for the C++ compiler                              |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_SHAREDLINKFLAGS          | Aggregated Shared linker flags                                       |
 +--------------------------------+----------------------------------------------------------------------+
@@ -89,13 +89,13 @@ according to the dependency tree.
     +==============+======================+============+
     | defines      | CONAN_DEFINES        | CPPFLAGS   |
     +--------------+----------------------+------------+
-    | includedirs  | CONAN_INCLUDE_PATHS  | CPPFLAGS   |
+    | includedirs  | CONAN_INCLUDE_DIRS   | CPPFLAGS   |
     +--------------+----------------------+------------+
-    | libdirs      | CONAN_LIB_PATHS      | LDFLAGS    |
+    | libdirs      | CONAN_LIB_DIRS       | LDFLAGS    |
     +--------------+----------------------+------------+
     | libs         | CONAN_LIBS           | LDLIBS     |
     +--------------+----------------------+------------+
     | cflags       | CONAN_CFLAGS         | CFLAGS     |
     +--------------+----------------------+------------+
-    | cppflags     | CONAN_CPPFLAGS       | CXXFLAGS   |
+    | cppflags     | CONAN_CXXFLAGS       | CXXFLAGS   |
     +--------------+----------------------+------------+

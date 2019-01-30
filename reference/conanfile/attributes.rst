@@ -164,10 +164,16 @@ channel than the current package, which could be achieved with something like:
             self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
 
 Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
-For package recipes working in user space, there is no current user/channel. The properties ``self.user``
-and ``self.channel`` will then look for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``
-respectively. If they are not defined, an error will be raised unless ``default_user`` and ``default_channel``
-are declared.
+For package recipes working in user space, there is no current user/channel by default. They can be
+defined at ``conan install`` time with:
+
+.. code-block:: bash
+
+    $ conan install <path to conanfile.py> user/channel
+
+If they are not defined via command line, the properties ``self.user`` and ``self.channel`` will then look 
+for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` respectively. If they are not defined, 
+an error will be raised unless ``default_user`` and ``default_channel`` are declared in the recipe.
 
 .. seealso::
 
@@ -519,14 +525,13 @@ The syntax is using brackets:
 ..  code-block:: python
 
     class HelloConan(ConanFile):
-        requires = "Pkg/[>1.0,<1.8]@user/stable"
+        requires = "Pkg/[>1.0 <1.8]@user/stable"
 
-Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/),
-but using a comma instead of spaces. Accepted expressions would be:
+Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/). Accepted expressions would be:
 
 ..  code-block:: python
 
-    >1.1,<2.1    # In such range
+    >1.1 <2.1    # In such range
     2.8          # equivalent to =2.8
     ~=3.0        # compatible, according to semver
     >1.1 || 0.8  # conditions can be OR'ed
@@ -731,20 +736,52 @@ When this attribute is set to True, the ``package()`` method will be called twic
 
 .. _folders_attributes_reference:
 
-folders
--------
+.. _attribute_source_folder:
 
-In the package recipe methods, some attributes pointing to the relevant folders can be defined. Not all of them will be defined always, only in those relevant methods that might use them.
+source_folder
+-------------
 
-- ``self.source_folder``: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the ``build`` folder,
-  as the source code is copied from the ``source`` folder to the ``build`` folder,
-  to ensure isolation and avoiding modifications of shared common source code among builds for different configurations.
-  Only when ``no_copy_source=True`` this folder will actually point to the package ``source`` folder in the local cache.
-- ``self.build_folder``: the folder in which the build is being done
-- ``self.install_folder``: the folder in which the install has output the generator files, by default, and always in the local cache, is the same ``self.build_folder``
-- ``self.package_folder``: the folder to copy the final artifacts for the binary package
+The folder in which the source code lives.
 
-When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.
+When a package is built in the Conan local cache its value is the same as the ``build`` folder by default. This is due to the fact that the
+source code is copied from the ``source`` folder to the ``build`` folder to ensure isolation and avoiding modifications of shared common
+source code among builds for different configurations. Only when ``no_copy_source=True`` this folder will actually point to the package
+``source`` folder in the local cache.
+
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan source`, this attribute will be pointing to the folder
+specified in the command line.
+
+.. _attribute_install_folder:
+
+install_folder
+--------------
+
+The folder in which the installation of packages outputs the generator files with the information of dependencies.
+By default in the the local cache its value is the same as ``self.build_folder`` one.
+
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan install` or :command:`conan build`, this attribute will
+be pointing to the folder specified in the command line.
+
+.. _attribute_build_folder:
+
+build_folder
+------------
+
+The folder used to build the source code. In the local cache a build folder is created with the name of the package ID that will be built.
+
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan build`, this attribute will be pointing to the folder
+specified in the command line.
+
+.. _attribute_package_folder:
+
+package_folder
+--------------
+
+The folder to copy the final artifacts for the binary package. In the local cache a package folder is created for every different package
+ID.
+
+When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan package`, this attribute will be pointing to the folder
+specified in the command line.
 
 .. _cpp_info_attributes_reference:
 
@@ -1053,8 +1090,9 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 
 
 - **type** (Required): Currently only ``git`` and ``svn`` are supported. Others can be added eventually.
-- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working copy.
-  When type is ``svn`` it can contain the `peg_revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_.
+- **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working
+  copy (credentials will be removed from it). When type is ``svn`` it can contain
+  the `peg_revision <http://svnbook.red-bean.com/en/1.7/svn.advanced.pegrevs.html>`_.
 - **revision** (Required): id of the revision or ``auto`` to capture the current working copy one.
   When type is ``git``, it can also be the branch name or a tag.
 - **subfolder** (Optional, Defaulted to ``.``): A subfolder where the repository will be cloned.

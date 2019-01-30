@@ -2,8 +2,8 @@
 .. _install_json:
 
 
-Install and Create output [EXPERIMENTAL]
-----------------------------------------
+Install and Create output
+-------------------------
 
 .. warning::
 

@@ -55,39 +55,27 @@ In order to use new generator within your project, use the following Premake scr
 
     -- premake5.lua
 
-    require 'conanbuildinfo'
+    include("conanbuildinfo.premake.lua")
 
-    workspace "ConanPremakeDemo"
-        configurations { "Debug", "Release" }
-        platforms { "Win32", "x64" }
+    workspace("ConanPremakeDemo")
+        conan_basic_setup()
 
-        filter { "platforms:Win32" }
-        system "Windows"
-        architecture "x32"
+        project "ConanPremakeDemo"
+            kind "ConsoleApp"
+            language "C++"
+            targetdir "bin/%{cfg.buildcfg}"
 
-        filter { "platforms:x64" }
-        system "Windows"
-        architecture "x64"
+            linkoptions { conan_exelinkflags }
 
-    project "ConanPremakeDemo"
-        kind "ConsoleApp"
-        language "C++"
-        targetdir "bin/%{cfg.buildcfg}"
+            files { "**.h", "**.cpp" }
 
-        includedirs { conan_includedirs }
-        libdirs { conan_libdirs }
-        links { conan_libs }
-        linkoptions { conan_exelinkflags }
+            filter "configurations:Debug"
+            defines { "DEBUG" }
+            symbols "On"
 
-        files { "**.h", "**.cpp" }
-
-        filter "configurations:Debug"
-        defines { "DEBUG", conan_cppdefines }
-        symbols "On"
-
-        filter "configurations:Release"
-        defines { "NDEBUG", conan_cppdefines }
-        optimize "On"
+            filter "configurations:Release"
+            defines { "NDEBUG" }
+            optimize "On"
 
 Now we are going to let Conan retrieve the dependencies and generate the dependency information in a *conanbuildinfo.lua*:
 

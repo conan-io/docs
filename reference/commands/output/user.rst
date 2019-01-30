@@ -2,8 +2,8 @@
 .. _user_json:
 
 
-User output [EXPERIMENTAL]
---------------------------
+User output
+-----------
 
 .. warning::
 

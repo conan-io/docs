@@ -50,6 +50,16 @@ CONAN_BASH_PATH
 Used only in windows to help the :ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function
 to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it's not in the ``PATH`` or you want to use a different one.
 
+CONAN_CACHE_NO_LOCKS
+--------------------
+
+**Defaulted to**: ``False``/``0``
+
+Set it to ``True``/``1`` to disable locking mechanism of local cache.
+Set it to ``False``/``0`` to enable locking mechanism of local cache.
+Use it with caution, and only for debugging purposes. Disabling locks may easily lead to corrupted packages.
+Not recommended for production environments, and in general should be used for conan development and contributions only.
+
 CONAN_CMAKE_GENERATOR
 ---------------------
 
@@ -229,6 +239,31 @@ For example:
     # Or only the exe name if it is in the path
 
     CONAN_MAKE_PROGRAM="mingw32-make"
+
+CONAN_CMAKE_PROGRAM
+-------------------
+
+**Defaulted to**: Not defined
+
+Specify an alternative ``cmake`` program to use with :ref:`CMake<cmake_reference>` build helper.
+
+For example:
+
+.. code-block:: bash
+
+    CONAN_MAKE_PROGRAM="scan-build cmake"
+
+CONAN_MSBUILD_VERBOSITY
+-----------------------
+
+**Defaulted to**: Not defined
+
+Specify ```MSBuild``` verbosity level to use with:
+
+    - The build helper :ref:`CMake<cmake_reference>`.
+    - The build helper :ref:`MSBuild<msbuild>`.
+
+For list of allowed values and their meaning, check out the `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017l>`_.
 
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------

@@ -1,8 +1,8 @@
 
 .. _conan_inspect:
 
-conan inspect [EXPERIMENTAL]
-============================
+conan inspect
+=============
 
 .. warning::
 

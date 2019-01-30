@@ -5,7 +5,7 @@ Using profiles
 
 So far, we have used the default settings stored in ``~/.conan/profiles/default`` and defined as command line arguments.
 
-However, in large projects, configurations can get complex, settings can be very different, and we need an easy way to switch between different configurations with  different settings, options etc,.
+However, in large projects, configurations can get complex, settings can be very different, and we need an easy way to switch between different configurations with different settings, options etc,.
 An easy way to switch between configurations is by using profiles.
 
 A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` specified in the following structure:
@@ -96,6 +96,13 @@ To install dependencies using this new profile, we would use:
 .. code-block:: bash
 
     $ conan install . -pr=./poco_clang_3.5
+
+You can specify multiple profiles in the command line. The applied configuration will be the composition
+of all the profiles applied in the order they are specified:
+
+.. code-block:: bash
+
+    $ conan install . -pr=./poco_clang_3.5 -pr=my_build_tool1 -pr=my_build_tool2
 
 .. seealso::
 

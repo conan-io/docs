@@ -10,7 +10,7 @@ conan install
                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
                     [--no-imports] [-j JSON] [-b [BUILD]] [-e ENV]
                     [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
-                    path_or_reference
+                    path_or_reference [reference]
 
 Installs the requirements specified in a recipe (conanfile.py or
 conanfile.txt). It can also be used to install a concrete package specifying a
@@ -29,6 +29,10 @@ installed, Conan will write the files for the specified generators.
                             conanfile.txt) or to a recipe file. e.g.,
                             ./my_project/conanfile.txt. It could also be a
                             reference
+      reference             Reference for the conanfile path of the first
+                            argument: user/channel, version@user/channel or
+                            pkg/version@user/channel (if name or version declared
+                            in conanfile.py, they should match)
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -116,17 +120,29 @@ executes the following:
 
       $ conan install . -o PkgName:use_debug_mode=on -s compiler=clang
 
-  .. note::
+- Install the requirements defined in a ``conanfile.py`` file in your current directory, with the
+  default settings in default profile ``<userhome>/.conan/profiles/default``, and specifying the
+  version, user and channel (as they might be used in the recipe):
 
-      You have to take into account that **settings** are cached as defaults in the
-      **conaninfo.txt** file, so you don't have to type them again and again in the
-      **conan install** or **conan create** commands.
+  .. code-block:: python
 
-      However, the default **options** are defined in your **conanfile**.
-      If you want to change the default options across all your **conan install** commands, change
-      them in the **conanfile**. When you change the **options** on the command line, they are only
-      changed for one shot. Next time, **conan install** will take the **conanfile** options as
-      default values, if you don't specify them again in the command line.
+      class Pkg(ConanFile):
+         name = "mypkg" 
+         # see, no version defined!
+         def requirements(self):
+             # this trick allow to depend on packages on your same user/channel
+             self.requires("dep/0.3@%s/%s" % (self.user, self.channel))
+
+         def build(self):
+             if self.version == "myversion":
+                 # something specific for this version of the package.
+            
+  .. code-block:: bash
+
+      $ conan install . myversion@someuser/somechannel
+
+  Those values are cached in a file, so later calls to local commands like ``conan build`` can find
+  and use this version, user and channel data.
 
 - Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default
   settings from ``<userhome>/.conan/profiles/default``:
@@ -216,3 +232,19 @@ With the :command:`-o` parameters you can only define specific package options.
 
     You can use :ref:`profiles <profiles>` files to create predefined sets of **settings**,
     **options** and **environment variables**.
+
+
+reference
+---------
+
+An optional positional argument, if used the first argument should be a path.
+If the reference specifies name and/or version, and they are also declared in the ``conanfile.py``,
+they should match, otherwise, an error will be raised.
+
+.. code-block:: bash
+
+    $ conan install . # OK, user and channel will be None
+    $ conan install . user/testing # OK
+    $ conan install . version@user/testing # OK
+    $ conan install . pkg/version@user/testing # OK
+    $ conan install pkg/version@user/testing user/channel # Error, first arg is not a path
