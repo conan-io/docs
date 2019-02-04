@@ -178,7 +178,7 @@ However, they can also be managed in isolated git repositories cloned into the *
 
     $ cd ~/.conan/hooks
     $ git clone https://github.com/conan-io/hooks.git conan_hooks
-    $ conan set hooks.conan_hooks/hooks/conan-center.py
+    $ conan config set hooks.conan_hooks/hooks/conan-center.py
 
 This way you can easily change from one version to another.
 

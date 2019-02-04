@@ -241,14 +241,21 @@ configure()
 
 .. code-block:: python
 
-    def configure(self, args=None, defs=None, source_folder=None, build_folder=None,
-                  cache_build_folder=None, pkg_config_paths=None)
+    def configure(self, args=None, defs=None, source_dir=None, build_dir=None,
+                  source_folder=None, build_folder=None, cache_build_folder=None,
+                  pkg_config_paths=None)
 
 Configures `CMake` project with the given parameters.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``
-    - **definitions** (Optional, Defaulted to ``None``): A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
+    - **defs** (Optional, Defaulted to ``None``): A dict that will be converted to a list of CMake command line variable definitions of the form ``-DKEY=VALUE``. Each value will be escaped according to the current shell and can be either ``str``, ``bool`` or of numeric type
+    - **source_dir** (Optional, Defaulted to ``None``): **[DEPRECATED]** Use ``source_folder`` instead. CMake's source directory where
+      *CMakeLists.txt* is located. The default value is the ``build`` folder if ``None`` is specified (or the ``source`` folder if
+      ``no_copy_source`` is specified). Relative paths are allowed and will be relative to ``build_folder``.
+    - **build_dir** (Optional, Defaulted to ``None``): **[DEPRECATED]** Use ``build_folder`` instead. CMake's output directory. The
+      default value is the package ``build`` root folder if ``None`` is specified. The ``CMake`` object will store ``build_folder``
+      internally for subsequent calls to ``build()``.
     - **source_folder**: CMake's source directory where ``CMakeLists.txt`` is located. The default value is the ``self.source_folder``.
       Relative paths are allowed and will be relative to ``self.source_folder``.
     - **build_folder**: CMake's output directory. The default value is the ``self.build_folder`` if ``None`` is specified.

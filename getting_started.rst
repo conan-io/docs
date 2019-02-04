@@ -156,7 +156,7 @@ An MD5 Encrypter using the Poco Libraries
         PROJECT: Generator txt created conanbuildinfo.txt
         PROJECT: Generated conaninfo.txt
 
-    Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. I has also generated a
+    Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. It has also generated a
     *conanbuildinfo.cmake* file for our build system.
 
 7. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
