@@ -45,3 +45,12 @@ If you want to use targets, you could do:
 
     add_executable(main main.cpp)
     target_link_libraries(main CONAN_PKG::Hello)
+
+.. note::
+
+    The package ``Hello/0.1@memsharded/testing`` is only available through `memsharded's repository`_,
+    thus it needs to be included before to launch cmake install by CMake. Otherwise, the `project`_
+    should be downloaded and built as well.
+
+.. _`memsharded's repository`: https://bintray.com/memsharded/conan-common/Hello%3Amemsharded/0.1%3Atesting
+.. _`project`: https://github.com/memsharded/conan-hello
