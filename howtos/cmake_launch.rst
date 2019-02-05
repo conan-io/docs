@@ -49,7 +49,7 @@ If you want to use targets, you could do:
 .. note::
 
     The package ``Hello/0.1@memsharded/testing`` is only available through `memsharded's repository`_,
-    thus it needs to be included before to launch cmake install by CMake. Otherwise, the `project`_
+    thus it needs to be installer before to launch cmake install by CMake. Otherwise, the `project`_
     should be downloaded and built as well.
 
 .. _`memsharded's repository`: https://bintray.com/memsharded/conan-common/Hello%3Amemsharded/0.1%3Atesting
