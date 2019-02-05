@@ -1,19 +1,19 @@
-Using conan
+Using Conan
 ===========
 
 How to package header-only libraries?
 --------------------------------------
 
-Packaging header-only libraries is similar to other packages, make sure to first read and understand the
-:ref:`packaging getting started guide<packaging_getting_started>`. The main difference is that the package recipe is typically much simpler.
-There are different approaches depending if you want Conan to run the library unit tests while creating the package or not. Full details
-:ref:`in this how-to<header_only>`.
+Packaging header-only libraries is similar to other packages. Be sure to start by reading and understanding the
+:ref:`packaging getting started guide<packaging_getting_started>`. The main difference is that a package recipe is typically much simpler.
+There are different approaches depending on if you want Conan to run the library unit tests while creating the package or not. Full details are described
+:ref:`in this how-to guide<header_only>`.
 
 When to use settings or options?
 --------------------------------
 
-While creating a package you might want to add different configurations and variants of the package. There are 2 main inputs that define
-packages: settings and options. Read about them in :ref:`this section<settings_vs_options>`
+While creating a package, you may want to add different configurations and variants of the package. There are two main inputs that define
+packages: settings and options. Read more about them in :ref:`this section<settings_vs_options>`.
 
 How to obtain the dependents of a given package?
 ------------------------------------------------
@@ -28,10 +28,10 @@ package as the starting node of the dependency graph and upstream.
 .. image:: /images/conan_info_graph.png
    :align: center
 
-The inverse model (from upstream to downstream) is not simple to obtain for Conan packages, because the dependency graph is not unique: It
+The inverse model (from upstream to downstream) is not simple to obtain for Conan packages. This is because the dependency graph is not unique, it
 changes for every configuration. The graph can be different for different operating systems or just by changing some package options. So you
 cannot query which packages are dependent on ``MyLib/0.1@user/channel``, but which packages are dependent on
-``MyLib/0.1@user/channel:63da998e3642b50bee33`` binary package, and the response can contain many different binary packages for the same
+``MyLib/0.1@user/channel:63da998e3642b50bee33`` binary package. Also, the response can contain many different binary packages for the same
 recipe, like ``MyDependent/0.1@user/channel:packageID1... ID2... MyDependent/0.1@user/channel:packageIDN``. That is the reason why
 :command:`conan info` and :command:`conan install` need a profile (default profile or one given with ``--profile```) or installation files
 ``conanbuildinfo.txt`` to look for settings and options.
@@ -45,14 +45,14 @@ dependency graph in case OpenSSL is changed we could type:
     $ conan info Poco/1.8.1@pocoproject/stable -bo OpenSSL/1.0.2m@conan/stable
     [OpenSSL/1.0.2m@conan/stable], [Poco/1.8.1@pocoproject/stable]
 
-So, if OpenSSL is changed, we would need to rebuild it (of course) and rebuild Poco.
+If OpenSSL is changed, we would need to rebuild it (of course) and rebuild Poco.
 
 Packages got outdated when uploading an unchanged recipe from a different machine
 ---------------------------------------------------------------------------------
 
 Usually this is caused due to different line endings in Windows and Linux/macOS. Normally this happens when Windows uploads it with CRLF
-while Linux/macOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest going with LF line
-endings always. If this is being caused by git, it could be solved with :command:`git config --system core.autocrlf input`.
+while Linux/macOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest always using LF line
+endings. If this issue is caused by git, it could be solved with :command:`git config --system core.autocrlf input`.
 
 .. _faq_recommendation_user_channel:
 
@@ -75,8 +75,8 @@ from the author of the library itself) or with the name of the organization crea
     Poco/1.9.0@pocoproject/stable
     c-blosc/v1.14.4@francescalted/stable
 
-In the case of the ``<channel>`` term, normally OSS package creators use ``testing`` when they are developing a recipe (e.g., It compiles
-only in few configurations) and ``stable`` when the recipe is ready enough to be used (e.g., It is built and tested in a wide range of
+In the case of the ``<channel>`` term, normally OSS package creators use ``testing`` when developing a recipe (e.g. it compiles
+only in few configurations) and ``stable`` when the recipe is ready enough to be used (e.g. it is built and tested in a wide range of
 configurations).
 
 From the perspective of a library developer, channels could be used to create different scopes of your library. For example, use ``rc``

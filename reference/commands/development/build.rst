@@ -120,10 +120,10 @@ an example using the CMake build helper:
 
 .. code-block:: bash
 
-    $ conan build . --confiure # only run cmake.configure(). Other methods will do nothing
-    $ conan build . --build    # only run cmake.build(). Other methods will do nothing
-    $ conan build . --install  # only run cmake.install(). Other methods will do nothing
-    $ conan build . --test     # only run cmake.test(). Other methods will do nothing
+    $ conan build . --configure # only run cmake.configure(). Other methods will do nothing
+    $ conan build . --build     # only run cmake.build(). Other methods will do nothing
+    $ conan build . --install   # only run cmake.install(). Other methods will do nothing
+    $ conan build . --test      # only run cmake.test(). Other methods will do nothing
     # They can be combined
     $ conan build . -c -b # run cmake.configure() + cmake.build(), but not cmake.install() nor cmake.test
 

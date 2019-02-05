@@ -1,10 +1,10 @@
 .. _conan_1_0:
 
 
-Upgrading to conan 1.0
+Upgrading to Conan 1.0
 ======================
 
-If you have been using a 0.X version of Conan, there are some things to consider when upgrading to version 1.0. These are reflected in the :ref:`changelog<changelog>`., however, this section summarizes the most important ones:
+If you have been using a 0.X version of Conan, there are some things to consider when upgrading to version 1.0. These are reflected in the :ref:`changelog<changelog>`. This section summarizes the most important considerations:
 
 
 Command line changes
@@ -39,7 +39,7 @@ Also, all arguments to the command line now use a dash instead of an underscore:
 Deprecations/removals
 ---------------------
 
-- scopes were completely removed in conan 0.30.X
+- Scopes were completely removed in conan 0.30.X
 - ``self.conanfile_directory`` has been removed. Use ``self.source_folder``, ``self.build_folder``, etc. instead
 - ``self.cpp_info``, ``self.env_info`` and ``self.user_info`` scope has been reduced to only the ``package_info()`` method
 - ``gcc`` and ``ConfigureEnvironment`` were already removed in conan 0.30.1
