@@ -142,5 +142,5 @@ in Artifactory.
 .. _`Microsoft’s Azure DevOps`: `
 .. _`JFrog Artifactory Extension for Azure DevOps and TFS`: https://marketplace.visualstudio.com/items?itemName=JFrog.jfrog-artifactory-vsts-extension
 .. _`Artifactory binary repository manager`: https://jfrog.com/artifactory/
-.. _`configure a self-hosted agent`: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=vsts
+.. _`configure a self-hosted agent`: https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=azure-devops
 .. _`JFrog blog`: https://jfrog.com/blog/accelerate-azure-devops-or-tfs-with-jfrog-artifactory-and-conan/
