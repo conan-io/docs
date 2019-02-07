@@ -26,9 +26,8 @@ To be able to use it, you can directly download the code from your CMake script:
 
    include(${CMAKE_BINARY_DIR}/conan.cmake)
 
-   conan_cmake_run(REQUIRES Hello/0.1@memsharded/testing
-                   BASIC_SETUP
-                   BUILD missing)
+   conan_cmake_run(REQUIRES Catch2/2.6.0@catchorg/stable
+                   BASIC_SETUP)
 
    add_executable(main main.cpp)
    target_link_libraries(main ${CONAN_LIBS})
@@ -39,9 +38,8 @@ If you want to use targets, you could do:
 .. code-block:: cmake
 
     include(conan.cmake)
-    conan_cmake_run(REQUIRES Hello/0.1@memsharded/testing
-                    BASIC_SETUP CMAKE_TARGETS
-                    BUILD missing)
+    conan_cmake_run(REQUIRES Catch2/2.6.0@catchorg/stable
+                    BASIC_SETUP CMAKE_TARGETS)
 
     add_executable(main main.cpp)
     target_link_libraries(main CONAN_PKG::Hello)
