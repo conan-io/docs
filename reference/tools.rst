@@ -1531,9 +1531,11 @@ tools.apple_dot_clean()
 
     def apple_dot_clean(folder)
 
-Remove recursively all ``._`` files inside ``folder`` containing metadata information for Apple
-operating systems, these files can appear when unzipping a file that has been created in Macos.
-This tool will remove only files matching the pattern if there is file without the prefix too.
+Remove recursively all ``._`` files inside ``folder``, these files are created by Apple OS when the
+underlying filesystem cannot store metadata associated to files (they could appear when unzipping
+a file that has been created in Macos). This tool will remove only the ``._`` files that are
+accompanied with a file without that prefix (it will remove ``._file.txt`` only
+if ``file.txt`` exists).
 
 Parameters:
     - **folder** (Required): root folder to start deleting ``._`` files.
