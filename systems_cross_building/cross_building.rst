@@ -500,9 +500,8 @@ Here is a table with some typical ARM platforms:
 
     **ARM**
 
-    - https://developer.arm.com/docs/dui0773/latest/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
-    - https://developer.arm.com/docs/dui0774/latest/compiler-command-line-options/-target
-    - https://developer.arm.com/docs/dui0774/latest/compiler-command-line-options/-march
+    - https://developer.arm.com/docs/100066/0604/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
+    - https://developer.arm.com/docs/dui0472/latest/compiler-command-line-options
 
     **ANDROID**
 
@@ -510,7 +509,7 @@ Here is a table with some typical ARM platforms:
 
     **VISUAL STUDIO**
 
-    - https://docs.microsoft.com/en-us/cpp/build/overview-of-arm-abi-conventions?view=vs-2017
+    - https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017
 
 
 .. seealso::
