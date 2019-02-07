@@ -428,7 +428,7 @@ package.
 Invalid configuration
 +++++++++++++++++++++
 
-Conan allows the recipe creator to declare invalid configurations, those that are known not to work 
+Conan allows the recipe creator to declare invalid configurations, those that are known not to work
 with the library being packaged. There is an especial kind of exception that can be raised from
 the ``configure()`` method to state this situation: ``conans.errors.ConanInvalidConfiguration``. Here
 it is an example of a recipe for a library that doesn't support Windows operating system:
@@ -436,7 +436,7 @@ it is an example of a recipe for a library that doesn't support Windows operatin
 .. code-block:: python
 
     def configure(self):
-        if self.settings.os == "Windows":
+        if self.settings.os != "Windows":
             raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
 
 This exception will be propagated and Conan application will exit with the error code ``6``.
