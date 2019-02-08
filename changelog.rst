@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.12.2 (8-Feb-2019)
+-------------------
+
+- Bugfix: Regression in ``MSBuild`` helper, incorrectly ignoring the ``conan_build.props`` file because of using a relative path instead of absolute one. `#4488 <https://github.com/conan-io/conan/pull/4488>`_
+
+
 1.12.1 (5-Feb-2019)
 -------------------
 
