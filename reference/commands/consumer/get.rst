@@ -21,6 +21,8 @@ Gets a file or list a directory of a given reference or package.
 
     optional arguments:
       -h, --help            show this help message and exit
+      -p PACKAGE, --package PACKAGE
+                            Package ID (deprecated, use full reference)
       -r REMOTE, --remote REMOTE
                             Get from this specific remote
       -raw, --raw           Do not decorate the text
