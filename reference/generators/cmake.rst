@@ -193,4 +193,4 @@ Default used generators
 -----------------------
 
 When a compiler or its version is not detected, the CMake helper uses a default generator based on the platform operating system.
-For Windows it generates ``MinGW Makefiles``, otherwise it will generate ``Unix Makefiles``.
+For Unix systems it generates ``Unix Makefiles``. For Windows there is no default generator, it will be detected by CMake automatically.
