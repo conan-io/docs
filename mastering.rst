@@ -11,6 +11,7 @@ This section provides an introduction to important productivity features and use
    mastering/conanfile_py
    mastering/conditional
    mastering/version_ranges
+   mastering/lockfile
    mastering/policies
    mastering/envvars
    mastering/virtualenv
