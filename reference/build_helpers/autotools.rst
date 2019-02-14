@@ -68,8 +68,7 @@ has to be in the path or declared in ``CONAN_BASH_PATH``:
 .. code-block:: python
    :emphasize-lines: 12
 
-   from conans import ConanFile, AutoToolsBuildEnvironment
-   import platform
+   from conans import ConanFile, AutoToolsBuildEnvironment, tools
 
    class ExampleConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
@@ -79,8 +78,7 @@ has to be in the path or declared in ``CONAN_BASH_PATH``:
         self.copy("*.dylib*", dst="bin", src="lib")
 
       def build(self):
-         in_win = platform.system() == "Windows"
-         env_build = AutoToolsBuildEnvironment(self, win_bash=in_win)
+         env_build = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
          env_build.configure()
          env_build.make()
 
