@@ -41,7 +41,7 @@ To enable **Travis CI** support, you need to create a *.travis.yml* file and pas
     # Automatic detection of your arch, compiler, etc.
       - conan user
     script:
-    # Download dependencies, build, test and create package
+    # Download dependencies and build project
       - conan install .
       - make
 
