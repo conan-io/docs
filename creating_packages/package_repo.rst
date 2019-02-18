@@ -79,7 +79,7 @@ Also, you can notice the two CMake lines:
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
 They are not added in the package recipe, as they can be directly added to the ``src/CMakeLists.txt``

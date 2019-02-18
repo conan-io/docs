@@ -10,8 +10,8 @@ Just include the ``conanbuildinfo.cmake`` this way:
 
 .. code-block:: cmake
 
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
+       include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
        conan_basic_setup()
    else()
        message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
@@ -34,8 +34,8 @@ the ``zlib`` conan package.
 
 .. code-block:: cmake
 
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
+       include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
        conan_basic_setup()
    else()
        message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")
@@ -110,8 +110,8 @@ Now we are going to see how to create a conan package from the previous library.
 
 .. code-block:: cmake
 
-   if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-       include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+   if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
+       include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
        conan_basic_setup()
    else()
        message(WARNING "The file conanbuildinfo.cmake doesn't exist, you have to run conan install first")

@@ -116,7 +116,7 @@ directory, otherwise it will not find the necessary file:
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
 .. seealso::

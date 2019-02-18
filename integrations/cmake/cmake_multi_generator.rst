@@ -62,7 +62,7 @@ The consumer project might write a ``CMakeLists.txt`` like:
     project(MyHello)
     cmake_minimum_required(VERSION 2.8.12)
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
     conan_basic_setup()
 
     add_executable(say_hello main.cpp)
@@ -84,7 +84,7 @@ Or, if using the modern cmake syntax with targets (where ``Hello1`` is an exampl
     project(MyHello)
     cmake_minimum_required(VERSION 2.8.12)
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
     conan_basic_setup(TARGETS)
 
     add_executable(say_hello main.cpp)
@@ -97,7 +97,7 @@ There's also a convenient macro for linking to all libraries:
     project(MyHello)
     cmake_minimum_required(VERSION 2.8.12)
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
     conan_basic_setup()
 
     add_executable(say_hello main.cpp)
@@ -130,10 +130,10 @@ accordingly, something like:
     project(MyHello)
     cmake_minimum_required(VERSION 2.8.12)
 
-    if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
-        include(${CMAKE_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
+        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
     else()
-        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     endif()
 
     conan_basic_setup()

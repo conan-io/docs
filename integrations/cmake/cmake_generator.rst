@@ -25,7 +25,7 @@ set global include directories, libraries directories, definitions, etc. so typi
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
     add_executable(timer timer.cpp)
@@ -50,7 +50,7 @@ For **modern cmake (>=3.1.2)**, you can use the following approach:
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(TARGETS)
 
     add_executable(timer timer.cpp)

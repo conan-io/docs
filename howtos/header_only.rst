@@ -125,7 +125,7 @@ and some ``example.cpp`` file, which will be our "unit test" of the library:
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
     add_executable(example example.cpp)

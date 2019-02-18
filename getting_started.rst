@@ -169,7 +169,7 @@ An MD5 Encrypter using the Poco Libraries
 
         add_definitions("-std=c++11")
 
-        include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
         conan_basic_setup()
 
         add_executable(md5 md5.cpp)

@@ -74,7 +74,7 @@ You can skip this default behavior by passing the ``KEEP_RPATHS`` parameter to t
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(KEEP_RPATHS)
 
     add_executable(timer timer.cpp)
@@ -102,7 +102,7 @@ Remember to pass the ``KEEP_RPATHS`` variable to the ``conan_basic_setup``:
 
 .. code-block:: cmake
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(KEEP_RPATHS)
 
 Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust

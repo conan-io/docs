@@ -44,7 +44,7 @@ The project we want to develop will be a simple application, with these 3 files 
     project(Example CXX)
     cmake_minimum_required(VERSION 2.8.12)
 
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+    include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
     add_executable(example example.cpp)
@@ -70,7 +70,7 @@ we will see something like the following error:
     1> 
     1>     C:/Users/user/CMakeBuilds/df6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab/build/x64-Debug/conanbuildinfo.cmake
 
-As expected, our *CMakeLists.txt* is using a ``include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)``, and that file doesn't exist yet,
+As expected, our *CMakeLists.txt* is using a ``include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)``, and that file doesn't exist yet,
 because Conan has not installed the dependencies of this project yet. Visual Studio 2017 uses different build folders for each 
 configuration. In this case, the default configuration at startup is ``x64-Debug``. This means that we need to install the
 dependencies that match this configuration. Assuming that our default profile is using Visual Studio 2017 for x64 (it should typically be

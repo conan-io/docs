@@ -456,7 +456,7 @@ project:
         # get the sources from somewhere
         tools.replace_in_file("hello/CMakeLists.txt", "PROJECT(MyHello)",
             '''PROJECT(MyHello)
-               include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+               include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
                conan_basic_setup()''')
 
 Parameters:
