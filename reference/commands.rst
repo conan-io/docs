@@ -45,6 +45,7 @@ Commands related to the local (user space) development of a Conan package:
   commands/development/source.rst
   commands/development/build.rst
   commands/development/package.rst
+  commands/development/link.rst
 
 
 Misc commands

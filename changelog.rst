@@ -22,6 +22,19 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.12.2 (8-Feb-2019)
+-------------------
+
+- Bugfix: Regression in ``MSBuild`` helper, incorrectly ignoring the ``conan_build.props`` file because of using a relative path instead of absolute one. `#4488 <https://github.com/conan-io/conan/pull/4488>`_
+
+
+1.12.1 (5-Feb-2019)
+-------------------
+
+- Bugfix: GraphInfo parsing of existing ``graph_info.json`` files raises KeyError over "root". `#4458 <https://github.com/conan-io/conan/pull/4458>`_
+- Bugfix: Transitive Editable packages fail to install `#4448 <https://github.com/conan-io/conan/pull/4448>`_
+
+
 1.12.0 (30-Jan-2019)
 --------------------
 
