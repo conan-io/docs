@@ -22,6 +22,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.12.3 (18-Feb-2019)
+--------------------
+
+- Fix: Fix potential downgrade from future 1.13 to 1.12 `#4547 <https://github.com/conan-io/conan/pull/4547>`_
+- Fix: Remove output warnings in MSBuild helper. `#4518 <https://github.com/conan-io/conan/pull/4518>`_
+- Fix: Revert default cmake generator on Windows (#4265) `#4509 <https://github.com/conan-io/conan/pull/4509>`_ . Docs `here <https://github.com/conan-io/docs/pull/1072>`__
+- Bugfix: Fixed problem with conanfile.txt [imports] sections using the '@' character. `#4539 <https://github.com/conan-io/conan/pull/4539>`_ . Docs `here <https://github.com/conan-io/docs/pull/1078>`__
+- Bugfix: Fix search packages function when remote is called `all` `#4502 <https://github.com/conan-io/conan/pull/4502>`_
+
+
 1.12.2 (8-Feb-2019)
 -------------------
 
