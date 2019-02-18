@@ -105,7 +105,7 @@ List of files to be imported to a local directory. Read more: :ref:`imports<impo
 The first item is the subfolder of the packages (could be the root "." one), the second is the pattern to match. Both relate to the local
 cache. The third (after the arrow) item, is the destination folder, living in user space, not in the local cache.
 
-The ``[imports]`` section also support the same arguments as the equivalent ``imports()`` method in *conanfile.py*, separated with an ``@``.
+The ``[imports]`` section also support the same arguments as the equivalent ``imports()`` method in *conanfile.py*, separated with an ``@``. If your previous folders use an ``@`` in the path name, use a trailing (even if empty) ``@`` so the parser correctly gets the folders paths.
 
 - **root_package** (Optional, Defaulted to *all packages in deps*): fnmatch pattern of the package name ("OpenCV", "Boost") from which files
   will be copied.
