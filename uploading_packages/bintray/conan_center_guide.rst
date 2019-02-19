@@ -74,7 +74,7 @@ Recipe Quality
 
   .. code-block:: python
 
-    def configure():
+    def configure(self):
         if self.settings.compiler == "gcc" and self.settings.compiler.version < "7.0":
             raise ConanException("GCC > 7.0 is required")
         if self.settings.os == "Windows":
@@ -92,7 +92,7 @@ Recipe Quality
 
   .. code-block:: python
 
-    def package():
+    def package(self):
         self.copy("license*", dst="licenses",  ignore_case=True, keep_path=False)
 
   Sometimes there is no ``license`` file, for that, read :ref:`Howtos/Extract licenses from headers<extract_licenses_from_headers>`.
