@@ -107,6 +107,12 @@ cache. The third (after the arrow) item, is the destination folder, living in us
 
 The ``[imports]`` section also support the same arguments as the equivalent ``imports()`` method in *conanfile.py*, separated with an ``@``.
 
+.. note::
+
+    If your previous folders use an ``@`` in the path name, use a trailing (even if empty) ``@`` so the parser correctly gets the folders paths,
+    e.g: ``lib, * -> /home/jenkins/workspace/conan_test@2/g/install/lib @``
+
+
 - **root_package** (Optional, Defaulted to *all packages in deps*): fnmatch pattern of the package name ("OpenCV", "Boost") from which files
   will be copied.
 - **folder**: (Optional, Defaulted to ``False``). If enabled, it will copy the files from the local cache to a subfolder named as the
