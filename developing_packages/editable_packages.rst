@@ -41,12 +41,13 @@ Put a package in editable mode
 ------------------------------
 
 To avoid creating the package ``cool/version@user/dev`` in the cache for every change, we are going
-to create **a link from the reference in the cache to the local working directory**:
+to put that package in editable mode, creating **a link from the reference in the cache to the local
+working directory**:
 
 .. code-block:: bash
 
-    $ conan link <path/to/local/dev/libcool> cool/version@user/dev
-    # you could do cd <path/to/local/dev/libcool> && conan link . cool/version@user/dev
+    $ conan editable add <path/to/local/dev/libcool> cool/version@user/dev
+    # you could do cd <path/to/local/dev/libcool> && conan editable add . cool/version@user/dev
 
 
 That is it. Now, every usage of ``cool/version@user/dev``, by any other Conan package, or project
@@ -163,11 +164,11 @@ paths.
 Specifying layout files
 +++++++++++++++++++++++
 
-Layout files are specified in the :command:`conan link` command, as an extra argument:
+Layout files are specified in the :command:`conan editable add` command, as an extra argument:
 
 .. code-block:: bash
 
-    $ conan link . cool/version@user/dev --layout=win_layout
+    $ conan editable add . cool/version@user/dev --layout=win_layout
 
 That ``win_layout`` file will be first looked for relative to the current directory (the
 path can be absolute too). If it is found, that will be used. It is possible to add those
@@ -178,10 +179,10 @@ for in the conan cache, in the ``.conan/layouts`` folder. This is very convenien
 a single definition of layouts that can be shared with the team and installed with
 ``conan config install``.
 
-If no argument is specified, the :command:`conan link` command will try to use a `.conan/layouts/default`
+If no argument is specified, the :command:`conan editable add` command will try to use a `.conan/layouts/default`
 layout from the local cache.
 
-You can switch layout files by passing a different argument to new calls to :command:`conan link`.
+You can switch layout files by passing a different argument to new calls to :command:`conan editable add`.
 
 Evaluation order and priority
 +++++++++++++++++++++++++++++
@@ -201,8 +202,8 @@ It is important to understand the evaluation order and priorities regarding the 
   folders specified without package reference won't be applied once a match is found.
 - It no match is found, the original values for the layout folders defined in ``package_info()`` will
   be respected.
-- The layout file to be used is defined at ``conan link`` time. If a ``.conan/layouts/default`` file
-  is added after the ``conan link``, it will not be used at all.
+- The layout file to be used is defined at ``conan editable add`` time. If a ``.conan/layouts/default`` file
+  is added after the ``conan editable add``, it will not be used at all.
 
 
 Using a package in editable mode
@@ -219,7 +220,7 @@ To summarize, consumption of packages in editable mode is transparent to their c
 To try that it is working, the following flow should work:
 
 - Get sources of ``cool/version@user/dev``: :command:`git/svn clone... && cd folder`
-- Put package in editable mode: :command:`conan link . cool/version@user/dev --layout=mylayout`
+- Put package in editable mode: :command:`conan editable add . cool/version@user/dev --layout=mylayout`
 - Work with it and build using any tool. Check that your local layout is reflected in the layout
   file *mylayout* specified in the previous step.
 - Go to the consumer project: ``CoolApp``
@@ -242,7 +243,7 @@ In order to revert the editable mode just remove the link using:
 
 .. code-block:: bash
 
-    $ conan link --remove cool/version@user/dev
+    $ conan editable remove cool/version@user/dev
 
 It will remove the link (the local directory won't be affected) and all the packages consuming this
 requirement will get it from the cache again.
