@@ -46,7 +46,7 @@ To enable **Travis CI** support, you need to create a *.travis.yml* file and pas
     # Call your build system
       - cmake . -G "Unix makefiles" && make
       - cmake --build .
-    # RUn your tests
+    # Run your tests
       - ctest
 
 Travis will install the gcc compiler and the :command:`conan` client and will execute the :command:`conan install` command using the
