@@ -44,7 +44,7 @@ To enable **Travis CI** support, you need to create a *.travis.yml* file and pas
     # Download dependencies and build project
       - conan install .
     # Call your build system
-      - cmake . -G "Unix makefiles" && make
+      - cmake . -G "Unix makefiles"
       - cmake --build .
     # Run your tests
       - ctest
