@@ -11,7 +11,7 @@ fired in Travis-CI after a :command:`git push` to GitHub.
 
 You can use Travis-CI both for:
 
-- Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file.
+- Building and testing your project, which manages dependencies with Conan, and probably a *conanfile.txt* file.
 - Building and testing Conan binary packages for a given Conan package recipe (with a *conanfile.py*).
 
 Installing dependencies and building your project
