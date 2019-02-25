@@ -30,7 +30,7 @@ calling `configure` and `make` manually:
 
 .. code-block:: python
 
-    from conans import ConanFile, AutoToolsBuildEnvironment
+    from conans import ConanFile, AutoToolsBuildEnvironment, tools
 
     class ExampleConan(ConanFile):
         ...
