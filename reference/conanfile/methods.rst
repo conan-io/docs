@@ -209,7 +209,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
-    self.cpp_info.cppflags = []  # C++ compilation flags
+    self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
 
@@ -237,7 +237,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
   them in other packages too).
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
   so that including the library headers matches the binaries:
-- **cflags**, **cppflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
+- **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
 
@@ -249,7 +249,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
         self.cpp_info.defines = ["ZMQ_STATIC"]
 
         if not self.settings.os == "Windows":
-            self.cpp_info.cppflags = ["-pthread"]
+            self.cpp_info.cxxflags = ["-pthread"]
 
 Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
 be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
