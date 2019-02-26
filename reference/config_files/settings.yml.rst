@@ -101,6 +101,10 @@ Here you can find a brief explanation of each of the architectures defined as ``
 
 - **ppc64**: The PowerPC 64 bit Big Endian architecture.
 
+- **armv5el**: The ARM 32 bit version 5 architecture, soft-float.
+
+- **armv5hf**: The ARM 32 bit version 5 architecture, hard-float.
+
 - **armv6**: The ARM 32 bit version 6 architecture.
 
 - **armv7**: The ARM 32 bit version 7 architecture.
