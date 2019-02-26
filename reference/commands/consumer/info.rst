@@ -42,7 +42,7 @@ recipe or a reference for any existing package in your local cache.
                             specify both install-folder and any setting/option it
                             will raise an error.
       -j [JSON], --json [JSON]
-                            Path to a joon file where the information will be
+                            Path to a json file where the information will be
                             written
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
