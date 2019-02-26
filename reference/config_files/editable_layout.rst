@@ -5,7 +5,8 @@ Editable layout files
 
 This file contain information consumed by :ref:`editable packages <editable_packages>`. It is
 an *.ini* file listing the directories that Conan should use for the packages that are opened
-in editable mode:
+in editable mode. Before parsing this file Conan runs Jinja2 template engine with the
+``settings`` and ``options`` object, so you can add *any* logic to this files:
 
 .. code-block:: ini
 
@@ -15,10 +16,14 @@ in editable mode:
 
     # using placeholders from conan settings and options
     [libdirs]
-    build/{settings.build_type}/{settings.arch}
+    build/{{settings.build_type}}/{{settings.arch}}
 
     [bindirs]
-    build/{settings.build_type}/{settings.arch}
+    {% if options.shared %}
+    build/{{settings.build_type}}/shared
+    {% else %}
+    build/{{settings.build_type}}/static
+    {% endif %}
 
     # Affects only to cool/version@user/dev
     [cool/version@user/dev:includedirs]

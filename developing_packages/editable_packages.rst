@@ -119,8 +119,10 @@ Layout files
 
 Instead of changing the recipe file to match the local layout, it's possible to define the
 layout in a separate file. This is especially useful if you have a large number of libraries
-with the structure so you can write it one and use it for several packages. Layout files have
-the following syntax:
+with the same structure so you can write it once and use it for several packages.
+
+Layout files are *ini* files, but before parsing them Conan uses the Jinja2 template
+engine passing the ``settings`` and ``options`` objects, so you can add logic to the files:
 
    .. code-block:: ini
 
@@ -129,13 +131,18 @@ the following syntax:
        src/cmp_a/include
 
        [libdirs]
-       build/{settings.build_type}/{settings.arch}
+       build/{{settings.build_type}}/{{settings.arch}}
 
        [bindirs]
-       build/{settings.build_type}/{settings.arch}
+       {% if options.shared %}
+       build/{{settings.build_type}}/shared
+       {% else %}
+       build/{{settings.build_type}}/static
+       {% endif %}
 
-As you can see, you can use some **placeholders** inside these files that will be substituted with
-the values of the ``settings`` and the ``options`` of the package.
+You can have a look at the `Jinja2 documentation <http://jinja.pocoo.org/>`_ to know more
+about its powerful syntax.
+
 
 This file can use the package reference to customize logic for a specific package:
 
