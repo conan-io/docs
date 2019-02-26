@@ -817,6 +817,8 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.cflags           | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags         | [DEPRECATED: use cxxflags instead]                                                                      |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.cxxflags         | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.sharedlinkflags  | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
