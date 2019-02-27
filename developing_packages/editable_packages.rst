@@ -122,7 +122,8 @@ layout in a separate file. This is especially useful if you have a large number 
 with the same structure so you can write it once and use it for several packages.
 
 Layout files are *ini* files, but before parsing them Conan uses the Jinja2 template
-engine passing the ``settings`` and ``options`` objects, so you can add logic to the files:
+engine passing the ``settings``, ``options`` and current ``reference`` objects, so you
+can add logic to the files:
 
    .. code-block:: ini
 
@@ -139,6 +140,11 @@ engine passing the ``settings`` and ``options`` objects, so you can add logic to
        {% else %}
        build/{{settings.build_type}}/static
        {% endif %}
+
+       [resdirs]
+       {% for item in ["cmp1", "cmp2", "cmp3"] %}
+       src/{{ item }}/resouces/{% if item != "cmp3" %}{{ settings.arch }}{% endif %}
+       {% endfor %}
 
 You can have a look at the `Jinja2 documentation <http://jinja.pocoo.org/>`_ to know more
 about its powerful syntax.

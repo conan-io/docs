@@ -6,7 +6,7 @@ Editable layout files
 This file contain information consumed by :ref:`editable packages <editable_packages>`. It is
 an *.ini* file listing the directories that Conan should use for the packages that are opened
 in editable mode. Before parsing this file Conan runs Jinja2 template engine with the
-``settings`` and ``options`` object, so you can add *any* logic to this files:
+``settings``, ``options`` and ``reference`` objects, so you can add *any* logic to this files:
 
 .. code-block:: ini
 
