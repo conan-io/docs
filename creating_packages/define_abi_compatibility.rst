@@ -304,7 +304,7 @@ You can determine if the following variables within any requirement change the I
   .. code-block:: python
 
       def package_id(self):
-          self.info.requires["MyOtherLib"].patch_mode()
+          self.info.requires["MyOtherLib"].minor_mode()
 
 - ``patch_mode()``: Any changes to major, minor or patch (not build) versions of the required dependency change the package ID.
 
