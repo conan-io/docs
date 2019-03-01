@@ -105,8 +105,9 @@ Remember to pass the ``KEEP_RPATHS`` variable to the ``conan_basic_setup``:
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(KEEP_RPATHS)
 
-Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust
-a relative path from the executable:
+Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust a relative path from the executable.
+Also, enabling ``CMAKE_BUILD_WITH_INSTALL_RPATH`` will make the paths **always relative** to the application being built and the executable
+could be run without setting additional variables such as ``LD_LIBRARY_PATH`` or ``DYLD_LIBRARY_PATH``:
 
 .. code-block:: cmake
 
@@ -116,6 +117,7 @@ a relative path from the executable:
         set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
     endif()
 
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
 
 You can use this imports statements in the consumer project:
 
@@ -146,4 +148,4 @@ And your finally application can follow this layout:
 You could move the entire application folder to any location and the shared libraries will be located
 correctly.
 
-.. _`CMake RPATH handling`: https://cmake.org/Wiki/CMake_RPATH_handling
+.. _`CMake RPATH handling`: https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
