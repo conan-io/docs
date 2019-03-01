@@ -411,7 +411,7 @@ Let's see some examples, corresponding to common scenarios:
   they are linked and if they cross the frontiers of the API, it might also lead to
   incompatibilities. If the public headers have changed, it would depend on what changes and how are
   they used in ``MyLib/1.0``. Adding new methods to the public headers will have no impact, but
-  changing the implementation of some functions that will be inline when compiled from
+  changing the implementation of some functions that will be inlined when compiled from
   ``MyLib/1.0`` will definitely require re-building. For this case, it could make sense to have this configuration:
 
   .. code-block:: python
