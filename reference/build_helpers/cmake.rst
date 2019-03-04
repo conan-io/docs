@@ -138,12 +138,15 @@ parallel
 
 **Defaulted to**: ``True``
 
-Run CMake process in parallel for compilation, installation and testing. This attribute gets the value for the class constructor and
-appends the ``/MP`` flag in the case of the Visual compiler. However, the parallel executing can be changed for testing for example:
+Run CMake process in parallel for compilation, installation and testing. This is translated into the proper command line argument:
+For ``Unix Makefiles`` it is ``-jX`` and for ``Visual Studio`` it is ``/m:X``.
+
+However, the parallel executing can be changed for testing like this:
 
 .. code-block:: python
 
     cmake = CMake(self)
+    cmake.configure()
     cmake.build()  # 'parallel' is enabled by default
     cmake.parallel = False
     cmake.test()
