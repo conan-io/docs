@@ -180,7 +180,7 @@ There are other methods automatically called by ``conan_basic_setup()`` but you 
 +--------------------------------+----------------------------------------------------------------------+
 | conan_set_ar_flags()           |  Adjust CMAKE_C_ARCHIVE_CREATE, CMAKE_C_ARCHIVE_APPEND and           |
 |                                |  CMAKE_C_ARCHIVE_FINISH as well as the CXX variants if               |
-|                                |  CONAN_AR_FLAGS are present
+|                                |  CONAN_AR_FLAGS are present                                          |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_CMAKE_SILENT_OUTPUT      |  Silences the Conan message output                                   |
 +--------------------------------+----------------------------------------------------------------------+
