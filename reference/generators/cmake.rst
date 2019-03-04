@@ -78,6 +78,17 @@ The values are ordered in the right order according to the dependency tree.
 | CONAN_C_FLAGS                  | Aggregated C flags                                                   |
 +--------------------------------+----------------------------------------------------------------------+
 
+Conan also declares a global variable to specify flags for creation of static libraries. The use of
+``CMAKE_STATIC_LINK_FLAGS`` would yield a invalid command so when needed, ``CONAN_AR_FLAGS`` is set
+to generate ``CMAKE_C_ARCHIVE_CREATE``, ``CMAKE_C_ARCHIVE_APPEND``, ``CMAKE_C_ARCHIVE_FINISH`` as well as
+``CMAKE_CXX_ARCHIVE_CREATE``, ``CMAKE_CXX_ARCHIVE_APPEND``, ``CMAKE_CXX_ARCHIVE_FINISH``.
+
++--------------------------------+----------------------------------------------------------------------+
+| NAME                           | VALUE                                                                |
++================================+======================================================================+
+| CONAN_AR_FLAGS                 | AR flags                                                             |
++--------------------------------+----------------------------------------------------------------------+
+
 
 - **Variables from user_info**
 
@@ -166,6 +177,10 @@ There are other methods automatically called by ``conan_basic_setup()`` but you 
 | conan_set_libcxx(TARGETS)      |  Adjust the standard library flags (libstdc++, libc++, libstdc++11)  |
 +--------------------------------+----------------------------------------------------------------------+
 | conan_set_find_paths()         |  Adjust CMAKE_MODULE_PATH and CMAKE_PREFIX_PATH                      |
++--------------------------------+----------------------------------------------------------------------+
+| conan_set_ar_flags()           |  Adjust CMAKE_C_ARCHIVE_CREATE, CMAKE_C_ARCHIVE_APPEND and           |
+|                                |  CMAKE_C_ARCHIVE_FINISH as well as the CXX variants if               |
+|                                |  CONAN_AR_FLAGS are present
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_CMAKE_SILENT_OUTPUT      |  Silences the Conan message output                                   |
 +--------------------------------+----------------------------------------------------------------------+

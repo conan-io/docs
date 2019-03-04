@@ -4,7 +4,7 @@ AutoToolsBuildEnvironment (configure/make)
 ==========================================
 
 If you are using **configure**/**make** you can use **AutoToolsBuildEnvironment** helper.
-This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS`` and ``CPPFLAGS`` environment variables based on your requirements.
+This helper sets ``LIBS``, ``LDFLAGS``, ``CFLAGS``, ``CXXFLAGS``, ``CPPFLAGS`` and ``ARFLAGS`` environment variables based on your requirements.
 
 .. code-block:: python
    :emphasize-lines: 13, 14, 15
@@ -41,7 +41,7 @@ calling `configure` and `make` manually:
                 self.run("./configure")
                 self.run("make")
 
-You can change some variables like ``fpic``, ``libs``, ``include_paths`` and ``defines`` before accessing the ``vars`` to override
+You can change some variables like ``fpic``, ``libs``, ``include_paths``, ``defines`` and ``ar_flags`` before accessing the ``vars`` to override
 an automatic value or add new values:
 
 .. code-block:: python
@@ -57,6 +57,8 @@ an automatic value or add new values:
             env_build.fpic = True
             env_build.libs.append("pthread")
             env_build.defines.append("NEW_DEFINE=23")
+            env_build.ar_flags.append("-X64")
+            env_build.ar_flags.append("cru")
             env_build.configure()
             env_build.make()
 
@@ -158,6 +160,13 @@ link_flags
 ++++++++++
 
 List with linker flags
+
+ar_flags
+++++++++
+
+List with archive flags (``ARFLAGS``). Autotools defaults this internally to ``cru``, which has to be added
+when specifying it manually to generate a valid command line for execution of ``ar``. ``ARFLAGS`` will only
+be set when needed.
 
 Properties
 ----------
