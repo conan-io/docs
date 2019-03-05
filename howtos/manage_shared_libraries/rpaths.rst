@@ -106,8 +106,8 @@ Remember to pass the ``KEEP_RPATHS`` variable to the ``conan_basic_setup``:
     conan_basic_setup(KEEP_RPATHS)
 
 Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust a relative path from the executable.
-Also, enabling ``CMAKE_BUILD_WITH_INSTALL_RPATH`` will make the paths **always relative** to the application being built and the executable
-could be run without setting additional variables such as ``LD_LIBRARY_PATH`` or ``DYLD_LIBRARY_PATH``:
+Also, enabling `CMAKE_BUILD_WITH_INSTALL_RPATH`_ will built the application with the RPATH value of ``CMAKE_INSTALL_RPATH`` and avoid
+the need to be relinked when installed.
 
 .. code-block:: cmake
 
@@ -149,3 +149,4 @@ You could move the entire application folder to any location and the shared libr
 correctly.
 
 .. _`CMake RPATH handling`: https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
+.. _`CMAKE_BUILD_WITH_INSTALL_RPATH`: https://cmake.org/cmake/help/v3.0/variable/CMAKE_BUILD_WITH_INSTALL_RPATH.html
