@@ -10,12 +10,12 @@ are possible.
 
     # Only for cross building, 'os_build/arch_build' is the system that runs Conan
     os_build: [Windows, WindowsStore, Linux, Macos, FreeBSD, SunOS]
-    arch_build: [x86, x86_64, ppc32, ppc64le, ppc64, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
+    arch_build: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
 
     # Only for building cross compilation tools, 'os_target/arch_target' is the system for
     # which the tools generate code
     os_target: [Windows, Linux, Macos, Android, iOS, watchOS, tvOS, FreeBSD, SunOS, Arduino]
-    arch_target: [x86, x86_64, ppc32, ppc64le, ppc64, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
+    arch_target: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
 
     # Rest of the settings are "host" settings:
     # - For native building/cross building: Where the library/program will run.
@@ -40,7 +40,7 @@ are possible.
         SunOS:
         Arduino:
             board: ANY
-    arch: [x86, x86_64, ppc32, ppc64le, ppc64, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
+    arch: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
     compiler:
         sun-cc:
             version: ["5.10", "5.11", "5.12", "5.13", "5.14"]
@@ -100,6 +100,10 @@ Here you can find a brief explanation of each of the architectures defined as ``
 - **ppc64le**: The PowerPC 64 bit Little Endian architecture.
 
 - **ppc64**: The PowerPC 64 bit Big Endian architecture.
+
+- **armv5el**: The ARM 32 bit version 5 architecture, soft-float.
+
+- **armv5hf**: The ARM 32 bit version 5 architecture, hard-float.
 
 - **armv6**: The ARM 32 bit version 6 architecture.
 
