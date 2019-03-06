@@ -40,7 +40,7 @@ This file can live in the conan cache, in the ``.conan/layouts`` folder, or in a
 inside the source repo.
 
 If there exists a ``.conan/layouts/default`` layout file in the cache and no layout file is specified
-in the ``conan editable add <path> <reference>`` command, that file will be used.
+in the :command:`conan editable add <path> <reference>` command, that file will be used.
 
 The ``[source_folder]`` and ``[build_folder]`` are useful for workspaces. For example, when using ``cmake``
 workspace-generator, it will locate the ``CMakeLists.txt`` of each package in editable mode in the

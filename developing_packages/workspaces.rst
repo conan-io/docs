@@ -21,7 +21,7 @@ Lets introduce them with a practical example, the code can be found in the conan
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples.git
-    $ cd workspace/cmake
+    $ cd features/workspace/cmake
 
 
 Note that this folder contains two files *conanws_gcc.yml* and *conan_vs.yml*, for gcc (Makefiles, single-configuration build environments)
@@ -90,8 +90,8 @@ is ``cmake`` and it will generate a *conanworkspace.cmake* file that looks like:
         add_subdirectory(${PACKAGE_chat_SRC} ${PACKAGE_chat_BUILD})
     endmacro()
 
-This file can be included in your root *CMakeLists.txt* (this one is not generated, you provide it, so you can customize it
-as much as you want), have a look to the one that is in the project:
+This file can be included in your user-defined *CMakeLists.txt* (this file is not generated).
+Here you can see the *CMakeLists.txt* used in this project:
 
 .. code-block:: cmake
 
@@ -112,16 +112,17 @@ Single configuration build environments
 
 There are some build systems, like Makefiles that requires the developer to manage different configurations in different build folders,
 and switch between folders to change configuration. The above described file is *conan_gcc.yml* file, which defines a Conan workspace that
-works for a CMake based project for MinGW/Unix Makefiles gcc environments.
+works for a CMake based project for MinGW/Unix Makefiles gcc environments (working for apple-clang or clang would be very similar, if not identical).
 
 Lets use it to install this workspace:
 
 .. code-block:: bash
 
     $ mkdir build_release && cd build_release
-    $ conan workspace install ../conanws_gcc.yml --profile=my_gcc_profile
+    $ conan workspace install ../conanws_gcc.yml --profile=my_profile
 
-Here we assume that you have a ``my_gcc_profile`` profile defined, or you can avoid it if your default profile is already Gcc (Linux)
+Here we assume that you have a ``my_profile`` profile defined which would use a single-configuration build system (like Makefiles). The
+example is tested with gcc in Linux, but working with apple-clang with Makefiles would be the same).
 You should see something like:
 
 .. code-block:: bash
@@ -181,8 +182,8 @@ Note that nothing will really be installed in the local cache, all the dependenc
 
 .. code-block:: bash
 
-    $ conan search
-    There are no packages
+    $ conan search say
+    There are no packages matching the 'say' pattern
 
 .. note::
 
@@ -263,8 +264,7 @@ the *hello/src/CMakeLists.txt* file:
 The last ``conan_target_link_libraries(hello)`` is a helper that does the right linking with Debug/Release libraries (also works when using cmake
 targets).
 
-Lets use this. Note it is very important to install both Debug and Release configurations straight ahead, if we want to later switch between them
-in the IDE:
+Make sure to install both Debug and Release configurations straight ahead, if we want to later switch between them in the IDE:
 
 .. code-block:: bash
 
@@ -299,8 +299,8 @@ the *layout_vs* define the ``[build_folder]`` not as ``build/{settings.build_typ
 Notes
 -----
 
-Not that this way of developing packages shouldn't be used to create the final packages (you could try to use ``conan export-pkg``), but instead,
-a full package creation with ``conan create`` (best in CI) is recommended. 
+Note that this way of developing packages shouldn't be used to create the final packages (you could try to use :command:`conan export-pkg`), but instead,
+a full package creation with :command:`conan create` (best in CI) is recommended. 
 
 So far, only the CMake super-project generator is implemented. A Visual Studio one is being considered, and seems feasible, but not yet available.
 

@@ -8,7 +8,7 @@ conan workspace
 
     $ conan workspace [-h] {install} ...
 
-command to manage workspaces
+Command to manage workspaces
 
 .. code-block:: text
 
@@ -68,17 +68,9 @@ conan workspace install
                             defaults. e.g., -s compiler=gcc
     -u, --update          Check updates exist from upstream remotes
 
-    Opens the package ``<reference>`` in editable mode in the user folder ``<path>``
 
-    .. code-block:: text
-
-        positional arguments:
-        path                  Path to the package folder in the user workspace
-        reference             Package reference e.g.: mylib/1.X@user/channel
-
-        optional arguments:
-        -h, --help            show this help message and exit
-        -l LAYOUT, --layout LAYOUT
-                                Relative or absolute path to a file containing the
-                                layout. Relative paths will be resolved first relative
-                                to current dir, then to local cache "layouts" folder
+Note that these arguments, like ``settings`` and ``options`` mostly apply to the dependencies,
+but those packages that are defined as editable in the workspace are in the user space.
+Those packages won't be built by the command (even with ``--build`` arguments), as they are
+built locally. It is the responsibility of the editables layout to match the settings (typically
+parameterizing the layout with ``settings`` and ``options``)

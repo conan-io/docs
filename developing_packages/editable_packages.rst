@@ -202,8 +202,8 @@ It is important to understand the evaluation order and priorities regarding the 
   folders specified without package reference won't be applied once a match is found.
 - It no match is found, the original values for the layout folders defined in ``package_info()`` will
   be respected.
-- The layout file to be used is defined at ``conan editable add`` time. If a ``.conan/layouts/default`` file
-  is added after the ``conan editable add``, it will not be used at all.
+- The layout file to be used is defined at :command:`conan editable add` time. If a ``.conan/layouts/default`` file
+  is added after the :command:`conan editable add`, it will not be used at all.
 
 
 Using a package in editable mode
@@ -233,8 +233,8 @@ time, without any Conan command.
 
 .. note::
 
-    When a package is in editable mode, most of the commands will not work. It is not possible to ``conan upload``,
-    ``conan export`` or ``conan create`` when a package is in editable mode.
+    When a package is in editable mode, most of the commands will not work. It is not possible to :command:`conan upload`,
+    :command:`conan export` or :command:`conan create` when a package is in editable mode.
 
 Revert the editable mode
 ------------------------
