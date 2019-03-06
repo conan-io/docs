@@ -42,6 +42,8 @@ Windows, case sensitive search can be forced with '--case-sensitive'.
                             for a reference search
       -j JSON, --json JSON  json file path where the search information will be
                             written to
+      -rev, --revisions     Get a list of revisions for a reference or a package
+                            reference.
 
 
 **Examples**
@@ -104,3 +106,20 @@ You can generate a table for all binaries from a given recipe with the ``--table
     :height: 500 px
     :width: 600 px
     :align: center
+
+Search the local revision for a local cache recipe:
+
+.. code-block:: bash
+
+    $ conan search lib/1.0@conan/testing --revisions
+    $ Revisions for 'lib/1.0@conan/testing':
+        a55e3b054fdbf4e2c6f10e955da69502 (2019-03-05 16:37:27 UTC)
+
+Search the remote revisions in a server:
+
+.. code-block:: bash
+
+    $ conan search lib/1.0@conan/testing --revisions -r=myremote
+      Revisions for 'lib/1.0@conan/testing' at remote 'myremote':
+        78fcef25a1eaeecd5facbbf08624c561 (2019-03-05 16:37:27 UTC)
+        f3367e0e7d170aa12abccb175fee5f97 (2019-03-05 16:37:27 UTC)
