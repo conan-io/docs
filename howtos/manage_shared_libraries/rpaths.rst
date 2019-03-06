@@ -106,7 +106,7 @@ Remember to pass the ``KEEP_RPATHS`` variable to the ``conan_basic_setup``:
     conan_basic_setup(KEEP_RPATHS)
 
 Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust a relative path from the executable.
-Also, enabling `CMAKE_BUILD_WITH_INSTALL_RPATH`_ will built the application with the RPATH value of ``CMAKE_INSTALL_RPATH`` and avoid
+Also, enabling `CMAKE_BUILD_WITH_INSTALL_RPATH`_ will build the application with the RPATH value of ``CMAKE_INSTALL_RPATH`` and avoid
 the need to be relinked when installed.
 
 .. code-block:: cmake
