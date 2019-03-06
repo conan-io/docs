@@ -30,6 +30,13 @@ in editable mode. Before parsing this file Conan runs Jinja2 template engine wit
     src/core/include
     src/cmp_a/include
 
+    # The source_folder, build_folder are useful for workspaces
+    [source_folder]
+    src
+
+    [build_folder]
+    build/{settings.build_type}/{settings.arch}
+
 
 The specific sections using a package reference will have higher priority than the general ones.
 
@@ -38,9 +45,13 @@ This file can live in the conan cache, in the ``.conan/layouts`` folder, or in a
 inside the source repo.
 
 If there exists a ``.conan/layouts/default`` layout file in the cache and no layout file is specified
-in the ``conan link <path> <reference>`` command, that file will be used.
+in the :command:`conan editable add <path> <reference>` command, that file will be used.
+
+The ``[source_folder]`` and ``[build_folder]`` are useful for workspaces. For example, when using ``cmake``
+workspace-generator, it will locate the ``CMakeLists.txt`` of each package in editable mode in the
+``[source_folder]`` and it will use the ``[build_folder]`` as the base folder for the build temporary files.
 
 
 .. seealso::
 
-    Check the section :ref:`editable_packages` to read more about this file.
+    Check the section :ref:`editable_packages` and :ref:`workspaces` to learn more about this file.
