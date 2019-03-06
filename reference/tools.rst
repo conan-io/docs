@@ -797,7 +797,7 @@ tools.run_in_windows_bash()
 
 .. code-block:: python
 
-    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None)
+    def run_in_windows_bash(conanfile, bashcmd, cwd=None, subsystem=None, msys_mingw=True, env=None, with_login=True)
 
 Runs a UNIX command inside a bash shell. It requires to have "bash" in the path.
 Useful to build libraries using ``configure`` and ``make`` in Windows. Check :ref:`Windows subsytems <windows_subsystems>` section.
@@ -816,12 +816,14 @@ Parameters:
     - **conanfile** (Required): Current ``ConanFile`` object.
     - **bashcmd** (Required): String with the command to be run.
     - **cwd** (Optional, Defaulted to ``None``): Path to directory where to apply the command from.
-    - **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem). Used to escape the command according to the specified
+    - **subsystem** (Optional, Defaulted to ``None`` will autodetect the subsystem): Used to escape the command according to the specified
       subsystem.
-    - **msys_mingw** (Optional, Defaulted to ``True``) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows
+    - **msys_mingw** (Optional, Defaulted to ``True``): If the specified subsystem is MSYS2, will start it in MinGW mode (native windows
       development).
-    - **env** (Optional, Defaulted to ``None``) You can pass a dictionary with environment variable to be applied **at first place** so they
+    - **env** (Optional, Defaulted to ``None``): You can pass a dictionary with environment variable to be applied **at first place** so they
       will have more priority than others.
+    - **with_login** (Optional, Defaulted to ``True``): Pass the ``--login`` flag to :command:`bash` command. This might come handy when you
+      don't want to create a fresh user session for running the command.
 
 .. _tools_get_cased_path:
 
