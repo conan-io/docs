@@ -41,7 +41,7 @@ How it works
 
 
 If a client request a reference like `lib/1.0@conan/stable`, Conan will retrieve automatically the latest revision.
-In the client cache there is only one revision installed at the same time.
+In the client cache there is **only one revision installed at the same time**.
 
 The revisions can be pinned when you write a reference (in the recipe requires, or in a reference in a
 conan install command…) but if you don’t specify a revision the server will retrieve the latest revision.
