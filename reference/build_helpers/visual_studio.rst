@@ -262,7 +262,7 @@ List with flags from requirements' ``cpp_info.cflags``.
 cxx_flags
 +++++++++
 
-List with cxx flags from requirements' ``cpp_info.cppflags``.
+List with cxx flags from requirements' ``cpp_info.cxxflags``.
 
 link_flags
 ++++++++++

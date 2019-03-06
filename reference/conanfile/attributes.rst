@@ -273,6 +273,36 @@ independent in VS, we can just remove that setting field:
     def configure(self):
         self.settings.compiler["Visual Studio"].remove("runtime")
 
+It is possible to check the settings to implement conditional logic, with attribute syntax:
+
+.. code-block:: python
+
+    def build(self):
+        if self.settings.os == "Windows" and self.settings.compiler.version == "15":
+            # do some special build commands
+        elif self.settings.arch == "x86_64":
+            # Other different commands
+
+Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windos"``,
+conan will fail and tell you that is not a valid ``settings.os`` value, and the possible range of values.
+
+Likewise, if you try to access some setting that doesn't exist, like ``self.settings.compiler.libcxx``
+for the ``Visual Studio`` setting, conan will fail telling that ``libcxx`` does not exist for that compiler.
+
+If you want to do a safe check of settings values, you could use the ``get_safe()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        # Will be None if doesn't exist
+        arch = self.settings.get_safe("arch")
+        # Will be None if doesn't exist
+        compiler_version = self.settings.get_safe("compiler.version")
+
+The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist.
+
+
+
 .. _conanfile_options:
 
 options
@@ -817,7 +847,9 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.cflags           | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cppflags         | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
+| self.cpp_info.cppflags         | [DEPRECATED: use cxxflags instead]                                                                      |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cxxflags         | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.sharedlinkflags  | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
