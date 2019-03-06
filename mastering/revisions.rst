@@ -1,5 +1,7 @@
-Package Revisions [EXPERIMENTAL]
-================================
+Package Revisions
+==================
+
+**EXPERIMENTAL**
 
 The goal of the `revisions feature` is to achieve package immutability, so nothing in a server is ever overwritten.
 
@@ -20,8 +22,8 @@ How it works
 - When a **recipe** is exported, Conan calculates a unique ID (revision). For every change,
   a new recipe revision (RREV) will be calculated:
 
-   - If Conan detects SCM (Git or SVN) in the conanfile directory, the commit hash will be used as the RREV.
-   - If not SCM is detected, the checksum hash of the recipe manifest will be used as the RREV.
+   - If Conan detects some control version system (Git or SVN) in the conanfile directory, the commit hash will be used as the RREV.
+   - Otherwise, the checksum hash of the recipe manifest will be used as the RREV.
 
 .. note::
 
@@ -70,7 +72,7 @@ How to activate the revisions
 
 You have to explicitly activate the feature by:
 
- - Adding ``revisions_enabled=1`` in your `conan.conf` file.
+ - Adding ``revisions_enabled=1`` in the ``[general]`` section of your `conan.conf` file.
  - Setting the ``CONAN_REVISIONS_ENABLED=1`` environment variable.
 
 
