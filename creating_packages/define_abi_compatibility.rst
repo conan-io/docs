@@ -112,13 +112,12 @@ Let's try and check that it works properly when installing the package for GCC 4
 
 .. code-block:: bash
 
-    $ conan export myuser/mychannel
-    $ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.5 ...
+    $ conan create . Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.5 ...
 
     Requirements
         Pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
+        Pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
     ...
 
 We can see that the computed package ID is ``af04...46ad`` (not real). What happens if we specify GCC 4.6?
@@ -130,7 +129,7 @@ We can see that the computed package ID is ``af04...46ad`` (not real). What happ
     Requirements
         Pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
+        Pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
 
 The required package has the same result again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
 
@@ -141,7 +140,7 @@ The required package has the same result again ``af04...46ad``. Now we can try u
     Requirements
         Pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
+        Pkg/1.0@myuser/mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
 
 The computed package ID is different which means that we need a different binary package for GCC 4.4.
 
@@ -265,6 +264,8 @@ You can determine if the following variables within any requirement change the I
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | **Modes / Variables**   | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` |
 +=========================+==========+=========================================+==========+=============+================+
+| ``semver_direct_mode()``| Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | ``semver_mode()``       | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | ``major_mode()``        | Yes      | Yes (e.g., **1**.2.Z+b102)              | No       | No          | No             |
@@ -284,7 +285,12 @@ You can determine if the following variables within any requirement change the I
 | ``unrelated_mode()``    | No       | No                                      | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 
-- ``semver_mode()``: This is the default mode. In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
+- ``semver_direct_mode()``: This is the default mode. It uses ``semver_mode()`` for direct dependencies (first
+  level dependencies, directly declared by the package) and ``unrelated_mode()`` for indirect, transitive
+  dependencies of the package. It assumes that the binary will be affected by the direct dependencies, which
+  they will already encode how their transitive dependencies affect them. This might not always be true, as
+  explained above, and that is the reason it is possible to customize it.
+- ``semver_mode()``: In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
   Every version change prior to 1.0.0 changes the package ID, but only major changes after 1.0.0 will be applied.
 
   .. code-block:: python
