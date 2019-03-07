@@ -163,7 +163,7 @@ These *conanbuildinfo.cmake* files have been created in each package *build/Rele
 
     # This defines where the conanbuildinfo.cmake will be written to
     [build_folder]
-    build/{settings.build_type}
+    build/{{settings.build_type}}
 
 Now we can configure and build our project as usual:
 
