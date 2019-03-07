@@ -18,8 +18,39 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.12 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.13 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.13.0 (07-Mar-2019)
+--------------------
+
+- Feature: Added with_login parameter to tools.run_in_windows_bash() `#4673 <https://github.com/conan-io/conan/pull/4673>`_ . Docs `here <https://github.com/conan-io/docs/pull/1103>`__
+- Feature: The `deb` and `windows` Conan installers now use Python 3. `#4663 <https://github.com/conan-io/conan/pull/4663>`_
+- Feature: Allow configuring in *conan.conf* a different default ``package_id`` mode. `#4644 <https://github.com/conan-io/conan/pull/4644>`_ . Docs `here <https://github.com/conan-io/docs/pull/1106>`__
+- Feature: Apply Jinja2 to layout files before parsing them `#4596 <https://github.com/conan-io/conan/pull/4596>`_ . Docs `here <https://github.com/conan-io/docs/pull/1093>`__
+- Feature: Accept a PackageReference for the command  :command:`conan get` (argument `-p` is accepted, but hidden) `#4494 <https://github.com/conan-io/conan/pull/4494>`_ . Docs `here <https://github.com/conan-io/docs/pull/1070>`__
+- Feature: Re-implement Workspaces based on Editable packages. `#4481 <https://github.com/conan-io/conan/pull/4481>`_ . Docs `here <https://github.com/conan-io/docs/pull/1086>`__
+- Feature: Removed old "compatibility" mode of revisions. `#4462 <https://github.com/conan-io/conan/pull/4462>`_ . Docs `here <https://github.com/conan-io/docs/pull/1105>`__
+- Fix: When revisions enabled, add the revision to the json output of the info/install commands. `#4667 <https://github.com/conan-io/conan/pull/4667>`_
+- Fix: JSON output for `multi_config` now works in `install` and `create` commands `#4656 <https://github.com/conan-io/conan/pull/4656>`_
+- Fix: Deprecate 'cppflags' in favor of 'cxxflags' in class CppInfo `#4611 <https://github.com/conan-io/conan/pull/4611>`_ . Docs `here <https://github.com/conan-io/docs/pull/1091>`__
+- Fix: Return empty list if env variable is an empty string `#4594 <https://github.com/conan-io/conan/pull/4594>`_
+- Fix: `conan profile list` will now recursively list profiles. `#4591 <https://github.com/conan-io/conan/pull/4591>`_
+- Fix: `Instance of 'TestConan' has no 'install_folder' member` when exporting recipe `#4585 <https://github.com/conan-io/conan/pull/4585>`_
+- Fix: SCM replacement with comments below it `#4580 <https://github.com/conan-io/conan/pull/4580>`_
+- Fix: Remove package references associated to a remote in *registry.json* when that remote is deleted `#4568 <https://github.com/conan-io/conan/pull/4568>`_
+- Fix:  Fixed issue with Artifactory when the anonymous user is enabled, causing the uploads to fail without requesting the user and password. `#4526 <https://github.com/conan-io/conan/pull/4526>`_
+- Fix: Do not allow an alias to override an existing package `#4495 <https://github.com/conan-io/conan/pull/4495>`_
+- Fix: Do not display the warning when there are files in the package folder (#4438). `#4464 <https://github.com/conan-io/conan/pull/4464>`_
+- Bugfix: Solve problem with loading recipe python files in Python 3.7 because of ``module.__file__ = None`` `#4669 <https://github.com/conan-io/conan/pull/4669>`_
+- Bugfix: Do not attempt to upload non-existing packages, due to empty short_paths folders, or to explicit ``upload -p=id`` command. `#4615 <https://github.com/conan-io/conan/pull/4615>`_
+- Bugfix: Fix LIB overwrite in ``virtualbuildenv`` generator `#4583 <https://github.com/conan-io/conan/pull/4583>`_
+- Bugfix: Avoid ``str(self.settings.xxx)`` crash when the value is None. `#4571 <https://github.com/conan-io/conan/pull/4571>`_ . Docs `here <https://github.com/conan-io/docs/pull/1089>`__
+- Bugfix: Build-requires expand over the closure of the package they apply to, so they can create conflicts too. Previously, those conflicts were silently skipped, and builds would use an undetermined version and configuration of dependencies. `#4514 <https://github.com/conan-io/conan/pull/4514>`_
+- Bugfix: meson build type actually reflects recipe shared option `#4489 <https://github.com/conan-io/conan/pull/4489>`_
+- Bugfix: Fixed several bugs related to revisions. `#4462 <https://github.com/conan-io/conan/pull/4462>`_ . Docs `here <https://github.com/conan-io/docs/pull/1105>`__
+- Bugfix: Fixed several bugs related to the package `metadata.json` `#4462 <https://github.com/conan-io/conan/pull/4462>`_ . Docs `here <https://github.com/conan-io/docs/pull/1105>`__
 
 
 1.12.3 (18-Feb-2019)
