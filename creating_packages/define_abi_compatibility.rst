@@ -112,13 +112,12 @@ Let's try and check that it works properly when installing the package for GCC 4
 
 .. code-block:: bash
 
-    $ conan export myuser/mychannel
-    $ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.5 ...
+    $ conan create . Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.5 ...
 
     Requirements
         Pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
+        Pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
     ...
 
 We can see that the computed package ID is ``af04...46ad`` (not real). What happens if we specify GCC 4.6?
@@ -130,7 +129,7 @@ We can see that the computed package ID is ``af04...46ad`` (not real). What happ
     Requirements
         Pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
+        Pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
 
 The required package has the same result again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
 
@@ -141,7 +140,7 @@ The required package has the same result again ``af04...46ad``. Now we can try u
     Requirements
         Pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
+        Pkg/1.0@myuser/mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
 
 The computed package ID is different which means that we need a different binary package for GCC 4.4.
 
@@ -196,7 +195,9 @@ And the ``addition()`` function is called from the compiled *.cpp* files of ``My
 
 Then, **a new binary for MyLib/1.0 is required to be built for the new dependency version**. Otherwise it will maintain the old, buggy
 ``addition()`` version. Even in the case that ``MyLib/1.0`` doesn't have any change in its code lines neither in the recipe, the resulting
-binary rebuilding ``MyLib`` requires `MyOtherLib/2.1`` and the package to be different.
+binary rebuilding ``MyLib`` requires ``MyOtherLib/2.1`` and the package to be different.
+
+.. _package_id_mode:
 
 Using package_id() for Package Dependencies
 -------------------------------------------
@@ -265,6 +266,8 @@ You can determine if the following variables within any requirement change the I
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | **Modes / Variables**   | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` |
 +=========================+==========+=========================================+==========+=============+================+
+| ``semver_direct_mode()``| Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
++-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | ``semver_mode()``       | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 | ``major_mode()``        | Yes      | Yes (e.g., **1**.2.Z+b102)              | No       | No          | No             |
@@ -284,20 +287,65 @@ You can determine if the following variables within any requirement change the I
 | ``unrelated_mode()``    | No       | No                                      | No       | No          | No             |
 +-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
 
-- ``semver_mode()``: This is the default mode. In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
-  Every version change prior to 1.0.0 changes the package ID, but only major changes after 1.0.0 will be applied.
+All the modes can be applied to all dependencies, or to individual ones:
 
   .. code-block:: python
 
       def package_id(self):
+          # apply semver_mode for all the dependencies of the package
+          self.info.requires.semver_mode()
+          # use semver_mode just for MyOtherLib
           self.info.requires["MyOtherLib"].semver_mode()
+
+
+- ``semver_direct_mode()``: This is the default mode. It uses ``semver_mode()`` for direct dependencies (first
+  level dependencies, directly declared by the package) and ``unrelated_mode()`` for indirect, transitive
+  dependencies of the package. It assumes that the binary will be affected by the direct dependencies, which
+  they will already encode how their transitive dependencies affect them. This might not always be true, as
+  explained above, and that is the reason it is possible to customize it.
+
+  In this mode, if the package depends on "MyLib", which transitively depends on "MyOtherLib", the mode means:
+
+  .. code-block:: text
+
+    MyLib/1.2.3@user/testing       => MyLib/1.Y.Z
+    MyOtherLib/2.3.4@user/testing  =>
+
+  So the direct dependencies are mapped to the major version only. Changing its channel, or using version
+  ``MyLib/1.4.5`` will still produce ``MyLib/1.Y.Z`` and thus the same package-id.
+  The indirect, transitive dependency doesn't affect the package-id at all.
+
+- ``semver_mode()``: In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
+  Every version change prior to 1.0.0 changes the package ID, but only major changes after 1.0.0 will be applied.
+
+  .. code-block:: python
+
+    def package_id(self):
+      self.info.requires["MyOtherLib"].semver_mode()
+
+  This results in:
+
+  .. code-block:: text
+
+    MyLib/1.2.3@user/testing       => MyLib/1.Y.Z
+    MyOtherLib/2.3.4@user/testing  => MyOtherLib/2.Y.Z
+
+  In this mode, versions starting with ``0`` are considered unstable and mapped to the full version:
+
+  .. code-block:: text
+
+    MyLib/0.2.3@user/testing       => MyLib/0.2.3
+    MyOtherLib/0.3.4@user/testing  => MyOtherLib/0.3.4
 
 - ``major_mode()``: Any change in the major release version (starting from **0.0.0**) changes the package ID.
 
   .. code-block:: python
 
-      def package_id(self):
-          self.info.requires["MyOtherLib"].major_mode()
+    def package_id(self):
+      self.info.requires["MyOtherLib"].major_mode()
+
+  This mode is basically the same as ``semver_mode``, but the only difference is that major versions ``0.Y.Z``,
+  which are considered unstable by semver, are still mapped to only the major, dropping the minor and patch parts.
 
 - ``minor_mode()``: Any change in major or minor (not patch nor build) version of the required dependency changes the package ID.
 
@@ -326,22 +374,39 @@ You can determine if the following variables within any requirement change the I
 
   .. code-block:: python
 
-      def package_id(self):
-          self.info.requires["MyOtherLib"].full_version_mode()
+    def package_id(self):
+      self.info.requires["MyOtherLib"].full_version_mode()
+
+  .. code-block:: text
+
+    MyOtherLib/1.3.4-a4+b3@user/testing  => MyOtherLib/1.3.4-a4+b3   
 
 - ``full_recipe_mode()``: Any change in the reference of the requirement (user & channel too) changes the package ID.
 
   .. code-block:: python
 
-      def package_id(self):
-          self.info.requires["MyOtherLib"].full_recipe_mode()
+    def package_id(self):
+      self.info.requires["MyOtherLib"].full_recipe_mode()
+
+  This keeps the whole dependency reference, except the package-id of the dependency.
+
+  .. code-block:: text
+
+    MyOtherLib/1.3.4-a4+b3@user/testing  => MyOtherLib/1.3.4-a4+b3@user/testing   
 
 - ``full_package_mode()``: Any change in the required version, user, channel or package ID changes the package ID.
 
   .. code-block:: python
 
-      def package_id(self):
-          self.info.requires["MyOtherLib"].full_package_mode()
+    def package_id(self):
+      self.info.requires["MyOtherLib"].full_package_mode()
+
+  This is the stricter mode. Any change to the dependency, including its binary package-id, will in turn
+  produce a new package-id for the consumer package.
+
+  .. code-block:: text
+
+    MyOtherLib/1.3.4-a4+b3@user/testing:73b..fa56  => MyOtherLib/1.3.4-a4+b3@user/testing:73b..fa56 
 
 - ``unrelated_mode()``: Requirements do not change the package ID.
 
@@ -377,10 +442,39 @@ The default behavior produces a *conaninfo.txt* that looks like:
 .. code-block:: text
 
     [requires]
-      MyOtherLib/2.Y.Z
+    MyOtherLib/2.Y.Z
 
     [full_requires]
-      MyOtherLib/2.2@demo/testing:73bce3fd7eb82b2eabc19fe11317d37da81afa56
+    MyOtherLib/2.2@demo/testing:73bce3fd7eb82b2eabc19fe11317d37da81afa56
+
+Changing the default package-id mode
+++++++++++++++++++++++++++++++++++++
+It is possible to change the default ``semver_direct_mode`` package-id mode, in the
+*conan.conf* file:
+
+.. code-block:: text
+   :caption: *conan.conf* configuration file
+
+   [general]
+   default_package_id_mode=full_package_mode
+
+Possible values are the names of the above methods: ``full_recipe_mode``, ``semver_mode``, etc.
+
+Note that the default package-id mode is the mode that is used when the package is initialized
+and **before** ``package_id()`` method is called. You can still define ``full_package_mode``
+as default in *conan.conf*, but if a recipe declare that it is header-only, with:
+
+  .. code-block:: python
+
+    def package_id(self):
+      self.info.header_only() # clears requires, but also settings if existing
+      # or if there are no settings/options, this would be equivalent
+      self.info.requires.clear() # or self.info.requires.unrelated_mode()
+
+That would still be executed, changing the "default" behavior, and leading to a package
+that only generates 1 package-id for all possible configurations and versions of dependencies.
+
+Remember that *conan.conf* can be shared and installed with :ref:`conan_config_install`.
 
 Library Types: Shared, Static, Header-only
 ++++++++++++++++++++++++++++++++++++++++++

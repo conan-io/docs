@@ -114,6 +114,9 @@ The ``cache_no_locks`` variable is used to disable locking mechanism of local ca
 This is primary used for debugging purposes, and in general it's not recommended to disable locks otherwise,
 as it may result in corrupted packages.
 
+The ``default_package_id_mode`` changes the way package IDs are computed. By default, if not specified
+it will be ``semver_direct_mode``, but can change to any value defined in :ref:`package_id_mode`.
+
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
 

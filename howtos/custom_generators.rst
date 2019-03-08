@@ -171,7 +171,7 @@ You ``export`` the package recipe to the local cache, so it can be used by other
 
 .. code-block:: bash
 
-   $ conan export memsharded/testing
+   $ conan export . memsharded/testing
 
 Using the generator
 -------------------
