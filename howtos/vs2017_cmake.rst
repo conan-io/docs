@@ -150,11 +150,11 @@ would need to make sure the right CMake code is executed, please check https://g
 
 Using tasks with tasks.vs.json
 ------------------------------
-Another alternative is using file `tasks <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects?view=vs-2017#define-tasks-with-tasksvsjson>`_
+Another alternative is using file `tasks <https://docs.microsoft.com/en-us/cpp/ide/tasks-vs-json-schema-reference-cpp?view=vs-2017>`_
 feature of Visual Studio 2017. This way you can install dependencies by running :command:`conan install` as task directly in the IDE.
 
 All you need is to right click on your *conanfile.py*-> Configure Tasks (see the
-`link above <https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects?view=vs-2017#define-tasks-with-tasksvsjson>`_) and add the
+`link above <https://docs.microsoft.com/en-us/cpp/ide/tasks-vs-json-schema-reference-cpp?view=vs-2017>`_) and add the
 following to your *tasks.vs.json*.
 
 .. warning::
