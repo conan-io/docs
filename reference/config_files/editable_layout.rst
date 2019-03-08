@@ -35,7 +35,7 @@ in editable mode. Before parsing this file Conan runs Jinja2 template engine wit
     src
 
     [build_folder]
-    build/{settings.build_type}/{settings.arch}
+    build/{{settings.build_type}}/{{settings.arch}}
 
 
 The specific sections using a package reference will have higher priority than the general ones.
