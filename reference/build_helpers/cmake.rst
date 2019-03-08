@@ -133,6 +133,26 @@ An example of the value of this property could be:
 
     --config Release
 
+parallel
+++++++++
+
+**Defaulted to**: ``True``
+
+Run CMake process in parallel for compilation, installation and testing. This is translated into the proper command line argument:
+For ``Unix Makefiles`` it is ``-jX`` and for ``Visual Studio`` it is ``/m:X``.
+
+However, the parallel executing can be changed for testing like this:
+
+.. code-block:: python
+
+    cmake = CMake(self)
+    cmake.configure()
+    cmake.build()  # 'parallel' is enabled by default
+    cmake.parallel = False
+    cmake.test()
+
+In the case of ``cmake.test()`` this flag sets the ``CTEST_PARALLEL_LEVEL`` variable to the according value in :ref:`tools_cpu_count`.
+
 definitions
 +++++++++++
 

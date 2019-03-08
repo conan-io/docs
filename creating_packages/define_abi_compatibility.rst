@@ -352,7 +352,7 @@ All the modes can be applied to all dependencies, or to individual ones:
   .. code-block:: python
 
       def package_id(self):
-          self.info.requires["MyOtherLib"].patch_mode()
+          self.info.requires["MyOtherLib"].minor_mode()
 
 - ``patch_mode()``: Any changes to major, minor or patch (not build) versions of the required dependency change the package ID.
 
