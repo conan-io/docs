@@ -14,150 +14,295 @@ The local development flow can help, but it still requires using :command:`expor
 packages under development will consume them.
 
 The Conan workspaces allow to have more than one package in user folders, and have them to directly use other packages from user folders
-without needing to put them in the local cache.
+without needing to put them in the local cache. Furthermore, they enable incremental builds on large projects containing multiple packages.
 
-Lets introduce them with a practical example:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/memsharded/conan-workspace-example.git
-    $ cd conan-workspace-example
-
-Note that this folder contains a file *conanws.yml* in the root, with the following contents:
-
-.. code-block:: text
-
-    HelloB:
-        folder: B
-        includedirs: src
-        cmakedir: src
-    HelloC:
-        folder: C
-        includedirs: src
-        cmakedir: src
-    HelloA:
-        folder: A
-        cmakedir: src
-
-    root: HelloA
-    generator: cmake
-    name: MyProject
-
-Next, run a :command:`conan install` as usual, using a *build* folder to output the dependencies information:
+Lets introduce them with a practical example, the code can be found in the conan examples repository:
 
 .. code-block:: bash
 
-    $ conan install . -if=build
-    Using conanws.yml file from C:\Users\<youruser>\conan-workspace-example
-    Workspace: Installing...
+    $ git clone https://github.com/conan-io/examples.git
+    $ cd features/workspace/cmake
+
+
+Note that this folder contains two files *conanws_gcc.yml* and *conan_vs.yml*, for gcc (Makefiles, single-configuration build environments)
+and for Visual Studio (MSBuild, multi-configuration build environment), respectively. 
+
+Conan workspace definition
+--------------------------
+
+Workspaces are defined in a yaml file, with any user defined name. Its structure is:
+
+.. code-block:: yaml
+
+    editables:
+        say/0.1@user/testing:
+            path: say
+        hello/0.1@user/testing:
+            path: hello
+        chat/0.1@user/testing:
+            path: chat
+    layout: layout_gcc
+    workspace_generator: cmake
+    root: chat/0.1@user/testing
+
+
+The first section ``editables`` defines the mapping between package references and relative paths. Each one is equivalent to
+a :ref:`conan_editable_add` command (Do NOT do this, not necessary, it will be automatically done later. Just to understand
+the behavior):
+
+.. code-block:: bash
+
+    $ conan editable add say say/0.1@user/testing --layout=layout_gcc
+    $ conan editable add hello hello/0.1@user/testing --layout=layout_gcc
+    $ conan editable add chat chat/0.1@user/testing --layout=layout_gcc
+    
+
+The main difference is that this *Editable* state is only temporary for this workspace. It doesn't affect other projects or
+packages, which can still consume these say, hello, chat packages from the local cache.
+
+Note that the ``layout: layout_gcc`` declaration in the workspace affect all the packages. It is also possible to define
+a different layout per package, as:
+
+.. code-block:: yaml
+
+    editables:
+        say/0.1@user/testing:
+            path: say
+            layout: custom_say_layout
+
+Layout files are explained in :ref:`editable_layout` and in the :ref:`editable_packages` sections.
+
+The ``workspace_generator`` defines the file that will be generated for the top project. The only supported value so far
+is ``cmake`` and it will generate a *conanworkspace.cmake* file that looks like:
+
+.. code-block:: cmake
+
+    set(PACKAGE_say_SRC "<path>/examples/workspace/cmake/say/src")
+    set(PACKAGE_say_BUILD "<path>/examples/workspace/cmake/say/build/Debug")
+    set(PACKAGE_hello_SRC "<path>/examples/workspace/cmake/hello/src")
+    set(PACKAGE_hello_BUILD "<path>/examples/workspace/cmake/hello/build/Debug")
+    set(PACKAGE_chat_SRC "<path>/examples/workspace/cmake/chat/src")
+    set(PACKAGE_chat_BUILD "<path>/examples/workspace/cmake/chat/build/Debug")
+
+    macro(conan_workspace_subdirectories)
+        add_subdirectory(${PACKAGE_say_SRC} ${PACKAGE_say_BUILD})
+        add_subdirectory(${PACKAGE_hello_SRC} ${PACKAGE_hello_BUILD})
+        add_subdirectory(${PACKAGE_chat_SRC} ${PACKAGE_chat_BUILD})
+    endmacro()
+
+This file can be included in your user-defined *CMakeLists.txt* (this file is not generated).
+Here you can see the *CMakeLists.txt* used in this project:
+
+.. code-block:: cmake
+
+    cmake_minimum_required(VERSION 3.0)
+
+    project(WorkspaceProject)
+
+    include(${CMAKE_BINARY_DIR}/conanworkspace.cmake)
+    conan_workspace_subdirectories()
+
+The ``root: chat/0.1@user/testing`` defines which is the consumer node of the graph, typically some kind of executable. You
+can provide a comma separated list of references. All the root nodes will be in the same dependency graph, leading to conflicts if they
+depend on different versions of the same library, as in any other Conan command.
+
+
+Single configuration build environments
+---------------------------------------
+
+There are some build systems, like Makefiles that requires the developer to manage different configurations in different build folders,
+and switch between folders to change configuration. The above described file is *conan_gcc.yml* file, which defines a Conan workspace that
+works for a CMake based project for MinGW/Unix Makefiles gcc environments (working for apple-clang or clang would be very similar, if not identical).
+
+Lets use it to install this workspace:
+
+.. code-block:: bash
+
+    $ mkdir build_release && cd build_release
+    $ conan workspace install ../conanws_gcc.yml --profile=my_profile
+
+Here we assume that you have a ``my_profile`` profile defined which would use a single-configuration build system (like Makefiles). The
+example is tested with gcc in Linux, but working with apple-clang with Makefiles would be the same).
+You should see something like:
+
+.. code-block:: bash
+
+    Configuration:
+    [settings]
+    ...
+    build_type=Release
+    compiler=gcc
+    compiler.libcxx=libstdc++
+    compiler.version=4.9
+    ...
+
     Requirements
-        HelloA/root@project/develop from 'conanws.yml'
-        HelloB/0.1@user/testing from 'conanws.yml'
-        HelloC/0.1@user/testing from 'conanws.yml'
+        chat/0.1@user/testing from user folder - Editable
+        hello/0.1@user/testing from user folder - Editable
+        say/0.1@user/testing from user folder - Editable
     Packages
-        HelloA/root@project/develop:8a1ff0ad9a2a372996a26ff4136faa83268b5442
-        HelloB/0.1@user/testing:e5affb0ca4e5d6998c29f435daf78ab20ef50be5
-        HelloC/0.1@user/testing:63da998e3642b50bee33f4449826b2d623661505
+        chat/0.1@user/testing:df2c4f4725219597d44b7eab2ea5c8680abd57f9 - Editable
+        hello/0.1@user/testing:b0e473ad8697d6069797b921517d628bba8b5901 - Editable
+        say/0.1@user/testing:80faec7955dcba29246085ff8d64a765db3b414f - Editable
 
-    Workspace HelloC: Generator cmake created conanbuildinfo.cmake
-    Workspace HelloC: Generated conaninfo.txt
-    Workspace HelloC: Generated conanbuildinfo.txt
-    Workspace HelloB: Generator cmake created conanbuildinfo.cmake
-    Workspace HelloB: Generated conaninfo.txt
-    Workspace HelloB: Generated conanbuildinfo.txt
-    Workspace HelloA: Generator cmake created conanbuildinfo.cmake
-    Workspace HelloA: Generated conaninfo.txt
-    Workspace HelloA: Generated conanbuildinfo.txt
+    say/0.1@user/testing: Generator cmake created conanbuildinfo.cmake
+    ...
+    hello/0.1@user/testing: Generator cmake created conanbuildinfo.cmake
+    ...
+    chat/0.1@user/testing: Generator cmake created conanbuildinfo.cmake
+    ...
+
+These *conanbuildinfo.cmake* files have been created in each package *build/Release* folder, as defined by the
+*layout_gcc* file:
+
+.. code-block:: ini
+
+    # This helps to define the location of CMakeLists.txt within package
+    [source_folder]
+    src
+
+    # This defines where the conanbuildinfo.cmake will be written to
+    [build_folder]
+    build/{{settings.build_type}}
+
+Now we can configure and build our project as usual:
+
+.. code-block:: bash
+
+    $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+    $ cmake --build . # or just $ make
+    $ ../chat/build/Release/app
+    Release: Hello World!
+    Release: Hello World!
+    Release: Hello World!
+
+Now, go do a change in some of the packages, for example the "say" one, and rebuild, see how it does an incremental build (fast).
 
 Note that nothing will really be installed in the local cache, all the dependencies are resolved locally:
 
 .. code-block:: bash
 
-    $ conan search
-    There are no packages
+    $ conan search say
+    There are no packages matching the 'say' pattern
 
-Also, each dependency generates one *conanbuildinfo.cmake* file and all of them are installed in the *build* folder. You can inspect them to check
-that the paths they define for their dependencies are user folders, not pointing to the local cache.
+.. note::
 
-As defined in the *conanws.yml*, a root *CMakeLists.txt* is generated for us. We can use it to generate the super-project and build it:
+    The package *conanfile.py* recipes do not contain anything special, they are standard recipes. But the packages *CMakeLists.txt*
+    have defined the following:
 
-.. code-block:: bash
+    .. code-block:: cmake
 
-    $ cd build
-    $ cmake .. -G "Visual Studio 14 Win64" # Adapt accordingly to your Conan profile
-    # Now build it. You can also open your IDE and build
-    $ cmake --build . --config Release
-    $ ./A/Release/app.exe
-    Hello World C Release!
-    Hello World B Release!
-    Hello World A Release!
+        conan_basic_setup(NO_OUTPUT_DIRS)
 
-Now the project is editable, you can change the code of folder C *hello.cpp* to say "Bye World" and:
+    This is because the default ``conan_basic_setup()`` does define output directories for artifacts as *bin*, *lib*, etc, which is
+    not what the local project layout expects. You need to check and make sure that your build scripts and recipe matches both
+    the expected local layout (as defined in layout files), and the recipe ``package()`` method logic.
+
+
+Building for debug mode is done in its own folder:
 
 .. code-block:: bash
 
-    # Edit your C/src/hello.cpp file to say "Bye"
-    # Or press the build button of your IDE
-    $ cmake --build . --config Release
-    $ ./A/Release/app.exe
-    Bye World C Release!
-    Hello World B Release!
-    Hello World A Release!
+    $ cd .. && mkdir build_debug && cd build_debug
+    $ conan workspace install ../conanws_gcc.yml --profile=my_gcc_profile -s build_type=Debug
+    $ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug
+    $ cmake --build . # or just $ make
+    $ ../chat/build/Debug/app
+    Debug: Bye World!
+    Debug: Bye World!
+    Debug: Bye World!
 
-In-source builds
-----------------
 
-The current approach with the super-project automatic generation, is only valid if all the opened packages are using the 
-same build system, CMake. However, without using a super-project, it is still possible to use workspaces to simultaneously
-work on different packages with different build systems. 
+Multi configuration build environments
+--------------------------------------
 
-For this case, the *conanws.yml* won't have the ``generator`` or ``name`` fields. The installation will be done without specifying an
-install folder:
+Some build systems, like Visual Studio (MSBuild), they use "multi-configuration" environments. That is, even if the project is configured just once
+you can switch between different configurations (like Debug/Release) directly in the IDE and build there.
+
+The above example uses the Conan ``cmake`` generator, that creates a single *conanbuildinfo.cmake* file. This is not a problem if we have our
+configurations built in different folders, each one will contain its own *conanbuildinfo.cmake*. But for Visual Studio that means that if
+we wanted to switch from Debug<->Release, we should issue a new ``conan workspace install`` command with the right ``-s build_type`` and
+do a clean build, in order to get the right dependencies.
+
+Conan has the :ref:`cmake_multi` generator, that allows this direct switch of Debug/Release configuration in the IDE. The *conanfile.py*
+recipes they have defined the ``cmake`` generator, so the first step is to override that in our *conanws_vs.yml* file:
+
+.. code-block:: yaml
+
+    editables:
+    say/0.1@user/testing:
+        path: say
+    hello/0.1@user/testing:
+        path: hello
+    chat/0.1@user/testing:
+        path: chat
+    layout: layout_vs
+    generators: cmake_multi
+    workspace_generator: cmake
+    root: chat/0.1@user/testing
+
+Note the ``generators: cmake_multi`` line, that will define the generators to be used by our workspace packages. Also, our *CMakeLists.txt*
+should take into account that now we won't have a *conanbuildinfo.cmake* file, but a *conanbuildinfo_multi.cmake* file. See for example
+the *hello/src/CMakeLists.txt* file:
+
+.. code-block:: cmake
+
+    project(Hello)
+
+    if(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
+        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo_multi.cmake)
+    else()
+        include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
+    endif()
+
+    conan_basic_setup(NO_OUTPUT_DIRS)
+
+    add_library(hello hello.cpp)
+    conan_target_link_libraries(hello)
+
+
+The last ``conan_target_link_libraries(hello)`` is a helper that does the right linking with Debug/Release libraries (also works when using cmake
+targets).
+
+Make sure to install both Debug and Release configurations straight ahead, if we want to later switch between them in the IDE:
 
 .. code-block:: bash
 
-    $ conan install .
+    $ mkdir build && cd build
+    $ conan workspace install ../conanws_vs.yml
+    $ conan workspace install ../conanws_vs.yml -s build_type=Debug
+    $ cmake .. -G "Visual Studio 15 Win64"
 
-Each local package will have their own build folder, and the generated *conanbuildinfo.cmake* will be located in it.
-You can do local builds in each of the packages, and they will be referring and linking the other opened packages in
-user folders.
+With those commands you will get a Visual Studio solution, that you can open, select the *app* executable as StartUp project, and start building,
+executing, debugging, switching from Debug and Release configurations freely from the IDE, without needing to issue further Conan commands.
 
-conanws.yml syntax
-------------------
-The *conanws.yml* file can be located in any parent folder of the location pointed by the :command:`conan install` command.
-Conan will search up the folder hierarchy looking for a *conanws.yml* file. If it is not found, the normal :command:`conan install`
-for a single package will be executed.
-
-Any "opened" package will have an entry in the *conanws.yml* file. This entry will define the relative location of different
-folders:
+You can check in the project folders, how the following files have been generated:
 
 .. code-block:: text
 
-    HelloB:
-        folder: B
-        includedirs: src  # relative to B, i.e. B/src
-        cmakedir: src # Where the CMakeLists.txt is, necessary for the super-project
-        build: "'build' if '{os}'=='Windows' else 'build_{build_type}'.lower()"
-        libdirs: "'build/{build_type}' if '{os}'=='Windows' else 'build_{build_type}'.lower()"
+    hello
+      |- build
+            | - conanbuildinfo_multi.cmake
+            | - conanbuildinfo_release.cmake
+            | - conanbuildinfo_debug.cmake
 
-The ``build`` and ``libdirs`` local folders can be parameterized with the build type and the architecture (``arch``) if necessary, to account for
-different layouts and configurations.
 
-The ``root`` field of *conanws.yml* defines which are the end consumers. They are needed as an input to define the dependency graph.
-There can be more than one ``root``, in a comma separated list, but all of them will share the same dependency graph, so if they
-require different versions of the same dependencies, they will conflict.
+Note that they are not located in *build/Release* and *build/Debug* subfolders, that is because of the multi-config environment. To account for that
+the *layout_vs* define the ``[build_folder]`` not as ``build/{settings.build_type}`` but just as:
 
-.. code-block:: text
+.. code-block:: ini
 
-    root: HelloA, Other
-    generator: cmake # The super-project build system
-    name: MyProject # Name for the super-project
+    [build_folder]
+    build
 
-Known limitations
------------------
 
-So far, only the CMake super-project generator is implemented. A Visual Studio one is being under development, and seems feasible, but
-it is ongoing work, not yet available.
+Notes
+-----
+
+Note that this way of developing packages shouldn't be used to create the final packages (you could try to use :command:`conan export-pkg`), but instead,
+a full package creation with :command:`conan create` (best in CI) is recommended. 
+
+So far, only the CMake super-project generator is implemented. A Visual Studio one is being considered, and seems feasible, but not yet available.
 
 .. important::
 

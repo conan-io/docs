@@ -180,7 +180,7 @@ and much more reusable to create a generator to simplify the task for your build
          print(self.deps_cpp_info.libs)
          print(self.deps_cpp_info.defines)
          print(self.deps_cpp_info.cflags)
-         print(self.deps_cpp_info.cppflags)
+         print(self.deps_cpp_info.cxxflags)
          print(self.deps_cpp_info.sharedlinkflags)
          print(self.deps_cpp_info.exelinkflags)
    
@@ -192,7 +192,7 @@ and much more reusable to create a generator to simplify the task for your build
          print(self.deps_cpp_info["OpenSSL"].libs)
          print(self.deps_cpp_info["OpenSSL"].defines)
          print(self.deps_cpp_info["OpenSSL"].cflags)
-         print(self.deps_cpp_info["OpenSSL"].cppflags)
+         print(self.deps_cpp_info["OpenSSL"].cxxflags)
          print(self.deps_cpp_info["OpenSSL"].sharedlinkflags)
          print(self.deps_cpp_info["OpenSSL"].exelinkflags)
    
@@ -204,7 +204,7 @@ and much more reusable to create a generator to simplify the task for your build
          print(self.deps_cpp_info["Poco"].libs)
          print(self.deps_cpp_info["Poco"].defines)
          print(self.deps_cpp_info["Poco"].cflags)
-         print(self.deps_cpp_info["Poco"].cppflags)
+         print(self.deps_cpp_info["Poco"].cxxflags)
          print(self.deps_cpp_info["Poco"].sharedlinkflags)
          print(self.deps_cpp_info["Poco"].exelinkflags)
    

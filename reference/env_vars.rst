@@ -38,7 +38,7 @@ the :ref:`CMake build tool<cmake_reference>`:
 
 .. seealso::
 
-    See `CMake cross building wiki <https://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
+    See `CMake cross building wiki <https://vtk.org/Wiki/CMake_Cross_Compiling>`_
 
 .. _conan_bash_path_env:
 
@@ -263,7 +263,7 @@ Specify ```MSBuild``` verbosity level to use with:
     - The build helper :ref:`CMake<cmake_reference>`.
     - The build helper :ref:`MSBuild<msbuild>`.
 
-For list of allowed values and their meaning, check out the `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017l>`_.
+For list of allowed values and their meaning, check out the `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017&viewFallbackFrom=vs-2017l>`_.
 
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------

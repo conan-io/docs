@@ -81,7 +81,7 @@ You could follow these steps:
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations.
 #. Check locally, searching in Bintray: :command:`conan search Hello/0.1@<user>/testing -r=mybintray`.
 
-If something fails, please report an issue in the ``conan-package-tools`` GitHub repository: https://GitHub.com/conan-io/conan-package-tools
+If something fails, please report an issue in the ``conan-package-tools`` GitHub repository: https://github.com/conan-io/conan-package-tools
 
 
 .. |travisci_logo| image:: ../images/travisci_logo.jpeg

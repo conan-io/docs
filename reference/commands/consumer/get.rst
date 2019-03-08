@@ -6,7 +6,7 @@ conan get
 
 .. code-block:: bash
 
-    $ conan get [-h] [-p PACKAGE] [-r REMOTE] [-raw] reference [path]
+    $ conan get [-h] [-r REMOTE] [-raw] reference [path]
 
 Gets a file or list a directory of a given reference or package.
 
@@ -22,7 +22,7 @@ Gets a file or list a directory of a given reference or package.
     optional arguments:
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
-                            Package ID
+                            Package ID [DEPRECATED: use full reference instead]
       -r REMOTE, --remote REMOTE
                             Get from this specific remote
       -raw, --raw           Do not decorate the text
@@ -58,7 +58,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8
+      $ conan get zlib/1.2.11@conan/stable:09512ff863f37e98ed748eadd9c6df3e4ea424a8
 
   .. code-block:: text
 
@@ -79,7 +79,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable . -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8 -r conan-center
+      $ conan get zlib/1.2.11@conan/stable:09512ff863f37e98ed748eadd9c6df3e4ea424a8 . -r conan-center
 
       Listing directory '.':
        conan_package.tgz

@@ -441,3 +441,9 @@ The following example of ``conanfile.py`` shows you how to manage a project with
     def package(self):
         cmake = self.configure_cmake()
         cmake.install()
+
+Default used generators
+-----------------------
+
+When a compiler or its version is not detected, the CMake helper uses a default generator based on the platform operating system.
+For Unix systems it generates ``Unix Makefiles``. For Windows there is no default generator, it will be detected by CMake automatically.

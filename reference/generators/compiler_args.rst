@@ -66,7 +66,7 @@ You can use the **compiler_args** generator directly to build simple programs:
 +--------------------------------+----------------------------------------------------------------------+
 | -D_GLIBCXX_USE_CXX11_ABI=1     | When setting libcxx == "libstdc++11"                                 |
 +--------------------------------+----------------------------------------------------------------------+
-| Other flags                    | cppflags, cflags, sharedlinkflags, exelinkflags (applied directly)   |
+| Other flags                    | cxxflags, cflags, sharedlinkflags, exelinkflags (applied directly)   |
 +--------------------------------+----------------------------------------------------------------------+
 
 

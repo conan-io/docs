@@ -81,7 +81,7 @@ according to the dependency tree.
 
 .. important::
 
-    Note that the mapping of the Conan variables to the Make ones is done taking the following rules into account and we suggest to use the
+    Note that the mapping of the Conan variables to the Make ones is done taking the following rules and we suggest to use the
     variables indicated under the *Makefile* column to apply to a common naming:
 
     +--------------+----------------------+------------+
@@ -97,5 +97,5 @@ according to the dependency tree.
     +--------------+----------------------+------------+
     | cflags       | CONAN_CFLAGS         | CFLAGS     |
     +--------------+----------------------+------------+
-    | cppflags     | CONAN_CXXFLAGS       | CXXFLAGS   |
+    | cxxflags     | CONAN_CXXFLAGS       | CXXFLAGS   |
     +--------------+----------------------+------------+

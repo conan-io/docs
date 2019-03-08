@@ -1,3 +1,5 @@
+.. _cmake_multi:
+
 ``cmake_multi`` generator
 =========================
 
