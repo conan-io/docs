@@ -14,6 +14,15 @@
 Videos and links
 =================
 
+- Meeting Embedded 2018: "Continuous Integration of C/C++ for embedded and IoT with Jenkins, Docker and Conan" by Diego Rodriguez-Losada and Daniel Manzaneque.
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/9vq1cpd9Ez0" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
 - CppCon 2018: "Git, CMake, Conan - How to ship and reuse our C++ projects" by Mateusz Pusz.
 
   .. raw:: html
@@ -86,7 +95,7 @@ Videos and links
 
   .. raw:: html
 
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/RFjvz_Ppbv8" frameborder="0" allowfullscreen>   
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/RFjvz_Ppbv8" frameborder="0" allowfullscreen>
       </iframe>
 
       <br/><br/>
