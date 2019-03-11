@@ -172,7 +172,7 @@ used in the following configure, make or install steps:
 .. code-block:: python
 
     def build():
-        auotools = AutoToolsBuildEnvironment()
+        autotools = AutoToolsBuildEnvironment()
         autotools.fpic = True
         env_build_vars = autotools.vars
         env_build_vars['RCFLAGS'] = '-O COFF'
