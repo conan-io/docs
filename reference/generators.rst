@@ -21,6 +21,7 @@ Available generators:
    generators/cmakemulti
    generators/cmake_paths
    generators/cmake_find_package
+   generators/cmake_find_package_multi
    generators/visualstudio
    generators/visualstudiomulti
    generators/visualstudiolegacy
