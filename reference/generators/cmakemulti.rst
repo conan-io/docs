@@ -38,4 +38,4 @@ Same as :ref:`conanbuildinfo.cmake<conanbuildinfocmake_variables>` with suffix `
 Available Methods
 -----------------
 
-Same as :ref:`conanbuildinfo.cmake<conanbuildinfocmake_methods>`
+Same as :ref:`conanbuildinfo.cmake<conanbuildinfocmake_macros>`
