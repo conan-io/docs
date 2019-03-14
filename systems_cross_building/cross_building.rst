@@ -517,4 +517,4 @@ Here is a table with some typical ARM platforms:
     - See :ref:`conan.conf file<conan_conf>` and :ref:`Environment variables <env_vars>` sections to know more.
     - See :ref:`AutoToolsBuildEnvironment build helper<autotools_reference>` reference.
     - See :ref:`CMake build helper<cmake_reference>` reference.
-    - See `CMake cross building wiki <https://www.vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.
+    - See `CMake cross building wiki <https://vtk.org/Wiki/CMake_Cross_Compiling>`_ to know more about cross building with CMake.

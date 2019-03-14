@@ -114,4 +114,4 @@ Check the :ref:`package_id()<method_package_id>` reference to know more.
 
 .. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
 .. |visual_logo| image:: ../images/visual-studio-logo.png
-.. _`Visual Studio project properties`: https://docs.microsoft.com/en-us/cpp/ide/working-with-project-properties?view=vs-2017
+.. _`Visual Studio project properties`: https://docs.microsoft.com/en-us/visualstudio/ide/managing-project-and-solution-properties?view=vs-2017
