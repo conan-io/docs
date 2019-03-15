@@ -14,14 +14,6 @@ This generator will create 3 files with the general information and specific Deb
 - *conanbuildinfo_debug.cmake*: Variables adjusted only for build type Debug
 - *conanbuildinfo_multi.cmake*: Which includes the other two and enables its use and has more generic variables and macros.
 
-Usage
------
-
-.. code-block:: bash
-
-    $ conan install . -g cmake_multi -s build_type=Release
-    $ conan install . -g cmake_multi -s build_type=Debug
-
 Variables in *conanbuildinfo_release.cmake*
 -------------------------------------------
 
@@ -33,7 +25,7 @@ Variables in *conanbuildinfo_debug.cmake*
 Same as :ref:`conanbuildinfo.cmake<conanbuildinfocmake_variables>` with suffix ``_DEBUG``
 
 Macros available in *conanbuildinfo_multi.cmake*
-------------------------------------------
+------------------------------------------------
 
 conan_basic_setup()
 +++++++++++++++++++
