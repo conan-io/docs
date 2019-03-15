@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.13.1 (15-Mar-2019)
+--------------------
+
+- Bugfix: Fix computation of graph when transitive diamonds are processed. `#4737 <https://github.com/conan-io/conan/pull/4737>`_
+
+
 1.13.0 (07-Mar-2019)
 --------------------
 
