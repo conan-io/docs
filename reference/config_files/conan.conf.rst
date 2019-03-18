@@ -36,7 +36,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
-    # http://www.vtk.org/Wiki/CMake_Cross_Compiling
+    # https://vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
