@@ -1231,7 +1231,7 @@ tools.collect_libs()
 
     def collect_libs(conanfile, folder=None)
 
-Returns a list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
+Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
 ``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
 inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
