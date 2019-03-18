@@ -121,7 +121,7 @@ conan_set_find_paths()
 Adjust ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
 
 Input variables for *conanbuildinfo_multi.cmake*
-------------------------------------------
+------------------------------------------------
 
 CONAN_CMAKE_SILENT_OUTPUT
 +++++++++++++++++++++++++
