@@ -22,6 +22,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
+    # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
@@ -105,6 +106,10 @@ can also adjust the environment variable ``CONAN_VS_INSTALLATION_PREFERENCE``.
 
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even in the conan code base, allowing
 to debug the detected error.
+
+The ``error_on_override`` turn the messages related to dependencies overriding into errors. When a downstream
+package overrides some dependency upstream, if this variable is ``True`` then an error will be raised; to bypass
+these errors those requirements should be declared explicitly with the ``override`` keyword.
 
 The ``bash_path`` variable is used only in windows to help the
 :ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function to locate our Cygwin/MSYS2 bash.
