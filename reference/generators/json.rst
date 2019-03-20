@@ -87,13 +87,12 @@ it is holding a dictionary with the data related to each configuration:
     "dependencies": [
         {
             "name": "Hello",
-            "description": null,
             "rootpath": "/private/var/folders/yq/14hmvxm96xd7gfgl37_tnrbh0000gn/T/tmpkp9l_dovconans/path with spaces/.conan/data/Hello/0.1/lasote/testing/package/46f53f156846659bf39ad6675fa0ee8156e859fe",
             "...": "...",
             "configs": {
                 "debug": {
                     "libs": ["hello_d"]
-                }
+                },
                 "release": {
                     "libs": ["hello"]
                 }
