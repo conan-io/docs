@@ -545,7 +545,7 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
-.. note:: text
+.. note::
 
     To prevent accidental override of transitive dependencies, check the config variable
     :ref:`general.error_on_override<conan_conf>` or the environment variable
