@@ -576,7 +576,7 @@ environment variable, so if the users don't need sudo permissions, it is easy to
 When the environemtn variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan will try to use :command:`sudo` if the following conditions are met:
 
     - :command:`sudo` is available in the ``PATH``.
-    - The platform name should be ``posix`` and the UID (user id) should not be ``0``
+    - The platform name is ``posix`` and the UID (user id) is not ``0``
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
