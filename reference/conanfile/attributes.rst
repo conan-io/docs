@@ -1161,10 +1161,7 @@ revision_mode
 This attribute allow each recipe to declare how the revision for the recipe itself should
 be computed. It can take three different values:
 
- - ``auto`` (by default): the revision for the recipe will be the commit ID if the recipe
-   belongs to a known repository (Git or SVN), otherwise it will be the checksum hash of
-   the recipe manifest.
- - ``hash``: Conan will use the checksum hash of the recipe manifest to compute the revision
-   for the recipe.
- - ``scm``: the commit ID will be used as the recipe revision if it belongs to a known
+ - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
+   compute the revision for the recipe.
+ - ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
    repository system (Git or SVN). If there is no repository it will raise an error.

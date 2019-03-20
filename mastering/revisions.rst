@@ -26,9 +26,8 @@ How it works
 **In the client**
 
 - When a **recipe** is exported, Conan calculates a unique ID (revision). For every change,
-  a new recipe revision (RREV) will be calculated. By default it will use the commit ID if Conan
-  detects some control version system (Git or SVN), if not detected, the checksum hash of the
-  recipe manifest will be used.
+  a new recipe revision (RREV) will be calculated. By default it will use the checksum hash of the
+  recipe manifest.
 
   Nevertheless, the recipe creator can explicitly declare the :ref:`revision mode<revision_mode_attribute>`,
   it can be either ``scm`` (uses version control system or raises) or ``hash`` (use manifest hash).
