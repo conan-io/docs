@@ -74,6 +74,9 @@ mistake could be a very risky issue.
 
 Read more about this in :ref:`method_package_info`.
 
+
+.. _packaging_approach_N_1:
+
 N configs -> 1 package
 ----------------------
 
