@@ -40,7 +40,7 @@ must exist in the local cache or in any configured remote.
                             missing binary package. --build=[pattern] Build always
                             these packages from source, but never build the
                             others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package name. Default
+                            is a fnmatch file pattern of a package reference. Default
                             behavior: If you don't specify anything, it will be
                             similar to '--build=never', but package recipes can
                             override it with their 'build_policy' attribute in the
