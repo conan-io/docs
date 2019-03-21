@@ -121,7 +121,7 @@ a Conan client configuration.
 .. note::
     During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.
 
-The ``conan config install <item>`` calls are stored in a *config_install.json* file in the conan local cache. That allows to issue a ``conan config install`` command, without arguments, to iterate over the cached configurations, executing them again (updating).
+The :command:`conan config install <item>` calls are stored in a *config_install.json* file in the Conan local cache. That allows to issue a :command:`conan config install` command, without arguments, to iterate over the cached configurations, executing them again (updating).
 
 
 **Examples**:
