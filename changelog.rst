@@ -22,6 +22,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.13.2 (21-Mar-2019)
+--------------------
+
+- Bugfix: Installing a reference with "update" and "build outdated" options raised an exception. `#4790 <https://github.com/conan-io/conan/pull/4790>`_
+- Bugfix: Solved bug with build-requires transitive build-requires `#4783 <https://github.com/conan-io/conan/pull/4783>`_
+- Bugfix: Fixed workspace crash when no layout was specified `#4783 <https://github.com/conan-io/conan/pull/4783>`_
+- Bugfix: Do not generate multiple ``add_subdirectories()`` for workspaces build-requires `#4783 <https://github.com/conan-io/conan/pull/4783>`_
+
+
 1.13.1 (15-Mar-2019)
 --------------------
 
