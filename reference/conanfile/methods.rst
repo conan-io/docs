@@ -179,11 +179,11 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
 This method copies files from build/source folder to the package folder depending on two situations:
 
 - **Build folder and source folder are the same**: Normally during :command:`conan create` source folder content is copied to the build
-  folder. In this situation ``src`` parameter of ``self.copy()`` will point to the build folder in the local cache.
+  folder. In this situation ``src`` parameter of ``self.copy()`` will be relative to the build folder in the local cache.
 
 - **Build folder is different from source folder**: When :ref:`developing a package recipe<package_dev_flow>` and source and build folder
   are different (:command:`conan package . --source-folder=source --build-folder=build`) or when :ref:`no_copy_source` is defined,
-  ``package()`` method is called twice: One will copy from the source folder (``src`` parameter of ``self.copy()`` will point to the
+  every ``self.copy()`` is internally called twice: One will copy from the source folder (``src`` parameter of ``self.copy()`` will point to the
   source folder), and the other will copy from the build folder (``src`` parameter of ``self.copy()`` will point to the build folder).
 
 .. _method_package_info:
