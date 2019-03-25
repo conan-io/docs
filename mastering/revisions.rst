@@ -1,3 +1,6 @@
+.. _package_revisions:
+
+
 Package Revisions
 ==================
 
@@ -23,18 +26,11 @@ How it works
 **In the client**
 
 - When a **recipe** is exported, Conan calculates a unique ID (revision). For every change,
-  a new recipe revision (RREV) will be calculated:
+  a new recipe revision (RREV) will be calculated. By default it will use the checksum hash of the
+  recipe manifest.
 
-   - If Conan detects some control version system (Git or SVN) in the conanfile directory, the commit hash will be used as the RREV.
-   - Otherwise, the checksum hash of the recipe manifest will be used as the RREV.
-
-.. note::
-
-   In future versions Conan will let the user choose to use the "recipe manifest" instead of the scm. For example,
-   when you use a mono-repo with N recipes, it is more convenient to calculate each
-   recipe revision based on its contents and not in the common github repository commit hash.
-   (https://github.com/conan-io/conan/issues/4413)
-
+  Nevertheless, the recipe creator can explicitly declare the :ref:`revision mode<revision_mode_attribute>`,
+  it can be either ``scm`` (uses version control system or raises) or ``hash`` (use manifest hash).
 
 - When a **package** is created (by running :ref:`conan create<conan_create>` or :ref:`conan export-pkg<conan_export-pkg>`)
   a new package revision (PREV) will be calculated always using the hash of the package contents.

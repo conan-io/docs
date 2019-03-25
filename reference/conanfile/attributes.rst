@@ -1146,3 +1146,22 @@ To know more about the usage of ``scm`` check:
 
 - :ref:`Creating packages/Recipe and sources in a different repo <external_repo>`
 - :ref:`Creating packages/Recipe and sources in the same repo <package_repo>`
+
+
+.. _revision_mode_attribute:
+
+revision_mode
+-------------
+
+.. warning::
+
+    This attribute is part of the :ref:`package revisions<package_revisions>` feature, so
+    it is also an **experimental** feature subject to breaking changes in future releases.
+
+This attribute allow each recipe to declare how the revision for the recipe itself should
+be computed. It can take three different values:
+
+ - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
+   compute the revision for the recipe.
+ - ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
+   repository system (Git or SVN). If there is no repository it will raise an error.
