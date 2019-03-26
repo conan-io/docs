@@ -531,3 +531,12 @@ It can also be used to fix the type of installation you want to use indicating j
 .. code-block:: bash
 
     set CONAN_VS_INSTALLATION_PREFERENCE=BuildTools
+
+CONAN_CACERT_PATH
+-----------------
+
+**Defaulted to**: Not defined
+
+Specify an alternative path to a *cacert.pem* file to be used for requests. This variable
+overrides the value defined in the *conan.conf* as ``cacert_path = <path/to/cacert.pem>``
+under the section ``[general]``.

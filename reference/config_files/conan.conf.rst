@@ -54,6 +54,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # which is deleted after the test.
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
+    # cacert_path                         # environment CONAN_CACERT_PATH
+
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
@@ -177,6 +179,9 @@ for modern Windows that enable long paths at the system level.
 
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even
 in the conan code base, allowing to debug the detected error.
+
+The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
+in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
 
 Storage
 +++++++
