@@ -50,8 +50,7 @@ Where:
     Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that
     are regenerated periodically.
   - ``pocoproject`` is the owner of this package. It is basically a namespace that allows different users to have their own packages for
-    the same library with the same name. For example, you can upload a certain library under your own user/organization name without
-    changing any content of the recipe.
+    the same library with the same name.
   - ``stable`` is the channel. Channels provide another way to have different variants of packages for the same library
     and use them interchangeably. They usually denote the maturity of the package as an arbitrary
     string such as "stable" or "testing", but they can be used for any purpose such as package revisions (e.g., the
