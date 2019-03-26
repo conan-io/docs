@@ -36,17 +36,3 @@ in ``package()`` since these methods are called independently.
 The ``package_info()`` method specifies the list of the necessary libraries, defines and flags for different build configurations for the
 consumers of the package. This is necessary as there is no possible way to extract this
 information from the CMake install automatically.
-
-
-.. important::
-
-    Please mind that if you use ``cmake.install()`` in ``package()``, it will be called twice if you are using
-    :ref:`no_copy_source` attribute in your conanfile.
-
-    CMake usually uses ``install`` directive to package both the artifacts and source code (*i.e.* header files) into the package folder.
-    Hence calling ``package()`` twice, while having no side effects, is wasting a couple of cycles, since source code is already copied in
-    the first invocation of ``package()`` and the install step will be done twice. Files will be simply overwritten, but install steps are
-    sometimes time-expensive and this doubles the "packaging" time.
-
-    This might be unintuitive if you only use CMake, but mind that Conan needs to cater to many different build systems and scenarios
-    (*e.g.* where you don't control the CMake configuration directly) and hence this workflow is indispensable.
