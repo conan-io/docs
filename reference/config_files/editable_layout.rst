@@ -51,6 +51,20 @@ The ``[source_folder]`` and ``[build_folder]`` are useful for workspaces. For ex
 workspace-generator, it will locate the ``CMakeLists.txt`` of each package in editable mode in the
 ``[source_folder]`` and it will use the ``[build_folder]`` as the base folder for the build temporary files.
 
+It is possible to define out-of-source builds for workspaces, using relative paths and the ``reference`` argument.
+The following could be used to locate the build artifacts of an editable package in a sibling ``build/<package-name>`` folder:
+
+.. code-block:: ini
+
+    [build_folder]
+    ../build/{{reference.name}}/{{settings.build_type}}
+
+    [includedirs]
+    src
+
+    [libdirs]
+    ../build/{{reference.name}}/{{settings.build_type}}/lib
+
 
 .. seealso::
 
