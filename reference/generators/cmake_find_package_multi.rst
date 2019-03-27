@@ -1,4 +1,4 @@
-.. _cmake_cmake_find_package_multi_generator_reference:
+.. _cmake_find_package_multi_generator_reference:
 
 
 `cmake_find_package_multi`

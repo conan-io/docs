@@ -2,8 +2,9 @@
 .. _cmake_find_package_multi_generator:
 
 
-``cmake_find_package_multi`` generator
-======================================
+``cmake_find_package_multi``
+============================
+
 
 .. warning::
 
@@ -34,5 +35,5 @@ a ``zlibConfig.cmake`` file will be generated.
 
 .. seealso::
 
-    Check the section :ref:`cmake_cmake_find_package_multi_generator_reference` to read more about this generator and the adjusted CMake
+    Check the section :ref:`cmake_find_package_multi_generator_reference` to read more about this generator and the adjusted CMake
     variables/targets.
