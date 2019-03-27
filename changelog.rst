@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.13.2 (27-Mar-2019)
+--------------------
+
+- Bugfix: Revision computation failed when a git repo was present but without commits `#4830 <https://github.com/conan-io/conan/pull/4830>`_
+
+
 1.13.2 (21-Mar-2019)
 --------------------
 
