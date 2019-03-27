@@ -510,6 +510,20 @@ CONAN_VERBOSE_TRACEBACK
 
 When an error is raised in a recipe or even in the Conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
 
+
+.. _env_vars_conan_error_on_override:
+
+CONAN_ERROR_ON_OVERRIDE
+-----------------------
+
+** Defaulted to**: ``False``
+
+When a consumer overrides one transitive requirement without using explicitly the keyword ``override``
+Conan will raise an error if this environmente variable is set to ``True``.
+
+This variable can also be set in the :ref:`*conan.conf*<conan_conf>` file under the section ``[general]``.
+
+
 .. _env_vars_conan_vs_installation_preference:
 
 CONAN_VS_INSTALLATION_PREFERENCE

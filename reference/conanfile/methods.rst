@@ -471,6 +471,13 @@ It also has optional parameters that allow defining the special cases, as is sho
     - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded (like a static lib linked
       into a shared lib), so it is not required to link.
 
+.. note::
+
+    To prevent accidental override of transitive dependencies, check the config variable
+    :ref:`general.error_on_override<conan_conf>` or the environment variable
+    :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`.
+
+
 build_requirements()
 --------------------
 
