@@ -174,7 +174,7 @@ to build things or not:
 * :command:`--build=outdated`: Conan will try to build from code if the binary is not built with the
   current recipe or when missing binary package.
 * :command:`--build=[pattern]`: A fnmatch case-sensitive pattern of a package reference or only the package name.
-  Conan will force the build of the packages, the reference of which matches the given
+  Conan will force the build of the packages whose reference matches the given
   **pattern**. Several patterns can be specified, chaining multiple options:
 
    - e.g., :command:`--build=pattern1 --build=pattern2` can be used to specify more than one pattern.
