@@ -289,7 +289,7 @@ There are some exceptions to the above. For example, settings can be defined per
 
 This will use ``gcc`` for MyPkg and ``clang`` for the rest of the dependencies (extremely rare case).
 
-There are situations whereby many packages use the same option, thereby allowing you to set it's value once using patterns, like:
+There are situations whereby many packages use the same option, thereby allowing you to set its value once using patterns, like:
 
 .. code-block:: bash
 
