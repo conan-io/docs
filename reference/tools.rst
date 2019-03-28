@@ -99,7 +99,7 @@ The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will 
     from conans import tools
 
     def build(self):
-        env_vars = tools.vcvars_dict(self.settings):
+        env_vars = tools.vcvars_dict(self.settings)
         with tools.environment_append(env_vars):
             # Do something
 
