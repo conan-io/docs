@@ -4,7 +4,7 @@ Remotes
 =======
 
 In the previous sections, we built several packages on our computer that were stored
-in the local cache, typically under *~/.conan/data*. Now, you might want to upload them to a Conan server
+in the local cache, typically under *~/.conan/data* or C:\conan_data. Now, you might want to upload them to a Conan server
 for later use on another machine, project, or for sharing purposes.
 
 Conan packages can be uploaded to different remotes previously configured with a name and a URL.
