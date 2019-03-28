@@ -33,4 +33,4 @@ libraries.
 The ``always`` policy, will retrieve the sources each time the package is installed so it can be useful for providing a "latest" mechanism
 or ignoring the uploaded binary packages.
 
-The package pattern can be referred as the package name only or a full reference e.g :command:`--build Poco` or :command:`--build zlib/1.2.11@conan/stable`.
+The package pattern can be referred as the package name only, part of the package name, a fnmatchable pattern or a full reference e.g :command:`--build Poco`, :command:`--build Poc`, :command:`--build zlib/*@conan/*`, :command:`--build *@conan/stable` or :command:`--build zlib/1.2.11@conan/stable`.
