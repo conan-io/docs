@@ -331,6 +331,9 @@ Parameters:
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
 
 
+.. _patch_config_paths:
+
+
 patch_config_paths() [EXPERIMENTAL]
 +++++++++++++++++++++++++++++++++++
 
