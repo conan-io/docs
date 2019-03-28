@@ -13,10 +13,10 @@ should be able to work on them in isolation. But sometimes, some changes require
 The local development flow can help, but it still requires using :command:`export-pkg` to put the artifacts in the local cache, where other
 packages under development will consume them.
 
-The Conan workspaces allow to have more than one package in user folders, and have them to directly use other packages from user folders
+The Conan workspaces allow to have more than one package in user folders, and have them directly use other packages from user folders
 without needing to put them in the local cache. Furthermore, they enable incremental builds on large projects containing multiple packages.
 
-Lets introduce them with a practical example, the code can be found in the conan examples repository:
+Lets introduce them with a practical example; the code can be found in the conan examples repository:
 
 .. code-block:: bash
 
@@ -47,7 +47,7 @@ Workspaces are defined in a yaml file, with any user defined name. Its structure
 
 
 The first section ``editables`` defines the mapping between package references and relative paths. Each one is equivalent to
-a :ref:`conan_editable_add` command (Do NOT do this, not necessary, it will be automatically done later. Just to understand
+a :ref:`conan_editable_add` command (Do NOT do this -- it is not necessary. It will be automatically done later. Just to understand
 the behavior):
 
 .. code-block:: bash
@@ -60,7 +60,7 @@ the behavior):
 The main difference is that this *Editable* state is only temporary for this workspace. It doesn't affect other projects or
 packages, which can still consume these say, hello, chat packages from the local cache.
 
-Note that the ``layout: layout_gcc`` declaration in the workspace affect all the packages. It is also possible to define
+Note that the ``layout: layout_gcc`` declaration in the workspace affects all the packages. It is also possible to define
 a different layout per package, as:
 
 .. code-block:: yaml
@@ -110,8 +110,8 @@ depend on different versions of the same library, as in any other Conan command.
 Single configuration build environments
 ---------------------------------------
 
-There are some build systems, like Makefiles that requires the developer to manage different configurations in different build folders,
-and switch between folders to change configuration. The above described file is *conan_gcc.yml* file, which defines a Conan workspace that
+There are some build systems, like Make, that require the developer to manage different configurations in different build folders,
+and switch between folders to change configuration. The file described above is *conan_gcc.yml* file, which defines a Conan workspace that
 works for a CMake based project for MinGW/Unix Makefiles gcc environments (working for apple-clang or clang would be very similar, if not identical).
 
 Lets use it to install this workspace:
@@ -176,7 +176,7 @@ Now we can configure and build our project as usual:
     Release: Hello World!
     Release: Hello World!
 
-Now, go do a change in some of the packages, for example the "say" one, and rebuild, see how it does an incremental build (fast).
+Now, go do a change in some of the packages, for example the "say" one, and rebuild. See how it does an incremental build (fast).
 
 Note that nothing will really be installed in the local cache, all the dependencies are resolved locally:
 
@@ -194,8 +194,8 @@ Note that nothing will really be installed in the local cache, all the dependenc
 
         conan_basic_setup(NO_OUTPUT_DIRS)
 
-    This is because the default ``conan_basic_setup()`` does define output directories for artifacts as *bin*, *lib*, etc, which is
-    not what the local project layout expects. You need to check and make sure that your build scripts and recipe matches both
+    This is because the default ``conan_basic_setup()`` does define output directories for artifacts such as *bin*, *lib*, etc, which
+    is not what the local project layout expects. You need to check and make sure that your build scripts and recipe matches both
     the expected local layout (as defined in layout files), and the recipe ``package()`` method logic.
 
 
@@ -216,11 +216,11 @@ Building for debug mode is done in its own folder:
 Multi configuration build environments
 --------------------------------------
 
-Some build systems, like Visual Studio (MSBuild), they use "multi-configuration" environments. That is, even if the project is configured just once
+Some build systems, like Visual Studio (MSBuild), use "multi-configuration" environments. That is, even if the project is configured just once
 you can switch between different configurations (like Debug/Release) directly in the IDE and build there.
 
 The above example uses the Conan ``cmake`` generator, that creates a single *conanbuildinfo.cmake* file. This is not a problem if we have our
-configurations built in different folders, each one will contain its own *conanbuildinfo.cmake*. But for Visual Studio that means that if
+configurations built in different folders. Each one will contain its own *conanbuildinfo.cmake*. For Visual Studio that means that if
 we wanted to switch from Debug<->Release, we should issue a new ``conan workspace install`` command with the right ``-s build_type`` and
 do a clean build, in order to get the right dependencies.
 
@@ -287,7 +287,7 @@ You can check in the project folders, how the following files have been generate
             | - conanbuildinfo_debug.cmake
 
 
-Note that they are not located in *build/Release* and *build/Debug* subfolders, that is because of the multi-config environment. To account for that
+Note that they are not located in *build/Release* and *build/Debug* subfolders; that is because of the multi-config environment. To account for that
 the *layout_vs* define the ``[build_folder]`` not as ``build/{settings.build_type}`` but just as:
 
 .. code-block:: ini
