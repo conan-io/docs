@@ -75,4 +75,4 @@ This Python script might be helpful, given that it already defines the respectiv
         print("Downloading %s" % package)
         run("conan download %s -r=local" % package)
 
-        run("conan upload * --all --confirm -r=artifactory")
+    run("conan upload * --all --confirm -r=artifactory")
