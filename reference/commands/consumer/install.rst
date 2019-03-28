@@ -65,7 +65,7 @@ installed, Conan will write the files for the specified generators.
                             missing binary package. --build=[pattern] Build always
                             these packages from source, but never build the
                             others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package reference. Default
+                            is a fnmatch file pattern of a package name. Default
                             behavior: If you don't specify anything, it will be
                             similar to '--build=never', but package recipes can
                             override it with their 'build_policy' attribute in the
@@ -173,10 +173,14 @@ to build things or not:
   requested configuration was not found on any of the active remotes.
 * :command:`--build=outdated`: Conan will try to build from code if the binary is not built with the
   current recipe or when missing binary package.
-* :command:`--build=[pattern]`: A fnmatch file pattern of a package reference. E.g., ``zl*`` will match
-  ``zlib`` package. Conan will force the build of the packages, the reference of which matches the given
-  **pattern**. Several patterns can be specified, chaining multiple options,
-  e.g., :command:`--build=pattern1 --build=pattern2`.
+* :command:`--build=[pattern]`: A fnmatch case-sensitive pattern of a package reference or only the package name.
+  Conan will force the build of the packages, the reference of which matches the given
+  **pattern**. Several patterns can be specified, chaining multiple options:
+
+   - e.g., :command:`--build=pattern1 --build=pattern2` can be used to specify more than one pattern.
+   - e.g., :command:`--build=zlib` will match any package named ``zlib`` (same as ``zlib/*``).
+   - e.g., :command:`--build=z*@conan/stable` will match any package starting with ``z`` with ``conan/stable`` as user/channel.
+
 * :command:`--build`: Always build everything from source. Produces a clean re-build of all packages
   and transitively dependent packages
 
