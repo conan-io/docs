@@ -18,8 +18,35 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.13 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.14 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.14.0 (28-Mar-2019)
+--------------------
+
+- Feature: Allow the user to configure the path to the CACERT file used in requests `#4835 <https://github.com/conan-io/conan/pull/4835>`_ . Docs `here <https://github.com/conan-io/docs/pull/1136>`__
+- Feature: support new architectures s390 and s390x `#4810 <https://github.com/conan-io/conan/pull/4810>`_ . Docs `here <https://github.com/conan-io/docs/pull/1140>`__
+- Feature: `--build` parameter now applies fnmatching onto the whole reference, allowing to control rebuilding in a much broader way. `#4787 <https://github.com/conan-io/conan/pull/4787>`_ . Docs `here <https://github.com/conan-io/docs/pull/1141>`__
+- Feature: Add config variable `general.error_on_override` and environment variable `CONAN_ERROR_ON_OVERRIDE` (defaulting to `False`) to configure if an overridden requirement should raise an error when overridden from downstream consumers. `#4771 <https://github.com/conan-io/conan/pull/4771>`_ . Docs `here <https://github.com/conan-io/docs/pull/1128>`__
+- Feature: Allow to specify `revision_mode` for each recipe, values accepted are `scm` or `hash` (default) `#4767 <https://github.com/conan-io/conan/pull/4767>`_ . Docs `here <https://github.com/conan-io/docs/pull/1126>`__
+- Feature: Sort library list name when calling tools.collect_libs `#4761 <https://github.com/conan-io/conan/pull/4761>`_ . Docs `here <https://github.com/conan-io/docs/pull/1124>`__
+- Fix: Apply environment variables from profile and from requirements to :command:`conan export-pkg` `#4852 <https://github.com/conan-io/conan/pull/4852>`_
+- Fix: Do not run `export_sources` automatically for python_requires `#4838 <https://github.com/conan-io/conan/pull/4838>`_
+- Fix: Show the correct profile name when detect a new one (#4818) `#4824 <https://github.com/conan-io/conan/pull/4824>`_
+- Fix: Allow using ``reference`` object in workspaces in templates for out of source builds `#4812 <https://github.com/conan-io/conan/pull/4812>`_ . Docs `here <https://github.com/conan-io/docs/pull/1135>`__
+- Fix: Look for ``vswhere`` in ``PATH`` when using ``tools.vswhere()`` `#4805 <https://github.com/conan-io/conan/pull/4805>`_
+- Fix: SystemPackageTools doesn't run sudo when it's not found (#4470) `#4774 <https://github.com/conan-io/conan/pull/4774>`_ . Docs `here <https://github.com/conan-io/docs/pull/1127>`__
+- Fix: Show warning if repo is not pristine and using SCM mode to set the revisions `#4764 <https://github.com/conan-io/conan/pull/4764>`_
+- Fix: avoid double call to ``package()`` method `#4748 <https://github.com/conan-io/conan/pull/4748>`_ . Docs `here <https://github.com/conan-io/docs/pull/1133>`__
+- Bugfix: Fixed authentication management when a server returns 401 uploading a file. `#4857 <https://github.com/conan-io/conan/pull/4857>`_
+- Bugfix: Fixed recipe revision detection when some error output or unexpected output was printed to the stdout running the `git` command. `#4854 <https://github.com/conan-io/conan/pull/4854>`_
+- Bugfix: The error output was piped to stdout causing issues while running git commands, especially during the detection of the scm revision `#4853 <https://github.com/conan-io/conan/pull/4853>`_
+- Bugfix: :command:`conan export-pkg` should never resolve build-requires `#4851 <https://github.com/conan-io/conan/pull/4851>`_
+- bugfix: The `--build` pattern was case sensitive depending on the os file system, now it is always case sensitive, following the :command:`conan search` behavior. `#4842 <https://github.com/conan-io/conan/pull/4842>`_
+- Bugfix:  Fix metadata not being updated for :command:`conan export-pkg` when using  ``--package-folder`` `#4834 <https://github.com/conan-io/conan/pull/4834>`_
+- Bugfix: `--build` parameter now is always case-sensitive, previously it depended to the file system type. `#4787 <https://github.com/conan-io/conan/pull/4787>`_ . Docs `here <https://github.com/conan-io/docs/pull/1141>`__
+- Bugfix: Raise an error if source files cannot be correctly copied to build folder because of long paths in Windows. `#4766 <https://github.com/conan-io/conan/pull/4766>`_
 
 
 1.13.3 (27-Mar-2019)

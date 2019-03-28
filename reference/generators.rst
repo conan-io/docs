@@ -9,8 +9,9 @@ generated contains information of dependencies in form of different variables an
 
 You can specify a generator in:
 
-- The ``[generators]`` section from :ref:`conanfile.txt<conanfile_txt_reference>`
-- The ``generators`` attribute in :ref:`conanfile.py<conanfile_reference>`
+- The ``[generators]`` section from :ref:`conanfile.txt<conanfile_txt_reference>`.
+- The ``generators`` attribute in :ref:`conanfile.py<conanfile_reference>`.
+- The command line when installing dependencies :command:`conan install --generator`.
 
 Available generators:
 
@@ -21,6 +22,7 @@ Available generators:
    generators/cmakemulti
    generators/cmake_paths
    generators/cmake_find_package
+   generators/cmake_find_package_multi
    generators/visualstudio
    generators/visualstudiomulti
    generators/visualstudiolegacy

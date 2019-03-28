@@ -48,6 +48,31 @@ Manages Conan configuration. Used to edit conan.conf, or install config files.
 conan config install
 --------------------
 
+.. code-block:: bash
+
+  usage: conan config install [-h] [--verify-ssl [VERIFY_SSL]] [--type {git}]
+                            [--args ARGS] [-sf SOURCE_FOLDER]
+                            [-tf TARGET_FOLDER]
+                            [item]
+
+  positional arguments:
+    item                  git repository, local folder or zip file (local or
+                          http) where the configuration is stored
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --verify-ssl [VERIFY_SSL]
+                          Verify SSL connection when downloading file
+    --type {git}, -t {git}
+                          Type of remote config
+    --args ARGS, -a ARGS  String with extra arguments for "git clone"
+    -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                          Install files only from a source subfolder from the
+                          specified origin
+    -tf TARGET_FOLDER, --target-folder TARGET_FOLDER
+                          Install to that path in the conan cache
+
+
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
 is important to have common ``settings.yml``, ``profiles``, etc.
 
@@ -93,12 +118,11 @@ a Conan client configuration.
     remotes. Sharing the complete contents of this file via this command is not recommended as this records the status of the local cache,
     which may be different from one machine to another.
 
-The specified URL or path, the arguments used (if any) and the source type (from git, from dir, from zip file or from URL) will be stored in
-the ``general.config_install`` variable of the *conan.conf* file, so as following calls to :command:`conan config install` command doesn't
-need to specify them.
-
 .. note::
     During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.
+
+The :command:`conan config install <item>` calls are stored in a *config_install.json* file in the Conan local cache. That allows to issue a :command:`conan config install` command, without arguments, to iterate over the cached configurations, executing them again (updating).
+
 
 **Examples**:
 
@@ -108,7 +132,26 @@ need to specify them.
 
       $ conan config install http://url/to/some/config.zip
 
-  Conan config command stores the specified URL in the conan.conf ``general.config_install`` variable.
+
+- Install the configuration from a URL, but only getting the files inside a *origin* folder
+  inside the zip file, and putting them inside a *target* folder in the local cache:
+
+  .. code-block:: bash
+
+      $ conan config install http://url/to/some/config.zip -sf=origin -tf=target
+
+- Install configuration from 2 different zip files from 2 different urls, using different source
+  and target folders for each one, then update all:
+
+  .. code-block:: bash
+
+      $ conan config install http://url/to/some/config.zip -sf=origin -tf=target
+      $ conan config install http://url/to/some/config.zip -sf=origin2 -tf=target2
+      $ conan config install http://other/url/to/other.zip -sf=hooks -tf=hooks
+      # Later on, execute again the previous configurations cached:
+      $ conan config install
+
+  It's not needed to specify any argument, it will iterate previously stored configurations in *config_install.json*, executing them again.
 
 - Install the configuration from a Git repository with submodules:
 
@@ -128,16 +171,7 @@ need to specify them.
 
       $ conan config install http://url/to/some/config.zip --verify-ssl=False
 
-  This will disable the SSL check of the certificate. This option is defaulted to ``True`` and it is also stored in *conan.conf*, so
-  following calls to this command don't need to specify it again.
-
-- Refresh the configuration again:
-
-  .. code-block:: bash
-
-      $ conan config install
-
-  It's not needed to specify the url again, it is already stored.
+  This will disable the SSL check of the certificate.
 
 - Install the configuration from a local path:
 

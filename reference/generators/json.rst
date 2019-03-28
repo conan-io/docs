@@ -3,7 +3,13 @@
 json
 ====
 
-A file named *conanbuildinfo.json* will be generated. It will contain the information about every dependency and the installed settings and options:
+.. warning::
+
+    Actual JSON may have more fields not documented here. Those fields may change in the future
+    without previous warning.
+
+A file named *conanbuildinfo.json* will be generated. It will contain the information about
+every dependency and the installed settings and options:
 
 .. code-block:: json
 
@@ -51,23 +57,52 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
 
 
 
-The generated ``conanbuildinfo.json`` file is a json file with the following keys:
+The generated *conanbuildinfo.json* file is a JSON file with the following keys:
 
 dependencies
 -------------
 
 The dependencies is a list, with each item belonging to one dependency, and each one with the following keys:
-- name
-- version
-- description
-- rootpath
-- sysroot
-- include_paths, lib_paths, bin_paths, build_paths, res_paths
-- libs
-- defines, cflags, cppflags, sharedlinkflags, exelinkflags
 
-Please note it is an ordered list, not a map, and dependency order is relevant. Upstream dependencies, i.e. the
+ - ``name``
+ - ``version``
+ - ``description``
+ - ``rootpath``
+ - ``sysroot``
+ - ``include_paths``, ``lib_paths``, ``bin_paths``, ``build_paths``, ``res_paths``
+ - ``libs``
+ - ``defines``, ``cflags``, ``cppflags``, ``sharedlinkflags``, ``exelinkflags``
+ - ``configs`` (only for multi config dependencies, see below)
+
+Please note that the dependencies are ordered, it isn't a map, order is relevant. Upstream dependencies, i.e. the
 ones that do not depend on other packages, will be first, and their direct dependencies after them, and so on.
+
+The node ``configs`` will appear only for :ref:`multi config recipes<packaging_approach_N_1>`,
+it is holding a dictionary with the data related to each configuration:
+
+.. code-block:: json
+
+    {
+    "...": "...",
+    "dependencies": [
+        {
+            "name": "Hello",
+            "rootpath": "/private/var/folders/yq/14hmvxm96xd7gfgl37_tnrbh0000gn/T/tmpkp9l_dovconans/path with spaces/.conan/data/Hello/0.1/lasote/testing/package/46f53f156846659bf39ad6675fa0ee8156e859fe",
+            "...": "...",
+            "configs": {
+                "debug": {
+                    "libs": ["hello_d"]
+                },
+                "release": {
+                    "libs": ["hello"]
+                }
+            }
+        },
+        {
+            "...": "..."
+        }
+        ]
+    }
 
 
 deps_env_info

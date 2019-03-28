@@ -10,6 +10,7 @@ As previously demonstrated, we can use the :command:`--build` option to change t
 - :command:`--build missing` will build only the missing requires.
 - :command:`--build` will build all requirements from sources.
 - :command:`--build outdated` will try to build from code if the binary is not built with the current recipe or when missing binary package.
+- :command:`--build pattern*` will build only the packages with the reference starting with "pattern".
 
 With the ``build_policy`` attribute the package creator can change the default conan's build behavior. The allowed build_policy values are:
 
@@ -33,4 +34,5 @@ libraries.
 The ``always`` policy, will retrieve the sources each time the package is installed so it can be useful for providing a "latest" mechanism
 or ignoring the uploaded binary packages.
 
-The package pattern can be referred as the package name only or a full reference e.g :command:`--build Poco` or :command:`--build zlib/1.2.11@conan/stable`.
+The package pattern can be referred as a case-sensitive fnmatch pattern of the package name or the full package reference.
+e.g :command:`--build Poco`, :command:`--build Poc*`, :command:`--build zlib/*@conan/*`, :command:`--build *@conan/stable` or :command:`--build zlib/1.2.11@conan/stable`.

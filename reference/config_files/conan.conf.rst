@@ -22,6 +22,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
+    # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
@@ -36,7 +37,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
-    # http://www.vtk.org/Wiki/CMake_Cross_Compiling
+    # https://vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
@@ -53,6 +54,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # Change the default location for building test packages to a temporary folder
     # which is deleted after the test.
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
+
+    # cacert_path                         # environment CONAN_CACERT_PATH
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -105,6 +108,10 @@ can also adjust the environment variable ``CONAN_VS_INSTALLATION_PREFERENCE``.
 
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even in the conan code base, allowing
 to debug the detected error.
+
+The ``error_on_override`` turn the messages related to dependencies overriding into errors. When a downstream
+package overrides some dependency upstream, if this variable is ``True`` then an error will be raised; to bypass
+these errors those requirements should be declared explicitly with the ``override`` keyword.
 
 The ``bash_path`` variable is used only in windows to help the
 :ref:`tools.run_in_windows_bash()<tools_run_in_windows_bash>` function to locate our Cygwin/MSYS2 bash.
@@ -177,6 +184,9 @@ for modern Windows that enable long paths at the system level.
 
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even
 in the conan code base, allowing to debug the detected error.
+
+The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
+in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
 
 Storage
 +++++++

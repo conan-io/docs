@@ -95,6 +95,12 @@ requirement with one from another user or channel.
     OpenSSL/1.0.2p@conan/stable
     zlib/1.2.11@otheruser/alpha
 
+.. note::
+
+    You can use environment variable :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`
+    to raise an error for every overriden requirement not marked explicitly with the ``override`` keyword.
+
+
 .. _generators:
 
 Generators

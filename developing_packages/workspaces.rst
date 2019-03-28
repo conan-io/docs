@@ -295,6 +295,24 @@ the *layout_vs* define the ``[build_folder]`` not as ``build/{settings.build_typ
     [build_folder]
     build
 
+Out of source builds
+--------------------
+
+The above examples are using a build folder in-source of the packages in editable mode. It is possible to define out-of-source builds layouts, 
+using relative paths and the ``reference`` argument. The following layout definition could be used to locate the build artifacts of an 
+editable package in a sibling ``build/<package-name>`` folder:
+
+.. code-block:: ini
+
+    [build_folder]
+    ../build/{{reference.name}}/{{settings.build_type}}
+
+    [includedirs]
+    src
+
+    [libdirs]
+    ../build/{{reference.name}}/{{settings.build_type}}/lib
+
 
 Notes
 -----

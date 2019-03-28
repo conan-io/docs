@@ -545,6 +545,13 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
+.. note::
+
+    To prevent accidental override of transitive dependencies, check the config variable
+    :ref:`general.error_on_override<conan_conf>` or the environment variable
+    :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`.
+
+
 .. _version_ranges_reference:
 
 version ranges
@@ -762,7 +769,7 @@ This is mostly an optimization for packages with large source codebases, to avoi
 
 To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``
 
-When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
+When this attribute is set to True, the ``self.copy()`` lines will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
 
 .. _folders_attributes_reference:
 
@@ -1146,3 +1153,22 @@ To know more about the usage of ``scm`` check:
 
 - :ref:`Creating packages/Recipe and sources in a different repo <external_repo>`
 - :ref:`Creating packages/Recipe and sources in the same repo <package_repo>`
+
+
+.. _revision_mode_attribute:
+
+revision_mode
+-------------
+
+.. warning::
+
+    This attribute is part of the :ref:`package revisions<package_revisions>` feature, so
+    it is also an **experimental** feature subject to breaking changes in future releases.
+
+This attribute allow each recipe to declare how the revision for the recipe itself should
+be computed. It can take three different values:
+
+ - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
+   compute the revision for the recipe.
+ - ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
+   repository system (Git or SVN). If there is no repository it will raise an error.
