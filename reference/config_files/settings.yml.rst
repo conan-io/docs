@@ -10,12 +10,12 @@ are possible.
 
     # Only for cross building, 'os_build/arch_build' is the system that runs Conan
     os_build: [Windows, WindowsStore, Linux, Macos, FreeBSD, SunOS]
-    arch_build: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
+    arch_build: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x]
 
     # Only for building cross compilation tools, 'os_target/arch_target' is the system for
     # which the tools generate code
     os_target: [Windows, Linux, Macos, Android, iOS, watchOS, tvOS, FreeBSD, SunOS, Arduino]
-    arch_target: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
+    arch_target: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x]
 
     # Rest of the settings are "host" settings:
     # - For native building/cross building: Where the library/program will run.
@@ -40,7 +40,7 @@ are possible.
         SunOS:
         Arduino:
             board: ANY
-    arch: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr]
+    arch: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x]
     compiler:
         sun-cc:
             version: ["5.10", "5.11", "5.12", "5.13", "5.14"]
@@ -133,3 +133,7 @@ Here you can find a brief explanation of each of the architectures defined as ``
   Systems).
 
 - **avr**: The 8 bit AVR microcontroller architecture developed by Atmel (Microchip Technology).
+
+- **s390**: The 32 bit address Enterprise Systems Architecture 390 from IBM.
+
+- **s390x**: The 64 bit address Enterprise Systems Architecture 390 from IBM.
