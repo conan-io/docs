@@ -14,7 +14,7 @@ We recommend the use of ``os_build`` and ``arch_build`` settings instead of ``os
 building process, like a compiler, a build system etc. If you are building a package to be run on the **host** system you can use ``os`` and
 ``arch``.
 
-A Conan package for a tool follows always a similar structure, this is a recipe for packaging the ``nasm`` tool for building assembler:
+A Conan package for a tool follows always a similar structure. This is a recipe for packaging the ``nasm`` tool for building assembler:
 
 .. code-block:: python
 
@@ -61,7 +61,7 @@ A Conan package for a tool follows always a similar structure, this is a recipe 
 
 There are some remarkable things in the recipe:
 
-- The configure method discards some combinations of settings and options, by throwing an exception. In this case this package is only for
+- The configure method discards some combinations of settings and options by throwing an exception. In this case this package is only for
   Windows.
 - ``build()`` downloads the appropriate file and unzips it.
 - ``package()`` copies all the files from the zip to the package folder.
@@ -70,12 +70,12 @@ There are some remarkable things in the recipe:
 This package has only 2 differences from a regular Conan library package:
 
 - ``source()`` method is missing. That’s because when you compile a library, the source code is always the same for all the generated
-  packages, but in this case we are downloading the binaries, so we do it in the build method to download the appropriate zip file according
+  packages. In this case we are downloading the binaries, so we do it in the build method to download the appropriate zip file according
   to each combination of settings/options. Instead of actually building the tools, we just download them. Of course, if you want to build it
   from source, you can do it too by creating your own package recipe.
 - The ``package_info()`` method uses the new ``self.env_info`` object. With ``self.env_info`` the package can declare environment variables
   that will be set automatically before `build()`, `package()`, `source()` and `imports()` methods of a package requiring this build tool.
-  This is a convenient method to use these tools without having to mess with the system path.
+  This is a convenient method to use these tools without having to manipulate the system path.
 
 Using the tool packages in other recipes
 ----------------------------------------
@@ -132,7 +132,7 @@ That way, after the download of the installer, the 7z executable will be in the 
                 del self.info.settings.compiler
                 del self.info.settings.arch
 
-    Note ``package_id()`` deletes not needed information for the computation of the package ID and includes the build settings ``os_build``
+    Note ``package_id()`` deletes unneeded information for the computation of the package ID and includes the build settings ``os_build``
     and ``arch_build`` that are excluded by default. Read more about
     :ref:`self.info.include_build_settings() <info_discard_include_build_settings>` in the reference section.
 
