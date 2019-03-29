@@ -6,7 +6,7 @@ Logging
 How to log and debug a conan execution
 ------------------------------------------
 
-You can use the :ref:`env_vars_conan_trace_file` environment variable to log and debug several conan command execution.
+You can use the :ref:`env_vars_conan_trace_file` environment variable to log and debug several Conan command execution.
 Set the ``CONAN_TRACE_FILE`` environment variable pointing to a log file.
 
 Example:
@@ -38,12 +38,12 @@ The */tmp/conan_trace.log* file:
 In the traces we can see:
 
 1. A command ``install`` execution.
-2. A rest api call to get some ``download_urls``.
+2. A REST API call to get some ``download_urls``.
 3. Three files downloaded (corresponding to the previously retrieved urls).
 4. ``DOWNLOADED_RECIPE`` tells us that the recipe retrieving is finished. We can see that the whole retrieve process took 2.4 seconds.
-5. conan client has computed the needed binary package SHA and now will get it. So will request and download the package ``package_id`` file to perform some checks like outdated binaries.
-6. Another rest api call to get some more ``download_urls``, for the package files and download them.
-7. Finally we get a ``DOWNLOADED_PACKAGE`` telling us that the package has been downloaded. It took 1.3 seconds.
+5. Conan client has computed the SHA for the needed binary package and will now retrieve it. So it will request and download the package ``package_id`` file to perform some checks like outdated binaries.
+6. Another REST API call to get some more ``download_urls``, for the package files and download them.
+7. Finally we get a ``DOWNLOADED_PACKAGE`` telling us that the package has been downloaded. The download took 1.3 seconds.
 
 
 If we execute conan install again:
@@ -63,7 +63,7 @@ The */tmp/conan_trace.log* file only three lines will be appended:
 	{"_action": "GOT_PACKAGE_FROM_LOCAL_CACHE", "_id": "zlib/1.2.8@lasote/stable:c6d75a933080ca17eb7f076813e7fb21aaa740f2", "time": 1485346039.827915}
 
 1. A command ``install`` execution.
-2. A ``GOT_RECIPE_FROM_LOCAL_CACHE`` because we already have it available in local cache.
+2. A ``GOT_RECIPE_FROM_LOCAL_CACHE`` because it's already stored in local cache.
 3. A ``GOT_PACKAGE_FROM_LOCAL_CACHE`` because the package is cached too.
 
 
@@ -79,7 +79,7 @@ You can also use the variable :ref:`env_vars_conan_print_run_commands` to log ex
 Package the log files
 +++++++++++++++++++++++++++
 
-The *conan_run.log* file will be available in your *build* folder so you can package it the same way you package a library file:
+The *conan_run.log* file will be created in your *build* folder so you can package it the same way you package a library file:
 
 .. code-block:: python
 
