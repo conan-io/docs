@@ -2,12 +2,12 @@
 
 Running and deploying packages
 ================================
-Executables and applications including shared libraries can be also distributed, deployed and run with conan. This might have
+Executables and applications including shared libraries can also be distributed, deployed and run with Conan. This might have
 some advantages compared to deploying with other systems:
 
 - A unified development and distribution tool, for all systems and platforms
 - Manage any number of different deployment configurations in the same way you manage them for development
-- Use a conan server remote to store all your applications and runtimes for all Operating Systems, platforms and targets
+- Use a Conan server remote to store all your applications and runtimes for all Operating Systems, platforms and targets
 
 There are different approaches:
 
@@ -70,7 +70,7 @@ This will generate a few files that can be called to activate and deactivate the
 Imports
 --------
 It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
-cache the desired files. This approach, requires a user conanfile.
+cache the desired files. This approach requires a user conanfile.
 For more details see example below :ref:`runtime packages<repackage>`
 
 
@@ -117,7 +117,7 @@ with:
 Running from packages
 ---------------------
 
-If a dependency has an executable that we want to run in the conanfile it can be done directly in code
+If a dependency has an executable that we want to run in the conanfile, it can be done directly in code
 using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment`` helper. 
 For example, if we want to execute the ``greet`` app while building the ``Consumer`` package:
 
@@ -207,7 +207,7 @@ This recipe has the following characteristics:
 - It is using ``imports()`` to copy from the dependencies, in this case, the executable
 - It is using the ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which
   is not define, then using the default empty one), are kept and not removed after build
-- The ``package()`` method packages the imported artifacts that will be in the build folder.
+- The ``package()`` method packages the imported artifacts that will be created in the build folder.
 
 To create and upload this package to a remote:
 
