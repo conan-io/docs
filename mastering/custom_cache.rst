@@ -6,7 +6,7 @@ Conan local cache: concurrency, Continuous Integration, isolation
 Conan needs access to some per user configuration files, such as the **conan.conf** file that
 defines the basic client app configuration. By convention, this file will be located in the
 user home folder **~/.conan/**. This folder will also typically store the package cache in
-**~/.conan/data**. Even though the latter is configurable in *conan.conf*, cConan needs
+**~/.conan/data**. Even though the latter is configurable in *conan.conf*, Conan needs
 some place to look for this initial configuration file.
 
 There are some scenarios in which you might want to use different initial locations for the
