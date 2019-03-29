@@ -40,7 +40,7 @@ In the example above, the ``zlib/1.2.11@conan/stable`` package is not packaging 
 included in the CMake installation directory (`/Modules`) will locate the zlib library from the Conan package because of the
 ``CMAKE_PREFIX_PATH`` used by the ``find_library()``.
 
-If the ``zlib/1.2.11@conan/stable`` would had included a custom ``FindZLIB.cmake`` in the package root folder or any declared
+If the ``zlib/1.2.11@conan/stable`` would have included a custom ``FindZLIB.cmake`` in the package root folder or any declared
 :ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`, it would have been located because of the ``CMAKE_MODULE_PATH`` variable.
 
 Included as a toolchain
