@@ -72,7 +72,7 @@ This Python script might be helpful, given that it already defines the respectiv
     packages = output.splitlines()
 
     for package in packages:
-    print("Downloading %s" % package)
-    run("conan download %s -r=local" % package)
+        print("Downloading %s" % package)
+        run("conan download %s -r=local" % package)
 
     run("conan upload * --all --confirm -r=artifactory")
