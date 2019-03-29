@@ -13,7 +13,7 @@ The goal of the `revisions feature` is to achieve package immutability, so nothi
 
 .. note::
 
-    This is the first piece to achieve reproducibility: Recreate the exact dependency graph by using some
+    This is the first piece to achieve reproducibility: recreate the exact dependency graph by using some
     mechanism like a ``graph lock`` file. For example, if we store a ``graph lock`` file for the different releases
     of our project, we can install the same dependencies just by using the graph lock.
 
@@ -39,11 +39,11 @@ How it works
   to a concrete RREV.
 
 
-If a client request a reference like `lib/1.0@conan/stable`, Conan will retrieve automatically the latest revision.
-In the client cache there is **only one revision installed at the same time**.
+If a client requests a reference like `lib/1.0@conan/stable`, Conan will automatically retrieve the latest revision.
+In the client cache there is **only one revision installed simultaneously**.
 
 The revisions can be pinned when you write a reference (in the recipe requires, or in a reference in a
-conan install command…) but if you don’t specify a revision the server will retrieve the latest revision.
+conan install command…) but if you don’t specify a revision, the server will retrieve the latest revision.
 
 You can specify the references in the following formats:
 
@@ -77,10 +77,10 @@ You have to explicitly activate the feature by:
 
 Take into account that it changes the default Conan behavior. e.g:
 
-    - A client with revisions enabled will only find binary packages that belongs to the installed recipe revision.
+    - A client with revisions enabled will only find binary packages that belong to the installed recipe revision.
       For example, If you create a recipe and run ``conan create . user/channel`` and then you modify the recipe and
       export it ``conan export . user/channel``, the binary package generated in the ``conan create`` command doesn't
-      belong to the new exported recipe, so it won't be located unless the previous recipe is recovered.
+      belong to the new exported recipe. So it won't be located unless the previous recipe is recovered.
 
     - If you generate and upload N binary packages for a recipe revision, if you upload the revision you need to
       generate and upload again the N binaries if you want them to be used with the new recipe.
