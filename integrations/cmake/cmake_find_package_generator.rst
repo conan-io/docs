@@ -33,10 +33,10 @@ In a conanfile.py
            cmake.configure()
            cmake.build()
 
-In the previous example, the ``CMake`` build helper will adjust automatically the ``CMAKE_MODULE_PATH`` to the ``conanfile.install_folder``,
+In the previous example, the ``CMake`` build helper will automatically adjust the ``CMAKE_MODULE_PATH`` to the ``conanfile.install_folder``,
 where the generated ``Find<package_name>.cmake`` is.
 
-In the ``CMakeList.txt`` you do not need to specify or include anything related with Conan at all, just rely on the ``find_package``
+In the ``CMakeList.txt`` you do not need to specify or include anything related with Conan at all; just rely on the ``find_package``
 feature:
 
 .. code-block:: cmake
