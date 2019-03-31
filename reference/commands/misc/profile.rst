@@ -89,3 +89,9 @@ profile' install argument.
   .. code-block:: bash
 
       $ conan profile new /path/to/new/profile --detect
+
+- Create a new or overwrite an existing profile with detected settings:
+
+  .. code-block:: bash
+
+      $ conan profile new /path/to/new/profile --detect --force
