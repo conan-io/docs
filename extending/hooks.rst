@@ -13,10 +13,10 @@ points.
 Hook structure
 --------------
 
-Hooks are Python files containing **pre** and **post** functions that will be executed prior and after a determined task performed by the
-Conan client. Those tasks could be Conan commands, recipe interactions such as exporting or packaging or interactions with the remotes.
+Hooks are Python files containing **pre** and **post** functions that will be executed before and after a particular task performed by the
+Conan client. Those tasks could be Conan commands, recipe interactions such as exporting or packaging, or interactions with the remotes.
 
-Here you can see an example of a simple hook:
+Here is an example of a simple hook:
 
 .. code-block:: python
    :caption: *example_hook.py*
@@ -53,19 +53,19 @@ Here you can see an example of a simple hook:
                 output.error("%s Source files does not come from and immutable place. Checkout to a "
                             "commit/tag or download a compressed source file for %s" % (test, str(reference)))
 
-This hook is only checking the recipe content prior to the recipe being exported and prior to downloading the sources. Basically the
-``pre_export()`` function is checking the attributes of the ``conanfile`` object to see if there is an URL, a license and a description and
-warning the user with a message through the ``output``. This is done **before** the recipe is exported to the local cache.
+This hook checks the recipe content prior to it being exported and prior to downloading the sources. Basically the
+``pre_export()`` function checks the attributes of the ``conanfile`` object to see if there is an URL, a license and a description and if missing, 
+warns the user with a message through the ``output``. This is done **before** the recipe is exported to the local cache.
 
 The ``pre_source()`` function checks if the recipe contains a ``source()`` method (this time it is using the conanfile content instead of
 the ``conanfile`` object) and in that case it checks if the download of the sources are likely coming from immutable places (a compressed
 file or a determined :command:`git checkout`). This is done **before** the **source()** method of the recipe is called.
 
-Any kind of Python scripting can be executed. You can create global functions and call them from different hook functions, import from a
+Any kind of Python script can be executed. You can create global functions and call them from different hook functions, import from a
 relative module and warn, error or even raise to abort the Conan client execution.
 
-As you can see each function receives some parameters but not all of them are available for all functions as this may change depending on
-the context of the commands being executed such as the recipe being in the local cache or not.
+Each function receives some parameters but not all of them are available for all functions as this may change depending on
+the context of the commands being executed, such as the recipe being in the local cache or not.
 
 .. important::
 
@@ -75,7 +75,7 @@ the context of the commands being executed such as the recipe being in the local
 Other useful task where a hook may come handy are the upload and download actions. There are **pre** and **post** functions for every
 download/upload as a whole and for fine download tasks such as recipe and package downloads/uploads.
 
-For example they can be used to sign the packages (including a file with the signature) when the package is created and and checking that
+For example they can be used to sign the packages (including a file with the signature) when the package is created and check that
 signature every time they are downloaded.
 
 .. code-block:: python
@@ -190,7 +190,7 @@ There is a simple *attribute_checker* hook ready to be used in Conan. You can ta
 attribute_checker
 +++++++++++++++++
 
-This hook is shipped together with the Conan client and its functionality is warning when recipes do not contain some metadata attributes.
+This hook is shipped together with the Conan client and it warns the user when recipes do not contain some metadata attributes.
 
 .. code-block:: python
    :caption: *attribute_checker.py*
