@@ -9,7 +9,7 @@
 Compilers on command line
 =========================
 
-The **compiler_args** generator creates a file named ``conanbuildinfo.args`` containing a command
+The **compiler_args** generator creates a file named ``conanbuildinfo.args`` containing command
 line arguments to invoke ``gcc``, ``clang`` or ``cl`` (Visual Studio) compiler.
 
 Now we are going to compile the :ref:`getting started<getting_started>` example using **compiler_args** instead of the **cmake** generator.
@@ -34,11 +34,11 @@ Install the requirements (from the mytimer/build folder):
 
 .. note::
 
-   Remember, if you don't specify settings in **install command** with **-s**, conan will use the detected defaults.
+   Remember, if you don't specify settings in the **install command** with **-s**, Conan will use the detected defaults.
    You can always change them by editing the ``~/.conan/profiles/default`` or override them with "-s" parameters.
 
 
-The generated ``conanbuildinfo.args``:
+The generated ``conanbuildinfo.args`` show:
 
 .. code-block:: text
 
