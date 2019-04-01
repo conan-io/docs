@@ -5,13 +5,13 @@ How to create and share a custom generator with generator packages
 
 There are several built-in generators, like ``cmake``, ``visual_studio``, ``xcode``...
 But what if your build system is not included? Or maybe the existing built-in generators
-doesn't satisfy your needs. There are several options:
+doesn't satisfy your needs? There are several options:
 
 - Use the ``txt`` generator, that generates a plain text file easy to parse, which you might
   be able to use.
 - Use ``conanfile.py`` data, and for example in the ``build()`` method, access that information
   directly and generate a file or call directly your system
-- Fork the conan codebase and write a built-in generator. Please make a pull request if possible to
+- Fork the Conan codebase and write a built-in generator. Please make a pull request if possible to
   contribute it to the community.
 - Write a custom generator in a ``conanfile.py`` and manage it as a package. You can upload it
   to your own server and share with your team, or share with the world uploading it to bintray.
@@ -39,7 +39,7 @@ that file. The **name of the generator** itself will be taken from the class nam
         def content(self):     
             return "whatever contents the generator produces"
             
-This class is just included in a ``conanfile.py`` that must contain also a ``ConanFile`` class
+This class is included in a ``conanfile.py`` that must contain also a ``ConanFile`` class
 that implements the package itself, with the name of the package, the version, etc. This
 class typically has no ``source()``, ``build()``, ``package()``, and even the ``package_info()`` method is
 overridden as it doesn't have to define any include paths or library paths.
@@ -60,7 +60,7 @@ filenames->contents in the ``content()`` method:
         def filename(self):
             pass
 
-Once, it is defined in the ``conanfile.py`` you can treat is as a regular package, typically you
+Once, it is defined in the ``conanfile.py`` you can treat it as a regular package, typically you
 will ``export`` it first to your local cache, test it, and once it is working fine, you would
 ``upload`` it to a server.
 
@@ -176,8 +176,8 @@ You ``export`` the package recipe to the local cache, so it can be used by other
 Using the generator
 -------------------
 
-Let's create a test project that uses this generator, and also an existing library conan package,
-we will use the simple "Hello World" package we already created before:
+Let's create a test project that uses this generator, and also an existing library Conan package.
+We will use the simple "Hello World" package we already created before:
 
 .. code-block:: bash
 
@@ -256,7 +256,7 @@ Now, everything works, so you might want to share your generator:
 
 .. note::
 
-    This is a regular conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
+    This is a regular Conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
     invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.
 
 Using template files for custom generators
