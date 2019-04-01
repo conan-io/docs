@@ -74,8 +74,8 @@ In a *conanfile.txt*
 --------------------
 
 If you are using a ``conanfile.txt`` file in your project, instead of a ``conanfile.py``, this generator can be used together with the
-:ref:`cmake_paths <cmake_paths_generator>` generator to adjust the ``CMAKE_MODULE_PATH`` variable automatically and let CMake locate the
-generated ``Find<package_name>.cmake`` files.
+:ref:`cmake_paths <cmake_paths_generator>` generator to adjust the ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` variables automatically
+and let CMake locate the generated ``Find<package_name>.cmake`` files.
 
 With ``cmake_paths``:
 
@@ -124,9 +124,9 @@ With ``cmake_paths``:
 
     $ cmake --build .
 
-Or you can also adjust ``CMAKE_MODULE_PATH`` manually.
+Or you can also adjust ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` manually.
 
-Without **cmake_paths**, adjusting ``CMAKE_MODULE_PATH`` manually:
+Without **cmake_paths**, adjusting the variables manually:
 
 .. code-block:: text
    :caption: conanfile.txt
@@ -145,6 +145,8 @@ Without **cmake_paths**, adjusting ``CMAKE_MODULE_PATH`` manually:
     cmake_minimum_required(VERSION 3.0)
     project(helloworld)
     set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})
+    set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
+
     add_executable(helloworld hello.c)
     find_package(zlib)
 

@@ -11,7 +11,8 @@ The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declari
 - ``CMAKE_MODULE_PATH`` with the folders of the required packages, to allow CMake to locate the included cmake scripts and ``FindXXX.cmake``
   files. The folder containing the *conan_paths.cmake* (`self.install_folder` when used in a recipe) is also included, so any custom file
   will be located too. Check :ref:`cmake_find_package_generator` generator.
-- ``CMAKE_PREFIX_PATH`` used by ``find_library()`` to locate library files (*.a*, *.lib*, *.so*, *.dll*) in your packages.
+- ``CMAKE_PREFIX_PATH`` used by ``find_library()`` to locate library files (*.a*, *.lib*, *.so*, *.dll*) in your packages and ``find_dependency()`` to locate
+  the transitive dependencies.
 
 .. code-block:: text
    :caption: conanfile.txt
