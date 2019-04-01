@@ -106,3 +106,44 @@ This information is important to know if the packages are up to date with the re
 recipe. That means: if the recipe has completely removed an option (it could be a setting or a requirement) but there are old packages
 that were generated previously with that option, those packages will be impossible to install as their package ID are calculated from the
 recipe file (and that option does not exist anymore).
+
+How to configure the remotes priority order
+-------------------------------------------
+
+The lookup remote order is defined by the command :command:`conan remote`:
+
+.. code-block:: bash
+
+    $ conan remote list
+    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
+
+As you can see, the remote ``conan-center`` is listed on index **0**, which means it has the highest priority when searching or installing a package,
+followed by ``conan-community``, on index **1**. To update the index order, the argument ``--insert`` can be added to the command :command:`conan remote update`:
+
+.. code-block:: bash
+
+    $ conan remote update conan-community https://api.bintray.com/conan/conan-community/conan --insert
+    $ conan remote list
+    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
+
+The ``--insert`` argument means *index 0*, the highest priority, thus the ``conan-community`` remote will be updated as the first remote to be used.
+Also, it's possible to define a specific index when updating the remote list:
+
+.. code-block:: bash
+
+    $ conan remote list
+    conan-center: https://conan.bintray.com [Verify SSL: True]
+    bincrafters: https://api.bintray.com/conan/bincrafters/public-conan [Verify SSL: True]
+    conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
+
+    $ conan remote update conan-community https://api.bintray.com/conan/conan-community/conan --insert 1
+
+    $ conan remote list
+    conan-center: https://conan.bintray.com [Verify SSL: True]
+    conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
+    bincrafters: https://api.bintray.com/conan/bincrafters/public-conan [Verify SSL: True]
+
+The ``conan-community`` remote was listed as the latest index, but we want to set as the second on the list, so that, we need to set the remote
+index as **1**.
