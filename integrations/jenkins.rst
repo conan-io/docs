@@ -19,9 +19,9 @@ ___________________________________
 
 
 If you are using `Artifactory`_ you can take advantage of the `Jenkins Artifactory Plugin`_.
-Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL (Domain Specific Language)`_.
+Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL`_.
 
-The Artifactory Jenkins plugin provides a powerful DSL language to call Conan, connect with your Artifactory instance,
+The Artifactory Jenkins plugin provides a powerful DSL (Domain Specific Language) to call Conan, connect with your Artifactory instance,
 upload and download your packages from Artifactory and manage your `build information`_.
 
 
