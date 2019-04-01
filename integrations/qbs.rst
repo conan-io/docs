@@ -57,5 +57,6 @@ You may also specify multiple dependencies:
       }
    }
 
+.. seealso::
 
-.. seealso:: Check the :ref:`Reference/Generators/qbs<qbs_generator>` section for get more details.
+    Check the :ref:`Reference/Generators/qbs<qbs_generator>` section for get more details.
