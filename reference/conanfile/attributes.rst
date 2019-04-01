@@ -1188,7 +1188,7 @@ from those imported recipes is accessible using the ``python_requires`` attribut
 the recipe itself. This attribute is a dictionary where the key is the name of the
 *python requires* reference and the value is a dictionary with the following information:
 
- - ``ref``: full reference of the python requires
+ - ``ref``: full reference of the python requires.
  - ``exports_folder``: directory in the cache where the exported files are located.
  - ``exports_sources_folder``: directory in the cache where the files exported using the
    ``exports_sources`` attribute of the python requires recipe are located.
