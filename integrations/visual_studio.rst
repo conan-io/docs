@@ -26,7 +26,7 @@ However, beware of some current CMake limitations, such as not dealing well with
 With *visual_studio* generator
 ------------------------------
 
-Use this, or **visual_studio_multi**, if you are maintaining your Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party dependencies.
+Use the **visual_studio** generator, or **visual_studio_multi**, if you are maintaining your Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party dependencies.
 
 You can use the **visual_studio** generator to manage your requirements via your *Visual Studio*  project.
 
@@ -49,7 +49,7 @@ Install the requirements:
 
     $ conan install .
 
-Go to your Visual Studio project, and open the **Property Manager**, usually in **View -> Other Windows -> Property Manager**.
+Go to your Visual Studio project, and open the **Property Manager** (usually in **View -> Other Windows -> Property Manager**).
 
 .. image:: ../images/property_manager.png
 
@@ -62,18 +62,18 @@ Build your project as usual.
 .. note::
 
     Remember to set your project's architecture and build type accordingly, explicitly or implicitly, when issuing the
-    :command:`conan install` command. If these values don't match, you build will probably fail.
+    :command:`conan install` command. If these values don't match, your build will probably fail.
 
     e.g. **Release/x64**
 
 .. seealso::
 
-    Check the :ref:`visualstudio_generator` for the complete reference.
+    Check :ref:`visualstudio_generator` for the complete reference.
 
 Calling Visual Studio compiler
 ------------------------------
 
-You can call your Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment`` and the
+You can call the Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment`` and the
 :ref:`tools_vcvars_command`.
 
 Check the :ref:`msbuild` section for more info.
@@ -101,11 +101,11 @@ Toolsets
 
 You can use the sub-setting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
 It will be automatically applied when using the ``CMake()`` and ``MSBuild()`` build helpers.
-The toolset can be also specified manually in these build helpers with the ``toolset`` parameter.
+The toolset can also be specified manually in these build helpers with the ``toolset`` parameter.
 
 By default, Conan will not generate a new binary package if the specified ``compiler.toolset``
 matches an already generated package for the corresponding ``compiler.version``.
-Check the :ref:`package_id()<method_package_id>` reference to know more.
+Check the :ref:`package_id()<method_package_id>` reference to learn more.
 
 .. seealso::
 
