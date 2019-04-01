@@ -24,7 +24,7 @@ Example
 
 We are going to use the same example from :ref:`getting_started`, a MD5 Encrypter app.
 
-This is the main file for it:
+This is the main source file for it:
 
 .. code-block:: cpp
    :caption: main.cpp
@@ -45,8 +45,8 @@ This is the main file for it:
         return 0;
     }
 
-As this project relies on the Poco Libraries we are going to create a *conanfile.txt* with our requirement and declare there the Make
-generator too:
+As this project relies on the Poco Libraries we are going to create a *conanfile.txt* with our requirement and also declare the Make
+generator:
 
 .. code-block:: text
    :caption: conanfile.txt
