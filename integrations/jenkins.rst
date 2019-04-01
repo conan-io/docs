@@ -11,7 +11,7 @@ You can use `Jenkins CI` both for:
   Conan remote (Artifactory or conan_server)
 
 There is no need for any special setup for it, just install Conan and your build tools in the Jenkins machine and call
-the needed ``Conan`` commands.
+the needed Conan commands.
 
 
 Artifactory and Jenkins integration
