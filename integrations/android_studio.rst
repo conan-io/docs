@@ -5,17 +5,17 @@
 ____________________________________
 
 
-You can use Conan to :ref:`cross-build your libraries for Android<cross_building_android>` in different architectures.
-If you are using Android Studio for your Android application development, you can integrate it conan to automate the
+You can use Conan to :ref:`cross-build your libraries for Android<cross_building_android>` with different architectures.
+If you are using Android Studio for your Android application development, you can integrate Conan to automate the
 library building for the different architectures that you want to support in your project.
 
-Here is an example of how to integrate the ``libpng`` conan package library in an Android application, but any library
+Here is an example of how to integrate the ``libpng`` Conan package library in an Android application, but any library
 that can be cross-compiled to Android could be used using the same procedure.
 
 We are going to start from the "Hello World" wizard application and then will add it the ``libpng`` C library:
 
 1. Follow the :ref:`cross-build your libraries for Android<cross_building_android>` guide to create
-   a standalone toolchain and create a profile ``android_21_arm_clang`` for Android.
+   a standalone toolchain and create a profile named ``android_21_arm_clang`` for Android.
    You can also use the NDK that the Android Studio installs.
 
 2. Create a new Android Studio project and include C++ support.
@@ -24,7 +24,7 @@ We are going to start from the "Hello World" wizard application and then will ad
  |wizard1|
 
 
-3. Select your API level and target, the arch and api level have to match with the standalone
+3. Select your API level and target. The arch and api level have to match with the standalone
 toolchain created in step 1.
 
 
@@ -71,7 +71,7 @@ the following contents:
     add_library(native-lib SHARED src/main/cpp/native-lib.cpp)
     target_link_libraries(native-lib CONAN_PKG::libpng)
 
-8. Open the *app/build.gradle* file, we are configuring the architectures we want to build specifying adding a new task ``conanInstall``
+8. Open the *app/build.gradle* file. We are configuring the architectures we want to build, specifying adding a new task ``conanInstall``
 that will call :command:`conan install` to install the requirements:
 
 - In the defaultConfig section, append:
@@ -110,7 +110,7 @@ that will call :command:`conan install` to install the requirements:
 
 
 9. Finally open the default example cpp library in ``app/src/main/cpp/native-lib.cpp`` and include some lines using your library.
-   Be careful with the JNICALL name if you used other app name in the wizard:
+   Be careful with the JNICALL name if you used another app name in the wizard:
 
 
 .. code-block:: cpp
@@ -137,7 +137,7 @@ that will call :command:`conan install` to install the requirements:
     }
 
 
-Build your project normally, conan will create a ``conan`` folder with a folder for each different architecture you have specified in the abiFilters with a ``conanbuildinfo.cmake`` file.
+Build your project normally. Conan will create a ``conan`` folder with a folder for each different architecture you have specified in the abiFilters with a ``conanbuildinfo.cmake`` file.
 
 Then run the app using an x86 emulator for best performance:
 
@@ -145,7 +145,7 @@ Then run the app using an x86 emulator for best performance:
 
 .. seealso::
 
-    Check the section :ref:`cross_building_android` to read more about cross building for Android.
+    Check the section :ref:`cross_building_android` to read more about cross-building for Android.
 
 
 .. |android_studio_logo| image:: ../images/android_studio_logo.png
