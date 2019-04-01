@@ -22,7 +22,7 @@ Add ``conan_basic_setup`` to ``CONFIG`` and include the file in your existing pr
 This will include all the statements in *conanbuildinfo.pri* in your project. Include paths, libraries, defines, etc. will be set up
 for all requirements you have defined as dependencies in a *conanfile.txt*.
 
-If you'd rather like to manually add the variables for each dependency, you can do so by skipping the ``CONFIG`` statement and
+If you'd prefer to manually add the variables for each dependency, you can do so by skipping the ``CONFIG`` statement and
 only including *conanbuildinfo.pri*:
 
 .. code-block:: text
@@ -56,7 +56,7 @@ This example project will depend on a multi-configuration (Debug/Release) "Hello
     Hello/0.1@memsharded/testing export: Copied 1 '.h' file: hello.h
     Hello/0.1@memsharded/testing: A new conanfile.py version was exported
 
-This hello package is created with CMake but that doesn't matter for this example, as it can be consumed from a qmake project with the
+This hello package is created with CMake, but that doesn't matter for this example, as it can be consumed from a qmake project with the
 configuration showed before.
 
 Now let's get the qmake project and install its `Hello/0.1@memsharded/testing` dependency:
