@@ -22,6 +22,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.14.1 (1-Apr-2019)
+-------------------
+
+- Fix: Print a message for unhandled Conan errors building the API and collaborators `#4869 <https://github.com/conan-io/conan/pull/4869>`_
+- Bugfix: Client does not require credentials for anonymous downloads from remotes. `#4872 <https://github.com/conan-io/conan/pull/4872>`_
+- Bugfix: Fix a migration problem of ``conan config install`` for Conan versions 1.9 and older `#4870 <https://github.com/conan-io/conan/pull/4870>`_
+- Feature: Now Conan will crush your enemies, see them driven before you, and to hear the lamentation of their women! (April's fools)
+
+
 1.14.0 (28-Mar-2019)
 --------------------
 
