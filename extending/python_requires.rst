@@ -15,7 +15,7 @@ The *Python Requires* recipe file, besides exporting its own required sources, c
 files to be used by the consumer recipes and also python code in the recipe file itself.
 
 Let's have a look at an example showing all its capabilities (you can find all
-the sources in ....):
+the sources in `Conan examples repository`_):
 
  - Python requires recipe:
 
@@ -242,4 +242,4 @@ are the relevant code snippets from the example files:
 
 You can find the full example in the `Conan examples repository`_.
 
-.. _`Conan examples repository`: https://github.com/conan-io/examples/tree/master/features/python_requires
+.. _`Conan examples repository`: https://github.com/conan-io/examples/tree/master/features/
