@@ -5,7 +5,7 @@
 _________________________
 
 
-Conan can be integrated with **XCode** in two different ways:
+Conan can be integrated with **Apple's XCode** in two different ways:
 
 - Using the **cmake** generator to create a **conanbuildinfo.cmake** file.
 - Using the **xcode** generator to create a  **conanbuildinfo.xcconfig** file.
@@ -23,7 +23,7 @@ Check the official `CMake docs`_ to find out more about generating Xcode project
 With the *xcode* generator
 --------------------------
 
-You can use the **xcode** generator to integrate your requirements in your *Xcode*  project.
+You can use the **xcode** generator to integrate your requirements with your *Xcode*  project.
 This generator creates an ``xcconfig`` file, with all the *include paths*, *lib paths*, *libs*, *flags* etc, that can be imported in your project.
 
 
@@ -47,7 +47,7 @@ Install the requirements:
 
    $ conan install .
    
-Go to your **Xcode** project, click on the project and select **Add files to**. 
+Go to your **Xcode** project, click on the project and select **Add files to**...
 
 .. image:: ../images/xcode1.png
 
@@ -73,5 +73,5 @@ Build your project as usual.
 
 .. seealso::
 
-    Check the :ref:`Darwin Toolchain package<darwin_toolchain>` section to know how to **cross build** for ``iOS``, ``watchOS`` and
+    Check the :ref:`Darwin Toolchain package<darwin_toolchain>` section to learn how to **cross build** for ``iOS``, ``watchOS`` and
     ``tvOS``.
