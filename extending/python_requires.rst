@@ -8,7 +8,7 @@ Python requires: reusing code [EXPERIMENTAL]
     This is an **experimental** feature subject to breaking changes in future releases.
 
 The ``python_requires()`` feature is a very convenient way to share files and code between
-different recipes. A *Python Requires* is just like any another recipe, it is the way it is
+different recipes. A *Python Requires* is just like any other recipe, it is the way it is
 required from the consumer what makes the difference.
 
 The *Python Requires* recipe file, besides exporting its own required sources, can export
@@ -41,7 +41,7 @@ the sources in ....):
 
                 settings = "os", "compiler", "build_type", "arch"
                 options = {"shared": [True, False]}
-                default_options = "shared=False"
+                default_options = {"shared": False}
                 generators = "cmake"
                 exports_sources = "src/*"
 
@@ -144,7 +144,7 @@ Reuse python sources
 In the example proposed we are using two functions through the ``base``
 variable: ``base.get_conanfile()`` and ``base.get_version()``. The first one is defined
 directly in the *conanfile.py* file, but the second one is in a different source file that
-we have exported together with the ``pyreq/version@user/channel`` recipe using the
+was exported together with the ``pyreq/version@user/channel`` recipe using the
 ``exports`` attribute.
 
 This works without any Conan magic, it is just plain Python and you can even return a
