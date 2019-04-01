@@ -6,7 +6,7 @@
 If you are creating a Conan package for a library (A) and the build system uses *.pc* files to locate
 its dependencies (B and C) that are Conan packages too, you can follow different approaches.
 
-The main issue to solve is the absolute paths. When a user installs a package in the local cache,
+The main issue to address is the absolute paths. When a user installs a package in the local cache,
 the directory will probably be different from the directory where the package was created. This could be
 because of the different computer, the change in Conan home directory or even a different user or channel:
 
@@ -22,7 +22,7 @@ In the machine where the library is being reused:
 
     /custom/dir/.data/storage/zlib/1.2.11/conan/testing
 
-You can see that *.pc* files containing absolute paths won't work to locate the dependencies.
+You can see that *.pc* files containing absolute paths won't work with locating the dependencies.
 
 Example of a *.pc* file with an absolute path:
 
@@ -76,8 +76,8 @@ locate them.
                # CALL YOUR BUILD SYSTEM (configure, make etc)
                # E.g., self.run('g++ main.cpp $(pkg-config libB --libs --cflags) -o main')
 
-Approach 2: Prepare and package *.pc* files before package them
----------------------------------------------------------------
+Approach 2: Prepare and package *.pc* files before packaging them
+-----------------------------------------------------------------
 
 With this approach you will patch the *.pc* files from B and C before packaging them.
 The goal is to replace the absolute path (the variable part of the path) with a variable placeholder.
@@ -85,7 +85,7 @@ Then in the consumer package A, declare the variable using ``--define-variable``
 :command:`pkg-config` command.
 
 This approach is cleaner than approach 1, because the packaged files are already prepared to be
-reused with or without Conan by declaring the needed variable. And it's not needed to import the *.pc*
+reused with or without Conan by declaring the needed variable. And it's unneeded to import the *.pc*
 files to the consumer package. However, you need B and C libraries to package the *.pc* files correctly.
 
 Library B recipe (preparing the *.pc* file):
@@ -131,7 +131,7 @@ Library A recipe (importing and consuming *.pc* file):
 Approach 3: Use :command:`--define-prefix`
 ------------------------------------------
 
-If you have available :command:`pkg-config` >= 0.29 and you have only one dependency, you can use directly
+If you have available :command:`pkg-config` >= 0.29 and you have only one dependency, you can directly use
 the :command:`--define-prefix` option to declare a custom ``prefix`` variable. With this approach you won't
 need to patch anything, just declare the correct variable.
 
@@ -164,7 +164,7 @@ Approach 5: Use the ``pkg_config`` generator
 --------------------------------------------
 
 If you use ``package_info()`` in library B and library C, and specify all the library names and any other needed flag,
-you can use the ``pkg_config`` generator for **library bA**. Those files doesn't need to be patched, because
+you can use the ``pkg_config`` generator for **library A**. Those files doesn't need to be patched, because they
 are dynamically generated with the correct path.
 
 So it can be a good solution in case you are building **library A** with a build system that manages *.pc* files like
