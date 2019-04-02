@@ -10,7 +10,7 @@ common practice is to use CMake `install <https://cmake.org/cmake/help/latest/co
 When using Conan, the install phase of CMake is wrapped in the ``package()`` method.
 
 The following excerpt shows how to build and package with CMake within Conan. Mind that you need to configure CMake both in ``build()`` and
-in ``package()`` since these methods are called independently.
+in ``package()``, since these methods are called independently.
 
 .. code-block:: python
 
