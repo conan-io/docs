@@ -225,6 +225,9 @@ Internet.
 This function accepts ``.tar.gz``, ``.tar``, ``.tzb2``, ``.tar.bz2``, ``.tgz``, ``.txz``, ``tar.xz``, and ``.zip`` files, and decompresses
 them into the given destination folder (the current one by default).
 
+It also accepts gzipped files, with extension ``.gz`` (not matching any of the above), and it will unzip them into a file with the same name
+but without the extension, or to a filename defined by the ``destination`` argument.
+
 .. code-block:: python
 
     from conans import tools
