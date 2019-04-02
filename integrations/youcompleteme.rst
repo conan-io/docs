@@ -3,10 +3,10 @@
 YouCompleteMe (vim)
 -------------------
 
-If you are a vim user, you are possibly already also a user of `YouCompleteMe <http://valloric.github.io/YouCompleteMe/>`_.
+If you are a vim user, you may also be a user of `YouCompleteMe <http://valloric.github.io/YouCompleteMe/>`_.
 
 With this generator, you can create the necessary files for your project dependencies, so YouCompleteMe
-will show symbols from your conan installed dependencies for your project.
+will show symbols from your Conan installed dependencies for your project.
 You only have to add the ``ycm`` generator to your ``conanfile``:
 
 .. code-block:: text
