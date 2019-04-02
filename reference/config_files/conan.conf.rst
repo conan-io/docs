@@ -61,7 +61,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # This is the default path, but you can write your own. It must be an absolute path or a
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
     # with "~/", will be relative to the conan user home, not to the system user home)
-    path = ~/.conan/data
+    path = ./data
 
     [proxies]
     # Empty section will try to use system proxies.
@@ -191,7 +191,11 @@ in requests. You can also adjust this value using the environment variable ``CON
 Storage
 +++++++
 
-The ``storage.path`` variable define the path where all the packages will be stored.
+The ``storage.path`` variable define the path where all the packages will be stored. By default it is *./data*, which
+is relative to the folder containing this *conan.conf* file, which by default is the *<userhome>/.conan* folder.
+It can start with "~", and that will be expanded to the current user home folder. If the environment var CONAN_USER_HOME is specified,
+the "~" will be replaced by the current Conan home (the folder pointed by the CONAN_USER_HOME environment variable).
+
 
 On Windows:
 
