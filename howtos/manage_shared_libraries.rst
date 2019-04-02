@@ -3,8 +3,8 @@
 How to manage shared libraries
 ==============================
 
-The shared libraries, `.DLL` in windows, `.dylib` in OSX and `.so` in Linux, are loaded at runtime,
-that means that the application executable needs to know where are the required shared libraries when
+Shared libraries, `.DLL` in windows, `.dylib` in OSX and `.so` in Linux, are loaded at runtime.
+That means that the application executable needs to know where are the required shared libraries when
 it runs.
 
 On Windows, the dynamic linker, will search in the same directory then in the `PATH` directories.
