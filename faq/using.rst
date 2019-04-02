@@ -125,25 +125,20 @@ followed by ``conan-community``, on index **1**. To update the index order, the 
 
     $ conan remote update conan-community https://api.bintray.com/conan/conan-community/conan --insert
     $ conan remote list
-    conan-center: https://conan.bintray.com [Verify SSL: True]
     conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
+    conan-center: https://conan.bintray.com [Verify SSL: True]
+
 
 The ``--insert`` argument means *index 0*, the highest priority, thus the ``conan-community`` remote will be updated as the first remote to be used.
+
 Also, it's possible to define a specific index when updating the remote list:
 
 .. code-block:: bash
 
+    $ conan remote add bincrafters https://api.bintray.com/conan/bincracters/public-conan --insert 1
     $ conan remote list
     conan-center: https://conan.bintray.com [Verify SSL: True]
     bincrafters: https://api.bintray.com/conan/bincrafters/public-conan [Verify SSL: True]
     conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
 
-    $ conan remote update conan-community https://api.bintray.com/conan/conan-community/conan --insert 1
-
-    $ conan remote list
-    conan-center: https://conan.bintray.com [Verify SSL: True]
-    conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
-    bincrafters: https://api.bintray.com/conan/bincrafters/public-conan [Verify SSL: True]
-
-The ``conan-community`` remote was listed as the latest index, but we want to set as the second on the list, so that, we need to set the remote
-index as **1**.
+The ``bincrafters`` remote needs to be added after ``conan-center``, so we need to set the remote index as **1**.
