@@ -9,12 +9,12 @@ able to do so. There are several options:
 
 - First, search in bintray. Generators can now be created and contributed by users as regular
   packages, so you can depend on them, use versioning, and evolve faster without depending on the
-  conan releases. See :ref:`generator packages <dyn_generators>`.
-- You can use the **text or json generator**. It will generate a text file, simple to read and to parse
+  Conan releases. See :ref:`generator packages <dyn_generators>`.
+- You can use the **text or json generator**. It will generate a text file which is simple to read and to parse
   that you can easily parse with your tools to extract the required information.
 - Use the **conanfile data model** and access its properties and values, so you can directly
-  call your build system with that information, without requiring to generate a file.
-- Write and **create your own generator**. So you can upload it, version and reuse it, as well
+  call your build system with that information, without requiring you to generate a file.
+- Write and **create your own generator**, so you can upload it, version and reuse it, as well
   as share it with your team or community. Check :ref:`generator packages <dyn_generators>` too.
   
   
@@ -136,10 +136,10 @@ method to know more about these objects:
    myvar=34
    
    
-Use conan data model (conanfile.py)
+Use Conan data model (conanfile.py)
 ---------------------------------------------
 
-If you are using any other build system you can use conan too.
+If you are using any other build system you can use Conan too.
 In the ``build()`` method you can access your settings and build information
 from your requirements and pass it to your build system. Note, however, that probably is simpler
 and much more reusable to create a generator to simplify the task for your build system.
@@ -234,11 +234,11 @@ Create your own generator
 
 There are two ways in which generators can be contributed:
 
-- Forking and adding the new generator in the conan codebase. This will be a built-in generator.
-  It might have a much slower release and update cycle, it needs to pass some tests before being accepted,
-  but it has the advantage than no extra things are needed to use that generator (once released in conan)
+- Forking and adding the new generator in the Conan codebase. This will be a built-in generator.
+  It might have a much slower release and update cycle. It needs to pass some tests before being accepted,
+  but it has the advantage than no extra things are needed to use that generator (once released in Conan)
 - Creating a custom :ref:`generator package <dyn_generators>`. You can write a ``conanfile.py`` and add
   the custom logic for a generator inside that file, then upload, refer and depend on it as any other package. These
   generators have to be discovered (search), but they have many advantages: much faster release cycles,
-  independent from the main conan codebase, can be versioned, so backward compatibility and
+  independent from the main Conan codebase, can be versioned, so backward compatibility and
   upgrades are much easier.
