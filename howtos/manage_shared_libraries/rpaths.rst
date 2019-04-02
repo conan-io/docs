@@ -19,7 +19,7 @@ So the **rpaths** values are:
 | shared_lib_2 |                       |
 +--------------+-----------------------+
 
-In **linux** if the linker doesn't find the library in **rpath**, it will continue the search in
+In **Linux** if the linker doesn't find the library in **rpath**, it will continue the search in
 **system defaults paths** (LD_LIBRARY_PATH... etc)
 In OSX, if the linker detects an invalid **rpath** (the file does not exist there), it will fail.
 
@@ -55,7 +55,7 @@ On **OSX** if absolute rpaths are hardcoded in an executable or
 shared library and they don't exist the executable will fail to run. This is the most common problem when
 we reuse packages in a different environment from where the artifacts have been generated.
 
-So, for **OSX**, conan, by default when you build your library with **CMake**, the rpaths will be
+So for **OSX**, Conan, by default, when you build your library with **CMake**, the rpaths will be
 generated without any path:
 
 +--------------------+--------------------+
@@ -81,8 +81,8 @@ You can skip this default behavior by passing the ``KEEP_RPATHS`` parameter to t
     target_link_libraries(timer ${CONAN_LIBS})
 
 
-If you are using ``autotools`` conan won't auto-adjust the rpaths behavior, if you want to follow this
-default behavior probably you will need to replace the ``install_name`` in the **configure** or **MakeFile**
+If you are using ``autotools`` Conan won't auto-adjust the rpaths behavior. if you want to follow this
+default behavior you will probably need to replace the ``install_name`` in the **configure** or **MakeFile**
 generated files in your recipe to not use $rpath:
 
 .. code-block:: python
@@ -131,7 +131,7 @@ You can use this imports statements in the consumer project:
     lib, *.dylib* -> ./lib # Copies all dylib files from packages lib folder to my "lib" folder
     lib, *.so* -> ./lib # Copies all so files from packages lib folder to my "lib" folder
 
-And your finally application can follow this layout:
+And your final application can follow this layout:
 
 
 .. code-block:: text
