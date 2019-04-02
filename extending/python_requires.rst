@@ -7,10 +7,10 @@ Python requires: reusing python code in recipes [EXPERIMENTAL]
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-The ``python_requires()`` feature allows to extend the recipes reusing Python code from other **conanfile.py** easily, even for inheritance
+The ``python_requires()`` feature allows extending the recipes reusing Python code from other **conanfile.py** easily, even for inheritance
 approaches. The code to be reused will be in a *conanfile.py* recipe, and will be managed as any other Conan package.
 
-Let's create for example some reusable base class:
+Let's create (for example) some reusable base class:
 
 .. code-block:: python
 
@@ -26,7 +26,7 @@ Let's create for example some reusable base class:
         def package_info(self):
             self.output.info("My cool package_info!")
 
-With this conanfile, we can export it to the local cache to make it available, and also upload to our remote:
+With this conanfile, we can export it to the local cache to make it available, and also upload it to our remote:
 
 .. code-block:: bash
 
@@ -35,7 +35,7 @@ With this conanfile, we can export it to the local cache to make it available, a
 
 It is not necessary to "create" any package binaries, or to ``upload --all``, because there are no binaries for this recipe.
 
-Now, using the ``python_requires()`` we can write a new package recipe like:
+Using the ``python_requires()``, we can write a new package recipe like:
 
 .. code-block:: python
 
@@ -46,7 +46,7 @@ Now, using the ``python_requires()`` we can write a new package recipe like:
     class PkgTest(base.MyBase):
         pass
 
-If we run a ``conan create``, of this recipe, we can see how it is effectively reusing the above code:
+If we run a ``conan create``, on this recipe, we can see how it is effectively reusing the above code:
 
 .. code-block:: bash
 
@@ -72,7 +72,7 @@ If we run a ``conan create``, of this recipe, we can see how it is effectively r
     Pkg/0.1@lasote/testing: My cool package_info!
 
 
-It is not compulsory to extend the reused ``MyBase`` class, it is possible to reuse just functions too:
+It is not mandatory to extend the reused ``MyBase`` class, it is possible to reuse just functions too:
 
 .. code-block:: python
 
@@ -142,19 +142,19 @@ This would be created with the same ``conan export`` and consumed with the same 
 
 There are a few important considerations regarding ``python_requires()``:
 
-- They are required at every step of the conan commands. If you are creating a package that ``python_requires("MyBase/...")``,
-  the ``MyBase`` package should be already available in the local cache or to be downloaded from the remotes. Otherwise, conan
+- They are required at every step of the Conan commands. If you are creating a package that ``python_requires("MyBase/...")``,
+  the ``MyBase`` package should already be available in the local cache or be downloaded from the remotes. Otherwise, Conan
   will raise a "missing package" error.
 - They do not affect the package binary ID (hash). Depending on different version, or different channel of
   such ``python_requires()`` do not change the package IDs as the normal dependencies do.
-- They are imported only once. The python code that is reused is imported only once, the first time it is required.
-  Subsequent requirements of that conan recipe will reuse the previously imported module. Global initialization at
+- They are imported only once. The Python code that is reused is imported only once, the first time it is required.
+  Subsequent requirements of that Conan recipe will reuse the previously imported module. Global initialization at
   parsing time and global state are discouraged.
-- They are transitive. One recipe using ``python_requires()`` can be also consumed with a ``python_requires()`` from
+- They are transitive. One recipe using ``python_requires()`` can also be consumed with a ``python_requires()`` from
   another package recipe.
 - They are not automatically updated with the ``--update`` argument from remotes.
 - Different packages can require different versions in their ``python_requires()``. They are private to each recipe,
-  so they do not conflict with each other, but it is the responsibility of the user to keep consistency.
+  so they do not conflict with each other. However, it is the responsibility of the user to maintain consistency.
 - They are not overridden from downstream consumers. Again, as they are private, they are not affected by other packages,
   even consumers
 

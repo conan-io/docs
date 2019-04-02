@@ -15,7 +15,7 @@ In short:
   as the *CMakeLists.txt* is compatible, it will produce the same final package.
 - You don't want to add a lot of different versions (like those of CMake) to be able to use them to build the package. You want to easily
   change the requirements, without needing to edit the zlib package recipe.
-- Some of them might not be even be taken into account when a package like zlib is created, such as cross-compiling it to Android (in which
+- Some of them might not even be taken into account when a package like zlib is created, such as cross-compiling it to Android (in which
   the Android toolchain would be a build requirement too).
 
 To address these needs Conan implements ``build_requires``.
@@ -52,7 +52,7 @@ special character ``&``:
 Remember that the consumer conanfile is the one inside the *test_package* folder or the one referenced in the :command:`conan install`
 command.
 
-Build requirements can be also specified in a package recipe, with the ``build_requires`` attribute and the ``build_requirements()`` method:
+Build requirements can also be specified in a package recipe, with the ``build_requires`` attribute and the ``build_requirements()`` method:
 
 .. code-block:: python
 
@@ -65,7 +65,7 @@ Build requirements can be also specified in a package recipe, with the ``build_r
             if platform.system() == "Windows":
                 self.build_requires("ToolWin/0.1@user/stable")
 
-The above ``ToolA`` and ``ToolB`` will be always retrieved and used for building this recipe, while the ``ToolWin`` one will only be used
+The above ``ToolA`` and ``ToolB`` will always be retrieved and used for building this recipe, while the ``ToolWin`` one will only be used
 only in Windows.
 
 If some build requirement defined inside ``build_requirements()`` has the same package name as the one defined in the ``build_requires``
@@ -80,9 +80,9 @@ Properties of build requirements
 The behavior of ``build_requires`` is the same irrespective if they are defined in the profile or if defined in the package recipe.
 
 - They will only be retrieved and installed if some package that has to be built from sources and matches the declared pattern. Otherwise,
-  they will not be even checked for existence.
+  they will not even be checked for existence.
 - Options and environment variables declared in the profile as well as in the command line will affect the build requirements for packages.
-  In that way, you can define for example for the ``cmake_installer/0.1`` package which CMake version will be installed.
+  In that way, you can define, for example, for the ``cmake_installer/0.1`` package which CMake version will be installed.
 - Build requirements will be activated for matching packages via the ``deps_cpp_info`` and ``deps_env_info`` members. So, include
   directories, library names, compile flags (CFLAGS, CXXFLAGS, LINKFLAGS), sysroot, etc. will be applied from the build requirement's
   package ``self.cpp_info`` values. The same for ``self.env_info``: variables such as ``PATH``, ``PYTHONPATH``, and any other environment
@@ -100,7 +100,7 @@ The behavior of ``build_requires`` is the same irrespective if they are defined 
 Testing libraries
 -----------------
 
-One example of build requirement could be a testing framework, which is implemented as a library. Let's call it ``mytest_framework``, an
+One example of a build requirement could be a testing framework, which is implemented as a library. Let's call it ``mytest_framework``, an
 existing Conan package.
 
 Build requirements can be checked for existence (whether they've been applied) in the recipes, which can be useful for conditional logic in
@@ -149,7 +149,7 @@ But if the following profile is defined:
     [build_requires]
     mytest_framework/0.1@user/channel
 
-Then the install command will retrieve the ``mytest_framework``, build and run the tests:
+then the install command will retrieve the ``mytest_framework``, build and run the tests:
 
 .. code-block:: bash
 
@@ -163,7 +163,7 @@ Common python code
     This way of reusing python code has been superseded by ``python_requires``.
     Please check :ref:`python_requires`
 
-The same technique can be even used to inject and reuse python code in the package recipes, without having to declare dependencies to such
+The same technique can even be used to inject and reuse python code in the package recipes, without having to declare dependencies to such
 python packages.
 
 If a Conan package is defined to wrap and reuse the *mypythontool.py* file:
