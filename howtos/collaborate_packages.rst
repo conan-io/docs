@@ -1,7 +1,7 @@
 .. _collaborate_packages:
 
-How to collaborate on other users' packages
-===========================================
+How to collaborate with other users' packages
+=============================================
 
 If a certain existing package does not work for you, or you need to store pre-compiled binaries for a platform not provided by the original
 package creator, you might still be able to do so:
@@ -10,7 +10,7 @@ Collaborate from source repository
 ----------------------------------
 
 If the original package creator has the package recipe in a repository, this would be the simplest approach. Just clone the package recipe
-in your machine, change something if you want, and then export the package recipe under your own user name. Point your project's
+on your machine, change something if you want, and then export the package recipe under your own user name. Point your project's
 ``[requires]`` to the new package name, and use it as usual:
 
 .. code-block:: bash
@@ -26,7 +26,7 @@ You can just directly run:
 
     $ conan create . demo/testing
 
-Once you have generated the desired binaries, you can store your pre-compiled binaries in your bintray repository or in your own Conan
+Once you have generated the desired binaries, you can store your pre-compiled binaries in your bintray repository or on your own Conan
 server:
 
 .. code-block:: bash
@@ -38,7 +38,7 @@ Finally, if you made useful changes, you might want to create a pull request to 
 Copy a package
 --------------
 
-If you don't need to modify the original package creator recipe, it is fine to just copy the package in your local storage. You can copy the
+If you don't need to modify the original package creator recipe, it is fine to just copy the package to your local storage. You can copy the
 recipes and existing binary packages. This could be enough for caching existing binary packages from the original remote into your own
 remote, under your own username:
 
