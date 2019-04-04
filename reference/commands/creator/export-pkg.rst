@@ -91,7 +91,7 @@ There are different scenarios where this command could look like useful:
    avoid this extra step.
 
  - You only have precompiled binaries available, then you can use the :command:`export-pkg`
-   to create the Conan package, or you can build a working recipe to donwload and
+   to create the Conan package, or you can build a working recipe to download and
    package them. These scenarios are described in the documentation section
    :ref:`How to package existing binaries <existing_binaries>`.
 
@@ -102,3 +102,62 @@ There are different scenarios where this command could look like useful:
     the configuration will be extracted from the information from a previous :command:`conan install`.
     That information might be incomplete in some edge cases, so we strongly recommend the usage of
     :command:`--profile` or :command:`--settings, --options`, etc.
+
+
+**Examples**
+
+- Create a package from a directory containing the binaries for Windows/x86/Release:
+
+  We need to collect all the files from the local filesystem and tell Conan to
+  compute the proper ``package_id`` so its get associated with the correct
+  settings and it works when consuming it.
+
+  If the files in the local workspace are:
+
+  .. code-block:: text
+
+      Release_x86/lib/libmycoollib.a
+      Release_x86/lib/other.a
+      Release_x86/include/mylib.h
+      Release_x86/include/other.h
+
+  then, just run:
+
+  .. code-block:: bash
+
+      $ conan new Hello/0.1 --bare  # It creates a minimum recipe example
+      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --package-folder=Release_x86
+
+  This last command will copy all the contents from the ``package-folder`` and
+  create the package associated with the settings provided through the command
+  line.
+
+- Create a package from a source and build folder:
+
+  The objective is to collect the files that will be part of the package from
+  the source folder (*include files*) and from the build folder (libraries), so,
+  if these are the files in the local workspace:
+
+  .. code-block:: text
+
+      sources/include/mylib.h
+      sources/src/file.cpp
+      build/lib/mylib.lib
+      build/lib/mylib.tmp
+      build/file.obj
+
+  we would need a slightly more complicated *conanfile.py* than in the previous
+  example to select which files to copy, we need to change the patterns in the
+  ``package()`` method:
+
+  .. code-block:: python
+
+      def package(self):
+         self.copy("*.h", dst="include", src="include")
+         self.copy("*.lib", dst="lib", keep_path=False)
+
+  Now, we can run Conan to create the package:
+
+  .. code-block:: bash
+
+      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build
