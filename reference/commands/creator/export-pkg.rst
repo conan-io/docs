@@ -69,9 +69,10 @@ account that it will generate a package and Conan won't be able to guarantee its
 reproducibility or regenerate it again. This is **not** the normal or recommended flow
 for creating Conan packages.
 
-Execution of this command will result in several files copied to the ``package_id``
-folder in the cache (Conan will build the graph, evaluate the requirements and
-options, and call any required method to compute the id), but there could be two
+Execution of this command will result in several files copied to the package
+folder in the cache identified by its ``package_id`` (Conan will perform all the
+required actions to compute this _id_: build the graph, evaluate the requirements and
+options, and call any required method), but there could be two
 different sources for the files:
 
  * If the argument ``--package-folder`` is provided, Conan will just copy all the
