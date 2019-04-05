@@ -43,6 +43,8 @@ There are two options for the version range:
                                                    # E.g. version "1.2.3.4" would not be accepted. 
    [~1.2.3, loose=False, include_prerelease=True]  # Both options can be used for the same version range.
 
+Note that prereleases are handled with lower precedence than their release counterpart. The expression ``[>=1.0.0, include_prerelease=True]`` will not match the package reference ``Pkg/1.0.0@user/stable``. 1.0.0 is a full release, which is always considered "newer" than any prerelease of 1.0.0. To match release version 1.0.0 the following expression would work: ``[>0.9.9, include_prerelease=True]``.
+
 Version range expressions are evaluated at the time of building the dependency graph, from
 downstream to upstream dependencies. No joint-compatibility of the full graph is computed. Instead,
 version ranges are evaluated when dependencies are first retrieved.
