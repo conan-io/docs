@@ -22,12 +22,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
-1.14.3 (11-Apr-2019)
--------------------
-
-- Bugfix: ``build-requires`` and ``private`` requirements that resolve to a dependency that is already in the graph won't span a new node, nor will be ``build-requires`` or ``private``. They can conflict too. `#4937 <https://github.com/conan-io/conan/pull/4937>`_
-
-
 1.14.2 (11-Apr-2019)
 -------------------
 
