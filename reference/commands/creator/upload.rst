@@ -9,6 +9,7 @@ conan upload
     $ conan upload [-h] [-p PACKAGE] [-q QUERY] [-r REMOTE] [--all]
                    [--skip-upload] [--force] [--check] [-c] [--retry RETRY]
                    [--retry-wait RETRY_WAIT] [-no [{all,recipe}]] [-j JSON]
+                   [--parallel]
                    pattern_or_reference
 
 Uploads a recipe and binary packages to a remote. If no remote is specified,
@@ -49,6 +50,8 @@ to list the remotes) will be used.
                             remote one
       -j JSON, --json JSON  json file path where the upload information will be
                             written to
+      --parallel            Uploads file in parallel, using as many threads as
+                            cpu's are available
 
 
 **Examples**:
