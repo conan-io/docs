@@ -63,7 +63,7 @@ and or '--profile'.
 
 
 The :command:`export-pkg` command let you create a package from already existing files
-in your workspace, it can be useful if you are using a build process external to Conan
+in your working folder, it can be useful if you are using a build process external to Conan
 and do not want to provide it with the recipe. Nevertheless, you should take into
 account that it will generate a package and Conan won't be able to guarantee its
 reproducibility or regenerate it again. This is **not** the normal or recommended flow
@@ -112,7 +112,7 @@ There are different scenarios where this command could look like useful:
   compute the proper ``package_id`` so its get associated with the correct
   settings and it works when consuming it.
 
-  If the files in the local workspace are:
+  If the files in the working folder are:
 
   .. code-block:: text
 
@@ -136,7 +136,7 @@ There are different scenarios where this command could look like useful:
 
   The objective is to collect the files that will be part of the package from
   the source folder (*include files*) and from the build folder (libraries), so,
-  if these are the files in the local workspace:
+  if these are the files in the working folder:
 
   .. code-block:: text
 
