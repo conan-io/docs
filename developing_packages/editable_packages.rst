@@ -248,6 +248,12 @@ time, without any Conan command.
 
     When a package is in editable mode, most of the commands will not work. It is not possible to :command:`conan upload`,
     :command:`conan export` or :command:`conan create` when a package is in editable mode.
+    
+.. note::
+
+   CMake-based consumer projects may not pick up on modifications made to header files in the editable package. In this 
+   case, a full rebuild is necessary to pick up on the changes in the package's source files. Using :ref:`workspaces`
+   may provide a better workflow in this specific case.
 
 Revert the editable mode
 ------------------------
