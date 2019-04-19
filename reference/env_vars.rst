@@ -554,3 +554,10 @@ CONAN_CACERT_PATH
 Specify an alternative path to a *cacert.pem* file to be used for requests. This variable
 overrides the value defined in the *conan.conf* as ``cacert_path = <path/to/cacert.pem>``
 under the section ``[general]``.
+
+CONAN_DEFAULT_PACKAGE_ID_MODE
+-----------------------------
+
+**Defaulted to**: semver_direct_mode
+
+It changes the way package IDs are computed, but can change to any value defined in :ref:`package_id_mode`.
