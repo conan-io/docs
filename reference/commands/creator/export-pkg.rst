@@ -12,13 +12,13 @@ conan export-pkg
                        [-j JSON]
                        path reference
 
-Exports a recipe, then creates a package from local-source-folder and build-
-folder (or use already packaged files if a package-folder is provided).
+Exports a recipe, then creates a package from local-source-folder and build-folder
+(or use already packaged files if a package-folder is provided).
 
-The package is created by calling the package() method applied to the local
-folders '--source-folder' and '--build-folder' It's created in the local cache
-for the specified 'reference' and for the specified '--settings', '--options'
-and or '--profile'.
+The package is created by calling the ``package()`` method applied to the local
+folders ``--source-folder`` and ``--build-folder``. It's created in the local cache
+for the specified reference and for the specified ``--settings``, ``--options``
+and ``--profile``.
 
 .. code-block:: text
 
