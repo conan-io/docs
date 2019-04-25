@@ -1548,8 +1548,8 @@ Parameters:
 
 .. _tools_version:
 
-tools.Version
--------------
+tools.Version()
+---------------
 
 .. code-block:: python
 
