@@ -1544,3 +1544,32 @@ if ``file.txt`` exists).
 
 Parameters:
     - **folder** (Required): root folder to start deleting ``._`` files.
+
+
+.. _tools.Version:
+
+tools.Version
+-------------
+
+.. code-block:: python
+
+    from conans import tools
+
+    v = tools.Version("1.2.3-dev23")
+    assert v < "1.2.3"
+
+This is a helper class to work with semantic versions, built on top of ``semver.SemVer`` class
+with loose parsing. It exposes all the version components as properties and offers total
+ordering through compare operators.
+
+Build the ``tools.Version`` object using any valid string or any object that converts to
+string, the constructor will raise if the string is not a valid loose semver.
+
+Properties:
+   - **major**: component ``major`` of semver version
+   - **minor**: component ``minor`` of semver version (defaults to ``"0"``)
+   - **patch**: component ``patch`` of semver version (defaults to ``"0"``)
+   - **prerelease**: component ``prerelease`` of semver version (defaults to ``""``)
+   - **build**: component ``build`` of semver version (defaults to ``""``). Take into account
+     that ``build`` component doesn't affect precedence between versions.
+
