@@ -1546,7 +1546,7 @@ Parameters:
     - **folder** (Required): root folder to start deleting ``._`` files.
 
 
-.. _tools.Version:
+.. _tools_version:
 
 tools.Version
 -------------
