@@ -19,6 +19,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
+    default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
     # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
