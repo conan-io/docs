@@ -43,3 +43,5 @@ Available generators:
    generators/json
    generators/premake
    generators/make
+   generators/deploy
+   generators/custom
