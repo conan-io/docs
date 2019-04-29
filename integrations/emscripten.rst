@@ -38,6 +38,12 @@ And the following conan profile is required for the `WASM <https://webassembly.o
 These profile above are using the `emsdk_installer/1.38.29@bincrafters/stable <https://github.com/bincrafters/conan-emsdk_installer>`_ conan package.
 It will automatically download the `Emscripten SDK <https://github.com/emscripten-core/emsdk>`_ and set up required environment variables (like ``CC``, ``CXX``, etc.).
 
+.. note::
+   In order to use ``emsdk_installer`` package, you need to add it to the remotes:
+   
+   .. code-block:: bash
+
+      $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan 
 
 .. note:: 
 
