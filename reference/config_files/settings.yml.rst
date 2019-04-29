@@ -76,6 +76,8 @@ are possible.
 
 As you can see, the possible values ``settings`` can take are restricted in the same file. This is done to ensure matching naming and
 spelling as well as defining a common settings model among users and the OSS community.
+If a setting is allowed to be set to any value, you can use ``ANY``.
+If a setting is allowed to be set to any value or it can also be unset, you can use ``[None, ANY]``.
 
 However, this configuration file can be you can modified to any needs, including new settings or subsettings and their values. If you want
 to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<conan_config_install>`.
