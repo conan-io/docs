@@ -5,7 +5,7 @@ How to create and share a custom generator with generator packages
 
 There are several built-in generators, like ``cmake``, ``visual_studio``, ``xcode``... But what if your build system is not included or the
 existing built-in ones doesn't satisfy your needs? This **how to** will show you how to create a generator for
-[premake](https://premake.github.io/) build system.
+Premake_ build system.
 
 .. important::
 
@@ -14,7 +14,7 @@ existing built-in ones doesn't satisfy your needs? This **how to** will show you
 Creating a Premake generator
 ----------------------------
 
-Create a folder with a new *conanfile.py* with the following contents::
+Create a folder with a new *conanfile.py* with the following contents:
 
 .. code-block:: bash
 
@@ -159,17 +159,24 @@ Now put the following files inside. Note the ``PremakeGen@0.1@memsharded/testing
             defines { "NDEBUG" }
             flags { "Optimize" }
 
-Let's install the requirements and build the project:
+Let's install the requirements:
 
 .. code-block:: bash
 
     $ conan install . -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
+
+This generates the *premake4.lua* file with the requirements information for building.
+
+Now we are ready to build the project:
+
+.. code-block:: bash
+
     $ premake4 gmake
     $ make (or mingw32-make if in windows-mingw)
     $ ./MyApplication
     Hello World!
    
-Now, everything works, so you might want to share your generator:
+Now everything works, so you might want to share your generator:
 
 .. code-block:: bash
 
@@ -209,3 +216,6 @@ templating formats:
         name = "custom"
         version = "0.1"
         exports = "mytemplate.txt"
+
+
+.. _`Premake`: https://premake.github.io/
