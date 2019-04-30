@@ -17,7 +17,7 @@ An MD5 Encrypter using the Poco Libraries
 
     .. code-block:: bash
 
-        $ git clone https://github.com/conan-community/poco-md5-example.git
+        $ git clone https://github.com/conan-io/examples.git && cd examples/libraries/poco/md5
 
 1. Let's create a folder for our project:
 
