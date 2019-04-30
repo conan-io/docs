@@ -10,7 +10,7 @@ able to do so. There are several options:
 - First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
   on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases. See :ref:`custom_generator`.
 
-- You can use the :ref:`text_generator` or :ref:``json_generator`` generators. They will generate a text file, simple to read that you can
+- You can use the :ref:`text_generator` or :ref:`json_generator` generators. They will generate a text file, simple to read that you can
   easily parse with your tools to extract the required information.
 
 - Use the **conanfile data model** (ref:`deps_cpp_info_attributes_reference`, :ref:`deps_env_info_attributes_reference`) and access its
