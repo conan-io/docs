@@ -326,7 +326,7 @@ Parameters:
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
-      http://docs.python-requests.org/en/master/user/authentication
+      https://2.python-requests.org/en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_get_env:
@@ -407,7 +407,7 @@ Parameters:
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
-      ``requests`` Python library. Check other uses here: http://docs.python-requests.org/en/master/user/authentication
+      ``requests`` Python library. Check other uses here: https://2.python-requests.org/en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_ftp_download:
