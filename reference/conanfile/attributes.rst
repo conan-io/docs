@@ -150,7 +150,7 @@ user, channel
 The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
 Though their usage is usually not encouraged, it could be useful in different cases,
 e.g. to define requirements with the same user and
-channel than the current package, which could be achieved with something like:
+channel as the current package, which could be achieved with something like:
 
 .. code-block:: python
 

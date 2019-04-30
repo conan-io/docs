@@ -14,7 +14,7 @@ code origins, like downloading a zip or tarball from the internet.
 .. note::
 
     For this concrete example you will need, besides a C++ compiler, both *CMake* and *git*
-    installed and in your path. They are not required by conan, so you could use your own build system
+    installed and in your path. They are not required by Conan, so you could use your own build system
     and version control instead.
 
 Creating the Package Recipe
@@ -221,7 +221,7 @@ If "Hello world!" is displayed, it worked.
 
 The :command:`conan create` command does the following:
 
-- Copies ("export" in conan terms) the *conanfile.py* from the user folder into the **local cache**.
+- Copies ("export" in Conan terms) the *conanfile.py* from the user folder into the **local cache**.
 - Installs the package, forcing it to be built from the sources.
 - Moves to the *test_package* folder and creates a temporary *build* folder.
 - Executes the :command:`conan install ..`, to install the requirements of the

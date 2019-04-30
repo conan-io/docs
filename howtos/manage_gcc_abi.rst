@@ -3,7 +3,7 @@
 How to manage the GCC >= 5 ABI
 ==============================
 
-In the GCC 5.1 released the libstdc++, which introduced a
+In version 5.1, GCC released libstdc++, which introduced a
 `new library ABI <https://gcc.gnu.org/onlinedocs/libstdc++/manual/using_dual_abi.html>`_ that includes new implementations of
 ``std::string`` and ``std::list``. These changes were necessary to conform to the 2011 C++ standard which forbids Copy-On-Write strings
 and requires lists to keep track of their size.
@@ -20,4 +20,4 @@ If you want Conan to use the new ABI, edit the default profile at ``~/.conan/pro
 or override this setting in the profile you are using.
 
 If you are using the :ref:`CMake build helper <cmake_reference>` or the :ref:`AutotoolsBuildEnvironment build helper <autotools_reference>`
-Conan will adjust automatically the ``_GLIBCXX_USE_CXX11_ABI`` flag to manage the ABI.
+Conan will automatically adjust the ``_GLIBCXX_USE_CXX11_ABI`` flag to manage the ABI.

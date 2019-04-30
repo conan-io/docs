@@ -71,9 +71,9 @@ Valid values for other compilers:
 Build helpers
 -------------
 
-When the ``cppstd`` setting is declared in the recipe and the consumer specify a value for it:
+When the ``cppstd`` setting is declared in the recipe and the consumer specifies a value for it:
 
- - The :ref:`CMake<cmake_reference>` build helper will set the ``CONAN_CMAKE_CXX_STANDARD`` and ``CONAN_CMAKE_CXX_EXTENSIONS`` definitions, that will be
+ - The :ref:`CMake<cmake_reference>` build helper will set the ``CONAN_CMAKE_CXX_STANDARD`` and ``CONAN_CMAKE_CXX_EXTENSIONS`` definitions that will be
    converted to the corresponding CMake variables to activate the standard automatically with the ``conan_basic_setup()`` macro.
 
  - The :ref:`AutotoolsBuildEnvironment <autotools_reference>` build helper will adjust the needed flag to ``CXXFLAGS`` automatically.
