@@ -89,7 +89,7 @@ This is a full working example. Note the ``PremakeDeps`` class as a helper. The 
 individual library separately, then also an aggregated information for all dependencies. This ``PremakeDeps`` wraps a single item of such
 information.
 
-Note the **name of the package** will be **PremakeGen/0.1@user/channel** as that is the name given to it, while the generator name is
+Note the **name of the package** will be **PremakeGen/0.1@<user>/<channel>** as that is the name given to it, while the generator name is
 **Premake** (the name of the class that inherits from ``Generator``). You can give the package any name you want, even the same as the
 generator's name if desired.
 
@@ -97,27 +97,37 @@ You ``export`` the package recipe to the local cache, so it can be used by other
 
 .. code-block:: bash
 
-   $ conan export . memsharded/testing
+   $ conan export . myuser/testing
 
 Using the generator
 -------------------
 
-Let's create a test project that uses this generator. We will use a simple "Hello World" program
-and also an existing library conan package, we will use the simple "Hello World" package we already created before:
+Let's create a test project that uses this generator. We will use a simple application that will use a "Hello World" library package as a
+requirement.
+
+First, let's create the "Hello World" library package:
 
 .. code-block:: bash
 
-   $ cd ..
-   $ mkdir premake-project && cd premake-project
+    $ mkdir conan-hello && cd conan-hello
+    $ conan new hello/0.1
+    $ conan create . myuser/testing
 
-Now put the following files inside. Note the ``PremakeGen@0.1@memsharded/testing`` package reference in your *conanfile.txt*.
+Now, let's create a folder for the application that will use Premake as build system:
+
+.. code-block:: bash
+
+    $ cd ..
+    $ mkdir premake-project && cd premake-project
+
+Put the following files inside. Note the ``PremakeGen@0.1@memsharded/testing`` package reference in your *conanfile.txt*.
 
 .. code-block:: text
    :caption: *conanfile.txt*
 
     [requires]
-    Hello/0.1@memsharded/testing
-    PremakeGen@0.1@memsharded/testing
+    hello/0.1@myuser/testing
+    PremakeGen@0.1@myuser/testing
     
     [generators]
     Premake
@@ -176,7 +186,7 @@ Now we are ready to build the project:
     $ make (or mingw32-make if in windows-mingw)
     $ ./MyApplication
     Hello World!
-   
+
 Now everything works, so you might want to share your generator:
 
 .. code-block:: bash
