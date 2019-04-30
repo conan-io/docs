@@ -120,7 +120,7 @@ Now, let's create a folder for the application that will use Premake as build sy
     $ cd ..
     $ mkdir premake-project && cd premake-project
 
-Put the following files inside. Note the ``PremakeGen@0.1@memsharded/testing`` package reference in your *conanfile.txt*.
+Put the following files inside. Note the ``PremakeGen@0.1@myuser/testing`` package reference in your *conanfile.txt*.
 
 .. code-block:: text
    :caption: *conanfile.txt*
@@ -191,7 +191,7 @@ Now everything works, so you might want to share your generator:
 
 .. code-block:: bash
 
-    $ conan upload PremakeGen/0.1@memsharded/testing
+    $ conan upload PremakeGen/0.1@myuser/testing
 
 .. tip::
 
