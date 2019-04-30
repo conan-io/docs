@@ -90,7 +90,8 @@ individual library separately, then also an aggregated information for all depen
 information.
 
 Note the **name of the package** will be **PremakeGen/0.1@user/channel** as that is the name given to it, while the generator name is
-**Premake**. You can give the package any name you want, even matching the generator name if desired.
+**Premake** (the name of the class that inherits from ``Generator``). You can give the package any name you want, even the same as the
+generator's name if desired.
 
 You ``export`` the package recipe to the local cache, so it can be used by other projects as usual:
 
