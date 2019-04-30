@@ -22,6 +22,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.14.5 (30-Apr-2019)
+--------------------
+
+- Bugfix: Uncompressing a `tgz` package with a broken symlink failed while touching the destination file. `#5065 <https://github.com/conan-io/conan/pull/5065>`_
+- Bugfix: The symlinks compressed in a `tgz` had invalid nonzero size. `#5064 <https://github.com/conan-io/conan/pull/5064>`_
+- Bugfix: Fixing exception of transitive build-requires mixed with normal requires `#5056 <https://github.com/conan-io/conan/pull/5056>`_
+
+
 1.14.4 (25-Apr-2019)
 --------------------
 
