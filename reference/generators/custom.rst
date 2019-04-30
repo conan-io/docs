@@ -10,7 +10,8 @@ Basically a generator is a class that extends ``Generator`` and implements two p
 - ``filename`` (Required): Should return the name of the file that will be generated
 - ``content`` (Required): Should return the contents of the file with the desired format.
 
-The **name of the generator** itself will be taken from the class name. For example:
+The **name of the generator** itself will be taken literally from the class name. In the example below, the name will be
+``MyGeneratorName``:
 
 .. code-block:: python
 

@@ -8,20 +8,20 @@ If you intend to use a build system that does not have a built-in generator, you
 able to do so. There are several options:
 
 - First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
-  on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases. If you can't find one that already fits your needs, you can write your own (:ref:`custom_generator`).
+  on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases.
 
 - You can use the :ref:`text_generator` or :ref:`json_generator` generators. They will generate a text file, simple to read that you can
   easily parse with your tools to extract the required information.
 
-- Use the **conanfile data model** (:ref:`deps_cpp_info_attributes_reference`, :ref:`deps_env_info_attributes_reference`) in your recipe to access its
-  properties and values, so you can directly call your build system with that information, without requiring to generate a file.
+- Use the **conanfile data model** (:ref:`deps_cpp_info_attributes_reference`, :ref:`deps_env_info_attributes_reference`) in your recipe to
+  access its properties and values, so you can directly call your build system with that information, without requiring to generate a file.
 
 - Write and **create your own generator**. So you can upload it, version and reuse it, as well as share it with your team or community.
   Check :ref:`dyn_generators`.
 
 .. note::
 
-    Need help integrating your build system? Tell us what you need. info@conan.io
+    Need help integrating your build system? Tell us what you need: info@conan.io
 
 .. _json_integration:
 
@@ -139,7 +139,8 @@ Use the Conan data model (in a *conanfile.py*)
 ----------------------------------------------
 
 If you are using any other build system you can use Conan too. In the ``build()`` method you can access your settings and build information
-from your requirements and pass it to your build system. Note, however, that probably is simpler and much more reusable to create a generator to simplify the task for your build system.
+from your requirements and pass it to your build system. Note, however, that probably is simpler and much more reusable to create a
+generator to simplify the task for your build system.
 
 .. code-block:: python
    :caption: *conanfile.py*
