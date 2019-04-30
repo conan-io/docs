@@ -17,16 +17,9 @@ An MD5 Encrypter using the Poco Libraries
 
     .. code-block:: bash
 
-        $ git clone https://github.com/conan-community/poco-md5-example.git
+        $ git clone https://github.com/conan-io/examples.git && cd examples/libraries/poco/md5
 
-1. Let's create a folder for our project:
-
-    .. code-block:: bash
-
-        $ mkdir poco-md5-example
-        $ cd poco-md5-example
-
-2. Create the following source file inside this folder. This will be the source file of our application:
+1. Create the following source file inside a folder. This will be the source file of our application:
 
     .. code-block:: cpp
        :caption: **md5.cpp**
@@ -47,7 +40,7 @@ An MD5 Encrypter using the Poco Libraries
             return 0;
         }
 
-3. We know that our application relies on the Poco libraries. Let's look for it in the Conan Center remote:
+2. We know that our application relies on the Poco libraries. Let's look for it in the Conan Center remote:
 
     .. code-block:: bash
 
@@ -63,7 +56,7 @@ An MD5 Encrypter using the Poco Libraries
         Poco/1.8.1@pocoproject/stable
         Poco/1.9.0@pocoproject/stable
 
-4. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
+3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
 
     .. code-block:: bash
 
@@ -90,7 +83,7 @@ An MD5 Encrypter using the Poco Libraries
             shared: False
 
 
-5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
+4. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
    our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
 
     .. code-block:: text
@@ -106,7 +99,7 @@ An MD5 Encrypter using the Poco Libraries
     *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build. Read more
     about :ref:`generators_reference`.
 
-6. Next step: We are going to install the required dependencies and generate the information for the build system:
+5. Next step: We are going to install the required dependencies and generate the information for the build system:
 
     .. important::
 
@@ -159,7 +152,7 @@ An MD5 Encrypter using the Poco Libraries
     Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. It has also generated a
     *conanbuildinfo.cmake* file for our build system.
 
-7. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
+6. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
 
     .. code-block:: cmake
        :caption: **CMakeLists.txt**
@@ -175,7 +168,7 @@ An MD5 Encrypter using the Poco Libraries
         add_executable(md5 md5.cpp)
         target_link_libraries(md5 ${CONAN_LIBS})
 
-8. Now we are ready to build and run our Encrypter app:
+7. Now we are ready to build and run our Encrypter app:
 
     .. code-block:: bash
 
