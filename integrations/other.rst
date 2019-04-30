@@ -8,7 +8,7 @@ If you intend to use a build system that does not have a built-in generator, you
 able to do so. There are several options:
 
 - First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
-  on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases. See :ref:`custom_generator`.
+  on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases. If you can't find one that already fits your needs, you can write your own (:ref:`custom_generator`).
 
 - You can use the :ref:`text_generator` or :ref:`json_generator` generators. They will generate a text file, simple to read that you can
   easily parse with your tools to extract the required information.
