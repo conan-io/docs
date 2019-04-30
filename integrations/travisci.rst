@@ -24,18 +24,13 @@ To enable **Travis CI** support, you need to create a *.travis.yml* file and pas
 
 .. code-block:: text
 
-    sudo: false
-    language: cpp
+    os: linux
+    language: python
+    python: "3.7"
+    dist: xenial
     compiler:
       - gcc
-    addons:
-      apt:
-        sources:
-          - ubuntu-toolchain-r-test
-        packages:
-          - g++-6
     install:
-      - "[ $CXX = g++ ] && export CXX=g++-6 || true"
     # Install conan
       - pip install conan
     # Automatic detection of your arch, compiler, etc.
@@ -44,10 +39,10 @@ To enable **Travis CI** support, you need to create a *.travis.yml* file and pas
     # Download dependencies and build project
       - conan install .
     # Call your build system
-      - cmake . -G "Unix makefiles"
+      - cmake . -G "Unix Makefiles"
       - cmake --build .
     # Run your tests
-      - ctest
+      - ctest .
 
 Travis will install the gcc compiler and the :command:`conan` client and will execute the :command:`conan install` command using the
 requirements and generators indicated in your *conanfile.py* or *conanfile.txt*. Then, the **script** section installs the requirements and
