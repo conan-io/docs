@@ -137,8 +137,9 @@ It's also possible to define a specific index when adding a remote to the list:
 
     $ conan remote add bincrafters https://api.bintray.com/conan/bincracters/public-conan --insert 1
     $ conan remote list
-    conan-center: https://conan.bintray.com [Verify SSL: True]
-    bincrafters: https://api.bintray.com/conan/bincrafters/public-conan [Verify SSL: True]
     conan-community: https://api.bintray.com/conan/conan-community/conan [Verify SSL: True]
+    bincrafters: https://api.bintray.com/conan/bincrafters/public-conan [Verify SSL: True]
+    conan-center: https://conan.bintray.com [Verify SSL: True]
 
-The ``bincrafters`` remote needs to be added after ``conan-center``, so we need to set the remote index as **1**.
+
+The ``bincrafters`` remote needs to be added after ``conan-community``, so we need to set the remote index as **1**.
