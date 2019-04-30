@@ -73,7 +73,7 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        url = "https://github.com/memsharded/hellopack.git"
+        url = "https://github.com/conan-io/hello.git"
 
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
 It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
@@ -1121,8 +1121,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/memsharded/hello.git",
-            "revision": "static_shared"
+            "url": "https://github.com/conan-io/hello.git",
+            "revision": "master"
          }
         ...
 

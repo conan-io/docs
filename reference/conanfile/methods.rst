@@ -23,13 +23,13 @@ control. But if the source code is available in a repository, you can directly g
         settings = "os", "compiler", "build_type", "arch"
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
+            self.run("git clone https://github.com/conan-io/hello.git")
             # You can also change branch, commit or whatever
-            # self.run("cd hello && git checkout 2fe5...")
+            # self.run("cd hello")
             #
             # Or using the Git class:
             # git = tools.Git(folder="hello")
-            # git.clone("https://github.com/memsharded/hello.git", "static_shared")
+            # git.clone("https://github.com/conan-io/hello.git")
 
 
 This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use

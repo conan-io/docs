@@ -4,17 +4,17 @@ Getting Started
 ===============
 
 To start learning about creating packages, we will create a package from the existing source code
-repository: https://github.com/memsharded/hello. You can check that project, it is a very simple
+repository: https://github.com/conan-io/hello. You can check that project, it is a very simple
 "hello world" C++ library, using CMake as the build system to build a library and an executable. It does not contain
 any association with Conan.
 
 We are using a similar GitHub repository as an example, but the same process also applies to other source
-code origins, like downloading a zip or tarball from the internet.
+code origins, like downloading a zip or tar ball from the internet.
 
 .. note::
 
     For this concrete example you will need, besides a C++ compiler, both *CMake* and *git*
-    installed and in your path. They are not required by conan, so you could use your own build system
+    installed and in your path. They are not required by Conan, so you could use your own build system
     and version control instead.
 
 Creating the Package Recipe
@@ -61,8 +61,8 @@ Let's have a look at the root package recipe *conanfile.py*:
         generators = "cmake"
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
-            self.run("cd hello && git checkout static_shared")
+            self.run("git clone https://github.com/conan-io/hello.git")
+            self.run("cd hello")
             # This small hack might be useful to guarantee proper /MT /MD linkage
             # in MSVC if the packaged project doesn't have variables to set it
             # properly
