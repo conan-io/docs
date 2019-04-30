@@ -785,6 +785,12 @@ With ``self.info.include_build_settings()``, Conan will generate different packa
 self.info.default_std_matching() / self.info.default_std_non_matching()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. warning::
+
+    These functions are deprecated together with the setting ``cppstd``. Read about the
+    new ``compiler.cppstd`` subsetting in :ref:`manage_cpp_standard` section.
+
+
 By default (``default_std_matching()``) Conan will detect the default C++ standard of your compiler to
 not generate different binary packages.
 
