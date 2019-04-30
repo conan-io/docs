@@ -131,7 +131,7 @@ followed by ``conan-community``, on index **1**. To update the index order, the 
 
 The ``--insert`` argument means *index 0*, the highest priority, thus the ``conan-community`` remote will be updated as the first remote to be used.
 
-Also, it's possible to define a specific index when updating the remote list:
+It's also possible to define a specific index when adding a remote to the list:
 
 .. code-block:: bash
 
