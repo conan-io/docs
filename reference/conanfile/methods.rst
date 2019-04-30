@@ -25,7 +25,7 @@ control. But if the source code is available in a repository, you can directly g
         def source(self):
             self.run("git clone https://github.com/conan-io/hello.git")
             # You can also change branch, commit or whatever
-            # self.run("cd hello")
+            # self.run("cd hello && git checkout 2fe5...")
             #
             # Or using the Git class:
             # git = tools.Git(folder="hello")
