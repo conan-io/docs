@@ -13,7 +13,7 @@ able to do so. There are several options:
 - You can use the :ref:`text_generator` or :ref:`json_generator` generators. They will generate a text file, simple to read that you can
   easily parse with your tools to extract the required information.
 
-- Use the **conanfile data model** (ref:`deps_cpp_info_attributes_reference`, :ref:`deps_env_info_attributes_reference`) and access its
+- Use the **conanfile data model** (:ref:`deps_cpp_info_attributes_reference`, :ref:`deps_env_info_attributes_reference`) in your recipe to access its
   properties and values, so you can directly call your build system with that information, without requiring to generate a file.
 
 - Write and **create your own generator**. So you can upload it, version and reuse it, as well as share it with your team or community.
