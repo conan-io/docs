@@ -68,6 +68,11 @@ There are two approaches for this situation:
           if self.settings.os == "Windows":
             raise ConanInvalidConfiguration("This library is not compatible with Windows")
 
+  .. tip::
+
+      Use the :ref:`invalid_configuration` exception to make Conan return with a special error code. This will indicate that the
+      configuration used for settings or options is not supported.
+
   This same method is also valid for ``options`` and ``config_options()`` method and it is commonly used to remove options for one setting:
 
   .. code-block:: python

@@ -439,7 +439,7 @@ it is an example of a recipe for a library that doesn't support Windows operatin
         if self.settings.os != "Windows":
             raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
 
-This exception will be propagated and Conan application will exit with the error code ``6``.
+This exception will be propagated and Conan application will finish with a :ref:`special return code <invalid_configuration_return_code>`.
 
 requirements()
 --------------
