@@ -192,7 +192,6 @@ in requests. You can also adjust this value using the environment variable ``CON
 
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
 
-
 Storage
 +++++++
 
