@@ -134,7 +134,7 @@ will point to the captured remote and commit:
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/conan-import/hello.git",
+            "url": "https://github.com/conan-io/hello.git",
             "revision": "437676e15da7090a1368255097f51b1a470905a0"
          }
         ...
