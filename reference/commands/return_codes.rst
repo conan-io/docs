@@ -45,6 +45,8 @@ Return code: ``5``
 
 Execution terminated due to ``SIGTERM`` signal.
 
+.. _invalid_configuration_return_code:
+
 Invalid configuration
 ---------------------
 
