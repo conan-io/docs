@@ -67,5 +67,5 @@ since Conan 1.0 as those are the right ones for
 :ref:`installer packages <create_installer_packages>`. However, it also keeps the old settings so as
 not to break the recipe for old version, using normal ``os`` and ``arch``.
 
-As said before, this is useful to maintain compatibility of recipes with older Conan versions but
+As said before, this is useful to maintain recipe compatibility with older Conan versions but
 remember that since Conan 1.0 there should not be :ref:`any breaking changes<stability>`.

@@ -3,7 +3,7 @@
 Manage Shared Libraries with Environment Variables
 ==================================================
 
-The shared libraries, are loaded at runtime. The application executable needs to know where to find the
+Shared libraries are loaded at runtime. The application executable needs to know where to find the
 required shared libraries when it runs.
 
 Depending on the operating system, we can use environment variables to help the dynamic linker to find the
@@ -29,7 +29,7 @@ activate it, you will get the paths needed to locate the shared libraries in you
 Example
 -------
 
-We are packaging a tool called ``toolA`` with a library and an executable that, for example, compress data.
+We are packaging a tool called ``toolA`` with a library and an executable that will, for example, compress data.
 
 The package offers two flavors, shared library or static library (embedded in the executable of the tool and
 available to link with).
@@ -67,7 +67,7 @@ you will need to have the shared library available.
 Using the tool from a different package
 ---------------------------------------
 
-If we are creating now a package that uses the ``ToolA`` executable to compress some data. You can
+If we are now creating a package that uses the ``ToolA`` executable to compress some data, we can
 execute directly ``toolA`` using RunEnvironment build helper to set the environment variables accordingly:
 
 .. code-block:: python
@@ -88,7 +88,7 @@ execute directly ``toolA`` using RunEnvironment build helper to set the environm
 Building an application using the shared library from ``toolA``
 ---------------------------------------------------------------
 
-As we are building a final application, probably we will want to distribute it together with the
+As we are building a final application, we will probably want to distribute it together with the
 shared library from the ``toolA``, so we can use the :ref:`Imports<imports_txt>` to import the required
 shared libraries to our user space.
 
@@ -132,7 +132,7 @@ In Linux you still need to set the ``LD_LIBRARY_PATH``, or in OSX, the ``DYLD_LI
 Using shared libraries from dependencies
 ----------------------------------------
 
-If you are executing something that depends on shared libraries belonging to your dependencies, such shared libraries have to be found at
+If you are executing something that depends on shared libraries belonging to your dependencies, those shared libraries have to be found at
 runtime. In Windows, it is enough if the package added its binary folder to the system ``PATH``. In Linux and OSX, it is necessary that the
 ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables are used.
 

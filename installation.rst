@@ -38,6 +38,9 @@ Install Conan:
     - Make sure that your **pip** installation matches your **Python (2.7 or 3.X)** version.
     - In **Linux**, you may need **sudo** permissions to install Conan globally.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python.
+      (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ in Windows)
+      If not using a **virtualenv** it is possible that conan dependencies will conflict with previously existing dependencies,
+      specially if you are using Python for other purposes.
     - In **Windows** and Python 2.7, you may need to use **32bit** python distribution (which is the Windows default), instead
       of 64 bit.
     - In **OSX**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or

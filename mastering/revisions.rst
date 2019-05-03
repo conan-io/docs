@@ -82,4 +82,4 @@ Server support
 
    - ``conan_server`` >= 1.13.
    - ``Artifactory`` >= 6.9.
-   - ``Bintray`` coming soon.
+   - ``Bintray``.

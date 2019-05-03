@@ -65,7 +65,7 @@ In the repository, there is already a ``conanfile.py`` recipe:
 
 
 This recipe is using the :ref:`MSBuild() build helper <msbuild>` to build the ``sln`` project.
-If our recipe had ``requires``, the ``MSBUILD`` helper will also take care of inject all the needed
+If our recipe has ``requires``, the ``MSBUILD`` helper will also take care of inject all the needed
 information from the requirements, as include directories, library names, definitions, flags etc
 to allow our project to locate the declared dependencies.
 
@@ -75,7 +75,7 @@ We have left the cmake one because it is the default generated with :command:`co
 created from Visual Studio projects can also be consumed with other build systems like CMake.
 
 Once we want to create a package, it is advised to close VS IDE, clean the temporary build files from VS to avoid problems,
-then create and test the package (here it is using system defaults, assuming they are Visual Studio 14, Release, x86_64):
+then create and test the package. Here it is using system defaults, assuming they are Visual Studio 14, Release, x86_64:
 
 .. code-block:: bash
 
@@ -85,7 +85,7 @@ then create and test the package (here it is using system defaults, assuming the
    ...
    > Hello World Release!
 
-Instead of closing the IDE and running command:`git clean` we could also configure a smarter filter in ``exports_sources`` field, so temporary
+Instead of closing the IDE and running the command:`git clean` we could also configure a smarter filter in ``exports_sources`` field, so temporary
 build files are not exported into the recipe.
 
 This process can be repeated to create and test packages for different configurations:
@@ -112,19 +112,19 @@ You can list the different created binary packages:
 Uploading binaries
 ------------------
 
-Your locally created packages can already be uploaded to a conan remote.
+Your locally created packages can already be uploaded to a Conan remote.
 If you created them with the original username "memsharded", as from the git clone, you might want to do a :command:`conan copy`
 to put them on your own username. Of course, you can also directly use your user name in :command:`conan create`.
 
 Another alternative is to configure the permissions in the remote, to allow uploading packages with
-different usernames. By default artifactory will do it but conan server won't:
+different usernames. By default artifactory will do it but Conan server won't:
 permissions must be given in ``[write_permissions]`` section of ``server.conf``.
 
 
 Reusing packages
 ----------------
 
-To use existing packages directly from Visual Studio, conan provides the ``visual_studio`` generator.
+To use existing packages directly from Visual Studio, Conan provides the ``visual_studio`` generator.
 Let's clone an existing "Chat" project, consisting of a ChatLib static library that makes use of the
 previous "Hello World" package, and a MyChat application, calling the ChatLib library function.
 
@@ -229,5 +229,5 @@ You could also define multiple ``conanbuildinfo.props`` files, one per configura
 .. note::
 
     So far, the ``visual_studio`` generator is single-configuration (packages containing debug or release artifacts,
-    the generally recommended approach), it does not support multi-config packages (packages containing both debug and release artifacts).
+    the generally recommended approach). It does not support multi-config packages (packages containing both debug and release artifacts).
     Please report and provide feedback (submit an issue in github) to request this feature if necessary.

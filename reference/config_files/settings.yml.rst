@@ -51,7 +51,8 @@ are possible.
                     "5", "5.1", "5.2", "5.3", "5.4", "5.5",
                     "6", "6.1", "6.2", "6.3", "6.4",
                     "7", "7.1", "7.2", "7.3",
-                    "8", "8.1", "8.2"]
+                    "8", "8.1", "8.2",
+                    "9"]
             libcxx: [libstdc++, libstdc++11]
             threads: [None, posix, win32] #  Windows MinGW
             exception: [None, dwarf2, sjlj, seh] # Windows MinGW
@@ -76,6 +77,8 @@ are possible.
 
 As you can see, the possible values ``settings`` can take are restricted in the same file. This is done to ensure matching naming and
 spelling as well as defining a common settings model among users and the OSS community.
+If a setting is allowed to be set to any value, you can use ``ANY``.
+If a setting is allowed to be set to any value or it can also be unset, you can use ``[None, ANY]``.
 
 However, this configuration file can be you can modified to any needs, including new settings or subsettings and their values. If you want
 to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<conan_config_install>`.
