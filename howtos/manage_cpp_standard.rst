@@ -23,7 +23,8 @@ The consumer can specify it in a :ref:`profile<profiles>` or with the ``-s`` par
 
 
 As it is a subsetting, it can have different values for each compiler (also, take into account
-that depending on the version of the compiler the standard could have only partial support).
+that depending on the version of the compiler the standard could have only partial support
+and may change the ABI).
 
 Valid values for ``compiler=Visual Studio``:
 

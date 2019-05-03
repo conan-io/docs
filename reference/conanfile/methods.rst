@@ -400,8 +400,8 @@ shared) do not make sense, so we just clear them. That means, if someone consume
 downloaded and used will be the same, irrespective of the OS, compiler or architecture the consumer is building with.
 
 You can also restrict the settings used deleting any specific one. For example, it is quite common
-for C libraries to delete the ``libcxx`` and ``cppstd`` as your library does not depend on any C++ standard
-library:
+for C libraries to delete the ``compiler.libcxx`` and ``compiler.cppstd`` as your library does not
+depend on any C++ standard library:
 
 .. code-block:: python
 
@@ -786,20 +786,14 @@ With ``self.info.include_build_settings()``, Conan will generate different packa
 self.info.default_std_matching() / self.info.default_std_non_matching()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. warning::
-
-    These functions are deprecated together with the setting ``cppstd``. Read about the
-    new ``compiler.cppstd`` subsetting in :ref:`manage_cpp_standard` section.
-
-
 By default (``default_std_matching()``) Conan will detect the default C++ standard of your compiler to
 not generate different binary packages.
 
-For example, you already built some ``gcc > 6.1`` packages, where the default std is ``gnu14``.
-If you introduce the ``cppstd`` setting in your recipes and specify the ``gnu14`` value, Conan won't generate
+For example, you already built some ``gcc 6.1`` packages, where the default std is ``gnu14``.
+If you specify a value for the setting ``compiler.cppstd`` equal to the default one, ``gnu14``, Conan won't generate
 new packages, because it was already the default of your compiler.
 
-With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``cppstd``
+With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``compiler.cppstd``
 even if it matches with the default of the compiler being used:
 
 .. code-block:: python
@@ -808,6 +802,8 @@ even if it matches with the default of the compiler being used:
         self.info.default_std_non_matching()
         # self.info.default_std_matching()
 
+
+Same behavior applies if you use the deprecated setting ``cppstd``.
 
 .. _method_build_id:
 
