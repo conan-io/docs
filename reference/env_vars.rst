@@ -561,3 +561,10 @@ CONAN_DEFAULT_PACKAGE_ID_MODE
 **Defaulted to**: semver_direct_mode
 
 It changes the way package IDs are computed, but can change to any value defined in :ref:`package_id_mode`.
+
+CONAN_SKIP_BROKEN_SYMLINKS_CHECK
+--------------------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.

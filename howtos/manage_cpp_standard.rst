@@ -69,9 +69,9 @@ Valid values for other compilers:
 Build helpers
 -------------
 
-The value of ``compiler.cppstd`` is used by the build helpers:
+The value of ``compiler.cppstd`` provided by the consumer is used by the build helpers:
 
- - The :ref:`CMake<cmake_reference>` build helper will set the ``CONAN_CMAKE_CXX_STANDARD`` and ``CONAN_CMAKE_CXX_EXTENSIONS`` definitions, that will be
+ - The :ref:`CMake<cmake_reference>` build helper will set the ``CONAN_CMAKE_CXX_STANDARD`` and ``CONAN_CMAKE_CXX_EXTENSIONS`` definitions that will be
    converted to the corresponding CMake variables to activate the standard automatically with the ``conan_basic_setup()`` macro.
 
  - The :ref:`AutotoolsBuildEnvironment <autotools_reference>` build helper will adjust the needed flag to ``CXXFLAGS`` automatically.

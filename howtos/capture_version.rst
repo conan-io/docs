@@ -2,7 +2,7 @@
 How to capture package version from SCM: git
 ============================================
 
-The ``Git()`` helper from tools, can be used to capture data from the Git repo in which
+The ``Git()`` helper from tools can be used to capture data from the Git repo in which
 the *conanfile.py* recipe resides, and use it to define the version of the Conan package.
 
 .. code-block:: python
@@ -26,13 +26,13 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
 In this example, the package created with :command:`conan create` will be called 
 ``Hello/branch_commit@user/channel``. Note that ``get_version()`` returns ``None``
 if it is not able to get the Git data. This is necessary when the recipe is already in the
-Conan cache, and the Git repository may not be there,. A value of ``None`` makes Conan
+Conan cache, and the Git repository may not be there. A value of ``None`` makes Conan
 get the version from the metadata.
 
 How to capture package version from SCM: svn
 ============================================
 
-The ``SVN()`` helper from tools, can be used to capture data from the subversion repo in which
+The ``SVN()`` helper from tools can be used to capture data from the subversion repo in which
 the *conanfile.py* recipe resides, and use it to define the version of the Conan package.
 
 .. code-block:: python

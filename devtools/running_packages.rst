@@ -193,7 +193,7 @@ package also contains a library, and the headers), we could do:
         keep_imports = True
 
         def imports(self):
-            self.copy("*.exe", dst="bin")
+            self.copy("greet*", src="bin", dst="bin")
 
         def package(self):
             self.copy("*")
