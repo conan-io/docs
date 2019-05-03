@@ -19,7 +19,7 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8
+      $ conan get zlib/1.2.11@conan/stable -p 2144f833c251030c3cfd61c4354ae0e38607a909
 
 - Print the *conanfile.py* from a remote package:
 
