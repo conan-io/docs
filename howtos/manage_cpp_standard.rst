@@ -12,8 +12,7 @@ How to manage C++ standard [EXPERIMENTAL]
 
 
 The setting representing the C++ standard is ``compiler.cppstd``.
-The detected default profile doesn't set any value for the ``compiler.cppstd`` setting, but
-Conan will use the default for each compiler if no value is provided.
+The detected default profile doesn't set any value for the ``compiler.cppstd`` setting,
 
 The consumer can specify it in a :ref:`profile<profiles>` or with the ``-s`` parameter:
 
@@ -82,10 +81,9 @@ The value of ``compiler.cppstd`` provided by the consumer is used by the build h
 Package compatibility
 ---------------------
 
-By default Conan will use the default standard for your compiler, so it won't generate different
-packages if you explicitly provide that same value. For example, you already built some
-``gcc 6.1`` packages, where the default C++ standard is ``gnu14``, if you introduce the
-``compiler.cppstd`` setting in your profile with the ``gnu14`` value, Conan won't generate
+By default Conan will detect the default standard of your compiler to not generate different binary packages.
+For example, you already built some ``gcc 6.1`` packages, where the default C++ standard is ``gnu14``.
+If you introduce the ``compiler.cppstd`` setting in your profile with the ``gnu14`` value, Conan won't generate
 new packages, because it was already the default of your compiler.
 
 .. note::
