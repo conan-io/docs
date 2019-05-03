@@ -44,4 +44,7 @@ Available generators:
    generators/premake
    generators/make
    generators/deploy
-   generators/custom
+
+.. important::
+
+    If none of these generators fit your needs, you can create your own :ref:`custom_generator`.

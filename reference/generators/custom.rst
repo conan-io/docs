@@ -1,7 +1,9 @@
+:orphan:
+
 .. _custom_generator:
 
-Create a custom generator
-=========================
+Custom generator
+================
 
 Don't see a generator that suit your needs? You can create a custom generator package and use it in your recipes!
 
