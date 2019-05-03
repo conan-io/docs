@@ -149,3 +149,33 @@ When installing a Conan package and the follow error occurs:
 Probably your Conan version is outdated.
 The error is related to `default_options` be used as dictionary and only can be handled by Conan >= 1.8.
 To fix this error, update Conan to 1.8 or higher.
+
+
+ERROR: Error while starting Conan Server with multiple workers
+--------------------------------------------------------------
+
+When running ``gunicorn`` to start ``conan_server`` in an empty environment:
+
+.. code-block:: bash
+
+    $ gunicorn -b 0.0.0.0:9300 -w 4 -t 300 conans.server.server_launcher:app
+
+        **********************************************
+        *                                            *
+        *      ERROR: STORAGE MIGRATION NEEDED!      *
+        *                                            *
+        **********************************************
+        A migration of your storage is needed, please backup first the storage directory and run:
+
+        $ conan_server --migrate
+
+Conan Server will try to create `~/.conan_server/data`, `~/.conan_server/server.conf` and `~/.conan_server/version.txt` at first time.
+However, as multiple workers are running at same time, it could result in a conflict.
+To fix this error, you should run:
+
+.. code-block:: bash
+
+    $ conan_server --migrate
+
+This command must be executed before to start the workers. It will not migrate anything, but it will populate the conan_server folder.
+The original discussion about this error is `here <https://github.com/conan-io/conan/issues/4723>`_.
