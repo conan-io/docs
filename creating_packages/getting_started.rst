@@ -9,7 +9,7 @@ repository: https://github.com/conan-io/hello. You can check that project, it is
 any association with Conan.
 
 We are using a similar GitHub repository as an example, but the same process also applies to other source
-code origins, like downloading a zip or tar ball from the internet.
+code origins, like downloading a zip or tarball from the internet.
 
 .. note::
 
