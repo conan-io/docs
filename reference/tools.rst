@@ -541,7 +541,7 @@ For example:
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.check_sha1("myfile.zip", "eb599ec83d383f0f25691c184f656d40384f9435")
 
 Other algorithms are also possible, as long as are recognized by python ``hashlib`` implementation, via ``hashlib.new(algorithm_name)``.
@@ -576,7 +576,7 @@ the ``source()`` method.
     tools.patch(patch_string=patch_content)
     # to apply in subfolder
     tools.patch(base_path=mysubfolder, patch_string=patch_content)
-    
+
 If the patch to be applied uses alternate paths that have to be stripped like this example:
 
 .. code-block:: diff
@@ -621,7 +621,7 @@ This is a context manager that allows to temporary use environment variables for
         with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx", "CPPFLAGS": None}):
             do_something()
 
-The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. 
+The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list.
 Additionally, if value is ``None``, the given environment variable is unset (In the previous example, ``CPPFLAGS`` environment
 variable will be unset), and in case variable wasn't set prior to the invocation, it has no effect on the given variable (``CPPFLAGS``).
 When the context manager block ends, the environment variables will recover their previous state.
@@ -675,7 +675,7 @@ For example:
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         with tools.pythonpath(self):
             from module_name import whatever
@@ -1234,7 +1234,7 @@ tools.collect_libs()
 
     def collect_libs(conanfile, folder=None)
 
-Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
+Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the
 ``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
 inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
@@ -1362,6 +1362,7 @@ Methods:
     - **is_local_repository()**: Returns `True` if the remote is a local folder.
     - **is_pristine()**: Returns `True` if there aren't modified or uncommitted files in the working copy.
     - **get_repo_root()**: Returns the root folder of the working copy.
+    - **get_commit_message()**: Returns the latest log message
 
 .. _tools_svn:
 
@@ -1410,6 +1411,7 @@ Methods:
     - **is_local_repository()**: Returns `True` if the remote is a local folder.
     - **is_pristine()**: Returns `True` if there aren't modified or uncommitted files in the working copy.
     - **get_repo_root()**: Returns the root folder of the working copy.
+    - **get_revision_message()**: Returns the latest log message
 
 
 .. warning::
