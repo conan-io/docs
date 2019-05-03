@@ -567,4 +567,4 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, Conan will ignore the broken symlinks while generating a package.
+When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
