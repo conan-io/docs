@@ -19,7 +19,6 @@ There are two different ways to fetch the sources from an external repository:
 
         def source(self):
             self.run("git clone https://github.com/conan-io/hello.git")
-            self.run("cd hello")
             ...
 
 You can also use the :ref:`tools.Git <tools_git>` class:
