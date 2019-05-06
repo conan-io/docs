@@ -3,97 +3,29 @@
 How to create and share a custom generator with generator packages
 ==================================================================
 
-There are several built-in generators, like ``cmake``, ``visual_studio``, ``xcode``...
-But what if your build system is not included? Or maybe the existing built-in generators
-doesn't satisfy your needs? There are several options:
+There are several built-in generators, like ``cmake``, ``visual_studio``, ``xcode``... But what if your build system is not included or the
+existing built-in ones doesn't satisfy your needs? This **how to** will show you how to create a generator for
+Premake_ build system.
 
-- Use the ``txt`` generator, that generates a plain text file easy to parse, which you might
-  be able to use.
-- Use ``conanfile.py`` data, and for example in the ``build()`` method, access that information
-  directly and generate a file or call directly your system
-- Fork the Conan codebase and write a built-in generator. Please make a pull request if possible to
-  contribute it to the community.
-- Write a custom generator in a ``conanfile.py`` and manage it as a package. You can upload it
-  to your own server and share with your team, or share with the world uploading it to bintray.
-  You can manage it as a package, you can version it, overwrite it, delete it, create channels (testing/stable...),
-  and the most important: bring it to your projects as a regular dependency.
+.. important::
 
-This **how to** will show you how to do the latest one. We will build a generator for **premake** (https://premake.github.io/)
-build system:
+    Check the reference of the :ref:`custom_generator` section to know the syntax and attributes available.
 
-Creating a custom generator
----------------------------
+Creating a Premake generator
+----------------------------
 
-Basically a generator is a class that extends ``Generator`` and implements two properties: ``filename``,
-which will be the name of the file that will be generated, and ``content`` with the contents of
-that file. The **name of the generator** itself will be taken from the class name:
-
-.. code-block:: python
-
-    class MyGeneratorName(Generator):
-        @property
-        def filename(self):
-            return "mygenerator.file"
-    
-        @property
-        def content(self):     
-            return "whatever contents the generator produces"
-            
-This class is included in a ``conanfile.py`` that must contain also a ``ConanFile`` class
-that implements the package itself, with the name of the package, the version, etc. This
-class typically has no ``source()``, ``build()``, ``package()``, and even the ``package_info()`` method is
-overridden as it doesn't have to define any include paths or library paths.
-
-If you want to create a generator that creates more than one file, you can leave the ``filename()`` empty, and return a dictionary of
-filenames->contents in the ``content()`` method:
-
-.. code-block:: python
-
-    class MultiGenerator(Generator):
-
-        @property
-        def content(self):
-            return {"filename1.txt": "contents of file1",
-                    "filename2.txt": "contents of file2"}  # any number of files
-
-        @property
-        def filename(self):
-            pass
-
-Once, it is defined in the ``conanfile.py`` you can treat it as a regular package, typically you
-will ``export`` it first to your local cache, test it, and once it is working fine, you would
-``upload`` it to a server.
-
-
-You have access to the ``conanfile`` instance at ``self.conanfile`` and get information from the requirements:
-
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| Variable                                | Description                                                                                    |
-+=========================================+================================================================================================+
-| self.conanfile.deps_cpp_info            | :ref:`deps_cpp_info<deps_cpp_info_attributes_reference>`                                       |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| self.conanfile.deps_env_info            | :ref:`deps_env_info<deps_env_info_attributes_reference>`                                       |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| self.conanfile.deps_user_info           | :ref:`deps_user_info<deps_user_info_attributes_reference>`                                     |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-| self.conanfile.env                      | dict with the applied env vars declared in the requirements                                    |
-+-----------------------------------------+------------------------------------------------------------------------------------------------+
-
-Premake generator example
--------------------------
-
-Create a project (the best is a git repository):
+Create a folder with a new *conanfile.py* with the following contents:
 
 .. code-block:: bash
 
    $ mkdir conan-premake && cd conan-premake
-   
-Then, write in it the following **conanfile.py**:
 
 .. code-block:: python
+   :caption: *conanfile.py*
 
     from conans.model import Generator
     from conans import ConanFile
+
 
     class PremakeDeps(object):
         def __init__(self, deps_cpp_info):
@@ -112,7 +44,9 @@ Then, write in it the following **conanfile.py**:
 
             self.rootpath = "%s" % deps_cpp_info.rootpath.replace("\\", "/")
 
+
     class Premake(Generator):
+
         @property
         def filename(self):
             return "conanpremake.lua"
@@ -151,120 +85,125 @@ Then, write in it the following **conanfile.py**:
         url = "https://github.com/memsharded/conan-premake"
         license = "MIT"
 
-        def build(self):
-            pass
+This is a full working example. Note the ``PremakeDeps`` class as a helper. The generator is creating Premake information for each
+individual library separately, then also an aggregated information for all dependencies. This ``PremakeDeps`` wraps a single item of such
+information.
 
-        def package_info(self):
-            self.cpp_info.includedirs = []
-            self.cpp_info.libdirs = []
-            self.cpp_info.bindirs = []
-
-This is a full working example. Note the ``PremakeDeps`` class as a helper. The generator is
-creating premake information for each individual library separately, then also an aggregated
-information for all dependencies. This ``PremakeDeps`` wraps a single item of such information.
-
-Note the **name of the package** will be **PremakeGen/0.1@user/channel** as that is the name given
-to it, while the generator name is **Premake**. You can give the package any name you want, even
-matching the generator name if desired.
+Note the **name of the package** will be **PremakeGen/0.1@<user>/<channel>** as that is the name given to it, while the generator name is
+**Premake** (the name of the class that inherits from ``Generator``). You can give the package any name you want, even the same as the
+generator's name if desired.
 
 You ``export`` the package recipe to the local cache, so it can be used by other projects as usual:
 
 .. code-block:: bash
 
-   $ conan export . memsharded/testing
+   $ conan export . myuser/testing
 
 Using the generator
 -------------------
 
-Let's create a test project that uses this generator, and also an existing library Conan package.
-We will use the simple "Hello World" package we already created before:
+Let's create a test project that uses this generator. We will use a simple application that will use a "Hello World" library package as a
+requirement.
+
+First, let's create the "Hello World" library package:
 
 .. code-block:: bash
 
-   $ cd ..
-   $ mkdir premake-project && cd premake-project
-   
+    $ mkdir conan-hello && cd conan-hello
+    $ conan new hello/0.1
+    $ conan create . myuser/testing
 
-Now put the following files inside. Note the ``PremakeGen@0.1@memsharded/testing`` package
-reference in conanfile.txt.
+Now, let's create a folder for the application that will use Premake as build system:
 
-**conanfile.txt**
+.. code-block:: bash
+
+    $ cd ..
+    $ mkdir premake-project && cd premake-project
+
+Put the following files inside. Note the ``PremakeGen@0.1@myuser/testing`` package reference in your *conanfile.txt*.
 
 .. code-block:: text
+   :caption: *conanfile.txt*
 
     [requires]
-    Hello/0.1@memsharded/testing
-    PremakeGen@0.1@memsharded/testing
+    hello/0.1@myuser/testing
+    PremakeGen@0.1@myuser/testing
     
     [generators]
     Premake
 
-**main.cpp**
-
 .. code-block:: cpp
+   :caption: *main.cpp*
 
     #include "hello.h"
     
-    int main (void){
+    int main (void) {
         hello();
     }
-    
-**premake4.lua**
 
 .. code-block:: lua
+   :caption: *premake4.lua*
 
-    #!lua
-    
+    -- premake4.lua
+
     require 'conanpremake'
-    
-    -- A solution contains projects, and defines the available configurations
-    solution "MyApplication"
-       configurations { "Debug", "Release" }
-       includedirs { conan_includedirs }
-       libdirs { conan_libdirs }
-       links { conan_libs }
-       -- A project defines one build target
-       project "MyApplication"
-          kind "ConsoleApp"
-          language "C++"
-          files { "**.h", "**.cpp" }
-     
-          configuration "Debug"
-             defines { "DEBUG" }
-             flags { "Symbols" }
-    
-          configuration "Release"
-             defines { "NDEBUG" }
-             flags { "Optimize" }
 
+    -- A solution contains projects, and defines the available configurations solution "MyApplication"
 
-Let's install the requirements and build the project:
+    configurations { "Debug", "Release" }
+    includedirs { conan_includedirs }
+    libdirs { conan_libdirs }
+    links { conan_libs }
 
-.. code-block:: bash
+    -- A project defines one build target
 
-   $ conan install . -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
-   $ premake4 gmake
-   $ make (or mingw32-make if in windows-mingw)
-   $ ./MyApplication
-   Hello World!
-   
-Now, everything works, so you might want to share your generator:
+    project "MyApplication"
+        kind "ConsoleApp"
+        language "C++"
+        files { "**.h", "**.cpp" }
+
+        configuration "Debug"
+            defines { "DEBUG" }
+            flags { "Symbols" }
+
+        configuration "Release"
+            defines { "NDEBUG" }
+            flags { "Optimize" }
+
+Let's install the requirements:
 
 .. code-block:: bash
 
-    $ conan upload PremakeGen/0.1@memsharded/testing
+    $ conan install . -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++ --build
 
-.. note::
+This generates the *premake4.lua* file with the requirements information for building.
 
-    This is a regular Conan package. You could for example embed this example in a *test_package* folder, create a *conanfile.py* that
-    invokes premake4 in the build() method, and use :command:`conan test` to automatically test your custom generator with a real project.
+Now we are ready to build the project:
+
+.. code-block:: bash
+
+    $ premake4 gmake
+    $ make (or mingw32-make if in windows-mingw)
+    $ ./MyApplication
+    Hello World!
+
+Now everything works, so you might want to share your generator:
+
+.. code-block:: bash
+
+    $ conan upload PremakeGen/0.1@myuser/testing
+
+.. tip::
+
+    This is a regular Conan package, so you could create a *test_package* folder with a *conanfile.py* to test the generator as done in
+    the example above (invoke the Premake build in the ``build()`` method).
 
 Using template files for custom generators
 ------------------------------------------
 
-If your generator has a lot of common, non-parameterized text, you might want to use files that contain the template.
-It is possible to do this as long as the template file is exported in the recipe. The following example uses a simple text file,
-but you could use other templating formats:
+If your generator has a lot of common, non-parameterized text, you might want to use files that contain the template. It is possible to do
+this as long as the template file is exported in the recipe. The following example uses a simple text file, but you could use other
+templating formats:
 
 .. code-block:: python
 
@@ -272,10 +211,13 @@ but you could use other templating formats:
     from conans import ConanFile, load
     from conans.model import Generator
 
+
     class MyCustomGenerator(Generator):
+
         @property
         def filename(self):
             return "customfile.gen"
+
         @property
         def content(self):
             template = load(os.path.join(os.path.dirname(__file__), "mytemplate.txt"))
@@ -285,3 +227,6 @@ but you could use other templating formats:
         name = "custom"
         version = "0.1"
         exports = "mytemplate.txt"
+
+
+.. _`Premake`: https://premake.github.io/
