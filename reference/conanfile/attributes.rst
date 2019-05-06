@@ -10,7 +10,7 @@ Attributes
 name
 ----
 This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
-It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
+It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]{1,50}$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
 The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
 It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
@@ -73,7 +73,7 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        url = "https://github.com/memsharded/hellopack.git"
+        url = "https://github.com/conan-io/hello.git"
 
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
 It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
@@ -150,7 +150,7 @@ user, channel
 The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
 Though their usage is usually not encouraged, it could be useful in different cases,
 e.g. to define requirements with the same user and
-channel than the current package, which could be achieved with something like:
+channel as the current package, which could be achieved with something like:
 
 .. code-block:: python
 
@@ -1120,8 +1120,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/memsharded/hello.git",
-            "revision": "static_shared"
+            "url": "https://github.com/conan-io/hello.git",
+            "revision": "master"
          }
         ...
 

@@ -61,5 +61,8 @@ The targets are also transitive. So, if your project depends on a packages ``A``
 ``A`` depends on ``C``, the ``A`` target will contain automatically the properties of the ``C`` dependency, so
 in your `CMakeLists.txt` file you only need to ``find_package(A)`` and ``find_package(B)``.
 
-The `{name}Config.cmake` file will be found by the cmake ``find_package(XXX)`` function if the directory where the file is generated
-is listed in the `CMAKE_PREFIX_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_PREFIX_PATH.html>`_.
+You also need to adjust `CMAKE_PREFIX_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_PREFIX_PATH.html>`_ and
+`CMAKE_MODULE_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html>`_ so CMake can locate all
+the ``{name}Config.cmake`` files: The ``CMAKE_PREFIX_PATH`` is used by the ``find_package`` and the ``CMAKE_MODULE_PATH`` is used by the
+``find_dependency`` calls that locates the transitive dependencies.
+

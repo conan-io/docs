@@ -3,11 +3,11 @@
 Using Visual Studio 2017 - CMake integration
 =============================================
 
-Visual Studio 2017 comes with a CMake integration that allows to just open a folder that contains a *CMakeLists.txt*
+Visual Studio 2017 comes with a CMake integration that allows one to just open a folder that contains a *CMakeLists.txt*
 and Visual will use it to define the project build.
 
-Conan can also be used in this setup to install dependencies. Let`s say that we are going to build an application, that depends
-on an existing Conan package called ``Hello/0.1@user/testing``. For the purpose of this example, you can quickly create this package typing
+Conan can also be used in this setup to install dependencies. Let`s say that we are going to build an application that depends
+on an existing Conan package called ``Hello/0.1@user/testing``. For the purpose of this example, you can quickly create this package by typing
 in your terminal:
 
 .. code-block:: bash
@@ -16,7 +16,7 @@ in your terminal:
     $ conan create . user/testing # Default conan profile is Release
     $ conan create . user/testing -s build_type=Debug
 
-The project we want to develop will be a simple application, with these 3 files in the same folder:
+The project we want to develop will be a simple application with these 3 files in the same folder:
 
 .. code-block:: cpp
    :caption: **example.cpp**
@@ -50,7 +50,7 @@ The project we want to develop will be a simple application, with these 3 files 
     add_executable(example example.cpp)
     target_link_libraries(example ${CONAN_LIBS})
 
-If we open Visual Studio 2017 (with CMake support installed), and in the Menu, select "Open Folder" and select the above folder,
+If we open Visual Studio 2017 (with CMake support installed), and select "Open Folder" from the menu, and select the above folder,
 we will see something like the following error:
 
 .. code-block:: bash
@@ -70,8 +70,8 @@ we will see something like the following error:
     1> 
     1>     C:/Users/user/CMakeBuilds/df6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab/build/x64-Debug/conanbuildinfo.cmake
 
-As expected, our *CMakeLists.txt* is using a ``include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)``, and that file doesn't exist yet,
-because Conan has not installed the dependencies of this project yet. Visual Studio 2017 uses different build folders for each 
+As expected, our *CMakeLists.txt* is using an ``include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)``, and that file doesn't exist yet,
+because Conan has not yet installed the dependencies of this project. Visual Studio 2017 uses different build folders for each 
 configuration. In this case, the default configuration at startup is ``x64-Debug``. This means that we need to install the
 dependencies that match this configuration. Assuming that our default profile is using Visual Studio 2017 for x64 (it should typically be
 the default one created by Conan if VS2017 is present), then all we need to specify is the ``-s build_type=Debug`` setting:
@@ -97,7 +97,7 @@ Using cmake-conan
 -----------------
 
 The **cmake-conan** project in https://github.com/conan-io/cmake-conan is a CMake script that runs an ``execute_process`` that automatically
-launches :command:`conan install` to install dependencies. The settings passed in the command line will be deduced from the current CMake
+launches :command:`conan install` to install dependencies. The settings passed in the command line will be derived from the current CMake
 configuration, that will match the Visual Studio one. This script can be used to further automate the installation task:
 
 .. code-block:: cmake
@@ -123,7 +123,7 @@ configuration, that will match the Visual Studio one. This script can be used to
 This code will manage to download the **cmake-conan** CMake script, and use it automatically, calling a ``conan install`` automatically.
 
 There could be an issue, though, for the ``Release`` configuration. Internally, the Visual Studio 2017 defines the ``configurationType`` As
-``RelWithDebInfo`` for ``Release`` builds. But conan default settings (in the conan *settings.yml* file), only have ``Debug`` and ``Release``
+``RelWithDebInfo`` for ``Release`` builds. But Conan default settings (in the Conan *settings.yml* file), only have ``Debug`` and ``Release``
 defined. It is possible to modify the *settings.yml* file, and add those extra build types. Then you should create the ``Hello`` package 
 for those settings. And most existing packages, specially in central repositories, are built only for Debug and Release modes.
 

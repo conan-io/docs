@@ -107,7 +107,7 @@ let's have a look at the most common use cases.
 Import a python requires
 ------------------------
 
-To import a recipe as a *Python requires* it is needed to call the `python_requires()``
+To import a recipe as a *Python requires* it is needed to call the ``python_requires()``
 function with the reference as the only parameter:
 
 .. code-block:: python

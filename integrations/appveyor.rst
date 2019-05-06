@@ -6,14 +6,14 @@
 
 
 
-You can use `AppVeyor`_ cloud service to automatically build and test your project in a Windows environment in the cloud.
+You can use the `AppVeyor`_ cloud service to automatically build and test your project in a Windows environment in the cloud.
 It is free for OSS projects, and offers an easy integration with Github, so builds can be automatically
 fired in Appveyor after a :command:`git push` to Github.
 
 You can use Appveyor both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py)
+- Building and testing Conan binary packages for a given Conan package recipe (with a conanfile.py)
 
 
 Building and testing your project
@@ -58,21 +58,21 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	  - cmmd: encryption_test.exe
 	  
 
-Appveyor will install the **conan** tool and will execute the **conan install** command.
+Appveyor will install the **Conan** tool and will execute the **conan install** command.
 Then, the **build_script** section creates the build folder, compiles the project with **cmake** and the section **test_script** runs the **tests**.
 
-Creating, testing and uploading conan binary packages
+Creating, testing and uploading Conan binary packages
 -------------------------------------------------------
 
 You can use Appveyor to automate the building of binary packages, which will be created in the
-cloud after pushing to Github. You can probably setup your own way, but conan has some utilities to help in the process.
+cloud after pushing to Github. You can probably set up your own way, but Conan has some utilities to help in the process.
 
 The command :command:`conan new` has arguments to create a default working *appveyor.yml* file. Other setups might be possible, but for this
 example we are assuming that you are using GitHub and also uploading your final packages to Bintray. You could follow these steps:
 
-#. First, create an empty github repository, let's call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
-#. Get the credentials User and API Key (remember, Bintray uses the API key as "password", not your main Bintray account password)
-#. Create a conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
+#. First, create an empty github repository. Let's call it "hello", for creating a "hello world" package. Github allows to create it with a Readme and .gitignore.
+#. Get the credentials User and API Key. (Remember, Bintray uses the API key as "password", not your main Bintray account password.)
+#. Create a Conan repository in Bintray under your user or organization, and get its URL ("Set me up"). We will call it ``UPLOAD_URL``
 #. Activate the repo in your Appveyor account, so it is built when we push changes to it.
 #. Under *Appveyor Settings->Environment*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key, and encrypt it.  If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``

@@ -5,8 +5,8 @@
 ________________________
 
 If you are using **Meson Build** as your library build system, you can use the **Meson** build helper.
-This helper have ``.configure()`` and ``.build()`` methods available to ease the call to meson build system.
-It also will take automatically the ``pc files`` of your dependencies when using the :ref:`pkg_config
+This helper has ``.configure()`` and ``.build()`` methods available to ease the call to Meson build system.
+It also will automatically take the ``pc files`` of your dependencies when using the :ref:`pkg_config
 generator<pkg_config_generator_example>`.
 
 Check :ref:`Building with Meson Build <meson_build_reference>` for more info.

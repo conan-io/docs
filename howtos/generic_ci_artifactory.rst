@@ -6,7 +6,7 @@ Use a generic CI with Conan and Artifactory
 Uploading the BuildInfo
 -----------------------
 
-If you are using :ref:`Jenkins with Conan and Artifactory<jenkins_integration>`, with the
+If you are using :ref:`Jenkins with Conan and Artifactory<jenkins_integration>`, along with the
 `Jenkins Artifactory Plugin <https://www.jfrog.com/confluence/display/RTF/Jenkins+Artifactory+Plug-in>`_,
 any Conan package downloaded or uploaded during your build will be automatically recorded in
 the BuildInfo json file, that will be automatically uploaded to the specified Artifactory instance.
@@ -36,7 +36,7 @@ However, you can gather and upload that information using other CI infrastructur
     $ conan create . user/stable # Will retrieve the dependencies and create the package
     $ conan upload mypackage/1.0@user/stable -r artifactory
 
-4.  Call the command `conan_build_info` passing the path to the generated conan traces file and a parameter ``--output`` to
+4.  Call the command `conan_build_info` passing the path to the generated Conan traces file and a parameter ``--output`` to
     indicate the output file. You can also, delete the traces.log` file` otherwise while the `CONAN_TRACE_FILE` is present, any
     Conan command will keep appending actions.
 

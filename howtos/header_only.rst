@@ -5,7 +5,7 @@ How to package header-only libraries
 
 Without unit tests
 ------------------
-Packaging a header only library, without requiring to build and run unit tests for it within conan, can be
+Packaging a header only library, without requiring to build and run unit tests for it within Conan, can be
 done with a very simple recipe. Assuming you have the recipe in the source repo root folder, and the headers
 in a subfolder called ``include``, you could do:
 
@@ -28,7 +28,7 @@ instead of the ``exports_sources`` fields.
 
 - There is no need for ``settings``, as changing them will not affect the final package artifacts
 - There is no need for ``build()`` method, as header-only are not built
-- There is no need for a custom ``package_info()`` method. The default one already adds "include" subfolder
+- There is no need for a custom ``package_info()`` method. The default one already adds an "include" subfolder
   to the include path
 - ``no_copy_source = True`` will disable the copy of the source folder to the build directory as there is
   no need to do so because source code is not modified at all by the ``configure()`` or ``build()`` methods.
@@ -79,11 +79,11 @@ If you want to run the library unit test while packaging, you would need this re
 .. tip::
     .. _header_only_unit_tests_tip:
 
-    If you are :ref:`cross building <cross_building>` your **library** or **app** you'll probably need
+    If you are :ref:`cross-building <cross_building>` your **library** or **app** you'll probably need
     to skip the **unit tests** because your target binary cannot be executed in current building host.
     To do it you can use :ref:`tools_get_env` in combination with
     :ref:`env_vars_conan_run_tests` environment variable, defined as **False**
-    in profile for cross building and replace ``cmake.test()`` with:
+    in profile for cross-building and replace ``cmake.test()`` with:
 
     .. code-block:: python
 
@@ -117,7 +117,7 @@ and some ``example.cpp`` file, which will be our "unit test" of the library:
     }
 
 
-- This will use different compilers and versions, as configured by conan settings (in command line or
+- This will use different compilers and versions, as configured by Conan settings (in command line or
   profiles), but will always generate just 1 output package, always with the same ID.
 - The necessary files for the unit tests, must be ``exports_sources`` too (or retrieved from ``source()`` method)
 - If the package had dependencies, via ``requires``, it would be necessary to add the ``generators = "cmake"``

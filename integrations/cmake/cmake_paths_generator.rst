@@ -11,7 +11,8 @@ The ``cmake_paths`` generator creates a file named ``conan_paths.cmake`` declari
 - ``CMAKE_MODULE_PATH`` with the folders of the required packages, to allow CMake to locate the included cmake scripts and ``FindXXX.cmake``
   files. The folder containing the *conan_paths.cmake* (`self.install_folder` when used in a recipe) is also included, so any custom file
   will be located too. Check :ref:`cmake_find_package_generator` generator.
-- ``CMAKE_PREFIX_PATH`` used by ``find_library()`` to locate library files (*.a*, *.lib*, *.so*, *.dll*) in your packages.
+- ``CMAKE_PREFIX_PATH`` used by ``find_library()`` to locate library files (*.a*, *.lib*, *.so*, *.dll*) in your packages and ``find_dependency()`` to locate
+  the transitive dependencies.
 
 .. code-block:: text
    :caption: conanfile.txt
@@ -40,7 +41,7 @@ In the example above, the ``zlib/1.2.11@conan/stable`` package is not packaging 
 included in the CMake installation directory (`/Modules`) will locate the zlib library from the Conan package because of the
 ``CMAKE_PREFIX_PATH`` used by the ``find_library()``.
 
-If the ``zlib/1.2.11@conan/stable`` would had included a custom ``FindZLIB.cmake`` in the package root folder or any declared
+If the ``zlib/1.2.11@conan/stable`` would have included a custom ``FindZLIB.cmake`` in the package root folder or any declared
 :ref:`self.cpp_info.builddirs <cpp_info_attributes_reference>`, it would have been located because of the ``CMAKE_MODULE_PATH`` variable.
 
 Included as a toolchain

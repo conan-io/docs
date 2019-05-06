@@ -43,3 +43,8 @@ Available generators:
    generators/json
    generators/premake
    generators/make
+   generators/deploy
+
+.. important::
+
+    If none of these generators fit your needs, you can create your own :ref:`custom_generator`.

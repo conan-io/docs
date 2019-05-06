@@ -6,7 +6,7 @@
 Use conanfile.py for consumers
 ===============================
 
-You can use a ``conanfile.py`` for installing/consuming packages, even if you are not creating a package with it. You can also use the existing ``conanfile.py`` in a given package while developing it to install dependencies, no need to have a separate ``conanfile.txt``.
+You can use a ``conanfile.py`` for installing/consuming packages, even if you are not creating a package with it. You can also use the existing ``conanfile.py`` in a given package while developing it to install dependencies. There's no need to have a separate ``conanfile.txt``.
 
 Let's take a look at the complete ``conanfile.txt`` from the previous *timer* example with POCO library, in which we have added a couple of extra generators
 
@@ -46,9 +46,9 @@ The equivalent ``conanfile.py`` file is:
          self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
 
 
-Note that this ``conanfile.py`` doesn't have a name, version, or ``build()`` or ``package()`` method, as it is not creating a package, they are not required.
+Note that this ``conanfile.py`` doesn't have a name, version, or ``build()`` or ``package()`` method, as it is not creating a package. They are not required.
 
-With this ``conanfile.py`` you can just work as usual, nothing changes from the user's perspective.
+With this ``conanfile.py`` you can just work as usual. Nothing changes from the user's perspective.
 You can install the requirements with (from mytimer/build folder):
 
 .. code-block:: bash
@@ -98,7 +98,7 @@ The :command:`conan install` command downloads and prepares the requirements of 
 to invoke your ``build()`` method to build your project, which in turn calls ``cmake``.
 
 This :command:`conan build` will use the settings used in the :command:`conan install` which have been cached in the local *conaninfo.txt* and file
-in your build folder, which simplifies the process and reduces the errors of mismatches between the installed packages and the current
+in your build folder. This simplifies the process and reduces the errors of mismatches between the installed packages and the current
 project configuration. Also, the *conanbuildinfo.txt* file contains all the needed information obtained from the requirements:
 ``deps_cpp_info``, ``deps_env_info``, ``deps_user_info`` objects.
 
