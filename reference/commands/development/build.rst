@@ -82,7 +82,7 @@ by default, but that will change if some of these arguments are used in the comm
         ...
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
+            self.run("git clone https://github.com/conan-io/hello.git")
 
         def build(self):
             cmake = CMake(self)
