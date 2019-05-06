@@ -1060,7 +1060,6 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
 
 .. _develop_attribute:
 
-
 develop
 -------
 
@@ -1172,3 +1171,41 @@ be computed. It can take three different values:
    compute the revision for the recipe.
  - ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
    repository system (Git or SVN). If there is no repository it will raise an error.
+
+
+.. _python_requires_attribute:
+
+python_requires
+---------------
+
+.. warning::
+
+    This attribute is part of the :ref:`python requires<python_requires>` feature, so
+    it is also an **experimental** feature subject to breaking changes in future releases.
+
+Python requires are associated with the ``ConanFile`` declared in the recipe file, data
+from those imported recipes is accessible using the ``python_requires`` attribute in
+the recipe itself. This attribute is a dictionary where the key is the name of the
+*python requires* reference and the value is a dictionary with the following information:
+
+ - ``ref``: full reference of the python requires.
+ - ``exports_folder``: directory in the cache where the exported files are located.
+ - ``exports_sources_folder``: directory in the cache where the files exported using the
+   ``exports_sources`` attribute of the python requires recipe are located.
+
+You can use this information to copy files accompanying a python requires to the consumer
+workspace.:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class PyReq(ConanFile):
+        name = "pyreq"
+        exports_sources = "CMakeLists.txt"
+
+        def source(self):
+            pyreq = self.python_requires['pyreq']
+            self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
+
+
