@@ -58,7 +58,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable:09512ff863f37e98ed748eadd9c6df3e4ea424a8
+      $ conan get zlib/1.2.11@conan/stable:2144f833c251030c3cfd61c4354ae0e38607a909
 
   .. code-block:: text
 
@@ -79,7 +79,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable:09512ff863f37e98ed748eadd9c6df3e4ea424a8 . -r conan-center
+      $ conan get zlib/1.2.11@conan/stable:2144f833c251030c3cfd61c4354ae0e38607a909 . -r conan-center
 
       Listing directory '.':
        conan_package.tgz

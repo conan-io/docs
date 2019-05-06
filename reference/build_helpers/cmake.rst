@@ -209,11 +209,11 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_LINK_RUNTIME                        | Set to the runtime value from ``self.settings.compiler.runtime`` for MSVS                                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.cppstd`` value                                                                                    |
+| CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.compiler.cppstd`` value (or ``self.settings.cppstd`` for backward compatibility)                  |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_EXTENSIONS                | Set to the ``self.settings.cppstd`` value when GNU extensions are enabled                                                    |
+| CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_STD_CXX_FLAG                        | Set to the ``self.settings.cppstd`` value. Flag for compiler directly (for CMake < 3.1)                                      |
+| CONAN_STD_CXX_FLAG                        | Set to the flag corresponding to the C++ standard defined in ``self.settings.compiler.cppstd``. Used for CMake < 3.1)        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_EXPORT_NO_PACKAGE_REGISTRY          | Defined by default to disable the package registry                                                                           |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+

@@ -99,7 +99,8 @@ if __name__ == "__main__":
     if should_deploy():
         config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.14",
+        versions_dict = {"master": "1.15",
+                         "release/1.14.5": "1.14",
                          "release/1.13.3": "1.13",
                          "release/1.12.3": "1.12",
                          "release/1.11.2": "1.11",

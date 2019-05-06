@@ -15,7 +15,7 @@ are possible. These are the **default** values, but it is possible to customize 
     # Only for building cross compilation tools, 'os_target/arch_target' is the system for
     # which the tools generate code
     os_target: [Windows, Linux, Macos, Android, iOS, watchOS, tvOS, FreeBSD, SunOS, Arduino]
-    arch_target: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x]
+    arch_target: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x, asm.js, wasm]
 
     # Rest of the settings are "host" settings:
     # - For native building/cross building: Where the library/program will run.
@@ -40,7 +40,8 @@ are possible. These are the **default** values, but it is possible to customize 
         SunOS:
         Arduino:
             board: ANY
-    arch: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x]
+        Emscripten:
+    arch: [x86, x86_64, ppc32, ppc64le, ppc64, armv5el, armv5hf, armv6, armv7, armv7hf, armv7s, armv7k, armv8, armv8_32, armv8.3, sparc, sparcv9, mips, mips64, avr, s390, s390x, asm.js, wasm]
     compiler:
         sun-cc:
             version: ["5.10", "5.11", "5.12", "5.13", "5.14"]
@@ -51,10 +52,12 @@ are possible. These are the **default** values, but it is possible to customize 
                     "5", "5.1", "5.2", "5.3", "5.4", "5.5",
                     "6", "6.1", "6.2", "6.3", "6.4",
                     "7", "7.1", "7.2", "7.3",
-                    "8", "8.1", "8.2"]
+                    "8", "8.1", "8.2",
+                    "9"]
             libcxx: [libstdc++, libstdc++11]
             threads: [None, posix, win32] #  Windows MinGW
             exception: [None, dwarf2, sjlj, seh] # Windows MinGW
+            cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         Visual Studio:
             runtime: [MD, MT, MTd, MDd]
             version: ["8", "9", "10", "11", "12", "14", "15"]
@@ -62,20 +65,25 @@ are possible. These are the **default** values, but it is possible to customize 
                     v140, v140_xp, v140_clang_c2, LLVM-vs2012, LLVM-vs2012_xp,
                     LLVM-vs2013, LLVM-vs2013_xp, LLVM-vs2014, LLVM-vs2014_xp,
                     LLVM-vs2017, LLVM-vs2017_xp, v141, v141_xp, v141_clang_c2]
+            cppstd: [None, 14, 17, 20]
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                     "5.0", "6.0", "7.0",
                     "8"]
             libcxx: [libstdc++, libstdc++11, libc++]
+            cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         apple-clang:
             version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", "9.0", "9.1", "10.0"]
             libcxx: [libstdc++, libc++]
+            cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
 
     build_type: [None, Debug, Release, RelWithDebInfo, MinSizeRel]
-    cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
+    cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]  # Deprecated, use compiler.cppstd
 
 As you can see, the possible values ``settings`` can take are restricted in the same file. This is done to ensure matching naming and
 spelling as well as defining a common settings model among users and the OSS community.
+If a setting is allowed to be set to any value, you can use ``ANY``.
+If a setting is allowed to be set to any value or it can also be unset, you can use ``[None, ANY]``.
 
 However, this configuration file can be you can modified to any needs, including new settings or subsettings and their values. If you want
 to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<conan_config_install>`.
@@ -137,3 +145,10 @@ Here you can find a brief explanation of each of the architectures defined as ``
 - **s390**: The 32 bit address Enterprise Systems Architecture 390 from IBM.
 
 - **s390x**: The 64 bit address Enterprise Systems Architecture 390 from IBM.
+
+- **asm.js**: The subset of JavaScript that can be used as low-level target for compilers, not really a processor architecture, it's produced
+  by Emscripten. Conan treats it as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
+
+- **wasm**: The Web Assembly, not really a processor architecture, but byte-code format for Web, it's produced by Emscripten. Conan treats it
+  as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
+

@@ -38,3 +38,4 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/other
    integrations/pylint
    integrations/azure_devops
+   integrations/emscripten

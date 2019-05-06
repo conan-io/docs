@@ -13,9 +13,10 @@ Command to manage workspaces
 .. code-block:: text
 
     positional arguments:
-    {install}   sub-command help
+      {install}   sub-command help
         install   same as a "conan install" command but using the workspace data
-                from the file
+                  from the file. If no file is provided, it will look for a file
+                  named "conanws.yml"
 
     optional arguments:
     -h, --help  show this help message and exit
@@ -29,16 +30,18 @@ conan workspace install
 .. code-block:: bash
 
     $ conan workspace install [-h] [-b [BUILD]] [-e ENV] [-o OPTIONS]
-                               [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
-                               path
+                              [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                              [-if INSTALL_FOLDER]
+                              path
 
 .. code-block:: text
 
     positional arguments:
-    path                  path to workspace definition file
+    path                    path to workspace definition file (it will look for a
+                            "conanws.yml" inside if a directory is given)
 
     optional arguments:
-    -h, --help            show this help message and exit
+    -h, --help              show this help message and exit
     -b [BUILD], --build [BUILD]
                             Optional, use it to choose if you want to build from
                             sources: --build Build all from sources, do not use
@@ -66,7 +69,10 @@ conan workspace install
     -s SETTINGS, --settings SETTINGS
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
-    -u, --update          Check updates exist from upstream remotes
+    -u, --update            Check updates exist from upstream remotes
+    -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            Folder where the workspace files will be created
+                            (default to current working directory)
 
 
 Note that these arguments, like ``settings`` and ``options`` mostly apply to the dependencies,

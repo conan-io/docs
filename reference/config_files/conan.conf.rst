@@ -19,6 +19,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     compression_level = 9                 # environment CONAN_COMPRESSION_LEVEL
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
+    default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
     # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
@@ -32,6 +33,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
+    # skip_broken_symlinks_check = False  # enviornment CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 
     # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
@@ -62,7 +64,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # This is the default path, but you can write your own. It must be an absolute path or a
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
     # with "~/", will be relative to the conan user home, not to the system user home)
-    path = ~/.conan/data
+    path = ./data
 
     [proxies]
     # Empty section will try to use system proxies.
@@ -189,10 +191,16 @@ in the conan code base, allowing to debug the detected error.
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
 
+The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
+
 Storage
 +++++++
 
-The ``storage.path`` variable define the path where all the packages will be stored.
+The ``storage.path`` variable define the path where all the packages will be stored. By default it is *./data*, which
+is relative to the folder containing this *conan.conf* file, which by default is the *<userhome>/.conan* folder.
+It can start with "~", and that will be expanded to the current user home folder. If the environment var CONAN_USER_HOME is specified,
+the "~" will be replaced by the current Conan home (the folder pointed by the CONAN_USER_HOME environment variable).
+
 
 On Windows:
 
