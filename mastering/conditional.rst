@@ -63,7 +63,8 @@ There are two approaches for this situation:
   relies on the set of possible settings inside your *settings.yml* file, so it can be used to constrain any recipe.
 
   .. code-block:: python
-
+      from conans.errors import ConanInvalidConfiguration
+      ...
       def configure(self):
           if self.settings.os == "Windows":
             raise ConanInvalidConfiguration("This library is not compatible with Windows")
