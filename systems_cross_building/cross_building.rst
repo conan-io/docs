@@ -222,6 +222,50 @@ declared at the top of the profile:
 
 A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
+.. _cross_building_windows_ce:
+
+Windows to Windows CE
+.....................
+The Windows CE (WinCE) operating system is supported for CMake and MSBuild. Since WinCE depends on the
+MSVC compiler, Visual Studio and the according Windows CE platform SDK for the WinCE device have to be installed
+on the build host.
+
+The ``os.platform`` defines the WinCE Platform SDK and is equal to the ``Platform`` in Visual Studio.
+
+Some examples for Windows CE platforms:
+
+- ``SDK_AM335X_SK_WEC2013_V310``
+- ``STANDARDSDK_500 (ARMV4I)``
+- ``Windows Mobile 5.0 Pocket PC SDK (ARMV4I)``
+- ``Toradex_CE800 (ARMV7)``
+
+The ``os.version`` defines the WinCE version and must be ``"5.0"``, ``"6.0"`` or ``"7.0"``.
+
+CMake supports Visual Studio 2008 (``compiler.version=9``) and Visual Studio 2012 (``compiler.version=11``).
+
+Example of an Windows CE conan profile:
+
+.. code-block:: text
+
+    [settings]
+    os=WindowsCE
+    os.version=8.0
+    os.platform=Toradex_CE800 (ARMV7)
+    arch=armv7
+    compiler=Visual Studio
+    compiler.version=11
+
+    # Release configuration
+    build_type=Release
+    compiler.runtime=MD
+
+.. note::
+
+    Further information about CMake and WinCE can be found in the CMake documentation:
+
+    `CMake - Cross Compiling for Windows CE
+    <https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-windows-ce>`_
+
 .. _cross_building_android:
 
 Linux/Windows/macOS to Android
