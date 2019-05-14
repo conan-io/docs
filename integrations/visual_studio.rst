@@ -4,114 +4,79 @@
 |visual_logo| Visual Studio
 ===========================
 
-Conan can be integrated with **Visual Studio** in two different ways:
+Microsoft Visual Studio is one of the most used IDEs to develop C++ applications and Conan has
+many utilities to work with it. This section serves as a reference to briefly describe some
+of them and link to their own sections, but it will also contain documentation related to
+some utilities that are totally dedicated to Visual Studio itself.
 
-- Using the ``cmake`` generator to create a *conanbuildinfo.cmake* file.
-- Using the ``visual_studio`` generator to create a *conanbuildinfo.props* file.
+There are two different ways that can be used to integrate Conan into Visual Studio, always
+requiring the generators provided by Conan:
 
-With CMake
-----------
+.. toctree::
+   :maxdepth: 2
 
-Use the ``cmake`` generator or ``cmake_multi`` if you are using CMake to machine-generate your Visual Studio projects.
-
-Check the :ref:`generators` section to read about the ``cmake`` generator.
-Check the official `CMake docs`_ to find out more about generating Visual Studio projects with CMake.
-
-However, beware of some current CMake limitations, such as not dealing well with find-packages, because CMake doesn't know how to handle finding both debug and release packages.
-
-.. note::
-
-    If you want to use the Visual Studio 2017 + CMake integration, :ref:`check this how-to<visual2017_cmake_howto>`
-
-With *visual_studio* generator
-------------------------------
-
-Use the **visual_studio** generator, or **visual_studio_multi**, if you are maintaining your Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party dependencies.
-
-You can use the **visual_studio** generator to manage your requirements via your *Visual Studio*  project.
+   Using Conan provided CMake generators <visual_studio/cmake_generators>
+   Using Conan provided Visual Studio generators <visual_studio/visual_studio_generators>
 
 
-This generator creates a `Visual Studio project properties`_ file, with all the *include paths*, *lib paths*, *libs*, *flags* etc., that can be imported in your project.
+Conan Extension for Visual Studio
+---------------------------------
 
-Open ``conanfile.txt`` and change (or add) the ``visual_studio`` generator:
+Thanks to the invaluable help of our community we manage to develop and maintain a free extension
+for Visual Studio in the Microsoft Marketplace, it is called Conan Extension for Visual
+Studio and provide and integration with Conan using the some of the :ref:`Visual Studio
+generators <visualstudio_generator>`.
 
-.. code-block:: text
+.. image:: ../images/visual_studio/marketplace-header.png
+   :width: 90%
+   :alt: Conan Extension for Visual Studio in the Microsoft marketplace
 
-    [requires]
-    Poco/1.7.8p3@pocoproject/stable
+You can install it into your IDE using the **Extensions manager** and start using it right away,
+this extension will look for a *conanfile.txt* in the solution and retrieve the requirements
+declared in it that match your build configuration (it will build them from sources too if no
+binaries are available).
 
-    [generators]
-    visual_studio
+Read more about this extension in the documentation associated to `its repository`_ and also
+in the release notes we publish with major releases in our blog (`May 15th, 2019`_).
 
-Install the requirements:
 
-.. code-block:: bash
+.. _`its repository`: https://github.com/conan-io/conan-vs-extension
+.. _`May 15th, 2019`: TODO: Link to the blogpost
 
-    $ conan install .
 
-Go to your Visual Studio project, and open the **Property Manager** (usually in **View -> Other Windows -> Property Manager**).
+Build helpers
+-------------
 
-.. image:: ../images/property_manager.png
+Conan provides several build helpers to help the developer to set all the flags and definitions
+corresponding to the settings declared in the profile. Targeting Windows builds with Visual
+Studio there are two that will be helpful:
 
-Click the **+** icon and select the generated ``conanbuildinfo.props`` file:
+- :ref:`msbuild`: it can build and existing Visual Studio solution
+- :ref:`visual_studio_build`: provides an easy way to populate a Visual Studio development
+  environment to run commands such as ``cl`` or ``ml`` to call the compiler and related tools.
 
-.. image:: ../images/property_manager2.png
+We encourage you to read more about these build helpers in the linked sections.
 
-Build your project as usual.
-
-.. note::
-
-    Remember to set your project's architecture and build type accordingly, explicitly or implicitly, when issuing the
-    :command:`conan install` command. If these values don't match, your build will probably fail.
-
-    e.g. **Release/x64**
-
-.. seealso::
-
-    Check :ref:`visualstudio_generator` for the complete reference.
-
-Calling Visual Studio compiler
-------------------------------
-
-You can call the Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment`` and the
-:ref:`tools_vcvars_command`.
-
-Check the :ref:`msbuild` section for more info.
-
-.. _building_visual_project:
-
-Build an existing Visual Studio project
----------------------------------------
-
-You can build an existing Visual Studio from your ``build()`` method using the :ref:`MSBuild()<msbuild>` build helper.
-
-.. code-block:: python
-
-    from conans import ConanFile, MSBuild
-
-    class ExampleConan(ConanFile):
-        ...
-
-        def build(self):
-            msbuild = MSBuild(self)
-            msbuild.build("MyProject.sln")
 
 Toolsets
 --------
 
-You can use the sub-setting ``toolset`` of the Visual Studio compiler to specify a custom toolset.
-It will be automatically applied when using the ``CMake()`` and ``MSBuild()`` build helpers.
-The toolset can also be specified manually in these build helpers with the ``toolset`` parameter.
+Conan provides a default :ref:`settings_yml` file with the most common configurations regarding
+each operating system, platform and compiler. For the Visual Studio compiler there are two
+subsettings that do not appear in other compilers: ``toolset`` and ``runtime``.
 
-By default, Conan will not generate a new binary package if the specified ``compiler.toolset``
-matches an already generated package for the corresponding ``compiler.version``.
-Check the :ref:`package_id()<method_package_id>` reference to learn more.
+The ``toolset`` subsetting will be automatically applied when using the :ref:`CMake <cmake_reference>`
+or :ref:`MSBuild <msbuild>` build helpers, although you can override those values using the
+``toolset`` parameter exposed in their interfaces.
 
-.. seealso::
+Regarding the ``toolset`` too, Conan by default won't generate a new binary package if the
+specified ``compiler.toolset`` matches the default value for the corresponding ``compiler.version``.
+Nevertheless you can change this behavior in the ``package_id()`` method of your recipe using
+the pair of functions ``vs_toolset_compatible`` and ``vs_toolset_incompatible`` as they are
+documented in the :ref:`conanfile reference <method_package_id>`.
 
-    Check the :ref:`CMake()<cmake_reference>` reference section for more info.
 
 
-.. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
 .. |visual_logo| image:: ../images/visual-studio-logo.png
-.. _`Visual Studio project properties`: https://docs.microsoft.com/en-us/visualstudio/ide/managing-project-and-solution-properties?view=vs-2017
+                 :width: 100 px
+                 :alt: Visual Studio logo
