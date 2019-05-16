@@ -22,6 +22,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.15.1 (16-Mayo-2019)
+---------------------
+
+- Fix: Fix regression of ``conan remote update --insert`` using the same URL it had before `#5110 <https://github.com/conan-io/conan/pull/5110>`_
+- Fix: Fix migration of *registry.json|txt* file including reference to non existing remotes. `#5103 <https://github.com/conan-io/conan/pull/5103>`_
+- Bugfix: Avoid crash of commands copy, imports, editable-add for packages using python_requires `#5150 <https://github.com/conan-io/conan/pull/5150>`_
+
+
 1.15.0 (6-May-2019)
 --------------------
 
