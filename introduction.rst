@@ -122,7 +122,7 @@ See the :ref:`deprecation notice <python2>` for more details
 
 If you have any question regarding Conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: https://github.com/conan-io/docs.
 
-Got any doubts? Please check out our :ref:`FAQ section <faq>` or |write_us|.
+Have any questions? Please check out our :ref:`FAQ section <faq>` or |write_us|.
 
 .. |write_us| raw:: html
 
