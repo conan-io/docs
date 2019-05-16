@@ -108,7 +108,7 @@ Linux to Windows
 
 .. code-block:: text
 
-    $toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
+    toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
     target_host=x86_64-w64-mingw32
     cc_compiler=gcc
     cxx_compiler=g++
