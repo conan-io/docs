@@ -14,7 +14,7 @@ Visual Studio generators
 
 Use the **visual_studio** generator, or **visual_studio_multi**, if you are maintaining your
 Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your
-third-party dependencies.
+third-party dependencies. (For old versions of Visual Studio check :ref:`visualstudiolegacy_generator`.)
 
 You can use the **visual_studio** generator to manage your requirements via your
 *Visual Studio*  project.
