@@ -8,7 +8,9 @@ conan workspace
 
     $ conan workspace [-h] {install} ...
 
-Command to manage workspaces
+Manages a workspace (a set of packages consumed from the user workspace that
+belongs to the same project). Use this command to manage a Conan workspace,
+use the subcommand 'install' to create the workspace from a file.
 
 .. code-block:: text
 

@@ -10,7 +10,7 @@ conan test
                  [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
                  path reference
 
-Test a package consuming it from a conanfile.py with a test() method. This
+Tests a package consuming it from a conanfile.py with a test() method. This
 command installs the conanfile dependencies (including the tested package),
 calls a 'conan build' to build test apps and finally executes the test()
 method. The testing recipe does not require name or version, neither
