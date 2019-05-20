@@ -24,7 +24,7 @@ Conan Extension for Visual Studio
 
 Thanks to the invaluable help of our community we manage to develop and maintain a free extension
 for Visual Studio in the Microsoft Marketplace, it is called Conan Extension for Visual
-Studio and provide and integration with Conan using the :ref:`Visual Studio
+Studio and provide an integration with Conan using the :ref:`Visual Studio
 generators <visualstudio_generator>`.
 
 .. image:: ../images/visual_studio/marketplace-header.png
@@ -32,11 +32,11 @@ generators <visualstudio_generator>`.
    :alt: Conan Extension for Visual Studio in the Microsoft marketplace
 
 You can install it into your IDE using the **Extensions manager** and start using it right away,
-this extension will look for a *conanfile* next to your **Visual Studio project** and retrieve the requirements
+this extension will look for a *conanfile.py* (or *conanfile.txt*) next to your **Visual Studio project** and retrieve the requirements
 declared in it that match your build configuration (it will build them from sources too if no
 binaries are available).
 
-Read more about this extension in the documentation associated to `its repository`_ and also
+Read more about this extension in the documentation associated in `its repository`_ and also
 in the release notes we publish with major releases in our blog (`May 15th, 2019`_).
 
 
@@ -51,7 +51,7 @@ Conan provides several build helpers to help the developer to set all the flags 
 corresponding to the settings declared in the profile. Targeting Windows builds with Visual
 Studio there are two that will be helpful:
 
-- :ref:`msbuild`: it can build and existing Visual Studio solution
+- :ref:`msbuild`: it can build an existing Visual Studio solution
 - :ref:`visual_studio_build`: provides an easy way to populate a Visual Studio development
   environment to run commands such as ``cl`` or ``ml`` to call the compiler and related tools.
 
