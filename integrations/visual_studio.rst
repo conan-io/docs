@@ -24,7 +24,7 @@ Conan Extension for Visual Studio
 
 Thanks to the invaluable help of our community we manage to develop and maintain a free extension
 for Visual Studio in the Microsoft Marketplace, it is called Conan Extension for Visual
-Studio and provide and integration with Conan using the some of the :ref:`Visual Studio
+Studio and provide and integration with Conan using the :ref:`Visual Studio
 generators <visualstudio_generator>`.
 
 .. image:: ../images/visual_studio/marketplace-header.png
@@ -32,7 +32,7 @@ generators <visualstudio_generator>`.
    :alt: Conan Extension for Visual Studio in the Microsoft marketplace
 
 You can install it into your IDE using the **Extensions manager** and start using it right away,
-this extension will look for a *conanfile.txt* in the solution and retrieve the requirements
+this extension will look for a *conanfile* next to your **Visual Studio project** and retrieve the requirements
 declared in it that match your build configuration (it will build them from sources too if no
 binaries are available).
 
