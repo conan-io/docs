@@ -22,7 +22,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
-1.15.1 (16-Mayo-2019)
+1.15.1 (16-May-2019)
 ---------------------
 
 - Fix: Fix regression of ``conan remote update --insert`` using the same URL it had before `#5110 <https://github.com/conan-io/conan/pull/5110>`_
