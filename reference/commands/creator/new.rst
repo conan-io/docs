@@ -95,4 +95,15 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
   Conan will look for ``templates/myconanfile.py`` in the Conan local cache. Any folder is possible, but ``templates``
   is recommended. These files can be installed and managed by :ref:`conan_config_install` command.
+
+  The templates use the python strings format syntax:
+
+  .. code-block:: python
+
+      class {package_name}Conan(ConanFile):
+            name = "{name}"
+            version = "{version}"
+
   
+  Where ``name`` and ``version`` placeholders are defined from the command line, and ``package_name`` is a camel case
+  variant of the ``name``.
