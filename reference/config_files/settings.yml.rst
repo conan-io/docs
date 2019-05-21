@@ -4,7 +4,7 @@ settings.yml
 ============
 
 The input ``settings`` for packages in Conan are predefined in ``~/.conan/settings.yml`` file, so only a few like ``os`` or ``compiler``
-are possible.
+are possible. These are the **default** values, but it is possible to customize them, see :ref:`custom_settings`.
 
 .. code-block:: yaml
 
