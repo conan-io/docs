@@ -849,7 +849,7 @@ tools.detected_os()
 
     detected_os()
 
-It returns the recognized OS name e.g "MacOS", "Windows". Otherwise it will returns the value from ``platform.system()``.
+It returns the recognized OS name e.g "Macos", "Windows". Otherwise it will return the value from ``platform.system()``.
 
 .. _tools_remove_from_path:
 
