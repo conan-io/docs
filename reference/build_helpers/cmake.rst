@@ -74,12 +74,12 @@ Attributes
 generator
 +++++++++
 
-Specifies a custom CMake generator to use, see also `cmake-generators documentation <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html>`.
+Specifies a custom CMake generator to use, see also `cmake-generators documentation <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html>`_.
 
 generator_platform
 ++++++++++++++++++
 
-Specifies a custom CMake generator platform to use, see also `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`.
+Specifies a custom CMake generator platform to use, see also `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`_.
 
 verbose
 +++++++
