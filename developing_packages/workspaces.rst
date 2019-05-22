@@ -103,8 +103,26 @@ Here you can see the *CMakeLists.txt* used in this project:
     conan_workspace_subdirectories()
 
 The ``root: chat/0.1@user/testing`` defines which is the consumer node of the graph, typically some kind of executable. You
-can provide a comma separated list of references. All the root nodes will be in the same dependency graph, leading to conflicts if they
+can provide a comma separated list of references, as a string, or a yaml list (abbreviated or full as yaml items). All the root nodes will be in the same dependency graph, leading to conflicts if they
 depend on different versions of the same library, as in any other Conan command.
+
+.. code-block:: yaml
+
+    editables:
+        say/0.1@user/testing:
+            path: say
+        hello/0.1@user/testing:
+            path: hello
+        chat/0.1@user/testing:
+            path: chat
+
+    root: chat/0.1@user/testing, say/0.1@user/testing
+    # or
+    root: ["HelloA/0.1@lasote/stable", "HelloB/0.1@lasote/stable"]
+    # or
+    root:
+        - HelloA/0.1@lasote/stable
+        - HelloB/0.1@lasote/stable
 
 
 Single configuration build environments
