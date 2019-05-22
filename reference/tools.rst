@@ -840,6 +840,17 @@ tools.get_cased_path()
 This function converts a case-insensitive absolute path to a case-sensitive one. That is, with the real cased characters. Useful when using
 Windows subsystems where the file system is case-sensitive.
 
+.. _tools_detected_os:
+
+tools.detected_os()
+-------------------
+
+.. code-block:: python
+
+    detected_os()
+
+It returns the recognized OS name e.g "Macos", "Windows". Otherwise it will return the value from ``platform.system()``.
+
 .. _tools_remove_from_path:
 
 tools.remove_from_path()
