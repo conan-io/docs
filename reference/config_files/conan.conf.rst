@@ -69,10 +69,14 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     [proxies]
     # Empty section will try to use system proxies.
     # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies - but see below
+    # for proxies to specific hosts
     # http = http://user:pass@10.10.1.10:3128/
     # http = http://10.10.1.10:3128
     # https = http://10.10.1.10:1080
+    # To specify a proxy for a specific host or hosts, use multiple lines each specifying host = proxy-spec
+    # http =
+    #   hostname.to.be.proxied.com = http://user:pass@10.10.1.10:3128
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
@@ -240,9 +244,19 @@ of URLs or patterns that will skip the proxy:
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
+    http: http://10.10.2.10
+        hostname1.to.be.proxied.com = http://user:pass@10.10.3.10
+        hostname2.to.be.proxied.com = http://user:pass@10.10.4.10
     no_proxy_match: http://url1, http://url2, https://url3*, https://*.custom_domain.*
 
 Use `http=None` and/or `https=None` to disable the usage of a proxy.
+
+To nominate a proxy for a specific scheme and host only, add `host.to.proxy=` in front of the url of the proxy
+(the `host.to.proxy` name must exactly match the host name that should be proxied). You can list
+several `host name = proxy` pairs on separate indented lines.
+
+You can still specify a default proxy, without a host, which will be
+used if none of the host names match. If you do not, then the proxy is disabled for non-matching hosts.
 
 If this fails, you might also try to set environment variables:
 
