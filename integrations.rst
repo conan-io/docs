@@ -39,3 +39,4 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/pylint
    integrations/azure_devops
    integrations/emscripten
+   integrations/qnx_neutrino
