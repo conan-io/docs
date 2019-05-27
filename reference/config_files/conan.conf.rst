@@ -20,7 +20,9 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
     default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
-    # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
+    # retry = 2                           # environment CONAN_RETRY
+    # retry_wait = 5                      # environment CONAN_RETRY_WAIT (seconds)
+    # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
@@ -169,6 +171,13 @@ Running ``pylint --generate-rcfile`` will output a complete rcfile with comments
 The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
 Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
 
+The ``retry`` variable allows to set up the global default value for the number of retries in all commands related to
+download/upload. User can override the value provided by the variable if the command provides an argument with the same name.
+
+The ``retry_wait`` variable allows to set up the global default value for the time (in seconds) to wait until the next retry
+on failures in all commands related to download/upload. User can override the value provided by the variable if the command provides
+an argument with the same name.
+
 The ``sysrequires_mode`` variable, defaulted to ``enabled`` (allowed modes ``enabled/verify/disabled``)
 controls whether system packages should be installed into the system via ``SystemPackageTool`` helper,
 typically used in :ref:`method_system_requirements`.
@@ -233,7 +242,7 @@ proxies, but if you configured some exclusion rule it won't work:
     [proxies]
     # Empty section will try to use system proxies.
     # If you don't want Conan to mess with proxies at all, remove section [proxies]
-    
+
 You can specify http and https proxies as follows. Use the `no_proxy_match` keyword to specify a list
 of URLs or patterns that will skip the proxy:
 
