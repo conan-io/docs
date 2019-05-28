@@ -323,8 +323,10 @@ Parameters:
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY``.
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True`` Conan will overwrite the destination file if it exists. Otherwise it
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
@@ -405,8 +407,10 @@ Parameters:
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY``.
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
