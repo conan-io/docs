@@ -90,11 +90,11 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
   .. code-block:: bash
 
-      $ conan new mypackage/1.0 --file=templates/myconanfile.py
+      $ conan new mypackage/1.0 --file=myconanfile.py
 
 
-  Conan will look for ``templates/myconanfile.py`` in the Conan local cache. Any folder is possible, but ``templates``
-  is recommended. These files can be installed and managed by :ref:`conan_config_install` command. The templates use the python strings format syntax:
+  Conan will look for ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
+  These files can be installed and managed by :ref:`conan_config_install` command. The templates use the python strings format syntax:
 
   .. code-block:: text
 
