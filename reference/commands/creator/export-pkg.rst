@@ -13,10 +13,10 @@ conan export-pkg
                        path reference
 
 Exports a recipe, then creates a package from local source and build folders.
-The package is created by calling the package() method applied to the local
-folders '--source-folder' and '--build-folder' It's created in the local cache
-for the specified 'reference' and for the specified '--settings', '--options'
-and or '--profile'.
+
+If '--package-folder' is provided it will copy the files from there, otherwise it
+will execute package() method over '--source-folder' and '--build-folder' to create
+the binary package.
 
 .. code-block:: text
 

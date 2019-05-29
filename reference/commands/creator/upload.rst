@@ -11,9 +11,10 @@ conan upload
                    [--retry-wait RETRY_WAIT] [-no [{all,recipe}]] [-j JSON]
                    pattern_or_reference
 
-Uploads a recipe and binary packages to a remote. If no remote is specified,
-the first configured remote (by default conan-center, use 'conan remote list'
-to list the remotes) will be used.
+Uploads a recipe and binary packages to a remote.
+
+If no remote is specified, the first configured remote (by default conan-center, use
+'conan remote list' to list the remotes) will be used.
 
 .. code-block:: text
 
@@ -41,12 +42,9 @@ to list the remotes) will be used.
                             before upload
       -c, --confirm         Upload all matching recipes without confirmation
       --retry RETRY         In case of fail retries to upload again the specified
-                            times. Defaulted to 2. Default is overriden by ``general.retry``
-                            in the *conan.conf* file or an env variable ``CONAN_RETRY``
+                            times.
       --retry-wait RETRY_WAIT
-                            Waits specified seconds before retry again.
-                            Defaulted to 5. Default is overriden by ``general.retry_wait``
-                            in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``
+                            Waits specified seconds before retry again
       -no [{all,recipe}], --no-overwrite [{all,recipe}]
                             Uploads package only if recipe is the same as the
                             remote one

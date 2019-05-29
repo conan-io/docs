@@ -6,9 +6,9 @@ conan new
 
 .. code-block:: bash
 
-    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-f FILE] [-cis] [-cilg] [-cilc] [-cio]
-                [-ciw] [-ciglg] [-ciglc] [-ciccg] [-ciccc] [-cicco] [-gi]
-                [-ciu CI_UPLOAD_URL]
+    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-f FILE] [-cis] [-cilg]
+                [-cilc] [-cio] [-ciw] [-ciglg] [-ciglc] [-ciccg] [-ciccc]
+                [-cicco] [-gi] [-ciu CI_UPLOAD_URL]
                 name
 
 Creates a new package recipe template with a 'conanfile.py' and optionally,

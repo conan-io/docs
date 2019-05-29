@@ -6,7 +6,7 @@ conan get
 
 .. code-block:: bash
 
-    $ conan get [-h] [-r REMOTE] [-raw] reference [path]
+    $ conan get [-h] [-p PACKAGE] [-r REMOTE] [-raw] reference [path]
 
 Gets a file or list a directory of a given reference or package.
 

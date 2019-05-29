@@ -4,17 +4,13 @@
 conan inspect
 =============
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
 .. code-block:: bash
 
     $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON] [--raw RAW]
                     path_or_reference
 
-Displays conanfile attributes, like name, version, options Works both locally,
-in local cache and remote
+Displays conanfile attributes, like name, version and options. Works locally,
+in local cache and remote.
 
 .. code-block:: text
 
