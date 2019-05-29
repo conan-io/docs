@@ -3,25 +3,27 @@ import platform
 import subprocess
 import sys
 
-commands = ["config", "get", "info", "install", "search", "create", "export-pkg", "export", "new",
-            "test", "upload", "build", "package", "source", "alias", "copy", "download", "help",
-            "imports", "inspect", "profile", "remote", "remove", "user"]
-
 folder = {
     "config": "consumer",
     "get": "consumer",
     "info": "consumer",
     "install": "consumer",
     "search": "consumer",
+
     "create": "creator",
     "export-pkg": "creator",
     "export": "creator",
     "new": "creator",
     "test": "creator",
     "upload": "creator",
+
     "build": "development",
     "package": "development",
     "source": "development",
+    "editable": "development",
+    "workspace": "development",
+
+
     "alias": "misc",
     "copy": "misc",
     "download": "misc",
@@ -33,6 +35,10 @@ folder = {
     "remove": "misc",
     "user": "misc"
 }
+
+
+commands = folder.keys()
+
 
 conan_name = ""
 try:
