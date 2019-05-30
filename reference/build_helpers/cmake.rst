@@ -228,7 +228,6 @@ The CMake helper will automatically append some definitions based on your settin
 | ANDROID_NDK                               | Defined when one of ANDROID_NDK_ROOT or ANDROID_NDK_HOME environment variables presented                                     |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
-
 There are some definitions set to be used later on the the ``install()`` step too:
 
 +-----------------------------+---------------------------------------------+
