@@ -50,7 +50,8 @@ Constructor
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
-                     set_cmake_flags=False, msbuild_verbosity=None, cmake_program=None)
+                     set_cmake_flags=False, msbuild_verbosity='minimal', cmake_program=None,
+                     generator_platform=None)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
@@ -63,11 +64,24 @@ Parameters:
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
-    - **msbuild_verbosity** (Optional, Defaulted to ``None``): verbosity level for MSBuild (in case of Visual Studio generator).
+    - **msbuild_verbosity** (Optional, Defaulted to ``minimal``): verbosity level for
+      MSBuild (in case of Visual Studio generator). Set this parameter to ``None`` to avoid
+      using it in the command line.
     - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
+    - **generator_platform** (Optional, Defaulted to ``None``): Generator platform name or none to autodetect (-A cmake option).
 
 Attributes
 ----------
+
+generator
++++++++++
+
+Specifies a custom CMake generator to use, see also `cmake-generators documentation <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html>`_.
+
+generator_platform
+++++++++++++++++++
+
+Specifies a custom CMake generator platform to use, see also `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`_.
 
 verbose
 +++++++
@@ -133,6 +147,26 @@ An example of the value of this property could be:
 
     --config Release
 
+parallel
+++++++++
+
+**Defaulted to**: ``True``
+
+Run CMake process in parallel for compilation, installation and testing. This is translated into the proper command line argument:
+For ``Unix Makefiles`` it is ``-jX`` and for ``Visual Studio`` it is ``/m:X``.
+
+However, the parallel executing can be changed for testing like this:
+
+.. code-block:: python
+
+    cmake = CMake(self)
+    cmake.configure()
+    cmake.build()  # 'parallel' is enabled by default
+    cmake.parallel = False
+    cmake.test()
+
+In the case of ``cmake.test()`` this flag sets the ``CTEST_PARALLEL_LEVEL`` variable to the according value in :ref:`tools_cpu_count`.
+
 definitions
 +++++++++++
 
@@ -177,11 +211,11 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_LINK_RUNTIME                        | Set to the runtime value from ``self.settings.compiler.runtime`` for MSVS                                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.cppstd`` value                                                                                    |
+| CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.compiler.cppstd`` value (or ``self.settings.cppstd`` for backward compatibility)                  |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_EXTENSIONS                | Set to the ``self.settings.cppstd`` value when GNU extensions are enabled                                                    |
+| CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_STD_CXX_FLAG                        | Set to the ``self.settings.cppstd`` value. Flag for compiler directly (for CMake < 3.1)                                      |
+| CONAN_STD_CXX_FLAG                        | Set to the flag corresponding to the C++ standard defined in ``self.settings.compiler.cppstd``. Used for CMake < 3.1)        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_EXPORT_NO_PACKAGE_REGISTRY          | Defined by default to disable the package registry                                                                           |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
@@ -314,6 +348,9 @@ Installs `CMake` project with the given parameters.
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``cmake`` command. Each argument will be escaped according to the current shell. No extra arguments will be added if ``args=None``.
     - **build_dir** (Optional, Defaulted to ``None``): CMake's output directory. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+
+
+.. _patch_config_paths:
 
 
 patch_config_paths() [EXPERIMENTAL]

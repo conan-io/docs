@@ -35,10 +35,12 @@ the :ref:`CMake build tool<cmake_reference>`:
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_GENERATOR_PLATFORM          | CMAKE_GENERATOR_PLATFORM                                                                       |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
 
 .. seealso::
 
-    See `CMake cross building wiki <https://www.vtk.org/Wiki/CMake_Cross_Compiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
@@ -73,6 +75,29 @@ underlying compiler settings. So it doesn't make sense to provide a setting or o
 
 So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
 to your desired CMake generator (as ``Ninja``).
+
+CONAN_CMAKE_GENERATOR_PLATFORM
+------------------------------
+
+Defines generator platform to be used by particular CMake generator (see `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`).
+Resulting value is passed to the ``cmake`` command line (``-A`` argument) by the Conan ``CMake`` helper class during the configuration step.
+Passing ``None`` causes auto-detection, which currently only happens for the ``Visual Studio 16 2019`` generator. The detection is according to the following table:
+
++-----------------+--------------------+
+| settings.arch   | generator platform |
++=================+====================+
+| x86             | Win32              |
++-----------------+--------------------+
+| x86_64          | x64                |
++-----------------+--------------------+
+| armv7           | ARM                |
++-----------------+--------------------+
+| armv8           | ARM64              |
++-----------------+--------------------+
+| other           | (none)             |
++-----------------+--------------------+
+
+For any other generators besides the ``Visual Studio 16 2019`` generator, detection results in no generator platform applied (and no ``-A`` argument passed to the CMake command line).
 
 CONAN_COLOR_DARK
 ----------------
@@ -263,7 +288,8 @@ Specify ```MSBuild``` verbosity level to use with:
     - The build helper :ref:`CMake<cmake_reference>`.
     - The build helper :ref:`MSBuild<msbuild>`.
 
-For list of allowed values and their meaning, check out the `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017l>`_.
+For list of allowed values and their meaning, check out the
+`MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017>`_.
 
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------
@@ -509,6 +535,20 @@ CONAN_VERBOSE_TRACEBACK
 
 When an error is raised in a recipe or even in the Conan code base, if set to ``1`` it will show the complete traceback to ease the debugging.
 
+
+.. _env_vars_conan_error_on_override:
+
+CONAN_ERROR_ON_OVERRIDE
+-----------------------
+
+** Defaulted to**: ``False``
+
+When a consumer overrides one transitive requirement without using explicitly the keyword ``override``
+Conan will raise an error if this environmente variable is set to ``True``.
+
+This variable can also be set in the :ref:`*conan.conf*<conan_conf>` file under the section ``[general]``.
+
+
 .. _env_vars_conan_vs_installation_preference:
 
 CONAN_VS_INSTALLATION_PREFERENCE
@@ -530,3 +570,26 @@ It can also be used to fix the type of installation you want to use indicating j
 .. code-block:: bash
 
     set CONAN_VS_INSTALLATION_PREFERENCE=BuildTools
+
+CONAN_CACERT_PATH
+-----------------
+
+**Defaulted to**: Not defined
+
+Specify an alternative path to a *cacert.pem* file to be used for requests. This variable
+overrides the value defined in the *conan.conf* as ``cacert_path = <path/to/cacert.pem>``
+under the section ``[general]``.
+
+CONAN_DEFAULT_PACKAGE_ID_MODE
+-----------------------------
+
+**Defaulted to**: semver_direct_mode
+
+It changes the way package IDs are computed, but can change to any value defined in :ref:`package_id_mode`.
+
+CONAN_SKIP_BROKEN_SYMLINKS_CHECK
+--------------------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.

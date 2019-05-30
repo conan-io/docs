@@ -43,7 +43,8 @@ You can adjust all the information from the requirements accessing to the ``buil
             msbuild.build("MyProject.sln")
 
 
-To inject the flags corresponding to the ``compiler.runtime``, ``build_type`` and ``cppstd`` settings, this build helper also generates a
+To inject the flags corresponding to the ``compiler.runtime``, ``build_type`` and
+``compiler.cppstd`` settings, this build helper also generates a
 properties file (in the build folder) that is passed to :command:``MSBuild`` with
 :command:``/p:ForceImportBeforeCppTargets="conan_build.props"``.
 
@@ -100,7 +101,7 @@ Parameters:
     - **force_vcvars** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio
       version.
     - **toolset** (Optional, Defaulted to ``None``): Sets ``/p:PlatformToolset`` to the specified toolset. When ``None`` it will apply the
-      setting ``compiler.toolset`` if specified.
+      setting ``compiler.toolset`` if specified. When ``False`` it will skip adjusting the ``/p:PlatformToolset``.
     - **platforms** (Optional, Defaulted to ``None``): This dictionary will update the default one (see ``msvc_arch`` below) and will be
       used to get the mapping of architectures to platforms from the Conan naming to another one. It is useful for Visual Studio solutions
       that have a different naming in architectures. Example: ``platforms={"x86":"Win32"}`` (Visual solution uses "Win32" instead of "x86").
@@ -272,8 +273,9 @@ List with linker flags from requirements' ``cpp_info.sharedlinkflags`` and ``cpp
 std
 +++
 
-If the setting ``cppstd`` is set, the property will contain the corresponding flag of the language
-standard.
+This property contains the flag corresponding to the C++ standard. If you are still using
+the deprecated setting ``cppstd`` (see :ref:`manage_cpp_standard`) and you are not providing
+any value for this setting, the property will be ``None``.
 
 parallel
 ++++++++

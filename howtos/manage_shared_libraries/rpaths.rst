@@ -19,7 +19,7 @@ So the **rpaths** values are:
 | shared_lib_2 |                       |
 +--------------+-----------------------+
 
-In **linux** if the linker doesn't find the library in **rpath**, it will continue the search in
+In **Linux** if the linker doesn't find the library in **rpath**, it will continue the search in
 **system defaults paths** (LD_LIBRARY_PATH... etc)
 In OSX, if the linker detects an invalid **rpath** (the file does not exist there), it will fail.
 
@@ -55,7 +55,7 @@ On **OSX** if absolute rpaths are hardcoded in an executable or
 shared library and they don't exist the executable will fail to run. This is the most common problem when
 we reuse packages in a different environment from where the artifacts have been generated.
 
-So, for **OSX**, conan, by default when you build your library with **CMake**, the rpaths will be
+So for **OSX**, Conan, by default, when you build your library with **CMake**, the rpaths will be
 generated without any path:
 
 +--------------------+--------------------+
@@ -81,8 +81,8 @@ You can skip this default behavior by passing the ``KEEP_RPATHS`` parameter to t
     target_link_libraries(timer ${CONAN_LIBS})
 
 
-If you are using ``autotools`` conan won't auto-adjust the rpaths behavior, if you want to follow this
-default behavior probably you will need to replace the ``install_name`` in the **configure** or **MakeFile**
+If you are using ``autotools`` Conan won't auto-adjust the rpaths behavior. if you want to follow this
+default behavior you will probably need to replace the ``install_name`` in the **configure** or **MakeFile**
 generated files in your recipe to not use $rpath:
 
 .. code-block:: python
@@ -105,8 +105,9 @@ Remember to pass the ``KEEP_RPATHS`` variable to the ``conan_basic_setup``:
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup(KEEP_RPATHS)
 
-Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust
-a relative path from the executable:
+Then, you could, for example, use the ``@executable_path`` in OSX and ``$ORIGIN`` in Linux  to adjust a relative path from the executable.
+Also, enabling `CMAKE_BUILD_WITH_INSTALL_RPATH`_ will build the application with the RPATH value of ``CMAKE_INSTALL_RPATH`` and avoid
+the need to be relinked when installed.
 
 .. code-block:: cmake
 
@@ -116,6 +117,7 @@ a relative path from the executable:
         set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
     endif()
 
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH ON)
 
 You can use this imports statements in the consumer project:
 
@@ -129,7 +131,7 @@ You can use this imports statements in the consumer project:
     lib, *.dylib* -> ./lib # Copies all dylib files from packages lib folder to my "lib" folder
     lib, *.so* -> ./lib # Copies all so files from packages lib folder to my "lib" folder
 
-And your finally application can follow this layout:
+And your final application can follow this layout:
 
 
 .. code-block:: text
@@ -146,4 +148,5 @@ And your finally application can follow this layout:
 You could move the entire application folder to any location and the shared libraries will be located
 correctly.
 
-.. _`CMake RPATH handling`: https://cmake.org/Wiki/CMake_RPATH_handling
+.. _`CMake RPATH handling`: https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
+.. _`CMAKE_BUILD_WITH_INSTALL_RPATH`: https://cmake.org/cmake/help/v3.0/variable/CMAKE_BUILD_WITH_INSTALL_RPATH.html

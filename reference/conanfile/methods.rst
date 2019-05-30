@@ -23,13 +23,13 @@ control. But if the source code is available in a repository, you can directly g
         settings = "os", "compiler", "build_type", "arch"
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
+            self.run("git clone https://github.com/conan-io/hello.git")
             # You can also change branch, commit or whatever
             # self.run("cd hello && git checkout 2fe5...")
             #
             # Or using the Git class:
             # git = tools.Git(folder="hello")
-            # git.clone("https://github.com/memsharded/hello.git", "static_shared")
+            # git.clone("https://github.com/conan-io/hello.git")
 
 
 This will work, as long as git is in your current path (so in Win you probably want to run things in msysgit, cmder, etc). You can also use
@@ -179,11 +179,11 @@ And it will copy the lib to the package folder *lib/Mylib.lib*, which can be lin
 This method copies files from build/source folder to the package folder depending on two situations:
 
 - **Build folder and source folder are the same**: Normally during :command:`conan create` source folder content is copied to the build
-  folder. In this situation ``src`` parameter of ``self.copy()`` will point to the build folder in the local cache.
+  folder. In this situation ``src`` parameter of ``self.copy()`` will be relative to the build folder in the local cache.
 
 - **Build folder is different from source folder**: When :ref:`developing a package recipe<package_dev_flow>` and source and build folder
   are different (:command:`conan package . --source-folder=source --build-folder=build`) or when :ref:`no_copy_source` is defined,
-  ``package()`` method is called twice: One will copy from the source folder (``src`` parameter of ``self.copy()`` will point to the
+  every ``self.copy()`` is internally called twice: One will copy from the source folder (``src`` parameter of ``self.copy()`` will point to the
   source folder), and the other will copy from the build folder (``src`` parameter of ``self.copy()`` will point to the build folder).
 
 .. _method_package_info:
@@ -400,13 +400,14 @@ shared) do not make sense, so we just clear them. That means, if someone consume
 downloaded and used will be the same, irrespective of the OS, compiler or architecture the consumer is building with.
 
 You can also restrict the settings used deleting any specific one. For example, it is quite common
-for C libraries to delete the ``libcxx`` as your library does not depend on any C++ standard
-library:
+for C libraries to delete the ``compiler.libcxx`` and ``compiler.cppstd`` as your library does not
+depend on any C++ standard library:
 
 .. code-block:: python
 
     def configure(self):
         del self.settings.compiler.libcxx
+        del self.settings.compiler.cppstd
 
 The most typical usage would be the one with ``configure()`` while ``config_options()`` should be used more sparingly. ``config_options()``
 is used to configure or constraint the available options in a package, **before** they are given a value. So when a value is tried to be
@@ -439,7 +440,7 @@ it is an example of a recipe for a library that doesn't support Windows operatin
         if self.settings.os != "Windows":
             raise ConanInvalidConfiguration("Library MyLib is only supported for Windows")
 
-This exception will be propagated and Conan application will exit with the error code ``6``.
+This exception will be propagated and Conan application will finish with a :ref:`special return code <invalid_configuration_return_code>`.
 
 requirements()
 --------------
@@ -470,6 +471,13 @@ It also has optional parameters that allow defining the special cases, as is sho
       upstream and override possible existing values.
     - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded (like a static lib linked
       into a shared lib), so it is not required to link.
+
+.. note::
+
+    To prevent accidental override of transitive dependencies, check the config variable
+    :ref:`general.error_on_override<conan_conf>` or the environment variable
+    :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`.
+
 
 build_requirements()
 --------------------
@@ -572,6 +580,11 @@ Methods:
 
 The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the ``CONAN_SYSREQUIRES_SUDO``
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
+
+When the environemtn variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan will try to use :command:`sudo` if the following conditions are met:
+
+    - :command:`sudo` is available in the ``PATH``.
+    - The platform name is ``posix`` and the UID (user id) is not ``0``
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
@@ -776,11 +789,11 @@ self.info.default_std_matching() / self.info.default_std_non_matching()
 By default (``default_std_matching()``) Conan will detect the default C++ standard of your compiler to
 not generate different binary packages.
 
-For example, you already built some ``gcc > 6.1`` packages, where the default std is ``gnu14``.
-If you introduce the ``cppstd`` setting in your recipes and specify the ``gnu14`` value, Conan won't generate
+For example, you already built some ``gcc 6.1`` packages, where the default std is ``gnu14``.
+If you specify a value for the setting ``compiler.cppstd`` equal to the default one, ``gnu14``, Conan won't generate
 new packages, because it was already the default of your compiler.
 
-With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``cppstd``
+With ``self.info.default_std_non_matching()``, Conan will generate different packages when you specify the ``compiler.cppstd``
 even if it matches with the default of the compiler being used:
 
 .. code-block:: python
@@ -789,6 +802,8 @@ even if it matches with the default of the compiler being used:
         self.info.default_std_non_matching()
         # self.info.default_std_matching()
 
+
+Same behavior applies if you use the deprecated setting ``cppstd``.
 
 .. _method_build_id:
 

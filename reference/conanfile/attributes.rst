@@ -10,7 +10,7 @@ Attributes
 name
 ----
 This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
-It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
+It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]{1,50}$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
 The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
 It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
@@ -73,7 +73,7 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        url = "https://github.com/memsharded/hellopack.git"
+        url = "https://github.com/conan-io/hello.git"
 
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
 It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
@@ -150,7 +150,7 @@ user, channel
 The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
 Though their usage is usually not encouraged, it could be useful in different cases,
 e.g. to define requirements with the same user and
-channel than the current package, which could be achieved with something like:
+channel as the current package, which could be achieved with something like:
 
 .. code-block:: python
 
@@ -545,6 +545,13 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
 requires it. Otherwise Zlib will not be a dependency of your package.
 
+.. note::
+
+    To prevent accidental override of transitive dependencies, check the config variable
+    :ref:`general.error_on_override<conan_conf>` or the environment variable
+    :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`.
+
+
 .. _version_ranges_reference:
 
 version ranges
@@ -762,7 +769,7 @@ This is mostly an optimization for packages with large source codebases, to avoi
 
 To be able to use it, the package recipe can access the ``self.source_folder`` attribute, which will point to the ``build`` folder when ``no_copy_source=False`` or not defined, and will point to the ``source`` folder when ``no_copy_source=True``
 
-When this attribute is set to True, the ``package()`` method will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
+When this attribute is set to True, the ``self.copy()`` lines will be called twice, one copying from the ``source`` folder and the other copying from the ``build`` folder.
 
 .. _folders_attributes_reference:
 
@@ -1053,7 +1060,6 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
 
 .. _develop_attribute:
 
-
 develop
 -------
 
@@ -1114,8 +1120,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/memsharded/hello.git",
-            "revision": "static_shared"
+            "url": "https://github.com/conan-io/hello.git",
+            "revision": "master"
          }
         ...
 
@@ -1146,3 +1152,60 @@ To know more about the usage of ``scm`` check:
 
 - :ref:`Creating packages/Recipe and sources in a different repo <external_repo>`
 - :ref:`Creating packages/Recipe and sources in the same repo <package_repo>`
+
+
+.. _revision_mode_attribute:
+
+revision_mode
+-------------
+
+.. warning::
+
+    This attribute is part of the :ref:`package revisions<package_revisions>` feature, so
+    it is also an **experimental** feature subject to breaking changes in future releases.
+
+This attribute allow each recipe to declare how the revision for the recipe itself should
+be computed. It can take three different values:
+
+ - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
+   compute the revision for the recipe.
+ - ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
+   repository system (Git or SVN). If there is no repository it will raise an error.
+
+
+.. _python_requires_attribute:
+
+python_requires
+---------------
+
+.. warning::
+
+    This attribute is part of the :ref:`python requires<python_requires>` feature, so
+    it is also an **experimental** feature subject to breaking changes in future releases.
+
+Python requires are associated with the ``ConanFile`` declared in the recipe file, data
+from those imported recipes is accessible using the ``python_requires`` attribute in
+the recipe itself. This attribute is a dictionary where the key is the name of the
+*python requires* reference and the value is a dictionary with the following information:
+
+ - ``ref``: full reference of the python requires.
+ - ``exports_folder``: directory in the cache where the exported files are located.
+ - ``exports_sources_folder``: directory in the cache where the files exported using the
+   ``exports_sources`` attribute of the python requires recipe are located.
+
+You can use this information to copy files accompanying a python requires to the consumer
+workspace.:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class PyReq(ConanFile):
+        name = "pyreq"
+        exports_sources = "CMakeLists.txt"
+
+        def source(self):
+            pyreq = self.python_requires['pyreq']
+            self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
+
+

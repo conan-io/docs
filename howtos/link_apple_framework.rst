@@ -3,10 +3,10 @@
 How to link with Apple Frameworks
 =================================
 
-It is common in macOS that your conan package needs to link with a complete Apple framework,
-and, of course, you want to propagate this information to all projects/libraries that uses your package.
+It is common in MacOS that your Conan package needs to link with a complete Apple framework,
+and, of course, you want to propagate this information to all projects/libraries that use your package.
 
-With regular libraries we use ``self.cpp_info.libs`` object to append to it all the libraries:
+With regular libraries, use ``self.cpp_info.libs`` object to append to it all the libraries:
 
 .. code-block:: python
 
@@ -34,7 +34,7 @@ In the previous example we are using ``self.cpp_info.exelinkflags``. If we are u
 frameworks if we are building an executable and ``sharedlinkflags`` will only apply if we are building a shared library.
 
 If we are not using CMake to consume this package ``sharedlinkflags`` and ``exelinkflags`` are used indistinctly.
-In the example above we are assigning in the last line ``sharedlinkflags`` with ``exelinkflags``, so no matter what the consumer will build,
+In the example above, in the last line we are assigning ``sharedlinkflags`` with ``exelinkflags``, so no matter what the consumer will build,
 it will indicate to the linker to link with the specified frameworks.
 
 
@@ -58,7 +58,7 @@ To package a **MyFramework** Apple framework, copy/create a folder
         self.copy("*.h", dst="MyFramework.framework/Headers")
         # ...
 
-Declare the framework in the ``cpp_info`` object, passing a compiler flag ``-F`` with the
+Declare the framework in the ``cpp_info`` object, pass a compiler flag ``-F`` with the
 directory of the framework folder (self.package_folder) and linker flags with the ``-F`` and ``-framework`` with
 the framework name.
 

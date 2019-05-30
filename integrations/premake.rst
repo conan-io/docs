@@ -15,7 +15,7 @@ Example
 
 We are going to use the same example from :ref:`getting_started`, a MD5 Encrypter app.
 
-This is the main file for it:
+This is the main source file for it:
 
 .. code-block:: cpp
    :caption: main.cpp
@@ -36,8 +36,8 @@ This is the main file for it:
         return 0;
     }
 
-As this project has relies on the Poco Libraries we are going to create a *conanfile.txt* with our requirement and declare there the
-Premake generator too:
+As this project relies on the Poco Libraries, we are going to create a *conanfile.txt* with our requirement and also declare the
+Premake generator:
 
 .. code-block:: text
    :caption: conanfile.txt
@@ -48,7 +48,7 @@ Premake generator too:
     [generators]
     premake
 
-In order to use new generator within your project, use the following Premake script as a reference:
+In order to use the new generator within your project, use the following Premake script as a reference:
 
 .. code-block:: lua
    :caption: premake5.lua

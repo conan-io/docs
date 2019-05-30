@@ -158,7 +158,7 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
           ...
 
           def source(self):
-              self.run("git clone https://github.com/memsharded/hello.git")
+              self.run("git clone https://github.com/conan-io/hello.git")
 
           def build(self):
               cmake = CMake(self)

@@ -4,14 +4,14 @@
 Virtual Environments
 ====================
 
-Conan offer three special conan generators to create virtual environments:
+Conan offer three special Conan generators to create virtual environments:
 
 - ``virtualenv``:  Declares the :ref:`self.env_info<method_package_info_env_info>` variables of the requirements.
 - ``virtualbuildenv``: Special build environment variables for autotools/visual studio.
 - ``virtualrunenv``: Special environment variables to locate executables and shared libraries in the requirements.
 
 These virtual environment generators create two executable script files (.sh or .bat depending on the current operating system), one
-for ``activate`` the virtual environment (set the environment variables) and one for ``deactivate`` it.
+to ``activate`` the virtual environment (set the environment variables) and one to ``deactivate`` it.
 
 You can aggregate two or more virtual environments, that means that you can activate a ``virtualenv`` and then activate a ``virtualrunenv`` so you will
 have available the environment variables declared in the ``env_info`` object of the requirements plus the special environment variables to locate executables
@@ -45,7 +45,7 @@ In the **bin** folder there is a **cmake** executable:
 
 
 
-Let's prepare a virtual environment to have available our cmake in the path, open ``conanfile.txt`` and change (or add) **virtualenv** generator:
+Let's prepare a virtual environment to have cmake available in the path. Open ``conanfile.txt`` and change (or add) **virtualenv** generator:
 
 
 .. code-block:: text
@@ -68,7 +68,7 @@ You can also avoid the creation of the *conanfile.txt* completely and directly d
 
     $ conan install cmake_installer/3.9.0@conan/stable -g=virtualenv
 
-And activate the virtual environment, and now you can run ``cmake --version`` and check that you have the installed CMake in path.
+Activate the virtual environment, and now you can run ``cmake --version`` to check that you have the installed CMake in path.
 
 
 .. code-block:: bash
@@ -85,8 +85,8 @@ Deactivate the virtual environment (or close the console) to restore the environ
    $ source deactivate.sh # Windows: deactivate.bat without the source
    
 
-.. seealso:: Read the Howto :ref:`Create installer packages<create_installer_packages>` to know more about virtual environment feature.
-             Check the section :ref:`Reference/virtualenv<virtualenv_generator>` to see the reference of the generator.
+.. seealso:: Read the Howto :ref:`Create installer packages<create_installer_packages>` to learn more about the virtual environment feature.
+             Check the section :ref:`Reference/virtualenv<virtualenv_generator>` to see the generator reference.
 
 
 
@@ -100,7 +100,7 @@ The generator will create ``activate_build`` and ``deactivate_build`` files.
 
 .. seealso:: Read More about the building environment variables defined in the sections :ref:`Building with autotools <autotools_reference>` and :ref:`Build with Visual Studio<msbuild>`.
 
-             Check the section :ref:`Reference/virtualbuildenv<virtualbuildenv_generator>` to see the reference of the generator.
+             Check the section :ref:`Reference/virtualbuildenv<virtualbuildenv_generator>` to see the generator reference.
 
 
 .. _virtual_run_environment_generator:
@@ -119,8 +119,7 @@ The generator will create ``activate_run`` and ``deactivate_run`` files. This ge
 - If you have a requirement with some tool (executable) and you need it in the path.
 
 In the previous example of the ``cmake_installer`` recipe, even if the cmake_installer package doesn't declare the ``self.env_info.path`` variable,
-using the virtualrunenv generator, the ``bin`` folder of the package will be available in the PATH. So after activating the virtual environment we could just run ``cmake`` and
-we will be executing the cmake of the package.
+using the virtualrunenv generator, the ``bin`` folder of the package will be available in the PATH. So after activating the virtual environment we could just run ``cmake`` in order to execute the package's cmake.
 
 
 .. seealso:: - :ref:`Reference/Tools/environment_append <tools_environment_append>`

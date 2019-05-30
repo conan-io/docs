@@ -3,16 +3,16 @@
 Windows Subsystems
 ==================
 
-On Windows, you can run different `subsystems` that enhance with UNIX capabilities the operating system.
+On Windows, you can run different `subsystems` that enhance the operating system with UNIX capabilities.
 
 Conan supports ``MSYS2``, ``CYGWIN``, ``WSL`` and in general any subsystem that is able to run a ``bash``
-terminal.
+shell.
 
-Many libraries use these subsystems to be able to use the Unix tools like the ``Autoconf`` suite
-to generate and build ``Makefiles``.
+Many libraries use these subsystems in order to use the Unix tools like the ``Autoconf`` suite
+that generates ``Makefiles``.
 
 The difference between MSYS2 and CYGWIN is that MSYS2 is oriented to the development of native Windows
-packages, while CYGWIN tries to provide a complete unix-like system to run any Unix application on it.
+packages, while CYGWIN tries to provide a complete POSIX-like system to run any Unix application on it.
 
 For that reason, we recommend the use of MSYS2 as a subsystem to be used with Conan.
 
@@ -61,7 +61,7 @@ run the ``configure`` and ``make`` commands inside a bash.
 Controlling the build environment
 ---------------------------------
 
-Building software in a Windows subsystem for a different compiler than MinGW can be painful sometimes.
+Building software in a Windows subsystem for a different compiler than MinGW can sometimes be painful.
 The reason is how the subsystem finds your compiler/tools in your system.
 
 For example, the `icu <http://site.icu-project.org/>`_ library requires Visual Studio to be built in Windows, but also a subsystem
@@ -124,7 +124,7 @@ in the ``subsystem``:
 
         ...
 
-And apply the profile in your recipe to create a package using the MSYS2 and MINGW:
+Apply the profile in your recipe to create a package using the MSYS2 and MINGW:
 
 .. code-block:: bash
 
@@ -145,7 +145,7 @@ with a dictionary of environment variables to have more priority than the others
 
 So you will get first the ``link.exe`` from the Visual Studio.
 
-Also, Conan has a tool ``tools.remove_from_path`` that you can use in a recipe to remove temporally a
+Also, Conan has a tool ``tools.remove_from_path`` that you can use in a recipe to temporarily remove a
 tool from the path if you know that it can interfere with your build script:
 
 .. code-block:: python

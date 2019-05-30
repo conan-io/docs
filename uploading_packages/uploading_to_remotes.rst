@@ -63,7 +63,7 @@ have just uploaded them, they are identical to the local ones.
     $ conan search
 
 Since we have our test setup from the previous section, we can just use it for our test. Go to your
-package folder and run the tests again, now saying that we don't want to build the sources again, we
+package folder and run the tests again, now saying that we don't want to build the sources again. We
 just want to check if we can download the binaries and use them:
 
 .. code-block:: bash

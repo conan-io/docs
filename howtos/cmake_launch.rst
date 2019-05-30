@@ -6,7 +6,7 @@ How to launch conan install from cmake
 It is possible to launch :command:`conan install` from cmake, which can be convenient for end users, package consumers, that are not creating
 packages themselves.
 
-This is work under **testing**, please try it and give feedback or contribute. The CMake code to do this task is here:
+This is work under **testing**. Please try it and give feedback or contribute. The CMake code to do this task is here:
 https://github.com/conan-io/cmake-conan
 
 To be able to use it, you can directly download the code from your CMake script:
