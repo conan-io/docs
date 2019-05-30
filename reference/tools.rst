@@ -1562,7 +1562,6 @@ if ``file.txt`` exists).
 Parameters:
     - **folder** (Required): root folder to start deleting ``._`` files.
 
-
 .. _tools_version:
 
 tools.Version()
@@ -1590,3 +1589,16 @@ Properties:
    - **build**: component ``build`` of semver version (defaults to ``""``). Take into account
      that ``build`` component doesn't affect precedence between versions.
 
+.. _tools.to_android_abi:
+
+tools.to_android_abi()
+----------------------
+
+.. code-block:: python
+
+    def to_android_abi(arch)
+
+Converts Conan style architecture into Android NDK style architecture.
+
+Parameters:
+    - **arch** (Required): Arch to perform the conversion. Usually this would be ``self.settings.arch``.
