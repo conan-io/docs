@@ -98,8 +98,8 @@ There are different scenarios where this command could look like useful:
 
 .. note::
 
-    Note that if :command:`--profile` or settings, options, are not provided to :command:`export-pkg`,
-    the configuration will be extracted from the information from a previous :command:`conan install`.
+    Note that if :command:`--profile`, settings or options are not provided to :command:`export-pkg`,
+    the configuration will be extracted from the information stored after a previous :command:`conan install`.
     That information might be incomplete in some edge cases, so we strongly recommend the usage of
     :command:`--profile` or :command:`--settings, --options`, etc.
 
