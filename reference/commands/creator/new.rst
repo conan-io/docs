@@ -94,13 +94,13 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
 
   Conan will look for ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
-  These files can be installed and managed by :ref:`conan_config_install` command. The templates use the python strings format syntax:
+  These files can be installed and managed by :ref:`conan_config_install` command. The templates use Jinja syntax:
 
   .. code-block:: text
 
-    class {package_name}Conan(ConanFile):
-        name = "{name}"
-        version = "{version}"
+    class {{package_name}}Conan(ConanFile):
+        name = "{{name}}"
+        version = "{{version}}"
 
   Where ``name`` and ``version`` placeholders are defined from the command line, and ``package_name`` is a camel case
-  variant of the ``name``.
+  variant of the package ``name``.
