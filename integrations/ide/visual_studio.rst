@@ -5,14 +5,19 @@
 ___________________________
 
 
-Check the :ref:`MSBuild() integration<msbuild_integration>`, that contains information about Build Helpers and
-generators to be used with Visual Studio.
-
-
 Visual Studio Plugin
 ====================
 
 Coming soon!
+
+
+General Integration
+===================
+
+
+Check the :ref:`MSBuild() integration<msbuild_integration>`, that contains information about Build Helpers and
+generators to be used with Visual Studio.
+
 
 
 
