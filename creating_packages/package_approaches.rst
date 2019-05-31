@@ -115,7 +115,7 @@ The Visual Studio runtime is different for debug and release (``MDd`` or ``MD``)
 .. code-block:: python
 
     class Pkg(ConanFile):
-        # build_type has been ommitted. It is not an input setting.
+        # build_type has been omitted. It is not an input setting.
         settings = "os", "compiler", "arch"
 
         def configure(self):

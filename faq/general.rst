@@ -21,7 +21,8 @@ Is my compiler, version, architecture, or setting supported?
 Yes. Conan is very general, and does not restrict any configuration at all.
 However, Conan comes with some compilers, versions, architectures, ..., etc. pre-configured in the
 ``~/.conan/settings.yml`` file, and you can get an error if using settings not present in that file.
-Go to :ref:`invalid settings<error_invalid_setting>` to learn more about it.
+Go to :ref:`invalid settings<error_invalid_setting>` to learn more about it, or see the section 
+:ref:`custom_settings`.
 
 Does it run offline?
 --------------------

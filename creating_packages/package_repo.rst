@@ -82,7 +82,7 @@ Also, you can notice the two CMake lines:
     include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
     conan_basic_setup()
 
-They are not added in the package recipe, as they can be directly added to the ``src/CMakeLists.txt``
+They are not added in the package recipe, as they can be directly added to the *src/CMakeLists.txt*
 file.
 
 And simply create the package for user and channel **demo/testing** as described previously:
@@ -104,7 +104,7 @@ Capturing the Remote and Commit: ``scm``
     This is an **experimental** feature subject to breaking changes in future releases.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
-When you export the recipe (or when ``conan create`` is called) the exported recipe will capture the
+When you export the recipe (or when :command:`conan create` is called) the exported recipe will capture the
 remote and commit of the local repository:
 
 .. code-block:: python
@@ -121,8 +121,8 @@ remote and commit of the local repository:
          }
         ...
 
-You can commit and push the ``conanfile.py`` to your origin repository, which will always preserve the ``auto``
-values. But when the file is exported to the conan local cache, the copied recipe in the local cache
+You can commit and push the *conanfile.py* to your origin repository, which will always preserve the ``auto``
+values. But when the file is exported to the Conan local cache, the copied recipe in the local cache
 will point to the captured remote and commit:
 
 .. code-block:: python
@@ -134,15 +134,15 @@ will point to the captured remote and commit:
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/memsharded/hello.git",
+            "url": "https://github.com/conan-io/hello.git",
             "revision": "437676e15da7090a1368255097f51b1a470905a0"
          }
         ...
 
-So when you :ref:`upload the recipe <uploading_packages>` to a conan remote, the recipe will contain
+So when you :ref:`upload the recipe <uploading_packages>` to a Conan remote, the recipe will contain
 the "resolved" URL and commit.
 
-When you are requiring your ``HelloConan``, the ``conan install`` will retrieve the recipe from the
+When you are requiring your ``HelloConan``, the :command:`conan install` will retrieve the recipe from the
 remote. If you are building the package, the source code will be fetched from the captured url/commit.
 
 As SCM attributes are evaluated in the workspace context (see :ref:`scm attribute <scm_attribute>`),
@@ -172,7 +172,7 @@ be valid too:
 
 .. tip::
 
-    While you are in the same computer (the same conan cache), even when you have exported the recipe and
+    While you are in the same computer (the same Conan cache), even when you have exported the recipe and
     Conan has captured the absolute url and commit, Conan will store the local folder where your source code lives.
     If you build your package locally, it will use the local repository (in the local folder) instead of the remote URL,
     even if the local directory contains uncommitted changes.

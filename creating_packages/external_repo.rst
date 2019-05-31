@@ -18,8 +18,7 @@ There are two different ways to fetch the sources from an external repository:
         ...
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
-            self.run("cd hello && git checkout static_shared")
+            self.run("git clone https://github.com/conan-io/hello.git")
             ...
 
 You can also use the :ref:`tools.Git <tools_git>` class:
@@ -33,7 +32,7 @@ You can also use the :ref:`tools.Git <tools_git>` class:
 
         def source(self):
             git = tools.Git(folder="hello")
-            git.clone("https://github.com/memsharded/hello.git", "static_shared")
+            git.clone("https://github.com/conan-io/hello.git", "master")
             ...
 
 2. Using the :ref:`scm attribute <scm_attribute>` of the ConanFile:
@@ -50,8 +49,8 @@ You can also use the :ref:`tools.Git <tools_git>` class:
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/memsharded/hello.git",
-            "revision": "static_shared"
+            "url": "https://github.com/conan-io/hello.git",
+            "revision": "master"
          }
         ...
 

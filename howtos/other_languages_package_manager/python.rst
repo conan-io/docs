@@ -91,7 +91,7 @@ The *conanfile.py* is a bit longer, but is still quite easy to understand:
         def package_info(self):
             self.env_info.PYTHONPATH.append(self.package_folder)
 
-The recipe now declares 2 ``requires`` that we will be used to create the binary extension: the **Poco library** and the **pybind11 library**.
+The recipe now declares 2 ``requires`` that will be used to create the binary extension: the **Poco library** and the **pybind11 library**.
 
 As we are actually building C++ code, there are a few important things that we need:
 

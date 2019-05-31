@@ -18,8 +18,82 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.14 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.15 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.15.1 (16-May-2019)
+---------------------
+
+- Fix: Fix regression of ``conan remote update --insert`` using the same URL it had before `#5110 <https://github.com/conan-io/conan/pull/5110>`_
+- Fix: Fix migration of *registry.json|txt* file including reference to non existing remotes. `#5103 <https://github.com/conan-io/conan/pull/5103>`_
+- Bugfix: Avoid crash of commands copy, imports, editable-add for packages using python_requires `#5150 <https://github.com/conan-io/conan/pull/5150>`_
+
+
+1.15.0 (6-May-2019)
+--------------------
+
+- Feature: Updated the generated *conanfile.py* in :command:`conan new` to the new [conan-io/hello].(https://github.com/conan-io/hello) repository `#5069 <https://github.com/conan-io/conan/pull/5069>`_ . Docs `here <https://github.com/conan-io/docs/pull/1269>`__
+- Feature: The `MSBuild` build helper allows the parameter `toolset` with `False` value to skip the toolset adjustment. `#5052 <https://github.com/conan-io/conan/pull/5052>`_ . Docs `here <https://github.com/conan-io/docs/pull/1260>`__
+- Feature: Add GCC 9 to default settings.yml `#5046 <https://github.com/conan-io/conan/pull/5046>`_ . Docs `here <https://github.com/conan-io/docs/pull/1257>`__
+- Feature: You can disable broken symlinks checks when packaging using `CONAN_SKIP_BROKEN_SYMLINKS_CHECK` env var or `config.skip_broken_symlinks_check=1` `#4991 <https://github.com/conan-io/conan/pull/4991>`_ . Docs `here <https://github.com/conan-io/docs/pull/1272>`__
+- Feature: New ``deploy`` generator to export files from a dependency graph to an installation folder `#4972 <https://github.com/conan-io/conan/pull/4972>`_ . Docs `here <https://github.com/conan-io/docs/pull/1262>`__
+- Feature: Create `tools.Version` with _limited_ capabilities `#4963 <https://github.com/conan-io/conan/pull/4963>`_ . Docs `here <https://github.com/conan-io/docs/pull/1253>`__
+- Feature: Default filename for workspaces: `conanws.yml` (used in install command) `#4941 <https://github.com/conan-io/conan/pull/4941>`_ . Docs `here <https://github.com/conan-io/docs/pull/1243>`__
+- Feature: Add install folder to command 'conan workspace install' `#4940 <https://github.com/conan-io/conan/pull/4940>`_ . Docs `here <https://github.com/conan-io/docs/pull/1261>`__
+- Feature: Add `compiler.cppstd` setting (mark `cppstd` as deprecated) `#4917 <https://github.com/conan-io/conan/pull/4917>`_ . Docs `here <https://github.com/conan-io/docs/pull/1266>`__
+- Feature: Add a `--raw` argument to :command:`conan inspect` command to get an output only with the value of the requested attributes `#4903 <https://github.com/conan-io/conan/pull/4903>`_ . Docs `here <https://github.com/conan-io/docs/pull/1240>`__
+- Feature: ``tools.get()`` and ``tools.unzip()`` now handle also ``.gz`` compressed files `#4883 <https://github.com/conan-io/conan/pull/4883>`_ . Docs `here <https://github.com/conan-io/docs/pull/1230>`__
+- Feature: Add argument `--force` to command `profile new` to overwrite existing one `#4880 <https://github.com/conan-io/conan/pull/4880>`_ . Docs `here <https://github.com/conan-io/docs/pull/1176>`__
+- Feature: Get commit message `#4877 <https://github.com/conan-io/conan/pull/4877>`_ . Docs `here <https://github.com/conan-io/docs/pull/1175>`__
+- Fix: Remove sudo from Travis CI template `#5073 <https://github.com/conan-io/conan/pull/5073>`_ . Docs `here <https://github.com/conan-io/docs/pull/1270>`__
+- Fix: Handle quoted path and libraries in the premake generator `#5051 <https://github.com/conan-io/conan/pull/5051>`_
+- Fix: A simple addition to ensure right compiler version is found on windows. `#5041 <https://github.com/conan-io/conan/pull/5041>`_
+- Fix: Include CMAKE_MODULE_PATH for CMake find_dependency (#4956) `#5021 <https://github.com/conan-io/conan/pull/5021>`_
+- Fix: Add default_package_id_mode in the default conan.conf (#4947) `#5005 <https://github.com/conan-io/conan/pull/5005>`_ . Docs `here <https://github.com/conan-io/docs/pull/1248>`__
+- Fix: Use back slashes for ``visual_studio`` generator instead of forward slashes `#5003 <https://github.com/conan-io/conan/pull/5003>`_
+- Fix: Adding `subparsers.required = True` makes both Py2 and Py3 print an error when no arguments are entered in commands that have subarguments `#4902 <https://github.com/conan-io/conan/pull/4902>`_
+- Fix: Example bare package recipe excludes `conanfile.py` from copy `#4892 <https://github.com/conan-io/conan/pull/4892>`_
+- Fix: More meaningful error message when a remote communication fails to try to download a binary package. `#4888 <https://github.com/conan-io/conan/pull/4888>`_
+- Bugfix: ``conan upload --force`` force also the upload of package binaries, not only recipes `#5088 <https://github.com/conan-io/conan/pull/5088>`_
+- BugFix: MSYS 3.x detection `#5078 <https://github.com/conan-io/conan/pull/5078>`_
+- Bugfix: Don't crash when an editable declare a ``build_folder`` in the layout, but not used in a workspace `#5070 <https://github.com/conan-io/conan/pull/5070>`_
+- Bugfix: Made compatible the `cmake_find_package_multi` generator with `CMake < 3.9` `#5042 <https://github.com/conan-io/conan/pull/5042>`_
+- Bugfix: Fix broken local development flow (:command:`conan source`, :command:`conan build`, :command:`conan package`, :command:`conan export-pkg`) with recipes with ``python-requires`` `#4979 <https://github.com/conan-io/conan/pull/4979>`_
+- Bugfix: 'tar_extract' function was failing if there was a linked folder in the working dir that matches one inside the tar file. Now we use the `destination_dir` as base directory to check this condition. `#4965 <https://github.com/conan-io/conan/pull/4965>`_
+- Bugfix: Remove package folder in :command:`conan create` even when using ``--keep-build`` `#4918 <https://github.com/conan-io/conan/pull/4918>`_
+
+
+1.14.5 (30-Apr-2019)
+--------------------
+
+- Bugfix: Uncompressing a `tgz` package with a broken symlink failed while touching the destination file. `#5065 <https://github.com/conan-io/conan/pull/5065>`_
+- Bugfix: The symlinks compressed in a `tgz` had invalid nonzero size. `#5064 <https://github.com/conan-io/conan/pull/5064>`_
+- Bugfix: Fixing exception of transitive build-requires mixed with normal requires `#5056 <https://github.com/conan-io/conan/pull/5056>`_
+
+
+1.14.4 (25-Apr-2019)
+--------------------
+
+- Bugfix: Fixed error while using Visual Studio 2019 with Ninja generator. `#5028 <https://github.com/conan-io/conan/pull/5028>`_
+- Bugfix: Fixed error while using Visual Studio 2019 with Ninja generator. `#5025 <https://github.com/conan-io/conan/pull/5025>`_
+- Bugfix: Solved errors in concurrent uploads of same recipe `#5014 <https://github.com/conan-io/conan/pull/5014>`_
+- Bugfix: Fixed a bug that intermittently raised  `ERROR: 'NoneType' object has no attribute 'file_sums'` when uploading a recipe. `#5012 <https://github.com/conan-io/conan/pull/5012>`_
+- Bugfix: Bug in `cmake_find_package_multi` caused `CMake` to find incorrect modules in `CMake` modules paths when only `Config` files should be taken into account. `#4995 <https://github.com/conan-io/conan/pull/4995>`_
+- Bugfix: Fix skipping binaries because of transitive ``private`` requirements `#4987 <https://github.com/conan-io/conan/pull/4987>`_
+- Bugfix: Fix broken local development flow (conan source, conan build, conan package, conan export-pkg) with recipes with python-requires `#4983 <https://github.com/conan-io/conan/pull/4983>`_
+
+
+1.14.3 (11-Apr-2019)
+--------------------
+
+- Bugfix: ``build-requires`` and ``private`` requirements that resolve to a dependency that is already in the graph won't span a new node, nor will be ``build-requires`` or ``private``. They can conflict too. `#4937 <https://github.com/conan-io/conan/pull/4937>`_
+
+
+1.14.2 (11-Apr-2019)
+--------------------
+
+- Bugfix: Run a full metadata migration in the cache to avoid old ``null`` revisions in package metadata `#4934 <https://github.com/conan-io/conan/pull/4934>`_
 
 
 1.14.1 (1-Apr-2019)

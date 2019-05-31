@@ -5,9 +5,9 @@ How to reuse Python code in recipes
 
 .. warning::
 
-    To reuse python code, from conan 1.7 there is a new ``python_requires()`` feature.
-    See: :ref:`Python requires: reusing python code in recipes<python_requires>`
-    This "how to" might be deprecated and removed in the future, it is left here for reference only.
+    To reuse Python code, from Conan 1.7 there is a new ``python_requires()`` feature.
+    See: :ref:`Python requires: reusing Python code in recipes<python_requires>`
+    This "how to" might be deprecated and removed in the future. It is left here for reference only.
 
 
 First, if you feel that you are repeating a lot of Python code, and that repeated code could be
@@ -18,14 +18,14 @@ There are several ways to handle Python code reuse in package recipes:
 - To put common code in files, as explained :ref:`below <split_conanfile>`. This code
   has to be exported into the recipe itself.
   
-- To create a Conan package with the common python code, and then ``require`` it from the recipe.
+- To create a Conan package with the common Python code, and then ``require`` it from the recipe.
 
 This howto explains the latter.
 
 A basic Python package
 -----------------------
 
-Let's begin with a simple python package, a "hello world" functionality that we want to package and reuse:
+Let's begin with a simple Python package, a "hello world" functionality that we want to package and reuse:
 
 .. code-block:: python
 
@@ -63,14 +63,14 @@ It is not necessary to compile code, so the package recipe ``conanfile.py`` is q
 
 
 The ``exports`` will copy both the ``hello.py`` and the ``__init__.py`` into the recipe. The ``package()`` method is also obvious: to
-construct the package just copy the python sources.
+construct the package just copy the Python sources.
 
-The ``package_info()`` adds the current package folder to the ``PYTHONPATH`` conan environment variable. It will not affect the real
-environment variable unless the end user wants it.
+The ``package_info()`` adds the current package folder to the ``PYTHONPATH`` Conan environment variable. It will not affect the real
+environment variable unless the end user desires it.
 
 
-It can be seen that this recipe would be practically the same for most python packages, so it could be factored in a ``PythonConanFile``
-base class to further simplify it (open a feature request, or better a pull request :) ) 
+It can be seen that this recipe would be practically the same for most Python packages, so it could be factored in a ``PythonConanFile``
+base class to further simplify it. (Open a feature request, or better a pull request. :) ) 
 
 
 With this recipe, all we have to do is:
@@ -115,15 +115,15 @@ environment, in this case, the ``PYTHONPATH``. Once we activate it, we are able 
     Hello World from Python!
     >>>
 
-The above shows an interactive session, but you can import also the functionality in a regular python script.
+The above shows an interactive session, but you can import also the functionality in a regular Python script.
 
-Reusing python code in your recipes
+Reusing Python code in your recipes
 -----------------------------------
 
-Requiring a python conan package
+Requiring a Python Conan package
 ++++++++++++++++++++++++++++++++
 
-As the conan recipes are python code itself, it is easy to reuse python packages in them. A basic recipe using the created package would be:
+As the Conan recipes are Python code itself, it is easy to reuse Python packages in them. A basic recipe using the created package would be:
 
 .. code-block:: python
 
@@ -150,10 +150,10 @@ and such dependencies cannot be retrieved until the basic evaluation of the reci
     $ conan build .
     Hello World from Python!
 
-Sharing a python module
+Sharing a Python module
 +++++++++++++++++++++++
 
-Another approach is sharing a python module and exporting within the recipe.
+Another approach is sharing a Python module and exporting within the recipe.
 
 .. _split_conanfile:
 

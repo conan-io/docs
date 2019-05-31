@@ -56,9 +56,9 @@ that you receive a message like this:
 
 This doesn't mean that such architecture is not supported by conan, it is just that it is not present in the actual
 defaults settings. You can find in your user home folder ``~/.conan/settings.yml`` a settings file that you
-can modify, edit, add any setting or any value, with any nesting if necessary.
+can modify, edit, add any setting or any value, with any nesting if necessary. See :ref:`custom_settings`.
 
-As long as your team or users have the same settings (you can share with them the file), everything will work. The ``settings.yml`` file is just a
+As long as your team or users have the same settings (you can share with them the file), everything will work. The *settings.yml* file is just a
 mechanism so users agree on a common spelling for typically settings. Also, if you think that some settings would
 be useful for many other conan users, please submit it as an issue or a pull request, so it is included in future
 releases.
@@ -149,3 +149,33 @@ When installing a Conan package and the follow error occurs:
 Probably your Conan version is outdated.
 The error is related to `default_options` be used as dictionary and only can be handled by Conan >= 1.8.
 To fix this error, update Conan to 1.8 or higher.
+
+
+ERROR: Error while starting Conan Server with multiple workers
+--------------------------------------------------------------
+
+When running ``gunicorn`` to start ``conan_server`` in an empty environment:
+
+.. code-block:: bash
+
+    $ gunicorn -b 0.0.0.0:9300 -w 4 -t 300 conans.server.server_launcher:app
+
+        **********************************************
+        *                                            *
+        *      ERROR: STORAGE MIGRATION NEEDED!      *
+        *                                            *
+        **********************************************
+        A migration of your storage is needed, please backup first the storage directory and run:
+
+        $ conan_server --migrate
+
+Conan Server will try to create `~/.conan_server/data`, `~/.conan_server/server.conf` and `~/.conan_server/version.txt` at first time.
+However, as multiple workers are running at same time, it could result in a conflict.
+To fix this error, you should run:
+
+.. code-block:: bash
+
+    $ conan_server --migrate
+
+This command must be executed before to start the workers. It will not migrate anything, but it will populate the conan_server folder.
+The original discussion about this error is `here <https://github.com/conan-io/conan/issues/4723>`_.

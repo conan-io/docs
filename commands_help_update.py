@@ -54,6 +54,7 @@ conan {0}
 
 {4}"""
 
+
 for command in commands:
     execute = [conan_name, command, "-h"]
     print(execute)
@@ -61,7 +62,7 @@ for command in commands:
     output = output.rstrip()
     search_string = "conan %s [-h]" % command
     output = search_string + output.split(search_string)[1]
-    output = output.split("\\r\\n\\r\\n" if platform.system() == "Windows" else "\n\n", 2)
+    output = output.split("\\r\\n\\r\\n" if platform.system() == "Windows" else "\\n\\n", 2)
 
     underline = ""
     for char in command:
@@ -75,8 +76,15 @@ for command in commands:
 
     text_help = output[1].replace("\\r", "").replace("\\n", "\n").rstrip()
 
+    if output[2].startswith("positional arguments"):
+        args_text = output[2]
+    else:
+        tmp = output[2].split("positional arguments")
+        text_help += "\n\n" + tmp[0].replace("\\r", "").replace("\\n", "\n").rstrip()
+        args_text = "positional arguments" + tmp[1]
+
     arguments_help = ""
-    for line in output[2].replace("\\r", "").replace("\\n", "\n").splitlines():
+    for line in args_text.replace("\\r", "").replace("\\n", "\n").splitlines():
         if line == "'" or line == "\"":
             continue
         arguments_help += ("    %s\n" % line) if line else "\n"

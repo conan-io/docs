@@ -7,11 +7,11 @@
 You can use `Jenkins CI` both for:
 
 - Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file
-- Building and testing conan binary packages for a given conan package recipe (with a conanfile.py) and uploading to a
-  conan remote (Artifactory or conan_server)
+- Building and testing conan binary packages for a given Conan package recipe (with a conanfile.py) and uploading to a
+  Conan remote (Artifactory or conan_server)
 
-There is no need for any special setup for it, just install conan and your build tools in the Jenkins machine and call
-the needed ``conan`` commands.
+There is no need for any special setup for it, just install Conan and your build tools in the Jenkins machine and call
+the needed Conan commands.
 
 
 Artifactory and Jenkins integration
@@ -21,7 +21,7 @@ ___________________________________
 If you are using `Artifactory`_ you can take advantage of the `Jenkins Artifactory Plugin`_.
 Check `here how to install the plugin`_ and `here you can check the full documentation about the DSL`_.
 
-The Artifactory Jenkins plugin provides a powerful DSL language to call conan, connect with your Artifactory instance,
+The Artifactory Jenkins plugin provides a powerful DSL (Domain Specific Language) to call Conan, connect with your Artifactory instance,
 upload and download your packages from Artifactory and manage your `build information`_.
 
 
@@ -29,7 +29,7 @@ upload and download your packages from Artifactory and manage your `build inform
 Example: Test your project getting requirements from Artifactory
 ****************************************************************
 
-This is a template to use Jenkins with Artifactory plugin and Conan to retrieve your package from Artifactory server
+This is a template to use Jenkins with an Artifactory plugin and Conan to retrieve your package from Artifactory server
 and publish the `build information`_ about the downloaded packages to Artifactory.
 
 In this script we assume that we already have all our dependencies in the Artifactory server, and we are building
@@ -72,10 +72,10 @@ Create a new Jenkins Pipeline task using this script:
 |jenkins_stages|
 
 
-Example: Build a conan package and upload it to Artifactory
+Example: Build a Conan package and upload it to Artifactory
 ***********************************************************
 
-In this example we will call conan :ref:`test package<creating_and_testing_packages>` command to create a binary packages
+In this example we will call Conan :ref:`test package<creating_and_testing_packages>` command to create a binary packages
 and then upload it to Artifactory. We also upload the `build information`_:
 
  

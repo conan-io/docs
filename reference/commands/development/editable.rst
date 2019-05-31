@@ -8,7 +8,9 @@ conan editable
 
     $ conan editable [-h] {add,remove,list} ...
 
-Manage editable packages
+Manages editable packages (package that resides in the user workspace, but
+are consumed as if they were in the cache). Use the subcommands 'add', 'remove' and
+'list' to create, remove an list packages currently installed in this mode.
 
 .. code-block:: text
 

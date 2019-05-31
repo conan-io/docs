@@ -78,8 +78,20 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 
 - Remove system requirements installation registry for the package name referred globally for all package ids:
 
-.. code-block:: bash
+  .. code-block:: bash
 
       $ conan remove --system-reqs package/version@user/channel
 
-This command does not remove the system installed packages, but only the Conan lock to indicate they were installed.
+  This command does not remove the system installed packages, but only the Conan lock to indicate they were installed.
+
+- Remove system requirements installation registry for all packages named ``package`` via a wildcard
+
+  .. code-block:: bash
+
+      $ conan remove --system-reqs 'package/*'
+
+- Remove system requirements installation registry for all packages via a wildcard
+
+  .. code-block:: bash
+
+      $ conan remove --system-reqs '*'

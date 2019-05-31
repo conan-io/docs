@@ -50,7 +50,8 @@ Constructor
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
-                     set_cmake_flags=False, msbuild_verbosity=None, cmake_program=None)
+                     set_cmake_flags=False, msbuild_verbosity='minimal', cmake_program=None,
+                     generator_platform=None)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
@@ -63,11 +64,24 @@ Parameters:
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
-    - **msbuild_verbosity** (Optional, Defaulted to ``None``): verbosity level for MSBuild (in case of Visual Studio generator).
+    - **msbuild_verbosity** (Optional, Defaulted to ``minimal``): verbosity level for
+      MSBuild (in case of Visual Studio generator). Set this parameter to ``None`` to avoid
+      using it in the command line.
     - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
+    - **generator_platform** (Optional, Defaulted to ``None``): Generator platform name or none to autodetect (-A cmake option).
 
 Attributes
 ----------
+
+generator
++++++++++
+
+Specifies a custom CMake generator to use, see also `cmake-generators documentation <https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html>`_.
+
+generator_platform
+++++++++++++++++++
+
+Specifies a custom CMake generator platform to use, see also `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`_.
 
 verbose
 +++++++
@@ -197,17 +211,21 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_LINK_RUNTIME                        | Set to the runtime value from ``self.settings.compiler.runtime`` for MSVS                                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.cppstd`` value                                                                                    |
+| CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.compiler.cppstd`` value (or ``self.settings.cppstd`` for backward compatibility)                  |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_EXTENSIONS                | Set to the ``self.settings.cppstd`` value when GNU extensions are enabled                                                    |
+| CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_STD_CXX_FLAG                        | Set to the ``self.settings.cppstd`` value. Flag for compiler directly (for CMake < 3.1)                                      |
+| CONAN_STD_CXX_FLAG                        | Set to the flag corresponding to the C++ standard defined in ``self.settings.compiler.cppstd``. Used for CMake < 3.1)        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_EXPORT_NO_PACKAGE_REGISTRY          | Defined by default to disable the package registry                                                                           |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_IN_LOCAL_CACHE                      | ``ON`` if the build runs in local cache, ``OFF`` if running in a user folder                                                 |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_EXPORTED                            | Defined when CMake is called using Conan CMake helper                                                                        |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| ANDROID_ABI                               | Just alias for CMAKE_ANDROID_ARCH_ABI                                                                                        |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| ANDROID_NDK                               | Defined when one of ANDROID_NDK_ROOT or ANDROID_NDK_HOME environment variables presented                                     |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
 There are some definitions set to be used later on the the ``install()`` step too:

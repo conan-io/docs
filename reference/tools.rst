@@ -323,13 +323,15 @@ Parameters:
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY``.
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True`` Conan will overwrite the destination file if it exists. Otherwise it
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
-      http://docs.python-requests.org/en/master/user/authentication
+      https://2.python-requests.org/en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_get_env:
@@ -405,12 +407,14 @@ Parameters:
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure.
-    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts.
+    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY``.
+    - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
+      in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
-      ``requests`` Python library. Check other uses here: http://docs.python-requests.org/en/master/user/authentication
+      ``requests`` Python library. Check other uses here: https://2.python-requests.org/en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_ftp_download:
@@ -541,7 +545,7 @@ For example:
 .. code-block:: python
 
     from conans import tools
-    
+
     tools.check_sha1("myfile.zip", "eb599ec83d383f0f25691c184f656d40384f9435")
 
 Other algorithms are also possible, as long as are recognized by python ``hashlib`` implementation, via ``hashlib.new(algorithm_name)``.
@@ -576,7 +580,7 @@ the ``source()`` method.
     tools.patch(patch_string=patch_content)
     # to apply in subfolder
     tools.patch(base_path=mysubfolder, patch_string=patch_content)
-    
+
 If the patch to be applied uses alternate paths that have to be stripped like this example:
 
 .. code-block:: diff
@@ -621,7 +625,7 @@ This is a context manager that allows to temporary use environment variables for
         with tools.environment_append({"MY_VAR": "3", "CXX": "/path/to/cxx", "CPPFLAGS": None}):
             do_something()
 
-The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list. 
+The environment variables will be overridden if the value is a string, while it will be prepended if the value is a list.
 Additionally, if value is ``None``, the given environment variable is unset (In the previous example, ``CPPFLAGS`` environment
 variable will be unset), and in case variable wasn't set prior to the invocation, it has no effect on the given variable (``CPPFLAGS``).
 When the context manager block ends, the environment variables will recover their previous state.
@@ -675,7 +679,7 @@ For example:
 .. code-block:: python
 
     from conans import tools
-    
+
     def build(self):
         with tools.pythonpath(self):
             from module_name import whatever
@@ -839,6 +843,17 @@ tools.get_cased_path()
 
 This function converts a case-insensitive absolute path to a case-sensitive one. That is, with the real cased characters. Useful when using
 Windows subsystems where the file system is case-sensitive.
+
+.. _tools_detected_os:
+
+tools.detected_os()
+-------------------
+
+.. code-block:: python
+
+    detected_os()
+
+It returns the recognized OS name e.g "Macos", "Windows". Otherwise it will return the value from ``platform.system()``.
 
 .. _tools_remove_from_path:
 
@@ -1234,7 +1249,7 @@ tools.collect_libs()
 
     def collect_libs(conanfile, folder=None)
 
-Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the 
+Returns a sorted list of library names from the libraries (files with extensions *.so*, *.lib*, *.a* and *.dylib*) located inside the
 ``conanfile.cpp_info.libdirs`` (by default) or the **folder** directory relative to the package folder. Useful to collect not
 inter-dependent libraries or with complex names like ``libmylib-x86-debug-en.lib``.
 
@@ -1362,6 +1377,7 @@ Methods:
     - **is_local_repository()**: Returns `True` if the remote is a local folder.
     - **is_pristine()**: Returns `True` if there aren't modified or uncommitted files in the working copy.
     - **get_repo_root()**: Returns the root folder of the working copy.
+    - **get_commit_message()**: Returns the latest log message
 
 .. _tools_svn:
 
@@ -1410,6 +1426,7 @@ Methods:
     - **is_local_repository()**: Returns `True` if the remote is a local folder.
     - **is_pristine()**: Returns `True` if there aren't modified or uncommitted files in the working copy.
     - **get_repo_root()**: Returns the root folder of the working copy.
+    - **get_revision_message()**: Returns the latest log message
 
 
 .. warning::
@@ -1544,3 +1561,44 @@ if ``file.txt`` exists).
 
 Parameters:
     - **folder** (Required): root folder to start deleting ``._`` files.
+
+.. _tools_version:
+
+tools.Version()
+---------------
+
+.. code-block:: python
+
+    from conans import tools
+
+    v = tools.Version("1.2.3-dev23")
+    assert v < "1.2.3"
+
+This is a helper class to work with semantic versions, built on top of ``semver.SemVer`` class
+with loose parsing. It exposes all the version components as properties and offers total
+ordering through compare operators.
+
+Build the ``tools.Version`` object using any valid string or any object that converts to
+string, the constructor will raise if the string is not a valid loose semver.
+
+Properties:
+   - **major**: component ``major`` of semver version
+   - **minor**: component ``minor`` of semver version (defaults to ``"0"``)
+   - **patch**: component ``patch`` of semver version (defaults to ``"0"``)
+   - **prerelease**: component ``prerelease`` of semver version (defaults to ``""``)
+   - **build**: component ``build`` of semver version (defaults to ``""``). Take into account
+     that ``build`` component doesn't affect precedence between versions.
+
+.. _tools.to_android_abi:
+
+tools.to_android_abi()
+----------------------
+
+.. code-block:: python
+
+    def to_android_abi(arch)
+
+Converts Conan style architecture into Android NDK style architecture.
+
+Parameters:
+    - **arch** (Required): Arch to perform the conversion. Usually this would be ``self.settings.arch``.
