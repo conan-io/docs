@@ -7,7 +7,7 @@ suitable for the use of any version control system.
 
 Check :ref:`workflows section <workflows>` to learn more about project layouts that naturally fit version control systems.
 
-Check :ref:`scm feature<scm_feature>` to lean more about managing the libraries source code with SVN.
+Check :ref:`scm feature<scm_feature>` to learn more about managing the libraries source code with SVN.
 
 
 
