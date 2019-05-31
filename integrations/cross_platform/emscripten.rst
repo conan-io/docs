@@ -152,5 +152,5 @@ And as the result, Web Browser should be opened (or new tab in Web Browser will 
 
 It confirms the fact we have just built ``zlib`` into JavaScript and run it inside the Web Browser.
 
-.. |emscripten_logo| image:: ../images/emscripten_logo.png
+.. |emscripten_logo| image:: ../../images/emscripten_logo.png
                      :width: 180px

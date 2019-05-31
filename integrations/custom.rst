@@ -236,3 +236,12 @@ There are two ways in which generators can be contributed:
   inside that file, then upload, refer and depend on it as any other package. These generators will be another node in the dependency graph
   but they have many advantages: much faster release cycles, independent from the Conan codebase and can be versioned. So backwards
   compatibility and upgrades are much easier.
+
+
+.. _pylint_integration:
+
+
+Extending Conan
+---------------
+
+There are other powerful mechanisms to integrate other tools with Conan. Check the :ref:`Extending Conan <extending>` section for further information.
