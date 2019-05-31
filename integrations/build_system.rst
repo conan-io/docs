@@ -3,7 +3,7 @@
 Build systems
 =============
 
-Conan provides can be integrated with any build system. This can be done with:
+Conan can be integrated with any build system. This can be done with:
 
 
 - :ref:`Generators<generators>`: Conan can write file/s in different formats gathering all the information

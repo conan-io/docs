@@ -3,7 +3,7 @@
 Other Systems
 =============
 
-You can run Conan on any platform supporting python and also cross-build Conan packages
+You can run Conan on any platform supporting Python and also cross-build Conan packages
 for different platforms.
 
 
