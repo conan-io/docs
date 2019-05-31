@@ -67,7 +67,7 @@ Known installation issues with pip
       $ pip install conan
 
 - When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory
-  is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can be solved restarting the session of
+  is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved restarting the session of
   the terminal or running the following command:
 
   .. code-block:: bash
