@@ -8,7 +8,7 @@ This topical list of build systems, IDEs, and CI platforms provides information 
 packages can be consumed, created, and continuously deployed/tested with each, as applicable.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
 
    integrations/build_system
    integrations/ides
