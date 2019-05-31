@@ -76,9 +76,10 @@ different sources for the files:
 
  * If the argument ``--package-folder`` is provided, Conan will just copy all the
    contents of that folder to the package one in the cache.
- * If no ``--package-folder`` is given, Conan will execute the method ``package()``
-   of the recipe twice: first using the ``source_folder`` and then ``build_folder``
-   as the working directory.
+ * If no ``--package-folder`` is given, Conan will execute the method ``package()`` once
+   and the ``self.copy(...)`` functions will copy matching files from the ``source_folder``
+   **and** ``build_folder`` to the corresponding path in the Conan cache (working directory
+   corresponds to the ``build_folder``).
 
 
 There are different scenarios where this command could look like useful:
