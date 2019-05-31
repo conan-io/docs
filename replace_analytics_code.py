@@ -9,7 +9,7 @@ for line in lines:
     if line.startswith("remotes/origin/release/"):
         branches.append(line.split("remotes/origin/")[1])
 
-old_code = "GTM-WK44ZFM"
+old_code = "UA-68594724-3"
 old_code_2 = "GTM-53TFLK7"
 new_code = "GTM-WK44ZFM"
 
