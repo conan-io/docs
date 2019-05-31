@@ -173,7 +173,7 @@ be valid too:
 .. tip::
 
     When doing a :command:`conan create` of a recipe using ``scm``, Conan will save the path to the local source repository. Every time the
-    :command:`conan create` command is ivoked, the sources will not be downloaded from the remote repository but from the local one.
+    :command:`conan create` command is invoked, the sources will not be downloaded from the remote repository but copied from the local directory.
 
     This allows to build packages making changes to the source code without the need of committing them and pushing them to the remote
     repository. This convenient to speed up the development of your packages when cloning from a local repository.
