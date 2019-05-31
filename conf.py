@@ -396,7 +396,45 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     redirect_files = {
         "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
         "conan1.0.html": "faq/conan1.0.html",
-        "mastering/python_requires.html": "../extending/python_requires.html"}
+        "mastering/python_requires.html": "../extending/python_requires.html",
+
+        "integrations/cmake.html": "integrations/build_system/cmake.html",
+        "integrations/makefile.html": "integrations/build_system/makefile.html",
+        "integrations/ninja.html": "integrations/build_system/ninja.html",
+        "integrations/pkg_config_pc_files.html": "integrations/build_system/pkg_config_pc_files.html",
+        "integrations/boost_build.html": "integrations/build_system/boost_build.html",
+        "integrations/b2.html": "integrations/build_system/b2.html",
+        "integrations/qmake.html": "integrations/build_system/qmake.html",
+        "integrations/premake.html": "integrations/build_system/premake.html",
+        "integrations/make.html": "integrations/build_system/make.html",
+        "integrations/qbs.html": "integrations/build_system/qbs.html",
+        "integrations/meson.html": "integrations/build_system/meson.html",
+        "integrations/scons.html": "integrations/build_system/scons.html",
+        "integrations/gcc.html": "integrations/build_system/gcc.html",
+
+        "integrations/docker.html": "integrations/cross_platform/docker.html",
+        "integrations/qnx_neutrino.html": "integrations/cross_platform/qnx_neutrino.html",
+        "integrations/emscripten.html": "integrations/cross_platform/emscripten.html",
+
+        "integrations/visual_studio.html": "integrations/ides/visual_studio.html",
+        "integrations/xcode.html": "integrations/ides/xcode.html",
+        "integrations/android_studio.html": "integrations/ides/android_studio.html",
+        "integrations/clion.html": "integrations/ides/clion.html",
+        "integrations/youcompleteme.html": "integrations/ides/youcompleteme.html",
+
+        "integrations/git.html": "integrations/vcs/git.html",
+
+        "integrations/jenkins.html": "integrations/ci/jenkins.html",
+        "integrations/travisci.html": "integrations/ci/travisci.html",
+        "integrations/appveyor.html": "integrations/ci/appveyor.html",
+        "integrations/gitlab.html": "integrations/ci/gitlab.html",
+        "integrations/circleci.html": "integrations/ci/circleci.html",
+        "integrations/azure_devops.html": "integrations/ci/azure_devops.html",
+
+        "integrations/other.html": "integrations/custom.html",
+        "integrations/pylint.html": "integrations/linting.html",
+
+    }
 
     redirect_template = """<!DOCTYPE html>
 <html>
