@@ -10,7 +10,7 @@ You can develop both the recipes and your libraries using you IDE.
    :maxdepth: 2
 
    ide/visual_studio
+   ide/clion
    ide/xcode
    ide/android_studio
-   ide/clion
    ide/youcompleteme

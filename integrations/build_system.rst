@@ -17,6 +17,7 @@ Conan provides can be integrated with any build system. This can be done with:
    :maxdepth: 2
 
    build_system/cmake
+   build_system/msbuild
    build_system/makefile
    build_system/ninja
    build_system/pkg_config_pc_files
