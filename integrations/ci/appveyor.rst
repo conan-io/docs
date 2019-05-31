@@ -88,5 +88,5 @@ example we are assuming that you are using GitHub and also uploading your final 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 
 
-.. |appveyor_logo| image:: ../images/appveyor_logo.png
+.. |appveyor_logo| image:: ../../images/appveyor_logo.png
 .. _`AppVeyor`: https://ci.appveyor.com

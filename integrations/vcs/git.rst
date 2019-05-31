@@ -7,6 +7,7 @@ suitable for the use of any version control system. We use and highly recommend 
 
 Check :ref:`workflows section <workflows>` to learn more about project layouts that naturally fit version control systems.
 
+
 Temporary files
 ===============
 
@@ -26,6 +27,8 @@ your project (we do this in several examples in the documentation). In this case
 Package creators
 ================
 
+Check :ref:`scm feature<scm_feature>` to lean more about managing the libraries source code with git.
+
 If you are creating a **Conan** package:
 
 - You can use the :ref:`url field <package_url>` to indicate the origin of your package recipe. If you are using an
@@ -34,4 +37,6 @@ If you are creating a **Conan** package:
 - You can use :command:`git` to :ref:`obtain your source<method_source>` (requires the git client in the path) when creating
   external package recipes.
 
-.. |git_logo| image:: ../images/git_logo.png
+
+
+.. |git_logo| image:: ../../images/git_logo.png

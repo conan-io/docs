@@ -8,35 +8,13 @@ This topical list of build systems, IDEs, and CI platforms provides information 
 packages can be consumed, created, and continuously deployed/tested with each, as applicable.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
-   integrations/cmake
-   integrations/makefile
-   integrations/visual_studio
-   integrations/xcode
-   integrations/gcc
-   integrations/android_studio
-   integrations/clion
-   integrations/ninja
-   integrations/pkg_config_pc_files
-   integrations/boost_build
-   integrations/b2
-   integrations/qmake
-   integrations/premake
-   integrations/make
-   integrations/qbs
-   integrations/meson
-   integrations/scons
-   integrations/docker
-   integrations/git
-   integrations/jenkins
-   integrations/travisci
-   integrations/appveyor
-   integrations/gitlab
-   integrations/circleci
-   integrations/youcompleteme
-   integrations/other
-   integrations/pylint
-   integrations/azure_devops
-   integrations/emscripten
-   integrations/qnx_neutrino
+   integrations/build_system
+   integrations/ides
+   integrations/ci
+   integrations/cross_platform
+   integrations/vcs
+   integrations/custom
+   integrations/linting
+

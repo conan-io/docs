@@ -14,4 +14,4 @@ Check the :ref:`generator boost-build<boost_build_generator>`
 
 
 
-.. |boost_build_logo| image:: ../images/boost_build.png
+.. |boost_build_logo| image:: ../../images/boost_build.png
