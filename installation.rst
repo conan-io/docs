@@ -66,9 +66,9 @@ Known installation issues with pip
       $ python3.4 get-pip.py
       $ pip install conan
 
-- When Conan being the first application installer via pip with :command:`pip install --user <username>`, usually the path is not updated in
-  the environment and the :command:`conan` command is not available in the current terminal session. This can be solved restarting the
-  session or running the following command:
+- When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory
+  is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can be solved restarting the session of
+  the terminal or running the following command:
 
   .. code-block:: bash
 
