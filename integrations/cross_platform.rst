@@ -1,7 +1,7 @@
 .. _integration_cross_platform:
 
-Cross platform
-==============
+Other Systems
+=============
 
 You can run Conan on any platform supporting python and also cross-build Conan packages
 for different platforms.

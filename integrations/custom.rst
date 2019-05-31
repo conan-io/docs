@@ -244,4 +244,4 @@ There are two ways in which generators can be contributed:
 Extending Conan
 ---------------
 
-There are other powerful mechanisms to integrate other tools with Conan, check the :ref:`Extending Conan <extending-conan>` section.
+There are other powerful mechanisms to integrate other tools with Conan, check the :ref:`Extending Conan <extending>` section.
