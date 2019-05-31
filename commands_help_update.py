@@ -3,25 +3,27 @@ import platform
 import subprocess
 import sys
 
-commands = ["config", "get", "info", "install", "search", "create", "export-pkg", "export", "new",
-            "test", "upload", "build", "package", "source", "alias", "copy", "download", "help",
-            "imports", "inspect", "profile", "remote", "remove", "user"]
-
 folder = {
     "config": "consumer",
     "get": "consumer",
     "info": "consumer",
     "install": "consumer",
     "search": "consumer",
+
     "create": "creator",
     "export-pkg": "creator",
     "export": "creator",
     "new": "creator",
     "test": "creator",
     "upload": "creator",
+
     "build": "development",
     "package": "development",
     "source": "development",
+    "editable": "development",
+    "workspace": "development",
+
+
     "alias": "misc",
     "copy": "misc",
     "download": "misc",
@@ -34,6 +36,10 @@ folder = {
     "user": "misc"
 }
 
+experimental = ["inspect"]
+commands = folder.keys()
+
+
 conan_name = ""
 try:
     conan_name = sys.argv[1]
@@ -44,15 +50,15 @@ template = """.. _conan_{0}:
 
 conan {0}
 ======{1}
-
+{2}
 .. code-block:: bash
 
-    $ {2}
-{3}
+    $ {3}
+{4}
 
 .. code-block:: text
 
-{4}"""
+{5}"""
 
 
 for command in commands:
@@ -92,7 +98,14 @@ for command in commands:
     arguments_help = arguments_help.rstrip()
     print(arguments_help)
 
-    text = template.format(command, underline, small_help, text_help, arguments_help)
+    text_experimental = """
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
+""" if command in experimental else ""
+    text = template.format(command, underline, text_experimental, small_help, text_help,
+                           arguments_help)
     text = text.replace("\\'", "\'")
 
     filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "reference", "commands",

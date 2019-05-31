@@ -8,9 +8,11 @@ conan imports
 
     $ conan imports [-h] [-if INSTALL_FOLDER] [-imf IMPORT_FOLDER] [-u] path
 
-Calls your local conanfile.py or conanfile.txt 'imports' method. It requires
-to have been previously installed and have a conanbuildinfo.txt generated file
-in the --install-folder (defaulted to current directory).
+Calls your local conanfile.py or conanfile.txt 'imports' method.
+
+It requires to have been previously installed and have a
+conanbuildinfo.txt generated file in the --install-folder (defaulted to
+current directory).
 
 .. code-block:: text
 

@@ -8,11 +8,12 @@ conan user
 
     $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [-j JSON] [name]
 
-Authenticates against a remote with user/pass, caching the auth token. Useful
-to avoid the user and password being requested later. e.g. while you're
-uploading a package. You can have one user for each remote. Changing the user,
-or introducing the password is only necessary to perform changes in remote
-packages.
+Authenticates against a remote with user/pass, caching the auth token.
+
+Useful to avoid the user and password being requested later. e.g. while
+you're uploading a package.  You can have one user for each remote.
+Changing the user, or introducing the password is only necessary to
+perform changes in remote packages.
 
 .. code-block:: text
 
