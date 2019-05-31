@@ -2,7 +2,7 @@
 ``cmake`` generator
 ===================
 
-If you are using **CMake** to build your project, you can use the ``cmake`` generator to define all your requirements in cmake syntax.
+If you are using CMake to build your project, you can use the ``cmake`` generator to define all your requirements in CMake syntax.
 It creates a file named ``conanbuildinfo.cmake`` that can be imported from your ``CMakeLists.txt``.
 
 .. code-block:: text
@@ -15,13 +15,14 @@ It creates a file named ``conanbuildinfo.cmake`` that can be imported from your 
 When :command:`conan install` is executed, a file named *conanbuildinfo.cmake* is created.
 
 You can include *conanbuildinfo.cmake* in your project's *CMakeLists.txt* to manage your requirements.
-The inclusion of *conanbuildinfo.cmake* doesn't alter the CMake environment at all. It simply provides ``CONAN_`` variables and some useful macros.
+The inclusion of *conanbuildinfo.cmake* doesn't alter the CMake environment at all. It simply provides ``CONAN_`` variables and some useful
+macros.
 
 Global variables approach
 -------------------------
 
 The simplest way to consume it would be to invoke the ``conan_basic_setup()`` macro, which will basically
-set global include directories, libraries directories, definitions, etc. so typically its enough to call:
+set global include directories, libraries directories, definitions, etc. so typically it is enough to call:
 
 .. code-block:: cmake
 
