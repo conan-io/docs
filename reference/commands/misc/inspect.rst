@@ -13,7 +13,7 @@ conan inspect
     $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON] [--raw RAW]
                     path_or_reference
 
-Displays conanfile attributes, like name, version, options Works both locally,
+Displays conanfile attributes, like name, version and options. Works both locally,
 in local cache and remote
 
 .. code-block:: text
