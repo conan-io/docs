@@ -10,13 +10,17 @@ As previously demonstrated, we can use the :command:`--build` option to change t
 - :command:`--build missing` will build only the missing requires.
 - :command:`--build` will build all requirements from sources.
 - :command:`--build outdated` will try to build from code if the binary is not built with the current recipe or when missing binary package.
+- :command:`--build cascade` will build from code all the nodes with some dependency being built (for any reason). Can be used together with any
+  other build policy. Useful to make sure that any new change introduced in a dependency is incorporated by building again the package.
 - :command:`--build pattern*` will build only the packages with the reference starting with "pattern".
 
-With the ``build_policy`` attribute the package creator can change the default Conan's build behavior. The allowed build_policy values are:
+
+With the ``build_policy`` attribute in the `conanfile.py` the package creator can change the default Conan's build behavior. The allowed build_policy values are:
 
 - ``missing``: If no binary package is found, Conan will build it without the need to invoke Conan install with :command:`--build missing`
   option.
 - ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+
 
 .. code-block:: python
    :emphasize-lines: 6
