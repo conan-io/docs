@@ -27,7 +27,7 @@ your project (we do this in several examples in the documentation). In this case
 Package creators
 ================
 
-Check :ref:`scm feature<scm_feature>` to lean more about managing the libraries source code with git.
+Check :ref:`scm feature<scm_feature>` to learn more about managing the libraries source code with Git.
 
 If you are creating a **Conan** package:
 
