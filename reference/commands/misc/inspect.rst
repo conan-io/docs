@@ -4,6 +4,11 @@
 conan inspect
 =============
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
+
 .. code-block:: bash
 
     $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON] [--raw RAW]

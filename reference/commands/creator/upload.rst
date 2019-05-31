@@ -19,13 +19,15 @@ If no remote is specified, the first configured remote (by default conan-center,
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g.,
-                            'MyPackage/1.2@user/channel', 'boost/*'
+      pattern_or_reference  Pattern, recipe reference or package reference e.g.,
+                            'boost/*', 'MyPackage/1.2@user/channel', 'MyPackage/1.
+                            2@user/channel:af7901d8bdfde621d086181aa1c495c25a17b13
+                            7'
 
     optional arguments:
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
-                            package ID to upload
+                            Package ID [DEPRECATED: use full reference instead]
       -q QUERY, --query QUERY
                             Only upload packages matching a specific query.
                             Packages query: 'os=Windows AND (arch=x86 OR

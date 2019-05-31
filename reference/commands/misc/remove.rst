@@ -20,8 +20,8 @@ by default in the local conan cache.
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g.,
-                            'MyPackage/1.2@user/channel', 'boost/*'
+      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
+                            'MyPackage/1.2@user/channel'
 
     optional arguments:
       -h, --help            show this help message and exit

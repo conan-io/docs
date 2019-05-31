@@ -36,7 +36,7 @@ folder = {
     "user": "misc"
 }
 
-
+experimental = ["inspect"]
 commands = folder.keys()
 
 
@@ -50,15 +50,15 @@ template = """.. _conan_{0}:
 
 conan {0}
 ======{1}
-
+{2}
 .. code-block:: bash
 
-    $ {2}
-{3}
+    $ {3}
+{4}
 
 .. code-block:: text
 
-{4}"""
+{5}"""
 
 
 for command in commands:
@@ -98,7 +98,14 @@ for command in commands:
     arguments_help = arguments_help.rstrip()
     print(arguments_help)
 
-    text = template.format(command, underline, small_help, text_help, arguments_help)
+    text_experimental = """
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
+""" if command in experimental else ""
+    text = template.format(command, underline, text_experimental, small_help, text_help,
+                           arguments_help)
     text = text.replace("\\'", "\'")
 
     filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "reference", "commands",
