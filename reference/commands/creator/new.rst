@@ -33,7 +33,8 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
       -b, --bare            Create the minimum package recipe, without build()
                             method. Useful in combination with "export-pkg"
                             command
-      -f FILE, --file FILE  Use the given template from the local cache for
+      -m TEMPLATE, --template TEMPLATE
+                            Use the given template from the local cache for
                             conanfile.py
       -cis, --ci-shared     Package will have a "shared" option to be used in CI
       -cilg, --ci-travis-gcc
@@ -90,7 +91,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
   .. code-block:: bash
 
-      $ conan new mypackage/1.0 --file=myconanfile.py
+      $ conan new mypackage/1.0 --template=myconanfile.py
 
 
   Conan will look for ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
