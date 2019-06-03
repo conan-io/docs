@@ -62,7 +62,7 @@ generators.
                             binary packages. --build=never Never build, use binary
                             packages or fail if a binary package is not found.
                             --build=missing Build from code if a binary package is
-                            not found. --build cascade Will build from code all
+                            not found. --build=cascade Will build from code all
                             the nodes with some dependency being built (for any
                             reason). Can be used together with any other build
                             policy. Useful to make sure that any new change
