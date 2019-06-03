@@ -62,10 +62,15 @@ generators.
                             binary packages. --build=never Never build, use binary
                             packages or fail if a binary package is not found.
                             --build=missing Build from code if a binary package is
-                            not found. --build=outdated Build from code if the
-                            binary is not built with the current recipe or when
-                            missing binary package. --build=[pattern] Build always
-                            these packages from source, but never build the
+                            not found. --build=cascade Will build from code all
+                            the nodes with some dependency being built (for any
+                            reason). Can be used together with any other build
+                            policy. Useful to make sure that any new change
+                            introduced in a dependency is incorporated by building
+                            again the package. --build=outdated Build from code if
+                            the binary is not built with the current recipe or
+                            when missing binary package. --build=[pattern] Build
+                            always these packages from source, but never build the
                             others. Allows multiple --build parameters. 'pattern'
                             is a fnmatch file pattern of a package reference.
                             Default behavior: If you don't specify anything, it
