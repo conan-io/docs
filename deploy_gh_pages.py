@@ -38,13 +38,15 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name, versions_available, validate_links=False):
+def build_and_copy(branch, folder_name, versions_available, templates_dir, validate_links=False):
 
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
 
     with open('versions.json', 'w') as f:
         f.write(json.dumps(versions_available))
+
+    copytree(templates_dir, "_templates")
 
     call("make html")
     call("make json")
@@ -107,7 +109,12 @@ def deploy():
 
 
 if __name__ == "__main__":
-    if should_deploy():
+    if should_deploy() or True:
+
+        # Copy the _themes to be able to share them between old versions
+        templates_dir = tempfile.mkdtemp()
+        copytree("_themes", templates_dir)
+
         host = os.getenv("ELASTIC_SEARCH_HOST")
         region = os.getenv("ELASTIC_SEARCH_REGION")
         es = ElasticManager(host, region)
@@ -130,10 +137,11 @@ if __name__ == "__main__":
 
         to_index = {}
         for branch, folder_name in versions_dict.items():
-            json_folder = build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
+            json_folder = build_and_copy(branch, folder_name, versions_dict, templates_dir,
+                                         validate_links=branch == "master")
             to_index[folder_name] = json_folder
 
-        deploy()
+        # deploy()
 
         # Index
         print("Indexing...")
