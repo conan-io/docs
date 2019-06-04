@@ -22,9 +22,6 @@ input{
 
 }
 
-li.loading-results{
-    display: none;
-}
 
 .select2-dropdown {
     padding: 0px;
@@ -56,6 +53,16 @@ li.loading-results{
     color: #222222;
 }
 
+.res_section span.search_match{
+    display:inline;
+    border: none;
+    width: none;
+    padding: 0px;
+    margin: 0px;
+    color: #0099FF;
+
+}
+
 
 .res_section .res_subsection{
     font-size: 0.9em;
@@ -76,8 +83,30 @@ li.loading-results{
     font-size: 0.9em;
     margin-bottom: 2px;
     margin-left: 20px;
-    width: 49%;
+    width: 65%;
     display: inline-block;
     color: #222222;
     vertical-align: top;
+}
+
+#search{
+    height: 24px;
+}
+
+.wy-side-nav-search a{
+    margin-bottom: 0px;
+}
+
+#breadcrumbs{
+    margin-bottom:5px;
+}
+
+.dropdown-wrapper{
+    border: none;
+}
+
+.select2-results__option.loading-results,
+.select2-results__option.select2-results__option--load-more {
+    padding-left: 35px;
+    background-position: 10px 50%;
 }

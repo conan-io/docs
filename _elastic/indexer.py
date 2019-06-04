@@ -1,8 +1,12 @@
 import os
 import json
+import re
 
-from elasticsearch import Elasticsearch
+import boto3
+import elasticsearch
+from elasticsearch import Elasticsearch, RequestsHttpConnection
 from elasticsearch.helpers import bulk
+from requests_aws4auth import AWS4Auth
 
 
 def build_documents(version, build_folder):
@@ -26,11 +30,19 @@ def build_documents(version, build_folder):
 
 class ElasticManager(object):
 
-    def __init__(self, url, user, password):
-        self.url = url
-        self.user = user
-        self.password = password
-        self.es = Elasticsearch(url)
+    def __init__(self, host, region):
+        credentials = boto3.Session().get_credentials()
+        awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, "es")
+
+        es = Elasticsearch(
+            hosts=[{'host': host, 'port': 443}],
+            http_auth=awsauth,
+            use_ssl=True,
+            verify_certs=True,
+            connection_class=RequestsHttpConnection
+        )
+
+        self.es = es
 
     def _gendata(self, version, folder):
         data = build_documents(version, folder)
@@ -38,6 +50,44 @@ class ElasticManager(object):
             doc["_index"] = "docs"
             doc["_type"] = "docs"
             yield doc
+
+    def create_index(self):
+        doc = """
+{
+    "settings": {
+        "analysis": {
+          "analyzer": {
+            "htmlStripAnalyzer": {
+              "type": "custom",
+              "tokenizer": "standard",
+              "filter": ["standard","lowercase"],
+              "char_filter": [
+                "html_strip"
+              ]
+            }
+          }
+        }
+    },
+    "mappings": {
+      "docs": {
+        "properties": {
+          "html": {"type": "text", "analyzer": "htmlStripAnalyzer"},
+          "title" : { "type" : "text" },
+          "parent_title" : { "type" : "text" },
+          "version": {"type": "text"},
+          "url" : { "type" : "text" }
+        }
+      }
+    }
+}
+"""
+        self.es.indices.create(index="docs", body=doc)
+
+    def remove_index(self):
+        try:
+            self.es.indices.delete(index="docs")
+        except elasticsearch.exceptions.NotFoundError:
+            pass
 
     def index(self, version, folder):
         bulk(self.es, self._gendata(version, folder))
@@ -79,23 +129,35 @@ def clean_html(raw_html):
 
 
 def find_single_word(text, word):
+    text = clean_html(text)
+    cut_tags = ["\n"]
     to_show = 100
     indice = text.find(word)
-    if not indice:
+    rind = indice + len(word)
+
+    if indice == -1:
         return None
-    last_index = indice + len(keyword) + to_show
-    if last_index > (len(text) - 1):
-        last_index = len(text) - 1
-    min_index = indice - to_show
-    if min_index < 0:
-        min_index = 0
-    relevant_text = text[min_index: last_index].replace("\n", " ")
-    return relevant_text.strip().replace(word, "__{}__".format(word))
+
+    left_chunk = text[0:indice] if indice < to_show - 1 else text[indice-to_show:indice]
+
+    for cut_tag in cut_tags:
+        if cut_tag in left_chunk:
+            left_chunk = left_chunk.split(cut_tag)[-1]
+
+    left_chunk = clean_html(left_chunk).replace("¶", "")
+
+    right_chunk = text[rind:rind+to_show] if (rind + to_show) < len(text) else text[rind:]
+
+    for cut_tag in cut_tags:
+        if cut_tag in right_chunk:
+            right_chunk = right_chunk.split(cut_tag)[0]
+
+    right_chunk = clean_html(right_chunk).replace("¶", "")
+
+    return left_chunk.strip() + " **" + word + "** " +right_chunk.strip()
 
 
 def find_relevant_text(html, keywords):
-
-    html = clean_html(html).replace("¶", "")
 
     # First look for everything
     all = find_single_word(html, keywords)
@@ -106,12 +168,23 @@ def find_relevant_text(html, keywords):
             partial = find_single_word(html, keyword)
             if partial:
                 return partial
+        # Try replacing non alphanumerical from keyword
+        for keyword in keywords.split(" "):
+            partial = find_single_word(html, re.sub('[^0-9a-zA-Z]+', '', keyword))
+            if partial:
+                return partial
     return None
 
 
 if __name__ == "__main__":
-    manager = ElasticManager("localhost:9200", "", "")
-    # manager.index("1.15", "/home/luism/workspace/docs/_build/json")
+    host = 'search-conan-docs-475m2ibdrsrg4yxka2yev5zaha.us-east-1.es.amazonaws.com'  # For example, my-test-domain.us-east-1.es.amazonaws.com
+    region = 'us-east-1'  # e.g. us-west-1
+
+    manager = ElasticManager(host, region)
+    #manager.remove_index()
+    #manager.create_index()
+    #manager.index("1.15", "/home/luism/workspace/docs/_build/json")
+    #time.sleep(5)
     # exit(1)
     keyword = "--build missing"
     data = manager.search("1.15", keyword)
@@ -122,4 +195,7 @@ if __name__ == "__main__":
         title = result["title"]
         slug = result["slug"]
         relevant_text = find_relevant_text(result["html"], keyword)
-        print("{}: {} ('{}') [{}]".format(parent_title, title, relevant_text, slug))
+        if relevant_text:
+            print("{}: {} ('{}') [{}]".format(parent_title, title, relevant_text, slug))
+        else:
+            print("{}: {} [{}]".format(parent_title, title, slug))
