@@ -131,7 +131,10 @@ if __name__ == "__main__":
         print("Indexing...")
         print(to_index)
 
-        es.remove_index()
+        try:
+            es.remove_index()
+        except:
+            pass
         es.create_index()
         for version, folder in to_index.items():
             es.index(version, folder)
