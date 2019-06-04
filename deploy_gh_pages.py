@@ -57,6 +57,10 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
 
     copytree("_build/html/", tmp_dir)
     shutil.copy2("_build/latex/conan.pdf", tmp_dir)
+
+    tmp_dir_json = tempfile.mkdtemp()
+    copytree("_build/json/", tmp_dir_json)
+
     shutil.rmtree("_build")
 
     # Go to deploy branch, copy new files and commit
@@ -77,8 +81,6 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
         call("git add -A .")
         call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
 
-    tmp_dir_json = tempfile.mkdtemp()
-    copytree("_build/json/", tmp_dir_json)
     return tmp_dir_json
 
 
