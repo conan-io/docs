@@ -108,6 +108,10 @@ def deploy():
 
 if __name__ == "__main__":
     if should_deploy() or True:
+        host = os.getenv("ELASTIC_SEARCH_HOST")
+        region = os.getenv("ELASTIC_SEARCH_REGION")
+        es = ElasticManager(host, region)
+
         # config_git()
         clean_gh_pages()
         versions_dict = {"master": "1.15",
@@ -116,14 +120,22 @@ if __name__ == "__main__":
 
                        }
 
+        to_index = {}
         for branch, folder_name in versions_dict.items():
-            tmp = build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "mas!!!!!!ter")
-            print("INDEXING VERSION {} FROM {}".format(folder_name, tmp))
-
-        # Index
-
+            json_folder = build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "mas!!!!!!ter")
+            to_index[folder_name] = json_folder
 
         # deploy()
+
+        # Index
+        print("Indexing...")
+        print(to_index)
+
+        es.remove_index()
+        es.create_index()
+        for version, folder in to_index.items():
+            es.index(version, folder)
+
     else:
         call("make html")
         call("make json")
