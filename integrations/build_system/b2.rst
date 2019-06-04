@@ -9,4 +9,4 @@ Check the :ref:`generator b2<b2_generator>`
 
 
 
-.. |b2_logo| image:: ../images/boost_build.png
+.. |b2_logo| image:: ../../images/boost_build.png

@@ -13,8 +13,10 @@ conan info
                  [-s SETTINGS] [-u]
                  path_or_reference
 
-Gets information about the dependency graph of a recipe. It can be used with a
-recipe or a reference for any existing package in your local cache.
+Gets information about the dependency graph of a recipe.
+
+It can be used with a recipe or a reference for any existing package in
+your local cache.
 
 .. code-block:: text
 

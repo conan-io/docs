@@ -11,20 +11,23 @@ conan upload
                    [--retry-wait RETRY_WAIT] [-no [{all,recipe}]] [-j JSON]
                    pattern_or_reference
 
-Uploads a recipe and binary packages to a remote. If no remote is specified,
-the first configured remote (by default conan-center, use 'conan remote list'
-to list the remotes) will be used.
+Uploads a recipe and binary packages to a remote.
+
+If no remote is specified, the first configured remote (by default conan-center, use
+'conan remote list' to list the remotes) will be used.
 
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g.,
-                            'MyPackage/1.2@user/channel', 'boost/*'
+      pattern_or_reference  Pattern, recipe reference or package reference e.g.,
+                            'boost/*', 'MyPackage/1.2@user/channel', 'MyPackage/1.
+                            2@user/channel:af7901d8bdfde621d086181aa1c495c25a17b13
+                            7'
 
     optional arguments:
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
-                            package ID to upload
+                            Package ID [DEPRECATED: use full reference instead]
       -q QUERY, --query QUERY
                             Only upload packages matching a specific query.
                             Packages query: 'os=Windows AND (arch=x86 OR
@@ -41,7 +44,7 @@ to list the remotes) will be used.
                             before upload
       -c, --confirm         Upload all matching recipes without confirmation
       --retry RETRY         In case of fail retries to upload again the specified
-                            times. Defaulted to 2
+                            times.
       --retry-wait RETRY_WAIT
                             Waits specified seconds before retry again
       -no [{all,recipe}], --no-overwrite [{all,recipe}]
@@ -58,6 +61,13 @@ Uploads a package recipe (*conanfile.py* and the exported files):
 .. code-block:: bash
 
     $ conan upload OpenCV/1.4.0@lasote/stable
+
+
+Uploads a package recipe and a single binary package:
+
+.. code-block:: bash
+
+    $ conan upload OpenCV/1.4.0@lasote/stable:d50a0d523d98c15bb147b18fa7d203887c38be8b
 
 Uploads a package recipe and all the generated binary packages to a specified remote:
 

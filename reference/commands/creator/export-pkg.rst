@@ -13,10 +13,11 @@ conan export-pkg
                        path reference
 
 Exports a recipe, then creates a package from local source and build folders.
-The package is created by calling the package() method applied to the local
-folders '--source-folder' and '--build-folder' It's created in the local cache
-for the specified 'reference' and for the specified '--settings', '--options'
-and or '--profile'.
+
+If '--package-folder' is provided it will copy the files from there, otherwise it
+will execute package() method over '--source-folder' and '--build-folder' to create
+the binary package.
+
 
 .. code-block:: text
 
@@ -60,42 +61,58 @@ and or '--profile'.
                             be written
 
 
-:command:`conan export-pkg` executes the following methods of a *conanfile.py* whenever ``--package-folder`` is used:
+The :command:`export-pkg` command let you create a package from already existing files
+in your working folder, it can be useful if you are using a build process external to Conan
+and do not want to provide it with the recipe. Nevertheless, you should take into
+account that it will generate a package and Conan won't be able to guarantee its
+reproducibility or regenerate it again. This is **not** the normal or recommended flow
+for creating Conan packages.
 
-1. ``config_options()``
-2. ``configure()``
-3. ``requirements()``
-4. ``package_id()``
+Execution of this command will result in several files copied to the package
+folder in the cache identified by its ``package_id`` (Conan will perform all the
+required actions to compute this _id_: build the graph, evaluate the requirements and
+options, and call any required method), but there could be two
+different sources for the files:
 
-In case a package folder is not specified, this command will also execute:
+ * If the argument ``--package-folder`` is provided, Conan will just copy all the
+   contents of that folder to the package one in the cache.
+ * If no ``--package-folder`` is given, Conan will execute the method ``package()`` once
+   and the ``self.copy(...)`` functions will copy matching files from the ``source_folder``
+   **and** ``build_folder`` to the corresponding path in the Conan cache (working directory
+   corresponds to the ``build_folder``).
 
-5. ``package()``
 
-Note that this is **not** the normal or recommended flow for creating Conan packages,
-as packages created this way will not have a reproducible build from sources.
-This command should be used when:
+There are different scenarios where this command could look like useful:
 
- - It is not possible to build the packages from sources (only pre-built binaries available).
- - You are developing your package locally and want to export the built artifacts to the local
-   cache.
+ - You are :ref:`working locally on a package<package_dev_flow>` and you want to
+   upload it to the cache to be able to consume it from other recipes. In this situation
+   you can use the :command:`export-pkg` command to copy the package to the cache,
+   but you could also put the :ref:`package in editable mode<editable_packages>` and
+   avoid this extra step.
 
-The command :command:`conan new <ref> --bare` will create a simple recipe that could be used in combination
-with the ``export-pkg`` command. Check this :ref:`How to package existing binaries
-<existing_binaries>`.
+ - You only have precompiled binaries available, then you can use the :command:`export-pkg`
+   to create the Conan package, or you can build a working recipe to download and
+   package them. These scenarios are described in the documentation section
+   :ref:`How to package existing binaries <existing_binaries>`.
 
-:command:`export-pkg` has two different modes of operation:
 
-- Specifying :command:`--package-folder` will perform a copy of the given folder, without executing the ``package()`` method.
-  Use it if you have already created the package, for example with :command:`conan package` or
-  with ``cmake.install()`` from the ``build()`` step.
-- Specifying :command:`--build-folder` and/or :command:`--source-folder` will execute the ``package()`` method,
-  to filter, select and arrange the layout of the artifacts.
+.. note::
 
-**Examples**:
+    Note that if :command:`--profile`, settings or options are not provided to :command:`export-pkg`,
+    the configuration will be extracted from the information stored after a previous :command:`conan install`.
+    That information might be incomplete in some edge cases, so we strongly recommend the usage of
+    :command:`--profile` or :command:`--settings, --options`, etc.
+
+
+**Examples**
 
 - Create a package from a directory containing the binaries for Windows/x86/Release:
 
-  Having these files:
+  We need to collect all the files from the local filesystem and tell Conan to
+  compute the proper ``package_id`` so its get associated with the correct
+  settings and it works when consuming it.
+
+  If the files in the working folder are:
 
   .. code-block:: text
 
@@ -104,16 +121,22 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
       Release_x86/include/mylib.h
       Release_x86/include/other.h
 
-  Run:
+  then, just run:
 
   .. code-block:: bash
 
-      $ conan new Hello/0.1 --bare  # In case you still don't have a recipe for the binaries
-      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --build-folder=Release_x86
+      $ conan new Hello/0.1 --bare  # It creates a minimum recipe example
+      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --package-folder=Release_x86
 
-- Create a package from a user folder build and sources folders:
+  This last command will copy all the contents from the ``package-folder`` and
+  create the package associated with the settings provided through the command
+  line.
 
-  Given these files in the current folder
+- Create a package from a source and build folder:
+
+  The objective is to collect the files that will be part of the package from
+  the source folder (*include files*) and from the build folder (libraries), so,
+  if these are the files in the working folder:
 
   .. code-block:: text
 
@@ -123,69 +146,18 @@ with the ``export-pkg`` command. Check this :ref:`How to package existing binari
       build/lib/mylib.tmp
       build/file.obj
 
-  And assuming the ``Hello/0.1@user/stable`` recipe has a ``package()`` method like this:
+  we would need a slightly more complicated *conanfile.py* than in the previous
+  example to select which files to copy, we need to change the patterns in the
+  ``package()`` method:
 
   .. code-block:: python
 
       def package(self):
-          self.copy("*.h", dst="include", src="include")
-          self.copy("*.lib", dst="lib", keep_path=False)
+         self.copy("*.h", dst="include", src="include")
+         self.copy("*.lib", dst="lib", keep_path=False)
 
-  Then, the following code will create a package in the conan local cache:
+  Now, we can run Conan to create the package:
 
   .. code-block:: bash
 
       $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build
-
-  And such package will contain just the files:
-
-  .. code-block:: text
-
-      include/mylib.h
-      lib/mylib.lib
-
-- Building a conan package (for architecture x86) in a local directory and then send it to the local cache:
-
-  **conanfile.py**
-
-  .. code-block:: python
-
-      from conans import ConanFile, CMake, tools
-
-      class LibConan(ConanFile):
-          name = "Hello"
-          version = "0.1"
-          ...
-
-          def source(self):
-              self.run("git clone https://github.com/conan-io/hello.git")
-
-          def build(self):
-              cmake = CMake(self)
-              cmake.configure(source_folder="hello")
-              cmake.build()
-
-          def package(self):
-              self.copy("*.h", dst="include", src="include")
-              self.copy("*.lib", dst="lib", keep_path=False)
-
-  First we will call :command:`conan source` to get our source code in the *src* directory, then
-  :command:`conan install` to install the requirements and generate the info files, :command:`conan build` to
-  build the package, and finally :command:`conan export-pkg` to send the binary files to a package in the
-  local cache:
-
-  .. code-block:: bash
-      :emphasize-lines: 4
-
-      $ conan source . --source-folder src
-      $ conan install . --install-folder build_x86 -s arch=x86
-      $ conan build . --build-folder build_x86 --source-folder src
-      $ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86 -s arch=x86
-
-
-.. note::
-
-    Note that if :command:`--profile` or settings, options, are not provided to :command:`export-pkg`,
-    the configuration will be extracted from the information from a previous :command:`conan install`.
-    That information might be incomplete in some edge cases, so we strongly recommend the usage of
-    :command:`--profile` or :command:`--settings, --options`, etc.

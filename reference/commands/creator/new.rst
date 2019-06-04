@@ -6,9 +6,9 @@ conan new
 
 .. code-block:: bash
 
-    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-cis] [-cilg] [-cilc] [-cio]
-                [-ciw] [-ciglg] [-ciglc] [-ciccg] [-ciccc] [-cicco] [-gi]
-                [-ciu CI_UPLOAD_URL]
+    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-f FILE] [-cis] [-cilg]
+                [-cilc] [-cio] [-ciw] [-ciglg] [-ciglc] [-ciccg] [-ciccc]
+                [-cicco] [-gi] [-ciu CI_UPLOAD_URL]
                 name
 
 Creates a new package recipe template with a 'conanfile.py' and optionally,
@@ -33,6 +33,9 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
       -b, --bare            Create the minimum package recipe, without build()
                             method. Useful in combination with "export-pkg"
                             command
+      -m TEMPLATE, --template TEMPLATE
+                            Use the given template from the local cache for
+                            conanfile.py
       -cis, --ci-shared     Package will have a "shared" option to be used in CI
       -cilg, --ci-travis-gcc
                             Generate travis-ci files for linux gcc
@@ -83,3 +86,22 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
   .. code-block:: bash
 
       $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://api.bintray.com/conan/myuser/myrepo
+
+- Create files from a custom, predefined user template:
+
+  .. code-block:: bash
+
+      $ conan new mypackage/1.0 --template=myconanfile.py
+
+
+  Conan will look for ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
+  These files can be installed and managed by :ref:`conan_config_install` command. The templates use Jinja syntax:
+
+  .. code-block:: text
+
+    class {{package_name}}Conan(ConanFile):
+        name = "{{name}}"
+        version = "{{version}}"
+
+  Where ``name`` and ``version`` placeholders are defined from the command line, and ``package_name`` is a camel case
+  variant of the package ``name``.

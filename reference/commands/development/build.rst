@@ -11,10 +11,12 @@ conan build
                   [-sf SOURCE_FOLDER]
                   path
 
-Calls your local conanfile.py 'build()' method. The recipe will be built in
-the local directory specified by --build-folder, reading the sources from
---source-folder. If you are using a build helper, like CMake(), the --package-
-folder will be configured as destination folder for the install step.
+Calls your local conanfile.py 'build()' method.
+
+The recipe will be built in the local directory specified by
+--build-folder, reading the sources from --source-folder. If you are
+using a build helper, like CMake(), the --package-folder will be
+configured as destination folder for the install step.
 
 .. code-block:: text
 

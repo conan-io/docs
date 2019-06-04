@@ -2,7 +2,22 @@
 
 
 |clion_logo| CLion
-____________________
+___________________
+
+
+Conan-Clion plugin
+==================
+
+|clion_plugin|
+
+There is an `official Jetbrains plugin <https://plugins.jetbrains.com/plugin/11956-conan>`_ Conan
+plugin for Clion.
+
+You can read how to use it in the following `blog post <https://blog.jetbrains.com/clion/2019/05/getting-started-with-the-conan-clion-plugin/>`_
+
+
+General Integration
+===================
 
 CLion uses **CMake** as the build system of projects, so you can use the :ref:`CMake generator<cmake>` to manage your requirements in your CLion project.
 
@@ -21,7 +36,7 @@ If the ``conanbuildinfo.cmake`` file is not found, it will print a warning messa
 
 
 Using packages in a CLion project
-=================================
+---------------------------------
 
 Let see an example of how to consume Conan packages in a CLion project. We are going to require and use
 the ``zlib`` conan package.
@@ -98,7 +113,7 @@ You can check a complete example of a CLion project reusing conan packages in th
 
 
 Creating Conan packages in a CLion project
-==========================================
+------------------------------------------
 
 Now we are going to see how to create a Conan package from the previous library.
 
@@ -214,11 +229,12 @@ If we list the ``mypackage`` folder we can see:
 You can check a full example of a CLion project for creating a Conan package in this github repository: `lasote/clion-conan-package <https://github.com/lasote/clion-conan-package>`_.
 
 
-.. |clion_logo| image:: ../images/clion/icon_CLion.png
-.. |built_ok| image:: ../images/clion/built_ok.png
-.. |cmakelists| image:: ../images/clion/cmakelists.png
-.. |conanfile_txt| image:: ../images/clion/conanfile_txt.png
-.. |configure_ok| image:: ../images/clion/configure_ok.png
-.. |configure_warning_info| image:: ../images/clion/configure_warning_info.png
-.. |library_cpp| image:: ../images/clion/library_cpp.png
-.. |wizard_new| image:: ../images/clion/wizard_new.png
+.. |clion_logo| image:: ../../images/clion/icon_CLion.png
+.. |clion_plugin| image:: ../../images/clion/clion_plugin.png
+.. |built_ok| image:: ../../images/clion/built_ok.png
+.. |cmakelists| image:: ../../images/clion/cmakelists.png
+.. |conanfile_txt| image:: ../../images/clion/conanfile_txt.png
+.. |configure_ok| image:: ../../images/clion/configure_ok.png
+.. |configure_warning_info| image:: ../../images/clion/configure_warning_info.png
+.. |library_cpp| image:: ../../images/clion/library_cpp.png
+.. |wizard_new| image:: ../../images/clion/wizard_new.png
