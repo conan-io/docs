@@ -102,24 +102,15 @@ def deploy():
 
 
 if __name__ == "__main__":
-    if should_deploy():
-        config_git()
+    if should_deploy() or True:
+        # config_git()
         clean_gh_pages()
         versions_dict = {"master": "1.15",
                          "release/1.14.5": "1.14",
                          "release/1.13.3": "1.13",
-                         "release/1.12.3": "1.12",
-                         "release/1.11.2": "1.11",
-                         "release/1.10.2": "1.10",
-                         "release/1.9.4": "1.9",
-                         "release/1.8.4": "1.8",
-                         "release/1.7.4": "1.7",
-                         "release/1.6.1": "1.6",
-                         "release/1.5.2": "1.5",
-                         "release/1.4.5": "1.4",
-                         "release/1.3.3": "1.3"}
+                       }
         for branch, folder_name in versions_dict.items():
-            build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
+            build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "mas!!!!!!ter")
 
         # Index
 
