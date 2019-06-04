@@ -38,7 +38,7 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name, versions_available, templates_dir, validate_links=False):
+def build_and_copy(branch, folder_name, versions_available, themes_dir, validate_links=False):
 
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
@@ -46,7 +46,8 @@ def build_and_copy(branch, folder_name, versions_available, templates_dir, valid
     with open('versions.json', 'w') as f:
         f.write(json.dumps(versions_available))
 
-    copytree(templates_dir, "_templates")
+    shutil.rmtree("_themes")
+    copytree(themes_dir, "_themes")
 
     call("make html")
     call("make json")
@@ -112,8 +113,8 @@ if __name__ == "__main__":
     if should_deploy() or True:
 
         # Copy the _themes to be able to share them between old versions
-        templates_dir = tempfile.mkdtemp()
-        copytree("_themes", templates_dir)
+        themes_dir = tempfile.mkdtemp()
+        copytree("_themes", themes_dir)
 
         host = os.getenv("ELASTIC_SEARCH_HOST")
         region = os.getenv("ELASTIC_SEARCH_REGION")
@@ -122,22 +123,11 @@ if __name__ == "__main__":
         # config_git()
         clean_gh_pages()
         versions_dict = {"master": "1.15",
-                         "release/1.14.5": "1.14",
-                         "release/1.13.3": "1.13",
-                         "release/1.12.3": "1.12",
-                         "release/1.11.2": "1.11",
-                         "release/1.10.2": "1.10",
-                         "release/1.9.4": "1.9",
-                         "release/1.8.4": "1.8",
-                         "release/1.7.4": "1.7",
-                         "release/1.6.1": "1.6",
-                         "release/1.5.2": "1.5",
-                         "release/1.4.5": "1.4",
-                         "release/1.3.3": "1.3"}
+                         }
 
         to_index = {}
         for branch, folder_name in versions_dict.items():
-            json_folder = build_and_copy(branch, folder_name, versions_dict, templates_dir,
+            json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
                                          validate_links=branch == "master")
             to_index[folder_name] = json_folder
 
