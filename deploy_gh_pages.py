@@ -107,7 +107,7 @@ def deploy():
 
 
 if __name__ == "__main__":
-    if should_deploy() or True:
+    if should_deploy():
         host = os.getenv("ELASTIC_SEARCH_HOST")
         region = os.getenv("ELASTIC_SEARCH_REGION")
         es = ElasticManager(host, region)
@@ -117,15 +117,23 @@ if __name__ == "__main__":
         versions_dict = {"master": "1.15",
                          "release/1.14.5": "1.14",
                          "release/1.13.3": "1.13",
-
-                       }
+                         "release/1.12.3": "1.12",
+                         "release/1.11.2": "1.11",
+                         "release/1.10.2": "1.10",
+                         "release/1.9.4": "1.9",
+                         "release/1.8.4": "1.8",
+                         "release/1.7.4": "1.7",
+                         "release/1.6.1": "1.6",
+                         "release/1.5.2": "1.5",
+                         "release/1.4.5": "1.4",
+                         "release/1.3.3": "1.3"}
 
         to_index = {}
         for branch, folder_name in versions_dict.items():
-            json_folder = build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "mas!!!!!!ter")
+            json_folder = build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
             to_index[folder_name] = json_folder
 
-        # deploy()
+        deploy()
 
         # Index
         print("Indexing...")
