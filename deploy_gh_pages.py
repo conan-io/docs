@@ -67,6 +67,9 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
     shutil.rmtree("_build")
 
     # Go to deploy branch, copy new files and commit
+    call("git stash")
+    call("git stash drop")
+    call("git clean -d -f")
     call("git checkout gh-pages")
     if not os.path.exists("en"):
         os.mkdir("en")
