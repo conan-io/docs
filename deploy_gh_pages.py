@@ -125,13 +125,25 @@ if __name__ == "__main__":
 
         # config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.15",
-                         }
+        versions_dict = {"master": "1.16",
+                         "release/1.15.2": "1.15",
+                         "release/1.14.5": "1.14",
+                         "release/1.13.3": "1.13",
+                         "release/1.12.3": "1.12",
+                         "release/1.11.2": "1.11",
+                         "release/1.10.2": "1.10",
+                         "release/1.9.4": "1.9",
+                         "release/1.8.4": "1.8",
+                         "release/1.7.4": "1.7",
+                         "release/1.6.1": "1.6",
+                         "release/1.5.2": "1.5",
+                         "release/1.4.5": "1.4",
+                         "release/1.3.3": "1.3"}
 
         to_index = {}
         for branch, folder_name in versions_dict.items():
             json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
-                                         validate_links=branch == "master")
+                                         validate_links=branch == "maswwxter")
             to_index[folder_name] = json_folder
 
         # deploy()
