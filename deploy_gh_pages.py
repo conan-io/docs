@@ -3,6 +3,8 @@ import os
 import shutil
 import tempfile
 
+from _elastic.indexer import ElasticManager
+
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -45,6 +47,8 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
 
     call("make html")
     call("make json")
+
+
     if validate_links:
         call("make spelling")
         call("make linkcheck")
@@ -52,6 +56,7 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
+    copytree("_build/json/", tmp_dir)
     shutil.copy2("_build/latex/conan.pdf", tmp_dir)
     shutil.rmtree("_build")
 
@@ -116,8 +121,12 @@ if __name__ == "__main__":
         for branch, folder_name in versions_dict.items():
             build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
 
-        deploy()
+        # Index
+
+
+        # deploy()
     else:
         call("make html")
+        call("make json")
         call("make spelling")
         call("make linkcheck")
