@@ -640,7 +640,7 @@ Parameters:
       copy, even if they match the main ``pattern``.
     - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
       folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
-    - **link_dll** (Optional, Default to ``False``): If enabled, it will create symbolic links for .dll files rather that copying them.
+    - **link_dll** (Optional, Default to ``False``): If enabled, it will create symbolic links for .dll files rather than copying them.
 
 Example to collect license files from dependencies:
 
