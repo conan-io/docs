@@ -623,7 +623,7 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
 
 .. code-block:: python
 
-    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None, keep_path=True)
+    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None, keep_path=True, link_dll=False)
 
 Parameters:
     - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
@@ -640,6 +640,7 @@ Parameters:
       copy, even if they match the main ``pattern``.
     - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
       folder to the **dst** one. Useful to ignore (``keep_path=False``) path of *library.dll* files in the package it is imported from.
+    - **link_dll** (Optional, Default to ``False``): If enabled, it will create symbolic links for .dll files rather that copying them.
 
 Example to collect license files from dependencies:
 
@@ -659,6 +660,17 @@ do:
         self.copy("*.dylib*", dst=dest, src="lib")
 
 And then use, for example: :command:`conan install . -e CONAN_IMPORT_PATH=Release -g cmake_multi`
+
+If you have a large number of DLLs and do not want to copy all of these files, you can create symbolic links:
+
+.. code-block:: python
+
+    def imports(self):
+        dest = os.getenv("CONAN_IMPORT_PATH", "bin")
+        self.copy("*.dll", dst=dest, src="bin", link_dll=True)
+        self.copy("*.dylib*", dst=dest, src="lib")
+
+All symbolic links will be generated in the destination folder.
 
 When a conanfile recipe has an ``imports()`` method and it builds from sources, it will do the following:
 
