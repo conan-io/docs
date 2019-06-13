@@ -185,7 +185,7 @@ These specific config variables will not be automatically applied, but you can d
 
 .. note::
 
-    The automatic conversion of multi-config variables to generators is currently only implemented in the ``cmake`` and ``txt`` generators.
+    The automatic conversion of multi-config variables to generators is currently only implemented in the ``cmake``, ``visual_studio`` and ``txt`` generators.
     If you want to have support for them in another build system, please open a GitHub issue.
 
 N configs (1 build) -> N packages
