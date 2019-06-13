@@ -142,7 +142,7 @@ Such a package can define its information for consumers as:
         self.cpp_info.release.libs = ["mylibrary"]
         self.cpp_info.debug.libs = ["mylibrary_d"]
 
-This will translate to the CMAake variables:
+This will translate to the CMake variables:
 
 .. code-block:: cmake
 
