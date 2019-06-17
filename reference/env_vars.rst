@@ -278,7 +278,7 @@ For example:
 
 .. code-block:: bash
 
-    CONAN_MAKE_PROGRAM="scan-build cmake"
+    CONAN_CMAKE_PROGRAM="scan-build cmake"
 
 CONAN_MSBUILD_VERBOSITY
 -----------------------

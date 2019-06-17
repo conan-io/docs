@@ -113,7 +113,7 @@ def deploy():
 
 
 if __name__ == "__main__":
-    if should_deploy() or True:
+    if should_deploy():
 
         # Copy the _themes to be able to share them between old versions
         themes_dir = tempfile.mkdtemp()
@@ -143,10 +143,10 @@ if __name__ == "__main__":
         to_index = {}
         for branch, folder_name in versions_dict.items():
             json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
-                                         validate_links=branch == "maswwxter")
+                                         validate_links=branch == "master")
             to_index[folder_name] = json_folder
 
-        # deploy()
+        deploy()
 
         # Index
         print("Indexing...")
