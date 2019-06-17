@@ -43,6 +43,7 @@ of course, any feedback about it will be more than welcome.
 .. _`its repository`: https://github.com/conan-io/conan-vs-extension
 
 
+
 General Integration
 ===================
 
@@ -54,3 +55,4 @@ generators to be used with Visual Studio.
 .. |visual_logo| image:: ../../images/visual-studio-logo.png
                  :width: 100 px
                  :alt: Visual Studio logo
+
