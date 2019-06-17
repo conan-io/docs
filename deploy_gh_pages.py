@@ -122,6 +122,7 @@ if __name__ == "__main__":
         host = os.getenv("ELASTIC_SEARCH_HOST")
         region = os.getenv("ELASTIC_SEARCH_REGION")
         es = ElasticManager(host, region)
+        es.ping()
 
         # config_git()
         clean_gh_pages()

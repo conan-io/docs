@@ -1,6 +1,5 @@
-import os
 import json
-import re
+import os
 
 import boto3
 import elasticsearch
@@ -92,3 +91,5 @@ class ElasticManager(object):
     def index(self, version, folder):
         bulk(self.es, self._gendata(version, folder))
 
+    def ping(self):
+        return self.es.info()
