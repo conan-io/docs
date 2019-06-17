@@ -146,8 +146,6 @@ if __name__ == "__main__":
                                          validate_links=branch == "master")
             to_index[folder_name] = json_folder
 
-        deploy()
-
         # Index
         print("Indexing...")
         print(to_index)
@@ -159,6 +157,8 @@ if __name__ == "__main__":
         es.create_index()
         for version, folder in to_index.items():
             es.index(version, folder)
+
+        deploy()
 
     else:
         call("make html")
