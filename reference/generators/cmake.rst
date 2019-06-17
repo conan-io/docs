@@ -159,10 +159,14 @@ These targets are:
 - Each ``CONAN_LIB`` depends on the direct public dependencies ``CONAN_PKG`` targets of its container package. This guarantees correct link
   order.
 
+.. _conan_check_compiler:
+
 conan_check_compiler()
 ++++++++++++++++++++++
 
 Checks that your compiler matches the one declared in settings.
+
+This method can be disabled setting the :ref:`conan_disable_check_compiler` variable.
 
 conan_output_dirs_setup()
 +++++++++++++++++++++++++
@@ -218,3 +222,12 @@ CONAN_CMAKE_SILENT_OUTPUT
 **Default to**: ``FALSE``
 
 Activate it to silence the Conan message output.
+
+.. _conan_disable_check_compiler:
+
+CONAN_DISABLE_CHECK_COMPILER
+++++++++++++++++++++++++++++
+
+**Default to**: ``FALSE``
+
+Deactivates the check of the compiler done with the method :ref:`conan_check_compiler`.
