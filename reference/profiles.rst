@@ -65,8 +65,8 @@ You can also show profile's content:
     [env]
 
 Use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to
-the profile file (this path will contain only forward slahes). It is useful to declare
-relative folders:
+the directory where the profile file is (this path will contain only forward slahes).
+It is useful to declare relative folders:
 
 .. code-block:: text
 
