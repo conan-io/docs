@@ -508,7 +508,7 @@ You can also set the options conditionally to a final value with ``config_option
 requires
 --------
 
-Specify package dependencies as a list of other packages:
+Specify package dependencies as a list or tuple of other packages:
 
 .. code-block:: python
 
@@ -520,9 +520,15 @@ You can specify further information about the package requirements:
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        requires = (("Hello/0.1@user/testing"),
+        requires = [("Hello/0.1@user/testing"),
                     ("Say/0.2@dummy/stable", "override"),
-                    ("Bye/2.1@coder/beta", "private"))
+                    ("Bye/2.1@coder/beta", "private")]
+
+.. code-block:: python
+
+    class MyLibConan(ConanFile):
+        requires = (("Hello/1.0@user/stable", "private"), )
+
 
 Requirements can be complemented by 2 different parameters:
 
