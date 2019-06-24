@@ -4,7 +4,7 @@ Getting Started
 ===============
 
 To start learning about creating packages, we will create a package from the existing source code
-repository: https://github.com/memsharded/hello. You can check that project, it is a very simple
+repository: https://github.com/conan-io/hello. You can check that project, it is a very simple
 "hello world" C++ library, using CMake as the build system to build a library and an executable. It does not contain
 any association with Conan.
 
@@ -14,7 +14,7 @@ code origins, like downloading a zip or tarball from the internet.
 .. note::
 
     For this concrete example you will need, besides a C++ compiler, both *CMake* and *git*
-    installed and in your path. They are not required by conan, so you could use your own build system
+    installed and in your path. They are not required by Conan, so you could use your own build system
     and version control instead.
 
 Creating the Package Recipe
@@ -61,8 +61,7 @@ Let's have a look at the root package recipe *conanfile.py*:
         generators = "cmake"
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
-            self.run("cd hello && git checkout static_shared")
+            self.run("git clone https://github.com/conan-io/hello.git")
             # This small hack might be useful to guarantee proper /MT /MD linkage
             # in MSVC if the packaged project doesn't have variables to set it
             # properly
@@ -221,7 +220,7 @@ If "Hello world!" is displayed, it worked.
 
 The :command:`conan create` command does the following:
 
-- Copies ("export" in conan terms) the *conanfile.py* from the user folder into the **local cache**.
+- Copies ("export" in Conan terms) the *conanfile.py* from the user folder into the **local cache**.
 - Installs the package, forcing it to be built from the sources.
 - Moves to the *test_package* folder and creates a temporary *build* folder.
 - Executes the :command:`conan install ..`, to install the requirements of the

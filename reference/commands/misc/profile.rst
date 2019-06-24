@@ -8,11 +8,11 @@ conan profile
 
     $ conan profile [-h] {list,show,new,update,get,remove} ...
 
-Lists profiles in the '.conan/profiles' folder, or shows profile details. The
-'list' subcommand will always use the default user 'conan/profiles' folder.
-But the 'show' subcommand is able to resolve absolute and relative paths, as
-well as to map names to '.conan/profiles' folder, in the same way as the '--
-profile' install argument.
+Lists profiles in the '.conan/profiles' folder, or shows profile details.
+
+The 'list' subcommand will always use the default user 'conan/profiles' folder. But the
+'show' subcommand is able to resolve absolute and relative paths, as well as to map names to
+'.conan/profiles' folder, in the same way as the '--profile' install argument.
 
 .. code-block:: text
 
@@ -89,3 +89,9 @@ profile' install argument.
   .. code-block:: bash
 
       $ conan profile new /path/to/new/profile --detect
+
+- Create a new or overwrite an existing profile with detected settings:
+
+  .. code-block:: bash
+
+      $ conan profile new /path/to/new/profile --detect --force

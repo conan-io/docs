@@ -12,7 +12,9 @@ conan config
 
     $ conan config [-h] {rm,set,get,install} ...
 
-Manages Conan configuration. Used to edit conan.conf, or install config files.
+Manages Conan configuration.
+
+Used to edit conan.conf, or install config files.
 
 .. code-block:: text
 

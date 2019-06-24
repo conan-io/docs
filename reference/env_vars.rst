@@ -35,10 +35,14 @@ the :ref:`CMake build tool<cmake_reference>`:
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_GENERATOR_PLATFORM          | CMAKE_GENERATOR_PLATFORM                                                                       |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_ANDROID_NDK                 | CMAKE_ANDROID_NDK                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
 
 .. seealso::
 
-    See `CMake cross building wiki <https://vtk.org/Wiki/CMake_Cross_Compiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
@@ -73,6 +77,29 @@ underlying compiler settings. So it doesn't make sense to provide a setting or o
 
 So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
 to your desired CMake generator (as ``Ninja``).
+
+CONAN_CMAKE_GENERATOR_PLATFORM
+------------------------------
+
+Defines generator platform to be used by particular CMake generator (see `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`).
+Resulting value is passed to the ``cmake`` command line (``-A`` argument) by the Conan ``CMake`` helper class during the configuration step.
+Passing ``None`` causes auto-detection, which currently only happens for the ``Visual Studio 16 2019`` generator. The detection is according to the following table:
+
++-----------------+--------------------+
+| settings.arch   | generator platform |
++=================+====================+
+| x86             | Win32              |
++-----------------+--------------------+
+| x86_64          | x64                |
++-----------------+--------------------+
+| armv7           | ARM                |
++-----------------+--------------------+
+| armv8           | ARM64              |
++-----------------+--------------------+
+| other           | (none)             |
++-----------------+--------------------+
+
+For any other generators besides the ``Visual Studio 16 2019`` generator, detection results in no generator platform applied (and no ``-A`` argument passed to the CMake command line).
 
 CONAN_COLOR_DARK
 ----------------
@@ -251,7 +278,7 @@ For example:
 
 .. code-block:: bash
 
-    CONAN_MAKE_PROGRAM="scan-build cmake"
+    CONAN_CMAKE_PROGRAM="scan-build cmake"
 
 CONAN_MSBUILD_VERBOSITY
 -----------------------
@@ -554,3 +581,17 @@ CONAN_CACERT_PATH
 Specify an alternative path to a *cacert.pem* file to be used for requests. This variable
 overrides the value defined in the *conan.conf* as ``cacert_path = <path/to/cacert.pem>``
 under the section ``[general]``.
+
+CONAN_DEFAULT_PACKAGE_ID_MODE
+-----------------------------
+
+**Defaulted to**: semver_direct_mode
+
+It changes the way package IDs are computed, but can change to any value defined in :ref:`package_id_mode`.
+
+CONAN_SKIP_BROKEN_SYMLINKS_CHECK
+--------------------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.

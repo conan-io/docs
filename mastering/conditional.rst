@@ -63,10 +63,17 @@ There are two approaches for this situation:
   relies on the set of possible settings inside your *settings.yml* file, so it can be used to constrain any recipe.
 
   .. code-block:: python
-
+  
+      from conans.errors import ConanInvalidConfiguration
+      ...
       def configure(self):
           if self.settings.os == "Windows":
             raise ConanInvalidConfiguration("This library is not compatible with Windows")
+
+  .. tip::
+
+      Use the :ref:`invalid_configuration` exception to make Conan return with a special error code. This will indicate that the
+      configuration used for settings or options is not supported.
 
   This same method is also valid for ``options`` and ``config_options()`` method and it is commonly used to remove options for one setting:
 
@@ -98,7 +105,7 @@ There are two approaches for this situation:
       Note: the use of the ``None`` value in the ``os``, ``compiler`` and ``build_type`` settings described above will allow them to take the values
       from *settings.yml* file
 
-We strongly recommend the use if the first approach whenever it is possible, and use the second one only for those cases where a stronger
+We strongly recommend the use of the first approach whenever it is possible, and use the second one only for those cases where a stronger
 constrain is needed for a particular recipe.
 
 .. seealso::

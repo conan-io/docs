@@ -91,7 +91,7 @@ Videos and links
       <br/><br/>
 
 
-- "Conan.io C++ Package Manager demo with SFML" by `Charl Botha <http://charlbotha.com/>`_
+- "Conan.io C++ Package Manager demo with SFML" by `Charl Botha <https://charlbotha.com/>`_
 
   .. raw:: html
 

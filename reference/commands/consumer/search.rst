@@ -7,22 +7,24 @@ conan search
 .. code-block:: bash
 
     $ conan search [-h] [-o] [-q QUERY] [-r REMOTE] [--case-sensitive]
-                   [--raw] [--table TABLE] [-j JSON]
+                   [--raw] [--table TABLE] [-j JSON] [-rev]
                    [pattern_or_reference]
 
-Searches package recipes and binaries in the local cache or in a remote. If
-you provide a pattern, then it will search for existing package recipes
-matching it. If a full reference is provided (pkg/0.1@user/channel) then the
-existing binary packages for that reference will be displayed. If no remote is
-specified, the search will be done in the local cache. Search is case
-sensitive, exact case has to be used. For case insensitive file systems, like
-Windows, case sensitive search can be forced with '--case-sensitive'.
+Searches package recipes and binaries in the local cache or in a remote.
+
+If you provide a pattern, then it will search for existing package
+recipes matching it.  If a full reference is provided
+(pkg/0.1@user/channel) then the existing binary packages for that
+reference will be displayed.  If no remote is specified, the search
+will be done in the local cache.  Search is case sensitive, exact case
+has to be used. For case insensitive file systems, like Windows, case
+sensitive search can be forced with '--case-sensitive'.
 
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g.,
-                            'MyPackage/1.2@user/channel', 'boost/*'
+      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
+                            'MyPackage/1.2@user/channel'
 
     optional arguments:
       -h, --help            show this help message and exit

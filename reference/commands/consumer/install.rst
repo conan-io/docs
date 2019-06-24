@@ -12,15 +12,17 @@ conan install
                     [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
                     path_or_reference [reference]
 
-Installs the requirements specified in a recipe (conanfile.py or
-conanfile.txt). It can also be used to install a concrete package specifying a
+Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
+
+It can also be used to install a concrete package specifying a
 reference. If any requirement is not found in the local cache, it will
 retrieve the recipe from a remote, looking for it sequentially in the
-configured remotes. When the recipes have been downloaded it will try to
-download a binary package matching the specified settings, only from the
-remote from which the recipe was retrieved. If no binary package is found, it
-can be build from sources using the '--build' option. When the package is
-installed, Conan will write the files for the specified generators.
+configured remotes. When the recipes have been downloaded it will try
+to download a binary package matching the specified settings, only from
+the remote from which the recipe was retrieved. If no binary package is
+found, it can be build from sources using the '--build' option. When
+the package is installed, Conan will write the files for the specified
+generators.
 
 .. code-block:: text
 
@@ -31,7 +33,7 @@ installed, Conan will write the files for the specified generators.
                             reference
       reference             Reference for the conanfile path of the first
                             argument: user/channel, version@user/channel or
-                            pkg/version@user/channel (if name or version declared
+                            pkg/version@user/channel(if name or version declared
                             in conanfile.py, they should match)
 
     optional arguments:
@@ -60,16 +62,21 @@ installed, Conan will write the files for the specified generators.
                             binary packages. --build=never Never build, use binary
                             packages or fail if a binary package is not found.
                             --build=missing Build from code if a binary package is
-                            not found. --build=outdated Build from code if the
-                            binary is not built with the current recipe or when
-                            missing binary package. --build=[pattern] Build always
-                            these packages from source, but never build the
+                            not found. --build=cascade Will build from code all
+                            the nodes with some dependency being built (for any
+                            reason). Can be used together with any other build
+                            policy. Useful to make sure that any new change
+                            introduced in a dependency is incorporated by building
+                            again the package. --build=outdated Build from code if
+                            the binary is not built with the current recipe or
+                            when missing binary package. --build=[pattern] Build
+                            always these packages from source, but never build the
                             others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package name. Default
-                            behavior: If you don't specify anything, it will be
-                            similar to '--build=never', but package recipes can
-                            override it with their 'build_policy' attribute in the
-                            conanfile.py.
+                            is a fnmatch file pattern of a package reference.
+                            Default behavior: If you don't specify anything, it
+                            will be similar to '--build=never', but package
+                            recipes can override it with their 'build_policy'
+                            attribute in the conanfile.py.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS

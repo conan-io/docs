@@ -39,9 +39,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.14"
+version = "1.16"
 # The full version, including alpha/beta/rc tags.
-release = u'1.14.0'
+release = u'1.16.1'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -396,7 +396,45 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
     redirect_files = {
         "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
         "conan1.0.html": "faq/conan1.0.html",
-        "mastering/python_requires.html": "../extending/python_requires.html"}
+        "mastering/python_requires.html": "../extending/python_requires.html",
+
+        "integrations/cmake.html": "build_system/cmake.html",
+        "integrations/makefile.html": "build_system/makefile.html",
+        "integrations/ninja.html": "build_system/ninja.html",
+        "integrations/pkg_config_pc_files.html": "build_system/pkg_config_pc_files.html",
+        "integrations/boost_build.html": "build_system/boost_build.html",
+        "integrations/b2.html": "build_system/b2.html",
+        "integrations/qmake.html": "build_system/qmake.html",
+        "integrations/premake.html": "build_system/premake.html",
+        "integrations/make.html": "build_system/make.html",
+        "integrations/qbs.html": "build_system/qbs.html",
+        "integrations/meson.html": "build_system/meson.html",
+        "integrations/scons.html": "build_system/scons.html",
+        "integrations/gcc.html": "build_system/gcc.html",
+
+        "integrations/docker.html": "cross_platform/docker.html",
+        "integrations/qnx_neutrino.html": "cross_platform/qnx_neutrino.html",
+        "integrations/emscripten.html": "cross_platform/emscripten.html",
+
+        "integrations/visual_studio.html": "ide/visual_studio.html",
+        "integrations/xcode.html": "ide/xcode.html",
+        "integrations/android_studio.html": "ide/android_studio.html",
+        "integrations/clion.html": "ide/clion.html",
+        "integrations/youcompleteme.html": "ide/youcompleteme.html",
+
+        "integrations/git.html": "vcs/git.html",
+
+        "integrations/jenkins.html": "ci/jenkins.html",
+        "integrations/travisci.html": "ci/travisci.html",
+        "integrations/appveyor.html": "ci/appveyor.html",
+        "integrations/gitlab.html": "ci/gitlab.html",
+        "integrations/circleci.html": "ci/circleci.html",
+        "integrations/azure_devops.html": "ci/azure_devops.html",
+
+        "integrations/other.html": "custom.html",
+        "integrations/pylint.html": "linting.html",
+
+    }
 
     redirect_template = """<!DOCTYPE html>
 <html>
