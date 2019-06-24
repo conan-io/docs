@@ -25,10 +25,10 @@ With the editable packages, you can tell Conan where to find the headers and the
 consumption in your local working directory. There is no need to package.
 
 Let's see this feature over an example where a developer is creating a ``CoolApp`` but at the same
-time he wants to work on ``cool/version@user/dev`` library which is tightly coupled to the app.
+time they want to work on ``cool/version@user/dev`` library which is tightly coupled to the app.
 
 The package ``cool/version@user/dev`` is already working, the developer has the sources in a
-local folder and he is using whatever method to build and develop locally and can perform
+local folder and they are using whatever method to build and develop locally and can perform
 a :command:`conan create . cool/version@user/dev` to create the package.
 
 Also, there is a *conanfile.txt* (or a more complex recipe) for the application ``CoolApp`` that
