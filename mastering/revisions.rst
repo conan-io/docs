@@ -74,8 +74,8 @@ Take into account that it changes the default Conan behavior. e.g:
       export it (:command:`conan export . user/channel`), the binary package generated in the :command:`conan create` command
       doesn't belong to the new exported recipe. So it won't be located unless the previous recipe is recovered.
 
-    - If you generate and upload N binary packages for a recipe revision, if you upload the revision you need to
-      generate and upload again the N binaries if you want them to be used with the new recipe.
+    - If you generate and upload N binary packages for a recipe with a given revision, then if you modify the recipe, and thus the recipe
+      revision, you need to build and upload N new binaries matching that new recipe revision.
 
 Server support
 --------------
