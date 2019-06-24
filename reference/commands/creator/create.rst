@@ -17,21 +17,22 @@ conan create
                    [-s SETTINGS] [-u]
                    path reference
 
-Builds a binary package for a recipe (conanfile.py). Uses the specified
-configuration in a profile or in -s settings, -o options etc. If a
-'test_package' folder (the name can be configured with -tf) is found, the
-command will run the consumer project to ensure that the package has been
-created correctly. Check 'conan test' command to know more about 'test_folder'
-project.
+Builds a binary package for a recipe (conanfile.py).
+
+Uses the specified configuration in a profile or in -s settings, -o
+options etc. If a 'test_package' folder (the name can be configured
+with -tf) is found, the command will run the consumer project to ensure
+that the package has been created correctly. Check 'conan test' command
+to know more about 'test_folder' project.
 
 .. code-block:: text
 
     positional arguments:
       path                  Path to a folder containing a conanfile.py or to a
                             recipe file e.g., my_folder/conanfile.py
-      reference             user/channel or pkg/version@user/channel (if name and
-                            version not declared in conanfile.py) where the
-                            package will be created
+      reference             user/channel, version@user/channel or
+                            pkg/version@user/channel (if name or version declared
+                            in conanfile.py, they should match)
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -65,16 +66,21 @@ project.
                             binary packages. --build=never Never build, use binary
                             packages or fail if a binary package is not found.
                             --build=missing Build from code if a binary package is
-                            not found. --build=outdated Build from code if the
-                            binary is not built with the current recipe or when
-                            missing binary package. --build=[pattern] Build always
-                            these packages from source, but never build the
+                            not found. --build=cascade Will build from code all
+                            the nodes with some dependency being built (for any
+                            reason). Can be used together with any other build
+                            policy. Useful to make sure that any new change
+                            introduced in a dependency is incorporated by building
+                            again the package. --build=outdated Build from code if
+                            the binary is not built with the current recipe or
+                            when missing binary package. --build=[pattern] Build
+                            always these packages from source, but never build the
                             others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package name. Default
-                            behavior: If you don't specify anything, it will be
-                            similar to '--build=never', but package recipes can
-                            override it with their 'build_policy' attribute in the
-                            conanfile.py.
+                            is a fnmatch file pattern of a package reference.
+                            Default behavior: If you don't specify anything, it
+                            will be similar to '--build=never', but package
+                            recipes can override it with their 'build_policy'
+                            attribute in the conanfile.py.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS

@@ -6,14 +6,16 @@ conan get
 
 .. code-block:: bash
 
-    $ conan get [-h] [-r REMOTE] [-raw] reference [path]
+    $ conan get [-h] [-p PACKAGE] [-r REMOTE] [-raw] reference [path]
 
 Gets a file or list a directory of a given reference or package.
 
 .. code-block:: text
 
     positional arguments:
-      reference             package recipe reference
+      reference             Recipe reference or package reference e.g.,
+                            'MyPackage/1.2@user/channel', 'MyPackage/1.2@user/chan
+                            nel:af7901d8bdfde621d086181aa1c495c25a17b137'
       path                  Path to the file or directory. If not specified will
                             get the conanfile if only a reference is specified and
                             a conaninfo.txt file contents if the package is also

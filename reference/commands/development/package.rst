@@ -10,11 +10,13 @@ conan package
                     [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER]
                     path
 
-Calls your local conanfile.py 'package()' method. This command works in the
-user space and it will copy artifacts from the --build-folder and --source-
-folder folder to the --package-folder one. It won't create a new package in
-the local cache, if you want to do it, use 'conan create' or 'conan export-
-pkg' after a 'conan build' command.
+Calls your local conanfile.py 'package()' method.
+
+This command works in the user space and it will copy artifacts from
+the --build-folder and --source-folder folder to the --package-folder
+one.  It won't create a new package in the local cache, if you want to
+do it, use 'conan create' or 'conan export-pkg' after a 'conan build'
+command.
 
 .. code-block:: text
 

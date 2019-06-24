@@ -159,55 +159,59 @@ These targets are:
 - Each ``CONAN_LIB`` depends on the direct public dependencies ``CONAN_PKG`` targets of its container package. This guarantees correct link
   order.
 
+.. _conan_check_compiler:
+
 conan_check_compiler()
 ++++++++++++++++++++++
 
 Checks that your compiler matches the one declared in settings.
 
+This method can be disabled setting the :ref:`conan_disable_check_compiler` variable.
+
 conan_output_dirs_setup()
 +++++++++++++++++++++++++
 
-Adjust the *bin/* and *lib/* output directories.
+Adjusts the *bin/* and *lib/* output directories.
 
 conan_set_find_library_paths()
 ++++++++++++++++++++++++++++++
 
-Set ``CMAKE_INCLUDE_PATH`` and ``CMAKE_INCLUDE_PATH``.
+Sets ``CMAKE_INCLUDE_PATH`` and ``CMAKE_INCLUDE_PATH``.
 
 conan_global_flags()
 ++++++++++++++++++++
 
-Set the corresponding variables to CMake's ``include_directories()`` and ``link_directories()``.
+Sets the corresponding variables to CMake's ``include_directories()`` and ``link_directories()``.
 
 conan_define_targets()
 ++++++++++++++++++++++
 
-Define the targets for each dependency (target flags instead of global flags).
+Defines the targets for each dependency (target flags instead of global flags).
 
 conan_set_rpath()
 +++++++++++++++++
 
-Set ``CMAKE_SKIP_RPATH=1`` in the case of working in OSX.
+Sets ``CMAKE_SKIP_RPATH=1`` in the case of working in OSX.
 
 conan_set_vs_runtime()
 ++++++++++++++++++++++
 
-Adjust the runtime flags ``/MD``, ``/MDd``, ``/MT`` or ``/MTd`` for Visual Studio.
+Adjusts the runtime flags ``/MD``, ``/MDd``, ``/MT`` or ``/MTd`` for Visual Studio.
 
 conan_set_std()
 +++++++++++++++
 
-Set ``CMAKE_CXX_STANDARD`` and ``CMAKE_CXX_EXTENSIONS`` to the appropriate values.
+Sets ``CMAKE_CXX_STANDARD`` and ``CMAKE_CXX_EXTENSIONS`` to the appropriate values.
 
 conan_set_libcxx()
 ++++++++++++++++++
 
-Adjust the standard library flags (``libc++```, ``libstdc++``, ``libstdc++11``) in ``CMAKE_CXX_FLAGS``.
+Adjusts the standard library flags (``libc++```, ``libstdc++``, ``libstdc++11``) in ``CMAKE_CXX_FLAGS``.
 
 conan_set_find_paths()
 ++++++++++++++++++++++
 
-Adjust ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
+Adjusts ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
 
 Input variables for *conanbuildinfo.cmake*
 ------------------------------------------
@@ -218,3 +222,12 @@ CONAN_CMAKE_SILENT_OUTPUT
 **Default to**: ``FALSE``
 
 Activate it to silence the Conan message output.
+
+.. _conan_disable_check_compiler:
+
+CONAN_DISABLE_CHECK_COMPILER
+++++++++++++++++++++++++++++
+
+**Default to**: ``FALSE``
+
+Deactivates the check of the compiler done with the method :ref:`conan_check_compiler`.

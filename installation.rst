@@ -60,11 +60,19 @@ Known installation issues with pip
 - With Python 3.4 the installation sometimes fails with ``NameError: name 'implementation_name' is not defined``. This issue seems to
   happen when using `pip` without a virtual environment. You can fix it by upgrading `pip` this way:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    $ python3.4 get-pip.py
-    $ pip install conan
+      $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+      $ python3.4 get-pip.py
+      $ pip install conan
+
+- When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory
+  is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved restarting the session of
+  the terminal or running the following command:
+
+  .. code-block:: bash
+
+      $ source ~/.profile
 
 Install from brew (OSX)
 -----------------------

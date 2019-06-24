@@ -172,8 +172,11 @@ be valid too:
 
 .. tip::
 
-    While you are in the same computer (the same Conan cache), even when you have exported the recipe and
-    Conan has captured the absolute url and commit, Conan will store the local folder where your source code lives.
-    If you build your package locally, it will use the local repository (in the local folder) instead of the remote URL,
-    even if the local directory contains uncommitted changes.
-    This allows you to speed up the development of your packages when cloning from a local repository.
+    When doing a :command:`conan create` of a recipe using ``scm``, Conan will save the path to the local source repository. Every time the
+    :command:`conan create` command is invoked, the sources will not be downloaded from the remote repository but copied from the local directory.
+
+    This allows to build packages making changes to the source code without the need of committing them and pushing them to the remote
+    repository. This convenient to speed up the development of your packages when cloning from a local repository.
+
+    **Warning:** This optimization can lead to non-reproducible packages if changes in the source code are not committed and the recipe is
+    uploaded with its packages to a remote.

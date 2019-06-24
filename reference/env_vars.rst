@@ -37,6 +37,8 @@ the :ref:`CMake build tool<cmake_reference>`:
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_GENERATOR_PLATFORM          | CMAKE_GENERATOR_PLATFORM                                                                       |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_ANDROID_NDK                 | CMAKE_ANDROID_NDK                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
 
 .. seealso::
 
@@ -276,7 +278,7 @@ For example:
 
 .. code-block:: bash
 
-    CONAN_MAKE_PROGRAM="scan-build cmake"
+    CONAN_CMAKE_PROGRAM="scan-build cmake"
 
 CONAN_MSBUILD_VERBOSITY
 -----------------------

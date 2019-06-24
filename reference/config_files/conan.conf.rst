@@ -20,7 +20,9 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
     default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
-    # sysrequires_mode = enabled            # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
+    # retry = 2                           # environment CONAN_RETRY
+    # retry_wait = 5                      # environment CONAN_RETRY_WAIT (seconds)
+    # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
     # vs_installation_preference = Enterprise, Professional, Community, BuildTools # environment CONAN_VS_INSTALLATION_PREFERENCE
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
@@ -69,10 +71,14 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     [proxies]
     # Empty section will try to use system proxies.
     # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies - but see below
+    # for proxies to specific hosts
     # http = http://user:pass@10.10.1.10:3128/
     # http = http://10.10.1.10:3128
     # https = http://10.10.1.10:1080
+    # To specify a proxy for a specific host or hosts, use multiple lines each specifying host = proxy-spec
+    # http =
+    #   hostname.to.be.proxied.com = http://user:pass@10.10.1.10:3128
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
@@ -165,6 +171,13 @@ Running ``pylint --generate-rcfile`` will output a complete rcfile with comments
 The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
 Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
 
+The ``retry`` variable allows to set up the global default value for the number of retries in all commands related to
+download/upload. User can override the value provided by the variable if the command provides an argument with the same name.
+
+The ``retry_wait`` variable allows to set up the global default value for the time (in seconds) to wait until the next retry
+on failures in all commands related to download/upload. User can override the value provided by the variable if the command provides
+an argument with the same name.
+
 The ``sysrequires_mode`` variable, defaulted to ``enabled`` (allowed modes ``enabled/verify/disabled``)
 controls whether system packages should be installed into the system via ``SystemPackageTool`` helper,
 typically used in :ref:`method_system_requirements`.
@@ -229,7 +242,7 @@ proxies, but if you configured some exclusion rule it won't work:
     [proxies]
     # Empty section will try to use system proxies.
     # If you don't want Conan to mess with proxies at all, remove section [proxies]
-    
+
 You can specify http and https proxies as follows. Use the `no_proxy_match` keyword to specify a list
 of URLs or patterns that will skip the proxy:
 
@@ -240,9 +253,19 @@ of URLs or patterns that will skip the proxy:
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
+    http: http://10.10.2.10
+        hostname1.to.be.proxied.com = http://user:pass@10.10.3.10
+        hostname2.to.be.proxied.com = http://user:pass@10.10.4.10
     no_proxy_match: http://url1, http://url2, https://url3*, https://*.custom_domain.*
 
 Use `http=None` and/or `https=None` to disable the usage of a proxy.
+
+To nominate a proxy for a specific scheme and host only, add `host.to.proxy=` in front of the url of the proxy
+(the `host.to.proxy` name must exactly match the host name that should be proxied). You can list
+several `host name = proxy` pairs on separate indented lines.
+
+You can still specify a default proxy, without a host, which will be
+used if none of the host names match. If you do not, then the proxy is disabled for non-matching hosts.
 
 If this fails, you might also try to set environment variables:
 

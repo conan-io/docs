@@ -8,13 +8,14 @@ conan download
 
     $ conan download [-h] [-p PACKAGE] [-r REMOTE] [-re] reference
 
-Downloads recipe and binaries to the local cache, without using settings. It
-works specifying the recipe reference and package ID to be installed. Not
-transitive, requirements of the specified reference will NOT be retrieved.
-Useful together with 'conan copy' to automate the promotion of packages to a
-different user/channel. Only if a reference is specified, it will download all
-packages from the specified remote. If no remote is specified, it will use the
-default remote.
+Downloads recipe and binaries to the local cache, without using settings.
+
+It works specifying the recipe reference and package ID to be
+installed. Not transitive, requirements of the specified reference will
+NOT be retrieved. Useful together with 'conan copy' to automate the
+promotion of packages to a different user/channel. Only if a reference
+is specified, it will download all packages from the specified remote.
+If no remote is specified, it will use the default remote.
 
 .. code-block:: text
 

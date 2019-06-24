@@ -50,7 +50,7 @@ Constructor
 
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
-                     set_cmake_flags=False, msbuild_verbosity=None, cmake_program=None,
+                     set_cmake_flags=False, msbuild_verbosity='minimal', cmake_program=None,
                      generator_platform=None)
 
 Parameters:
@@ -64,7 +64,9 @@ Parameters:
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
-    - **msbuild_verbosity** (Optional, Defaulted to ``None``): verbosity level for MSBuild (in case of Visual Studio generator).
+    - **msbuild_verbosity** (Optional, Defaulted to ``minimal``): verbosity level for
+      MSBuild (in case of Visual Studio generator). Set this parameter to ``None`` to avoid
+      using it in the command line.
     - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
     - **generator_platform** (Optional, Defaulted to ``None``): Generator platform name or none to autodetect (-A cmake option).
 
@@ -220,6 +222,10 @@ The CMake helper will automatically append some definitions based on your settin
 | CONAN_IN_LOCAL_CACHE                      | ``ON`` if the build runs in local cache, ``OFF`` if running in a user folder                                                 |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_EXPORTED                            | Defined when CMake is called using Conan CMake helper                                                                        |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| ANDROID_ABI                               | Just alias for CMAKE_ANDROID_ARCH_ABI                                                                                        |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| ANDROID_NDK                               | Defined when one of ANDROID_NDK_ROOT or ANDROID_NDK_HOME environment variables presented                                     |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
 There are some definitions set to be used later on the the ``install()`` step too:

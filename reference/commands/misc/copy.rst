@@ -8,9 +8,10 @@ conan copy
 
     $ conan copy [-h] [-p PACKAGE] [--all] [--force] reference user_channel
 
-Copies conan recipes and packages to another user/channel. Useful to promote
-packages (e.g. from "beta" to "stable") or transfer them from one user to
-another.
+Copies conan recipes and packages to another user/channel.
+
+Useful to promote packages (e.g. from "beta" to "stable") or transfer
+them from one user to another.
 
 .. code-block:: text
 
