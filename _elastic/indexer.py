@@ -31,7 +31,7 @@ def build_documents(version, build_folder):
 
                 element = {"version": version, "title": title, "parent_title": parent_title,
                            "slug": slug, "html": html, "h1": h1_elements, "h2": h2_elements,
-                           "h3": h3_elements, "plain_text": plain_text}
+                           "h3": h3_elements, "plain": plain_text}
                 yield element
 
 
@@ -85,7 +85,8 @@ class ElasticManager(object):
           "url" : { "type" : "text" },
           "h1" : { "type" : "text" },
           "h2" : { "type" : "text" },
-          "h3" : { "type" : "text" }
+          "h3" : { "type" : "text" },
+          "plain" : { "type" : "text" }
         }
       }
     }
