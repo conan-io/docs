@@ -11,8 +11,8 @@ The goal of the revisions feature is to achieve package immutability, the packag
 
 .. note::
 
-    This is the first piece to achieve reproducibility: Recreate the exact dependency graph by using some
-    mechanism like a "graph lock" file. For example, if we store a "graph lock" file for the different releases
+    This is the first piece to achieve reproducibility: recreate the exact dependency graph by using some
+    mechanism like a ``graph lock`` file. For example, if we store a ``graph lock`` file for the different releases
     of our project, we can install the same dependencies just by using the graph lock.
 
     **IMPORTANT:** The reproducibility is in the Conan roadmap and currently under development.
@@ -35,11 +35,11 @@ How it works
   The same package ID (for example for Linux/GCC5/Debug), can have multiple revisions (PREVs) that belong
   to a concrete RREV.
 
-If a client requests a reference like ``lib/1.0@conan/stable``, Conan will retrieve automatically the latest revision.
-In the client cache there will be **only one revision installed at the same time**.
+If a client requests a reference like ``lib/1.0@conan/stable``, Conan will automatically retrieve the latest revision.
+In the client cache there is **only one revision installed simultaneously**.
 
 The revisions can be pinned when you write a reference (in the recipe requires, or in a reference in a
-:command:`conan install` command...) but if you don't specify a revision the server will retrieve the latest one.
+:command:`conan install` command…) but if you don’t specify a revision, the server will retrieve the latest revision.
 
 You can specify the references in the following formats:
 
@@ -69,13 +69,13 @@ You have to explicitly activate the feature by:
 
 Take into account that it changes the default Conan behavior. e.g:
 
-    - A client with revisions enabled will only find binary packages that belongs to the installed recipe revision.
+    - A client with revisions enabled will only find binary packages that belong to the installed recipe revision.
       For example, If you create a recipe and run :command:`conan create . user/channel` and then you modify the recipe and
-      export it :command:`conan export . user/channel`, the binary package generated in the :command:`conan create` command doesn't
-      belong to the new exported recipe, so it won't be located unless the previous recipe is recovered.
+      export it (:command:`conan export . user/channel`), the binary package generated in the :command:`conan create` command
+      doesn't belong to the new exported recipe. So it won't be located unless the previous recipe is recovered.
 
-    - If you generate and upload N binary packages for a recipe revision, if you upload the revision you need to
-      generate and upload again the N binaries if you want them to be used with the new recipe.
+    - If you generate and upload N binary packages for a recipe with a given revision, then if you modify the recipe, and thus the recipe
+      revision, you need to build and upload N new binaries matching that new recipe revision.
 
 Server support
 --------------

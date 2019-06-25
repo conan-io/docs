@@ -22,6 +22,12 @@ requirements** in a file. They have this structure:
     Tool2/0.1@user/channel, Tool3/0.1@user/channel
     *: Tool4/0.1@user/channel
 
+Profile can be created with ``new`` option in :command:`conan profile`. And then edit it later.
+
+.. code-block:: bash
+
+    $ conan profile new mynewprofile --detect
+
 Profile files can be used with ``-pr``/``--profile`` option in :command:`conan install` and :command:`conan create` commands.
 
 .. code-block:: bash

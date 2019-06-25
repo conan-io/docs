@@ -3,6 +3,8 @@ import os
 import shutil
 import tempfile
 
+from _elastic.indexer import ElasticManager
+
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -36,14 +38,20 @@ def clean_gh_pages():
         shutil.rmtree("en")
 
 
-def build_and_copy(branch, folder_name, versions_available, validate_links=False):
+def build_and_copy(branch, folder_name, versions_available, themes_dir, validate_links=False):
+
     call("git checkout %s" % branch)
     call("git pull origin %s" % branch)
 
     with open('versions.json', 'w') as f:
         f.write(json.dumps(versions_available))
 
+    shutil.rmtree("_themes")
+    copytree(themes_dir, "_themes")
+
     call("make html")
+    call("make json")
+
     if validate_links:
         call("make spelling")
         call("make linkcheck")
@@ -52,9 +60,16 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
 
     copytree("_build/html/", tmp_dir)
     shutil.copy2("_build/latex/conan.pdf", tmp_dir)
+
+    tmp_dir_json = tempfile.mkdtemp()
+    copytree("_build/json/", tmp_dir_json)
+
     shutil.rmtree("_build")
 
     # Go to deploy branch, copy new files and commit
+    call("git stash")
+    call("git stash drop || true")
+    call("git clean -d -f")
     call("git checkout gh-pages")
     if not os.path.exists("en"):
         os.mkdir("en")
@@ -71,6 +86,8 @@ def build_and_copy(branch, folder_name, versions_available, validate_links=False
         copytree(tmp_dir, version_folder)
         call("git add -A .")
         call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
+
+    return tmp_dir_json
 
 
 def should_deploy():
@@ -97,9 +114,20 @@ def deploy():
 
 if __name__ == "__main__":
     if should_deploy():
-        config_git()
+
+        # Copy the _themes to be able to share them between old versions
+        themes_dir = tempfile.mkdtemp()
+        copytree("_themes", themes_dir)
+
+        host = os.getenv("ELASTIC_SEARCH_HOST")
+        region = os.getenv("ELASTIC_SEARCH_REGION")
+        es = ElasticManager(host, region)
+        es.ping()
+
+        # config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.15",
+        versions_dict = {"master": "1.16",
+                         "release/1.15.2": "1.15",
                          "release/1.14.5": "1.14",
                          "release/1.13.3": "1.13",
                          "release/1.12.3": "1.12",
@@ -112,11 +140,29 @@ if __name__ == "__main__":
                          "release/1.5.2": "1.5",
                          "release/1.4.5": "1.4",
                          "release/1.3.3": "1.3"}
+
+        to_index = {}
         for branch, folder_name in versions_dict.items():
-            build_and_copy(branch, folder_name, versions_dict, validate_links=branch == "master")
+            json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
+                                         validate_links=branch == "master")
+            to_index[folder_name] = json_folder
+
+        # Index
+        print("Indexing...")
+        print(to_index)
+
+        try:
+            es.remove_index()
+        except:
+            pass
+        es.create_index()
+        for version, folder in to_index.items():
+            es.index(version, folder)
 
         deploy()
+
     else:
         call("make html")
+        call("make json")
         call("make spelling")
         call("make linkcheck")

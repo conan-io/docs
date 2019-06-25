@@ -9,7 +9,7 @@ qmake
     Go to :ref:`Integrations/Qmake<qmake>` if you want to learn how to integrate your project or recipes with qmake.
 
 
-Generates a file named ``conanbuildinfo.pri`` that can be used for your qbs builds.
+Generates a file named ``conanbuildinfo.pri`` that can be used for your qmake builds.
 The file contains:
 
 - N groups of variables, one group per require, declaring the same individual values: include_paths, libs, bin dirs, libraries, defines etc.
