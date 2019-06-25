@@ -27,10 +27,11 @@ def build_documents(version, build_folder):
                 h1_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h1")]
                 h2_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h2")]
                 h3_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h3")]
+                plain_text = soup.get_text()
 
                 element = {"version": version, "title": title, "parent_title": parent_title,
                            "slug": slug, "html": html, "h1": h1_elements, "h2": h2_elements,
-                           "h3": h3_elements}
+                           "h3": h3_elements, "plain_text": plain_text}
                 yield element
 
 
