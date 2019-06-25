@@ -173,7 +173,7 @@ In this case you can still use the general and not config-specific variables. Fo
     out as **"Alternative 2"**.
 
 Also, you can use any custom configuration as they are not restricted. For example, if your package is a multi-library package, you could
-try doing something like:
+try to do something like:
 
 .. code-block:: python
 
