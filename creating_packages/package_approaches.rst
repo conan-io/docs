@@ -128,7 +128,7 @@ this meets your needs, we recommend removing the ``compiler.runtime`` subsetting
             cmake_debug.configure()
             cmake_debug.build()
 
-In this case, we assume that the binaries will be differentiated with a suffix in the CMake syntax:
+In this example, the binaries will be differentiated with a suffix in the CMake syntax, so we have to add this information to the data provided to the consumers in the `package_info` function:
 
 .. code-block:: cmake
 
