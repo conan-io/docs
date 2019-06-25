@@ -835,8 +835,8 @@ cpp_info
 
     This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
-The ``self.cpp_info`` is responsible for storing all the information needed by consumers of a package: include directories, library names,
-library paths... There are some default values that will be applied automatically if not indicated otherwise.
+The ``self.cpp_info`` attribute is responsible for storing all the information needed by consumers of a package: include directories,
+library names, library paths... There are some default values that will be applied automatically if not indicated otherwise.
 
 This object should be filled in ``package_info()`` method.
 
@@ -870,9 +870,69 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components       | Dictionary with the different components a package may have: libraries, executables...                  |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.system_deps      | Ordered list of system dependencies. Cannot be used with ``components``. Defaulted to ``[]`` (empty)    |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exes             | Ordered list of executables. Cannot be used with ``components``. Defaulted to ``[]`` (empty)            |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name = None      | Alternative name for the package. Defaulted to ``None``.                                                |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
+
+Components
+++++++++++
+
+You can also model different libraries and executables inside the same package and how one depends on the other. For this purpose you will
+have to declare a component for each of those in this way (the following case is not a real example):
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.name = "OpenSSL"
+        self.cpp_info["Crypto"].lib = "libcrypto"
+        self.cpp_info["SSL"].lib = "libssl"
+        self.cpp_info["SSL"].deps = ["Crypto"]
+
+You can also model system dependencies for each component or just header files. With this information, generators will be able to retrieve
+the information about each component and generate different targets for each of them (Still not supported by any generator).
+
+The structure of the ``Component`` object is very similar to the one used by the ``cpp_info`` one:
+
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| NAME                                    | DESCRIPTION                                                                                             |
++=========================================+=========================================================================================================+
+| self.cpp_info["<NAME>"].name            | Component name to be used when generating targets. Same value as ``"<NAME>"``.                          |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].includedirs     | Ordered list with include paths. Defaulted to ``["include"]``                                           |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].libdirs         | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].resdirs         | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].bindirs         | Ordered list with include paths. Defaulted to ``["bin"]``                                               |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].builddirs       | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
+|                                         | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].lib             | Library name (Can only be declared if ``exe`` is not used). Defaulted to ``None``                       |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].exe             | Executable name (Can only be declared if ``lib`` is not used). Defaulted to ``None``                    |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].defines         | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].cflags          | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].cxxflags        | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].sharedlinkflags | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].exelinkflags    | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info["<NAME>"].system_deps     | Ordered list of system dependencies. Defaulted to ``[]`` (empty)                                        |
++-----------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 .. seealso::
 

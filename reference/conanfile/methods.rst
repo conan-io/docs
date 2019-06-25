@@ -212,6 +212,10 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
+    self.cpp_info.system_deps = []  # System dependencies
+    self.cpp_info.exes = []  # Executable names
+    self.cpp_info.name = None  # Declare an alternative name for the package
+    self.cpp_info.components  # Dictionary with the different components a package may have
 
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
   initialized to ``['include']``, and it is rarely changed.
@@ -240,6 +244,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
+- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
+- **components**: Dictionary with names as keys and a component object as value to model the different components a package may have:
+  libraries, executables...
 
 .. code-block:: python
 
