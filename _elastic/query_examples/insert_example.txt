@@ -1,0 +1,45 @@
+curl -X POST "localhost:9200/docs/_doc/integrations\/custom" -H 'Content-Type: application/json' -d'
+{
+    "version": "1.15",
+    "parent_title" : "Integrations",
+    "url": "integrations/custom",
+    "title" : "Custom integrations",
+    "html" : "trying out Elasticsearch"
+}
+'
+
+
+
+curl -X POST "localhost:9200/docs/_doc/" -H 'Content-Type: application/json' -d'
+{
+    "version": "1.15",
+    "parent_title" : "Integrations",
+    "url": "integrations/custom",
+    "title" : "Custom integrations",
+    "html" : "trying out integrations"
+}
+'
+
+
+
+curl -X POST "localhost:9200/docs/_doc/" -H 'Content-Type: application/json' -d'
+{
+    "version": "1.15",
+    "parent_title" : "Integrations",
+    "url": "integrations/custom",
+    "title" : "Patata",
+    "html" : "trying out integrations"
+}
+'
+
+
+curl -X POST "localhost:9200/docs/_doc/" -H 'Content-Type: application/json' -d'
+{
+    "version": "1.15",
+    "parent_title" : "Integrations",
+    "url": "integrations/custom",
+    "title" : "Other title",
+    "html" : "trying out integrations patata"
+}
+'
+

@@ -34,7 +34,7 @@ instead of the ``exports_sources`` fields.
   no need to do so because source code is not modified at all by the ``configure()`` or ``build()`` methods.
 - Note that this recipe has no other dependencies, settings or options. If it had any of those, it would be very
   convenient to add the ``package_id()`` method, to ensure that only one package with always the same ID is
-  create irrespective of the configurations and dependencies:
+  created, irrespective of the configurations and dependencies:
 
 .. code-block:: python
 

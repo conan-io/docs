@@ -377,14 +377,15 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
 
     We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
-However, the user can always override the default profile settings in the :command:`conan install` command using the :command:`--settings`
-parameter. As an exercise, try building the Encrypter project 32-bit version:
+However, the user can always override the profile settings in the :command:`conan install` command using the :command:`--settings`
+parameter. As an exercise, try building the 32-bit version of the Encrypter project like this:
 
 .. code-block:: bash
 
-    $ conan install . --profile=gcc_x86 --settings arch=x86_64
+    $ conan install . --settings arch=x86
 
-The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the profile used previously.
+The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the default profile used
+previously.
 
 To use the 32-bit binaries, you will also have to change your project build:
 
