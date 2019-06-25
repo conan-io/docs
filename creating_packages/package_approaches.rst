@@ -195,7 +195,7 @@ It’s possible that an existing build script is simultaneously building binarie
 configurations, like debug/release, or different architectures (32/64bits), or library types
 (shared/static). If such a build script is used in the previous "Single configuration packages"
 approach, it will definitely work without problems. However, we'll be wasting precious build time, as
-we’ll be re-building the rebuilding project for each package, then extracting the relevant artifacts for
+we'll be rebuilding the project for each package, then extracting the relevant artifacts for
 the relevant configuration, while ignoring the others.
 
 It is more efficient to build the logic, whereby the same build can be reused to create different packages:
