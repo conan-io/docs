@@ -29,7 +29,7 @@ Usage
 These commands will generate several files for each dependency in your graph, including a ``XXXConfig.cmake`` that can be located
 by the CMake `find_package(XXX CONFIG) <https://cmake.org/cmake/help/v3.0/command/find_package.html>`_ command, with XXX as the package name.
 
-.. note::
+.. important::
 
     Add the ``CONFIG`` option to ``find_package`` so that *module mode* is explicitly skipped by CMake. This helps to 
     solve issues when there is for example a ``FindXXXX.cmake`` file in CMake's default modules directory that could be loaded instead of the 
