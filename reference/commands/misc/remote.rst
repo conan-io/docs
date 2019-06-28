@@ -66,6 +66,10 @@ Manages the remote list and the package recipes associated to a remote.
   Verify SSL option can be True or False (default True). Conan client will verify the SSL
   certificates.
 
+.. note::
+
+    Conan only accepts valid URLs which contain scheme and hostname (e.g. https://hostname.com).
+
 - Insert a new remote:
 
   Insert as the first one (position/index 0), so it is the first one to be checked:
