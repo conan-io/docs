@@ -565,7 +565,7 @@ SystemPackageTool
 
 .. code-block:: python
 
-    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, settings=None)
+    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
 Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
 **PacManTool**.
@@ -608,11 +608,11 @@ your package manager:
             installer = SystemPackageTool(tool=AptTool())
             installer.install("%s:%s" % (name, platforms[self.settings.arch]))
 
-However, it requires a boilerplate which could be automatically solved by your settings:
+However, it requires a boilerplate which could be automatically solved by your settings in ConanFile:
 
 ..  code-block:: python
 
-            installer = SystemPackageTool(settings=self.settings)
+            installer = SystemPackageTool(conanfile=self)
             installer.install(name)
 
 The ``SystemPackageTool`` is adapted to support possible prefixes and suffixes, according to the
