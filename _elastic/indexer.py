@@ -6,6 +6,7 @@ import elasticsearch
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 from elasticsearch.helpers import bulk
 from requests_aws4auth import AWS4Auth
+from bs4 import BeautifulSoup
 
 
 def build_documents(version, build_folder):
@@ -22,8 +23,15 @@ def build_documents(version, build_folder):
                 slug = data["current_page_name"] + ".html"
                 parent_title = data["parents"][0]["title"] if data["parents"] else ""
                 html = data["body"]
+                soup = BeautifulSoup(html, 'html.parser')
+                h1_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h1")]
+                h2_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h2")]
+                h3_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h3")]
+                plain_text = soup.get_text()
+
                 element = {"version": version, "title": title, "parent_title": parent_title,
-                           "slug": slug, "html": html}
+                           "slug": slug, "html": html, "h1": h1_elements, "h2": h2_elements,
+                           "h3": h3_elements, "plain": plain_text}
                 yield element
 
 
@@ -74,7 +82,11 @@ class ElasticManager(object):
           "title" : { "type" : "text" },
           "parent_title" : { "type" : "text" },
           "version": {"type": "text"},
-          "url" : { "type" : "text" }
+          "url" : { "type" : "text" },
+          "h1" : { "type" : "text" },
+          "h2" : { "type" : "text" },
+          "h3" : { "type" : "text" },
+          "plain" : { "type" : "text" }
         }
       }
     }
