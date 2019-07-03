@@ -148,6 +148,8 @@ CONAN_DEFAULT_PROFILE_PATH
 This variable can be used to define a path to an existing profile file that Conan will use
 as default. If relative, the path will be resolved from the profiles folder.
 
+.. _env_vars_non_interactive:
+
 CONAN_NON_INTERACTIVE
 ---------------------
 
@@ -225,6 +227,8 @@ By default Conan logging level is only set for critical events. If you want
 to show more detailed logging information, set this variable to lower values, as ``10`` to show
 debug information.
 
+.. _env_vars_conan_login_username:
+
 CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}
 --------------------------------------------------------
 
@@ -244,6 +248,10 @@ For example: For a remote named "conan-center":
 .. code-block:: bash
 
     SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
+
+.. seealso::
+
+    See the :ref:`conan_user` command documentation for more information about login to remotes
 
 .. _env_vars_conan_make_program:
 
@@ -293,6 +301,8 @@ Specify ```MSBuild``` verbosity level to use with:
 For list of allowed values and their meaning, check out the
 `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017>`_.
 
+.. _env_vars_conan_password:
+
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------
 
@@ -313,6 +323,10 @@ For example, for a remote named "conan-center":
 .. code-block:: bash
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+
+.. seealso::
+
+    See the :ref:`conan_user` command documentation for more information about login to remotes
 
 CONAN_HOOKS
 -----------
