@@ -231,6 +231,10 @@ On Windows:
 Proxies
 +++++++
 
+.. warning::
+
+    ``no_proxy`` is deprecated in favor of ``no_proxy_match`` since Conan 1.16.
+
 If you are not using proxies at all, or you want to use the proxies specified by the operating system,
 just remove the ``[proxies]`` section completely. You can run :command:`conan config rm proxies`.
 
