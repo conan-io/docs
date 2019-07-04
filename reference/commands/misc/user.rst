@@ -87,10 +87,10 @@ Using environment variables
 ---------------------------
 
 The :ref:`CONAN_LOGIN_USERNAME <env_vars_conan_login_username>` and :ref:`CONAN_PASSWORD <env_vars_conan_password>` environment variables allow
-defining the user and the channel in the environment, and not requiring user interaction.
-Whenever the user and/or password would be requested in the command line, interactively, as a result of
-an authentication process, if those environment variables are defined, the user input will not be
-necessary and the values will be taken from the variables automatically.
+defining the user and the password in the environment.
+If those environment variables are defined, the user input will no be necessary whenever the user or
+password are requested. Values for user and password will be automatically taken from the
+environment variables without any interactive input.
 
 This applies also to the ``conan user`` command, if you want to force the authentication in some
 scripts, without requiring to put the password in plain text, the following can be done:
@@ -105,13 +105,13 @@ scripts, without requiring to put the password in plain text, the following can 
       Changed user of remote 'myremote' from 'None' (anonymous) to 'mysusername'
       $ conan upload zlib* -r=myremote --all --confirm
 
-In this example, ``conan user mysyusername -p -r=myremote`` will interactively request a password
+In this example, :command:`conan user mysyusername -p -r=myremote` will interactively request a password
 if ``CONAN_PASSWORD`` is not defined.
 
-The environment variable :ref:`env_vars_non_interactive` (or ``general.non_interactive`` in conan.conf)
+The environment variable :ref:`env_vars_non_interactive` (or ``general.non_interactive`` in *conan.conf*)
 can be defined to guarantee that an error will be raise if user input is required, to avoid stalls in CI
 builds.
 
 Note that defining ``CONAN_LOGIN_USERNAME`` and/or ``CONAN_PASSWORD`` do not perform in any case an
 authentication request against the server. Only when the server request credentials 
-(or a explicit ``conan user -p`` is done), they will be used as an alternative source rather than interactive user input. This means that for servers like Artifactory that allow enabling *"Hide Existence of Unauthorized Resource"* modes, it will be necessary to explicitly call ``conan user -p`` before any upload command, as upload requires authentication, but such mode will return 404 errors instead of requesting authentication.
+(or a explicit :command:`conan user -p` is done), they will be used as an alternative source rather than interactive user input. This means that for servers like Artifactory that allow enabling *"Hide Existence of Unauthorized Resource"* modes, it will be necessary to explicitly call :command:`conan user -p` before downloading or uploading anything from the server, otherwise, Artifactory will return 404 errors instead of requesting authentication.
