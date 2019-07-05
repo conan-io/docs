@@ -77,13 +77,57 @@ for normal dependencies versions management.
 Package revisions
 +++++++++++++++++
 
-TODO 
+Revisions are automatic internal versions to both recipes and binary packages.
+When revisions are enabled, when a recipe changes and it is used to 
+create a package, a new recipe revision is generated, with the hash of the
+contents of the recipe. The revisioned reference of the recipe is:
+
+.. code-block:: text
+
+    pkg/version@user/channel#recipe_revision1
+    # after the change of the recipe
+    pkg/version@user/channel#recipe_revision2
+
+A conanfile can reference a specific revision of its dependencies, but in
+the general case that they are not specified, it will fetch the latest
+revision available in the remote server:
+
+.. code-block:: text
+
+    [requires]
+    # Use the latest revision of pkg1
+    pkg1/version@user/channel 
+    # use the specific revision RREV1 of pkg2
+    pkg2/version@user/channel#RREV1
+
+Each binary package will also be revisioned. The good practice is to build each
+binary just once. But if for some reason, like a change in the environment, a new
+build of exactly the same recipe with the same code (and the same recipe revision)
+is fired again, a new package revision can be created. The package revision
+is the hash of the contents of the package (headers, libraries...), so unless
+deterministic builds are achieved, new package revisions will be generated.
+
+In general revisions are not intended to be defined explictly in conanfiles,
+altough they can for specific purposes like debugging.
 
 Read more about :ref:`package_revisions`
 
 
 Versions conflicts and overrides
 --------------------------------
+
+When two different branches of the same dependency graph require the same package,
+this is known as "diamonds" in the graph. If the two branches of a diamond require
+the same package but different versions, this is known as a conflict (a version conflict).
+
+Lets say that we are building an executable "MyApp", that depends on "PkgA/1.0" and "PkgB/1.0",
+which contain static libraries. In turn, PkgA depends on "PkgC/1.0" and PkgB depends on "PkgC/2.0",
+which is also another static library.
+
+The application "MyApp", cannot link with 2 versions of the same static library of PkgC, one for
+each different version, and then the dependency resolution algorithm raises an error to let the
+user decide which one.
+
 
 TODO:
 - The problem of diamonds and version conflicts
