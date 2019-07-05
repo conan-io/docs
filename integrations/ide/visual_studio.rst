@@ -1,7 +1,9 @@
 .. _visual_studio:
 
+
 |visual_logo| Visual Studio
 ___________________________
+
 
 Conan Extension for Visual Studio
 =================================
@@ -29,6 +31,7 @@ sources if no binaries are available).
     where the **Visual Studio project file** is located and then it will walk recursively into
     parent directories to look for them.
 
+
 The extension creates a property sheet file and adds it to the project, so all the
 information from the dependencies handled by Conan should be added (as inherited properties)
 to those already available in your projects.
@@ -37,8 +40,13 @@ At this moment (release ``v1.0.x``) the extension is under heavy development, so
 change and new features will be added. You can subscribe to `its repository`_ to stay updated and,
 of course, any feedback about it will be more than welcome.
 
+.. _`its repository`: https://github.com/conan-io/conan-vs-extension
+
+
+
 General Integration
 ===================
+
 
 Check the :ref:`MSBuild() integration<msbuild_integration>`, that contains information about Build Helpers and
 generators to be used with Visual Studio.
@@ -48,4 +56,3 @@ generators to be used with Visual Studio.
                  :width: 100 px
                  :alt: Visual Studio logo
 
-.. _`its repository`: https://github.com/conan-io/conan-vs-extension
