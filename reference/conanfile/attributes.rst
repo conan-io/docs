@@ -737,7 +737,7 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
 .. important::
 
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
-    <https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
+    <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
     and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
