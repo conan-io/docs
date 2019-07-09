@@ -19,6 +19,7 @@ Commands related with the installation and usage of Conan packages:
   commands/consumer/search.rst
   commands/consumer/graph.rst
 
+
 Creator commands
 ----------------
 
@@ -67,7 +68,9 @@ Other useful commands:
   commands/misc/remove.rst
   commands/misc/alias.rst
   commands/misc/inspect.rst
+  commands/misc/graph.rst
   commands/misc/help.rst
+
 
 
 Output
