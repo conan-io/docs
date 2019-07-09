@@ -59,8 +59,9 @@ Parameters:
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<tools_cpu_count>`.
       Also applies to parallel test execution (by defining ``CTEST_PARALLEL_LEVEL`` environment variable).
-    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. Note this will
-      also make the ``CMAKE_BUILD_TYPE`` to be declared for multi configuration generators.
+    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. 
+      Note that ``CMAKE_BUILD_TYPE`` will not be declared when using CMake multi-configuration generators such as 
+      Visual Studio or XCode as it will not have effect.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
