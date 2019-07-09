@@ -28,8 +28,9 @@ tools.cpu_count()
 
     def tools.cpu_count()
 
-Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. Can be
-overwritten with the environment variable :ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
+Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. When
+running in Docker, it reads cgroup to detect the configured number of CPUs. It Can be overwritten with the environment variable
+:ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
 
 .. _tools_vcvars_command:
 
