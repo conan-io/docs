@@ -7,7 +7,7 @@ conan graph
 
     $ conan graph [-h] {update-lock,build-order,clean-modified,lock} ...
 
-Manages the remote list and the package recipes associated to a remote.
+Generates and manipulates lock files.
 
 .. code-block:: text
 
@@ -21,3 +21,8 @@ Manages the remote list and the package recipes associated to a remote.
 
     optional arguments:
       -h, --help            show this help message and exit
+
+
+
+
+--EXAMPLES COMING SOON--
