@@ -14,7 +14,7 @@ conan create
                    [-tf TEST_FOLDER] [-m [MANIFESTS]]
                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
                    [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
-                   [-s SETTINGS] [-u]
+                   [-s SETTINGS] [-u] [-l [LOCKFILE]]
                    path reference
 
 Builds a binary package for a recipe (conanfile.py).
@@ -93,6 +93,9 @@ to know more about 'test_folder' project.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 This is the recommended way to create packages.
