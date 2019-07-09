@@ -17,7 +17,6 @@ Commands related with the installation and usage of Conan packages:
   commands/consumer/get.rst
   commands/consumer/info.rst
   commands/consumer/search.rst
-  commands/consumer/graph.rst
 
 
 Creator commands
