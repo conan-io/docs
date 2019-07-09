@@ -22,7 +22,8 @@ them from one user to another.
     optional arguments:
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
-                            copy specified package ID
+                            copy specified package ID [DEPRECATED: use full
+                            reference instead]
       --all                 Copy all packages from the specified package recipe
       --force               Override destination packages and the package recipe
 

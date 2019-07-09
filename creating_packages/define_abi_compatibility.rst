@@ -263,29 +263,33 @@ affects the binary package, or even the required package ID can change your own 
 
 You can determine if the following variables within any requirement change the ID of your binary package using the following modes:
 
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| **Modes / Variables**   | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` |
-+=========================+==========+=========================================+==========+=============+================+
-| ``semver_direct_mode()``| Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``semver_mode()``       | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``major_mode()``        | Yes      | Yes (e.g., **1**.2.Z+b102)              | No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``minor_mode()``        | Yes      | Yes (e.g., **1.2**.Z+b102)              | No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``patch_mode()``        | Yes      | Yes (e.g., **1.2.3**\+b102)             | No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``base_mode()``         | Yes      | Yes (e.g., **1.7**\+b102)               | No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``full_version_mode()`` | Yes      | Yes (e.g., **1.2.3+b102**)              | No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``full_recipe_mode()``  | Yes      | Yes (e.g., **1.2.3+b102**)              | Yes      | Yes         | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``full_package_mode()`` | Yes      | Yes (e.g., **1.2.3+b102**)              | Yes      | Yes         | Yes            |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
-| ``unrelated_mode()``    | No       | No                                      | No       | No          | No             |
-+-------------------------+----------+-----------------------------------------+----------+-------------+----------------+
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| **Modes / Variables**      | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` | RREV | PREV |
++============================+==========+=========================================+==========+=============+================+=============+
+| ``semver_direct_mode()``   | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``semver_mode()``          | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``major_mode()``           | Yes      | Yes (e.g., **1**.2.Z+b102)              | No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``minor_mode()``           | Yes      | Yes (e.g., **1.2**.Z+b102)              | No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``patch_mode()``           | Yes      | Yes (e.g., **1.2.3**\+b102)             | No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``base_mode()``            | Yes      | Yes (e.g., **1.7**\+b102)               | No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``full_version_mode()``    | Yes      | Yes (e.g., **1.2.3+b102**)              | No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``full_recipe_mode()``     | Yes      | Yes (e.g., **1.2.3+b102**)              | Yes      | Yes         | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``full_package_mode()``    | Yes      | Yes (e.g., **1.2.3+b102**)              | Yes      | Yes         | Yes            | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``unrelated_mode()``       | No       | No                                      | No       | No          | No             | No   | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``recipe_revision_mode()`` | Yes      | Yes                                     | Yes      | Yes         | Yes            | Yes  | No   |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
+| ``package_revision_mode()``| Yes      | Yes                                     | Yes      | Yes         | Yes            | Yes  | Yes  |
++----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
 
 All the modes can be applied to all dependencies, or to individual ones:
 
@@ -401,7 +405,7 @@ All the modes can be applied to all dependencies, or to individual ones:
     def package_id(self):
       self.info.requires["MyOtherLib"].full_package_mode()
 
-  This is the stricter mode. Any change to the dependency, including its binary package-id, will in turn
+  Any change to the dependency, including its binary package-id, will in turn
   produce a new package-id for the consumer package.
 
   .. code-block:: text
@@ -414,6 +418,42 @@ All the modes can be applied to all dependencies, or to individual ones:
 
       def package_id(self):
           self.info.requires["MyOtherLib"].unrelated_mode()
+
+- ``recipe_revision_mode()``: The full reference `pkg/version@user/channel#RREV` of the dependencies,
+  including the recipe revision will be taken into account to compute the consumer package ID
+
+ .. code-block:: text
+
+    mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4-a4+b3@user/testing#RREV1 
+
+  .. code-block:: python
+
+      def package_id(self):
+          self.info.requires["mypkg"].recipe_revision_mode()
+
+- ``package_revision_mode()``: The full pckage reference `pkg/version@user/channel#RREV:ID#PREV`
+  of the dependencies, including the recipe revision, the binary package ID and the package revision
+  will be taken into account to compute the consumer package ID
+
+  This is the most strict mode. Any change in the upstream will produce new consumers package IDs,
+  becoming a fully deterministic binary model.
+
+ .. code-block:: text
+
+    # The full reference of the dependency package binary will be used as-is
+    mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1 
+
+  .. code-block:: python
+
+      def package_id(self):
+          self.info.requires["mypkg"].package_revision_mode()
+
+   Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
+   one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
+   built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
+   marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
+   for CI systems, in which a package creation/built is called for each package in the graph.
+
 
 You can also adjust the individual properties manually:
 

@@ -10,7 +10,7 @@ conan info
                  [-if INSTALL_FOLDER] [-j [JSON]] [-n ONLY]
                  [--package-filter [PACKAGE_FILTER]] [-db [DRY_BUILD]]
                  [-b [BUILD]] [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
-                 [-s SETTINGS] [-u]
+                 [-s SETTINGS] [-u] [-l [LOCKFILE]]
                  path_or_reference
 
 Gets information about the dependency graph of a recipe.
@@ -76,6 +76,9 @@ your local cache.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 **Examples**:

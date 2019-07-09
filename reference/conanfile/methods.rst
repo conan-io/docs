@@ -442,6 +442,8 @@ it is an example of a recipe for a library that doesn't support Windows operatin
 
 This exception will be propagated and Conan application will finish with a :ref:`special return code <invalid_configuration_return_code>`.
 
+.. _method_requirements:
+
 requirements()
 --------------
 
@@ -565,23 +567,25 @@ SystemPackageTool
 
 .. code-block:: python
 
-    def SystemPackageTool(tool=None)
+    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
 Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
 **PacManTool**.
 
 Methods:
+    - **add_repository(repository, repo_key=None)**: Add ``repository`` address in your current repo list.
     - **update()**: Updates the system package manager database. It's called automatically from the ``install()`` method by default.
     - **install(packages, update=True, force=False)**: Installs the ``packages`` (could be a list or a string). If ``update`` is True it
       will execute ``update()`` first if it's needed. The packages won't be installed if they are already installed at least of ``force``
       parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
       **Note**: This list of packages is intended for providing **alternative** names for the same package, to account for small variations
       of the name for the same package in different distros. To install different packages, one call to ``install()`` per package is necessary.
+    - **installed(package_name)**: Verify if ``package_name`` is actually installed. It returns ``True`` if it is installed, otherwise ``False``.
 
 The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the ``CONAN_SYSREQUIRES_SUDO``
 environment variable, so if the users don't need sudo permissions, it is easy to opt-in/out.
 
-When the environemtn variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan will try to use :command:`sudo` if the following conditions are met:
+When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan will try to use :command:`sudo` if the following conditions are met:
 
     - :command:`sudo` is available in the ``PATH``.
     - The platform name is ``posix`` and the UID (user id) is not ``0``
@@ -595,6 +599,28 @@ packages have the same system requirements, just add the following line to your 
     def system_requirements(self):
         self.global_system_requirements=True
         if ...
+
+To install multi-arch packages it is possible passing the desired architecture manually according
+your package manager:
+
+..  code-block:: python
+
+            name = "foobar"
+            platforms = {"x86_64": "amd64", "x86": "i386"}
+            installer = SystemPackageTool(tool=AptTool())
+            installer.install("%s:%s" % (name, platforms[self.settings.arch]))
+
+However, it requires a boilerplate which could be automatically solved by your settings in ConanFile:
+
+..  code-block:: python
+
+            installer = SystemPackageTool(conanfile=self)
+            installer.install(name)
+
+The ``SystemPackageTool`` is adapted to support possible prefixes and suffixes, according to the
+instance of the package manager. It validates whether your current settings are configured for
+cross-building, and if so, it will update the package name to be installed according to
+``self.settings.arch``.
 
 .. _method_imports:
 

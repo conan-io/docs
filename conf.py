@@ -39,9 +39,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.16"
+version = "1.17"
 # The full version, including alpha/beta/rc tags.
-release = u'1.16.1'
+release = u'1.17.1'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -397,6 +397,8 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
         "creating_packages/package_dev_flow.html": "../developing_packages/package_dev_flow.html",
         "conan1.0.html": "faq/conan1.0.html",
         "mastering/python_requires.html": "../extending/python_requires.html",
+        "mastering/version_ranges.html": "../versioning/version_ranges.html",
+        "mastering/revisions.html": "../versioning/revisions.html",
 
         "integrations/cmake.html": "build_system/cmake.html",
         "integrations/makefile.html": "build_system/makefile.html",

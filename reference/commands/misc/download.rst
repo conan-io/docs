@@ -26,7 +26,8 @@ If no remote is specified, it will use the default remote.
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
                             Force install specified package ID (ignore
-                            settings/options)
+                            settings/options) [DEPRECATED: use full reference
+                            instead]
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
       -re, --recipe         Downloads only the recipe
@@ -44,7 +45,7 @@ If no remote is specified, it will use the default remote.
 
   .. code-block:: bash
 
-      $ conan download OpenSSL/1.0.2i@conan/stable -r foo -p 8018a4df6e7d2b4630a814fa40c81b85b9182d2
+      $ conan download OpenSSL/1.0.2i@conan/stable:8018a4df6e7d2b4630a814fa40c81b85b9182d2 -r foo
 
 - Download only the recipe of package **OpenSSL/1.0.2i@conan/stable** from the remote **foo**:
 

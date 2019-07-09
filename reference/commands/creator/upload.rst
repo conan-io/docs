@@ -45,7 +45,6 @@ If no remote is specified, the first configured remote (by default conan-center,
       -c, --confirm         Upload all matching recipes without confirmation
       --retry RETRY         In case of fail retries to upload again the specified
                             times.
-
       --retry-wait RETRY_WAIT
                             Waits specified seconds before retry again
       -no [{all,recipe}], --no-overwrite [{all,recipe}]
