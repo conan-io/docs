@@ -25,6 +25,11 @@ to use updated versions, which could be tedious or difficult to scale for large 
 with many dependencies, in which those dependencies are frequently modified, and
 it is desired to move the whole project forward to those updated dependencies.
 
+To mitigate that issue, especially while developing the packages, you can use fixed versions with
+`package revisions` (see below) to resolve automatically the latest revision for a given fixed
+version.
+
+
 Version ranges
 ++++++++++++++
 

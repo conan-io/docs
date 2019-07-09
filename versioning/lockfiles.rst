@@ -59,7 +59,7 @@ The *conan.lock* file contains more information than the versions of the depende
 - The options values at each package. As downstream consumers can define options values, it is
   important that this information is also stored, so it is also possible to build intermediate nodes
   of the graph leading to the same result.
-- Other kind of requirements like python_requires.
+- Another kind of requirements like python_requires.
 
 Again, it is important to remember that every different configuration will generate a different
 graph, and then a different *conan.lock* as result. So the example above would be more like the
@@ -85,7 +85,7 @@ There are 2 main entry points for lockfile information in conan commands:
 
 - :command:`--lockfile` argument in :command:`install/create/export/info`
 
-    If the command builds a package, it can modify its reference. Even if teh version is not changed,
+    If the command builds a package, it can modify its reference. Even if the version is not changed,
     if something in the recipe changes, it will get a new recipe revision RREV and if the package is
     built from sources again, it might end with a new, different package revision PREV. Those changes
     will be updated in the *conan.lock* lockfile, and the package will be marked as "modified".
@@ -98,7 +98,7 @@ There are 2 main entry points for lockfile information in conan commands:
 
         This command will generate a *conan.lock* file. It behaves like :command:`conan install` command,
         (this will also generate a lockfile by default), but without needing to actually install the
-        binaries, so it will be faster. In that regard it is equal to :command:`conan info` that can also
+        binaries, so it will be faster. In that regard, it is equal to :command:`conan info` that can also
         generate a lockfile, but the problem with :command:`conan info -if=.` is that it does not allow to 
         specify a profile or settings.
 
@@ -119,7 +119,7 @@ There are 2 main entry points for lockfile information in conan commands:
 
     - :command:`conan graph build-order`
 
-        Takes a lockfile as argument, and return a list of lists indicating the order in which packages
+        Takes a lockfile as an argument, and return a list of lists indicating the order in which packages
         in the graph have to be built. It only returns those packages that really need to be built,
         following the :command:`--build` arguments and the ``package_id()`` rules.
 
@@ -133,7 +133,7 @@ How to use lockfiles in CI
 One of the applications of lockfiles is to be able to propagate changes done in one package
 belonging to a dependency graph downstream its affected consumers.
 
-Lets say that we have the following scenario in which one developer does some changes to PkgB,
+Let's say that we have the following scenario in which one developer does some changes to PkgB,
 creating a new version **PkgB/1.1**, and lets assume that all packages use version-ranges.
 The goal is to be able to build a new dependency graph down to **PkgE/1.0** in which only those
 changes done in **PkgB/1.1** are taken into account but not other new versions of other packages,
@@ -157,7 +157,7 @@ After that, we can proceed to build the new **PkgB/1.1** version, with its depen
 
 .. image:: ../images/lockfile_ci_1.png
 
-The next step is to know which dependants need to be built, because they are affected by the new
+The next step is to know which dependants need to be built because they are affected by the new
 **PkgB/1.1** version:
 
 .. code-block:: bash
@@ -170,7 +170,7 @@ first sub-list and each package can be rebuilt, making sure the lockfile is appl
 
 .. code-block:: bash
 
-    $ 
+    (EXAMPLE COMING SOON!)
 
 
 .. image:: ../images/lockfile_ci_2.png
