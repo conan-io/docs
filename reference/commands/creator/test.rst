@@ -8,6 +8,7 @@ conan test
 
     $ conan test [-h] [-tbf TEST_BUILD_FOLDER] [-b [BUILD]] [-e ENV]
                  [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                 [-l [LOCKFILE]]
                  path reference
 
 Tests a package consuming it from a conanfile.py with a test() method.
@@ -63,6 +64,9 @@ to be tested must exist in the local cache or in any configured remote.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).

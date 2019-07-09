@@ -26,7 +26,8 @@ If no remote is specified, it will use the default remote.
       -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
                             Force install specified package ID (ignore
-                            settings/options) [DEPRECATED: use full reference instead]
+                            settings/options) [DEPRECATED: use full reference
+                            instead]
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
       -re, --recipe         Downloads only the recipe

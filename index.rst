@@ -19,6 +19,7 @@ Contents:
    uploading_packages
    developing_packages
    devtools
+   versioning
    mastering
    systems_cross_building
    extending

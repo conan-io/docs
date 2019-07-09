@@ -442,6 +442,8 @@ it is an example of a recipe for a library that doesn't support Windows operatin
 
 This exception will be propagated and Conan application will finish with a :ref:`special return code <invalid_configuration_return_code>`.
 
+.. _method_requirements:
+
 requirements()
 --------------
 

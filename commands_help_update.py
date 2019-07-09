@@ -9,6 +9,7 @@ folder = {
     "info": "consumer",
     "install": "consumer",
     "search": "consumer",
+    "graph": "consumer",
 
     "create": "creator",
     "export-pkg": "creator",
