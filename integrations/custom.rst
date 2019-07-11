@@ -237,9 +237,7 @@ There are two ways in which generators can be contributed:
   but they have many advantages: much faster release cycles, independent from the Conan codebase and can be versioned. So backwards
   compatibility and upgrades are much easier.
 
-
 .. _pylint_integration:
-
 
 Extending Conan
 ---------------
