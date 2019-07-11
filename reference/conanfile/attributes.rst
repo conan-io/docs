@@ -882,6 +882,8 @@ This object should be filled in ``package_info()`` method.
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
 
+.. _cpp_info_components_attributes_reference:
+
 Components
 ++++++++++
 
@@ -904,7 +906,7 @@ The structure of the ``Component`` object is very similar to the one used by the
 +-----------------------------------------+---------------------------------------------------------------------------------------------------------+
 | NAME                                    | DESCRIPTION                                                                                             |
 +=========================================+=========================================================================================================+
-| self.cpp_info["<NAME>"].name            | Component name to be used when generating targets. Same value as ``"<NAME>"``.                          |
+| self.cpp_info["<NAME>"].name            | Component name to be used when generating targets. Set to the same value as ``"<NAME>"``.               |
 +-----------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info["<NAME>"].includedirs     | Ordered list with include paths. Defaulted to ``["include"]``                                           |
 +-----------------------------------------+---------------------------------------------------------------------------------------------------------+
@@ -991,6 +993,27 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["OpenSSL"].sharedlinkflags
 
+You can also access the absolute paths, defines and flags for every component in every depenedency:
+
+.. code-block:: python
+
+    ...
+        def build(self):
+            self.deps_cpp_info["OpenSSL"]["SSL"].include_paths
+            self.deps_cpp_info["OpenSSL"]["SSL"].defines
+            self.deps_cpp_info["OpenSSL"]["SSL"].cxxflags
+
+            # You can also iterate the Components
+            for name, dep_cpp_info in self.deps_cpp_info.dependencies:
+                for name, component in dep_cpp_info.components.items():
+                    component.bin_paths
+                    component.system_deps
+                    component.lib
+
+.. seealso::
+
+    Read more about :ref:`cpp_info_components_attributes_reference` in ``self.cpp_info``.
+
 env_info
 --------
 
@@ -1001,7 +1024,6 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 .. seealso::
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
-
 
 
 .. _deps_env_info_attributes_reference:
@@ -1031,8 +1053,6 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
-
-
 
 user_info
 ---------
