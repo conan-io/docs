@@ -268,3 +268,15 @@ of the node in the graph, which could be useful to dissambiguate.
 
 With this later approach, a deterministic build with optimal Continuous Integration process
 with optimal utilization of resources and minimizing unnecessary rebuilds is achieved.
+
+Note that this example has been using incremental versions and version ranges.
+With package revisions it is also possible to achieve the same flow without bumping the versions and using fixed version dependencies:
+
+- It will not be necessary to change the recipes or even to inject the values in CI.
+  Every change in a recipe will produce a new different recipe revision.
+- Revisions are also locked in lockfiles.
+- As revisions are resolved by default to latest, and the conan cache can only hold
+  one revision, it might be necessary to pass ``--update`` argument so the correct revision is updated in the cache.
+- It is necessary to define the ``recipe_revision_mode`` or the ``package_revision_mode`` if we want to guarantee that the binaries correctly model the dependencies changes.
+
+For implementing this flow, it might be necessary to share the different ``conan.lock`` lockfiles among different machines, to pass them to build servers. A git repo could be used, but also an Artifactory generic repository could be very convenient for this purpose.

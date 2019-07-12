@@ -157,7 +157,6 @@ conan graph lock
 
 This command is similar to :command:`conan install` or :command:`conan info`, but
 with a few differences:
-- It doesn't need to retrieve binaries, it will only compute what is necessary to do,
-  according to the ``--build`` argument and rules
-- Even when ``--build`` values are specified, packages will not be built from sources.
-  It will just compute, as a "dry-run" what would happen in an equivalent :command:`conan install`
+
+- It doesn't need to retrieve binaries, it will only compute what is necessary to do, according to the ``--build`` argument and rules
+- Even when ``--build`` values are specified, packages will not be built from sources. It will just compute, as a "dry-run" what would happen in an equivalent :command:`conan install`
