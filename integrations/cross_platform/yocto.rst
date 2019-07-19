@@ -10,11 +10,6 @@ The Yocto Project tools are based on the `OpenEmbedded`_ project, which uses the
 Brief introduction to Yocto
 ===========================
 
-With these, the Yocto Project covers the needs of both system and application developers. When the Yocto Project is used as an integration
-environment for bootloaders, the Linux kernel, and user space applications, we refer to it as system development.
-For application development, the Yocto Project builds SDKs that enable the development of applications independently of the Yocto build
-system.
-
 Yocto supports several Linux host distributions and it also provides a way to install the correct version of these tools by either
 downloading a buildtools-tarball or building one on a supported machine. This allows virtually any Linux distribution to be able to run
 Yocto, and also makes sure that it will be possible to replicate your Yocto build system in the future. The Yocto Project build system also
@@ -46,7 +41,7 @@ set( CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER )
 Then, you can start creating Conan packages setting up the environment of the Yocto SDK and running a :command:`conan create` command
 with a suitable profile with the specific architecture of the toolchain.
 
-For example, creating packages for `armv5`:
+For example, creating packages for `armv8`:
 
 The profile will be:
 
@@ -67,10 +62,11 @@ And just activate the SDK environment and execute the create command.
 
 .. code-block:: bash
 
-    $ source oe-activate-environment <NAME>
+    $ source oe-environment-setup-aarch64-poky-linux
     $ conan create . user/channel --profile armv8
 
-This will generate the packages using the Yocto toolchain. Now you can upload the binaries
+This will generate the packages using the Yocto toolchain. Now you can upload the binaries to an Artifactory server so share and reuse in
+your Yocto builds.
 
 .. important::
 
@@ -83,56 +79,54 @@ This will generate the packages using the Yocto toolchain. Now you can upload th
     or download and use
     `the prebuilt ones <http://downloads.yoctoproject.org/releases/yocto/yocto-2.6.2/toolchain/x86_64/>`_.
 
-Using the Yocto SDK as a build requirement
-******************************************
-
-There is also a recipe available to apply the prebuilt Yocto toolchains as a build requirement in this repository <REPO>.
-
-The recipe basically downloads the suitable SDK for your architecture and sets the environment for the toolchain to be applied and used in
-the build of the packages.
-
-(INFORMATION ABOUT THE TOOLCHAIN)
-
-Architecture conversion table
-+++++++++++++++++++++++++++++
-
-We have decided to map the most common Yocto architectures and machines to the existing ones in Conan. We know that this mapping is not
-complete and that some of the binaries generated with the Yocto toolchains will have specific optimization flags for the specific
-architectures. However, we think that this mapping is good enough to get started with the Yocto builds.
-
-+---------------+-------------------+------------------------+
-| **Yocto SDK** | **Yocto Machine** | **Conan arch setting** |
-+===============+===================+========================+
-| aarch64       | qemuarm64         | armv8                  |
-+---------------+-------------------+------------------------+
-| armv5e        | qemuarmv5         | armv5el                |
-+---------------+-------------------+------------------------+
-| core2-64      | qemux86_64        | x86_64                 |
-+---------------+-------------------+------------------------+
-| cortexa8hf    | quemuarm          | armv7hf                |
-+---------------+-------------------+------------------------+
-| i586          | qemux86           | x86                    |
-+---------------+-------------------+------------------------+
-| mips32r2      | qemumips          | mips                   |
-+---------------+-------------------+------------------------+
-| mips64        | qemumips64        | mips64                 |
-+---------------+-------------------+------------------------+
-| ppc7400       | qemuppc           | ppc32                  |
-+---------------+-------------------+------------------------+
-
-.. seealso::
-
-    - Prebuilt Yocto's SDKs: http://downloads.yoctoproject.org/releases/yocto/yocto-2.6/toolchain/x86_64/
-    - Yocto Machine configurations: https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/conf/machine
-    - Conan Architectures in :ref:`settings_yml`.
-
 Deploying Conan packages to a Yocto image
 =========================================
 
 Once you have created and and uploaded the Conan packages to a remote in Artifactory, you can deploy them in a Yocto build.
 
-We have created a Yocto layer that includes all the configuration, the Conan client and a generic BitBake recipe so deploying the Conan
-packages is as easy as:
+It is important that in order to accomplish this, your recipes should have a
+[deploy() method](https://docs.conan.io/en/latest/devtools/running_packages.html):
+
+.. code-block:: python
+
+    def deploy(self):
+        self.copy("*", src="bin", dst="bin")
+        self.copy("*.dll", src="bin", dst="bin")
+        self.copy("*.dylib*", src="lib", dst="bin")
+        self.copy("*.so*", src="lib", dst="bin")
+        self.copy_deps("*.dll", src="bin", dst="bin")
+        self.copy_deps("*.dylib*", src="lib", dst="bin")
+        self.copy_deps("*.so*", src="lib", dst="bin")
+
+
+We have created a [meta-conan](LINK TO THE LAYER) layer that includes all the configuration, the Conan client and a generic BitBake recipe.
+To add the layer you will have to clone it repository and the dependency layers of ``meta-openembedded``:
+
+.. code-block:: bash
+
+    $ cd poky
+    $ git clone (LINK conan meta url)
+    $ git clone --branch thud https://github.com/openembedded/meta-openembedded.git
+
+You would also have to activate the layers in the *bblayers.conf* file of your build folder:
+
+.. code-block:: text
+   :caption: *bblayers.conf*
+    POKY_BBLAYERS_CONF_VERSION = "2"
+
+    BBPATH = "${TOPDIR}"
+    BBFILES ?= ""
+
+    BBLAYERS ?= " \
+    /home/username/poky/meta \
+    /home/username/poky/meta-poky \
+    /home/username/poky/meta-yocto-bsp \
+    /home/username/poky/meta-openembedded/meta-oe \
+    /home/username/poky/meta-openembedded/meta-python \
+    /home/username/poky/meta-conan \
+    "
+
+After that, a Conan recipe to deploy a Conan package should look as easy as this Bitbake recipe:
 
 .. code-block:: text
    :caption: *conan-mosquitto_1.4.15.bb*
@@ -161,13 +155,48 @@ Now you can build this recipe to test that the packages are correctly deployed:
 .. code-block:: bash
 
     $ bitbake conan-mosquitto
-    (ADDD OUTPUT)
 
 After that, you can build your image with the Conan packages:
 
 .. code-block:: bash
 
     $ bitbake core-image-minimal
+
+
+Architecture conversion table
++++++++++++++++++++++++++++++
+
+We have decided to map the most common Yocto architectures and machines to the existing ones in Conan. This is the current mapping from
+Conan architectures to the Yocto ones, in order to retrieve the suitable packages during the build of the image.
+
++---------------+-------------------+------------------------+
+| **Yocto SDK** | **Yocto Machine** | **Conan arch setting** |
++===============+===================+========================+
+| aarch64       | qemuarm64         | armv8                  |
++---------------+-------------------+------------------------+
+| armv5e        | qemuarmv5         | armv5el                |
++---------------+-------------------+------------------------+
+| core2-64      | qemux86_64        | x86_64                 |
++---------------+-------------------+------------------------+
+| cortexa8hf    | quemuarm          | armv7hf                |
++---------------+-------------------+------------------------+
+| i586          | qemux86           | x86                    |
++---------------+-------------------+------------------------+
+| mips32r2      | qemumips          | mips                   |
++---------------+-------------------+------------------------+
+| mips64        | qemumips64        | mips64                 |
++---------------+-------------------+------------------------+
+| ppc7400       | qemuppc           | ppc32                  |
++---------------+-------------------+------------------------+
+
+We know that this mapping is not complete and that some of the binaries generated with the Yocto toolchains will have specific optimization
+flags for the specific architectures. However, we think that this mapping is good enough to get started with the Yocto builds.
+
+.. seealso::
+
+    - Prebuilt Yocto's SDKs: http://downloads.yoctoproject.org/releases/yocto/yocto-2.6/toolchain/x86_64/
+    - Yocto Machine configurations: https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/conf/machine
+    - Conan Architectures in :ref:`settings_yml`.
 
 
 .. |yocto_logo| image:: ../../images/yocto/conan_yocto.png
