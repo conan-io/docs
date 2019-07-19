@@ -22,26 +22,10 @@ Creating Conan packages with Yocto's SDK toolchain
 Yocto SDKs are completely self-contained. The binaries are linked against their own copy of `libc`, which results in no dependencies on the
 target system.
 
-If you are using CMake, then you will have to patch this file in order to avoid linking with other dependencies inside the Yocto SDK, and
-force it to use the Conan packages instead:
-
-`sdk/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake`
-
-
-```
-set( CMAKE_FIND_ROOT_PATH $ENV{OECORE_TARGET_SYSROOT} $ENV{OECORE_NATIVE_SYSROOT} )
-set( CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER )
-# set( CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY )
-# set( CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY )
-# set( CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY )
-```
-
-`OE_CMAKE_TOOLCHAIN_FILE`
-
 Then, you can start creating Conan packages setting up the environment of the Yocto SDK and running a :command:`conan create` command
 with a suitable profile with the specific architecture of the toolchain.
 
-For example, creating packages for `armv8`:
+For example, creating packages for `arch=armv8`:
 
 The profile will be:
 
@@ -58,7 +42,7 @@ The profile will be:
     compiler.libcxx=libstdc++11
     build_type=Release
 
-And just activate the SDK environment and execute the create command.
+Activate the SDK environment and execute the create command.
 
 .. code-block:: bash
 
@@ -67,6 +51,27 @@ And just activate the SDK environment and execute the create command.
 
 This will generate the packages using the Yocto toolchain. Now you can upload the binaries to an Artifactory server so share and reuse in
 your Yocto builds.
+
+.. note::
+
+    If you are using CMake to create the Conan packages, Yocto injects a toolchain that configures CMake to only search for libraries in the
+    rootpath of the SDK with `CMAKE_FIND_ROOT_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH.html#variable:CMAKE_FIND_ROOT_PATH>`_.
+    This is something that has to be patched in order to allow CMake to find libraries in the Conan cache:
+
+    .. code-block:: cmake
+       :caption: *sdk/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake*
+
+        set( CMAKE_FIND_ROOT_PATH $ENV{OECORE_TARGET_SYSROOT} $ENV{OECORE_NATIVE_SYSROOT} )
+        set( CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER )
+        # COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY )
+        # COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY )
+        # COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY )
+
+    You can read more about those variables here:
+
+      - `CMAKE_FIND_ROOT_PATH_MODE_LIBRARY <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_LIBRARY.html>`_
+      - `CMAKE_FIND_ROOT_PATH_MODE_INCLUDE <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_INCLUDE.html>`_
+      - `CMAKE_FIND_ROOT_PATH_MODE_PACKAGE <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_PACKAGE.html>`_
 
 .. important::
 
@@ -85,7 +90,7 @@ Deploying Conan packages to a Yocto image
 Once you have created and and uploaded the Conan packages to a remote in Artifactory, you can deploy them in a Yocto build.
 
 It is important that in order to accomplish this, your recipes should have a
-[deploy() method](https://docs.conan.io/en/latest/devtools/running_packages.html):
+```deploy()`` method <https://docs.conan.io/en/latest/devtools/running_packages.html`_:
 
 .. code-block:: python
 
@@ -112,6 +117,7 @@ You would also have to activate the layers in the *bblayers.conf* file of your b
 
 .. code-block:: text
    :caption: *bblayers.conf*
+
     POKY_BBLAYERS_CONF_VERSION = "2"
 
     BBPATH = "${TOPDIR}"
@@ -162,6 +168,7 @@ After that, you can build your image with the Conan packages:
 
     $ bitbake core-image-minimal
 
+The binaries of the Conan packages will be deployed to the */bin* folder of the image once it is created.
 
 Architecture conversion table
 +++++++++++++++++++++++++++++
@@ -194,7 +201,6 @@ flags for the specific architectures. However, we think that this mapping is goo
 
 .. seealso::
 
-    - Prebuilt Yocto's SDKs: http://downloads.yoctoproject.org/releases/yocto/yocto-2.6/toolchain/x86_64/
     - Yocto Machine configurations: https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/conf/machine
     - Conan Architectures in :ref:`settings_yml`.
 
