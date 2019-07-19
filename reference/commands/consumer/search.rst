@@ -77,6 +77,13 @@ and parenthesis, with settings and also options.
     $ conan search Boost/1.60.0@lasote/stable -q arch=x86_64
     $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
+Also, query syntax allows sub-settings, even for custom properties. e.g:
+
+.. code-block:: bash
+
+    $ conan search Boost/1.60.0@lasote/stable -q "compiler=gcc AND compiler.version=9"
+    $ conan search Boost/1.60.0@lasote/stable -q "os=Linux AND os.distro=Ubuntu AND os.distro.version=19.04"
+
 If you specify a query filter for a setting and the package recipe is not restricted by this
 setting, Conan won't find the packages. e.g:
 
@@ -95,7 +102,6 @@ The query above won't find the ``MyRecipe`` binary packages (because the recipe 
 .. code-block:: bash
 
     $ conan search MyRecipe/1.0@lasote/stable -q os=None
-
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:
 
