@@ -114,13 +114,13 @@ needed in the final image as well as any other from its dependencies (like share
 Set up the Conan layer
 ----------------------
 
-We have created a [meta-conan](https://github.com/conan-io/meta-conan.git) layer that includes all the configuration, the Conan client and a
+We have created a [meta-conan](LINK) layer that includes all the configuration, the Conan client and a
 generic BitBake recipe. To add the layer you will have to clone it repository and the dependency layers of ``meta-openembedded``:
 
 .. code-block:: bash
 
     $ cd poky
-    $ git clone https://github.com/conan-io/meta-conan.git
+    $ git clone LINK
     $ git clone --branch thud https://github.com/openembedded/meta-openembedded.git
 
 You would also have to activate the layers in the *bblayers.conf* file of your build folder:
