@@ -23,7 +23,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 
 1.17.1 (22-Jul-2019)
--------------------
+--------------------
 
 - Feature: support 7.1 clang version `#5492 <https://github.com/conan-io/conan/pull/5492>`_
 - Bugfix: When a profile was detected, for GCC 5.X the warning message about the default `libcxx` was not shown. `#5524 <https://github.com/conan-io/conan/pull/5524>`_
