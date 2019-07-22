@@ -18,8 +18,42 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.16 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.17 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.17.0 (9-Jul-2019)
+-------------------
+
+- Feature: Better UX for no_proxy (#3943) `#5438 <https://github.com/conan-io/conan/pull/5438>`_ . Docs `here <https://github.com/conan-io/docs/pull/1347>`__
+- Feature: Show warning when URLs for remotes is invalid (missing schema, host, etc). `#5418 <https://github.com/conan-io/conan/pull/5418>`_
+- Feature: Implementation of lockfiles. Lockfiles store in a file all the configuration, exact versions (including revisions), necessary to achieve reproducible builds, even when using version-ranges or package revisions. `#5412 <https://github.com/conan-io/conan/pull/5412>`_ . Docs `here <https://github.com/conan-io/docs/pull/1350>`__
+- Feature: Change progress bar output to tqdm to make it look better `#5407 <https://github.com/conan-io/conan/pull/5407>`_
+- Feature: Define 2 new modes and helpers for the package binary ID: ``recipe_revision_mode`` and ``package_revision_mode``, that take into account the revisions. The second one will use all the information from dependencies, resulting in fully deterministic and complete package IDs: if some dependency change, it will be necessary to build a new binary of consumers `#5363 <https://github.com/conan-io/conan/pull/5363>`_ . Docs `here <https://github.com/conan-io/docs/pull/1345>`__
+- Feature: Add apple-clang 11.0 to settings.yml (#5328) `#5357 <https://github.com/conan-io/conan/pull/5357>`_ . Docs `here <https://github.com/conan-io/docs/pull/1327>`__
+- Feature: SystemPackageTool platform detection (#5026) `#5215 <https://github.com/conan-io/conan/pull/5215>`_ . Docs `here <https://github.com/conan-io/docs/pull/1291>`__
+- Fix: Enable the definition of revisions in conanfile.txt `#5435 <https://github.com/conan-io/conan/pull/5435>`_
+- Fix: Improve resolution of version ranges for remotes `#5433 <https://github.com/conan-io/conan/pull/5433>`_
+- Fix: The conan process returns `6` when a `ConanInvalidConfiguration` is thrown during :command:`conan info`. `#5421 <https://github.com/conan-io/conan/pull/5421>`_
+- Fix: Inspect missing attribute is not an error (#3953) `#5419 <https://github.com/conan-io/conan/pull/5419>`_
+- Fix: Allow --build-order and --graph together for conan info (#3447) `#5417 <https://github.com/conan-io/conan/pull/5417>`_
+- Fix: Handling error when reference not found using conan download `#5399 <https://github.com/conan-io/conan/pull/5399>`_
+- Fix: Update Yum cache (#5370) `#5387 <https://github.com/conan-io/conan/pull/5387>`_
+- Fix: Remove old folder for conan install (#5376) `#5384 <https://github.com/conan-io/conan/pull/5384>`_
+- Fix: Add missing call to super constructor to `VirtualEnvGenerator`. `#5375 <https://github.com/conan-io/conan/pull/5375>`_
+- Fix: Force forward slashes in the variable `$PROFILE_DIR` `#5373 <https://github.com/conan-io/conan/pull/5373>`_ . Docs `here <https://github.com/conan-io/docs/pull/1333>`__
+- Fix: Accept a list for the requires attribute `#5371 <https://github.com/conan-io/conan/pull/5371>`_ . Docs `here <https://github.com/conan-io/docs/pull/1332>`__
+- Fix: Remove packages when version is asterisk (#5297) `#5346 <https://github.com/conan-io/conan/pull/5346>`_
+- Fix: Make conan_data visible to pylint (#5327) `#5337 <https://github.com/conan-io/conan/pull/5337>`_
+- Fix: Improve the output to show the remote (or cache) that a version range is resolved to. `#5336 <https://github.com/conan-io/conan/pull/5336>`_
+- Fix: Deprecated ``conan copy|download|upload <ref> -p=ID``, use ``conan .... <pref>`` instead `#5293 <https://github.com/conan-io/conan/pull/5293>`_ . Docs `here <https://github.com/conan-io/docs/pull/1317>`__
+- Fix: `AutoToolsBuildEnvironment` is now aware of `os_target` and `arch_target` to calculate the gnu triplet when declared. `#5283 <https://github.com/conan-io/conan/pull/5283>`_
+- Fix: Better message for gcc warning of libstdc++ at default profile detection `#5275 <https://github.com/conan-io/conan/pull/5275>`_
+- Bugfix: `verify_ssl` field in SCM being discarded when used with `False` value. `#5441 <https://github.com/conan-io/conan/pull/5441>`_
+- Bugfix: enable retry for requests `#5400 <https://github.com/conan-io/conan/pull/5400>`_
+- Bugfix: Allow creation and deletion of files in ``tools.patch`` with ``strip>0`` `#5334 <https://github.com/conan-io/conan/pull/5334>`_
+- Bugfix: Use case insensitive comparison for SHA256 checksums `#5306 <https://github.com/conan-io/conan/pull/5306>`_
+
 
 
 1.16.1 (14-Jun-2019)
