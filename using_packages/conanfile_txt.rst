@@ -28,8 +28,9 @@ headers and libraries for each package.
 If you execute a :command:`conan install Poco/1.9.0@pocoproject/stable` command in your shell, Conan will
 download the Poco package and its dependencies (*OpenSSL/1.0.2l@conan/stable* and
 *zlib/1.2.11@conan/stable*) to your local cache and print information about the folder where
-they are installed. While you can handle them manually, the recommended approach is to
-use a ``conanfile.txt``.
+they are installed. While you can install each of your dependencies individually like that,
+the recommended approach for handling dependencies is to use a ``conanfile.txt`` file.
+The structure of ``conanfile.txt`` is described below.
 
 Requires
 ........
@@ -75,7 +76,7 @@ Consider that a new release of the OpenSSL library has been released, and a new 
 available. In our example, we do not need to wait until `pocoproject`_ (the author) generates a new package of POCO that
 includes the new OpenSSL library.
 
-We can simply enter the new version in **[requires]** section:
+We can simply enter the new version in the **[requires]** section:
 
 .. code-block:: text
 
@@ -85,7 +86,7 @@ We can simply enter the new version in **[requires]** section:
 
 The second line will override the OpenSSL/1.0.2l required by POCO with the currently non-existent **OpenSSL/1.0.2p**.
 
-Another example in which we may want to try some new zlib alpha features, we could replace the zlib
+Another example in which we may want to try some new zlib alpha features: we could replace the zlib
 requirement with one from another user or channel.
 
 .. code-block:: text
@@ -122,7 +123,7 @@ Options
 .......
 
 We have already seen that there are some **settings** that can be specified during installation. For
-example, :command:`conan install . -s build_type=Debug`. These settings are typically a project-wide
+example, :command:`conan install .. -s build_type=Debug`. These settings are typically a project-wide
 configuration defined by the client machine, so they cannot have a default value in the recipe. For
 example, it doesn't make sense for a package recipe to declare "Visual Studio" as a default compiler
 because that is something defined by the end consumer, and unlikely to make sense if they are
@@ -148,7 +149,7 @@ and this is the linkage that should be used if consumers don't specify otherwise
         $ conan inspect Poco/1.9.0@pocoproject/stable -a=default_options
 
 For example, we can modify the previous example to use dynamic linkage instead of the default one, which was static, by editing the
-*conanfile.txt*:
+**[options]** section in ``conanfile.txt``:
 
 .. code-block:: text
 
@@ -180,13 +181,13 @@ command line:
     $ conan install .. -o *:shared=True
 
 Conan will install the binaries of the shared library packages, and the example will link with them. You can again inspect the different binaries installed.
-For example, :command:`conan search zlib/1.2.8@lasote/stable`.
+For example, :command:`conan search zlib/1.2.8@conan/stable`.
 
 Finally, launch the executable:
 
 .. code-block:: bash
 
-    $ ./bin/timer
+    $ ./bin/md5
 
 What happened? It fails because it can't find the shared libraries in the path. Remember that shared
 libraries are used at runtime, so the operating system, which is running the application, must be able to locate them.
@@ -197,7 +198,7 @@ example, in Linux, we could use the `objdump` tool and see the *Dynamic section*
 .. code-block:: bash
 
     $ cd bin
-    $ objdump -p timer
+    $ objdump -p md5
     ...
     Dynamic Section:
      NEEDED               libPocoUtil.so.31
@@ -229,11 +230,11 @@ There are some differences between shared libraries on Linux (\*.so), Windows (\
 (\*.dylib). The shared libraries must be located in a folder where they can be found, either by
 the linker, or by the OS runtime.
 
-You can add the libraries' folders to the path (dynamic linker LD_LIBRARY_PATH path
+You can add the libraries' folders to the path (LD_LIBRARY_PATH environment variable
 in Linux, DYLD_LIBRARY_PATH in OSX, or system PATH in Windows), or copy those shared libraries to
-some system folder where they can be found by the OS. But these operations are are typical operations deployments or
-final installation of apps; they are not desired during development, and Conan is intended for developers, so
-it avoids manipulations on the OS.
+some system folder where they can be found by the OS. But these operations are only related to the deployment or
+installation of apps; they are not relevant during development. Conan is intended for developers, so
+it avoids such manipulation of the OS environment.
 
 In Windows and OSX, the simplest approach is to copy the shared libraries to the executable
 folder, so they are found by the executable, without having to modify the path.
@@ -265,21 +266,21 @@ To demonstrate this, edit the ``conanfile.txt`` file and paste the following **[
     should be found in the **/lib** folder, however, this is just a convention, and different layouts are
     possible.
 
-Install the requirements (from the ``mytimer/build`` folder), and run the binary again:
+Install the requirements (from the ``build`` folder), and run the binary again:
 
 .. code-block:: bash
 
     $ conan install ..
-    $ ./bin/timer
+    $ ./bin/md5
 
-Now look at the ``mytimer/build/bin`` folder and verify that the required shared libraries are there.
+Now look at the ``build/bin`` folder and verify that the required shared libraries are there.
 
 As you can see, the **[imports]** section is a very generic way to import files from your
 requirements to your project. 
 
 This method can be used for packaging applications and copying the resulting executables to your bin
 folder, or for copying assets, images, sounds, test static files, etc. Conan is a generic solution
-for package management, not only (but focused in) for C/C++ or libraries.
+for package management, not only for (but focused on) C/C++ libraries.
 
 .. seealso::
 

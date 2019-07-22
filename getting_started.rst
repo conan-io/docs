@@ -3,7 +3,7 @@
 Getting Started
 ===============
 
-Let's get started with an example: We are going to create a an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
+Let's get started with an example: We are going to create an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any build system** and is not limited to using CMake.
 
@@ -12,8 +12,8 @@ An MD5 Encrypter using the Poco Libraries
 
 .. note::
 
-    The source files to recreate this project are available in the following GitHub repository.
-    You can skip the manual creation of folder an sources with this command:
+    The source files to recreate this project are available in the `example repository`_ in GitHub.
+    You can skip the manual creation of the folder and sources with this command:
 
     .. code-block:: bash
 
@@ -55,6 +55,8 @@ An MD5 Encrypter using the Poco Libraries
         Poco/1.8.0@pocoproject/stable
         Poco/1.8.1@pocoproject/stable
         Poco/1.9.0@pocoproject/stable
+        Poco/1.9.1@pocoproject/stable
+        Poco/1.9.2@pocoproject/stable
 
 3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
 
@@ -205,7 +207,7 @@ command line or taken from the defaults in *<userhome>/.conan/profiles/default* 
    :width: 500 px
    :align: center
 
-For example, the command :command:`conan install . --settings os="Linux" --settings compiler="gcc"`, performs these steps:
+For example, the command :command:`conan install .. --settings os="Linux" --settings compiler="gcc"`, performs these steps:
 
 - Checks if the package recipe (for ``Poco/1.9.0@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
   cache is empty.
@@ -217,7 +219,7 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
 
 There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
-can build the binary package from sources using :command:`conan install --build=missing`, it will succeed if your configuration is
+can build the binary package from sources using :command:`conan install .. --build=missing`, it will succeed if your configuration is
 supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
 
 Inspecting Dependencies
@@ -371,7 +373,7 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
 
 .. code-block:: bash
 
-    $ conan install . --profile=gcc_x86
+    $ conan install .. --profile=gcc_x86
 
 .. tip::
 
@@ -382,7 +384,7 @@ parameter. As an exercise, try building the 32-bit version of the Encrypter proj
 
 .. code-block:: bash
 
-    $ conan install . --settings arch=x86
+    $ conan install .. --settings arch=x86
 
 The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the default profile used
 previously.
@@ -408,3 +410,5 @@ Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cppla
 .. _`Bintray`: https://bintray.com/conan/conan-center
 
 .. _`Cpplang Slack`: https://cpplang.now.sh/
+
+.. _`example repository`: https://github.com/conan-io/examples
