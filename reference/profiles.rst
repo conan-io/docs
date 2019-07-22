@@ -106,6 +106,19 @@ environment variables for some specific package:
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
 
+They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use clang 3.5 as compiler, and gcc otherwise:
+
+.. code-block:: text
+
+    [settings]
+    *@myuser/*:compiler=clang
+    *@myuser/*:compiler.version=3.5
+    *@myuser/*:compiler.libcxx=libstdc++11
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++11
+
+
 .. note::
 
     If you want to override existing system environment variables, you should use the ``key=value`` syntax. If you need to pre-pend to the
