@@ -95,8 +95,8 @@ Activate the SDK environment and execute the create command.
     $ source oe-environment-setup-aarch64-poky-linux
     $ conan create . user/channel --profile armv8
 
-This will generate the packages using the Yocto toolchain from the environment variables such as ``CC``, ``AR``... Now you can :ref:`upload the binaries <uploading_packages>` to an Artifactory server so share and reuse in
-your Yocto builds.
+This will generate the packages using the Yocto toolchain from the environment variables such as ``CC``, ``CXX``, ``LD``... Now you can
+:ref:`upload the binaries <uploading_packages>` to an Artifactory server so share and reuse in your Yocto builds.
 
 .. important::
 
@@ -116,16 +116,48 @@ The recipe of the application to be deployed should have a
 needed in the final image as well as any other from its dependencies (like shared libraries or assets):
 
 .. code-block:: python
+   :caption: *conanfile.py*
+   :emphasize-lines: 28-31
+
+    from conans import ConanFile
+
+
+    class MosquittoConan(ConanFile):
+        name = "mosquitto"
+        version = "1.4.15"
+        description = "Open source message broker that implements the MQTT protocol"
+        license = "EPL", "EDL"
+        settings = "os", "arch", "compiler", "build_type"
+        generators = "cmake"
+        requires = "OpenSSL/1.0.2o@conan/stable", "c-ares/1.14.0@conan/stable"
+
+    def source(self):
+        source_url = "https://github.com/eclipse/mosquitto"
+        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+
+    def package(self):
+        self.copy("*.h", dst="include", src="hello")
+        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.a", dst="lib", keep_path=False)
+        self.copy("*mosquitto.conf", dst="bin", keep_path=False)
 
     def deploy(self):
         self.copy("*", src="bin", dst="bin")
         self.copy("*.so*", src="lib", dst="bin")
         self.copy_deps("*.so*", src="lib", dst="bin")
 
+    def package_info(self):
+        self.cpp_info.libs.extend(["libmosquitto", "rt", "pthread", "dl"])
+
 Set up the Conan layer
 ----------------------
 
-We have created a [meta-conan](LINK) layer that includes all the configuration, the Conan client and a
+We have created a [meta-conan](CONAN_LAYER_LINK) layer that includes all the configuration, the Conan client and a
 generic BitBake recipe. To add the layer you will have to clone the repository and the dependency layers of ``meta-openembedded``:
 
 .. code-block:: bash
