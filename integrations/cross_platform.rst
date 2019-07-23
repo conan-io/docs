@@ -11,5 +11,5 @@ for different platforms.
 
    cross_platform/docker
    cross_platform/emscripten
-   cross_platform/qnx_neutrino
    cross_platform/yocto
+   cross_platform/qnx_neutrino
