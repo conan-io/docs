@@ -55,8 +55,8 @@ It sets the following environment variables:
         def build(self):
             env_build = RunEnvironment(self)
             with tools.environment_append(env_build.vars):
-                # self.run('./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
-                self.run('DYLD_LIBRARY_PATH=%s ./myexetool" % os.environ['DYLD_LIBRARY_PATH'])
+                # self.run("./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
+                self.run("DYLD_LIBRARY_PATH=%s ./myexetool" % os.environ['DYLD_LIBRARY_PATH'])
 
     This is already handled automatically by the ``self.run(..., run_environment=True)`` argument.
 
