@@ -126,7 +126,7 @@ Set up the Conan layer
 ----------------------
 
 We have created a [meta-conan](LINK) layer that includes all the configuration, the Conan client and a
-generic BitBake recipe. To add the layer you will have to clone it repository and the dependency layers of ``meta-openembedded``:
+generic BitBake recipe. To add the layer you will have to clone the repository and the dependency layers of ``meta-openembedded``:
 
 .. code-block:: bash
 
