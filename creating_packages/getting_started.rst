@@ -250,6 +250,82 @@ test packages for different configurations, you could:
     $ conan create ...
 
 
+.. _create_omit_user_channel:
+
+Omitting user/channel
+_____________________
+
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+You can create a package omitting the ``user`` and the ``channel``:
+
+
+.. code-block:: bash
+
+    $ conan create .
+
+
+To reference that package, you have to omit also the ``user`` and the ``channel``.
+
+Examples
+........
+
+- Specifying requirements in your recipes:
+
+   .. code-block:: python
+      :emphasize-lines: 3
+
+       class HelloTestConan(ConanFile):
+           settings = "os", "compiler", "build_type", "arch"
+           requires = "packagename/1.0"
+
+           ...
+
+- Installing individual packages. The ``conan install`` command we have to use the syntax (always valid) of ``packagename/1.0@`` to disambiguate the
+  argument that also can be used to specify a path:
+
+      .. code-block:: bash
+
+          $ conan install packagename/1.0@
+
+
+- Searching for the binary packages of a reference. The ``conan search`` command requires to use the syntax (always valid) of ``packagename/1.0@`` to
+  disambiguate the usage of a pattern:
+
+
+      .. code-block:: bash
+
+          $ conan search packagename/1.0@
+
+
+         Existing packages for recipe packagename/1.0:
+
+          Package_ID: 9bfdcfa2bb925892ecf42e2a018a3f3529826676
+              [settings]
+                  arch: x86_64
+                  build_type: Release
+                  compiler: gcc
+                  compiler.libcxx: libstdc++11
+                  compiler.version: 7
+                  os: Linux
+              Outdated from recipe: False
+
+- Removing packages:
+
+      .. code-block:: bash
+
+          $ conan remove packagename/1.0
+
+- Uploading packages:
+
+      .. code-block:: bash
+
+          $ conan upload packagename/1.0
+
+
 .. _settings_vs_options:
 
 Settings vs. Options

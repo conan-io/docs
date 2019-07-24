@@ -57,6 +57,26 @@ Where:
     string such as "stable" or "testing", but they can be used for any purpose such as package revisions (e.g., the
     library version has not changed, but the package recipe has evolved).
 
+
+Optional user/channel
+_____________________
+
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+If the package was :ref:`created<create_omit_user_channel>` and :ref:`uploaded<uploading_packages>` without specifying
+the ``user`` and ``channel`` you can omit the ``user/channel`` when specifying a reference:
+
+
+.. code-block:: text
+
+    [requires]
+    packagename/1.2.0
+
+
+
 Overriding requirements
 _______________________
 
