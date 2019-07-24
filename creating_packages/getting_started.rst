@@ -280,28 +280,28 @@ Examples
 
        class HelloTestConan(ConanFile):
            settings = "os", "compiler", "build_type", "arch"
-           requires = "lib/1.0"
+           requires = "packagename/1.0"
 
            ...
 
-- Installing individual packages. The ``conan install`` command we have to use the syntax (always valid) of ``lib/1.0@`` to disambiguate the
+- Installing individual packages. The ``conan install`` command we have to use the syntax (always valid) of ``packagename/1.0@`` to disambiguate the
   argument that also can be used to specify a path:
 
       .. code-block:: bash
 
-          $ conan install lib/1.0@
+          $ conan install packagename/1.0@
 
 
-- Searching for the binary packages of a reference. The ``conan search`` command requires to use the syntax (always valid) of ``lib/1.0@`` to
+- Searching for the binary packages of a reference. The ``conan search`` command requires to use the syntax (always valid) of ``packagename/1.0@`` to
   disambiguate the usage of a pattern:
 
 
       .. code-block:: bash
 
-          $ conan search lib/1.0@
+          $ conan search packagename/1.0@
 
 
-         Existing packages for recipe lib/1.0:
+         Existing packages for recipe packagename/1.0:
 
           Package_ID: 9bfdcfa2bb925892ecf42e2a018a3f3529826676
               [settings]
@@ -317,13 +317,13 @@ Examples
 
       .. code-block:: bash
 
-          $ conan remove lib/1.0
+          $ conan remove packagename/1.0
 
 - Uploading packages:
 
       .. code-block:: bash
 
-          $ conan upload lib/1.0
+          $ conan upload packagename/1.0
 
 
 .. _settings_vs_options:
