@@ -5,18 +5,17 @@ conan graph
 
 .. code-block:: bash
 
-    $ conan graph [-h] {update-lock,build-order,clean-modified,lock} ...
+    $ conan graph [-h] {update-lock,build-order,lock} ...
 
 Generates and manipulates lock files.
 
 .. code-block:: text
 
     positional arguments:
-      {update-lock,build-order,clean-modified,lock}
+      {update-lock,build-order,lock}
                             sub-command help
         update-lock         merge two lockfiles
         build-order         Returns build-order
-        clean-modified      Clean modified
         lock                create a lockfile
 
     optional arguments:
@@ -62,29 +61,6 @@ in the folder pkgb_temp) in the main lockfile:
 
     $ conan graph update-lock release/conan.lock pkgb_temp/release/conan.lock
 
-
-conan graph clean-modified
---------------------------
-
-.. code-block:: bash
-
-    $ conan graph clean-modified [-h] lockfile
-
-Cleans all "modified" flags from the given lockfile.
-
-.. code-block:: text
-
-  positional arguments:
-    lockfile    lockfile folder
-
-  optional arguments:
-    -h, --help  show this help message and exit
-
-When a package of a dependency graph is going to be re-built, using a given lockfile,
-it is desired to finish the build knowing which packages of the graph have been
-actually rebuilt as a result of the last command. This command will clean all the
-previously existing "modified" flags before such build, so after the build 
-the "modified" are only those that have been built now.
 
 conan graph build-order
 -----------------------
