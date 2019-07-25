@@ -86,6 +86,7 @@ needed in the image as well as any other from its dependencies (like shared libr
         self.copy("*mosquitto.conf", dst="bin", keep_path=False)
 
     def deploy(self):
+        # Deploy the executables from this eclipse/mosquitto package
         self.copy("*", src="bin", dst="bin")
         self.copy("*.so*", src="lib", dst="bin")
        # Deploy all the shared libs from the transitive deps
