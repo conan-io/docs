@@ -34,6 +34,52 @@ Following the proposed flow above we could improve the Yocto development taking 
 Creating Conan packages with Yocto's SDK
 ========================================
 
+Prepare your recipes
+--------------------
+
+First of all, the recipe of the application to be deployed to the final image should have a
+`deploy() method <https://docs.conan.io/en/latest/devtools/running_packages.html>`_. There you can specify the files of the application
+needed in the image as well as any other from its dependencies (like shared libraries or assets):
+
+.. code-block:: python
+   :caption: *conanfile.py*
+   :emphasize-lines: 28-31
+
+    from conans import ConanFile
+
+
+    class MosquittoConan(ConanFile):
+        name = "mosquitto"
+        version = "1.4.15"
+        description = "Open source message broker that implements the MQTT protocol"
+        license = "EPL", "EDL"
+        settings = "os", "arch", "compiler", "build_type"
+        generators = "cmake"
+        requires = "OpenSSL/1.0.2o@conan/stable", "c-ares/1.14.0@conan/stable"
+
+    def source(self):
+        source_url = "https://github.com/eclipse/mosquitto"
+        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+
+    def package(self):
+        self.copy("*.h", dst="include", src="hello")
+        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.a", dst="lib", keep_path=False)
+        self.copy("*mosquitto.conf", dst="bin", keep_path=False)
+
+    def deploy(self):
+        self.copy("*", src="bin", dst="bin")
+        self.copy("*.so*", src="lib", dst="bin")
+        self.copy_deps("*.so*", src="lib", dst="bin")
+
+    def package_info(self):
+        self.cpp_info.libs.extend(["libmosquitto", "rt", "pthread", "dl"])
+
 Setting up a Yocto SDK
 ----------------------
 
@@ -65,8 +111,8 @@ You can read more about those variables here:
   - `CMAKE_FIND_ROOT_PATH_MODE_INCLUDE <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_INCLUDE.html>`_
   - `CMAKE_FIND_ROOT_PATH_MODE_PACKAGE <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_PACKAGE.html>`_
 
-Building Conan packages with the SDK toolchain
-----------------------------------------------
+Cross-building Conan packages with the SDK toolchain
+----------------------------------------------------
 
 After setting up your desired SDK, you can start creating Conan packages setting up the environment of the Yocto SDK and running a
 :command:`conan create` command with a suitable profile with the specific architecture of the toolchain.
@@ -108,62 +154,16 @@ Deploying an application to a Yocto image
 
 Now that you have your cross-built Conan packages in Artifactory, you can deploy them in a Yocto build.
 
-Prepare your recipes
---------------------
-
-The recipe of the application to be deployed should have a
-`deploy() method <https://docs.conan.io/en/latest/devtools/running_packages.html>`_. There you can specify the files of the application
-needed in the final image as well as any other from its dependencies (like shared libraries or assets):
-
-.. code-block:: python
-   :caption: *conanfile.py*
-   :emphasize-lines: 28-31
-
-    from conans import ConanFile
-
-
-    class MosquittoConan(ConanFile):
-        name = "mosquitto"
-        version = "1.4.15"
-        description = "Open source message broker that implements the MQTT protocol"
-        license = "EPL", "EDL"
-        settings = "os", "arch", "compiler", "build_type"
-        generators = "cmake"
-        requires = "OpenSSL/1.0.2o@conan/stable", "c-ares/1.14.0@conan/stable"
-
-    def source(self):
-        source_url = "https://github.com/eclipse/mosquitto"
-        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
-
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure()
-        cmake.build()
-
-    def package(self):
-        self.copy("*.h", dst="include", src="hello")
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("*mosquitto.conf", dst="bin", keep_path=False)
-
-    def deploy(self):
-        self.copy("*", src="bin", dst="bin")
-        self.copy("*.so*", src="lib", dst="bin")
-        self.copy_deps("*.so*", src="lib", dst="bin")
-
-    def package_info(self):
-        self.cpp_info.libs.extend(["libmosquitto", "rt", "pthread", "dl"])
-
 Set up the Conan layer
 ----------------------
 
-We have created a [meta-conan](CONAN_LAYER_LINK) layer that includes all the configuration, the Conan client and a
+We have created a [meta-conan](https://github.com/conan-io/meta-conan) layer that includes all the configuration, the Conan client and a
 generic BitBake recipe. To add the layer you will have to clone the repository and the dependency layers of ``meta-openembedded``:
 
 .. code-block:: bash
 
     $ cd poky
-    $ git clone CONAN_LAYER_LINK
+    $ git clone https://github.com/conan-io/meta-conan.git
     $ git clone --branch thud https://github.com/openembedded/meta-openembedded.git
 
 You would also have to activate the layers in the *bblayers.conf* file of your build folder:
@@ -209,7 +209,7 @@ Additionally to the recipe, you will need to provide the information about the c
 retrieve the packages in the the *conf/local.conf* file of your build folder.
 
 .. code-block:: text
-   :caption: *local.conf*
+   :caption: *poky_build_folder/conf/local.conf*
 
     IMAGE_INSTALL_append = " conan-mosquitto"
 
@@ -224,6 +224,19 @@ retrieve the packages in the the *conf/local.conf* file of your build folder.
 Notice the *armv8* profile to indicate your configuration next to the *local.conf*. That way you will be able to match the Conan
 configuration with the specific architecture or board of your Yocto build.
 
+.. code-block:: text
+   :caption: *poky_build_folder/conf/armv8*
+
+    [settings]
+    os_build=Linux
+    arch_build=x86_64
+    os=Linux
+    arch=armv8
+    compiler=gcc
+    compiler.version=8
+    compiler.libcxx=libstdc++11
+    build_type=Release
+
 It is recommended to set up the specific profile to use in your build with ``CONAN_PROFILE_PATH`` pointing to profile stored in the
 configuration folder of your build (next to the *conf/local.conf* file), for example: ``CONAN_PROFILE_PATH = "${TOPDIR}/conf/armv8"``.
 
@@ -233,7 +246,7 @@ You can also use ``CONAN_CONFIG_URL`` with a custom Conan configuration to be us
 profile to use in ``CONAN_PROFILE_PATH`` and just the name of the remote in ``CONAN_REMOTE_NAME``. For example:
 
 .. code-block:: text
-   :caption: *local.conf*
+   :caption: *poky_build_folder/conf/local.conf*
 
     IMAGE_INSTALL_append = " conan-mosquitto"
 
