@@ -88,6 +88,7 @@ needed in the image as well as any other from its dependencies (like shared libr
     def deploy(self):
         self.copy("*", src="bin", dst="bin")
         self.copy("*.so*", src="lib", dst="bin")
+       # Deploy all the shared libs from the transitive deps
         self.copy_deps("*.so*", src="lib", dst="bin")
 
     def package_info(self):
