@@ -36,7 +36,7 @@ debugger and test the application.
        :width: 600 px
        :align: center
 
-3. Once the cross-build packages are available in Artifactory, the application can be directly deployed to the Yocto image without building
+3. Once the cross-built packages are available in Artifactory, the application can be directly deployed to the Yocto image. This step can also be automated also in a CI.
    it from sources again.
 
    .. image:: /images/yocto/conan-yocto_deploy.png
