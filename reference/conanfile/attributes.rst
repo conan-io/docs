@@ -887,8 +887,13 @@ The paths of the directories in the directory variables indicated above are rela
 Components
 ++++++++++
 
-You can also model different libraries and executables inside the same package and how one depends on the other. For this purpose you will
-have to declare a component for each of those in this way (the following case is not a real example):
+When you are creating a Conan package, it is recommended to have only one library (*.lib*, *.a*, *.so*, *.dll*...) per package. However,
+especially with third-party projects like Boost, Poco or OpenSSL, they would contain several libraries inside.
+
+Usually those libraries inside the same package depend on each other and modelling the relationship among them is required.
+
+With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
+executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
 
 .. code-block:: python
 
@@ -900,6 +905,12 @@ have to declare a component for each of those in this way (the following case is
 
 You can also model system dependencies for each component or just header files. With this information, generators will be able to retrieve
 the information about each component and generate different targets for each of them (Still not supported by any generator).
+
+Examples of the usage of components in generators would be:
+
+- Generate different targets with appropriate names in CMake to interate better with ``find_package()`` functionality. This will allow more
+  granularity when linking with packages with more than one library packaged.
+- Generate files with appropriate names for CMake config and package config files like: *xxx-config.cmake* or *xxx.pc*
 
 The structure of the ``Component`` object is very similar to the one used by the ``cpp_info`` one:
 
@@ -993,7 +1004,7 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["OpenSSL"].sharedlinkflags
 
-You can also access the absolute paths, defines and flags for every component in every depenedency:
+You can also access the absolute paths, defines and flags for every component in every dependency:
 
 .. code-block:: python
 
@@ -1005,7 +1016,7 @@ You can also access the absolute paths, defines and flags for every component in
 
             # You can also iterate the Components
             for name, dep_cpp_info in self.deps_cpp_info.dependencies:
-                for name, component in dep_cpp_info.components.items():
+                for name, component in dep_cpp_info.components:
                     component.bin_paths
                     component.system_deps
                     component.lib
