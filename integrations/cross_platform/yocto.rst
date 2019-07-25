@@ -106,7 +106,7 @@ This will generate the packages using the Yocto toolchain from the environment v
 Deploying an application to a Yocto image
 =========================================
 
-Once you have created and and uploaded the Conan packages to a remote in Artifactory, you can deploy them in a Yocto build.
+Now that you have your cross-built Conan packages in Artifactory, you can deploy them in a Yocto build.
 
 Prepare your recipes
 --------------------
