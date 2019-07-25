@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.17 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.17.2 (25-Jul-2019)
+--------------------
+
+- Bugfix: Lock transitive python-requires in lockfiles, not only direct ones. `#5531 <https://github.com/conan-io/conan/pull/5531>`_
+
 
 1.17.1 (22-Jul-2019)
 --------------------
