@@ -19,17 +19,30 @@ Integration with Conan
 You can create Conan packages building with the Yocto SDK as any other package for other configuration. Those packages can be integrated
 into a Yocto build installing them from a remote and without compiling them again.
 
-.. image:: /images/yocto/yocto_flow.png
-    :height: 500 px
-    :width: 500 px
-    :align: center
+Three stages can be differentiated in the proposed flow:
 
-Following the proposed flow above we could improve the Yocto development taking advantage of:
+1. Developers can create an application with the native tools in their desktop platform of choice using their usual IDE, compiler or
+debugger and test the application.
 
-- Building Conan packages using the Yocto SDK, so the binaries are optimized for the target platform and development flow is the same.
-- The packages can generated to suit any Linux distro generated with Yocto in the same way we generate packages for other platforms.
-- Packages can be uploaded and tracked in Artifactory with any additional metadata.
-- Yocto builds are faster as packages are downloaded directly from Artifactory instead of being built from sources.
+   .. image:: /images/yocto/conan-yocto_development.png
+       :height: 600 px
+       :width: 600 px
+       :align: center
+
+2. Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory in a CI process.
+
+   .. image:: /images/yocto/conan-yocto_cross-build.png
+       :height: 600 px
+       :width: 600 px
+       :align: center
+
+3. Once the cross-build packages are available in Artifactory, the application can be directly deployed to the Yocto image without building
+   it from sources again.
+
+   .. image:: /images/yocto/conan-yocto_deploy.png
+       :height: 450 px
+       :width: 450 px
+       :align: center
 
 Creating Conan packages with Yocto's SDK
 ========================================
@@ -94,7 +107,7 @@ or download and use `the prebuilt ones <http://downloads.yoctoproject.org/releas
 **In the case that you are using CMake** to create the Conan packages, Yocto injects a toolchain that configures CMake to only search for
 libraries in the rootpath of the SDK with
 `CMAKE_FIND_ROOT_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH.html#variable:CMAKE_FIND_ROOT_PATH>`_. This is
-something that has to be patched in order to allow CMake to find libraries in the Conan cache as well:
+something that has to be patched to allow CMake to find libraries in the Conan cache as well:
 
 .. code-block:: cmake
    :caption: *sdk/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake*
@@ -146,7 +159,7 @@ This will generate the packages using the Yocto toolchain from the environment v
 
 .. important::
 
-    We strongly recommend to use the Yocto's SDK toolchain to create packages as they will be built with the optimization flags suitable to
+    We strongly recommend using the Yocto's SDK toolchain to create packages as they will be built with the optimization flags suitable to
     be deployed later to an image generated in a Yocto build.
 
 Deploying an application to a Yocto image
@@ -200,13 +213,13 @@ With the ``meta-conan`` layer, a Conan recipe to deploy a Conan package should l
 
     CONAN_PKG = "mosquitto/1.4.15@bincrafters/stable"
 
-This recipe will be placed inside your own application layer that should be also added to the *conf/bblayers.conf* file.
+This recipe will be placed inside your application layer that should be also added to the *conf/bblayers.conf* file.
 
 Configure Conan variables for the build
 ---------------------------------------
 
 Additionally to the recipe, you will need to provide the information about the credentials for Artifactory or the profile to be used to
-retrieve the packages in the the *conf/local.conf* file of your build folder.
+retrieve the packages in the *local.conf* file of your build folder.
 
 .. code-block:: text
    :caption: *poky_build_folder/conf/local.conf*
@@ -240,7 +253,7 @@ configuration with the specific architecture or board of your Yocto build.
 It is recommended to set up the specific profile to use in your build with ``CONAN_PROFILE_PATH`` pointing to profile stored in the
 configuration folder of your build (next to the *conf/local.conf* file), for example: ``CONAN_PROFILE_PATH = "${TOPDIR}/conf/armv8"``.
 
-Finally the Artifactory repository URL where you want to retrieve the packages from and its credentials.
+Finally, the Artifactory repository URL where you want to retrieve the packages from and its credentials.
 
 You can also use ``CONAN_CONFIG_URL`` with a custom Conan configuration to be used with :command:`conan config install` and the name of the
 profile to use in ``CONAN_PROFILE_PATH`` and just the name of the remote in ``CONAN_REMOTE_NAME``. For example:
@@ -320,7 +333,7 @@ You can build the recipe to test that the packages are correctly deployed:
 
 .. code-block:: bash
 
-    $ bitbake conan-mosquitto
+    $ bitbake -c install conan-mosquitto
 
 Packages will be installed with the profile indicated and installed with its dependencies only from the remote specified.
 
@@ -330,10 +343,10 @@ Finally, you can build your image with the Conan packages:
 
     $ bitbake core-image-minimal
 
-The binaries of the Conan packages will be deployed to the */bin* folder of the image once it is created.
+The binaries of **the Conan packages will be deployed** to the */bin* folder of the image once it is created.
 
 
-.. |yocto_logo| image:: ../../images/yocto/conan_yocto.png
+.. |yocto_logo| image:: ../../images/yocto/conan-yocto.png
                  :width: 180px
 
 .. _`Yocto Project`: https://www.yoctoproject.org/
