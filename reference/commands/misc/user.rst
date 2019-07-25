@@ -60,6 +60,14 @@ perform changes in remote packages.
 
       $ conan user foo -r bar -p mypassword
 
+
+- Authenticate against the remote only if we don't have credentials stored locally. It will not check
+  if the credentials are valid or not:
+
+  .. code-block:: bash
+
+      $ conan user foo -r bar -p mypassword --skip-auth
+
 - Clean all local users and tokens:
 
   .. code-block:: bash
