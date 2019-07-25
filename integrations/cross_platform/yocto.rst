@@ -29,7 +29,7 @@ debugger and test the application.
        :width: 600 px
        :align: center
 
-2. Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory in a CI process.
+2. Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory, even automated in a CI process.
 
    .. image:: /images/yocto/conan-yocto_cross-build.png
        :height: 600 px
