@@ -908,7 +908,7 @@ the information about each component and generate different targets for each of 
 
 Examples of the usage of components in generators would be:
 
-- Generate different targets with appropriate names in CMake to interate better with ``find_package()`` functionality. This will allow more
+- Generate different targets with appropriate names in CMake to iterate better with ``find_package()`` functionality. This will allow more
   granularity when linking with packages with more than one library packaged.
 - Generate files with appropriate names for CMake config and package config files like: *xxx-config.cmake* or *xxx.pc*
 
