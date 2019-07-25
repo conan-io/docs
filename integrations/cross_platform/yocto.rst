@@ -29,14 +29,14 @@ debugger and test the application.
        :width: 600 px
        :align: center
 
-2. Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory in a CI process.
+2. Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory, even automated in a CI process.
 
    .. image:: /images/yocto/conan-yocto_cross-build.png
        :height: 600 px
        :width: 600 px
        :align: center
 
-3. Once the cross-build packages are available in Artifactory, the application can be directly deployed to the Yocto image without building
+3. Once the cross-built packages are available in Artifactory, the application can be directly deployed to the Yocto image. This step can also be automated also in a CI.
    it from sources again.
 
    .. image:: /images/yocto/conan-yocto_deploy.png
@@ -86,8 +86,11 @@ needed in the image as well as any other from its dependencies (like shared libr
         self.copy("*mosquitto.conf", dst="bin", keep_path=False)
 
     def deploy(self):
+        # Deploy the executables from this eclipse/mosquitto package
         self.copy("*", src="bin", dst="bin")
+        # Deploy the shared libs from this eclipse/mosquitto package
         self.copy("*.so*", src="lib", dst="bin")
+       # Deploy all the shared libs from the transitive deps
         self.copy_deps("*.so*", src="lib", dst="bin")
 
     def package_info(self):
