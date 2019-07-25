@@ -130,47 +130,153 @@ For more information see :ref:`commands`
 How to use lockfiles in CI
 --------------------------
 
-One of the applications of lockfiles is to be able to propagate changes done in one package
+.. note::
+
+    The code used in this section, including a *build.py* script to reproduce it, is in the
+    examples repository: https://github.com/conan-io/examples
+
+    .. code:: bash
+
+        $ git clone https://github.com/conan-io/examples.git
+        $ cd features/lockfiles/ci
+        $ python build.py 
+
+
+One of the applications of lockfiles is to be able to propagate changes in one package
 belonging to a dependency graph downstream its affected consumers.
 
-Let's say that we have the following scenario in which one developer does some changes to PkgB,
-creating a new version **PkgB/1.1**, and lets assume that all packages use version-ranges.
-The goal is to be able to build a new dependency graph down to **PkgE/1.0** in which only those
-changes done in **PkgB/1.1** are taken into account but not other new versions of other packages,
-like new versions of PkgA and PkgF.
+Lets say that we have the following project in which packages PkgA, PkgB, PkgC, PkgZ and App
+have already been created and only one version of each, the version 0.1 exists. All packages
+are using version ranges with a range like ``PkgZ/[>0.0]``, so basically they will resolve to
+any new version of their dependencies that it is published.
 
-The process can begin capturing a lockfile of the initial status of our "product", down to PkgE:
+Also, the ``full_version_mode`` will be defined for dependencies. This means that if the version
+number of one package dependencies change, then it will require a new binary. This assumption
+is reasonable, as PkgA, PkgZ are header only libraries and PkgB and PkgC are static libraries
+that inline functionality defined in PkgA and PkgZ. No matter what the changes in PkgA and PkgZ
+are in new versions, it will be necessary to build new binaries for the downstream consumers.
+
+.. code:: bash
+
+    $ conan config set general.default_package_id_mode=full_version_mode
+
+Now, some developer does some changes to PkgA, and do a pull request to the develop branch,
+and we want our CI to build the new binaries for the dependants packages, down to the final
+application App, to make sure that every works as expected.
+
+The process starts generating a *conan.lock* lockfile in the *release* subfolder:
 
 .. code-block:: bash
 
-    $ cd PkgE
-    $ conan graph lock .
+    $ conan graph lock App/0.1@user/testing --lockfile=release
 
-After that, we can proceed to build the new **PkgB/1.1** version, with its dependencies locked:
+This lockfile will contain the resolved dependencies in the graph, as we only have one version
+0.1 for all the packages, all of them will be locked to that 0.1 version.
 
-.. code-block:: bash
-
-    $ cd PkgB
-    $ cp ../PkgE/conan.lock . # Do a copy of the lockfile
-    $ conan create PkgB/1.1@user/testing --lockfile
-    # Now the lockfile has been modified, contains PkgB/1.1 instead of PkgB/1.0
 
 .. image:: ../images/lockfile_ci_1.png
 
+
+Once the lockfile has been generated, it doesn't matter if new, unrelated versions of other
+packages, like **PkgZ/0.2** is created with ``cd PkgZ && conan create . PkgZ/0.2@user/testing``
+
+Now we can safely create the new version of **PkgA/0.2**, that will resolve to use **PkgZ/0.1**
+instead of the latest 0.2, if we use the lockfile:
+
+.. code-block:: bash
+
+    cd PkgA && conan create . PkgA/0.2@user/testing --lockfile=../release
+    # lockfile in release/conan.lock is modified to contain PkgA/0.2
+
+Note that the lockfile is modified, to contain the new **PkgA/0.2** version.
+
 The next step is to know which dependants need to be built because they are affected by the new
-**PkgB/1.1** version:
+**PkgA/0.2** version:
 
 .. code-block:: bash
 
-    $ conan graph build-order . --build=missing
-    [[PkgC, PkgD], [PkgE]]  # simplified format
+    $ conan graph build-order ./release --json=bo.json --build=missing
+    [[PkgC, PkgD], [App]]  # simplified format
 
-This command will return a list of lists, in order, of those packages to be built. We take the
-first sub-list and each package can be rebuilt, making sure the lockfile is applied:
+This command will return a list of lists, in order, of those packages to be built. It will be
+stored in a *bo.json* json file too. Note that the ``--build=missing`` follows the same rules
+as :command:`create` and :command:`install` commands. The result of evaluating the graph with
+the **PkgA/0.2** version, due to the ``full_version_mode`` policy is that new binaries for
+PkgB, PkgC and App are necessary, and they do not exist yet. If we don't provide the ``--build=missing``
+it will return an empty list (but it will fail later, because binary packages are not available).
 
-.. code-block:: bash
+We can now proceed iteratively with the following procedure:
 
-    (EXAMPLE COMING SOON!)
 
+1. pop the first element of the first sublist of the build order result, get its ``ref`` reference
+
+    .. code:: python
+
+        # python
+        _, ref = build_order[0][0]
+        ref = ref.split("#", 1)[0]
+
+2. allocate some resource, like a CI build server, or create a temporary folder.
+
+    .. code:: bash
+
+        $ mkdir build_server_folder && mkdir build_server_folder/release
+
+3. copy the lockfile to that resource (and move to it)
+
+    .. code:: bash
+
+        $ cp release/conan.lock build_server_folder/release
+        $ cd build_server_folder
+
+4. clean "modified" nodes from the lockfile
+
+    .. code:: bash
+
+        $ conan graph clean-modified release/
+
+5. build the package
+
+    .. code:: bash
+
+        $ conan install <ref> --build=<ref> --lockfile=release
+
+6. go back to the parent, update the lockfile with the changes
+
+    .. code:: bash
+
+        $ cd ..
+        $ conan graph update-lock release build_server_folder/release
+        $ rm -rf build_server_folder
+
+7. compute again the build-order of packages, if not empty, goto 1
+
+    .. code-block:: bash
+
+        $ conan graph build-order ./release --json=bo.json --build=missing
+
+Note that this is a suboptimal approach, in order to explain the functionality, which
+is more easy to follow if it is sequential. In reality, the CI can take the first
+sublist output of :command:`conan graph build-order` and fire all its packages in parallel,
+because they are guaranteed to be independent. Then, as soon as they start finishing and
+build servers become available, the :command:`conan graph build-order` can be reevaluated,
+and new builds can be launched accordingly, just taking care of not re-launching the same
+build again. Note that the result of build-order contains a unique UUID, which is the identifier
+of the node in the graph, which could be useful to dissambiguate.
 
 .. image:: ../images/lockfile_ci_2.png
+
+With this later approach, a deterministic build with optimal Continuous Integration process
+with optimal utilization of resources and minimizing unnecessary rebuilds is achieved.
+
+Note that this example has been using incremental versions and version ranges.
+With package revisions it is also possible to achieve the same flow without bumping the versions and using fixed version dependencies:
+
+- It will not be necessary to change the recipes or even to inject the values in CI.
+  Every change in a recipe will produce a new different recipe revision.
+- Revisions are also locked in lockfiles.
+- As revisions are resolved by default to latest, and the conan cache can only hold
+  one revision, it might be necessary to pass ``--update`` argument so the correct revision is updated in the cache.
+- It is necessary to define the ``recipe_revision_mode`` or the ``package_revision_mode`` if we want to guarantee that the binaries correctly model the dependencies changes.
+
+For implementing this flow, it might be necessary to share the different ``conan.lock`` lockfiles among different machines, to pass them to build servers. A git repo could be used, but also an Artifactory generic repository could be very convenient for this purpose.

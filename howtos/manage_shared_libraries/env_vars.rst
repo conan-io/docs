@@ -144,9 +144,9 @@ your *conanfile.py*:
 .. code-block:: python
 
     def test(self):
-        # self.run('./myexe") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
+        # self.run("./myexe") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
         with tools.environment_append({"DYLD_LIBRARY_PATH": [self.deps_cpp_info["toolA"].lib_paths]}):
-            self.run('DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
+            self.run("DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
 
 Or you could use ``RunEnvironment`` helper described above.
 

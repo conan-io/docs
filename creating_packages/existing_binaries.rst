@@ -88,7 +88,7 @@ Follow our sample recipe for this purpose:
         settings = "os", "compiler", "build_type", "arch"
 
         def build(self):
-            if self.settings.os == "Windows" and self.compiler == "Visual Studio":
+            if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
                 url = ("https://<someurl>/downloads/hello_binary%s_%s.zip"
                        % (str(self.settings.compiler.version), str(self.settings.build_type)))
             elif ...:
