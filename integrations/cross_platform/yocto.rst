@@ -94,7 +94,7 @@ needed in the image as well as any other from its dependencies (like shared libr
         self.copy_deps("*.so*", src="lib", dst="bin")
 
     def package_info(self):
-        self.cpp_info.libs.extend(["libmosquitto", "rt", "pthread", "dl"])
+        self.cpp_info.libs = ["mosquitto", "mosquitopp", "rt", "pthread", "dl"]
 
 Setting up a Yocto SDK
 ----------------------
