@@ -158,7 +158,11 @@ Activate the SDK environment and execute the create command.
     $ conan create . user/channel --profile armv8
 
 This will generate the packages using the Yocto toolchain from the environment variables such as ``CC``, ``CXX``, ``LD``... Now you can
-:ref:`upload the binaries <uploading_packages>` to an Artifactory server so share and reuse in your Yocto builds.
+:ref:`upload the binaries <uploading_packages>` to an Artifactory server to share and reuse in your Yocto builds.
+
+.. code-block:: bash
+
+    $ conan upload mosquitto/1.4.15@user/channel --all --remote my_repo
 
 .. important::
 
@@ -173,7 +177,7 @@ Now that you have your cross-built Conan packages in Artifactory, you can deploy
 Set up the Conan layer
 ----------------------
 
-We have created a [meta-conan](https://github.com/conan-io/meta-conan) layer that includes all the configuration, the Conan client and a
+We have created a `meta-conan <https://github.com/conan-io/meta-conan>`_ layer that includes all the configuration, the Conan client and a
 generic BitBake recipe. To add the layer you will have to clone the repository and the dependency layers of ``meta-openembedded``:
 
 .. code-block:: bash
@@ -200,6 +204,14 @@ You would also have to activate the layers in the *bblayers.conf* file of your b
     /home/username/poky/meta-openembedded/meta-python \
     /home/username/poky/meta-conan \
     "
+
+.. note::
+
+    Currently there is no support for ``CONAN_REVISIONS_ENABLED``, so remote and virtual Artifactory repositories will not work in this
+    case. We will continue working on this layer to support more features.
+
+    Please report any question, feature request or issue related to the ``meta-conan`` layer in its
+    `GitHub issue tracker <https://github.com/conan-io/meta-conan/issues>`_.
 
 Write the Bitbake recipe for the Conan package
 ----------------------------------------------

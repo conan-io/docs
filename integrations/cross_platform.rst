@@ -10,6 +10,6 @@ for different platforms.
    :maxdepth: 2
 
    cross_platform/docker
-   cross_platform/emscripten
    cross_platform/yocto
+   cross_platform/emscripten
    cross_platform/qnx_neutrino
