@@ -226,7 +226,8 @@ With the :command:`-s` parameters you can define:
 
 - Global settings (:command:`-s compiler="Visual Studio"`). Will apply to all the requires.
 - Specific package settings (:command:`-s zlib:compiler="MinGW"`). Those settings will be applied only to
-  the specified packages.
+  the specified packages. They accept patterns too, like ``-s *@myuser/*:compiler=MinGW``, which means that packages that have the username "myuser" will use MinGW as compiler.
+
 
 You can specify custom settings not only for your direct ``requires`` but for any package in the
 dependency graph.
