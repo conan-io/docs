@@ -8,7 +8,6 @@ conan inspect
 
       This is an **experimental** feature subject to breaking changes in future releases.
 
-
 .. code-block:: bash
 
     $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON] [--raw RAW]
@@ -32,7 +31,6 @@ in local cache and remote.
                             look in the specified remote server
       -j JSON, --json JSON  json output file
       --raw RAW             Print just the value of the requested attribute
-
 
 Examples:
 

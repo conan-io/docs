@@ -9,7 +9,6 @@ folder = {
     "info": "consumer",
     "install": "consumer",
     "search": "consumer",
-    "graph": "consumer",
 
     "create": "creator",
     "export-pkg": "creator",
@@ -34,7 +33,8 @@ folder = {
     "profile": "misc",
     "remote": "misc",
     "remove": "misc",
-    "user": "misc"
+    "user": "misc",
+    "graph": "misc",
 }
 
 experimental = ["inspect"]

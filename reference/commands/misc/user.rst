@@ -6,7 +6,7 @@ conan user
 
 .. code-block:: bash
 
-    $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [-j JSON] [name]
+    $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [-j JSON] [-s] [name]
 
 Authenticates against a remote with user/pass, caching the auth token.
 
@@ -31,6 +31,9 @@ perform changes in remote packages.
       -r REMOTE, --remote REMOTE
                             Use the specified remote server
       -j JSON, --json JSON  json file path where the user list will be written to
+      -s, --skip-auth       Skips the authentication with the server if there are
+                            local stored credentials. It doesn't check if the
+                            current credentials are valid or not
 
 
 **Examples**:
