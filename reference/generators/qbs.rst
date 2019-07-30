@@ -29,7 +29,7 @@ requirement.
                 cpp.systemIncludePaths: [{BIN DIRECTORIES REQUIRE 1}, {BIN DIRECTORIES REQUIRE 2}]
                 cpp.dynamicLibraries: [{LIB NAMES REQUIRE 1}, {LIB NAMES REQUIRE 2}]
                 cpp.defines: []
-                cpp.cppFlags: []
+                cpp.cxxFlags: []
                 cpp.cFlags: []
                 cpp.linkerFlags: []
             }
@@ -44,7 +44,7 @@ requirement.
                 cpp.systemIncludePaths: [{BIN DIRECTORIES REQUIRE 1}]
                 cpp.dynamicLibraries: ["{LIB NAMES REQUIRE 1}"]
                 cpp.defines: []
-                cpp.cppFlags: []
+                cpp.cxxFlags: []
                 cpp.cFlags: []
                 cpp.linkerFlags: []
             }
@@ -60,7 +60,7 @@ requirement.
                 cpp.systemIncludePaths: [{BIN DIRECTORIES REQUIRE 2}]
                 cpp.dynamicLibraries: ["{LIB NAMES REQUIRE 2}"]
                 cpp.defines: []
-                cpp.cppFlags: []
+                cpp.cxxFlags: []
                 cpp.cFlags: []
                 cpp.linkerFlags: []
             }
