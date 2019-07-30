@@ -1363,8 +1363,11 @@ Methods:
     - **run(command)**: Run any "git" command, e.g., ``run("status")``
     - **get_url_with_credentials(url)**: Returns the passed URL but containing the ``username`` and ``password`` in the URL to authenticate
       (only if ``username`` and ``password`` is specified)
-    - **clone(url, branch=None)**: Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the
-      specified **folder** already exist you have to specify a ``branch``.
+    - **clone(url, branch=None, args="", shallow=False)**: Clone a repository. Optionally you can specify a branch. Note: If you want to clone a repository and the
+      specified **folder** already exist you have to specify a ``branch``. Additional ``args`` may be specified (e.g. git config variables). Use ``shallow`` to
+      perform a shallow clone (with `--depth 1` - only last revision is being cloned, such clones are usually done faster and take less disk space). In this case,
+      ``branch`` may specify any valid git reference - e.g. branch name, tag name, sha256 of the revision, expression like `HEAD~1` or `None` (default branch,
+      e.g. `master`).
     - **checkout(element, submodule=None)**: Checkout a branch, commit or tag given by ``element``. Argument ``submodule`` can get values in
       ``shallow`` or ``recursive`` to instruct what to do with submodules.
     - **get_remote_url(remote_name=None)**: Returns the remote URL of the specified remote. If not ``remote_name`` is specified ``origin``

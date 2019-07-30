@@ -1154,6 +1154,11 @@ run in the export folder inside the cache, where it has access only to the files
 attribute :ref:`exports <exports_attribute>`) and to any other functionality
 from a :ref:`python_requires <python_requires>`.
 
+.. note::
+
+    In case of git, by default conan will try to perform shallow clone of the repository, and will fallback to the full
+    clone in case shallow fails (e.g. not supported by the server).
+
 To know more about the usage of ``scm`` check:
 
 - :ref:`Creating packages/Recipe and sources in a different repo <external_repo>`
