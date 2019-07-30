@@ -115,6 +115,17 @@ You can generate a table for all binaries from a given recipe with the ``--table
     :width: 600 px
     :align: center
 
+
+Search all the local Conan packages matching a pattern and showing the revision:
+
+.. code-block:: bash
+
+    $ conan search lib* --revisions
+    $ Existing package recipes:
+
+      lib/1.0@user/channel#404e86c18e4a47a166fabe70b3b15e33
+
+
 Search the local revision for a local cache recipe:
 
 .. code-block:: bash
