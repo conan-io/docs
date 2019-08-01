@@ -37,7 +37,10 @@ by default in the local conan cache.
       -q QUERY, --query QUERY
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter
-                            has to be a reference: MyPackage/1.2@user/channel
+                            has to be a reference: MyPackage/1.2@user/channel. Use
+                            the prefixes option: and setting: for custom
+                            properties: 'setting:libc=glibc AND
+                            option:arch=native'.
       -r REMOTE, --remote REMOTE
                             Will remove from the specified remote
       -s, --src             Remove source folders

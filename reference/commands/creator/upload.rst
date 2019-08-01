@@ -32,7 +32,10 @@ If no remote is specified, the first configured remote (by default conan-center,
                             Only upload packages matching a specific query.
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter
-                            has to be a reference: MyPackage/1.2@user/channel
+                            has to be a reference: MyPackage/1.2@user/channel. Use
+                            the prefixes option: and setting: for custom
+                            properties: 'setting:libc=glibc AND
+                            option:arch=native'.
       -r REMOTE, --remote REMOTE
                             upload to this specific remote
       --all                 Upload both package recipe and packages
