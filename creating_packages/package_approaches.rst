@@ -52,7 +52,7 @@ generator will translate the above definition in the *conanbuildinfo.cmake* to s
 Those variables, will be used in the ``conan_basic_setup()`` macro to actually set the relevant cmake
 variables.
 
-If the developer wants to switch configuration of the dependencies, he will usually switch with:
+If the developer wants to switch configuration of the dependencies, they will usually switch with:
 
 .. code-block:: bash
 
