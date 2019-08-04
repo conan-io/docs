@@ -26,7 +26,7 @@ The source code used contains an executable called ``greet``, but it is not pack
 .. code-block:: python
 
     def package(self):
-        self.copy("*greet*", src="hello/bin", dst="bin", keep_path=False)
+        self.copy("*greet*", src="bin", dst="bin", keep_path=False)
 
 
 Now we create the package as usual, but if we try to run the executable it won't be found:
