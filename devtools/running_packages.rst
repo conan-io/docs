@@ -150,10 +150,16 @@ Instead of using the environment, it is also possible to explicitly access the p
 
     def build(self):
         path = os.path.join(self.deps_cpp_info["Hello"].rootpath, "bin")
-        self.run("%s/greet" % path)
+        self.run(["%s/greet" % path])
 
 Note that this might not be enough if shared libraries exist. Using the ``run_environment=True`` helper above 
 is a more complete solution.
+
+This example also demonstrates using a list to specify the command to run. This bypasses the system shell and
+works correctly even when ``path`` contains special characters like whitespace or quotes that would otherwise
+be interpreted by the shell. However, it also means that substituting environment variables or the output from
+other commands which are normally done by the shell won't work when using this method. Specify your command
+using a plain string as shown above when you require this functionality.
 
 Finally, there is another approach: the package containing the executable can add its *bin* folder directly to the ``PATH``.
 In this case the **Hello** package conanfile would contain:

@@ -60,8 +60,8 @@ invocations of ``self.run()`` will print to output the command to be executed.
 The ``command`` can be specified as a string which is passed to the system shell.
 Alternatively it can be specified as a sequence of strings, the first of which is
 interpreted as the name of the program to be executed and the remaining ones are passed as
-arguments. Unless you are relying on shell-specific features such as redirection or
-builtins, providing a sequence of strings is generally preferred as it allows Conan to
+arguments. Unless you are relying on shell-specific features such as redirection or command
+substitution, providing a sequence of strings is generally preferred as it allows Conan to
 take care of any required escaping and quoting of arguments (e.g. to permit spaces in file
 names).
 

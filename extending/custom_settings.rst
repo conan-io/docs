@@ -184,8 +184,8 @@ For those cases, custom logic can be implemented in the recipes:
 
         def build(self):
             if self.settings.compiler == "mycompiler":
-                my_custom_compile = "some --flags for --my=compiler"
-                self.run("mycompiler . %s" % my_custom_compile)
+                my_custom_compile = ["some", "--flags", "for", "--my=compiler"]
+                self.run(["mycompiler", "."] + my_custom_compile)
 
 
 .. note::

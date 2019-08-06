@@ -15,11 +15,11 @@ generator. The package recipe ``build()`` method could be similar to:
         ...
 
         def build(self):
-            debug_opt = '--debug-build' if self.settings.build_type == 'Debug' else ''
+            debug_opts = ['--debug-build'] if self.settings.build_type == 'Debug' else []
             os.makedirs("build")
             # FIXME: Compiler, version, arch are hardcoded, not parametrized
             with tools.chdir("build"):
-                self.run('scons -C {}/src {}'.format(self.source_folder, debug_opt))
+                self.run(['scons', '-C', '{}/src'.format(self.source_folder)] + debug_opts)
 
         ...
 
