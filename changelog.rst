@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.18.1 (8-Aug-2019)
+-------------------
+
+- Bugfix: The `scm` feature was trying to run a checkout after a shallow clone. `#5571 <https://github.com/conan-io/conan/pull/5571>`_
+
+
 1.18.0 (30-Jul-2019)
 --------------------
 
