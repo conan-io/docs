@@ -16,9 +16,9 @@ release pre-compiled libraries.
 So if there is a package recipe that builds a “hello” library, there will be one package containing
 the release version of the "hello.lib" library and a different package containing a debug version of
 that library (in the figure denoted as "hello_d.lib", to make it clear, it is not necessary to use
-different names). 
+different names).
 
-.. image:: /images/single_conf_packages.png
+.. image:: /images/conan-single_conf_packages.png
     :height: 300 px
     :width: 400 px
     :align: center
@@ -31,7 +31,7 @@ letting them know about the package library names, necessary definitions and com
     class HelloConan(ConanFile):
 
         settings = "os", "compiler", "build_type", "arch"
-        
+
         def package_info(self):
             self.cpp_info.libs = ["mylib"]
 
@@ -84,7 +84,7 @@ change the debug/release configuration from the IDE, without having to specify i
 different artifacts for different configurations and can be used to include both the release and debug version of a library in the same
 package.
 
-.. image:: /images/multi_conf_packages.png
+.. image:: /images/conan-multi_conf_packages.png
     :height: 300 px
     :width: 400 px
     :align: center
@@ -200,7 +200,7 @@ the relevant configuration, while ignoring the others.
 
 It is more efficient to build the logic, whereby the same build can be reused to create different packages:
 
-.. image:: /images/build_once.png
+.. image:: /images/conan-build_once.png
     :height: 300 px
     :width: 400 px
     :align: center

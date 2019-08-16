@@ -100,7 +100,7 @@ Then let's call :command:`premake` to generate our project:
 Now you can build your project with Visual Studio or Make.
 
 
-.. |premake_logo| image:: ../../images/premake_logo.png
+.. |premake_logo| image:: ../../images/conan-premake_logo.png
 
 .. seealso::
 

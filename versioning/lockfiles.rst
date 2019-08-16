@@ -19,7 +19,7 @@ version ranges or using package revisions.
 
 Let's say we have 3 package recipes PkgC, PkgB, and PkgA, that define this dependency graph:
 
-.. image:: ../images/graph_not_deterministic.png
+.. image:: ../images/conan-graph_not_deterministic.png
 
 The first time, when a :command:`conan install .` is executed, the requirement defined
 in PkgB is resolved to **PkgA/1.0**, because that was the latest at that time that
@@ -47,7 +47,7 @@ it will load the previously generated *conan.lock* file, that contains the infor
 **PkgA/1.0** is used, and will apply it again to the dependency resolution, resolving exactly
 the same dependency graph:
 
-.. image:: ../images/graph_locked.png
+.. image:: ../images/conan-graph_locked.png
 
 The *conan.lock* file contains more information than the versions of the dependencies, it contains:
 
@@ -165,7 +165,7 @@ This lockfile will contain the resolved dependencies in the graph, as we only ha
 0.1 for all the packages, all of them will be locked to that 0.1 version.
 
 
-.. image:: ../images/lockfile_ci_1.png
+.. image:: ../images/conan-lockfile_ci_1.png
 
 
 Once the lockfile has been generated, it doesn't matter if new, unrelated versions of other
@@ -249,7 +249,7 @@ and new builds can be launched accordingly, just taking care of not re-launching
 build again. Note that the result of build-order contains a unique UUID, which is the identifier
 of the node in the graph, which could be useful to dissambiguate.
 
-.. image:: ../images/lockfile_ci_2.png
+.. image:: ../images/conan-lockfile_ci_2.png
 
 With this later approach, a deterministic build with optimal Continuous Integration process
 with optimal utilization of resources and minimizing unnecessary rebuilds is achieved.

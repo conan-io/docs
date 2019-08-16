@@ -19,7 +19,7 @@ Contributing a library to Conan-Center is really straightforward when you know h
 :ref:`upload your packages to your own Bintray repository<uploading_to_bintray>`. All you have to do is to navigate to the main page of the
 package in Bintray and click the **"Add to Conan Center"** button to start the inclusion request process.
 
-.. image:: /images/add_to_conan-center.png
+.. image:: /images/conan-add_to_conan-center.png
     :align: center
 
 Inclusion Guidelines for Third-Party libraries

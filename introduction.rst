@@ -20,7 +20,7 @@ On a high level, the servers are just package storage. They do not build nor cre
 The packages are created by the client, and if binaries are built from sources, that compilation is
 also done by the client application.
 
-.. image:: images/systems.png
+.. image:: images/conan-systems.png
    :height: 200 px
    :width: 400 px
    :align: center
@@ -59,7 +59,7 @@ define a package, referenced by its name, version, user and channel, a package r
 Such a package recipe is a conanfile.py python script that defines how the package is built from
 sources, what the final binary artifacts are, the package dependencies, etc.
 
-.. image:: images/binary_mgmt.png
+.. image:: images/conan-binary_mgmt.png
    :height: 200 px
    :width: 400 px
    :align: center

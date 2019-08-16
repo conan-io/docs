@@ -56,7 +56,7 @@ Each package recipe contains five important folders in the **local cache**:
 
 The *source* and *build* folders only exist when the packages have been built from sources.
 
-.. image:: /images/package_create_flow.png
+.. image:: /images/conan-package_create_flow.png
     :height: 500 px
     :width: 600 px
     :align: center
