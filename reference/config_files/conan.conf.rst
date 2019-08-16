@@ -28,6 +28,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
     # recipe_linter = False               # environment CONAN_RECIPE_LINTER
+    # pylint_werr = False                 # environment CONAN_PYLINT_WERR
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
     # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
     # cache_no_locks = True               # environment CONAN_CACHE_NO_LOCKS
@@ -170,6 +171,8 @@ Running ``pylint --generate-rcfile`` will output a complete rcfile with comments
 
 The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
 Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
+
+The ``pylint_werr`` variable changes PyLint level from *warning* to *error* when some inconsistency is found in the recipe.
 
 The ``retry`` variable allows to set up the global default value for the number of retries in all commands related to
 download/upload. User can override the value provided by the variable if the command provides an argument with the same name.
