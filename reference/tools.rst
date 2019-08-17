@@ -1022,6 +1022,29 @@ This makes it safe to use these functions in the ``package()`` method of a *cona
 Parameters:
     - **path** (Required): Path to the directory.
 
+.. _tools_rename:
+
+tools.rename()
+----------------------------
+
+.. code-block:: python
+
+    def rename(src, dst, retry=5)
+
+Utility functions to rename a file or folder *src* to *dst*.
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.rename("src_dir", "dst_dir") # retry renaming a folder up to 5 times
+    tools.rename("src_dir", "dst_dir", 10) # retry renaming a folder up to 10 times.
+
+Parameters:
+    - **src** (Required): Path to be renamed.
+    - **dst** (Required): Path to be renamed to.
+    - **retry** (Optional): Maximum number to retry.
+
 .. _tools_which:
 
 tools.which()
