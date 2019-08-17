@@ -1031,7 +1031,7 @@ tools.rename()
 
     def rename(src, dst, retry=5)
 
-Utility functions to rename a file or folder *src* to *dst*.
+Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on windows. This function renames file or folder with retrying to handle the exception on windows. 
 
 .. code-block:: python
 
