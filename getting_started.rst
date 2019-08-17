@@ -325,7 +325,7 @@ Or generate a graph of your dependencies using Dot or HTML formats:
     $ conan info .. --graph=file.html
     $ file.html # or open the file, double-click
 
-.. image:: /images/info_deps_html_graph.png
+.. image:: /images/conan-info_deps_html_graph.png
     :height: 150 px
     :width: 200 px
     :align: center
