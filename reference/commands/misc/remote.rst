@@ -146,7 +146,7 @@ the command will insert the remote in the specified position
 
       $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
 
-- Enable or disable remotes (accepts patterns such as * as input):
+- Enable or disable remotes (accepts patterns such as * as argument):
 
   .. code-block:: bash
 
