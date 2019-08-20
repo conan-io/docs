@@ -870,6 +870,9 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name             | | Alternative name for the package used by generators to create files or variables.                     |
+|                                 | | Defaulted to the package name.                                                                        |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
