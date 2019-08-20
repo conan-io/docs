@@ -17,7 +17,7 @@ a ``Findzlib.cmake`` file will be generated.
 
 
 Variables in Find<PKG-NAME>.cmake
------------------------------
+---------------------------------
 
 Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name``:
 
@@ -39,9 +39,8 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 | <PKG-NAME>_LIBS                    | Same as XXX_LIBRARIES                                                                               |
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 
-
 Target in Find<PKG-NAME>.cmake
-----------------------------------
+------------------------------
 
 A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following properties adjusted:
 
@@ -52,5 +51,3 @@ A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following
 The targets are transitive. So, if your project depends on a packages ``A`` and ``B``, and at the same time
 ``A`` depends on ``C``, the ``A`` target will contain automatically the properties of the ``C`` dependency, so
 in your `CMakeLists.txt` file you only need to ``find_package(A)`` and ``find_package(B)``.
-
-
