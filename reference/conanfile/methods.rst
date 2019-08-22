@@ -826,8 +826,19 @@ even if it matches with the default of the compiler being used:
         self.info.default_std_non_matching()
         # self.info.default_std_matching()
 
-
 Same behavior applies if you use the deprecated setting ``cppstd``.
+
+self.info.intel_compatible() / self.info.intel_incompatible()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default (``intel_compatible()`` mode), Conan will generate the a binary package compatible with the base compiler used by Intel. This
+means that packages generated with Intel will be used from Visual Studio if that was the base compiler used.
+
+``intel_incompatible()`` makes the package incompatible with the base compiler meaning that all the settings including the version of the
+Intel compiler will be taken into account con compute the package ID.
+
+Making packages incompatible can also be done in the settings of the profile using ``compiler.base_incompatible=True``. See more details in
+the :ref:`settings_yml`.
 
 .. _method_build_id:
 
