@@ -83,7 +83,7 @@ are possible. These are the **default** values, but it is possible to customize 
             libcxx: [libstdc++, libc++]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         intel:
-            version: ["11", "12", "13", "14", "15", "16", "16.1", "17", "18", "19"]
+            version: ["11", "12", "13", "14", "15", "16", "17", "18", "19"]
             base_incompatible: [None, True]
             base:
                 gcc:
