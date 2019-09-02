@@ -100,7 +100,7 @@ Videos and links
 
       <br/><br/>
 
-- "ABI compatibility is not a MAJOR problem" by Javier Garcia Sogo
+- CppRussia 2019: "ABI compatibility is not a MAJOR problem" by Javier Garcia Sogo
 
   .. raw:: html
 
