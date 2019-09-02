@@ -1143,6 +1143,7 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
 - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
 - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+- **shallow** (Optional, Defaulted to ``True``): Use shallow clone for Git repositories.
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
