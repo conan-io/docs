@@ -36,46 +36,27 @@ For distribution:
 
 .. _bintray_repositories:
 
-Bintray Official Repositories
------------------------------
-
-Conan official repositories for open source libraries are hosted in Bintray. These repositories are maintained by the Conan
-team. Currently there are two central repositories:
-
 .. _conan_center:
 
-Conan Center
-++++++++++++
+Conan-center
+-------------
 
-**conan-center**: https://bintray.com/conan/conan-center
-
-.. pull-quote::
-
-   This repository contains moderated, curated and well-maintained packages, and is the place in which you
-   can share your packages with the community. To share your package, upload it to your own
-   (or your organization's) repositories and submit an inclusion request to `conan-center`_.
-   Check :ref:`conan-center guide <conan_center_flow>` for more information.
-
-Conan Transit
-+++++++++++++
-
-**conan-transit**: https://bintray.com/conan/conan-transit (DEPRECATED)
-
-.. pull-quote::
-
-   Deprecated. Contains mostly outdated packages some of which are not compatible with the latest Conan
-   versions, so refrain from using them. This repository only exists for backward compatibility purposes.
-   It is not a default remote in the Conan client and will be completely removed soon. This
-   repository is an exact duplicate of the old ``server.conan.io`` repository at
-   **June 11, 2017 08:00 CET**. It's a read-only repository, allowing you to only download hosted
-   packages.
-
-Conan comes with **conan-center** repository configured by default. Just in case you want to manually configure this repository you can
-always add it like this:
+**Conan-center** (https://bintray.com/conan/conan-center) is the main official repository for open source
+Conan packages. It is configured as the default remote in the Conan client, but if you want to add it manually:
 
 .. code-block:: bash
 
     $ conan remote add conan-center https://conan.bintray.com
+
+
+There are 2 different types of packages right now in Conan-center:
+
+- **Packages with full reference**: Packages like `pkg/version@user/channel`. These packages binaries were created by users in their own
+  Bintray repositories, and included here. This flow of contributing packages to Conan-center is deprecated now.
+- **Packages without "user/channel"**: Can be used directly as `pkg/version`: These packages are created automatically from the central Github repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_, with an automated build service: C3I (Conan-Center Continuous Integration)
+
+To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
+
 
 Bintray Community Repositories
 ------------------------------

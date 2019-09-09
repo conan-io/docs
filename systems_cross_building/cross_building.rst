@@ -81,7 +81,7 @@ There are two approaches:
   point to the needed tools/libraries in the toolchain using the ``[env]`` section to declare, at least,
   the ``CC`` and ``CXX`` environment variables.
 
-- Package the toolchain as a Conan package and include it as a ``build_require``.
+- Package the toolchain as a Conan package and include it as a ``build_requires``.
 
 
 Using profiles
