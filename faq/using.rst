@@ -25,7 +25,7 @@ package as the starting node of the dependency graph and upstream.
 
     $ conan info Poco/1.8.1@pocoproject/stable
 
-.. image:: /images/conan_info_graph.png
+.. image:: /images/conan-info_graph.png
    :align: center
 
 The inverse model (from upstream to downstream) is not simple to obtain for Conan packages. This is because the dependency graph is not unique, it

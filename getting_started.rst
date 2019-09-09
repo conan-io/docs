@@ -202,7 +202,7 @@ requirements and optional information is saved.
 It is very important to understand the installation process. When the :command:`conan install` command runs, settings specified on the
 command line or taken from the defaults in *<userhome>/.conan/profiles/default* file are applied.
 
-.. image:: images/install_flow.png
+.. image:: images/conan-install_flow.png
    :height: 400 px
    :width: 500 px
    :align: center
@@ -261,7 +261,7 @@ There is also the possibility to generate a table for all package binaries avail
     $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
-.. image:: /images/search_binary_table.png
+.. image:: /images/conan-search_binary_table.png
     :height: 250 px
     :width: 300 px
     :align: center
@@ -325,7 +325,7 @@ Or generate a graph of your dependencies using Dot or HTML formats:
     $ conan info .. --graph=file.html
     $ file.html # or open the file, double-click
 
-.. image:: /images/info_deps_html_graph.png
+.. image:: /images/conan-info_deps_html_graph.png
     :height: 150 px
     :width: 200 px
     :align: center

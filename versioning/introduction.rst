@@ -132,7 +132,7 @@ which contain static libraries. In turn, **PkgB/1.0** depends on **PkgA/1.0** an
 The executable in **PkgD/1.0**, cannot link with 2 different versions of the same static library in **PkgC**, and the dependency resolution algorithm raises an error to let the
 user decide which one.
 
-.. image:: ../images/graph_conflicts.png
+.. image:: ../images/conan-graph_conflicts.png
 
 The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **PkgA/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library. 
 The dependency resolution algorithm will also raise an error.
@@ -141,7 +141,7 @@ Dependencies overriding
 -----------------------
 The downstream consumer packages always have higher priority, so the versions they request, will be overriden upstream as the dependency graph is built, re-defining the possible requires that the packages could have. For example, **PkgB/1.0** could define in its recipe a dependency to **PkgA/1.0**. But if a downstream consumer defines a requirement to **PkgA/2.0**, then that version will be used in the upstream graph:
 
-.. image:: ../images/graph_override.png
+.. image:: ../images/conan-graph_override.png
 
 This is what enables the users to have control. Even when a package recipe upstream defines an older version, the downstream consumers can force to use an updated version. Note that this is not a diamond structure in the graph, so it is not a conflict by default. This behavior can be also restricted defining the :ref:`env_vars_conan_error_on_override` environment variable to raise an error when these overrides happen, and then the user can go and explicitly modify the upstream **PkgB/1.0** recipe to match the version of PkgA and avoid the override.
 

@@ -37,7 +37,7 @@ Generated xml structure:
 
 This file can be loaded from the Menu->View->PropertyManager window, selecting "Add Existing Property Sheet" for the desired configuration.
 
-.. image::  ../../images/vc2008_props.png
+.. image::  ../../images/conan-vc2008_props.png
 
 
 Note that for single-configuration packages, which is the most typical, conan install Debug and Release packages separately. So a different property sheet will be generated for each configuration. The process could be:

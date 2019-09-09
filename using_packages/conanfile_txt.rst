@@ -11,7 +11,7 @@ you can see there that there are many CMake variables declared. For example
 ``CONAN_INCLUDE_DIRS_ZLIB``, that defines the include path to the zlib headers, and
 ``CONAN_INCLUDE_DIRS`` that defines include paths for all dependencies headers.
 
-.. image:: /images/local_cache_cmake.png
+.. image:: /images/conan-local_cache_cmake.png
    :height: 400 px
    :width: 500 px
    :align: center

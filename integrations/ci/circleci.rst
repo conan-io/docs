@@ -82,5 +82,5 @@ You could follow these steps:
 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 
-.. |circleci_logo| image:: ../../images/circleci_logo.png
+.. |circleci_logo| image:: ../../images/conan-circleci_logo.png
 .. _`Circle CI`: https://circleci.com/

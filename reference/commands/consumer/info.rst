@@ -183,7 +183,7 @@ You can generate a graph of your dependencies, in dot or html formats:
     $ conan info .. --graph=file.html
     $ file.html # or open the file, double-click
 
-.. image:: /images/info_deps_html_graph.png
+.. image:: /images/conan-info_deps_html_graph.png
     :height: 250 px
     :width: 300 px
     :align: center
