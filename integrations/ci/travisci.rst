@@ -79,5 +79,5 @@ You could follow these steps:
 If something fails, please report an issue in the ``conan-package-tools`` GitHub repository: https://github.com/conan-io/conan-package-tools
 
 
-.. |travisci_logo| image:: ../../images/travisci_logo.jpeg
+.. |travisci_logo| image:: ../../images/conan-travisci_logo.jpeg
 .. _`Travis CI`: https://travis-ci.org/

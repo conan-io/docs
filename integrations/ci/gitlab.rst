@@ -80,5 +80,5 @@ You could follow these steps:
 
 If something fails, please report an issue in the **conan-package-tools** github repository: https://github.com/conan-io/conan-package-tools
 
-.. |gitlab_logo| image:: ../../images/gitlab_logo.png
+.. |gitlab_logo| image:: ../../images/conan-gitlab_logo.png
 .. _`Gitlab CI`: https://about.gitlab.com/

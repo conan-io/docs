@@ -7,7 +7,6 @@ Contribution of packages to Conan-center is done via pull requests to the Github
 
 Read more about how to `submit a pull request to Conan-center-index <https://github.com/conan-io/conan-center-index/wiki>`_
 
-
 .. warning::
 
     The previous process to contribute to Conan-center, known as "inclusion requests" from Bintray is deprecated. It is not longer needed to create your own packages and upload them to your Bintray personal repo. Only the Github pull request will be needed.

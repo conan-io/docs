@@ -229,12 +229,12 @@ If we list the ``mypackage`` folder we can see:
 You can check a full example of a CLion project for creating a Conan package in this github repository: `lasote/clion-conan-package <https://github.com/lasote/clion-conan-package>`_.
 
 
-.. |clion_logo| image:: ../../images/clion/icon_CLion.png
-.. |clion_plugin| image:: ../../images/clion/clion_plugin.png
-.. |built_ok| image:: ../../images/clion/built_ok.png
-.. |cmakelists| image:: ../../images/clion/cmakelists.png
-.. |conanfile_txt| image:: ../../images/clion/conanfile_txt.png
-.. |configure_ok| image:: ../../images/clion/configure_ok.png
-.. |configure_warning_info| image:: ../../images/clion/configure_warning_info.png
-.. |library_cpp| image:: ../../images/clion/library_cpp.png
-.. |wizard_new| image:: ../../images/clion/wizard_new.png
+.. |clion_logo| image:: ../../images/clion/conan-icon_CLion.png
+.. |clion_plugin| image:: ../../images/clion/conan-clion_plugin.png
+.. |built_ok| image:: ../../images/clion/conan-built_ok.png
+.. |cmakelists| image:: ../../images/clion/conan-cmakelists.png
+.. |conanfile_txt| image:: ../../images/clion/conan-conanfile_txt.png
+.. |configure_ok| image:: ../../images/clion/conan-configure_ok.png
+.. |configure_warning_info| image:: ../../images/clion/conan-configure_warning_info.png
+.. |library_cpp| image:: ../../images/clion/conan-library_cpp.png
+.. |wizard_new| image:: ../../images/clion/conan-wizard_new.png

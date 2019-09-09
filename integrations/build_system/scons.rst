@@ -53,4 +53,4 @@ repository. Give it a try!
     > Hello World Debug!
 
 
-.. |scons_logo| image:: ../../images/scons.png
+.. |scons_logo| image:: ../../images/conan-scons.png

@@ -13,4 +13,4 @@ Check :ref:`Building with Meson Build <meson_build_reference>` for more info.
 
 
 
-.. |meson_logo| image:: ../../images/meson.png
+.. |meson_logo| image:: ../../images/conan-meson.png

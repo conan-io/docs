@@ -51,11 +51,11 @@ Install the requirements:
 
 Go to your Visual Studio project, and open the **Property Manager** (usually in **View -> Other Windows -> Property Manager**).
 
-.. image:: ../../images/property_manager.png
+.. image:: ../../images/conan-property_manager.png
 
 Click the **+** icon and select the generated ``conanbuildinfo.props`` file:
 
-.. image:: ../../images/property_manager2.png
+.. image:: ../../images/conan-property_manager2.png
 
 Build your project as usual.
 
@@ -113,5 +113,5 @@ Check the :ref:`package_id()<method_package_id>` reference to learn more.
 
 
 .. _`CMake docs`: https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html
-.. |visual_logo| image:: ../../images/visual-studio-logo.png
+.. |visual_logo| image:: ../../images/conan-visual-studio-logo.png
 .. _`Visual Studio project properties`: https://docs.microsoft.com/en-us/visualstudio/ide/managing-project-and-solution-properties?view=vs-2017

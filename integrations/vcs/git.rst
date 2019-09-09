@@ -39,4 +39,4 @@ If you are creating a **Conan** package:
 
 
 
-.. |git_logo| image:: ../../images/git_logo.png
+.. |git_logo| image:: ../../images/conan-git_logo.png

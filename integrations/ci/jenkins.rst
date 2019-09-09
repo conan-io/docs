@@ -110,9 +110,9 @@ and then upload it to Artifactory. We also upload the `build information`_:
 |jenkins_stages_creator|
 
 
-.. |jenkins_logo| image:: ../../images/jenkins.png
-.. |jenkins_stages| image:: ../../images/jenkins_stages.png
-.. |jenkins_stages_creator| image:: ../../images/jenkins_stages_creator.png
+.. |jenkins_logo| image:: ../../images/conan-jenkins.png
+.. |jenkins_stages| image:: ../../images/conan-jenkins_stages.png
+.. |jenkins_stages_creator| image:: ../../images/conan-jenkins_stages_creator.png
 .. _`Artifactory`: https://jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
 .. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/RTF/Jenkins+Artifactory+Plug-in
