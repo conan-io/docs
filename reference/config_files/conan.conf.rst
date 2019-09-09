@@ -61,6 +61,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
     # cacert_path                         # environment CONAN_CACERT_PATH
+    # use_system_certs                    # environment CONAN_USE_SYSTEM_CERTS
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -203,6 +204,10 @@ in the conan code base, allowing to debug the detected error.
 
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
+
+The ``use_system_certs`` (or the environment variable ``CONAN_USE_SYSTEM_CERTS``) will tell Conan
+to use the SSL certificates stored in the system. Some python versions together
+with some combinations of the dependencies ``urllib3`` and ``requests`` may raise an exception.
 
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
 

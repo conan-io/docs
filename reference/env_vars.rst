@@ -596,6 +596,15 @@ Specify an alternative path to a *cacert.pem* file to be used for requests. This
 overrides the value defined in the *conan.conf* as ``cacert_path = <path/to/cacert.pem>``
 under the section ``[general]``.
 
+CONAN_USE_SYSTEM_CERTS
+----------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, Conan will use the system SSL certificates. Some Python versions
+together with some ``requests`` and ``urllib3`` versions may raise an exception trying to use
+this functionality.
+
 CONAN_DEFAULT_PACKAGE_ID_MODE
 -----------------------------
 
