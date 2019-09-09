@@ -18,8 +18,47 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.17 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.18 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.18.2 (30-Aug-2019)
+--------------------
+
+- Feature: Add opt-out for Git shallow clone in `SCM` feature `#5677 <https://github.com/conan-io/conan/pull/5677>`_ . Docs `here <https://github.com/conan-io/docs/pull/1400>`__
+- Fix: Use the value of argument `useEnv` provided by the user to the `MSBuild` helper also to adjust `/p:UseEnv=false` when the arg is `False`. `#5609 <https://github.com/conan-io/conan/pull/5609>`_
+- Bugfix: Fixed assertion when using nested build_requires that depend on packages that are also used in the main dependency graph `#5689 <https://github.com/conan-io/conan/pull/5689>`_
+- Bugfix: When Artifactory doesn't have the anonymous access activated, the conan client wasn't able to capture the server capabilities and therefore never used the `revisions` mechanism. `#5688 <https://github.com/conan-io/conan/pull/5688>`_
+- Bugfix: When no `user/channel` is specified creating a package, upload it to a remote using  `None` as the "folder" in the storage, instead of `_`. `#5671 <https://github.com/conan-io/conan/pull/5671>`_
+- Bugfix: Using the version ranges mechanism Conan wasn't able to resolve the correct reference if a library with the same name but different user/channel was found in an earlier remote. `#5657 <https://github.com/conan-io/conan/pull/5657>`_
+- Bugfix: Broken cache package collection for packages without user/channel `#5607 <https://github.com/conan-io/conan/pull/5607>`_
+
+
+1.18.1 (8-Aug-2019)
+-------------------
+
+- Bugfix: The `scm` feature was trying to run a checkout after a shallow clone. `#5571 <https://github.com/conan-io/conan/pull/5571>`_
+
+
+1.18.0 (30-Jul-2019)
+--------------------
+
+- Feature: The "user/channel" fields are now optional. e.g: `conan create .` is valid if the `name` and `version` are declared in the recipe. e.g: `conan create . lib/1.0@` to omit user and channel. The same for other commands. The `user` and `channel` can also be omitted while specifying requirements in the conanfiles. `#5381 <https://github.com/conan-io/conan/pull/5381>`_ . Docs `here <https://github.com/conan-io/docs/pull/1375>`__
+- Feature: Output current revision from references in local cache when using a pattern `#5537 <https://github.com/conan-io/conan/pull/5537>`_ . Docs `here <https://github.com/conan-io/docs/pull/1381>`__
+- Feature: New parameter ``--skip-auth`` for the :command:`conan user` command to avoid trying to authenticate when the client already has credentials stored. `#5532 <https://github.com/conan-io/conan/pull/5532>`_ . Docs `here <https://github.com/conan-io/docs/pull/1377>`__
+- Feature: Allow patterns in per-package settings definitions, not only the package name `#5523 <https://github.com/conan-io/conan/pull/5523>`_ . Docs `here <https://github.com/conan-io/docs/pull/1372>`__
+- Feature: Search custom settings (#5378) `#5521 <https://github.com/conan-io/conan/pull/5521>`_ . Docs `here <https://github.com/conan-io/docs/pull/1371>`__
+- Feature: shallow git clone `#5514 <https://github.com/conan-io/conan/pull/5514>`_ . Docs `here <https://github.com/conan-io/docs/pull/1380>`__
+- Fix: Remove ``conan graph clean-modified`` command, it is automatic and no longer necessary. `#5533 <https://github.com/conan-io/conan/pull/5533>`_ . Docs `here <https://github.com/conan-io/docs/pull/1378>`__
+- Fix: Incomplete references (for local conanfile.py files) are not printed with `@None/None` anymore. `#5509 <https://github.com/conan-io/conan/pull/5509>`_
+- Fix: Discard empty string values in SCM including `subfolder` `#5459 <https://github.com/conan-io/conan/pull/5459>`_
+- Bugfix: The `stderr` was not printed when a command failed running the `tools.check_output` function. `#5548 <https://github.com/conan-io/conan/pull/5548>`_
+- Bugfix: Avoid dependency (mainly build-requires) being marked as skipped when another node exists in the graph that is being skipped because of being private `#5547 <https://github.com/conan-io/conan/pull/5547>`_
+- Bugfix: fix processing of UTF-8 files with BOM `#5506 <https://github.com/conan-io/conan/pull/5506>`_
+- Bugfix: apply http.sslVerify to the current Git command only `#5470 <https://github.com/conan-io/conan/pull/5470>`_
+- Bugfix: Do not raise when accessing the metadata of editable packages `#5461 <https://github.com/conan-io/conan/pull/5461>`_
+- Bugfix: Use cxxFlags instead of cppFlags in ``qbs`` generator. `#5452 <https://github.com/conan-io/conan/pull/5452>`_ . Docs `here <https://github.com/conan-io/docs/pull/1354>`__
+
 
 1.17.2 (25-Jul-2019)
 --------------------

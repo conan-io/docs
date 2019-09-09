@@ -10,7 +10,7 @@ conan export-pkg
                        [-if INSTALL_FOLDER] [-o OPTIONS] [-pr PROFILE]
                        [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
                        [-j JSON] [-l [LOCKFILE]]
-                       path reference
+                       path [reference]
 
 Exports a recipe, then creates a package from local source and build folders.
 

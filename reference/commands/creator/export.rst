@@ -6,7 +6,7 @@ conan export
 
 .. code-block:: bash
 
-    $ conan export [-h] [-k] [-l [LOCKFILE]] path reference
+    $ conan export [-h] [-k] [-l [LOCKFILE]] path [reference]
 
 Copies the recipe (conanfile.py & associated files) to your local cache.
 
