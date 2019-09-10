@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.18.3 (10-Sept-2019)
+---------------------
+
+- Fix: Version ranges resolution using references without user/channel `#5707 <https://github.com/conan-io/conan/pull/5707>`_
+
+
 1.18.2 (30-Aug-2019)
 --------------------
 
