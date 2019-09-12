@@ -437,8 +437,9 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`tools_msvc_build_command`
-and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+When set to ``True``/``1``, the :ref:`tools.build_sln_command() <tools_build_sln_command>`,
+the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
+and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
 CONAN_SYSREQUIRES_MODE
@@ -506,12 +507,16 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
 
-These environment variables will be checked when using ``self.user`` or ``self.channel`` in package recipes in user space, where the user
-and channel have not been assigned yet (they are assigned when exported in the local cache).
+.. warning::
 
-.. seealso::
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` are deprecated and will be
+    removed in Conan 2.0. Don't use them to populate the value of ``self.user`` and ``self.channel``.
 
-    Read more about it in :ref:`user_channel`
+These environment variables will be checked when using ``self.user`` or ``self.channel`` in package
+recipes in user space, where the user and channel have not been assigned yet (they are assigned
+when exported in the local cache). More about these variables in
+the :ref:`attributes reference <user_channel>`.
+
 
 CONAN_USER_HOME
 ---------------

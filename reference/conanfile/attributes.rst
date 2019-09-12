@@ -147,10 +147,11 @@ This is an optional attribute.
 user, channel
 -------------
 
-The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
-Though their usage is usually not encouraged, it could be useful in different cases,
-e.g. to define requirements with the same user and
-channel as the current package, which could be achieved with something like:
+**These fields are optional in a Conan reference**, they could be useful to identify a forked recipe
+from the community with changes specific for your company. Using these fields you may keep the
+same ``name`` and ``version`` and use the ``user/channel`` to disambiguate your recipe.
+
+The value of these fields can be accessed from within a ``conanfile.py``:
 
 .. code-block:: python
 
@@ -161,23 +162,35 @@ channel as the current package, which could be achieved with something like:
         version = "0.1"
 
         def requirements(self):
-            self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            self.requires("common-lib/version")
+            if self.user and self.channel:
+                # If the recipe is using them, I want to consume my fork.
+                self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            else:
+                # otherwise, I'll consume the community one
+                self.requires("Say/0.1")
 
-Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
-For package recipes working in user space, there is no current user/channel by default. They can be
-defined at ``conan install`` time with:
+
+Only packages that have already been exported (packages in the local cache or in a remote server)
+can have a user/channel assigned. For package recipes working in the user space, there is no
+current user/channel by default, although they can be defined at ``conan install`` time with:
 
 .. code-block:: bash
 
     $ conan install <path to conanfile.py> user/channel
 
-If they are not defined via command line, the properties ``self.user`` and ``self.channel`` will then look 
-for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` respectively. If they are not defined, 
-an error will be raised unless ``default_user`` and ``default_channel`` are declared in the recipe.
 
 .. seealso::
 
     FAQ: :ref:`faq_recommendation_user_channel`
+
+
+.. warning::
+
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` that were used to assign a value
+    to these fields are now deprecated and will be removed in Conan 2.0. Don't use them to
+    populate the value of ``self.user`` and ``self.channel``.
+
 
 default_user, default_channel
 -----------------------------
