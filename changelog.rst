@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.18.4 (12-Sept-2019)
+---------------------
+
+- Fix: ``package_id`` should be used for ``recipe_revision_mode`` `#5729 <https://github.com/conan-io/conan/pull/5729>`_ . Docs `here <https://github.com/conan-io/docs/pull/1410>`__
+
+
 1.18.3 (10-Sept-2019)
 ---------------------
 
