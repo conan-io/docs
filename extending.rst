@@ -11,3 +11,4 @@ This section provides an introduction to extension capabilities of Conan:
    extending/custom_settings
    extending/python_requires
    extending/hooks
+   extending/sanitizers
