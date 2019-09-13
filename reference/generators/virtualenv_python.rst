@@ -23,7 +23,7 @@ Windows:
 
 .. code-block:: bash
 
-    > activate_run.bat
+    > activate_run_python.bat
 
 
 
