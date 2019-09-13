@@ -6,7 +6,7 @@ virtualenv_python
 Created files
 -------------
 
-- activate_run.{sh|bat}
+- activate_run_python.{sh|bat}
 - deactivate_run.{sh|bat}
 
 Usage
