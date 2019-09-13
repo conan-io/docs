@@ -7,7 +7,7 @@ Created files
 -------------
 
 - activate_run_python.{sh|bat}
-- deactivate_run.{sh|bat}
+- deactivate_run_python.{sh|bat}
 
 Usage
 -----
