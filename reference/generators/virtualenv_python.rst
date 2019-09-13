@@ -16,7 +16,7 @@ Linux/macOS:
 
 .. code-block:: bash
 
-    > source activate_run.sh
+    > source activate_run_python.sh
 
 
 Windows:
