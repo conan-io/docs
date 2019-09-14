@@ -4,10 +4,10 @@ Compiler sanitizers
 ===================
 
 Sanitizers are tools that can detect bugs such as buffer overflows or accesses, dangling pointer or
-different types of undefined behaviour.
+different types of undefined behavior.
 
 The two compilers that mainly support sanitizing options are gcc and clang. These options are
-passed to the compiler as flags and depending if you are using
+passed to the compiler as flags and  depending on if you are using
 `clang <https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation>`_ or
 `gcc <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html>`_ different sanitizers are
 supported.
@@ -20,15 +20,15 @@ Adding custom settings
 If you want to model the sanitizer options so that the package id is affected by them you have to
 introduce new in the *settings.yml* file (see :ref:`custom_settings` section for more information).
 
-Sanitizer options should be modelled as subsettings of the compiler. Depending on how you want to
+Sanitizer options should be modeled as sub-settings of the compiler. Depending on how you want to
 combine the sanitizers you have two options.
 
 Adding a list of commonly used options
 ######################################
 
 Imagine that you have a fixed set of sanitizers or combinations of them that are the ones you usually
-use for your builds. Then, if you are using *apple-clang* for example, you can add this list of options
-as a subsetting in the compiler. The *settings.yml* would be like this:
+use for your builds. Then, if you are using *apple-clang* for example, you can add this list of
+options as a subsetting in the compiler. The *settings.yml* would be like this:
 
 .. code-block:: python
 
@@ -39,19 +39,21 @@ as a subsetting in the compiler. The *settings.yml* would be like this:
         cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         sanitizer: [None, Address, Thread, UndefinedBehavior, AddressUndefinedBehavior]
 
-Here you have modelled the use of ``-fsanitize=address``, ``-fsanitize=thread``,
+Here you have modeled the use of ``-fsanitize=address``, ``-fsanitize=thread``,
 ``-fsanitize=memory``, ``-fsanitize=undefined`` and the combination of ``-fsanitize=address`` and
 ``-fsanitize=undefined``. Note that for example, for clang it is not possible to combine more than
 one of the ``-fsanitize=address``, ``-fsanitize=thread``, and ``-fsanitize=memory`` checkers in the
 same program.
 
-Adding thread sanitizer for a conan install in this case could be done by calling ``conan install ..
--s compiler.sanitizer=Thread``
+Adding thread sanitizer for a ``conan install``, in this case, could be done by calling ``conan
+install .. -s compiler.sanitizer=Thread``
 
 Adding different options to combine
 ###################################
 
-Another option would be to add the sanitizer options as multiple ``True`` or ``None`` fields so that they can be freely combined later. An example of that for the previous sanitizer options would be as follows:
+Another option would be to add the sanitizer options as multiple ``True`` or ``None`` fields so that
+they can be freely combined later. An example of that for the previous sanitizer options would be as
+follows:
 
 .. code-block:: python
 
@@ -64,7 +66,7 @@ Another option would be to add the sanitizer options as multiple ``True`` or ``N
         thread_sanitizer: [None, True]
         undefined_sanitizer: [None, True]
 
-Then, you can add different sanitizers calling for example to ``conan install ..
+Then, you can add different sanitizers calling, for example, to ``conan install ..
 -s address_sanitizer=True -s undefined_sanitizer=True``
 
 Passing the information to the compiler or build system
@@ -104,8 +106,8 @@ Managing sanitizer settings with the build system
 #################################################
 
 Another option is to make use of the information that is propagated to the *conan generator*. For
-example, if we are using *CMake* we could use this information from the CMakeLists.txt to append the
-flags to the compiler settings like this: 
+example, if we are using *CMake* we could use this information from the ``CMakeLists.txt`` to append
+the flags to the compiler settings like this: 
 
 .. code-block:: cmake
    :caption: *CMakeLists.txt*
@@ -126,14 +128,16 @@ flags to the compiler settings like this:
     add_executable(greet src/main.cpp)
 
 
-The sanitizer setting is propagated to CMake as the CONAN_SETTINGS_COMPILER_SANITIZER varible with a
-value equals to Address and we can set the behaviour in CMake depending on the value of the variable.
+The sanitizer setting is propagated to CMake as the ``CONAN_SETTINGS_COMPILER_SANITIZER`` variable
+with a value equals to Address and we can set the behavior in CMake depending on the value of the
+variable.
 
 
 Using conan Hooks to set compiler environment variables
 #######################################################
 
-If you are not interested in modelling the settings in the Conan package you can use a Hook to modify the environment variable and apply the sanitizer flags to the build. It could be something like this:
+If you are not interested in modelling the settings in the Conan package you can use a Hook to modify
+the environment variable and apply the sanitizer flags to the build. It could be something like this:
 
 .. code-block:: python
 
