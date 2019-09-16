@@ -105,7 +105,7 @@ Conan commands. An example of this would be a profile like:
     CFLAGS=-fsanitize=address
 
 Then calling to Then calling to :command:`conan create . -pr address_sanitizer_profile` would inject
-:command:`-fsanitize=address` to the build through the ``CXXFLAGS`` environment variable.
+``-fsanitize=address`` to the build through the ``CXXFLAGS`` environment variable.
 
 Managing sanitizer settings with the build system
 #################################################
