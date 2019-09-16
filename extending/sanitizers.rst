@@ -48,8 +48,8 @@ Here you have modeled the use of ``-fsanitize=address``, ``-fsanitize=thread``,
 one of the ``-fsanitize=address``, ``-fsanitize=thread``, and ``-fsanitize=memory`` checkers in the
 same program.
 
-Adding thread sanitizer for a :command:`conan install`, in this case, could be done by calling :command:`conan
-install .. -s compiler.sanitizer=Thread``
+Adding thread sanitizer for a :command:`conan install`, in this case, could be done by calling
+:command:`conan install .. -s compiler.sanitizer=Thread`
 
 Adding different options to combine
 ###################################
@@ -71,8 +71,8 @@ follows:
         thread_sanitizer: [None, True]
         undefined_sanitizer: [None, True]
 
-Then, you can add different sanitizers calling, for example, to ``conan install ..
--s compiler.address_sanitizer=True -s compiler.undefined_sanitizer=True``
+Then, you can add different sanitizers calling, for example, to :command:`conan install ..
+-s compiler.address_sanitizer=True -s compiler.undefined_sanitizer=True`
 
 Passing the information to the compiler or build system
 -------------------------------------------------------
@@ -104,8 +104,8 @@ Conan commands. An example of this would be a profile like:
     CXXFLAGS=-fsanitize=address
     CFLAGS=-fsanitize=address
 
-Then calling to ``conan create . -pr address_sanitizer_profile`` would inject ``-fsanitize=address``
-to the build through the ``CXXFLAGS`` environment variable.
+Then calling to Then calling to :command:`conan create . -pr address_sanitizer_profile` would inject
+:command:`-fsanitize=address` to the build through the ``CXXFLAGS`` environment variable.
 
 Managing sanitizer settings with the build system
 #################################################
@@ -132,8 +132,8 @@ the flags to the compiler settings like this:
 
 
 The sanitizer setting is propagated to CMake as the ``CONAN_SETTINGS_COMPILER_SANITIZER`` variable
-with a value equals to ``"Address"`` and we can set the behavior in CMake depending on the value of the
-variable.
+with a value equals to ``"Address"`` and we can set the behavior in CMake depending on the value of
+the variable.
 
 
 Using conan Hooks to set compiler environment variables
