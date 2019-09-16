@@ -33,7 +33,8 @@ like this:
 
 .. code-block:: yaml
     :caption: *settings.yml*
-
+    :emphasize-lines: 6
+    
     apple-clang:
         version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", 
                   "9.0", "9.1", "10.0", "11.0"]
@@ -59,7 +60,8 @@ follows:
 
 .. code-block:: yaml
     :caption: *settings.yml*
-    
+    :emphasize-lines: 6,7,8
+
     apple-clang:
         version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", 
                   "8.1", "9.0", "9.1", "10.0", "11.0"]
@@ -86,7 +88,8 @@ Conan commands. An example of this would be a profile like:
 
 .. code-block:: text
    :caption: *address_sanitizer_profile*
-
+   :emphasize-lines: 10
+   
     [settings]
     os=Macos
     os_build=Macos
