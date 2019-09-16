@@ -88,8 +88,8 @@ Conan commands. An example of this would be a profile like:
 
 .. code-block:: text
    :caption: *address_sanitizer_profile*
-   :emphasize-lines: 10
-   
+   :emphasize-lines: 10,12,13
+
     [settings]
     os=Macos
     os_build=Macos
