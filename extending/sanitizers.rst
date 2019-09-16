@@ -48,7 +48,7 @@ Here you have modeled the use of ``-fsanitize=address``, ``-fsanitize=thread``,
 one of the ``-fsanitize=address``, ``-fsanitize=thread``, and ``-fsanitize=memory`` checkers in the
 same program.
 
-Adding thread sanitizer for a ``conan install``, in this case, could be done by calling ``conan
+Adding thread sanitizer for a :command:`conan install`, in this case, could be done by calling :command:`conan
 install .. -s compiler.sanitizer=Thread``
 
 Adding different options to combine
