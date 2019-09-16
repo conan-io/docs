@@ -9,7 +9,7 @@ different types of undefined behavior.
 The two compilers that mainly support sanitizing options are gcc and clang. These options are
 passed to the compiler as flags and, depending on if you are using
 `clang <https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation>`_ or
-`gcc <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html>`_ different sanitizers are
+`gcc <https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html>`_, different sanitizers are
 supported.
 
 Here we explain different options on how to model and use sanitizers with your Conan packages.
