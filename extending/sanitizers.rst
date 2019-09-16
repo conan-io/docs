@@ -111,7 +111,7 @@ Managing sanitizer settings with the build system
 #################################################
 
 Another option is to make use of the information that is propagated to the *conan generator*. For
-example, if we are using CMake we could use the information from the ``CMakeLists.txt`` to append
+example, if we are using CMake we could use the information from the *CMakeLists.txt* to append
 the flags to the compiler settings like this: 
 
 .. code-block:: cmake
