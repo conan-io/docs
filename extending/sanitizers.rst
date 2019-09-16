@@ -17,7 +17,7 @@ Here we explain different options on how to model and use sanitizers with your C
 Adding custom settings
 ----------------------
 
-If you want to model the sanitizer options so that the package id is affected by them you have to
+If you want to model the sanitizer options so that the package id is affected by them, you have to
 introduce new settings in the *settings.yml* file (see :ref:`custom_settings` section for more
 information).
 
