@@ -18,19 +18,21 @@ Adding custom settings
 ----------------------
 
 If you want to model the sanitizer options so that the package id is affected by them you have to
-introduce new in the *settings.yml* file (see :ref:`custom_settings` section for more information).
+introduce new settings in the *settings.yml* file (see :ref:`custom_settings` section for more
+information).
 
 Sanitizer options should be modeled as sub-settings of the compiler. Depending on how you want to
-combine the sanitizers you have two options.
+combine the sanitizers you have two choices.
 
 Adding a list of commonly used options
 ######################################
 
-Imagine that you have a fixed set of sanitizers or combinations of them that are the ones you usually
-use for your builds. Then, if you are using *apple-clang* for example, you can add this list of
-options as a subsetting in the compiler. The *settings.yml* would be like this:
+If you have a fixed set of sanitizers or combinations of them that are the ones you usually set for
+your builds you can add the sanitizers as a list of options. An example for *apple-clang* would be
+like this:
 
-.. code-block:: python
+.. code-block:: yaml
+    :caption: *settings.yml*
 
     apple-clang:
         version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", 
@@ -55,8 +57,9 @@ Another option would be to add the sanitizer options as multiple ``True`` or ``N
 they can be freely combined later. An example of that for the previous sanitizer options would be as
 follows:
 
-.. code-block:: python
-
+.. code-block:: yaml
+    :caption: *settings.yml*
+    
     apple-clang:
         version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", 
                   "8.1", "9.0", "9.1", "10.0", "11.0"]
@@ -67,20 +70,19 @@ follows:
         undefined_sanitizer: [None, True]
 
 Then, you can add different sanitizers calling, for example, to ``conan install ..
--s address_sanitizer=True -s undefined_sanitizer=True``
+-s compiler.address_sanitizer=True -s compiler.undefined_sanitizer=True``
 
 Passing the information to the compiler or build system
 -------------------------------------------------------
 
-Here again, we have multiple choices to pass this information about sanitizers to the compiler or
-build system.
+Here again, we have multiple choices to pass sanitizers information to the compiler or build system.
 
 Using from custom profiles
 ##########################
 
 It is possible to have different custom profiles defining the compiler sanitizer option and
-environment variables to inject that information to the compiler and passing them to Conan commands.
-An example of this would be a profile like:
+environment variables to inject that information to the compiler, and then passing those profiles to
+Conan commands. An example of this would be a profile like:
 
 .. code-block:: text
    :caption: *address_sanitizer_profile*
@@ -106,7 +108,7 @@ Managing sanitizer settings with the build system
 #################################################
 
 Another option is to make use of the information that is propagated to the *conan generator*. For
-example, if we are using *CMake* we could use this information from the ``CMakeLists.txt`` to append
+example, if we are using CMake we could use the information from the ``CMakeLists.txt`` to append
 the flags to the compiler settings like this: 
 
 .. code-block:: cmake
@@ -123,13 +125,11 @@ the flags to the compiler settings like this:
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address" )
         endif()
     endif()
-    message("C++ FLAGS: ${CXXFLAGS}")
-    message("CMAKE FLAGS: ${CMAKE_CXX_FLAGS}")
-    add_executable(greet src/main.cpp)
+    add_executable(sanit_example src/main.cpp)
 
 
 The sanitizer setting is propagated to CMake as the ``CONAN_SETTINGS_COMPILER_SANITIZER`` variable
-with a value equals to Address and we can set the behavior in CMake depending on the value of the
+with a value equals to ``"Address"`` and we can set the behavior in CMake depending on the value of the
 variable.
 
 
@@ -137,9 +137,10 @@ Using conan Hooks to set compiler environment variables
 #######################################################
 
 If you are not interested in modelling the settings in the Conan package you can use a Hook to modify
-the environment variable and apply the sanitizer flags to the build. It could be something like this:
+the environment variable and apply the sanitizer flags to the build. It could be something like:
 
 .. code-block:: python
+    :caption: *sanitizer_hook.py*
 
     def set_sanitize_address_flag(self):
         self._old_cxx_flags = os.environ.get("CXXFLAGS")
@@ -151,9 +152,10 @@ the environment variable and apply the sanitizer flags to the build. It could be
         else:
             os.environ["CXXFLAGS"] = self._old_cxx_flags
 
-And then calling those functions from a pre_build and a post_build hook:
+And then calling those functions from a *pre_build* and a *post_build* hook:
 
 .. code-block:: python
+    :caption: *sanitizer_hook.py*
 
     def pre_build(output, conanfile, **kwargs):
         set_sanitize_address_flag()
@@ -162,4 +164,4 @@ And then calling those functions from a pre_build and a post_build hook:
         reset_sanitize_address_flag()
 
 Note that here the package id will be the same for the binaries built with the hook activated and the
-ones that were build without it as we are not modelling the sanitizer setting.
+ones that were built without it as we are not modelling the sanitizer setting.
