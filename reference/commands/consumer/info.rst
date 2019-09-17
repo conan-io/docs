@@ -200,7 +200,7 @@ files in the root of the configuration folder:
 It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
 present, or the internet ones if not.
 
-You can find where the package is installed in your cache by using the argument ``--paths``:
+You can find where the package is installed in your cache by using the argument :command:`--paths`:
 
 .. code-block:: bash
 
