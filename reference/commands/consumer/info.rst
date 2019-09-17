@@ -199,3 +199,29 @@ files in the root of the configuration folder:
 
 It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
 present, or the internet ones if not.
+
+You can find where the package is installed in your cache by using the argument :command:`--paths`:
+
+.. code-block:: bash
+
+    $ conan info foobar/1.0.0@user/channel --paths
+
+The output will look like:
+
+.. code-block:: bash
+
+    foobar/1.0.0@user/channel
+        ID: 6af9cc7cb931c5ad942174fd7838eb655717c709
+        BuildID: None
+        export_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/export
+        source_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/source
+        build_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/build/6af9cc7cb931c5ad942174fd7838eb655717c709
+        package_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/package/6af9cc7cb931c5ad942174fd7838eb655717c709
+        Remote: None
+        License: MIT
+        Author: Dummy
+        Topics: None
+        Recipe: Cache
+        Binary: Cache
+        Binary remote: None
+        Creation date: 2019-09-03 11:22:17
