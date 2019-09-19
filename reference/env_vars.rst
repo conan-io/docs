@@ -75,7 +75,7 @@ CMake generator. Note that this is not a package settings, building it with make
 build system, as Ninja, should lead to the same binary if using appropriately the same
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
-So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
+So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value
 to your desired CMake generator (as ``Ninja``).
 
 CONAN_CMAKE_GENERATOR_PLATFORM
@@ -221,11 +221,28 @@ Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and 
 CONAN_LOGGING_LEVEL
 -------------------
 
-**Defaulted to**: ``50``
+**Defaulted to**: ``critical``
 
 By default Conan logging level is only set for critical events. If you want
-to show more detailed logging information, set this variable to lower values, as ``10`` to show
-debug information.
+to show more detailed logging information, set this variable according to
+`Python Logging Levels`_ or, use a logging level name:
+
++---------------------+------------------+
+| logging level name  | logging level id |
++=====================+==================+
+| critical            | 50               |
++---------------------+------------------+
+| error               | 40               |
++---------------------+------------------+
+| warning/warn        | 30               |
++---------------------+------------------+
+| info                | 20               |
++---------------------+------------------+
+| debug               | 10               |
++---------------------+------------------+
+
+Both names and IDs are acceptable by environment variable, or using the conan.conf file.
+
 
 .. _env_vars_conan_login_username:
 
@@ -493,15 +510,15 @@ Set it with an absolute path to a file.
 
     export CONAN_TRACE_FILE=/tmp/conan_trace.log
 
-When the Conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+When the Conan command is executed, some traces will be appended to the specified file.
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions,
 ``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
 
 The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
 
 .. seealso::
 
-    Read more here: :ref:`logging_and_debugging` 
+    Read more here: :ref:`logging_and_debugging`
 
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
@@ -609,3 +626,6 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 **Defaulted to**: ``False``/``0``
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
+
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
