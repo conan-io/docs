@@ -569,7 +569,7 @@ SystemPackageTool
 
     def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
-Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
+Available tool classes: **AptTool**, **DnfTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
 **PacManTool**.
 
 Methods:
