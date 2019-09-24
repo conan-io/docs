@@ -145,7 +145,7 @@ can add logic to the files:
        src/{{ item }}/resouces/{% if item != "cmp3" %}{{ settings.arch }}{% endif %}
        {% endfor %}
 
-You can have a look at the `Jinja2 documentation <http://jinja.pocoo.org/>`_ to know more
+You can have a look at the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ to know more
 about its powerful syntax.
 
 
