@@ -265,7 +265,7 @@ You can determine if the following variables within any requirement change the I
 
 +----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
 | **Modes / Variables**      | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` | RREV | PREV |
-+============================+==========+=========================================+==========+=============+================+=============+
++============================+==========+=========================================+==========+=============+================+======+======+
 | ``semver_direct_mode()``   | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             | No   | No   |
 +----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
 | ``semver_mode()``          | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             | No   | No   |
@@ -419,8 +419,9 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["MyOtherLib"].unrelated_mode()
 
-- ``recipe_revision_mode()``: The full reference `pkg/version@user/channel#RREV` of the dependencies,
-  including the recipe revision will be taken into account to compute the consumer package ID
+- ``recipe_revision_mode()``: The full reference and the package ID of the dependencies,
+  `pkg/version@user/channel#RREV:pkg_id` (including the recipe revision), will be taken
+  into account to compute the consumer package ID
 
  .. code-block:: text
 
