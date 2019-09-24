@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.18.5 (24-Sept-2019)
+---------------------
+
+- Bugfix: A `bug <https://github.com/urllib3/urllib3/issues/1683>`_ in `urllib3` caused bad encoded URLs causing failures when using any repository from Bintray, like `conan-center`. `#5801 <https://github.com/conan-io/conan/pull/5801>`_
+
+
 1.18.4 (12-Sept-2019)
 ---------------------
 
