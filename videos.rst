@@ -15,7 +15,7 @@ Videos and links
 =================
 
 
-- NDC TechTown: Using Conan in a real-world complex project by Kristian Jerpetjøn.
+- NDC TechTown 2019: Using Conan in a real-world complex project by Kristian Jerpetjøn.
 
   .. raw:: html
 
