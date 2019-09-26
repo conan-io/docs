@@ -14,6 +14,17 @@
 Videos and links
 =================
 
+
+- NDC TechTown 2019: Using Conan in a real-world complex project by Kristian Jerpetjøn.
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/h_5C_9hZIN0" frameborder="0" allow="autoplay; encrypted-media; allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+
 - Meeting Embedded 2018: "Continuous Integration of C/C++ for embedded and IoT with Jenkins, Docker and Conan" by Diego Rodriguez-Losada and Daniel Manzaneque.
 
   .. raw:: html
