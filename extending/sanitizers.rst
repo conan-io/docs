@@ -82,7 +82,7 @@ Here again, we have multiple choices to pass sanitizers information to the compi
 Using from custom profiles
 ##########################
 
-It is possible to have different custom profiles defining the compiler sanitizer option and
+It is possible to have different custom profiles defining the compiler sanitizer setting and
 environment variables to inject that information to the compiler, and then passing those profiles to
 Conan commands. An example of this would be a profile like:
 
