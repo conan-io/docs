@@ -28,7 +28,7 @@ Adding a list of commonly used options
 ######################################
 
 If you have a fixed set of sanitizers or combinations of them that are the ones you usually set for
-your builds you can add the sanitizers as a list of options. An example for *apple-clang* would be
+your builds you can add the sanitizers as a list of values. An example for *apple-clang* would be
 like this:
 
 .. code-block:: yaml
