@@ -54,7 +54,7 @@ Adding thread sanitizer for a :command:`conan install`, in this case, could be d
 Adding different options to combine
 ###################################
 
-Another option would be to add the sanitizer options as multiple ``True`` or ``None`` fields so that
+Another option would be to add the sanitizer values as multiple ``True`` or ``None`` fields so that
 they can be freely combined later. An example of that for the previous sanitizer options would be as
 follows:
 
