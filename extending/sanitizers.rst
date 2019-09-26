@@ -51,7 +51,7 @@ same program.
 Adding thread sanitizer for a :command:`conan install`, in this case, could be done by calling
 :command:`conan install .. -s compiler.sanitizer=Thread`
 
-Adding different options to combine
+Adding different values to combine
 ###################################
 
 Another option would be to add the sanitizer values as multiple ``True`` or ``None`` fields so that
