@@ -40,7 +40,7 @@ like this:
                   "9.0", "9.1", "10.0", "11.0"]
         libcxx: [libstdc++, libc++]
         cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
-        sanitizer: [None, Address, Thread, UndefinedBehavior, AddressUndefinedBehavior]
+        sanitizer: [None, Address, Thread, Memory, UndefinedBehavior, AddressUndefinedBehavior]
 
 Here you have modeled the use of ``-fsanitize=address``, ``-fsanitize=thread``,
 ``-fsanitize=memory``, ``-fsanitize=undefined`` and the combination of ``-fsanitize=address`` and
