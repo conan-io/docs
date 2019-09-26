@@ -17,7 +17,7 @@ There are three ways to install Conan:
 Install with pip (recommended)
 ------------------------------
 
-To install Conan using ``pip``, you need Python 2.7 or 3.X distribution installed on your machine. Modern Python distros come
+To install Conan using ``pip``, you need Python 2.7 or >= 3.5 distribution installed on your machine. Python 3.4 support has been dropped. Modern Python distros come
 with pip pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
 
 .. warning::
@@ -35,7 +35,7 @@ Install Conan:
 
     **Please READ carefully**
 
-    - Make sure that your **pip** installation matches your **Python (2.7 or 3.X)** version.
+    - Make sure that your **pip** installation matches your **Python (2.7 or >= 3.5)** version. Python 3.4 support has been dropped.
     - In **Linux**, you may need **sudo** permissions to install Conan globally.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python.
       (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ in Windows)
@@ -46,9 +46,6 @@ Install Conan:
       of 64 bit.
     - In **OSX**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or
       install with another user ``$ pip install --user conan``.
-    - If you are using Windows and Python <3.5, you may have issues if Python is installed in a path with spaces, such as
-      "C:/Program Files(x86)/Python". This is a known Python limitation, and is not related to Conan. Try installing Python in a path without spaces, use a
-      virtualenv in another location or upgrade your Python installation.
     - Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
     - In Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
@@ -57,15 +54,6 @@ Install Conan:
 
 Known installation issues with pip
 ++++++++++++++++++++++++++++++++++
-
-- With Python 3.4 the installation sometimes fails with ``NameError: name 'implementation_name' is not defined``. This issue seems to
-  happen when using `pip` without a virtual environment. You can fix it by upgrading `pip` this way:
-
-  .. code-block:: bash
-
-      $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-      $ python3.4 get-pip.py
-      $ pip install conan
 
 - When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory
   is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved restarting the session of
