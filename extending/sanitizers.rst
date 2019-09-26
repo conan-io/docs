@@ -74,6 +74,9 @@ follows:
 Then, you can add different sanitizers calling, for example, to :command:`conan install ..
 -s compiler.address_sanitizer=True -s compiler.undefined_sanitizer=True`
 
+A drawback of this approach is that not all the combinations will be valid or will make sense, but it
+is up to the consumer to use it correctly.
+
 Passing the information to the compiler or build system
 -------------------------------------------------------
 
