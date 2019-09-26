@@ -24,7 +24,7 @@ information).
 Sanitizer options should be modeled as sub-settings of the compiler. Depending on how you want to
 combine the sanitizers you have two choices.
 
-Adding a list of commonly used options
+Adding a list of commonly used values
 ######################################
 
 If you have a fixed set of sanitizers or combinations of them that are the ones you usually set for
