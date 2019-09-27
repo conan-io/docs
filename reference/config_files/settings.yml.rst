@@ -59,7 +59,7 @@ are possible. These are the **default** values, but it is possible to customize 
                       "6", "6.1", "6.2", "6.3", "6.4",
                       "7", "7.1", "7.2", "7.3",
                       "8", "8.1", "8.2", "8.3",
-                      "9", "9.1"]
+                      "9", "9.1", "9.2"]
             libcxx: [libstdc++, libstdc++11]
             threads: [None, posix, win32] #  Windows MinGW
             exception: [None, dwarf2, sjlj, seh] # Windows MinGW
@@ -75,7 +75,7 @@ are possible. These are the **default** values, but it is possible to customize 
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                       "5.0", "6.0", "7.0",
-                      "8"]
+                      "8", "9"]
             libcxx: [libstdc++, libstdc++11, libc++, c++_shared, c++_static]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         apple-clang:
@@ -94,7 +94,7 @@ spelling as well as defining a common settings model among users and the OSS com
 If a setting is allowed to be set to any value, you can use ``ANY``.
 If a setting is allowed to be set to any value or it can also be unset, you can use ``[None, ANY]``.
 
-However, this configuration file can be you can modified to any needs, including new settings or subsettings and their values. If you want
+However, this configuration file can be modified to any needs, including new settings or subsettings and their values. If you want
 to distribute a unified *settings.yml* file you can use the :ref:`conan config install command<conan_config_install>`.
 
 .. note::

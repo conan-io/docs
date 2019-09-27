@@ -28,8 +28,9 @@ tools.cpu_count()
 
     def tools.cpu_count()
 
-Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. Can be
-overwritten with the environment variable :ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
+Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. When
+running in Docker, it reads cgroup to detect the configured number of CPUs. It Can be overwritten with the environment variable
+:ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
 
 .. _tools_vcvars_command:
 
@@ -331,7 +332,7 @@ Parameters:
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
-      https://2.python-requests.org/en/master/user/authentication/
+      https://requests.kennethreitz.org//en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_get_env:
@@ -414,7 +415,7 @@ Parameters:
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
-      ``requests`` Python library. Check other uses here: https://2.python-requests.org/en/master/user/authentication/
+      ``requests`` Python library. Check other uses here: https://requests.kennethreitz.org//en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_ftp_download:

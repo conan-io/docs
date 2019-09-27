@@ -18,28 +18,28 @@ Generated files
 ---------------
 
 For each conan package in your graph, it will generate 2 files and 1 more per different ``build_type``.
-Being {name} the package name:
+Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name``:
 
-+------------------------------------+--------------------------------------------------------------------------------------+
-| NAME                               | CONTENTS                                                                             |
-+====================================+======================================================================================+
-| {name}Config.cmake                 | It includes the {name}Targets.cmake and call find_dependency for each dep            |
-+------------------------------------+--------------------------------------------------------------------------------------+
-| {name}Targets.cmake                | It includes the following files                                                      |
-+------------------------------------+--------------------------------------------------------------------------------------+
-| {name}Targets-debug.cmake          | Specific information for the Debug configuration                                     |
-+------------------------------------+--------------------------------------------------------------------------------------+
-| {name}Targets-release.cmake        | Specific information for the Release configuration                                   |
-+------------------------------------+--------------------------------------------------------------------------------------+
-| {name}Targets-relwithdebinfo.cmake | Specific information for the RelWithDebInfo configuration                            |
-+------------------------------------+--------------------------------------------------------------------------------------+
-| {name}Targets-minsizerel.cmake     | Specific information for the MinSizeRel configuration                                |
-+------------------------------------+--------------------------------------------------------------------------------------+
++----------------------------------------+--------------------------------------------------------------------------------------+
+| NAME                                   | CONTENTS                                                                             |
++========================================+======================================================================================+
+| <PKG-NAME>Config.cmake                 | It includes the <PKG-NAME>Targets.cmake and call find_dependency for each dep        |
++----------------------------------------+--------------------------------------------------------------------------------------+
+| <PKG-NAME>Targets.cmake                | It includes the following files                                                      |
++----------------------------------------+--------------------------------------------------------------------------------------+
+| <PKG-NAME>Targets-debug.cmake          | Specific information for the Debug configuration                                     |
++----------------------------------------+--------------------------------------------------------------------------------------+
+| <PKG-NAME>Targets-release.cmake        | Specific information for the Release configuration                                   |
++----------------------------------------+--------------------------------------------------------------------------------------+
+| <PKG-NAME>Targets-relwithdebinfo.cmake | Specific information for the RelWithDebInfo configuration                            |
++----------------------------------------+--------------------------------------------------------------------------------------+
+| <PKG-NAME>Targets-minsizerel.cmake     | Specific information for the MinSizeRel configuration                                |
++----------------------------------------+--------------------------------------------------------------------------------------+
 
 Targets
 -------
 
-A target named ``{name}::{name}`` target is generated with the following properties adjusted:
+A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following properties adjusted:
 
 - ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the package.
 - ``INTERFACE_LINK_LIBRARIES``: Library paths to link.
@@ -50,12 +50,12 @@ is declared like this:
 
 .. code-block:: cmake
 
-        set_property(TARGET {name}::{name}
+        set_property(TARGET <PKG-NAME>::<PKG-NAME>
                  PROPERTY INTERFACE_COMPILE_OPTIONS
-                     $<$<CONFIG:Release>:${{{name}_COMPILE_OPTIONS_RELEASE_LIST}}>
-                     $<$<CONFIG:RelWithDebInfo>:${{{name}_COMPILE_OPTIONS_RELWITHDEBINFO_LIST}}>
-                     $<$<CONFIG:MinSizeRel>:${{{name}_COMPILE_OPTIONS_MINSIZEREL_LIST}}>
-                     $<$<CONFIG:Debug>:${{{name}_COMPILE_OPTIONS_DEBUG_LIST}}>)
+                     $<$<CONFIG:Release>:${{<PKG-NAME>_COMPILE_OPTIONS_RELEASE_LIST}}>
+                     $<$<CONFIG:RelWithDebInfo>:${{<PKG-NAME>_COMPILE_OPTIONS_RELWITHDEBINFO_LIST}}>
+                     $<$<CONFIG:MinSizeRel>:${{<PKG-NAME>_COMPILE_OPTIONS_MINSIZEREL_LIST}}>
+                     $<$<CONFIG:Debug>:${{<PKG-NAME>_COMPILE_OPTIONS_DEBUG_LIST}}>)
 
 The targets are also transitive. So, if your project depends on a packages ``A`` and ``B``, and at the same time
 ``A`` depends on ``C``, the ``A`` target will contain automatically the properties of the ``C`` dependency, so
@@ -64,11 +64,11 @@ in your `CMakeLists.txt` file you only need to ``find_package(A CONFIG)`` and ``
 .. important::
 
     Add the ``CONFIG`` option to ``find_package`` so that *module mode* is explicitly skipped by CMake. 
-    This helps to solve issues when there is for example a ``FindXXXX.cmake`` file in CMake's default modules directory 
-    that could be loaded instead of the ``XXXXConfig.cmake`` generated by Conan. 
+    This helps to solve issues when there is for example a ``Find<PKG-NAME>.cmake`` file in CMake's default modules directory 
+    that could be loaded instead of the ``<PKG-NAME>Config.cmake`` generated by Conan. 
 
 You also need to adjust `CMAKE_PREFIX_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_PREFIX_PATH.html>`_ and
 `CMAKE_MODULE_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html>`_ so CMake can locate all
-the ``{name}Config.cmake`` files: The ``CMAKE_PREFIX_PATH`` is used by the ``find_package`` and the ``CMAKE_MODULE_PATH`` is used by the
+the ``<PKG-NAME>Config.cmake`` files: The ``CMAKE_PREFIX_PATH`` is used by the ``find_package`` and the ``CMAKE_MODULE_PATH`` is used by the
 ``find_dependency`` calls that locates the transitive dependencies.
 

@@ -201,6 +201,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 
 .. code-block:: python
 
+    self.cpp_info.name = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
@@ -213,6 +214,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
 
+- **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
   initialized to ``['include']``, and it is rarely changed.
 - **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
