@@ -132,6 +132,11 @@ The response should be similar to:
       info       Gets information about the dependency graph of a recipe.
       ...
 
+.. tip::
+
+    If you are using Bash, there is a bash autocompletion project created by the community for Conan commands:
+    https://gitlab.com/akim.saidani/conan-bashcompletion
+
 Install from source
 -------------------
 
