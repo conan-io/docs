@@ -881,6 +881,10 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.exelinkflags     | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks       | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs    | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.name             | | Alternative name for the package used by generators to create files or variables.                     |
@@ -915,6 +919,8 @@ absolute paths:
 | self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.framework_paths             | Same as ``frameworkdirs`` but transformed to absolute paths         |
 +-------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
