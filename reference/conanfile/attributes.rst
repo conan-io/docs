@@ -1237,4 +1237,28 @@ workspace.:
             pyreq = self.python_requires['pyreq']
             self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
 
+.. _conandata_attribute:
 
+conandata
+---------
+
+This attribute is a dictionary with the keys and values provided in a :ref:`conandata_yml` file format placed next to the *conanfile.py*.
+This YAML file is automatically exported with the recipe and automatically loaded with it too.
+
+You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.
+For example, a *conandata.yml* with information about sources that looks like this:
+
+.. code-block:: YAML
+
+    sources:
+      "1.1.0":
+        url: "https://www.url.org/source/mylib-1.0.0.tar.gz"
+        sha256: "8c48baf3babe0d505d16cfc0cf272589c66d3624264098213db0fb00034728e9"
+      "1.1.1":
+        url: "https://www.url.org/source/mylib-1.0.1.tar.gz"
+        sha256: "15b6393c20030aab02c8e2fe0243cb1d1d18062f6c095d67bca91871dc7f324a"
+
+.. code-block:: python
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])
