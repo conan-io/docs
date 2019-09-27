@@ -7,7 +7,7 @@ This YAML file can be used to in the recipe to declare specific information to b
 recipe *conanfile.py* and it should be placed next to it. The file is automatically exported with the recipe (no need to add it to
 :ref:`exports_attribute` attribute) and its content is loaded into the :ref:`conandata_attribute` attribute of the recipe.
 
-This file can be used to declare a list of sources links and checksums for the recipe or a list patches to apply to them.
+This file can be used, for example, to declare a list of sources links and checksums for the recipe or a list patches to apply to them, but you can use it to store any data you want to extract from the recipe.
 For example:
 
 .. code-block:: YAML
