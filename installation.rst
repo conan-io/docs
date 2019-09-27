@@ -134,7 +134,7 @@ The response should be similar to:
 
 .. tip::
 
-    If you are using Bash, there is a bash autocompletion project created by the community for Conan: 
+    If you are using Bash, there is a bash autocompletion project created by the community for Conan commands:
     https://gitlab.com/akim.saidani/conan-bashcompletion
 
 Install from source
