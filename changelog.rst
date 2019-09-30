@@ -22,6 +22,39 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.19.0 (30-Sept-2019)
+---------------------
+
+- Feature: Update settings.yml file with macOS, watchOS, tvOS, iOS version numbers `#5823 <https://github.com/conan-io/conan/pull/5823>`_
+- Feature: Add clang 9 to the settings.yml file `#5786 <https://github.com/conan-io/conan/pull/5786>`_ . Docs `here <https://github.com/conan-io/docs/pull/1420>`__
+- Feature: Show suggestions when typing an incorrect command conan command. `#5725 <https://github.com/conan-io/conan/pull/5725>`_
+- Feature: Client support for using refresh tokens in the auth process with Artifactory. `#5662 <https://github.com/conan-io/conan/pull/5662>`_
+- Feature: Add GCC  9.2 to default settings.yml file `#5650 <https://github.com/conan-io/conan/pull/5650>`_ . Docs `here <https://github.com/conan-io/docs/pull/1394>`__
+- Feature: Add subcommand for enabling and disabling remotes `#5623 <https://github.com/conan-io/conan/pull/5623>`_ . Docs `here <https://github.com/conan-io/docs/pull/1392>`__
+- Feature: New `conan config home` command for getting Conan home directory `#5613 <https://github.com/conan-io/conan/pull/5613>`_ . Docs `here <https://github.com/conan-io/docs/pull/1387>`__
+- Feature: Adds `name` attribute to `CppInfo` and use `cpp_info.name` in all CMake and pkg-config generators as the find scripts files names, target names, etc. `#5598 <https://github.com/conan-io/conan/pull/5598>`_ . Docs `here <https://github.com/conan-io/docs/pull/1393>`__
+- Feature: Enhanced vs-generator by providing more properties that can be referenced by other projects; added library paths also to <Lib> so it's possible to compile static libraries that reference other libs `#5564 <https://github.com/conan-io/conan/pull/5564>`_
+- Feature: Better support OSX frameworks by declaring `cppinfo.frameworks`. `#5552 <https://github.com/conan-io/conan/pull/5552>`_ . Docs `here <https://github.com/conan-io/docs/pull/1414>`__
+- Feature: Virtual environment generator for gathering only the PYTHONPATH. `#5511 <https://github.com/conan-io/conan/pull/5511>`_ . Docs `here <https://github.com/conan-io/docs/pull/1369>`__
+- Fix: :command:`conan upload` with a reference without user and channel and package id ``name/version:package_id`` should work `#5824 <https://github.com/conan-io/conan/pull/5824>`_
+- Fix: Dropped support for python 3.4.  That version is widely being dropped by the python community. Since Conan 1.19, the tests won't be run with python 3.4 and we won't be aware if something is not working correctly. `#5820 <https://github.com/conan-io/conan/pull/5820>`_ . Docs `here <https://github.com/conan-io/docs/pull/1424>`__
+- Fix: Apply lockfile to the node before updating with downstream requirements `#5771 <https://github.com/conan-io/conan/pull/5771>`_
+- Fix: Make :command:`conan new` generate default options as a dictionary `#5767 <https://github.com/conan-io/conan/pull/5767>`_
+- Fix: Output  search result for remotes in order by version, as local search `#5723 <https://github.com/conan-io/conan/pull/5723>`_
+- Fix: Excluded also `ftp_proxy` and `all_proxy` variables from the environment when proxy configuration is specified in the `conan.conf` file. `#5697 <https://github.com/conan-io/conan/pull/5697>`_
+- Fix: Relax restriction on the future python dependency `#5692 <https://github.com/conan-io/conan/pull/5692>`_
+- Fix: Call `post_package` hook before computing the manifest `#5647 <https://github.com/conan-io/conan/pull/5647>`_
+- Fix: Show friendly message when can't get remote path `#5638 <https://github.com/conan-io/conan/pull/5638>`_
+- Fix: Detect the number of CPUs used by Docker (#5464) `#5466 <https://github.com/conan-io/conan/pull/5466>`_ . Docs `here <https://github.com/conan-io/docs/pull/1359>`__
+- Bugfix: Set Ninja to use `cpu_count` value when building with `parallel` option with CMake `#5832 <https://github.com/conan-io/conan/pull/5832>`_
+- Bugfix: output of references without user/channel is done with _/_, like in lockfiles. `#5817 <https://github.com/conan-io/conan/pull/5817>`_
+- Bugfix: A lockfile generated from a consumer should be able to generate a build-order too. `#5800 <https://github.com/conan-io/conan/pull/5800>`_
+- Bugfix: Fix system detection on Solaris. `#5630 <https://github.com/conan-io/conan/pull/5630>`_
+- Bugfix: `SVN` uses `username` and `password` if provided `#5601 <https://github.com/conan-io/conan/pull/5601>`_
+- Bugfix: Use the final package folder as the `conanfile.package_folder` attribute for the `pre_package` hook. `#5600 <https://github.com/conan-io/conan/pull/5600>`_
+- BugFix: Fix crash with custom generators using ``install_folder`` `#5569 <https://github.com/conan-io/conan/pull/5569>`_
+
+
 1.18.5 (24-Sept-2019)
 ---------------------
 

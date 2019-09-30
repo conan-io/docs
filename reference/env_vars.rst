@@ -75,7 +75,7 @@ CMake generator. Note that this is not a package settings, building it with make
 build system, as Ninja, should lead to the same binary if using appropriately the same
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
-So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
+So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value
 to your desired CMake generator (as ``Ninja``).
 
 CONAN_CMAKE_GENERATOR_PLATFORM
@@ -494,15 +494,15 @@ Set it with an absolute path to a file.
 
     export CONAN_TRACE_FILE=/tmp/conan_trace.log
 
-When the Conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+When the Conan command is executed, some traces will be appended to the specified file.
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions,
 ``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
 
 The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
 
 .. seealso::
 
-    Read more here: :ref:`logging_and_debugging` 
+    Read more here: :ref:`logging_and_debugging`
 
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
@@ -614,3 +614,12 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 **Defaulted to**: ``False``/``0``
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
+
+
+CONAN_PYLINT_WERR
+-----------------
+
+**Defaulted to**: Not defined
+
+This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
+any inconsistency found in the recipe will break the process during linter analysis.
