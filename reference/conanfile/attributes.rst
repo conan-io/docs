@@ -881,7 +881,15 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.exelinkflags     | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks       | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs    | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name             | | Alternative name for the package used by generators to create files or variables.                     |
+|                                | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
+|                                | | `cmake_find_package_multi` and `pkg_config` generators.                                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
@@ -911,6 +919,8 @@ absolute paths:
 | self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.framework_paths             | Same as ``frameworkdirs`` but transformed to absolute paths         |
 +-------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
@@ -1233,4 +1243,28 @@ workspace.:
             pyreq = self.python_requires['pyreq']
             self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
 
+.. _conandata_attribute:
 
+conandata
+---------
+
+This attribute is a dictionary with the keys and values provided in a :ref:`conandata_yml` file format placed next to the *conanfile.py*.
+This YAML file is automatically exported with the recipe and automatically loaded with it too.
+
+You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.
+For example, a *conandata.yml* with information about sources that looks like this:
+
+.. code-block:: YAML
+
+    sources:
+      "1.1.0":
+        url: "https://www.url.org/source/mylib-1.0.0.tar.gz"
+        sha256: "8c48baf3babe0d505d16cfc0cf272589c66d3624264098213db0fb00034728e9"
+      "1.1.1":
+        url: "https://www.url.org/source/mylib-1.0.1.tar.gz"
+        sha256: "15b6393c20030aab02c8e2fe0243cb1d1d18062f6c095d67bca91871dc7f324a"
+
+.. code-block:: python
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])

@@ -111,5 +111,14 @@ Videos and links
 
       <br/><br/>
 
+- CppRussia 2019: "ABI compatibility is not a MAJOR problem" by Javier Garcia Sogo
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/watch?v=aqQT3J16OxI" frameborder="0" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
 Do you have a video, tutorial, blog post that could be useful for other users and would like to share?
 Please tell us about it or directly send a PR to our docs: https://github.com/conan-io/docs, and we will link it here.

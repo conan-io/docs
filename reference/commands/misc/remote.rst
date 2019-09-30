@@ -32,6 +32,8 @@ Manages the remote list and the package recipes associated to a remote.
         update_pref         Update the remote associated with a binary package
         clean               Clean the list of remotes and all recipe-remote
                             associations
+        enable              Enable a remote
+        disable             Disable a remote
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -143,6 +145,13 @@ the command will insert the remote in the specified position
   .. code-block:: bash
 
       $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
+
+- Enable or disable remotes (accepts patterns such as ``*`` as argument using Unix shell-style wildcards):
+
+  .. code-block:: bash
+
+      $ conan remote disable *
+      $ conan remote enable local-remote
 
 .. note::
 

@@ -36,6 +36,7 @@ Available generators:
    generators/scons
    generators/pkg_config
    generators/virtualenv
+   generators/virtualenv_python
    generators/virtualbuildenv
    generators/virtualrunenv
    generators/ycm

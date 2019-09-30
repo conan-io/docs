@@ -1,19 +1,13 @@
-.. _virtualrunenv_generator:
+.. _virtualenv_python_generator:
 
-virtualrunenv
-=============
-
-.. container:: out_reference_box
-
-    This is the reference page for ``virtualrunenv`` generator.
-    Go to :ref:`Mastering/Virtual Environments<virtual_environment_generator>` if you want to learn how to use conan virtual environments.
-
+virtualenv_python
+=================
 
 Created files
 -------------
 
-- activate_run.{sh|bat}
-- deactivate_run.{sh|bat}
+- activate_run_python.{sh|bat}
+- deactivate_run_python.{sh|bat}
 
 Usage
 -----
@@ -22,14 +16,14 @@ Linux/macOS:
 
 .. code-block:: bash
 
-    > source activate_run.sh
+    > source activate_run_python.sh
 
 
 Windows:
 
 .. code-block:: bash
 
-    > activate_run.bat
+    > activate_run_python.bat
 
 
 
@@ -41,9 +35,10 @@ Variables declared
 +====================+=====================================================================+
 | PATH               | With every ``bin`` folder of your requirements.                     |
 +--------------------+---------------------------------------------------------------------+
+| PYTHONPATH         | Union of ``PYTHONPATH`` of your requirements.                       |
++--------------------+---------------------------------------------------------------------+
 | LD_LIBRARY_PATH    | ``lib`` folders of  your requirements.                              |
 +--------------------+---------------------------------------------------------------------+
 | DYLD_LIBRARY_PATH  | ``lib`` folders of  your requirements.                              |
 +--------------------+---------------------------------------------------------------------+
-| DYLD_FRAMEWORK_PATH| ``framework_paths`` folders of  your requirements.                  |
-+--------------------+---------------------------------------------------------------------+
+

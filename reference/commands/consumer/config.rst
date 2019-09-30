@@ -10,7 +10,7 @@ conan config
 
 .. code-block:: bash
 
-    $ conan config [-h] {rm,set,get,install} ...
+    $ conan config [-h] {get,home,install,rm,set} ...
 
 Manages Conan configuration.
 
@@ -19,12 +19,14 @@ Used to edit conan.conf, or install config files.
 .. code-block:: text
 
     positional arguments:
-      {rm,set,get,install}  sub-command help
+      {get,home,install,rm,set}
+                            sub-command help
+        get                 Get the value of configuration item
+        home                Retrieve the Conan home directory
+        install             Install a full configuration from a local or remote
+                            zip file
         rm                  Remove an existing config element
         set                 Set a value for a configuration item
-        get                 Get the value of configuration item
-        install             install a full configuration from a local or remote
-                            zip file
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -44,6 +46,13 @@ Used to edit conan.conf, or install config files.
 
       $ conan config get log.level
       $> 10
+
+- Get the Conan home directory:
+
+  .. code-block:: bash
+
+      $ conan config home
+      $> /home/user/.conan
 
 .. _conan_config_install:
 
