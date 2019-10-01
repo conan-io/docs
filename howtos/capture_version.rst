@@ -1,3 +1,12 @@
+When is the version computed and saved
+======================================
+
+The version of a recipe is stored in the package metadata when it is exported and always taken from
+the metadata later on.
+
+On the other hand the version of a recipe is a class attribute that is evaluated everytime that the
+recipe is parsed. For this reason it is important that computing it never raises an exception, even
+if its value is ignored.
 
 How to capture package version from SCM: git
 ============================================
@@ -24,8 +33,8 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/branch_commit@user/channel``. Note that the version is taken from the package metadata when
-the recipe is already in the Conan cache.
+``Hello/branch_commit@user/channel``. Note: this function should never raise, see the section about
+when the version is computed and saved above.
 
 How to capture package version from SCM: svn
 ============================================
@@ -59,8 +68,8 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/generated_version@user/channel``. Note that the version is taken from the package metadata
-when the recipe is already in the Conan cache.
+``Hello/generated_version@user/channel``. Note: this function should never raise, see the section
+about when the version is computed and saved above.
 
 How to capture package version from text or build files
 =======================================================
@@ -119,5 +128,5 @@ However, if you only want to have to update the *CMakeLists.txt* version, you ca
         name = "Hello"
         version = get_version()
 
-Note that the version is taken from the package metadata when the recipe is already in the Conan
- cache.
+Note: this function should never raise, see the section about when the version is computed and saved
+above.
