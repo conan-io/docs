@@ -4,7 +4,7 @@ Getting Started
 ===============
 
 To start learning about creating packages, we will create a package from the existing source code
-repository: https://github.com/memsharded/hello. You can check that project, it is a very simple
+repository: https://github.com/conan-io/hello. You can check that project, it is a very simple
 "hello world" C++ library, using CMake as the build system to build a library and an executable. It does not contain
 any association with Conan.
 
@@ -14,7 +14,7 @@ code origins, like downloading a zip or tarball from the internet.
 .. note::
 
     For this concrete example you will need, besides a C++ compiler, both *CMake* and *git*
-    installed and in your path. They are not required by conan, so you could use your own build system
+    installed and in your path. They are not required by Conan, so you could use your own build system
     and version control instead.
 
 Creating the Package Recipe
@@ -61,8 +61,7 @@ Let's have a look at the root package recipe *conanfile.py*:
         generators = "cmake"
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
-            self.run("cd hello && git checkout static_shared")
+            self.run("git clone https://github.com/conan-io/hello.git")
             # This small hack might be useful to guarantee proper /MT /MD linkage
             # in MSVC if the packaged project doesn't have variables to set it
             # properly
@@ -221,7 +220,7 @@ If "Hello world!" is displayed, it worked.
 
 The :command:`conan create` command does the following:
 
-- Copies ("export" in conan terms) the *conanfile.py* from the user folder into the **local cache**.
+- Copies ("export" in Conan terms) the *conanfile.py* from the user folder into the **local cache**.
 - Installs the package, forcing it to be built from the sources.
 - Moves to the *test_package* folder and creates a temporary *build* folder.
 - Executes the :command:`conan install ..`, to install the requirements of the
@@ -249,6 +248,82 @@ test packages for different configurations, you could:
     $ conan create . demo/testing -pr my_gcc49_debug_profile
     ...
     $ conan create ...
+
+
+.. _create_omit_user_channel:
+
+Omitting user/channel
+_____________________
+
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+You can create a package omitting the ``user`` and the ``channel``:
+
+
+.. code-block:: bash
+
+    $ conan create .
+
+
+To reference that package, you have to omit also the ``user`` and the ``channel``.
+
+Examples
+........
+
+- Specifying requirements in your recipes:
+
+   .. code-block:: python
+      :emphasize-lines: 3
+
+       class HelloTestConan(ConanFile):
+           settings = "os", "compiler", "build_type", "arch"
+           requires = "packagename/1.0"
+
+           ...
+
+- Installing individual packages. The ``conan install`` command we have to use the syntax (always valid) of ``packagename/1.0@`` to disambiguate the
+  argument that also can be used to specify a path:
+
+      .. code-block:: bash
+
+          $ conan install packagename/1.0@
+
+
+- Searching for the binary packages of a reference. The ``conan search`` command requires to use the syntax (always valid) of ``packagename/1.0@`` to
+  disambiguate the usage of a pattern:
+
+
+      .. code-block:: bash
+
+          $ conan search packagename/1.0@
+
+
+         Existing packages for recipe packagename/1.0:
+
+          Package_ID: 9bfdcfa2bb925892ecf42e2a018a3f3529826676
+              [settings]
+                  arch: x86_64
+                  build_type: Release
+                  compiler: gcc
+                  compiler.libcxx: libstdc++11
+                  compiler.version: 7
+                  os: Linux
+              Outdated from recipe: False
+
+- Removing packages:
+
+      .. code-block:: bash
+
+          $ conan remove packagename/1.0
+
+- Uploading packages:
+
+      .. code-block:: bash
+
+          $ conan upload packagename/1.0
 
 
 .. _settings_vs_options:

@@ -11,10 +11,12 @@ conan build
                   [-sf SOURCE_FOLDER]
                   path
 
-Calls your local conanfile.py 'build()' method. The recipe will be built in
-the local directory specified by --build-folder, reading the sources from
---source-folder. If you are using a build helper, like CMake(), the --package-
-folder will be configured as destination folder for the install step.
+Calls your local conanfile.py 'build()' method.
+
+The recipe will be built in the local directory specified by
+--build-folder, reading the sources from --source-folder. If you are
+using a build helper, like CMake(), the --package-folder will be
+configured as destination folder for the install step.
 
 .. code-block:: text
 
@@ -82,7 +84,7 @@ by default, but that will change if some of these arguments are used in the comm
         ...
 
         def source(self):
-            self.run("git clone https://github.com/memsharded/hello.git")
+            self.run("git clone https://github.com/conan-io/hello.git")
 
         def build(self):
             cmake = CMake(self)

@@ -3,25 +3,27 @@ import platform
 import subprocess
 import sys
 
-commands = ["config", "get", "info", "install", "search", "create", "export-pkg", "export", "new",
-            "test", "upload", "build", "package", "source", "alias", "copy", "download", "help",
-            "imports", "inspect", "profile", "remote", "remove", "user"]
-
 folder = {
     "config": "consumer",
     "get": "consumer",
     "info": "consumer",
     "install": "consumer",
     "search": "consumer",
+
     "create": "creator",
     "export-pkg": "creator",
     "export": "creator",
     "new": "creator",
     "test": "creator",
     "upload": "creator",
+
     "build": "development",
     "package": "development",
     "source": "development",
+    "editable": "development",
+    "workspace": "development",
+
+
     "alias": "misc",
     "copy": "misc",
     "download": "misc",
@@ -31,8 +33,13 @@ folder = {
     "profile": "misc",
     "remote": "misc",
     "remove": "misc",
-    "user": "misc"
+    "user": "misc",
+    "graph": "misc",
 }
+
+experimental = ["inspect"]
+commands = folder.keys()
+
 
 conan_name = ""
 try:
@@ -44,15 +51,16 @@ template = """.. _conan_{0}:
 
 conan {0}
 ======{1}
-
+{2}
 .. code-block:: bash
 
-    $ {2}
-{3}
+    $ {3}
+{4}
 
 .. code-block:: text
 
-{4}"""
+{5}"""
+
 
 for command in commands:
     execute = [conan_name, command, "-h"]
@@ -61,7 +69,7 @@ for command in commands:
     output = output.rstrip()
     search_string = "conan %s [-h]" % command
     output = search_string + output.split(search_string)[1]
-    output = output.split("\\r\\n\\r\\n" if platform.system() == "Windows" else "\n\n", 2)
+    output = output.split("\\r\\n\\r\\n" if platform.system() == "Windows" else "\\n\\n", 2)
 
     underline = ""
     for char in command:
@@ -75,8 +83,15 @@ for command in commands:
 
     text_help = output[1].replace("\\r", "").replace("\\n", "\n").rstrip()
 
+    if output[2].startswith("positional arguments"):
+        args_text = output[2]
+    else:
+        tmp = output[2].split("positional arguments")
+        text_help += "\n\n" + tmp[0].replace("\\r", "").replace("\\n", "\n").rstrip()
+        args_text = "positional arguments" + tmp[1]
+
     arguments_help = ""
-    for line in output[2].replace("\\r", "").replace("\\n", "\n").splitlines():
+    for line in args_text.replace("\\r", "").replace("\\n", "\n").splitlines():
         if line == "'" or line == "\"":
             continue
         arguments_help += ("    %s\n" % line) if line else "\n"
@@ -84,7 +99,14 @@ for command in commands:
     arguments_help = arguments_help.rstrip()
     print(arguments_help)
 
-    text = template.format(command, underline, small_help, text_help, arguments_help)
+    text_experimental = """
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
+""" if command in experimental else ""
+    text = template.format(command, underline, text_experimental, small_help, text_help,
+                           arguments_help)
     text = text.replace("\\'", "\'")
 
     filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), "reference", "commands",

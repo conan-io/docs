@@ -10,14 +10,14 @@ There are three ways to install Conan:
 
 1. The preferred and **strongly recommended way to install Conan** is from PyPI, the Python Package Index, using the ``pip`` command.
 2. There are other available installers for different systems, which might come with a bundled python interpreter, so that you don't have to
-   install python first. Note that some of **these installers might have some limitations**, specially those created with pyinstaller
+   install python first. Note that some of **these installers might have some limitations**, especially those created with pyinstaller
    (such as Windows exe & Linux deb).
 3. Running Conan from sources.
 
 Install with pip (recommended)
 ------------------------------
 
-To install Conan using ``pip``, you need Python 2.7 or 3.X distribution installed on your machine. Modern Python distros come
+To install Conan using ``pip``, you need Python 2.7 or >= 3.5 distribution installed on your machine. Python 3.4 support has been dropped. Modern Python distros come
 with pip pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
 
 .. warning::
@@ -35,33 +35,33 @@ Install Conan:
 
     **Please READ carefully**
 
-    - Make sure that your **pip** installation matches your **Python (2.7 or 3.X)** version.
+    - Make sure that your **pip** installation matches your **Python (2.7 or >= 3.5)** version. Python 3.4 support has been dropped.
     - In **Linux**, you may need **sudo** permissions to install Conan globally.
     - We strongly recommend using **virtualenvs** (virtualenvwrapper works great) for everything related to Python.
+      (check https://virtualenvwrapper.readthedocs.io/en/stable/, or https://pypi.org/project/virtualenvwrapper-win/ in Windows)
+      With Python 3, the built-in module ``venv`` can also be used instead (check https://docs.python.org/3/library/venv.html).
+      If not using a **virtualenv** it is possible that conan dependencies will conflict with previously existing dependencies,
+      especially if you are using Python for other purposes.
     - In **Windows** and Python 2.7, you may need to use **32bit** python distribution (which is the Windows default), instead
       of 64 bit.
     - In **OSX**, especially the latest versions that may have **System Integrity Protection**, pip may fail. Try using virtualenvs, or
       install with another user ``$ pip install --user conan``.
-    - If you are using Windows and Python <3.5, you may have issues if Python is installed in a path with spaces, such as
-      "C:/Program Files(x86)/Python". This is a known Python limitation, and is not related to Conan. Try installing Python in a path without spaces, use a
-      virtualenv in another location or upgrade your Python installation.
     - Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
       installation, so Conan is found in the path.
-    - Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
+    - In Windows, Python 3 installation can fail installing the ``wrapt`` dependency because of a bug in **pip**. Information about this issue and
       workarounds is available here: https://github.com/GrahamDumpleton/wrapt/issues/112.
     - Conan works with Python 2.7, but not all features are available when not using Python 3.x starting with version 1.6
 
 Known installation issues with pip
 ++++++++++++++++++++++++++++++++++
 
-- With Python 3.4 the installation sometimes fails with ``NameError: name 'implementation_name' is not defined``. This issue seems to
-  happen when using `pip` without a virtual environment. You can fix it by upgrading `pip` this way:
+- When Conan is installed with :command:`pip install --user <username>`, usually a new directory is created for it. However, the directory
+  is not appended automatically to the `PATH` and the :command:`conan` commands do not work. This can usually be solved restarting the session of
+  the terminal or running the following command:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    $ python3.4 get-pip.py
-    $ pip install conan
+      $ source ~/.profile
 
 Install from brew (OSX)
 -----------------------
@@ -114,11 +114,16 @@ The response should be similar to:
 .. code-block:: bash
 
     Consumer commands
-      install    Installs the requirements specified in a conanfile (.py or .txt).
-      config     Manages configuration. Edits the conan.conf or installs config files.
+      install    Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
+      config     Manages Conan configuration.
       get        Gets a file or list a directory of a given reference or package.
       info       Gets information about the dependency graph of a recipe.
       ...
+
+.. tip::
+
+    If you are using Bash, there is a bash autocompletion project created by the community for Conan commands:
+    https://gitlab.com/akim.saidani/conan-bashcompletion
 
 Install from source
 -------------------
@@ -182,7 +187,7 @@ All features of Conan until version 1.6 are fully supported in both Python 2 and
 that are only available in Python 3 or more easily available in Python 3 will be implemented and tested only in Python 3, and versions of
 Conan using Python 2 will not have access to that feature. This will be clearly described in code and documentation.
 
-If and when Conan 2.x is released (Not expected in 2018) the level of compatibility with Python 2 may be reduced further.
+If and when Conan 2.x is released, the level of compatibility with Python 2 may be reduced further.
 
 We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
 Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.

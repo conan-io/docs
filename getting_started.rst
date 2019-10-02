@@ -3,7 +3,7 @@
 Getting Started
 ===============
 
-Let's get started with an example: We are going to create a an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
+Let's get started with an example: We are going to create an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
 
 We'll use CMake as build system in this case but keep in mind that Conan **works with any build system** and is not limited to using CMake.
 
@@ -12,21 +12,14 @@ An MD5 Encrypter using the Poco Libraries
 
 .. note::
 
-    The source files to recreate this project are available in the following GitHub repository.
-    You can skip the manual creation of folder an sources with this command:
+    The source files to recreate this project are available in the `example repository`_ in GitHub.
+    You can skip the manual creation of the folder and sources with this command:
 
     .. code-block:: bash
 
-        $ git clone https://github.com/conan-community/poco-md5-example.git
+        $ git clone https://github.com/conan-io/examples.git && cd examples/libraries/poco/md5
 
-1. Let's create a folder for our project:
-
-    .. code-block:: bash
-
-        $ mkdir poco-md5-example
-        $ cd poco-md5-example
-
-2. Create the following source file inside this folder. This will be the source file of our application:
+1. Create the following source file inside a folder. This will be the source file of our application:
 
     .. code-block:: cpp
        :caption: **md5.cpp**
@@ -47,7 +40,7 @@ An MD5 Encrypter using the Poco Libraries
             return 0;
         }
 
-3. We know that our application relies on the Poco libraries. Let's look for it in the Conan Center remote:
+2. We know that our application relies on the Poco libraries. Let's look for it in the Conan Center remote:
 
     .. code-block:: bash
 
@@ -62,8 +55,10 @@ An MD5 Encrypter using the Poco Libraries
         Poco/1.8.0@pocoproject/stable
         Poco/1.8.1@pocoproject/stable
         Poco/1.9.0@pocoproject/stable
+        Poco/1.9.1@pocoproject/stable
+        Poco/1.9.2@pocoproject/stable
 
-4. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
+3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
 
     .. code-block:: bash
 
@@ -90,7 +85,7 @@ An MD5 Encrypter using the Poco Libraries
             shared: False
 
 
-5. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
+4. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
    our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
 
     .. code-block:: text
@@ -106,7 +101,7 @@ An MD5 Encrypter using the Poco Libraries
     *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build. Read more
     about :ref:`generators_reference`.
 
-6. Next step: We are going to install the required dependencies and generate the information for the build system:
+5. Next step: We are going to install the required dependencies and generate the information for the build system:
 
     .. important::
 
@@ -159,7 +154,7 @@ An MD5 Encrypter using the Poco Libraries
     Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. It has also generated a
     *conanbuildinfo.cmake* file for our build system.
 
-7. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
+6. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
 
     .. code-block:: cmake
        :caption: **CMakeLists.txt**
@@ -175,7 +170,7 @@ An MD5 Encrypter using the Poco Libraries
         add_executable(md5 md5.cpp)
         target_link_libraries(md5 ${CONAN_LIBS})
 
-8. Now we are ready to build and run our Encrypter app:
+7. Now we are ready to build and run our Encrypter app:
 
     .. code-block:: bash
 
@@ -207,12 +202,12 @@ requirements and optional information is saved.
 It is very important to understand the installation process. When the :command:`conan install` command runs, settings specified on the
 command line or taken from the defaults in *<userhome>/.conan/profiles/default* file are applied.
 
-.. image:: images/install_flow.png
+.. image:: images/conan-install_flow.png
    :height: 400 px
    :width: 500 px
    :align: center
 
-For example, the command :command:`conan install . --settings os="Linux" --settings compiler="gcc"`, performs these steps:
+For example, the command :command:`conan install .. --settings os="Linux" --settings compiler="gcc"`, performs these steps:
 
 - Checks if the package recipe (for ``Poco/1.9.0@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
   cache is empty.
@@ -224,7 +219,7 @@ For example, the command :command:`conan install . --settings os="Linux" --setti
 
 There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
 15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
-can build the binary package from sources using :command:`conan install --build=missing`, it will succeed if your configuration is
+can build the binary package from sources using :command:`conan install .. --build=missing`, it will succeed if your configuration is
 supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
 
 Inspecting Dependencies
@@ -266,7 +261,7 @@ There is also the possibility to generate a table for all package binaries avail
     $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
-.. image:: /images/search_binary_table.png
+.. image:: /images/conan-search_binary_table.png
     :height: 250 px
     :width: 300 px
     :align: center
@@ -330,7 +325,7 @@ Or generate a graph of your dependencies using Dot or HTML formats:
     $ conan info .. --graph=file.html
     $ file.html # or open the file, double-click
 
-.. image:: /images/info_deps_html_graph.png
+.. image:: /images/conan-info_deps_html_graph.png
     :height: 150 px
     :width: 200 px
     :align: center
@@ -378,20 +373,21 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
 
 .. code-block:: bash
 
-    $ conan install . --profile=gcc_x86
+    $ conan install .. --profile=gcc_x86
 
 .. tip::
 
     We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
-However, the user can always override the default profile settings in the :command:`conan install` command using the :command:`--settings`
-parameter. As an exercise, try building the Encrypter project 32-bit version:
+However, the user can always override the profile settings in the :command:`conan install` command using the :command:`--settings`
+parameter. As an exercise, try building the 32-bit version of the Encrypter project like this:
 
 .. code-block:: bash
 
-    $ conan install . --profile=gcc_x86 --settings arch=x86_64
+    $ conan install .. --settings arch=x86
 
-The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the profile used previously.
+The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the default profile used
+previously.
 
 To use the 32-bit binaries, you will also have to change your project build:
 
@@ -414,3 +410,5 @@ Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cppla
 .. _`Bintray`: https://bintray.com/conan/conan-center
 
 .. _`Cpplang Slack`: https://cpplang.now.sh/
+
+.. _`example repository`: https://github.com/conan-io/examples

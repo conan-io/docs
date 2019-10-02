@@ -66,6 +66,10 @@ You can use the **compiler_args** generator directly to build simple programs:
 +--------------------------------+----------------------------------------------------------------------+
 | -D_GLIBCXX_USE_CXX11_ABI=1     | When setting libcxx == "libstdc++11"                                 |
 +--------------------------------+----------------------------------------------------------------------+
+| -framework XXX                 | Corresponding to requirements `frameworks` (OSX)                     |
++--------------------------------+----------------------------------------------------------------------+
+| -F XXX                         | Corresponding to requirements `framework dirs` (OSX)                 |
++--------------------------------+----------------------------------------------------------------------+
 | Other flags                    | cxxflags, cflags, sharedlinkflags, exelinkflags (applied directly)   |
 +--------------------------------+----------------------------------------------------------------------+
 

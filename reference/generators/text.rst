@@ -44,6 +44,10 @@ For each requirement ``conanbuildinfo.txt`` file declares the following sections
 +-----------------------------+---------------------------------------------------------------------+
 | [cppflags_XXX]              | List with C++ compilation flags                                     |
 +-----------------------------+---------------------------------------------------------------------+
+| [frameworks_XXX]            | List with the framework names (OSX)                                 |
++-----------------------------+---------------------------------------------------------------------+
+| [frameworkdirs_XXX]         | List with the frameworks search paths (OSX).                        |
++-----------------------------+---------------------------------------------------------------------+
 | [rootpath_XXX]              | Root path of the package                                            |
 +-----------------------------+---------------------------------------------------------------------+
 
@@ -76,4 +80,8 @@ The values are ordered in the right order according to the dependency tree.
 | [exelinkflags]              | List with aggregated executable link flags                          |
 +-----------------------------+---------------------------------------------------------------------+
 | [cppflags]                  | List with aggregated C++ compilation flags                          |
++-----------------------------+---------------------------------------------------------------------+
+| [frameworks]                | List with aggregated framework names (OSX)                          |
++-----------------------------+---------------------------------------------------------------------+
+| [frameworkdirs]             | List with aggregated frameworks search paths (OSX).                 |
 +-----------------------------+---------------------------------------------------------------------+

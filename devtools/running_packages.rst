@@ -26,7 +26,7 @@ The source code used contains an executable called ``greet``, but it is not pack
 .. code-block:: python
 
     def package(self):
-        self.copy("*greet*", src="hello/bin", dst="bin", keep_path=False)
+        self.copy("*greet*", src="bin", dst="bin", keep_path=False)
 
 
 Now we create the package as usual, but if we try to run the executable it won't be found:
@@ -43,7 +43,7 @@ Now we create the package as usual, but if we try to run the executable it won't
     > ... not found...
 
 
-By default, Conan does not modify by default the environment, it will just create the package in the local cache, and that is not
+By default, Conan does not modify the environment, it will just create the package in the local cache, and that is not
 in the system PATH, so the ``greet`` executable is not found.
 
 The ``virtualrunenv`` generator generates files that add the package's default binary locations to the necessary paths:
@@ -193,7 +193,7 @@ package also contains a library, and the headers), we could do:
         keep_imports = True
 
         def imports(self):
-            self.copy("*.exe", dst="bin")
+            self.copy("greet*", src="bin", dst="bin")
 
         def package(self):
             self.copy("*")

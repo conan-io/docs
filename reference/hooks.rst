@@ -132,6 +132,14 @@ context:
         output.info("package_id=%s" % package_id)
         output.info("remote.name=%s" % remote.name)
 
+    def pre_package_info(output, conanfile, reference, **kwargs):
+        output.info("reference=%s" % reference.full_repr())
+        output.info("conanfile.cpp_info.defines=%s" % conanfile.cpp_info.defines)
+
+    def post_package_info(output, conanfile, reference, **kwargs):
+        output.info("reference=%s" % reference.full_repr())
+        output.info("conanfile.cpp_info.defines=%s" % conanfile.cpp_info.defines)
+
 Functions of the hooks are intended to be self-descriptive regarding to the execution of them. For example, the ``pre_package()`` function
 is called just before the ``package()`` method of the recipe is executed.
 
@@ -165,23 +173,23 @@ Here you can find the description for each parameter:
 
 - **remote**: Named tuple with attributes ``name``, ``url`` and ``verify_ssl``.
 
-+-------------------------------------+---------------------------------------------------------------------------------------------------------------+
-| | Availability of parameters for    | **Hook Functions***                                                                                           |
-| | each Hook function depending on   +--------------+--------------+-------------+---------------+------------------------+--------------------------+
-| | the context                       | ``export()`` | ``source()`` | ``build()`` | ``package()`` | | ``upload()``         | | ``download()``         |
-|                                     |              |              |             |               | | ``upload_recipe()``  | | ``download_recipe()``  |
-|                                     |              |              |             |               | | ``upload_package()`` | | ``download_package()`` |
-+----------------+--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
-| **Parameters** | ``conanfile``      | Yes          | Yes          | Yes         | Yes           | No                     | post                     |
-|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
-|                | ``conanfile_path`` | pre / post   | Yes          | user space  | pre / post    | Yes                    | post                     |
-|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
-|                | ``reference``      | Yes          | cache        | cache       | cache         | Yes                    | Yes                      |
-|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
-|                | ``package_id``     | No           | No           | cache       | Yes           | Yes                    | Yes                      |
-|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
-|                | ``remote``         | No           | No           | No          | No            | Yes                    | Yes                      |
-+----------------+--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+
++-------------------------------------+------------------------------------------------------------------------------------------------------------------------------------+
+| | Availability of parameters for    | **Hook Functions***                                                                                                                |
+| | each Hook function depending on   +--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
+| | the context                       | ``export()`` | ``source()`` | ``build()`` | ``package()`` | | ``upload()``         | | ``download()``         | ``package_info()`` |
+|                                     |              |              |             |               | | ``upload_recipe()``  | | ``download_recipe()``  |                    |
+|                                     |              |              |             |               | | ``upload_package()`` | | ``download_package()`` |                    |
++----------------+--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
+| **Parameters** | ``conanfile``      | Yes          | Yes          | Yes         | Yes           | No                     | post                     | Yes                |
+|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
+|                | ``conanfile_path`` | pre / post   | Yes          | user space  | pre / post    | Yes                    | post                     | No                 |
+|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
+|                | ``reference``      | Yes          | cache        | cache       | cache         | Yes                    | Yes                      | Yes                |
+|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
+|                | ``package_id``     | No           | No           | cache       | Yes           | Yes                    | Yes                      | No                 |
+|                +--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
+|                | ``remote``         | No           | No           | No          | No            | Yes                    | Yes                      | No                 |
++----------------+--------------------+--------------+--------------+-------------+---------------+------------------------+--------------------------+--------------------+
 
 \*Hook functions are indicated without ``pre`` and ``post`` prefixes for simplicity.
 

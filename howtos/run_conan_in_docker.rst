@@ -1,6 +1,6 @@
 .. _docker_conan:
 
-How to use docker to create and cross build C and C++ conan packages
+How to use Docker to create and cross-build C and C++ Conan packages
 ====================================================================
 
 With Docker, you can run different virtual Linux operating systems in a Linux, Mac OSX or Windows machine.
@@ -11,7 +11,7 @@ In this section you will find a :ref:`list of pre-built images<available_docker_
 build tools and compilers as well as Conan installed.
 
 
-Using conan inside a container
+Using Conan inside a container
 ------------------------------
 
 .. code-block:: bash
@@ -27,13 +27,13 @@ The previous code will run a shell in container. We have specified:
 
 - :command:`-it`: Keep STDIN open and allocate a pseudo-tty, in other words, we want to type in the container because we are opening a bash.
 - :command:`--rm`: Once the container exits, remove the container. Helps to keep clean or hard drive.
-- :command:`conanio/gcc7`: Image name, check the :ref:`available docker images<available_docker_images>`.
+- :command:`conanio/gcc7`: Image name, check the :ref:`available Docker images<available_docker_images>`.
 - :command:`/bin/bash`: The command to run
 
 
 Now we are running on the conangcc7 container we can use Conan normally. In the following example we are
 creating a package from the recipe by cloning the repository, for OpenSSL.
-It is always recommended to upgrade conan from pip first:
+It is always recommended to upgrade Conan from pip first:
 
 .. code-block:: bash
 
@@ -43,7 +43,7 @@ It is always recommended to upgrade conan from pip first:
     $ conan create . user/channel
 
 
-Sharing a local folder with a docker container
+Sharing a local folder with a Docker container
 ----------------------------------------------
 
 You can share a local folder with your container, for example a project:
@@ -56,7 +56,7 @@ You can share a local folder with your container, for example a project:
 
 
 - ``v$(pwd):/home/conan/project``: We are mapping the current directory (conan-openssl) to the container
-  ``/home/conan/project`` directory, so anything we change in this shared folder, will be really changed
+  ``/home/conan/project`` directory, so anything we change in this shared folder, will be reflected
   in our host machine.
 
 .. code-block:: bash
@@ -72,8 +72,8 @@ You can share a local folder with your container, for example a project:
 Using the images to cross-build packages
 ----------------------------------------
 
-You can use the :ref:`images<available_docker_images>` ``-i386``, ``-armv7`` and ``-armv7gh`` to cross build
-conan packages.
+You can use the :ref:`images<available_docker_images>` ``-i386``, ``-armv7`` and ``-armv7gh`` to cross-build
+Conan packages.
 
 The ``armv7`` images have a cross toolchain for linux ARM installed, and declared as main compiler with the
 environment variables ``CC`` and ``CXX``. Also, the default Conan profile (``~/.conan/profiles/default``)
@@ -115,7 +115,7 @@ Cross-building and uploading a package along with all its missing dependencies f
 
 .. _available_docker_images:
 
-Available docker images
+Available Docker images
 -----------------------
 
 **GCC** images

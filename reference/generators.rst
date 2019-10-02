@@ -36,6 +36,7 @@ Available generators:
    generators/scons
    generators/pkg_config
    generators/virtualenv
+   generators/virtualenv_python
    generators/virtualbuildenv
    generators/virtualrunenv
    generators/ycm
@@ -43,3 +44,8 @@ Available generators:
    generators/json
    generators/premake
    generators/make
+   generators/deploy
+
+.. important::
+
+    If none of these generators fit your needs, you can create your own :ref:`custom_generator`.

@@ -6,15 +6,15 @@ conan inspect
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+      This is an **experimental** feature subject to breaking changes in future releases.
 
 .. code-block:: bash
 
-    $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON]
+    $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON] [--raw RAW]
                     path_or_reference
 
-Displays conanfile attributes, like name, version, options Works both locally,
-in local cache and remote
+Displays conanfile attributes, like name, version and options. Works locally,
+in local cache and remote.
 
 .. code-block:: text
 
@@ -30,7 +30,7 @@ in local cache and remote
       -r REMOTE, --remote REMOTE
                             look in the specified remote server
       -j JSON, --json JSON  json output file
-
+      --raw RAW             Print just the value of the requested attribute
 
 Examples:
 
@@ -48,6 +48,11 @@ Examples:
     $ conan inspect zlib/1.2.11@conan/stable -a=license -a=url
     license: http://www.zlib.net/zlib_license.html
     url: http://github.com/conan-community/conan-zlib
+
+.. code-block:: bash
+
+    $ conan inspect zlib/1.2.11@conan/stable --raw=settings
+    ('os', 'arch', 'compiler', 'build_type')
 
 
 If no specific attributes are defined via ``-a``, then, some default attributes will be displayed:

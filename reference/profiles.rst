@@ -22,6 +22,12 @@ requirements** in a file. They have this structure:
     Tool2/0.1@user/channel, Tool3/0.1@user/channel
     *: Tool4/0.1@user/channel
 
+Profile can be created with ``new`` option in :command:`conan profile`. And then edit it later.
+
+.. code-block:: bash
+
+    $ conan profile new mynewprofile --detect
+
 Profile files can be used with ``-pr``/``--profile`` option in :command:`conan install` and :command:`conan create` commands.
 
 .. code-block:: bash
@@ -64,8 +70,9 @@ You can also show profile's content:
     [build_requires]
     [env]
 
-Use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to the profile file. It is useful to declare relative
-folders:
+Use ``$PROFILE_DIR`` in your profile and it will be replaced with the absolute path to
+the directory where the profile file is (this path will contain only forward slashes).
+It is useful to declare relative folders:
 
 .. code-block:: text
 
@@ -98,6 +105,19 @@ environment variables for some specific package:
     zlib:CXX=/usr/bin/clang++
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
+
+They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use clang 3.5 as compiler, and gcc otherwise:
+
+.. code-block:: text
+
+    [settings]
+    *@myuser/*:compiler=clang
+    *@myuser/*:compiler.version=3.5
+    *@myuser/*:compiler.libcxx=libstdc++11
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++11
+
 
 .. note::
 

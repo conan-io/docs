@@ -7,22 +7,24 @@ conan search
 .. code-block:: bash
 
     $ conan search [-h] [-o] [-q QUERY] [-r REMOTE] [--case-sensitive]
-                   [--raw] [--table TABLE] [-j JSON]
+                   [--raw] [--table TABLE] [-j JSON] [-rev]
                    [pattern_or_reference]
 
-Searches package recipes and binaries in the local cache or in a remote. If
-you provide a pattern, then it will search for existing package recipes
-matching it. If a full reference is provided (pkg/0.1@user/channel) then the
-existing binary packages for that reference will be displayed. If no remote is
-specified, the search will be done in the local cache. Search is case
-sensitive, exact case has to be used. For case insensitive file systems, like
-Windows, case sensitive search can be forced with '--case-sensitive'.
+Searches package recipes and binaries in the local cache or in a remote.
+
+If you provide a pattern, then it will search for existing package
+recipes matching it.  If a full reference is provided
+(pkg/0.1@user/channel) then the existing binary packages for that
+reference will be displayed.  If no remote is specified, the search
+will be done in the local cache.  Search is case sensitive, exact case
+has to be used. For case insensitive file systems, like Windows, case
+sensitive search can be forced with '--case-sensitive'.
 
 .. code-block:: text
 
     positional arguments:
-      pattern_or_reference  Pattern or package recipe reference, e.g.,
-                            'MyPackage/1.2@user/channel', 'boost/*'
+      pattern_or_reference  Pattern or package recipe reference, e.g., 'boost/*',
+                            'MyPackage/1.2@user/channel'
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -75,6 +77,13 @@ and parenthesis, with settings and also options.
     $ conan search Boost/1.60.0@lasote/stable -q arch=x86_64
     $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
+Also, query syntax allows sub-settings, even for custom properties. e.g:
+
+.. code-block:: bash
+
+    $ conan search Boost/1.60.0@lasote/stable -q "compiler=gcc AND compiler.version=9"
+    $ conan search Boost/1.60.0@lasote/stable -q "os=Linux AND os.distro=Ubuntu AND os.distro.version=19.04"
+
 If you specify a query filter for a setting and the package recipe is not restricted by this
 setting, Conan won't find the packages. e.g:
 
@@ -94,7 +103,6 @@ The query above won't find the ``MyRecipe`` binary packages (because the recipe 
 
     $ conan search MyRecipe/1.0@lasote/stable -q os=None
 
-
 You can generate a table for all binaries from a given recipe with the ``--table`` option:
 
 .. code-block:: bash
@@ -102,10 +110,21 @@ You can generate a table for all binaries from a given recipe with the ``--table
     $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
-.. image:: /images/search_binary_table.png
+.. image:: /images/conan-search_binary_table.png
     :height: 500 px
     :width: 600 px
     :align: center
+
+
+Search all the local Conan packages matching a pattern and showing the revision:
+
+.. code-block:: bash
+
+    $ conan search lib* --revisions
+    $ Existing package recipes:
+
+      lib/1.0@user/channel#404e86c18e4a47a166fabe70b3b15e33
+
 
 Search the local revision for a local cache recipe:
 

@@ -3,9 +3,9 @@
 Using profiles
 --------------
 
-So far, we have used the default settings stored in ``~/.conan/profiles/default`` and defined as command line arguments.
+So far, we have used the default settings stored in ``~/.conan/profiles/default`` and defined custom values for some of them as command line arguments.
 
-However, in large projects, configurations can get complex, settings can be very different, and we need an easy way to switch between different configurations with different settings, options etc,.
+However, in large projects, configurations can get complex, settings can be very different, and we need an easy way to switch between different configurations with different settings, options etc.
 An easy way to switch between configurations is by using profiles.
 
 A profile file contains a predefined set of ``settings``, ``options``, ``environment variables``, and ``build_requires`` specified in the following structure:
@@ -56,7 +56,7 @@ A profile file can be stored in the default profile folder, or anywhere else in 
 
     $ conan create . demo/testing -pr=clang_3.5
 
-Continuing with the example of Poco, instead of passing in a long list of command line arguments, we can define a handy profile that defines them all and pass that to the command line when installing the different project dependencies.
+Continuing with the example of Poco, instead of passing in a long list of command line arguments, we can define a handy profile that defines them all and pass that to the command line when installing the project dependencies.
 
 A profile to install dependencies as **shared** and in **debug** mode would look like this:
 
@@ -77,7 +77,7 @@ To install dependencies using the profile file, we would use:
 
 .. code-block:: bash
 
-    $ conan install . -pr=debug_shared
+    $ conan install .. -pr=debug_shared
 
 We could also create a new profile to use a different compiler version and store that in our project directory. For example:
 
@@ -95,14 +95,14 @@ To install dependencies using this new profile, we would use:
 
 .. code-block:: bash
 
-    $ conan install . -pr=./poco_clang_3.5
+    $ conan install .. -pr=../poco_clang_3.5
 
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified:
 
 .. code-block:: bash
 
-    $ conan install . -pr=./poco_clang_3.5 -pr=my_build_tool1 -pr=my_build_tool2
+    $ conan install .. -pr=../poco_clang_3.5 -pr=my_build_tool1 -pr=my_build_tool2
 
 .. seealso::
 

@@ -6,12 +6,13 @@ conan export
 
 .. code-block:: bash
 
-    $ conan export [-h] [-k] path reference
+    $ conan export [-h] [-k] [-l [LOCKFILE]] path [reference]
 
-Copies the recipe (conanfile.py & associated files) to your local cache. Use
-the 'reference' param to specify a user and channel where to export it. Once
-the recipe is in the local cache it can be shared, reused and to any remote
-with the 'conan upload' command.
+Copies the recipe (conanfile.py & associated files) to your local cache.
+
+Use the 'reference' param to specify a user and channel where to export
+it. Once the recipe is in the local cache it can be shared, reused and
+to any remote with the 'conan upload' command.
 
 .. code-block:: text
 
@@ -27,6 +28,11 @@ with the 'conan upload' command.
                             Do not remove the source folder in local cache, even
                             if the recipe changed. Use this for testing purposes
                             only
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile will be updated with the exported
+                            package
+
 
 The ``reference`` field can be:
 

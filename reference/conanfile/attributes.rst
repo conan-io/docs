@@ -10,7 +10,7 @@ Attributes
 name
 ----
 This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
-It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
+It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]{1,50}$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
 The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
 It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
@@ -73,7 +73,7 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
     class HelloConan(ConanFile):
         name = "Hello"
         version = "0.1"
-        url = "https://github.com/memsharded/hellopack.git"
+        url = "https://github.com/conan-io/hello.git"
 
 The ``url`` is the url **of the package** repository, i.e. not necessarily the original source code.
 It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
@@ -147,10 +147,11 @@ This is an optional attribute.
 user, channel
 -------------
 
-The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
-Though their usage is usually not encouraged, it could be useful in different cases,
-e.g. to define requirements with the same user and
-channel than the current package, which could be achieved with something like:
+**These fields are optional in a Conan reference**, they could be useful to identify a forked recipe
+from the community with changes specific for your company. Using these fields you may keep the
+same ``name`` and ``version`` and use the ``user/channel`` to disambiguate your recipe.
+
+The value of these fields can be accessed from within a ``conanfile.py``:
 
 .. code-block:: python
 
@@ -161,23 +162,35 @@ channel than the current package, which could be achieved with something like:
         version = "0.1"
 
         def requirements(self):
-            self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            self.requires("common-lib/version")
+            if self.user and self.channel:
+                # If the recipe is using them, I want to consume my fork.
+                self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            else:
+                # otherwise, I'll consume the community one
+                self.requires("Say/0.1")
 
-Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
-For package recipes working in user space, there is no current user/channel by default. They can be
-defined at ``conan install`` time with:
+
+Only packages that have already been exported (packages in the local cache or in a remote server)
+can have a user/channel assigned. For package recipes working in the user space, there is no
+current user/channel by default, although they can be defined at ``conan install`` time with:
 
 .. code-block:: bash
 
     $ conan install <path to conanfile.py> user/channel
 
-If they are not defined via command line, the properties ``self.user`` and ``self.channel`` will then look 
-for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` respectively. If they are not defined, 
-an error will be raised unless ``default_user`` and ``default_channel`` are declared in the recipe.
 
 .. seealso::
 
     FAQ: :ref:`faq_recommendation_user_channel`
+
+
+.. warning::
+
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` that were used to assign a value
+    to these fields are now deprecated and will be removed in Conan 2.0. Don't use them to
+    populate the value of ``self.user`` and ``self.channel``.
+
 
 default_user, default_channel
 -----------------------------
@@ -185,7 +198,7 @@ default_user, default_channel
 For package recipes working in the user space, with local methods like :command:`conan install .` and :command:`conan build .`,
 there is no current user/channel. If you are accessing to ``self.user`` or ``self.channel`` in your recipe,
 you need to declare the environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` or you can set the attributes
-``default_user`` and ``default_channel``. You can also use python ``@properties``:
+``default_user`` and ``default_channel``. You can also use python ``@property``:
 
 .. code-block:: python
 
@@ -508,7 +521,7 @@ You can also set the options conditionally to a final value with ``config_option
 requires
 --------
 
-Specify package dependencies as a list of other packages:
+Specify package dependencies as a list or tuple of other packages:
 
 .. code-block:: python
 
@@ -520,9 +533,15 @@ You can specify further information about the package requirements:
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        requires = (("Hello/0.1@user/testing"),
+        requires = [("Hello/0.1@user/testing"),
                     ("Say/0.2@dummy/stable", "override"),
-                    ("Bye/2.1@coder/beta", "private"))
+                    ("Bye/2.1@coder/beta", "private")]
+
+.. code-block:: python
+
+    class MyLibConan(ConanFile):
+        requires = (("Hello/1.0@user/stable", "private"), )
+
 
 Requirements can be complemented by 2 different parameters:
 
@@ -737,7 +756,7 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
 .. important::
 
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
-    <https://docs.microsoft.com/es-es/windows/desktop/FileIO/naming-a-file#maximum-path-length-limitation>`_.
+    <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
     and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
@@ -862,7 +881,15 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.exelinkflags     | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks       | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs    | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name             | | Alternative name for the package used by generators to create files or variables.                     |
+|                                | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
+|                                | | `cmake_find_package_multi` and `pkg_config` generators.                                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
@@ -892,6 +919,8 @@ absolute paths:
 | self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.framework_paths             | Same as ``frameworkdirs`` but transformed to absolute paths         |
 +-------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
@@ -1060,7 +1089,6 @@ and `False` if we are running the conanfile in a user folder (local Conan comman
 
 .. _develop_attribute:
 
-
 develop
 -------
 
@@ -1121,8 +1149,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
          scm = {
             "type": "git",
             "subfolder": "hello",
-            "url": "https://github.com/memsharded/hello.git",
-            "revision": "static_shared"
+            "url": "https://github.com/conan-io/hello.git",
+            "revision": "master"
          }
         ...
 
@@ -1138,6 +1166,7 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
 - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
 - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+- **shallow** (Optional, Defaulted to ``True``): Use shallow clone for Git repositories.
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
@@ -1148,6 +1177,11 @@ depend on the workspace layout. Nevertheless, all the other code in the recipe m
 run in the export folder inside the cache, where it has access only to the files exported (see
 attribute :ref:`exports <exports_attribute>`) and to any other functionality
 from a :ref:`python_requires <python_requires>`.
+
+.. note::
+
+    In case of git, by default conan will try to perform shallow clone of the repository, and will fallback to the full
+    clone in case shallow fails (e.g. not supported by the server).
 
 To know more about the usage of ``scm`` check:
 
@@ -1172,3 +1206,65 @@ be computed. It can take three different values:
    compute the revision for the recipe.
  - ``"scm"``: the commit ID will be used as the recipe revision if it belongs to a known
    repository system (Git or SVN). If there is no repository it will raise an error.
+
+
+.. _python_requires_attribute:
+
+python_requires
+---------------
+
+.. warning::
+
+    This attribute is part of the :ref:`python requires<python_requires>` feature, so
+    it is also an **experimental** feature subject to breaking changes in future releases.
+
+Python requires are associated with the ``ConanFile`` declared in the recipe file, data
+from those imported recipes is accessible using the ``python_requires`` attribute in
+the recipe itself. This attribute is a dictionary where the key is the name of the
+*python requires* reference and the value is a dictionary with the following information:
+
+ - ``ref``: full reference of the python requires.
+ - ``exports_folder``: directory in the cache where the exported files are located.
+ - ``exports_sources_folder``: directory in the cache where the files exported using the
+   ``exports_sources`` attribute of the python requires recipe are located.
+
+You can use this information to copy files accompanying a python requires to the consumer
+workspace.:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class PyReq(ConanFile):
+        name = "pyreq"
+        exports_sources = "CMakeLists.txt"
+
+        def source(self):
+            pyreq = self.python_requires['pyreq']
+            self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
+
+.. _conandata_attribute:
+
+conandata
+---------
+
+This attribute is a dictionary with the keys and values provided in a :ref:`conandata_yml` file format placed next to the *conanfile.py*.
+This YAML file is automatically exported with the recipe and automatically loaded with it too.
+
+You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.
+For example, a *conandata.yml* with information about sources that looks like this:
+
+.. code-block:: YAML
+
+    sources:
+      "1.1.0":
+        url: "https://www.url.org/source/mylib-1.0.0.tar.gz"
+        sha256: "8c48baf3babe0d505d16cfc0cf272589c66d3624264098213db0fb00034728e9"
+      "1.1.1":
+        url: "https://www.url.org/source/mylib-1.0.1.tar.gz"
+        sha256: "15b6393c20030aab02c8e2fe0243cb1d1d18062f6c095d67bca91871dc7f324a"
+
+.. code-block:: python
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])

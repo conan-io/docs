@@ -61,12 +61,12 @@ Helper to link all libraries to a specified target.
 
 These targets are:
 
-- A ``CONAN_PKG::PkgName`` target per package in the dependency graph. This is an ``IMPORTED INTERFACE`` target. ``IMPORTED`` because it is
+- A ``CONAN_PKG::<PKG-NAME>`` target per package in the dependency graph. This is an ``IMPORTED INTERFACE`` target. ``IMPORTED`` because it is
   external, a pre-compiled library. ``INTERFACE``, because it doesn't necessarily match a library, it could be a header-only library, or the
   package could even contain several libraries. It contains all the properties (include paths, compile flags, etc.) that are defined in the
   ``package_info()`` method of the recipe.
 
-- Inside each package a ``CONAN_LIB::PkgName_LibName`` target will be generated for each library. Its type is ``IMPORTED UNKNOWN`` and its
+- Inside each package a ``CONAN_LIB::<PKG-NAME>_<LIB-NAME>`` target will be generated for each library. Its type is ``IMPORTED UNKNOWN`` and its
   main purpose is to provide a correct link order. Their only properties are the location and the dependencies.
 
 - A ``CONAN_PKG`` depends on every ``CONAN_LIB`` that belongs to it, and to its direct public dependencies (e.g. other ``CONAN_PKG`` targets

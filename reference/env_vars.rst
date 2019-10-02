@@ -35,10 +35,14 @@ the :ref:`CMake build tool<cmake_reference>`:
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE | CMAKE_FIND_ROOT_PATH_MODE_INCLUDE                                                              |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_GENERATOR_PLATFORM          | CMAKE_GENERATOR_PLATFORM                                                                       |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_ANDROID_NDK                 | CMAKE_ANDROID_NDK                                                                              |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
 
 .. seealso::
 
-    See `CMake cross building wiki <https://vtk.org/Wiki/CMake_Cross_Compiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
@@ -71,8 +75,31 @@ CMake generator. Note that this is not a package settings, building it with make
 build system, as Ninja, should lead to the same binary if using appropriately the same
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
-So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
+So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value
 to your desired CMake generator (as ``Ninja``).
+
+CONAN_CMAKE_GENERATOR_PLATFORM
+------------------------------
+
+Defines generator platform to be used by particular CMake generator (see `CMAKE_GENERATOR_PLATFORM documentation <https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html>`).
+Resulting value is passed to the ``cmake`` command line (``-A`` argument) by the Conan ``CMake`` helper class during the configuration step.
+Passing ``None`` causes auto-detection, which currently only happens for the ``Visual Studio 16 2019`` generator. The detection is according to the following table:
+
++-----------------+--------------------+
+| settings.arch   | generator platform |
++=================+====================+
+| x86             | Win32              |
++-----------------+--------------------+
+| x86_64          | x64                |
++-----------------+--------------------+
+| armv7           | ARM                |
++-----------------+--------------------+
+| armv8           | ARM64              |
++-----------------+--------------------+
+| other           | (none)             |
++-----------------+--------------------+
+
+For any other generators besides the ``Visual Studio 16 2019`` generator, detection results in no generator platform applied (and no ``-A`` argument passed to the CMake command line).
 
 CONAN_COLOR_DARK
 ----------------
@@ -120,6 +147,8 @@ CONAN_DEFAULT_PROFILE_PATH
 
 This variable can be used to define a path to an existing profile file that Conan will use
 as default. If relative, the path will be resolved from the profiles folder.
+
+.. _env_vars_non_interactive:
 
 CONAN_NON_INTERACTIVE
 ---------------------
@@ -198,6 +227,8 @@ By default Conan logging level is only set for critical events. If you want
 to show more detailed logging information, set this variable to lower values, as ``10`` to show
 debug information.
 
+.. _env_vars_conan_login_username:
+
 CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}
 --------------------------------------------------------
 
@@ -217,6 +248,10 @@ For example: For a remote named "conan-center":
 .. code-block:: bash
 
     SET CONAN_LOGIN_USERNAME_CONAN_CENTER=MyUser
+
+.. seealso::
+
+    See the :ref:`conan_user` command documentation for more information about login to remotes
 
 .. _env_vars_conan_make_program:
 
@@ -251,7 +286,7 @@ For example:
 
 .. code-block:: bash
 
-    CONAN_MAKE_PROGRAM="scan-build cmake"
+    CONAN_CMAKE_PROGRAM="scan-build cmake"
 
 CONAN_MSBUILD_VERBOSITY
 -----------------------
@@ -265,6 +300,8 @@ Specify ```MSBuild``` verbosity level to use with:
 
 For list of allowed values and their meaning, check out the
 `MSBuild documentation <https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017>`_.
+
+.. _env_vars_conan_password:
 
 CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}
 --------------------------------------------
@@ -286,6 +323,10 @@ For example, for a remote named "conan-center":
 .. code-block:: bash
 
     SET CONAN_PASSWORD_CONAN_CENTER=Mypassword
+
+.. seealso::
+
+    See the :ref:`conan_user` command documentation for more information about login to remotes
 
 CONAN_HOOKS
 -----------
@@ -396,8 +437,9 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`tools_msvc_build_command`
-and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+When set to ``True``/``1``, the :ref:`tools.build_sln_command() <tools_build_sln_command>`,
+the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
+and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
 CONAN_SYSREQUIRES_MODE
@@ -452,25 +494,29 @@ Set it with an absolute path to a file.
 
     export CONAN_TRACE_FILE=/tmp/conan_trace.log
 
-When the Conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+When the Conan command is executed, some traces will be appended to the specified file.
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions,
 ``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
 
 The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
 
 .. seealso::
 
-    Read more here: :ref:`logging_and_debugging` 
+    Read more here: :ref:`logging_and_debugging`
 
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
 
-These environment variables will be checked when using ``self.user`` or ``self.channel`` in package recipes in user space, where the user
-and channel have not been assigned yet (they are assigned when exported in the local cache).
+.. warning::
 
-.. seealso::
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` are deprecated and will be
+    removed in Conan 2.0. Don't use them to populate the value of ``self.user`` and ``self.channel``.
 
-    Read more about it in :ref:`user_channel`
+These environment variables will be checked when using ``self.user`` or ``self.channel`` in package
+recipes in user space, where the user and channel have not been assigned yet (they are assigned
+when exported in the local cache). More about these variables in
+the :ref:`attributes reference <user_channel>`.
+
 
 CONAN_USER_HOME
 ---------------
@@ -554,3 +600,26 @@ CONAN_CACERT_PATH
 Specify an alternative path to a *cacert.pem* file to be used for requests. This variable
 overrides the value defined in the *conan.conf* as ``cacert_path = <path/to/cacert.pem>``
 under the section ``[general]``.
+
+CONAN_DEFAULT_PACKAGE_ID_MODE
+-----------------------------
+
+**Defaulted to**: semver_direct_mode
+
+It changes the way package IDs are computed, but can change to any value defined in :ref:`package_id_mode`.
+
+CONAN_SKIP_BROKEN_SYMLINKS_CHECK
+--------------------------------
+
+**Defaulted to**: ``False``/``0``
+
+When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
+
+
+CONAN_PYLINT_WERR
+-----------------
+
+**Defaulted to**: Not defined
+
+This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
+any inconsistency found in the recipe will break the process during linter analysis.

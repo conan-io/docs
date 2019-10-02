@@ -8,14 +8,16 @@ conan test
 
     $ conan test [-h] [-tbf TEST_BUILD_FOLDER] [-b [BUILD]] [-e ENV]
                  [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                 [-l [LOCKFILE]]
                  path reference
 
-Test a package consuming it from a conanfile.py with a test() method. This
-command installs the conanfile dependencies (including the tested package),
-calls a 'conan build' to build test apps and finally executes the test()
-method. The testing recipe does not require name or version, neither
-definition of package() or package_info() methods. The package to be tested
-must exist in the local cache or in any configured remote.
+Tests a package consuming it from a conanfile.py with a test() method.
+
+This command installs the conanfile dependencies (including the tested
+package), calls a 'conan build' to build test apps and finally executes
+the test() method. The testing recipe does not require name or version,
+neither definition of package() or package_info() methods. The package
+to be tested must exist in the local cache or in any configured remote.
 
 .. code-block:: text
 
@@ -35,16 +37,21 @@ must exist in the local cache or in any configured remote.
                             binary packages. --build=never Never build, use binary
                             packages or fail if a binary package is not found.
                             --build=missing Build from code if a binary package is
-                            not found. --build=outdated Build from code if the
-                            binary is not built with the current recipe or when
-                            missing binary package. --build=[pattern] Build always
-                            these packages from source, but never build the
+                            not found. --build=cascade Will build from code all
+                            the nodes with some dependency being built (for any
+                            reason). Can be used together with any other build
+                            policy. Useful to make sure that any new change
+                            introduced in a dependency is incorporated by building
+                            again the package. --build=outdated Build from code if
+                            the binary is not built with the current recipe or
+                            when missing binary package. --build=[pattern] Build
+                            always these packages from source, but never build the
                             others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package name. Default
-                            behavior: If you don't specify anything, it will be
-                            similar to '--build=never', but package recipes can
-                            override it with their 'build_policy' attribute in the
-                            conanfile.py.
+                            is a fnmatch file pattern of a package reference.
+                            Default behavior: If you don't specify anything, it
+                            will be similar to '--build=never', but package
+                            recipes can override it with their 'build_policy'
+                            attribute in the conanfile.py.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
@@ -57,6 +64,9 @@ must exist in the local cache or in any configured remote.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).
