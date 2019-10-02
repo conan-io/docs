@@ -53,8 +53,7 @@ If no remote is specified, the first configured remote (by default conan-center,
                             remote one
       -j JSON, --json JSON  json file path where the upload information will be
                             written to
-      --parallel            Uploads file in parallel, using as many threads as
-                            cpu's are available
+      --parallel            Uploads in parallel using multiple threads
 
 
 **Examples**:
