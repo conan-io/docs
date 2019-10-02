@@ -24,7 +24,7 @@ Generated xml structure:
         <Conan-Lib2-Root>{PACKAGE LIB2 FOLDER}</Conan-Poco-Root>
         ...
       </PropertyGroup>
-      <PropertyGroup Label="ConanVariables"{condition}>
+      <PropertyGroup Label="ConanVariables">
         <ConanCompilerFlags>{compiler_flags}</ConanCompilerFlags>
         <ConanLinkerFlags>{linker_flags}</ConanLinkerFlags>
         <ConanPreprocessorDefinitions>{definitions}</ConanPreprocessorDefinitions>
