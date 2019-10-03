@@ -24,8 +24,14 @@ Generated xml structure:
         ...
       </PropertyGroup>
       <PropertyGroup Label="ConanVariables">
-        <ConanBinaryDirectories>{CONAN BINARY DIRECTORIES LIST}</ConanBinaryDirectories>
-        <ConanResourceDirectories>{CONAN RESOURCE DIRECTORIES LIST}</ConanResourceDirectories>
+        <ConanCompilerFlags>{compiler_flags}</ConanCompilerFlags>
+        <ConanLinkerFlags>{linker_flags}</ConanLinkerFlags>
+        <ConanPreprocessorDefinitions>{definitions}</ConanPreprocessorDefinitions>
+        <ConanIncludeDirectories>{include_dirs}</ConanIncludeDirectories>
+        <ConanResourceDirectories>{res_dirs}</ConanResourceDirectories>
+        <ConanLibraryDirectories>{lib_dirs}</ConanLibraryDirectories>
+        <ConanBinaryDirectories>{bin_dirs}</ConanBinaryDirectories>
+        <ConanLibraries>{libs}</ConanLibraries>
       </PropertyGroup>
       <PropertyGroup>
         <LocalDebuggerEnvironment>PATH=%PATH%;{CONAN BINARY DIRECTORIES LIST}</LocalDebuggerEnvironment>
@@ -33,15 +39,23 @@ Generated xml structure:
       </PropertyGroup>
       <ItemDefinitionGroup>
         <ClCompile>
-          <AdditionalIncludeDirectories>{CONAN INCLUDE DIRECTORIES LIST}%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-          <PreprocessorDefinitions>{CONAN DEFINITIONS}%(PreprocessorDefinitions)</PreprocessorDefinitions>
-          <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+          <AdditionalIncludeDirectories>$(ConanIncludeDirectories)%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+          <PreprocessorDefinitions>$(ConanPreprocessorDefinitions)%(PreprocessorDefinitions)</PreprocessorDefinitions>
+          <AdditionalOptions>$(ConanCompilerFlags) %(AdditionalOptions)</AdditionalOptions>
         </ClCompile>
         <Link>
-          <AdditionalLibraryDirectories>{CONAN LIB DIRECTORIES LIST}%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-          <AdditionalDependencies>{CONAN LIBS LIST}</AdditionalDependencies>
-          <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
+          <AdditionalLibraryDirectories>$(ConanLibraryDirectories)%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+          <AdditionalDependencies>$(ConanLibraries)%(AdditionalDependencies)</AdditionalDependencies>
+          <AdditionalOptions>$(ConanLinkerFlags) %(AdditionalOptions)</AdditionalOptions>
         </Link>
+        <Midl>
+          <AdditionalIncludeDirectories>$(ConanIncludeDirectories)%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </Midl>
+        <ResourceCompile>
+          <AdditionalIncludeDirectories>$(ConanIncludeDirectories)%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+          <PreprocessorDefinitions>$(ConanPreprocessorDefinitions)%(PreprocessorDefinitions)</PreprocessorDefinitions>
+          <AdditionalOptions>$(ConanCompilerFlags) %(AdditionalOptions)</AdditionalOptions>
+        </ResourceCompile>
       </ItemDefinitionGroup>
       <ItemGroup />
     </Project>
@@ -49,7 +63,11 @@ Generated xml structure:
 Note that for single-configuration packages (which is the most typical), Conan installs Debug/Release, 32/64bits, packages separately. So a
 different property sheet will be generated for each configuration. The process could be:
 
-Given for example a recipe like:
+There are ``ConanVariables`` containing the information of the dependencies. Those variables are used later in the file, like in the ``<Link>`` task.
+
+Note that for single-configuration packages, which is the most typical, conan install Debug/Release, 32/64bits, packages separately. So a different property sheet will be generated for each configuration. The process could be:
+
+Given for example a ``conanfile.txt`` like:
 
 .. code-block:: text
    :caption: *conanfile.txt*
