@@ -1,8 +1,8 @@
 .. _cmake_paths_generator_reference:
 
 
-`cmake_paths`
-=============
+cmake_paths
+===========
 
 .. container:: out_reference_box
 

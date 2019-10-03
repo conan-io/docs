@@ -55,8 +55,6 @@ every dependency and the installed settings and options:
       }
     }
 
-
-
 The generated *conanbuildinfo.json* file is a JSON file with the following keys:
 
 dependencies
@@ -104,23 +102,22 @@ it is holding a dictionary with the data related to each configuration:
         ]
     }
 
-
 deps_env_info
 -------------
 
-The environment variables defined by upstream dependencies
+The environment variables defined by upstream dependencies.
 
 deps_user_info
 --------------
 
-The user variables defined by upstream dependencies
+The user variables defined by upstream dependencies.
 
 settings
 --------
 
-The settings used during `conan install`
+The settings used during :command:`conan install`.
 
 options
 -------
 
-The options of each dependency
+The options of each dependency.

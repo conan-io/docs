@@ -15,12 +15,9 @@ compiler_args
     Go to :ref:`Integrations/Compilers on command line<gcc_integration>` if you want to learn how to integrate your project calling
     your compiler in the command line.
 
+Generates a file named *conanbuildinfo.args* containing a command line parameters to invoke ``gcc``, ``clang`` or ``cl`` compiler.
 
-
-Generates a file named ``conanbuildinfo.args`` containing a command line parameters to invoke ``gcc``, ``clang`` or ``cl`` compiler.
-
-You can use the **compiler_args** generator directly to build simple programs:
-
+You can use the ``compiler_args`` generator directly to build simple programs:
 
 **gcc/clang**:
 
@@ -28,16 +25,14 @@ You can use the **compiler_args** generator directly to build simple programs:
 
     > g++ timer.cpp @conanbuildinfo.args -o bin/timer
 
-
 **cl**:
 
 .. code-block:: bash
 
     $ cl /EHsc timer.cpp @conanbuildinfo.args
 
-
-
-**gcc/clang**
+With gcc or clang
+-----------------
 
 +--------------------------------+----------------------------------------------------------------------+
 | FLAG                           | MEANING                                                              |
@@ -74,7 +69,8 @@ You can use the **compiler_args** generator directly to build simple programs:
 +--------------------------------+----------------------------------------------------------------------+
 
 
-**cl (Visual Studio)**
+With cl (Visual Studio)
+-----------------------
 
 +--------------------------------+----------------------------------------------------------------------+
 | FLAG                           | MEANING                                                              |
@@ -92,27 +88,21 @@ You can use the **compiler_args** generator directly to build simple programs:
 | /Zi                            | For Debug builds                                                     |
 +--------------------------------+----------------------------------------------------------------------+
 
-
-
-You can also use it in a recipe:
-
+Directly inside a recipe
+------------------------
 
 .. code-block:: python
-   :emphasize-lines: 15
+   :emphasize-lines: 11
 
-   from conans import ConanFile
+    from conans import ConanFile
 
-   class PocoTimerConan(ConanFile):
-      settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.9.0@pocoproject/stable"
-      generators = "compiler_args"
-      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
+    class PocoTimerConan(ConanFile):
+        settings = "os", "compiler", "build_type", "arch"
+        requires = "Poco/1.9.0@pocoproject/stable"
+        generators = "compiler_args"
+        default_options = {"Poco:shared": True, "OpenSSL:shared": True}
 
-      def imports(self):
-         self.copy("*.dll", dst="bin", src="bin") # From bin to bin
-         self.copy("*.dylib*", dst="bin", src="lib") # From lib to bin
-
-      def build(self):
-         self.run("mkdir -p bin")
-         command = 'g++ timer.cpp @conanbuildinfo.args -o bin/timer'
-         self.run(command)
+        def build(self):
+            self.run("mkdir -p bin")
+            command = 'g++ timer.cpp @conanbuildinfo.args -o bin/timer'
+            self.run(command)

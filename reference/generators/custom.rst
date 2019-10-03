@@ -61,7 +61,6 @@ This class should be included in a *conanfile.py* that must contain also a ``Con
 name of the package, the version, etc. This class typically has no ``source()``, ``build()``, ``package()``, and even the ``package_info()``
 method is overridden as it doesn't have to define any include paths or library paths. Then, it will work as a regular package.
 
-
 Attributes
 ----------
 

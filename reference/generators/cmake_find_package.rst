@@ -1,8 +1,8 @@
 .. _cmake_cmake_find_package_generator_reference:
 
 
-`cmake_find_package`
-====================
+cmake_find_package
+==================
 
 .. container:: out_reference_box
 

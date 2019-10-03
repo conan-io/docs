@@ -14,9 +14,9 @@ premake
 .. container:: out_reference_box
 
     This is the reference page for ``premake`` generator.
-    Go to :ref:`Integrations/premake<premake>` if you want to learn how to integrate your project or recipes with premake.
+    Go to :ref:`Integrations/premake<premake>` if you want to learn how to integrate your project or recipes with Premake.
 
-Generates a file name *conanbuildinfo.premake.lua* that can be used for your premake builds (both premake 4 and premake 5 are supported).
+Generates a file name *conanbuildinfo.premake.lua* that can be used for your Premake builds (both Premake 4 and 5 are supported).
 
 The file contains:
 
@@ -88,7 +88,7 @@ Functions
 conan_basic_setup()
 +++++++++++++++++++
 
-Basic function to setup the settings into your configuration. Useful to reduce the logic in premake scripts and automate the conversion of
+Basic function to setup the settings into your configuration. Useful to reduce the logic in Premake scripts and automate the conversion of
 settings:
 
 .. code-block:: lua
