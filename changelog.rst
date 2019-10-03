@@ -22,6 +22,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.19.1 (3-Oct-2019)
+-------------------
+
+- Bugfix: Use imported python requires' `short_path` value instead of the defined in the `conanfile` that imports it. `#5849 <https://github.com/conan-io/conan/pull/5849>`_
+- Bugfix: Fix regression in ``visual_studio`` generator adding a ``<Lib>`` task. `#5846 <https://github.com/conan-io/conan/pull/5846>`_ . Docs `here <https://github.com/conan-io/docs/pull/1430>`__
+
+
 1.19.0 (30-Sept-2019)
 ---------------------
 
