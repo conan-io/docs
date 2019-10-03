@@ -92,7 +92,7 @@ Directly inside a recipe
 ------------------------
 
 .. code-block:: python
-   :emphasize-lines: 15
+   :emphasize-lines: 11
 
     from conans import ConanFile
 

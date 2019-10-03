@@ -115,7 +115,7 @@ The user variables defined by upstream dependencies.
 settings
 --------
 
-The settings used during :comamnd:`conan install`.
+The settings used during :command:`conan install`.
 
 options
 -------

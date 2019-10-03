@@ -54,11 +54,11 @@ Given for example a recipe like:
 .. code-block:: text
    :caption: *conanfile.txt*
 
-  [requires]
-  Pkg/0.1@user/channel
+    [requires]
+    Pkg/0.1@user/channel
 
-  [generators]
-  visual_studio
+    [generators]
+    visual_studio
 
 And assuming that binary packages exist for ``Pkg/0.1@user/channel``, we could do:
 
