@@ -26,8 +26,15 @@ Glossary
       Python script defined in a `conanfile.py` that specifies how the package is built from sources, what
       the final binary artifacts are, the package dependencies, etc.
 
+   reference
+      A package reference is the combination of the package name, version and two optional fields
+      named user and channel that could be useful to identify a forked recipe from the community with
+      changes specific for your company.
+
    package
-      wip
+      A Conan package is a collection of files meant to be consumed for a certain configuration and
+      settings. It can contain binary files such as libraries, headers or tools to be reused by the
+      consumer of the package.
 
    lockfile
       Files that store the information with the exact versions, revisions, options, and configuration
@@ -35,25 +42,43 @@ Glossary
       dependency definitions in conanfile recipes are not fully deterministic
 
    revision
-      wip
+      Is the way to implicitly version the changes done in a recipe or package without bumping the
+      actual reference or package version.
 
    recipe revision
-      wip
+      A unique ID using the latest VCS hash or a checksum of the recipe manifest (`conanfile.py` with
+      files exported if any).
 
    package revision
-      wip
+      A unique ID using the checksum of the package manifest (all files stored in a binary package).
 
    dependency graph
-      wip
+      A directed graph representing dependencies of several conan packages towards each other.
 
    build system
-      wip
+      Tools used to automate the process of building binaries from sources. Some examples are Make,
+      Autotools, SCons, CMake, Premake, Ninja or Meson.
 
-   compiler
-      wip
+   toolchain
+      A toolchain is the set of tools usually intended for compiling, debugging and profiling
+      applications.
 
-   cross compile
-      wip
+   cross compiler
+      A cross compiler is a compiler capable of creating an executable intended to run in a platfor
+      different from the one in which the compiler is running.
+
+   generator
+      A generator provides the information of dependencies calculated by Conan in a suitable format
+      for a build system. They normally provide a file that can be included or injected to the
+      specific build system to help it to find the packages declared in the recipe.
+
+   build helper
+      A build helper is a Python script to translate Conan settings to the specific settings of a
+      build tool.
+
+   system packages
+      Are packages that are typically installed system wide via system package manager tools such as
+      apt, yum, pkg, pkgutil, brew or pacman.
 
    client
       wip
@@ -61,31 +86,13 @@ Glossary
    server
       wip
 
-   recipe
-      wip
-
-   reference
-      wip
-
-   generator
-      wip
-
-   build helper
-      wip
-
    metadata
-      wip
-
-   system package
       wip
 
    semantic versioning
       wip
 
    local cache
-      wip
-
-   toolchain
       wip
 
    hook
