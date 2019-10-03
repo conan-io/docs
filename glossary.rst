@@ -1,8 +1,7 @@
 
 .. _glossary:
 
-Glossary
-========
+Glossary ========
 
 .. glossary::
    :sorted:
@@ -12,19 +11,19 @@ Glossary
       used in.
 
    conanfile.py
-      The file that defines a conan recipe that can be used to create or consume packages. Inside of this
-      recipe is defined between other things how to download the package's source code, how to build
-      the binaries from those sources, how to package the binaries and information for futures
+      The file that defines a conan recipe that can be used to create or consume packages. Inside of
+      this recipe is defined between other things how to download the package's source code, how to
+      build the binaries from those sources, how to package the binaries and information for futures
       consumers on how to consume the package.
 
    conanfile.txt
-      The file used to define a package or list of packages to be consumed by a project. Can define some
-      more auxiliary files to build or run the project such as generators for different build systems
-      or files to be imported fro the package to the local folder.
+      The file used to define a package or list of packages to be consumed by a project. Can define
+      some more auxiliary files to build or run the project such as generators for different build
+      systems or files to be imported fro the package to the local folder.
 
    recipe
-      Python script defined in a `conanfile.py` that specifies how the package is built from sources, what
-      the final binary artifacts are, the package dependencies, etc.
+      Python script defined in a `conanfile.py` that specifies how the package is built from sources,
+      what the final binary artifacts are, the package dependencies, etc.
 
    reference
       A package reference is the combination of the package name, version and two optional fields
@@ -80,6 +79,11 @@ Glossary
       Are packages that are typically installed system wide via system package manager tools such as
       apt, yum, pkg, pkgutil, brew or pacman.
 
+   hook
+      Hooks are Python scripts containing functions that will be executed before and after a
+      particular task performed by the Conan client. Those tasks could be Conan commands, recipe
+      interactions such as exporting or packaging, or interactions with the remotes.
+
    client
       wip
 
@@ -93,9 +97,6 @@ Glossary
       wip
 
    local cache
-      wip
-
-   hook
       wip
 
    workspace
