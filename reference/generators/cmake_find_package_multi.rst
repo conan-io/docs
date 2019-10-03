@@ -1,8 +1,8 @@
 .. _cmake_find_package_multi_generator_reference:
 
 
-`cmake_find_package_multi`
-==========================
+cmake_find_package_multi
+========================
 
 .. warning::
 
@@ -12,7 +12,6 @@
 
     This is the reference page for ``cmake_find_package_multi`` generator.
     Go to :ref:`Integrations/CMake<cmake>` if you want to learn how to integrate your project or recipes with CMake.
-
 
 Generated files
 ---------------
