@@ -19,7 +19,7 @@ The file declare these variables:
 +--------------------------------+---------------------------------------------------------------------------+
 | LIBRARY_SEARCH_PATHS           | The requirements `lib dirs`                                               |
 +--------------------------------+---------------------------------------------------------------------------+
-| OTHER_LDFLAGS                  | `-lXXX` corresponding to library names                                    |
+| OTHER_LDFLAGS                  | `-lXXX` corresponding to library and system library names                 |
 +--------------------------------+---------------------------------------------------------------------------+
 | GCC_PREPROCESSOR_DEFINITIONS   | The requirements definitions                                              |
 +--------------------------------+---------------------------------------------------------------------------+

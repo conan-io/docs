@@ -68,7 +68,7 @@ The dependencies is a list, with each item belonging to one dependency, and each
  - ``rootpath``
  - ``sysroot``
  - ``include_paths``, ``lib_paths``, ``bin_paths``, ``build_paths``, ``res_paths``, ``framework_paths``
- - ``libs``, ``frameworks``
+ - ``libs``, ``frameworks``, ``system_deps``
  - ``defines``, ``cflags``, ``cppflags``, ``sharedlinkflags``, ``exelinkflags``
  - ``configs`` (only for multi config dependencies, see below)
 
