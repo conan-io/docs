@@ -300,7 +300,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'conan', u'Conan Documentation',
-     author, 'Documentation of Conan C/C++ Package Manager.',
+     author, 'conan', 'Documentation of Conan C/C++ Package Manager',
      'Technology'),
 ]
 
