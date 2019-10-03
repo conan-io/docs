@@ -40,21 +40,21 @@ It will automatically download the `Emscripten SDK <https://github.com/emscripte
 
 .. note::
    In order to use ``emsdk_installer`` package, you need to add it to the remotes:
-   
+
    .. code-block:: bash
 
-      $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan 
+      $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 
-.. note:: 
+.. note::
 
    Alternatively, it's always possible to use an existing ``emsdk`` installation and manually specify required environment variables within the `[env]` section of the conan profile.
 
-.. note:: 
+.. note::
 
    In addition to the above, Windows users may need to specify ``CONAN_MAKE_PROGRAM``,
    for instance from the existing MinGW installation (e.g. ``C:\MinGW\bin\mingw32-make.exe``), or use make from the ``mingw_installer/1.0@conan/stable``.
 
-.. note:: 
+.. note::
 
    In addition to the above, Windows users may need to specify ``CONAN_CMAKE_GENERATOR``, e.g. to ``MinGW Makefiles``, because default one is Visual Studio.
    Other options (e.g. Ninja) work as well.
@@ -66,11 +66,11 @@ And ``compiler`` setting has been set to match the one used by ``Emscripten`` - 
 Running the code inside the browser
 -----------------------------------
 
-.. note:: 
+.. note::
 
    Emscripten requires Python 2.7.12 or above, make sure that you have an up-to-date Python version installed.
 
-.. note:: 
+.. note::
 
    Running demo on Windows may require pywin32 module. Install it by running ``pip install pywin32``.
 
@@ -152,5 +152,5 @@ And as the result, Web Browser should be opened (or new tab in Web Browser will 
 
 It confirms the fact we have just built ``zlib`` into JavaScript and run it inside the Web Browser.
 
-.. |emscripten_logo| image:: ../../images/emscripten_logo.png
+.. |emscripten_logo| image:: ../../images/conan-emscripten_logo.png
                      :width: 180px

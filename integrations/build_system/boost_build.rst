@@ -8,10 +8,10 @@ ______________________________
 
 
 With this generator ``boost-build`` you can generate a ``project-root.jam`` file to be used with your Boost Build system.
-    
+
 
 Check the :ref:`generator boost-build<boost_build_generator>`
 
 
 
-.. |boost_build_logo| image:: ../../images/boost_build.png
+.. |boost_build_logo| image:: ../../images/conan-boost_build.png

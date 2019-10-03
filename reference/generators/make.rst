@@ -45,6 +45,10 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_EXELINK_FLAGS_<PKG-NAME>       | Executable linker flags                                                 |
 +--------------------------------------+-------------------------------------------------------------------------+
+| CONAN_FRAMEWORKS_<PKG-NAME>          | Frameworks (OSX)                                                        |
++--------------------------------------+-------------------------------------------------------------------------+
+| CONAN_FRAMEWORK_PATHS_<PKG-NAME>     | Framework folders (OSX)  (default {CONAN_XXX_ROOT}/Frameworks           |
++--------------------------------------+-------------------------------------------------------------------------+
 
 Conan also declares some **global variables** with the aggregated values of all our requirements. The values are ordered in the right order
 according to the dependency tree.
@@ -77,6 +81,10 @@ according to the dependency tree.
 | CONAN_SHAREDLINKFLAGS          | Aggregated Shared linker flags                                       |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_EXELINKFLAGS             | Aggregated Executable linker flags                                   |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_FRAMEWORKS               | Aggregated frameworks (OSX)                                          |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_FRAMEWORK_PATHS          | Aggregated framework folders (OSX)                                   |
 +--------------------------------+----------------------------------------------------------------------+
 
 .. important::

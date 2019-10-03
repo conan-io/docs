@@ -110,7 +110,7 @@ You can generate a table for all binaries from a given recipe with the ``--table
     $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
-.. image:: /images/search_binary_table.png
+.. image:: /images/conan-search_binary_table.png
     :height: 500 px
     :width: 600 px
     :align: center

@@ -8,15 +8,14 @@ qmake
     This is the reference page for ``qmake`` generator.
     Go to :ref:`Integrations/Qmake<qmake>` if you want to learn how to integrate your project or recipes with qmake.
 
-
 Generates a file named ``conanbuildinfo.pri`` that can be used for your qmake builds.
 The file contains:
 
 - N groups of variables, one group per require, declaring the same individual values: include_paths, libs, bin dirs, libraries, defines etc.
 - One group of global variables with the aggregated values for all requirements.
 
-
-**Package declared vars**
+Package declared vars
+---------------------
 
 For each requirement ``conanbuildinfo.pri`` file declares the following variables.
 ``XXX`` is the name of the require in uppercase. e.k "ZLIB" for ``zlib/1.2.8@lasote/stable`` requirement:
@@ -45,8 +44,8 @@ For each requirement ``conanbuildinfo.pri`` file declares the following variable
 | CONAN_QMAKE_CFLAGS_XXX         | C flags                                                              |
 +--------------------------------+----------------------------------------------------------------------+
 
-
-**Global declared vars**
+Global declared vars
+--------------------
 
 Conan also declares some global variables with the aggregated values of all our requirements.
 The values are ordered in the right order according to the dependency tree.
@@ -73,10 +72,9 @@ The values are ordered in the right order according to the dependency tree.
 | CONAN_QMAKE_CFLAGS             | Aggregated C flags                                                   |
 +--------------------------------+----------------------------------------------------------------------+
 
-
 .. _conanbuildinfoqmake_methods:
 
-Methods available in conanbuildinfo.pri
+Methods available in *conanbuildinfo.pri*
 -----------------------------------------
 
 +--------------------------------+-------------------------------------------------------------------------------+

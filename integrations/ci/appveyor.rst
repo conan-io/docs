@@ -1,7 +1,7 @@
 .. _appveyor_ci:
 
 
-|appveyor_logo| Appveyor 
+|appveyor_logo| Appveyor
 ========================
 
 
@@ -30,33 +30,33 @@ Clone the project from github:
    $ git clone https://github.com/lasote/conan-gtest-example
 
 
-Create an ``appveyor.yml`` file and paste this code in it: 
+Create an ``appveyor.yml`` file and paste this code in it:
 
 
 .. code-block:: text
-   
+
     version: 1.0.{build}
 	platform:
 	  - x64
-	
+
 	install:
 	  - cmmd: echo "Downloading conan..."
 	  - cmmd: set PATH=%PATH%;%PYTHON%/Scripts/
 	  - cmmd: pip.exe install conan
 	  - cmmd: conan user # Create the conan data directory
 	  - cmmd: conan --version
-	
+
 	build_script:
-	  - cmmd: mkdir build 
+	  - cmmd: mkdir build
 	  - cmmd: conan install . -o gtest:shared=True
-	  - cmmd: cd build 
+	  - cmmd: cd build
 	  - cmmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
 	  - cmmd: cmake --build . --config Release
-	
+
 	test_script:
 	  - cmmd: cd bin
 	  - cmmd: encryption_test.exe
-	  
+
 
 Appveyor will install the **Conan** tool and will execute the **conan install** command.
 Then, the **build_script** section creates the build folder, compiles the project with **cmake** and the section **test_script** runs the **tests**.
@@ -88,5 +88,5 @@ example we are assuming that you are using GitHub and also uploading your final 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 
 
-.. |appveyor_logo| image:: ../../images/appveyor_logo.png
+.. |appveyor_logo| image:: ../../images/conan-appveyor_logo.png
 .. _`AppVeyor`: https://ci.appveyor.com

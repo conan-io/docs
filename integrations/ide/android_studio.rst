@@ -148,14 +148,14 @@ Then run the app using an x86 emulator for best performance:
     Check the section :ref:`cross_building_android` to read more about cross-building for Android.
 
 
-.. |android_studio_logo| image:: ../../images/android_studio_logo.png
-.. |wizard1| image:: ../../images/android_studio/wizard1.png
-.. |wizard2| image:: ../../images/android_studio/wizard2.png
-.. |wizard3| image:: ../../images/android_studio/wizard3.png
-.. |wizard4| image:: ../../images/android_studio/wizard4.png
-.. |wizard5| image:: ../../images/android_studio/wizard5.png
-.. |wizard6| image:: ../../images/android_studio/wizard6.png
-.. |wizard7| image:: ../../images/android_studio/wizard7.png
-.. |wizard8| image:: ../../images/android_studio/wizard8.png
-.. |wizard9| image:: ../../images/android_studio/wizard9.png
+.. |android_studio_logo| image:: ../../images/conan-android_studio_logo.png
+.. |wizard1| image:: ../../images/android_studio/conan-wizard1.png
+.. |wizard2| image:: ../../images/android_studio/conan-wizard2.png
+.. |wizard3| image:: ../../images/android_studio/conan-wizard3.png
+.. |wizard4| image:: ../../images/android_studio/conan-wizard4.png
+.. |wizard5| image:: ../../images/android_studio/conan-wizard5.png
+.. |wizard6| image:: ../../images/android_studio/conan-wizard6.png
+.. |wizard7| image:: ../../images/android_studio/conan-wizard7.png
+.. |wizard8| image:: ../../images/android_studio/conan-wizard8.png
+.. |wizard9| image:: ../../images/android_studio/conan-wizard9.png
 

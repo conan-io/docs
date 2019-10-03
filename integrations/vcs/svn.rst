@@ -11,4 +11,4 @@ Check :ref:`scm feature<scm_feature>` to learn more about managing the libraries
 
 
 
-.. |svn_logo| image:: ../../images/svn_logo.png
+.. |svn_logo| image:: ../../images/conan-svn_logo.png

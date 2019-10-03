@@ -75,7 +75,7 @@ CMake generator. Note that this is not a package settings, building it with make
 build system, as Ninja, should lead to the same binary if using appropriately the same
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
-So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
+So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value
 to your desired CMake generator (as ``Ninja``).
 
 CONAN_CMAKE_GENERATOR_PLATFORM
@@ -437,8 +437,9 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`tools_msvc_build_command`
-and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+When set to ``True``/``1``, the :ref:`tools.build_sln_command() <tools_build_sln_command>`,
+the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
+and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
 CONAN_SYSREQUIRES_MODE
@@ -493,25 +494,29 @@ Set it with an absolute path to a file.
 
     export CONAN_TRACE_FILE=/tmp/conan_trace.log
 
-When the Conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+When the Conan command is executed, some traces will be appended to the specified file.
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions,
 ``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
 
 The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
 
 .. seealso::
 
-    Read more here: :ref:`logging_and_debugging` 
+    Read more here: :ref:`logging_and_debugging`
 
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
 
-These environment variables will be checked when using ``self.user`` or ``self.channel`` in package recipes in user space, where the user
-and channel have not been assigned yet (they are assigned when exported in the local cache).
+.. warning::
 
-.. seealso::
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` are deprecated and will be
+    removed in Conan 2.0. Don't use them to populate the value of ``self.user`` and ``self.channel``.
 
-    Read more about it in :ref:`user_channel`
+These environment variables will be checked when using ``self.user`` or ``self.channel`` in package
+recipes in user space, where the user and channel have not been assigned yet (they are assigned
+when exported in the local cache). More about these variables in
+the :ref:`attributes reference <user_channel>`.
+
 
 CONAN_USER_HOME
 ---------------
@@ -609,3 +614,12 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 **Defaulted to**: ``False``/``0``
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
+
+
+CONAN_PYLINT_WERR
+-----------------
+
+**Defaulted to**: Not defined
+
+This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
+any inconsistency found in the recipe will break the process during linter analysis.

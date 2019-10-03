@@ -15,7 +15,7 @@ conan create
                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
                    [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
                    [-s SETTINGS] [-u] [-l [LOCKFILE]]
-                   path reference
+                   path [reference]
 
 Builds a binary package for a recipe (conanfile.py).
 

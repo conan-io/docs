@@ -53,7 +53,7 @@ With `QNX SDK <http://www.qnx.com/download/>`__ set up on the machine, the follo
   CC=qcc
   CXX=QCC
 
-.. |qnx_neutrino_logo| image:: ../../images/qnx_neutrino_logo.png
+.. |qnx_neutrino_logo| image:: ../../images/conan-qnx_neutrino_logo.png
                        :width: 180px
 
 

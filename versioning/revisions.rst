@@ -11,11 +11,12 @@ The goal of the revisions feature is to achieve package immutability, the packag
 
 .. note::
 
-    This is the first piece to achieve reproducibility: recreate the exact dependency graph by using some
-    mechanism like a ``graph lock`` file. For example, if we store a ``graph lock`` file for the different releases
-    of our project, we can install the same dependencies just by using the graph lock.
+    Revisions achieve inmmutatibility. For achieving reproducible builds and reproducible dependencies, **lockfiles**
+    are used. Lockfiles can capture an exact state of a dependency graph, down to exact versions and revisions, and use
+    it later to force their usage, even if new versions or revisions were uploaded to the servers.
 
-    **IMPORTANT:** The reproducibility is in the Conan roadmap and currently under development.
+    Learn more about :ref:`lockfiles here.<versioning_lockfiles>`
+    
 
 How it works
 ------------
