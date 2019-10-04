@@ -52,6 +52,9 @@ Glossary
    package revision
       A unique ID using the checksum of the package manifest (all files stored in a binary package).
 
+   package id
+      wip
+
    dependency graph
       A directed graph representing dependencies of several conan packages towards each other.
 
@@ -121,4 +124,19 @@ Glossary
 
    static library
       A library that is copied at compile time to the target application.
+
+   remote
+      wip
+
+   requirement
+      wip
+
+   build requirement
+      wip
+
+   setting
+      wip
+
+   option
+      wip
 
