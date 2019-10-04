@@ -12,7 +12,7 @@ Glossary
       used in.
 
    conanfile.py
-      The file that defines a conan recipe that can be used to create or consume packages. Inside of
+      The file that defines a Conan recipe that can be used to create or consume packages. Inside of
       this recipe is defined between other things how to download the package's source code, how to
       build the binaries from those sources, how to package the binaries and information for futures
       consumers on how to consume the package.
@@ -53,10 +53,35 @@ Glossary
       A unique ID using the checksum of the package manifest (all files stored in a binary package).
 
    package id
-      wip
+      The package id is a hash of the settings options and requirements used to identify the binary
+      packages
+
+   binary package
+      Output binary for the recipe compatible for certain settings and options.
+
+   settings
+      Settings are the part of the configuration that is defined by the specifics of the consumer of
+      the package. For example, a library could be built with different compilers and the
+      consumer defines he has a certain one.
+
+   options
+      An option is something that can be defaulted by the package creator, like if a library is
+      static or shared. Options are specific to each package, and each package creator can define
+      their options "header_only" for example. There is an option that is the most usual, and
+      recommended name shared = True/False
+
+   requirement
+      Packages on which another package depends on.
+
+   build requirement
+      Requirements that are only needed when you need to build a package from sources, but if the
+      binary package already exists, you don’t want to install or retrieve them.
+
+   dependency
+      A component that is directly referenced by a program.
 
    dependency graph
-      A directed graph representing dependencies of several conan packages towards each other.
+      A directed graph representing dependencies of several Conan packages towards each other.
 
    build system
       Tools used to automate the process of building binaries from sources. Some examples are Make,
@@ -67,7 +92,7 @@ Glossary
       applications.
 
    cross compiler
-      A cross compiler is a compiler capable of creating an executable intended to run in a platfor
+      A cross compiler is a compiler capable of creating an executable intended to run in a platform
       different from the one in which the compiler is running.
 
    generator
@@ -106,9 +131,6 @@ Glossary
       use other packages from user folders without needing to put them in the local cache.
       Furthermore, they enable incremental builds on large projects containing multiple packages.
 
-   dependency
-      A component that is directly referenced by a program.
-
    transitive dependency
       A dependency that is induced by the dependency that the program references directly.
 
@@ -126,17 +148,5 @@ Glossary
       A library that is copied at compile time to the target application.
 
    remote
-      wip
-
-   requirement
-      wip
-
-   build requirement
-      wip
-
-   setting
-      wip
-
-   option
-      wip
+      The server that hosts Conan packages.
 
