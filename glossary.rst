@@ -27,9 +27,9 @@ Glossary
       what the final binary artifacts are, the package dependencies, etc.
 
    reference
-      A package reference is the combination of the package name, version and two optional fields
+      A package reference is the combination of the package name, version, and two optional fields
       named user and channel that could be useful to identify a forked recipe from the community with
-      changes specific for your company.
+      changes specific to your company.
 
    package
       A Conan package is a collection of files meant to be consumed for a certain configuration and
@@ -77,8 +77,8 @@ Glossary
       build tool.
 
    system packages
-      Are packages that are typically installed system wide via system package manager tools such as
-      apt, yum, pkg, pkgutil, brew or pacman.
+      System packages are packages that are typically installed system-wide via system package
+      management tools such as apt, yum, pkg, pkgutil, brew or pacman.
 
    hook
       Hooks are Python scripts containing functions that will be executed before and after a
@@ -87,19 +87,19 @@ Glossary
 
    semantic versioning
       Versioning system with versions in the form of MAJOR.MINOR.PATCH where PATCH version changes
-      when you make backwards compatible bug fixes, MINOR version changes when you add functionality
-      in a backwards compatible manner, and MAJOR version changes when you make incompatible API
+      when you make backward-compatible bug fixes, MINOR version changes when you add functionality
+      in a backward-compatible manner, and MAJOR version changes when you make incompatible API
       changes.
 
    local cache
-      Folder in which Conan stores the package cache and some configuratin files such as the
-      `conan.conf`. It's configurable with the environment variable ``CONAN_USER_HOME``.
+      A folder in which Conan stores the package cache and some configuration files such as the
+      `conan.conf` or `settings.yml`. It's configurable with the environment variable ``CONAN_USER_HOME``.
 
    editable package
-      Package that resides in the user workspace, but are consumed as if they were in the cache.
+      A package that resides in the user workspace, but is consumed as if It was in the cache.
 
    workspace
-      Conan workspaces allow to have more than one package in user folders, and have them directly
+      Conan workspaces allow us to have more than one package in user folders and have them directly
       use other packages from user folders without needing to put them in the local cache.
       Furthermore, they enable incremental builds on large projects containing multiple packages.
 
@@ -107,7 +107,7 @@ Glossary
       A component that is directly referenced by a program.
 
    transitive dependency
-      Dependency that is induced by the dependency that the program references directly.
+      A dependency that is induced by the dependency that the program references directly.
 
    profile
       A profile is the set of different settings, options, environment variables and build
@@ -117,8 +117,8 @@ Glossary
       A library is a collection of code and resources to be reused by other programs.
 
    shared library
-      A library which routines are loaded into the target application at runtime.
+      A library that is loaded at runtime into the target application.
 
    static library
-      Libraries which routines are copied to the target application at compile time.
+      A library that is copied at compile time to the target application.
 
