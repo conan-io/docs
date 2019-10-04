@@ -1,7 +1,8 @@
 
 .. _glossary:
 
-Glossary ========
+Glossary
+========
 
 .. glossary::
    :sorted:
@@ -84,50 +85,40 @@ Glossary ========
       particular task performed by the Conan client. Those tasks could be Conan commands, recipe
       interactions such as exporting or packaging, or interactions with the remotes.
 
-   client
-      wip
-
-   server
-      wip
-
-   metadata
-      wip
-
    semantic versioning
-      wip
+      Versioning system with versions in the form of MAJOR.MINOR.PATCH where PATCH version changes
+      when you make backwards compatible bug fixes, MINOR version changes when you add functionality
+      in a backwards compatible manner, and MAJOR version changes when you make incompatible API
+      changes.
 
    local cache
-      wip
+      Folder in which Conan stores the package cache and some configuratin files such as the
+      `conan.conf`. It's configurable with the environment variable ``CONAN_USER_HOME``.
+
+   editable package
+      Package that resides in the user workspace, but are consumed as if they were in the cache.
 
    workspace
-      wip
-
-   build info
-      wip
+      Conan workspaces allow to have more than one package in user folders, and have them directly
+      use other packages from user folders without needing to put them in the local cache.
+      Furthermore, they enable incremental builds on large projects containing multiple packages.
 
    dependency
-      wip
+      A component that is directly referenced by a program.
 
    transitive dependency
-      wip
+      Dependency that is induced by the dependency that the program references directly.
 
    profile
-      wip
+      A profile is the set of different settings, options, environment variables and build
+      requirements that are used when working with packages.
 
    library
-      wip
+      A library is a collection of code and resources to be reused by other programs.
 
    shared library
-      wip
+      A library which routines are loaded into the target application at runtime.
 
    static library
-      wip
+      Libraries which routines are copied to the target application at compile time.
 
-   fPIC
-      wip
-
-   soname
-      wip
-
-   rpath
-      wip
