@@ -201,6 +201,9 @@ If not specified, the packages marked as `short_paths` will be stored in the ``C
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
 for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even
 in the conan code base, allowing to debug the detected error.
 

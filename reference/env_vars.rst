@@ -540,6 +540,9 @@ marked as `short_paths` will be stored in the ``C:\.conan`` (or the current driv
 
 If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 CONAN_USE_ALWAYS_SHORT_PATHS
 ----------------------------
 
