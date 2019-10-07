@@ -29,7 +29,7 @@ Glossary
    reference
       A package reference is the combination of the package name, version, and two optional fields
       named user and channel that could be useful to identify a forked recipe from the community with
-      changes specific to your company.
+      changes specific to your company. It is show in the the form of: `<name>/<version>@<user>/<channel>`.
 
    package
       A Conan package is a collection of files meant to be consumed for a certain configuration and
