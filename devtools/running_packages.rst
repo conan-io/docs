@@ -139,7 +139,7 @@ This helps to collect all the dependencies into a single place, moving them out 
 Using json generator
 --------------------
 
-The more advanced approach is to use the :ref:`json generator <json_generator>`. First off, invoke the conan to generate the ``conanbuildinfo.json`` 
+A more advanced approach is to use the :ref:`json generator <json_generator>`:
 file containing all required information about dependencies:
 
 .. code-block:: bash
