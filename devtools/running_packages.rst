@@ -120,7 +120,7 @@ Using deploy generator
 
 With the help of so-called :ref:`deploy generator <deploy_generator>`, it's possible to have all dependencies of the application to be copied into the 
 a single place for the later repackaging into the desired distribution format.
-For instance, if the application depends on boost, we may not know that it also may require many other 3rt-party libraries, 
+For instance, if the application depends on boost, we may not know that it also requires many other 3rt-party libraries, 
 such as 
 `zlib <https://zlib.net/>`_, 
 `bzip2 <https://sourceware.org/bzip2/>`_, 
