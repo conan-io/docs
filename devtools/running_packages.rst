@@ -126,7 +126,7 @@ such as
 `bzip2 <https://sourceware.org/bzip2/>`_, 
 `lzma <https://tukaani.org/xz/>`_, 
 `zstd <https://facebook.github.io/zstd/>`_, 
-`iconv <https://www.gnu.org/software/libiconv/>`_, etc. It would be nice to collect them all, regardless of options applied to the **boost**.
+`iconv <https://www.gnu.org/software/libiconv/>`_, etc. 
 
 .. code-block:: bash
 
