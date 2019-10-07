@@ -13,7 +13,7 @@ Glossary
 
    conanfile.py
       The file that defines a Conan recipe that can be used to create or consume packages. Inside of
-      this recipe is defined between other things how to download the package's source code, how to
+      this recipe, it is defined (among other things) how to download the package's source code, how to
       build the binaries from those sources, how to package the binaries and information for futures
       consumers on how to consume the package.
 
