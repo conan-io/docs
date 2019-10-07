@@ -213,7 +213,7 @@ Deployment challenges
 ---------------------
 
 C standard library
-------------------
+~~~~~~~~~~~~~~~~~~
 
 At the very least, the application depends on C standard library. The most wide-spread variant is GNU C library or just 
 `glibc <https://www.gnu.org/software/libc/>`_.
@@ -275,7 +275,7 @@ check out sections :ref:`add_new_settings` and :ref:`add_new_sub_settings`. The 
 - generate deployable artifacts for each distro, as explained in section :ref:`deployment`
 
 C++ standard library
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Usually, the default C++ standard library is `libstdc++ <https://gcc.gnu.org/onlinedocs/libstdc++/>`_, but `libc++ <https://libcxx.llvm.org/>`_ is also extremely popular. Besides that, there are other well-known implementations, e.g. `stlport <http://www.stlport.org/>`_.
 
@@ -301,7 +301,7 @@ Similarly to glibc, running the application linked with libstdc++ on the older s
 Fortunately, this is much easier to address (compare to glibc), by just adding ``-static-libstdc++`` compiler flag.
 
 Compiler runtime
-----------------
+~~~~~~~~~~~~~~~~
 
 Besides C and C++ runtime libraries, there are compiler runtime libraries that are in use. They usually provide lower-level functions,
 such as compiler intrinsics, or support for exception handling. Functions from these runtime libraries are rarely referenced directly in code,
@@ -315,7 +315,7 @@ they are mostly implicitly inserted by the compiler itself.
 Anyway, it's pretty easy to avoid such dependency by the usage of the ``-static-libgcc`` compiler flag.
 
 System API (system calls)
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org/>`_. If the application, or 3rd-party libraries want to take advantage of these new features, they sometimes directly refer to such system calls, instead of using wrappers provided by ``glibc``.
 As a result, if the application was compiled on a machine with a newer kernel and build system used to auto-detect available system calls, it may fail to
