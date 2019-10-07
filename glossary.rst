@@ -20,7 +20,7 @@ Glossary
    conanfile.txt
       The file used to define a package or list of packages to be consumed by a project. It can define
       some more auxiliary files to build or run the project such as generators for different build
-      systems or files to be imported fro the package to the local folder.
+      systems or files to be imported from the package to the local folder.
 
    recipe
       Python script defined in a `conanfile.py` that specifies how the package is built from sources,
