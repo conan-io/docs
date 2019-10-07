@@ -147,5 +147,5 @@ Glossary
       A library that is copied at compile time to the target application.
 
    remote
-      The server that hosts Conan packages.
+      The binary repository that hosts Conan packages inside a server.
 
