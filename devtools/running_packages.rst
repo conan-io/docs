@@ -175,19 +175,6 @@ The `conanbuildinfo.json` file produced is fully machine-readable and could be u
                     bin_dir = os.path.relpath(bin_path, root)
                     dep_bin_dirs[bin_path] = bin_dir
 
-Then, the information collected might be used to copy the required files into the destination:
-
-.. code-block:: python
-
-    from distutils.dir_util import copy_tree
-
-    if not os.path.isdir(destination):
-        os.makedirs(destination)
-    for src_lib_dir, dst_bin_dir in dep_lib_dirs.items():
-        copy_tree(src_lib_dir, os.path.join(destination, dst_lib_dir))
-    for src_bin_dir, dst_bin_dir in dep_bin_dirs.items():
-        copy_tree(src_bin_dir, os.path.join(destination, dst_bin_dir))
-
 The advantage over the ``deploy`` generator is fine-grained control: here we copy only binaries and libraries.
 It's also could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries, 
 and omit any static libraries or auxiliary files such as pkg-config .pc files).
