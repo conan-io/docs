@@ -39,7 +39,7 @@ Glossary
    lockfile
       Files that store the information with the exact versions, revisions, options, and configuration
       of a dependency graph. They are intended to make the building process reproducible even if the
-      dependency definitions in conanfile recipes are not fully deterministic
+      dependency definitions in conanfile recipes are not fully deterministic.
 
    revision
       Is the way to implicitly version the changes done in a recipe or package without bumping the
