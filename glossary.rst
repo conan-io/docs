@@ -18,7 +18,7 @@ Glossary
       consumers on how to consume the package.
 
    conanfile.txt
-      The file used to define a package or list of packages to be consumed by a project. Can define
+      The file used to define a package or list of packages to be consumed by a project. It can define
       some more auxiliary files to build or run the project such as generators for different build
       systems or files to be imported fro the package to the local folder.
 
