@@ -73,7 +73,6 @@ It is possible to define a custom conanfile (either .txt or .py), with an ``impo
 cache the desired files. This approach requires a user conanfile.
 For more details see example below :ref:`runtime packages<repackage>`
 
-
 Deployable packages
 --------------------
 With the ``deploy()`` method, a package can specify which files and artifacts to copy to user space or to other
@@ -113,6 +112,227 @@ with:
 .. seealso::
 
     Read more about the :ref:`deploy() <method_deploy>` method.
+
+.. _using_deploy_generator:
+
+Using deploy generator
+----------------------
+
+With the help of so-called :ref:`deploy generator <deploy_generator>`, it's possible to have all dependencies of the application to be copied into the 
+a single place for the later repackaging into the desired distribution format.
+For instance, if the application depends on boost, we may not know that it also may require many other 3rt-party libraries, 
+such as 
+`zlib <https://zlib.net/>`_, 
+`bzip2 <https://sourceware.org/bzip2/>`_, 
+`lzma <https://tukaani.org/xz/>`_, 
+`zstd <https://facebook.github.io/zstd/>`_, 
+`iconv <https://www.gnu.org/software/libiconv/>`_, etc. It would be nice to collect them all, regardless of options applied to the **boost**.
+
+.. code-block:: bash
+
+    $ conan install . -g deploy
+
+This helps to collect all the dependencies into a single place, moving them out of the conan cache directory.
+
+.. _using_json_generator:
+
+Using json generator
+--------------------
+
+The more advanced approach is to use the :ref:`json generator <json_generator>`. First off, invoke the conan to generate the ``conanbuildinfo.json`` 
+file containing all required information about dependencies:
+
+.. code-block:: bash
+
+    $ conan install . -g json
+
+The file produced is fully machine-readable and could be used by scripts to prepare the distribution.
+
+.. code-block:: python
+
+        import os
+        import json
+
+        data = json.load(open("conanbuildinfo.json"))
+
+        dep_lib_dirs = dict()
+        dep_bin_dirs = dict()
+
+        for dep in data["dependencies"]:
+            root = dep["rootpath"]
+            lib_paths = dep["lib_paths"]
+            bin_paths = dep["bin_paths"]
+
+            dep_lib_dirs = dict()
+            dep_bin_dirs = dict()
+
+            for lib_path in lib_paths:
+                if os.listdir(lib_path):
+                    lib_dir = os.path.relpath(lib_path, root)
+                    dep_lib_dirs[lib_path] = lib_dir
+            for bin_path in bin_paths:
+                if os.listdir(bin_path):
+                    bin_dir = os.path.relpath(bin_path, root)
+                    dep_bin_dirs[bin_path] = bin_dir
+
+Then, the information collected might be used to copy the required files into the destination:
+
+.. code-block:: python
+
+    from distutils.dir_util import copy_tree
+
+    if not os.path.isdir(destination):
+        os.makedirs(destination)
+    for src_lib_dir, dst_bin_dir in dep_lib_dirs.items():
+        copy_tree(src_lib_dir, os.path.join(destination, dst_lib_dir))
+    for src_bin_dir, dst_bin_dir in dep_bin_dirs.items():
+        copy_tree(src_bin_dir, os.path.join(destination, dst_bin_dir))
+
+The advantage over the ``deploy`` generator is fine-grained control: here we copy only binaries and libraries.
+It's also could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries, 
+and omit any static libraries or auxiliary files such as pkg-config .pc files).
+The extracted information may also be used to generate a simple startup script (as described below):
+
+.. code-block:: python
+
+    executable = "MyApp"  # just an example
+    varname = "$APPDIR"
+
+    def _format_dirs(dirs):
+        return ":".join(["%s/%s" % (varname, d) for d in dirs])
+
+    path = _format_dirs(bin_dirs.values())
+    ld_library_path = _format_dirs(bin_dirs.values())
+    exe = varname + "/" + executable
+
+    content = """#!/usr/bin/env bash
+    set -ex
+    export PATH=$PATH:{path}
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{ld_library_path}
+    pushd $(dirname {exe})
+    $(basename {exe})
+    popd
+    """.format(path=path,
+           ld_library_path=ld_library_path,
+           exe=exe)
+
+.. note::
+
+    The full example might be found on `GitHub <https://github.com/SSE4/conan-deploy-tool>`_.
+
+.. _deployment_challenges:
+
+Deployment challenges
+---------------------
+
+C standard library
+------------------
+
+At the very least, the application depends on C standard library. The most wide-spread variant is GNU C library or just 
+`glibc <https://www.gnu.org/software/libc/>`_.
+also, there are other implementations, such as 
+`newlib <https://sourceware.org/newlib/>`_ or 
+`musl <https://www.musl-libc.org/>`_, used in embedded environments.
+Glibc is not a just C standard library, as it provides:
+- C functions (e.g. malloc(), sin(), etc.) for various language standards, include C99
+- POSIX functions (e.g. posix threads aka pthread)
+- BSD functions (e.g. BSD sockets)
+- wrappers for OS-specific APIs (e.g. Linux system calls)
+
+even if your application doesn't use directly any of these functions, they are often used by other libraries, 
+so, in practice, it's almost always in actual use.
+
+To illustrate the problem, it's possible to compile simple hello-world application via ``conanio/gcc9`` image:
+
+.. code-block:: text
+
+    #include <cstring>
+    #include <cstdio>
+    #include <memory>
+
+    int main(int argc, char ** argv)
+    {
+        const char * msg = "argv[0] = ";
+        size_t size1 = strlen(msg);
+        size_t size2 = strlen(argv[0]) + 1;
+        char * a = new char[size1 + size2];
+        memcpy(a, msg, size1);
+        memcpy(a + size1, argv[0], size2);
+        printf("%s\n", a);
+        delete [] a;
+    }
+
+Running the compiled application on the ``centos:6`` docker image results in an error:
+
+.. code-block:: console
+
+    $ /hello
+    /hello: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by /hello)
+
+There are several solutions to the problem:
+
+- `LibcWrapGenerator <https://github.com/AppImage/AppImageKit/tree/stable/v1.0/LibcWrapGenerator>`_
+- `glibc_version_header <https://github.com/wheybags/glibc_version_header>`_
+- `bingcc <https://github.com/sulix/bingcc>`_
+
+Some people also advice to use static of glibc, but it's strongly discouraged. One of the reasons is that newer glibc 
+might be using syscalls that are not available in the previous versions, so it will randomly fail in runtime, which is 
+much harder to debug (the situation about system calls is described below).
+
+It's possible to model either ``glibc`` version or Linux distribution name in conan by defining custom conan settings (``settings.yml``), 
+check out sections :ref:`add_new_settings` and :ref:`add_new_sub_settings`. The process of adopting distribution as a setting in conan:
+
+- define new sub-setting, for instance `os.distro`, as explained in the section :ref:`add_new_sub_settings`
+- define compatibility mode, as explained by sections :ref:`method_package_id` and :ref:`method_build_id` (e.g. you may consider some ``Ubuntu`` and ``Debian`` packages to be compatible with each other)
+- generate N different packages for each distro
+- generate deployable artifacts for each distro, as explained in section :ref:`deployment`
+
+C++ standard library
+--------------------
+
+Usually, the default C++ standard library is `libstdc++ <https://gcc.gnu.org/onlinedocs/libstdc++/>`_, but `libc++ <https://libcxx.llvm.org/>`_ is also extremely popular. Besides that, there are other well-known implementations, e.g. `stlport <http://www.stlport.org/>`_.
+
+Similarly to glibc, running the application linked with libstdc++ on the older system may result in an error (running on ``centos:6``):
+
+.. code-block:: text
+
+    #include <filesystem>
+    #include <iostream>
+
+    int main(int argc, char ** argv)
+    {
+        std::filesystem::path p(argv[0]);
+        std::cout << "size: " << std::filesystem::file_size(p) << std::endl;
+    }
+
+.. code-block:: console
+
+    $ /hello
+    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /hello)
+    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /hello)
+
+Fortunately, this is much easier to address (compare to glibc), by just adding ``-static-libstdc++`` compiler flag.
+
+Compiler runtime
+----------------
+
+Besides C and C++ runtime libraries, there are compiler runtime libraries that are in use. They usually provide lower-level functions,
+such as compiler intrinsics, or support for exception handling. Functions from these runtime libraries are rarely referenced directly in code,
+they are mostly implicitly inserted by the compiler itself.
+
+.. code-block:: console
+
+    $ ldd ./a.out
+    libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f6626aee000)
+
+Anyway, it's pretty easy to avoid such dependency by the usage of the ``-static-libgcc`` compiler flag.
+
+System API (system calls)
+-------------------------
+
+New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org/>`_. If the application, or 3rd-party libraries want to take advantage of these new features, they sometimes directly refer to such system calls, instead of using wrappers provided by ``glibc``.
+As a result, if the application was compiled on a machine with a newer kernel and build system used to auto-detect available system calls, it may fail to
+execute properly on machines with older kernels.
 
 Running from packages
 ---------------------
