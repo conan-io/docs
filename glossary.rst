@@ -52,7 +52,7 @@ Glossary
    package revision
       A unique ID using the checksum of the package manifest (all files stored in a binary package).
 
-   package id
+   package ID
       The package id is a hash of the settings options and requirements used to identify the binary
       packages
 
