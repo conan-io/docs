@@ -100,7 +100,7 @@ Glossary
       specific build system to help it to find the packages declared in the recipe.
 
    build helper
-      A build helper is a Python script to translate Conan settings to the specific settings of a
+      A build helper is a Python script that translates Conan settings to the specific settings of a
       build tool.
 
    system packages
