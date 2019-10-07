@@ -60,9 +60,8 @@ Glossary
       Output binary for the recipe compatible for certain settings and options.
 
    settings
-      Settings are the part of the configuration that is defined by the specifics of the consumer of
-      the package. For example, a library could be built with different compilers and the
-      consumer defines he has a certain one.
+      Settings are a set of different configurations that define the ABI of your package and that a 
+      consumer can indicate as input to retrieve the correct packages for his configuration.
 
    options
       An option is something that can be defaulted by the package creator, like if a library is
