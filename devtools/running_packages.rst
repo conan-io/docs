@@ -113,7 +113,7 @@ with:
 
     Read more about the :ref:`deploy() <method_deploy>` method.
 
-.. _using_deploy_generator:
+.. _deployable_deploy_generator:
 
 Using the `deploy` generator
 ----------------------
