@@ -132,7 +132,7 @@ such as
 
     $ conan install . -g deploy
 
-This helps to collect all the dependencies into a single place, moving them out of the conan cache directory.
+This helps to collect all the dependencies into a single place, moving them out of the Conan cache.
 
 .. _using_json_generator:
 
