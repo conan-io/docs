@@ -136,7 +136,7 @@ This helps to collect all the dependencies into a single place, moving them out 
 
 .. _using_json_generator:
 
-Using json generator
+Using the `json` generator
 --------------------
 
 A more advanced approach is to use the :ref:`json generator <json_generator>`:
