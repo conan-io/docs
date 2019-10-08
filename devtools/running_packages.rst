@@ -140,7 +140,7 @@ Using the `json` generator
 --------------------
 
 A more advanced approach is to use the :ref:`json generator <json_generator>`:
-file containing all required information about dependencies:
+This generator works in a similar fashion as the `deploy` one, although it doesn't copy the files to a directory. Instead, it generates a JSON file with all the information about the dependencies including the location of the files in the Conan cache.
 
 .. code-block:: bash
 
