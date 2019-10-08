@@ -146,7 +146,7 @@ file containing all required information about dependencies:
 
     $ conan install . -g json
 
-The `conanbuildinfo.json` file produced is fully machine-readable and could be used by scripts to prepare the distribution.
+The *conanbuildinfo.json* file produced is fully machine-readable and could be used by scripts to prepare the files and recreate the appropriate format for distribution.
 
 .. code-block:: python
 
