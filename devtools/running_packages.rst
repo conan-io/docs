@@ -176,7 +176,7 @@ The `conanbuildinfo.json` file produced is fully machine-readable and could be u
                     dep_bin_dirs[bin_path] = bin_dir
 
 While with the `deploy` generator all the files were copied into a folder, the advantage with the `json` one is that you have fine-grained control over the files and those can be directly copied to the desired layout.
-It's also could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries, 
+In that sense, the script above could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries, 
 and omit any static libraries or auxiliary files such as pkg-config .pc files).
 The extracted information may also be used to generate a simple startup script (as described below):
 
