@@ -115,7 +115,7 @@ with:
 
 .. _using_deploy_generator:
 
-Using deploy generator
+Using the `deploy` generator
 ----------------------
 
 With the help of the :ref:`deploy generator <deploy_generator>`, it's possible to have all dependencies of the application to be copied into 
