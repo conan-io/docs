@@ -21,7 +21,7 @@ Glossary
    conanfile.txt
       It is a simplified version of the `conanfile.py` used only for consuming packages. It defines a
       list of packages to be consumed by a project and can also define the
-      :ref:`generators<generators>` for the build system we are using and if we want to
+      :ref:`generators<generators>` for the build system we are using, and if we want to
       :ref:`import<imports_txt>` files from the dependencies, as shared libraries, executables or
       assets.
 
@@ -110,9 +110,9 @@ Glossary
 
    generator
       A generator provides the information of dependencies calculated by Conan in a suitable format
-      mainly a build system. They normally provide a file that can be included or injected to the
-      specific build system to help it to find the packages declared in the recipe. There are other
-      generators that are not intended to be used with the build system. e.g.
+      that is usually injected in a build system. They normally provide a file that can be included
+      or passed as input to the specific build system to help it to find the packages declared in the
+      recipe. There are other generators that are not intended to be used with the build system. e.g.
       :ref:`"deploy"<deploy_generator>`, :ref:`"YouCompleteMe"<youcompleteme_integration>`.
 
    build helper
@@ -155,7 +155,7 @@ Glossary
 
    editable package
       A :ref:`package<editable_packages>` that resides in the user workspace, but is consumed as if
-      it was in the cache. This mode is useful when you are developing the packages and the projects
+      it was in the cache. This mode is useful when you are developing the packages, and the projects
       that consume them at the same time.
 
    workspace
