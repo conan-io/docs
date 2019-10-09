@@ -87,8 +87,7 @@ Glossary
 
    build requirement
       Requirements that are only needed when you need to build a package (that declares the `build requirement`)
-      from sources, but if the from sources, but if the binary package already exists,
-      the build-require is not retrieved.
+      from sources, but if the binary package already exists, the build-require is not retrieved.
 
    dependency graph
       A directed graph representing dependencies of several Conan packages towards each other. The
