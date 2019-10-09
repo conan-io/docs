@@ -116,7 +116,7 @@ with:
 .. _deployable_deploy_generator:
 
 Using the `deploy` generator
-----------------------
+----------------------------
 
 The :ref:`deploy generator <deploy_generator>` is used to have all the dependencies of an application copied into a single place. Then all the files can be repackaged into the distribution format of choice.
 For instance, if the application depends on boost, we may not know that it also requires many other 3rt-party libraries, 
@@ -136,7 +136,7 @@ This helps to collect all the dependencies into a single place, moving them out 
 .. _deployable_json_generator:
 
 Using the `json` generator
---------------------
+--------------------------
 
 A more advanced approach is to use the :ref:`json generator <json_generator>`:
 This generator works in a similar fashion as the `deploy` one, although it doesn't copy the files to a directory. Instead, it generates a JSON file with all the information about the dependencies including the location of the files in the Conan cache.
