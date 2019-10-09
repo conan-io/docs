@@ -63,17 +63,20 @@ Glossary
 
    binary package
       Output binary for the recipe compatible for certain settings and options. Usually, there are N
-      binary packages inside one Conan package, one for each set of settings and options.
+      binary packages inside one Conan package, one for each set of settings and options. Every
+      binary package is identified by a package_id.
 
    settings
-      Settings are a set of different configurations that define the ABI of your package and that a
-      consumer can indicate as input to retrieve the correct packages for his configuration.
+      A set of keys and values, like  `os`, `compiler` and `build_type` that are declared at the
+      `~/.conan/settings.yml` file.
 
    options
-      An option is something that can be defaulted by the package creator, like if a library is
-      static or shared. Options are specific to each package, and each package creator can define
-      their options "header_only" for example. There is an option that is the most usual, and
-      recommended name shared = True/False
+      :ref:`Options<conanfile_options>` are declared in the recipes, it is similar to
+      the `setting` concept but it is something that can be defaulted by the recipe creator, like if
+      a library is static or shared. Options are specific to each package (there is not a yml file
+      like the `settings.yml` file), and each package creator can define their options "header_only"
+      for example. The most common example is the "shared" option, with possibles values `True/False`
+      and typically defaulted to `False`.
 
    requirement
       Packages on which another package depends on.
