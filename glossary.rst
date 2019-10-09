@@ -29,8 +29,8 @@ Glossary
       Python script defined in a `conanfile.py` that specifies how the package is built from sources,
       what the final binary artifacts are, the package dependencies, etc.
 
-   reference
-      A package reference is the combination of the package name, version, and two optional fields
+   recipe reference
+      A recipe reference is the combination of the package name, version, and two optional fields
       named user and channel that could be useful to identify a forked recipe from the community with
       changes specific to your company. It is show in the the form of:
       ``<name>/<version>@<user>/<channel>``.
