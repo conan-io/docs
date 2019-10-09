@@ -61,10 +61,11 @@ Glossary
       packages
 
    binary package
-      Output binary for the recipe compatible for certain settings and options.
+      Output binary for the recipe compatible for certain settings and options. Usually, there are N
+      binary packages inside one Conan package, one for each set of settings and options.
 
    settings
-      Settings are a set of different configurations that define the ABI of your package and that a 
+      Settings are a set of different configurations that define the ABI of your package and that a
       consumer can indicate as input to retrieve the correct packages for his configuration.
 
    options
@@ -84,7 +85,7 @@ Glossary
       A directed graph representing dependencies of several Conan packages towards each other. The
       relations between the packages are declared with the `requirements` in the recipes. A
       dependency graph in Conan depends on the input profile applied because the requirements can be
-      :ref:`conditioned<conditional_settings_options_requirements>` to a specific configuration. 
+      :ref:`conditioned<conditional_settings_options_requirements>` to a specific configuration.
 
    build system
       Tools used to automate the process of building binaries from sources. Some examples are Make,
