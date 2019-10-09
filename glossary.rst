@@ -32,8 +32,11 @@ Glossary
    recipe reference
       A recipe reference is the combination of the package name, version, and two optional fields
       named user and channel that could be useful to identify a forked recipe from the community with
-      changes specific to your company. It is show in the the form of:
-      ``<name>/<version>@<user>/<channel>``.
+      changes specific to your company. It adopts the form of ``name/version@user/channel``.
+
+   package reference
+      A package reference is the combination of the recipe reference and the package ID. It adopts
+      the form of ``name/version@user/channel:package_id_hash``.
 
    package
       A Conan package is a collection of files that include the recipe and the N binary packages
