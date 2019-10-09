@@ -205,7 +205,7 @@ Additionally, you could also write a simple startup script for your application 
 
 .. note::
 
-    The full example might be found on `GitHub <https://github.com/SSE4/conan-deploy-tool>`_.
+    The full example might be found on `GitHub <https://github.com/conan-io/examples/tree/master/features>`_.
 
 .. _deployment_challenges:
 
