@@ -79,11 +79,13 @@ Glossary
       and typically defaulted to `False`.
 
    requirement
-      Packages on which another package depends on.
+      Packages on which another package depends on. They are represented by a conan reference:
+      `lib/1.0@`
 
    build requirement
-      Requirements that are only needed when you need to build a package from sources, but if the
-      binary package already exists, you don’t want to install or retrieve them.
+      Requirements that are only needed when you need to build a package (that declares the `build requirement`)
+      from sources, but if the from sources, but if the binary package already exists,
+      the build-require is not retrieved.
 
    dependency graph
       A directed graph representing dependencies of several Conan packages towards each other. The
