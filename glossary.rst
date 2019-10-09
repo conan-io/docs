@@ -15,7 +15,7 @@ Glossary
       The file that defines a Conan recipe that is typically used to create packages, but can be used
       also to consume packages only (see conanfile.txt). Inside of this recipe, it is defined (among
       other things) how to download the package's source code, how to build the binaries from those
-      sources, how to package the binaries and information for futures consumers on how to consume
+      sources, how to package the binaries and information for future consumers on how to consume
       the package.
 
    conanfile.txt
