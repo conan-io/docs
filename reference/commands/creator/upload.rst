@@ -108,3 +108,13 @@ Upload packages without overwriting the recipe if the packages have changed:
 .. code-block:: bash
 
     $ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite recipe
+
+Upload packages using multiple threads without requiring confirmation to my_remote:
+
+.. code-block:: bash
+
+    $ conan upload "*" --confirm --parallel -r my_remote
+
+.. warning::
+
+    Note that :ref:`non_interactive mode<conan_conf>` will be forced to `true` when using parallel upload
