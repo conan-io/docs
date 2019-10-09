@@ -145,7 +145,7 @@ This generator works in a similar fashion as the `deploy` one, although it doesn
 
     $ conan install . -g json
 
-The *conanbuildinfo.json* file produced is fully machine-readable and could be used by scripts to prepare the files and recreate the appropriate format for distribution.
+The *conanbuildinfo.json* file produced is fully machine-readable and could be used by scripts to prepare the files and recreate the appropriate format for distribution. The following code shows how to read the library and binary directories from the *conanbuildinfo.json*:
 
 .. code-block:: python
 
