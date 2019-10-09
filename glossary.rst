@@ -58,7 +58,8 @@ Glossary
 
    package ID
       The package id is a hash of the settings options and requirements used to identify the binary
-      packages
+      packages.  Applying different profiles to the `conan create` command, it will generate
+      different package IDs. e.g: Windows, x86, shared...
 
    binary package
       Output binary for the recipe compatible for certain settings and options. Usually, there are N
