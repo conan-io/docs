@@ -5,7 +5,7 @@ How to deploy C++ applications with conan
 
 If you have a project with all the dependencies managed with Conan and you want to deploy it the process is:
 
-- Extract the needed artifacts to a local directory. Check out the section :ref:`using_deploy_generator` and :ref:`using_json_generator` in order to get information on how to extract build artifacts.  
+- Extract the needed artifacts to a local directory. Check out the section :ref:`deployable_deploy_generator` and :ref:`deployable_json_generator` in order to get information on how to extract build artifacts.  
 - Convert the artifacts (typically executables, shared libraries and assets) to a different deploy format. In the following sections, we are going to review some of the deploy technologies.
 
 sections :ref:`deployable_deploy_generator` and :ref:`deployable_json_generator` in order to get information on how to extract build articats 
