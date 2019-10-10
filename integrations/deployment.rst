@@ -1,102 +1,115 @@
-.. _deployment:
+.. _integration_deployment:
 
-How to deploy C++ applications with conan
-=========================================
+Deployment
+==========
 
-If you have a project with all the dependencies managed with Conan and you want to deploy it the process is:
+If you have a project with all the dependencies managed by Conan and you want to deploy into a specific format, the process is the
+following:
 
-- Extract the needed artifacts to a local directory. Check out the section :ref:`deployable_deploy_generator` and :ref:`deployable_json_generator` in order to get information on how to extract build artifacts.  
-- Convert the artifacts (typically executables, shared libraries and assets) to a different deploy format. In the following sections, we are going to review some of the deploy technologies.
+  - Extract the needed artifacts to a local directory either using the :ref:`deploy generator <deployable_deploy_generator>` or the
+    :ref:`json generator <deployable_json_generator>`.
+  - Convert the artifacts (typically executables, shared libraries and assets) to a different deploy format. You will find the specific steps
+    for some of the most common deploy technologies below.
 
-sections :ref:`deployable_deploy_generator` and :ref:`deployable_json_generator` in order to get information on how to extract build articats 
-to a local directory for further deployment process.
+.. toctree::
+   :maxdepth: 2
 
-system package manager
-----------------------
+   deployment/system_package_manager
+   deployment/makeself
+   deployment/appimage
+   deployment/snap
+   deployment/flatpak
+   deployment/others
 
-There is an option is to use system package manager, like making **.rpm** or ***.deb** package(s). However, there are few limitations:
+Deployment challenges
+*********************
 
-- it might be needed to (re)compile application N times for each of supported distro, or at least use the lowest version (see concerns about ``glibc`` below), see the section :ref:`custom_settings`, which explains how to customize conan settings (``settings.yml``) to model different Linux distributions in order to compile N different builds for them
-- scalability problem - If you want to target different distros, then you need to create one package per supported distro (likely one for `Ubuntu <https://ubuntu.com/>`_, one for `Arch Linux <https://www.archlinux.org/>`_, etc.), and formats or guidelines for each distro might differ significantly
+When deploying a C/C++ application there are some specific challenges that have to be solved when distributing your application. Here you
+will find the most usual ones and some recommendations to overcome them.
 
-makeself.io
------------
+The C standard library
+++++++++++++++++++++++
 
-`makeself <https://makeself.io>`_ is a small command-line utility to generate self-extracting archives.
-**makeself** is pretty popular and used for instance by 
-`VirtualBox <https://www.virtualbox.org/wiki/Linux_Downloads>`_ and 
-`CMake <https://cmake.org/download/>`_.
-Such archives are usually used to create installers, and they often have ``.run``, ``.bin`` or ``.sh`` extensions.
-Makeself created archives are just small startup scripts concatenated with tarballs.
-When you run such self-extracting archive:
+A common challenge for all the applications no matter if they are written in pure C or in C++ is the dependency on C standard library. The
+most wide-spread variant of this library is GNU C library or just `glibc <https://www.gnu.org/software/libc/>`_.
 
-- small script (shim) extracts the embedded archive into the temporary directory
-- script passes the execution to the entry point within the unpacked archive
-- application is being run
-- finally, the temporary directory removed
+Glibc is not a just C standard library, as it provides:
 
-Therefore, it transparently appears just like a normal application execution. 
-Check out the `guide <http://xmodulo.com/how-to-create-a-self-extracting-archive-or-installer-in-linux.html>`_ on how to make self-extracting archive via makeself.
+- C functions (like ``malloc()``, ``sin()``, etc.) for various language standards, including C99.
+- POSIX functions (like posix threads in the ``pthread`` library).
+- BSD functions (like BSD sockets).
+- Wrappers for OS-specific APIs (like Linux system calls)
 
-AppImage
---------
+Even if your application doesn't use directly any of these functions, they are often used by other libraries, 
+so, in practice, it's almost always in actual use.
 
-`AppImage <https://appimage.org/>`_ is a format for Linux portable applications. Major advantages:
+There are other implementations of the C standard library that present the same challenge, such as
+`newlib <https://sourceware.org/newlib/>`_ or `musl <https://www.musl-libc.org/>`_, used for embedded development.
 
-- doesn't require root permissions
-- doesn't require applications to be installed (the only needed thing is **chmod +x**!)
-- doesn't require installation of runtime or daemon into the system
-
-Under the hood, **AppImage** uses filesystem in user-space 
-(`FUSE <https://github.com/libfuse/libfuse>`_).
-The `packaging process <https://docs.appimage.org/packaging-guide/manual.html#>`__ is pretty straightforward 
-and could be easily automated:
-
-- create a directory like ``MyApp.AppDir``
-- download the `AppImage runtime <https://github.com/AppImage/AppImageKit/releases>`_ (**AppRun** file) and put to the directory 
-- put all dependencies, like libraries (``.so``), resources (e.g. images) inside the directory
-- fill some brief metadata (name, category) to the ``myapp.desktop`` configuration file
-- run **appimagetool** against the directory
-
-As a result, **MyApp-x86_64.AppImage** file will be produced, which is a regular Linux ELF file:
+To illustrate the problem, a simple hello-world application compiled in a modern Ubuntu distribution will give the following error when it
+is run in a Centos 6 one:
 
 .. code-block:: console
 
-    $ file MyApp-x86_64.AppImage
-    MyApp-x86_64.AppImage: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/l, for GNU/Linux 2.6.18, stripped
+    $ /hello
+    /hello: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by /hello)
 
-Such a file could be easily distributed just by copying, so it could be uploaded to the FTP server, moved to the flash drive, etc.
+This is because the versions of the ``glibc`` are different between those Linux distributions.
 
-Snap
-----
+There are several solutions to this problem:
 
-`Snap <https://snapcraft.io/>`_ is the package management system available for the wide range of Linux distributions.
-Unlike ``AppImage``, ``Snap`` requires daemon installed in the system in order to operate. Under the hood, **Snap** is based on `SquashFS <https://github.com/plougher/squashfs-tools>`_.
+- `LibcWrapGenerator <https://github.com/AppImage/AppImageKit/tree/stable/v1.0/LibcWrapGenerator>`_
+- `glibc_version_header <https://github.com/wheybags/glibc_version_header>`_
+- `bingcc <https://github.com/sulix/bingcc>`_
 
-The `packaging process <https://snapcraft.io/docs/creating-a-snap>`__ is:
+Some people also advice to use static of glibc, but it's strongly discouraged. One of the reasons is that newer glibc  might be using
+syscalls that are not available in the previous versions, so it will randomly fail in runtime, which is much harder to debug (the situation
+about system calls is described below).
 
-- `install <https://snapcraft.io/docs/snapcraft-overview>`_ the snapcraft
-- run ``snapcraft init``
-- edit the ``snap/snapcraft.yml`` `manifest <https://snapcraft.io/docs/snapcraft-format>`_
-- run ``snapcraft`` in order to produce the snap
-- `publish <https://forum.snapcraft.io/t/releasing-your-app/6795>`__ and upload snap, so it could be installed on other systems
+It's possible to model either ``glibc`` version or Linux distribution name in Conan by defining custom Conan sub-setting in the
+*settings.yml* file (check out sections :ref:`add_new_settings` and :ref:`add_new_sub_settings`). The process will be similar to:
 
-Flatpak
--------
+- Define new sub-setting, for instance `os.distro`, as explained in the section :ref:`add_new_sub_settings`.
+- Define compatibility mode, as explained by sections :ref:`method_package_id` and :ref:`method_build_id` (e.g. you may consider some ``Ubuntu`` and ``Debian`` packages to be compatible with each other)
+- Generate different packages for each distribution.
+- Generate deployable artifacts for each distribution.
 
-`Flatpak <https://flatpak.org/>`_ is another package management system. Under the hood, **Flatpak** is based on `OSTree <https://ostree.readthedocs.io/en/latest/manual/introduction/>`_.
+C++ standard library
+++++++++++++++++++++
 
-The `packaging process <http://docs.flatpak.org/en/latest/first-build.html>`__ is:
+Usually, the default C++ standard library is `libstdc++ <https://gcc.gnu.org/onlinedocs/libstdc++/>`_, but
+`libc++ <https://libcxx.llvm.org/>`_ and `stlport <http://www.stlport.org/>`_ are other well-known implementations.
 
-- install the flatpak runtime and SDK
-- create a manifest ``<app-id>.json``
-- run the ``flatpak-builder`` in order to produce the application
-- `publish <http://docs.flatpak.org/en/latest/publishing.html>`__ the application for further distribution
+Similarly to the standard C library `glibc`, running the application linked with libstdc++ in the older system may result in an error:
 
-Alternatively, ``flatpak`` allows distributing the `single-file <http://docs.flatpak.org/en/latest/single-file-bundles.html>`_ package. Such package, however, cannot be run or installed on its own, it's needed to be imported to the local repository on another machine.
+.. code-block:: console
 
-Others
-------
+    $ /hello
+    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /hello)
+    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /hello)
 
-There are enterprise solutions for deployment, which are recommended to be used for production environments, such as 
-`ansible <https://www.ansible.com/>`_, `chef <https://www.chef.io/application-deployment/>`_ and `puppet <https://puppet.com/>`_.
+Fortunately, this is much easier to address by just adding ``-static-libstdc++`` compiler flag.
+
+Compiler runtime
+++++++++++++++++
+
+Besides C and C++ runtime libraries, the compiler runtime libraries are also used by applications. Those libraries usually provide
+lower-level functions, such as compiler intrinsics or support for exception handling. Functions from these runtime libraries are rarely
+referenced directly in code and are mostly implicitly inserted by the compiler itself.
+
+.. code-block:: console
+
+    $ ldd ./a.out
+    libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f6626aee000)
+
+you can avoid this kind of dependency by the using of the ``-static-libgcc`` compiler flag.
+
+System API (system calls)
++++++++++++++++++++++++++
+
+New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org/>`_. If the application, or 3rd-party
+libraries, want to take advantage of these new features, they sometimes directly refer to such system calls (instead of using wrappers
+provided by ``glibc``).
+
+As a result, if the application was compiled on a machine with a newer kernel and build system used to auto-detect available system calls,
+it may fail to execute properly on machines with older kernels.
