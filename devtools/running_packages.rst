@@ -1,18 +1,19 @@
 .. _running_packages:
 
 Running and deploying packages
-================================
+==============================
+
 Executables and applications including shared libraries can also be distributed, deployed and run with Conan. This might have
 some advantages compared to deploying with other systems:
 
-- A unified development and distribution tool, for all systems and platforms
-- Manage any number of different deployment configurations in the same way you manage them for development
-- Use a Conan server remote to store all your applications and runtimes for all Operating Systems, platforms and targets
+- A unified development and distribution tool, for all systems and platforms.
+- Manage any number of different deployment configurations in the same way you manage them for development.
+- Use a Conan server remote to store all your applications and runtimes for all Operating Systems, platforms and targets.
 
 There are different approaches:
 
 Using virtual environments
----------------------------
+--------------------------
 
 We can create a package that contains an executable, for example from the default package template created by :command:`conan new`:
 
@@ -68,13 +69,15 @@ This will generate a few files that can be called to activate and deactivate the
     $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
 
 Imports
---------
+-------
+
 It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
 cache the desired files. This approach requires a user conanfile.
 For more details see example below :ref:`runtime packages<repackage>`
 
 Deployable packages
---------------------
+-------------------
+
 With the ``deploy()`` method, a package can specify which files and artifacts to copy to user space or to other
 locations in the system. Let's modify the example recipe adding the ``deploy()`` method:
 
@@ -207,126 +210,12 @@ Additionally, you could also write a simple startup script for your application 
 
     The full example might be found on `GitHub <https://github.com/conan-io/examples/tree/master/features>`_.
 
-.. _deployment_challenges:
-
-Deployment challenges
----------------------
-
-C standard library
-~~~~~~~~~~~~~~~~~~
-
-At the very least, the application depends on C standard library. The most wide-spread variant is GNU C library or just 
-`glibc <https://www.gnu.org/software/libc/>`_.
-also, there are other implementations, such as 
-`newlib <https://sourceware.org/newlib/>`_ or 
-`musl <https://www.musl-libc.org/>`_, used in embedded environments.
-Glibc is not a just C standard library, as it provides:
-- C functions (e.g. malloc(), sin(), etc.) for various language standards, include C99
-- POSIX functions (e.g. posix threads aka pthread)
-- BSD functions (e.g. BSD sockets)
-- wrappers for OS-specific APIs (e.g. Linux system calls)
-
-even if your application doesn't use directly any of these functions, they are often used by other libraries, 
-so, in practice, it's almost always in actual use.
-
-To illustrate the problem, it's possible to compile simple hello-world application via ``conanio/gcc9`` image:
-
-.. code-block:: text
-
-    #include <cstring>
-    #include <cstdio>
-    #include <memory>
-
-    int main(int argc, char ** argv)
-    {
-        const char * msg = "argv[0] = ";
-        size_t size1 = strlen(msg);
-        size_t size2 = strlen(argv[0]) + 1;
-        char * a = new char[size1 + size2];
-        memcpy(a, msg, size1);
-        memcpy(a + size1, argv[0], size2);
-        printf("%s\n", a);
-        delete [] a;
-    }
-
-Running the compiled application on the ``centos:6`` docker image results in an error:
-
-.. code-block:: console
-
-    $ /hello
-    /hello: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by /hello)
-
-There are several solutions to the problem:
-
-- `LibcWrapGenerator <https://github.com/AppImage/AppImageKit/tree/stable/v1.0/LibcWrapGenerator>`_
-- `glibc_version_header <https://github.com/wheybags/glibc_version_header>`_
-- `bingcc <https://github.com/sulix/bingcc>`_
-
-Some people also advice to use static of glibc, but it's strongly discouraged. One of the reasons is that newer glibc 
-might be using syscalls that are not available in the previous versions, so it will randomly fail in runtime, which is 
-much harder to debug (the situation about system calls is described below).
-
-It's possible to model either ``glibc`` version or Linux distribution name in conan by defining custom conan settings (``settings.yml``), 
-check out sections :ref:`add_new_settings` and :ref:`add_new_sub_settings`. The process of adopting distribution as a setting in conan:
-
-- define new sub-setting, for instance `os.distro`, as explained in the section :ref:`add_new_sub_settings`
-- define compatibility mode, as explained by sections :ref:`method_package_id` and :ref:`method_build_id` (e.g. you may consider some ``Ubuntu`` and ``Debian`` packages to be compatible with each other)
-- generate N different packages for each distro
-- generate deployable artifacts for each distro, as explained in section :ref:`deployment`
-
-C++ standard library
-~~~~~~~~~~~~~~~~~~~~
-
-Usually, the default C++ standard library is `libstdc++ <https://gcc.gnu.org/onlinedocs/libstdc++/>`_, but `libc++ <https://libcxx.llvm.org/>`_ is also extremely popular. Besides that, there are other well-known implementations, e.g. `stlport <http://www.stlport.org/>`_.
-
-Similarly to glibc, running the application linked with libstdc++ on the older system may result in an error (running on ``centos:6``):
-
-.. code-block:: text
-
-    #include <filesystem>
-    #include <iostream>
-
-    int main(int argc, char ** argv)
-    {
-        std::filesystem::path p(argv[0]);
-        std::cout << "size: " << std::filesystem::file_size(p) << std::endl;
-    }
-
-.. code-block:: console
-
-    $ /hello
-    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /hello)
-    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /hello)
-
-Fortunately, this is much easier to address (compare to glibc), by just adding ``-static-libstdc++`` compiler flag.
-
-Compiler runtime
-~~~~~~~~~~~~~~~~
-
-Besides C and C++ runtime libraries, there are compiler runtime libraries that are in use. They usually provide lower-level functions,
-such as compiler intrinsics, or support for exception handling. Functions from these runtime libraries are rarely referenced directly in code,
-they are mostly implicitly inserted by the compiler itself.
-
-.. code-block:: console
-
-    $ ldd ./a.out
-    libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f6626aee000)
-
-Anyway, it's pretty easy to avoid such dependency by the usage of the ``-static-libgcc`` compiler flag.
-
-System API (system calls)
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org/>`_. If the application, or 3rd-party libraries want to take advantage of these new features, they sometimes directly refer to such system calls, instead of using wrappers provided by ``glibc``.
-As a result, if the application was compiled on a machine with a newer kernel and build system used to auto-detect available system calls, it may fail to
-execute properly on machines with older kernels.
-
 Running from packages
 ---------------------
 
 If a dependency has an executable that we want to run in the conanfile, it can be done directly in code
-using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment`` helper. 
-For example, if we want to execute the ``greet`` app while building the ``Consumer`` package:
+using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment()`` helper. 
+For example, if we want to execute the :command:`greet` app while building the ``Consumer`` package:
 
 .. code-block:: python
 
@@ -340,7 +229,6 @@ For example, if we want to execute the ``greet`` app while building the ``Consum
 
         def build(self):
             self.run("greet", run_environment=True)
-
 
 Now run :command:`conan install` and :command:`conan build` for this consumer recipe:
 
@@ -385,6 +273,7 @@ The consumer package is simple, as the ``PATH`` environment variable contains th
 
 Runtime packages and re-packaging
 ----------------------------------
+
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
 If we want to create a package from the above "Hello" one, but only containing the executable (remember that the above
 package also contains a library, and the headers), we could do:
@@ -405,7 +294,6 @@ package also contains a library, and the headers), we could do:
         def package(self):
             self.copy("*")
 
-
 This recipe has the following characteristics:
 
 - It includes the ``Hello/0.1@user/testing`` package as ``build_requires``.
@@ -422,7 +310,6 @@ To create and upload this package to a remote:
 
     $ conan create . user/testing
     $ conan upload HelloRun* --all -r=my-remote
-
 
 Installing and running this package can be done using any of the methods presented above. For example:
 
