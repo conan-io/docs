@@ -65,7 +65,7 @@ Glossary
       different package IDs. e.g: Windows, x86, shared...
 
    binary package
-      Output binary for the recipe compatible for certain settings and options. Usually, there are N
+      Output binary usually obtained with a `conan create` command applying settings and options as input. Usually, there are N
       binary packages inside one Conan package, one for each set of settings and options. Every
       binary package is identified by a package_id.
 
