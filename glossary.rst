@@ -49,7 +49,7 @@ Glossary
       dependency definitions in conanfile recipes are not fully deterministic.
 
    revision
-      It is the :ref:`way<package_revisions>` to implicitly version the changes done in a recipe or
+      It is the :ref:`mechanism<package_revisions>` to implicitly version the changes done in a recipe or
       package without bumping the actual reference or package version.
 
    recipe revision
