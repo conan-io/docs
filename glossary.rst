@@ -54,7 +54,7 @@ Glossary
 
    recipe revision
       A unique ID using the latest VCS hash or a checksum of the recipe manifest (`conanfile.py` with
-      files exported if any).
+      the exported files if any. See the :ref:`revisions mechanism<package_revisions>` page.
 
    package revision
       A unique ID using the checksum of the package (all files stored in a binary package). See the :ref:`revisions mechanism<package_revisions>` page.
