@@ -57,7 +57,7 @@ Glossary
       files exported if any).
 
    package revision
-      A unique ID using the checksum of the package manifest (all files stored in a binary package).
+      A unique ID using the checksum of the package (all files stored in a binary package). See the :ref:`revisions mechanism<package_revisions>` page.
 
    package ID
       The package id is a hash of the settings options and requirements used to identify the binary
