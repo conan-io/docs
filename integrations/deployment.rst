@@ -21,6 +21,8 @@ following:
    deployment/flatpak
    deployment/others
 
+.. _deployment_challenges:
+
 Deployment challenges
 *********************
 
