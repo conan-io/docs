@@ -1,14 +1,18 @@
-AppImage
-________
+.. _deployment_appimage:
 
-`AppImage <https://appimage.org/>`_ is a format for Linux portable applications. Its major advantages are:
+AppImage
+--------
+
+`AppImage <https://appimage.org/>`_ (former ``klik``, ``PortableLinuxApps``) is a format for Linux portable applications. Its major advantages are:
 
 - It does not require root permissions.
 - It does not require to install any application (it uses :command:`chmod +x`).
 - It does not require the installation of runtime or a daemon into the system.
 
+AppImage might be used to distribute desktop applications, command-line tools and system services (daemons).
+
 AppImage uses filesystem in user-space 
-(`FUSE <https://github.com/libfuse/libfuse>`_).
+(`FUSE <https://github.com/libfuse/libfuse>`_). It allows to easily mount the images and inspect their contents.
 
 The main steps of the `packaging process <https://docs.appimage.org/packaging-guide/manual.html#>`__ are pretty straightforward 
 and could be easily automated:
@@ -29,4 +33,4 @@ The result of the previous steps will give you a *MyApp-x86_64.AppImage* file, w
     $ file MyApp-x86_64.AppImage
     MyApp-x86_64.AppImage: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/l, for GNU/Linux 2.6.18, stripped
 
-Finally, that file file could be easily distributed just by copying and uploading it to an FTP server, moving it to the flash drive, etc..
+Finally, that file file could be easily distributed just by copying and uploading it to a Web or a FTP server, moving it to the flash drive, etc..
