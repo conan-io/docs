@@ -19,7 +19,6 @@ following:
    deployment/appimage
    deployment/snap
    deployment/flatpak
-   deployment/others
 
 .. _deployment_challenges:
 
