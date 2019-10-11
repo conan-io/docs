@@ -89,7 +89,8 @@ Similarly to the standard C library `glibc`, running the application linked with
     /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /hello)
     /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /hello)
 
-Fortunately, this is much easier to address by just adding ``-static-libstdc++`` compiler flag.
+Fortunately, this is much easier to address by just adding ``-static-libstdc++`` compiler flag. Unlike C runtime, C++ runtime can be 
+linked statically safely, because it doesn't use system calls directly, but instead relies on ``libc`` to provide required wrappers.
 
 Compiler runtime
 ++++++++++++++++
@@ -103,7 +104,10 @@ referenced directly in code and are mostly implicitly inserted by the compiler i
     $ ldd ./a.out
     libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f6626aee000)
 
-you can avoid this kind of dependency by the using of the ``-static-libgcc`` compiler flag.
+you can avoid this kind of dependency by the using of the ``-static-libgcc`` compiler flag. However, it's not always sane thing to do, as 
+there are certain situations when applications should use shared runtime. The most common is when the application wishes to throw and catch 
+exceptions across different shared libraries. Check out the `GCC manual <https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html>`_ for the 
+detailed information.
 
 System API (system calls)
 +++++++++++++++++++++++++
@@ -114,3 +118,6 @@ provided by ``glibc``).
 
 As a result, if the application was compiled on a machine with a newer kernel and build system used to auto-detect available system calls,
 it may fail to execute properly on machines with older kernels.
+
+The solution is to either use a build machine with lowest supported kernel, or model supported operation system (just like in case of ``glibc``). 
+Check out sections :ref:`add_new_settings` and :ref:`add_new_sub_settings` to get a piece of information on how to model distribution in conan settings.
