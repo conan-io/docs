@@ -18,3 +18,6 @@ When you run such self-extracting archive:
 Therefore, it transparently appears just like a normal application execution. 
 Check out the `guide <http://xmodulo.com/how-to-create-a-self-extracting-archive-or-installer-in-linux.html>`_ on how to make
 self-extracting archive with Makeself.
+
+With help of :ref:`deploy generator <deployable_deploy_generator>`, it's only needed to invoke ``makeself.sh`` in order to generate 
+self-extracting archive for the further deployment.

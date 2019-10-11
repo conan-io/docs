@@ -17,3 +17,8 @@ The `packaging process <https://snapcraft.io/docs/creating-a-snap>`__ could be s
 - Edit the ``snap/snapcraft.yml`` `manifest <https://snapcraft.io/docs/snapcraft-format>`_
 - Run ``snapcraft`` in order to produce the snap
 - `Publish <https://forum.snapcraft.io/t/releasing-your-app/6795>`__ and upload snap, so it could be installed on other systems.
+
+In order to integrate with build process managed with help of the conan, the following steps could be used:
+
+- Use :ref:`deploy generator <deployable_deploy_generator>` (or :ref:`json generator<deployable_json_generator>` with custom script) to prepare the assets
+- Use the `dump plug-in <https://snapcraft.io/docs/dump-plugin>`_ of snapcraft to simply copy the files deployed on previous step into the ``snap``
