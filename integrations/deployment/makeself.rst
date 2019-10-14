@@ -20,4 +20,33 @@ Check out the `guide <http://xmodulo.com/how-to-create-a-self-extracting-archive
 self-extracting archive with Makeself.
 
 With help of :ref:`deploy generator <deployable_deploy_generator>`, it's only needed to invoke ``makeself.sh`` in order to generate 
-self-extracting archive for the further deployment.
+self-extracting archive for the further deployment:
+
+.. code-block:: console
+
+    TMPDIR=`dirname $(mktemp -u -t tmp.XXXXXXXXXX)`
+    curl "https://github.com/megastep/makeself/releases/download/release-2.4.0/makeself-2.4.0.run" --output $TMPDIR/makeself.run -L
+    chmod +x $TMPDIR/makeself.run
+    $TMPDIR/makeself.run --target $TMPDIR/makeself
+    $TMPDIR/makeself/makeself.sh $PREFIX md5.run "conan-generated makeself.sh" "./conan-entrypoint.sh"
+
+The ``PREFIX`` variable in the example points to the directory where binary artifacts are situated. The ``md5.run`` is an output SFX archive:
+
+.. code-block:: console
+
+    $ file md5.run
+    md5.run: POSIX shell script executable (binary data)
+
+The ``conan-entry-point.sh`` is a simple script which sets requires variables (like ``PATH`` or ``LD_LIBRARY_PATH``):
+
+.. code-block:: bash
+
+    #!/usr/bin/env bash
+    set -ex
+    export PATH=$PATH:$PWD/bin
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PWD/lib
+    pushd $(dirname $PWD/md5)
+    $(basename $PWD/md5)
+    popd
+
+Check out the complete example on `GitHub <https://github.com/conan-io/examples/tree/master/features>`_.
