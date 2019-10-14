@@ -17,7 +17,7 @@ The `packaging process <http://docs.flatpak.org/en/latest/first-build.html>`__ i
 - Install the flatpak runtime, flatpak-builder and SDK.
 - Create a manifest ``<app-id>.json``
 - Run the ``flatpak-builder`` in order to produce the application
-- `publish <http://docs.flatpak.org/en/latest/publishing.html>`__ the application for further distribution
+- `Publish <http://docs.flatpak.org/en/latest/publishing.html>`__ the application for further distribution
 
 With help of conan's :ref:`json generator<deployable_json_generator>`, the manifest creation could be easily automated. For example, the custom script could generate ``build-commands`` and ``sources`` entries within the manifest file:
 
