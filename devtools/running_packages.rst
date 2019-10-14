@@ -165,9 +165,6 @@ The *conanbuildinfo.json* file produced is fully machine-readable and could be u
             lib_paths = dep["lib_paths"]
             bin_paths = dep["bin_paths"]
 
-            dep_lib_dirs = dict()
-            dep_bin_dirs = dict()
-
             for lib_path in lib_paths:
                 if os.listdir(lib_path):
                     lib_dir = os.path.relpath(lib_path, root)
