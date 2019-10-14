@@ -188,8 +188,8 @@ Additionally, you could also write a simple startup script for your application 
     def _format_dirs(dirs):
         return ":".join(["%s/%s" % (varname, d) for d in dirs])
 
-    path = _format_dirs(bin_dirs.values())
-    ld_library_path = _format_dirs(bin_dirs.values())
+    path = _format_dirs(set(dep_bin_dirs.values()))
+    ld_library_path = _format_dirs(set(dep_lib_dirs.values()))
     exe = varname + "/" + executable
 
     content = """#!/usr/bin/env bash
