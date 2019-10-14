@@ -94,3 +94,31 @@ new packages, because it was already the default of your compiler.
 
    Conan 1.x will also generate the same packages as the ones generated with the deprecated
    setting ``cppstd`` for the default value of the standard.
+
+
+Comparing versions
+------------------
+
+A recipe which requires a minimal cppstd version or a specific range, you can compare directly without any helper.
+When comparing cppstd, the gnu versions will be considered equal to regular versions.
+
+.. code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+
+    def configure(self):
+        if self.settings.compiler.cppstd < "14":
+            raise ConanInvalidConfiguration("This package requires C++14")
+
+This example accepts any version after 14, for instance, ``17`` and ``gnu17``.
+When comparing to a specific version, the gnu extension will not affect the version:
+
+.. code-block:: python
+
+    settings = "os", "compiler", "arch", "build_type"
+
+    def configure(self):
+        if self.settings.compiler.cppstd == "11":
+            raise ConanInvalidConfiguration("This package works for C++11 only")
+
+This example accepts only versions related to C++11, for instance, ``11`` and ``gnu11``.
