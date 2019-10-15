@@ -751,7 +751,7 @@ That means that any change in the static library basically requires a new binary
 Note that this doesn't happen in the static-static and shared-shared library dependencies.
 
 
-This helper ``shared_library_package_id()`` can be used in the ``package_id()`` method to implement this logic, and can be used as:
+Use this ``shared_library_package_id()`` helper in the ``package_id()`` method:
 
 .. code-block:: python
 
