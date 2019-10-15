@@ -770,7 +770,8 @@ option in command line or profiles, but can also be defined in recipes like:
         if self.options.shared:
             self.options["*"].shared = True
 
-Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for Conan-center packages that have dependencies
+Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for
+`Conan-center packages <https://github.com/conan-io/conan-center-index>`_ that have dependencies
 to compiled libraries and have the ``shared`` option.
 
 
