@@ -17,4 +17,4 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/vcs
    integrations/custom
    integrations/linting
-
+   integrations/deployment
