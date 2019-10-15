@@ -750,7 +750,6 @@ When a shared library links with a static library, the binary code of the later 
 That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
 Note that this doesn't happen in the static-static and shared-shared library dependencies.
 
-libraries in other packages (having a ``shared`` option equal ``False`` or not having it, which means a header-only library), then
 those dependencies should have a ``package_revision_mode`` effect on the shared one.
 
 This helper ``shared_library_package_id()`` can be used in the ``package_id()`` method to implement this logic, and can be used as:
