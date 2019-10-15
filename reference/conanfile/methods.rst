@@ -758,7 +758,8 @@ This helper ``shared_library_package_id()`` can be used in the ``package_id()`` 
     def package_id(self):
         self.info.shared_library_package_id()
 
-It is recommended its usage in packages that have the ``shared`` option, and must probably be used (or something similar), if those
+This helper automatically detects if the current package has the ``shared`` option and it is ``True`` and if it is depending on static libraries in other packages (having a ``shared`` option equal ``False`` or not having it, which means a header-only library). Only then, any change in the dependencies will affect the ``package_id`` of this package, (internally, ``package_revision_mode`` is applied to the dependencies).
+It is recommended its usage in packages that have the ``shared`` option.
 shared libraries packages are intended to be use in conjunction with static libraries dependencies.
 
 It is very typical to have dependency graphs of all static libraries or all shared libraries. This can be defined with a ``*:shared=True``
