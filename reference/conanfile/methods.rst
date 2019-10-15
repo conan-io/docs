@@ -742,6 +742,42 @@ The package will always be the same, irrespective of the OS, compiler or archite
     def package_id(self):
         self.info.header_only()
 
+
+self.info.shared_library_package_id()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
+That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
+Note that this doesn't happen in the static-static and shared-shared library dependencies.
+
+Regarding the ``package-id``, it means that if the current package has a ``shared`` option that is ``True``, and it depends on static
+libraries in other packages (having a ``shared`` option equal ``False`` or not having it, which means a header-only library), then
+those dependencies should have a ``package_revision_mode`` effect on the shared one.
+
+This helper ``shared_library_package_id()`` can be used in the ``package_id()`` method to implement this logic, and can be used as:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.shared_library_package_id()
+
+It is recommended its usage in packages that have the ``shared`` option, and must probably be used (or something similar), if those
+shared libraries packages are intended to be use in conjunction with static libraries dependencies.
+
+It is very typical to have dependency graphs of all static libraries or all shared libraries. This can be defined with a ``*:shared=True``
+option in command line or profiles, but can also be defined in recipes like:
+
+.. code-block:: python
+
+    def configure(self):
+        if self.options.shared:
+            self.options["*"].shared = True
+
+Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for Conan-center packages that have dependencies
+to compiled libraries and have the ``shared`` option.
+
+
+
 self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
