@@ -35,7 +35,7 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_LIBS_<PKG-NAME>                | Library names to link with                                              |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_SYSTEM_DEPS_<PKG-NAME>         | System library names to link with                                       |
+| CONAN_system_libs_<PKG-NAME>         | System library names to link with                                       |
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_DEFINES_<PKG-NAME>             | Library definitions                                                     |
 +--------------------------------------+-------------------------------------------------------------------------+
@@ -74,7 +74,7 @@ according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_LIBS                     | Aggregated library names to link with                                |
 +--------------------------------+----------------------------------------------------------------------+
-| CONAN_SYSTEM_DEPS              | Aggregated system library names to link with                         |
+| CONAN_system_libs              | Aggregated system library names to link with                         |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_DEFINES                  | Aggregated library definitions                                       |
 +--------------------------------+----------------------------------------------------------------------+
@@ -107,7 +107,7 @@ according to the dependency tree.
     +--------------+-------------------------------+------------+
     | libs         | CONAN_LIBS                    | LDLIBS     |
     +--------------+-------------------------------+            |
-    | system_deps  | CONAN_SYSTEM_DEPS             |            |
+    | system_libs  | CONAN_system_libs             |            |
     +--------------+-------------------------------+------------+
     | cflags       | CONAN_CFLAGS                  | CFLAGS     |
     +--------------+-------------------------------+------------+

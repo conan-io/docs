@@ -891,7 +891,7 @@ This object should be filled in ``package_info()`` method.
 |                                | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
 |                                | | `cmake_find_package_multi` and `pkg_config` generators.                                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.system_deps      | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
+| self.cpp_info.system_libs      | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
