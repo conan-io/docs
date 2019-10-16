@@ -84,7 +84,8 @@ to know more about 'test_folder' project.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
+                            For "Pkg" is the name of the package (parameter "name" in conanfile.py)
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
