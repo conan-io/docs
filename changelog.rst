@@ -21,6 +21,17 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.19 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.19.2 (16-Oct-2019)
+--------------------
+
+- Feature: Implement ``self.info.shared_library_package_id()`` to better manage shared libraries package-ID, specially when they depend on static libraries `#5893 <https://github.com/conan-io/conan/pull/5893>`_ . Docs `here <https://github.com/conan-io/docs/pull/1442>`__
+- Bugfix: Allow ``conan install pkg/[*]@user/channel`` resolving to a reference, not a path. `#5908 <https://github.com/conan-io/conan/pull/5908>`_
+- Bugfix: The dependency overriding mechanism was not working properly when using the same version with different build metadata (`1.2.0+xyz` vs `1.2.0+abc`). `#5903 <https://github.com/conan-io/conan/pull/5903>`_
+- Bugfix: Artifactory was returning an error on the first login attempt because the server capabilities were not assigned correctly. `#5880 <https://github.com/conan-io/conan/pull/5880>`_
+- Bugfix: conan export failed if there is no user/channel and a lockfile is applied `#5875 <https://github.com/conan-io/conan/pull/5875>`_
+- Bugfix: SCM component failed for url pointing to local path in Windows with backslash. `#5875 <https://github.com/conan-io/conan/pull/5875>`_
+- Bugfix: Fix `conan graph build-order` output so it uses references including its recipe revision `#5863 <https://github.com/conan-io/conan/pull/5863>`_
+
 
 1.19.1 (3-Oct-2019)
 -------------------
