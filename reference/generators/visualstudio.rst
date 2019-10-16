@@ -32,7 +32,7 @@ Generated xml structure:
         <ConanLibraryDirectories>{lib_dirs}</ConanLibraryDirectories>
         <ConanBinaryDirectories>{bin_dirs}</ConanBinaryDirectories>
         <ConanLibraries>{libs}</ConanLibraries>
-        <ConanSystemDeps>{libs}</ConanSystemDeps>
+        <ConanSystemDeps>{system_libs}</ConanSystemDeps>
       </PropertyGroup>
       <PropertyGroup>
         <LocalDebuggerEnvironment>PATH=%PATH%;{CONAN BINARY DIRECTORIES LIST}</LocalDebuggerEnvironment>
