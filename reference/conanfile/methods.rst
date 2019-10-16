@@ -742,6 +742,40 @@ The package will always be the same, irrespective of the OS, compiler or archite
     def package_id(self):
         self.info.header_only()
 
+
+self.info.shared_library_package_id()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
+That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
+Note that this doesn't happen in the static-static and shared-shared library dependencies.
+
+
+Use this ``shared_library_package_id()`` helper in the ``package_id()`` method:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.shared_library_package_id()
+
+This helper automatically detects if the current package has the ``shared`` option and it is ``True`` and if it is depending on static libraries in other packages (having a ``shared`` option equal ``False`` or not having it, which means a header-only library). Only then, any change in the dependencies will affect the ``package_id`` of this package, (internally, ``package_revision_mode`` is applied to the dependencies).
+It is recommended its usage in packages that have the ``shared`` option.
+
+If you want to have in your dependency graph all static libraries or all shared libraries, (but not shared with embedded static ones) it can be defined with a ``*:shared=True``
+option in command line or profiles, but can also be defined in recipes like:
+
+.. code-block:: python
+
+    def configure(self):
+        if self.options.shared:
+            self.options["*"].shared = True
+
+Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for
+`Conan-center packages <https://github.com/conan-io/conan-center-index>`_ that have dependencies
+to compiled libraries and have the ``shared`` option.
+
+
+
 self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
