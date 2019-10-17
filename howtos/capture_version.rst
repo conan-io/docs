@@ -1,3 +1,12 @@
+When is the version computed and saved
+======================================
+
+The version of a recipe is stored in the package metadata when it is exported and always taken from
+the metadata later on.
+
+On the other hand the version of a recipe is a class attribute that is evaluated everytime that the
+recipe is parsed. For this reason it is important that computing it never raises an exception, even
+if its value is ignored.
 
 How to capture package version from SCM: git
 ============================================
@@ -24,10 +33,8 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/branch_commit@user/channel``. Note that ``get_version()`` returns ``None``
-if it is not able to get the Git data. This is necessary when the recipe is already in the
-Conan cache, and the Git repository may not be there. A value of ``None`` makes Conan
-get the version from the metadata.
+``Hello/branch_commit@user/channel``. Note: this function should never raise, see the section about
+when the version is computed and saved above.
 
 How to capture package version from SCM: svn
 ============================================
@@ -61,10 +68,8 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/generated_version@user/channel``. Note that ``get_svn_version()`` returns ``None``
-if it is not able to get the subversion data. This is necessary when the recipe is already in the
-Conan cache, and the subversion repository may not be there. A value of ``None`` makes Conan
-get the version from the metadata.
+``Hello/generated_version@user/channel``. Note: this function should never raise, see the section
+about when the version is computed and saved above.
 
 How to capture package version from text or build files
 =======================================================
@@ -123,6 +128,5 @@ However, if you only want to have to update the *CMakeLists.txt* version, you ca
         name = "Hello"
         version = get_version()
 
-
-Even if the *CMakeLists.txt* file is not exported to the local cache, it will still work, as the ``get_version()`` function returns None
-when it is not found, and then takes the version number from the package metadata (layout).
+Note: this function should never raise, see the section about when the version is computed and saved
+above.
