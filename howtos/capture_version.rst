@@ -90,7 +90,7 @@ that it includes a line such as the following:
     add_library(hello src/hello.cpp)
 
 
-You can extract the version dynamically, using:
+You can extract the version dynamically using:
 
 
 .. code-block:: python
