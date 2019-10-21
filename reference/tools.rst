@@ -782,7 +782,7 @@ Parameters:
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
     - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine 
-      as cross building, in case of host and build machine use the same operation system. Normally, in such case build machine may 
+      as cross building, in case of host and build machine use the same operating system. Normally, in such case build machine may 
       execute binaries produced for the target machine, and special cross-building handling may not be needed.
 
 .. _tools_get_gnu_triplet:
