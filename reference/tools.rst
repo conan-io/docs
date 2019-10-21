@@ -766,7 +766,7 @@ tools.cross_building()
 
 .. code-block:: python
 
-    def cross_building(settings, self_os=None, self_arch=None)
+    def cross_building(settings, self_os=None, self_arch=None, skip_x64_x86=False)
 
 Reading the settings and the current host machine it returns ``True`` if we are cross building a Conan package:
 
@@ -781,6 +781,9 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
+    - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine 
+      as cross building, in case of host and build machine use the same operation system. Normally, in such case build machine may 
+      execute binaries produced for the target machine, and special cross-building handling may not be needed.
 
 .. _tools_get_gnu_triplet:
 
