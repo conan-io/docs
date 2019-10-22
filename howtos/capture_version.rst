@@ -3,12 +3,12 @@
 How to dynamically define the name and version of a package
 ===========================================================
 
-The ``name`` and ``version`` fields are used to define constant values. The ``get_name()`` and ``get_version()``
+The ``name`` and ``version`` fields are used to define constant values. The ``set_name()`` and ``set_version()``
 methods can be used to dynamically define those values, for example if we want to extract the version from a text
 file or from the git repository.
 
 The version of a recipe is stored in the package metadata when it is exported (or created) and always taken from
-the metadata later on. This means that the ``get_name()`` and ``get_version()`` methods will not be executed once
+the metadata later on. This means that the ``set_name()`` and ``set_version()`` methods will not be executed once
 the recipe is in the cache, or when it is installed from a server.
 
 
@@ -25,7 +25,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
     class HelloConan(ConanFile):
         name = "hello"
 
-        def get_version(self):
+        def set_version(self):
             git = tools.Git()
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
@@ -47,7 +47,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
 
     class HelloLibrary(ConanFile):
         name = "Hello"
-        def get_version(self):
+        def set_version(self):
             scm = tools.SVN()
             revision = scm.get_revision()
             branch = scm.get_branch() # Delivers e.g trunk, tags/v1.0.0, branches/my_branch
@@ -101,7 +101,7 @@ You can extract the version dynamically using:
 
     class HelloConan(ConanFile):
         name = "Hello"
-        def get_version(self):
+        def set_version(self):
             content = load("CMakeLists.txt")
             version = re.search(b"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)
             self.version = version.strip()
