@@ -450,7 +450,7 @@ tools.replace_in_file()
 
 .. code-block:: python
 
-    def replace_in_file(file_path, search, replace, strict=True)
+    def replace_in_file(file_path, search, replace, strict=True, encoding=None)
 
 This function is useful for a simple "patch" or modification of source files. A typical use would be to augment some library existing
 *CMakeLists.txt* in the ``source()`` method of a *conanfile.py*, so it uses Conan dependencies without forking or modifying the original
@@ -473,6 +473,9 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string is not found, so nothing is
       actually replaced.
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special 
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      In case of ``None``, the output file is saved to the ``utf-8``
 
 .. _tools_replace_path_in_file:
 
@@ -481,7 +484,8 @@ tools.replace_path_in_file()
 
 .. code-block:: python
 
-    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None)
+    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None, 
+                             encoding=None)
 
 Replace a path in a file with another string. In Windows, it will match the path even if the casing and the path separator doesn't match.
 
@@ -504,6 +508,11 @@ Parameters:
       - ``None``: Only when Windows operating system is detected.
       - ``False``: Deactivated, it will match exact patterns (like :ref:`tools_replace_in_file`).
       - ``True``: Always activated, irrespective of the detected operating system.
+
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special 
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      In case of ``None``, the output file is saved to the ``utf-8``
+
 
 .. _tools_run_environment:
 
@@ -961,7 +970,7 @@ tools.save()
 
 .. code-block:: python
 
-    def save(path, content, append=False)
+    def save(path, content, append=False, encoding="utf-8")
 
 Utility function to save files in one line. It will manage the open and close of the file and creating directories if necessary.
 
@@ -975,6 +984,7 @@ Parameters:
     - **path** (Required): Path to the file.
     - **content** (Required): Content that should be saved into the file.
     - **append** (Optional, Defaulted to ``False``): If ``True``, it will append the content.
+    - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the output file text encoding.
 
 .. _tools_load:
 
@@ -983,7 +993,7 @@ tools.load()
 
 .. code-block:: python
 
-    def load(path, binary=False)
+    def load(path, binary=False, encoding="auto")
 
 Utility function to load files in one line. It will manage the open and close of the file, and load binary encodings. Returns the content of
 the file.
@@ -997,6 +1007,9 @@ the file.
 Parameters:
     - **path** (Required): Path to the file.
     - **binary** (Optional, Defaulted to ``False``): If ``True``, it reads the the file as binary code.
+    - **encoding** (Optional, Defaulted to ``auto``): Specifies the input file text encoding. The ``auto`` value has a special 
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``. 
+      The value is ignored in case of ``binary`` set to the ``True``.
 
 .. _tools_mkdir_rmdir:
 
