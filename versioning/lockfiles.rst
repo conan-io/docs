@@ -52,7 +52,7 @@ the same dependency graph:
 The *conan.lock* file contains more information than the versions of the dependencies, it contains:
 
 - The "effective" profile that has been used to compute this lockfile. The effective profile is the
-  combination of the profile files that could have been passed in the command line, pluse any
+  combination of the profile files that could have been passed in the command line, plus any
   other settings or options directly defined in the command line.
 - It encodes a graph, not just a list of versions, as different nodes in the graph might be using
   different versions too.
