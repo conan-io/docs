@@ -378,8 +378,9 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 
 set_name(), set_version()
 --------------------------
-Allow defining the name and version of the package dynamically. The following example defines the package name reading from
-a *name.txt* text file, and the version from the branch and commit of the git repository in which this recipe lives.
+Dynamically define "name" and "version" attributes in the recipe with these methods. The following example
+defines the package name reading it from a "name.txt" file and the version from the branch and commit of the
+recipe's repository.
 
 ..  code-block:: python
 
@@ -394,10 +395,12 @@ a *name.txt* text file, and the version from the branch and commit of the git re
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
 The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
-These methods are only executed when the recipe is in user space, that is, in the ``export`` and ``create`` commands, and the
-``install <path>`` when the path points to a *conanfile.py* containing these methods.
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
+:command:`install <path>` commands).
 
-See more examples :ref:`in this howto <capture_version>`.
+.. seealso::
+
+    See more examples :ref:`in this howto <capture_version>`.
 
 
 configure(), config_options()
