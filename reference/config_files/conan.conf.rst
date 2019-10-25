@@ -72,7 +72,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     [proxies]
     # Empty section will try to use system proxies.
     # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies - but see below
+    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies - but see below
     # for proxies to specific hosts
     # http = http://user:pass@10.10.1.10:3128/
     # http = http://10.10.1.10:3128
@@ -256,7 +256,7 @@ of URLs or patterns that will skip the proxy:
 .. code-block:: text
 
     [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
