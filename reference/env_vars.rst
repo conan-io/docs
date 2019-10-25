@@ -552,6 +552,11 @@ If defined to ``True`` or ``1``, every package will be stored in the *short path
 by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
 overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
 
+If the variable is not defined or it evaluates to ``False`` then every recipe will be stored
+according to the value of its ``short_paths`` attribute. So, ``CONAN_USE_ALWAYS_SHORT_PATHS`` can
+force every recipe to use short paths, but it won't work to force the opposite behavior.
+
+
 CONAN_VERBOSE_TRACEBACK
 -----------------------
 

@@ -776,7 +776,8 @@ Set ``short_paths=True`` in your *conanfile.py*:
 
 .. seealso::
 
-    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to globally enable this behavior for all packages.
+    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to force
+    activate this behavior for all packages.
 
 .. _no_copy_source:
 
