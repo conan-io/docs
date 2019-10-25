@@ -617,15 +617,15 @@ exports
 -------
 
 This **optional attribute** declares the set of files that should be exported and stored side by
-side the ``conanfile.py`` file to make the recipe work: other python files that the recipe will
+side the *conanfile.py* file to make the recipe work: other python files that the recipe will
 import, some text file with data to read,...
 
 The ``exports`` field can declare one single file or pattern, or a list of any of the previous
-elements. Patterns use `fnmatch <https://docs.python.org/2/library/fnmatch.html>`_
+elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
 formatting to declare files to include or exclude.
 
 For example, if we have some python code that we want the recipe to use in a ``helpers.py`` file,
-and have some text file ``info.txt`` we want to read and display during the recipe evaluation
+and have some text file *info.txt* we want to read and display during the recipe evaluation
 we would do something like:
 
 .. code-block:: python
@@ -646,17 +646,17 @@ exports_sources
 
 This **optional attribute** declares the set of files that should be exported together with the
 recipe and will be available to generate the package. Unlike ``exports`` attribute, these files
-shouldn't be used by the ``conanfile.py`` Python code, but to compile the library or generate
+shouldn't be used by the *conanfile.py* Python code, but to compile the library or generate
 the final package. And, due to its finality, these files will only be retrieved if requested
 binaries are not available or the user forces Conan to compile from sources.
 
 The ``exports_sources`` attribute can declare one single file or pattern, or a list of any of the
-previous elements. Patterns use `fnmatch <https://docs.python.org/2/library/fnmatch.html>`_
+previous elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
 formatting to declare files to include or exclude.
 
 Together with the ``source()`` and ``imports()`` methods, and the :ref:`SCM feature<scm_feature>`,
 this is another way to retrieve the sources to create a package. Unlike the other methods, files
-declared in ``exports_sources`` will be exported together with the ``conanfile.py`` recipe, so,
+declared in ``exports_sources`` will be exported together with the *conanfile.py* recipe, so,
 if nothing else is required, it can create a self-contained package with all the sources
 (like a snapshot) that will be used to generate the final artifacts.
 
