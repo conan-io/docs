@@ -11,8 +11,11 @@ If you are using :ref:`Jenkins with Conan and Artifactory<jenkins_integration>`,
 any Conan package downloaded or uploaded during your build will be automatically recorded in
 the BuildInfo json file, that will be automatically uploaded to the specified Artifactory instance.
 
-However, you can gather and upload that information using other CI infrastructure with the following steps:
+However, using the `conan_build_info` command, you can gather and upload that information using other
+CI infrastructure. There are two possible ways of using this commmand:
 
+Extracting build-info from the Conan trace log
+##############################################
 
 1. Before calling Conan the first time in your build, set the environment variable `CONAN_TRACE_FILE` to a
    file path. The generated file will contain the `BuildInfo json <https://www.jfrog.com/confluence/display/RTF/Build+Integration#BuildIntegration-BuildInfoJSON>`_.
@@ -58,3 +61,91 @@ However, you can gather and upload that information using other CI infrastructur
 .. code-block:: bash
 
     curl -X PUT -u<username>:<password> -H "Content-type: application/json" -T /tmp/build_info.json "http://host:8081/artifactory/api/build"
+
+Generating build info from lockfiles information 
+################################################
+
+1. To begin associating the build information to the uploaded packages the first thing
+is calling to the ``start`` subcommand of ``conan_build_info``. This will set the
+`artifact_property_build.name` and `artifact_property_build.name` properties in the
+:ref:`artifacts.properties<artifacts.properties>`.
+
+.. code-block:: bash
+
+    $ conan_build_info start MyBuildName 42
+
+2. Call Conan using :ref:`lockfiles<versioning_lockfiles>` to create information for the 
+`Build Info json format <https://github.com/jfrog/build-info>`_.
+
+.. code-block:: bash
+
+    $ cd mypackage
+    $ conan create . mypackage/1.0@user/stable # We create one package
+    $ cd .. && cd consumer
+    $ conan install . # Consumes mypackage, generates a lockfile
+    $ conan create . consumer/1.0@user/stable --lockfile conan.lock
+    $ conan upload * -c -r local # Upload all packages to local remotes
+
+3. Create build information based on the contents of the generated `conan.lock` lockfile and the
+information retrieved from the remote (the authentication is for the remote where you uploaded the
+packages).
+
+.. code-block:: bash
+
+    $ conan_build_info create buildinfo.json --lockfile conan.lock --user admin --password password
+
+
+The ``create`` subcommand has the following arguments:
+
+.. code-block:: bash
+
+    usage: conan_build_info create build_info_file --lockfile LOCKFILE
+                                [--multi-module [MULTI_MODULE]]
+                                [--skip-env [SKIP_ENV]] [--user [USER]]
+                                [--password [PASSWORD]] [--apikey [APIKEY]]
+
+.. code-block:: text
+
+    positional arguments:
+        build_info_file       build info json for output
+
+    optional arguments:
+        -h, --help            show this help message and exit
+        --lockfile LOCKFILE   input lockfile
+        --multi-module [MULTI_MODULE]
+                            if enabled, the module_id will be identified by the
+                            recipe reference plus the package ID
+        --skip-env [SKIP_ENV]
+                            capture or not the environment
+        --user [USER]         user
+        --password [PASSWORD]
+                            password
+        --apikey [APIKEY]     apikey
+
+
+4. Publish the build information to Artifactory with the ``publish`` subcommand:
+
+Using user and password
+
+.. code-block:: bash
+
+    $ conan_build_info publish buildinfo.json --url http://localhost:8081/artifactory --user admin --password password
+
+or an API key:
+
+.. code-block:: bash
+
+    $ conan_build_info publish buildinfo.json --url http://localhost:8081/artifactory --apikey apikey
+
+5. If the whole process has finished and you don't want to continue associating the build number and
+build name to the files uploaded to Artifactory then you can use the ``stop`` subcommand:
+
+.. code-block:: bash
+
+    $ conan_build_info stop
+
+It is also possible to merge different build info files using the ``update`` subcommand:
+
+.. code-block:: bash
+
+    $ conan_build_info update buildinfo1.json buildinfo2.json --output-file mergedbuildinfo.json
