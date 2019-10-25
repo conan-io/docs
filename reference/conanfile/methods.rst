@@ -378,7 +378,7 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 
 set_name(), set_version()
 --------------------------
-Dynamically define "name" and "version" attributes in the recipe with these methods. The following example
+Dynamically define ``name`` and ``version`` attributes in the recipe with these methods. The following example
 defines the package name reading it from a "name.txt" file and the version from the branch and commit of the
 recipe's repository.
 
