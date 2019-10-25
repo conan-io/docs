@@ -256,7 +256,7 @@ of URLs or patterns that will skip the proxy:
 .. code-block:: text
 
     [proxies]
-    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies
+    # As documented in http://requests.kennethreitz.org/en/latest/user/advanced/#proxies
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
