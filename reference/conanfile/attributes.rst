@@ -617,7 +617,7 @@ exports
 -------
 
 This **optional attribute** declares the set of files that should be exported and stored side by
-side the *conanfile.py* file to make the recipe work: other python files that the recipe will
+side with the *conanfile.py* file to make the recipe work: other python files that the recipe will
 import, some text file with data to read,...
 
 The ``exports`` field can declare one single file or pattern, or a list of any of the previous
@@ -647,7 +647,7 @@ exports_sources
 This **optional attribute** declares the set of files that should be exported together with the
 recipe and will be available to generate the package. Unlike ``exports`` attribute, these files
 shouldn't be used by the *conanfile.py* Python code, but to compile the library or generate
-the final package. And, due to its finality, these files will only be retrieved if requested
+the final package. And, due to its purpose, these files will only be retrieved if requested
 binaries are not available or the user forces Conan to compile from sources.
 
 The ``exports_sources`` attribute can declare one single file or pattern, or a list of any of the
