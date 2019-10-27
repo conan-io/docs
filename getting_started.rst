@@ -44,7 +44,7 @@ An MD5 Encrypter using the Poco Libraries
 
     .. code-block:: bash
 
-        $ conan search Poco* --remote=conan-center
+        $ conan search Poco --remote=conan-center
         Existing package recipes:
 
         Poco/1.7.8p3@pocoproject/stable
