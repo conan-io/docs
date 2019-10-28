@@ -65,6 +65,10 @@ Extracting build-info from the Conan trace log
 Generating build info from lockfiles information 
 ################################################
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+    
 1. To begin associating the build information to the uploaded packages the first thing
 is calling to the ``start`` subcommand of ``conan_build_info``. This will set the
 `artifact_property_build.name` and `artifact_property_build.name` properties in the
