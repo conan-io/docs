@@ -375,6 +375,34 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 
 .. _method_configure_config_options:
 
+
+set_name(), set_version()
+--------------------------
+Dynamically define ``name`` and ``version`` attributes in the recipe with these methods. The following example
+defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
+recipe's repository.
+
+..  code-block:: python
+
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            self.name = tools.load("name.txt")
+
+        def set_version(self):
+            git = tools.Git()
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
+:command:`install <path>` commands).
+
+.. seealso::
+
+    See more examples :ref:`in this howto <capture_version>`.
+
+
 configure(), config_options()
 -----------------------------
 
@@ -525,8 +553,9 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 - ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
-**pkgutil**, **brew** and **pacman** depending on the system we are running.
+You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package
+tool: **apt**, **yum**, **dnf**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the
+system we are running.
 
 ..  code-block:: python
 
@@ -571,8 +600,8 @@ SystemPackageTool
 
     def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
-Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
-**PacManTool**.
+Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
+**PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
 
 Methods:
     - **add_repository(repository, repo_key=None)**: Add ``repository`` address in your current repo list.

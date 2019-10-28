@@ -616,14 +616,16 @@ Read more: :ref:`Build requirements <build_requires>`
 exports
 -------
 
-If a package recipe ``conanfile.py`` requires other external files, like other python files that
-it is importing (python importing), or maybe some text file with data it is reading, those files
-must be exported with the ``exports`` field, so they are stored together, side by side with the
-``conanfile.py`` recipe.
+This **optional attribute** declares the set of files that should be exported and stored side by
+side with the *conanfile.py* file to make the recipe work: other python files that the recipe will
+import, some text file with data to read,...
 
-The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+The ``exports`` field can declare one single file or pattern, or a list of any of the previous
+elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+formatting to declare files to include or exclude.
+
 For example, if we have some python code that we want the recipe to use in a ``helpers.py`` file,
-and have some text file, ``info.txt``, we want to read and display during the recipe evaluation
+and have some text file *info.txt* we want to read and display during the recipe evaluation
 we would do something like:
 
 .. code-block:: python
@@ -636,24 +638,29 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports = "*.py", "!*tmp.py"
 
-This is an optional attribute, only to be used if the package recipe requires these other files
-for evaluation of the recipe.
 
 .. _exports_sources_attribute:
 
 exports_sources
 ---------------
-There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
-and using the ``exports_sources`` field. With ``exports_sources`` you specify which sources are required,
-and they will be exported together with the **conanfile.py**, copying them from your folder to the
-local conan cache. Using ``exports_sources``
-the package recipe can be self-contained, containing the source code like in a snapshot, and then
-not requiring downloading or retrieving the source code from other origins (git, download) with the
-``source()`` method when it is necessary to build from sources.
 
-The ``exports_sources`` field can be one single pattern, like ``exports_sources="*"``, or several inclusion patterns.
-For example, if we have the source code inside "include" and "src" folders, and there are other folders
-that are not necessary for the package recipe, we could do:
+This **optional attribute** declares the set of files that should be exported together with the
+recipe and will be available to generate the package. Unlike ``exports`` attribute, these files
+shouldn't be used by the *conanfile.py* Python code, but to compile the library or generate
+the final package. And, due to its purpose, these files will only be retrieved if requested
+binaries are not available or the user forces Conan to compile from sources.
+
+The ``exports_sources`` attribute can declare one single file or pattern, or a list of any of the
+previous elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+formatting to declare files to include or exclude.
+
+Together with the ``source()`` and ``imports()`` methods, and the :ref:`SCM feature<scm_feature>`,
+this is another way to retrieve the sources to create a package. Unlike the other methods, files
+declared in ``exports_sources`` will be exported together with the *conanfile.py* recipe, so,
+if nothing else is required, it can create a self-contained package with all the sources
+(like a snapshot) that will be used to generate the final artifacts.
+
+Some examples for this attribute are:
 
 .. code-block:: python
 
@@ -665,9 +672,6 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports_sources = "include*", "src*", "!src/build/*"
 
-This is an optional attribute, used typically when ``source()`` is not specified. The main difference with
-``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
-while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
 
 generators
 ----------
@@ -776,7 +780,8 @@ Set ``short_paths=True`` in your *conanfile.py*:
 
 .. seealso::
 
-    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to globally enable this behavior for all packages.
+    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to force
+    activate this behavior for all packages.
 
 .. _no_copy_source:
 
