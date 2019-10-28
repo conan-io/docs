@@ -69,6 +69,9 @@ Generating build info from lockfiles information
 
     This is an **experimental** feature subject to breaking changes in future releases.
     
+To maintain compatibility with the current implementation of the ``conan_build_info`` command, this
+version must be invoked using the argument ``--v2`` before any subcommand.
+
 1. To begin associating the build information to the uploaded packages the first thing
 is calling to the ``start`` subcommand of ``conan_build_info``. This will set the
 `artifact_property_build.name` and `artifact_property_build.name` properties in the
@@ -76,7 +79,7 @@ is calling to the ``start`` subcommand of ``conan_build_info``. This will set th
 
 .. code-block:: bash
 
-    $ conan_build_info start MyBuildName 42
+    $ conan_build_info --v2 start MyBuildName 42
 
 2. Call Conan using :ref:`lockfiles<versioning_lockfiles>` to create information for the 
 `Build Info json format <https://github.com/jfrog/build-info>`_.
@@ -96,7 +99,7 @@ packages).
 
 .. code-block:: bash
 
-    $ conan_build_info create buildinfo.json --lockfile conan.lock --user admin --password password
+    $ conan_build_info --v2 create buildinfo.json --lockfile conan.lock --user admin --password password
 
 
 4. Publish the build information to Artifactory with the ``publish`` subcommand:
@@ -105,20 +108,20 @@ Using user and password
 
 .. code-block:: bash
 
-    $ conan_build_info publish buildinfo.json --url http://localhost:8081/artifactory --user admin --password password
+    $ conan_build_info --v2 publish buildinfo.json --url http://localhost:8081/artifactory --user admin --password password
 
 or an API key:
 
 .. code-block:: bash
 
-    $ conan_build_info publish buildinfo.json --url http://localhost:8081/artifactory --apikey apikey
+    $ conan_build_info --v2 publish buildinfo.json --url http://localhost:8081/artifactory --apikey apikey
 
 5. If the whole process has finished and you don't want to continue associating the build number and
 build name to the files uploaded to Artifactory then you can use the ``stop`` subcommand:
 
 .. code-block:: bash
 
-    $ conan_build_info stop
+    $ conan_build_info --v2 stop
 
 It is also possible to merge different build info files using the ``update`` subcommand. This is
 useful in CI when `many slaves <https://github.com/conan-io/examples/tree/master/features/lockfiles/ci>`_ 
@@ -126,6 +129,6 @@ are generating different build info files.
 
 .. code-block:: bash
 
-    $ conan_build_info update buildinfo1.json buildinfo2.json --output-file mergedbuildinfo.json
+    $ conan_build_info --v2 update buildinfo1.json buildinfo2.json --output-file mergedbuildinfo.json
 
 You can check the complete :ref:`conan_build_info reference<conan_build_info>`.
