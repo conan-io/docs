@@ -375,6 +375,34 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 
 .. _method_configure_config_options:
 
+
+set_name(), set_version()
+--------------------------
+Dynamically define ``name`` and ``version`` attributes in the recipe with these methods. The following example
+defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
+recipe's repository.
+
+..  code-block:: python
+
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            self.name = tools.load("name.txt")
+
+        def set_version(self):
+            git = tools.Git()
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
+:command:`install <path>` commands).
+
+.. seealso::
+
+    See more examples :ref:`in this howto <capture_version>`.
+
+
 configure(), config_options()
 -----------------------------
 
