@@ -16,7 +16,7 @@ a file containing the information of the conan home directory.
 
     $ conan config home --json home.json
 
-Will create a JSON file like:
+It will create a JSON file like:
 
 ..  code-block:: json
     :caption: home.json
