@@ -892,6 +892,9 @@ This object should be filled in ``package_info()`` method.
 |                                | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
 |                                | | `cmake_find_package_multi` and `pkg_config` generators.                                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.build_modules    | | List of relative paths to build system related utility module files created by the package. Used by   |
+|                                | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -922,6 +925,8 @@ absolute paths:
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.framework_paths             | Same as ``frameworkdirs`` but transformed to absolute paths         |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.build_modules_paths         | Same as ``build_modules`` but transformed to absolute paths         |
 +-------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
