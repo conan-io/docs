@@ -208,6 +208,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
+    self.cpp_info.build_modules = []  # Build system utility module files
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
     self.cpp_info.cxxflags = []  # C++ compilation flags
@@ -237,6 +238,8 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
+- **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
+  export *.cmake* files with functions for consumers.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
   so that including the library headers matches the binaries:
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.

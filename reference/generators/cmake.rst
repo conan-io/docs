@@ -83,6 +83,8 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_FRAMEWORK_PATHS          | Aggregated framework folders (OSX)                                   |
   +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_BUILD_MODULES            | Aggregated paths for build module files (like *.cmake*)              |
+  +--------------------------------+----------------------------------------------------------------------+
 
 - **User information declared variables**:
 
