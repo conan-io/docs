@@ -120,7 +120,9 @@ build name to the files uploaded to Artifactory then you can use the ``stop`` su
 
     $ conan_build_info stop
 
-It is also possible to merge different build info files using the ``update`` subcommand:
+It is also possible to merge different build info files using the ``update`` subcommand. This is
+useful in CI when `many slaves <https://github.com/conan-io/examples/tree/master/features/lockfiles/ci>`_ 
+are generating different build info files.
 
 .. code-block:: bash
 
