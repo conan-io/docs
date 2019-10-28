@@ -553,8 +553,9 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 - ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
-**pkgutil**, **brew** and **pacman** depending on the system we are running.
+You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package
+tool: **apt**, **yum**, **dnf**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the
+system we are running.
 
 ..  code-block:: python
 
@@ -599,8 +600,8 @@ SystemPackageTool
 
     def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
-Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
-**PacManTool**.
+Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
+**PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
 
 Methods:
     - **add_repository(repository, repo_key=None)**: Add ``repository`` address in your current repo list.
