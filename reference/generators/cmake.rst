@@ -35,7 +35,7 @@ Variables in *conanbuildinfo.cmake*
   +---------------------------------------+----------------------------------------------------------------------+
   | CONAN_LIBS_<PKG-NAME>                 | Library names to link                                                |
   +---------------------------------------+----------------------------------------------------------------------+
-  | CONAN_system_libs_<PKG-NAME>          | System library names to link                                         |
+  | CONAN_SYSTEM_LIBS_<PKG-NAME>          | System library names to link                                         |
   +---------------------------------------+----------------------------------------------------------------------+
   | CONAN_DEFINES_<PKG-NAME>              | Library defines                                                      |
   +---------------------------------------+----------------------------------------------------------------------+
@@ -70,7 +70,7 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_LIBS                     | Aggregated library names to link (includes system deps)              |
   +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_system_libs              | Aggregated system libraries names to link                            |
+  | CONAN_SYSTEM_LIBS              | Aggregated system libraries names to link                            |
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_DEFINES                  | Aggregated library defines                                           |
   +--------------------------------+----------------------------------------------------------------------+

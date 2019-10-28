@@ -69,7 +69,7 @@ The values are ordered in the right order according to the dependency tree.
 +-----------------------------+---------------------------------------------------------------------+
 | [libs]                      | List with aggregated library names of the requirements              |
 +-----------------------------+---------------------------------------------------------------------+
-| [system_libs]               | List with aggregated system library names                           |
+| [SYSTEM_LIBS]               | List with aggregated system library names                           |
 +-----------------------------+---------------------------------------------------------------------+
 | [defines]                   | List with the aggregated defines of the requirements                |
 +-----------------------------+---------------------------------------------------------------------+
