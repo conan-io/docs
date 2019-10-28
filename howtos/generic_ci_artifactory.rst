@@ -99,34 +99,6 @@ packages).
     $ conan_build_info create buildinfo.json --lockfile conan.lock --user admin --password password
 
 
-The ``create`` subcommand has the following arguments:
-
-.. code-block:: bash
-
-    usage: conan_build_info create build_info_file --lockfile LOCKFILE
-                                [--multi-module [MULTI_MODULE]]
-                                [--skip-env [SKIP_ENV]] [--user [USER]]
-                                [--password [PASSWORD]] [--apikey [APIKEY]]
-
-.. code-block:: text
-
-    positional arguments:
-        build_info_file       build info json for output
-
-    optional arguments:
-        -h, --help            show this help message and exit
-        --lockfile LOCKFILE   input lockfile
-        --multi-module [MULTI_MODULE]
-                            if enabled, the module_id will be identified by the
-                            recipe reference plus the package ID
-        --skip-env [SKIP_ENV]
-                            capture or not the environment
-        --user [USER]         user
-        --password [PASSWORD]
-                            password
-        --apikey [APIKEY]     apikey
-
-
 4. Publish the build information to Artifactory with the ``publish`` subcommand:
 
 Using user and password
@@ -153,3 +125,5 @@ It is also possible to merge different build info files using the ``update`` sub
 .. code-block:: bash
 
     $ conan_build_info update buildinfo1.json buildinfo2.json --output-file mergedbuildinfo.json
+
+You can check the complete :ref:`conan_build_info reference<conan_build_info>`.
