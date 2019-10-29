@@ -153,6 +153,69 @@ The same way we have adjusted the ``self.info.settings``, we could set the ``sel
         - Recipes packaging **header only** libraries.
         - Adjusting **Visual Studio toolsets** compatibility.
 
+
+.. _compatible_packages:
+
+
+Compatible Packages
+-------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+When a package ID is not found, it is possible to define an ordered list of compatible packages.
+Lets say that we are building with a profile of ``gcc 4.9``. But for a given package we want to
+fallback to binaries built with ``gcc 4.8`` or ``gcc 4.7``, if we cannot find a binary built with ``gcc 4.9``.
+That can be defined as:
+
+.. code-block:: python
+
+    from conans import ConanFile, CompatiblePackage
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                for version in ("4.8", "4.7"):
+                    compatible_pkg = CompatiblePackage(self)
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)
+
+Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
+condition is not true. Also, this approach is very different to the documented above, because it is possible to have
+distinct binaries for the different versions, while the above, which is mainly an erasure, maintains 1 binary for all of them.
+
+The ``CompatiblePackage`` class contains ``settings``, ``options`` and ``requires`` fields, as copies, so they can be modified.
+
+It is the responsibility of the developer to guarantee that such binaries are indeed compatible. For example in:
+
+.. code-block:: python
+
+    from conans import ConanFile, CompatiblePackage
+
+    class Pkg(ConanFile):
+        options = {"optimized": [1, 2, 3]}
+        default_options = {"optimized": 1}
+        def package_id(self):
+            for optimized in range(int(self.options.optimized), 0, -1):
+                compatible_pkg = CompatiblePackage(self)
+                compatible_pkg.options.optimized = optimized
+                self.compatible_packages.append(compatible_pkg)
+
+
+This defines that the binaries are compatible with binaries of itself built with a lower optimization value. In this example we can
+have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary 
+built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
+in their configuration. But a binary built with ``optimized=2``, will not be considered if the input is ``optimized=1``.
+
+The binary should be interchangeable at all effects. This also applies for other usage of that configuration. If this example used
+the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
+step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
+based on this compatibility model, which only affects to binaries that can be replaced.
+
+
+
 .. _problem_of_dependencies:
 
 Dependency Issues
