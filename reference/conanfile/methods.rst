@@ -910,6 +910,7 @@ that are fully binary compatible and can be used as a fallback. The syntax to do
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
+
         def package_id(self):
             if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
                 compatible_pkg = CompatiblePackage(self)
