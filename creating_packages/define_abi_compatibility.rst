@@ -205,7 +205,7 @@ It is the responsibility of the developer to guarantee that such binaries are in
                 self.compatible_packages.append(compatible_pkg)
 
 
-This defines that the binaries are compatible with binaries of itself built with a lower optimization value. In this example we can
+This recipe defines that the binaries are compatible with binaries of itself built with a lower optimization value. It can
 have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary 
 built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
 in their configuration. But a binary built with ``optimized=2``, will not be considered if the input is ``optimized=1``.
