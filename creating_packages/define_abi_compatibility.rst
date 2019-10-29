@@ -187,7 +187,7 @@ Note that if the input configuration is ``gcc 4.8``, it will not try to fallback
 condition is not met. Also, this approach is very different from the documented above, because it is possible to have
 distinct binaries for the different versions, while the above, which is mainly an erasure, maintains 1 binary for all of them.
 
-The ``CompatiblePackage`` class contains ``settings``, ``options`` and ``requires`` fields, as copies, so they can be modified.
+The ``CompatiblePackage()`` inherits the values of ``settings``, ``options`` and ``requires`` as attributes so they can be modified to model the compatibility.
 
 It is the responsibility of the developer to guarantee that such binaries are indeed compatible. For example in:
 
