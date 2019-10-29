@@ -216,7 +216,6 @@ step is processed after the whole dependency graph has been built, so it is not 
 based on this compatibility model, which only affects to binaries that can be replaced.
 
 
-
 .. _problem_of_dependencies:
 
 Dependency Issues
