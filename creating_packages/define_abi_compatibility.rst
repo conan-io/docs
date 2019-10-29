@@ -184,7 +184,7 @@ That can be defined as:
                     self.compatible_packages.append(compatible_pkg)
 
 Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
-condition is not true. Also, this approach is very different to the documented above, because it is possible to have
+condition is not met. Also, this approach is very different from the documented above, because it is possible to have
 distinct binaries for the different versions, while the above, which is mainly an erasure, maintains 1 binary for all of them.
 
 The ``CompatiblePackage`` class contains ``settings``, ``options`` and ``requires`` fields, as copies, so they can be modified.
