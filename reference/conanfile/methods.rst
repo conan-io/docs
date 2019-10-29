@@ -214,6 +214,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
+    self.cpp_info.system_libs = []  # The system libs to link against
 
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
@@ -241,7 +242,8 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
   export *.cmake* files with functions for consumers.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
-  so that including the library headers matches the binaries:
+  so that including the library headers matches the binaries.
+- **system_libs**: Ordered list of system libs the consumer should link against. Empty by default.
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
@@ -556,8 +558,9 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 - ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
-**pkgutil**, **brew** and **pacman** depending on the system we are running.
+You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package
+tool: **apt**, **yum**, **dnf**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the
+system we are running.
 
 ..  code-block:: python
 
@@ -602,8 +605,8 @@ SystemPackageTool
 
     def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
-Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
-**PacManTool**.
+Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
+**PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
 
 Methods:
     - **add_repository(repository, repo_key=None)**: Add ``repository`` address in your current repo list.
