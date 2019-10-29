@@ -473,7 +473,7 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string is not found, so nothing is
       actually replaced.
-    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special 
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special
       meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
       In case of ``None``, the output file is saved to the ``utf-8``
 
@@ -484,7 +484,7 @@ tools.replace_path_in_file()
 
 .. code-block:: python
 
-    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None, 
+    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None,
                              encoding=None)
 
 Replace a path in a file with another string. In Windows, it will match the path even if the casing and the path separator doesn't match.
@@ -509,7 +509,7 @@ Parameters:
       - ``False``: Deactivated, it will match exact patterns (like :ref:`tools_replace_in_file`).
       - ``True``: Always activated, irrespective of the detected operating system.
 
-    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special 
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special
       meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
       In case of ``None``, the output file is saved to the ``utf-8``
 
@@ -575,7 +575,7 @@ tools.patch()
 
 .. code-block:: python
 
-    def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None)
+    def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None, fuzz=False)
 
 Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff) format. To be used mainly in
 the ``source()`` method.
@@ -609,12 +609,23 @@ Then, the number of folders to be stripped from the path can be specified:
 
     tools.patch(patch_file="file.patch", strip=1)
 
+If the patch to be applied differs from the source (fuzzy) the patch will fail by default, however,
+you can force it using the ``fuzz`` option:
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.patch(patch_file="file.patch", fuzz=True)
+
+
 Parameters:
     - **base_path** (Optional, Defaulted to ``None``): Base path where the patch should be applied.
     - **patch_file** (Optional, Defaulted to ``None``): Patch file that should be applied.
     - **patch_string** (Optional, Defaulted to ``None``): Patch string that should be applied.
     - **strip** (Optional, Defaulted to ``0``): Number of folders to be stripped from the path.
     - **output** (Optional, Defaulted to ``None``): Stream object.
+    - **fuzz** (Optional, Defaulted to ``False``): Accept fuzzy patches.
 
 .. _tools_environment_append:
 
@@ -790,8 +801,8 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
-    - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine 
-      as cross building, in case of host and build machine use the same operating system. Normally, in such case build machine may 
+    - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine
+      as cross building, in case of host and build machine use the same operating system. Normally, in such case build machine may
       execute binaries produced for the target machine, and special cross-building handling may not be needed.
 
 .. _tools_get_gnu_triplet:
@@ -1007,8 +1018,8 @@ the file.
 Parameters:
     - **path** (Required): Path to the file.
     - **binary** (Optional, Defaulted to ``False``): If ``True``, it reads the the file as binary code.
-    - **encoding** (Optional, Defaulted to ``auto``): Specifies the input file text encoding. The ``auto`` value has a special 
-      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``. 
+    - **encoding** (Optional, Defaulted to ``auto``): Specifies the input file text encoding. The ``auto`` value has a special
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
       The value is ignored in case of ``binary`` set to the ``True``.
 
 .. _tools_mkdir_rmdir:
