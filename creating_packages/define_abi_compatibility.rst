@@ -175,6 +175,7 @@ That can be defined as:
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
+        
         def package_id(self):
             if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
                 for version in ("4.8", "4.7"):
