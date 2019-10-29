@@ -925,7 +925,6 @@ if there is an available binary built with ``gcc 4.8`` and use it if existing. B
     For more information about :ref:`CompatiblePackage read this <compatible_package>`
 
 
-
 .. _method_build_id:
 
 build_id()
