@@ -122,8 +122,8 @@ remote and commit of the local repository:
         ...
 
 You can commit and push the *conanfile.py* to your origin repository, which will always preserve the ``auto``
-values. But when the file is exported to the Conan local cache, the copied recipe in the local cache
-will point to the captured remote and commit:
+values. But when the file is exported to the Conan local cache (except you have uncommitted changes, read below),
+the copied recipe in the local cache will point to the captured remote and commit:
 
 .. code-block:: python
    :emphasize-lines: 7, 8
@@ -172,11 +172,24 @@ be valid too:
 
 .. tip::
 
-    When doing a :command:`conan create` of a recipe using ``scm``, Conan will save the path to the local source repository. Every time the
-    :command:`conan create` command is invoked, the sources will not be downloaded from the remote repository but copied from the local directory.
+   When doing a :command:`conan create` or :command:`conan export`, Conan will capture the sources of the local scm project folder in the local cache.
 
-    This allows to build packages making changes to the source code without the need of committing them and pushing them to the remote
-    repository. This convenient to speed up the development of your packages when cloning from a local repository.
+   This allows to build packages making changes to the source code without the need of committing them and pushing them to the remote
+   repository. This convenient to speed up the development of your packages when cloning from a local repository.
 
-    **Warning:** This optimization can lead to non-reproducible packages if changes in the source code are not committed and the recipe is
-    uploaded with its packages to a remote.
+   So, if you are using the ``scm`` feature, with some ``auto`` field for `url` and/or `revision` and you
+   have uncommitted changes in your repository a warning message will be printed:
+
+   .. code-block:: bash
+
+     $ conan export . Hello/0.1@demo/testing
+
+      Hello/0.1@demo/testing: WARN: There are uncommitted changes, skipping the replacement of 'scm.url'
+      and 'scm.revision' auto fields. Use --ignore-dirty to force it.
+      The 'conan upload' command will prevent uploading recipes with 'auto' values in these fields.
+
+   As the warning message explain, the ``auto`` fields won't be replaced unless you specify ``--ignore-dirty``,
+   and by default, the :command:`conan upload` will block the upload of the recipe. This prevents recipes
+   to be uploaded with incorrect scm values exported.
+   You can use :command:`conan upload --force` to force uploading the recipe with the "auto" values un-replaced.
+
