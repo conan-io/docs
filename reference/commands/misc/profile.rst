@@ -27,7 +27,6 @@ The 'list' subcommand will always use the default user 'conan/profiles' folder. 
 
     optional arguments:
       -h, --help            show this help message and exit
-      -j JSON, --json JSON  json file path where the profile list will be written to
 
 
 **Examples**
