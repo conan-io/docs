@@ -24,7 +24,7 @@ Lets introduce them with a practical example; the code can be found in the conan
     $ cd features/workspace/cmake
 
 
-Note that this folder contains two files *conanws_gcc.yml* and *conan_vs.yml*, for gcc (Makefiles, single-configuration build environments)
+Note that this folder contains two files *conanws_gcc.yml* and *conanws_vs.yml*, for gcc (Makefiles, single-configuration build environments)
 and for Visual Studio (MSBuild, multi-configuration build environment), respectively. 
 
 Conan workspace definition

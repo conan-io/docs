@@ -28,4 +28,5 @@ Contents:
    reference
    videos
    faq
+   glossary
    changelog
