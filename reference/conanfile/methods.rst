@@ -240,7 +240,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
 - **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
-  export *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules.append("cmake/myfunctions.cmake")``
+  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules.append("cmake/myfunctions.cmake")``. Those files
+  will be included automatically in `cmake`/`cmake_multi` generators when using `conan_basic_setup()` and will be automatically added in
+  `cmake_find_package`/`cmake_find_package_multi` generators when `find_package()` is used.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
   so that including the library headers matches the binaries.
 - **system_libs**: Ordered list of system libs the consumer should link against. Empty by default.
