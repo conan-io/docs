@@ -178,7 +178,7 @@ With ``CompatiblePackage`` we can define an ordered list of compatible packages,
 the package ID that our profile defines is not available. Let's see it with an example:
 
 Lets say that we are building with a profile of ``gcc 4.9``. But for a given package we want to
-fallback to binaries built with ``gcc 4.8`` or ``gcc 4.7``, if we cannot find a binary built with ``gcc 4.9``.
+fallback to binaries built with ``gcc 4.8`` or ``gcc 4.7`` if we cannot find a binary built with ``gcc 4.9``.
 That can be defined as:
 
 .. code-block:: python
