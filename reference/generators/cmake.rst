@@ -86,7 +86,7 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_C_FLAGS                  | Aggregated C flags                                                   |
   +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_FRAMEWORKS               | Aggregated frameworks to be found with `find_library()`(OSX)         |
+  | CONAN_FRAMEWORKS               | Aggregated frameworks to be found with `find_library()` (OSX)        |
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_FRAMEWORKS_FOUND         | Aggregated found frameworks after `find_library()` call (OSX)        |
   +--------------------------------+----------------------------------------------------------------------+
