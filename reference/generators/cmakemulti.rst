@@ -120,7 +120,7 @@ conan_set_find_paths()
 
 Adjust ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
 
-conan_find_apple_frameworks(FRAMEWORKS FRAMEWORKS_FOUND)
+conan_find_apple_frameworks(FRAMEWORKS_FOUND FRAMEWORKS)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Find framework library names provided in `${FRAMEWORKS}` using `find_library()` and return the found values in `FRAMEWORKS_FOUND`.
