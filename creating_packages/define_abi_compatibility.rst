@@ -224,7 +224,7 @@ in their configuration. But a binary built with ``optimized=2`` will not be cons
 The binary **should be interchangeable** at all effects. This also applies to other usages of that configuration. If this example used
 the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
 step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
-based on this compatibility model, which only applies to cases where the binaries that can be *interchanged*.
+based on this compatibility model, it only applies to use-cases where the binaries can be *interchanged*.
 
 
 .. _problem_of_dependencies:
