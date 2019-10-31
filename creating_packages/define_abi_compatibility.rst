@@ -221,7 +221,7 @@ have up to 3 different binaries, one for each different value of ``optimized`` o
 built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
 in their configuration. But a binary built with ``optimized=2`` will not be considered if the requested one is ``optimized=1``.
 
-The binary **should be interchangeable** at all effects. This also applies to other usages of that configuration. If this example used
+**The binary should be interchangeable at all effects**. This also applies to other usages of that configuration. If this example used
 the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
 step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
 based on this compatibility model, it only applies to use-cases where the binaries can be *interchanged*.
