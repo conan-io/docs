@@ -902,7 +902,7 @@ input configuration of settins and options. This canonical binary package ID wil
 existence to be downloaded and installed.
 
 If the binary of that package ID is not found, Conan lets the recipe writer define an ordered list of compatible package IDs, of other configurations
-that are fully binary compatible and can be used as a fallback. The syntax to do this is:
+that should be binary compatible and can be used as a fallback. The syntax to do this is:
 
 .. code-block:: python
 
