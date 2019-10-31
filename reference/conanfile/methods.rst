@@ -917,7 +917,7 @@ that should be binary compatible and can be used as a fallback. The syntax to do
                 compatible_pkg.settings.compiler.version = "4.8"
                 self.compatible_packages.append(compatible_pkg)
 
-This will define that if we try to install this package with ``gcc 4.9`` and there is not binary for that configuration, it will check
+This will define that, if we try to install this package with ``gcc 4.9`` and there isn't a binary available for that configuration, Conan will check
 if there is an available binary built with ``gcc 4.8`` and use it if existing. But not the other way round.
 
 .. seealso::
