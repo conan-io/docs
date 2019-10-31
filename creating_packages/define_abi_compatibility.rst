@@ -198,7 +198,7 @@ That can be defined as:
 Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
 condition is not met.
 
-The ``CompatiblePackage()`` inherits the values of ``settings``, ``options`` and ``requires`` as attributes so they can be modified to model the compatibility.
+The ``CompatiblePackage()`` copies the values of ``settings``, ``options`` and ``requires`` from the current instance of the recipe so they can be modified to model the compatibility.
 
 It is the responsibility of the developer to guarantee that such binaries are indeed compatible. For example in:
 
