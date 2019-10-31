@@ -901,7 +901,7 @@ The ``package_id()`` method serves to define the "canonical" binary package ID, 
 input configuration of settins and options. This canonical binary package ID will be always computed, and Conan will check for its
 existence to be downloaded and installed.
 
-If the binary of that package ID is not found, Conan allows to define an ordered list of compatible package IDs, of other configurations
+If the binary of that package ID is not found, Conan lets the recipe writer define an ordered list of compatible package IDs, of other configurations
 that are fully binary compatible and can be used as a fallback. The syntax to do this is:
 
 .. code-block:: python
