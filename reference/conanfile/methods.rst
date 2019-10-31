@@ -922,7 +922,7 @@ if there is one available built with ``gcc 4.8`` and use it. But not the other w
 
 .. seealso::
 
-    For more information about :ref:`CompatiblePackage read this <compatible_package>`
+    For more information about :ref:`CompatiblePackage read this <compatible_packages>`
 
 
 .. _method_build_id:
