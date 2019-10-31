@@ -33,7 +33,9 @@ Variables in *conanbuildinfo.cmake*
   +---------------------------------------+----------------------------------------------------------------------+
   | CONAN_SRC_DIRS_<PKG-NAME>             | Sources folders                                                      |
   +---------------------------------------+----------------------------------------------------------------------+
-  | CONAN_LIBS_<PKG-NAME>                 | Library names to link                                                |
+  | CONAN_LIBS_<PKG-NAME>                 | Library names to link (package libs, system libs and frameworks)     |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_PKG_LIBS_<PKG-NAME>             | Package library names to link                                        |
   +---------------------------------------+----------------------------------------------------------------------+
   | CONAN_SYSTEM_LIBS_<PKG-NAME>          | System library names to link                                         |
   +---------------------------------------+----------------------------------------------------------------------+
@@ -68,7 +70,7 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_SRC_DIRS                 | Aggregated sources folders                                           |
   +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_LIBS                     | Aggregated library names to link (includes system deps)              |
+  | CONAN_LIBS                     | Aggregated library names to link (with system libs and frameworks)   |
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_SYSTEM_LIBS              | Aggregated system libraries names to link                            |
   +--------------------------------+----------------------------------------------------------------------+

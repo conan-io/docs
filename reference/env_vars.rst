@@ -328,6 +328,8 @@ For example, for a remote named "conan-center":
 
     See the :ref:`conan_user` command documentation for more information about login to remotes
 
+.. _env_vars_conan_hooks:
+
 CONAN_HOOKS
 -----------
 

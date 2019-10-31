@@ -69,6 +69,7 @@ Other useful commands:
   commands/misc/inspect.rst
   commands/misc/graph.rst
   commands/misc/help.rst
+  commands/misc/conan_build_info.rst
 
 
 

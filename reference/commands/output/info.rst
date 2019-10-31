@@ -18,6 +18,12 @@ There are several possible outputs depending on other arguments:
 Build order
 ===========
 
+
+.. warning::
+
+    The command ``conan info --build-order`` is deprecated in favor of :ref:`conan graph build-order<conan_graph_build_order>`.
+
+
 The build order printed with the argument :command:`--build-order` can be
 formatted as JSON. It will show a list of lists where the references inside
 each nested one can be built in parallel.
