@@ -219,7 +219,7 @@ It is the responsibility of the developer to guarantee that such binaries are in
 This recipe defines that the binaries are compatible with binaries of itself built with a lower optimization value. It can
 have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary 
 built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
-in their configuration. But a binary built with ``optimized=2``, will not be considered if the input is ``optimized=1``.
+in their configuration. But a binary built with ``optimized=2`` will not be considered if the requested one is ``optimized=1``.
 
 The binary **should be interchangeable** at all effects. This also applies to other usages of that configuration. If this example used
 the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
