@@ -230,6 +230,12 @@ conan_set_find_paths()
 
 Adjusts ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
 
+conan_include_build_modules()
++++++++++++++++++++++++++++++
+
+Includes CMake files declared in ``CONAN_BUILD_MODULES`` using the ``include(...)`` directive. This loads the functions or macros that
+packages may export and makes them available for usage in the consumers *CMakeLists.txt*.
+
 Input variables for *conanbuildinfo.cmake*
 ------------------------------------------
 
