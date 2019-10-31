@@ -174,7 +174,7 @@ be valid too:
 
    When doing a :command:`conan create` or :command:`conan export`, Conan will capture the sources of the local scm project folder in the local cache.
 
-   This allows to build packages making changes to the source code without the need of committing them and pushing them to the remote
+   This allows building packages making changes to the source code without the need of committing them and pushing them to the remote
    repository. This convenient to speed up the development of your packages when cloning from a local repository.
 
    So, if you are using the ``scm`` feature, with some ``auto`` field for `url` and/or `revision` and you
