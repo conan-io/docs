@@ -164,7 +164,19 @@ Compatible Packages
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-When a package ID is not found, it is possible to define an ordered list of compatible packages.
+The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
+in the range ``(v >= "4.5" and v < "5.0")`` will have exactly the same package ID, no matter what was the gcc version
+used to build it. It worked like an information erasure, once the binary is built, it is not possible to know which
+gcc was used to build it.
+
+Using ``CompatiblePackage``, it is possible to define compatible binaries that have different package IDs. With
+this ``CompatiblePackage`` feature, it is possible to have a different binary for each ``gcc`` version, so the 
+``gcc 4.8`` package will be a different one with a different package ID than the ``gcc 4.9`` one, and still define
+that you can use the ``gcc 4.8`` package when building with ``gcc 4.9``.
+
+With ``CompatiblePackage`` we can define an ordered list of compatible packages, that will be checked in order if
+the package ID that our profile defines is not available. Let's see it with an example:
+
 Lets say that we are building with a profile of ``gcc 4.9``. But for a given package we want to
 fallback to binaries built with ``gcc 4.8`` or ``gcc 4.7``, if we cannot find a binary built with ``gcc 4.9``.
 That can be defined as:
@@ -184,8 +196,7 @@ That can be defined as:
                     self.compatible_packages.append(compatible_pkg)
 
 Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
-condition is not met. Also, this approach is very different from the documented above, because it is possible to have
-distinct binaries for the different versions, while the above, which is mainly an erasure, maintains 1 binary for all of them.
+condition is not met. m.
 
 The ``CompatiblePackage()`` inherits the values of ``settings``, ``options`` and ``requires`` as attributes so they can be modified to model the compatibility.
 
