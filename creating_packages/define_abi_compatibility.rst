@@ -196,7 +196,7 @@ That can be defined as:
                     self.compatible_packages.append(compatible_pkg)
 
 Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
-condition is not met. m.
+condition is not met.
 
 The ``CompatiblePackage()`` inherits the values of ``settings``, ``options`` and ``requires`` as attributes so they can be modified to model the compatibility.
 
