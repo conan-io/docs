@@ -54,6 +54,8 @@ Usually this is caused due to different line endings in Windows and Linux/macOS.
 while Linux/macOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest always using LF line
 endings. If this issue is caused by git, it could be solved with :command:`git config --system core.autocrlf input`.
 
+The *outdated* status is computed from the recipe hash, comparing the hash of the recipe used to create a binary package, and the current recipe. The recipe hash is the hash of all the files included in the *conanmanifest.txt* file (you can inspect this file in your cache with ``conan get <ref> conanmanifest.txt``). The first value in the manifest file is a timestamp and is not taken into account to compute the hash. Checking and comparing the contents of the different *conanmanifest.txt* files in the different machines can give an idea of what is changing.
+
 .. _faq_recommendation_user_channel:
 
 Is there any recommendation regarding which ``<user>`` or ``<channel>`` to use in a reference?
