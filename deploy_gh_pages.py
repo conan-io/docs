@@ -111,6 +111,7 @@ def deploy():
     call('rm -rf .git')
     call('git init .')
     call('git add .')
+    call('git checkout -b gh-pages')
     call('git commit -m "Cleared web"')
     call('git remote add origin-pages '
          'https://%s@github.com/conan-io/docs.git > /dev/null 2>&1' % os.getenv("GITHUB_API_KEY"))
