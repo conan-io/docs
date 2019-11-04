@@ -18,8 +18,47 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.19 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.20 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+
+1.20.0 (4-Nov-2019)
+-------------------
+
+- Feature: Provide `CONAN_FRAMEWORKS` and `CONAN_FRAMEWORKS_FOUND` for Apple frameworks in CMake generators and `conan_find_apple_frameworks()` macro helper in CMake generators. `#6003 <https://github.com/conan-io/conan/pull/6003>`_ . Docs `here <https://github.com/conan-io/docs/pull/1472>`__
+- Feature: Saving profile list as a json file `#5954 <https://github.com/conan-io/conan/pull/5954>`_ . Docs `here <https://github.com/conan-io/docs/pull/1449>`__
+- Feature: Improve `conan_build_info` command maintaining old functionality. `#5950 <https://github.com/conan-io/conan/pull/5950>`_ . Docs `here <https://github.com/conan-io/docs/pull/1456>`__
+- Feature: Add `--json `argument  to the `config home` subcommand to output the result to a JSON file. `#5946 <https://github.com/conan-io/conan/pull/5946>`_ . Docs `here <https://github.com/conan-io/docs/pull/1464>`__
+- Feature: Add `cpp_info.build_modules` to manage build system modules like additional CMake functions in packages `#5940 <https://github.com/conan-io/conan/pull/5940>`_ . Docs `here <https://github.com/conan-io/docs/pull/1465>`__
+- Feature: Add support for Clang 10. `#5936 <https://github.com/conan-io/conan/pull/5936>`_
+- Feature: Store `md5` and `sha1` checksums of downloaded and uploaded packages in `metadata.json`. `#5910 <https://github.com/conan-io/conan/pull/5910>`_
+- Feature: Allow the possibility to avoid `x86_64` to `x86` building when cross-building. `#5904 <https://github.com/conan-io/conan/pull/5904>`_ . Docs `here <https://github.com/conan-io/docs/pull/1445>`__
+- Feature: Allow to specify encoding for `tools.load`, `tools.save` and `tools.replace_in_files`. `#5902 <https://github.com/conan-io/conan/pull/5902>`_ . Docs `here <https://github.com/conan-io/docs/pull/1446>`__
+- Feature: Add support for gcc 7.4. `#5898 <https://github.com/conan-io/conan/pull/5898>`_ . Docs `here <https://github.com/conan-io/docs/pull/1438>`__
+- Feature: New ``set_name()`` and ``set_version()`` member methods to dynamically obtain the name and version (at export time). `#5881 <https://github.com/conan-io/conan/pull/5881>`_ . Docs `here <https://github.com/conan-io/docs/pull/1444>`__
+- Feature: New binary compatibility mode. Recipes can define in their ``package_id()`` an ordered list of binary package variants that would be binary compatible with the default one. These variants will be checked in order if the main package ID is not found (missing), and the first one will be installed and used. `#5837 <https://github.com/conan-io/conan/pull/5837>`_ . Docs `here <https://github.com/conan-io/docs/pull/1468>`__
+- Feature: Support for DNF system package manager (Fedora 31+ and others) when present. `#5791 <https://github.com/conan-io/conan/pull/5791>`_ . Docs `here <https://github.com/conan-io/docs/pull/1462>`__
+- Feature: Refactor Conan Upload, Download and Compress progress bars. `#5763 <https://github.com/conan-io/conan/pull/5763>`_
+- Feature: Add `system_deps` attribute for cpp_info and deps_cpp_info. `#5582 <https://github.com/conan-io/conan/pull/5582>`_ . Docs `here <https://github.com/conan-io/docs/pull/1395>`__
+- Feature: The `scm` feature does not replace the `scm.revision="auto"` field with the commit when uncommitted changes unless ``--scm-dirty`` argument is specified. The recipe in the local cache will be kept with `revision=auto`. `#5543 <https://github.com/conan-io/conan/pull/5543>`_ . Docs `here <https://github.com/conan-io/docs/pull/1471>`__
+- Feature: The :command:`conan upload` command forbids to upload a recipe that uses the `scm` feature containing `revision=auto` or `url=auto`, unless `--force` is used. `#5543 <https://github.com/conan-io/conan/pull/5543>`_ . Docs `here <https://github.com/conan-io/docs/pull/1471>`__
+- Feature: The `scm` feature captures the local sources in the local cache during the export, avoiding later issues of modified local sources. `#5543 <https://github.com/conan-io/conan/pull/5543>`_ . Docs `here <https://github.com/conan-io/docs/pull/1471>`__
+- Fix: Deprecate argument `--build-order` in :command:`conan info` command. `#5965 <https://github.com/conan-io/conan/pull/5965>`_ . Docs `here <https://github.com/conan-io/docs/pull/1451>`__
+- Fix: Avoid doing complex ``conan search --query`` in the server, do them always in the client. `#5960 <https://github.com/conan-io/conan/pull/5960>`_
+- Fix: Improved ``conan remove --help`` message for ``--packages`` `#5899 <https://github.com/conan-io/conan/pull/5899>`_
+- Fix: Improved cmake compiler check message to explain the problem with different compiler versions when installing dependencies `#5858 <https://github.com/conan-io/conan/pull/5858>`_
+- Fix: Adds support for transitive dependencies to b2 generator. `#5812 <https://github.com/conan-io/conan/pull/5812>`_
+- Fix: Add support for recipes without `settings.compiler` in b2 generator. `#5810 <https://github.com/conan-io/conan/pull/5810>`_
+- Fix: Add and remove out-of-tree git patches (#5320) `#5761 <https://github.com/conan-io/conan/pull/5761>`_
+- Fix: Add quiet output for `inspect --raw`. `#5702 <https://github.com/conan-io/conan/pull/5702>`_
+- Bugfix: Allow :command:`conan download` for packages without user/channel `#6010 <https://github.com/conan-io/conan/pull/6010>`_
+- Bugfix: Avoid erroneous case-sensitive conflict for packages without user/channel. `#5981 <https://github.com/conan-io/conan/pull/5981>`_
+- Bugfix: Fix crashing when using lockfiles with a ``conanfile.txt`` instead of ``conanfile.py``. `#5894 <https://github.com/conan-io/conan/pull/5894>`_
+- Bugfix: Fix incorrect propagation of build-requires to downstream consumers, resulting in missing dependencies in ``deps_cpp_info``. `#5886 <https://github.com/conan-io/conan/pull/5886>`_
+- Bugfix: Adds the `short_paths_home` property to `ConanClientConfigParser` to validate that it is not a subdirectory of the conan cache. `#5864 <https://github.com/conan-io/conan/pull/5864>`_ . Docs `here <https://github.com/conan-io/docs/pull/1436>`__
+- Bugfix: Use imported python requires' `short_path` value instead of the defined in the `conanfile` that imports it. `#5841 <https://github.com/conan-io/conan/pull/5841>`_
+- Bugfix: Avoid repeated copies of absolute paths when using `self.copy()`. `#5792 <https://github.com/conan-io/conan/pull/5792>`_
+- Bugfix: Downstream overrides to exact dependencies versions are always used, even if the upstream has a version range that does not satisfy the override. `#5713 <https://github.com/conan-io/conan/pull/5713>`_
 
 
 1.19.3 (29-Oct-2019)
