@@ -153,6 +153,80 @@ The same way we have adjusted the ``self.info.settings``, we could set the ``sel
         - Recipes packaging **header only** libraries.
         - Adjusting **Visual Studio toolsets** compatibility.
 
+
+.. _compatible_packages:
+
+
+Compatible Packages
+-------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
+in the range ``(v >= "4.5" and v < "5.0")`` will have exactly the same package ID, no matter what was the gcc version
+used to build it. It worked like an information erasure, once the binary is built, it is not possible to know which
+gcc was used to build it.
+
+Using ``CompatiblePackage``, it is possible to define compatible binaries that have different package IDs. With
+this ``CompatiblePackage`` feature, it is possible to have a different binary for each ``gcc`` version, so the 
+``gcc 4.8`` package will be a different one with a different package ID than the ``gcc 4.9`` one, and still define
+that you can use the ``gcc 4.8`` package when building with ``gcc 4.9``.
+
+With ``CompatiblePackage`` we can define an ordered list of compatible packages, that will be checked in order if
+the package ID that our profile defines is not available. Let's see it with an example:
+
+Lets say that we are building with a profile of ``gcc 4.9``. But for a given package we want to
+fallback to binaries built with ``gcc 4.8`` or ``gcc 4.7`` if we cannot find a binary built with ``gcc 4.9``.
+That can be defined as:
+
+.. code-block:: python
+
+    from conans import ConanFile, CompatiblePackage
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                for version in ("4.8", "4.7"):
+                    compatible_pkg = CompatiblePackage(self)
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)
+
+Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
+condition is not met.
+
+The ``CompatiblePackage()`` copies the values of ``settings``, ``options`` and ``requires`` from the current instance of the recipe so they can be modified to model the compatibility.
+
+It is the responsibility of the developer to guarantee that such binaries are indeed compatible. For example in:
+
+.. code-block:: python
+
+    from conans import ConanFile, CompatiblePackage
+
+    class Pkg(ConanFile):
+        options = {"optimized": [1, 2, 3]}
+        default_options = {"optimized": 1}
+        def package_id(self):
+            for optimized in range(int(self.options.optimized), 0, -1):
+                compatible_pkg = CompatiblePackage(self)
+                compatible_pkg.options.optimized = optimized
+                self.compatible_packages.append(compatible_pkg)
+
+
+This recipe defines that the binaries are compatible with binaries of itself built with a lower optimization value. It can
+have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary 
+built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
+in their configuration. But a binary built with ``optimized=2`` will not be considered if the requested one is ``optimized=1``.
+
+**The binary should be interchangeable at all effects**. This also applies to other usages of that configuration. If this example used
+the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
+step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
+based on this compatibility model, it only applies to use-cases where the binaries can be *interchanged*.
+
+
 .. _problem_of_dependencies:
 
 Dependency Issues

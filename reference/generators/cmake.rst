@@ -49,9 +49,11 @@ Variables in *conanbuildinfo.cmake*
   +---------------------------------------+----------------------------------------------------------------------+
   | CONAN_C_FLAGS_<PKG-NAME>              | C flags                                                              |
   +---------------------------------------+----------------------------------------------------------------------+
-  | CONAN_FRAMEWORKS_XXX                  | Frameworks (OSX)                                                     |
+  | CONAN_FRAMEWORKS_<PKG-NAME>           | Frameworks names to use them in `find_library()`                     |
   +---------------------------------------+----------------------------------------------------------------------+
-  | CONAN_FRAMEWORK_PATHS_XXX             | Framework folders (OSX)  (default {CONAN_XXX_ROOT}/Frameworks        |
+  | CONAN_FRAMEWORKS_FOUND_<PKG-NAME>     | Frameworks found after using CONAN_FRAMEWORKS in `find_library()`    |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORK_PATHS_<PKG-NAME>      | Framework folders to locate the frameworks (OSX)                     |
   +---------------------------------------+----------------------------------------------------------------------+
 
 - **Global declared variables**:
@@ -84,7 +86,9 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_C_FLAGS                  | Aggregated C flags                                                   |
   +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_FRAMEWORKS               | Aggregated frameworks (OSX)                                          |
+  | CONAN_FRAMEWORKS               | Aggregated frameworks to be found with `find_library()` (OSX)        |
+  +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORKS_FOUND         | Aggregated found frameworks after `find_library()` call (OSX)        |
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_FRAMEWORK_PATHS          | Aggregated framework folders (OSX)                                   |
   +--------------------------------+----------------------------------------------------------------------+
@@ -230,11 +234,18 @@ conan_set_find_paths()
 
 Adjusts ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
 
+
 conan_include_build_modules()
 +++++++++++++++++++++++++++++
 
 Includes CMake files declared in ``CONAN_BUILD_MODULES`` using the ``include(...)`` directive. This loads the functions or macros that
 packages may export and makes them available for usage in the consumers *CMakeLists.txt*.
+
+conan_find_apple_frameworks(FRAMEWORKS_FOUND FRAMEWORKS)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Find framework library names provided in `${FRAMEWORKS}` using `find_library()` and return the found values in `FRAMEWORKS_FOUND`.
+
 
 Input variables for *conanbuildinfo.cmake*
 ------------------------------------------

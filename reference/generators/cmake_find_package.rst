@@ -41,6 +41,12 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 | <PKG-NAME>_SYSTEM_LIBS             | System libraries to link                                                                            |
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_FRAMEWORKS              | Framework names to do a `find_library()`                                                            |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_FRAMEWORKS_FOUND        | Found frameworks to link with after `find_library()`                                                |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_FRAMEWORK_DIRS          | Framework directories to perform the `find_library()` of <PKG-NAME>_FRAMEWORKS                      |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
 
 This file uses `<PKG-NAME>_BUILD_MODULES` values to include the files using the `include(...)` CMake directive. This makes functions or
 utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in the *CMakeLists.txt*.

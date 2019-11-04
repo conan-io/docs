@@ -31,7 +31,7 @@ your local cache.
       --paths               Show package paths in local cache
       -bo BUILD_ORDER, --build-order BUILD_ORDER
                             given a modified reference, return an ordered list to
-                            build (CI) [DEPRECATED: use 'conan graph build-order
+                            build (CI). [DEPRECATED: use 'conan graph build-order
                             ...' instead]
       -g GRAPH, --graph GRAPH
                             Creates file with project dependencies graph. It will
