@@ -15,7 +15,6 @@ The ``cmake_find_package`` generator creates a file for each requirement specifi
 The name of the files follow the pattern ``Find<PKG-NAME>.cmake``. So for the ``zlib/1.2.11@conan/stable`` package,
 a ``Findzlib.cmake`` file will be generated.
 
-
 Variables in Find<PKG-NAME>.cmake
 ---------------------------------
 
@@ -34,10 +33,26 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 | <PKG-NAME>_DEFINITIONS             | Definitions of the library                                                                          |
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
-| <PKG-NAME>_LIBRARIES               | Library paths to link                                                                               |
+| <PKG-NAME>_LIBS                    | Library paths to link                                                                               |
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
-| <PKG-NAME>_LIBS                    | Same as XXX_LIBRARIES                                                                               |
+| <PKG-NAME>_LIBRARIES               | Same as <PKG-NAME>_LIBS                                                                             |
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_BUILD_MODULES           | List of CMake module files with functionalities for consumers                                       |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_SYSTEM_LIBS             | System libraries to link                                                                            |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_FRAMEWORKS              | Framework names to do a `find_library()`                                                            |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_FRAMEWORKS_FOUND        | Found frameworks to link with after `find_library()`                                                |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_FRAMEWORK_DIRS          | Framework directories to perform the `find_library()` of <PKG-NAME>_FRAMEWORKS                      |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+
+This file uses `<PKG-NAME>_BUILD_MODULES` values to include the files using the `include(...)` CMake directive. This makes functions or
+utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in the *CMakeLists.txt*.
+
+Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
+modules in those directories can be found.
 
 Target in Find<PKG-NAME>.cmake
 ------------------------------

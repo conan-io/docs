@@ -35,6 +35,8 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_LIBS_<PKG-NAME>                | Library names to link with                                              |
 +--------------------------------------+-------------------------------------------------------------------------+
+| CONAN_SYSTEM_LIBS_<PKG-NAME>         | System library names to link with                                       |
++--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_DEFINES_<PKG-NAME>             | Library definitions                                                     |
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_CFLAGS_<PKG-NAME>              | Options for the C compiler (-g, -s, -m64, -m32, -fPIC)                  |
@@ -72,6 +74,8 @@ according to the dependency tree.
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_LIBS                     | Aggregated library names to link with                                |
 +--------------------------------+----------------------------------------------------------------------+
+| CONAN_SYSTEM_LIBS              | Aggregated system library names to link with                         |
++--------------------------------+----------------------------------------------------------------------+
 | CONAN_DEFINES                  | Aggregated library definitions                                       |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_CFLAGS                   | Aggregated options for the C compiler                                |
@@ -92,18 +96,20 @@ according to the dependency tree.
     Note that the mapping of the Conan variables to the Make ones is done taking the following rules and we suggest to use the
     variables indicated under the *Makefile* column to apply to a common naming:
 
-    +--------------+----------------------+------------+
-    | ``cpp_info`` | *conanbuildinfo.mak* | *Makefile* |
-    +==============+======================+============+
-    | defines      | CONAN_DEFINES        | CPPFLAGS   |
-    +--------------+----------------------+------------+
-    | includedirs  | CONAN_INCLUDE_DIRS   | CPPFLAGS   |
-    +--------------+----------------------+------------+
-    | libdirs      | CONAN_LIB_DIRS       | LDFLAGS    |
-    +--------------+----------------------+------------+
-    | libs         | CONAN_LIBS           | LDLIBS     |
-    +--------------+----------------------+------------+
-    | cflags       | CONAN_CFLAGS         | CFLAGS     |
-    +--------------+----------------------+------------+
-    | cxxflags     | CONAN_CXXFLAGS       | CXXFLAGS   |
-    +--------------+----------------------+------------+
+    +--------------+-------------------------------+------------+
+    | ``cpp_info`` | *conanbuildinfo.mak*          | *Makefile* |
+    +==============+===============================+============+
+    | defines      | CONAN_DEFINES                 | CPPFLAGS   |
+    +--------------+-------------------------------+------------+
+    | includedirs  | CONAN_INCLUDE_DIRS            | CPPFLAGS   |
+    +--------------+-------------------------------+------------+
+    | libdirs      | CONAN_LIB_DIRS                | LDFLAGS    |
+    +--------------+-------------------------------+------------+
+    | libs         | CONAN_LIBS                    | LDLIBS     |
+    +--------------+-------------------------------+            |
+    | SYSTEM_LIBS  | CONAN_SYSTEM_LIBS             |            |
+    +--------------+-------------------------------+------------+
+    | cflags       | CONAN_CFLAGS                  | CFLAGS     |
+    +--------------+-------------------------------+------------+
+    | cxxflags     | CONAN_CXXFLAGS                | CXXFLAGS   |
+    +--------------+-------------------------------+------------+

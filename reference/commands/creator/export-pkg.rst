@@ -9,7 +9,7 @@ conan export-pkg
     $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-e ENV] [-f]
                        [-if INSTALL_FOLDER] [-o OPTIONS] [-pr PROFILE]
                        [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
-                       [-j JSON] [-l [LOCKFILE]]
+                       [-j JSON] [-l [LOCKFILE]] [--ignore-dirty]
                        path [reference]
 
 Exports a recipe, then creates a package from local source and build folders.
@@ -62,6 +62,9 @@ the binary package.
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile will be updated with the exported
                             package
+      --ignore-dirty        When using the "scm" feature with "auto" values,
+                            capture the revision and url even if there are
+                            uncommitted changes
 
 
 The :command:`export-pkg` command let you create a package from already existing files

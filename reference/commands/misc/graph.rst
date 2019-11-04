@@ -62,6 +62,8 @@ in the folder pkgb_temp) in the main lockfile:
     $ conan graph update-lock release/conan.lock pkgb_temp/release/conan.lock
 
 
+.. _conan_graph_build_order:
+
 conan graph build-order
 -----------------------
 
