@@ -50,12 +50,13 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
     copytree(themes_dir, "_themes")
 
     call("make html > /dev/null")
+
     call("make json > /dev/null")
 
     if validate_links:
         call("make spelling > /dev/null")
         call("make linkcheck > /dev/null")
-    call("make latexpdf")
+    call("make latexpdf > /dev/null")
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
@@ -107,9 +108,13 @@ def should_deploy():
 
 
 def deploy():
+    call('rm -rf .git')
+    call('git init .')
+    call('git add .')
+    call('git commit -m "Cleared web"')
     call('git remote add origin-pages '
          'https://%s@github.com/conan-io/docs.git > /dev/null 2>&1' % os.getenv("GITHUB_API_KEY"))
-    call('git push origin-pages gh-pages')
+    call('git push origin-pages gh-pages --force')
 
 
 if __name__ == "__main__":
@@ -147,6 +152,7 @@ if __name__ == "__main__":
 
         to_index = {}
         for branch, folder_name in versions_dict.items():
+            print("Building {}...".format(branch))
             json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
                                          validate_links=branch == "master")
             to_index[folder_name] = json_folder
