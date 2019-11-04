@@ -49,12 +49,12 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
     shutil.rmtree("_themes")
     copytree(themes_dir, "_themes")
 
-    call("make html")
-    call("make json")
+    call("make html > /dev/null")
+    call("make json > /dev/null")
 
     if validate_links:
-        call("make spelling")
-        call("make linkcheck")
+        call("make spelling > /dev/null")
+        call("make linkcheck > /dev/null")
     call("make latexpdf")
     tmp_dir = tempfile.mkdtemp()
 
@@ -166,7 +166,7 @@ if __name__ == "__main__":
         deploy()
 
     else:
-        call("make html")
-        call("make json")
+        call("make html > /dev/null")
+        call("make json > /dev/null")
         call("make spelling")
         call("make linkcheck")
