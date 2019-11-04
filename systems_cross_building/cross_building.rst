@@ -545,7 +545,7 @@ Here is a table with some typical ARM platforms:
 
     **ARM**
 
-    - https://developer.arm.com/docs/100066/0604/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
+    - https://developer.arm.com/docs/dui0773/latest/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
     - https://developer.arm.com/docs/dui0472/latest/compiler-command-line-options
 
     **ANDROID**
