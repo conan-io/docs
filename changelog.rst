@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.20.1 (5-Nov-2019)
+-------------------
+
+- Bugfix: Fixed authentication with an Artifactory repository without anonymous access enabled. `#6022 <https://github.com/conan-io/conan/pull/6022>`_
+
+
 1.20.0 (4-Nov-2019)
 -------------------
 
