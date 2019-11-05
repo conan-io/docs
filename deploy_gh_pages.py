@@ -55,7 +55,7 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
 
     if validate_links:
         call("make spelling > /dev/null")
-        call("make linkcheck > /dev/null")
+        call("make linkcheck")
     call("make latexpdf > /dev/null")
     tmp_dir = tempfile.mkdtemp()
 
