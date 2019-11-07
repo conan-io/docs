@@ -28,8 +28,9 @@ tools.cpu_count()
 
     def tools.cpu_count()
 
-Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. Can be
-overwritten with the environment variable :ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
+Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. When
+running in Docker, it reads cgroup to detect the configured number of CPUs. It Can be overwritten with the environment variable
+:ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
 
 .. _tools_vcvars_command:
 
@@ -331,7 +332,7 @@ Parameters:
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
-      https://2.python-requests.org/en/master/user/authentication/
+      https://requests.kennethreitz.org//en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_get_env:
@@ -414,7 +415,7 @@ Parameters:
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
-      ``requests`` Python library. Check other uses here: https://2.python-requests.org/en/master/user/authentication/
+      ``requests`` Python library. Check other uses here: https://requests.kennethreitz.org//en/master/user/authentication/
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_ftp_download:
@@ -449,7 +450,7 @@ tools.replace_in_file()
 
 .. code-block:: python
 
-    def replace_in_file(file_path, search, replace, strict=True)
+    def replace_in_file(file_path, search, replace, strict=True, encoding=None)
 
 This function is useful for a simple "patch" or modification of source files. A typical use would be to augment some library existing
 *CMakeLists.txt* in the ``source()`` method of a *conanfile.py*, so it uses Conan dependencies without forking or modifying the original
@@ -472,6 +473,9 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string is not found, so nothing is
       actually replaced.
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special 
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      In case of ``None``, the output file is saved to the ``utf-8``
 
 .. _tools_replace_path_in_file:
 
@@ -480,7 +484,8 @@ tools.replace_path_in_file()
 
 .. code-block:: python
 
-    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None)
+    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None, 
+                             encoding=None)
 
 Replace a path in a file with another string. In Windows, it will match the path even if the casing and the path separator doesn't match.
 
@@ -503,6 +508,11 @@ Parameters:
       - ``None``: Only when Windows operating system is detected.
       - ``False``: Deactivated, it will match exact patterns (like :ref:`tools_replace_in_file`).
       - ``True``: Always activated, irrespective of the detected operating system.
+
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special 
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      In case of ``None``, the output file is saved to the ``utf-8``
+
 
 .. _tools_run_environment:
 
@@ -765,7 +775,7 @@ tools.cross_building()
 
 .. code-block:: python
 
-    def cross_building(settings, self_os=None, self_arch=None)
+    def cross_building(settings, self_os=None, self_arch=None, skip_x64_x86=False)
 
 Reading the settings and the current host machine it returns ``True`` if we are cross building a Conan package:
 
@@ -780,6 +790,9 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
+    - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine 
+      as cross building, in case of host and build machine use the same operating system. Normally, in such case build machine may 
+      execute binaries produced for the target machine, and special cross-building handling may not be needed.
 
 .. _tools_get_gnu_triplet:
 
@@ -957,7 +970,7 @@ tools.save()
 
 .. code-block:: python
 
-    def save(path, content, append=False)
+    def save(path, content, append=False, encoding="utf-8")
 
 Utility function to save files in one line. It will manage the open and close of the file and creating directories if necessary.
 
@@ -971,6 +984,7 @@ Parameters:
     - **path** (Required): Path to the file.
     - **content** (Required): Content that should be saved into the file.
     - **append** (Optional, Defaulted to ``False``): If ``True``, it will append the content.
+    - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the output file text encoding.
 
 .. _tools_load:
 
@@ -979,7 +993,7 @@ tools.load()
 
 .. code-block:: python
 
-    def load(path, binary=False)
+    def load(path, binary=False, encoding="auto")
 
 Utility function to load files in one line. It will manage the open and close of the file, and load binary encodings. Returns the content of
 the file.
@@ -993,6 +1007,9 @@ the file.
 Parameters:
     - **path** (Required): Path to the file.
     - **binary** (Optional, Defaulted to ``False``): If ``True``, it reads the the file as binary code.
+    - **encoding** (Optional, Defaulted to ``auto``): Specifies the input file text encoding. The ``auto`` value has a special 
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``. 
+      The value is ignored in case of ``binary`` set to the ``True``.
 
 .. _tools_mkdir_rmdir:
 

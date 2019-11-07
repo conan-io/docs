@@ -147,10 +147,11 @@ This is an optional attribute.
 user, channel
 -------------
 
-The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
-Though their usage is usually not encouraged, it could be useful in different cases,
-e.g. to define requirements with the same user and
-channel as the current package, which could be achieved with something like:
+**These fields are optional in a Conan reference**, they could be useful to identify a forked recipe
+from the community with changes specific for your company. Using these fields you may keep the
+same ``name`` and ``version`` and use the ``user/channel`` to disambiguate your recipe.
+
+The value of these fields can be accessed from within a ``conanfile.py``:
 
 .. code-block:: python
 
@@ -161,23 +162,35 @@ channel as the current package, which could be achieved with something like:
         version = "0.1"
 
         def requirements(self):
-            self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            self.requires("common-lib/version")
+            if self.user and self.channel:
+                # If the recipe is using them, I want to consume my fork.
+                self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            else:
+                # otherwise, I'll consume the community one
+                self.requires("Say/0.1")
 
-Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
-For package recipes working in user space, there is no current user/channel by default. They can be
-defined at ``conan install`` time with:
+
+Only packages that have already been exported (packages in the local cache or in a remote server)
+can have a user/channel assigned. For package recipes working in the user space, there is no
+current user/channel by default, although they can be defined at ``conan install`` time with:
 
 .. code-block:: bash
 
     $ conan install <path to conanfile.py> user/channel
 
-If they are not defined via command line, the properties ``self.user`` and ``self.channel`` will then look 
-for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` respectively. If they are not defined, 
-an error will be raised unless ``default_user`` and ``default_channel`` are declared in the recipe.
 
 .. seealso::
 
     FAQ: :ref:`faq_recommendation_user_channel`
+
+
+.. warning::
+
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` that were used to assign a value
+    to these fields are now deprecated and will be removed in Conan 2.0. Don't use them to
+    populate the value of ``self.user`` and ``self.channel``.
+
 
 default_user, default_channel
 -----------------------------
@@ -603,14 +616,16 @@ Read more: :ref:`Build requirements <build_requires>`
 exports
 -------
 
-If a package recipe ``conanfile.py`` requires other external files, like other python files that
-it is importing (python importing), or maybe some text file with data it is reading, those files
-must be exported with the ``exports`` field, so they are stored together, side by side with the
-``conanfile.py`` recipe.
+This **optional attribute** declares the set of files that should be exported and stored side by
+side with the *conanfile.py* file to make the recipe work: other python files that the recipe will
+import, some text file with data to read,...
 
-The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+The ``exports`` field can declare one single file or pattern, or a list of any of the previous
+elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+formatting to declare files to include or exclude.
+
 For example, if we have some python code that we want the recipe to use in a ``helpers.py`` file,
-and have some text file, ``info.txt``, we want to read and display during the recipe evaluation
+and have some text file *info.txt* we want to read and display during the recipe evaluation
 we would do something like:
 
 .. code-block:: python
@@ -623,24 +638,29 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports = "*.py", "!*tmp.py"
 
-This is an optional attribute, only to be used if the package recipe requires these other files
-for evaluation of the recipe.
 
 .. _exports_sources_attribute:
 
 exports_sources
 ---------------
-There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
-and using the ``exports_sources`` field. With ``exports_sources`` you specify which sources are required,
-and they will be exported together with the **conanfile.py**, copying them from your folder to the
-local conan cache. Using ``exports_sources``
-the package recipe can be self-contained, containing the source code like in a snapshot, and then
-not requiring downloading or retrieving the source code from other origins (git, download) with the
-``source()`` method when it is necessary to build from sources.
 
-The ``exports_sources`` field can be one single pattern, like ``exports_sources="*"``, or several inclusion patterns.
-For example, if we have the source code inside "include" and "src" folders, and there are other folders
-that are not necessary for the package recipe, we could do:
+This **optional attribute** declares the set of files that should be exported together with the
+recipe and will be available to generate the package. Unlike ``exports`` attribute, these files
+shouldn't be used by the *conanfile.py* Python code, but to compile the library or generate
+the final package. And, due to its purpose, these files will only be retrieved if requested
+binaries are not available or the user forces Conan to compile from sources.
+
+The ``exports_sources`` attribute can declare one single file or pattern, or a list of any of the
+previous elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+formatting to declare files to include or exclude.
+
+Together with the ``source()`` and ``imports()`` methods, and the :ref:`SCM feature<scm_feature>`,
+this is another way to retrieve the sources to create a package. Unlike the other methods, files
+declared in ``exports_sources`` will be exported together with the *conanfile.py* recipe, so,
+if nothing else is required, it can create a self-contained package with all the sources
+(like a snapshot) that will be used to generate the final artifacts.
+
+Some examples for this attribute are:
 
 .. code-block:: python
 
@@ -652,9 +672,6 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports_sources = "include*", "src*", "!src/build/*"
 
-This is an optional attribute, used typically when ``source()`` is not specified. The main difference with
-``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
-while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
 
 generators
 ----------
@@ -763,7 +780,8 @@ Set ``short_paths=True`` in your *conanfile.py*:
 
 .. seealso::
 
-    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to globally enable this behavior for all packages.
+    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to force
+    activate this behavior for all packages.
 
 .. _no_copy_source:
 
@@ -868,7 +886,20 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.exelinkflags     | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks       | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs    | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name             | | Alternative name for the package used by generators to create files or variables.                     |
+|                                | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
+|                                | | `cmake_find_package_multi` and `pkg_config` generators.                                               |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.system_libs      | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
++--------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.build_modules    | | List of relative paths to build system related utility module files created by the package. Used by   |
+|                                | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
@@ -898,6 +929,10 @@ absolute paths:
 | self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
 +-------------------------------------------+---------------------------------------------------------------------+
 | self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.framework_paths             | Same as ``frameworkdirs`` but transformed to absolute paths         |
++-------------------------------------------+---------------------------------------------------------------------+
+| self.cpp_info.build_modules_paths         | Same as ``build_modules`` but transformed to absolute paths         |
 +-------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
@@ -1220,4 +1255,28 @@ workspace.:
             pyreq = self.python_requires['pyreq']
             self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
 
+.. _conandata_attribute:
 
+conandata
+---------
+
+This attribute is a dictionary with the keys and values provided in a :ref:`conandata_yml` file format placed next to the *conanfile.py*.
+This YAML file is automatically exported with the recipe and automatically loaded with it too.
+
+You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.
+For example, a *conandata.yml* with information about sources that looks like this:
+
+.. code-block:: YAML
+
+    sources:
+      "1.1.0":
+        url: "https://www.url.org/source/mylib-1.0.0.tar.gz"
+        sha256: "8c48baf3babe0d505d16cfc0cf272589c66d3624264098213db0fb00034728e9"
+      "1.1.1":
+        url: "https://www.url.org/source/mylib-1.0.1.tar.gz"
+        sha256: "15b6393c20030aab02c8e2fe0243cb1d1d18062f6c095d67bca91871dc7f324a"
+
+.. code-block:: python
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])

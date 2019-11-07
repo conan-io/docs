@@ -21,7 +21,7 @@ def build_documents(version, build_folder):
                     continue
                 title = data["title"]
                 slug = data["current_page_name"] + ".html"
-                parent_title = data["parents"][0]["title"] if data["parents"] else ""
+                parent_title = "/".join([n["title"] for n in data["parents"]]) if data["parents"] else ""
                 html = data["body"]
                 soup = BeautifulSoup(html, 'html.parser')
                 h1_elements = [a.get_text().replace("¶", "") for a in soup.find_all("h1")]
@@ -105,3 +105,10 @@ class ElasticManager(object):
 
     def ping(self):
         return self.es.info()
+
+
+if __name__ == "__main__":
+    it = build_documents("1.19.2", "/home/luism/workspace/docs/_build/json")
+    print(it)
+    for el in it:
+        pass

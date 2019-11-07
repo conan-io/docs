@@ -33,7 +33,8 @@ by default in the local conan cache.
       -o, --outdated        Remove only outdated from recipe packages. This flag
                             can only be used with a reference
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
-                            Select package to remove specifying the package ID
+                            Remove all packages of the specified reference if no
+                            specific package ID is provided
       -q QUERY, --query QUERY
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter

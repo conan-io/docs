@@ -31,7 +31,8 @@ your local cache.
       --paths               Show package paths in local cache
       -bo BUILD_ORDER, --build-order BUILD_ORDER
                             given a modified reference, return an ordered list to
-                            build (CI)
+                            build (CI). [DEPRECATED: use 'conan graph build-order
+                            ...' instead]
       -g GRAPH, --graph GRAPH
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
@@ -121,6 +122,12 @@ The output will look like:
 difference is that it doesn't try to install or build the binaries, but the package recipes
 will be retrieved from remotes if necessary.
 
+.. important::
+
+    There is a dedicated command to work with the graph of dependencies and to retrieve information
+    about it. We encourage you to use :ref:`conan graph<conan_graph>` instead of this ``conan info``
+    command for those tasks.
+
 It is very important to note, that the :command:`info` command outputs the dependency graph for a
 given configuration (settings, options), as the dependency graph can be different for different
 configurations. Then, the input to the :command:`conan info` command is the same as :command:`conan install`,
@@ -143,8 +150,10 @@ argument:
     $ conan info . --install-folder=build_debug
     > info for the debug dependency graph install
 
+
 It is possible to use the :command:`conan info` command to extract useful information for Continuous
-Integration systems. More precisely, it has the :command:`--build-order, -bo` option, that will produce
+Integration systems. More precisely, it has the :command:`--build-order, -bo` option (deprecated in
+favor of :ref:`conan graph build-order<conan_graph_build_order>`), that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
 built. E.g., let's assume that we have a project that depends on Boost and Poco, which in turn
 depends on OpenSSL and zlib transitively. So we can query our project with a reference that has
@@ -199,3 +208,29 @@ files in the root of the configuration folder:
 
 It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
 present, or the internet ones if not.
+
+You can find where the package is installed in your cache by using the argument :command:`--paths`:
+
+.. code-block:: bash
+
+    $ conan info foobar/1.0.0@user/channel --paths
+
+The output will look like:
+
+.. code-block:: bash
+
+    foobar/1.0.0@user/channel
+        ID: 6af9cc7cb931c5ad942174fd7838eb655717c709
+        BuildID: None
+        export_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/export
+        source_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/source
+        build_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/build/6af9cc7cb931c5ad942174fd7838eb655717c709
+        package_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/package/6af9cc7cb931c5ad942174fd7838eb655717c709
+        Remote: None
+        License: MIT
+        Author: Dummy
+        Topics: None
+        Recipe: Cache
+        Binary: Cache
+        Binary remote: None
+        Creation date: 2019-09-03 11:22:17

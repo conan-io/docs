@@ -61,7 +61,10 @@ created.
 For example, it is possible that you are managing binaries for older Linux distros, like RHEL 6, or old Centos,
 besides other modern distributions. The problem is that the binaries compiled for modern distributions will
 not work (will not be binary compatible, or ABI incompatible) in those older distributions, mainly because of
-different versions of glibc. We would need a way to model the differences of the binaries for those platforms.
+different versions of glibc. We would need a way to model the differences of the binaries for those platforms. 
+Check out the section :ref:`deployment_challenges` which explains mentioned situation in detail.
+
+.. _add_new_settings:
 
 Adding new settings
 -------------------
@@ -106,6 +109,7 @@ And use their values to affect our build if desired:
                 cmake.definitions["SOME_CENTOS_FLAG"] = "Some CentOS Value"
                 ...
 
+.. _add_new_sub_settings:
 
 Adding new sub-settings
 -----------------------

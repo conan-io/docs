@@ -3,7 +3,7 @@ import os
 import shutil
 import tempfile
 
-from _elastic.indexer import ElasticManager
+# from _elastic.indexer import ElasticManager
 
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -121,12 +121,13 @@ if __name__ == "__main__":
 
         host = os.getenv("ELASTIC_SEARCH_HOST")
         region = os.getenv("ELASTIC_SEARCH_REGION")
-        es = ElasticManager(host, region)
-        es.ping()
+        #es = ElasticManager(host, region)
+        #es.ping()
 
         # config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.18",
+        versions_dict = {"master": "1.19",
+                         "release/1.18.5": "1.18",
                          "release/1.17.2": "1.17",
                          "release/1.16.1": "1.16",
                          "release/1.15.2": "1.15",
@@ -153,13 +154,13 @@ if __name__ == "__main__":
         print("Indexing...")
         print(to_index)
 
-        try:
-            es.remove_index()
-        except:
-            pass
-        es.create_index()
-        for version, folder in to_index.items():
-            es.index(version, folder)
+        #try:
+        #    es.remove_index()
+        #except:
+        #    pass
+        #es.create_index()
+        #for version, folder in to_index.items():
+        #    es.index(version, folder)
 
         deploy()
 

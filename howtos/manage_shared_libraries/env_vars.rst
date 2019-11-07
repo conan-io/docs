@@ -138,15 +138,16 @@ runtime. In Windows, it is enough if the package added its binary folder to the 
 
 Security restrictions might apply in OSX
 (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
-``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitly in
+``DYLD_LIBRARY_PATH`` and ``DYLD_FRAMEWORK_PATH`` environment variables are not directly transferred to the child process. In that case, you have to use it explicitly in
 your *conanfile.py*:
 
 .. code-block:: python
 
-    def test(self):
-        # self.run("./myexe") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
-        with tools.environment_append({"DYLD_LIBRARY_PATH": [self.deps_cpp_info["toolA"].lib_paths]}):
-            self.run("DYLD_LIBRARY_PATH=%s ./myexe" % os.environ['DYLD_LIBRARY_PATH'])
+    def build(self):
+        env_build = RunEnvironment(self)
+        with tools.environment_append(env_build.vars):
+            # self.run("./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' and 'DYLD_FRAMEWORK_PATH' are in the env
+            self.run("DYLD_LIBRARY_PATH=%s DYLD_FRAMEWORK_PATH=%s ./myexetool" % (os.environ['DYLD_LIBRARY_PATH'], os.environ['DYLD_FRAMEWORK_PATH']))
 
 Or you could use ``RunEnvironment`` helper described above.
 

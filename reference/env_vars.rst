@@ -345,6 +345,8 @@ For example, for a remote named "conan-center":
 
     See the :ref:`conan_user` command documentation for more information about login to remotes
 
+.. _env_vars_conan_hooks:
+
 CONAN_HOOKS
 -----------
 
@@ -454,8 +456,9 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`tools_msvc_build_command`
-and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+When set to ``True``/``1``, the :ref:`tools.build_sln_command() <tools_build_sln_command>`,
+the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
+and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
 CONAN_SYSREQUIRES_MODE
@@ -523,12 +526,16 @@ The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is uns
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
 
-These environment variables will be checked when using ``self.user`` or ``self.channel`` in package recipes in user space, where the user
-and channel have not been assigned yet (they are assigned when exported in the local cache).
+.. warning::
 
-.. seealso::
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` are deprecated and will be
+    removed in Conan 2.0. Don't use them to populate the value of ``self.user`` and ``self.channel``.
 
-    Read more about it in :ref:`user_channel`
+These environment variables will be checked when using ``self.user`` or ``self.channel`` in package
+recipes in user space, where the user and channel have not been assigned yet (they are assigned
+when exported in the local cache). More about these variables in
+the :ref:`attributes reference <user_channel>`.
+
 
 CONAN_USER_HOME
 ---------------
@@ -552,6 +559,9 @@ marked as `short_paths` will be stored in the ``C:\.conan`` (or the current driv
 
 If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 CONAN_USE_ALWAYS_SHORT_PATHS
 ----------------------------
 
@@ -560,6 +570,11 @@ CONAN_USE_ALWAYS_SHORT_PATHS
 If defined to ``True`` or ``1``, every package will be stored in the *short paths directory* resolved
 by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
 overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
+
+If the variable is not defined or it evaluates to ``False`` then every recipe will be stored
+according to the value of its ``short_paths`` attribute. So, ``CONAN_USE_ALWAYS_SHORT_PATHS`` can
+force every recipe to use short paths, but it won't work to force the opposite behavior.
+
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
@@ -627,5 +642,12 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
 
+CONAN_PYLINT_WERR
+-----------------
+
+**Defaulted to**: Not defined
+
+This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
+any inconsistency found in the recipe will break the process during linter analysis.
 
 .. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels

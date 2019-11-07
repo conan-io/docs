@@ -11,7 +11,7 @@ conan create
 .. code-block:: bash
 
     $ conan create [-h] [-j JSON] [-k] [-kb] [-ne] [-tbf TEST_BUILD_FOLDER]
-                   [-tf TEST_FOLDER] [-m [MANIFESTS]]
+                   [-tf TEST_FOLDER] [--ignore-dirty] [-m [MANIFESTS]]
                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
                    [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
                    [-s SETTINGS] [-u] [-l [LOCKFILE]]
@@ -50,6 +50,9 @@ to know more about 'test_folder' project.
       -tf TEST_FOLDER, --test-folder TEST_FOLDER
                             Alternative test folder name. By default it is
                             "test_package". Use "None" to skip the test stage
+      --ignore-dirty        When using the "scm" feature with "auto" values,
+                            capture the revision and url even if there are
+                            uncommitted changes
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
