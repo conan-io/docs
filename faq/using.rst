@@ -54,7 +54,11 @@ Usually this is caused due to different line endings in Windows and Linux/macOS.
 while Linux/macOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest always using LF line
 endings. If this issue is caused by git, it could be solved with :command:`git config --system core.autocrlf input`.
 
-The *outdated* status is computed from the recipe hash, comparing the hash of the recipe used to create a binary package, and the current recipe. The recipe hash is the hash of all the files included in the *conanmanifest.txt* file (you can inspect this file in your cache with :command:`conan get <ref> conanmanifest.txt`). The first value in the manifest file is a timestamp and is not taken into account to compute the hash. Checking and comparing the contents of the different *conanmanifest.txt* files in the different machines can give an idea of what is changing.
+The *outdated* status is computed from the recipe hash, comparing the hash of the recipe used to create a binary package and the 
+current recipe. The recipe hash is the hash of all the files included in the *conanmanifest.txt* file (you can inspect this file in 
+your cache with :command:`conan get <ref> conanmanifest.txt`). The first value in the manifest file is a timestamp and is not taken 
+into account to compute the hash. Checking and comparing the contents of the different *conanmanifest.txt* files in the different 
+machines can give an idea of what is changing.
 
 If you want to make the solution self-contained, you can add a *.git/config* file in your project that sets the ``core.autocrlf`` property (for the whole repo), or if you need a per-file configuration, you could use the *.gitattributes* file to set the ``text eol=lf`` for every file you want.
 
