@@ -21,6 +21,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.20 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+
+1.20.3 (11-Nov-2019)
+--------------------
+
+- Bugfix: Using the `scm` feature with `auto` fields was not using correctly the freeze sources from the local user directory from the second call to :command:`conan create`. `#6048 <https://github.com/conan-io/conan/pull/6048>`_
+- Bugfix: Each Apple framework found using CMake `find_library` is stored in a different `CONAN_FRAMEWORK_<name>_FOUND` variable `#6042 <https://github.com/conan-io/conan/pull/6042>`_
+
+    
 1.20.2 (6-Nov-2019)
 -------------------
 
