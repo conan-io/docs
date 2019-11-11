@@ -862,7 +862,7 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.resdirs          | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.bindirs          | Ordered list with binary paths, such as executables and/or dynamic libraries on Windows. Defaulted to ``["bin"]``                                               |
+| self.cpp_info.bindirs          | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
 +--------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.builddirs        | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
 |                                | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
