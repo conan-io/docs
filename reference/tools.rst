@@ -1623,16 +1623,17 @@ Converts Conan style architecture into Android NDK style architecture.
 Parameters:
     - **arch** (Required): Arch to perform the conversion. Usually this would be ``self.settings.arch``.
 
-.. _tools.cppstd_minimum_required:
+.. _tools.check_min_cppstd:
 
-tools.cppstd_minimum_required()
+tools.check_min_cppstd()
 -------------------------------
 
 .. code-block:: python
 
-    def cppstd_minimum_required(conanfile, cppstd_version)
+    def check_min_cppstd(conanfile, cppstd, gnu_extensions=False)
 
 Validate the current cppstd from settings or compiler, if it is supported by the required cppstd version.
+It raises a ``InvalidConfiguration`` when is not supported.
 
 .. code-block:: python
 
@@ -1642,12 +1643,52 @@ Validate the current cppstd from settings or compiler, if it is supported by the
         ...
 
         def configure(self):
-            tools.cppstd_minimum_required(self, "17")
+            tools.check_min_cppstd(self, "17")
 
-* If the current cppstd does not support C++17, ``cppstd_minimum_required`` will raise an ``InvalidConfiguration`` error.
+* If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``InvalidConfiguration`` error.
 * When there is no cppstd declared or is ``None``, the current compiler version listed in the profile will be used to detect
   the compatibility with the required C++ standard.
+* If ``gnu_extensions`` is True and your current OS is Linux, the settings and/or compiler must support/offer GNU extensions
+  (e.g. gnu17), otherwise, an ``InvalidConfiguration`` will be raised. The ``gnu_extensions`` is only checked on Linux, for
+  any other OS it will be skipped.
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
-    - **cppstd_version** (Required): C++ standard version which must be supported.
+    - **cppstd** (Required): C++ standard version which must be supported.
+    - **gnu_extensions** (Optional): GNU extension is required (only for Linux).
+
+.. _tools.valid_min_cppstd:
+
+tools.valid_min_cppstd()
+-------------------------------
+
+.. code-block:: python
+
+    def valid_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+Validate the current cppstd from settings or compiler, if it is supported by the required cppstd version.
+It returns ``True`` when is valid, otherwise, ``False``.
+
+.. code-block:: python
+
+    from conans import tools, ConanFile
+
+    class Recipe(ConanFile):
+        ...
+
+        def configure(self):
+            if not tools.valid_min_cppstd(self, "17"):
+                self.output.error("C++17 is required.")
+
+* The ``valid_min_cppstd`` works exactly like ``check_min_cppstd``, however, it does not raise ``InvalidConfiguration`` error.
+* If the current cppstd does not support C++17, ``valid_min_cppstd`` returns ``False``.
+* When there is no cppstd declared or is ``None``, the current compiler version listed in the profile will be used to detect
+  the compatibility with the required C++ standard.
+* If ``gnu_extensions`` is True and your current OS is Linux, the settings and/or compiler must support/offer GNU extensions
+  (e.g. gnu17), otherwise, it will return ``False``. The ``gnu_extensions`` is only checked on Linux, for
+  any other OS it will be skipped.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **cppstd** (Required): C++ standard version which must be supported.
+    - **gnu_extensions** (Optional): GNU extension is required (only for Linux).
