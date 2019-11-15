@@ -11,7 +11,7 @@ The goal of the revisions feature is to achieve package immutability, the packag
 
 .. note::
 
-    Revisions achieve inmmutatibility. For achieving reproducible builds and reproducible dependencies, **lockfiles**
+    Revisions achieve immutability. For achieving reproducible builds and reproducible dependencies, **lockfiles**
     are used. Lockfiles can capture an exact state of a dependency graph, down to exact versions and revisions, and use
     it later to force their usage, even if new versions or revisions were uploaded to the servers.
 
