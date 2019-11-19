@@ -22,6 +22,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.20.4 (19-Nov-2019)
+--------------------
+
+- Feature: Added traces to `check_output` internal call to log the called command and the output as INFO traces (can be adjusted with `export CONAN_LOGGING_LEVEL=20`) `#6091 <https://github.com/conan-io/conan/pull/6091>`_
+- Bugfix: Using `scm` with `auto` values with a `conanfile.py` not being in the root scm folder it failed to export the right source code directory if not using `--ignore-dirty` and the repo was not pristine. `#6098 <https://github.com/conan-io/conan/pull/6098>`_
+- Bugfix: Fix `conan_build_info` command when conan_sources.tgz not present in remote. `#6088 <https://github.com/conan-io/conan/pull/6088>`_
+
+
 1.20.3 (11-Nov-2019)
 --------------------
 
