@@ -58,6 +58,8 @@ An MD5 Encrypter using the Poco Libraries
         Poco/1.9.1@pocoproject/stable
         Poco/1.9.2@pocoproject/stable
 
+    Conan remotes must be specified in search. It will otherwise only search local cache.
+
 3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
 
     .. code-block:: bash
