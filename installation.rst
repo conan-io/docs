@@ -87,7 +87,7 @@ Alternatively, build and install Conan manually using ``makepkg`` and ``pacman``
 Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
 Make sure to first install the three Conan dependencies which are also found in AUR:
 
-- python-patch 
+- python-patch-ng 
 - python-node-semver
 - python-pluginbase
 
