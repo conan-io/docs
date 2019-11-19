@@ -387,7 +387,7 @@ epub_exclude_files = ['search.html']
 #epub_use_index = True
 
 # A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
-linkcheck_ignore = [r'http://localhost:\d+', r'https://zlib.net.*']
+linkcheck_ignore = [r'http://localhost:\d+']
 
 
 # copy legacy redirects
