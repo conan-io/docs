@@ -30,15 +30,15 @@ are possible. These are the **default** values, but it is possible to customize 
             version: ["5.0", "6.0", "7.0", "8.0"]
         Linux:
         Macos:
-            version: [None, "10.6", "10.7", "10.8", "10.9", "10.10", "10.11", "10.12", "10.13", "10.14"]
+            version: [None, "10.6", "10.7", "10.8", "10.9", "10.10", "10.11", "10.12", "10.13", "10.14", "10.15"]
         Android:
             api_level: ANY
         iOS:
-            version: ["7.0", "7.1", "8.0", "8.1", "8.2", "8.3", "9.0", "9.1", "9.2", "9.3", "10.0", "10.1", "10.2", "10.3", "11.0", "11.1", "11.2", "11.3", "11.4", "12.0", "12.1"]
+            version: ["7.0", "7.1", "8.0", "8.1", "8.2", "8.3", "9.0", "9.1", "9.2", "9.3", "10.0", "10.1", "10.2", "10.3", "11.0", "11.1", "11.2", "11.3", "11.4", "12.0", "12.1", "12.2", "12.3", "12.4", "13.0", "13.1"]
         watchOS:
-            version: ["4.0", "4.1", "4.2", "4.3", "5.0", "5.1"]
+            version: ["4.0", "4.1", "4.2", "4.3", "5.0", "5.1", "5.2", "5.3", "6.0", "6.1"]
         tvOS:
-            version: ["11.0", "11.1", "11.2", "11.3", "11.4", "12.0", "12.1"]
+            version: ["11.0", "11.1", "11.2", "11.3", "11.4", "12.0", "12.1", "12.2", "12.3", "12.4", "13.0"]
         FreeBSD:
         SunOS:
         AIX:
@@ -53,18 +53,18 @@ are possible. These are the **default** values, but it is possible to customize 
             version: ["5.10", "5.11", "5.12", "5.13", "5.14"]
             threads: [None, posix]
             libcxx: [libCstd, libstdcxx, libstlport, libstdc++]
-        gcc:
+        gcc: &gcc
             version: ["4.1", "4.4", "4.5", "4.6", "4.7", "4.8", "4.9",
                       "5", "5.1", "5.2", "5.3", "5.4", "5.5",
                       "6", "6.1", "6.2", "6.3", "6.4",
-                      "7", "7.1", "7.2", "7.3",
+                      "7", "7.1", "7.2", "7.3", "7.4",
                       "8", "8.1", "8.2", "8.3",
                       "9", "9.1", "9.2"]
             libcxx: [libstdc++, libstdc++11]
             threads: [None, posix, win32] #  Windows MinGW
             exception: [None, dwarf2, sjlj, seh] # Windows MinGW
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
-        Visual Studio:
+        Visual Studio: &visual_studio
             runtime: [MD, MT, MTd, MDd]
             version: ["8", "9", "10", "11", "12", "14", "15", "16"]
             toolset: [None, v90, v100, v110, v110_xp, v120, v120_xp,
@@ -74,20 +74,30 @@ are possible. These are the **default** values, but it is possible to customize 
             cppstd: [None, 14, 17, 20]
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
-                      "5.0", "6.0", "7.0",
-                      "8", "9"]
+                      "5.0", "6.0", "7.0", "7.1",
+                      "8", "9", "10"]
             libcxx: [libstdc++, libstdc++11, libc++, c++_shared, c++_static]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
         apple-clang:
             version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", "9.0", "9.1", "10.0", "11.0"]
             libcxx: [libstdc++, libc++]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
+        intel:
+            version: ["11", "12", "13", "14", "15", "16", "17", "18", "19"]
+            base:
+                gcc:
+                    <<: *gcc
+                    threads: [None]
+                    exception: [None]
+                Visual Studio:
+                    <<: *visual_studio
         qcc:
             version: ["4.4", "5.4"]
             libcxx: [cxx, gpp, cpp, cpp-ne, accp, acpp-ne, ecpp, ecpp-ne]
 
     build_type: [None, Debug, Release, RelWithDebInfo, MinSizeRel]
     cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]  # Deprecated, use compiler.cppstd
+
 
 As you can see, the possible values ``settings`` can take are restricted in the same file. This is done to ensure matching naming and
 spelling as well as defining a common settings model among users and the OSS community.
