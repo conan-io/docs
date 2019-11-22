@@ -211,7 +211,7 @@ It is the responsibility of the developer to guarantee that such binaries are in
         options = {"optimized": [1, 2, 3]}
         default_options = {"optimized": 1}
         def package_id(self):
-            for optimized in range(int(self.options.optimized), 0, -1): # From 1 to current value of optimized
+            for optimized in range(int(self.options.optimized), 0, -1):
                 compatible_pkg = self.info.clone()
                 compatible_pkg.options.optimized = optimized
                 self.compatible_packages.append(compatible_pkg)
@@ -294,7 +294,7 @@ You can use the following helpers together with the :ref:`compatible packages<co
   In this case, for a consumer specifying Visual Studio compiler, if no package is found, it will search for an "intel" package for the version 16.
 
 
-Take into account that you can use also this helpers without the "compatible packages" feature:
+Take into account that you can use also these helpers without the "compatible packages" feature:
 
   .. code-block:: python
 
@@ -304,7 +304,7 @@ Take into account that you can use also this helpers without the "compatible pac
             self.info.parent_compatible(compiler="intel", version=16)
 
 In the above example, we will transform the package ID of the ``Visual Studio`` package to be the same as the ``intel 16``, but you won't
-be able to diferenciate the packages built with ``intel`` with the ones built by ``Visual Studio`` because both will have the same package ID,
+be able to differentiate the packages built with ``intel`` with the ones built by ``Visual Studio`` because both will have the same package ID,
 and that is not always desirable.
 
 
