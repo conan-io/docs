@@ -81,7 +81,7 @@ to know more about 'test_folder' project.
                             others. Allows multiple --build parameters. 'pattern'
                             is a fnmatch file pattern of a package reference.
                             Default behavior: If you don't specify anything, it
-                            will be similar to '--build=reference', but package
+                            will be similar to '--build=package name', but package
                             recipes can override it with their 'build_policy'
                             attribute in the conanfile.py.
       -e ENV, --env ENV     Environment variables that will be set during the
