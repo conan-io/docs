@@ -208,11 +208,13 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
+    self.cpp_info.build_modules = []  # Build system utility module files
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
     self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
+    self.cpp_info.system_libs = []  # The system libs to link against
 
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
@@ -237,8 +239,13 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
+- **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
+  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules.append("cmake/myfunctions.cmake")``. Those files
+  will be included automatically in `cmake`/`cmake_multi` generators when using `conan_basic_setup()` and will be automatically added in
+  `cmake_find_package`/`cmake_find_package_multi` generators when `find_package()` is used.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
-  so that including the library headers matches the binaries:
+  so that including the library headers matches the binaries.
+- **system_libs**: Ordered list of system libs the consumer should link against. Empty by default.
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
@@ -374,6 +381,34 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         jar_list = jars.replace(" ", "").split(",")
 
 .. _method_configure_config_options:
+
+
+set_name(), set_version()
+--------------------------
+Dynamically define ``name`` and ``version`` attributes in the recipe with these methods. The following example
+defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
+recipe's repository.
+
+..  code-block:: python
+
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            self.name = tools.load("name.txt")
+
+        def set_version(self):
+            git = tools.Git()
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
+:command:`install <path>` commands).
+
+.. seealso::
+
+    See more examples :ref:`in this howto <capture_version>`.
+
 
 configure(), config_options()
 -----------------------------
@@ -525,8 +560,9 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 - ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
-**pkgutil**, **brew** and **pacman** depending on the system we are running.
+You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package
+tool: **apt**, **yum**, **dnf**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the
+system we are running.
 
 ..  code-block:: python
 
@@ -571,8 +607,8 @@ SystemPackageTool
 
     def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
 
-Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
-**PacManTool**.
+Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
+**PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
 
 Methods:
     - **add_repository(repository, repo_key=None)**: Add ``repository`` address in your current repo list.
@@ -742,6 +778,40 @@ The package will always be the same, irrespective of the OS, compiler or archite
     def package_id(self):
         self.info.header_only()
 
+
+self.info.shared_library_package_id()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
+That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
+Note that this doesn't happen in the static-static and shared-shared library dependencies.
+
+
+Use this ``shared_library_package_id()`` helper in the ``package_id()`` method:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.shared_library_package_id()
+
+This helper automatically detects if the current package has the ``shared`` option and it is ``True`` and if it is depending on static libraries in other packages (having a ``shared`` option equal ``False`` or not having it, which means a header-only library). Only then, any change in the dependencies will affect the ``package_id`` of this package, (internally, ``package_revision_mode`` is applied to the dependencies).
+It is recommended its usage in packages that have the ``shared`` option.
+
+If you want to have in your dependency graph all static libraries or all shared libraries, (but not shared with embedded static ones) it can be defined with a ``*:shared=True``
+option in command line or profiles, but can also be defined in recipes like:
+
+.. code-block:: python
+
+    def configure(self):
+        if self.options.shared:
+            self.options["*"].shared = True
+
+Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for
+`Conan-center packages <https://github.com/conan-io/conan-center-index>`_ that have dependencies
+to compiled libraries and have the ``shared`` option.
+
+
+
 self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -830,6 +900,37 @@ even if it matches with the default of the compiler being used:
 
 
 Same behavior applies if you use the deprecated setting ``cppstd``.
+
+
+CompatiblePackage
+^^^^^^^^^^^^^^^^^
+The ``package_id()`` method serves to define the "canonical" binary package ID, the identifier of the binary that correspond to the
+input configuration of settins and options. This canonical binary package ID will be always computed, and Conan will check for its
+existence to be downloaded and installed.
+
+If the binary of that package ID is not found, Conan lets the recipe writer define an ordered list of compatible package IDs, of other configurations
+that should be binary compatible and can be used as a fallback. The syntax to do this is:
+
+.. code-block:: python
+
+    from conans import ConanFile, CompatiblePackage
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                compatible_pkg = CompatiblePackage(self)
+                compatible_pkg.settings.compiler.version = "4.8"
+                self.compatible_packages.append(compatible_pkg)
+
+This will define that, if we try to install this package with ``gcc 4.9`` and there isn't a binary available for that configuration, Conan will check
+if there is one available built with ``gcc 4.8`` and use it. But not the other way round.
+
+.. seealso::
+
+    For more information about :ref:`CompatiblePackage read this <compatible_packages>`
+
 
 .. _method_build_id:
 

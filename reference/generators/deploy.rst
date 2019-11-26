@@ -14,7 +14,7 @@ local cache to the user space:
     ...
     Generator deploy created deploy_manifest.txt
 
-Files form dependencies are deployed under a folder with the name of the dependency.
+Files from dependencies are deployed under a folder with the name of the dependency.
 
 .. code-block:: bash
 

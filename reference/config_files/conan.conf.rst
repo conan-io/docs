@@ -70,9 +70,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     path = ./data
 
     [proxies]
-    # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies - but see below
+    # Empty (or missing) section will try to use system proxies.
+    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies - but see below
     # for proxies to specific hosts
     # http = http://user:pass@10.10.1.10:3128/
     # http = http://10.10.1.10:3128
@@ -201,6 +200,9 @@ If not specified, the packages marked as `short_paths` will be stored in the ``C
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
 for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even
 in the conan code base, allowing to debug the detected error.
 
@@ -238,17 +240,13 @@ Proxies
 
     ``no_proxy`` is deprecated in favor of ``no_proxy_match`` since Conan 1.16.
 
-If you are not using proxies at all, or you want to use the proxies specified by the operating system,
-just remove the ``[proxies]`` section completely. You can run :command:`conan config rm proxies`.
-
-If you leave the ``[proxies]`` section blank, conan will copy the system configured
-proxies, but if you configured some exclusion rule it won't work:
+If you leave the ``[proxies]`` section blank or delete the section, conan will copy the system
+configured proxies, but if you configured some exclusion rule it won't work:
 
 .. code-block:: text
 
     [proxies]
-    # Empty section will try to use system proxies.
-    # If you don't want Conan to mess with proxies at all, remove section [proxies]
+    # Empty (or missing) section will try to use system proxies.
 
 You can specify http and https proxies as follows. Use the `no_proxy_match` keyword to specify a list
 of URLs or patterns that will skip the proxy:
@@ -256,7 +254,7 @@ of URLs or patterns that will skip the proxy:
 .. code-block:: text
 
     [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080

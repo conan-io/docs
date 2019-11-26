@@ -1,8 +1,8 @@
 .. _cmake_find_package_multi_generator_reference:
 
 
-`cmake_find_package_multi`
-==========================
+cmake_find_package_multi
+========================
 
 .. warning::
 
@@ -12,7 +12,6 @@
 
     This is the reference page for ``cmake_find_package_multi`` generator.
     Go to :ref:`Integrations/CMake<cmake>` if you want to learn how to integrate your project or recipes with CMake.
-
 
 Generated files
 ---------------
@@ -71,4 +70,11 @@ You also need to adjust `CMAKE_PREFIX_PATH <https://cmake.org/cmake/help/v3.0/va
 `CMAKE_MODULE_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html>`_ so CMake can locate all
 the ``<PKG-NAME>Config.cmake`` files: The ``CMAKE_PREFIX_PATH`` is used by the ``find_package`` and the ``CMAKE_MODULE_PATH`` is used by the
 ``find_dependency`` calls that locates the transitive dependencies.
+
+The *<PKG-NAME>Targets-.cmake* files use `<PKG-NAME>_BUILD_MODULES_<BUILD-TYPE>` values to include the files using the `include(...)` CMake
+directive. This makes functions or utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in
+the *CMakeLists.txt*.
+
+Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
+modules in those directories can be found.
 

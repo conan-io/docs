@@ -142,8 +142,15 @@ the variable.
 Using conan Hooks to set compiler environment variables
 #######################################################
 
-If you are not interested in modelling the settings in the Conan package you can use a Hook to modify
-the environment variable and apply the sanitizer flags to the build. It could be something like:
+.. important::
+
+    Take into account that the package ID doesn't encode information about the environment,
+    so different binaries due to different `CXX_FLAGS` would be considered by Conan as the same package.
+
+
+If you are not interested in modelling the settings in the Conan package you can use a
+:ref:`Hook <hooks_reference>` to modify the environment variable and apply the sanitizer
+flags to the build. It could be something like:
 
 .. code-block:: python
     :caption: *sanitizer_hook.py*
@@ -168,6 +175,3 @@ And then calling those functions from a *pre_build* and a *post_build* hook:
 
     def post_build(output, conanfile, **kwargs):
         reset_sanitize_address_flag()
-
-Note that here the package id will be the same for the binaries built with the hook activated and the
-ones that were built without it as we are not modelling the sanitizer setting.

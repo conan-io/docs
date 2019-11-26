@@ -55,8 +55,6 @@ every dependency and the installed settings and options:
       }
     }
 
-
-
 The generated *conanbuildinfo.json* file is a JSON file with the following keys:
 
 dependencies
@@ -70,7 +68,7 @@ The dependencies is a list, with each item belonging to one dependency, and each
  - ``rootpath``
  - ``sysroot``
  - ``include_paths``, ``lib_paths``, ``bin_paths``, ``build_paths``, ``res_paths``, ``framework_paths``
- - ``libs``, ``frameworks``
+ - ``libs``, ``frameworks``, ``system_libs``
  - ``defines``, ``cflags``, ``cppflags``, ``sharedlinkflags``, ``exelinkflags``
  - ``configs`` (only for multi config dependencies, see below)
 
@@ -104,23 +102,22 @@ it is holding a dictionary with the data related to each configuration:
         ]
     }
 
-
 deps_env_info
 -------------
 
-The environment variables defined by upstream dependencies
+The environment variables defined by upstream dependencies.
 
 deps_user_info
 --------------
 
-The user variables defined by upstream dependencies
+The user variables defined by upstream dependencies.
 
 settings
 --------
 
-The settings used during `conan install`
+The settings used during :command:`conan install`.
 
 options
 -------
 
-The options of each dependency
+The options of each dependency.

@@ -120,6 +120,19 @@ conan_set_find_paths()
 
 Adjust ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
 
+
+conan_include_build_modules()
++++++++++++++++++++++++++++++
+
+Includes CMake files declared in ``CONAN_BUILD_MODULES`` using the ``include(...)`` directive. This loads the functions or macros that
+packages may export and makes them available for usage in the consumers *CMakeLists.txt*.
+
+conan_find_apple_frameworks(FRAMEWORKS_FOUND FRAMEWORKS)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Find framework library names provided in `${FRAMEWORKS}` using `find_library()` and return the found values in `FRAMEWORKS_FOUND`.
+
+
 Input variables for *conanbuildinfo_multi.cmake*
 ------------------------------------------------
 

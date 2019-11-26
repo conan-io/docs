@@ -328,6 +328,8 @@ For example, for a remote named "conan-center":
 
     See the :ref:`conan_user` command documentation for more information about login to remotes
 
+.. _env_vars_conan_hooks:
+
 CONAN_HOOKS
 -----------
 
@@ -540,6 +542,9 @@ marked as `short_paths` will be stored in the ``C:\.conan`` (or the current driv
 
 If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 CONAN_USE_ALWAYS_SHORT_PATHS
 ----------------------------
 
@@ -548,6 +553,11 @@ CONAN_USE_ALWAYS_SHORT_PATHS
 If defined to ``True`` or ``1``, every package will be stored in the *short paths directory* resolved
 by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
 overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
+
+If the variable is not defined or it evaluates to ``False`` then every recipe will be stored
+according to the value of its ``short_paths`` attribute. So, ``CONAN_USE_ALWAYS_SHORT_PATHS`` can
+force every recipe to use short paths, but it won't work to force the opposite behavior.
+
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------

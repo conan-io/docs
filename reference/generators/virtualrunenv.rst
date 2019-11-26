@@ -6,8 +6,7 @@ virtualrunenv
 .. container:: out_reference_box
 
     This is the reference page for ``virtualrunenv`` generator.
-    Go to :ref:`Mastering/Virtual Environments<virtual_environment_generator>` if you want to learn how to use conan virtual environments.
-
+    Go to :ref:`Mastering/Virtual Environments<virtual_environment_generator>` if you want to learn how to use Conan virtual environments.
 
 Created files
 -------------
@@ -24,14 +23,11 @@ Linux/macOS:
 
     > source activate_run.sh
 
-
 Windows:
 
 .. code-block:: bash
 
     > activate_run.bat
-
-
 
 Variables declared
 ------------------

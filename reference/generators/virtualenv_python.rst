@@ -18,14 +18,11 @@ Linux/macOS:
 
     > source activate_run_python.sh
 
-
 Windows:
 
 .. code-block:: bash
 
     > activate_run_python.bat
-
-
 
 Variables declared
 ------------------
@@ -41,4 +38,3 @@ Variables declared
 +--------------------+---------------------------------------------------------------------+
 | DYLD_LIBRARY_PATH  | ``lib`` folders of  your requirements.                              |
 +--------------------+---------------------------------------------------------------------+
-
