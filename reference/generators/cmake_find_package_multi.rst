@@ -24,6 +24,8 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 +========================================+======================================================================================+
 | <PKG-NAME>Config.cmake                 | It includes the <PKG-NAME>Targets.cmake and call find_dependency for each dep        |
 +----------------------------------------+--------------------------------------------------------------------------------------+
+| <PKG-NAME>ConfigVersion.cmake          | Package version file for each dep                                                    |
++----------------------------------------+--------------------------------------------------------------------------------------+
 | <PKG-NAME>Targets.cmake                | It includes the following files                                                      |
 +----------------------------------------+--------------------------------------------------------------------------------------+
 | <PKG-NAME>Targets-debug.cmake          | Specific information for the Debug configuration                                     |
