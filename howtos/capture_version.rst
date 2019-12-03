@@ -9,7 +9,9 @@ file or from the git repository.
 
 The version of a recipe is stored in the package metadata when it is exported (or created) and always taken from
 the metadata later on. This means that the ``set_name()`` and ``set_version()`` methods will not be executed once
-the recipe is in the cache, or when it is installed from a server.
+the recipe is in the cache, or when it is installed from a server. Both methods will use the current folder as
+the current working directory to resolve relative paths. To define paths relative to the location of the *conanfile.py*
+use the ``self.recipe_folder`` attribute.
 
 
 How to capture package version from SCM: git
@@ -26,7 +28,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
         name = "hello"
 
         def set_version(self):
-            git = tools.Git()
+            git = tools.Git(folder=self.recipe_folder)
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
         def build(self):
@@ -48,7 +50,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
     class HelloLibrary(ConanFile):
         name = "Hello"
         def set_version(self):
-            scm = tools.SVN()
+            scm = tools.SVN(folder=self.recipe_folder)
             revision = scm.get_revision()
             branch = scm.get_branch() # Delivers e.g trunk, tags/v1.0.0, branches/my_branch
             branch = branch.replace("/","_")
@@ -102,6 +104,6 @@ You can extract the version dynamically using:
     class HelloConan(ConanFile):
         name = "Hello"
         def set_version(self):
-            content = load("CMakeLists.txt")
+            content = load(os.path.join(self.recipe_folder, "CMakeLists.txt"))
             version = re.search(b"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)
             self.version = version.strip()
