@@ -27,10 +27,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
-    # recipe_linter = False               # environment CONAN_RECIPE_LINTER
-    # pylint_werr = False                 # environment CONAN_PYLINT_WERR
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
-    # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
     # cache_no_locks = True               # environment CONAN_CACHE_NO_LOCKS
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
@@ -155,23 +152,6 @@ Set it with the cmake executable path if it's not in the PATH or you want to use
 The ``cpu_count`` variable set the number of cores that the :ref:`tools_cpu_count` will return,
 by default the number of cores available in your machine.
 Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
-
-The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules
-for the python linter executed at ``export`` time. A use case could be to define some custom indents
-(though the standard pep8 4-spaces indent is recommended, there are companies that define different styles).
-The ``pylintrc`` file has the form:
-
-.. code :: text
-
-    [FORMAT]
-    indent-string='  '
-
-Running ``pylint --generate-rcfile`` will output a complete rcfile with comments explaining the fields.
-
-The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
-Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
-
-The ``pylint_werr`` variable changes PyLint level from *warning* to *error* when some inconsistency is found in the recipe.
 
 The ``retry`` variable allows to set up the global default value for the number of retries in all commands related to
 download/upload. User can override the value provided by the variable if the command provides an argument with the same name.
