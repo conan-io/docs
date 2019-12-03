@@ -230,7 +230,7 @@ based on this compatibility model, it only applies to use-cases where the binari
 .. note::
 
     Compatible packages are a match for a binary in the dependency graph. When a compatible package is found, the ``--build=missing``
-    build policy will not fire a build from sources for that package.
+    build policy will **not** build from sources that package.
 
 
 Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
