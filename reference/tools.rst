@@ -1646,16 +1646,15 @@ It raises a ``InvalidConfiguration`` when is not supported.
             tools.check_min_cppstd(self, "17")
 
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``InvalidConfiguration`` error.
-* When there is no cppstd declared or is ``None``, the current compiler version listed in the profile will be used to detect
-  the compatibility with the required C++ standard.
-* If ``gnu_extensions`` is True and your current OS is Linux, the settings and/or compiler must support/offer GNU extensions
-  (e.g. gnu17), otherwise, an ``InvalidConfiguration`` will be raised. The ``gnu_extensions`` is only checked on Linux, for
-  any other OS it will be skipped.
+* When there is no cppstd declared in setttings or is ``None``, the current compiler version listed in the profile will be used to detect
+  the default standard C++ version supported.
+* If ``gnu_extensions`` is True, the settings and/or compiler must support/offer GNU extensions
+  (e.g. gnu17), otherwise, an ``InvalidConfiguration`` will be raised. The ``gnu_extensions`` is checked in any OS.
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
     - **cppstd** (Required): C++ standard version which must be supported.
-    - **gnu_extensions** (Optional): GNU extension is required (only for Linux).
+    - **gnu_extensions** (Optional): GNU extension is required.
 
 .. _tools.valid_min_cppstd:
 
@@ -1682,13 +1681,12 @@ It returns ``True`` when is valid, otherwise, ``False``.
 
 * The ``valid_min_cppstd`` works exactly like ``check_min_cppstd``, however, it does not raise ``InvalidConfiguration`` error.
 * If the current cppstd does not support C++17, ``valid_min_cppstd`` returns ``False``.
-* When there is no cppstd declared or is ``None``, the current compiler version listed in the profile will be used to detect
-  the compatibility with the required C++ standard.
-* If ``gnu_extensions`` is True and your current OS is Linux, the settings and/or compiler must support/offer GNU extensions
-  (e.g. gnu17), otherwise, it will return ``False``. The ``gnu_extensions`` is only checked on Linux, for
-  any other OS it will be skipped.
+* When there is no cppstd declared in settings or is ``None``, the current compiler version listed in the profile will be used to detect
+  the default standard C++ version supported.
+* If ``gnu_extensions`` is True, the settings and/or compiler must support/offer GNU extensions
+  (e.g. gnu17), otherwise, it will return ``False``. The ``gnu_extensions`` is checked in any OS.
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
     - **cppstd** (Required): C++ standard version which must be supported.
-    - **gnu_extensions** (Optional): GNU extension is required (only for Linux).
+    - **gnu_extensions** (Optional): GNU extension is required.
