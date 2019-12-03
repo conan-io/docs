@@ -227,6 +227,12 @@ the ``optimized`` option to conditionally require different dependencies, that w
 step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
 based on this compatibility model, it only applies to use-cases where the binaries can be *interchanged*.
 
+.. note::
+
+    Compatible packages are a match for a binary in the dependency graph. When a compatible package is found, the ``--build=missing``
+    build policy will not fire a build from sources for that package.
+
+
 Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
 
 
