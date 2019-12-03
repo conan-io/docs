@@ -22,6 +22,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Read more about the :ref:`Conan stability commitment<stability>`.
 
 
+1.20.5 (3-Dev-2019)
+-------------------
+
+- Bugfix: Removing `--skip-env`  and `--multi-module` arguments  for `conan_build_info --v2`. Now the environment is not captured (will be handled by the Artifactory plugin) and recipes and packages are saved as different modules in build info. `#6169 <https://github.com/conan-io/conan/pull/6169>`_ . Docs `here <https://github.com/conan-io/docs/pull/1486>`__
+
+
 1.20.4 (19-Nov-2019)
 --------------------
 
