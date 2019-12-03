@@ -898,7 +898,7 @@ This object should be filled in ``package_info()`` method.
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.names["generator"] | | Alternative name for the package used by an specific generator to create files or variables.          |
 |                                  | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
-|                                  | | Like the cpp_info.name, is supported by `cmake`, `cmake_multi`, `cmake_find_package`,                 |
+|                                  | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
 |                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.system_libs        | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
