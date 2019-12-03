@@ -17,7 +17,8 @@ Generated files
 ---------------
 
 For each conan package in your graph, it will generate 2 files and 1 more per different ``build_type``.
-Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name``:
+Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name`` or in 
+``cpp_info.names["cmake_find_package_multi"]`` if specified:
 
 +----------------------------------------+--------------------------------------------------------------------------------------+
 | NAME                                   | CONTENTS                                                                             |
