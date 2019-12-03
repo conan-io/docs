@@ -590,7 +590,7 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["mypkg"].recipe_revision_mode()
 
-- ``package_revision_mode()``: The full pckage reference `pkg/version@user/channel#RREV:ID#PREV`
+- ``package_revision_mode()``: The full package reference `pkg/version@user/channel#RREV:ID#PREV`
   of the dependencies, including the recipe revision, the binary package ID and the package revision
   will be taken into account to compute the consumer package ID
 
