@@ -624,12 +624,3 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 **Defaulted to**: ``False``/``0``
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
-
-
-CONAN_PYLINT_WERR
------------------
-
-**Defaulted to**: Not defined
-
-This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
-any inconsistency found in the recipe will break the process during linter analysis.
