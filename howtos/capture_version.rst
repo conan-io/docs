@@ -99,7 +99,7 @@ You can extract the version dynamically using:
 
     from conans import ConanFile
     from conans.tools import load
-    import re
+    import re, os
 
     class HelloConan(ConanFile):
         name = "Hello"
