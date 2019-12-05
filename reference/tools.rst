@@ -1633,3 +1633,64 @@ Converts Conan style architecture into Android NDK style architecture.
 
 Parameters:
     - **arch** (Required): Arch to perform the conversion. Usually this would be ``self.settings.arch``.
+
+.. _tools.check_min_cppstd:
+
+tools.check_min_cppstd()
+------------------------
+
+.. code-block:: python
+
+    def check_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+Validates if the applied cppstd setting (from `compiler.cppstd` settings or deducing the default from `compiler` and `compiler.version`) is at least the value specified in the `cppstd` argument.
+It raises a ``ConanInvalidConfiguration`` when is not supported.
+
+.. code-block:: python
+
+    from conans import tools, ConanFile
+
+    class Recipe(ConanFile):
+        ...
+
+        def configure(self):
+            tools.check_min_cppstd(self, "17")
+
+* If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
+* If ``gnu_extensions`` is True, it is required that the applied ``cppstd`` supports the gnu extensions.
+  (e.g. gnu17), otherwise, an :ref:`ConanInvalidConfiguration<conditional_settings_options_requirements>` will be raised. The ``gnu_extensions`` is checked in any OS.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **cppstd** (Required): C++ standard version which must be supported.
+    - **gnu_extensions** (Optional): GNU extension is required.
+
+.. _tools.valid_min_cppstd:
+
+tools.valid_min_cppstd()
+------------------------
+
+.. code-block:: python
+
+    def valid_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+Validate the current cppstd from settings or compiler, if it is supported by the required cppstd version.
+It returns ``True`` when is valid, otherwise, ``False``.
+
+.. code-block:: python
+
+    from conans import tools, ConanFile
+
+    class Recipe(ConanFile):
+        ...
+
+        def configure(self):
+            if not tools.valid_min_cppstd(self, "17"):
+                self.output.error("C++17 is required.")
+
+* The ``valid_min_cppstd`` works exactly like ``check_min_cppstd``, however, it does not raise ``ConanInvalidConfiguration`` error.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **cppstd** (Required): C++ standard version which must be supported.
+    - **gnu_extensions** (Optional): GNU extension is required.
