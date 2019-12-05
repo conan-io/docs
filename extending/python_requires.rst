@@ -1,7 +1,7 @@
 .. _python_requires:
 
-Python requires: reusing conanfile.py code 
-==========================================
+Python requires
+===============
 
 .. warning::
 
@@ -10,14 +10,14 @@ Python requires: reusing conanfile.py code
 
 .. note::
 
-    This syntax supersedes the legacy ``python_requires()`` syntax. The most important changes
-    are:
+    This syntax supersedes the :ref:`legacy python_requires()<python_requires_legacy>` syntax. 
+    The most important changes are:
 
     - These new python_requires affect the consumers ``package_id``. So different binaries can
-    be managed, and CI systems can re-build affected packages according to package ID modes and
-    versioning policies.
+      be managed, and CI systems can re-build affected packages according to package ID modes and
+      versioning policies.
     - The syntax defines a *class attribute* instead of a module function call, so recipes are
-    cleaner and more aligned with other types of requirements.
+      cleaner and more aligned with other types of requirements.
     - The new python_requires will play better with lockfiles and deterministic dependency graphs.
     - They are able to extend base classes more naturally without conflicts of ConanFile classes. 
 
@@ -27,7 +27,7 @@ Introduction
 ------------
 
 The ``python_requires`` feature is a very convenient way to share files and code between
-different recipes. A *Python Requires* is similar to any other recipe, it is the way it is
+different recipes. A python requires is similar to any other recipe, it is the way it is
 required from the consumer what makes the difference. 
 
 A very simple recipe that we want to reuse could be:
@@ -206,14 +206,70 @@ Note that only ``exports`` work for this case, but not ``exports_sources``.
 PackageID
 ---------
 
+The ``python-requires`` will affect the ``package_id`` of the packages using those dependencies.
+By default, the policy is ``minor_mode``, which means:
 
-How python-requires are resolved
-------------------------------------
-- Global import, reused
-- Version ranges
-- private
-- Conflicts
-- No user/channel
-- Can import other python files
-- Can editable
+- Changes to the **patch** version of a python-require will not affect the package ID. So depending
+  on ``"pyreq/1.2.3"`` or ``"pyreq/1.2.4"`` will result in identical package ID (both will be mapped
+  to ``"pyreq/1.2.Z"`` in the hash computation). Bump the patch version if you want to change your
+  common code, but you don't want the consumers to be affected or to fire a re-build of the dependants.
+- Changes to the **minor** or **major** version will produce a different package ID. So if you depend
+  on ``"pyreq/1.2.3"``, and you bump the version to ``"pyreq/1.3.0"``, then, you will need to build
+  new binaries that are using that new python-require. Bump the minor or major version if you want to
+  make sure that packages requiring this python-require will be built using these changes in the code.
+- Both changing the **minor** and **major** requires a new package ID, and then a build from source.
+  You could use changes in the **minor** to indicate that it should be source compatible, and consumers
+  wouldn't need to do changes, and changes in the **major** for source incompatible changes.
 
+As with the regular ``requires``, this default can be customized. First you can customize it at attribute
+global level, modifying the *conan.conf* ``[general]`` variable ``default_python_requires_id_mode``, which can take the values
+``unrelated_mode``, ``semver_mode``, ``patch_mode``, ``minor_mode``, ``major_mode``, ``full_version_mode``,
+``full_recipe_mode`` and ``recipe_revision_mode``. 
+
+
+For example, if you want to make the package IDs never be affected by any change in the versions of
+python-requires, you could do:
+
+.. code-block:: text
+   :caption: *conan.conf* configuration file
+
+   [general]
+   default_python_requires_id_mode=unrelated_mode
+
+
+Read more about these modes in :ref:`package_id_mode`.
+
+It is also possible to customize the effect of ``python_requires`` per package, using the ``package_id()``
+method:
+
+  .. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        python_requires ="pyreq/[>=1.0]"
+        def package_id(self):
+            self.info.python_requires.patch_mode()
+
+
+Resolution of python-requires
+-----------------------------
+
+There are few things that should be taken into account when using ``python-requires``:
+
+- Python requires recipes are loaded by the interpreter just once, and they are common to
+  all consumers. Do not use any global state in the ``python-requires`` recipes.
+- Python requires are private to the consumers. They are not transitive. Different consumers
+  can require different versions of the same python-require.
+- ``python-requires`` can use version ranges expressions.
+- ``python-requires`` can ``python-require`` other recipes too, but this should probably be limited
+  to very few cases, we recommend to use the simplest possible structure.
+- ``python-requires`` can conflict if they require other recipes and create conflicts in different
+  versions.
+- ``python-requires`` cannot use regular ``requires`` or ``build_requires``.
+- It is possible to use ``python-requires`` without user and channel.
+- ``python-requires`` can use native python ``import`` to other python files, as long as these are
+  exported together with the recipe.
+- ``python-requires`` should not create packages, but use ``export`` only.
+- ``python-requires`` can be used as editable packages too.
+- ``python-requires`` are locked in lockfiles.
