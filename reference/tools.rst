@@ -1648,7 +1648,7 @@ It raises a ``ConanInvalidConfiguration`` when is not supported.
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
 * When there is no cppstd declared in setttings or is ``None``, the current compiler version listed in the profile will be used to detect
   the default standard C++ version supported.
-* If ``gnu_extensions`` is True, the settings and/or compiler must support/offer GNU extensions
+* If ``gnu_extensions`` is True, it is required that the applied ``cppstd`` supports the gnu extensions.
   (e.g. gnu17), otherwise, an :ref:`ConanInvalidConfiguration<conditional_settings_options_requirements>` will be raised. The ``gnu_extensions`` is checked in any OS.
 
 Parameters:
