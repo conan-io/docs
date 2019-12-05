@@ -1632,7 +1632,7 @@ tools.check_min_cppstd()
 
     def check_min_cppstd(conanfile, cppstd, gnu_extensions=False)
 
-Validate the current cppstd from settings or compiler, if it is supported by the required cppstd version.
+Validates if the applied cppstd setting (from `compiler.cppstd` settings or deducing the default from `compiler` and `compiler.version`) is at least the value specified in the `cppstd` argument.
 It raises a ``ConanInvalidConfiguration`` when is not supported.
 
 .. code-block:: python
