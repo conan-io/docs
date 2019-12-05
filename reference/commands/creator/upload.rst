@@ -53,8 +53,8 @@ If no remote is specified, the first configured remote (by default conan-center,
                             remote one
       -j JSON, --json JSON  json file path where the upload information will be
                             written to
-      --parallel            Uploads in parallel using multiple threads
-                            The default number of launched threads is 8
+      --parallel            Upload files in parallel using multiple threads The
+                            default number of launched threads is 8
 
 
 **Examples**:
