@@ -112,7 +112,7 @@ Here you can find a brief explanation of each of the architectures defined as ``
 
 - **x86_64**: The popular 64 bit x64 architecture.
 
-- **ppc64le**: The PowerPC 64 bit Big Endian architecture.
+- **ppc64be**: The PowerPC 64 bit Big Endian architecture.
 
 - **ppc32**: The PowerPC 32 bit architecture.
 
