@@ -70,9 +70,7 @@ conan_build_info v2
 
 .. code-block:: bash
 
-    usage: conan_build_info --v2 create [-h] --lockfile LOCKFILE
-                                        [--multi-module [MULTI_MODULE]]
-                                        [--skip-env [SKIP_ENV]] [--user [USER]]
+    usage: conan_build_info --v2 create [-h] --lockfile LOCKFILE [--user [USER]]
                                         [--password [PASSWORD]] [--apikey [APIKEY]]
                                         build_info_file
 
@@ -82,11 +80,6 @@ conan_build_info v2
     optional arguments:
       -h, --help            show this help message and exit
       --lockfile LOCKFILE   input lockfile
-      --multi-module [MULTI_MODULE]
-                            if enabled, the module_id will be identified by the
-                            recipe reference plus the package ID
-      --skip-env [SKIP_ENV]
-                            capture or not the environment
       --user [USER]         user
       --password [PASSWORD]
                             password
