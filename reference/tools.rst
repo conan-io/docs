@@ -1682,7 +1682,6 @@ It returns ``True`` when is valid, otherwise, ``False``.
 * The ``valid_min_cppstd`` works exactly like ``check_min_cppstd``, however, it does not raise ``ConanInvalidConfiguration`` error.
 * If the current cppstd does not support C++17, ``valid_min_cppstd`` returns ``False``.
 * If ``gnu_extensions`` is True, the settings and/or compiler must support/offer GNU extensions
-  (e.g. gnu17), otherwise, it will return ``False``. The ``gnu_extensions`` is checked in any OS.
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
