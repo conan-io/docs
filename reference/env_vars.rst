@@ -221,11 +221,28 @@ Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and 
 CONAN_LOGGING_LEVEL
 -------------------
 
-**Defaulted to**: ``50``
+**Defaulted to**: ``critical``
 
 By default Conan logging level is only set for critical events. If you want
-to show more detailed logging information, set this variable to lower values, as ``10`` to show
-debug information.
+to show more detailed logging information, set this variable according to
+`Python Logging Levels`_ or, use a logging level name:
+
++---------------------+------------------+
+| logging level name  | logging level id |
++=====================+==================+
+| critical            | 50               |
++---------------------+------------------+
+| error               | 40               |
++---------------------+------------------+
+| warning/warn        | 30               |
++---------------------+------------------+
+| info                | 20               |
++---------------------+------------------+
+| debug               | 10               |
++---------------------+------------------+
+
+Both names and IDs are acceptable by environment variable, or using the conan.conf file.
+
 
 .. _env_vars_conan_login_username:
 
@@ -624,3 +641,14 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 **Defaulted to**: ``False``/``0``
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
+
+CONAN_PYLINT_WERR
+-----------------
+
+**Defaulted to**: Not defined
+
+This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
+any inconsistency found in the recipe will break the process during linter analysis.
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
+

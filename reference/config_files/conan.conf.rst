@@ -10,7 +10,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     [log]
     run_to_output = True        # environment CONAN_LOG_RUN_TO_OUTPUT
     run_to_file = False         # environment CONAN_LOG_RUN_TO_FILE
-    level = 50                  # environment CONAN_LOGGING_LEVEL
+    level = critical            # environment CONAN_LOGGING_LEVEL
     # trace_file =              # environment CONAN_TRACE_FILE
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
@@ -89,7 +89,9 @@ Log
 
 The ``level`` variable, defaulted to 50 (critical events), declares the LOG level .
 If you want to show more detailed logging information, set this variable to lower values,
-as 10 to show debug information. You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+as 10 to show debug information, or use the level names as ``critical``, ``error``, ``warning``,
+``info`` and ``debug``. You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+The level number is related to the `Python Logging Levels`_.
 
 The ``print_run_commands``, when is 1, Conan will print the executed commands in ``self.run`` to the output.
 You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
@@ -267,3 +269,5 @@ If this fails, you might also try to set environment variables:
    # windows (note, no quotes here)
    $ set HTTP_PROXY=http://10.10.1.10:3128
    $ set HTTPS_PROXY=http://10.10.1.10:1080
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
