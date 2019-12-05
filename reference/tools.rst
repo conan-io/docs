@@ -1678,7 +1678,6 @@ It returns ``True`` when is valid, otherwise, ``False``.
                 self.output.error("C++17 is required.")
 
 * The ``valid_min_cppstd`` works exactly like ``check_min_cppstd``, however, it does not raise ``ConanInvalidConfiguration`` error.
-* If ``gnu_extensions`` is True, the settings and/or compiler must support/offer GNU extensions
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
