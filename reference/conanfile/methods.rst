@@ -202,6 +202,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 .. code-block:: python
 
     self.cpp_info.name = "<PKG_NAME>"
+    self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
