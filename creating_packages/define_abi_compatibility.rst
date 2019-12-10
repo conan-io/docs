@@ -157,7 +157,7 @@ The same way we have adjusted the ``self.info.settings``, we could set the ``sel
 .. _compatible_packages:
 
 
-Compatible Packages
+Compatible packages
 -------------------
 
 .. warning::
@@ -183,7 +183,7 @@ That can be defined as:
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
+    from conans import ConanFile
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
@@ -205,8 +205,7 @@ It is the responsibility of the developer to guarantee that such binaries are in
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
-
+    from conans import ConanFile
     class Pkg(ConanFile):
         options = {"optimized": [1, 2, 3]}
         default_options = {"optimized": 1}
@@ -691,7 +690,7 @@ generated with the ``recipe_revision_mode`` can be resolved if no package for th
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
+    from conans import ConanFile
 
     class Pkg(ConanFile):
         ...
