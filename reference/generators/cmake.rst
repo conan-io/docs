@@ -148,7 +148,7 @@ variables. See the macros below for detailed information.
 Parameters:
     - ``TARGETS`` (Optional): Setup all the CMake variables by target (only CMake > 3.1.2). Activates the call to the macro
       ``conan_target_link_libraries()``.
-    - ``NO_OUTPUT_DIRS`` (Optional): Do not adjust the output directories. Deactivates the call to the macro ``conan_output_dirs_setup()``.
+    - ``NO_OUTPUT_DIRS`` (Optional): Do not adjust the build output directories. Deactivates the call to the macro [``conan_output_dirs_setup()``](#conan_output_dirs_setup).
     - ``SKIP_RPATH`` (Optional): **[DEPRECATED]** Use ``KEEP_RPATHS`` instead. Activate ``CMAKE_SKIP_RPATH`` variable in OSX.
     - ``KEEP_RPATHS`` (Optional): Do not adjust the ``CMAKE_SKIP_RPATH`` variable in OSX. Activates the call to the macro ``conan_set_rpath()``
     - ``SKIP_STD`` (Optional): Do not adjust the C++ standard flag in ``CMAKE_CXX_FLAGS``. Deactivates the call to the macro
@@ -193,7 +193,13 @@ This method can be disabled setting the :ref:`conan_disable_check_compiler` vari
 conan_output_dirs_setup()
 +++++++++++++++++++++++++
 
-Adjusts the *bin/* and *lib/* output directories.
+Adjusts each `CMAKE_RUNTIME_OUTPUT_DIRECTORY` variable to be ``${CMAKE_CURRENT_BINARY_DIR}/bin`` 
+and each ``CMAKE_ARCHIVE_OUTPUT_DIRECTORY`` and ``CMAKE_LIBRARY_OUTPUT_DIRECTORY`` variable to be 
+``${CMAKE_CURRENT_BINARY_DIR}/lib``.
+
+Calling this method makes writing the ``package()`` method for recipies easier. All artifacts will 
+always be found in the same location. Otherwise, they may be found in different locations depending 
+on your build environment (eg Linux vs Windows).
 
 conan_set_find_library_paths()
 ++++++++++++++++++++++++++++++
