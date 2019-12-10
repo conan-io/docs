@@ -509,8 +509,8 @@ It also has optional parameters that allow defining the special cases, as is sho
     - **override** (Optional, Defaulted to ``False``): True means that this is not an actual requirement, but something to be passed
       upstream and override possible existing values.
     - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded, and totally hidden. It might be necessary in some extreme cases, like having to use two
-    different versions of the same library (provided that they are totally hidden in a shared library, for
-    example), but it is mostly discouraged otherwise.
+      different versions of the same library (provided that they are totally hidden in a shared library, for
+      example), but it is mostly discouraged otherwise.
 
 .. note::
 
