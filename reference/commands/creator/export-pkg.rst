@@ -43,7 +43,7 @@ the binary package.
                             '-o', '-pr' or '-s' arguments are used, it will raise
                             an error.
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o pkg:with_qt=true
+                            Define options values, e.g., -o pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Profile for this package
       -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER

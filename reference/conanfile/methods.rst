@@ -202,6 +202,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 .. code-block:: python
 
     self.cpp_info.name = "<PKG_NAME>"
+    self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
@@ -404,6 +405,26 @@ recipe's repository.
 The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
 These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
 :command:`install <path>` commands).
+
+The above example uses the current working directory as the one to resolve the relative "name.txt" path and the git repository.
+That means that the "name.txt" should exist in the directory where conan was launched.
+To define a relative path to the *conanfile.py*, irrespective of the current working directory it is necessary to do:
+
+..  code-block:: python
+
+    import os
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            f = os.path.join(self.recipe_folder, "name.txt")
+            self.name = tools.load(f)
+
+        def set_version(self):
+            git = tools.Git(folder=self.recipe_folder)
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``self.recipe_folder`` attribute is only defined in these two methods.
 
 .. seealso::
 

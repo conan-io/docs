@@ -18,7 +18,8 @@ a ``Findzlib.cmake`` file will be generated.
 Variables in Find<PKG-NAME>.cmake
 ---------------------------------
 
-Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name``:
+Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name`` or in 
+``cpp_info.names["cmake_find_package"]`` if specified:
 
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 | NAME                               | VALUE                                                                                               |
