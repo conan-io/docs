@@ -546,10 +546,9 @@ You can specify further information about the package requirements:
 Requirements can be complemented by 2 different parameters:
 
 **private**: a dependency can be declared as private if it is going to be fully embedded and hidden
-from consumers of the package. Typical examples could be a header only library which is not exposed
-through the public interface of the package, or the linking of a static library inside a dynamic
-one, in which the functionality or the objects of the linked static library are not exposed through
-the public interface of the dynamic library.
+from consumers of the package. It might be necessary in some extreme cases, like having to use two
+different versions of the same library (provided that they are totally hidden in a shared library, for
+example), but it is mostly discouraged otherwise.
 
 **override**: packages can define overrides of their dependencies, if they require the definition of
 specific versions of the upstream required libraries, but not necessarily direct dependencies. For example,
