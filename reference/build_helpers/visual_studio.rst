@@ -113,7 +113,13 @@ Parameters:
                        'armv7': 'ARM',
                        'armv8': 'ARM64'}
 
-    - **use_env** (Optional, Defaulted to ``True``: Sets ``/p:UseEnv=true`` flag. Note that this setting does not guarantee that environment variables from Conan will not be used by the compiler or linker. This is an ``MSBuild`` setting which simply specifies the behavior when environment variables conflict with equivalent properties from the project (via ``vcxproj``, ``.props``, or ``.targets`` files).  Conan will still apply the relevant compiler and linker environment variables when spawning the ``MSBuild`` process. For example, if ``use_env=False`` is specified, AND if there is no ``AdditionalDependencies`` variable defined in the project, the ``LINK`` environment variable passed by Conan will still be used by the linker because it technically doesn't conflict with the project variable.
+    - **use_env** (Optional, Defaulted to ``True``: Sets ``/p:UseEnv=true`` flag. Note that this setting does not guarantee that
+      environment variables from Conan will not be used by the compiler or linker. This is an MSBuild setting which simply
+      specifies the behavior when environment variables conflict with equivalent properties from the project (via *.vcxproj*,
+      *.props* or *.targets* files).  Conan will still apply the relevant compiler and linker environment variables when spawning
+      the MSBuild process. For example, if ``use_env=False`` is specified **and** if there is no ``AdditionalDependencies`` variable
+      defined in the project, the ``LINK`` environment variable passed by Conan will still be used by the linker because it technically
+      doesn't conflict with the project variable.
     - **vcvars_ver** (Optional, Defaulted to ``None``): Specifies the Visual Studio compiler toolset to use.
     - **winsdk_version** (Optional, Defaulted to ``None``): Specifies the version of the Windows SDK to use.
     - **properties** (Optional, Defaulted to ``None``): Dictionary with new properties, for each element in the dictionary ``{name: value}``
