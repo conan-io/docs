@@ -1,19 +1,20 @@
 Python requires
 ==================
 
-It is possible to reuse python code existing in other *conanfile.py* recipes with the ``python_requires()``
+It is possible to reuse python code existing in other *conanfile.py* recipes with the ``python_requires``
 functionality, doing something like:
 
 .. code-block:: python
 
-    from conans import python_requires
-    
-    base = python_requires("MyBuild/0.1@user/channel")
+    from conans import ConanFile
 
-    class PkgTest(base.MyBase):
-        ...
+    class Pkg(ConanFile):
+        python_requires = "pyreq/0.1@user/channel"
+
         def build(self):
-            base.my_build(self.settings)
+            v = self.python_requires["pyreq"].module.myvar # myvar defined in pyreq's conanfile.py
+            f = self.python_requires["pyreq"].module.myfunct() # myfunct defined in pyreq's conanfile.py
+            self.output.info("%s,%s" % (v, f))
 
 See this section: :ref:`Python requires: reusing python code in recipes<python_requires>`
 
