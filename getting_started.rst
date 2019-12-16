@@ -47,20 +47,20 @@ An MD5 Encrypter using the Poco Libraries
     .. code-block:: bash
 
         $ conan search Poco --remote=conan-center
-          Existing package recipes:
+        Existing package recipes:
 
-          Poco/1.7.8p3@pocoproject/stable
-          Poco/1.7.9p1@pocoproject/stable
-          Poco/1.7.9p2@pocoproject/stable
-          Poco/1.7.9@pocoproject/stable
-          Poco/1.8.0@pocoproject/stable
-          Poco/1.8.0.1@pocoproject/stable
-          Poco/1.8.1@pocoproject/stable
-          Poco/1.9.0@pocoproject/stable
-          Poco/1.9.1@pocoproject/stable
-          Poco/1.9.2@pocoproject/stable
-          Poco/1.9.3@pocoproject/stable
-          Poco/1.9.4@pocoproject/stable
+        Poco/1.7.8p3@pocoproject/stable
+        Poco/1.7.9p1@pocoproject/stable
+        Poco/1.7.9p2@pocoproject/stable
+        Poco/1.7.9@pocoproject/stable
+        Poco/1.8.0@pocoproject/stable
+        Poco/1.8.0.1@pocoproject/stable
+        Poco/1.8.1@pocoproject/stable
+        Poco/1.9.0@pocoproject/stable
+        Poco/1.9.1@pocoproject/stable
+        Poco/1.9.2@pocoproject/stable
+        Poco/1.9.3@pocoproject/stable
+        Poco/1.9.4@pocoproject/stable
 
     Conan remotes must be specified in search. It will otherwise only search local cache.
 
@@ -69,34 +69,34 @@ An MD5 Encrypter using the Poco Libraries
     .. code-block:: bash
 
         $ conan inspect Poco/1.9.4@pocoproject/stable
-          name: Poco
-          version: 1.9.4
-          url: http://github.com/pocoproject/conan-poco
-          homepage: None
-          license: The Boost Software License 1.0
-          author: None
-          description: Modern, powerful open source C++ class libraries for building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
-          topics: None
-          generators: ('cmake', 'txt')
-          exports: None
-          exports_sources: ('CMakeLists.txt', 'PocoMacros.cmake')
-          short_paths: False
-          apply_env: True
-          build_policy: None
-          revision_mode: hash
-          settings: ('os', 'arch', 'compiler', 'build_type')
-          options:
-              cxx_14: [True, False]
-              enable_apacheconnector: [True, False]
-              enable_cppparser: [True, False]
-              enable_crypto: [True, False]
-              [...]
-          default_options:
-              cxx_14: False
-              enable_apacheconnector: False
-              enable_cppparser: False
-              enable_crypto: True
-              [...]
+        name: Poco
+        version: 1.9.4
+        url: http://github.com/pocoproject/conan-poco
+        homepage: None
+        license: The Boost Software License 1.0
+        author: None
+        description: Modern, powerful open source C++ class libraries for building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
+        topics: None
+        generators: ('cmake', 'txt')
+        exports: None
+        exports_sources: ('CMakeLists.txt', 'PocoMacros.cmake')
+        short_paths: False
+        apply_env: True
+        build_policy: None
+        revision_mode: hash
+        settings: ('os', 'arch', 'compiler', 'build_type')
+        options:
+            cxx_14: [True, False]
+            enable_apacheconnector: [True, False]
+            enable_cppparser: [True, False]
+            enable_crypto: [True, False]
+            [...]
+        default_options:
+            cxx_14: False
+            enable_apacheconnector: False
+            enable_cppparser: False
+            enable_crypto: True
+            [...]
 
 
 4. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
