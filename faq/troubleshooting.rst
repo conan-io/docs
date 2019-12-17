@@ -193,7 +193,7 @@ When installing a package which is already installed, but using a different case
         [...]
         ERROR: Failed requirement 'OpenSSL/1.0.2o@conan/stable' from 'Poco/1.9.3@pocoproject/stable'
         ERROR: Requested 'OpenSSL/1.0.2o@conan/stable' but found case incompatible 'openssl'
-        Case insensitive filesystem can't manage this
+        Case insensitive filesystem can not manage this
 
 The package ``openssl`` is already installed. To solve this problem the different package with the same name
 must be removed:
