@@ -1261,7 +1261,7 @@ workspace.:
 
 .. _conandata_attribute:
 
-conandata
+conan_data
 ---------
 
 This attribute is a dictionary with the keys and values provided in a :ref:`conandata_yml` file format placed next to the *conanfile.py*.
