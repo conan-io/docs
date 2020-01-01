@@ -115,7 +115,7 @@ Videos and links
 
   .. raw:: html
 
-      <iframe width="560" height="315" src="https://www.youtube.com/watch?v=aqQT3J16OxI" frameborder="0" allowfullscreen>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/aqQT3J16OxI" frameborder="0" allowfullscreen>
       </iframe>
 
       <br/><br/>
