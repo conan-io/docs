@@ -120,5 +120,23 @@ Videos and links
 
       <br/><br/>
 
+- CppCon 2019: "Why Conan? 5 reasons to use Conan package manager" by Diego Rodriguez-Losada
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/VXLzImMFS_k" frameborder="0" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
+- CppCon 2019: "Building happiness in your life" by Steve Robinson
+
+  .. raw:: html
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/uu143M26z5E" frameborder="0" allowfullscreen>
+      </iframe>
+
+      <br/><br/>
+
 Do you have a video, tutorial, blog post that could be useful for other users and would like to share?
 Please tell us about it or directly send a PR to our docs: https://github.com/conan-io/docs, and we will link it here.
