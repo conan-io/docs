@@ -3,11 +3,14 @@
 Getting Started
 ===============
 
-Let's get started with an example: We are going to create an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
+Let's get started with an example: We are going to create an MD5 encrypter app that uses one of the
+most popular C++ libraries: Poco_.
 
-We'll use CMake as build system in this case but keep in mind that Conan **works with any build system** and is not limited to using CMake.
+We'll use CMake as build system in this case but keep in mind that Conan **works with any build
+system** and is not limited to using CMake.
 
-Make sure you are running the latest Conan version. Read the :ref:`Conan update<conan_update>` section get more information.
+Make sure you are running the latest Conan version. Read the :ref:`Conan update<conan_update>`
+section get more information.
 
 An MD5 Encrypter using the Poco Libraries
 -----------------------------------------
@@ -99,8 +102,9 @@ An MD5 Encrypter using the Poco Libraries
             [...]
 
 
-4. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
-   our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
+4. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are
+   the requirements and the generator for our build system. Let's create a *conanfile.txt* inside our
+   project's folder with the following content:
 
     .. code-block:: text
        :caption: **conanfile.txt**
@@ -111,16 +115,17 @@ An MD5 Encrypter using the Poco Libraries
         [generators]
         cmake
 
-    In this example we are using CMake to build the project, which is why the ``cmake`` generator is specified. This generator creates a
-    *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build. Read more
-    about :ref:`generators_reference`.
+    In this example we are using CMake to build the project, which is why the ``cmake`` generator is
+    specified. This generator creates a *conanbuildinfo.cmake* file that defines CMake variables
+    including paths and library names that can be used in our build. Read more about
+    :ref:`generators_reference`.
 
 5. Next step: We are going to install the required dependencies and generate the information for the build system:
 
     .. important::
 
-        If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old ABI for backwards compatibility. You can
-        change this with the following commands:
+        If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old
+        ABI for backwards compatibility. You can change this with the following commands:
 
         .. code-block:: bash
 
