@@ -302,6 +302,8 @@ RPI one:
 
 .. code-block:: text
 
+    include(default)
+
     standalone_toolchain=/myfolder/arm_21_toolchain # Adjust this path
     target_host=arm-linux-androideabi
     cc_compiler=clang
@@ -338,6 +340,8 @@ match the gcc toolchain compiler:
 
 
 .. code-block:: text
+
+    include(default)
 
     standalone_toolchain=/myfolder/arm_21_toolchain
     target_host=arm-linux-androideabi
