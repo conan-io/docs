@@ -268,18 +268,6 @@ To inspect the different binary packages of a reference run:
             enable_data: True
     ...
 
-There is also the possibility to generate a table for all package binaries available in a remote:
-
-.. code-block:: bash
-
-    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
-    $ file.html # or open the file, double-click
-
-.. image:: /images/conan-search_binary_table.png
-    :height: 250 px
-    :width: 300 px
-    :align: center
-
 To inspect all your current project's dependencies use the :command:`conan info` command by pointing it to the location of the
 *conanfile.txt* folder:
 
