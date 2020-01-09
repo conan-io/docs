@@ -268,6 +268,11 @@ To inspect the different binary packages of a reference run:
             enable_data: True
     ...
 
+The ``@`` symbol at the end of the package name is important to search for a specific package. If you
+don't add the ``@``, Conan will interpret the argument as a pattern search and return all the
+packages that match the ``poco/1.9.4`` pattern and may have different :ref:`user and channel
+<user_channel>`.
+
 To inspect all your current project's dependencies use the :command:`conan info` command by pointing it to the location of the
 *conanfile.txt* folder:
 
@@ -370,7 +375,7 @@ You can search packages in Conan Center using this command:
     openssl/1.0.2s
     ...
 
-As you can see, some of the libraries end with a @ symbol followed by two strings separated by a
+As you can see, some of the libraries end with a ``@`` symbol followed by two strings separated by a
 slash. These fields are the :ref:`user and channel <user_channel>` for the Conan package, and they are
 useful if you want to make specific changes and disambiguate your modified recipe from the one in the
 Conan Center or any other remote.
