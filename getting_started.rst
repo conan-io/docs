@@ -370,6 +370,11 @@ You can search packages in Conan Center using this command:
     openssl/1.0.2s
     ...
 
+As you can see, some of the libraries end with a @ symbol followed by two strings separated by a
+slash. These fields are the :ref:`user and channel <user_channel>` for the Conan package, and they are
+useful if you want to make specific changes and disambiguate your modified recipe from the one in the
+Conan Center or any other remote.
+
 There are additional community repositories that can be configured and used. See :ref:`Bintray Repositories <bintray_repositories>` for more
 information.
 
