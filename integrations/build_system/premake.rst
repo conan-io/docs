@@ -13,7 +13,7 @@ Since Conan 1.9.0 the ``premake`` generator is built-in and works with :command:
 Example
 -------
 
-We are going to use the same example from :ref:`getting_started`, a MD5 Encrypter app.
+We are going to use the same example from :ref:`getting_started`, a MD5 hash calculator app.
 
 This is the main source file for it:
 

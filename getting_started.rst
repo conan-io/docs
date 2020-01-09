@@ -12,8 +12,8 @@ system** and is not limited to using CMake.
 Make sure you are running the latest Conan version. Read the :ref:`Conan update<conan_update>`
 section get more information.
 
-An MD5 Encrypter using the Poco Libraries
------------------------------------------
+An MD5 hash calculator using the Poco Libraries
+-----------------------------------------------
 
 .. note::
 
