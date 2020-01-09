@@ -189,7 +189,7 @@ An MD5 Encrypter using the Poco Libraries
     .. code-block:: bash
 
         (win)
-        $ cmake .. -G "Visual Studio 15 Win64"
+        $ cmake .. -G "Visual Studio 16"
         $ cmake --build . --config Release
 
         (linux, mac)
@@ -334,8 +334,8 @@ Or generate a graph of your dependencies using Dot or HTML formats:
     $ file.html # or open the file, double-click
 
 .. image:: /images/conan-info_deps_html_graph.png
-    :height: 270 px
-    :width: 180 px
+    :height: 310 px
+    :width: 200 px
     :align: center
 
 Searching Packages
@@ -396,7 +396,7 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
     We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
 However, the user can always override the profile settings in the :command:`conan install` command using the :command:`--settings`
-parameter. As an exercise, try building the 32-bit version of the Encrypter project like this:
+parameter. As an exercise, try building the 32-bit version of the hash calculator project like this:
 
 .. code-block:: bash
 
