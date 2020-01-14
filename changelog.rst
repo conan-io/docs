@@ -30,7 +30,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Fixing readout of backslashes (#6301) `#6320 <https://github.com/conan-io/conan/pull/6320>`_
 - Bugfix: Fix uninformative crash when ``tools.download()`` gets a 403 and it is not providing an ``auth`` field. `#6317 <https://github.com/conan-io/conan/pull/6317>`_
 - Bugfix: Enhance validation of the `short_paths_home` property to correctly handle the scenarios where it is set to a path that contains the value of the Conan cache path, but is not a subdirectory of it. `#6304 <https://github.com/conan-io/conan/pull/6304>`_
-- Bugfix: Enhance validation of the `short_paths_home` property to correctly handle the scenarios where it is set to a path that contains the value of the Conan cache path, but is not a subdirectory of it. `#6303 <https://github.com/conan-io/conan/pull/6303>`_
 - Bugfix: Fixes `cpp_info.name` vs. `cpp_info.names` issue in `pkg_config` generator `#6223 <https://github.com/conan-io/conan/pull/6223>`_
 
 
