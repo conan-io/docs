@@ -22,6 +22,11 @@ with pip pre-installed. However, if necessary you can install pip by following t
 
 .. warning::
 
+    Python 3.8 isn't supported by Conan yet due to the breaking changes in Python release. We're working on this problem, but you may need to downgrade to Python 3.7 or below for a while.
+
+
+.. warning::
+
     Python 2 will soon be deprecated by the Python maintainers. It is strongly recommended to use Python 3 with Conan, especially if need to manage non-ascii filenames or file contents.
     Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See :ref:`python2` for details.
 
