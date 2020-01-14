@@ -22,7 +22,7 @@ with pip pre-installed. However, if necessary you can install pip by following t
 
 .. warning::
 
-    Python 3.8 isn't supported by Conan yet due to the breaking changes in Python release. We're working on this problem, but you may need to downgrade to Python 3.7 or below for a while.
+    Python 3.8 isn't supported by Conan yet due to the breaking changes in Python release. We're `working`_ on this problem, but you may need to downgrade to Python 3.7 or below for a while.
 
 
 .. warning::
@@ -202,3 +202,5 @@ Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
 
 .. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334
+
+.. _`working`: https://github.com/conan-io/conan/issues/6347
