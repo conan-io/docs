@@ -22,6 +22,11 @@ with pip pre-installed. However, if necessary you can install pip by following t
 
 .. warning::
 
+    Python 3.8 isn't supported by Conan yet due to the breaking changes in Python release. We're `working`_ on this problem, but you may need to downgrade to Python 3.7 or below for a while.
+
+
+.. warning::
+
     Python 2 will soon be deprecated by the Python maintainers. It is strongly recommended to use Python 3 with Conan, especially if need to manage non-ascii filenames or file contents.
     Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See :ref:`python2` for details.
 
@@ -87,7 +92,7 @@ Alternatively, build and install Conan manually using ``makepkg`` and ``pacman``
 Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
 Make sure to first install the three Conan dependencies which are also found in AUR:
 
-- python-patch-ng 
+- python-patch-ng
 - python-node-semver
 - python-pluginbase
 
@@ -161,6 +166,8 @@ Test your ``conan`` script.
 
 You should see the Conan commands help.
 
+.. _conan_update:
+
 Update
 ------
 
@@ -173,7 +180,7 @@ If installed via ``pip``, Conan can be easily updated:
 If installed via the installers (*.exe*, *.deb*), download the new installer and execute it.
 
 The default *<userhome>/.conan/settings.yml* file, containing the definition of compiler versions, etc.,
-will be upgraded if Conan does not detect local changes, otherwise it will create a *settings.yml.new* with the new settings. 
+will be upgraded if Conan does not detect local changes, otherwise it will create a *settings.yml.new* with the new settings.
 If you want to regenerate the settings, you can remove the *settings.yml* file manually and it will be created with the new information the first time it is required.
 
 The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (*<userhome>/.conan*).
@@ -195,3 +202,5 @@ Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
 
 .. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334
+
+.. _`working`: https://github.com/conan-io/conan/issues/6347
