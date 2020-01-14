@@ -3,7 +3,7 @@
 conandata.yml
 =============
 
-This YAML file can be used to in the recipe to declare specific information to be used inside the recipe. This file is specific to each
+This YAML file can be used to declare specific information to be used inside the recipe. This file is specific to each
 recipe *conanfile.py* and it should be placed next to it. The file is automatically exported with the recipe (no need to add it to
 :ref:`exports_attribute` attribute) and its content is loaded into the :ref:`conandata_attribute` attribute of the recipe.
 
@@ -24,3 +24,8 @@ For example:
         patches: "0001-beast-fix-moved-from-executor.patch,bcp_namespace_issues.patch"
       1.71.0:
         patches: "bcp_namespace_issues.patch,boost_build_qcc_fix_debug_build_parameter.patch"
+
+
+.. note::
+
+    The first level entry key ``.conan`` is reserved for Conan usage.
