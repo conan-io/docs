@@ -24,7 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.21.1 (14-Jan-2020)
 --------------------
 
-- Fix: use `six.string_types` to check if default options are strings `#6322 <https://github.com/conan-io/conan/pull/6322>`_
+- Fix: Fix options type detection using `six.string_types`. `#6322 <https://github.com/conan-io/conan/pull/6322>`_
 - Fix: Fix minor issues in `cmake` and `cmake_multi` generators: wrong variable used in `conan_find_apple_frameworks` macro. `#6295 <https://github.com/conan-io/conan/pull/6295>`_
 - Fix: Generators `cmake` and `cmake_multi` use the name of the package instead of `cpp_info.name` (this change is to be reverted in 1.22) `#6288 <https://github.com/conan-io/conan/pull/6288>`_
 - Bugfix: Fixing readout of backslashes (#6301) `#6320 <https://github.com/conan-io/conan/pull/6320>`_
