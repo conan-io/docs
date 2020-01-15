@@ -1197,8 +1197,9 @@ from a :ref:`python_requires <python_requires>` package.
 .. warning::
 
     By default, in Conan v1.x the information after evaluating the attribute ``scm`` will be stored in the
-    *conanfile.py* file (it will be modified) and any value will be written in plain text (watch out about
-    passwords). However, you can activate the :ref:`scm_to_conandata<conan_conf>` config option, the *conanfile.py*
+    *conanfile.py* file (the recipe will be modified when exported to the Conan cache) and any value will be
+    written in plain text (watch out about passwords).
+    However, you can activate the :ref:`scm_to_conandata<conan_conf>` config option, the *conanfile.py*
     won't be modified (data is stored in a different file) and the fields ``username`` and ``password`` won't be
     stored, so these one will be computed each time the recipe is loaded.
 

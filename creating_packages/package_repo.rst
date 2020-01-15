@@ -152,11 +152,12 @@ parameter :ref:`scm_to_conandata<conan_conf>`.
    the "resolved" URL and commit.
 
  * If ``scm_to_conandata`` is activated, the value of these fields (except ``username`` and ``password``) will
-   be stored in the ``conandata.yml`` file that will be automatically exported with the recipe.
+   be stored in the :ref:`conandata_yml` file that will be automatically exported with the recipe.
 
-Whatever the option activated, the data resolved will be asigned by Conan to the corresponding field, so
-when you are requiring your ``HelloConan``, the :command:`conan install` will retrieve the recipe from the
-remote. If you are building the package, the source code will be fetched from the captured url/commit.
+Whichever option you choose, the data resolved will be asigned by Conan to the corresponding field when the recipe
+file is loaded, and they will be available for all the methods defined in the recipe. Also, if building the package
+from sources, Conan will fetch the code in the captured url/commit before running the method ``source()`` in the
+recipe (if defined).
 
 As SCM attributes are evaluated in the local directory context (see :ref:`scm attribute <scm_attribute>`),
 you can write more complex functions to retrieve the proper values, this source *conanfile.py* will
