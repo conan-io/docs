@@ -108,8 +108,9 @@ When you export the recipe (or when :command:`conan create` is called) the expor
 remote and commit of the local repository:
 
 .. code-block:: python
-   :emphasize-lines: 7, 8
+   :emphasize-lines: 8-10
 
+    import os
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
@@ -117,35 +118,48 @@ remote and commit of the local repository:
             "type": "git",  # Use "type": "svn", if local repo is managed using SVN
             "subfolder": "hello",
             "url": "auto",
-            "revision": "auto"
+            "revision": "auto",
+            "password": os.environ.get("SECRET", None)
          }
         ...
 
 You can commit and push the *conanfile.py* to your origin repository, which will always preserve the ``auto``
-values. But when the file is exported to the Conan local cache (except you have uncommitted changes, read below),
-the copied recipe in the local cache will point to the captured remote and commit:
+values. When the file is exported to the Conan local cache (except you have uncommitted changes, read below),
+these data will be stored in the *conanfile.py* itself (Conan will modify the file) or in a special file
+:ref:`conandata_yml` that will be stored together with the recipe, depending on the value of the configuration
+parameter :ref:`scm_to_conandata<conan_conf>`.
 
-.. code-block:: python
-   :emphasize-lines: 7, 8
+ * If the ``scm_to_conandata`` is not activated (default behavior in Conan v1.x) Conan will store a modified
+   version of the *conanfile.py* with the values of the fields in plain text:
 
-    from conans import ConanFile, CMake, tools
+   .. code-block:: python
+    :emphasize-lines: 8-10
 
-    class HelloConan(ConanFile):
-         scm = {
-            "type": "git",
-            "subfolder": "hello",
-            "url": "https://github.com/conan-io/hello.git",
-            "revision": "437676e15da7090a1368255097f51b1a470905a0"
-         }
-        ...
+        import os
+        from conans import ConanFile, CMake, tools
 
-So when you :ref:`upload the recipe <uploading_packages>` to a Conan remote, the recipe will contain
-the "resolved" URL and commit.
+        class HelloConan(ConanFile):
+            scm = {
+                "type": "git",
+                "subfolder": "hello",
+                "url": "https://github.com/conan-io/hello.git",
+                "revision": "437676e15da7090a1368255097f51b1a470905a0",
+                "password": "MY_SECRET"
+            }
+            ...
 
-When you are requiring your ``HelloConan``, the :command:`conan install` will retrieve the recipe from the
-remote. If you are building the package, the source code will be fetched from the captured url/commit.
+   So when you :ref:`upload the recipe <uploading_packages>` to a Conan remote, the recipe will contain
+   the "resolved" URL and commit.
 
-As SCM attributes are evaluated in the workspace context (see :ref:`scm attribute <scm_attribute>`),
+ * If ``scm_to_conandata`` is activated, the value of these fields (except ``username`` and ``password``) will
+   be stored in the :ref:`conandata_yml` file that will be automatically exported with the recipe.
+
+Whichever option you choose, the data resolved will be asigned by Conan to the corresponding field when the recipe
+file is loaded, and they will be available for all the methods defined in the recipe. Also, if building the package
+from sources, Conan will fetch the code in the captured url/commit before running the method ``source()`` in the
+recipe (if defined).
+
+As SCM attributes are evaluated in the local directory context (see :ref:`scm attribute <scm_attribute>`),
 you can write more complex functions to retrieve the proper values, this source *conanfile.py* will
 be valid too:
 

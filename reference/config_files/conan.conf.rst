@@ -39,8 +39,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
-    # https://vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_generator_platform            # environment CONAN_CMAKE_GENERATOR_PLATFORM
+    # http://www.vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
@@ -59,6 +59,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
     # cacert_path                         # environment CONAN_CACERT_PATH
+    # scm_to_conandata                    # environment CONAN_SCM_TO_CONANDATA
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -79,7 +80,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
-    [hooks]  # environment CONAN_HOOKS
+    [hooks]    # environment CONAN_HOOKS
     attribute_checker
 
     # Default settings now declared in the default profile
@@ -190,6 +191,10 @@ in the conan code base, allowing to debug the detected error.
 
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
+
+The ``scm_to_conandata`` variable tells Conan to store the resolved information of the :ref:`SCM feature<scm_feature>` in the
+:ref:`conandata.yml<conandata_yml>` file instead of modifying the recipe file itself. You can also adjust
+this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
 
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
 
