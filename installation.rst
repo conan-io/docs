@@ -23,11 +23,6 @@ with pip pre-installed. However, if necessary you can install pip by following t
 
 .. warning::
 
-    Python 3.8 isn't supported by Conan yet due to the breaking changes in Python release. We're `working`_ on this problem, but you may need to downgrade to Python 3.7 or below for a while.
-
-
-.. warning::
-
     **Python 2 has been deprecated on January 1st, 2020 by the Python maintainers** and Conan project will completely stop working with it
     in the following releases. See :ref:`python2` for details.
 
@@ -205,5 +200,3 @@ Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.
 .. _`pip docs`: https://pip.pypa.io/en/stable/installing/
 
 .. _`Conan issue tracker`: https://github.com/conan-io/conan/issues/3334
-
-.. _`working`: https://github.com/conan-io/conan/issues/6347
