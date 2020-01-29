@@ -542,8 +542,9 @@ CONAN_USER_HOME
 
 **Defaulted to**: Not defined
 
-Allows defining a custom Conan cache directory. Can be useful for concurrent builds under different
-users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
+Allows defining a custom base directory for Conan cache directory. Can be useful for concurrent builds under different
+users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example). Conan will
+generate the folder ``.conan`` under the custom base path.
 
 .. seealso::
 
