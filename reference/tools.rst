@@ -332,7 +332,7 @@ Parameters:
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
-      https://requests.kennethreitz.org//en/master/user/authentication/
+      https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_get_env:
