@@ -161,8 +161,8 @@ changed (most likely due to a git push on that package):
 
 .. code-block:: bash
 
-    $ conan info . -bo zlib/1.2.11@conan/stable
-    [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+    $ conan info . -bo zlib/1.2.11@
+    [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.10.0]
 
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.
@@ -172,17 +172,17 @@ You can also specify the :command:`--build-order=ALL` argument, if you want just
 .. code-block:: bash
 
     $ conan info . --build-order=ALL
-    > [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+    > [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.10.0]
 
 
 Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter.
 
-E.g., if I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
+E.g., if I try to install ``boost/1.71.0`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
 
 .. code-block:: bash
 
-	$ conan info Boost/1.60.0@lasote/stable --build missing -s arch=x86
-	bzip2/1.0.6@lasote/stable, zlib/1.2.8@lasote/stable, Boost/1.60.0@lasote/stable
+	$ conan info boost/1.71.0@ --build missing -s arch=x86
+	bzip2/1.0.8, zlib/1.2.11, boost/1.71.0
 
 
 You can generate a graph of your dependencies, in dot or html formats:

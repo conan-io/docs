@@ -4,7 +4,7 @@
 Custom integrations
 ===================
 
-If you intend to use a build system that does not have a built-in generator, you may still be 
+If you intend to use a build system that does not have a built-in generator, you may still be
 able to do so. There are several options:
 
 - First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
@@ -34,8 +34,8 @@ Specify the ``json`` generator in your recipe:
    :caption: *conanfile.txt*
 
     [requires]
-    fmt/5.3.0@bincrafters/stable
-    Poco/1.9.0@pocoproject/stable
+    fmt/6.1.2
+    poco/1.10.0
 
     [generators]
     json
@@ -50,12 +50,12 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
       [
         {
           "name": "fmt",
-          "version": "5.3.0",
+          "version": "6.1.2",
           "include_paths": [
-            "/path/to/.conan/data/fmt/5.3.0/bincrafters/stable/package/<id>/include"
+            "/path/to/.conan/data/fmt/6.1.2/_/_/package/<id>/include"
           ],
           "lib_paths": [
-            "/path/to/.conan/data/fmt/5.3.0/bincrafters/stable/package/<id>/lib"
+            "/path/to/.conan/data/fmt/6.1.2/_/_/package/<id>/lib"
           ],
           "libs": [
             "fmt"
@@ -63,8 +63,8 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
           "...": "...",
         },
         {
-          "name": "Poco",
-          "version": "1.9.0",
+          "name": "poco",
+          "version": "1.10.0",
           "...": "..."
         }
       ]
@@ -81,7 +81,7 @@ Just specify the ``txt`` generator in your recipe:
    :caption: *conanfile.txt*
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    poco/1.10.0
 
     [generators]
     txt
@@ -92,48 +92,53 @@ A file is generated with the same information in a generic text format.
    :caption: *conanbuildinfo.txt*
 
     [includedirs]
-    /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include
-    /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/include
-    /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include
+    /home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/include
+    /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
+    /home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
+
+    [libdirs]
+    /home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib
+    /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
+    /home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
+
+    [bindirs]
+    /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/bin
+
+    [resdirs]
+    /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/res
+
+    [builddirs]
+    /home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/
+    /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/
+    /home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/
 
     [libs]
+    PocoMongoDB
+    PocoNetSSL
+    PocoNet
+    PocoCrypto
+    PocoDataSQLite
+    PocoData
+    PocoZip
     PocoUtil
     PocoXML
     PocoJSON
-    PocoMongoDB
-    PocoNet
-    PocoCrypto
-    PocoData
-    PocoDataSQLite
-    PocoZip
+    PocoRedis
     PocoFoundation
-    pthread
-    dl
     rt
     ssl
     crypto
+    dl
+    pthread
     z
 
-    [libdirs]
-    /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib
-    /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib
-    /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib
+    [system_libs]
 
-    [bindirs]
-    /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin
-    /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/bin
-    /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin
 
     [defines]
     POCO_STATIC=ON
     POCO_NO_AUTOMATIC_LIBS
 
-    [USER_MyRequiredLib1]
-    somevariable=Some Value
-    othervar=Othervalue
-
-    [USER_MyRequiredLib2]
-    myvar=34
 
 Use the Conan data model (in a *conanfile.py*)
 ----------------------------------------------
@@ -170,7 +175,7 @@ generator to simplify the task for your build system.
             #print(self.options.my_option)
             print(self.options["OpenSSL"].shared)
             print(self.options["Poco"].shared)
-      
+
             # Paths and libraries, all
             print("-------- ALL --------------")
             print(self.deps_cpp_info.include_paths)

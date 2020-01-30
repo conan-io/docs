@@ -72,7 +72,7 @@ The *conanfile.py* is a bit longer, but is still quite easy to understand:
     class PocoPyReuseConan(ConanFile):
         name = "PocoPy"
         version = "0.1"
-        requires = "Poco/1.9.0@pocoproject/stable", "pybind11/any@memsharded/stable"
+        requires = "poco/1.10.0", "pybind11/2.3.0@conan/stable"
         settings = "os", "compiler", "arch", "build_type"
         exports = "*"
         generators = "cmake"
@@ -130,11 +130,11 @@ The output of the :command:`conan install` command also shows us the dependencie
 .. code-block:: bash
 
     Requirements
-        OpenSSL/1.0.2l@conan/stable from conan.io
-        Poco/1.9.0@pocoproject/stable from conan.io
+        openssl/1.0.2t from conan.io
+        poco/1.10.0 from conan.io
         PocoPy/0.1@memsharded/testing from local
-        pybind11/any@memsharded/stable from conan.io
-        zlib/1.2.11@conan/stable from conan.io
+        pybind11/2.3.0@conan/stable from conan.io
+        zlib/1.2.11 from conan.io
 
 This is one of the great advantages of using Conan for this task, because by depending on Poco, other C and C++ transitive dependencies are retrieved
 and used in the application.

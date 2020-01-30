@@ -90,7 +90,7 @@ MinGW *conanfile.py* recipe (https://github.com/conan-community/conan-mingw-inst
         name = "mingw_installer"
         ...
 
-        build_requires = "7z_installer/1.0@conan/stable"
+        build_requires = "7zip/19.00"
 
         def build(self):
             keychain = "%s_%s_%s_%s" % (str(self.settings.compiler.version).replace(".", ""),
@@ -155,7 +155,7 @@ Windows with MinGW and CMake.
 
     [requires]
     mingw_installer/1.0@conan/stable
-    cmake_installer/3.10.0@conan/stable
+    cmake/3.16.3
 
     [generators]
     virtualenv
@@ -174,7 +174,7 @@ file and pass them as command line parameters.
 .. code-block:: bash
 
    $ activate
-   (my_cpp_environ)$ 
+   (my_cpp_environ)$
 
 5. Check that the tools are in the path:
 
@@ -190,7 +190,7 @@ file and pass them as command line parameters.
 
     (my_cpp_environ)$ cmake --version
 
-    > cmake version 3.10
+    > cmake version 3.16.3
 
       CMake suite maintained and supported by Kitware (kitware.com/cmake).
 

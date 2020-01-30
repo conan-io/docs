@@ -118,7 +118,7 @@ Now let's go to the *conan-zlib.mk* that contains the Zlib data:
     CONAN_ZLIB_LICENSE = Zlib
     CONAN_ZLIB_LICENSE_FILES = licenses/LICENSE
     CONAN_ZLIB_SITE = $(call github,conan-community,conan-zlib,92d34d0024d64a8f307237f211e43ab9952ef0a1)
-    CONAN_ZLIB_REFERENCE = zlib/$(CONAN_ZLIB_VERSION)@conan/stable
+    CONAN_ZLIB_REFERENCE = zlib/$(CONAN_ZLIB_VERSION)
 
     $(eval $(conan-package))
 

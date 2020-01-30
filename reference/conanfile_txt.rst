@@ -16,8 +16,8 @@ List of requirements, specifying the full reference.
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    poco/1.10.0
+    zlib/1.2.11
 
 
 This section supports references with :ref:`version ranges<version_ranges>`:
@@ -25,8 +25,8 @@ This section supports references with :ref:`version ranges<version_ranges>`:
 .. code-block:: text
 
     [requires]
-    Poco/[>1.0,<1.8]@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    poco/[>1.0,<1.9]
+    zlib/1.2.11
 
 [build_requires]
 ++++++++++++++++
@@ -36,7 +36,7 @@ List of build requirements specifying the full reference.
 .. code-block:: text
 
     [build_requires]
-    7z_installer/1.0@conan/stable
+    7zip/16.00
 
 This section supports references with :ref:`version ranges<version_ranges>`.
 
@@ -54,8 +54,8 @@ List of :ref:`generators<generators_reference>`.
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    poco/1.10.0
+    zlib/1.2.11
 
     [generators]
     xcode
@@ -70,15 +70,15 @@ List of :ref:`options<options_txt>` scoped for each package like **package_name:
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    poco/1.10.0
+    zlib/1.2.11
 
     [generators]
     cmake
 
     [options]
-    Poco:shared=True
-    OpenSSL:shared=True
+    poco:shared=True
+    openssl:shared=True
 
 [imports]
 +++++++++
@@ -88,15 +88,15 @@ List of files to be imported to a local directory. Read more: :ref:`imports<impo
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    poco/1.10.0
+    zlib/1.2.11
 
     [generators]
     cmake
 
     [options]
-    Poco:shared=True
-    OpenSSL:shared=True
+    poco:shared=True
+    openssl:shared=True
 
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my local "bin" folder

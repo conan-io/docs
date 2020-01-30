@@ -23,7 +23,7 @@ package as the starting node of the dependency graph and upstream.
 
 .. code-block:: bash
 
-    $ conan info Poco/1.8.1@pocoproject/stable
+    $ conan info poco/1.10.0@
 
 .. image:: /images/conan-info_graph.png
    :align: center
@@ -42,8 +42,8 @@ dependency graph in case OpenSSL is changed we could type:
 
 .. code-block:: bash
 
-    $ conan info Poco/1.8.1@pocoproject/stable -bo OpenSSL/1.0.2m@conan/stable
-    [OpenSSL/1.0.2m@conan/stable], [Poco/1.8.1@pocoproject/stable]
+    $ conan info poco/1.10.0@ -bo openssl/1.0.2t
+    [openssl/1.0.2t], [poco/1.10.0]
 
 If OpenSSL is changed, we would need to rebuild it (of course) and rebuild Poco.
 
@@ -54,10 +54,10 @@ Usually this is caused due to different line endings in Windows and Linux/macOS.
 while Linux/macOS do it with only LF. Conan does not change the line endings to not interfere with user. We suggest always using LF line
 endings. If this issue is caused by git, it could be solved with :command:`git config --system core.autocrlf input`.
 
-The *outdated* status is computed from the recipe hash, comparing the hash of the recipe used to create a binary package and the 
-current recipe. The recipe hash is the hash of all the files included in the *conanmanifest.txt* file (you can inspect this file in 
-your cache with :command:`conan get <ref> conanmanifest.txt`). The first value in the manifest file is a timestamp and is not taken 
-into account to compute the hash. Checking and comparing the contents of the different *conanmanifest.txt* files in the different 
+The *outdated* status is computed from the recipe hash, comparing the hash of the recipe used to create a binary package and the
+current recipe. The recipe hash is the hash of all the files included in the *conanmanifest.txt* file (you can inspect this file in
+your cache with :command:`conan get <ref> conanmanifest.txt`). The first value in the manifest file is a timestamp and is not taken
+into account to compute the hash. Checking and comparing the contents of the different *conanmanifest.txt* files in the different
 machines can give an idea of what is changing.
 
 If you want to make the solution self-contained, you can add a *.git/config* file in your project that sets the ``core.autocrlf`` property (for the whole repo), or if you need a per-file configuration, you could use the *.gitattributes* file to set the ``text eol=lf`` for every file you want.

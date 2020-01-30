@@ -35,20 +35,20 @@ If no remote is specified, it will use the default remote.
 
 **Examples**
 
-- Download all **OpenSSL/1.0.2i@conan/stable** binary packages from the remote **foo**:
+- Download all **openssl/1.0.2u** binary packages from the remote **foo**:
 
   .. code-block:: bash
 
-      $ conan download OpenSSL/1.0.2i@conan/stable -r foo
+      $ conan download openssl/1.0.2u@ -r foo
 
-- Download a single binary package of **OpenSSL/1.0.2i@conan/stable** from the remote **foo**:
-
-  .. code-block:: bash
-
-      $ conan download OpenSSL/1.0.2i@conan/stable:8018a4df6e7d2b4630a814fa40c81b85b9182d2 -r foo
-
-- Download only the recipe of package **OpenSSL/1.0.2i@conan/stable** from the remote **foo**:
+- Download a single binary package of **openssl/1.0.2u** from the remote **foo**:
 
   .. code-block:: bash
 
-      $ conan download OpenSSL/1.0.2i@conan/stable -r foo -re
+      $ conan download openssl/1.0.2u@:8018a4df6e7d2b4630a814fa40c81b85b9182d2 -r foo
+
+- Download only the recipe of package **openssl/1.0.2u** from the remote **foo**:
+
+  .. code-block:: bash
+
+      $ conan download openssl/1.0.2u@ -r foo -re

@@ -68,22 +68,22 @@ that recipe, also in a remote or in the local conan cache:
 
 .. code-block:: bash
 
-    $ conan search Boost/1.60.0@lasote/stable
+    $ conan search boost/1.71.0@
 
 A query syntax is allowed to look for specific binaries, you can use ``AND`` and ``OR`` operators
 and parenthesis, with settings and also options.
 
 .. code-block:: bash
 
-    $ conan search Boost/1.60.0@lasote/stable -q arch=x86_64
-    $ conan search Boost/1.60.0@lasote/stable -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
+    $ conan search boost/1.71.0@ -q arch=x86_64
+    $ conan search boost/1.71.0@ -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
 Also, query syntax allows sub-settings, even for custom properties. e.g:
 
 .. code-block:: bash
 
-    $ conan search Boost/1.60.0@lasote/stable -q "compiler=gcc AND compiler.version=9"
-    $ conan search Boost/1.60.0@lasote/stable -q "os=Linux AND os.distro=Ubuntu AND os.distro.version=19.04"
+    $ conan search boost/1.71.0@ -q "compiler=gcc AND compiler.version=9"
+    $ conan search boost/1.71.0@ -q "os=Linux AND os.distro=Ubuntu AND os.distro.version=19.04"
 
 If you specify a query filter for a setting and the package recipe is not restricted by this
 setting, Conan won't find the packages. e.g:
@@ -108,7 +108,7 @@ You can generate a table for all binaries from a given recipe with the ``--table
 
 .. code-block:: bash
 
-    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
+    $ conan search zlib/1.2.11@ --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
 .. image:: /images/conan-search_binary_table.png

@@ -151,7 +151,7 @@ The output JSON contains a two first level keys:
             },
             {
                 "recipe":{
-                    "id":"http_parser/2.8.0@conan/testing",
+                    "id":"http_parser/2.9.2",
                     "remote_name":"conan-center",
                     "remote_url":"https://conan.bintray.com",
                     "time":"2018-04-30T11:18:48.637576"

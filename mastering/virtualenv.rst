@@ -26,7 +26,7 @@ variables declared in the ``package_info()`` method and generate two scripts "ac
 
 **Example**:
 
-The recipe of ``cmake_installer/3.9.0@conan/stable`` appends to the PATH variable the package folder/bin.
+The recipe of ``cmake/3.16.3`` appends to the PATH variable the package folder/bin.
 
 You can check existing CMake conan package versions in conan-center with:
 
@@ -51,7 +51,7 @@ Let's prepare a virtual environment to have cmake available in the path. Open ``
 .. code-block:: text
 
     [requires]
-    cmake_installer/3.9.0@conan/stable
+    cmake/3.16.3
 
     [generators]
     virtualenv
@@ -66,7 +66,7 @@ You can also avoid the creation of the *conanfile.txt* completely and directly d
 
 .. code-block:: bash
 
-    $ conan install cmake_installer/3.9.0@conan/stable -g=virtualenv
+    $ conan install cmake/3.16.3 -g=virtualenv
 
 Activate the virtual environment, and now you can run ``cmake --version`` to check that you have the installed CMake in path.
 
@@ -83,7 +83,7 @@ Deactivate the virtual environment (or close the console) to restore the environ
 .. code-block:: bash
 
    $ source deactivate.sh # Windows: deactivate.bat without the source
-   
+
 
 .. seealso:: Read the Howto :ref:`Create installer packages<create_installer_packages>` to learn more about the virtual environment feature.
              Check the section :ref:`Reference/virtualenv<virtualenv_generator>` to see the generator reference.
