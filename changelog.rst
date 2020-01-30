@@ -87,7 +87,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Using the `scm` feature with `auto` fields was not using correctly the freeze sources from the local user directory from the second call to :command:`conan create`. `#6048 <https://github.com/conan-io/conan/pull/6048>`_
 - Bugfix: Each Apple framework found using CMake `find_library` is stored in a different `CONAN_FRAMEWORK_<name>_FOUND` variable `#6042 <https://github.com/conan-io/conan/pull/6042>`_
 
-    
+
 1.20.2 (6-Nov-2019)
 -------------------
 
@@ -387,7 +387,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.15.0 (6-May-2019)
 --------------------
 
-- Feature: Updated the generated *conanfile.py* in :command:`conan new` to the new [conan-io/hello].(https://github.com/conan-io/hello) repository `#5069 <https://github.com/conan-io/conan/pull/5069>`_ . Docs `here <https://github.com/conan-io/docs/pull/1269>`__
+- Feature: Updated the generated *conanfile.py* in :command:`conan new` to the new `conan-io/hello <https://github.com/conan-io/hello>`_ repository `#5069 <https://github.com/conan-io/conan/pull/5069>`_ . Docs `here <https://github.com/conan-io/docs/pull/1269>`__
 - Feature: The `MSBuild` build helper allows the parameter `toolset` with `False` value to skip the toolset adjustment. `#5052 <https://github.com/conan-io/conan/pull/5052>`_ . Docs `here <https://github.com/conan-io/docs/pull/1260>`__
 - Feature: Add GCC 9 to default settings.yml `#5046 <https://github.com/conan-io/conan/pull/5046>`_ . Docs `here <https://github.com/conan-io/docs/pull/1257>`__
 - Feature: You can disable broken symlinks checks when packaging using `CONAN_SKIP_BROKEN_SYMLINKS_CHECK` env var or `config.skip_broken_symlinks_check=1` `#4991 <https://github.com/conan-io/conan/pull/4991>`_ . Docs `here <https://github.com/conan-io/docs/pull/1272>`__
@@ -693,7 +693,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Feature: Merged "revisions" feature code in develop branch, still disabled by default until it gets stabilized.  `#3055 <https://github.com/conan-io/conan/pull/3055>`_
 - Feature: CMake global variable to disable Conan output ``CONAN_CMAKE_SILENT_OUTPUT`` `#4042 <https://github.com/conan-io/conan/pull/4042>`_
 - Feature: Added new ``make`` generator. `#4003 <https://github.com/conan-io/conan/pull/4003>`_
-- Feature: Deploy a conan snapshot package to [test.pypi.org](https://test.pypi.org/project/conan/) for every develop commit. `#4000 <https://github.com/conan-io/conan/pull/4000>`_
+- Feature: Deploy a conan snapshot package to `test.pypi.org <https://test.pypi.org/project/conan/>`_ for every develop commit. `#4000 <https://github.com/conan-io/conan/pull/4000>`_
 - Fix: Using the `scm` feature when Conan is not able to read the gitignored files (local optimization mechanism) print a warning to improve the debug information but not crash. `#4045 <https://github.com/conan-io/conan/pull/4045>`_
 - Fix: The `tools.get` tool (download + unzip) now supports all the arguments of the `download` tool. e.g: `verify`, `retry`,  `retry_wait` etc. `#4041 <https://github.com/conan-io/conan/pull/4041>`_
 - Fix: Improve ``make`` generator test `#4018 <https://github.com/conan-io/conan/pull/4018>`_
@@ -1435,7 +1435,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
   - ``scopes`` have been completely removed. You can use environment variables, or the ``conanfile.develop`` or ``conanfile.in_local_cache``
     attributes instead.
   - Command *test_package* has been removed. Use :command:`conan create`` instead, and :command:`conan test`` for just running package tests.
-  - ``werror`` behavior is now by default. Dependencies conflicts will now error, and have to be fixed. 
+  - ``werror`` behavior is now by default. Dependencies conflicts will now error, and have to be fixed.
   - ``short_paths`` feature is again active by default in Windows, even with Py3.6 and system LongPathsEnabled.
   - ``ConfigureEnvironment`` and ``GCC`` build helpers have been completely removed
 
@@ -1521,7 +1521,7 @@ thanks very much!
 - Feature: new ``pc`` generator that generates files from dependencies for ``pkg-config``
 - Feature: new ``Meson`` helper, similar to ``CMake`` for Meson build system. Works well with ``pc`` generator.
 - Feature: Support for read-only cache with ``CONAN_READ_ONLY_CACHE`` environment variable
-- Feature: new ``visual_studio_multi`` generator to load Debug/Release, 32/64 configs at once 
+- Feature: new ``visual_studio_multi`` generator to load Debug/Release, 32/64 configs at once
 - Feature: new ``tools.which`` helper to locate executables
 - Feature: new :command:`conan --help` layout
 - Feature: allow to override compiler version in ``vcvars_command``
@@ -1767,7 +1767,7 @@ thanks very much!
 0.22.1 (18-April-2017)
 ----------------------
 
-- Fix: "-" symbol available again in usernames. 
+- Fix: "-" symbol available again in usernames.
 - Fix: Added ``future`` requirement to solve an error with pyinstaller generating the Windows installer.
 
 
@@ -1879,7 +1879,7 @@ remote, should upgrade too. Packages created with conan>=0.20.0 might not be usa
 - Feature: new :command:`conan config` command to manage, edit, display ``conan.conf`` entries
 - Feature: :ref:`Improvements<cmake_reference>` to ``CMake`` build helper, now it has ``configure()`` and ``build()`` methods
   for common operations.
-- Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved 
+- Feature: Improvements to ``SystemPackageTool`` with detection of installed packages, improved
   implementation, installation of multi-name packages.
 - Feature: Unzip with ``tools.unzip`` maintaining permissions (Linux, OSX)
 - Feature: :command:`conan info` command now allows profiles too
@@ -2113,7 +2113,7 @@ reset your local cache. You could manually remove packages or just run :command:
 
 - Fixed bug with `short_paths` feature in windows.
 - Improved error messages for non-valid `profile` test files.
-- Remove downloaded tgz package files from remotes after decompress them. 
+- Remove downloaded tgz package files from remotes after decompress them.
 - Fixes bug with `install --all` and short_paths
 
 
@@ -2279,14 +2279,14 @@ other conan users, thanks very much to all of them!
   CONAN_SYSREQUIRES_SUDO, so using sudo is opt-in/out, for users with different sudo needs. Useful for ``system_requirements()``
 - Deprecated the ``config()`` method (still works, for backwards compatibility), but has been replaced
   by a ``config_options()`` to modify options based on settings, and a ``configure()`` method for
-  most use cases. This removes a nasty behavior of having the ``config()`` method called twice with 
+  most use cases. This removes a nasty behavior of having the ``config()`` method called twice with
   side effects.
 - Now, running a :command:`conan install MyLib/0.1@user/channel` to directly install packages without any
   consuming project, is also able to generate files with the ``-g`` option. Useful for installing
   tool packages (MinGW, CMake) and generate ``virtualenvs``.
 - Many small fixes and improvements: detect compiler bug in Py3, search was crashing for remotes,
   conan new failed if the package name had a dash, etc.
-- Improved some internal duplications of code, refactored many tests. 
+- Improved some internal duplications of code, refactored many tests.
 
 This has been a big release. Practically 100% of the released features are thanks to active users
 feedback and contributions. Thanks very much again to all of them!
@@ -2323,7 +2323,7 @@ As always, thanks very much to all contributors and users providing feedback.
 0.9 (3-May-2016)
 ----------------
 
-- **Python 3** "experimental" support. Now the main conan codebase is Python 2 and 3 compatible. 
+- **Python 3** "experimental" support. Now the main conan codebase is Python 2 and 3 compatible.
   Python 2 still the reference platform, Python 3 stable support in next releases.
 - Create and share your **own custom generators for any build system or tool**. With "generator packages",
   you can write a generator just as any other package, upload it, modify and version it, etc. Require
@@ -2332,8 +2332,8 @@ As always, thanks very much to all contributors and users providing feedback.
 - Very large **re-write of the documentation**. New "creating packages" sections with in-source and out-source explicit examples.
   Please read it! :)
 - Improved :command:`conan test`. Renamed ``test`` to *test_package* both for the command and the folder,
-  but backwards compatibility remains. Custom folder name also possible. 
-  **Adapted test layout** might require minor changes to your package test, 
+  but backwards compatibility remains. Custom folder name also possible.
+  **Adapted test layout** might require minor changes to your package test,
   automatic warnings added for your convenience.
 - Upgraded pyinstaller to generate binary OS installers from 2.X to 3.1
 - :command:`conan search` now has command line options:, less verbose, verbose, extra verbose
