@@ -21,6 +21,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.21 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.21.2 (31-Jan-2020)
+--------------------
+
+- Fix: Recipe substitution for scm (old behavior) fixed for multiline comments in Python 3.8 `#6439 <https://github.com/conan-io/conan/pull/6439>`_
+- Bugfix: Fix broken compression of .tgz files due to Python 3.8 changing tar default schema. `#6439 <https://github.com/conan-io/conan/pull/6439>`_
+- Bugfix: Append `CONAN_LIBS` in `cmake` generator to avoid overwriting user-defined libs. `#6433 <https://github.com/conan-io/conan/pull/6433>`_
+
+
 1.21.1 (14-Jan-2020)
 --------------------
 
