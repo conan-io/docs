@@ -11,7 +11,7 @@ You can inspect the uploaded packages and also the packages in the local cache b
       $ conan get zlib/1.2.11@ .
 
       Listing directory '.':
-       CMakeLists.txt
+       conandata.yml
        conanfile.py
        conanmanifest.txt
 
@@ -29,17 +29,20 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: python
 
-      from conans import ConanFile, tools, CMake, AutoToolsBuildEnvironment
-      from conans.util import files
-      from conans import __version__ as conan_version
+      conan get zlib/1.2.11@ -r conan-center
       import os
+      import stat
+      from conans import ConanFile, tools, CMake, AutoToolsBuildEnvironment
+      from conans.errors import ConanException
 
 
       class ZlibConan(ConanFile):
-          name = "zlib"
-          version = "1.2.11"
-          ZIP_FOLDER_NAME = "zlib-%s" % version
+      name = "zlib"
+      version = "1.2.11"
+      url = "https://github.com/conan-io/conan-center-index"
+      homepage = "https://zlib.net"
 
-          #...
+
+      #...
 
 Check the :ref:`conan get command<conan_get>` command reference and more examples.

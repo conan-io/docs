@@ -32,12 +32,12 @@ This generator creates an ``xcconfig`` file, with all the *include paths*, *lib 
 
 Open ``conanfile.txt`` and change (or add) the **xcode** generator:
 
-    
+
 .. code-block:: text
 
    [requires]
-   Poco/1.7.8p3@pocoproject/stable
-   
+   poco/1.10.0
+
    [generators]
    xcode
 
@@ -46,7 +46,7 @@ Install the requirements:
 .. code-block:: bash
 
    $ conan install .
-   
+
 Go to your **Xcode** project, click on the project and select **Add files to**...
 
 .. image:: ../../images/conan-xcode1.png

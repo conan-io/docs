@@ -155,10 +155,10 @@ generator to simplify the task for your build system.
 
     class MyProjectWithConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Poco/1.9.0@pocoproject/stable"
+        requires = "poco/1.9.0"
         ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
         generators = "txt"
-        default_options = {"Poco:shared": False, "OpenSSL:shared": False}
+        default_options = {"poco:shared": False, "openssl:shared": False}
 
         def imports(self):
             self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -173,8 +173,8 @@ generator to simplify the task for your build system.
 
             # Options
             #print(self.options.my_option)
-            print(self.options["OpenSSL"].shared)
-            print(self.options["Poco"].shared)
+            print(self.options["openssl"].shared)
+            print(self.options["poco"].shared)
 
             # Paths and libraries, all
             print("-------- ALL --------------")
@@ -190,27 +190,27 @@ generator to simplify the task for your build system.
 
             # Just from OpenSSL
             print("--------- FROM OPENSSL -------------")
-            print(self.deps_cpp_info["OpenSSL"].include_paths)
-            print(self.deps_cpp_info["OpenSSL"].lib_paths)
-            print(self.deps_cpp_info["OpenSSL"].bin_paths)
-            print(self.deps_cpp_info["OpenSSL"].libs)
-            print(self.deps_cpp_info["OpenSSL"].defines)
-            print(self.deps_cpp_info["OpenSSL"].cflags)
-            print(self.deps_cpp_info["OpenSSL"].cxxflags)
-            print(self.deps_cpp_info["OpenSSL"].sharedlinkflags)
-            print(self.deps_cpp_info["OpenSSL"].exelinkflags)
+            print(self.deps_cpp_info["openssl"].include_paths)
+            print(self.deps_cpp_info["openssl"].lib_paths)
+            print(self.deps_cpp_info["openssl"].bin_paths)
+            print(self.deps_cpp_info["openssl"].libs)
+            print(self.deps_cpp_info["openssl"].defines)
+            print(self.deps_cpp_info["openssl"].cflags)
+            print(self.deps_cpp_info["openssl"].cxxflags)
+            print(self.deps_cpp_info["openssl"].sharedlinkflags)
+            print(self.deps_cpp_info["openssl"].exelinkflags)
 
             # Just from POCO
             print("--------- FROM POCO -------------")
-            print(self.deps_cpp_info["Poco"].include_paths)
-            print(self.deps_cpp_info["Poco"].lib_paths)
-            print(self.deps_cpp_info["Poco"].bin_paths)
-            print(self.deps_cpp_info["Poco"].libs)
-            print(self.deps_cpp_info["Poco"].defines)
-            print(self.deps_cpp_info["Poco"].cflags)
-            print(self.deps_cpp_info["Poco"].cxxflags)
-            print(self.deps_cpp_info["Poco"].sharedlinkflags)
-            print(self.deps_cpp_info["Poco"].exelinkflags)
+            print(self.deps_cpp_info["poco"].include_paths)
+            print(self.deps_cpp_info["poco"].lib_paths)
+            print(self.deps_cpp_info["poco"].bin_paths)
+            print(self.deps_cpp_info["poco"].libs)
+            print(self.deps_cpp_info["poco"].defines)
+            print(self.deps_cpp_info["poco"].cflags)
+            print(self.deps_cpp_info["poco"].cxxflags)
+            print(self.deps_cpp_info["poco"].sharedlinkflags)
+            print(self.deps_cpp_info["poco"].exelinkflags)
 
             # self.run("invoke here your configure, make, or others")
             # self.run("basically you can do what you want with your requirements build info)

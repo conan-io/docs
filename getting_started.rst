@@ -55,6 +55,7 @@ An MD5 hash calculator using the Poco Libraries
         poco/1.8.1
         poco/1.9.3
         poco/1.9.4
+        poco/1.10.0
 
     Conan remotes must be specified in search. It will otherwise only search local cache.
 

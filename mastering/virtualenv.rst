@@ -118,7 +118,7 @@ The generator will create ``activate_run`` and ``deactivate_run`` files. This ge
 - If you are requiring packages with shared libraries and you are running some executable that needs those libraries.
 - If you have a requirement with some tool (executable) and you need it in the path.
 
-In the previous example of the ``cmake_installer`` recipe, even if the cmake_installer package doesn't declare the ``self.env_info.path`` variable,
+In the previous example of the ``cmake`` recipe, even if the cmake package doesn't declare the ``self.env_info.path`` variable,
 using the virtualrunenv generator, the ``bin`` folder of the package will be available in the PATH. So after activating the virtual environment we could just run ``cmake`` in order to execute the package's cmake.
 
 

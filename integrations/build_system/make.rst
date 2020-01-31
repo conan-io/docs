@@ -52,7 +52,7 @@ generator:
    :caption: conanfile.txt
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    poco/1.10.0
 
     [generators]
     make

@@ -106,10 +106,10 @@ MinGW *conanfile.py* recipe (https://github.com/conan-community/conan-mingw-inst
 
         ...
 
-We are requiring a ``build_require`` to another package: ``7z_installer``. In this case it will be used to unzip the 7z compressed files
+We are requiring a ``build_require`` to another package: ``7zip``. In this case it will be used to unzip the 7z compressed files
 after downloading the appropriate MinGW installer.
 
-That way, after the download of the installer, the 7z executable will be in the PATH, because the ``7z_installer`` dependency declares the
+That way, after the download of the installer, the 7z executable will be in the PATH, because the ``7zip`` dependency declares the
 *bin* folder in its ``package_info()``.
 
 .. important::

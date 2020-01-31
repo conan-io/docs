@@ -20,7 +20,7 @@ Open ``conanfile.txt`` and change (or add) **compiler_args** generator:
 .. code-block:: text
 
    [requires]
-   Poco/1.9.0@pocoproject/stable
+   poco/1.10.0
 
    [generators]
    compiler_args
@@ -43,17 +43,20 @@ The generated ``conanbuildinfo.args`` show:
 .. code-block:: text
 
    -DPOCO_STATIC=ON -DPOCO_NO_AUTOMATIC_LIBS
-   -Ipath/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/include
-   -Ipath/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/include
-   -Ipath/to/zlib/1.2.11/conan/stable/package/8018a4df6e7d2b4630a814fa40c81b85b9182d2b/include
-   -m64 -DNDEBUG -Wl,-rpath,"path/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/lib"
-   -Wl,-rpath,"path/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/lib"
-   -Wl,-rpath,"path/to/zlib/1.2.11/conan/stable/package/8018a4df6e7d2b4630a814fa40c81b85b9182d2b/lib"
-   -Lpath/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/lib
-   -Lpath/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/lib
-   -Lpath/to/zlib/1.2.11/conan/stable/package/8018a4df6e7d2b4630a814fa40c81b85b9182d2b/lib
-   -lPocoUtil -lPocoMongoDB -lPocoNet -lPocoNetSSL -lPocoCrypto -lPocoData -lPocoDataSQLite -lPocoZip
-   -lPocoXML -lPocoJSON -lPocoFoundation -lssl -lcrypto -lz -stdlib=libc++
+   -I/home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/include
+   -I/home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
+   -I/home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
+   -m64 -O3 -s -DNDEBUG
+   -Wl,-rpath="/home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib"
+   -Wl,-rpath="/home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib"
+   -Wl,-rpath="/home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib"
+   -L/home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib
+   -L/home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
+   -L/home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
+   -lPocoMongoDB -lPocoNetSSL -lPocoNet -lPocoCrypto -lPocoDataSQLite -lPocoData -lPocoZip -lPocoUtil
+   -lPocoXML -lPocoJSON -lPocoRedis -lPocoFoundation
+   -lrt -lssl -lcrypto -ldl -lpthread -lz
+   -D_GLIBCXX_USE_CXX11_ABI=1
 
 This is hard to read, but those are just the **compiler_args** parameters needed to compile our program:
 
@@ -72,10 +75,10 @@ Run:
    $ g++ ../timer.cpp @conanbuildinfo.args -std=c++14 -o bin/timer
 
 
-.. note:: 
-   
+.. note::
+
    "@conanbuildinfo.args" appends all the file contents to g++ command parameters
-   
+
 
 .. code-block:: bash
 
