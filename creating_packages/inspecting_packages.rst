@@ -37,12 +37,12 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
 
       class ZlibConan(ConanFile):
-      name = "zlib"
-      version = "1.2.11"
-      url = "https://github.com/conan-io/conan-center-index"
-      homepage = "https://zlib.net"
+          name = "zlib"
+          version = "1.2.11"
+          url = "https://github.com/conan-io/conan-center-index"
+          homepage = "https://zlib.net"
 
 
-      #...
+          #...
 
 Check the :ref:`conan get command<conan_get>` command reference and more examples.
