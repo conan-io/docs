@@ -16,7 +16,7 @@ List of requirements, specifying the full reference.
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     zlib/1.2.11
 
 
@@ -54,7 +54,7 @@ List of :ref:`generators<generators_reference>`.
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     zlib/1.2.11
 
     [generators]
@@ -70,7 +70,7 @@ List of :ref:`options<options_txt>` scoped for each package like **package_name:
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     zlib/1.2.11
 
     [generators]
@@ -88,7 +88,7 @@ List of files to be imported to a local directory. Read more: :ref:`imports<impo
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     zlib/1.2.11
 
     [generators]

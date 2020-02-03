@@ -119,7 +119,7 @@ indentation. Documentation makes an extensive use of bash, python, txt and cmake
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     zlib/1.2.11
 ```
 

@@ -20,7 +20,7 @@ Open ``conanfile.txt`` and change (or add) **compiler_args** generator:
 .. code-block:: text
 
    [requires]
-   poco/1.10.0
+   poco/1.9.4
 
    [generators]
    compiler_args
@@ -43,14 +43,14 @@ The generated ``conanbuildinfo.args`` show:
 .. code-block:: text
 
    -DPOCO_STATIC=ON -DPOCO_NO_AUTOMATIC_LIBS
-   -I/home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/include
+   -I/home/user/.conan/data/poco/1.9.4/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/include
    -I/home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
    -I/home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
    -m64 -O3 -s -DNDEBUG
-   -Wl,-rpath="/home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib"
+   -Wl,-rpath="/home/user/.conan/data/poco/1.9.4/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib"
    -Wl,-rpath="/home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib"
    -Wl,-rpath="/home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib"
-   -L/home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib
+   -L/home/user/.conan/data/poco/1.9.4/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib
    -L/home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
    -L/home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
    -lPocoMongoDB -lPocoNetSSL -lPocoNet -lPocoCrypto -lPocoDataSQLite -lPocoData -lPocoZip -lPocoUtil

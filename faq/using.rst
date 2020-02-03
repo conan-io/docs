@@ -23,7 +23,7 @@ package as the starting node of the dependency graph and upstream.
 
 .. code-block:: bash
 
-    $ conan info poco/1.10.0@
+    $ conan info poco/1.9.4@
 
 .. image:: /images/conan-info_graph.png
    :align: center
@@ -42,8 +42,8 @@ dependency graph in case OpenSSL is changed we could type:
 
 .. code-block:: bash
 
-    $ conan info poco/1.10.0@ -bo openssl/1.0.2t
-    [openssl/1.0.2t], [poco/1.10.0]
+    $ conan info poco/1.9.4@ -bo openssl/1.0.2t
+    [openssl/1.0.2t], [poco/1.9.4]
 
 If OpenSSL is changed, we would need to rebuild it (of course) and rebuild Poco.
 

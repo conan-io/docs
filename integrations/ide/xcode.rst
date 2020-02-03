@@ -36,7 +36,7 @@ Open ``conanfile.txt`` and change (or add) the **xcode** generator:
 .. code-block:: text
 
    [requires]
-   poco/1.10.0
+   poco/1.9.4
 
    [generators]
    xcode

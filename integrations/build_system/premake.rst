@@ -43,7 +43,7 @@ Premake generator:
    :caption: conanfile.txt
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
 
     [generators]
     premake

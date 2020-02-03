@@ -25,7 +25,7 @@ packages are stored and cached, so they don't have to be retrieved again. You ca
 If you navigate to the folders referenced in ``conanbuildinfo.cmake`` you will find the
 headers and libraries for each package.
 
-If you execute a :command:`conan install poco/1.10.0@` command in your shell, Conan will
+If you execute a :command:`conan install poco/1.9.4@` command in your shell, Conan will
 download the Poco package and its dependencies (*openssl/1.0.2t* and
 *zlib/1.2.11*) to your local cache and print information about the folder where
 they are installed. While you can install each of your dependencies individually like that,
@@ -41,12 +41,12 @@ Here is an example:
 .. code-block:: text
 
     [requires]
-    Poco/1.10.0@pocoproject/stable
+    Poco/1.9.4@pocoproject/stable
 
 Where:
 
   - ``Poco`` is the name of the package which is usually the same as the project/library.
-  - ``1.10.0`` is the version which usually matches that of the packaged project/library. This can be any
+  - ``1.9.4`` is the version which usually matches that of the packaged project/library. This can be any
     string; it does not have to be a number, so, for example, it could indicate if this is a "develop" or "master" version.
     Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that
     are regenerated periodically.
@@ -101,7 +101,7 @@ We can simply enter the new version in the **[requires]** section:
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     openssl/1.0.2u
 
 The second line will override the openssl/1.0.2t required by POCO with the currently non-existent **openssl/1.0.2u**.
@@ -112,7 +112,7 @@ requirement with one from another user or channel.
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
     openssl/1.0.2u
     zlib/1.2.11@otheruser/alpha
 
@@ -159,14 +159,14 @@ and this is the linkage that should be used if consumers don't specify otherwise
 
     .. code-block:: text
 
-        $ conan get poco/1.10.0@
+        $ conan get poco/1.9.4@
 
     To see only specific fields of the recipe you can use the :command:`conan inspect` command instead:
 
     .. code-block:: text
 
-        $ conan inspect poco/1.10.0@ -a=options
-        $ conan inspect poco/1.10.0@ -a=default_options
+        $ conan inspect poco/1.9.4@ -a=options
+        $ conan inspect poco/1.9.4@ -a=default_options
 
 For example, we can modify the previous example to use dynamic linkage instead of the default one, which was static, by editing the
 **[options]** section in ``conanfile.txt``:
@@ -174,7 +174,7 @@ For example, we can modify the previous example to use dynamic linkage instead o
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
 
     [generators]
     cmake
@@ -266,7 +266,7 @@ To demonstrate this, edit the ``conanfile.txt`` file and paste the following **[
 .. code-block:: text
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
 
     [generators]
     cmake

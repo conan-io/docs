@@ -35,7 +35,7 @@ Specify the ``json`` generator in your recipe:
 
     [requires]
     fmt/6.1.2
-    poco/1.10.0
+    poco/1.9.4
 
     [generators]
     json
@@ -81,7 +81,7 @@ Just specify the ``txt`` generator in your recipe:
    :caption: *conanfile.txt*
 
     [requires]
-    poco/1.10.0
+    poco/1.9.4
 
     [generators]
     txt
@@ -92,12 +92,12 @@ A file is generated with the same information in a generic text format.
    :caption: *conanbuildinfo.txt*
 
     [includedirs]
-    /home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/include
+    /home/user/.conan/data/poco/1.9.4/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/include
     /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/include
     /home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/include
 
     [libdirs]
-    /home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib
+    /home/user/.conan/data/poco/1.9.4/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/lib
     /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/lib
     /home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/lib
 
@@ -108,7 +108,7 @@ A file is generated with the same information in a generic text format.
     /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/res
 
     [builddirs]
-    /home/user/.conan/data/poco/1.10.0/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/
+    /home/user/.conan/data/poco/1.9.4/_/_/package/58080bce1cc38259eb7c282aa95c25aecde8efe4/
     /home/user/.conan/data/openssl/1.0.2t/_/_/package/f99afdbf2a1cc98ba2029817b35103455b6a9b77/
     /home/user/.conan/data/zlib/1.2.11/_/_/package/6af9cc7cb931c5ad942174fd7838eb655717c709/
 

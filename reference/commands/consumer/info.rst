@@ -162,7 +162,7 @@ changed (most likely due to a git push on that package):
 .. code-block:: bash
 
     $ conan info . -bo zlib/1.2.11@
-    [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.10.0]
+    [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.9.4]
 
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.
@@ -172,7 +172,7 @@ You can also specify the :command:`--build-order=ALL` argument, if you want just
 .. code-block:: bash
 
     $ conan info . --build-order=ALL
-    > [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.10.0]
+    > [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.9.4]
 
 
 Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter.

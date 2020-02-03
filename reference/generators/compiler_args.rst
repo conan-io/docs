@@ -98,7 +98,7 @@ Directly inside a recipe
 
     class PocoTimerConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "poco/1.10.0"
+        requires = "poco/1.9.4"
         generators = "compiler_args"
         default_options = {"poco:shared": True, "openssl:shared": True}
 

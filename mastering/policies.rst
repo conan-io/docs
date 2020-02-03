@@ -27,7 +27,7 @@ With the ``build_policy`` attribute in the `conanfile.py` the package creator ca
 
     class PocoTimerConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "poco/1.10.0" # comma-separated list of requirements
+        requires = "poco/1.9.4" # comma-separated list of requirements
         generators = "cmake", "gcc", "txt"
         default_options = {"poco:shared": True, "poco:shared": True}
         build_policy = "always" # "missing"
