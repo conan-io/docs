@@ -202,6 +202,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 .. code-block:: python
 
     self.cpp_info.name = "<PKG_NAME>"
+    self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
@@ -405,6 +406,26 @@ The ``set_name()`` and ``set_version()`` methods should respectively set the ``s
 These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
 :command:`install <path>` commands).
 
+The above example uses the current working directory as the one to resolve the relative "name.txt" path and the git repository.
+That means that the "name.txt" should exist in the directory where conan was launched.
+To define a relative path to the *conanfile.py*, irrespective of the current working directory it is necessary to do:
+
+..  code-block:: python
+
+    import os
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            f = os.path.join(self.recipe_folder, "name.txt")
+            self.name = tools.load(f)
+
+        def set_version(self):
+            git = tools.Git(folder=self.recipe_folder)
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``self.recipe_folder`` attribute is only defined in these two methods.
+
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
@@ -506,10 +527,12 @@ It also has optional parameters that allow defining the special cases, as is sho
         self.requires("zlib/1.2@drl/testing", private=True, override=False)
 
 ``self.requires()`` parameters:
+
     - **override** (Optional, Defaulted to ``False``): True means that this is not an actual requirement, but something to be passed
       upstream and override possible existing values.
-    - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded (like a static lib linked
-      into a shared lib), so it is not required to link.
+    - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded, and totally hidden. It might be necessary in some extreme cases, like having to use two
+      different versions of the same library (provided that they are totally hidden in a shared library, for
+      example), but it is mostly discouraged otherwise.
 
 .. note::
 
@@ -902,10 +925,10 @@ even if it matches with the default of the compiler being used:
 Same behavior applies if you use the deprecated setting ``cppstd``.
 
 
-CompatiblePackage
-^^^^^^^^^^^^^^^^^
+Compatible packages
+^^^^^^^^^^^^^^^^^^^
 The ``package_id()`` method serves to define the "canonical" binary package ID, the identifier of the binary that correspond to the
-input configuration of settins and options. This canonical binary package ID will be always computed, and Conan will check for its
+input configuration of settings and options. This canonical binary package ID will be always computed, and Conan will check for its
 existence to be downloaded and installed.
 
 If the binary of that package ID is not found, Conan lets the recipe writer define an ordered list of compatible package IDs, of other configurations
@@ -913,14 +936,14 @@ that should be binary compatible and can be used as a fallback. The syntax to do
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
+    from conans import ConanFile
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
 
         def package_id(self):
             if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
-                compatible_pkg = CompatiblePackage(self)
+                compatible_pkg = self.info.clone()
                 compatible_pkg.settings.compiler.version = "4.8"
                 self.compatible_packages.append(compatible_pkg)
 
@@ -929,7 +952,7 @@ if there is one available built with ``gcc 4.8`` and use it. But not the other w
 
 .. seealso::
 
-    For more information about :ref:`CompatiblePackage read this <compatible_packages>`
+    For more information about :ref:`compatible packages read this <compatible_packages>`
 
 
 .. _method_build_id:

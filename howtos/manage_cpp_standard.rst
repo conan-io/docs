@@ -94,3 +94,10 @@ new packages, because it was already the default of your compiler.
 
    Conan 1.x will also generate the same packages as the ones generated with the deprecated
    setting ``cppstd`` for the default value of the standard.
+
+
+Required version
+----------------
+
+When the package to be built requires a minimal C++ standard support (e.g. 17), it can be done by
+comparing the ``cppstd``. For such condition, there is the helper :ref:`check_min_cppstd <tools.check_min_cppstd>`.

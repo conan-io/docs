@@ -10,7 +10,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     [log]
     run_to_output = True        # environment CONAN_LOG_RUN_TO_OUTPUT
     run_to_file = False         # environment CONAN_LOG_RUN_TO_FILE
-    level = 50                  # environment CONAN_LOGGING_LEVEL
+    level = critical            # environment CONAN_LOGGING_LEVEL
     # trace_file =              # environment CONAN_TRACE_FILE
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
@@ -27,10 +27,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
-    # recipe_linter = False               # environment CONAN_RECIPE_LINTER
-    # pylint_werr = False                 # environment CONAN_PYLINT_WERR
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
-    # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
     # cache_no_locks = True               # environment CONAN_CACHE_NO_LOCKS
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
@@ -42,8 +39,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
-    # https://vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_generator_platform            # environment CONAN_CMAKE_GENERATOR_PLATFORM
+    # http://www.vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
@@ -62,6 +59,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
     # cacert_path                         # environment CONAN_CACERT_PATH
+    # scm_to_conandata                    # environment CONAN_SCM_TO_CONANDATA
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -71,7 +69,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
     [proxies]
     # Empty (or missing) section will try to use system proxies.
-    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies - but see below
+    # As documented in https://requests.readthedocs.io/en/master/user/advanced/#proxies - but see below
     # for proxies to specific hosts
     # http = http://user:pass@10.10.1.10:3128/
     # http = http://10.10.1.10:3128
@@ -82,7 +80,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
-    [hooks]  # environment CONAN_HOOKS
+    [hooks]    # environment CONAN_HOOKS
     attribute_checker
 
     # Default settings now declared in the default profile
@@ -92,7 +90,9 @@ Log
 
 The ``level`` variable, defaulted to 50 (critical events), declares the LOG level .
 If you want to show more detailed logging information, set this variable to lower values,
-as 10 to show debug information. You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+as 10 to show debug information, or use the level names as ``critical``, ``error``, ``warning``,
+``info`` and ``debug``. You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+The level number is related to the `Python Logging Levels`_.
 
 The ``print_run_commands``, when is 1, Conan will print the executed commands in ``self.run`` to the output.
 You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
@@ -156,23 +156,6 @@ The ``cpu_count`` variable set the number of cores that the :ref:`tools_cpu_coun
 by default the number of cores available in your machine.
 Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
 
-The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules
-for the python linter executed at ``export`` time. A use case could be to define some custom indents
-(though the standard pep8 4-spaces indent is recommended, there are companies that define different styles).
-The ``pylintrc`` file has the form:
-
-.. code :: text
-
-    [FORMAT]
-    indent-string='  '
-
-Running ``pylint --generate-rcfile`` will output a complete rcfile with comments explaining the fields.
-
-The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
-Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
-
-The ``pylint_werr`` variable changes PyLint level from *warning* to *error* when some inconsistency is found in the recipe.
-
 The ``retry`` variable allows to set up the global default value for the number of retries in all commands related to
 download/upload. User can override the value provided by the variable if the command provides an argument with the same name.
 
@@ -208,6 +191,10 @@ in the conan code base, allowing to debug the detected error.
 
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
+
+The ``scm_to_conandata`` variable tells Conan to store the resolved information of the :ref:`SCM feature<scm_feature>` in the
+:ref:`conandata.yml<conandata_yml>` file instead of modifying the recipe file itself. You can also adjust
+this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
 
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
 
@@ -254,7 +241,7 @@ of URLs or patterns that will skip the proxy:
 .. code-block:: text
 
     [proxies]
-    # As documented in https://requests.kennethreitz.org/en/latest/user/advanced/#proxies
+    # As documented in https://requests.readthedocs.io/en/master/user/advanced/#proxies
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
@@ -287,3 +274,5 @@ If this fails, you might also try to set environment variables:
    # windows (note, no quotes here)
    $ set HTTP_PROXY=http://10.10.1.10:3128
    $ set HTTPS_PROXY=http://10.10.1.10:1080
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels

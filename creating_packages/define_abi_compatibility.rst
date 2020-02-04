@@ -157,7 +157,7 @@ The same way we have adjusted the ``self.info.settings``, we could set the ``sel
 .. _compatible_packages:
 
 
-Compatible Packages
+Compatible packages
 -------------------
 
 .. warning::
@@ -183,7 +183,7 @@ That can be defined as:
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
+    from conans import ConanFile
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
@@ -205,8 +205,7 @@ It is the responsibility of the developer to guarantee that such binaries are in
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
-
+    from conans import ConanFile
     class Pkg(ConanFile):
         options = {"optimized": [1, 2, 3]}
         default_options = {"optimized": 1}
@@ -226,6 +225,12 @@ in their configuration. But a binary built with ``optimized=2`` will not be cons
 the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
 step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
 based on this compatibility model, it only applies to use-cases where the binaries can be *interchanged*.
+
+.. note::
+
+    Compatible packages are a match for a binary in the dependency graph. When a compatible package is found, the :command:`--build=missing`
+    build policy will **not** build from sources that package.
+
 
 Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
 
@@ -590,7 +595,7 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["mypkg"].recipe_revision_mode()
 
-- ``package_revision_mode()``: The full pckage reference `pkg/version@user/channel#RREV:ID#PREV`
+- ``package_revision_mode()``: The full package reference `pkg/version@user/channel#RREV:ID#PREV`
   of the dependencies, including the recipe revision, the binary package ID and the package revision
   will be taken into account to compute the consumer package ID
 
@@ -685,7 +690,7 @@ generated with the ``recipe_revision_mode`` can be resolved if no package for th
 
 .. code-block:: python
 
-    from conans import ConanFile, CompatiblePackage
+    from conans import ConanFile
 
     class Pkg(ConanFile):
         ...

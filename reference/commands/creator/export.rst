@@ -48,10 +48,8 @@ The ``reference`` field can be:
 - The version, user and channel: ``version@user/channel``. The recipe must provide the name, and if it
   does provide the version, it should match the command line one.
 
-The ``export`` command will run a linting of the package recipe, looking for possible
-inconsistencies, bugs and py2-3 incompatibilities. It is possible to customize the rules for this
-linting, as well as totally disabling it. Look at the ``recipe_linter`` and ``pylintrc`` variables
-in :ref:`conan.conf<conan_conf>` and the ``PYLINTRC`` environment variable.
+There is also a "recipe_linter" hook in the `official hooks repository <https://github.com/conan-io/hooks>`_ 
+that can be activated to run automatic linter checks on the recipes when they are exported.
 
 **Examples**
 

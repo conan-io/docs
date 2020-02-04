@@ -59,7 +59,7 @@ defaults settings. You can find in your user home folder ``~/.conan/settings.yml
 can modify, edit, add any setting or any value, with any nesting if necessary. See :ref:`custom_settings`.
 
 As long as your team or users have the same settings (you can share with them the file), everything will work. The *settings.yml* file is just a
-mechanism so users agree on a common spelling for typically settings. Also, if you think that some settings would
+mechanism so users agree on a common spelling for typical settings. Also, if you think that some settings would
 be useful for many other conan users, please submit it as an issue or a pull request, so it is included in future
 releases.
 
