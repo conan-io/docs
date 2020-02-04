@@ -22,7 +22,7 @@ This cache is purely an optimization mechanism. It is completely different to th
 This cache (whose path can be configured in the *conan.conf* file) will store the following items:
 
 - All files that are downloaded from a Conan server (conan_server, Artifactory), both in the api V1 (without revisions) and V2 (with revisions).
-  This include files like *conanfile.py*, but also the zipped artifacts like *conan_package.tgz* or *conan_sources.tgz*
+  This includes files like *conanfile.py*, but also the zipped artifacts like *conan_package.tgz* or *conan_sources.tgz*.
 - The downloads done by users with the ``tools.download()`` or ``tools.get()`` helpers, as long as they provide a checksum (md5, sha1, etc.). If
   a checksum is not provided, even if the download cache is enabled, the download will be always executed.
 
