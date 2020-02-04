@@ -24,7 +24,7 @@ This cache (whose path can be configured in the *conan.conf* file) will store th
 - All files that are downloaded from a Conan server (conan_server, Artifactory), both in the api V1 (without revisions) and V2 (with revisions).
   This includes files like *conanfile.py*, but also the zipped artifacts like *conan_package.tgz* or *conan_sources.tgz*.
 - The downloads done by users with the ``tools.download()`` or ``tools.get()`` helpers, as long as they provide a checksum (md5, sha1, etc.). If
-  a checksum is not provided, even if the download cache is enabled, the download will be always executed.
+  a checksum is not provided, even if the download cache is enabled, the download will be always executed and the files will not be cached.
 
 The cache uses the URL of the download, appending the checksum when provided. In the api V2, it is not necessary to append the checksum, because
 the URL itself already encodes the recipe revision and/or the package revisions, which are already checksums of the recipe and package respectively.
