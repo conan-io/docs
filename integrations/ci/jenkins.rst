@@ -13,6 +13,12 @@ You can use `Jenkins CI` both for:
 There is no need for any special setup for it, just install Conan and your build tools in the Jenkins machine and call
 the needed Conan commands.
 
+.. note::
+
+    As reported in https://github.com/conan-io/conan/issues/6400, running Conan under Jenkins could have some unexpected
+    issues running ``git clone`` of repositories requiring authentication. If that is the case, consider to use ``ssh``
+    protocol instead of ``https``.
+
 
 Artifactory and Jenkins integration
 ___________________________________
