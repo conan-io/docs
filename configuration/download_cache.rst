@@ -32,7 +32,7 @@ the URL itself already encodes the recipe revision and/or the package revisions,
 .. warning::
 
     The download cache will not be able to correctly cache artifacts with revisions enabled if those artifacts are created and uploaded repeatedly
-    with a client without revisions, because that will keep overwriting the revision "0".
+    in a client without revisions, because that will keep overwriting the revision "0".
 
 
 Activating the download cache
