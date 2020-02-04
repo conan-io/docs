@@ -10,7 +10,7 @@ local cache to the user space:
 
     $ conan install openssl/1.0.2u@ -g deploy
     ...
-    Installing package: openssl/1.0.2u@
+    Installing package: openssl/1.0.2u
     ...
     Generator deploy created deploy_manifest.txt
 

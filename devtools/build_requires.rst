@@ -82,7 +82,7 @@ The behavior of ``build_requires`` is the same irrespective if they are defined 
 - They will only be retrieved and installed if some package that has to be built from sources and matches the declared pattern. Otherwise,
   they will not even be checked for existence.
 - Options and environment variables declared in the profile as well as in the command line will affect the build requirements for packages.
-  In that way, you can define, for example, for the ``cmake/0.1`` package which CMake version will be installed.
+  In that way, you can define, for example, for the ``cmake/3.16.3`` package which CMake version will be installed.
 - Build requirements will be activated for matching packages via the ``deps_cpp_info`` and ``deps_env_info`` members. So, include
   directories, library names, compile flags (CFLAGS, CXXFLAGS, LINKFLAGS), sysroot, etc. will be applied from the build requirement's
   package ``self.cpp_info`` values. The same for ``self.env_info``: variables such as ``PATH``, ``PYTHONPATH``, and any other environment

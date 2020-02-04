@@ -64,7 +64,7 @@ A file named *conanbuildinfo.json* will be generated. It will contain the inform
         },
         {
           "name": "poco",
-          "version": "1.10.0",
+          "version": "1.9.4",
           "...": "..."
         }
       ]
@@ -155,7 +155,7 @@ generator to simplify the task for your build system.
 
     class MyProjectWithConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "poco/1.9.0"
+        requires = "poco/1.9.4"
         ########### IT'S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM
         generators = "txt"
         default_options = {"poco:shared": False, "openssl:shared": False}

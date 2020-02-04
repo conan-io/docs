@@ -43,6 +43,7 @@ dependency graph in case OpenSSL is changed we could type:
 .. code-block:: bash
 
     $ conan info poco/1.9.4@ -bo openssl/1.0.2t
+    WARN: Usage of `--build-order` argument is deprecated and can return wrong results. Use `conan graph build-order ...` instead.
     [openssl/1.0.2t], [poco/1.9.4]
 
 If OpenSSL is changed, we would need to rebuild it (of course) and rebuild Poco.

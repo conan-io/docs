@@ -16,12 +16,12 @@ every dependency and the installed settings and options:
     {
       "deps_env_info": {
         "MY_ENV_VAR": "foo"
-      }, 
+      },
       "deps_user_info": {
         "Hello": {
           "my_var": "my_value"
         }
-      }, 
+      },
       "dependencies":
       [
         {
@@ -39,8 +39,8 @@ every dependency and the installed settings and options:
           "...": "...",
         },
         {
-          "name": "Poco",
-          "version": "1.7.8p3",
+          "name": "poco",
+          "version": "1.9.4",
           "...": "..."
         }
       ],

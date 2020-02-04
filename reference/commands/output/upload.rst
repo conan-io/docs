@@ -19,7 +19,7 @@ The output JSON contains a two first level keys:
 
      - **recipe**: Document representing the uploaded recipe.
 
-        - **id**: Reference, e.g., "OpenSSL/1.0.2n@conan/stable"
+        - **id**: Reference, e.g., "openssl/1.0.2u@"
         - **remote_name**: Remote name where the recipe was uploaded.
         - **remote_url**: Remote URL where the recipe was uploaded.
         - **time**: ``ISO 8601`` string with the time the recipe was uploaded.

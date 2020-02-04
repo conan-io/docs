@@ -19,7 +19,7 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@ -p 2144f833c251030c3cfd61c4354ae0e38607a909
+      $ conan get zlib/1.2.11@:2144f833c251030c3cfd61c4354ae0e38607a909
 
 - Print the *conanfile.py* from a remote package:
 
@@ -29,7 +29,6 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: python
 
-      conan get zlib/1.2.11@ -r conan-center
       import os
       import stat
       from conans import ConanFile, tools, CMake, AutoToolsBuildEnvironment

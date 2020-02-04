@@ -44,5 +44,5 @@ remote, under your own username:
 
 .. code-block:: bash
 
-   $ conan copy Poco/1.9.4@pocoproject/stable myuser/testing
-   $ conan upload Poco/1.9.4@myuser/testing -r=myremote --all
+   $ conan copy poco/1.9.4@ myuser/testing
+   $ conan upload poco/1.9.4@myuser/testing -r=myremote --all
