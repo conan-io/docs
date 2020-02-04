@@ -51,7 +51,7 @@ Constructor
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
                      set_cmake_flags=False, msbuild_verbosity='minimal', cmake_program=None,
-                     generator_platform=None)
+                     generator_platform=None, append_vcvars=False)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
@@ -70,6 +70,7 @@ Parameters:
       using it in the command line.
     - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
     - **generator_platform** (Optional, Defaulted to ``None``): Generator platform name or none to autodetect (-A cmake option).
+    - **append_vcvars** (Optional, Defaulted to ``False``): When a Visual Studio environment is activated by the build helper, append it to respect existing environment. ``CMake`` helper sometimes, like when using the Ninja generator, needs to call ``vcvars`` to set the VS environment. By default the ``vcvars`` is pre-pended to the environment, taking precedence. With ``append_vcvars=True``, the ``vcvars`` will append to the end of the environment (for "list" environment variables, like ``PATH``), instead of pre-pending, so the existing environment takes precedence.
 
 Attributes
 ----------
