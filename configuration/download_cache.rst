@@ -60,7 +60,7 @@ And, as the *conan.conf* is part of the configuration, you can also put a common
 the :ref:`conan_config_install` command to automatically install it in Conan clients.
 
 
-To deactivate the download cache, you can remove the entry ``download_cache`` from the *conan.conf* file directly editing it, or with the command:
+To deactivate the download cache, you can remove the entry ``download_cache`` from the *conan.conf* with the command:
 
 .. code-block:: bash
 
