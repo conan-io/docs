@@ -29,13 +29,15 @@ This cache (whose path can be configured in the *conan.conf* file) will store th
 - The downloads done by users with the ``tools.download()`` or ``tools.get()`` helpers, as long as they provide a checksum (md5, sha1, etc.). If
   a checksum is not provided, even if the download cache is enabled, the download will be always executed and the files will not be cached.
 
-The cache uses the URL of the download, appending the checksum when provided. In the api V2, it is not necessary to append the checksum, because
-the URL itself already encodes the recipe revision and/or the package revisions, which are already checksums of the recipe and package respectively.
+The cache computes a sha256 checksum of the download URL and the file checksum whenever is available.
 
 .. warning::
 
-    The download cache will not be able to correctly cache artifacts with revisions enabled if those artifacts are created and uploaded repeatedly
-    in a client without revisions, because that will keep overwriting the revision "0".
+    As not always the file checksums are available, the download cache will not be able to correctly cache artifacts with revisions enabled 
+    if those artifacts are created and uploaded repeatedly in a client without revisions, because that will keep overwriting the revision "0".
+    Similarly, the download cache will fail if a proxy suddenly and transparently changes a existing server and moves it to a new location,
+    without the clients changing the URL too.
+
 
 Activating/deactivating the download cache
 ------------------------------------------
