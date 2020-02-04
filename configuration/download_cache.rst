@@ -34,7 +34,6 @@ the URL itself already encodes the recipe revision and/or the package revisions,
     The download cache will not be able to correctly cache artifacts with revisions enabled if those artifacts are created and uploaded repeatedly
     in a client without revisions, because that will keep overwriting the revision "0".
 
-
 Activating the download cache
 -----------------------------
 The download cache is activated and configured in the *conan.conf* file (see :ref:`conan.conf reference <conan_conf>`)
