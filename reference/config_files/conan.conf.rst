@@ -66,6 +66,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
     # with "~/", will be relative to the conan user home, not to the system user home)
     path = ./data
+    # download_cache = /path/to/my/cache
 
     [proxies]
     # Empty (or missing) section will try to use system proxies.
@@ -217,6 +218,13 @@ On Windows:
 
     If you want to change the default "conan home" (directory where ``conan.conf`` file is) you can adjust
     the environment variable ``CONAN_USER_HOME``.
+
+
+The ``storage.download_cache`` variable defines the path to a folder that can be used to cache the different file downloads from Conan servers but
+also from user downloads via the ``tools.get()`` and ``tools.download()`` methods that provide a checksum. Defining this variable will both configure
+the path and activate the download cache. If it is not defined, the download cache will not be used.
+
+Read more about the :ref:`download cache here <download_cache>`.
 
 .. _proxys:
 
