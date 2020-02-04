@@ -17,7 +17,10 @@ Download cache
 Conan implements a shared download cache that can be used to reduce the time needed to populate the Conan package cache
 with commands like :command:`install`, :command:`create`.
 
-This cache is purely an optimization mechanism. It is completely different to the Conan package cache, (typically the ``<userhome>/.conan`` folder).
+This cache is purely an optimization mechanism. It is completely different to the :ref:`Conan package cache <custom_cache>`, (typically the ``<userhome>/.conan`` folder).
+It is not related to the ``short_paths`` mechanism for long path in Windows, nor to the ``short_paths`` cache folder. The cache will contain a copy
+of the artifacts, it is not a new location of files. Those files will still be copied to the Conan package cache, which will not change anything,
+its behavior, layout or location of any file.
 
 This cache (whose path can be configured in the *conan.conf* file) will store the following items:
 
@@ -34,8 +37,8 @@ the URL itself already encodes the recipe revision and/or the package revisions,
     The download cache will not be able to correctly cache artifacts with revisions enabled if those artifacts are created and uploaded repeatedly
     in a client without revisions, because that will keep overwriting the revision "0".
 
-Activating the download cache
------------------------------
+Activating/deactivating the download cache
+------------------------------------------
 
 The download cache is activated and configured in the :ref:`conan_conf` like this:
 
@@ -55,6 +58,13 @@ It can be defined from the command like as well:
 
 And, as the *conan.conf* is part of the configuration, you can also put a common *conan.conf* file in a git repo or zip file and use
 the :ref:`conan_config_install` command to automatically install it in Conan clients.
+
+
+To deactivate the download cache, you can remove the entry ``download_cache`` from the *conan.conf* file directly editing it, or with the command:
+
+.. code-block:: bash
+
+    $ conan config rm storage.download_cache
 
 
 Concurrency, multiple caches and CI
