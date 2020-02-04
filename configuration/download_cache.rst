@@ -47,7 +47,7 @@ The download cache is activated and configured in the :ref:`conan_conf` like thi
     [storage]
     download_cache=/path/to/my/cache
 
-It can be defined from the command like as well:
+It can be defined from the command line:
 
 .. code-block:: bash
 
