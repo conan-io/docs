@@ -19,7 +19,7 @@ with commands like :command:`install`, :command:`create`.
 
 This cache is purely an optimization mechanism. It is completely different to the Conan package cache, (typically the ``<userhome>/.conan`` folder).
 
-This cache will store in a given path, which can be configured in **conan.conf** file, the following:
+This cache (whose path can be configured in the *conan.conf* file) will store the following items:
 
 - All files that are downloaded from a Conan server (conan_server, Artifactory), both in the api V1 (without revisions) and V2 (with revisions).
   This include files like *conanfile.py*, but also the zipped artifacts like *conan_package.tgz* or *conan_sources.tgz*
