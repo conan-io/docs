@@ -36,6 +36,7 @@ the URL itself already encodes the recipe revision and/or the package revisions,
 
 Activating the download cache
 -----------------------------
+
 The download cache is activated and configured in the *conan.conf* file (see :ref:`conan.conf reference <conan_conf>`)
 
 .. code-block:: text
