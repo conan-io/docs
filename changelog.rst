@@ -21,6 +21,45 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.21 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.22.0 (05-Feb-2020)
+--------------------
+    
+- Feature: Set conan generated CMake targets as `GLOBAL` so that they can be used with an `ALIAS` for consumers. `#6438 <https://github.com/conan-io/conan/pull/6438>`_ . Docs `here <https://github.com/conan-io/docs/pull/1534>`__
+- Feature: Deduce `compiler.base.runtime` for Intel compiler settings when using Visual Studio as the base compiler. `#6424 <https://github.com/conan-io/conan/pull/6424>`_
+- Feature: Allow defining an extra user-defined properties .props file in ``MSBuild`` build helper. `#6374 <https://github.com/conan-io/conan/pull/6374>`_ . Docs `here <https://github.com/conan-io/docs/pull/1533>`__
+- Feature: Force the user to read that Python 2 has been deprecated. `#6336 <https://github.com/conan-io/conan/pull/6336>`_ . Docs `here <https://github.com/conan-io/docs/pull/1523>`__
+- Feature: Add opt-in `scm_to_conandata` for the SCM feature: Conan will store the data from the SCM attribute in the `conandata.yml` file (except the fields `username` and `password`). `#6334 <https://github.com/conan-io/conan/pull/6334>`_ . Docs `here <https://github.com/conan-io/docs/pull/1522>`__
+- Feature: Implement a download cache, which can be shared and concurrently used among different conan user homes, selectable configuring ``storage.download_cache`` in ``conan.conf``. `#6287 <https://github.com/conan-io/conan/pull/6287>`_ . Docs `here <https://github.com/conan-io/docs/pull/1544>`__
+- Feature: Some improvements in the internal of lockfiles. Better ordering of nodes indexes. Separation of ``requires`` and ``build-requires``. Better ``status`` field, with explicit ``exported``, ``built`` values. `#6237 <https://github.com/conan-io/conan/pull/6237>`_
+- Feature: ``imports`` functionality can import from "symbolic" names, preceded with @, like @bindirs, @libdirs, etc. This allows importing files from variable package layouts, including custom ``package_info()`` layouts (like ``cpp_info.bindirs = ["mybin"]`` can be used with ``src="@bindirs"``), and editable package layouts `#6208 <https://github.com/conan-io/conan/pull/6208>`_ . Docs `here <https://github.com/conan-io/docs/pull/1547>`__
+- Feature: Improve output messages for parallel uploads: the text of the uploaded files contains to which packages they belong and the output for CI is clearer. `#6184 <https://github.com/conan-io/conan/pull/6184>`_
+- Feature: Adds ``vcvars_append`` variable (defaulting to ``False``) to ``CMake`` and ``Meson`` build helpers constructors, so when they need to activate the Visual Studio environment via ``vcvars`` (for Ninja and NMake generators), the ``vcvars`` environment is appended at the end, giving precedence to the environment previously defined. `#6000 <https://github.com/conan-io/conan/pull/6000>`_ . Docs `here <https://github.com/conan-io/docs/pull/1543>`__
+- Fix: Use CCI package reference for example command. `#6463 <https://github.com/conan-io/conan/pull/6463>`_
+- Fix: Generators `cmake` and `cmake_multi` use the name defined in `cpp_info.name` (reverts change from 1.21.1 as stated). `#6429 <https://github.com/conan-io/conan/pull/6429>`_
+- Fix: Cleaning ``LD_LIBRARY_PATH`` environment in ``SCM`` commands for "pyinstaller" installations, as SSL can fail due to using old SSL stuff from Conan instead from git/svn. `#6380 <https://github.com/conan-io/conan/pull/6380>`_
+- Fix: Recipe substitution for `scm` (old behavior) fixed for multiline comments in Python 3.8. `#6355 <https://github.com/conan-io/conan/pull/6355>`_ . Docs `here <https://github.com/conan-io/docs/pull/1526>`__
+- Fix: Avoid warning in "detect" process with Python 3.8, due to Popen with ``bufsize=1`` `#6333 <https://github.com/conan-io/conan/pull/6333>`_
+- Fix: Propagate server error (500) in `checksum_deploy`. `#6324 <https://github.com/conan-io/conan/pull/6324>`_
+- Fix: Fixed wrong CMake command line with ``-G Visual Studio 15 ARM`` for ``armv8`` architectures. `#6312 <https://github.com/conan-io/conan/pull/6312>`_
+- Fix: Add all the system_libs and requirements to the CMake targets constructed by the generators. It will impact header-only libraries that are consumed using targets (previously they were missing some information). `#6298 <https://github.com/conan-io/conan/pull/6298>`_
+- Fix: Avoid WindowsStore ``tools.vcvars()`` management when the environment is already set. `#6296 <https://github.com/conan-io/conan/pull/6296>`_
+- Fix: When the token is empty, and ``conan user myuser -p=mypass -r=remote`` is used, the user-password are send in HttpBasic so it can be used for completely protected servers that do not expose the ping endpoint. `#6254 <https://github.com/conan-io/conan/pull/6254>`_
+- Fix: Add `cpp_info.<config>` information to `cmake_find_package_multi` and `cmake_find_package` generators. `#6230 <https://github.com/conan-io/conan/pull/6230>`_ . Docs `here <https://github.com/conan-io/docs/pull/1508>`__
+- Fix: Multi-generators cannot be used without `build_type` setting. A failure is forced to `cmake_find_package_multi` and `visual_studio_multi` as it was in `cmake_multi`. `#6228 <https://github.com/conan-io/conan/pull/6228>`_
+- Fix: Fix typo in error message from ``tools.get()``. `#6204 <https://github.com/conan-io/conan/pull/6204>`_
+- Fix: Raise error for symlinks in Windows that point to a different unit. `#6201 <https://github.com/conan-io/conan/pull/6201>`_
+- BugFix: Avoid included profiles overwriting variables in the current profile. `#6398 <https://github.com/conan-io/conan/pull/6398>`_
+- Bugfix: Lockfiles were not correctly applying locked ``options`` to packages, which produced incorrect evaluation of ``requirements()`` method. `#6395 <https://github.com/conan-io/conan/pull/6395>`_
+- Bugfix: Fix broken compression of .tgz files due to Python 3.8 changing tar default schema. `#6355 <https://github.com/conan-io/conan/pull/6355>`_ . Docs `here <https://github.com/conan-io/docs/pull/1526>`__
+- Bugfix: Include MacOS frameworks definitions in autotools LDFLAGS (also Meson). `#6309 <https://github.com/conan-io/conan/pull/6309>`_
+- Bugfix: Apply ``system_libs`` information in autotools build helper. `#6309 <https://github.com/conan-io/conan/pull/6309>`_
+- Bugfix: The ``environment_append()`` helper does not modify the argument anymore, which caused problems if the argument was reused. `#6285 <https://github.com/conan-io/conan/pull/6285>`_
+- Bugfix: Include "Package ID Unknown" nodes in ``conan graph build-order``, as they need to be processed in that order. `#6251 <https://github.com/conan-io/conan/pull/6251>`_
+- Bugfix: `--raw` argument is ignored when searching for a specific reference. `#6241 <https://github.com/conan-io/conan/pull/6241>`_
+- Bugfix: Avoid raising a version conflict error when aliases have not been resolved yet, typically for aliased ``build-requires`` that are also in the ``requires``. `#6236 <https://github.com/conan-io/conan/pull/6236>`_
+- Bugfix: :command:`conan inspect` now is able to properly show name and version coming from ``set_name()`` and ``set_version()`` methods. `#6214 <https://github.com/conan-io/conan/pull/6214>`_
+
+
 1.21.2 (31-Jan-2020)
 --------------------
 
