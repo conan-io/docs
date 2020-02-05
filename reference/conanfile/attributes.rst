@@ -1187,12 +1187,21 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
 
-SCM attributes are evaluated in the workspace context where the *conanfile.py* is located before
+SCM attributes are evaluated in the working directory where the *conanfile.py* is located before
 exporting it to the Conan cache, so these values can be returned from arbitrary functions that
-depend on the workspace layout. Nevertheless, all the other code in the recipe must be able to
+depend on the local directory. Nevertheless, all the other code in the recipe must be able to
 run in the export folder inside the cache, where it has access only to the files exported (see
-attribute :ref:`exports <exports_attribute>`) and to any other functionality
-from a :ref:`python_requires <python_requires>`.
+attribute :ref:`exports <exports_attribute>` and :ref:`conandata_yml`) and to any other functionality
+from a :ref:`python_requires <python_requires>` package.
+
+.. warning::
+
+    By default, in Conan v1.x the information after evaluating the attribute ``scm`` will be stored in the
+    *conanfile.py* file (the recipe will be modified when exported to the Conan cache) and any value will be
+    written in plain text (watch out about passwords).
+    However, you can activate the :ref:`scm_to_conandata<conan_conf>` config option, the *conanfile.py*
+    won't be modified (data is stored in a different file) and the fields ``username`` and ``password`` won't be
+    stored, so these one will be computed each time the recipe is loaded.
 
 .. note::
 
