@@ -57,9 +57,10 @@ For **modern cmake (>=3.1.2)**, you can use the following approach:
     add_executable(timer timer.cpp)
     target_link_libraries(timer CONAN_PKG::poco)
 
-Using ``TARGETS`` as argument, ``conan_basic_setup()`` will internally call the macro ``conan_define_targets()``
-which defines cmake ``INTERFACE IMPORTED GLOBAL`` targets, one per package. These targets, named ``CONAN_PKG::PackageName`` 
-can be used to link against, instead of using global cmake setup.
+Using ``TARGETS`` as argument, ``conan_basic_setup()`` will internally call the macro
+``conan_define_targets()`` which defines cmake ``INTERFACE IMPORTED`` targets, one per package. These
+targets, named ``CONAN_PKG::PackageName`` can be used to link against, instead of using global cmake
+setup.
 
 .. seealso::
 
