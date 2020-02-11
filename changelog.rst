@@ -21,6 +21,17 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.21 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.22.1 (11-Feb-2020)
+--------------------
+
+- Fix: Increase ``six`` version to allow more modern releases. `#6509 <https://github.com/conan-io/conan/pull/6509>`_
+- Fix: remove `GLOBAL` from targets to avoid conflicts when using `add_subdirectory`. `#6488 <https://github.com/conan-io/conan/pull/6488>`_ . Docs `here <https://github.com/conan-io/docs/pull/1551>`__
+- Fix: Avoid caching revision "0" under api V2 (revisions enabled) in the download cache. `#6475 <https://github.com/conan-io/conan/pull/6475>`_ . Docs `here <https://github.com/conan-io/docs/pull/1552>`__
+- Bugfix: Manage the ``dirty`` state of the cache package folder with :command:`conan export-pkg`. `#6498 <https://github.com/conan-io/conan/pull/6498>`_
+- BugFix: Add ``system_libs`` to ``premake`` generator. `#6495 <https://github.com/conan-io/conan/pull/6495>`_
+- Bugfix: Upload was silently skipping exceptions that could leave the packages dirty. Long uploads or large compressing times in non-terminals (piped output, like in CI systems) crashed, leaving packages dirty too, but not reporting any error. `#6486 <https://github.com/conan-io/conan/pull/6486>`_
+- BugFix: Add quotes to ``virtualenv`` scripts, so they don't crash in pure sh shells. `#6265 <https://github.com/conan-io/conan/pull/6265>`_
+
 1.22.0 (05-Feb-2020)
 --------------------
     
