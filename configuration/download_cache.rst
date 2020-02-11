@@ -7,12 +7,6 @@ Download cache
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-.. warning::
-
-    This is an **advanced** feature, use it only if you fully understand this document. Do not use it if you are mixing api V1 (without revisions)
-    and api V2 (with revisions) clients.
-
-
 
 Conan implements a shared download cache that can be used to reduce the time needed to populate the Conan package cache
 with commands like :command:`install`, :command:`create`.
@@ -29,14 +23,12 @@ This cache (whose path can be configured in the *conan.conf* file) will store th
 - The downloads done by users with the ``tools.download()`` or ``tools.get()`` helpers, as long as they provide a checksum (md5, sha1, etc.). If
   a checksum is not provided, even if the download cache is enabled, the download will be always executed and the files will not be cached.
 
-The cache computes a sha256 checksum of the download URL and the file checksum whenever is available.
 
 .. warning::
 
-    As not always the file checksums are available, the download cache will not be able to correctly cache artifacts with revisions enabled 
-    if those artifacts are created and uploaded repeatedly in a client without revisions, because that will keep overwriting the revision "0".
-    Similarly, the download cache will fail if a proxy suddenly and transparently changes a existing server and moves it to a new location,
-    without the clients changing the URL too.
+    The cache computes a sha256 checksum of the download URL and the file checksum whenever is available. As not always the file checksums
+    are available, the download cache will not be able to correctly cache artifacts with revisions enabled if a proxy suddenly and
+    transparently changes a existing server and moves it to a new location, without the clients changing the URL too.
 
 
 Activating/deactivating the download cache
