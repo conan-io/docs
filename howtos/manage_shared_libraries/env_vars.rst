@@ -174,7 +174,7 @@ In the terminal window:
 .. code-block:: bash
 
     $ conan install .
-    $ source activate_run
+    $ source activate
     $ toolA --someparams
     # Only For Mac OS users to avoid restrictions:
     $ DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH toolA --someparams

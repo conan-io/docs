@@ -11,8 +11,8 @@ virtualrunenv
 Created files
 -------------
 
-- activate_run.{sh|bat}
-- deactivate_run.{sh|bat}
+- activate.{sh|bat}
+- deactivate.{sh|bat}
 
 Usage
 -----
@@ -21,13 +21,13 @@ Linux/macOS:
 
 .. code-block:: bash
 
-    > source activate_run.sh
+    > source activate.sh
 
 Windows:
 
 .. code-block:: bash
 
-    > activate_run.bat
+    > activate.bat
 
 Variables declared
 ------------------

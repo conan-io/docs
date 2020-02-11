@@ -63,10 +63,10 @@ This will generate a few files that can be called to activate and deactivate the
 
 .. code-block:: bash
 
-    $ activate_run.sh # $ source activate_run.sh in Unix/Linux
+    $ activate.sh # $ source activate.sh in Unix/Linux
     $ greet
     > Hello World!
-    $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
+    $ deactivate.sh # $ source deactivate.sh in Unix/Linux
 
 Imports
 -------
@@ -315,10 +315,10 @@ Installing and running this package can be done using any of the methods present
     $ conan install HelloRun/0.1@user/testing -g virtualrunenv
     # You can specify the remote with -r=my-remote
     # It will not install Hello/0.1@...
-    $ activate_run.sh # $ source activate_run.sh in Unix/Linux
+    $ activate.sh # $ source activate.sh in Unix/Linux
     $ greet
     > Hello World!
-    $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
+    $ deactivate.sh # $ source deactivate.sh in Unix/Linux
 
 .. _deployment_challenges:
 
