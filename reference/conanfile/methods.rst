@@ -810,7 +810,7 @@ any setting or option:
 self.info.header_only()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The package will always be the same, irrespective of the OS, compiler or architecture the consumer is building with.
+The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 
