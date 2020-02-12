@@ -94,7 +94,7 @@ library locally (in your user folder, not in the local cache), could be:
         settings = "os", "compiler", "build_type", "arch"
         generators = "pkg_config"
         exports_sources = "src/*"
-        requires = "zlib/1.2.11
+        requires = "zlib/1.2.11"
 
         def build(self):
             meson = Meson(self)
