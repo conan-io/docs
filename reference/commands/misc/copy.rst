@@ -34,11 +34,11 @@ them from one user to another.
 
   .. code-block:: bash
 
-      $ conan copy OpenSSL/1.0.2i@lasote/beta lasote/stable
+      $ conan copy mypackage/1.0.0@lasote/beta lasote/stable
 
 
 - Change a package's username:
 
   .. code-block:: bash
 
-      $ conan copy OpenSSL/1.0.2i@lasote/beta foo/beta
+      $ conan copy openssl/1.0.2u@ foo/beta

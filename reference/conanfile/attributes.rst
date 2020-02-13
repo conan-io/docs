@@ -946,7 +946,7 @@ To get a list of all the dependency names from ```deps_cpp_info```, you can call
     class PocoTimerConan(ConanFile):
         ...
         def build(self):
-            # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
+            # deps is a list of package names: ["poco", "zlib", "openssl"]
             deps = self.deps_cpp_info.deps
 
 It can be used to get information about the dependencies, like used compilation flags or the
@@ -957,7 +957,7 @@ root folder of the package:
 
     class PocoTimerConan(ConanFile):
         ...
-        requires = "zlib/1.2.11@conan/stable", "OpenSSL/1.0.2l@conan/stable"
+        requires = "zlib/1.2.11", "openssl/1.0.2u"
         ...
 
         def build(self):
@@ -968,7 +968,7 @@ root folder of the package:
             self.deps_cpp_info["zlib"].include_paths
 
             # Get the sharedlinkflags property from OpenSSL package
-            self.deps_cpp_info["OpenSSL"].sharedlinkflags
+            self.deps_cpp_info["openssl"].sharedlinkflags
 
 env_info
 --------

@@ -13,7 +13,7 @@ Let's take a look at the complete ``conanfile.txt`` from the previous *timer* ex
 .. code-block:: text
 
       [requires]
-      Poco/1.7.8p3@pocoproject/stable
+      poco/1.9.4
 
       [generators]
       gcc
@@ -21,8 +21,8 @@ Let's take a look at the complete ``conanfile.txt`` from the previous *timer* ex
       txt
 
       [options]
-      Poco:shared=True
-      OpenSSL:shared=True
+      poco:shared=True
+      openssl:shared=True
 
       [imports]
       bin, *.dll -> ./bin # Copies all dll files from the package "bin" folder to my project "bin" folder
@@ -37,9 +37,9 @@ The equivalent ``conanfile.py`` file is:
 
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.8p3@pocoproject/stable" # comma-separated list of requirements
+      requires = "poco/1.9.4" # comma-separated list of requirements
       generators = "cmake", "gcc", "txt"
-      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
+      default_options = {"poco:shared": True, "openssl:shared": True}
 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -72,9 +72,9 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
 
    class PocoTimerConan(ConanFile):
       settings = "os", "compiler", "build_type", "arch"
-      requires = "Poco/1.7.8p3@pocoproject/stable"
+      requires = "poco/1.9.4"
       generators = "cmake", "gcc", "txt"
-      default_options = {"Poco:shared": True, "OpenSSL:shared": True}
+      default_options = {"poco:shared": True, "openssl:shared": True}
 
       def imports(self):
          self.copy("*.dll", dst="bin", src="bin") # From bin to bin
@@ -85,7 +85,7 @@ If you are building your project with CMake, edit your ``conanfile.py`` and add 
          cmake.configure()
          cmake.build()
 
-   
+
 Then execute, from your project root:
 
 .. code-block:: bash

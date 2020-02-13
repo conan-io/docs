@@ -34,7 +34,7 @@ directory to be able to run it:
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    poco/1.9.4
 
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
@@ -124,7 +124,7 @@ You can use this imports statements in the consumer project:
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    poco/1.9.4
 
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder

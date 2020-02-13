@@ -119,8 +119,8 @@ indentation. Documentation makes an extensive use of bash, python, txt and cmake
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    poco/1.9.4
+    zlib/1.2.11
 ```
 
 ```

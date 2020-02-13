@@ -138,13 +138,13 @@ the command will insert the remote in the specified position
 
   .. code-block:: bash
 
-      $ conan remote add_ref OpenSSL/1.0.2i@conan/stable conan-center
+      $ conan remote add_ref openssl/1.0.2u conan-center
 
 - Update the remote associated with a package recipe:
 
   .. code-block:: bash
 
-      $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
+      $ conan remote update_ref openssl/1.0.2t local-remote
 
 - Enable or disable remotes (accepts patterns such as ``*`` as argument using Unix shell-style wildcards):
 
