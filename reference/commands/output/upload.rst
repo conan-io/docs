@@ -32,7 +32,7 @@ The output JSON contains a two first level keys:
 
 .. code-block:: bash
 
-    $ conan upload h* -all -r conan-center --json upload.json
+    $ conan upload "h*" -all -r conan-center --json upload.json
 
 .. code-block:: json
    :caption: upload.json

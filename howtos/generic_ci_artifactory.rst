@@ -91,7 +91,7 @@ is calling to the ``start`` subcommand of ``conan_build_info``. This will set th
     $ cd .. && cd consumer
     $ conan install . # Consumes mypackage, generates a lockfile
     $ conan create . consumer/1.0@user/stable --lockfile conan.lock
-    $ conan upload * -c -r local # Upload all packages to local remotes
+    $ conan upload "*" -c -r local # Upload all packages to local remotes
 
 3. Create build information based on the contents of the generated `conan.lock` lockfile and the
 information retrieved from the remote (the authentication is for the remote where you uploaded the

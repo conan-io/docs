@@ -353,7 +353,7 @@ You can search packages in Conan Center using this command:
 
 .. code-block:: bash
 
-    $ conan search open* --remote=conan-center
+    $ conan search "open*" --remote=conan-center
     Existing package recipes:
 
     openal/1.18.2@bincrafters/stable

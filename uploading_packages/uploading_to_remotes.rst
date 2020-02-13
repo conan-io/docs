@@ -59,7 +59,7 @@ have just uploaded them, they are identical to the local ones.
 
 .. code-block:: bash
 
-    $ conan remove Hello*
+    $ conan remove "Hello*"
     $ conan search
 
 Since we have our test setup from the previous section, we can just use it for our test. Go to your
