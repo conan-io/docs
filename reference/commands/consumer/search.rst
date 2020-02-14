@@ -53,14 +53,14 @@ can be forced with '--case-sensitive'.
 
 .. code-block:: bash
 
-    $ conan search zlib/*
-    $ conan search zlib/* -r=conan-center
+    $ conan search "zlib/*"
+    $ conan search "zlib/*" -r=conan-center
 
 To search for recipes in all defined remotes use ``--all`` (this is only valid for searching recipes, not binaries):
 
 .. code-block:: bash
 
-    $ conan search zlib/* -r=all
+    $ conan search "zlib/*" -r=all
 
 
 If you use instead the full package recipe reference, you can explore the binaries existing for
@@ -121,7 +121,7 @@ Search all the local Conan packages matching a pattern and showing the revision:
 
 .. code-block:: bash
 
-    $ conan search lib* --revisions
+    $ conan search "lib*" --revisions
     $ Existing package recipes:
 
       lib/1.0@user/channel#404e86c18e4a47a166fabe70b3b15e33

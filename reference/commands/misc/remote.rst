@@ -150,7 +150,7 @@ the command will insert the remote in the specified position
 
   .. code-block:: bash
 
-      $ conan remote disable *
+      $ conan remote disable "*"
       $ conan remote enable local-remote
 
 .. note::

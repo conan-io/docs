@@ -106,7 +106,7 @@ and then upload it to Artifactory. We also upload the `build information`_:
         }
 
         stage("Upload packages"){
-            String command = "upload * --all -r ${serverName} --confirm"
+            String command = "upload \"*\" --all -r ${serverName} --confirm"
             def b = client.run(command: command)
             server.publishBuildInfo b
         }
