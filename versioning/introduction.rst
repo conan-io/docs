@@ -14,7 +14,7 @@ version, for example in a *conanfile.py* recipe:
 
 .. code-block:: python
 
-    requires = "zlib/1.2.11@conan/stable"
+    requires = "zlib/1.2.11"
 
 When doing a :command:`conan install`, it will try to fetch from the remotes exactly
 that *1.2.11* version.
@@ -49,7 +49,7 @@ pick the newer 1.2 version, with different results. On the other hand it doesn't
 changes to consumer recipes to upgrade to use new versions of dependencies.
 
 It is also true that the *semver* definition that comes from other programming languages
-doesn't fit that well to C and C++ packages, because of different reasons, because of 
+doesn't fit that well to C and C++ packages, because of different reasons, because of
 open source libraries that don't closely follow the semver specification, but also because
 of the ABI compatibility issues and compilation model that is so characteristic of C and C++ binaries.
 
@@ -83,7 +83,7 @@ Package revisions
 +++++++++++++++++
 
 Revisions are automatic internal versions to both recipes and binary packages.
-When revisions are enabled, when a recipe changes and it is used to 
+When revisions are enabled, when a recipe changes and it is used to
 create a package, a new recipe revision is generated, with the hash of the
 contents of the recipe. The revisioned reference of the recipe is:
 
@@ -101,7 +101,7 @@ revision available in the remote server:
 
     [requires]
     # Use the latest revision of pkg1
-    pkg1/version@user/channel 
+    pkg1/version@user/channel
     # use the specific revision RREV1 of pkg2
     pkg2/version@user/channel#RREV1
 
@@ -118,7 +118,7 @@ altough they can for specific purposes like debugging.
 Read more about :ref:`package_revisions`
 
 
-Version and configuration conflicts 
+Version and configuration conflicts
 -----------------------------------
 
 When two different branches of the same dependency graph require the same package,
@@ -126,7 +126,7 @@ this is known as "diamonds" in the graph. If the two branches of a diamond requi
 the same package but different versions, this is known as a conflict (a version conflict).
 
 Lets say that we are building an executable in **PkgD/1.0**, that depends on **PkgB/1.0** and **PkgC/1.0**,
-which contain static libraries. In turn, **PkgB/1.0** depends on **PkgA/1.0** and finally **PkgC/1.0** depends on 
+which contain static libraries. In turn, **PkgB/1.0** depends on **PkgA/1.0** and finally **PkgC/1.0** depends on
 **PkgA/2.0**, which is also another static library.
 
 The executable in **PkgD/1.0**, cannot link with 2 different versions of the same static library in **PkgC**, and the dependency resolution algorithm raises an error to let the
@@ -134,7 +134,7 @@ user decide which one.
 
 .. image:: ../images/conan-graph_conflicts.png
 
-The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **PkgA/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library. 
+The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **PkgA/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library.
 The dependency resolution algorithm will also raise an error.
 
 Dependencies overriding
@@ -152,7 +152,7 @@ Versioning and binary compatibility
 -----------------------------------
 
 It is important to note and this point that versioning approaches and strategies should also be
-consistent with the binary management. 
+consistent with the binary management.
 
 By default conan assumes *semver* compatibility, so it will not require to build a new binary for a package when its dependencies change their minor or patch versions. This might not be enough for C or C++ libraries which versioning scheme doesn't strictly follow semver. It is strongly suggested to read more about this in :ref:`define_abi_compatibility`
 

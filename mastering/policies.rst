@@ -27,9 +27,9 @@ With the ``build_policy`` attribute in the `conanfile.py` the package creator ca
 
     class PocoTimerConan(ConanFile):
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Poco/1.7.8p3@pocoproject/stable" # comma-separated list of requirements
+        requires = "poco/1.9.4" # comma-separated list of requirements
         generators = "cmake", "gcc", "txt"
-        default_options = {"Poco:shared": True, "OpenSSL:shared": True}
+        default_options = {"poco:shared": True, "poco:shared": True}
         build_policy = "always" # "missing"
 
 These build policies are especially useful if the package creator doesn't want to provide binary package; for example, with header only
@@ -39,4 +39,4 @@ The ``always`` policy will retrieve the sources each time the package is install
 or ignoring the uploaded binary packages.
 
 The package pattern can be referred as a case-sensitive fnmatch pattern of the package name or the full package reference.
-e.g :command:`--build Poco`, :command:`--build Poc*`, :command:`--build zlib/*@conan/*`, :command:`--build *@conan/stable` or :command:`--build zlib/1.2.11@conan/stable`.
+e.g :command:`--build poco`, :command:`--build poc*`, :command:`--build zlib/*`, :command:`--build *@conan/stable` or :command:`--build zlib/1.2.11`.
