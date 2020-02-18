@@ -506,7 +506,7 @@ build system script.
 
 You can use this tool to check if you are cross-building:
 
-- :ref:`tools.cross_building(self.settings)<cross_building_reference>` (returns True or False)
+- :ref:`tools.cross_building(self.settings)<tools_cross_building>` (returns True or False)
 
 
 ARM architecture reference
