@@ -229,19 +229,13 @@ We can now proceed iteratively with the following procedure:
         $ cp release/conan.lock build_server_folder/release
         $ cd build_server_folder
 
-4. clean "modified" nodes from the lockfile
-
-    .. code:: bash
-
-        $ conan graph clean-modified release/
-
-5. build the package
+4. build the package
 
     .. code:: bash
 
         $ conan install <ref> --build=<ref> --lockfile=release
 
-6. go back to the parent, update the lockfile with the changes
+5. go back to the parent, update the lockfile with the changes
 
     .. code:: bash
 
@@ -249,11 +243,18 @@ We can now proceed iteratively with the following procedure:
         $ conan graph update-lock release build_server_folder/release
         $ rm -rf build_server_folder
 
-7. compute again the build-order of packages, if not empty, goto 1
+6. compute again the build-order of packages, if not empty, goto 1
 
     .. code-block:: bash
 
         $ conan graph build-order ./release --json=bo.json --build=missing
+
+7. clean "modified" nodes from the lockfile
+
+    .. code:: bash
+
+        $ conan graph clean-modified release/
+
 
 Note that this is a suboptimal approach, in order to explain the functionality, which
 is more easy to follow if it is sequential. In reality, the CI can take the first
