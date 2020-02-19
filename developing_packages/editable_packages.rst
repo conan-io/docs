@@ -24,32 +24,40 @@ to copy locally built artifacts into the conan cache and make them available to 
 With the editable packages, you can tell Conan where to find the headers and the artifacts ready for
 consumption in your local working directory. There is no need to package.
 
-Let's see this feature over an example where a developer is creating a ``CoolApp`` but at the same
-time they want to work on ``cool/version@user/dev`` library which is tightly coupled to the app.
+Let's see this feature over an practical example; the code can be found in the conan examples repository:
 
-The package ``cool/version@user/dev`` is already working, the developer has the sources in a
+.. code-block:: bash
+
+    $ git clone https://github.com/conan-io/examples.git
+    $ cd features/editable/cmake
+
+
+Here a developer is creating the app ``hello`` but at the same time they want to work
+on ``say/0.1@user/channel`` library which is tightly coupled to the app.
+
+The package ``say/0.1@user/channel`` is already working, the developer has the sources in a
 local folder and they are using whatever method to build and develop locally and can perform
-a :command:`conan create . cool/version@user/dev` to create the package.
+a :command:`conan create . say/0.1@user/channel` to create the package.
 
-Also, there is a *conanfile.txt* (or a more complex recipe) for the application ``CoolApp`` that
-has ``cool/version@user/dev`` among its requirements. When building this application, the
-resources of ``cool`` are used from the Conan local cache.
+Also, there is a *conanfile.txt* (or a more complex recipe) for the application ``hello`` that
+has ``say/0.1@user/channel`` among its requirements. When building this application, the
+resources of ``say`` are used from the Conan local cache.
 
 Put a package in editable mode
 ------------------------------
 
-To avoid creating the package ``cool/version@user/dev`` in the cache for every change, we are going
+To avoid creating the package ``say/0.1@user/channel`` in the cache for every change, we are going
 to put that package in editable mode, creating **a link from the reference in the cache to the local
 working directory**:
 
 .. code-block:: bash
 
-    $ conan editable add <path/to/local/dev/libcool> cool/version@user/dev
-    # you could do "cd <path/to/local/dev/libcool> && conan editable add . cool/version@user/dev"
+    $ conan editable add <path/to/local/dev/libsay> say/0.1@user/channel
+    # you could do "cd <path/to/local/dev/libsay> && conan editable add . say/0.1@user/channel"
 
 
-That is it. Now, every usage of ``cool/version@user/dev``, by any other Conan package or project,
-will be redirected to the ``<path/to/local/dev/libcool>`` user folder instead of using the package
+That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan package or project,
+will be redirected to the ``<path/to/local/dev/libsay>`` user folder instead of using the package
 from the conan cache.
 
 The Conan package recipes define a package "layout" in their ``package_info()`` methods. The default one,
@@ -64,8 +72,8 @@ if nothing is specified is equivalent to:
         self.cpp_info.bindirs = ["bin"]
         self.cpp_info.resdirs = ["res"]
 
-That means that conan will use the path ``path/to/local/dev/libcool/include`` for locating the headers of
-the ``cool`` package, the ``path/to/local/dev/libcool/lib`` to locate the libraries of the package, and so on.
+That means that conan will use the path ``path/to/local/dev/libsay/include`` for locating the headers of
+the ``hello`` package, the ``path/to/local/dev/libsay/lib`` to locate the libraries of the package, and so on.
 
 That might not be very useful, as typically while editing the source code and doing incremental builds, the
 development layout is different from that final "package" layout. While it is possible to run a
@@ -86,7 +94,7 @@ something like:
 .. code-block:: python
 
     from conans import ConanFile
-    
+
     class Pkg(ConanFile):
         settings = "build_type"
         def package_info(self):
@@ -94,14 +102,14 @@ something like:
                 d = "include_%s" % self.settings.build_type
                 self.cpp_info.includedirs = [d.lower()]
 
-That will map the include directories to ``path/to/local/dev/libcool/include_debug`` when working with ``build_type=Debug``
-conan setting, and to ``path/to/local/dev/libcool/include_release`` if ``build_type=Release``. In the same way, other 
+That will map the include directories to ``path/to/local/dev/libsay/include_debug`` when working with ``build_type=Debug``
+conan setting, and to ``path/to/local/dev/libsay/include_release`` if ``build_type=Release``. In the same way, other
 directories (libdirs, bindirs, etc) can be customized, with any logic, different for different OS, build systems, etc.
 
 .. code-block:: python
 
     from conans import ConanFile
-    
+
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
         def package_info(self):
@@ -110,7 +118,7 @@ directories (libdirs, bindirs, etc) can be customized, with any logic, different
                     # NOTE: Use the real layout used in your VS projects, this is just an example
                     self.cpp_info.libdirs = ["%s_%s" % (self.settings.build_type, self.settings.arch)]
 
-That will define the libraries directories to ``path/to/local/dev/libcool/Release_x86_64``, for example.
+That will define the libraries directories to ``path/to/local/dev/libsay/Release_x86_64``, for example.
 That is only an example, the real layout used by VS would be different.
 
 Layout files
@@ -156,10 +164,10 @@ This file can use the package reference to customize logic for a specific packag
        [includedirs]
        src/include
 
-       [cool/version@user/dev:includedirs]
-       src/core/include
+       [say/0.1@user/channel:includedirs]
+       src
 
-This layout will define the ``src/core/include`` include directory for the ``cool`` package, and
+This layout will define the ``src`` include directory for the ``say`` package, and
 ``src/include`` for other packages in editable mode.
 
 In every case the directories that will be affected by the editable mode will be ``includedirs``,
@@ -179,9 +187,9 @@ Layout files are specified in the :command:`conan editable add` command, as an e
 
 .. code-block:: bash
 
-    $ conan editable add . cool/version@user/dev --layout=win_layout
+    $ conan editable add . say/0.1@user/channel --layout=layout_vs
 
-That ``win_layout`` file will be first looked for relative to the current directory (the
+That ``layout_vs`` file will be first looked for relative to the current directory (the
 path can be absolute too). If it is found, that will be used. It is possible to add those
 layouts in the source repositories, so they are always easy to find after a clone.
 
@@ -223,23 +231,23 @@ Using a package in editable mode
 Once a reference is in editable mode it is used **system wide** (for every set of ``settings`` and
 ``options``) by Conan (by every Conan client that uses the same cache), no changes are
 required in the consumers. Every :command:`conan install` command that requires our editable
-``cool/version@user/dev`` package will use the paths to the local directory and the changes
+``say/0.1@user/channel`` package will use the paths to the local directory and the changes
 made to this project will be taken into account by the packages using its headers or linking
-against it. 
+against it.
 
 To summarize, consumption of packages in editable mode is transparent to their consumers.
 To try that it is working, the following flow should work:
 
-- Get sources of ``cool/version@user/dev``: :command:`git/svn clone... && cd folder`
-- Put package in editable mode: :command:`conan editable add . cool/version@user/dev --layout=mylayout`
+- Get sources of ``say/0.1@user/channel``: :command:`git/svn clone... && cd folder`
+- Put package in editable mode: :command:`conan editable add . say/0.1@user/channel --layout=layout_gcc`
 - Work with it and build using any tool. Check that your local layout is reflected in the layout
-  file *mylayout* specified in the previous step.
-- Go to the consumer project: ``CoolApp``
+  file *layout_gcc* specified in the previous step.
+- Go to the consumer project: ``hello``
 - Build it using any local flow: :command:`conan install` and build
-- Go back to ``cool/version@user/dev`` source folder, do some changes, and just build. No Conan commands necessary
-- Go to the consumer project: ``CoolApp`` and rebuild. It should get the changes from the ``cool`` library.
+- Go back to ``say/0.1@user/channel`` source folder, do some changes, and just build. No Conan commands necessary
+- Go to the consumer project: ``hello`` and rebuild. It should get the changes from the ``say`` library.
 
-In that way, it is possible to be developing both the ``cool`` library and the ``CoolApp`` application, at the same
+In that way, it is possible to be developing both the ``say`` library and the ``hello`` application, at the same
 time, without any Conan command.
 
 .. note::
@@ -254,7 +262,7 @@ In order to revert the editable mode just remove the link using:
 
 .. code-block:: bash
 
-    $ conan editable remove cool/version@user/dev
+    $ conan editable remove say/0.1@user/channel
 
 It will remove the link (the local directory won't be affected) and all the packages consuming this
 requirement will get it from the cache again.
