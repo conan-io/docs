@@ -42,7 +42,7 @@ the :ref:`CMake build tool<cmake_reference>`:
 
 .. seealso::
 
-    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
