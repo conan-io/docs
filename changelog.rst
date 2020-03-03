@@ -21,6 +21,16 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.21 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.21.3 (03-Mar-2020)
+--------------------
+
+- Bugfix: Fixing locking system for metadata file so it can be accessed concurrently. `#6543 <https://github.com/conan-io/conan/pull/6543>`_
+- Bugfix: Manage the dirty state of the cache package folder with conan export-pkg. `#6517 <https://github.com/conan-io/conan/pull/6517>`_
+- Bugfix: BugFix: Add quotes to virtualenv scripts, so they don't crash in pure sh shells. `#6516 <https://github.com/conan-io/conan/pull/6516>`_
+- Bugfix: Upload was silently skipping exceptions, which could result in packages not uploaded, but user not realizing about the error. `#6515 <https://github.com/conan-io/conan/pull/6515>`_
+- BugFix: Add ``system_libs`` to ``premake`` generator. `#6496 <https://github.com/conan-io/conan/pull/6496>`_
+
+
 1.21.2 (31-Jan-2020)
 --------------------
 
