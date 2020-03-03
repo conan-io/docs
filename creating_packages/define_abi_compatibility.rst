@@ -701,6 +701,49 @@ generated with the ``recipe_revision_mode`` can be resolved if no package for th
             self.compatible_packages.append(p)
 
 
+.. _full_transitive_package_id:
+
+Enabling full transitivity in package_id modes
+++++++++++++++++++++++++++++++++++++++++++++++
+
+When a package declares in its ``package_id()`` method that it is not affected by its dependencies, that will propagate down
+to the indirect consumers of that header only package. If the header only package dependency is a static library, for example, then downstream
+consumers of the header only library that uses a package mode different from the default, should be also affected by the upstream
+transitivity dependency. Lets say that we have the following scenario:
+
+- ``pkgA/1.0``
+- ``pkgB/1.0`` depends on ``pkgA/1.0``, and defines ``self.info.header_only()`` in its ``package_id()``
+- ``pkgC/1.0`` depends only on ``pkgB/1.0``
+- ``App/1.0`` depends on ``pkgC/1.0`` and ``pkgA/1.0``
+- We are using ``full_version_mode``
+- Now we create a new ``pkgA/2.0`` that has some changes in its header, that would require to rebuild ``pkgC/1.0`` against it.
+- ``App/1.0`` now depends on ``pkgC/1.0`` and ``pkgA/2.0``
+
+With the default behavior, the header only ``pkgB`` is isolating ``pkgC`` from the upstream changes effects. The package-id we
+get for ``pkgC/1.0`` is exactly the same when depending on ``pkgA/1.0`` and ``pkgA/2.0``.
+
+If we want to have the ``full_version_mode`` to be fully transitive, irrespective of the local package-id modes of the packages,
+we can do the following:
+
+
+.. code-block:: bash
+
+    $ conan config set general.full_transitive_package_id=1
+
+Or change:
+
+.. code-block:: text
+   :caption: *conan.conf* configuration file
+
+   [general]
+   full_transitive_package_id=1
+
+
+If we do this, then ``pkgC/1.0`` will compute 2 different package-id, one for ``pkgA/1.0`` and the other to link with ``pkgA/2.0``
+
+This will become the default behavior in the future (Conan 2.0)
+
+
 Library Types: Shared, Static, Header-only
 ++++++++++++++++++++++++++++++++++++++++++
 
