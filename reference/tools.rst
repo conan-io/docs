@@ -300,8 +300,9 @@ tools.get()
 
 .. code-block:: python
 
-    def get(url, filenname="", md5="", sha1="", sha256="", keep_permissions=False, pattern=None,
-            verify=True, retry=2, retry_wait=5, overwrite=False, auth=None, headers=None)
+    def get(url, md5='', sha1='', sha256='', destination=".", filename="", keep_permissions=False,
+            pattern=None, requester=None, output=None, verify=True, retry=None, retry_wait=None,
+            overwrite=False, auth=None, headers=None)
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. You can pass hash checking parameters:
 ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked. If any of them doesn't match, it will raise a
@@ -317,12 +318,14 @@ Just a high level wrapper for download, unzip, and remove the temporary zip file
 
 Parameters:
     - **url** (Required): URL to download.
-    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from the URL.
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
-    - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
-    - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+    - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
+    - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
+    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from the URL.
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
+    - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
+    - **output** (Optional, Defaulted to ``None``): Stream object.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
@@ -378,11 +381,14 @@ tools.download()
 
 .. code-block:: python
 
-    def download(url, filename, verify=True, out=None, retry=2, retry_wait=5, overwrite=False,
-                 auth=None, headers=None)
+    def download(url, filename, verify=True, out=None, retry=None, retry_wait=None, overwrite=False,
+                 auth=None, headers=None, requester=None, md5='', sha1='', sha256='')
 
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a list of known verifiers for https
 downloads, but this can be optionally disabled.
+
+You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked.
+If any of them doesn't match, it will raise a ``ConanException``.
 
 .. code-block:: python
 
@@ -402,13 +408,16 @@ downloads, but this can be optionally disabled.
     # Pass some header
     tools.download("http://someurl/somefile.zip", "myfilename.zip", headers={"Myheader": "My value"})
 
+    # Download and check file checksum
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", md5="e5d695597e9fa520209d1b41edad2a27")
+
 Parameters:
     - **url** (Required): URL to download
     - **filename** (Required): Name of the file to be created in the local storage
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overriden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
     - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
@@ -417,6 +426,10 @@ Parameters:
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
       ``requests`` Python library. Check other uses here: https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
+    - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
+    - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
+    - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
+    - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
 
 .. _tools_ftp_download:
 

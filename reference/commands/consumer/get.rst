@@ -36,14 +36,14 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.8@conan/stable -r conan-center
+      $ conan get zlib/1.2.8@ -r conan-center
 
 
 - List the files for a local package recipe:
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable .
+      $ conan get zlib/1.2.11@ .
 
       Listing directory '.':
        CMakeLists.txt
@@ -54,13 +54,13 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable conanmanifest.txt
+      $ conan get zlib/1.2.11@ conanmanifest.txt
 
 - Print the conaninfo.txt file for a binary package:
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable:2144f833c251030c3cfd61c4354ae0e38607a909
+      $ conan get zlib/1.2.11@:2144f833c251030c3cfd61c4354ae0e38607a909
 
   .. code-block:: text
 
@@ -81,7 +81,7 @@ Gets a file or list a directory of a given reference or package.
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable:2144f833c251030c3cfd61c4354ae0e38607a909 . -r conan-center
+      $ conan get zlib/1.2.11@:2144f833c251030c3cfd61c4354ae0e38607a909 . -r conan-center
 
       Listing directory '.':
        conan_package.tgz

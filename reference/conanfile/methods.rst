@@ -44,7 +44,7 @@ is a snippet of the conanfile of the Poco library:
     import shutil
 
     class PocoConan(ConanFile):
-        name = "Poco"
+        name = "poco"
         version = "1.6.0"
 
         def source(self):
@@ -403,7 +403,7 @@ recipe's repository.
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
 The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
-These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and
 :command:`install <path>` commands).
 
 The above example uses the current working directory as the one to resolve the relative "name.txt" path and the git repository.
@@ -717,7 +717,8 @@ Parameters:
     - **dst** (Optional, Defaulted to ``""``): Destination local folder, with reference to current directory, to which the files will be
       copied.
     - **src** (Optional, Defaulted to ``""``): Source folder in which those files will be searched. This folder will be stripped from the
-      dst parameter. E.g., `lib/Debug/x86`
+      dst parameter. E.g., `lib/Debug/x86`. It accepts symbolic folder names like ``@bindirs`` and ``@libdirs`` which will map to the 
+      ``self.cpp_info.bindirs`` and ``self.cpp_info.libdirs`` of the source package, instead of a hardcoded name.
     - **root_package** (Optional, Defaulted to *all packages in deps*): An fnmatch pattern of the package name ("OpenCV", "Boost") from
       which files will be copied.
     - **folder** (Optional, Defaulted to ``False``): If enabled, it will copy the files from the local cache to a subfolder named as the
@@ -746,6 +747,21 @@ do:
         self.copy("*.dylib*", dst=dest, src="lib")
 
 And then use, for example: :command:`conan install . -e CONAN_IMPORT_PATH=Release -g cmake_multi`
+
+
+To import files from packages that have different layouts, for example a package uses folder ``libraries`` instead of ``lib``,
+or to import files from packages that could be in editable mode, a symbolic ``src`` argument can be provided:
+
+.. code-block:: python
+
+    def imports(self):
+        self.copy("*", src="@bindirs", dst="bin")
+        self.copy("*", src="@libdirs", dst="lib")
+
+This will import all files from all the dependencies ``self.cpp_info.bindirs`` folders to the local "bin" folder, and all files
+from the dependencies ``self.cpp_info.libdirs`` folders to the local "lib" folder. This include packages that are in *editable*
+mode and declares ``[libdirs]`` and ``[bindirs]`` in their editable layouts.
+
 
 When a conanfile recipe has an ``imports()`` method and it builds from sources, it will do the following:
 
@@ -794,7 +810,7 @@ any setting or option:
 self.info.header_only()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The package will always be the same, irrespective of the OS, compiler or architecture the consumer is building with.
+The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 

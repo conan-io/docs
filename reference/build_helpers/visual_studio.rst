@@ -79,7 +79,8 @@ build()
     def build(self, project_file, targets=None, upgrade_project=True, build_type=None, arch=None,
               parallel=True, force_vcvars=False, toolset=None, platforms=None, use_env=True,
               vcvars_ver=None, winsdk_version=None, properties=None, output_binary_log=None,
-              property_file_name=None, verbosity=None, definitions=None)
+              property_file_name=None, verbosity=None, definitions=None,
+              user_property_file_name=None)
 
 Builds Visual Studio project with the given parameters.
 
@@ -134,6 +135,8 @@ Parameters:
       ``"quiet"``, ``"minimal"``, ``"normal"``, ``"detailed"`` and ``"diagnostic"``.
     - **definitions** (Optional, Defaulted to ``None``): Dictionary with additional compiler definitions to be applied during the build.
       Use a dictionary with the desired key and its value set to ``None`` to set a compiler definition with no value.
+    - **user_property_file_name** (Optional, Defaulted to ``None``): Filename or list of filenames of user properties files to be automatically passed to the build command. These files have priority over the *conan_build.props* file (user can override that file values), and if a list of file names is provided, later file names also have priority over the former ones. These filenames will be passed, together with *conan_build.props* files as ``/p:ForceImportBeforeCppTargets`` argument.
+
 
 .. note::
 
@@ -150,7 +153,8 @@ Returns a string command calling :command:`MSBuild`.
 
     def get_command(self, project_file, props_file_path=None, targets=None, upgrade_project=True,
                     build_type=None, arch=None, parallel=True, toolset=None, platforms=None,
-                    use_env=False, properties=None, output_binary_log=None, verbosity=None)
+                    use_env=False, properties=None, output_binary_log=None, verbosity=None,
+                    user_property_file_name=None)
 
 Parameters:
     - **props_file_path** (Optional, Defaulted to ``None``): Path to a property file to be included in the compilation command. This

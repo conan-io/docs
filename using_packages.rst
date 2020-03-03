@@ -12,3 +12,4 @@ packages) with Conan.
    using_packages/conanfile_txt
    using_packages/using_profiles
    using_packages/workflows
+   using_packages/debugging

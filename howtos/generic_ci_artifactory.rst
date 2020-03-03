@@ -7,7 +7,7 @@ Uploading the BuildInfo
 -----------------------
 
 If you are using :ref:`Jenkins with Conan and Artifactory<jenkins_integration>`, along with the
-`Jenkins Artifactory Plugin <https://www.jfrog.com/confluence/display/RTF/Jenkins+Artifactory+Plug-in>`_,
+`Jenkins Artifactory Plugin <https://www.jfrog.com/confluence/display/JFROG/Jenkins+Artifactory+Plug-in>`_,
 any Conan package downloaded or uploaded during your build will be automatically recorded in
 the BuildInfo json file, that will be automatically uploaded to the specified Artifactory instance.
 
@@ -18,7 +18,7 @@ Extracting build-info from the Conan trace log
 ##############################################
 
 1. Before calling Conan the first time in your build, set the environment variable `CONAN_TRACE_FILE` to a
-   file path. The generated file will contain the `BuildInfo json <https://www.jfrog.com/confluence/display/RTF/Build+Integration#BuildIntegration-BuildInfoJSON>`_.
+   file path. The generated file will contain the `BuildInfo json <https://www.jfrog.com/confluence/display/JFROG/Build+Integration#BuildIntegration-BuildInfoJSON>`_.
 
 2. You also need to create the :ref:`artifacts.properties<artifacts.properties>` file in your Conan home containing the build
    information. All this properties will be automatically associated to all the published artifacts.
@@ -91,7 +91,7 @@ is calling to the ``start`` subcommand of ``conan_build_info``. This will set th
     $ cd .. && cd consumer
     $ conan install . # Consumes mypackage, generates a lockfile
     $ conan create . consumer/1.0@user/stable --lockfile conan.lock
-    $ conan upload * -c -r local # Upload all packages to local remotes
+    $ conan upload "*" -c -r local # Upload all packages to local remotes
 
 3. Create build information based on the contents of the generated `conan.lock` lockfile and the
 information retrieved from the remote (the authentication is for the remote where you uploaded the
