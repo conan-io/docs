@@ -103,7 +103,7 @@ something like:
                 self.cpp_info.includedirs = [d.lower()]
 
 That will map the include directories to ``examples/features/editable/cmake/say/include_debug`` when working with ``build_type=Debug``
-conan setting, and to ``path/to/local/dev/libsay/include_release`` if ``build_type=Release``. In the same way, other
+conan setting, and to ``examples/features/editable/cmake/say/include_release`` if ``build_type=Release``. In the same way, other
 directories (libdirs, bindirs, etc) can be customized, with any logic, different for different OS, build systems, etc.
 
 .. code-block:: python
