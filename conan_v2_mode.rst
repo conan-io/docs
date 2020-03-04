@@ -19,7 +19,8 @@ environment and, please, report your feedback about it.
 .. warning::
 
    **Do not activate this mode in a production environment!** Even if everything seems
-   to work fine, package ID might change and the ABI can be modified.
+   to work fine, package ID might change, revisions will be different and the ABI could
+   be incompatible.
 
 
 Changes related to default configuration
