@@ -187,6 +187,7 @@ Layout files are specified in the :command:`conan editable add` command, as an e
 
 .. code-block:: bash
 
+    $ cd examples/features/editable/cmake/say
     $ conan editable add . say/0.1@user/channel --layout=layout_vs
 
 That ``layout_vs`` file will be first looked for relative to the current directory (the
