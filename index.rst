@@ -31,3 +31,4 @@ Contents:
    faq
    glossary
    changelog
+   conan_v2_mode
