@@ -52,8 +52,8 @@ working directory**:
 
 .. code-block:: bash
 
-    $ conan editable add <path/to/local/dev/libsay> say/0.1@user/channel
-    # you could do "cd <path/to/local/dev/libsay> && conan editable add . say/0.1@user/channel"
+    $ conan editable add examples/features/editable/cmake/say say/0.1@user/channel
+    # you could do "cd <examples/features/editable/cmake/say> && conan editable add . say/0.1@user/channel"
 
 
 That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan package or project,
