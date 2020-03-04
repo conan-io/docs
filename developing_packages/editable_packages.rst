@@ -161,14 +161,19 @@ This file can use the package reference to customize logic for a specific packag
 
    .. code-block:: ini
 
-       [includedirs]
-       src/include
+       [build_folder]
+       build
 
-       [say/0.1@user/channel:includedirs]
+       [source_folder]
        src
 
-This layout will define the ``src`` include directory for the ``say`` package, and
-``src/include`` for other packages in editable mode.
+       [includedirs]
+       src
+
+       [libdirs]
+       build/{{settings.build_type}}/lib
+
+This layout will define the ``src`` include directory for the ``say`` and for other packages in editable mode.
 
 In every case the directories that will be affected by the editable mode will be ``includedirs``,
 ``libdirs``, ``bindirs``, ``resdirs``, ``srcdirs`` and ``builddirs``, all of them declared in the
