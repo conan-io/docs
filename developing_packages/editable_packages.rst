@@ -73,7 +73,7 @@ if nothing is specified is equivalent to:
         self.cpp_info.resdirs = ["res"]
 
 That means that conan will use the path ``examples/features/editable/cmake/say/include`` for locating the headers of
-the ``hello`` package, the ``path/to/local/dev/libsay/lib`` to locate the libraries of the package, and so on.
+the ``say`` package, the ``examples/features/editable/cmake/say/lib`` to locate the libraries of the package, and so on.
 
 That might not be very useful, as typically while editing the source code and doing incremental builds, the
 development layout is different from that final "package" layout. While it is possible to run a
