@@ -118,7 +118,7 @@ directories (libdirs, bindirs, etc) can be customized, with any logic, different
                     # NOTE: Use the real layout used in your VS projects, this is just an example
                     self.cpp_info.libdirs = ["%s_%s" % (self.settings.build_type, self.settings.arch)]
 
-That will define the libraries directories to ``path/to/local/dev/libsay/Release_x86_64``, for example.
+That will define the libraries directories to ``examples/features/editable/cmake/say/Release_x86_64``, for example.
 That is only an example, the real layout used by VS would be different.
 
 Layout files
