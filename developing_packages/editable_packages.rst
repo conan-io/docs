@@ -57,7 +57,7 @@ working directory**:
 
 
 That is it. Now, every usage of ``say/0.1@user/channel``, by any other Conan package or project,
-will be redirected to the ``<path/to/local/dev/libsay>`` user folder instead of using the package
+will be redirected to the ``examples/features/editable/cmake/say`` user folder instead of using the package
 from the conan cache.
 
 The Conan package recipes define a package "layout" in their ``package_info()`` methods. The default one,
