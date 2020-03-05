@@ -44,7 +44,7 @@ is a snippet of the conanfile of the Poco library:
     import shutil
 
     class PocoConan(ConanFile):
-        name = "Poco"
+        name = "poco"
         version = "1.6.0"
 
         def source(self):
@@ -403,7 +403,7 @@ recipe's repository.
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
 The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
-These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and 
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and
 :command:`install <path>` commands).
 
 The above example uses the current working directory as the one to resolve the relative "name.txt" path and the git repository.
@@ -810,7 +810,7 @@ any setting or option:
 self.info.header_only()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The package will always be the same, irrespective of the OS, compiler or architecture the consumer is building with.
+The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 

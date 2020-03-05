@@ -68,7 +68,7 @@ needed in the image as well as any other from its dependencies (like shared libr
         license = "EPL", "EDL"
         settings = "os", "arch", "compiler", "build_type"
         generators = "cmake"
-        requires = "OpenSSL/1.0.2o@conan/stable", "c-ares/1.14.0@conan/stable"
+        requires = "openssl/1.0.2u", "c-ares/1.15.0"
 
     def source(self):
         source_url = "https://github.com/eclipse/mosquitto"

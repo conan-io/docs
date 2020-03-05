@@ -38,7 +38,7 @@ Open ``conanfile.txt`` and change (or add) the ``visual_studio`` generator:
 .. code-block:: text
 
     [requires]
-    Poco/1.7.8p3@pocoproject/stable
+    poco/1.9.4
 
     [generators]
     visual_studio

@@ -40,22 +40,22 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	  - x64
 
 	install:
-	  - cmmd: echo "Downloading conan..."
-	  - cmmd: set PATH=%PATH%;%PYTHON%/Scripts/
-	  - cmmd: pip.exe install conan
-	  - cmmd: conan user # Create the conan data directory
-	  - cmmd: conan --version
+	  - cmd: echo "Downloading conan..."
+	  - cmd: set PATH=%PATH%;%PYTHON%/Scripts/
+	  - cmd: pip.exe install conan
+	  - cmd: conan user # Create the conan data directory
+	  - cmd: conan --version
 
 	build_script:
-	  - cmmd: mkdir build
-	  - cmmd: conan install . -o gtest:shared=True
-	  - cmmd: cd build
-	  - cmmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
-	  - cmmd: cmake --build . --config Release
+	  - cmd: mkdir build
+	  - cmd: conan install . -o gtest:shared=True
+	  - cmd: cd build
+	  - cmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
+	  - cmd: cmake --build . --config Release
 
 	test_script:
-	  - cmmd: cd bin
-	  - cmmd: encryption_test.exe
+	  - cmd: cd bin
+	  - cmd: encryption_test.exe
 
 
 Appveyor will install the **Conan** tool and will execute the **conan install** command.

@@ -4,7 +4,7 @@ Flatpak
 -------
 
 `Flatpak <https://flatpak.org/>`_ (former ``xdg-app``) is a package management system to distribute desktop applications for Linux. It is based on `OSTree <https://ostree.readthedocs.io/en/latest/manual/introduction/>`_. 
-Flatpak is `RedHat <https://www.redhat.com>`_ initiative.
+Flatpak is `RedHat <https://www.redhat.com/en>`_ initiative.
 
 Unlike :ref:`AppImage <deployment_appimage>`, usually applications are distributed via `flathub <https://flathub.org>`_ store, and require a special runtime to install applications on target machines.
 

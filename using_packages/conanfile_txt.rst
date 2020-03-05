@@ -25,9 +25,9 @@ packages are stored and cached, so they don't have to be retrieved again. You ca
 If you navigate to the folders referenced in ``conanbuildinfo.cmake`` you will find the
 headers and libraries for each package.
 
-If you execute a :command:`conan install Poco/1.9.0@pocoproject/stable` command in your shell, Conan will
-download the Poco package and its dependencies (*OpenSSL/1.0.2l@conan/stable* and
-*zlib/1.2.11@conan/stable*) to your local cache and print information about the folder where
+If you execute a :command:`conan install poco/1.9.4@` command in your shell, Conan will
+download the Poco package and its dependencies (*openssl/1.0.2t* and
+*zlib/1.2.11*) to your local cache and print information about the folder where
 they are installed. While you can install each of your dependencies individually like that,
 the recommended approach for handling dependencies is to use a ``conanfile.txt`` file.
 The structure of ``conanfile.txt`` is described below.
@@ -41,16 +41,16 @@ Here is an example:
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    mypackage/1.0.0@company/stable
 
 Where:
 
-  - ``Poco`` is the name of the package which is usually the same as the project/library.
-  - ``1.9.0`` is the version which usually matches that of the packaged project/library. This can be any
+  - ``mypackage`` is the name of the package which is usually the same as the project/library.
+  - ``1.0.0`` is the version which usually matches that of the packaged project/library. This can be any
     string; it does not have to be a number, so, for example, it could indicate if this is a "develop" or "master" version.
     Packages can be overwritten, so it is also OK to have packages like "nightly" or "weekly", that
     are regenerated periodically.
-  - ``pocoproject`` is the owner of this package. It is basically a namespace that allows different users to have their own packages for
+  - ``company`` is the owner of this package. It is basically a namespace that allows different users to have their own packages for
     the same library with the same name.
   - ``stable`` is the channel. Channels provide another way to have different variants of packages for the same library
     and use them interchangeably. They usually denote the maturity of the package as an arbitrary
@@ -84,8 +84,8 @@ You can specify multiple requirements and **override** transitive "require's
 requirements". In our example, Conan installed the Poco package and all its requirements
 transitively:
 
-  * **OpenSSL/1.0.2l@conan/stable**
-  * **zlib/1.2.11@conan/stable**
+  * **openssl/1.0.2t**
+  * **zlib/1.2.11**
 
 .. tip::
 
@@ -101,10 +101,10 @@ We can simply enter the new version in the **[requires]** section:
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    OpenSSL/1.0.2p@conan/stable
+    poco/1.9.4
+    openssl/1.0.2u
 
-The second line will override the OpenSSL/1.0.2l required by POCO with the currently non-existent **OpenSSL/1.0.2p**.
+The second line will override the openssl/1.0.2t required by POCO with the currently non-existent **openssl/1.0.2u**.
 
 Another example in which we may want to try some new zlib alpha features: we could replace the zlib
 requirement with one from another user or channel.
@@ -112,8 +112,8 @@ requirement with one from another user or channel.
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    OpenSSL/1.0.2p@conan/stable
+    poco/1.9.4
+    openssl/1.0.2u
     zlib/1.2.11@otheruser/alpha
 
 .. note::
@@ -153,20 +153,20 @@ On the other hand, **options** are intended for package specific configuration t
 default value in the recipe. For example, one package can define that its default linkage is static,
 and this is the linkage that should be used if consumers don't specify otherwise.
 
-.. note:: 
+.. note::
 
     You can see the available options for a package by inspecting the recipe with :command:`conan get <reference>` command:
 
     .. code-block:: text
 
-        $ conan get Poco/1.9.0@pocoproject/stable
+        $ conan get poco/1.9.4@
 
     To see only specific fields of the recipe you can use the :command:`conan inspect` command instead:
 
     .. code-block:: text
 
-        $ conan inspect Poco/1.9.0@pocoproject/stable -a=options
-        $ conan inspect Poco/1.9.0@pocoproject/stable -a=default_options
+        $ conan inspect poco/1.9.4@ -a=options
+        $ conan inspect poco/1.9.4@ -a=default_options
 
 For example, we can modify the previous example to use dynamic linkage instead of the default one, which was static, by editing the
 **[options]** section in ``conanfile.txt``:
@@ -174,14 +174,14 @@ For example, we can modify the previous example to use dynamic linkage instead o
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    poco/1.9.4
 
     [generators]
     cmake
 
     [options]
-    Poco:shared=True # PACKAGE:OPTION=VALUE
-    OpenSSL:shared=True
+    poco:shared=True # PACKAGE:OPTION=VALUE
+    openssl:shared=True
 
 Install the requirements and compile from the build folder (change the CMake generator if not in Windows):
 
@@ -196,12 +196,12 @@ command line:
 
 .. code-block:: bash
 
-    $ conan install .. -o Poco:shared=True -o OpenSSL:shared=True
+    $ conan install .. -o poco:shared=True -o openssl:shared=True
     # or even with wildcards, to apply to many packages
     $ conan install .. -o *:shared=True
 
 Conan will install the binaries of the shared library packages, and the example will link with them. You can again inspect the different binaries installed.
-For example, :command:`conan search zlib/1.2.8@conan/stable`.
+For example, :command:`conan search zlib/1.2.11@`.
 
 Finally, launch the executable:
 
@@ -266,15 +266,15 @@ To demonstrate this, edit the ``conanfile.txt`` file and paste the following **[
 .. code-block:: text
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
-    
+    poco/1.9.4
+
     [generators]
     cmake
-    
+
     [options]
-    Poco:shared=True
-    OpenSSL:shared=True
-    
+    poco:shared=True
+    openssl:shared=True
+
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
     lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
@@ -296,7 +296,7 @@ Install the requirements (from the ``build`` folder), and run the binary again:
 Now look at the ``build/bin`` folder and verify that the required shared libraries are there.
 
 As you can see, the **[imports]** section is a very generic way to import files from your
-requirements to your project. 
+requirements to your project.
 
 This method can be used for packaging applications and copying the resulting executables to your bin
 folder, or for copying assets, images, sounds, test static files, etc. Conan is a generic solution
