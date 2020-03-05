@@ -23,7 +23,7 @@ environment and, please, report your feedback about it.
    be incompatible.
 
 
-Changes related to default configuration
+Changes related to the default configuration
 ----------------------------------------
 
 These changes will be applied when installing Conan for the first time, as these are
