@@ -7,11 +7,13 @@ Conan has started to think about the next major release. We've been gathering fe
 from the community about our features and we think it's time to break some default
 behaviors, clean the codebase and add space for new developments.
 
-In version 1.23 we have introduced an environment variable that will mimic the behavior
-of the future version. This is a work-in-progress, this **Conan v2 mode is highly experimental
-so there is no commitment of stability here**, but we expect that users with this mode
-activated will help us to shape the future version of Conan while we keep evolving
-the Conan v1 series.
+In version 1.23 we have introduced an environment variable to activate new defaults and
+best practices. The objective is to try to minimize the impact on existing recipes when Conan
+v2 will be available and to start gathering feedback about the new configuration and
+behavior. This does not resemble the full behavior that Conan 2.0 will bring. The **v2 mode
+is a work-in-progress, it is highly experimental and there is no commitment for stability here**,
+but we expect that users with this mode activated will help us to shape the future version of
+Conan while we keep evolving the Conan v1 series.
 
 So, if you are ready to experiment add the variable ``CONAN_V2_MODE`` to your
 environment and, please, report your feedback about it.
