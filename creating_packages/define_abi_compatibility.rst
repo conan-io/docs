@@ -729,8 +729,7 @@ transitivity dependency. Lets say that we have the following scenario:
 - ``App/1.0`` now depends on ``PkgC/1.0`` and ``PkgA/2.0``
 
 .. image:: /images/conan-full_transitive_package_id.png
-    :height: 310 px
-    :width: 200 px
+    :width: 100 %
     :align: center
 
 
