@@ -717,7 +717,7 @@ to the indirect consumers of that package. There are several ways this can be do
 ``self.info.requires.remove["dep"]`` and ``self.info.requires.unrelated_mode()``, for example.
 
 Let's assume for the discussion that it is a header only library, using the ``self.info.header_only()`` helper. This header only package has
-a single dependency, which is a static library. hen downstream
+a single dependency, which is a static library. Then, downstream
 consumers of the header only library that uses a package mode different from the default, should be also affected by the upstream
 transitivity dependency. Lets say that we have the following scenario:
 
