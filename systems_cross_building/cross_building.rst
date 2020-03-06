@@ -160,7 +160,7 @@ A *bin/example.exe* for Win64 platform has been built.
 Windows to Raspberry Pi (Linux/ARM)
 ...................................
 
-- Install the toolchain: http://gnutoolchains.com/raspberry/
+- Install the toolchain: https://gnutoolchains.com/raspberry/
   You can choose different versions of the GCC cross compiler. Choose one and adjust the following
   settings in the profile accordingly.
 

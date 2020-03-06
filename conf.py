@@ -41,7 +41,7 @@ extensions = [
 # The short X.Y version.
 version = "1.22"
 # The full version, including alpha/beta/rc tags.
-release = u'1.22.2'
+release = u'1.22.3'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -388,6 +388,9 @@ epub_exclude_files = ['search.html']
 
 # A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
 linkcheck_ignore = [r'http://localhost:\d+']
+linkcheck_workers = 30
+linkcheck_timeout = 90
+linkcheck_retries = 2
 
 
 # copy legacy redirects
