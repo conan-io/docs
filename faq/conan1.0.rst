@@ -93,7 +93,7 @@ New features
 .. important::
 
   Please **don't** use cross-build settings ``os_build``, ``arch_build`` for standard packages and libraries.
-  They are only useful for packages that are used via ``build_requires``, like ``cmake_installer`` or ``mingw_installer``.
+  They are only useful for packages that are used via ``build_requires``, like ``cmake`` or ``mingw_installer``.
 
 
 - Model and utilities for Windows subsystems

@@ -20,6 +20,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
     default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
+    # full_transitive_package_id = 0      
     # retry = 2                           # environment CONAN_RETRY
     # retry_wait = 5                      # environment CONAN_RETRY_WAIT (seconds)
     # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
@@ -66,6 +67,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
     # with "~/", will be relative to the conan user home, not to the system user home)
     path = ./data
+    # download_cache = /path/to/my/cache
 
     [proxies]
     # Empty (or missing) section will try to use system proxies.
@@ -132,6 +134,10 @@ as it may result in corrupted packages.
 
 The ``default_package_id_mode`` changes the way package IDs are computed. By default, if not specified
 it will be ``semver_direct_mode``, but can change to any value defined in :ref:`package_id_mode`.
+
+The ``full_transitive_package_id`` changes the way package IDs are computed regarding transitive dependencies.
+By default, if not specified will be disabled (``0``). Read more about it in :ref:`full_transitive_package_id`.
+
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
@@ -217,6 +223,13 @@ On Windows:
 
     If you want to change the default "conan home" (directory where ``conan.conf`` file is) you can adjust
     the environment variable ``CONAN_USER_HOME``.
+
+
+The ``storage.download_cache`` variable defines the path to a folder that can be used to cache the different file downloads from Conan servers but
+also from user downloads via the ``tools.get()`` and ``tools.download()`` methods that provide a checksum. Defining this variable will both configure
+the path and activate the download cache. If it is not defined, the download cache will not be used.
+
+Read more about the :ref:`download cache here <download_cache>`.
 
 .. _proxys:
 

@@ -23,7 +23,7 @@ For private development:
 - **Artifactory Pro**: Artifactory is the binary repository manager for all major packaging formats. It
   is the recommended remote type for enterprise and professional package management. Check the
   `Artifactory documentation`_ for more information. For a comparison between Artifactory editions,
-  check the `Artifactory Comparison Matrix <https://www.jfrog.com/confluence/display/RTF/Artifactory+Comparison+Matrix>`_.
+  check the `Artifactory Comparison Matrix <https://www.jfrog.com/confluence/display/JFROG/Artifactory+Comparison+Matrix>`_.
 - **Conan server**: Simple, free and open source, MIT licensed server that comes bundled with the Conan client.
   Check :ref:`running_your_server` for more information.
 
@@ -105,4 +105,4 @@ Conan Community
 
 
 .. _`conan-center`: https://bintray.com/conan/conan-center
-.. _Artifactory documentation: https://www.jfrog.com/confluence/display/RTF/Welcome+to+Artifactory
+.. _Artifactory documentation: https://www.jfrog.com/confluence/display/JFROG/JFrog+Artifactory

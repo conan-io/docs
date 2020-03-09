@@ -69,7 +69,7 @@ require the zlib library from a Conan package:
 .. code-block:: text
 
     [requires]
-    zlib/1.2.11@conan/stable
+    zlib/1.2.11
 
     [generators]
     cmake
@@ -170,7 +170,7 @@ Edit the ``conanfile.py``:
         options = {"shared": [True, False]}
         default_options = {"shared": False}
         generators = "cmake"
-        requires = "zlib/1.2.11@conan/stable"
+        requires = "zlib/1.2.11"
 
         def build(self):
             cmake = CMake(self)

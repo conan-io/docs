@@ -32,7 +32,7 @@ Add ``conanbuildinfo.qbs`` as a reference on the project level and a Depends ite
 This will include the product called ``ConanBasicSetup`` which holds all
 the necessary settings for all your dependencies.
 
-If you'd prefer to manually add each dependency, just replace 
+If you'd prefer to manually add each dependency, just replace
 ``ConanBasicSetup`` with the dependency you would like to include.
 You may also specify multiple dependencies:
 

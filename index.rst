@@ -24,6 +24,7 @@ Contents:
    systems_cross_building
    extending
    integrations
+   configuration
    howtos
    reference
    videos

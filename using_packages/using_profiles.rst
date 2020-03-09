@@ -69,9 +69,9 @@ A profile to install dependencies as **shared** and in **debug** mode would look
     build_type=Debug
 
     [options]
-    Poco:shared=True
-    Poco:enable_apacheconnector=False
-    OpenSSL:shared=True
+    poco:shared=True
+    poco:enable_apacheconnector=False
+    openssl:shared=True
 
 To install dependencies using the profile file, we would use:
 
@@ -87,9 +87,9 @@ We could also create a new profile to use a different compiler version and store
     include(clang_3.5)
 
     [options]
-    Poco:shared=True
-    Poco:enable_apacheconnector=False
-    OpenSSL:shared=True
+    poco:shared=True
+    poco:enable_apacheconnector=False
+    openssl:shared=True
 
 To install dependencies using this new profile, we would use:
 

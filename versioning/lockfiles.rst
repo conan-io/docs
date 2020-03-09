@@ -102,6 +102,15 @@ There are 2 main entry points for lockfile information in conan commands:
         generate a lockfile, but the problem with :command:`conan info -if=.` is that it does not allow to 
         specify a profile or settings.
 
+    - :command:`conan graph clean-modified`
+
+        When a :command:`conan create` command that uses a lockfile builds a new binary, its reference
+        will change. This change, typically in the form of a recipe revision and/or package revision
+        is updated in the lockfile and the node is marked as "modified". This :command:`clean-modified`
+        removes these "modified" flags from a lockfile. This operation is typically needed before starting
+        the build of a package in a locked graph, to know exactly which nodes have been modified by this
+        operation.
+
     - :command:`conan graph update-lock`
 
         Update the current lockfile with the information of the second lockfile. Only the nodes marked
@@ -239,6 +248,13 @@ We can now proceed iteratively with the following procedure:
     .. code-block:: bash
 
         $ conan graph build-order ./release --json=bo.json --build=missing
+
+7. clean "modified" nodes from the lockfile
+
+    .. code:: bash
+
+        $ conan graph clean-modified release/
+
 
 Note that this is a suboptimal approach, in order to explain the functionality, which
 is more easy to follow if it is sequential. In reality, the CI can take the first
