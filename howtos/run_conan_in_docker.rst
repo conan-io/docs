@@ -122,7 +122,7 @@ Their dockerfiles can be found in the `Conan Docker Tools <https://github.com/co
 
 .. warning::
 
-    The images listed below are intended for generating opensource library packages and we cannot guarantee any kind of stability.
+    The images listed below are intended for generating open-source library packages and we cannot guarantee any kind of stability.
     We strongly recommend using your own generated images for production environments taking these dockerfiles as a reference.
 
 **GCC** images
