@@ -264,3 +264,9 @@ they should match, otherwise, an error will be raised.
     $ conan install . version@user/testing # OK
     $ conan install . pkg/version@user/testing # OK
     $ conan install pkg/version@user/testing user/channel # Error, first arg is not a path
+
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.
