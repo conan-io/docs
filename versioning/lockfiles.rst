@@ -281,3 +281,14 @@ With package revisions it is also possible to achieve the same flow without bump
 - It is necessary to define the ``recipe_revision_mode`` or the ``package_revision_mode`` if we want to guarantee that the binaries correctly model the dependencies changes.
 
 For implementing this flow, it might be necessary to share the different ``conan.lock`` lockfiles among different machines, to pass them to build servers. A git repo could be used, but also an Artifactory generic repository could be very convenient for this purpose.
+
+
+
+.. note::
+
+    There is a **very experimental, temporary** configuration (``general.relax_lockfile``), that allows to expand dependency
+    graphs with packages that are not in the lockfile. This scenario happens for example when a ``test_package/conanfile.py`` contains
+    other requirements. If the lockfile was built from another downstream consumer, the ``test_package`` and its requirements will
+    not be contained in the lockfile. But we might still want to do a ``conan create`` for that node of the graph.
+    Putting the ``general.relax_lockfile=1`` will allow this case. This is a temporary thing introduced at 1.23, will be removed in future versions
+    (while probably leaving the behavior in some of its forms)
