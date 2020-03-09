@@ -152,3 +152,8 @@ The ``reference`` field can be:
 
 In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.
