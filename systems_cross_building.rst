@@ -8,6 +8,7 @@ This section explains how to cross build with Conan to any platform and the Wind
 .. toctree::
    :maxdepth: 3
 
+   systems_cross_building/cross_building_v2
    systems_cross_building/cross_building
    systems_cross_building/windows_subsystems
 

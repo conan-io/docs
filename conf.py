@@ -36,6 +36,7 @@ extensions = [
     'sphinx.ext.todo',
     'conan',
     'sphinxcontrib.spelling',
+    'sphinx.ext.graphviz',
 ]
 
 # The short X.Y version.
