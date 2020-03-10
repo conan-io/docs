@@ -134,12 +134,15 @@ can add logic to the files:
 
    .. code-block:: ini
 
-       [build_folder]
+       [say/0.1@user/channel:build_folder]
        {% if settings.compiler == "Visual Studio" %}
        build
        {% else %}
        build/{{settings.build_type}}
        {% endif %}
+
+       [build_folder]
+       build/{{settings.arch}}/{{settings.build_type}}
 
        [source_folder]
        src
