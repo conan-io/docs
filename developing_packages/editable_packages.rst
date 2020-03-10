@@ -29,11 +29,11 @@ Let's see this feature over an practical example; the code can be found in the c
 .. code-block:: bash
 
     $ git clone https://github.com/conan-io/examples.git
-    $ cd features/editable/cmake
 
 
-Here a developer is creating the app ``hello`` but at the same time they want to work
-on ``say/0.1@user/channel`` library which is tightly coupled to the app.
+In the project `examples/features/editable/cmake` a developer is creating the app
+``hello`` but at the same time they want to work on ``say/0.1@user/channel`` library which
+is tightly coupled to the app.
 
 The package ``say/0.1@user/channel`` is already working, the developer has the sources in a
 local folder and they are using whatever method to build and develop locally and can perform
@@ -134,24 +134,25 @@ can add logic to the files:
 
    .. code-block:: ini
 
-       [includedirs]
-       src/core/include
-       src/cmp_a/include
-
-       [libdirs]
-       build/{{settings.build_type}}/{{settings.arch}}
-
-       [bindirs]
-       {% if options.shared %}
-       build/{{settings.build_type}}/shared
+       [build_folder]
+       {% if settings.compiler == "Visual Studio" %}
+       build
        {% else %}
-       build/{{settings.build_type}}/static
+       build/{{settings.build_type}}
        {% endif %}
 
-       [resdirs]
-       {% for item in ["cmp1", "cmp2", "cmp3"] %}
-       src/{{ item }}/resouces/{% if item != "cmp3" %}{{ settings.arch }}{% endif %}
-       {% endfor %}
+       [source_folder]
+       src
+
+       [includedirs]
+       src
+
+       [libdirs]
+       build/{{settings.build_type}}/lib
+
+       [bindirs]
+       build/{{settings.build_type}}/bin
+
 
 You can have a look at the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ to know more
 about its powerful syntax.
