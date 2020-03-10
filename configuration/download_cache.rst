@@ -84,3 +84,10 @@ a lot of storage. If you are using this feature, provide for a sufficiently larg
 At the moment, it is only a folder. You can clean the cached artifacts just by removing that folder and its contents. You might also be able to 
 run scripts and jobs that remove old artifacts only. If you do such operations, please make sure that there are not other Conan processes using
 it simultaneously, or they might fail.
+
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`. You might want to try combining both the parallel download and
+  the download cache for extra speed.
