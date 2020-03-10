@@ -112,11 +112,18 @@ Cross-building and uploading a package along with all its missing dependencies f
     $ conan upload "*" -r myremoteARMV7 --all
 
 
-
 .. _available_docker_images:
 
 Available Docker images
 -----------------------
+
+We provide a set of images with the most common compilers installed that can be used to generate Conan packages for different profiles.
+Their dockerfiles can be found in the `Conan Docker Tools <https://github.com/conan-io/conan-docker-tools>`_ repository.
+
+.. warning::
+
+    The images listed below are intended for generating open-source library packages and we cannot guarantee any kind of stability.
+    We strongly recommend using your own generated images for production environments taking these dockerfiles as a reference.
 
 **GCC** images
 
@@ -180,6 +187,3 @@ Available Docker images
 +--------------------------------------------------------------------------------------+------------------+
 | `conanio/clang50 (Clang 5) <https://hub.docker.com/r/conanio/clang50/>`_             | x86_64           |
 +--------------------------------------------------------------------------------------+------------------+
-
-
-The Dockerfiles for all these images can be found `here <https://github.com/conan-io/conan-docker-tools>`_.
