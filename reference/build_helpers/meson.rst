@@ -72,7 +72,7 @@ build()
 
     def build(self, args=None, build_dir=None, targets=None)
 
-Builds `Meson` project with the given parameters.
+Builds Meson project with the given parameters.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
@@ -89,7 +89,7 @@ test()
 
     def test(args=None, build_dir=None, target=None)
 
-Execute `ninja` test target, which usually means building and running unit tests.
+Executes ninja test target, which usually means building and running unit tests.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
@@ -106,7 +106,7 @@ install()
 
     def install(args=None, build_dir=None)
 
-Execute `ninja` install target.
+Executes ninja install target.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
@@ -122,7 +122,7 @@ meson_test()
 
     def meson_test(args=None, build_dir=None)
 
-Execute `meson test` command.
+Executes ``meson test`` command.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``meson test`` command. Each argument will be escaped
@@ -138,7 +138,7 @@ meson_install()
 
     def meson_install(args=None, build_dir=None)
 
-Execute `meson install` command.
+Executes ``meson install`` command.
 
 Parameters:
     - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``meson install`` command. Each argument will be escaped
