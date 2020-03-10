@@ -21,6 +21,26 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.23 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.23.0 (10-Mar-2020)
+--------------------
+
+- Feature: New ``general.parallel_download=<num threads>`` configuration, for parallel installation of binaries, to speed up populating packages in a cache. `#6632 <https://github.com/conan-io/conan/pull/6632>`_ . Docs `here <https://github.com/conan-io/docs/pull/1583>`__
+- Feature: Fixed inability to run execute `test` and `install` separately, that is, without `build` step. Added `meson_test()` method, which executes `meson test` (compared to `ninja test` in `test()`). Added `meson_install()` method, which executes `meson install` (compared to `ninja install` in `install()`). `#6574 <https://github.com/conan-io/conan/pull/6574>`_ . Docs `here <https://github.com/conan-io/docs/pull/1568>`__
+- Feature: Update python six dependency to 1.14.0. `#6507 <https://github.com/conan-io/conan/pull/6507>`_
+- Feature: Add environment variable 'CONAN_V2_MODE' to enable Conan v2 behavior. `#6490 <https://github.com/conan-io/conan/pull/6490>`_ . Docs `here <https://github.com/conan-io/docs/pull/1578>`__
+- Feature: Implement `conan graph clean-modified` subcommand to be able to clean the modified state of a lockfile and re-use it later for more operations. `#6465 <https://github.com/conan-io/conan/pull/6465>`_ . Docs `here <https://github.com/conan-io/docs/pull/1542>`__
+- Feature: Allow building dependency graphs when using lockfiles even if some requirements are not in the lockfiles. This can happen for example when ``test_package/conanfile.py`` has other requirements, as they will not be part of the lockfile. `#6457 <https://github.com/conan-io/conan/pull/6457>`_ . Docs `here <https://github.com/conan-io/docs/pull/1585>`__
+- Feature: Implement a new package-ID computation that includes transitive dependencies even when the direct dependencies have remove them, for example when depending on a header-only library that depends on a static library. `#6451 <https://github.com/conan-io/conan/pull/6451>`_ . Docs `here <https://github.com/conan-io/docs/pull/1575>`__
+- Fix: inspect command can be executed without remote.json (#6558) `#6559 <https://github.com/conan-io/conan/pull/6559>`_
+- Fix: Raise an error if ``MSBuild`` argument ``targets`` is not a list, instead of splitting a string passed as argument instead of a list. `#6555 <https://github.com/conan-io/conan/pull/6555>`_
+- Bugfix: Check the `CMP0091` policy and set `CMAKE_MSVC_RUNTIME_LIBRARY` accordingly to `CONAN_LINK_RUNTIME` if it's set to `NEW`. `#6626 <https://github.com/conan-io/conan/pull/6626>`_
+- Bugfix: Fix error parsing `system_libs` from `conanbuildinfo.txt` file. `#6616 <https://github.com/conan-io/conan/pull/6616>`_
+- Bugfix: Environment variables from the profiles are not set in the _conaninfo.txt_ file of the packages exported with the `export-pkg` command. `#6607 <https://github.com/conan-io/conan/pull/6607>`_
+- BugFix: Set the ``self.develop=True`` attribute for recipes when they are used with :command:`conan export-pkg`, in all methods, it was previously only setting it for the ``package()`` method. `#6585 <https://github.com/conan-io/conan/pull/6585>`_
+- Bugfix: set CMAKE_OSX_DEPLOYMENT_TARGET for iOS, watchOS and tvOS. `#6566 <https://github.com/conan-io/conan/pull/6566>`_
+- Bugfix: Parse function of GCC version from command line now works with versions `>=10`. `#6551 <https://github.com/conan-io/conan/pull/6551>`_
+- Bugfix: improve Apple frameworks lookups with CMake integration `#6533 <https://github.com/conan-io/conan/pull/6533>`_
+
 1.22.3 (05-Mar-2020)
 --------------------
 
