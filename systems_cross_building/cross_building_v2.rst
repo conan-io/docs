@@ -66,7 +66,7 @@ for the *build machine*):
     }
 
 
-You can find all these recipes in this [this repository](https://github.com/jgsogo/conan-xbuild),
+You can find all these recipes in `this repository <https://github.com/jgsogo/conan-xbuild/>`_,
 all the packages has the same structure, these are the relevant points:
 
 * Same set of settings, nothing different for executables, tools or libraries:
