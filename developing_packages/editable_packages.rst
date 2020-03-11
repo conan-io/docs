@@ -134,6 +134,27 @@ can add logic to the files:
 
    .. code-block:: ini
 
+       [build_folder]
+       build/{{settings.build_type}}
+
+       [source_folder]
+       src
+
+       [includedirs]
+       src
+
+       [libdirs]
+       build/{{settings.build_type}}/lib
+
+
+You can have a look at the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ to know more
+about its powerful syntax.
+
+
+This file can use the package reference to customize logic for a specific package:
+
+   .. code-block:: ini
+
        [say/0.1@user/channel:build_folder]
        {% if settings.compiler == "Visual Studio" %}
        build
@@ -156,28 +177,9 @@ can add logic to the files:
        [bindirs]
        build/{{settings.build_type}}/bin
 
-
-You can have a look at the `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ to know more
-about its powerful syntax.
-
-
-This file can use the package reference to customize logic for a specific package:
-
-   .. code-block:: ini
-
-       [build_folder]
-       build
-
-       [source_folder]
-       src
-
-       [includedirs]
-       src
-
-       [libdirs]
-       build/{{settings.build_type}}/lib
-
 This layout will define the ``src`` include directory for the ``say`` and for other packages in editable mode.
+Also, the ``build_folder`` has a condition only for ``say/0.1@user/channel`` package. It will use a specific path,
+according the compiler.
 
 In every case the directories that will be affected by the editable mode will be ``includedirs``,
 ``libdirs``, ``bindirs``, ``resdirs``, ``srcdirs`` and ``builddirs``, all of them declared in the
