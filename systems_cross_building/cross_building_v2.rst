@@ -89,7 +89,7 @@ all the packages has the same structure, these are the relevant points:
 * Every package contains a library. ``app``, ``testtool`` and ``cmake`` also contains a executable. libraries
   link to the libraries of the requirements. Executables link to the libraries in their package.
 
-* C++ implementatio is quite simple: there is function and an inline function in every library (useful to check shared builds),
+* C++ implementation is quite simple: there is function and an inline function in every library (useful to check shared builds),
   both of them identifies the library and show the message. Functions call to their requirements too.
 
   This is the output for the ``cmake_ese`` application compiled with a ``Debug`` profile, for example:
