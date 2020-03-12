@@ -76,7 +76,7 @@ Do I always need to specify how to build the package from source?
 No. But it is highly recommended. If you want, you can just directly start with the binaries,
 build elsewhere, and upload them directly. Maybe your ``build()`` step can download pre-compiled
 binaries from another source and unzip them, instead of actually compiling from sources.
-You can also use the ``export-pkg`` command to create packages from existing binaries.
+You can also use the :ref:`conan export-pkg<conan_export-pkg>`  command to create packages from existing binaries.
 
 Does Conan use semantic versioning (semver) for dependencies?
 -------------------------------------------------------------
