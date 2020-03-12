@@ -11,7 +11,6 @@ FAQ
 .. toctree::
    :maxdepth: 2
 
-   faq/conan1.0
    faq/general
    faq/using
    faq/troubleshooting
