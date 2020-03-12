@@ -36,8 +36,10 @@ How it works
   The same package ID (for example for Linux/GCC5/Debug), can have multiple revisions (PREVs) that belong
   to a concrete RREV.
 
-If a client requests a reference like ``lib/1.0@conan/stable``, Conan will automatically retrieve the latest revision.
-In the client cache there is **only one revision installed simultaneously**.
+If a client requests a reference like ``lib/1.0@conan/stable``, Conan will automatically retrieve the latest revision in case
+the local cache doesn't contain any revisions already. If a client needs to update an existing revision, they have to ask for updates explicitly
+with -u, --update argument to :command:`conan install` command. In the client cache there is
+**only one revision installed simultaneously**.
 
 The revisions can be pinned when you write a reference (in the recipe requires, or in a reference in a
 :command:`conan install` command…) but if you don’t specify a revision, the server will retrieve the latest revision.
