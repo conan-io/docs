@@ -38,7 +38,7 @@ How it works
 
 If a client requests a reference like ``lib/1.0@conan/stable``, Conan will automatically retrieve the latest revision in case
 the local cache doesn't contain any revisions already. If a client needs to update an existing revision, they have to ask for updates explicitly
-with with with -u, --update argument to :command:`conan install` command… In the client cache there is
+with -u, --update argument to :command:`conan install` command. In the client cache there is
 **only one revision installed simultaneously**.
 
 The revisions can be pinned when you write a reference (in the recipe requires, or in a reference in a
