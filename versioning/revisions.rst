@@ -37,7 +37,7 @@ How it works
   to a concrete RREV.
 
 If a client requests a reference like ``lib/1.0@conan/stable``, Conan will automatically retrieve the latest revision in case
-local cache doesn't have any revisions at that point. If client needs to update the existing revision, it has to ask for updates
+the local cache doesn't contain any revisions already. If a client needs to update an existing revision, they have to ask for updates explicitly
 with with with -u, --update argument to :command:`conan install` command… In the client cache there is
 **only one revision installed simultaneously**.
 
