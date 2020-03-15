@@ -10,6 +10,7 @@
 {% set css_files = ['css/signup.css', 'css/theme.css'] + css_files %}
 
 <!DOCTYPE html>
+<!-- TODO -->
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
@@ -129,7 +130,7 @@
             {% endif %}
           {% endblock %}
           <div class="dark_newsletter-div">
-             <p>Sign up for release updates:</p>
+             <p>Sign up for updates:</p>
               <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
               <form id="mktoForm_1479"></form>
               <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
@@ -154,9 +155,10 @@
         var reldir = "{{ pathto("index") }}".replace("index.html","").replace("#", "");
       </script>
       <div class="wy-nav-content">
+        <img src="../../_static/conan-dec-image.png" class="content-dec" />
         <div class="rst-content">
           {% include "breadcrumbs.html" %}
-          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <!--<select id="searchss" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
           <hr/>-->
 
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
