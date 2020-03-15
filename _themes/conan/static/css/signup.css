@@ -25,7 +25,7 @@
 
 
 .dark_newsletter-div .mktoLabel a{
-    display: inline !important;
+    display: block !important;
     padding: 0px;
     color: #538cc3 !important;
 }
@@ -40,7 +40,7 @@
 .mktoForm .mktoRequiredField label.mktoLabel {
     font-weight: bold;
     color: white;
-    width: 80% !important;
+    width: 100% !important;
 }
 
 .mktoForm .mktoAsterix {
@@ -77,12 +77,18 @@
     display: block !important;
 }
 
+.mktoForm input#Email {
+  width: 233px !important;
+  height: 35px;
+  margin-top: 10px;
+  max-width: 100% !important;
+}
+
 .dark_newsletter-div {
-    margin-left: 8px;
     margin-top: 20px;
-    border: 1px solid #80808080;
-    padding: 10px;
-    width: 88%;
+    width: 100%;
+    padding-left: 1.618em;
+    padding-right: 1.618em;
     margin-bottom: 50px;
 }
 
@@ -96,6 +102,139 @@
     background-repeat: no-repeat;
     background-position: left;
     padding-left: 80px;
+}
+
+body .mktoForm .mktoButtonWrap.mktoSimple .mktoButton {
+  width: 92px;
+  height: 34px;
+  background: #4CB74A;
+  color: #fff;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+label.mktoLabel.mktoHasWidth {
+  font-size: 14px;
+}
 
 
+
+
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLabel {
+  padding-left: 18px;
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoClear{
+  display: none !important;
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField {
+  display: -webkit-flex !important;
+  display: -ms-flex !important;
+  display: flex !important;
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+form#rtd-search-form ::placeholder {
+    padding-left: 20px;
+}
+
+form#rtd-search-form input[name="q"] {
+  width: 100%;
+  border: 1px solid #2C4257;
+  border-radius: 2px;
+  background-image: url(../search-input-bg.png);
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #000;
+}
+
+form#rtd-search-form input[name="q"]:valid {
+  background: none;
+  color: #000
+}
+
+@media screen and (max-width: 480px) {
+  form.mktoForm.mktoHasWidth.mktoLayoutLeft {
+    display: block !important;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  form.mktoForm.mktoHasWidth.mktoLayoutLeft input#Email{
+    margin-top: 0;
+  }
+}
+
+
+
+/* checkbox */
+
+/* Basic styles */
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField a.mchNoDecorate:hover {
+  color: #fff;
+  background: transparent;
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+}
+
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField label {
+  position: relative;
+  display: inline-block;
+  padding: 0 0 0 2em;
+  height: 1.5em;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField label::before,
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField label::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField label::before {
+  content: " ";
+  border: 2px solid #bdc3c7;
+  border-radius: 20%;
+}
+/* Checkbox */
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField input[type="checkbox"] + label::after {
+  content: "\2714";
+  color: #2c3e50;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* :checked */
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField input[type="checkbox"]:checked + label::before {
+  background: #fff;
+  border-color: #fff;
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField input[type="checkbox"] + label::after {
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+}
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField input[type="checkbox"]:checked + label::after {
+  -webkit-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -o-transform: scale(1.5);
+  transform: scale(1.5);
+  top: 3px;
+  left: 1px;
+}
+/* Transition */
+.mktoFormRow:nth-child(3) .mktoFieldWrap.mktoRequiredField .mktoLogicalField label::after {
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
 }
