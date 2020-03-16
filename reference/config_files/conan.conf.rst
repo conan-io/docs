@@ -20,6 +20,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
     default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
+    # parallel_download = 8               # experimental download binaries in parallel
+    # full_transitive_package_id = 0      
     # retry = 2                           # environment CONAN_RETRY
     # retry_wait = 5                      # environment CONAN_RETRY_WAIT (seconds)
     # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
@@ -133,6 +135,17 @@ as it may result in corrupted packages.
 
 The ``default_package_id_mode`` changes the way package IDs are computed. By default, if not specified
 it will be ``semver_direct_mode``, but can change to any value defined in :ref:`package_id_mode`.
+
+The ``full_transitive_package_id`` changes the way package IDs are computed regarding transitive dependencies.
+By default, if not specified will be disabled (``0``). Read more about it in :ref:`full_transitive_package_id`.
+
+The ``parallel_download`` configuration defines the number of threads to be used to do parallel downloads of
+different binaries. This happens when dependencies are installed (``conan install``, ``conan create``) and when
+multiple binaries for the same package are retrieved via ``conan download`` command. This is an **experimental**
+feature, subject to change. It is known that the output is still not clean, and will be mangled when using multiple
+threads. Please report on https://github.com/conan-io/conan/issues about performance gains, and other issues.
+You might want to try this one in combination with the ``storage.download_cache`` configuration (see below.)
+
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.

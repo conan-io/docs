@@ -148,5 +148,5 @@ And your final application can follow this layout:
 You could move the entire application folder to any location and the shared libraries will be located
 correctly.
 
-.. _`CMake RPATH handling`: https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/RPATH-handling
+.. _`CMake RPATH handling`: https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling
 .. _`CMAKE_BUILD_WITH_INSTALL_RPATH`: https://cmake.org/cmake/help/v3.0/variable/CMAKE_BUILD_WITH_INSTALL_RPATH.html

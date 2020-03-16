@@ -72,13 +72,79 @@ build()
 
     def build(self, args=None, build_dir=None, targets=None)
 
-Builds `Meson` project with the given parameters.
+Builds Meson project with the given parameters.
 
 Parameters:
-    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``make`` command. Each argument will be escaped
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
       according to the current shell. No extra arguments will be added if ``args=None``.
-    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None``, it will be set to ``conanfile.build_folder``.
-    - **targets** (Optional, Defaulted to ``None``): A list of targets to be built. No targets will be added if ``targets=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+    - **targets** (Optional, Defaulted to ``None``): Specifies the targets to build. The default *all* target will be built if ``None`` is specified.
+
+
+test()
+++++++
+
+.. code-block:: python
+
+    def test(args=None, build_dir=None, target=None)
+
+Executes ninja test target, which usually means building and running unit tests.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+    - **targets** (Optional, Defaulted to ``None``): Specifies the targets to be executed. The *test* target will be executed if ``None`` is specified.
+
+
+install()
++++++++++
+
+.. code-block:: python
+
+    def install(args=None, build_dir=None)
+
+Executes ninja install target.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+
+
+meson_test()
+++++++++++++
+
+.. code-block:: python
+
+    def meson_test(args=None, build_dir=None)
+
+Executes ``meson test`` command.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``meson test`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+
+
+meson_install()
++++++++++++++++
+
+.. code-block:: python
+
+    def meson_install(args=None, build_dir=None)
+
+Executes ``meson install`` command.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``meson install`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
 
 Example
 -------

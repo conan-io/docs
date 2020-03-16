@@ -102,6 +102,15 @@ There are 2 main entry points for lockfile information in conan commands:
         generate a lockfile, but the problem with :command:`conan info -if=.` is that it does not allow to 
         specify a profile or settings.
 
+    - :command:`conan graph clean-modified`
+
+        When a :command:`conan create` command that uses a lockfile builds a new binary, its reference
+        will change. This change, typically in the form of a recipe revision and/or package revision
+        is updated in the lockfile and the node is marked as "modified". This :command:`clean-modified`
+        removes these "modified" flags from a lockfile. This operation is typically needed before starting
+        the build of a package in a locked graph, to know exactly which nodes have been modified by this
+        operation.
+
     - :command:`conan graph update-lock`
 
         Update the current lockfile with the information of the second lockfile. Only the nodes marked
@@ -240,6 +249,13 @@ We can now proceed iteratively with the following procedure:
 
         $ conan graph build-order ./release --json=bo.json --build=missing
 
+7. clean "modified" nodes from the lockfile
+
+    .. code:: bash
+
+        $ conan graph clean-modified release/
+
+
 Note that this is a suboptimal approach, in order to explain the functionality, which
 is more easy to follow if it is sequential. In reality, the CI can take the first
 sublist output of :command:`conan graph build-order` and fire all its packages in parallel,
@@ -265,3 +281,14 @@ With package revisions it is also possible to achieve the same flow without bump
 - It is necessary to define the ``recipe_revision_mode`` or the ``package_revision_mode`` if we want to guarantee that the binaries correctly model the dependencies changes.
 
 For implementing this flow, it might be necessary to share the different ``conan.lock`` lockfiles among different machines, to pass them to build servers. A git repo could be used, but also an Artifactory generic repository could be very convenient for this purpose.
+
+
+
+.. note::
+
+    There is a **very experimental, temporary** configuration (``general.relax_lockfile``), that allows to expand dependency
+    graphs with packages that are not in the lockfile. This scenario happens for example when a ``test_package/conanfile.py`` contains
+    other requirements. If the lockfile was built from another downstream consumer, the ``test_package`` and its requirements will
+    not be contained in the lockfile. But we might still want to do a ``conan create`` for that node of the graph.
+    Putting the ``general.relax_lockfile=1`` will allow this case. This is a temporary thing introduced at 1.23, will be removed in future versions
+    (while probably leaving the behavior in some of its forms)
