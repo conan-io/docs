@@ -3,7 +3,7 @@
 Introduction
 ============
 
-Conan is a dependency and package manager for C and C++ languages. It is free and open-source, and it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and can be used to develop for all targets including embedded, mobile (iOS, Android), bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
+Conan is a dependency and package manager for C and C++ languages. It is free and open-source, and it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and can be used to develop for all targets including embedded, mobile (iOS, Android), bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones. Conan is powered by JFrog Artifactory Community Edition which is available to `download for free <https://conan.io/downloads.html>`_  for the C / C++ community.
 
 It is specifically designed and optimized for accelerating the development and Continuous Integration of C and C++ projects. With full binary management, it can create and reuse any number of different binaries (for different configurations, like architectures, compiler versions, etc) for any number of different versions of a package, using exactly the same process in all platforms. As it is decentralized, it is easy to run your own server to host your own packages and binaries privately, without needing to share them.
 
@@ -33,7 +33,6 @@ The different applications in the image above are:
 
 - The Conan client: this is a console/terminal command-line application, containing the heavy logic for package creation and consumption. Conan client has a local cache for package storage, and so it allows you to fully create and test packages offline. You can also work offline as long as no new packages are needed from remote servers.
 - `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control. It is a free community edition of JFrog Artifactory for Conan packages, including a WebUI, multiple auth protocols (LDAP), Virtual and Remote repositories to create advanced topologies, a Rest API and generic repositories to host any artifact.
-- The conan_server is a small server distributed together with the Conan client. It is a simple open-source implementation, it provides the basic functionality but no WebUI or other advanced features.
 - `ConanCenter <https://conan.io/center>`_ is a central public repository where the community contributes packages for popular open-source libraries, like Boost, Zlib, OpenSSL, Poco, etc.
 
 Binary management
