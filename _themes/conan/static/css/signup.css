@@ -146,7 +146,7 @@ form#rtd-search-form input[name="q"] {
   width: 100%;
   border: 1px solid #2C4257;
   border-radius: 2px;
-  background-image: url(../search-input-bg.png);
+  background-image: url(../../../../_static/search-input-bg.png);
   background-repeat: no-repeat;
   background-position: 10px center;
   color: #000;

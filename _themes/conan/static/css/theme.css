@@ -25,6 +25,7 @@
  .wy-nav-content {
    position: relative;
    background: #EFEEEF;
+   min-height: 100vh;
  }
 
  .wy-nav-content img.content-dec {
@@ -62,18 +63,18 @@
  }
 
  .wy-menu-vertical a {
-   color: red;
+   color: #fff;
  }
 
  .wy-side-nav-search {
    background: #fff;
  }
 
- .wy-nav-content-wrap {
-    background: #eee;
-}
 
   @media screen and (max-width: 1400px) {
+    .wy-nav-content-wrap {
+      background: #eee;
+    }
     .wy-nav-content img.content-dec {
       left: calc(661px + (100vw - 300px)/2);
     }
