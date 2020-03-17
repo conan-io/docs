@@ -388,7 +388,7 @@ epub_exclude_files = ['search.html']
 
 # A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
 linkcheck_ignore = [r'http://localhost:\d+']
-linkcheck_workers = 30
+linkcheck_workers = 20
 linkcheck_timeout = 90
 linkcheck_retries = 2
 
