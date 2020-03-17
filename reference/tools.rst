@@ -591,7 +591,7 @@ tools.patch()
     def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None, fuzz=False)
 
 Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff) format. To be used mainly in
-the ``source()`` method.
+the ``build()`` method.
 
 .. code-block:: python
 
@@ -603,6 +603,11 @@ the ``source()`` method.
     tools.patch(patch_string=patch_content)
     # to apply in subfolder
     tools.patch(base_path=mysubfolder, patch_string=patch_content)
+    # from conandata
+    tools.patch(**self.conan_data["patches"][self.version])
+    # from conandata, using multiple versions
+    for patch in self.conan_data["patches"][self.version]:
+        tools.patch(**patch)
 
 If the patch to be applied uses alternate paths that have to be stripped like this example:
 
