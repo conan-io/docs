@@ -24,8 +24,8 @@ On a high level, the servers are just a package storage. They do not build nor c
 
 
 .. image:: images/conan-systems.png
-   :height: 200 px
-   :width: 400 px
+   :height: 400 px
+   :width: 500 px
    :align: center
 
 
