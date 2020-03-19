@@ -628,7 +628,7 @@ SystemPackageTool
 
 .. code-block:: python
 
-    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
+    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None, default_mode="enabled")
 
 Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
 **PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
@@ -650,6 +650,15 @@ When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan w
 
     - :command:`sudo` is available in the ``PATH``.
     - The platform name is ``posix`` and the UID (user id) is not ``0``
+
+Also, when the environment variable ``CONAN_SYSREQUIRES_MODE`` is not defined, Conan will set its
+value to ``enabled``. In this case, it's also possible to set the default value of the variable to
+other valid values (``verify`` or ``disabled``). This can be useful in the case that, for example, we
+want to install missing system requirements in the docker images of a CI server so that they are able
+to generate binaries (this images would run with the environment variable ``CONAN_SYSREQUIRES_MODE``
+defined as ``enabled``), but passing ``default_mode="verify"`` as a parameter in the constructor of
+``SystemPackageTool`` in the recipe, we will not force the installation of those requirements when
+the recipe is installed and ``CONAN_SYSREQUIRES_SUDO`` is not set.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary

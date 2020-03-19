@@ -480,6 +480,11 @@ See values behavior:
       doesn't install any package in your system. Useful if you want to keep manual control of these dependencies,
       for example in your development environment.
 
+Although this value is defaulted to ``enabled``, the default value can be configured with the
+``default_mode`` parameter in the ``SystemPackageTool`` constructor. If this parameter is passed,
+``CONAN_SYSREQUIRES_MODE`` will take this value if the environment variable has not been previously
+defined.
+
 CONAN_SYSREQUIRES_SUDO
 ----------------------
 
