@@ -387,8 +387,8 @@ epub_exclude_files = ['search.html']
 #epub_use_index = True
 
 # A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
-linkcheck_ignore = [r'http://localhost:\d+']
-linkcheck_workers = 20
+linkcheck_ignore = [r'http://localhost:\d+', r'https://github.com/conan-io/conan/pull/\d+', r'https://github.com/conan-io/docs/pull/\d+']
+linkcheck_workers = 15
 linkcheck_timeout = 90
 linkcheck_retries = 2
 

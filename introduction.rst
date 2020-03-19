@@ -3,7 +3,7 @@
 Introduction
 ============
 
-Conan is a dependency and package manager for C and C++ languages. It is free and open-source, and it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and can be used to develop for all targets including embedded, mobile (iOS, Android), bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
+Conan is a dependency and package manager for C and C++ languages. It is `free and open-source <https://github.com/conan-io/conan>`_, and it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and can be used to develop for all targets including embedded, mobile (iOS, Android), bare metal. It also integrates with all build systems like CMake, Visual Studio (MSBuild), Makefiles, SCons, etc., including proprietary ones.
 
 It is specifically designed and optimized for accelerating the development and Continuous Integration of C and C++ projects. With full binary management, it can create and reuse any number of different binaries (for different configurations, like architectures, compiler versions, etc) for any number of different versions of a package, using exactly the same process in all platforms. As it is decentralized, it is easy to run your own server to host your own packages and binaries privately, without needing to share them. The free `JFrog Artifactory Community Edition (CE) <https://conan.io/downloads.html>`_ is the recommended Conan server to host your own packages privately under your control.
 
@@ -24,8 +24,8 @@ On a high level, the servers are just a package storage. They do not build nor c
 
 
 .. image:: images/conan-systems.png
-   :height: 200 px
-   :width: 400 px
+   :height: 400 px
+   :width: 500 px
    :align: center
 
 
