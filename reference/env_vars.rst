@@ -461,6 +461,8 @@ the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
 and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
+.. _env_vars_conan_sysrequires_mode:
+
 CONAN_SYSREQUIRES_MODE
 ----------------------
 
@@ -481,7 +483,7 @@ See values behavior:
       for example in your development environment.
 
 Although this value is defaulted to ``enabled``, the default value can be configured with the
-``default_mode`` parameter in the ``SystemPackageTool`` constructor. If this parameter is passed,
+``default_mode`` parameter in the :ref:`SystemPackageTool<systempackagetool>` constructor. If this parameter is passed,
 ``CONAN_SYSREQUIRES_MODE`` will take this value if the environment variable has not been previously
 defined.
 
