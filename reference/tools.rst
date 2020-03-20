@@ -590,7 +590,7 @@ tools.patch()
 
     def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None, fuzz=False)
 
-Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff) format. Use it preferably in the build() method.
+Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff) format. Use it preferably in the ``build()`` method.
 
 .. code-block:: python
 
