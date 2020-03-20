@@ -128,7 +128,7 @@ Put the following files inside. Note the ``PremakeGen@0.1@myuser/testing`` packa
     [requires]
     hello/0.1@myuser/testing
     PremakeGen@0.1@myuser/testing
-    
+
     [generators]
     Premake
 
@@ -136,7 +136,7 @@ Put the following files inside. Note the ``PremakeGen@0.1@myuser/testing`` packa
    :caption: *main.cpp*
 
     #include "hello.h"
-    
+
     int main (void) {
         hello();
     }
@@ -185,7 +185,7 @@ Now we are ready to build the project:
     $ premake4 gmake
     $ make (or mingw32-make if in windows-mingw)
     $ ./MyApplication
-    Hello World!
+    Hello World Release!
 
 Now everything works, so you might want to share your generator:
 
