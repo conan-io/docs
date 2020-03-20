@@ -128,7 +128,7 @@ Parameters:
     - **output_binary_log** (Optional, Defaulted to ``None``): Sets ``/bl`` flag. If set to ``True`` then MSBuild will output a binary log
       file called *msbuild.binlog* in the working directory. It can also be used to set the name of log file like this
       ``output_binary_log="my_log.binlog"``. This parameter is only supported
-      `starting from MSBuild version 15.3 and onwards <http://msbuildlog.com/>`_.
+      `starting from MSBuild version 15.3 and onwards <https://msbuildlog.com/>`_.
     - **property_file_name** (Optional, Defaulted to ``None``): Sets ``p:ForceImportBeforeCppTargets``. When ``None`` it will generate a
       file named *conan_build.props*. You can specify a different name for the generated properties file.
     - **verbosity** (Optional, Defaulted to ``None``): Sets the ``/verbosity`` flag to the specified verbosity level. Possible values are
