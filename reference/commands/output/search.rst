@@ -287,7 +287,7 @@ The output JSON contains a two first level keys:
                                       "os":"Windows"
                                   },
                                   "requires":[
-                                      "OpenSSL/1.0.2n@conan/stable:606fdb601e335c2001bdf31d478826b644747077",
+                                      "openssl/1.0.2n@conan/stable:606fdb601e335c2001bdf31d478826b644747077",
                                       "zlib/1.2.11@conan/stable:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7"
                                   ],
                                   "outdated":true
@@ -309,7 +309,7 @@ The output JSON contains a two first level keys:
                                       "os":"Windows"
                                   },
                                   "requires":[
-                                      "OpenSSL/1.0.2n@conan/stable:f761d91cef7988eafb88c6b6179f4cf261609f26",
+                                      "openssl/1.0.2n@conan/stable:f761d91cef7988eafb88c6b6179f4cf261609f26",
                                       "zlib/1.2.11@conan/stable:6dc82da13f94df549e60f9c1ce4c5d11285a4dff"
                                   ],
                                   "outdated":true

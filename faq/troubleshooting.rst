@@ -76,7 +76,7 @@ When you install or create a package, it is possible to see an error like this:
 
 .. code-block:: bash
 
-    ERROR: Hello/0.1@user/testing: 'settings.arch' value not defined
+    ERROR: hello/0.1@user/testing: 'settings.arch' value not defined
 
 This means that the recipe defined ``settings = "os", "arch", ...`` but a value for the ``arch`` setting was
 not provided either in a profile or in the command line. Make sure to specify a value for it in your profile,
@@ -90,7 +90,7 @@ If you are building a pure C library with gcc/clang, you might encounter an erro
 
 .. code-block:: bash
 
-    ERROR: Hello/0.1@user/testing: 'settings.compiler.libcxx' value not defined
+    ERROR: hello/0.1@user/testing: 'settings.compiler.libcxx' value not defined
 
 Indeed, for building a C library, it is not necessary to define a C++ standard library. And if you provide a value,
 you might end with multiple packages for exactly the same binary. What has to be done is to remove such subsetting

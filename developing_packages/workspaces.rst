@@ -118,11 +118,11 @@ depend on different versions of the same library, as in any other Conan command.
 
     root: chat/0.1@user/testing, say/0.1@user/testing
     # or
-    root: ["HelloA/0.1@lasote/stable", "HelloB/0.1@lasote/stable"]
+    root: ["helloA/0.1@lasote/stable", "helloB/0.1@lasote/stable"]
     # or
     root:
-        - HelloA/0.1@lasote/stable
-        - HelloB/0.1@lasote/stable
+        - helloA/0.1@lasote/stable
+        - helloB/0.1@lasote/stable
 
 
 Single configuration build environments

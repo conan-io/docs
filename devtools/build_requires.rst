@@ -29,19 +29,19 @@ Build requirements can be declared in profiles, like:
    :caption: my_profile
 
     [build_requires]
-    Tool1/0.1@user/channel
-    Tool2/0.1@user/channel, Tool3/0.1@user/channel
-    *: Tool4/0.1@user/channel
-    MyPkg*: Tool5/0.1@user/channel
-    &: Tool6/0.1@user/channel
-    &!: Tool7/0.1@user/channel
+    tool1/0.1@user/channel
+    tool2/0.1@user/channel, tool3/0.1@user/channel
+    *: tool4/0.1@user/channel
+    my_pkg*: tool5/0.1@user/channel
+    &: tool6/0.1@user/channel
+    &!: tool7/0.1@user/channel
 
 Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all
-packages. Packages can be declared in different lines or by a comma separated list. In this example, ``Tool1``, ``Tool2``, ``Tool3`` and
+packages. Packages can be declared in different lines or by a comma separated list. In this example, ``tool1``, ``tool2``, ``tool3`` and
 ``Tool4`` will be used for all packages in the dependency graph (while running :command:`conan install` or :command:`conan create`).
 
-If a pattern like ``MyPkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern. ``Tool5``
-will not be applied to Zlib for example, but it will be applied to ``MyPkgZlib``.
+If a pattern like ``my_pkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern. ``tool5``
+will not be applied to Zlib for example, but it will be applied to ``my_pkg_zlib``.
 
 The special case of a **consumer** conanfile (without name or version) it is impossible to match with a pattern, so it is handled with the
 special character ``&``:
@@ -57,13 +57,13 @@ Build requirements can also be specified in a package recipe, with the ``build_r
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "ToolA/0.2@user/testing", "ToolB/0.2@user/testing"
+        build_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
         def build_requirements(self):
             # useful for example for conditional build_requires
             # This means, if we are running on a Windows machine, require ToolWin
             if platform.system() == "Windows":
-                self.build_requires("ToolWin/0.1@user/stable")
+                self.build_requires("tool_win/0.1@user/stable")
 
 The above ``ToolA`` and ``ToolB`` will always be retrieved and used for building this recipe, while the ``ToolWin`` one will only be used
 only in Windows.
@@ -170,11 +170,10 @@ If a Conan package is defined to wrap and reuse the *mypythontool.py* file:
 
 .. code-block:: python
 
-    import os
     from conans import ConanFile
 
     class Tool(ConanFile):
-        name = "PythonTool"
+        name = "python_tool"
         version = "0.1"
         exports_sources = "mypythontool.py"
 
@@ -189,7 +188,7 @@ Then if it is defined in a profile as a build require:
 .. code-block:: text
 
     [build_requires]
-    PythonTool/0.1@user/channel
+    python_tool/0.1@user/channel
 
 such package can be reused in other recipes like this:
 

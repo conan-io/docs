@@ -44,7 +44,7 @@ you will need to have the shared library available.
 
     class ToolA(ConanFile):
         ....
-        name = "toolA"
+        name = "tool_a"
         version = "1.0"
         options = {"shared": [True, False]}
         default_options = {"shared": False}
@@ -54,7 +54,7 @@ you will need to have the shared library available.
 
         def package(self):
             # Copy the executable
-            self.copy(pattern="toolA*", dst="bin", keep_path=False)
+            self.copy(pattern="tool_a*", dst="bin", keep_path=False)
 
             # Copy the libraries
             if self.options.shared:
@@ -67,8 +67,8 @@ you will need to have the shared library available.
 Using the tool from a different package
 ---------------------------------------
 
-If we are now creating a package that uses the ``ToolA`` executable to compress some data, we can
-execute directly ``toolA`` using RunEnvironment build helper to set the environment variables accordingly:
+If we are now creating a package that uses the ``tool_a`` executable to compress some data, we can
+execute directly ``tool_a`` using RunEnvironment build helper to set the environment variables accordingly:
 
 .. code-block:: python
 
@@ -76,33 +76,33 @@ execute directly ``toolA`` using RunEnvironment build helper to set the environm
     from conans import tools, ConanFile
 
     class PackageB(ConanFile):
-        name = "packageB"
+        name = "package_b"
         version = "1.0"
-        requires = "toolA/1.0@myuser/stable"
+        requires = "tool_a/1.0@myuser/stable"
 
         def build(self):
-            exe_name = "toolA.exe" if self.settings.os == "Windows" else "toolA"
+            exe_name = "tool_a.exe" if self.settings.os == "Windows" else "tool_a"
             self.run("%s --someparams" % exe_name, run_environment=True)
             ...
 
-Building an application using the shared library from ``toolA``
+Building an application using the shared library from ``tool_a``
 ---------------------------------------------------------------
 
 As we are building a final application, we will probably want to distribute it together with the
-shared library from the ``toolA``, so we can use the :ref:`Imports<imports_txt>` to import the required
+shared library from the ``tool_a``, so we can use the :ref:`Imports<imports_txt>` to import the required
 shared libraries to our user space.
 
 .. code-block:: python
    :caption: *conanfile.txt*
 
     [requires]
-    toolA/1.0@myuser/stable
+    tool_a/1.0@myuser/stable
 
     [generators]
     cmake
 
     [options]
-    toolA:shared=True
+    tool_a:shared=True
 
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
@@ -127,7 +127,7 @@ In Linux you still need to set the ``LD_LIBRARY_PATH``, or in OSX, the ``DYLD_LI
 
 .. code-block:: bash
 
-   $ cd bin && LD_LIBRARY_PATH=$(pwd) && ./mytool
+    $ cd bin && LD_LIBRARY_PATH=$(pwd) && ./mytool
 
 Using shared libraries from dependencies
 ----------------------------------------
@@ -161,10 +161,10 @@ Using ``virtualrunenv`` generator
    :caption: *conanfile.txt*
 
     [requires]
-    toolA/1.0@myuser/stable
+    tool_a/1.0@myuser/stable
 
     [options]
-    toolA:shared=True
+    tool_a:shared=True
 
     [generators]
     virtualrunenv
@@ -175,6 +175,6 @@ In the terminal window:
 
     $ conan install .
     $ source activate_run
-    $ toolA --someparams
+    $ toola --someparams
     # Only For Mac OS users to avoid restrictions:
     $ DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH toolA --someparams
