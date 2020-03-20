@@ -12,7 +12,7 @@ that you get an error like the following one:
 
      WARN: Can't find a 'czmq/4.2.0' package for the specified settings, options and dependencies:
     - Settings: arch=x86_64, build_type=Release, compiler=Visual Studio, compiler.runtime=MD, compiler.version=16, os=Windows
-    - Options: shared=False, with_libcurl=True, with_libuuid=True, with_lz4=True, libcurl:shared=False, libcurl:with_brotli=False, libcurl:with_largemaxwritesize=False, libcurl:with_ldap=False, libcurl:with_libidn=False, libcurl:with_libmetalink=False, libcurl:with_libpsl=False, libcurl:with_librtmp=False, libcurl:with_libssh2=False, libcurl:with_nghttp2=False, libcurl:with_openssl=True, libcurl:with_winssl=False, libsodium:PIE=False, libsodium:shared=False, libsodium:use_soname=True, lz4:shared=False, openssl:386=False, openssl:capieng_dialog=False, openssl:no_asm=False, openssl:no_async=False, openssl:no_bf=False, openssl:no_cast=False, openssl:no_des=False, openssl:no_dh=False, openssl:no_dsa=False, openssl:no_dso=False, openssl:no_hmac=False, openssl:no_md2=False, openssl:no_md5=False, openssl:no_mdc2=False, openssl:no_rc2=False, openssl:no_rc4=False, openssl:no_rc5=False, openssl:no_rsa=False, openssl:no_sha=False, openssl:no_sse2=False, openssl:no_threads=False, openssl:no_zlib=False, openssl:openssldir=None, openssl:shared=False, zeromq:encryption=libsodium, zeromq:shared=False, zlib:minizip=False, zlib:shared=False
+    - Options: shared=False, with_libcurl=True, with_libuuid=True, with_lz4=True, libcurl:shared=False, ...
     - Dependencies: openssl/1.1.1d, zeromq/4.3.2, libcurl/7.67.0, lz4/1.9.2
     - Requirements: libcurl/7.Y.Z, lz4/1.Y.Z, openssl/1.Y.Z, zeromq/4.Y.Z
     - Package ID: 7a4079899e0893ca670df1f682b4606abe79ee5b
