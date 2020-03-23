@@ -26,7 +26,7 @@ This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build
 and shared pre-built packages at all and only uploaded the package recipe, or maybe they are only
 providing packages for some platforms or compilers. E.g. the package creator built packages
-from the recipe for Visual Studio 14 and 15, but you are using gcc 16.
+from the recipe for Visual Studio 14 and 15, but you are using Visual Studio 16.
 
 By default, conan doesn't build packages from sources. There are several possibilities:
 
