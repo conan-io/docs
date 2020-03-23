@@ -6,7 +6,7 @@ Snap
 `Snap <https://snapcraft.io/>`_ is the package management system available for the wide range of Linux distributions.
 Unlike :ref:`AppImage <deployment_appimage>`, Snap requires a daemon (``snapd``) installed in the system in order to operate. Under the hood, **Snap** is based on
 `SquashFS <https://github.com/plougher/squashfs-tools>`_. 
-``Snap`` is `Canonical <https://canonical.com/>`_ initiative. Usually, applications are distributed via `snapcraft <https://snapcraft.io/store>`_ store, but it's not mandatory.
+``Snap`` is `Canonical <https://canonical.com>`_ initiative. Usually, applications are distributed via `snapcraft <https://snapcraft.io/store>`_ store, but it's not mandatory.
 ``Snap`` provides fine-grained control to system resources (e.g. camera, removable media, network, etc.).
 The major advantage is `plug-in system <https://snapcraft.io/docs/supported-plugins>`_, which allows to easily integrate ``Snap`` with different languages and build systems (e.g. CMake, autotools, etc.).
 

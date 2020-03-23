@@ -74,7 +74,7 @@ Defining a Custom package_id()
 ------------------------------
 
 The default ``package_id()`` uses the ``settings`` and ``options`` directly as defined, and assumes the
-`semantic versioning <https://semver.org/>`_ for dependencies is defined in ``requires``.
+`semantic versioning <https://semver.org>`_ for dependencies is defined in ``requires``.
 
 This ``package_id()`` method can be overridden to control the package ID generation. Within the ``package_id()``, we have access to the
 ``self.info`` object, which is hashed to compute the binary ID and contains:
@@ -394,7 +394,7 @@ When defining a package ID for model dependencies, it is necessary to take into 
 Versioning Schema
 +++++++++++++++++
 
-By default Conan assumes `semver <https://semver.org/>`_ compatibility. For example, if a version changes from minor **2.0** to **2.1**, Conan will
+By default Conan assumes `semver <https://semver.org>`_ compatibility. For example, if a version changes from minor **2.0** to **2.1**, Conan will
 assume that the API is compatible (headers not changing), and that it is not necessary to build a new binary for it. This also applies to
 patches, whereby changing from **2.1.10** to **2.1.11** doesn't require a re-build.
 

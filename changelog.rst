@@ -44,8 +44,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.22.3 (05-Mar-2020)
 --------------------
 
-- Bugfix: Do not re-evaluate lockfiles nodes, only update the package reference, otherwise the build-requires are broken. `#6529 <https://github.com/conan-io/conan/pull/6529>`_
-- Bugfix: Fixing locking system for metadata file so it can be accessed concurrently. `#6524 <https://github.com/conan-io/conan/pull/6524>`_
+- Bugfix: Fixed crashing of recipes using both ``python_requires`` and ``build_id()``. `#6618 <https://github.com/conan-io/conan/pull/6618>`_
+- Bugfix: Conan should not append generator_platform to the Visual Studio generator if it is already specified by the user. `#6549 <https://github.com/conan-io/conan/pull/6549>`_
 
 1.22.2 (13-Feb-2020)
 --------------------
