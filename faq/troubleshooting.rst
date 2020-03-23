@@ -10,25 +10,28 @@ that you get an error like the following one:
 
 .. code-block:: text
 
-    WARN: Can't find a 'libzmq/4.2.0@memsharded/testing' package for the specified options and settings:
-    - Settings: arch=x86_64, build_type=Release, compiler=gcc, compiler.libcxx=libstdc++, compiler.version=4.9, os=Windows
-    - Options: shared=False
-    - Package ID: 7fe67dff831b24bc4a8b5db678a51f1be5e44e7c
+     WARN: Can't find a 'czmq/4.2.0' package for the specified settings, options and dependencies:
+    - Settings: arch=x86_64, build_type=Release, compiler=Visual Studio, compiler.runtime=MD, compiler.version=16, os=Windows
+    - Options: shared=False, with_libcurl=True, with_libuuid=True, with_lz4=True, libcurl:shared=False, ...
+    - Dependencies: openssl/1.1.1d, zeromq/4.3.2, libcurl/7.67.0, lz4/1.9.2
+    - Requirements: libcurl/7.Y.Z, lz4/1.Y.Z, openssl/1.Y.Z, zeromq/4.Y.Z
+    - Package ID: 7a4079899e0893ca670df1f682b4606abe79ee5b
 
-    ERROR: Missing prebuilt package for 'libzmq/4.2.0@memsharded/testing'
-    Try to build it from sources with "--build libzmq" or read "http://docs.conan.io/en/latest/faq.html"
+    ERROR: Missing prebuilt package for 'czmq/4.2.0'
+    Try to build it from sources with "--build czmq"
+    Or read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package"
 
 
-This means that the package recipe ``libzmq/4.2.0@memsharded/testing`` exists, but for some reason
+This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build
 and shared pre-built packages at all and only uploaded the package recipe, or maybe they are only
 providing packages for some platforms or compilers. E.g. the package creator built packages
-from the recipe for gcc 4.8 and 4.9, but you are using gcc 5.4.
+from the recipe for Visual Studio 14 and 15, but you are using Visual Studio 16.
 
 By default, conan doesn't build packages from sources. There are several possibilities:
 
 - You can try to build the package for your settings from sources, indicating some build
-  policy as argument, like ``--build libzmq`` or ``--build missing``. If the package recipe and the source
+  policy as argument, like ``--build czmq`` or ``--build missing``. If the package recipe and the source
   code work for your settings you will have your binaries built locally and ready for use.
 
 - If building from sources fail, you might want to fork the original recipe, improve it until it
