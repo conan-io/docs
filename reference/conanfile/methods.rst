@@ -252,8 +252,8 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
 - **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
-- **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a package may have:
-  libraries, executables...
+- **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
+  package may have: libraries, executables...
 
 .. code-block:: python
 

@@ -905,7 +905,7 @@ This object should be filled in ``package_info()`` method.
 | self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
 |                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.components         | **[Experiumental]** Dictionary with the different components a package may have: libraries, executables...                  |
+| self.cpp_info.components         | **[Experimental]** Dictionary with different components a package may have: libraries, executables...   |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
