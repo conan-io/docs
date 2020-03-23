@@ -92,7 +92,7 @@ And simply create the package for user and channel **demo/testing** as described
     $ conan create . demo/testing
     ...
     Hello/0.1@demo/testing test package: Running test()
-    Hello world!
+    Hello world Release!
 
 .. _scm_feature:
 
@@ -114,13 +114,13 @@ remote and commit of the local repository:
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
-         scm = {
+        scm = {
             "type": "git",  # Use "type": "svn", if local repo is managed using SVN
             "subfolder": "hello",
             "url": "auto",
             "revision": "auto",
             "password": os.environ.get("SECRET", None)
-         }
+        }
         ...
 
 You can commit and push the *conanfile.py* to your origin repository, which will always preserve the ``auto``
@@ -206,4 +206,3 @@ be valid too:
    and by default, the :command:`conan upload` will block the upload of the recipe. This prevents recipes
    to be uploaded with incorrect scm values exported.
    You can use :command:`conan upload --force` to force uploading the recipe with the "auto" values un-replaced.
-
