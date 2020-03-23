@@ -33,7 +33,8 @@ The generated ``SConscript_conan`` will generate several dictionaries, like:
         "LINKFLAGS"   : [],
     },
 
-The ``conan`` dictionary will contain the aggregated values for all dependencies, while the individual ``"Hello"`` dictionaries, one per package, will contain just the values for that specific dependency.
+The ``conan`` dictionary will contain the aggregated values for all dependencies, while the individual ``"Hello"`` dictionaries, one per
+package, will contain just the values for that specific dependency.
 
 These dictionaries can be directly loaded into the environment like:
 

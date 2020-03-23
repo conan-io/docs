@@ -81,7 +81,7 @@ There are two approaches:
   point to the needed tools/libraries in the toolchain using the ``[env]`` section to declare, at least,
   the ``CC`` and ``CXX`` environment variables.
 
-- Package the toolchain as a Conan package and include it as a ``build_require``.
+- Package the toolchain as a Conan package and include it as a ``build_requires``.
 
 
 Using profiles
@@ -160,7 +160,7 @@ A *bin/example.exe* for Win64 platform has been built.
 Windows to Raspberry Pi (Linux/ARM)
 ...................................
 
-- Install the toolchain: http://gnutoolchains.com/raspberry/
+- Install the toolchain: https://gnutoolchains.com/raspberry/
   You can choose different versions of the GCC cross compiler. Choose one and adjust the following
   settings in the profile accordingly.
 
@@ -378,7 +378,7 @@ match the gcc toolchain compiler:
 
 .. code-block:: bash
 
-    $ cd conan-zlib && conan create . conan/testing --profile=../android_21_arm_clang
+    $ cd conan-zlib && conan create . --profile=../android_21_arm_clang
 
     ...
     -- Build files have been written to: /tmp/conan-zlib/test_package/build/ba0b9dbae0576b9a23ce7005180b00e4fdef1198
@@ -386,7 +386,7 @@ match the gcc toolchain compiler:
     [ 50%] Building C object CMakeFiles/enough.dir/enough.c.o
     [100%] Linking C executable bin/enough
     [100%] Built target enough
-    zlib/1.2.11@conan/testing (test package): Running test()
+    zlib/1.2.11 (test package): Running test()
 
 A **bin/enough** for Android ARM platform has been built.
 
@@ -545,7 +545,7 @@ Here is a table with some typical ARM platforms:
 
     **ARM**
 
-    - https://developer.arm.com/docs/100066/0604/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
+    - https://developer.arm.com/docs/dui0773/latest/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
     - https://developer.arm.com/docs/dui0472/latest/compiler-command-line-options
 
     **ANDROID**

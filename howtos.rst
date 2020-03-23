@@ -12,6 +12,7 @@ This section shows common solutions and different approaches to typical problems
    howtos/makefiles
    howtos/manage_gcc_abi
    howtos/vs2017_cmake
+   howtos/intel_compiler
    howtos/manage_cpp_standard
    howtos/run_conan_in_docker
    howtos/python_code_reuse
@@ -27,3 +28,4 @@ This section shows common solutions and different approaches to typical problems
    howtos/use_tls_certificates
    howtos/check_conan_version_in_conanfile
    howtos/generic_ci_artifactory
+   howtos/sanitizers

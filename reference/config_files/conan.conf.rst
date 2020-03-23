@@ -10,7 +10,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     [log]
     run_to_output = True        # environment CONAN_LOG_RUN_TO_OUTPUT
     run_to_file = False         # environment CONAN_LOG_RUN_TO_FILE
-    level = 50                  # environment CONAN_LOGGING_LEVEL
+    level = critical            # environment CONAN_LOGGING_LEVEL
     # trace_file =              # environment CONAN_TRACE_FILE
     print_run_commands = False  # environment CONAN_PRINT_RUN_COMMANDS
 
@@ -20,6 +20,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     sysrequires_sudo = True               # environment CONAN_SYSREQUIRES_SUDO
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
     default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
+    # parallel_download = 8               # experimental download binaries in parallel
+    # full_transitive_package_id = 0      
     # retry = 2                           # environment CONAN_RETRY
     # retry_wait = 5                      # environment CONAN_RETRY_WAIT (seconds)
     # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
@@ -27,9 +29,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # verbose_traceback = False           # environment CONAN_VERBOSE_TRACEBACK
     # error_on_override = False           # environment CONAN_ERROR_ON_OVERRIDE
     # bash_path = ""                      # environment CONAN_BASH_PATH (only windows)
-    # recipe_linter = False               # environment CONAN_RECIPE_LINTER
     # read_only_cache = True              # environment CONAN_READ_ONLY_CACHE
-    # pylintrc = path/to/pylintrc_file    # environment CONAN_PYLINTRC
     # cache_no_locks = True               # environment CONAN_CACHE_NO_LOCKS
     # user_home_short = your_path         # environment CONAN_USER_HOME_SHORT
     # use_always_short_paths = False      # environment CONAN_USE_ALWAYS_SHORT_PATHS
@@ -41,8 +41,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
 
     # cmake_generator                     # environment CONAN_CMAKE_GENERATOR
-    # https://vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_generator_platform            # environment CONAN_CMAKE_GENERATOR_PLATFORM
+    # http://www.vtk.org/Wiki/CMake_Cross_Compiling
     # cmake_toolchain_file                # environment CONAN_CMAKE_TOOLCHAIN_FILE
     # cmake_system_name                   # environment CONAN_CMAKE_SYSTEM_NAME
     # cmake_system_version                # environment CONAN_CMAKE_SYSTEM_VERSION
@@ -61,17 +61,18 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # temp_test_folder = True             # environment CONAN_TEMP_TEST_FOLDER
 
     # cacert_path                         # environment CONAN_CACERT_PATH
+    # scm_to_conandata                    # environment CONAN_SCM_TO_CONANDATA
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
     # with "~/", will be relative to the conan user home, not to the system user home)
     path = ./data
+    # download_cache = /path/to/my/cache
 
     [proxies]
-    # Empty section will try to use system proxies.
-    # If don't want proxy at all, remove section [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies - but see below
+    # Empty (or missing) section will try to use system proxies.
+    # As documented in https://requests.readthedocs.io/en/master/user/advanced/#proxies - but see below
     # for proxies to specific hosts
     # http = http://user:pass@10.10.1.10:3128/
     # http = http://10.10.1.10:3128
@@ -82,7 +83,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # You can skip the proxy for the matching (fnmatch) urls (comma-separated)
     # no_proxy_match = *bintray.com*, https://myserver.*
 
-    [hooks]  # environment CONAN_HOOKS
+    [hooks]    # environment CONAN_HOOKS
     attribute_checker
 
     # Default settings now declared in the default profile
@@ -92,7 +93,9 @@ Log
 
 The ``level`` variable, defaulted to 50 (critical events), declares the LOG level .
 If you want to show more detailed logging information, set this variable to lower values,
-as 10 to show debug information. You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+as 10 to show debug information, or use the level names as ``critical``, ``error``, ``warning``,
+``info`` and ``debug``. You can also adjust the environment variable ``CONAN_LOGGING_LEVEL``.
+The level number is related to the `Python Logging Levels`_.
 
 The ``print_run_commands``, when is 1, Conan will print the executed commands in ``self.run`` to the output.
 You can also adjust the environment variable CONAN_PRINT_RUN_COMMANDS
@@ -133,6 +136,17 @@ as it may result in corrupted packages.
 The ``default_package_id_mode`` changes the way package IDs are computed. By default, if not specified
 it will be ``semver_direct_mode``, but can change to any value defined in :ref:`package_id_mode`.
 
+The ``full_transitive_package_id`` changes the way package IDs are computed regarding transitive dependencies.
+By default, if not specified will be disabled (``0``). Read more about it in :ref:`full_transitive_package_id`.
+
+The ``parallel_download`` configuration defines the number of threads to be used to do parallel downloads of
+different binaries. This happens when dependencies are installed (``conan install``, ``conan create``) and when
+multiple binaries for the same package are retrieved via ``conan download`` command. This is an **experimental**
+feature, subject to change. It is known that the output is still not clean, and will be mangled when using multiple
+threads. Please report on https://github.com/conan-io/conan/issues about performance gains, and other issues.
+You might want to try this one in combination with the ``storage.download_cache`` configuration (see below.)
+
+
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
 
@@ -155,21 +169,6 @@ Set it with the cmake executable path if it's not in the PATH or you want to use
 The ``cpu_count`` variable set the number of cores that the :ref:`tools_cpu_count` will return,
 by default the number of cores available in your machine.
 Conan recipes can use the ``cpu_count()`` tool to build the library using more than one core.
-
-The ``pylintrc`` variable points to a custom ``pylintrc`` file that allows configuring custom rules
-for the python linter executed at ``export`` time. A use case could be to define some custom indents
-(though the standard pep8 4-spaces indent is recommended, there are companies that define different styles).
-The ``pylintrc`` file has the form:
-
-.. code :: text
-
-    [FORMAT]
-    indent-string='  '
-
-Running ``pylint --generate-rcfile`` will output a complete rcfile with comments explaining the fields.
-
-The ``recipe_linter`` variable allows to disable the package recipe analysis (linting) executed at :command:`conan install`.
-Please note that this linting is very recommended, specially for sharing package recipes and collaborating with others.
 
 The ``retry`` variable allows to set up the global default value for the number of retries in all commands related to
 download/upload. User can override the value provided by the variable if the command provides an argument with the same name.
@@ -198,11 +197,18 @@ If not specified, the packages marked as `short_paths` will be stored in the ``C
 If the variable is set to "None" will disable the `short_paths` feature in Windows,
 for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 The ``verbose_traceback`` variable will print the complete traceback when an error occurs in a recipe or even
 in the conan code base, allowing to debug the detected error.
 
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
+
+The ``scm_to_conandata`` variable tells Conan to store the resolved information of the :ref:`SCM feature<scm_feature>` in the
+:ref:`conandata.yml<conandata_yml>` file instead of modifying the recipe file itself. You can also adjust
+this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
 
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
 
@@ -226,22 +232,29 @@ On Windows:
     If you want to change the default "conan home" (directory where ``conan.conf`` file is) you can adjust
     the environment variable ``CONAN_USER_HOME``.
 
+
+The ``storage.download_cache`` variable defines the path to a folder that can be used to cache the different file downloads from Conan servers but
+also from user downloads via the ``tools.get()`` and ``tools.download()`` methods that provide a checksum. Defining this variable will both configure
+the path and activate the download cache. If it is not defined, the download cache will not be used.
+
+Read more about the :ref:`download cache here <download_cache>`.
+
 .. _proxys:
 
 Proxies
 +++++++
 
-If you are not using proxies at all, or you want to use the proxies specified by the operating system,
-just remove the ``[proxies]`` section completely. You can run :command:`conan config rm proxies`.
+.. warning::
 
-If you leave the ``[proxies]`` section blank, conan will copy the system configured
-proxies, but if you configured some exclusion rule it won't work:
+    ``no_proxy`` is deprecated in favor of ``no_proxy_match`` since Conan 1.16.
+
+If you leave the ``[proxies]`` section blank or delete the section, conan will copy the system
+configured proxies, but if you configured some exclusion rule it won't work:
 
 .. code-block:: text
 
     [proxies]
-    # Empty section will try to use system proxies.
-    # If you don't want Conan to mess with proxies at all, remove section [proxies]
+    # Empty (or missing) section will try to use system proxies.
 
 You can specify http and https proxies as follows. Use the `no_proxy_match` keyword to specify a list
 of URLs or patterns that will skip the proxy:
@@ -249,7 +262,7 @@ of URLs or patterns that will skip the proxy:
 .. code-block:: text
 
     [proxies]
-    # As documented in http://docs.python-requests.org/en/latest/user/advanced/#proxies
+    # As documented in https://requests.readthedocs.io/en/master/user/advanced/#proxies
     http: http://user:pass@10.10.1.10:3128/
     http: http://10.10.1.10:3128
     https: http://10.10.1.10:1080
@@ -282,3 +295,5 @@ If this fails, you might also try to set environment variables:
    # windows (note, no quotes here)
    $ set HTTP_PROXY=http://10.10.1.10:3128
    $ set HTTPS_PROXY=http://10.10.1.10:1080
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels

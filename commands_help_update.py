@@ -33,7 +33,8 @@ folder = {
     "profile": "misc",
     "remote": "misc",
     "remove": "misc",
-    "user": "misc"
+    "user": "misc",
+    "graph": "misc",
 }
 
 experimental = ["inspect"]

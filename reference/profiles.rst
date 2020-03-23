@@ -106,6 +106,19 @@ environment variables for some specific package:
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
 
+They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use clang 3.5 as compiler, and gcc otherwise:
+
+.. code-block:: text
+
+    [settings]
+    *@myuser/*:compiler=clang
+    *@myuser/*:compiler.version=3.5
+    *@myuser/*:compiler.libcxx=libstdc++11
+    compiler=gcc
+    compiler.version=4.9
+    compiler.libcxx=libstdc++11
+
+
 .. note::
 
     If you want to override existing system environment variables, you should use the ``key=value`` syntax. If you need to pre-pend to the
@@ -123,21 +136,21 @@ Profile composition
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified.
 
-If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree, 
-it won't be very practical adding the `cmake` installer reference, e.g  ``cmake_installer/3.9.0@conan/stable`` to all your profiles where you could
+If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree,
+it won't be very practical adding the `cmake` installer reference, e.g  ``cmake/3.16.3`` to all your profiles where you could
 need to inject ``cmake`` as a build require.
 
 You can specify both profiles instead:
 
 .. code-block:: text
-   :caption: *.conan/profiles/cmake_39*
+   :caption: *.conan/profiles/cmake_316*
 
     [build_requires]
-    cmake_installer/3.9.0@conan/stable
+    cmake/3.16.3
 
 .. code-block:: bash
 
-   $ conan install . --profile clang --profile cmake_39
+   $ conan install . --profile clang --profile cmake_316
 
 Profile includes
 ----------------

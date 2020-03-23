@@ -13,6 +13,12 @@ You can use `Jenkins CI` both for:
 There is no need for any special setup for it, just install Conan and your build tools in the Jenkins machine and call
 the needed Conan commands.
 
+.. note::
+
+    As reported in https://github.com/conan-io/conan/issues/6400, running Conan under Jenkins could have some unexpected
+    issues running ``git clone`` of repositories requiring authentication. If that is the case, consider to use ``ssh``
+    protocol instead of ``https``.
+
 
 Artifactory and Jenkins integration
 ___________________________________
@@ -100,7 +106,7 @@ and then upload it to Artifactory. We also upload the `build information`_:
         }
 
         stage("Upload packages"){
-            String command = "upload * --all -r ${serverName} --confirm"
+            String command = "upload \"*\" --all -r ${serverName} --confirm"
             def b = client.run(command: command)
             server.publishBuildInfo b
         }
@@ -110,11 +116,11 @@ and then upload it to Artifactory. We also upload the `build information`_:
 |jenkins_stages_creator|
 
 
-.. |jenkins_logo| image:: ../../images/jenkins.png
-.. |jenkins_stages| image:: ../../images/jenkins_stages.png
-.. |jenkins_stages_creator| image:: ../../images/jenkins_stages_creator.png
+.. |jenkins_logo| image:: ../../images/conan-jenkins.png
+.. |jenkins_stages| image:: ../../images/conan-jenkins_stages.png
+.. |jenkins_stages_creator| image:: ../../images/conan-jenkins_stages_creator.png
 .. _`Artifactory`: https://jfrog.com/artifactory/
 .. _`Jenkins Artifactory Plugin`:
-.. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/RTF/Jenkins+Artifactory+Plug-in
-.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/RTF/Working+With+Pipeline+Jobs+in+Jenkins
-.. _`build information`: https://www.jfrog.com/confluence/display/RTF/Build+Integration
+.. _`here how to install the plugin`: https://www.jfrog.com/confluence/display/JFROG/Jenkins+Artifactory+Plug-in
+.. _`here you can check the full documentation about the DSL`: https://www.jfrog.com/confluence/display/JFROG/Working+With+Pipeline+Jobs+in+Jenkins
+.. _`build information`: https://www.jfrog.com/confluence/display/JFROG/Build+Integration

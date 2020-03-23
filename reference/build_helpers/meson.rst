@@ -46,7 +46,7 @@ configure()
 .. code-block:: python
 
     def configure(self, args=None, defs=None, source_folder=None, build_folder=None,
-                  pkg_config_paths=None, cache_build_folder=None)
+                  pkg_config_paths=None, cache_build_folder=None, append_vcvars=False)
 
 Configures Meson project with the given parameters.
 
@@ -62,6 +62,8 @@ Parameters:
     - **cache_build_folder** (Optional, Defaulted to ``None``): Subfolder to be used as build folder when building the package in the local cache.
       This argument doesn't have effect when the package is being built in user folder with :command:`conan build` but overrides **build_folder** when working in the local cache.
       See :ref:`self.in_local_cache<in_local_cache>`.
+    - **append_vcvars** (Optional, Defaulted to ``False``): When a Visual Studio environment is activated by the build helper, append it to respect existing environment. ``Meson`` helper uses the Ninja generator and needs to call ``vcvars`` to set the VS environment. By default the ``vcvars`` is pre-pended to the environment, taking precedence. With ``append_vcvars=True``, the ``vcvars`` will append to the end of the environment (for "list" environment variables, like ``PATH``), instead of pre-pending, so the existing environment takes precedence.
+
 
 build()
 +++++++
@@ -70,13 +72,79 @@ build()
 
     def build(self, args=None, build_dir=None, targets=None)
 
-Builds `Meson` project with the given parameters.
+Builds Meson project with the given parameters.
 
 Parameters:
-    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``make`` command. Each argument will be escaped
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
       according to the current shell. No extra arguments will be added if ``args=None``.
-    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None``, it will be set to ``conanfile.build_folder``.
-    - **targets** (Optional, Defaulted to ``None``): A list of targets to be built. No targets will be added if ``targets=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+    - **targets** (Optional, Defaulted to ``None``): Specifies the targets to build. The default *all* target will be built if ``None`` is specified.
+
+
+test()
+++++++
+
+.. code-block:: python
+
+    def test(args=None, build_dir=None, target=None)
+
+Executes ninja test target, which usually means building and running unit tests.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+    - **targets** (Optional, Defaulted to ``None``): Specifies the targets to be executed. The *test* target will be executed if ``None`` is specified.
+
+
+install()
++++++++++
+
+.. code-block:: python
+
+    def install(args=None, build_dir=None)
+
+Executes ninja install target.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``ninja`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+
+
+meson_test()
+++++++++++++
+
+.. code-block:: python
+
+    def meson_test(args=None, build_dir=None)
+
+Executes ``meson test`` command.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``meson test`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
+
+
+meson_install()
++++++++++++++++
+
+.. code-block:: python
+
+    def meson_install(args=None, build_dir=None)
+
+Executes ``meson install`` command.
+
+Parameters:
+    - **args** (Optional, Defaulted to ``None``): A list of additional arguments to be passed to the ``meson install`` command. Each argument will be escaped
+      according to the current shell. No extra arguments will be added if ``args=None``.
+    - **build_dir** (Optional, Defaulted to ``None``): Build folder. If ``None`` is specified the ``build_folder`` from ``configure()`` will be used.
+      If ``build_folder`` from ``configure()`` is ``None``, it will be set to ``conanfile.build_folder``.
 
 Example
 -------
@@ -94,11 +162,11 @@ library locally (in your user folder, not in the local cache), could be:
         settings = "os", "compiler", "build_type", "arch"
         generators = "pkg_config"
         exports_sources = "src/*"
-        requires = "zlib/1.2.11@conan/stable"
+        requires = "zlib/1.2.11"
 
         def build(self):
             meson = Meson(self)
-            meson.configure(source_folder="%s/src" % self.source_folder, 
+            meson.configure(source_folder="%s/src" % self.source_folder,
                             build_folder="build")
             meson.build()
 

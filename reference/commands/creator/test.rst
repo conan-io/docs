@@ -8,6 +8,7 @@ conan test
 
     $ conan test [-h] [-tbf TEST_BUILD_FOLDER] [-b [BUILD]] [-e ENV]
                  [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                 [-l [LOCKFILE]]
                  path reference
 
 Tests a package consuming it from a conanfile.py with a test() method.
@@ -54,7 +55,7 @@ to be tested must exist in the local cache or in any configured remote.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -63,6 +64,9 @@ to be tested must exist in the local cache or in any configured remote.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 This command is util for testing existing packages, that have been previously built (with :command:`conan create`, for example).

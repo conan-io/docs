@@ -11,11 +11,11 @@ conan create
 .. code-block:: bash
 
     $ conan create [-h] [-j JSON] [-k] [-kb] [-ne] [-tbf TEST_BUILD_FOLDER]
-                   [-tf TEST_FOLDER] [-m [MANIFESTS]]
+                   [-tf TEST_FOLDER] [--ignore-dirty] [-m [MANIFESTS]]
                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
                    [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
-                   [-s SETTINGS] [-u]
-                   path reference
+                   [-s SETTINGS] [-u] [-l [LOCKFILE]]
+                   path [reference]
 
 Builds a binary package for a recipe (conanfile.py).
 
@@ -50,6 +50,9 @@ to know more about 'test_folder' project.
       -tf TEST_FOLDER, --test-folder TEST_FOLDER
                             Alternative test folder name. By default it is
                             "test_package". Use "None" to skip the test stage
+      --ignore-dirty        When using the "scm" feature with "auto" values,
+                            capture the revision and url even if there are
+                            uncommitted changes
       -m [MANIFESTS], --manifests [MANIFESTS]
                             Install dependencies manifests in folder for later
                             verify. Default folder is .conan_manifests, but can be
@@ -78,13 +81,13 @@ to know more about 'test_folder' project.
                             others. Allows multiple --build parameters. 'pattern'
                             is a fnmatch file pattern of a package reference.
                             Default behavior: If you don't specify anything, it
-                            will be similar to '--build=never', but package
+                            will be similar to '--build=package name', but package
                             recipes can override it with their 'build_policy'
                             attribute in the conanfile.py.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -93,6 +96,9 @@ to know more about 'test_folder' project.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 This is the recommended way to create packages.
@@ -146,3 +152,8 @@ The ``reference`` field can be:
 
 In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.

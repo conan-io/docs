@@ -33,8 +33,10 @@ Expressions are those defined and implemented by https://pypi.org/project/node-s
 
 There are two options for the version range:
 
-   * *loose=True|False*: As default Conan uses the `loose=True` mode. When using `loose=False` the loose mode is deactivated, so that only valid Semantic Versioning strings are accepted.
-   * *include_prerelease=True|False*: Default is `include_prerelease=False`. When set to `include_prerelease=True`, it will include prerelease versions in the search range. 
+   * ``loose=True|False`` (default ``True``): When using ``loose=False`` only valid Semantic Versioning strings are accepted.
+   * ``include_prerelease=True|False`` (default ``False``): If set to ``include_prerelease=True``,
+     Conan will include prerelease versions in the search range. Take into account that prerelease
+     versions have lower precedence than the associated normal one (e.g.: ``1.0.0 > 1.0.0-beta``).
 
 ..  code-block:: python
 

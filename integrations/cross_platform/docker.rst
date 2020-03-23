@@ -9,6 +9,6 @@ You can easily run Conan in a Docker container to build and cross-build conan pa
 
 Check the :ref:`'How to use docker to create and cross build C and C++ conan packages' <docker_conan>` section to know more.
 
-.. |docker_logo| image:: ../../images/conan_docker.png
+.. |docker_logo| image:: ../../images/conan-docker.png
                  :width: 180px
 

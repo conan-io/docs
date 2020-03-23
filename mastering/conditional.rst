@@ -9,7 +9,7 @@ and you can use them to:
 * Add requirements dynamically
 * Change values of options
 
-The **configure** method might be used to hardcode dependencies options values. 
+The **configure** method might be used to hardcode dependencies options values.
 It is strongly discouraged to use it to change the settings values. Please remember that ``settings``
 are a configuration *input*, so it doesn't make sense to modify it in the recipes.
 
@@ -23,19 +23,19 @@ Here is an example of what we could do in our **configure method**:
 .. code-block:: python
 
       ...
-      requires = "Poco/1.9.0@pocoproject/stable" # We will add OpenSSL dynamically "OpenSSL/1.0.2d@lasote/stable"
+      requires = "poco/1.9.4" # We will add OpenSSL dynamically "openssl/1.0.2t"
       ...
 
       def configure(self):
           # We can control the options of our dependencies based on current options
-          self.options["OpenSSL"].shared = self.options.shared
+          self.options["openssl"].shared = self.options.shared
 
           # Maybe in windows we know that OpenSSL works better as shared (false)
           if self.settings.os == "Windows":
-             self.options["OpenSSL"].shared = True
+             self.options["openssl"].shared = True
 
              # Or adjust any other available option
-             self.options["Poco"].other_option = "foo"
+             self.options["poco"].other_option = "foo"
 
           # We could check the presence of an option
           if "shared" in self.options:
@@ -46,7 +46,7 @@ Here is an example of what we could do in our **configure method**:
           if self.options.testing:
              self.requires("OpenSSL/2.1@memsharded/testing")
           else:
-             self.requires("OpenSSL/1.0.2d@lasote/stable")
+             self.requires("openssl/1.0.2u")
 
 Constrain settings and options
 ------------------------------
@@ -63,7 +63,7 @@ There are two approaches for this situation:
   relies on the set of possible settings inside your *settings.yml* file, so it can be used to constrain any recipe.
 
   .. code-block:: python
-  
+
       from conans.errors import ConanInvalidConfiguration
       ...
       def configure(self):

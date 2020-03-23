@@ -10,6 +10,7 @@ conan install
                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
                     [--no-imports] [-j JSON] [-b [BUILD]] [-e ENV]
                     [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+                    [-l [LOCKFILE]]
                     path_or_reference [reference]
 
 Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -80,7 +81,7 @@ generators.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -89,6 +90,9 @@ generators.
                             Settings to build the package, overwriting the
                             defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock'
+                            file. Lockfile can be updated if packages change
 
 
 :command:`conan install` executes methods of a *conanfile.py* in the following order:
@@ -222,7 +226,8 @@ With the :command:`-s` parameters you can define:
 
 - Global settings (:command:`-s compiler="Visual Studio"`). Will apply to all the requires.
 - Specific package settings (:command:`-s zlib:compiler="MinGW"`). Those settings will be applied only to
-  the specified packages.
+  the specified packages. They accept patterns too, like ``-s *@myuser/*:compiler=MinGW``, which means that packages that have the username "myuser" will use MinGW as compiler.
+
 
 You can specify custom settings not only for your direct ``requires`` but for any package in the
 dependency graph.
@@ -259,3 +264,9 @@ they should match, otherwise, an error will be raised.
     $ conan install . version@user/testing # OK
     $ conan install . pkg/version@user/testing # OK
     $ conan install pkg/version@user/testing user/channel # Error, first arg is not a path
+
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.

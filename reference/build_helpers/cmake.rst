@@ -51,7 +51,7 @@ Constructor
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
                      set_cmake_flags=False, msbuild_verbosity='minimal', cmake_program=None,
-                     generator_platform=None)
+                     generator_platform=None, append_vcvars=False)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
@@ -59,8 +59,9 @@ Parameters:
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<tools_cpu_count>`.
       Also applies to parallel test execution (by defining ``CTEST_PARALLEL_LEVEL`` environment variable).
-    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. Note this will
-      also make the ``CMAKE_BUILD_TYPE`` to be declared for multi configuration generators.
+    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. 
+      Note that ``CMAKE_BUILD_TYPE`` will not be declared when using CMake multi-configuration generators such as 
+      Visual Studio or XCode as it will not have effect.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
     - **set_cmake_flags** (Optional, Defaulted to ``None``): Whether or not to set CMake flags like ``CMAKE_CXX_FLAGS``, ``CMAKE_C_FLAGS``, etc.
@@ -69,6 +70,7 @@ Parameters:
       using it in the command line.
     - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
     - **generator_platform** (Optional, Defaulted to ``None``): Generator platform name or none to autodetect (-A cmake option).
+    - **append_vcvars** (Optional, Defaulted to ``False``): When a Visual Studio environment is activated by the build helper, append it to respect existing environment. ``CMake`` helper sometimes, like when using the Ninja generator, needs to call ``vcvars`` to set the VS environment. By default the ``vcvars`` is pre-pended to the environment, taking precedence. With ``append_vcvars=True``, the ``vcvars`` will append to the end of the environment (for "list" environment variables, like ``PATH``), instead of pre-pending, so the existing environment takes precedence.
 
 Attributes
 ----------

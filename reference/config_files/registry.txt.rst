@@ -55,12 +55,12 @@ Here you have an example of the file *registry.json*:
         ],
         "references":{
             "nanomsg/1.1.2@bincrafters/stable":"bincrafters",
-            "Poco/1.9.0@pocoproject/stable:09378ed7f51185386e9f04b212b79fe2d12d005c":"conan-center",
+            "poco/1.9.4@:09378ed7f51185386e9f04b212b79fe2d12d005c":"conan-center",
             "hello/1.0@user/channel:2bb76c9adac7b8cd7c5e3b377ac9f06934aba606":"artifactory_local"
         },
         "package_references":{
             "nanomsg/1.1.2@bincrafters/stable:26d575619895d584ff4fb07701901d53ff4cdd6b": "bincrafters",
-            "Poco/1.9.0@pocoproject/stable:09378ed7f51185386e9f04b212b79fe2d12d005c":"conan-center",
+            "poco/1.9.4@:09378ed7f51185386e9f04b212b79fe2d12d005c":"conan-center",
             "hello/1.0@user/channel:2bb76c9adac7b8cd7c5e3b377ac9f06934aba606":"artifactory_local"
         }
     }

@@ -20,9 +20,10 @@ them from one user to another.
       user_channel          Destination user/channel. e.g., lasote/testing
 
     optional arguments:
-      -h, --help            show this help message and exit 
+      -h, --help            show this help message and exit
       -p PACKAGE, --package PACKAGE
-                            copy specified package ID [DEPRECATED: use full reference instead]
+                            copy specified package ID [DEPRECATED: use full
+                            reference instead]
       --all                 Copy all packages from the specified package recipe
       --force               Override destination packages and the package recipe
 
@@ -33,11 +34,11 @@ them from one user to another.
 
   .. code-block:: bash
 
-      $ conan copy OpenSSL/1.0.2i@lasote/beta lasote/stable
+      $ conan copy mypackage/1.0.0@lasote/beta lasote/stable
 
 
 - Change a package's username:
 
   .. code-block:: bash
 
-      $ conan copy OpenSSL/1.0.2i@lasote/beta foo/beta
+      $ conan copy openssl/1.0.2u@ foo/beta

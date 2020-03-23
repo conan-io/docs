@@ -19,12 +19,16 @@ Contents:
    uploading_packages
    developing_packages
    devtools
+   versioning
    mastering
    systems_cross_building
    extending
    integrations
+   configuration
    howtos
    reference
    videos
    faq
+   glossary
    changelog
+   conan_v2

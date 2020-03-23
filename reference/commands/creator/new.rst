@@ -6,7 +6,7 @@ conan new
 
 .. code-block:: bash
 
-    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-f FILE] [-cis] [-cilg]
+    $ conan new [-h] [-t] [-i] [-c] [-s] [-b] [-m TEMPLATE] [-cis] [-cilg]
                 [-cilc] [-cio] [-ciw] [-ciglg] [-ciglc] [-ciccg] [-ciccc]
                 [-cicco] [-gi] [-ciu CI_UPLOAD_URL]
                 name
@@ -17,8 +17,8 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 .. code-block:: text
 
     positional arguments:
-      name                  Package name, e.g.: "Poco/1.7.3" or complete reference
-                            for CI scripts: "Poco/1.7.3@conan/stable"
+      name                  Package name, e.g.: "poco/1.9.4" or complete reference
+                            for CI scripts: "poco/1.9.4@"
 
     optional arguments:
       -h, --help            show this help message and exit

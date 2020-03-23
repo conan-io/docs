@@ -8,10 +8,10 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.8@conan/stable .
+      $ conan get zlib/1.2.11@ .
 
       Listing directory '.':
-       CMakeLists.txt
+       conandata.yml
        conanfile.py
        conanmanifest.txt
 
@@ -19,26 +19,28 @@ You can inspect the uploaded packages and also the packages in the local cache b
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.11@conan/stable -p 2144f833c251030c3cfd61c4354ae0e38607a909
+      $ conan get zlib/1.2.11@:2144f833c251030c3cfd61c4354ae0e38607a909
 
 - Print the *conanfile.py* from a remote package:
 
   .. code-block:: bash
 
-      $ conan get zlib/1.2.8@conan/stable -r conan-center
+      $ conan get zlib/1.2.11@ -r conan-center
 
   .. code-block:: python
 
-      from conans import ConanFile, tools, CMake, AutoToolsBuildEnvironment
-      from conans.util import files
-      from conans import __version__ as conan_version
       import os
+      import stat
+      from conans import ConanFile, tools, CMake, AutoToolsBuildEnvironment
+      from conans.errors import ConanException
 
 
       class ZlibConan(ConanFile):
           name = "zlib"
-          version = "1.2.8"
-          ZIP_FOLDER_NAME = "zlib-%s" % version
+          version = "1.2.11"
+          url = "https://github.com/conan-io/conan-center-index"
+          homepage = "https://zlib.net"
+
 
           #...
 

@@ -206,8 +206,8 @@ As a summary, you could use the default folders and the flow would be as simple 
 
 .. code-block:: bash
 
-    $ git clone git@github.com:memsharded/example_conan_flow.git
-    $ cd example_conan_flow
+    $ git clone https://github.com/conan-io/examples.git
+    $ cd features/package_development_flow
     $ conan source .
     $ conan install . -pr=default
     $ conan build .
@@ -218,7 +218,7 @@ As a summary, you could use the default folders and the flow would be as simple 
     $ conan test test_package Hello/1.1@user/testing
     ...
     Hello/1.1@user/testing (test package): Running test()
-    Hello World!
+    Hello World Release!
 
 conan create
 ^^^^^^^^^^^^

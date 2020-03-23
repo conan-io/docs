@@ -18,4 +18,4 @@ Conan can be integrated with CMake using generators, build helpers and custom *f
    cmake/find_packages
 
 
-.. |cmake_logo| image:: ../../images/cmake_logo.png
+.. |cmake_logo| image:: ../../images/conan-cmake_logo.png
