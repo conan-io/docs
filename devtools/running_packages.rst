@@ -346,7 +346,7 @@ Even if your application doesn't use directly any of these functions, they are o
 so, in practice, it's almost always in actual use.
 
 There are other implementations of the C standard library that present the same challenge, such as
-`newlib <https://sourceware.org/newlib/>`_ or `musl <https://www.musl-libc.org/>`_, used for embedded development.
+`newlib <https://sourceware.org/newlib/>`_ or `musl <https://www.musl-libc.org>`_, used for embedded development.
 
 To illustrate the problem, a simple hello-world application compiled in a modern Ubuntu distribution will give the following error when it
 is run in a Centos 6 one:
@@ -380,7 +380,7 @@ C++ standard library
 ++++++++++++++++++++
 
 Usually, the default C++ standard library is `libstdc++ <https://gcc.gnu.org/onlinedocs/libstdc++/>`_, but
-`libc++ <https://libcxx.llvm.org/>`_ and `stlport <http://www.stlport.org/>`_ are other well-known implementations.
+`libc++ <https://libcxx.llvm.org>`_ and `stlport <http://www.stlport.org>`_ are other well-known implementations.
 
 Similarly to the standard C library `glibc`, running the application linked with libstdc++ in the older system may result in an error:
 
@@ -413,7 +413,7 @@ detailed information.
 System API (system calls)
 +++++++++++++++++++++++++
 
-New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org/>`_. If the application, or 3rd-party
+New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org>`_. If the application, or 3rd-party
 libraries, want to take advantage of these new features, they sometimes directly refer to such system calls (instead of using wrappers
 provided by ``glibc``).
 
