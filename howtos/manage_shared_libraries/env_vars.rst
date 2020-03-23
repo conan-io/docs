@@ -175,6 +175,6 @@ In the terminal window:
 
     $ conan install .
     $ source activate_run
-    $ toola --someparams
+    $ tool_a --someparams
     # Only For Mac OS users to avoid restrictions:
     $ DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH toolA --someparams
