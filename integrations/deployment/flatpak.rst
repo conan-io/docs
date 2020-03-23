@@ -3,14 +3,14 @@
 Flatpak
 -------
 
-`Flatpak <https://flatpak.org/>`_ (former ``xdg-app``) is a package management system to distribute desktop applications for Linux. It is based on `OSTree <https://ostree.readthedocs.io/en/latest/manual/introduction/>`_. 
+`Flatpak <https://flatpak.org>`_ (former ``xdg-app``) is a package management system to distribute desktop applications for Linux. It is based on `OSTree <https://ostree.readthedocs.io/en/latest/manual/introduction/>`_.
 Flatpak is `RedHat <https://www.redhat.com/en>`_ initiative.
 
 Unlike :ref:`AppImage <deployment_appimage>`, usually applications are distributed via `flathub <https://flathub.org>`_ store, and require a special runtime to install applications on target machines.
 
 The major advantage of ``Flatpak`` is sandboxing: each application runs in its own isolated environment. ``Flatpak`` provides fine-grained control to system resources 
 (e.g. network, bluetooth, host filesystem, etc.). ``Flatpak`` also offers a set of runtimes for various Linux desktop applications, e.g. 
-`Freedesktop <https://www.freedesktop.org/wiki/>`_, `GNOME <https://www.gnome.org/>`_ and `KDE <https://kde.org/>`_.
+`Freedesktop <https://www.freedesktop.org/wiki/>`_, `GNOME <https://www.gnome.org>`_ and `KDE <https://kde.org>`_.
 
 The `packaging process <http://docs.flatpak.org/en/latest/first-build.html>`__ is:
 

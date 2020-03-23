@@ -3,7 +3,7 @@
 |android_logo| Android
 ____________________________
 
-There are several ways to cross-compile packages for `Android <https://www.android.com/>`__ platform via conan.
+There are several ways to cross-compile packages for `Android <https://www.android.com>`__ platform via conan.
 
 Using android_ndk_installer package (build require)
 =========================================================
@@ -69,7 +69,7 @@ By adjusting ``arch`` setting, you may cross-compile for ``x86`` and ``x86_64`` 
 Using Docker images
 ===================
 
-If you're using `Docker <https://www.docker.com/>`_ for builds, you may consider using docker images from the
+If you're using `Docker <https://www.docker.com>`_ for builds, you may consider using docker images from the
 `Conan Docker Tools <https://github.com/conan-io/conan-docker-tools>`_ repository.
 
 Currently, Conan Docker Tools provide the following Android images:

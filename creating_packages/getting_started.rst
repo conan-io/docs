@@ -214,9 +214,9 @@ You can create and test the package with our default settings simply by running:
 
     $ conan create . demo/testing
     ...
-    Hello world!
+    Hello world Release!
 
-If "Hello world!" is displayed, it worked.
+If "Hello world Release!" is displayed, it worked.
 
 The :command:`conan create` command does the following:
 

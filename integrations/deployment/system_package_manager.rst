@@ -10,7 +10,7 @@ method is very convenient for deployment and distribution as it is natively inte
   distributions in order to create different packages for them.
 
 - If you want to target different distros, then you need to create one package per supported distro (likely one for
-  `Ubuntu <https://ubuntu.com/>`_, one for `Arch Linux <https://www.archlinux.org/>`_, etc.), and formats or guidelines for each distro might differ significantly
+  `Ubuntu <https://ubuntu.com>`_, one for `Arch Linux <https://www.archlinux.org>`_, etc.), and formats or guidelines for each distro might differ significantly
 
 Check out the sections :ref:`makeself <deployment_makeself>`, :ref:`AppImage <deployment_appimage>`, 
 :ref:`Flatpak <deployment_flatpak>` and :ref:`Snap <deployment_snap>` for information on how to create distribution-agnostic packages.

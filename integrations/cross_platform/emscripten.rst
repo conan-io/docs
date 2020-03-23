@@ -3,7 +3,7 @@
 |emscripten_logo| Emscripten
 ____________________________
 
-It should be possible to build packages for `Emscripten <https://emscripten.org/>`__ (`asm.js <http://asmjs.org/>`_) via the following conan profile:
+It should be possible to build packages for `Emscripten <https://emscripten.org>`__ (`asm.js <http://asmjs.org>`_) via the following conan profile:
 
 .. code-block:: text
 
@@ -19,7 +19,7 @@ It should be possible to build packages for `Emscripten <https://emscripten.org/
   emsdk_installer/1.38.29@bincrafters/stable
   [env]
 
-And the following conan profile is required for the `WASM <https://webassembly.org/>`_ (Web Assembly):
+And the following conan profile is required for the `WASM <https://webassembly.org>`_ (Web Assembly):
 
 .. code-block:: text
 
