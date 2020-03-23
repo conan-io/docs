@@ -736,11 +736,11 @@ the cache and can be only modified for the local flow with :command:`conan build
 build_policy
 ------------
 
-With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
+With the ``build_policy`` attribute the package creator can change conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, Conan will build it without the need to invoke :command:`conan install --build missing` option.
-- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+- ``missing``: If this package is not found as a binary package, Conan will build it from source.
+- ``always``: This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
 
 .. code-block:: python
    :emphasize-lines: 2

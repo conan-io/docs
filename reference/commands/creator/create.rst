@@ -27,78 +27,80 @@ to know more about 'test_folder' project.
 
 .. code-block:: text
 
-    positional arguments:
-      path                  Path to a folder containing a conanfile.py or to a
-                            recipe file e.g., my_folder/conanfile.py
-      reference             user/channel, version@user/channel or
-                            pkg/version@user/channel (if name or version declared
-                            in conanfile.py, they should match)
+  positional arguments:
+    path                  Path to a folder containing a conanfile.py or to a
+                          recipe file e.g., my_folder/conanfile.py
+    reference             user/channel, version@user/channel or
+                          pkg/version@user/channel (if name or version declared
+                          in conanfile.py, they should match)
 
-    optional arguments:
-      -h, --help            show this help message and exit
-      -j JSON, --json JSON  json file path where the install information will be
-                            written to
-      -k, -ks, --keep-source
-                            Do not remove the source folder in local cache, even
-                            if the recipe changed. Use this for testing purposes
-                            only
-      -kb, --keep-build     Do not remove the build folder in local cache. Implies
-                            --keep-source. Use this for testing purposes only
-      -ne, --not-export     Do not export the conanfile.py
-      -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
-                            Working directory for the build of the test project.
-      -tf TEST_FOLDER, --test-folder TEST_FOLDER
-                            Alternative test folder name. By default it is
-                            "test_package". Use "None" to skip the test stage
-      --ignore-dirty        When using the "scm" feature with "auto" values,
-                            capture the revision and url even if there are
-                            uncommitted changes
-      -m [MANIFESTS], --manifests [MANIFESTS]
-                            Install dependencies manifests in folder for later
-                            verify. Default folder is .conan_manifests, but can be
-                            changed
-      -mi [MANIFESTS_INTERACTIVE], --manifests-interactive [MANIFESTS_INTERACTIVE]
-                            Install dependencies manifests in folder for later
-                            verify, asking user for confirmation. Default folder
-                            is .conan_manifests, but can be changed
-      -v [VERIFY], --verify [VERIFY]
-                            Verify dependencies manifests against stored ones
-      -b [BUILD], --build [BUILD]
-                            Optional, use it to choose if you want to build from
-                            sources: --build Build all from sources, do not use
-                            binary packages. --build=never Never build, use binary
-                            packages or fail if a binary package is not found.
-                            --build=missing Build from code if a binary package is
-                            not found. --build=cascade Will build from code all
-                            the nodes with some dependency being built (for any
-                            reason). Can be used together with any other build
-                            policy. Useful to make sure that any new change
-                            introduced in a dependency is incorporated by building
-                            again the package. --build=outdated Build from code if
-                            the binary is not built with the current recipe or
-                            when missing binary package. --build=[pattern] Build
-                            always these packages from source, but never build the
-                            others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package reference.
-                            Default behavior: If you don't specify anything, it
-                            will be similar to '--build=package name', but package
-                            recipes can override it with their 'build_policy'
-                            attribute in the conanfile.py.
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=True
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
-      -r REMOTE, --remote REMOTE
-                            Look in the specified remote server
-      -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
-      -u, --update          Check updates exist from upstream remotes
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+  optional arguments:
+    -h, --help            show this help message and exit
+    -j JSON, --json JSON  json file path where the install information will be
+                          written to
+    -k, -ks, --keep-source
+                          Do not remove the source folder in the local cache,
+                          even if the recipe changed. Use this for testing
+                          purposes only
+    -kb, --keep-build     Do not remove the build folder in local cache. Implies
+                          --keep-source. Use this for testing purposes only
+    -ne, --not-export     Do not export the conanfile.py
+    -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
+                          Working directory for the build of the test project.
+    -tf TEST_FOLDER, --test-folder TEST_FOLDER
+                          Alternative test folder name. By default it is
+                          "test_package". Use "None" to skip the test stage
+    --ignore-dirty        When using the "scm" feature with "auto" values,
+                          capture the revision and url even if there are
+                          uncommitted changes
+    -m [MANIFESTS], --manifests [MANIFESTS]
+                          Install dependencies manifests in folder for later
+                          verify. Default folder is .conan_manifests, but can be
+                          changed
+    -mi [MANIFESTS_INTERACTIVE], --manifests-interactive [MANIFESTS_INTERACTIVE]
+                          Install dependencies manifests in folder for later
+                          verify, asking user for confirmation. Default folder
+                          is .conan_manifests, but can be changed
+    -v [VERIFY], --verify [VERIFY]
+                          Verify dependencies manifests against stored ones
+    -b [BUILD], --build [BUILD]
+                          Optional, specify which packages to build from source.
+                          Combining multiple '--build' options on one command
+                          line is allowed. For dependencies, the optional
+                          'build_policy' attribute in their conanfile.py takes
+                          precedence over the command line parameter. Possible
+                          parameters: --build Force build for all packages, do
+                          not use binary packages. --build=never Disallow build
+                          for all packages, use binary packages or fail if a
+                          binary package is not found. Cannot be combined with
+                          other '--build' options. --build=missing Build
+                          packages from source whose binary package is not
+                          found. --build=outdated Build packages from source
+                          whose binary package was not generated from the latest
+                          recipe or is not found. --build=cascade Build packages
+                          from source that have at least one dependency being
+                          built from source. --build=[pattern] Build packages
+                          from source whose package reference matches the
+                          pattern. The pattern uses 'fnmatch' style wildcards.
+                          Default behavior: If you omit the '--build' option,
+                          the 'build_policy' attribute in conanfile.py will be
+                          used if it exists, otherwise the behavior is like '--
+                          build=package name'.
+    -e ENV, --env ENV     Environment variables that will be set during the
+                          package build, -e CXX=/usr/bin/clang++
+    -o OPTIONS, --options OPTIONS
+                          Define options values, e.g., -o Pkg:with_qt=True
+    -pr PROFILE, --profile PROFILE
+                          Apply the specified profile to the install command
+    -r REMOTE, --remote REMOTE
+                          Look in the specified remote server
+    -s SETTINGS, --settings SETTINGS
+                          Settings to build the package, overwriting the
+                          defaults. e.g., -s compiler=gcc
+    -u, --update          Check updates exist from upstream remotes
+    -l [LOCKFILE], --lockfile [LOCKFILE]
+                          Path to a lockfile or folder containing 'conan.lock'
+                          file. Lockfile can be updated if packages change
 
 
 This is the recommended way to create packages.
