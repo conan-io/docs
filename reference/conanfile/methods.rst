@@ -1089,4 +1089,4 @@ We could reuse and inherit from it with:
             self.settings = base.settings + self.settings  # Note, adding 2 tuples = tuple
             self.license = base.license  # License is overwritten
 
-The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MIT`` as license.
+The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
