@@ -64,7 +64,7 @@ Controlling the build environment
 Building software in a Windows subsystem for a different compiler than MinGW can sometimes be painful.
 The reason is how the subsystem finds your compiler/tools in your system.
 
-For example, the `icu <http://site.icu-project.org/>`_ library requires Visual Studio to be built in Windows, but also a subsystem
+For example, the `icu <http://site.icu-project.org>`_ library requires Visual Studio to be built in Windows, but also a subsystem
 able to build the Makefile. A very common problem and example of the pain is the ``link.exe`` program.
 In the Visual Studio suite, ``link.exe`` is the linker, but in the ``MSYS2`` environment the ``link.exe``
 is a tool to manage symbolic links.
