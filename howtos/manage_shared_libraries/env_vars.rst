@@ -86,7 +86,7 @@ execute directly ``tool_a`` using RunEnvironment build helper to set the environ
             ...
 
 Building an application using the shared library from ``tool_a``
----------------------------------------------------------------
+----------------------------------------------------------------
 
 As we are building a final application, we will probably want to distribute it together with the
 shared library from the ``tool_a``, so we can use the :ref:`Imports<imports_txt>` to import the required
