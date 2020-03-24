@@ -332,54 +332,57 @@ Linux to Windows
 
 - Install the needed toolchain, in Ubuntu:
 
-    ``sudo apt-get install g++-mingw-w64 gcc-mingw-w64``
+  .. code-block:: bash
+
+      sudo apt-get install g++-mingw-w64 gcc-mingw-w64
+
 
 - Create a file named **linux_to_win64** with the contents:
 
-.. code-block:: text
+  .. code-block:: text
 
-    toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
-    target_host=x86_64-w64-mingw32
-    cc_compiler=gcc
-    cxx_compiler=g++
+      toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
+      target_host=x86_64-w64-mingw32
+      cc_compiler=gcc
+      cxx_compiler=g++
 
-    [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
-    CHOST=$target_host
-    AR=$target_host-ar
-    AS=$target_host-as
-    RANLIB=$target_host-ranlib
-    CC=$target_host-$cc_compiler
-    CXX=$target_host-$cxx_compiler
-    STRIP=$target_host-strip
-    RC=$target_host-windres
+      [env]
+      CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+      CHOST=$target_host
+      AR=$target_host-ar
+      AS=$target_host-as
+      RANLIB=$target_host-ranlib
+      CC=$target_host-$cc_compiler
+      CXX=$target_host-$cxx_compiler
+      STRIP=$target_host-strip
+      RC=$target_host-windres
 
-    [settings]
-    # We are cross-building to Windows
-    os=Windows
-    arch=x86_64
-    compiler=gcc
+      [settings]
+      # We are cross-building to Windows
+      os=Windows
+      arch=x86_64
+      compiler=gcc
 
-    # Adjust to the gcc version of your MinGW package
-    compiler.version=7.3
-    compiler.libcxx=libstdc++11
-    build_type=Release
+      # Adjust to the gcc version of your MinGW package
+      compiler.version=7.3
+      compiler.libcxx=libstdc++11
+      build_type=Release
 
 - Clone an example recipe or use your own recipe:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    git clone https://github.com/memsharded/conan-hello.git
+      git clone https://github.com/memsharded/conan-hello.git
 
 - Call :command:`conan create` using the created **linux_to_win64**
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ cd conan-hello && conan create . conan/testing --profile ../linux_to_win64
-    ...
-    [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
-    [100%] Linking CXX executable bin/example.exe
-    [100%] Built target example
+      $ cd conan-hello && conan create . conan/testing --profile ../linux_to_win64
+      ...
+      [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
+      [100%] Linking CXX executable bin/example.exe
+      [100%] Built target example
 
 A *bin/example.exe* for Win64 platform has been built.
 
@@ -392,33 +395,33 @@ Windows to Raspberry Pi (Linux/ARM)
 
 - Create a file named **win_to_rpi** with the contents:
 
-.. code-block:: text
+  .. code-block:: text
 
-    target_host=arm-linux-gnueabihf
-    standalone_toolchain=C:/sysgcc/raspberry
-    cc_compiler=gcc
-    cxx_compiler=g++
+      target_host=arm-linux-gnueabihf
+      standalone_toolchain=C:/sysgcc/raspberry
+      cc_compiler=gcc
+      cxx_compiler=g++
 
-    [settings]
-    os=Linux
-    arch=armv7 # Change to armv6 if you are using Raspberry 1
-    compiler=gcc
-    compiler.version=6
-    compiler.libcxx=libstdc++11
-    build_type=Release
+      [settings]
+      os=Linux
+      arch=armv7 # Change to armv6 if you are using Raspberry 1
+      compiler=gcc
+      compiler.version=6
+      compiler.libcxx=libstdc++11
+      build_type=Release
 
-    [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host/sysroot
-    PATH=[$standalone_toolchain/bin]
-    CHOST=$target_host
-    AR=$target_host-ar
-    AS=$target_host-as
-    RANLIB=$target_host-ranlib
-    LD=$target_host-ld
-    STRIP=$target_host-strip
-    CC=$target_host-$cc_compiler
-    CXX=$target_host-$cxx_compiler
-    CXXFLAGS=-I"$standalone_toolchain/$target_host/lib/include"
+      [env]
+      CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host/sysroot
+      PATH=[$standalone_toolchain/bin]
+      CHOST=$target_host
+      AR=$target_host-ar
+      AS=$target_host-as
+      RANLIB=$target_host-ranlib
+      LD=$target_host-ld
+      STRIP=$target_host-strip
+      CC=$target_host-$cc_compiler
+      CXX=$target_host-$cxx_compiler
+      CXXFLAGS=-I"$standalone_toolchain/$target_host/lib/include"
 
 The profiles to target Linux are all very similar. You probably just need to adjust the variables
 declared at the top of the profile:
@@ -430,19 +433,19 @@ declared at the top of the profile:
 
 - Clone an example recipe or use your own recipe:
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    git clone https://github.com/memsharded/conan-hello.git
+      git clone https://github.com/memsharded/conan-hello.git
 
 - Call :command:`conan create` using the created profile.
 
-.. code-block:: bash
+  .. code-block:: bash
 
-    $ cd conan-hello && conan create . conan/testing --profile=../win_to_rpi
-    ...
-    [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
-    [100%] Linking CXX executable bin/example
-    [100%] Built target example
+      $ cd conan-hello && conan create . conan/testing --profile=../win_to_rpi
+      ...
+      [ 50%] Building CXX object CMakeFiles/example.dir/example.cpp.obj
+      [100%] Linking CXX executable bin/example
+      [100%] Built target example
 
 A *bin/example* for Raspberry PI (Linux/armv7hf) platform has been built.
 
