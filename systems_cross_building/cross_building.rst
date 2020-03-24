@@ -1,16 +1,17 @@
 .. _cross_building:
 
-Cross-building
+Cross building
 ==============
 
-Cross-building is compiling a library or executable in one platform to be used in a different one.
+Cross building (or cross compilation) is the process of generating binaries for a platform that is not the one
+where the compiling process is running.
 
-Cross-compilation is used to build software for an alien device, such as an embedded device where you don't have an operating system
-nor a compiler available. It's also for building software for slower devices, like an Android machine, a Raspberry Pi etc.
+Cross compilation is mostly used to build software for an alien device, such as an embedded device where you don't have an operating system
+nor a compiler available. It's also used to build software for slower devices, like an Android machine or a Raspberry Pi where running
+the native compilation will take too much time.
 
-To cross-build code you need the right toolchain.
-
-A toolchain is basically a compiler and linker with a set of libraries matching the ``host`` platform.
+In order to cross build a codebase the right toolchain is needed, with a proper compiler (cross compiler), a linker
+and the set of libraries matching the ``host`` platform.
 
 
 GNU triplet convention
@@ -18,62 +19,51 @@ GNU triplet convention
 
 According to the GNU convention, there are three platforms involved in the software building:
 
-- **Build platform:** The platform on which the compilation tools are executed
-- **Host platform:** The platform on which the code will run
-- **Target platform:** Only when building a compiler, this is the platform for which the compiler will
-  generate code
+- **Build platform:** The platform on which the compilation tools are being executed.
+- **Host platform:** The platform on which the generated binaries will run.
+- **Target platform:** Only when building a cross compiler, it is the platform it will generate binaries for.
 
 
-When you are building code for your own machine it's called **native building**, where the ``build``
-and the ``host`` platforms are the same. The ``target`` platform is not defined in this situation.
+Depending on the values of these platforms, there are different scenarios:
 
-When you are building code for a different platform, it's called **cross-building**, where the ``build``
-platform is different from the ``host`` platform. The ``target`` platform is not defined in this situation.
-
-The use of the ``target`` platform is rarely needed. It only makes sense when you are building a compiler. For instance,
-when you are building on your Linux machine a GCC compiler that will run on Windows, to generate code for Android.
-Here, the ``build`` is your Linux computer, the ``host`` is the Windows computer and the ``target`` is Android.
+* **Native building**: when the ``build`` and the ``host`` platforms are the same, it means
+  that the platform where the compiler is running is the same one where the generated binaries will run.
+  This is the most common scenario.
+* **Cross building**: when the ``build`` and the ``host`` platform are different, it requires
+  a cross compiler running in the build platform that generates binaries for the host platform.
 
 
-Conan settings
---------------
+The ``target`` platform plays and important role when compiling a cross compiler, in that scenario
+the ``target`` is the platform the compiler will generate binaries for: in order to be a cross compiler
+the ``host`` platform (where the cross compiler will run) has to be different from the ``target`` platform.
+If the ``build`` platform is also different, it is called **Canadian Cross**.
 
-From version 1.0, Conan introduces new settings to model the GNU convention triplet:
+Let's illustrate these scenarios with some examples:
 
-``build`` platform settings:
+* The Android NDK is a cross compiler to Android: it can be executed in Linux (the ``build`` platform)
+  to generate binaries for Android (the ``host`` platform).
+* The Android NDK was once compiled, during that compilation a different compiler was used running in
+  a ``build`` platform (maybe Windows) to generate the actual Android NDK that will run in the ``host``
+  platform Linux, and as we saw before, that Android NDK cross compiler will generate binaries for 
+  a ``target`` platform which is Android.
 
-    - **os_build**: Operating system of the ``build`` system.
-    - **arch_build**: Architecture system of the ``build`` system.
-
-    These settings are detected the first time you run Conan with the same values than the ``host`` settings,
-    so by default, we are doing **native building**. You will probably never need to change the value
-    of this setting because they describe where are you running Conan.
-
-
-``host`` platform settings:
-
-    - **os**: Operating system of the ``host`` system.
-    - **arch**: Architecture of the ``host`` system.
-    - **compiler**: Compiler of the ``host`` system (to declare compatibility of libs in the host platform)
-    - ... (all the regular settings)
-
-    These settings are the regular Conan settings; already present before supporting the GNU triplet convention.
-    If you are cross-building, you have to change them according to the ``host`` platform.
+The values of the ``build``, ``host`` and ``target`` platforms are not absolute, and
+they depend on the process we are talking about. The ``host`` when compiling a cross compiler turns
+into the ``build`` when using that same cross compiler.
 
 
-``target`` platform:
+.. seealso::
 
-    - **os_target**: Operating system of the ``target`` system.
-    - **arch_target**: Architecture of the ``target`` system.
+    One way to avoid this complexity is to run the compilation in the host platform, so both ``build`` and
+    ``host`` will take the same value and it will be a *native compilation*. Docker is a very successful
+    tool that can help you with this, read more about it in :ref:`this section <use_docker_to_crossbuild>`.
 
-    If you are building a compiler, these settings specify where the compiled code will run.
 
-
-Cross-building with Conan
+Cross building with Conan
 -------------------------
 
-If you want to cross-build a Conan package (for example on your Linux machine) to build the `zlib`
-Conan package for Windows, you need to tell Conan where to find your cross-compiler/toolchain.
+If you want to cross-build a Conan package (for example on your Linux machine) to build the ``zlib``
+Conan package for Windows, you need to tell Conan where to find your toolchain/cross compiler.
 
 There are two approaches:
 
@@ -87,15 +77,253 @@ There are two approaches:
 Using profiles
 ++++++++++++++
 
-Create a profile with:
+Using a Conan profile we can declare not only the ``settings`` that will identify our binary, but also
+all the environment variables needed to use a toolchain or cross compiler. The profile needs the following
+sections:
 
-- A **[settings]** section containing the needed settings: ``os_build``, ``arch_build`` and the regular
-  settings ``os``, ``arch``, ``compiler``, ``build_type`` and so on.
+- A **[settings]** section containing the regular settings: ``os``, ``arch``, ``compiler`` and ``build_type``
+  depending on your library. These settings will identify your binary.
 
 - An **[env]** section with a PATH variable pointing to your installed toolchain. Also any other variable
   that the toolchain expects (read the docs of your compiler). Some build systems need a variable ``SYSROOT`` to locate
   where the host system libraries and tools are.
 
+For example, in the following profile we declare the ``host`` platform to be Windows x86_64 with the
+compiler, version and other settings be are using. And we add the **[env]** section with all the variables
+needed to use an installed toolchain:
+
+.. code-block:: ini
+
+    toolchain=/usr/x86_64-w64-mingw32 # Adjust this path
+    target_host=x86_64-w64-mingw32
+    cc_compiler=gcc
+    cxx_compiler=g++
+
+    [env]
+    CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+    CHOST=$target_host
+    AR=$target_host-ar
+    AS=$target_host-as
+    RANLIB=$target_host-ranlib
+    CC=$target_host-$cc_compiler
+    CXX=$target_host-$cxx_compiler
+    STRIP=$target_host-strip
+    RC=$target_host-windres
+
+    [settings]
+    # We are cross-building to Windows
+    os=Windows
+    arch=x86_64
+    compiler=gcc
+
+    # Adjust to the gcc version of your MinGW package
+    compiler.version=7.3
+    compiler.libcxx=libstdc++11
+    build_type=Release
+
+You can find working examples at the :ref:`bottom of this section <cross_building_examples_profiles>`.
+
+
+Using build requires
+++++++++++++++++++++
+
+Instead of manually downloading the toolchain and creating a profile, you can create a Conan package
+with it. Starting with Conan v1.24 and the command line arguments ``--profile:host`` and ``--profile:build``
+this should be a regular recipe, for older versions some more work is needed.
+
+
+Conan v1.24 and newer
+.....................
+
+A recipe with a toolchain is like any other recipe with a binary executable:
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile
+
+    class MyToolchainXXXConan(ConanFile):
+        name = "my_toolchain"
+        version = "0.1"
+        settings = "os", "arch", "compiler", "build_type"
+
+        # Implement source() and build() as usual
+
+        def package(self):
+            # Copy all the required files for your toolchain
+            self.copy("*", dst="", src="toolchain")
+
+        def package_info(self):
+            bin_folder = os.path.join(self.package_folder, "bin")
+            self.env_info.CC = os.path.join(bin_folder, "mycompiler-cc")
+            self.env_info.CXX = os.path.join(bin_folder, "mycompiler-cxx")
+            self.env_info.SYSROOT = self.package_folder
+
+
+The toolchain Conan package needs to fill the ``env_info`` object
+in the :ref:`package_info()<method_package_info>` method with the same variables we've specified in the examples
+above in the ``[env]`` section of profiles.
+
+Then you will need to consume this recipe as any regular :ref:`build requires <build_requires>` in the build context,
+then you need to use the ``--profile:build`` argument in the command line while creating your library:
+
+.. code-block:: bash
+
+    conan create path/to/conanfile.py --profile:build=profile_build --profile:host=profile_host
+
+
+The profile ``profile_build`` will contain just the settings related to your ``build`` platform, where you are
+running the command, and the ``profile_host`` will list the settings for the ``host`` platform (and eventually
+the ``my_toolchain/0.1`` as ``build_requires`` if it is not listed in the recipe itself).
+
+Conan will apply the appropiate profile to each recipe, and will inject the environment of the build requires
+in the ``build`` context before running the ``build()`` method of the libraries being compiled using the ``host`` profile.
+That way, the environment variables ``CC``, ``CXX`` and ``SYSROOT`` from ``my_toolchain/0.1`` will be available
+and also the path to the ``bindirs`` directory from that package.
+
+The above means that **Conan is able to compile the full graph in a single execution**, it will compile
+the build requires using the ``profile_build`` and then it will compile the libraries using the ``host_profile``
+settings applying the environment of the former ones.
+
+
+Conan older than v1.24
+......................
+
+.. warning::
+
+    We ask you to use the previous approach for Conan 1.24 and newer, and avoid any specific modification
+    to make your build requires work in a cross building scenario.
+
+
+With this approach, only one profile is provided in the command line and it has to define the ``os_build``
+and ``arch_build`` settings too. The recipe of this build requires has to be modified to list these settings:
+
+
+.. code-block:: python
+
+    from conans import ConanFile
+    import os
+
+
+    class MyToolchainXXXConan(ConanFile):
+        name = "my_toolchain"
+        version = "0.1"
+        settings = "os_build", "arch_build"
+
+        # As typically, this recipe doesn't declare 'compiler' and 'build_type',
+        #   the source() and build() methods need a custom implementation
+        def build(self):
+            # Typically download the toolchain for the 'build' platform
+            url = "http://fake_url.com/installers/%s/%s/toolchain.tgz" % (os_build, os_arch)
+            tools.download(url, "toolchain.tgz")
+            tools.unzip("toolchain.tgz")
+
+        def package(self):
+            # Copy all the required files for your toolchain
+            self.copy("*", dst="", src="toolchain")
+
+        def package_info(self):
+            bin_folder = os.path.join(self.package_folder, "bin")
+            self.env_info.PATH.append(bin_folder)
+            self.env_info.CC = os.path.join(bin_folder, "mycompiler-cc")
+            self.env_info.CXX = os.path.join(bin_folder, "mycompiler-cxx")
+            self.env_info.SYSROOT = self.package_folder
+
+
+With this approach we also need to add the path to the binaries to the ``PATH`` environment variable. The
+one and only profile has to include a ``[build_requires]`` section with the reference to our new packaged toolchain and
+it will also contain a ``[settings]`` section with the regular settings plus the ``os_build`` and ``os_arch`` ones.
+
+This approach requires a special profile, and it needs a modified recipe with just a couple of settings, which is not
+enough to compile it from sources.
+
+
+Settings ``*_build`` and ``*_target``
++++++++++++++++++++++++++++++++++++++
+
+.. warning::
+
+    **These settings are being reviewed and might be deprecated in the future**, we encourage you to try not to use
+    them. If you need help with your use case, please `open an issue in the Conan repository <https://github.com/conan-io/conan/issues>`_
+    and we will help you.
+
+
+Before Conan v1.24 the recommended way to deal with cross building was to use some extra settings like
+``os_build``, ``arch_build`` and ``os_target`` and ``arch_target``. These settings have a special meaning
+for some Conan tools and build helpers, but they also need to be listed in the recipes themselves creating
+a dedicated set of recipes for *installers* and *tools* in general. This approach should be superseeded with
+the introduction in Conan 1.24 of the command line arguments ``--profile:host`` and ``--profile:build`` (TODO: LINK TO SECTION!)
+
+* The settings ``os_build`` and ``arch_build`` identify the ``build`` platform according to the GNU convention
+  triplet. These settings are detected the first time you run Conan with the same values than the ``host`` settings,
+  so by default, we are doing **native building**. You will probably never need to change the value
+  of this setting because they describe where are you running Conan.
+* The settings ``os_target`` and ``arch_target`` identify the ``target`` platform. If you are building
+  a cross compiler, these settings specify where the compiled code will run.
+
+The rest of settings, as we already know, identify the ``host`` platform.
+
+
+Preparing recipes to be cross-compiled
+++++++++++++++++++++++++++++++++++++++
+
+If you use the build helpers :ref:`AutoToolsBuildEnvironment<autotools_reference>` or :ref:`CMake<cmake_reference>`
+together with ``os_build`` and ``arch_build`` settings, Conan will adjust the configuration accordingly to the specified settings.
+
+If not, you can always check the regular settings ``os``, ``arch``,... (matching the ``host`` platform) and
+inject the needed flags to your build system script.
+
+Also, you can use this tool to check if you are cross-building:
+
+- :ref:`tools.cross_building(self.settings)<cross_building_reference>` (returns True or False)
+
+
+.. note::
+
+    In the following releases, this build helpers and tools will take into account the values of the
+    command line arguments ``--profile:host`` and ``--profile:build`` to implement the proper
+    cross building behavior. (TODO: LINK TO SECTION!)
+
+
+ARM architecture reference
+--------------------------
+
+Remember that the Conan settings are intended to unify the different names for operating systems, compilers,
+architectures etc.
+
+Conan has different architecture settings for ARM: ``armv6``, ``armv7``, ``armv7hf``, ``armv8``.
+The "problem" with ARM architecture is that it's frequently named in different ways, so maybe you are wondering what setting
+do you need to specify in your case.
+
+Here is a table with some typical ARM platforms:
+
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Platform                       | Conan setting                                                                                  |
++================================+================================================================================================+
+| Raspberry PI 1                 | ``armv6``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Raspberry PI 2                 | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Visual Studio                  | ``armv7`` currently Visual Studio builds ``armv7`` binaries when you select ARM.               |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Android armbeabi-v7a           | ``armv7``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Android armv64-v8a             | ``armv8``                                                                                      |
++--------------------------------+------------------------------------------------------------------------------------------------+
+| Android armeabi                | ``armv6`` (as a minimal compatible, will be compatible with v7 too)                            |
++--------------------------------+------------------------------------------------------------------------------------------------+
+
+
+Examples
+--------
+
+
+.. _cross_building_examples_profiles:
+
+Examples using profiles (before Conan v1.24)
+++++++++++++++++++++++++++++++++++++++++++++
 
 Linux to Windows
 ................
@@ -125,10 +353,6 @@ Linux to Windows
     RC=$target_host-windres
 
     [settings]
-    # We are building in Ubuntu Linux
-    os_build=Linux
-    arch_build=x86_64
-
     # We are cross-building to Windows
     os=Windows
     arch=x86_64
@@ -174,8 +398,6 @@ Windows to Raspberry Pi (Linux/ARM)
     cxx_compiler=g++
 
     [settings]
-    os_build=Windows
-    arch_build=x86_64
     os=Linux
     arch=armv7 # Change to armv6 if you are using Raspberry 1
     compiler=gcc
@@ -390,49 +612,11 @@ match the gcc toolchain compiler:
 
 A **bin/enough** for Android ARM platform has been built.
 
-Using build requires
-++++++++++++++++++++
 
-Instead of manually downloading the toolchain and creating a profile, you can create a Conan package
-with it. The toolchain Conan package needs to fill the ``env_info`` object
-in the :ref:`package_info()<method_package_info>` method with the same variables we've specified in the examples
-above in the ``[env]`` section of profiles.
+.. _cross_building_examples_build_requires:
 
-A layout of a Conan package for a toolchain could looks like this:
-
-
-.. code-block:: python
-
-   from conans import ConanFile
-   import os
-
-
-   class MyToolchainXXXConan(ConanFile):
-       name = "my_toolchain"
-       version = "0.1"
-       settings = "os_build", "arch_build"
-
-       def build(self):
-           # Typically download the toolchain for the 'build' host
-           url = "http://fake_url.com/installers/%s/%s/toolchain.tgz" % (os_build, os_arch)
-           tools.download(url, "toolchain.tgz")
-           tools.unzip("toolchain.tgz")
-
-       def package(self):
-           # Copy all the
-           self.copy("*", dst="", src="toolchain")
-
-       def package_info(self):
-           bin_folder = os.path.join(self.package_folder, "bin")
-           self.env_info.path.append(bin_folder)
-           self.env_info.CC = os.path.join(bin_folder, "mycompiler-cc")
-           self.env_info.CXX = os.path.join(bin_folder, "mycompiler-cxx")
-           self.env_info.SYSROOT = self.package_folder
-
-Finally, when you want to cross-build a library, the profile to be used will include a ``[build_requires]``
-section with the reference to our new packaged toolchain. This will also contain a ``[settings]`` section
-with the same settings from the examples above.
-
+Examples using build requires (before Conan v1.24)
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. _darwin_toolchain:
 
@@ -468,77 +652,9 @@ You can use a profile like the following to cross-build your packages for ``iOS`
     - Check the `mingw-installer <https://github.com/conan-community/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
 
 
-Using Docker images
-+++++++++++++++++++
-
-You can use some :ref:`available Docker images with Conan preinstalled images<available_docker_images>` to cross-build Conan packages.
-Currently there are ``i386``, ``armv7`` and ``armv7hf`` images with the needed packages and toolchains installed to cross-build.
-
-**Example**: Cross-building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
-
-.. code-block:: bash
-
-    $ git clone https://github.com/conan-community/conan-openssl
-    $ cd conan-openssl
-    $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc49-armv7hf /bin/bash
-
-    # Now we are running on the conangcc49-armv7hf container
-    $ sudo pip install conan --upgrade
-    $ cd project
-
-    $ conan create . user/channel --build missing
-    $ conan remote add myremoteARMV7 http://some.remote.url
-    $ conan upload "*" -r myremoteARMV7 --all
 
 
-Check the section: :ref:`How to run Conan with Docker<docker_conan>` to know more.
-
-
-Preparing recipes to be cross-compiled
-++++++++++++++++++++++++++++++++++++++
-
-If you use the build helpers :ref:`AutoToolsBuildEnvironment<autotools_reference>` or :ref:`CMake<cmake_reference>`,
-Conan will adjust the configuration accordingly to the specified settings.
-
-If don't, you can always check the ``self.settings.os``, ``self.settings.build_os``,
-``self.settings.arch`` and ``self.settings.build_arch`` settings values and inject the needed flags to your
-build system script.
-
-You can use this tool to check if you are cross-building:
-
-- :ref:`tools.cross_building(self.settings)<cross_building_reference>` (returns True or False)
-
-
-ARM architecture reference
---------------------------
-
-Remember that the Conan settings are intended to unify the different names for operating systems, compilers,
-architectures etc.
-
-Conan has different architecture settings for ARM: ``armv6``, ``armv7``, ``armv7hf``, ``armv8``.
-The "problem" with ARM architecture is that it's frequently named in different ways, so maybe you are wondering what setting
-do you need to specify in your case.
-
-Here is a table with some typical ARM platforms:
-
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Platform                       | Conan setting                                                                                  |
-+================================+================================================================================================+
-| Raspberry PI 1                 | ``armv6``                                                                                      |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Raspberry PI 2                 | ``armv7`` or ``armv7hf`` if we want to use the float point hard support                        |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Raspberry PI 3                 | ``armv8`` also known as armv64-v8a                                                             |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Visual Studio                  | ``armv7`` currently Visual Studio builds ``armv7`` binaries when you select ARM.               |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Android armbeabi-v7a           | ``armv7``                                                                                      |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Android armv64-v8a             | ``armv8``                                                                                      |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-| Android armeabi                | ``armv6`` (as a minimal compatible, will be compatible with v7 too)                            |
-+--------------------------------+------------------------------------------------------------------------------------------------+
-
+---
 
 
 .. seealso:: Reference links
