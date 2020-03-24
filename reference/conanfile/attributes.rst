@@ -953,12 +953,6 @@ You can also model system dependencies for each component or just header files.
     The information of components is not lost but aggregated to the *global* scope and the usage of components should be transparent right
     now to consumers and generators.
 
-Examples of the usage of components in generators would be:
-
-- Generate different targets with appropriate names in CMake to iterate better with ``find_package()`` functionality. This will allow more
-  granularity when linking with packages with more than one library packaged.
-- Generate files with appropriate names for CMake config and package config files like: *xxx-config.cmake* or *xxx.pc*
-
 The structure of the ``Component`` object is the same as the one used by the ``cpp_info`` object and has **the same default directories**.
 
 .. seealso::
