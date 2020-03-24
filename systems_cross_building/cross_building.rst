@@ -124,6 +124,8 @@ needed to use an installed toolchain:
 You can find working examples at the :ref:`bottom of this section <cross_building_examples_profiles>`.
 
 
+.. _cross_building_build_requires:
+
 Using build requires
 ++++++++++++++++++++
 
