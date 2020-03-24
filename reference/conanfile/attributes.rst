@@ -905,7 +905,8 @@ This object should be filled in ``package_info()`` method.
 | self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
 |                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.components         | **[Experimental]** Dictionary with different components a package may have: libraries, executables...   |
+| self.cpp_info.components         | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
+|                                  | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
@@ -937,8 +938,20 @@ executable will be one component inside ``cpp_info`` like this (the following ca
         self.cpp_info.components["ssl"].name = "SSL"
         self.cpp_info.components["ssl"].libs = ["libssl"]
 
-You can also model system dependencies for each component or just header files. With this information, generators will be able to retrieve
-the information about each component and generate different targets for each of them (Still not supported by any generator).
+You can also model system dependencies for each component or just header files.
+
+.. warning::
+
+    Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
+    ``self.cpp_info.name`` and ``self.cpp_info.names``).
+
+.. important::
+
+    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
+    dictionary). We are planning to complete this feature in next releases.
+
+    The information of components is not lost but aggregated to the *global* scope and the usage of components should be transparent right
+    now to consumers and generators.
 
 Examples of the usage of components in generators would be:
 
