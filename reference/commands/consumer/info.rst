@@ -101,6 +101,7 @@ The output will look like:
      Remote: None
      URL: http://...
      License: MIT
+     Description: A common dependency
      Updates: Version not checked
      Creation date: 2017-10-31 14:45:34
      Required by:
@@ -112,6 +113,7 @@ The output will look like:
      Remote: None
      URL: http://...
      License: MIT
+     Description: Hello World!
      Updates: Version not checked
      Required by:
         Project
@@ -228,6 +230,7 @@ The output will look like:
         package_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/package/6af9cc7cb931c5ad942174fd7838eb655717c709
         Remote: None
         License: MIT
+        Description: Foobar project
         Author: Dummy
         Topics: None
         Recipe: Cache
