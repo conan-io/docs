@@ -3,144 +3,144 @@
 Creating conan packages to install dev tools
 ============================================
 
-Conan 1.0 introduced two new settings, ``os_build`` and ``arch_build``. These settings represent the machine where Conan is running, and are
-important settings when we are packaging tools.
+One of the most useful features of Conan is to package executables like compilers or build tools and
+distribute them in a controlled way to the team of developers. This way Conan helps not only with the 
+graph of dependencies of the application itself, but also with all the ecosystem needed to generate the
+project, making it really easy to control everythin involved in the deployed application.
 
-These settings are different from ``os`` and ``arch``. These mean where the built software by the Conan recipe will run. When we are
-packaging a tool, it usually makes no sense, because we are not building any software, but it makes sense if you are
-:ref:`cross building software<cross_building>`.
+Those tools need to run in the working machine (the ``build`` machine) regardless of the ``host`` platform
+where the generated binaries will run. If those platforms are different, we are cross building software.
 
-We recommend the use of ``os_build`` and ``arch_build`` settings instead of ``os`` and ``arch`` if you are packaging a tool involved in the
-building process, like a compiler, a build system etc. If you are building a package to be run on the **host** system you can use ``os`` and
-``arch``.
+In this section we cope with the general scenario where a library requires other tools to compile that are
+also packaged with Conan. Read this section first, and get more information specific to cross compiling in
+the dedicated section of the docs: :ref:`cross_building`.
 
-A Conan package for a tool follows always a similar structure. This is a recipe for packaging the ``nasm`` tool for building assembler:
+
+.. note::
+
+    Conan v1.24 introduced a new feature to declare a full profile for the ``build`` and the ``host`` machine,
+    it is the preferred way to deal with this scenario. Older versions should rely on the deprecated
+    settings ``os_build`` and ``arch_build``. There is a small section below about those settings, for a full
+    explanation read the docs matching your Conan client.
+
+
+A Conan package for a tool is like any other package with an executable. Here it is a recipe for packaging
+the ``nasm`` tool for building assembler:
 
 .. code-block:: python
 
    import os
-   from conans import ConanFile
-   from conans.client import tools
+   from conans import ConanFile, tools
+   from conans.errors import ConanInvalidConfiguration
 
 
    class NasmConan(ConanFile):
        name = "nasm"
-       version = "2.13.01"
+       version = "2.13.02"
        license = "BSD-2-Clause"
        url = "https://github.com/conan-community/conan-nasm-installer"
-       settings = "os_build", "arch_build"
-       build_policy = "missing"
+       settings = "os", "arch"
        description="Nasm for windows. Useful as a build_require."
 
        def configure(self):
-           if self.settings.os_build != "Windows":
-               raise Exception("Only windows supported for nasm")
+           if self.settings.os != "Windows":
+               raise ConanInvalidConfiguration("Only windows supported for nasm")
 
        @property
        def nasm_folder_name(self):
            return "nasm-%s" % self.version
 
        def build(self):
-           suffix = "win32" if self.settings.arch_build == "x86" else "win64"
+           suffix = "win32" if self.settings.arch == "x86" else "win64"
            nasm_zip_name = "%s-%s.zip" % (self.nasm_folder_name, suffix)
            tools.download("http://www.nasm.us/pub/nasm/releasebuilds/"
                           "%s/%s/%s" % (self.version, suffix, nasm_zip_name), nasm_zip_name)
-           self.output.warn("Downloading nasm: "
+           self.output.info("Downloading nasm: "
                             "http://www.nasm.us/pub/nasm/releasebuilds"
                             "/%s/%s/%s" % (self.version, suffix, nasm_zip_name))
            tools.unzip(nasm_zip_name)
            os.unlink(nasm_zip_name)
 
        def package(self):
-           self.copy("*", dst="", keep_path=True)
+           self.copy("*", src=self.nasm_folder_name, dst="bin", keep_path=True)
            self.copy("license*", dst="", src=self.nasm_folder_name, keep_path=False, ignore_case=True)
 
        def package_info(self):
-           self.output.info("Using %s version" % self.nasm_folder_name)
-           self.env_info.path.append(os.path.join(self.package_folder, self.nasm_folder_name))
+           self.env_info.PATH.append(os.path.join(self.package_folder, "bin"))
 
-There are some remarkable things in the recipe:
 
-- The configure method discards some combinations of settings and options by throwing an exception. In this case this package is only for
-  Windows.
-- ``build()`` downloads the appropriate file and unzips it.
-- ``package()`` copies all the files from the zip to the package folder.
-- ``package_info()`` uses ``self.env_info`` to append to the environment variable ``path`` the package's bin folder.
+This recipe has nothing special: it doesn't declare the ``compiler`` and ``build_type`` settings because it is downloading
+already available binaries, and it is declaring the information for their consumers as usual in the :ref:`method_package_info` method:
 
-This package has only 2 differences from a regular Conan library package:
+* It is not declared, so the :ref:`cpp_info_attributes_reference` will take its default values: the ``bindirs`` will point to the
+  ``bin`` folder where the ``nasm.exe`` executable is packaged.
+* In the :ref:`env_info_attributes_reference` attribute, it is adding the ``bin`` folder to the ``PATH`` environment variable.
 
-- ``source()`` method is missing. That’s because when you compile a library, the source code is always the same for all the generated
-  packages. In this case we are downloading the binaries, so we do it in the build method to download the appropriate zip file according
-  to each combination of settings/options. Instead of actually building the tools, we just download them. Of course, if you want to build it
-  from source, you can do it too by creating your own package recipe.
-- The ``package_info()`` method uses the new ``self.env_info`` object. With ``self.env_info`` the package can declare environment variables
-  that will be set automatically before `build()`, `package()`, `source()` and `imports()` methods of a package requiring this build tool.
-  This is a convenient method to use these tools without having to manipulate the system path.
+This two simple declarations are enough to reuse this tool in the scenarios we are detailing below.
+
 
 Using the tool packages in other recipes
 ----------------------------------------
 
-The ``self.env_info`` variables will be automatically applied when you require a recipe that declares them. For example, take a look at the
-MinGW *conanfile.py* recipe (https://github.com/conan-community/conan-mingw-installer):
+These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so
+you should usually declare them as :ref:`build requirements <build_requires>`, in the recipe itself or in a profile.
+
+For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like 
+`flac <https://conan.io/center/flac/1.3.3/?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264/20191217/?tab=recipe>`_
+that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm`` 
+being the PATH to run some assembly optimizations.
+
 
 .. code-block:: python
-   :emphasize-lines: 5, 17
+   :emphasize-lines: 4
 
-    class MingwInstallerConan(ConanFile):
-        name = "mingw_installer"
+    class LibX264Conan(ConanFile):
+        name = "libx264"
         ...
-
-        build_requires = "7zip/19.00"
+        build_requires = "nasm/2.13.02"
 
         def build(self):
-            keychain = "%s_%s_%s_%s" % (str(self.settings.compiler.version).replace(".", ""),
-                                        self.settings.arch_build,
-                                        self.settings.compiler.exception,
-                                        self.settings.compiler.threads)
+            ... # ``nasm.exe`` will be in the PATH here
+        
+        def package_info(self):
+            self.cpp_info.libs = [...]
 
-            files = {
-               ...        }
 
-            tools.download(files[keychain], "file.7z")
-            self.run("7z x file.7z")
+The consumer recipe needs only to declare the corresponding ``build_require`` and Conan will take care
+of adding the required paths to the corresponding environment variables:
 
-        ...
+.. code-block:: bash
 
-We are requiring a ``build_require`` to another package: ``7zip``. In this case it will be used to unzip the 7z compressed files
-after downloading the appropriate MinGW installer.
+    conan create path/to/libx264 --profile:build=windows --profile:host=profile_host
 
-That way, after the download of the installer, the 7z executable will be in the PATH, because the ``7zip`` dependency declares the
-*bin* folder in its ``package_info()``.
+Here we are telling Conan to create the package for the ``libx264`` for the ``host`` platform defined
+in the profile ``profile_host`` file and to use the profile ``windows`` for all the build requirements
+that are in the ``build`` context. In other words: in this example we are running a Windows machine, so 
+and we need a version of ``nasm`` compatible with this machine, so we are providing a ``windows`` profile
+for the ``build`` context, and we are generating the library for the ``host`` platform which is declared
+in the ``profile_host`` profile (read more about :ref:`build requires context <build_requires_context>`).
 
-.. important::
+Using two profiles forces Conan to make this distinction and it has several advantages over the previous
+approach:
 
-    Some build requires will need settings such as ``os``, ``compiler`` or ``arch`` to build themselves from sources. In that case the
-    recipe might look like this:
+* recipes for these tools are regular recipes, no need to adapt them (before 1.24 they require special
+  settings and some package ID customization).
+* we provide a full profile for the ``build`` machine, so Conan is able to compile those build requirements
+  from sources if they are not already available.
+* Conan will add to the environment not only the path to the ``bin`` folder, but also it will populate
+  the ``DYLD_LIBRARY_PATH`` and ``LD_LIBRARY_PATH`` variables that are needed to find the shared libraries
+  that tool could need during runtime.
 
-    .. code-block:: python
-
-        class MyAwesomeBuildTool(ConanFile):
-            settings = "os_build", "arch_build", "arch", "compiler"
-            ...
-
-            def build(self):
-                cmake = CMake(self)
-                ...
-
-            def package_id(self):
-                self.info.include_build_settings()
-                del self.info.settings.compiler
-                del self.info.settings.arch
-
-    Note ``package_id()`` deletes unneeded information for the computation of the package ID and includes the build settings ``os_build``
-    and ``arch_build`` that are excluded by default. Read more about
-    :ref:`self.info.include_build_settings() <info_discard_include_build_settings>` in the reference section.
 
 Using the tool packages in your system
 --------------------------------------
 
-You can use the :ref:`virtualenv generator <virtualenv_generator>` to get the requirements applied in your system. For example: Working in
-Windows with MinGW and CMake.
+A different scenario is when you want to use in your system the binaries generated by Conan, to achieve
+this objective you can use the :ref:`virtualrunenv generator <virtual_environment_generator>` to get your
+environment populated with the required variables.
+
+
+For example: Working in Windows with the ``nasm`` package we've already defined:
 
 #. Create a separate folder from your project, this folder will handle our global development environment.
 
@@ -151,51 +151,42 @@ Windows with MinGW and CMake.
 
 #. Create a *conanfile.txt* file:
 
-   .. code-block:: bash
+   .. code-block:: ini
 
        [requires]
-       mingw_installer/1.0@conan/stable
-       cmake/3.16.3
+       nasm/2.13.02
+       # You can add more tools here
 
        [generators]
-       virtualenv
+       virtualrunenv
 
-   Note that you can adjust the ``options`` and retrieve a different configuration of the required packages, or leave them unspecified in the
-   file and pass them as command line parameters.
-
-#. Install them:
+#. Install them. Here it doesn't matter if you use only the ``host`` profile or the ``build`` one too
+   because the environment that is going to be populated includes only the root of the graph and its
+   dependencies, without any build requirement. In any case, the ``profile:host`` needed is the one
+   corresponding to the Windows machine where we are running these tests.
 
    .. code-block:: bash
 
-       $ conan install .
+       $ conan install . --profile:host=windows [--profile:build=windows]
 
 #. Activate the virtual environment in your shell:
 
    .. code-block:: bash
 
-      $ activate
+      $ activate_run
       (my_cpp_environ)$
 
 #. Check that the tools are in the path:
 
    .. code-block:: bash
 
-       (my_cpp_environ)$ gcc --version
+       (my_cpp_environ)$ nasm --version
 
-       > gcc (x86_64-posix-seh-rev1, Built by MinGW-W64 project) 4.9.2
+       > NASM version 2.13.02 compiled on Dec 18 2019
 
-        Copyright (C) 2014 Free Software Foundation, Inc.
-        This is free software; see the source for copying conditions.  There is NO
-        warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-       (my_cpp_environ)$ cmake --version
-
-       > cmake version 3.16.3
-
-         CMake suite maintained and supported by Kitware (kitware.com/cmake).
-
+       
 #. You can deactivate the virtual environment with the *deactivate.bat* script
 
    .. code-block:: bash
 
-       (my_cpp_environ)$ deactivate
+       (my_cpp_environ)$ deactivate_run
