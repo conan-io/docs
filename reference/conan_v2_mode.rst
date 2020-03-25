@@ -69,14 +69,6 @@ Could break existing profiles:
 * Deprecate ``scopes`` section in profiles.
 
 
-Other changes
--------------
-
-Could break existing processes and scripts:
-
-* Deprecate `virtualenv_python` generator
-
-
 .. note::
 
    More changes will be added, some of them could be reverted and the behavior may
