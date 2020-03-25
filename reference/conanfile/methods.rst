@@ -1062,3 +1062,35 @@ The ``deploy()`` method is designed to work on a package that is installed direc
 
 All other packages and dependencies, even transitive dependencies of "Pkg/0.1@user/testing" will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
+
+.. _method_init:
+
+init()
+------
+
+This is an optional method for initializing conanfile values, designed for inheritance from ``python_requires``.
+Assuming we have a ``base/1.1@user/testing`` recipe:
+
+.. code-block:: python
+
+    class MyConanfileBase(ConanFile):
+        license = "MyLicense"
+        settings = "os", # tuple!
+
+
+We could reuse and inherit from it with:
+
+.. code-block:: python
+
+    class PkgTest(ConanFile):
+        license = "MIT"
+        settings = "arch", # tuple!
+        python_requires = "base/1.1@user/testing"
+        python_requires_extend = "base.MyConanfileBase"
+
+        def init(self):
+            base = self.python_requires["base"].module.MyConanfileBase
+            self.settings = base.settings + self.settings  # Note, adding 2 tuples = tuple
+            self.license = base.license  # License is overwritten
+
+The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
