@@ -490,7 +490,7 @@ All the modes can be applied to all dependencies, or to individual ones:
   .. code-block:: text
 
     MyLib/1.2.3@user/testing       => MyLib/1.Y.Z
-    MyOtherLib/2.3.4@user/testing  => my_other_lib/2.Y.Z
+    my_other_lib/2.3.4@user/testing  => my_other_lib/2.Y.Z
 
   In this mode, versions starting with ``0`` are considered unstable and mapped to the full version:
 
