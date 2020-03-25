@@ -78,41 +78,47 @@ profile, it will overwrite the build requirements defined in package recipes tha
 
 .. _build_requires_context:
 
-Context
--------
+Build and Host contexts
+-----------------------
 
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
-it in the :ref:`cross building <cross_building>` section) when the user supplies two profiles to the command line using the
-``--profile:build`` and ``--profile:host`` arguments (TODO: LINK!!!):
+the meaning of ``host`` and ``build`` platforms in the :ref:`cross building <cross_building>` section) **when the user
+supplies two profiles** to the command line using the ``--profile:build`` and ``--profile:host`` arguments (TODO: LINK!!!):
 
-* The ``host`` context is populated with the root package (the one specified in the :command:`conan install` or :command:`conan create` command),
+* The **host context** is populated with the root package (the one specified in the :command:`conan install` or :command:`conan create` command),
   all its requirements and the build requirements forced to be in the host context.
-* The ``build`` context contains all the build requirements declared in the profiles or not forced to be in the host context.
+* The **build context** contains the rest of  build requirements and all of them in the profiles. This category typically
+  includes all the :ref:`dev tools <create_installer_packages>` like CMake, compilers, linkers,...
 
-Build requirements declared in the recipes can be forced to stay in the ``host`` context, this is needed for testing libraries that will
+
+Build requirements declared in the recipes can be forced to stay in the host context, this is needed for testing libraries that will
 be linked to the generated library or other executable we want to deploy to the ``host`` platform, for example:
 
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "ToolA/0.2@user/testing"  # ``build`` context
+        build_requires = "nasm/2.14"  # 'build' context (nasm.exe will be available)
 
         def build_requirements(self):
-            self.build_requires("gtest/0.1", force_host_context=True)  # ``host`` context
+            self.build_requires("protobuf/3.6.1")  # 'build' context (protoc.exe will be available)
+            self.build_requires("gtest/0.1", force_host_context=True)  # 'host' context (our library will link with it)
 
 
 Take into account that the same package (executable or library) can appear two times in the graph, in the ``host`` and
 in the ``build`` context, with different package IDs. Conan will propagate the proper information to the consumers:
 
 * Build requirements in the ``host`` context will propagate like any other requirement, all the ``cpp_info`` will be
-  available in the ``deps_cpp_info["br"]`` object (``env_info`` and ``user_info`` won't be propagated).
+  available in the ``deps_cpp_info["xxx"]`` object (``env_info`` and ``user_info`` won't be propagated).
 * Build requirements in the ``build`` context will propagate all the ``env_info`` and Conan will also populate the
   environment variables ``DYLD_LIBRARY_PATH``, ``LD_LIBRARY_PATH`` and ``PATH`` with the corresponding information from
   the ``cpp_info`` object. All these information will be available in the ``deps_cpp_info`` object.
 
-If no ``--profile:build`` is provided, all build requirements will belong to the one and only context and they will share
-their dependencies with the libraries we are building. In this scenario all the build requirements propagate ``user_info``,
-``cpp_info`` and ``env_info`` to the consumer's ``deps_user_info``, ``deps_cpp_info`` and ``deps_env_info``.
+
+.. warning::
+
+    If no ``--profile:build`` is provided, all build requirements will belong to the one and only context and they will share
+    their dependencies with the libraries we are building. In this scenario all the build requirements propagate ``user_info``,
+    ``cpp_info`` and ``env_info`` to the consumer's ``deps_user_info``, ``deps_cpp_info`` and ``deps_env_info``.
 
 
 Properties of build requirements
@@ -190,7 +196,7 @@ This package recipe won't retrieve the ``cmake_turbo`` package for normal instal
 
 But if the following profile is defined:
 
-.. code-block:: text
+.. code-block:: ini
    :caption: use_cmake_turbo_profile
 
     [build_requires]
@@ -205,8 +211,8 @@ then the install command will retrieve the ``cmake_turbo`` and use it:
 
 Although the previous line would work it is preferred to use the feature from Conan v1.24 and provide
 two profiles to the command line, that way the build requirements in the ``build`` context won't 
-interfer with the ``host`` graph if they share common requirements. It can also be needed if 
-cross compiling (see :ref:`section about cross compiling <cross_building_build_requires>`).
+interfer with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
+It can also be needed if cross compiling (see :ref:`section about cross compiling <cross_building_build_requires>`).
 
 .. code-block:: bash
 
