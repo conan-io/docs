@@ -474,7 +474,7 @@ All the modes can be applied to all dependencies, or to individual ones:
     my_other_lib/2.3.4@user/testing  =>
 
   So the direct dependencies are mapped to the major version only. Changing its channel, or using version
-  ``MyLib/1.4.5`` will still produce ``MyLib/1.Y.Z`` and thus the same package-id.
+  ``my_lib/1.4.5`` will still produce ``my_lib/1.Y.Z`` and thus the same package-id.
   The indirect, transitive dependency doesn't affect the package-id at all.
 
 - ``semver_mode()``: In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
