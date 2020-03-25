@@ -407,7 +407,7 @@ If it is necessary to change the default behavior, the applied versioning schema
         requires = "my_other_lib/2.0@lasote/stable"
 
         def package_id(self):
-            myotherlib = self.info.requires["MyOtherLib"]
+            myotherlib = self.info.requires["my_other_lib"]
 
             # Any change in the MyOtherLib version will change current Package ID
             myotherlib.version = myotherlib.full_version
