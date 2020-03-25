@@ -852,8 +852,8 @@ cpp_info
 
     This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
-The ``self.cpp_info`` is responsible for storing all the information needed by consumers of a package: include directories, library names,
-library paths... There are some default values that will be applied automatically if not indicated otherwise.
+The ``self.cpp_info`` attribute is responsible for storing all the information needed by consumers of a package: include directories,
+library names, library paths... There are some default values that will be applied automatically if not indicated otherwise.
 
 This object should be filled in ``package_info()`` method.
 
@@ -905,9 +905,55 @@ This object should be filled in ``package_info()`` method.
 | self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
 |                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components         | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
+|                                  | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
+
+.. _cpp_info_components_attributes_reference:
+
+Components
+++++++++++
+
+.. warning::
+
+    This is a **experimental** feature subject to breaking changes in future releases.
+
+When you are creating a Conan package, it is recommended to have only one library (*.lib*, *.a*, *.so*, *.dll*...) per package. However,
+especially with third-party projects like Boost, Poco or OpenSSL, they would contain several libraries inside.
+
+Usually those libraries inside the same package depend on each other and modelling the relationship among them is required.
+
+With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
+executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.components["crypto"].name = "Crypto"
+        self.cpp_info.components["crypto"].libs = ["libcrypto"]
+        self.cpp_info.components["ssl"].name = "SSL"
+        self.cpp_info.components["ssl"].libs = ["libssl"]
+
+You can also model system dependencies for each component or just header files.
+
+.. warning::
+
+    Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
+    ``self.cpp_info.name`` and ``self.cpp_info.names``).
+
+.. important::
+
+    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
+    dictionary). We are planning to complete this feature in next releases.
+
+    The information of components is not lost but aggregated to the *global* scope and the usage of components should be transparent right
+    now to consumers and generators.
+
+The structure of the ``Component`` object is the same as the one used by the ``cpp_info`` object and has **the same default directories**.
 
 .. seealso::
 
@@ -986,7 +1032,6 @@ The ``self.env_info`` object can be filled with the environment variables to be 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
 
 
-
 .. _deps_env_info_attributes_reference:
 
 deps_env_info
@@ -1014,8 +1059,6 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
-
-
 
 user_info
 ---------

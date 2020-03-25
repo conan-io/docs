@@ -205,8 +205,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
+    self.cpp_info.system_libs = []  # System libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
-    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
+    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc. can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
     self.cpp_info.build_modules = []  # Build system utility module files
@@ -215,7 +216,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
-    self.cpp_info.system_libs = []  # The system libs to link against
+    self.cpp_info.components  # Dictionary with the different components a package may have
 
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
@@ -250,6 +251,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
+- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
+- **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
+  package may have: libraries, executables...
 
 .. code-block:: python
 
