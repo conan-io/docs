@@ -744,7 +744,7 @@ Library Types: Shared, Static, Header-only
 Let's see some examples, corresponding to common scenarios:
 
 - ``my_lib/1.0`` is a shared library that links with a static library ``my_other_lib/2.0`` package.
-  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for
+  When a new ``my_other_lib/2.1`` version is released: Do I need to create a new binary for
   ``my_lib/1.0`` to link with it?
 
   Yes, always, as the implementation is embedded in the ``my_lib/1.0`` shared library. If we
