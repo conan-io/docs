@@ -65,7 +65,7 @@ Build requirements can also be specified in a package recipe, with the ``build_r
             if platform.system() == "Windows":
                 self.build_requires("tool_win/0.1@user/stable")
 
-The above ``ToolA`` and ``ToolB`` will always be retrieved and used for building this recipe, while the ``ToolWin`` one will only be used
+The above ``tool_a`` and ``tool_b`` will always be retrieved and used for building this recipe, while the ``tool_win`` one will only be used
 only in Windows.
 
 If some build requirement defined inside ``build_requirements()`` has the same package name as the one defined in the ``build_requires``
