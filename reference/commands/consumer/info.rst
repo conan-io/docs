@@ -49,8 +49,8 @@ your local cache.
                             written
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
-                            "required", "date", "author", "None". '--paths'
-                            information can also be filtered with options
+                            "required", "date", "author", "description", "None". '
+                            --paths' information can also be filtered with options
                             "export_folder", "build_folder", "package_folder",
                             "source_folder". Use '--only None' to show only
                             references.
