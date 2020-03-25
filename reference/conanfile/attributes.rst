@@ -311,8 +311,10 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
         arch = self.settings.get_safe("arch")
         # Will be None if doesn't exist
         compiler_version = self.settings.get_safe("compiler.version")
+        # Will be the default version if the return is None
+        build_type = self.settings.get_safe("build_type", "Release")
 
-The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist.
+The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
 
 
@@ -458,6 +460,18 @@ consistent implementation take into account these considerations:
 
 - A different behavior has ``self.options.option = None``, because
   ``assert self.options.option != None``.
+
+If you want to do a safe check of options values, you could use the ``get_safe()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        # Will be None if doesn't exist
+        fpic = self.options.get_safe("fPIC")
+        # Will be the default version if the return is None
+        shared = self.options.get_safe("shared", False)
+
+The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
 
 .. _conanfile_default_options:
