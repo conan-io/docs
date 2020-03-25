@@ -561,7 +561,7 @@ All the modes can be applied to all dependencies, or to individual ones:
   .. code-block:: python
 
     def package_id(self):
-        self.info.requires["MyOtherLib"].full_package_mode()
+        self.info.requires["my_other_lib"].full_package_mode()
 
   Any change to the dependency, including its binary package-id, will in turn
   produce a new package-id for the consumer package.
