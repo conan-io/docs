@@ -777,7 +777,7 @@ Let's see some examples, corresponding to common scenarios:
           # or Package ID will affect our package ID
           self.info.requires["my_other_lib"].full_package_mode()
 
-          # Or any change in the MyOtherLib version, user or
+          # Or any change in the my_other_lib version, user or
           # channel will affect our package ID
           self.info.requires["my_other_lib"].full_recipe_mode()
 
