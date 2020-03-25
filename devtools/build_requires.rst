@@ -83,7 +83,7 @@ Build and Host contexts
 
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
 the meaning of ``host`` and ``build`` platforms in the :ref:`cross building <cross_building>` section) **when the user
-supplies two profiles** to the command line using the ``--profile:build`` and ``--profile:host`` arguments (TODO: LINK!!!):
+supplies two profiles** to the command line using the ``--profile:build`` and ``--profile:host`` arguments:
 
 * The **host context** is populated with the root package (the one specified in the :command:`conan install` or :command:`conan create` command),
   all its requirements and the build requirements forced to be in the host context.
