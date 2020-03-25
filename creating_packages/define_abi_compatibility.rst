@@ -318,7 +318,7 @@ Dependency Issues
 Let's define a simple scenario whereby there are two packages: ``my_other_lib/2.0`` and ``my_lib/1.0`` which depends on
 ``my_other_lib/2.0``. Let's assume that their recipes and binaries have already been created and uploaded to a Conan remote.
 
-Now, a new release for ``my_other_lib/2.1`` is released with an improved recipe and new binaries. The ``my_lib/1.0`` is modified and is required to be upgraded to ``MyOtherLib/2.1``.
+Now, a new release for ``my_other_lib/2.1`` is released with an improved recipe and new binaries. The ``my_lib/1.0`` is modified and is required to be upgraded to ``my_other_lib/2.1``.
 
 .. note::
 
