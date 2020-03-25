@@ -77,7 +77,7 @@ It is useful to declare relative folders:
 .. code-block:: text
 
     [env]
-    PYTHONPATH=$PROFILE_DIR/my_python_tools
+    PATH=$PROFILE_DIR/dev_tools
 
 .. tip::
 
