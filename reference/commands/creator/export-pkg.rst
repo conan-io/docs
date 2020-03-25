@@ -87,7 +87,7 @@ different sources for the files:
    **and** ``build_folder`` to the corresponding path in the Conan cache (working directory
    corresponds to the ``build_folder``).
  * If the arguments ``--package-folder``, ```--build-folder`` or ``--source-folder`` are
-   declared, but the path is incorrect, :command:`export-pkg` will raise a ``ConanException``.
+   declared, but the path is incorrect, :command:`export-pkg` will raise an exception.
 
 
 There are different scenarios where this command could look like useful:
