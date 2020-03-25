@@ -773,7 +773,7 @@ Let's see some examples, corresponding to common scenarios:
   .. code-block:: python
 
       def package_id(self):
-          # Any change in the MyOtherLib version, user or channel
+          # Any change in the my_other_lib version, user or channel
           # or Package ID will affect our package ID
           self.info.requires["my_other_lib"].full_package_mode()
 
