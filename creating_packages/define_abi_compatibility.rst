@@ -470,7 +470,7 @@ All the modes can be applied to all dependencies, or to individual ones:
 
   .. code-block:: text
 
-    MyLib/1.2.3@user/testing       => MyLib/1.Y.Z
+    my_lib/1.2.3@user/testing       => my_lib/1.Y.Z
     my_other_lib/2.3.4@user/testing  =>
 
   So the direct dependencies are mapped to the major version only. Changing its channel, or using version
