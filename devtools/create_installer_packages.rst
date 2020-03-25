@@ -142,60 +142,60 @@ Using the tool packages in your system
 You can use the :ref:`virtualenv generator <virtualenv_generator>` to get the requirements applied in your system. For example: Working in
 Windows with MinGW and CMake.
 
-1. Create a separate folder from your project, this folder will handle our global development environment.
+#. Create a separate folder from your project, this folder will handle our global development environment.
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ mkdir my_cpp_environ
-    $ cd my_cpp_environ
+       $ mkdir my_cpp_environ
+       $ cd my_cpp_environ
 
-2. Create a *conanfile.txt* file:
+#. Create a *conanfile.txt* file:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    [requires]
-    mingw_installer/1.0@conan/stable
-    cmake/3.16.3
+       [requires]
+       mingw_installer/1.0@conan/stable
+       cmake/3.16.3
 
-    [generators]
-    virtualenv
+       [generators]
+       virtualenv
 
-Note that you can adjust the ``options`` and retrieve a different configuration of the required packages, or leave them unspecified in the
-file and pass them as command line parameters.
+   Note that you can adjust the ``options`` and retrieve a different configuration of the required packages, or leave them unspecified in the
+   file and pass them as command line parameters.
 
-3. Install them:
+#. Install them:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    $ conan install .
+       $ conan install .
 
-4. Activate the virtual environment in your shell:
+#. Activate the virtual environment in your shell:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   $ activate
-   (my_cpp_environ)$
+      $ activate
+      (my_cpp_environ)$
 
-5. Check that the tools are in the path:
+#. Check that the tools are in the path:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    (my_cpp_environ)$ gcc --version
+       (my_cpp_environ)$ gcc --version
 
-    > gcc (x86_64-posix-seh-rev1, Built by MinGW-W64 project) 4.9.2
+       > gcc (x86_64-posix-seh-rev1, Built by MinGW-W64 project) 4.9.2
 
-     Copyright (C) 2014 Free Software Foundation, Inc.
-     This is free software; see the source for copying conditions.  There is NO
-     warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+        Copyright (C) 2014 Free Software Foundation, Inc.
+        This is free software; see the source for copying conditions.  There is NO
+        warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-    (my_cpp_environ)$ cmake --version
+       (my_cpp_environ)$ cmake --version
 
-    > cmake version 3.16.3
+       > cmake version 3.16.3
 
-      CMake suite maintained and supported by Kitware (kitware.com/cmake).
+         CMake suite maintained and supported by Kitware (kitware.com/cmake).
 
-6. You can deactivate the virtual environment with the *deactivate.bat* script
+#. You can deactivate the virtual environment with the *deactivate.bat* script
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    (my_cpp_environ)$ deactivate
+       (my_cpp_environ)$ deactivate
