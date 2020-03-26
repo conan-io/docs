@@ -157,8 +157,7 @@ if __name__ == "__main__":
         to_index = {}
         for branch, folder_name in versions_dict.items():
             print("Building {}...".format(branch))
-            json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
-                                         validate_links=branch == "master")
+            json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir)
             to_index[folder_name] = json_folder
 
         # Index
