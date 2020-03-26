@@ -17,3 +17,7 @@ repositories.
 
    bintray/uploading_bintray
    bintray/conan_center_guide
+
+.. warning::
+
+    It is highly recommended to use ConanCenter inclusion for your Conan repositories. The previous process to contribute to ConanCenter, known as "inclusion requests" from Bintray is deprecated. It is no longer needed to create your own packages and upload them to your Bintray personal repo. Only the `Github pull request process found here <https://github.com/conan-io/conan-center-index/wiki>`_ will be needed.
