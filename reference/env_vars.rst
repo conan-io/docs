@@ -439,7 +439,7 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
 
         def build(self):

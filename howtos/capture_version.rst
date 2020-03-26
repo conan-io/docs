@@ -35,7 +35,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/branch_commit@user/channel``.
+``hello/branch_commit@user/channel``.
 
 How to capture package version from SCM: svn
 ============================================
@@ -48,7 +48,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
     from conans import ConanFile, tools
 
     class HelloLibrary(ConanFile):
-        name = "Hello"
+        name = "hello"
         def set_version(self):
             scm = tools.SVN(folder=self.recipe_folder)
             revision = scm.get_revision()
@@ -64,7 +64,7 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/generated_version@user/channel``. Note: this function should never raise, see the section
+``hello/generated_version@user/channel``. Note: this function should never raise, see the section
 about when the version is computed and saved above.
 
 How to capture package version from text or build files
@@ -81,7 +81,6 @@ As an example, let's assume we have the following library layout, and that we wa
        hello.cpp
        ...
 
-
 The *CMakeLists.txt* will have some variables to define the library version number. For simplicity, let's also assume
 that it includes a line such as the following:
 
@@ -91,9 +90,7 @@ that it includes a line such as the following:
     set(MY_LIBRARY_VERSION 1.2.3) # This is the version we want
     add_library(hello src/hello.cpp)
 
-
 You can extract the version dynamically using:
-
 
 .. code-block:: python
 
@@ -102,7 +99,7 @@ You can extract the version dynamically using:
     import re, os
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         def set_version(self):
             content = load(os.path.join(self.recipe_folder, "CMakeLists.txt"))
             version = re.search(b"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)

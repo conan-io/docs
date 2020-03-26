@@ -89,7 +89,7 @@ your local cache.
     $ conan info .
     $ conan info myproject_folder
     $ conan info myproject_folder/conanfile.py
-    $ conan info Hello/1.0@user/channel
+    $ conan info hello/1.0@user/channel
 
 The output will look like:
 
@@ -104,9 +104,9 @@ The output will look like:
      Updates: Version not checked
      Creation date: 2017-10-31 14:45:34
      Required by:
-        Hello/1.0@user/channel
+        hello/1.0@user/channel
 
-    Hello/1.0@user/channel
+    hello/1.0@user/channel
      ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
      BuildID: None
      Remote: None
@@ -116,7 +116,7 @@ The output will look like:
      Required by:
         Project
      Requires:
-        Hello0/0.1@user/channel
+        hello0/0.1@user/channel
 
 :command:`conan info` builds the complete dependency graph, like :command:`conan install` does. The main
 difference is that it doesn't try to install or build the binaries, but the package recipes

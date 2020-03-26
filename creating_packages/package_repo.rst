@@ -26,7 +26,7 @@ First, let's get the initial source code and create the basic package recipe:
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 -t -s
+    $ conan new hello/0.1 -t -s
 
 A *src* folder will be created with the same "hello" source code as in the previous example. You
 can have a look at it and see that the code is straightforward.
@@ -38,11 +38,11 @@ Now let's have a look at *conanfile.py*:
     from conans import ConanFile, CMake
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         license = "<Put the package license here>"
         url = "<Package recipe repository url here, for issues about the package>"
-        description = "<Description of Hello here>"
+        description = "<Description of hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = {"shared": False}
@@ -91,7 +91,7 @@ And simply create the package for user and channel **demo/testing** as described
 
     $ conan create . demo/testing
     ...
-    Hello/0.1@demo/testing test package: Running test()
+    hello/0.1@demo/testing test package: Running test()
     Hello world Release!
 
 .. _scm_feature:
@@ -196,9 +196,9 @@ be valid too:
 
    .. code-block:: bash
 
-     $ conan export . Hello/0.1@demo/testing
+     $ conan export . hello/0.1@demo/testing
 
-      Hello/0.1@demo/testing: WARN: There are uncommitted changes, skipping the replacement of 'scm.url'
+      hello/0.1@demo/testing: WARN: There are uncommitted changes, skipping the replacement of 'scm.url'
       and 'scm.revision' auto fields. Use --ignore-dirty to force it.
       The 'conan upload' command will prevent uploading recipes with 'auto' values in these fields.
 

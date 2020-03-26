@@ -67,7 +67,7 @@ different property sheet will be generated for each configuration. The process c
 
 There are ``ConanVariables`` containing the information of the dependencies. Those variables are used later in the file, like in the ``<Link>`` task.
 
-Note that for single-configuration packages, which is the most typical, conan install Debug/Release, 32/64bits, packages separately. So a different property sheet will be generated for each configuration. The process could be:
+Note that for single-configuration packages, which is the most typical, :command:`conan install` Debug/Release, 32/64bits, packages separately. So a different property sheet will be generated for each configuration. The process could be:
 
 Given for example a ``conanfile.txt`` like:
 
@@ -75,12 +75,12 @@ Given for example a ``conanfile.txt`` like:
    :caption: *conanfile.txt*
 
     [requires]
-    Pkg/0.1@user/channel
+    pkg/0.1@user/channel
 
     [generators]
     visual_studio
 
-And assuming that binary packages exist for ``Pkg/0.1@user/channel``, we could do:
+And assuming that binary packages exist for ``pkg/0.1@user/channel``, we could do:
 
 .. code-block:: bash
 
