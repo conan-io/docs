@@ -26,12 +26,12 @@ You can just directly run:
 
     $ conan create . demo/testing
 
-Once you have generated the desired binaries, you can store your pre-compiled binaries in your bintray repository or on your own Conan
+Once you have generated the desired binaries, you can store your pre-compiled binaries in your Bintray repository or on your own Conan
 server:
 
 .. code-block:: bash
 
-    $ conan upload Package/0.1@myuser/stable -r=myremote --all
+    $ conan upload package/0.1@myuser/stable -r=myremote --all
 
 Finally, if you made useful changes, you might want to create a pull request to the original repository of the package creator.
 

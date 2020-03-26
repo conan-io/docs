@@ -119,10 +119,10 @@ The ``reference`` field can be:
 .. code-block:: bash
 
     $ conan export . demo/testing
-    $ conan install Hello/0.1@demo/testing --build=Hello
+    $ conan install hello/0.1@demo/testing --build=hello
     # package is created now, use test to test it
     $ cd test_package
-    $ conan test . Hello/0.1@demo/testing
+    $ conan test . hello/0.1@demo/testing
 
 
 .. tip::

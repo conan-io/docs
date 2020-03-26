@@ -22,9 +22,9 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
     env_var=value
 
     [build_requires]
-    Tool1/0.1@user/channel
-    Tool2/0.1@user/channel, Tool3/0.1@user/channel
-    *: Tool4/0.1@user/channel
+    tool1/0.1@user/channel
+    tool2/0.1@user/channel, tool3/0.1@user/channel
+    *: tool4/0.1@user/channel
 
 Options allow the use of wildcards letting you apply the same option value to many packages. For example:
 

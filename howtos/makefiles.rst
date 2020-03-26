@@ -56,7 +56,7 @@ to match the current Conan settings (like ``-m32`` or ``-m64`` based on the Cona
     from conans import tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
@@ -127,7 +127,7 @@ And also a *conanfile.py* very similar to the previous one. In this case adding 
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         exports_sources = "src/*"
-        requires = "Hello/0.1@user/testing"
+        requires = "hello/0.1@user/testing"
 
         def build(self):
             with tools.chdir("src"):
@@ -144,7 +144,7 @@ And also a *conanfile.py* very similar to the previous one. In this case adding 
 
 Note that in this case, the ``AutoToolsBuildEnvironment`` will automatically set values to ``CPPFLAGS``,
 ``LDFLAGS``, ``LIBS``, etc. existing in the *Makefile* with the correct include directories, library names,
-etc. to properly build and link with the ``hello`` library contained in the "Hello" package.
+etc. to properly build and link with the ``hello`` library contained in the "hello" package.
 
 As above, we can create the package with:
 
@@ -158,6 +158,6 @@ In this case, since the package has a ``deploy()`` method, we can use it:
 
 .. code-block:: bash
 
-    $ conan install Hello/0.1user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
+    $ conan install hello/0.1user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
     $ ./bin/app
     $ Hello World Release!

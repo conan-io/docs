@@ -15,7 +15,7 @@ files of our requirements, then ``Meson()`` build helper will locate them automa
 
     class ConanFileToolsTest(ConanFile):
         generators = "pkg_config"
-        requires = "LIB_A/0.1@conan/stable"
+        requires = "lib_a/0.1@conan/stable"
         settings = "os", "compiler", "build_type"
 
         def build(self):
@@ -157,7 +157,7 @@ library locally (in your user folder, not in the local cache), could be:
     from conans import ConanFile, Meson
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         generators = "pkg_config"

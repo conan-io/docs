@@ -180,7 +180,7 @@ So it can be a good solution in case you are building **library A** with a build
 
     class ConanFileToolsTest(ConanFile):
         generators = "pkg_config"
-        requires = "LIB_A/0.1@conan/stable"
+        requires = "lib_a/0.1@conan/stable"
         settings = "os", "compiler", "build_type"
 
         def build(self):
@@ -198,7 +198,7 @@ So it can be a good solution in case you are building **library A** with a build
 
     class ConanFileToolsTest(ConanFile):
         generators = "pkg_config"
-        requires = "LIB_A/0.1@conan/stable"
+        requires = "lib_a/0.1@conan/stable"
         settings = "os", "compiler", "build_type"
 
         def build(self):

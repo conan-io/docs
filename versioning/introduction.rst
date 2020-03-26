@@ -43,8 +43,8 @@ When a :command:`conan install` is executed, it will check in the local cache fi
 not in the remotes what ``pkg`` versions are available and will select the latest one
 that satisfies the defined range.
 
-By default, it is less deterministic, one ``conan install`` can resolve to ``pkg/1.1`` and
-then ``pkg/1.2`` is published, and a new ``conan install`` (by users, or CI), will automatically
+By default, it is less deterministic, one :command:`conan install` can resolve to ``pkg/1.1`` and
+then ``pkg/1.2`` is published, and a new :command:`conan install` (by users, or CI), will automatically
 pick the newer 1.2 version, with different results. On the other hand it doesn't require
 changes to consumer recipes to upgrade to use new versions of dependencies.
 
@@ -112,8 +112,8 @@ is fired again, a new package revision can be created. The package revision
 is the hash of the contents of the package (headers, libraries...), so unless
 deterministic builds are achieved, new package revisions will be generated.
 
-In general revisions are not intended to be defined explictly in conanfiles,
-altough they can for specific purposes like debugging.
+In general revisions are not intended to be defined explicitly in conanfiles,
+although they can for specific purposes like debugging.
 
 Read more about :ref:`package_revisions`
 
@@ -125,27 +125,28 @@ When two different branches of the same dependency graph require the same packag
 this is known as "diamonds" in the graph. If the two branches of a diamond require
 the same package but different versions, this is known as a conflict (a version conflict).
 
-Lets say that we are building an executable in **PkgD/1.0**, that depends on **PkgB/1.0** and **PkgC/1.0**,
-which contain static libraries. In turn, **PkgB/1.0** depends on **PkgA/1.0** and finally **PkgC/1.0** depends on
-**PkgA/2.0**, which is also another static library.
+Lets say that we are building an executable in **pkgd/1.0**, that depends on **pkgb/1.0** and **pkgc/1.0**,
+which contain static libraries. In turn, **pkgb/1.0** depends on **pkga/1.0** and finally **pkgc/1.0** depends on
+**pkga/2.0**, which is also another static library.
 
-The executable in **PkgD/1.0**, cannot link with 2 different versions of the same static library in **PkgC**, and the dependency resolution algorithm raises an error to let the
+The executable in **pkgd/1.0**, cannot link with 2 different versions of the same static library in **pkgc**, and the dependency resolution algorithm raises an error to let the
 user decide which one.
 
 .. image:: ../images/conan-graph_conflicts.png
 
-The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **PkgA/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library.
+The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both **PkgB** and **PkgC** can be requiring the same version **pkga/1.0**, but one of them will try to use it as a static library and the other one will try to use it as shared library.
 The dependency resolution algorithm will also raise an error.
 
 Dependencies overriding
 -----------------------
-The downstream consumer packages always have higher priority, so the versions they request, will be overriden upstream as the dependency graph is built, re-defining the possible requires that the packages could have. For example, **PkgB/1.0** could define in its recipe a dependency to **PkgA/1.0**. But if a downstream consumer defines a requirement to **PkgA/2.0**, then that version will be used in the upstream graph:
+
+The downstream consumer packages always have higher priority, so the versions they request, will be overridden upstream as the dependency graph is built, re-defining the possible requires that the packages could have. For example, **pkgb/1.0** could define in its recipe a dependency to **pkga/1.0**. But if a downstream consumer defines a requirement to **pkga/2.0**, then that version will be used in the upstream graph:
 
 .. image:: ../images/conan-graph_override.png
 
-This is what enables the users to have control. Even when a package recipe upstream defines an older version, the downstream consumers can force to use an updated version. Note that this is not a diamond structure in the graph, so it is not a conflict by default. This behavior can be also restricted defining the :ref:`env_vars_conan_error_on_override` environment variable to raise an error when these overrides happen, and then the user can go and explicitly modify the upstream **PkgB/1.0** recipe to match the version of PkgA and avoid the override.
+This is what enables the users to have control. Even when a package recipe upstream defines an older version, the downstream consumers can force to use an updated version. Note that this is not a diamond structure in the graph, so it is not a conflict by default. This behavior can be also restricted defining the :ref:`env_vars_conan_error_on_override` environment variable to raise an error when these overrides happen, and then the user can go and explicitly modify the upstream **pkgb/1.0** recipe to match the version of PkgA and avoid the override.
 
-In some scenarios, the downstream consumer **PkgD/1.0** might not want to force a dependency on PkgA. There are several possibilities, for example that PkgA is a conditional requirement that only happens in some operating systems. If PkgD defines a normal requirement to PkgA, then, it will be introducing that edge in the graph, forcing PkgA to be used always, in all operating systems. For this purpose the ``override`` qualifier can be defined in requirement, see :ref:`method_requirements`.
+In some scenarios, the downstream consumer **pkgd/1.0** might not want to force a dependency on ``pkga``. There are several possibilities, for example that PkgA is a conditional requirement that only happens in some operating systems. If ``pkgd`` defines a normal requirement to ``pkga``, then, it will be introducing that edge in the graph, forcing pkga to be used always, in all operating systems. For this purpose the ``override`` qualifier can be defined in requirement, see :ref:`method_requirements`.
 
 
 Versioning and binary compatibility
@@ -154,5 +155,5 @@ Versioning and binary compatibility
 It is important to note and this point that versioning approaches and strategies should also be
 consistent with the binary management.
 
-By default conan assumes *semver* compatibility, so it will not require to build a new binary for a package when its dependencies change their minor or patch versions. This might not be enough for C or C++ libraries which versioning scheme doesn't strictly follow semver. It is strongly suggested to read more about this in :ref:`define_abi_compatibility`
+By default, Conan assumes *semver* compatibility, so it will not require to build a new binary for a package when its dependencies change their minor or patch versions. This might not be enough for C or C++ libraries which versioning scheme doesn't strictly follow semver. It is strongly suggested to read more about this in :ref:`define_abi_compatibility`
 
