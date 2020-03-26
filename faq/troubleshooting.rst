@@ -188,16 +188,16 @@ When installing a package which is already installed, but using a different case
 
 .. code-block:: bash
 
-    $ conan install OpenSSL/1.0.2o@conan/stable
+    $ conan install poco/1.10.1@
 
         [...]
-        ERROR: Failed requirement 'OpenSSL/1.0.2o@conan/stable' from 'Poco/1.9.3@pocoproject/stable'
-        ERROR: Requested 'OpenSSL/1.0.2o@conan/stable' but found case incompatible 'openssl'
+        ERROR: Failed requirement 'openssl/1.0.2t' from 'poco/1.10.1@'
+        ERROR: Requested 'openssl/1.0.2t' but found case incompatible 'OpenSSL'
         Case insensitive filesystem can not manage this
 
-The package ``openssl`` is already installed. To solve this problem the different package with the same name
+The package ``OpenSSL/x.y.z@conan/stable`` is already installed. To solve this problem the different package with the same name
 must be removed:
 
 .. code-block:: bash
 
-    $ conan remove "openssl/*"
+    $ conan remove "OpenSSL/*"
