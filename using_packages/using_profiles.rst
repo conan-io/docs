@@ -22,9 +22,9 @@ A profile file contains a predefined set of ``settings``, ``options``, ``environ
     env_var=value
 
     [build_requires]
-    Tool1/0.1@user/channel
-    Tool2/0.1@user/channel, Tool3/0.1@user/channel
-    *: Tool4/0.1@user/channel
+    tool1/0.1@user/channel
+    tool2/0.1@user/channel, tool3/0.1@user/channel
+    *: tool4/0.1@user/channel
 
 Options allow the use of wildcards letting you apply the same option value to many packages. For example:
 
@@ -69,9 +69,9 @@ A profile to install dependencies as **shared** and in **debug** mode would look
     build_type=Debug
 
     [options]
-    Poco:shared=True
-    Poco:enable_apacheconnector=False
-    OpenSSL:shared=True
+    poco:shared=True
+    poco:enable_apacheconnector=False
+    openssl:shared=True
 
 To install dependencies using the profile file, we would use:
 
@@ -87,9 +87,9 @@ We could also create a new profile to use a different compiler version and store
     include(clang_3.5)
 
     [options]
-    Poco:shared=True
-    Poco:enable_apacheconnector=False
-    OpenSSL:shared=True
+    poco:shared=True
+    poco:enable_apacheconnector=False
+    openssl:shared=True
 
 To install dependencies using this new profile, we would use:
 

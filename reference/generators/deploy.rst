@@ -8,9 +8,9 @@ local cache to the user space:
 
 .. code-block:: bash
 
-    $ conan install OpenSSL/1.0.2r@conan/stable -g deploy
+    $ conan install openssl/1.0.2u@ -g deploy
     ...
-    Installing package: OpenSSL/1.0.2r@conan/stable
+    Installing package: openssl/1.0.2u
     ...
     Generator deploy created deploy_manifest.txt
 
@@ -19,15 +19,15 @@ Files from dependencies are deployed under a folder with the name of the depende
 .. code-block:: bash
 
     $ ls -R
-    OpenSSL/  conanbuildinfo.txt  deploy_manifest.txt  zlib/
+    openssl/  conanbuildinfo.txt  deploy_manifest.txt  zlib/
 
-    ./OpenSSL:
+    ./openssl:
     LICENSE  include/  lib/
 
-    ./OpenSSL/include:
+    ./openssl/include:
     openssl/
 
-    ./OpenSSL/include/openssl:
+    ./openssl/include/openssl:
     aes.h       blowfish.h  cms.h       des_old.h  ebcdic.h  evp.h       md4.h      ocsp.h         pkcs12.h  ripemd.h     srtp.h   symhacks.h   whrlpool.h
     applink.c   bn.h        comp.h      dh.h       ec.h      hmac.h      md5.h      opensslconf.h  pkcs7.h   rsa.h        ssl.h    tls1.h       x509.h
     asn1.h      buffer.h    conf.h      dsa.h      ecdh.h    idea.h      mdc2.h     opensslv.h     pqueue.h  safestack.h  ssl2.h   ts.h         x509_vfy.h
@@ -35,7 +35,7 @@ Files from dependencies are deployed under a folder with the name of the depende
     asn1t.h     cast.h      crypto.h    dtls1.h    engine.h  kssl.h      obj_mac.h  pem.h          rc2.h     sha.h        ssl3.h   ui.h
     bio.h       cmac.h      des.h       e_os2.h    err.h     lhash.h     objects.h  pem2.h         rc4.h     srp.h        stack.h  ui_compat.h
 
-    ./OpenSSL/lib:
+    ./openssl/lib:
     libeay32.lib  ssleay32.lib
 
     ./zlib:

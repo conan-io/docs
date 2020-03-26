@@ -10,7 +10,7 @@ generator. The package recipe ``build()`` method could be similar to:
 
     class PkgConan(ConanFile):
         settings = 'os', 'compiler', 'build_type', 'arch'
-        requires = 'Hello/1.0@user/stable'
+        requires = 'hello/1.0@user/stable'
         generators = "scons"
         ...
 

@@ -14,7 +14,7 @@ command line argument.
 .. code-block:: bash
 
     $ mkdir mypkg && cd mypkg
-    $ conan new Hello/0.1
+    $ conan new hello/0.1
 
 This will create just the *conanfile.py* recipe file. Now we can create our package:
 
@@ -27,10 +27,10 @@ This is equivalent to:
 .. code-block:: bash
 
     $ conan export . demo/testing
-    $ conan install Hello/0.1@demo/testing --build=Hello
+    $ conan install hello/0.1@demo/testing --build=hello
 
 Once the package is created, it can be consumed like any other package, by adding
-``Hello/0.1@demo/testing`` to a project *conanfile.txt* or *conanfile.py* requirements and running:
+``hello/0.1@demo/testing`` to a project *conanfile.txt* or *conanfile.py* requirements and running:
 
 .. code-block:: bash
 

@@ -42,7 +42,7 @@ the :ref:`CMake build tool<cmake_reference>`:
 
 .. seealso::
 
-    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
@@ -439,7 +439,7 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
 
         def build(self):
@@ -542,8 +542,9 @@ CONAN_USER_HOME
 
 **Defaulted to**: Not defined
 
-Allows defining a custom Conan cache directory. Can be useful for concurrent builds under different
-users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
+Allows defining a custom base directory for Conan cache directory. Can be useful for concurrent builds under different
+users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example). Conan will
+generate the folder ``.conan`` under the custom base path.
 
 .. seealso::
 

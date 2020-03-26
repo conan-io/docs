@@ -7,7 +7,6 @@ Lockfiles
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-
 Lockfiles are files that store the information of a dependency graph, including the
 exact versions, revisions, options, and configuration of that dependency graph. As 
 they depend on the configuration, and the dependency graph can change with every 
@@ -17,15 +16,15 @@ Lockfiles are useful for achieving deterministic builds, even if the dependency
 definitions in conanfile recipes are not fully deterministic, for example when using
 version ranges or using package revisions.
 
-Let's say we have 3 package recipes PkgC, PkgB, and PkgA, that define this dependency graph:
+Let's say we have 3 package recipes ``pkgc``, ``pkgb``, and ``pkga``, that define this dependency graph:
 
 .. image:: ../images/conan-graph_not_deterministic.png
 
 The first time, when a :command:`conan install .` is executed, the requirement defined
-in PkgB is resolved to **PkgA/1.0**, because that was the latest at that time that
-satisfied the version range ``PkgA/[*]``. After such install, the user can build and 
-run an application in the source code of PkgC. But some time later, another colleague
-tries to do exactly the same, and suddenly it is pulling a newer version of PkgA that
+in ``pkgb`` is resolved to **pkga/1.0**, because that was the latest at that time that
+satisfied the version range ``pkga/[*]``. After such install, the user can build and 
+run an application in the source code of ``pkgc``. But some time later, another colleague
+tries to do exactly the same, and suddenly it is pulling a newer version of ``pkga`` that
 was recently published, getting different results (maybe even not working). Builds with
 version ranges are not reproducible by default.
 
@@ -44,7 +43,7 @@ used later:
 
 The second time that :command:`conan install . --lockfile` is called, with the lockfile argument
 it will load the previously generated *conan.lock* file, that contains the information that
-**PkgA/1.0** is used, and will apply it again to the dependency resolution, resolving exactly
+``pkga/1.0`` is used, and will apply it again to the dependency resolution, resolving exactly
 the same dependency graph:
 
 .. image:: ../images/conan-graph_locked.png
@@ -77,7 +76,6 @@ following if we wanted to work with different configurations (e.g. Debug/Release
     $ cd ../release
     $ conan install .. --lockfile # uses the existing conan.lock (release)
 
-
 Commands
 --------
 
@@ -102,6 +100,15 @@ There are 2 main entry points for lockfile information in conan commands:
         generate a lockfile, but the problem with :command:`conan info -if=.` is that it does not allow to 
         specify a profile or settings.
 
+    - :command:`conan graph clean-modified`
+
+        When a :command:`conan create` command that uses a lockfile builds a new binary, its reference
+        will change. This change, typically in the form of a recipe revision and/or package revision
+        is updated in the lockfile and the node is marked as "modified". This :command:`clean-modified`
+        removes these "modified" flags from a lockfile. This operation is typically needed before starting
+        the build of a package in a locked graph, to know exactly which nodes have been modified by this
+        operation.
+
     - :command:`conan graph update-lock`
 
         Update the current lockfile with the information of the second lockfile. Only the nodes marked
@@ -114,9 +121,7 @@ There are 2 main entry points for lockfile information in conan commands:
         in the graph have to be built. It only returns those packages that really need to be built,
         following the :command:`--build` arguments and the ``package_id()`` rules.
 
-
 For more information see :ref:`commands`
-
 
 How to use lockfiles in CI
 --------------------------
@@ -132,13 +137,12 @@ How to use lockfiles in CI
         $ cd features/lockfiles/ci
         $ python build.py 
 
-
 One of the applications of lockfiles is to be able to propagate changes in one package
 belonging to a dependency graph downstream its affected consumers.
 
-Lets say that we have the following project in which packages PkgA, PkgB, PkgC, PkgZ and App
+Lets say that we have the following project in which packages ``pkga``, ``pkgb``, ``pkgc``, ``pkgz`` and ``app``
 have already been created and only one version of each, the version 0.1 exists. All packages
-are using version ranges with a range like ``PkgZ/[>0.0]``, so basically they will resolve to
+are using version ranges with a range like ``pkgz/[>0.0]``, so basically they will resolve to
 any new version of their dependencies that it is published.
 
 Also, the ``full_version_mode`` will be defined for dependencies. This means that if the version
@@ -159,7 +163,7 @@ The process starts generating a *conan.lock* lockfile in the *release* subfolder
 
 .. code-block:: bash
 
-    $ conan graph lock App/0.1@user/testing --lockfile=release
+    $ conan graph lock app/0.1@user/testing --lockfile=release
 
 This lockfile will contain the resolved dependencies in the graph, as we only have one version
 0.1 for all the packages, all of them will be locked to that 0.1 version.
@@ -169,20 +173,20 @@ This lockfile will contain the resolved dependencies in the graph, as we only ha
 
 
 Once the lockfile has been generated, it doesn't matter if new, unrelated versions of other
-packages, like **PkgZ/0.2** is created with ``cd PkgZ && conan create . PkgZ/0.2@user/testing``
+packages, like **pkgz/0.2** is created with ``cd pkgz && conan create . pkgz/0.2@user/testing``
 
-Now we can safely create the new version of **PkgA/0.2**, that will resolve to use **PkgZ/0.1**
+Now we can safely create the new version of **pkga/0.2**, that will resolve to use **pkgz/0.1**
 instead of the latest 0.2, if we use the lockfile:
 
 .. code-block:: bash
 
-    cd PkgA && conan create . PkgA/0.2@user/testing --lockfile=../release
-    # lockfile in release/conan.lock is modified to contain PkgA/0.2
+    cd pkga && conan create . pkga/0.2@user/testing --lockfile=../release
+    # lockfile in release/conan.lock is modified to contain pkga/0.2
 
-Note that the lockfile is modified, to contain the new **PkgA/0.2** version.
+Note that the lockfile is modified, to contain the new **pkga/0.2** version.
 
-The next step is to know which dependants need to be built because they are affected by the new
-**PkgA/0.2** version:
+The next step is to know which dependents need to be built because they are affected by the new
+**pkga/0.2** version:
 
 .. code-block:: bash
 
@@ -192,7 +196,7 @@ The next step is to know which dependants need to be built because they are affe
 This command will return a list of lists, in order, of those packages to be built. It will be
 stored in a *bo.json* json file too. Note that the ``--build=missing`` follows the same rules
 as :command:`create` and :command:`install` commands. The result of evaluating the graph with
-the **PkgA/0.2** version, due to the ``full_version_mode`` policy is that new binaries for
+the **pkga/0.2** version, due to the ``full_version_mode`` policy is that new binaries for
 PkgB, PkgC and App are necessary, and they do not exist yet. If we don't provide the ``--build=missing``
 it will return an empty list (but it will fail later, because binary packages are not available).
 
@@ -240,6 +244,13 @@ We can now proceed iteratively with the following procedure:
 
         $ conan graph build-order ./release --json=bo.json --build=missing
 
+7. clean "modified" nodes from the lockfile
+
+    .. code:: bash
+
+        $ conan graph clean-modified release/
+
+
 Note that this is a suboptimal approach, in order to explain the functionality, which
 is more easy to follow if it is sequential. In reality, the CI can take the first
 sublist output of :command:`conan graph build-order` and fire all its packages in parallel,
@@ -265,3 +276,12 @@ With package revisions it is also possible to achieve the same flow without bump
 - It is necessary to define the ``recipe_revision_mode`` or the ``package_revision_mode`` if we want to guarantee that the binaries correctly model the dependencies changes.
 
 For implementing this flow, it might be necessary to share the different ``conan.lock`` lockfiles among different machines, to pass them to build servers. A git repo could be used, but also an Artifactory generic repository could be very convenient for this purpose.
+
+.. note::
+
+    There is a **very experimental, temporary** configuration (``general.relax_lockfile``), that allows to expand dependency
+    graphs with packages that are not in the lockfile. This scenario happens for example when a ``test_package/conanfile.py`` contains
+    other requirements. If the lockfile was built from another downstream consumer, the ``test_package`` and its requirements will
+    not be contained in the lockfile. But we might still want to do a ``conan create`` for that node of the graph.
+    Putting the ``general.relax_lockfile=1`` will allow this case. This is a temporary thing introduced at 1.23, will be removed in future versions
+    (while probably leaving the behavior in some of its forms)

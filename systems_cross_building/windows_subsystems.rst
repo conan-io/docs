@@ -64,7 +64,7 @@ Controlling the build environment
 Building software in a Windows subsystem for a different compiler than MinGW can sometimes be painful.
 The reason is how the subsystem finds your compiler/tools in your system.
 
-For example, the `icu <http://site.icu-project.org/>`_ library requires Visual Studio to be built in Windows, but also a subsystem
+For example, the `icu <http://site.icu-project.org>`_ library requires Visual Studio to be built in Windows, but also a subsystem
 able to build the Makefile. A very common problem and example of the pain is the ``link.exe`` program.
 In the Visual Studio suite, ``link.exe`` is the linker, but in the ``MSYS2`` environment the ``link.exe``
 is a tool to manage symbolic links.
@@ -77,7 +77,7 @@ There are some packages you can use as ``build_requires``:
 - From Conan-center:
 
     - **mingw_installer/1.0@conan/stable**: MinGW compiler installer as a Conan package.
-    - **msys2_installer/latest@bincrafters/stable**: MSYS2 subsystem as a Conan package.
+    - **msys2/20190524@**: MSYS2 subsystem as a Conan package (Conan Center Index).
     - **cygwin_installer/2.9.0@bincrafters/stable**: Cygwin subsystem as a Conan package.
 
 For example, create a profile and name it *msys2_mingw* with the following contents:
@@ -86,7 +86,7 @@ For example, create a profile and name it *msys2_mingw* with the following conte
 
     [build_requires]
     mingw_installer/1.0@conan/stable
-    msys2_installer/latest@bincrafters/stable
+    msys2/20190524
 
     [settings]
     os_build=Windows

@@ -17,13 +17,14 @@ There are three ways to install Conan:
 Install with pip (recommended)
 ------------------------------
 
-To install Conan using ``pip``, you need Python 2.7 or >= 3.5 distribution installed on your machine. Python 3.4 support has been dropped. Modern Python distros come
+To install Conan using ``pip``, you need Python >= 3.5 distribution installed on your machine. Python 3.4 support has been dropped and
+:ref:`Python 2<python2>` is being deprecated. Modern Python distros come
 with pip pre-installed. However, if necessary you can install pip by following the instructions in `pip docs`_.
 
 .. warning::
 
-    Python 2 will soon be deprecated by the Python maintainers. It is strongly recommended to use Python 3 with Conan, especially if need to manage non-ascii filenames or file contents.
-    Conan still supports Python 2, however some of the dependencies have started to be supported only by Python 3. See :ref:`python2` for details.
+    **Python 2 has been deprecated on January 1st, 2020 by the Python maintainers** and Conan project will completely stop working with it
+    in the following releases. See :ref:`python2` for details.
 
 Install Conan:
 
@@ -87,7 +88,7 @@ Alternatively, build and install Conan manually using ``makepkg`` and ``pacman``
 Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
 Make sure to first install the three Conan dependencies which are also found in AUR:
 
-- python-patch-ng 
+- python-patch-ng
 - python-node-semver
 - python-pluginbase
 
@@ -128,7 +129,7 @@ The response should be similar to:
 Install from source
 -------------------
 
-You can run Conan directly from source code. First, you need to install Python 2.7 or Python 3 and
+You can run Conan directly from source code. First, you need to install Python and
 pip.
 
 Clone (or download and unzip) the git repository and install its requirements:
@@ -161,6 +162,8 @@ Test your ``conan`` script.
 
 You should see the Conan commands help.
 
+.. _conan_update:
+
 Update
 ------
 
@@ -173,7 +176,7 @@ If installed via ``pip``, Conan can be easily updated:
 If installed via the installers (*.exe*, *.deb*), download the new installer and execute it.
 
 The default *<userhome>/.conan/settings.yml* file, containing the definition of compiler versions, etc.,
-will be upgraded if Conan does not detect local changes, otherwise it will create a *settings.yml.new* with the new settings. 
+will be upgraded if Conan does not detect local changes, otherwise it will create a *settings.yml.new* with the new settings.
 If you want to regenerate the settings, you can remove the *settings.yml* file manually and it will be created with the new information the first time it is required.
 
 The upgrade shouldn't affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (*<userhome>/.conan*).
@@ -187,7 +190,9 @@ All features of Conan until version 1.6 are fully supported in both Python 2 and
 that are only available in Python 3 or more easily available in Python 3 will be implemented and tested only in Python 3, and versions of
 Conan using Python 2 will not have access to that feature. This will be clearly described in code and documentation.
 
-If and when Conan 2.x is released, the level of compatibility with Python 2 may be reduced further.
+Starting in Conan 1.22, Python 2 is no longer supported and Conan will stop working with it in the following releases.
+
+Conan 2.x won't support Python 2.
 
 We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
 Please give feedback in the `Conan issue tracker`_ or write us to info@conan.io.

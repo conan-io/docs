@@ -25,11 +25,10 @@ our ``my_local_server`` remote, but you could use any other.
 
 .. code-block:: bash
 
-    $ conan upload Hello/0.1@demo/testing --all -r=my_local_server
+    $ conan upload hello/0.1@demo/testing --all -r=my_local_server
 
 You might be prompted for a username and password. The default Conan server remote has a
 **demo/demo** account we can use for testing.
-
 
 The ``--all`` option will upload the package recipe plus all the binary packages. Omitting the
 ``--all`` option will upload the package recipe *only*. For fine-grained control over which binary
@@ -46,7 +45,7 @@ machine, as it could be running on another server in your LAN:
 
 .. code-block:: bash
 
-    $ conan search Hello/0.1@demo/testing -r=my_local_server
+    $ conan search hello/0.1@demo/testing -r=my_local_server
 
 .. note::
 
@@ -59,7 +58,7 @@ have just uploaded them, they are identical to the local ones.
 
 .. code-block:: bash
 
-    $ conan remove Hello*
+    $ conan remove "hello*"
     $ conan search
 
 Since we have our test setup from the previous section, we can just use it for our test. Go to your

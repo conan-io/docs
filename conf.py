@@ -39,9 +39,9 @@ extensions = [
 ]
 
 # The short X.Y version.
-version = "1.21"
+version = "1.23"
 # The full version, including alpha/beta/rc tags.
-release = u'1.21.0'
+release = u'1.23.0'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -387,7 +387,10 @@ epub_exclude_files = ['search.html']
 #epub_use_index = True
 
 # A list of regular expressions that match URIs that should not be checked when doing a linkcheck build.
-linkcheck_ignore = [r'http://localhost:\d+']
+linkcheck_ignore = [r'http://localhost:\d+', r'https://github.com/conan-io/conan/pull/\d+', r'https://github.com/conan-io/docs/pull/\d+']
+linkcheck_workers = 15
+linkcheck_timeout = 90
+linkcheck_retries = 2
 
 
 # copy legacy redirects
