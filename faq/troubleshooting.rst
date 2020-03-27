@@ -179,3 +179,25 @@ To fix this error, you should run:
 
 This command must be executed before to start the workers. It will not migrate anything, but it will populate the conan_server folder.
 The original discussion about this error is `here <https://github.com/conan-io/conan/issues/4723>`_.
+
+
+ERROR: Requested a package but found case incompatible
+------------------------------------------------------
+
+When installing a package which is already installed, but using a different case, will result on the follow error:
+
+.. code-block:: bash
+
+    $ conan install poco/1.10.1@
+
+        [...]
+        ERROR: Failed requirement 'openssl/1.0.2t' from 'poco/1.10.1@'
+        ERROR: Requested 'openssl/1.0.2t' but found case incompatible 'OpenSSL'
+        Case insensitive filesystem can not manage this
+
+The package ``OpenSSL/x.y.z@conan/stable`` is already installed. To solve this problem the different package with the same name
+must be removed:
+
+.. code-block:: bash
+
+    $ conan remove "OpenSSL/*"
