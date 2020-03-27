@@ -469,7 +469,7 @@ If you want to do a safe check of options values, you could use the ``get_safe()
         # Will be None if doesn't exist
         fpic = self.options.get_safe("fPIC")
         # Will be the default version if the return is None
-        shared = self.options.get_safe("shared", False)
+        shared = self.options.get_safe("shared", default=False)
 
 The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
