@@ -131,7 +131,6 @@ if __name__ == "__main__":
                          "release/1.4.5": "1.4",
                          "release/1.3.3": "1.3"}
 
-        to_index = {}
         for branch, folder_name in versions_dict.items():
             print("Building {}...".format(branch))
             build_and_copy(branch, folder_name, versions_dict, themes_dir)
