@@ -62,12 +62,9 @@ Generated xml structure:
       <ItemGroup />
     </Project>
 
-Note that for single-configuration packages (which is the most typical), Conan installs Debug/Release, 32/64bits, packages separately. So a
-different property sheet will be generated for each configuration. The process could be:
-
 There are ``ConanVariables`` containing the information of the dependencies. Those variables are used later in the file, like in the ``<Link>`` task.
 
-Note that for single-configuration packages, which is the most typical, :command:`conan install` Debug/Release, 32/64bits, packages separately. So a different property sheet will be generated for each configuration. The process could be:
+Note that for single-configuration packages, which is the most typical, Conan installs Debug/Release, 32/64bits, packages separately. So a different property sheet will be generated for each configuration. The process could be:
 
 Given for example a ``conanfile.txt`` like:
 
