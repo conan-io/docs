@@ -312,7 +312,7 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
         # Will be None if doesn't exist
         compiler_version = self.settings.get_safe("compiler.version")
         # Will be the default version if the return is None
-        build_type = self.settings.get_safe("build_type", "Release")
+        build_type = self.settings.get_safe("build_type", default="Release")
 
 The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
