@@ -375,7 +375,7 @@ will contain absolute paths to the installed package folder, for example it will
 
 .. code-block:: text
 
-    SET(Foo_INSTALL_DIR /home/developer/.conan/data/Foo/1.0.0/...)
+    SET(Foo_INSTALL_DIR /home/developer/.conan/data/foo/1.0.0/...)
 
 This will cause cmake's ``find_package()`` method to fail when someone else installs the package via Conan. This function will replace such
 paths to:
@@ -390,7 +390,7 @@ For dependent packages method replaces lines with references to dependencies ins
 
 .. code-block:: text
 
-    SET_TARGET_PROPERTIES(foo PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "/home/developer/.conan/data/Bar/1.0.0/user/channel/id/include")
+    SET_TARGET_PROPERTIES(foo PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "/home/developer/.conan/data/bar/1.0.0/user/channel/id/include")
 
 to following lines:
 

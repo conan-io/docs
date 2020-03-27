@@ -25,14 +25,14 @@ A Conan recipe is still required, but is very simple and will only include the p
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 --bare
+    $ conan new hello/0.1 --bare
 
 This will create and store the following package recipe in the local cache:
 
 .. code-block:: python
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
 
@@ -57,19 +57,19 @@ Based on the above, We can assume that our current directory contains a *lib* fo
 
 .. code-block:: bash
 
-    $ conan export-pkg . Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
+    $ conan export-pkg . hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
 
 Having a *test_package* folder is still highly recommended for testing the package locally before
 upload. As we don't want to build the package from the sources, the flow would be:
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 --bare --test
+    $ conan new hello/0.1 --bare --test
     # customize test_package project
     # customize package recipe if necessary
     $ cd my/path/to/binaries
-    $ conan export-pkg PATH/TO/conanfile.py Hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
-    $ conan test PATH/TO/test_package/conanfile.py Hello/0.1@myuser/testing -s os=Windows -s compiler=gcc -s ...
+    $ conan export-pkg PATH/TO/conanfile.py hello/0.1@myuser/testing  -s os=Windows -s compiler=gcc -s compiler.version=4.9 ...
+    $ conan test PATH/TO/test_package/conanfile.py hello/0.1@myuser/testing -s os=Windows -s compiler=gcc -s ...
 
 The last two steps can be repeated for any number of configurations.
 
@@ -83,7 +83,7 @@ Follow our sample recipe for this purpose:
 .. code-block:: python
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
 

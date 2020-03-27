@@ -77,12 +77,12 @@ This command is util for testing existing packages, that have been previously bu
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 -s -t
+    $ conan new hello/0.1 -s -t
     $ mv test_package test_package2
     $ conan create . user/testing
     # doesn't automatically run test, it has been renamed
     # now run test
-    $ conan test test_package2 Hello/0.1@user/testing
+    $ conan test test_package2 hello/0.1@user/testing
 
 The test package folder, could be elsewhere, or could be even applied to different versions of the
 package.

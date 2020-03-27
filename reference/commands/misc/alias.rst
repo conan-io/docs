@@ -29,19 +29,19 @@ The command:
 
 .. code-block:: bash
 
-    $ conan alias Hello/0.X@user/testing Hello/0.1@user/testing
+    $ conan alias hello/0.X@user/testing hello/0.1@user/testing
 
-Creates and exports a package recipe for ``Hello/0.X@user/testing`` with the following content:
+Creates and exports a package recipe for ``hello/0.X@user/testing`` with the following content:
 
 .. code-block:: python
 
     from conans import ConanFile
 
     class AliasConanfile(ConanFile):
-        alias = "Hello/0.1@user/testing"
+        alias = "hello/0.1@user/testing"
 
 Such package recipe acts as a "proxy" for the aliased reference. Users depending on
-``Hello/0.X@user/testing`` will actually use version ``Hello/0.1@user/testing``. The alias package
+``hello/0.X@user/testing`` will actually use version ``hello/0.1@user/testing``. The alias package
 reference will not appear in the dependency graph at all. It is useful to define symbolic names, or
 behaviors like "always depend on the latest minor", but defined upstream instead of being defined
 downstream with ``version-ranges``.

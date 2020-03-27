@@ -72,12 +72,12 @@ Given for example a ``conanfile.txt`` like:
    :caption: *conanfile.txt*
 
     [requires]
-    Pkg/0.1@user/channel
+    pkg/0.1@user/channel
 
     [generators]
     visual_studio
 
-And assuming that binary packages exist for ``Pkg/0.1@user/channel``, we could do:
+And assuming that binary packages exist for ``pkg/0.1@user/channel``, we could do:
 
 .. code-block:: bash
 

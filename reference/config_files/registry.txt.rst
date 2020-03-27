@@ -21,7 +21,7 @@ packages in your cache associated with the remote they were retrieved from.
     conan-center https://conan.bintray.com True
     local http://localhost:9300 True
 
-    Hello/0.1@demo/testing local
+    hello/0.1@demo/testing local
 
 The first section of the file is listing ``remote-name``: ``remote-url`` ``verify_ssl``. Adding, removing or changing
 those lines, will add, remove or change the respective remote. If ``verify_ssl`` is enabled, Conan will verify the SSL certificates for that

@@ -34,17 +34,16 @@ each nested one can be built in parallel.
     {  
         "groups":[  
             [  
-                "LibA/0.1@lasote/stable",
-                "LibE/0.1@lasote/stable",
-                "LibF/0.1@lasote/stable"
+                "liba/0.1@lasote/stable",
+                "libe/0.1@lasote/stable",
+                "libf/0.1@lasote/stable"
             ],
             [  
-                "LibB/0.1@lasote/stable",
-                "LibC/0.1@lasote/stable"
+                "libb/0.1@lasote/stable",
+                "libc/0.1@lasote/stable"
             ]
         ]
     }
-
 
 Nodes to build
 ==============
@@ -57,11 +56,11 @@ references.
    :caption: nodes_to_build.json
 
     [  
-        "H0/0.1@lu/st",
-        "H1a/0.1@lu/st",
-        "H1c/0.1@lu/st",
-        "H2a/0.1@lu/st",
-        "H2c/0.1@lu/st"
+        "h0/0.1@lu/st",
+        "h1a/0.1@lu/st",
+        "h1c/0.1@lu/st",
+        "h2a/0.1@lu/st",
+        "h2c/0.1@lu/st"
     ]
 
 
@@ -75,44 +74,44 @@ contain a list with the information for each of the nodes.
 .. code-block:: json
    :caption: info.json
 
-    [  
-        {  
-            "reference":"LibA/0.1@lasote/stable",
+    [
+        {
+            "reference":"liba/0.1@lasote/stable",
             "is_ref":true,
-            "display_name":"LibA/0.1@lasote/stable",
+            "display_name":"liba/0.1@lasote/stable",
             "id":"8da7d879f40d12efabc9a1f26ab12f1b6cafb6ad",
             "build_id":null,
             "url":"myurl",
-            "license":[  
+            "license":[
                 "MIT"
             ],
             "recipe":"No remote",
             "binary":"Missing",
             "creation_date":"2019-01-29 17:22:41",
             "required_by":[  
-                "LibC/0.1@lasote/stable",
-                "LibB/0.1@lasote/stable"
+                "libc/0.1@lasote/stable",
+                "libb/0.1@lasote/stable"
             ]
         },
-        {  
-            "reference":"LibB/0.1@lasote/stable",
+        {
+            "reference":"libb/0.1@lasote/stable",
             "is_ref":true,
-            "display_name":"LibB/0.1@lasote/stable",
+            "display_name":"libb/0.1@lasote/stable",
             "id":"c4ec2bf350e2a02405029ab366535e26372a4f63",
             "build_id":null,
             "url":"myurl",
-            "license":[  
+            "license":[
                 "MIT"
             ],
             "recipe":"No remote",
             "binary":"Missing",
             "creation_date":"2019-01-29 17:22:41",
-            "required_by":[  
-                "conanfile.py (LibD/0.1@None/None)"
+            "required_by":[
+                "conanfile.py (libd/0.1@None/None)"
             ],
-            "requires":[  
-                "LibA/0.1@lasote/stable",
-                "LibE/0.1@lasote/stable"
+            "requires":[
+                "liba/0.1@lasote/stable",
+                "libe/0.1@lasote/stable"
             ]
         },
         { "...": "..."}
