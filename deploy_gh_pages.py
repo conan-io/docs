@@ -3,8 +3,6 @@ import os
 import shutil
 import tempfile
 
-# from _elastic.indexer import ElasticManager
-
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -20,14 +18,6 @@ def call(command, ignore_error=False):
     ret = os.system(command)
     if ret != 0 and not ignore_error:
         raise Exception("Command failed: %s" % command)
-
-
-excluded_files = (".git", "CNAME", "index.html")
-
-
-def config_git():
-    call('git config --global user.email "lasote@gmail.com"')
-    call('git config --global user.name "Luis Martinez de Bartolome"')
 
 
 def clean_gh_pages():
@@ -51,8 +41,6 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
 
     call("make html > /dev/null")
 
-    call("make json > /dev/null")
-
     if validate_links:
         call("make spelling > /dev/null")
         call("make linkcheck")
@@ -61,9 +49,6 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
 
     copytree("_build/html/", tmp_dir)
     shutil.copy2("_build/latex/conan.pdf", tmp_dir)
-
-    tmp_dir_json = tempfile.mkdtemp()
-    copytree("_build/json/", tmp_dir_json)
 
     shutil.rmtree("_build")
 
@@ -87,8 +72,6 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
         copytree(tmp_dir, version_folder)
         call("git add -A .")
         call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
-
-    return tmp_dir_json
 
 
 def should_deploy():
@@ -125,12 +108,6 @@ if __name__ == "__main__":
         themes_dir = tempfile.mkdtemp()
         copytree("_themes", themes_dir)
 
-        host = os.getenv("ELASTIC_SEARCH_HOST")
-        region = os.getenv("ELASTIC_SEARCH_REGION")
-        #es = ElasticManager(host, region)
-        #es.ping()
-
-        # config_git()
         clean_gh_pages()
         versions_dict = {"master": "1.23",
                          "release/1.22.3": "1.22",
@@ -154,28 +131,13 @@ if __name__ == "__main__":
                          "release/1.4.5": "1.4",
                          "release/1.3.3": "1.3"}
 
-        to_index = {}
         for branch, folder_name in versions_dict.items():
             print("Building {}...".format(branch))
-            json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir)
-            to_index[folder_name] = json_folder
-
-        # Index
-        print("Indexing...")
-        print(to_index)
-
-        #try:
-        #    es.remove_index()
-        #except:
-        #    pass
-        #es.create_index()
-        #for version, folder in to_index.items():
-        #    es.index(version, folder)
+            build_and_copy(branch, folder_name, versions_dict, themes_dir)
 
         deploy()
 
     else:
         call("make html > /dev/null")
-        call("make json > /dev/null")
         call("make spelling")
         call("make linkcheck")
