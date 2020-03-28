@@ -221,7 +221,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
   initialized to ``['include']``, and it is rarely changed.
-- **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
+- **libs**: Ordered list of libs the client should link against. Empty by default. Libraries provided with full (absolute) paths, are passed unchanged (without `-l` option). It is common that different configurations produce
   different library names. For example:
 
 .. code-block:: python
