@@ -30,6 +30,10 @@ To enable **Travis CI** support, you need to create a *.travis.yml* file and pas
     dist: xenial
     compiler:
       - gcc
+    cache:
+      pip: true
+      directories:
+        - $HOME/.conan
     install:
     # Install conan
       - pip install conan
