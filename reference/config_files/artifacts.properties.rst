@@ -20,7 +20,7 @@ capability, as `matrix params`_.
 
 Artifactory users can benefit from this capability to set file properties for the uploaded files.
 If the Artifactory version doesn't support matrix params yet (available since `Artifactory 7.3.2`_) it will use
-the properties from the file that are prefixed with ``artifact_prooperty_``:
+the properties from the file that are prefixed with ``artifact_property_``:
 
 
 **.conan/artifacts.properties**
