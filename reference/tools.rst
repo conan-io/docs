@@ -1714,3 +1714,19 @@ Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
     - **cppstd** (Required): C++ standard version which must be supported.
     - **gnu_extensions** (Optional): GNU extension is required.
+
+
+.. _tools.cppstd_flag:
+
+tools.cppstd_flag():
+--------------------
+
+.. code-block:: python
+
+    def cppstd_flag(settings)
+
+Returns the corresponding C++ standard flag, base on the settings. For instance, it may return ``-std=c++17`` 
+for ``compiler.cppstd=17``, and so on.
+
+Parameters:
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.
