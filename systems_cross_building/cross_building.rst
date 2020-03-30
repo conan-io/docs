@@ -168,11 +168,16 @@ in the :ref:`package_info()<method_package_info>` method with the same variables
 above in the ``[env]`` section of profiles.
 
 Then you will need to consume this recipe as any regular :ref:`build requires <build_requires>` that belongs to the
-build context: you need to use the ``--profile:build`` argument in the command line while creating your library:
+``build`` context: you need to use the ``--profile:build`` argument in the command line while creating your library:
 
 .. code-block:: bash
 
     conan create path/to/conanfile.py --profile:build=profile_build --profile:host=profile_host
+
+
+.. image:: ../images/xbuild/conan-my_toolchain.png
+   :width: 400 px
+   :align: center
 
 
 The profile ``profile_build`` will contain just the settings related to your ``build`` platform, where you are
@@ -332,8 +337,8 @@ Examples
 
 .. _cross_building_examples_profiles:
 
-Examples using profiles (before Conan v1.24)
-++++++++++++++++++++++++++++++++++++++++++++
+Examples using profiles
++++++++++++++++++++++++
 
 Linux to Windows
 ................
@@ -628,8 +633,8 @@ A **bin/enough** for Android ARM platform has been built.
 
 .. _cross_building_examples_build_requires:
 
-Examples using build requires (before Conan v1.24)
-++++++++++++++++++++++++++++++++++++++++++++++++++
+Examples using build requires
++++++++++++++++++++++++++++++
 
 .. _darwin_toolchain:
 
