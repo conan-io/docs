@@ -19,8 +19,8 @@ capability, as `matrix params`_.
 
 
 Artifactory users can benefit from this capability to set file properties for the uploaded files.
-If the Artifactory version doesn't support matrix params yet (available since 6.XX) it will use
-the properties from the file that are prefixed with `artifact_prooperty_`:
+If the Artifactory version doesn't support matrix params yet (available since `Artifactory 7.3.2`_) it will use
+the properties from the file that are prefixed with ``artifact_prooperty_``:
 
 
 **.conan/artifacts.properties**
@@ -39,4 +39,5 @@ this check adding the `ignore_invalid_headers` to your Nginx configuration).
 
 
 .. _matrix params: https://www.ietf.org/rfc/rfc3986.txt
+.. _Artifactory 7.3.2: https://www.jfrog.com/confluence/display/JFROG/Artifactory+Release+Notes#ArtifactoryReleaseNotes-Artifactory7.3.2
 .. _Nginx: https://trac.nginx.org/nginx/ticket/629
