@@ -42,7 +42,7 @@ the :ref:`CMake build tool<cmake_reference>`:
 
 .. seealso::
 
-    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
@@ -221,11 +221,28 @@ Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and 
 CONAN_LOGGING_LEVEL
 -------------------
 
-**Defaulted to**: ``50``
+**Defaulted to**: ``critical``
 
 By default Conan logging level is only set for critical events. If you want
-to show more detailed logging information, set this variable to lower values, as ``10`` to show
-debug information.
+to show more detailed logging information, set this variable according to
+`Python Logging Levels`_ or, use a logging level name:
+
++---------------------+------------------+
+| logging level name  | logging level id |
++=====================+==================+
+| critical            | 50               |
++---------------------+------------------+
+| error               | 40               |
++---------------------+------------------+
+| warning/warn        | 30               |
++---------------------+------------------+
+| info                | 20               |
++---------------------+------------------+
+| debug               | 10               |
++---------------------+------------------+
+
+Both names and IDs are acceptable by environment variable, or using the conan.conf file.
+
 
 .. _env_vars_conan_login_username:
 
@@ -422,7 +439,7 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
 
         def build(self):
@@ -525,8 +542,9 @@ CONAN_USER_HOME
 
 **Defaulted to**: Not defined
 
-Allows defining a custom Conan cache directory. Can be useful for concurrent builds under different
-users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
+Allows defining a custom base directory for Conan cache directory. Can be useful for concurrent builds under different
+users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example). Conan will
+generate the folder ``.conan`` under the custom base path.
 
 .. seealso::
 
@@ -625,7 +643,6 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
 
-
 CONAN_PYLINT_WERR
 -----------------
 
@@ -633,3 +650,6 @@ CONAN_PYLINT_WERR
 
 This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
 any inconsistency found in the recipe will break the process during linter analysis.
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
+

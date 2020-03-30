@@ -81,7 +81,7 @@ generators.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -264,3 +264,9 @@ they should match, otherwise, an error will be raised.
     $ conan install . version@user/testing # OK
     $ conan install . pkg/version@user/testing # OK
     $ conan install pkg/version@user/testing user/channel # Error, first arg is not a path
+
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.

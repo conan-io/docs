@@ -7,12 +7,12 @@ Visual Studio 2017 comes with a CMake integration that allows one to just open a
 and Visual will use it to define the project build.
 
 Conan can also be used in this setup to install dependencies. Let`s say that we are going to build an application that depends
-on an existing Conan package called ``Hello/0.1@user/testing``. For the purpose of this example, you can quickly create this package by typing
+on an existing Conan package called ``hello/0.1@user/testing``. For the purpose of this example, you can quickly create this package by typing
 in your terminal:
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 -s
+    $ conan new hello/0.1 -s
     $ conan create . user/testing # Default conan profile is Release
     $ conan create . user/testing -s build_type=Debug
 
@@ -33,7 +33,7 @@ The project we want to develop will be a simple application with these 3 files i
     :caption: **conanfile.txt**
 
     [requires]
-    Hello/0.1@user/testing
+    hello/0.1@user/testing
 
     [generators]
     cmake
@@ -120,11 +120,11 @@ configuration, that will match the Visual Studio one. This script can be used to
     add_executable(example example.cpp)
     target_link_libraries(example ${CONAN_LIBS})
 
-This code will manage to download the **cmake-conan** CMake script, and use it automatically, calling a ``conan install`` automatically.
+This code will manage to download the **cmake-conan** CMake script, and use it automatically, calling a :command:`conan install` automatically.
 
 There could be an issue, though, for the ``Release`` configuration. Internally, the Visual Studio 2017 defines the ``configurationType`` As
 ``RelWithDebInfo`` for ``Release`` builds. But Conan default settings (in the Conan *settings.yml* file), only have ``Debug`` and ``Release``
-defined. It is possible to modify the *settings.yml* file, and add those extra build types. Then you should create the ``Hello`` package 
+defined. It is possible to modify the *settings.yml* file, and add those extra build types. Then you should create the ``hello`` package 
 for those settings. And most existing packages, specially in central repositories, are built only for Debug and Release modes.
 
 An easier approach is to change the CMake configuration in Visual: go to the Menu -> CMake -> Change CMake Configuration. That should open

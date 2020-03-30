@@ -27,4 +27,4 @@ Variables in *conan_paths.cmake*
 +-----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Where ``<PKG-NAME>`` is the placeholder for the name of the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) or the one
-declared in ``cpp_info.name``.
+declared in ``cpp_info.name`` or in ``cpp_info.names["cmake_paths"]`` if specified.

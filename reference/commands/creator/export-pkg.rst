@@ -43,7 +43,7 @@ the binary package.
                             '-o', '-pr' or '-s' arguments are used, it will raise
                             an error.
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o pkg:with_qt=true
+                            Define options values, e.g., -o pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Profile for this package
       -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
@@ -131,8 +131,8 @@ There are different scenarios where this command could look like useful:
 
   .. code-block:: bash
 
-      $ conan new Hello/0.1 --bare  # It creates a minimum recipe example
-      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --package-folder=Release_x86
+      $ conan new hello/0.1 --bare  # It creates a minimum recipe example
+      $ conan export-pkg . hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --package-folder=Release_x86
 
   This last command will copy all the contents from the ``package-folder`` and
   create the package associated with the settings provided through the command
@@ -166,4 +166,4 @@ There are different scenarios where this command could look like useful:
 
   .. code-block:: bash
 
-      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build
+      $ conan export-pkg . hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build

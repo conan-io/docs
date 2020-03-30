@@ -3,7 +3,7 @@
 AppImage
 --------
 
-`AppImage <https://appimage.org/>`_ (former ``klik``, ``PortableLinuxApps``) is a format for Linux portable applications. Its major advantages are:
+`AppImage <https://appimage.org>`_ (former ``klik``, ``PortableLinuxApps``) is a format for Linux portable applications. Its major advantages are:
 
 - It does not require root permissions.
 - It does not require to install any application (it uses :command:`chmod +x`).

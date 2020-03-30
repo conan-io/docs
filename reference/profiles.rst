@@ -18,9 +18,9 @@ requirements** in a file. They have this structure:
     env_var=value
 
     [build_requires]
-    Tool1/0.1@user/channel
-    Tool2/0.1@user/channel, Tool3/0.1@user/channel
-    *: Tool4/0.1@user/channel
+    tool1/0.1@user/channel
+    tool2/0.1@user/channel, tool3/0.1@user/channel
+    *: tool4/0.1@user/channel
 
 Profile can be created with ``new`` option in :command:`conan profile`. And then edit it later.
 
@@ -136,21 +136,21 @@ Profile composition
 You can specify multiple profiles in the command line. The applied configuration will be the composition
 of all the profiles applied in the order they are specified.
 
-If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree, 
-it won't be very practical adding the `cmake` installer reference, e.g  ``cmake_installer/3.9.0@conan/stable`` to all your profiles where you could
+If, for example, you want to apply a :ref:`build require<build_requires>`, like a ``cmake`` installer to your dependency tree,
+it won't be very practical adding the `cmake` installer reference, e.g  ``cmake/3.16.3`` to all your profiles where you could
 need to inject ``cmake`` as a build require.
 
 You can specify both profiles instead:
 
 .. code-block:: text
-   :caption: *.conan/profiles/cmake_39*
+   :caption: *.conan/profiles/cmake_316*
 
     [build_requires]
-    cmake_installer/3.9.0@conan/stable
+    cmake/3.16.3
 
 .. code-block:: bash
 
-   $ conan install . --profile clang --profile cmake_39
+   $ conan install . --profile clang --profile cmake_316
 
 Profile includes
 ----------------

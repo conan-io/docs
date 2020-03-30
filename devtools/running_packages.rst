@@ -19,7 +19,7 @@ We can create a package that contains an executable, for example from the defaul
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1
+    $ conan new hello/0.1
 
 The source code used contains an executable called ``greet``, but it is not packaged by default. Let's modify the recipe
 ``package()`` method to also package the executable:
@@ -29,20 +29,18 @@ The source code used contains an executable called ``greet``, but it is not pack
     def package(self):
         self.copy("*greet*", src="bin", dst="bin", keep_path=False)
 
-
 Now we create the package as usual, but if we try to run the executable it won't be found:
 
 .. code-block:: bash
 
     $ conan create . user/testing
     ...
-    Hello/0.1@user/testing package(): Copied 1 '.h' files: hello.h
-    Hello/0.1@user/testing package(): Copied 1 '.exe' files: greet.exe
-    Hello/0.1@user/testing package(): Copied 1 '.lib' files: hello.lib
+    hello/0.1@user/testing package(): Copied 1 '.h' files: hello.h
+    hello/0.1@user/testing package(): Copied 1 '.exe' files: greet.exe
+    hello/0.1@user/testing package(): Copied 1 '.lib' files: hello.lib
 
     $ greet
     > ... not found...
-
 
 By default, Conan does not modify the environment, it will just create the package in the local cache, and that is not
 in the system PATH, so the ``greet`` executable is not found.
@@ -57,7 +55,7 @@ So if we install the package, specifying such ``virtualrunenv`` like:
 
 .. code-block:: bash
 
-    $ conan install Hello/0.1@user/testing -g virtualrunenv
+    $ conan install hello/0.1@user/testing -g virtualrunenv
 
 This will generate a few files that can be called to activate and deactivate the required environment variables
 
@@ -65,15 +63,16 @@ This will generate a few files that can be called to activate and deactivate the
 
     $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
-    > Hello World!
+    > Hello World Release!
     $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
 
 Imports
 -------
 
-It is possible to define a custom conanfile (either .txt or .py), with an ``imports`` section, that can retrieve from local
+It is possible to define a custom conanfile (either *.txt* or *.py*), with an ``imports()`` section, that can retrieve from local
 cache the desired files. This approach requires a user conanfile.
-For more details see example below :ref:`runtime packages<repackage>`
+
+For more details see the example below :ref:`runtime packages<repackage>`.
 
 Deployable packages
 -------------------
@@ -96,11 +95,11 @@ With that method in our package recipe, it will copy the executable when install
 
 .. code-block:: bash
 
-    $ conan install Hello/0.1@user/testing
+    $ conan install hello/0.1@user/testing
     ...
-    > Hello/0.1@user/testing deploy(): Copied 1 '.exe' files: greet.exe
+    > hello/0.1@user/testing deploy(): Copied 1 '.exe' files: greet.exe
     $ bin\greet.exe
-    > Hello World!
+    > Hello World Release!
 
 The deploy will create a *deploy_manifest.txt* file with the files that have been deployed.
 
@@ -121,7 +120,9 @@ with:
 Using the `deploy` generator
 ----------------------------
 
-The :ref:`deploy generator <deploy_generator>` is used to have all the dependencies of an application copied into a single place. Then all the files can be repackaged into the distribution format of choice.
+The :ref:`deploy generator <deploy_generator>` is used to have all the dependencies of an application copied into a single place. Then all
+the files can be repackaged into the distribution format of choice.
+
 For instance, if the application depends on boost, we may not know that it also requires many other 3rt-party libraries, 
 such as 
 `zlib <https://zlib.net/>`_, 
@@ -141,14 +142,16 @@ This helps to collect all the dependencies into a single place, moving them out 
 Using the `json` generator
 --------------------------
 
-A more advanced approach is to use the :ref:`json generator <json_generator>`:
-This generator works in a similar fashion as the `deploy` one, although it doesn't copy the files to a directory. Instead, it generates a JSON file with all the information about the dependencies including the location of the files in the Conan cache.
+A more advanced approach is to use the :ref:`json generator <json_generator>`. This generator works in a similar fashion as the
+`deploy` one, although it doesn't copy the files to a directory. Instead, it generates a JSON file with all the information about the
+dependencies including the location of the files in the Conan cache.
 
 .. code-block:: bash
 
     $ conan install . -g json
 
-The *conanbuildinfo.json* file produced is fully machine-readable and could be used by scripts to prepare the files and recreate the appropriate format for distribution. The following code shows how to read the library and binary directories from the *conanbuildinfo.json*:
+The *conanbuildinfo.json* file produced, is fully machine-readable and could be used by scripts to prepare the files and recreate the
+appropriate format for distribution. The following code shows how to read the library and binary directories from the *conanbuildinfo.json*:
 
 .. code-block:: python
 
@@ -174,7 +177,9 @@ The *conanbuildinfo.json* file produced is fully machine-readable and could be u
                     bin_dir = os.path.relpath(bin_path, root)
                     dep_bin_dirs[bin_path] = bin_dir
 
-While with the `deploy` generator all the files were copied into a folder, the advantage with the `json` one is that you have fine-grained control over the files and those can be directly copied to the desired layout.
+While with the `deploy` generator, all the files were copied into a folder. The advantage with the `json` one is that you have fine-grained
+control over the files and those can be directly copied to the desired layout.
+
 In that sense, the script above could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries, 
 and omit any static libraries or auxiliary files such as pkg-config .pc files).
 
@@ -203,15 +208,11 @@ Additionally, you could also write a simple startup script for your application 
            ld_library_path=ld_library_path,
            exe=exe)
 
-.. note::
-
-    The full example might be found on `GitHub <https://github.com/conan-io/examples/tree/master/features>`_.
-
 Running from packages
 ---------------------
 
 If a dependency has an executable that we want to run in the conanfile, it can be done directly in code
-using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment()`` helper. 
+using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment()`` helper.
 For example, if we want to execute the :command:`greet` app while building the ``Consumer`` package:
 
 .. code-block:: python
@@ -222,7 +223,7 @@ For example, if we want to execute the :command:`greet` app while building the `
         name = "Consumer"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Hello/0.1@user/testing"
+        requires = "hello/0.1@user/testing"
 
         def build(self):
             self.run("greet", run_environment=True)
@@ -234,7 +235,7 @@ Now run :command:`conan install` and :command:`conan build` for this consumer re
     $ conan install . && conan build .
     ...
     Project: Running build()
-    Hello World!
+    Hello World Release!
 
 Instead of using the environment, it is also possible to explicitly access the path of the dependencies:
 
@@ -272,7 +273,7 @@ Runtime packages and re-packaging
 ----------------------------------
 
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
-If we want to create a package from the above "Hello" one, but only containing the executable (remember that the above
+If we want to create a package from the above "hello" one, but only containing the executable (remember that the above
 package also contains a library, and the headers), we could do:
 
 .. code-block:: python
@@ -280,9 +281,9 @@ package also contains a library, and the headers), we could do:
     from conans import ConanFile
 
     class HellorunConan(ConanFile):
-        name = "HelloRun"
+        name = "hello_run"
         version = "0.1"
-        build_requires = "Hello/0.1@user/testing"
+        build_requires = "hello/0.1@user/testing"
         keep_imports = True
 
         def imports(self):
@@ -293,8 +294,8 @@ package also contains a library, and the headers), we could do:
 
 This recipe has the following characteristics:
 
-- It includes the ``Hello/0.1@user/testing`` package as ``build_requires``.
-  That means that it will be used to build this `HelloRun` package, but once the `HelloRun` package is built,
+- It includes the ``hello/0.1@user/testing`` package as ``build_requires``.
+  That means that it will be used to build this `hello_run` package, but once the `hello_run` package is built,
   it will not be necessary to retrieve it.
 - It is using ``imports()`` to copy from the dependencies, in this case, the executable
 - It is using the ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which
@@ -306,18 +307,18 @@ To create and upload this package to a remote:
 .. code-block:: bash
 
     $ conan create . user/testing
-    $ conan upload HelloRun* --all -r=my-remote
+    $ conan upload hello_run* --all -r=my-remote
 
 Installing and running this package can be done using any of the methods presented above. For example:
 
 .. code-block:: bash
 
-    $ conan install HelloRun/0.1@user/testing -g virtualrunenv
+    $ conan install hello_run/0.1@user/testing -g virtualrunenv
     # You can specify the remote with -r=my-remote
-    # It will not install Hello/0.1@...
+    # It will not install hello/0.1@...
     $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
-    > Hello World!
+    > Hello World Release!
     $ deactivate_run.sh # $ source deactivate_run.sh in Unix/Linux
 
 .. _deployment_challenges:
@@ -345,7 +346,7 @@ Even if your application doesn't use directly any of these functions, they are o
 so, in practice, it's almost always in actual use.
 
 There are other implementations of the C standard library that present the same challenge, such as
-`newlib <https://sourceware.org/newlib/>`_ or `musl <https://www.musl-libc.org/>`_, used for embedded development.
+`newlib <https://sourceware.org/newlib/>`_ or `musl <https://www.musl-libc.org>`_, used for embedded development.
 
 To illustrate the problem, a simple hello-world application compiled in a modern Ubuntu distribution will give the following error when it
 is run in a Centos 6 one:
@@ -379,7 +380,7 @@ C++ standard library
 ++++++++++++++++++++
 
 Usually, the default C++ standard library is `libstdc++ <https://gcc.gnu.org/onlinedocs/libstdc++/>`_, but
-`libc++ <https://libcxx.llvm.org/>`_ and `stlport <http://www.stlport.org/>`_ are other well-known implementations.
+`libc++ <https://libcxx.llvm.org>`_ and `stlport <http://www.stlport.org>`_ are other well-known implementations.
 
 Similarly to the standard C library `glibc`, running the application linked with libstdc++ in the older system may result in an error:
 
@@ -412,7 +413,7 @@ detailed information.
 System API (system calls)
 +++++++++++++++++++++++++
 
-New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org/>`_. If the application, or 3rd-party
+New system calls are often introduced with new releases of `Linux kernel <https://www.kernel.org>`_. If the application, or 3rd-party
 libraries, want to take advantage of these new features, they sometimes directly refer to such system calls (instead of using wrappers
 provided by ``glibc``).
 

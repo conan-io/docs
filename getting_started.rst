@@ -3,12 +3,17 @@
 Getting Started
 ===============
 
-Let's get started with an example: We are going to create an MD5 encrypter app that uses one of the most popular C++ libraries: Poco_.
+Let's get started with an example: We are going to create an MD5 hash calculator app that uses one of the
+most popular C++ libraries: Poco_.
 
-We'll use CMake as build system in this case but keep in mind that Conan **works with any build system** and is not limited to using CMake.
+We'll use CMake as build system in this case but keep in mind that Conan **works with any build
+system** and is not limited to using CMake.
 
-An MD5 Encrypter using the Poco Libraries
------------------------------------------
+Make sure you are running the latest Conan version. Read the :ref:`Conan update<conan_update>`
+section get more information.
+
+An MD5 hash calculator using the Poco Libraries
+-----------------------------------------------
 
 .. note::
 
@@ -44,71 +49,73 @@ An MD5 Encrypter using the Poco Libraries
 
     .. code-block:: bash
 
-        $ conan search Poco --remote=conan-center
+        $ conan search poco --remote=conan-center
         Existing package recipes:
 
-        Poco/1.7.8p3@pocoproject/stable
-        Poco/1.7.9@pocoproject/stable
-        Poco/1.7.9p1@pocoproject/stable
-        Poco/1.7.9p2@pocoproject/stable
-        Poco/1.8.0.1@pocoproject/stable
-        Poco/1.8.0@pocoproject/stable
-        Poco/1.8.1@pocoproject/stable
-        Poco/1.9.0@pocoproject/stable
-        Poco/1.9.1@pocoproject/stable
-        Poco/1.9.2@pocoproject/stable
+        poco/1.8.1
+        poco/1.9.3
+        poco/1.9.4
 
     Conan remotes must be specified in search. It will otherwise only search local cache.
 
-3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.0 version:
+3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.4 version:
 
     .. code-block:: bash
 
-        $ conan inspect Poco/1.9.0@pocoproject/stable
-        ...
-        name: Poco
-        version: 1.9.0
-        url: http://github.com/pocoproject/conan-poco
-        license: The Boost Software License 1.0
+        $ conan inspect poco/1.9.4
+        name: poco
+        version: 1.9.4
+        url: https://github.com/conan-io/conan-center-index
+        homepage: https://pocoproject.org
+        license: BSL-1.0
         author: None
         description: Modern, powerful open source C++ class libraries for building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
-        generators: ('cmake', 'txt')
+        topics: ('conan', 'poco', 'building', 'networking', 'server', 'mobile', 'embedded')
+        generators: cmake
         exports: None
-        exports_sources: ('CMakeLists.txt', 'PocoMacros.cmake')
+        exports_sources: CMakeLists.txt
         short_paths: False
         apply_env: True
         build_policy: None
+        revision_mode: hash
         settings: ('os', 'arch', 'compiler', 'build_type')
         options:
+            cxx_14: [True, False]
             enable_apacheconnector: [True, False]
-            shared: [True, False]
+            enable_cppparser: [True, False]
+            enable_crypto: [True, False]
+            [...]
         default_options:
+            cxx_14: False
             enable_apacheconnector: False
-            shared: False
+            enable_cppparser: False
+            enable_crypto: True
+            [...]
 
-
-4. Ok, it looks like this dependency could work with our Encrypter app. We should indicate which are the requirements and the generator for
-   our build system. Let's create a *conanfile.txt* inside our project's folder with the following content:
+4. Ok, it looks like this dependency could work with our hash calculator app. We should indicate which are
+   the requirements and the generator for our build system. Let's create a *conanfile.txt* inside our
+   project's folder with the following content:
 
     .. code-block:: text
        :caption: **conanfile.txt**
 
         [requires]
-        Poco/1.9.0@pocoproject/stable
+        poco/1.9.4
 
         [generators]
         cmake
 
-    In this example we are using CMake to build the project, which is why the ``cmake`` generator is specified. This generator creates a
-    *conanbuildinfo.cmake* file that defines CMake variables including paths and library names that can be used in our build. Read more
-    about :ref:`generators_reference`.
+    In this example we are using CMake to build the project, which is why the ``cmake`` generator is
+    specified. This generator creates a *conanbuildinfo.cmake* file that defines CMake variables
+    including paths and library names that can be used in our build. Read more about
+    :ref:`generators_reference`.
 
 5. Next step: We are going to install the required dependencies and generate the information for the build system:
 
     .. important::
 
-        If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old ABI for backwards compatibility. You can
-        change this with the following commands:
+        If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old
+        ABI for backwards compatibility. You can change this with the following commands:
 
         .. code-block:: bash
 
@@ -123,35 +130,40 @@ An MD5 Encrypter using the Poco Libraries
         $ conan install ..
         ...
         Requirements
-            OpenSSL/1.0.2o@conan/stable from 'conan-center' - Downloaded
-            Poco/1.9.0@pocoproject/stable from 'conan-center' - Cache
-            zlib/1.2.11@conan/stable from 'conan-center' - Downloaded
+            openssl/1.0.2t from 'conan-center' - Downloaded
+            poco/1.9.4 from 'conan-center' - Downloaded
+            zlib/1.2.11 from 'conan-center' - Downloaded
         Packages
-            OpenSSL/1.0.2o@conan/stable:606fdb601e335c2001bdf31d478826b644747077 - Download
-            Poco/1.9.0@pocoproject/stable:09378ed7f51185386e9f04b212b79fe2d12d005c - Download
-            zlib/1.2.11@conan/stable:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
+            openssl/1.0.2t:eb50d18a5a5d59bd0c332464a4c348ab65e353bf - Download
+            poco/1.9.4:645aaff0a79e6036c77803601e44677556109dd9 - Download
+            zlib/1.2.11:f74366f76f700cc6e991285892ad7a23c30e6d47 - Download
 
-        zlib/1.2.11@conan/stable: Retrieving package 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 from remote 'conan-center'
-        ...
-        Downloading conan_package.tgz
-        [==================================================] 99.8KB/99.8KB
-        ...
-        zlib/1.2.11@conan/stable: Package installed 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
-        OpenSSL/1.0.2o@conan/stable: Retrieving package 606fdb601e335c2001bdf31d478826b644747077 from remote 'conan-center'
-        ...
-        Downloading conan_package.tgz
-        [==================================================] 5.5MB/5.5MB
-        ...
-        OpenSSL/1.0.2o@conan/stable: Package installed 606fdb601e335c2001bdf31d478826b644747077
-        Poco/1.9.0@pocoproject/stable: Retrieving package 09378ed7f51185386e9f04b212b79fe2d12d005c from remote 'conan-center'
-        ...
-        Downloading conan_package.tgz
-        [==================================================] 11.5MB/11.5MB
-        ...
-        Poco/1.9.0@pocoproject/stable: Package installed 09378ed7f51185386e9f04b212b79fe2d12d005c
-        PROJECT: Generator cmake created conanbuildinfo.cmake
-        PROJECT: Generator txt created conanbuildinfo.txt
-        PROJECT: Generated conaninfo.txt
+        zlib/1.2.11: Retrieving package f74366f76f700cc6e991285892ad7a23c30e6d47 from remote 'conan-center'
+        Downloading conanmanifest.txt completed [0.25k]
+        Downloading conaninfo.txt completed [0.44k]
+        Downloading conan_package.tgz completed [83.15k]
+        Decompressing conan_package.tgz completed [0.00k]
+        zlib/1.2.11: Package installed f74366f76f700cc6e991285892ad7a23c30e6d47
+        zlib/1.2.11: Downloaded package revision 0
+        openssl/1.0.2t: Retrieving package eb50d18a5a5d59bd0c332464a4c348ab65e353bf from remote 'conan-center'
+        Downloading conanmanifest.txt completed [4.92k]
+        Downloading conaninfo.txt completed [1.28k]
+        Downloading conan_package.tgz completed [3048.81k]
+        Decompressing conan_package.tgz completed [0.00k]
+        openssl/1.0.2t: Package installed eb50d18a5a5d59bd0c332464a4c348ab65e353bf
+        openssl/1.0.2t: Downloaded package revision 0
+        poco/1.9.4: Retrieving package 645aaff0a79e6036c77803601e44677556109dd9 from remote 'conan-center'
+        Downloading conanmanifest.txt completed [48.75k]
+        Downloading conaninfo.txt completed [2.44k]
+        Downloading conan_package.tgz completed [5128.39k]
+        Decompressing conan_package.tgz completed [0.00k]
+        poco/1.9.4: Package installed 645aaff0a79e6036c77803601e44677556109dd9
+        poco/1.9.4: Downloaded package revision 0
+        conanfile.txt: Generator cmake created conanbuildinfo.cmake
+        conanfile.txt: Generator txt created conanbuildinfo.txt
+        conanfile.txt: Generated conaninfo.txt
+        conanfile.txt: Generated graphinfo
+
 
     Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. It has also generated a
     *conanbuildinfo.cmake* file for our build system.
@@ -177,7 +189,7 @@ An MD5 Encrypter using the Poco Libraries
     .. code-block:: bash
 
         (win)
-        $ cmake .. -G "Visual Studio 15 Win64"
+        $ cmake .. -G "Visual Studio 16"
         $ cmake --build . --config Release
 
         (linux, mac)
@@ -211,7 +223,7 @@ command line or taken from the defaults in *<userhome>/.conan/profiles/default* 
 
 For example, the command :command:`conan install .. --settings os="Linux" --settings compiler="gcc"`, performs these steps:
 
-- Checks if the package recipe (for ``Poco/1.9.0@pocoproject/stable`` package) exists in the local cache. If we are just starting, the
+- Checks if the package recipe (for ``poco/1.9.4`` package) exists in the local cache. If we are just starting, the
   cache is empty.
 - Looks for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote as the default, but can be changed.
 - If the recipe exists, the Conan client fetches and stores it in your local cache.
@@ -236,18 +248,18 @@ local cache run:
     $ conan search "*"
     Existing package recipes:
 
-    OpenSSL/1.0.2o@conan/stable
-    Poco/1.9.0@pocoproject/stable
-    zlib/1.2.11@conan/stable
+    openssl/1.0.2t
+    poco/1.9.4
+    zlib/1.2.11
 
 To inspect the different binary packages of a reference run:
 
 .. code-block:: bash
 
-    $ conan search Poco/1.9.0@pocoproject/stable
-    Existing packages for recipe Poco/1.9.0@pocoproject/stable:
+    $ conan search poco/1.9.4@
+    Existing packages for recipe poco/1.9.4:
 
-    Package_ID: 09378ed7f51185386e9f04b212b79fe2d12d005c
+    Package_ID: 645aaff0a79e6036c77803601e44677556109dd9
         [options]
             cxx_14: False
             enable_apacheconnector: False
@@ -256,17 +268,10 @@ To inspect the different binary packages of a reference run:
             enable_data: True
     ...
 
-There is also the possibility to generate a table for all package binaries available in a remote:
-
-.. code-block:: bash
-
-    $ conan search zlib/1.2.11@conan/stable --table=file.html -r=conan-center
-    $ file.html # or open the file, double-click
-
-.. image:: /images/conan-search_binary_table.png
-    :height: 250 px
-    :width: 300 px
-    :align: center
+The ``@`` symbol at the end of the package name is important to search for a specific package. If you
+don't add the ``@``, Conan will interpret the argument as a pattern search and return all the
+packages that match the ``poco/1.9.4`` pattern and may have different :ref:`user and channel
+<user_channel>`.
 
 To inspect all your current project's dependencies use the :command:`conan info` command by pointing it to the location of the
 *conanfile.txt* folder:
@@ -274,51 +279,57 @@ To inspect all your current project's dependencies use the :command:`conan info`
 .. code-block:: bash
 
     $ conan info ..
-    PROJECT
-        ID: 6ecacba4f2b7535e0acb633a0cc4de0234445fea
+    conanfile.txt
+        ID: db91af4811b080e02ebe5a626f1d256bb90d5223
         BuildID: None
         Requires:
-            Poco/1.9.0@pocoproject/stable
-    OpenSSL/1.0.2o@conan/stable
-        ID: 606fdb601e335c2001bdf31d478826b644747077
+            poco/1.9.4
+    openssl/1.0.2t
+        ID: eb50d18a5a5d59bd0c332464a4c348ab65e353bf
         BuildID: None
-        Remote: conan-center=https://conan.bintray.com
-        URL: http://github.com/conan-community/conan-openssl
-        License: The current OpenSSL licence is an 'Apache style' license: https://www.openssl.org/source/license.html
+        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        URL: https://github.com/conan-io/conan-center-index
+        Homepage: https://github.com/openssl/openssl
+        License: OpenSSL
+        Topics: conan, openssl, ssl, tls, encryption, security
         Recipe: Cache
         Binary: Cache
         Binary remote: conan-center
-        Creation date: 2018-08-27 09:12:47
+        Creation date: 2019-11-13 23:14:37
         Required by:
-            Poco/1.9.0@pocoproject/stable
+            poco/1.9.4
         Requires:
-            zlib/1.2.11@conan/stable
-    Poco/1.9.0@pocoproject/stable
-        ID: 09378ed7f51185386e9f04b212b79fe2d12d005c
+            zlib/1.2.11
+    poco/1.9.4
+        ID: 645aaff0a79e6036c77803601e44677556109dd9
         BuildID: None
-        Remote: conan-center=https://conan.bintray.com
-        URL: http://github.com/pocoproject/conan-poco
-        License: The Boost Software License 1.0
+        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        URL: https://github.com/conan-io/conan-center-index
+        Homepage: https://pocoproject.org
+        License: BSL-1.0
+        Topics: conan, poco, building, networking, server, mobile, embedded
         Recipe: Cache
         Binary: Cache
         Binary remote: conan-center
-        Creation date: 2018-08-30 13:28:08
+        Creation date: 2020-01-07 17:29:24
         Required by:
-            PROJECT
+            conanfile.txt
         Requires:
-            OpenSSL/1.0.2o@conan/stable
-    zlib/1.2.11@conan/stable
-        ID: 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+            openssl/1.0.2t
+    zlib/1.2.11
+        ID: f74366f76f700cc6e991285892ad7a23c30e6d47
         BuildID: None
-        Remote: conan-center=https://conan.bintray.com
-        URL: http://github.com/conan-community/conan-zlib
+        Remote: conan-center=https://api.bintray.com/conan/conan/conan-center
+        URL: https://github.com/conan-io/conan-center-index
+        Homepage: https://zlib.net
         License: Zlib
         Recipe: Cache
         Binary: Cache
         Binary remote: conan-center
-        Creation date: 2018-10-24 12:40:49
+        Creation date: 2020-01-07 17:01:29
         Required by:
-            OpenSSL/1.0.2o@conan/stable
+            openssl/1.0.2t
+
 
 Or generate a graph of your dependencies using Dot or HTML formats:
 
@@ -328,7 +339,7 @@ Or generate a graph of your dependencies using Dot or HTML formats:
     $ file.html # or open the file, double-click
 
 .. image:: /images/conan-info_deps_html_graph.png
-    :height: 150 px
+    :height: 310 px
     :width: 200 px
     :align: center
 
@@ -342,19 +353,32 @@ You can search packages in Conan Center using this command:
 
 .. code-block:: bash
 
-    $ conan search "*" --remote=conan-center
+    $ conan search "open*" --remote=conan-center
     Existing package recipes:
 
-    Assimp/4.1.0@jacmoe/stable
-    CLI11/1.6.1@cliutils/stable
-    CTRE/2.1@ctre/stable
-    Catch/1.12.1@bincrafters/stable
-    Expat/2.2.5@pix4d/stable
-    FakeIt/2.0.5@gasuketsu/stable
-    IlmBase/2.2.0@Mikayex/stable
-    IrrXML/1.2@conan/stable
-    OpenSSL/1.0.2@conan/stable
+    openal/1.18.2@bincrafters/stable
+    openal/1.19.0@bincrafters/stable
+    openal/1.19.1
+    opencv/2.4.13.5@conan/stable
+    opencv/3.4.3@conan/stable
+    opencv/3.4.5@conan/stable
+    opencv/4.0.0@conan/stable
+    opencv/4.0.1@conan/stable
+    opencv/4.1.0@conan/stable
+    opencv/4.1.1@conan/stable
+    openexr/2.3.0
+    openexr/2.3.0@conan/stable
+    openexr/2.4.0
+    openjpeg/2.3.0@bincrafters/stable
+    openjpeg/2.3.1
+    openjpeg/2.3.1@bincrafters/stable
+    openssl/1.0.2s
     ...
+
+As you can see, some of the libraries end with a ``@`` symbol followed by two strings separated by a
+slash. These fields are the :ref:`user and channel <user_channel>` for the Conan package, and they are
+useful if you want to make specific changes and disambiguate your modified recipe from the one in the
+Conan Center or any other remote.
 
 There are additional community repositories that can be configured and used. See :ref:`Bintray Repositories <bintray_repositories>` for more
 information.
@@ -382,7 +406,7 @@ For example, if we have a profile with a 32-bit GCC configuration in a profile c
     We strongly recommend using :ref:`profiles` and managing them with :ref:`conan_config_install`.
 
 However, the user can always override the profile settings in the :command:`conan install` command using the :command:`--settings`
-parameter. As an exercise, try building the 32-bit version of the Encrypter project like this:
+parameter. As an exercise, try building the 32-bit version of the hash calculator project like this:
 
 .. code-block:: bash
 

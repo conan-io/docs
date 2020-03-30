@@ -59,7 +59,7 @@ defaults settings. You can find in your user home folder ``~/.conan/settings.yml
 can modify, edit, add any setting or any value, with any nesting if necessary. See :ref:`custom_settings`.
 
 As long as your team or users have the same settings (you can share with them the file), everything will work. The *settings.yml* file is just a
-mechanism so users agree on a common spelling for typically settings. Also, if you think that some settings would
+mechanism so users agree on a common spelling for typical settings. Also, if you think that some settings would
 be useful for many other conan users, please submit it as an issue or a pull request, so it is included in future
 releases.
 
@@ -76,7 +76,7 @@ When you install or create a package, it is possible to see an error like this:
 
 .. code-block:: bash
 
-    ERROR: Hello/0.1@user/testing: 'settings.arch' value not defined
+    ERROR: hello/0.1@user/testing: 'settings.arch' value not defined
 
 This means that the recipe defined ``settings = "os", "arch", ...`` but a value for the ``arch`` setting was
 not provided either in a profile or in the command line. Make sure to specify a value for it in your profile,
@@ -90,7 +90,7 @@ If you are building a pure C library with gcc/clang, you might encounter an erro
 
 .. code-block:: bash
 
-    ERROR: Hello/0.1@user/testing: 'settings.compiler.libcxx' value not defined
+    ERROR: hello/0.1@user/testing: 'settings.compiler.libcxx' value not defined
 
 Indeed, for building a C library, it is not necessary to define a C++ standard library. And if you provide a value,
 you might end with multiple packages for exactly the same binary. What has to be done is to remove such subsetting
@@ -179,3 +179,25 @@ To fix this error, you should run:
 
 This command must be executed before to start the workers. It will not migrate anything, but it will populate the conan_server folder.
 The original discussion about this error is `here <https://github.com/conan-io/conan/issues/4723>`_.
+
+
+ERROR: Requested a package but found case incompatible
+------------------------------------------------------
+
+When installing a package which is already installed, but using a different case, will result on the follow error:
+
+.. code-block:: bash
+
+    $ conan install poco/1.10.1@
+
+        [...]
+        ERROR: Failed requirement 'openssl/1.0.2t' from 'poco/1.10.1@'
+        ERROR: Requested 'openssl/1.0.2t' but found case incompatible 'OpenSSL'
+        Case insensitive filesystem can not manage this
+
+The package ``OpenSSL/x.y.z@conan/stable`` is already installed. To solve this problem the different package with the same name
+must be removed:
+
+.. code-block:: bash
+
+    $ conan remove "OpenSSL/*"

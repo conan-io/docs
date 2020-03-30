@@ -62,7 +62,7 @@ This example shows how ``package()`` works in a package which can be edited and 
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 -s
+    $ conan new hello/0.1 -s
     $ conan install . --install-folder=build_x86 -s arch=x86
     $ conan build . --build-folder=build_x86
     $ conan package . --build-folder=build_x86 --package-folder=package_x86
@@ -78,7 +78,7 @@ This example shows how ``package()`` works in a package which can be edited and 
 
     .. code-block:: bash
 
-        $ conan new Hello/0.1 -s
+        $ conan new hello/0.1 -s
         $ conan install . --install-folder=build_x86 -s arch=x86
         $ conan build . --build-folder=build_x86
-        $ conan export-pkg . Hello/0.1@user/stable --build-folder=build_x86 -s arch=x86
+        $ conan export-pkg . hello/0.1@user/stable --build-folder=build_x86 -s arch=x86

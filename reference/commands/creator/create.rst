@@ -87,7 +87,7 @@ to know more about 'test_folder' project.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -119,10 +119,10 @@ The ``reference`` field can be:
 .. code-block:: bash
 
     $ conan export . demo/testing
-    $ conan install Hello/0.1@demo/testing --build=Hello
+    $ conan install hello/0.1@demo/testing --build=hello
     # package is created now, use test to test it
     $ cd test_package
-    $ conan test . Hello/0.1@demo/testing
+    $ conan test . hello/0.1@demo/testing
 
 
 .. tip::
@@ -152,3 +152,8 @@ The ``reference`` field can be:
 
 In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note that ``deploy()`` method is only used in
 :command:`conan install`.
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.

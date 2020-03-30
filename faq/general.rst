@@ -47,10 +47,10 @@ Yes, Conan supports the concept of virtual environments; so it manages all the i
 Check :ref:`virtual environments<custom_cache>` for more details.
 
 
-Can I run the conan_server behind a firewall (on-premises)?
------------------------------------------------------------
+Can I run the conan_server or Artifactory behind a firewall (on-premises)?
+--------------------------------------------------------------------------
 Yes. Conan does not require a connection to conan.io site or any other external service at all for its operation. You can
-install packages from the bintray conan-center repository if you want, test them, and only after approval, upload
+install packages from the ConanCenter repository if you want, test them, and only after approval, upload
 them to your on-premises server and forget about the original repository. Or you can just get
 the package recipes, re-build from source on your premises, and then upload the packages to your
 server.
@@ -65,18 +65,18 @@ Can I create packages for third-party libraries?
 ------------------------------------------------
 Of course, as long as their license allows it.
 
-Can I upload closed source libraries?
--------------------------------------
-Yes. As long as the resulting binary artifact can be distributed freely and free of charge, at least
-for educational and research purposes, and as long as you comply with all licenses and IP rights of the original
-authors, as well as the Terms of Service.
-If you want to distribute your libraries only for your paying customers, please contact us.
+Can I upload closed source libraries to ConanCenter?
+----------------------------------------------------
+No. ConanCenter (https://conan.io/center/) is for Open Source packages only. Binaries in ConanCenter
+are created by our build service from recipes in https://github.com/conan-io/conan-center-index.
+Read how to contribute to ConanCenter in https://github.com/conan-io/conan-center-index/wiki
 
 Do I always need to specify how to build the package from source?
 -----------------------------------------------------------------
 No. But it is highly recommended. If you want, you can just directly start with the binaries,
 build elsewhere, and upload them directly. Maybe your ``build()`` step can download pre-compiled
 binaries from another source and unzip them, instead of actually compiling from sources.
+You can also use the :ref:`conan export-pkg<conan_export-pkg>`  command to create packages from existing binaries.
 
 Does Conan use semantic versioning (semver) for dependencies?
 -------------------------------------------------------------

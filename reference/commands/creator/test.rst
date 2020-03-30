@@ -55,7 +55,7 @@ to be tested must exist in the local cache or in any configured remote.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -77,12 +77,12 @@ This command is util for testing existing packages, that have been previously bu
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 -s -t
+    $ conan new hello/0.1 -s -t
     $ mv test_package test_package2
     $ conan create . user/testing
     # doesn't automatically run test, it has been renamed
     # now run test
-    $ conan test test_package2 Hello/0.1@user/testing
+    $ conan test test_package2 hello/0.1@user/testing
 
 The test package folder, could be elsewhere, or could be even applied to different versions of the
 package.

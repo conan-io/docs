@@ -68,7 +68,7 @@ your local cache.
       -e ENV, --env ENV     Environment variables that will be set during the
                             package build, -e CXX=/usr/bin/clang++
       -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
+                            Define options values, e.g., -o Pkg:with_qt=True
       -pr PROFILE, --profile PROFILE
                             Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
@@ -89,7 +89,7 @@ your local cache.
     $ conan info .
     $ conan info myproject_folder
     $ conan info myproject_folder/conanfile.py
-    $ conan info Hello/1.0@user/channel
+    $ conan info hello/1.0@user/channel
 
 The output will look like:
 
@@ -104,9 +104,9 @@ The output will look like:
      Updates: Version not checked
      Creation date: 2017-10-31 14:45:34
      Required by:
-        Hello/1.0@user/channel
+        hello/1.0@user/channel
 
-    Hello/1.0@user/channel
+    hello/1.0@user/channel
      ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
      BuildID: None
      Remote: None
@@ -116,7 +116,7 @@ The output will look like:
      Required by:
         Project
      Requires:
-        Hello0/0.1@user/channel
+        hello0/0.1@user/channel
 
 :command:`conan info` builds the complete dependency graph, like :command:`conan install` does. The main
 difference is that it doesn't try to install or build the binaries, but the package recipes
@@ -161,8 +161,8 @@ changed (most likely due to a git push on that package):
 
 .. code-block:: bash
 
-    $ conan info . -bo zlib/1.2.11@conan/stable
-    [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+    $ conan info . -bo zlib/1.2.11@
+    [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.9.4]
 
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.
@@ -172,17 +172,17 @@ You can also specify the :command:`--build-order=ALL` argument, if you want just
 .. code-block:: bash
 
     $ conan info . --build-order=ALL
-    > [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+    > [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.9.4]
 
 
 Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter.
 
-E.g., if I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
+E.g., if I try to install ``boost/1.71.0`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
 
 .. code-block:: bash
 
-	$ conan info Boost/1.60.0@lasote/stable --build missing -s arch=x86
-	bzip2/1.0.6@lasote/stable, zlib/1.2.8@lasote/stable, Boost/1.60.0@lasote/stable
+	$ conan info boost/1.71.0@ --build missing -s arch=x86
+	bzip2/1.0.8, zlib/1.2.11, boost/1.71.0
 
 
 You can generate a graph of your dependencies, in dot or html formats:

@@ -12,13 +12,14 @@ cmake_find_package
 
 The ``cmake_find_package`` generator creates a file for each requirement specified in the conanfile.
 
-The name of the files follow the pattern ``Find<PKG-NAME>.cmake``. So for the ``zlib/1.2.11@conan/stable`` package,
-a ``Findzlib.cmake`` file will be generated.
+The name of the files follow the pattern ``Find<PKG-NAME>.cmake``. So for the ``asio/1.14.0`` package,
+a ``Findasio.cmake`` file will be generated.
 
 Variables in Find<PKG-NAME>.cmake
 ---------------------------------
 
-Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name``:
+Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name`` or in
+``cpp_info.names["cmake_find_package"]`` if specified:
 
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 | NAME                               | VALUE                                                                                               |
