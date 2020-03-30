@@ -483,9 +483,7 @@ See values behavior:
       for example in your development environment.
 
 Although this value is defaulted to ``enabled``, the default value can be configured with the
-``default_mode`` parameter in the :ref:`SystemPackageTool<systempackagetool>` constructor. If this parameter is passed,
-``CONAN_SYSREQUIRES_MODE`` will take this value if the environment variable has not been previously
-defined.
+``default_mode`` parameter in the :ref:`SystemPackageTool<systempackagetool>` constructor.
 
 CONAN_SYSREQUIRES_SUDO
 ----------------------
