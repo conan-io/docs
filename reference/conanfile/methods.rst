@@ -653,15 +653,14 @@ When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan w
     - :command:`sudo` is available in the ``PATH``.
     - The platform name is ``posix`` and the UID (user id) is not ``0``
 
-Also, when the environment variable :ref:`CONAN_SYSREQUIRES_MODE <env_vars_conan_sysrequires_mode>` is not
-defined, Conan will set its value to ``enabled``. In this case, it's also possible to set the default
-value of the variable to other valid values (``verify`` or ``disabled``). This can be useful in the
-case that, for example, we want to install missing system requirements in the docker images of a CI
-server so that they are able to generate binaries (this images would run with the environment
-variable ``CONAN_SYSREQUIRES_MODE`` defined as ``enabled``), but passing ``default_mode="verify"`` as
-a parameter in the constructor of ``SystemPackageTool`` in the recipe, we will not force the
-installation of those requirements when the recipe is installed and ``CONAN_SYSREQUIRES_SUDO`` is not
-set.
+Also, when the environment variable :ref:`CONAN_SYSREQUIRES_MODE <env_vars_conan_sysrequires_mode>`
+is not defined, Conan will work as if its value was ``enabled`` unless you pass the ``default_mode``
+argument to the constructor of ``SystemPackageTool``. In that case it will work as if
+``CONAN_SYSREQUIRES_MODE`` had been defined to that value. Take into accoun that if
+``CONAN_SYSREQUIRES_MODE`` is defined it will take preference and the ``default_mode`` parameter will
+have no effect. This can be useful when we have a recipe with system requirements but we don't want
+to automaticly install them if the user has not explicitly defined this environment variable but to
+warn him about the missing requirements and giving him the opportunity to install them.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
