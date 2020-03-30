@@ -104,6 +104,11 @@ be linked to the generated library or other executable we want to deploy to the 
             self.build_requires("gtest/0.1", force_host_context=True)  # 'host' context (our library will link with it)
 
 
+.. image:: ../images/xbuild/conan-gtest_nasm.png
+   :width: 500 px
+   :align: center
+
+
 Take into account that the same package (executable or library) can appear two times in the graph, in the ``host`` and
 in the ``build`` context, with different package IDs. Conan will propagate the proper information to the consumers:
 

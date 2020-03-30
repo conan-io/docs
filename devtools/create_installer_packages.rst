@@ -106,6 +106,11 @@ being in the PATH to run some assembly optimizations.
             self.cpp_info.libs = [...]
 
 
+.. image:: ../images/xbuild/conan-nasm.png
+   :width: 400 px
+   :align: center
+
+
 The consumer recipe needs only to declare the corresponding ``build_require`` and Conan will take care
 of adding the required paths to the corresponding environment variables:
 
