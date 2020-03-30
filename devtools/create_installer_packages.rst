@@ -6,7 +6,7 @@ Creating conan packages to install dev tools
 One of the most useful features of Conan is to package executables like compilers or build tools and
 distribute them in a controlled way to the team of developers. This way Conan helps not only with the 
 graph of dependencies of the application itself, but also with all the ecosystem needed to generate the
-project, making it really easy to control everythin involved in the deployed application.
+project, making it really easy to control everything involved in the deployed application.
 
 Those tools need to run in the working machine (the ``build`` machine) regardless of the ``host`` platform
 where the generated binaries will run. If those platforms are different, we are cross building software.
@@ -72,7 +72,7 @@ the ``nasm`` tool for building assembler:
 This recipe has nothing special: it doesn't declare the ``compiler`` and ``build_type`` settings because it is downloading
 already available binaries, and it is declaring the information for their consumers as usual in the :ref:`method_package_info` method:
 
-* It is not declared, so the :ref:`cpp_info_attributes_reference` will take its default values: the ``bindirs`` will point to the
+* The :ref:`cpp_info_attributes_reference` is not declared, so it will take its default values: the ``bindirs`` will point to the
   ``bin`` folder where the ``nasm.exe`` executable is packaged.
 * In the :ref:`env_info_attributes_reference` attribute, it is adding the ``bin`` folder to the ``PATH`` environment variable.
 
@@ -88,7 +88,7 @@ you should usually declare them as :ref:`build requirements <build_requires>`, i
 For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like 
 `flac <https://conan.io/center/flac/1.3.3/?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264/20191217/?tab=recipe>`_
 that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm`` 
-being the PATH to run some assembly optimizations.
+being in the PATH to run some assembly optimizations.
 
 
 .. code-block:: python
@@ -115,17 +115,17 @@ of adding the required paths to the corresponding environment variables:
 
 Here we are telling Conan to create the package for the ``libx264`` for the ``host`` platform defined
 in the profile ``profile_host`` file and to use the profile ``windows`` for all the build requirements
-that are in the ``build`` context. In other words: in this example we are running a Windows machine, so 
+that are in the ``build`` context. In other words: in this example we are running a Windows machine 
 and we need a version of ``nasm`` compatible with this machine, so we are providing a ``windows`` profile
 for the ``build`` context, and we are generating the library for the ``host`` platform which is declared
 in the ``profile_host`` profile (read more about :ref:`build requires context <build_requires_context>`).
 
-Using two profiles forces Conan to make this distinction and it has several advantages over the previous
-approach:
+Using two profiles forces Conan to make this distinction between recipes in the ``build`` context and those
+in the ``host`` context. It has several advantages:
 
-* recipes for these tools are regular recipes, no need to adapt them (before 1.24 they require special
+* Recipes for these tools are regular recipes, no need to adapt them (before 1.24 they require special
   settings and some package ID customization).
-* we provide a full profile for the ``build`` machine, so Conan is able to compile those build requirements
+* We provide a full profile for the ``build`` machine, so Conan is able to compile those build requirements
   from sources if they are not already available.
 * Conan will add to the environment not only the path to the ``bin`` folder, but also it will populate
   the ``DYLD_LIBRARY_PATH`` and ``LD_LIBRARY_PATH`` variables that are needed to find the shared libraries
