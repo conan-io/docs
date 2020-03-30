@@ -119,7 +119,7 @@ in the ``build`` context, with different package IDs. Conan will propagate the p
   the ``cpp_info`` object. All these information will be available in the ``deps_cpp_info`` object.
 
 
-.. warning::
+.. important::
 
     If no ``--profile:build`` is provided, all build requirements will belong to the one and only context and they will share
     their dependencies with the libraries we are building. In this scenario all the build requirements propagate ``user_info``,
