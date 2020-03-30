@@ -655,12 +655,12 @@ When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan w
 
 Also, when the environment variable :ref:`CONAN_SYSREQUIRES_MODE <env_vars_conan_sysrequires_mode>`
 is not defined, Conan will work as if its value was ``enabled`` unless you pass the ``default_mode``
-argument to the constructor of ``SystemPackageTool``. In that case it will work as if
-``CONAN_SYSREQUIRES_MODE`` had been defined to that value. Take into accoun that if
-``CONAN_SYSREQUIRES_MODE`` is defined it will take preference and the ``default_mode`` parameter will
-have no effect. This can be useful when we have a recipe with system requirements but we don't want
-to automaticly install them if the user has not explicitly defined this environment variable but to
-warn him about the missing requirements and giving him the opportunity to install them.
+argument to the constructor of ``SystemPackageTool``. In that case, it will work as if
+``CONAN_SYSREQUIRES_MODE`` had been defined to that value. If ``CONAN_SYSREQUIRES_MODE`` is defined,
+it will take preference and the ``default_mode`` parameter will not affect. This can be useful when a
+recipe has system requirements but we don't want to automatically install them if the user has not
+defined ``CONAN_SYSREQUIRES_MODE`` but to warn him about the missing requirements and allowing him to
+install them.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
