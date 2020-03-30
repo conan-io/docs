@@ -146,6 +146,26 @@ So creating the package we can see how the methods from the base class are reuse
     pkg/0.1@user/channel: My cool package_info!
     ...
 
+If there is extra logic needed to extend from a base class, like composing the base class settings
+with the current recipe, the ``init()`` method can be used for it:
+
+.. code-block:: python
+
+    class PkgTest(ConanFile):
+        license = "MIT"
+        settings = "arch", # tuple!
+        python_requires = "base/1.1@user/testing"
+        python_requires_extend = "base.MyConanfileBase"
+
+        def init(self):
+            base = self.python_requires["base"].module.MyConanfileBase
+            self.settings = base.settings + self.settings  # Note, adding 2 tuples = tuple
+            self.license = base.license  # License is overwritten
+
+
+For more information about the ``init()`` method visit :ref:`method_init`
+
+
 Limitations
 +++++++++++
 

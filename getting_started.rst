@@ -291,6 +291,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://github.com/openssl/openssl
         License: OpenSSL
+        Description: A toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols
         Topics: conan, openssl, ssl, tls, encryption, security
         Recipe: Cache
         Binary: Cache
@@ -307,6 +308,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://pocoproject.org
         License: BSL-1.0
+        Description: Modern, powerful open source C++ class libraries for building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
         Topics: conan, poco, building, networking, server, mobile, embedded
         Recipe: Cache
         Binary: Cache
@@ -323,6 +325,7 @@ To inspect all your current project's dependencies use the :command:`conan info`
         URL: https://github.com/conan-io/conan-center-index
         Homepage: https://zlib.net
         License: Zlib
+        Description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
         Recipe: Cache
         Binary: Cache
         Binary remote: conan-center
