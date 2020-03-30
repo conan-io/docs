@@ -78,7 +78,7 @@ are possible. These are the **default** values, but it is possible to customize 
                       "8", "9", "10"]
             libcxx: [libstdc++, libstdc++11, libc++, c++_shared, c++_static]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
-        apple-clang:
+        apple-clang: &apple_clang
             version: ["5.0", "5.1", "6.0", "6.1", "7.0", "7.3", "8.0", "8.1", "9.0", "9.1", "10.0", "11.0"]
             libcxx: [libstdc++, libc++]
             cppstd: [None, 98, gnu98, 11, gnu11, 14, gnu14, 17, gnu17, 20, gnu20]
@@ -91,6 +91,8 @@ are possible. These are the **default** values, but it is possible to customize 
                     exception: [None]
                 Visual Studio:
                     <<: *visual_studio
+                apple-clang:
+                    <<: *apple_clang
         qcc:
             version: ["4.4", "5.4"]
             libcxx: [cxx, gpp, cpp, cpp-ne, accp, acpp-ne, ecpp, ecpp-ne]
