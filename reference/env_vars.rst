@@ -466,7 +466,7 @@ the ``upgrade_project`` parameter value.
 CONAN_SYSREQUIRES_MODE
 ----------------------
 
-**Defaulted to**: ``None`` allowed values ``enabled``/``verify``/``disabled``
+**Defaulted to**: Not defined (allowed values ``enabled``/``verify``/``disabled``)
 
 This environment variable controls whether system packages should be installed into the system
 via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
@@ -655,4 +655,3 @@ This environment variable changes the PyLint behavior from *warning* level to *e
 any inconsistency found in the recipe will break the process during linter analysis.
 
 .. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
-
