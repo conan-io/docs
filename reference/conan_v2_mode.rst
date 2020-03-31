@@ -57,7 +57,7 @@ These changes could break existing recipes:
 * Deprecate ``tools.msvc_build_command``.
 * Deprecate ``tools.build_sln_command``.
 * Deprecate ``cpp_info.cppflags`` (use ``cxxflags`` instead).
-* Deprecate environment variables ``CONAN_UERNAME`` and ``CONAN_CHANNEL``.
+* Deprecate environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``.
 * ``PYTHONPATH`` is not added automatically to the environment before running consumer functions.
 
 
