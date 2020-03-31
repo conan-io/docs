@@ -99,19 +99,19 @@ user has in the local machine will be deleted.
 
 All the configuration files will be copied to the Conan home directory. These are the special files and the rules applied to merge them:
 
-+--------------------------------+----------------------------------------------------------------------+
-| File                           | How it is applied                                                    |
-+================================+======================================================================+
-| profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists    |
-+--------------------------------+----------------------------------------------------------------------+
-| settings.yml                   | Overrides the local ~/.conan/settings.yml                            |
-+--------------------------------+----------------------------------------------------------------------+
-| remotes.txt                    | Overrides remotes. Will remove remotes that are not present in file  |
-+--------------------------------+----------------------------------------------------------------------+
-| config/conan.conf              | Merges the variables, overriding only the declared variables         |
-+--------------------------------+----------------------------------------------------------------------+
-| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists      |
-+--------------------------------+----------------------------------------------------------------------+
++--------------------------------+----------------------------------------------------------------------------------+
+| File                           | How it is applied                                                                |
++================================+==================================================================================+
+| profiles/MyProfile             | Overrides the local ~/.conan/profiles/MyProfile if already exists                |
++--------------------------------+----------------------------------------------------------------------------------+
+| settings.yml                   | Overrides the local ~/.conan/settings.yml                                        |
++--------------------------------+----------------------------------------------------------------------------------+
+| remotes.txt                    | Overrides *remotes.json* file. Will remove remotes that are not present in file  |
++--------------------------------+----------------------------------------------------------------------------------+
+| config/conan.conf              | Merges the variables, overriding only the declared variables                     |
++--------------------------------+----------------------------------------------------------------------------------+
+| hooks/my_hook.py               | Overrides the local ~/.conan/hooks/my_hook.py if already exists                  |
++--------------------------------+----------------------------------------------------------------------------------+
 
 The file *remotes.txt* is the only file listed above which does not have a direct counterpart in
 the *~/.conan* folder. Its format is a list of entries, one on each line, with the form of
@@ -121,13 +121,8 @@ the *~/.conan* folder. Its format is a list of entries, one on each line, with t
     [remote name] [remote url] [bool]
 
 where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. The remote definitions can be
-found in the *registry.txt*/*registry.json* files and they provide a helpful starting point when writing the *remotes.txt* to be packaged in
+found in the *remotes.json* file and it provides a helpful starting point when writing the *remotes.txt* to be packaged in
 a Conan client configuration.
-
-.. important::
-    The local cache *registry.txt*/*registry.json* file contains the remotes definitions as well as the mapping of installed packages from
-    remotes. Sharing the complete contents of this file via this command is not recommended as this records the status of the local cache,
-    which may be different from one machine to another.
 
 .. note::
     During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.

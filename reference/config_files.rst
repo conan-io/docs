@@ -9,12 +9,13 @@ These are the most important configuration files, used to customize conan.
 .. toctree::
    :maxdepth: 2
 
-   config_files/conan.conf
-   config_files/default_profile
-   config_files/settings.yml
-   config_files/remotes.json
-   config_files/client_certificates
    config_files/artifacts.properties
-   config_files/editable_layout
+   config_files/client_certificates
+   config_files/conan.conf
    config_files/conandata.yml
+   config_files/default_profile
+   config_files/editable_layout
+   config_files/metadata.json
+   config_files/remotes.json
+   config_files/settings.yml
 
