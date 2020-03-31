@@ -627,12 +627,14 @@ On Windows, there is no standard package manager, however **choco** can be invok
             installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
             installer.install(pack_name)
 
+.. _systempackagetool:
+
 SystemPackageTool
 +++++++++++++++++
 
 .. code-block:: python
 
-    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
+    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None, default_mode="enabled")
 
 Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
 **PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
@@ -654,6 +656,15 @@ When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan w
 
     - :command:`sudo` is available in the ``PATH``.
     - The platform name is ``posix`` and the UID (user id) is not ``0``
+
+Also, when the environment variable :ref:`CONAN_SYSREQUIRES_MODE <env_vars_conan_sysrequires_mode>`
+is not defined, Conan will work as if its value was ``enabled`` unless you pass the ``default_mode``
+argument to the constructor of ``SystemPackageTool``. In that case, it will work as if
+``CONAN_SYSREQUIRES_MODE`` had been defined to that value. If ``CONAN_SYSREQUIRES_MODE`` is defined,
+it will take preference and the ``default_mode`` parameter will not affect. This can be useful when a
+recipe has system requirements but we don't want to automatically install them if the user has not
+defined ``CONAN_SYSREQUIRES_MODE`` but to warn him about the missing requirements and allowing him to
+install them.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
