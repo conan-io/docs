@@ -171,12 +171,12 @@ There are 2 modes of operation:
     $ conan export-pkg . user/channel --source-folder=tmp/source --build-folder=tmp/build --profile=myprofile
 
     Packaging to 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
-    Hello/1.1@user/channel: Generating the package
-    Hello/1.1@user/channel: Package folder C:\Users\conan\.conan\data\Hello\1.1\user\channel\package\6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
-    Hello/1.1@user/channel: Calling package()
-    Hello/1.1@user/channel package(): Copied 2 '.lib' files: greet.lib, hello.lib
-    Hello/1.1@user/channel package(): Copied 2 '.lib' files: greet.lib, hello.lib
-    Hello/1.1@user/channel: Package '6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7' created
+    hello/1.1@user/channel: Generating the package
+    hello/1.1@user/channel: Package folder C:\Users\conan\.conan\data\hello\1.1\user\channel\package\6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+    hello/1.1@user/channel: Calling package()
+    hello/1.1@user/channel package(): Copied 2 '.lib' files: greet.lib, hello.lib
+    hello/1.1@user/channel package(): Copied 2 '.lib' files: greet.lib, hello.lib
+    hello/1.1@user/channel: Package '6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7' created
 
 conan test
 ^^^^^^^^^^
@@ -185,19 +185,19 @@ The final step to test the package for consumers is the test command. This step 
 
 .. code-block:: bash
 
-    $ conan test test_package Hello/1.1@user/channel
+    $ conan test test_package hello/1.1@user/channel
 
-    Hello/1.1@user/channel (test package): Installing C:\Users\conan\repos\example_conan_flow\test_package\conanfile.py
+    hello/1.1@user/channel (test package): Installing C:\Users\conan\repos\example_conan_flow\test_package\conanfile.py
     Requirements
-        Hello/1.1@user/channel from local
+        hello/1.1@user/channel from local
     Packages
-        Hello/1.1@user/channel:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+        hello/1.1@user/channel:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
 
-    Hello/1.1@user/channel: Already installed!
-    Hello/1.1@user/channel (test package): Generator cmake created conanbuildinfo.cmake
-    Hello/1.1@user/channel (test package): Generator txt created conanbuildinfo.txt
-    Hello/1.1@user/channel (test package): Generated conaninfo.txt
-    Hello/1.1@user/channel (test package): Running build()
+    hello/1.1@user/channel: Already installed!
+    hello/1.1@user/channel (test package): Generator cmake created conanbuildinfo.cmake
+    hello/1.1@user/channel (test package): Generator txt created conanbuildinfo.txt
+    hello/1.1@user/channel (test package): Generated conaninfo.txt
+    hello/1.1@user/channel (test package): Running build()
     ...
 
 There is often a need to repeatedly re-run the test to check the package is well generated for consumers.
@@ -213,11 +213,11 @@ As a summary, you could use the default folders and the flow would be as simple 
     $ conan build .
     $ conan package .
     # So far, this is local. Now put the local binaries in cache
-    $ conan export-pkg . Hello/1.1@user/testing -pr=default
+    $ conan export-pkg . hello/1.1@user/testing -pr=default
     # And test it, to check it is working in the local cache
-    $ conan test test_package Hello/1.1@user/testing
+    $ conan test test_package hello/1.1@user/testing
     ...
-    Hello/1.1@user/testing (test package): Running test()
+    hello/1.1@user/testing (test package): Running test()
     Hello World Release!
 
 conan create
@@ -243,26 +243,26 @@ If you see in the traces that the ``source()`` method has been properly executed
 
     $ conan create . user/channel --keep-source
 
-    Hello/1.1@user/channel: A new conanfile.py version was exported
-    Hello/1.1@user/channel: Folder: C:\Users\conan\.conan\data\Hello\1.1\user\channel\export
-    Hello/1.1@user/channel (test package): Installing C:\Users\conan\repos\example_conan_flow\test_package\conanfile.py
+    hello/1.1@user/channel: A new conanfile.py version was exported
+    hello/1.1@user/channel: Folder: C:\Users\conan\.conan\data\hello\1.1\user\channel\export
+    hello/1.1@user/channel (test package): Installing C:\Users\conan\repos\features\package_development_flow\test_package\conanfile.py
     Requirements
-        Hello/1.1@user/channel from local
+        hello/1.1@user/channel from local
     Packages
-        Hello/1.1@user/channel:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+        hello/1.1@user/channel:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
 
-    Hello/1.1@user/channel: WARN: Forced build from source
-    Hello/1.1@user/channel: Building your package in C:\Users\conan\.conan\data\Hello\1.1\user\channel\build\6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
-    Hello/1.1@user/channel: Configuring sources in C:\Users\conan\.conan\data\Hello\1.1\user\channel\source
+    hello/1.1@user/channel: WARN: Forced build from source
+    hello/1.1@user/channel: Building your package in C:\Users\conan\.conan\data\hello\1.1\user\channel\build\6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+    hello/1.1@user/channel: Configuring sources in C:\Users\conan\.conan\data\hello\1.1\user\channel\source
     Cloning into 'hello'...
     remote: Counting objects: 17, done.
     remote: Total 17 (delta 0), reused 0 (delta 0), pack-reused 17
     Unpacking objects: 100% (17/17), done.
     Switched to a new branch 'static_shared'
     Branch 'static_shared' set up to track remote branch 'static_shared' from 'origin'.
-    Hello/1.1@user/channel: Copying sources to build folder
-    Hello/1.1@user/channel: Generator cmake created conanbuildinfo.cmake
-    Hello/1.1@user/channel: Calling build()
+    hello/1.1@user/channel: Copying sources to build folder
+    hello/1.1@user/channel: Generator cmake created conanbuildinfo.cmake
+    hello/1.1@user/channel: Calling build()
     ...
 
 If you see that the library is also built correctly, you can also skip the ``build()`` step with the ``--keep-build`` flag:

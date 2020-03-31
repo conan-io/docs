@@ -18,9 +18,9 @@ requirements** in a file. They have this structure:
     env_var=value
 
     [build_requires]
-    Tool1/0.1@user/channel
-    Tool2/0.1@user/channel, Tool3/0.1@user/channel
-    *: Tool4/0.1@user/channel
+    tool1/0.1@user/channel
+    tool2/0.1@user/channel, tool3/0.1@user/channel
+    *: tool4/0.1@user/channel
 
 Profile can be created with ``new`` option in :command:`conan profile`. And then edit it later.
 

@@ -50,7 +50,7 @@ It is not necessary to compile code, so the package recipe ``conanfile.py`` is q
     from conans import ConanFile
 
     class HelloPythonConan(ConanFile):
-        name = "HelloPy"
+        name = "hello_py"
         version = "0.1"
         exports = '*'
         build_policy = "missing"
@@ -88,7 +88,7 @@ Now the package is ready for consumption. In another folder, we can create a *co
 .. code-block:: text
 
     [requires]
-    HelloPy/0.1@memsharded/testing
+    hello_py/0.1@memsharded/testing
 
 
 And install it with the following command:
@@ -99,7 +99,7 @@ And install it with the following command:
     $ conan install . -g virtualenv
 
 Creating the above ``conanfile.txt`` might be unnecessary for this simple example, as you can directly run
-:command:`conan install HelloPy/0.1@memsharded/testing -g virtualenv`, however, using the file is the canonical way.
+:command:`conan install hello_py/0.1@memsharded/testing -g virtualenv`, however, using the file is the canonical way.
 
 The specified ``virtualenv`` generator will create an ``activate`` script (in Windows *activate.bat*), that basically contains the
 environment, in this case, the ``PYTHONPATH``. Once we activate it, we are able to find the package in the path and use it:
@@ -130,13 +130,11 @@ As the Conan recipes are Python code itself, it is easy to reuse Python packages
     from conans import ConanFile
 
     class HelloPythonReuseConan(ConanFile):
-        requires = "HelloPy/0.1@memsharded/testing"
+        requires = "hello_py/0.1@memsharded/testing"
 
         def build(self):
             from hello import hello
             hello()
-
-
 
 The ``requires`` section is just referencing the previously created package. The functionality of that package can be used in several
 methods of the recipe: ``source()``, ``build()``, ``package()`` and ``package_info()``, i.e. all of the methods used for creating the

@@ -19,7 +19,7 @@ We can create a package that contains an executable, for example from the defaul
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1
+    $ conan new hello/0.1
 
 The source code used contains an executable called ``greet``, but it is not packaged by default. Let's modify the recipe
 ``package()`` method to also package the executable:
@@ -29,20 +29,18 @@ The source code used contains an executable called ``greet``, but it is not pack
     def package(self):
         self.copy("*greet*", src="bin", dst="bin", keep_path=False)
 
-
 Now we create the package as usual, but if we try to run the executable it won't be found:
 
 .. code-block:: bash
 
     $ conan create . user/testing
     ...
-    Hello/0.1@user/testing package(): Copied 1 '.h' files: hello.h
-    Hello/0.1@user/testing package(): Copied 1 '.exe' files: greet.exe
-    Hello/0.1@user/testing package(): Copied 1 '.lib' files: hello.lib
+    hello/0.1@user/testing package(): Copied 1 '.h' files: hello.h
+    hello/0.1@user/testing package(): Copied 1 '.exe' files: greet.exe
+    hello/0.1@user/testing package(): Copied 1 '.lib' files: hello.lib
 
     $ greet
     > ... not found...
-
 
 By default, Conan does not modify the environment, it will just create the package in the local cache, and that is not
 in the system PATH, so the ``greet`` executable is not found.
@@ -57,7 +55,7 @@ So if we install the package, specifying such ``virtualrunenv`` like:
 
 .. code-block:: bash
 
-    $ conan install Hello/0.1@user/testing -g virtualrunenv
+    $ conan install hello/0.1@user/testing -g virtualrunenv
 
 This will generate a few files that can be called to activate and deactivate the required environment variables
 
@@ -97,9 +95,9 @@ With that method in our package recipe, it will copy the executable when install
 
 .. code-block:: bash
 
-    $ conan install Hello/0.1@user/testing
+    $ conan install hello/0.1@user/testing
     ...
-    > Hello/0.1@user/testing deploy(): Copied 1 '.exe' files: greet.exe
+    > hello/0.1@user/testing deploy(): Copied 1 '.exe' files: greet.exe
     $ bin\greet.exe
     > Hello World Release!
 
@@ -225,7 +223,7 @@ For example, if we want to execute the :command:`greet` app while building the `
         name = "Consumer"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
-        requires = "Hello/0.1@user/testing"
+        requires = "hello/0.1@user/testing"
 
         def build(self):
             self.run("greet", run_environment=True)
@@ -279,7 +277,7 @@ Runtime packages and re-packaging
 ----------------------------------
 
 It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
-If we want to create a package from the above "Hello" one, but only containing the executable (remember that the above
+If we want to create a package from the above "hello" one, but only containing the executable (remember that the above
 package also contains a library, and the headers), we could do:
 
 .. code-block:: python
@@ -287,9 +285,9 @@ package also contains a library, and the headers), we could do:
     from conans import ConanFile
 
     class HellorunConan(ConanFile):
-        name = "HelloRun"
+        name = "hello_run"
         version = "0.1"
-        build_requires = "Hello/0.1@user/testing"
+        build_requires = "hello/0.1@user/testing"
         keep_imports = True
 
         def imports(self):
@@ -300,8 +298,8 @@ package also contains a library, and the headers), we could do:
 
 This recipe has the following characteristics:
 
-- It includes the ``Hello/0.1@user/testing`` package as ``build_requires``.
-  That means that it will be used to build this `HelloRun` package, but once the `HelloRun` package is built,
+- It includes the ``hello/0.1@user/testing`` package as ``build_requires``.
+  That means that it will be used to build this `hello_run` package, but once the `hello_run` package is built,
   it will not be necessary to retrieve it.
 - It is using ``imports()`` to copy from the dependencies, in this case, the executable
 - It is using the ``keep_imports`` attribute to define that imported artifacts during the ``build()`` step (which
@@ -313,15 +311,15 @@ To create and upload this package to a remote:
 .. code-block:: bash
 
     $ conan create . user/testing
-    $ conan upload HelloRun* --all -r=my-remote
+    $ conan upload hello_run* --all -r=my-remote
 
 Installing and running this package can be done using any of the methods presented above. For example:
 
 .. code-block:: bash
 
-    $ conan install HelloRun/0.1@user/testing -g virtualrunenv
+    $ conan install hello_run/0.1@user/testing -g virtualrunenv
     # You can specify the remote with -r=my-remote
-    # It will not install Hello/0.1@...
+    # It will not install hello/0.1@...
     $ activate_run.sh # $ source activate_run.sh in Unix/Linux
     $ greet
     > Hello World Release!

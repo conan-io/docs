@@ -9,7 +9,6 @@ The CMake **find_library** function will be able to locate the libraries in the 
 
 So, you can use **find_package** normally:
 
-
 .. code-block:: cmake
 
     project(MyHello)
@@ -28,15 +27,8 @@ So, you can use **find_package** normally:
         message(FATAL_ERROR "Zlib not found")
     endif()
 
-
 In addition to automatic **find_package** support, **CMAKE_MODULE_PATH** variable is set with the requirements root package paths.
 You can override the default behavior of any find_package() by creating a ``findXXX.cmake`` file in your package.
-
-
-
-
-
-
 
 Creating a custom FindXXX.cmake file
 ------------------------------------
@@ -56,37 +48,33 @@ If it's not provided, you can create a basic one. Take a look at this example wi
 
 .. code-block:: cmake
 
-   find_path(ZLIB_INCLUDE_DIR NAMES zlib.h PATHS ${CONAN_INCLUDE_DIRS_ZLIB})
-   find_library(ZLIB_LIBRARY NAMES ${CONAN_LIBS_ZLIB} PATHS ${CONAN_LIB_DIRS_ZLIB})
+    find_path(ZLIB_INCLUDE_DIR NAMES zlib.h PATHS ${CONAN_INCLUDE_DIRS_ZLIB})
+    find_library(ZLIB_LIBRARY NAMES ${CONAN_LIBS_ZLIB} PATHS ${CONAN_LIB_DIRS_ZLIB})
 
-   set(ZLIB_FOUND TRUE)
-   set(ZLIB_INCLUDE_DIRS ${ZLIB_INCLUDE_DIR})
-   set(ZLIB_LIBRARIES ${ZLIB_LIBRARY})
-   mark_as_advanced(ZLIB_LIBRARY ZLIB_INCLUDE_DIR)
-
+    set(ZLIB_FOUND TRUE)
+    set(ZLIB_INCLUDE_DIRS ${ZLIB_INCLUDE_DIR})
+    set(ZLIB_LIBRARIES ${ZLIB_LIBRARY})
+    mark_as_advanced(ZLIB_LIBRARY ZLIB_INCLUDE_DIR)
 
 In the first line we find the path where the headers should be found. We suggest the CONAN_INCLUDE_DIRS_XXX.
 Then repeat for the library names with CONAN_LIBS_XXX and the paths where the libs are CONAN_LIB_DIRS_XXX.
 
 2. In your conanfile.py file add the ``FindXXX.cmake`` to the ``exports_sources`` field:
 
-
 .. code-block:: python
 
    class HelloConan(ConanFile):
-       name = "Hello"
+       name = "hello"
        version = "0.1"
        ...
        exports_sources = ["FindXXX.cmake"]
 
 3. In the package method, copy the ``FindXXX.cmake`` file to the root:
 
-
-
 .. code-block:: python
 
    class HelloConan(ConanFile):
-       name = "Hello"
+       name = "hello"
        version = "0.1"
        ...
        exports_sources = ["FindXXX.cmake"]
@@ -95,7 +83,6 @@ Then repeat for the library names with CONAN_LIBS_XXX and the paths where the li
        def package(self):
            ...
            self.copy("FindXXX.cmake", ".", ".")
-
 
 
 .. _`conan's boost package`: https://github.com/conan-community/conan-boost.git

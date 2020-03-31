@@ -187,14 +187,12 @@ Reusing files
 It is possible to access the files exported by a recipe that is used with ``python_requires``.
 We could have this recipe, together with a *myfile.txt* file containing the "Hello" text.
 
-
 .. code-block:: python
 
     from conans import ConanFile
 
     class PyReq(ConanFile):
         exports = "*"
-
 
 .. code-block:: bash
 

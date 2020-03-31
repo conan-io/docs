@@ -18,7 +18,7 @@ control. But if the source code is available in a repository, you can directly g
     from conans import ConanFile
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
 
@@ -559,7 +559,7 @@ This method is useful for defining conditional build requirements, for example:
 
         def build_requirements(self):
             if self.settings.os == "Windows":
-                self.build_requires("ToolWin/0.1@user/stable")
+                self.build_requires("tool_win/0.1@user/stable")
 
 .. seealso::
 
@@ -570,10 +570,10 @@ This method is useful for defining conditional build requirements, for example:
 system_requirements()
 ---------------------
 
-It is possible to install system-wide packages from conan. Just add a ``system_requirements()`` method to your conanfile and specify what
+It is possible to install system-wide packages from Conan. Just add a ``system_requirements()`` method to your conanfile and specify what
 you need there.
 
-For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system, version and distribution (linux):
+For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system, version and distribution (Linux):
 
 - ``os_info.is_linux``: True if Linux.
 - ``os_info.is_windows``: True if Windows.
@@ -1066,12 +1066,12 @@ The ``deploy()`` method is designed to work on a package that is installed direc
 
 .. code-block:: bash
 
-    $ conan install Pkg/0.1@user/channel
+    $ conan install pkg/0.1@user/channel
     > ...
-    > Pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
-    > Pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
+    > pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
+    > pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
 
-All other packages and dependencies, even transitive dependencies of "Pkg/0.1@user/testing" will not be deployed, it is the responsibility
+All other packages and dependencies, even transitive dependencies of "pkg/0.1@user/testing" will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
 
 .. _method_init:

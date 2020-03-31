@@ -37,7 +37,6 @@ Then build and run the app with Ctrl+F5. (Debug -> Start Without Debugging)
 
 Because the ``hello.cpp`` file contains an ``#ifdef _DEBUG`` to switch between debug and release message.
 
-
 In the repository, there is already a ``conanfile.py`` recipe:
 
 .. code-block:: python
@@ -45,7 +44,7 @@ In the repository, there is already a ``conanfile.py`` recipe:
     from conans import ConanFile, MSBuild
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         license = "MIT"
         url = "https://github.com/memsharded/hello_vs"
@@ -70,8 +69,8 @@ information from the requirements, as include directories, library names, defini
 to allow our project to locate the declared dependencies.
 
 The recipe contains also a ``test_package`` folder with a simple example consuming application.
-In this example, the consuming application is using cmake to build, but it could also use Visual Studio too.
-We have left the cmake one because it is the default generated with :command:`conan new`, and also to show that packages
+In this example, the consuming application is using CMake to build, but it could also use Visual Studio too.
+We have left the CMake one because it is the default generated with :command:`conan new`, and also to show that packages
 created from Visual Studio projects can also be consumed with other build systems like CMake.
 
 Once we want to create a package, it is advised to close VS IDE, clean the temporary build files from VS to avoid problems,
@@ -96,7 +95,6 @@ This process can be repeated to create and test packages for different configura
    $ conan create . memsharded/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug
    $ conan create . memsharded/testing -s compiler="Visual Studio" -s compiler.runtime=MDd -s build_type=Debug -s arch=x86
 
-
 .. note::
 
     It is not mandatory to specify the ``compiler.runtime`` setting. If it is not explicitly defined, Conan will
@@ -107,7 +105,7 @@ You can list the different created binary packages:
 
 .. code-block:: bash
 
-    $ conan search Hello/0.1@memsharded/testing
+    $ conan search hello/0.1@memsharded/testing
 
 Uploading binaries
 ------------------
@@ -117,8 +115,8 @@ If you created them with the original username "memsharded", as from the git clo
 to put them on your own username. Of course, you can also directly use your user name in :command:`conan create`.
 
 Another alternative is to configure the permissions in the remote, to allow uploading packages with
-different usernames. By default artifactory will do it but Conan server won't:
-permissions must be given in ``[write_permissions]`` section of ``server.conf``.
+different usernames. By default, Artifactory will do it but Conan server won't: Permissions must be given in the ``[write_permissions]``
+section of *server.conf* file.
 
 
 Reusing packages
@@ -181,7 +179,7 @@ The recipe is almost identical to the above one, just with two minor differences
 
 .. code-block:: python
 
-    requires = "Hello/0.1@memsharded/testing"
+    requires = "hello/0.1@memsharded/testing"
     ...
     generators = "visual_studio"
 

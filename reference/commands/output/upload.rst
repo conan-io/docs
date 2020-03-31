@@ -42,7 +42,7 @@ The output JSON contains a two first level keys:
         "uploaded":[
             {
                 "recipe":{
-                    "id":"Hello/0.1@conan/testing",
+                    "id":"hello/0.1@conan/testing",
                     "remote_name":"conan-center",
                     "remote_url":"https://conan.bintray.com",
                     "time":"2018-04-30T11:18:19.204728"
@@ -76,7 +76,7 @@ The output JSON contains a two first level keys:
             },
             {
                 "recipe":{
-                    "id":"Hello0/1.2.1@conan/testing",
+                    "id":"hello0/1.2.1@conan/testing",
                     "remote_name":"conan-center",
                     "remote_url":"https://conan.bintray.com",
                     "time":"2018-04-30T11:18:32.688651"
@@ -92,7 +92,7 @@ The output JSON contains a two first level keys:
             },
             {
                 "recipe":{
-                    "id":"HelloApp/0.1@conan/testing",
+                    "id":"hello_app/0.1@conan/testing",
                     "remote_name":"conan-center",
                     "remote_url":"https://conan.bintray.com",
                     "time":"2018-04-30T11:18:36.901333"
@@ -108,7 +108,7 @@ The output JSON contains a two first level keys:
             },
             {
                 "recipe":{
-                    "id":"HelloPythonConan/0.1@conan/testing",
+                    "id":"hello_python_conan/0.1@conan/testing",
                     "remote_name":"conan-center",
                     "remote_url":"https://conan.bintray.com",
                     "time":"2018-04-30T11:18:41.181543"
@@ -124,7 +124,7 @@ The output JSON contains a two first level keys:
             },
             {
                 "recipe":{
-                    "id":"HelloPythonReuseConan/0.1@conan/testing",
+                    "id":"hello_python_reuse_conan/0.1@conan/testing",
                     "remote_name":"conan-center",
                     "remote_url":"https://conan.bintray.com",
                     "time":"2018-04-30T11:18:45.614096"

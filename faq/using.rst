@@ -30,9 +30,9 @@ package as the starting node of the dependency graph and upstream.
 
 The inverse model (from upstream to downstream) is not simple to obtain for Conan packages. This is because the dependency graph is not unique, it
 changes for every configuration. The graph can be different for different operating systems or just by changing some package options. So you
-cannot query which packages are dependent on ``MyLib/0.1@user/channel``, but which packages are dependent on
-``MyLib/0.1@user/channel:63da998e3642b50bee33`` binary package. Also, the response can contain many different binary packages for the same
-recipe, like ``MyDependent/0.1@user/channel:packageID1... ID2... MyDependent/0.1@user/channel:packageIDN``. That is the reason why
+cannot query which packages are dependent on ``my_lib/0.1@user/channel``, but which packages are dependent on
+``my_lib/0.1@user/channel:63da998e3642b50bee33`` binary package. Also, the response can contain many different binary packages for the same
+recipe, like ``my_dependent/0.1@user/channel:packageID1... ID2... my_dependent/0.1@user/channel:packageIDN``. That is the reason why
 :command:`conan info` and :command:`conan install` need a profile (default profile or one given with ``--profile```) or installation files
 ``conanbuildinfo.txt`` to look for settings and options.
 
@@ -61,7 +61,9 @@ your cache with :command:`conan get <ref> conanmanifest.txt`). The first value i
 into account to compute the hash. Checking and comparing the contents of the different *conanmanifest.txt* files in the different
 machines can give an idea of what is changing.
 
-If you want to make the solution self-contained, you can add a *.git/config* file in your project that sets the ``core.autocrlf`` property (for the whole repo), or if you need a per-file configuration, you could use the *.gitattributes* file to set the ``text eol=lf`` for every file you want.
+If you want to make the solution self-contained, you can add a *.git/config* file in your project that sets the ``core.autocrlf`` property
+(for the whole repo), or if you need a per-file configuration, you could use the *.gitattributes* file to set the ``text eol=lf`` for every
+file you want.
 
 .. _faq_recommendation_user_channel:
 
@@ -107,7 +109,7 @@ information is displayed in yellow with:
 
 .. code-block:: bash
 
-    $ conan search Pkg/0.1@user/channel --table=file.html
+    $ conan search pkg/0.1@user/channel --table=file.html
     # open file.html
     # It will show outdated binaries in yellow.
 
