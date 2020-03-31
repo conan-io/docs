@@ -466,7 +466,7 @@ the ``upgrade_project`` parameter value.
 CONAN_SYSREQUIRES_MODE
 ----------------------
 
-**Defaulted to**: ``enabled`` allowed values ``enabled``/``verify``/``disabled``
+**Defaulted to**: ``None`` allowed values ``enabled``/``verify``/``disabled``
 
 This environment variable controls whether system packages should be installed into the system
 via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
@@ -482,8 +482,6 @@ See values behavior:
       doesn't install any package in your system. Useful if you want to keep manual control of these dependencies,
       for example in your development environment.
 
-Although this value is defaulted to ``enabled``, the default value can be configured with the
-``default_mode`` parameter in the :ref:`SystemPackageTool<systempackagetool>` constructor.
 
 CONAN_SYSREQUIRES_SUDO
 ----------------------
