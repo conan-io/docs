@@ -28,7 +28,7 @@ Profile can be created with ``new`` option in :command:`conan profile`. And then
 
     $ conan profile new mynewprofile --detect
 
-Profile files can be used with ``-pr``/``--profile`` option in :command:`conan install` and :command:`conan create` commands.
+Profile files can be used with ``-pr``/``--profile`` option in many commands like :command:`conan install` or :command:`conan create` commands.
 
 .. code-block:: bash
 
@@ -229,6 +229,20 @@ variables will be available:
    [env]
    zlib:CC=$GCC_PATH/gcc
    zlib:CXX=$GCC_PATH/g++
+
+
+Build profiles and host profiles
+--------------------------------
+
+All the commands that take a profile as an argument, from Conan v1.24 are starting to accept two profiles with
+command line arguments ``-pr:h``/``--profile:host`` and ``-pr:b``/``--profile:build``. If both profiles are
+provided, Conan will build a graph with some packages associated with the ``host`` platform and some build
+requirements associated to the ``build`` platform. There are two scenarios where this feature is
+extremly useful:
+
+* :ref:`create_installer_packages`
+* :ref:`cross_building`
+
 
 Examples
 --------

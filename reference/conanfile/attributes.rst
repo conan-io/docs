@@ -1034,6 +1034,9 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
 
+
+.. _env_info_attributes_reference:
+
 env_info
 --------
 
