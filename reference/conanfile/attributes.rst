@@ -775,11 +775,11 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
     <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
-    and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
+    and on Python, the ``short_paths`` functionality becomes unnecessary, and can be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
 
-Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to the drive root, something like
-``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
+Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to a different
+location, in Windows it will be ``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
 
 Set ``short_paths=True`` in your *conanfile.py*:
 
@@ -795,6 +795,11 @@ Set ``short_paths=True`` in your *conanfile.py*:
 
     There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to force
     activate this behavior for all packages.
+
+
+This behavior will also work in Cygwin, the short folder directory will be ``/home/<user>/.conan_short``
+by default, but it can be modified as we've explained before.
+
 
 .. _no_copy_source:
 
