@@ -18,4 +18,4 @@ cache:
 install:
   - pip install -r requirements.txt
 script:
-  - python deploy_gh_pages.py
+  - travis_wait python deploy_gh_pages.py
