@@ -267,6 +267,10 @@ The consumer package is simple, as the ``PATH`` environment variable contains th
         self.run("greet")
 
 
+Read the :ref:`next section <create_installer_packages>` for a more comprenhensive explanation about using
+packaged executables in your recipe methods. 
+
+
 .. _repackage:
 
 Runtime packages and re-packaging
@@ -354,7 +358,7 @@ is run in a Centos 6 one:
 .. code-block:: console
 
     $ /hello
-    /hello: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by /hello)
+    /hello: /lib64/libc.so.6: version 'GLIBC_2.14' not found (required by /hello)
 
 This is because the versions of the ``glibc`` are different between those Linux distributions.
 
@@ -387,8 +391,8 @@ Similarly to the standard C library `glibc`, running the application linked with
 .. code-block:: console
 
     $ /hello
-    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found (required by /hello)
-    /hello: /usr/lib64/libstdc++.so.6: version `GLIBCXX_3.4.26' not found (required by /hello)
+    /hello: /usr/lib64/libstdc++.so.6: version 'GLIBCXX_3.4.21' not found (required by /hello)
+    /hello: /usr/lib64/libstdc++.so.6: version 'GLIBCXX_3.4.26' not found (required by /hello)
 
 Fortunately, this is much easier to address by just adding ``-static-libstdc++`` compiler flag. Unlike C runtime, C++ runtime can be 
 linked statically safely, because it doesn't use system calls directly, but instead relies on ``libc`` to provide required wrappers.

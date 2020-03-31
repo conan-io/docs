@@ -28,44 +28,28 @@ Let's have a look at a basic example of this:
 
 Here it checks the Conan version to maintain compatibility of the CMake build helper for versions
 lower than Conan 0.29. It also uses the internal ``Version()`` class to perform the semver
-comparison in the if clause.
+comparison in the if-clause.
 
-You can find a real example of this in the
-`mingw_installer <https://github.com/conan-community/conan-mingw-installer>`_. Here you have the
-interesting part of the recipe:
+You can also use it to take advantage of new features when the client is new enough, for 
+example:
 
 .. code-block:: python
-   :caption: conanfile.py
 
     from conans import ConanFile, tools, __version__ as conan_version
     from conans.model.version import Version
 
-
-    class MingwInstallerConan(ConanFile):
-        name = "mingw_installer"
-        version = "1.0"
-        license = "http://www.mingw.org/license"
-        url = "http://github.com/conan-community/conan-mingw-installer"
-
-        if conan_version < Version("0.99"):
-            os_name = "os"
-            arch_name = "arch"
-        else:
-            os_name = "os_build"
-            arch_name = "arch_build"
-
-        settings = {os_name: ["Windows"],
-                    arch_name: ["x86", "x86_64"],
-                    "compiler": {"gcc": {"version": None,
-                                        "libcxx": ["libstdc++", "libstdc++11"],
-                                        "threads": ["posix", "win32"],
-                                        "exception": ["dwarf2", "sjlj", "seh"]}}}
+    class MyPackage(ConanFile):
+        name = "package"
         ...
 
-You can see here the ``mingw_installer`` recipe uses new settings ``os_build`` and ``arch_build``
-since Conan 1.0 as those are the right ones for
-:ref:`installer packages <create_installer_packages>`. However, it also keeps the old settings so as
-not to break the recipe for old version, using normal ``os`` and ``arch``.
+        def package_id(self):
+            if conan_version >= Version("1.20"):
+                if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                    compatible_pkg = self.info.clone()
+                    compatible_pkg.settings.compiler.version = "4.8"
+                    self.compatible_packages.append(compatible_pkg)
 
-As said before, this is useful to maintain recipe compatibility with older Conan versions but
-remember that since Conan 1.0 there should not be :ref:`any breaking changes<stability>`.
+
+It can be useful to introduce new features in your recipes while all the consumers update
+their client version. Together with our :ref:`stability commitment for Conan 1.x<stability>`
+it should be easy to adopt new Conan versions while evolving your recipes.

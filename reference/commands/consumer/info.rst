@@ -6,11 +6,13 @@ conan info
 
 .. code-block:: bash
 
-    $ conan info [-h] [--paths] [-bo BUILD_ORDER] [-g GRAPH]
-                 [-if INSTALL_FOLDER] [-j [JSON]] [-n ONLY]
-                 [--package-filter [PACKAGE_FILTER]] [-db [DRY_BUILD]]
-                 [-b [BUILD]] [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
-                 [-s SETTINGS] [-u] [-l [LOCKFILE]]
+    $ conan info [-h] [--paths] [-bo BUILD_ORDER] [-g GRAPH] [-if INSTALL_FOLDER]
+                 [-j [JSON]] [-n ONLY] [--package-filter [PACKAGE_FILTER]]
+                 [-db [DRY_BUILD]] [-b [BUILD]] [-r REMOTE] [-u] [-l [LOCKFILE]]
+                 [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                 [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                 [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                 [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
                  path_or_reference
 
 Gets information about the dependency graph of a recipe.
@@ -23,63 +25,75 @@ your local cache.
     positional arguments:
       path_or_reference     Path to a folder containing a recipe (conanfile.py or
                             conanfile.txt) or to a recipe file. e.g.,
-                            ./my_project/conanfile.txt. It could also be a
-                            reference
+                            ./my_project/conanfile.txt. It could also be a reference
 
     optional arguments:
       -h, --help            show this help message and exit
       --paths               Show package paths in local cache
       -bo BUILD_ORDER, --build-order BUILD_ORDER
-                            given a modified reference, return an ordered list to
-                            build (CI). [DEPRECATED: use 'conan graph build-order
-                            ...' instead]
+                            given a modified reference, return an ordered list to build (CI).
+                            [DEPRECATED: use 'conan graph build-order ...' instead]
       -g GRAPH, --graph GRAPH
-                            Creates file with project dependencies graph. It will
-                            generate a DOT or HTML file depending on the filename
-                            extension
+                            Creates file with project dependencies graph. It will generate a
+                            DOT or HTML file depending on the filename extension
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            local folder containing the conaninfo.txt and
-                            conanbuildinfo.txt files (from a previous conan
-                            install execution). Defaulted to current folder,
-                            unless --profile, -s or -o is specified. If you
-                            specify both install-folder and any setting/option it
-                            will raise an error.
+                            local folder containing the conaninfo.txt and conanbuildinfo.txt
+                            files (from a previous conan install execution). Defaulted to
+                            current folder, unless --profile, -s or -o is specified. If you
+                            specify both install-folder and any setting/option it will raise an
+                            error.
       -j [JSON], --json [JSON]
-                            Path to a json file where the information will be
-                            written
-      -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
-                            "remote", "url", "license", "requires", "update",
-                            "required", "date", "author", "None". '--paths'
-                            information can also be filtered with options
-                            "export_folder", "build_folder", "package_folder",
-                            "source_folder". Use '--only None' to show only
-                            references.
+                            Path to a json file where the information will be written
+      -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id", "remote", "url",
+                            "license", "requires", "update", "required", "date", "author",
+                            "description", "None". '--paths' information can also be filtered with
+                            options "export_folder", "build_folder", "package_folder", "source_folder".
+                            Use '--only None' to show only references.
       --package-filter [PACKAGE_FILTER]
-                            Print information only for packages that match the
-                            filter pattern e.g., MyPackage/1.2@user/channel or
-                            MyPackage*
+                            Print information only for packages that match the filter pattern
+                            e.g., MyPackage/1.2@user/channel or MyPackage*
       -db [DRY_BUILD], --dry-build [DRY_BUILD]
-                            Apply the --build argument to output the information,
-                            as it would be done by the install command
+                            Apply the --build argument to output the information, as it would
+                            be done by the install command
       -b [BUILD], --build [BUILD]
-                            Given a build policy, return an ordered list of
-                            packages that would be built from sources during the
-                            install command
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=True
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
+                            Given a build policy, return an ordered list of packages that would
+                            be built from sources during the install command
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
       -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+                            Path to a lockfile or folder containing 'conan.lock' file. Lockfile
+                            can be updated if packages change
+      -e ENV_HOST, --env ENV_HOST
+                            Environment variables that will be set during the package build
+                            (host machine). e.g.: -e CXX=/usr/bin/clang++
+      -e:b ENV_BUILD, --env:build ENV_BUILD
+                            Environment variables that will be set during the package build
+                            (build machine). e.g.: -e CXX=/usr/bin/clang++
+      -e:h ENV_HOST, --env:host ENV_HOST
+                            Environment variables that will be set during the package build
+                            (host machine). e.g.: -e CXX=/usr/bin/clang++
+      -o OPTIONS_HOST, --options OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o Pkg:with_qt=true
+      -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+                            Define options values (build machine), e.g.: -o Pkg:with_qt=true
+      -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o Pkg:with_qt=true
+      -pr PROFILE_HOST, --profile PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+                            Apply the specified profile to the build machine
+      -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -s SETTINGS_HOST, --settings SETTINGS_HOST
+                            Settings to build the package, overwriting the defaults (host
+                            machine). e.g.: -s compiler=gcc
+      -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+                            Settings to build the package, overwriting the defaults (build
+                            machine). e.g.: -s compiler=gcc
+      -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+                            Settings to build the package, overwriting the defaults (host
+                            machine). e.g.: -s compiler=gcc
 
 
 **Examples**:
@@ -101,6 +115,7 @@ The output will look like:
      Remote: None
      URL: http://...
      License: MIT
+     Description: A common dependency
      Updates: Version not checked
      Creation date: 2017-10-31 14:45:34
      Required by:
@@ -112,6 +127,7 @@ The output will look like:
      Remote: None
      URL: http://...
      License: MIT
+     Description: Hello World!
      Updates: Version not checked
      Required by:
         Project
@@ -228,6 +244,7 @@ The output will look like:
         package_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/package/6af9cc7cb931c5ad942174fd7838eb655717c709
         Remote: None
         License: MIT
+        Description: Foobar project
         Author: Dummy
         Topics: None
         Recipe: Cache

@@ -461,10 +461,12 @@ the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
 and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
 
+.. _env_vars_conan_sysrequires_mode:
+
 CONAN_SYSREQUIRES_MODE
 ----------------------
 
-**Defaulted to**: ``enabled`` allowed values ``enabled``/``verify``/``disabled``
+**Defaulted to**: Not defined (allowed values ``enabled``/``verify``/``disabled``)
 
 This environment variable controls whether system packages should be installed into the system
 via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
@@ -479,6 +481,7 @@ See values behavior:
     - ``disabled``: Display a report of system packages that should be installed but continue the Conan execution and
       doesn't install any package in your system. Useful if you want to keep manual control of these dependencies,
       for example in your development environment.
+
 
 CONAN_SYSREQUIRES_SUDO
 ----------------------
@@ -652,4 +655,3 @@ This environment variable changes the PyLint behavior from *warning* level to *e
 any inconsistency found in the recipe will break the process during linter analysis.
 
 .. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
-
