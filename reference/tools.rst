@@ -1659,7 +1659,7 @@ It raises a ``ConanInvalidConfiguration`` when is not supported.
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
 * If ``gnu_extensions`` is True, it is required that the applied ``cppstd`` supports the gnu extensions.
   (e.g. gnu17), otherwise, an :ref:`ConanInvalidConfiguration<conditional_settings_options_requirements>` will be raised. The ``gnu_extensions`` is checked in any OS.
-* If no compiler has been specified or the compiler is unknown, it raises a ``ConanInvalidConfiguration`` exception.
+* If no compiler has been specified or the compiler is unknown, it raises a ``ConanException`` exception.
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
