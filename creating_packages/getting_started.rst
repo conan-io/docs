@@ -26,7 +26,7 @@ will create a working package recipe for us:
 .. code-block:: bash
 
     $ mkdir mypkg && cd mypkg
-    $ conan new Hello/0.1 -t
+    $ conan new hello/0.1 -t
 
 This will generate the following files:
 
@@ -50,11 +50,11 @@ Let's have a look at the root package recipe *conanfile.py*:
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         license = "<Put the package license here>"
         url = "<Package recipe repository url here, for issues about the package>"
-        description = "<Description of Hello here>"
+        description = "<Description of hello here>"
         settings = "os", "compiler", "build_type", "arch"
         options = {"shared": [True, False]}
         default_options = {"shared": False}
@@ -198,7 +198,7 @@ The *conanfile.py* described above has the following characteristics:
 .. note::
 
     An important difference with respect to standard package recipes is that you don't have
-    to declare a ``requires`` attribute to depend on the tested ``Hello/0.1@demo/testing`` package
+    to declare a ``requires`` attribute to depend on the tested ``hello/0.1@demo/testing`` package
     as the ``requires`` will automatically be injected by Conan during the run. However, if you choose to
     declare it explicitly, it will work, but you will have to remember to bump the version,
     and possibly also the user and channel if you decide to change them.
@@ -224,7 +224,7 @@ The :command:`conan create` command does the following:
 - Installs the package, forcing it to be built from the sources.
 - Moves to the *test_package* folder and creates a temporary *build* folder.
 - Executes the :command:`conan install ..`, to install the requirements of the
-  *test_package/conanfile.py*. Note that it will build "Hello" from the sources.
+  *test_package/conanfile.py*. Note that it will build "hello" from the sources.
 - Builds and launches the *example* consuming application, calling the *test_package/conanfile.py*
   ``build()`` and ``test()`` methods respectively.
 
@@ -233,9 +233,9 @@ Using Conan commands, the :command:`conan create` command would be equivalent to
 .. code-block:: bash
 
     $ conan export . demo/testing
-    $ conan install Hello/0.1@demo/testing --build=Hello
+    $ conan install hello/0.1@demo/testing --build=hello
     # package is created now, use test to test it
-    $ conan test test_package Hello/0.1@demo/testing
+    $ conan test test_package hello/0.1@demo/testing
 
 The :command:`conan create` command receives the same command line parameters as :command:`conan install` so
 you can pass to it the same settings, options, and command line switches. If you want to create and
@@ -244,7 +244,7 @@ test packages for different configurations, you could:
 .. code-block:: bash
 
     $ conan create . demo/testing -s build_type=Debug
-    $ conan create . demo/testing -o Hello:shared=True -s arch=x86
+    $ conan create . demo/testing -o hello:shared=True -s arch=x86
     $ conan create . demo/testing -pr my_gcc49_debug_profile
     ...
     $ conan create ...

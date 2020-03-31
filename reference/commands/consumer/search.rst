@@ -95,14 +95,14 @@ setting, Conan won't find the packages. e.g:
 
 .. code-block:: bash
 
-    $ conan search MyRecipe/1.0@lasote/stable -q os=Windows
+    $ conan search my_recipe/1.0@lasote/stable -q os=Windows
 
-The query above won't find the ``MyRecipe`` binary packages (because the recipe doesn't declare
+The query above won't find the ``my_recipe`` binary packages (because the recipe doesn't declare
 "os" as a setting) unless you specify the ``None`` value:
 
 .. code-block:: bash
 
-    $ conan search MyRecipe/1.0@lasote/stable -q os=None
+    $ conan search my_recipe/1.0@lasote/stable -q os=None
 
 You can generate a table for all binaries from a given recipe with the ``--table`` option:
 

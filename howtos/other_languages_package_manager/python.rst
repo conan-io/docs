@@ -114,7 +114,7 @@ avoid this and use the same binary for different setups, modifying this behavior
 .. code-block:: bash
 
     $ conan export . memsharded/testing
-    $ conan install PocoPy/0.1@memsharded/testing -s arch=x86 -g virtualenv
+    $ conan install pocopy/0.1@memsharded/testing -s arch=x86 -g virtualenv
     $ activate
     $ python
     >>> import poco
@@ -132,7 +132,7 @@ The output of the :command:`conan install` command also shows us the dependencie
     Requirements
         openssl/1.0.2t from conan.io
         poco/1.9.4 from conan.io
-        PocoPy/0.1@memsharded/testing from local
+        pocopy/0.1@memsharded/testing from local
         pybind11/2.3.0@conan/stable from conan.io
         zlib/1.2.11 from conan.io
 

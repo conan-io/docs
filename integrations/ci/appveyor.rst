@@ -76,14 +76,14 @@ example we are assuming that you are using GitHub and also uploading your final 
 #. Activate the repo in your Appveyor account, so it is built when we push changes to it.
 #. Under *Appveyor Settings->Environment*, add the ``CONAN_PASSWORD`` environment variable with the Bintray API Key, and encrypt it.  If your Bintray user is different from the package user, you can define your Bintray username too, defining the environment variable ``CONAN_LOGIN_USERNAME``
 #. Clone the repo: ``$ git clone <your_repo/hello> && cd hello``
-#. Create the package: :command:`conan new Hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL` where **user** is your Bintray username
+#. Create the package: :command:`conan new hello/0.1@<user>/testing -t -s -ciw -cis -ciu=UPLOAD_URL` where **user** is your Bintray username
 #. You can inspect the created files: both *appveyor.yml* and the *build.py* script, that is used by **conan-package-tools** utility to
    split different builds with different configurations in different appveyor jobs.
 #. You can test locally, before pushing, with :command:`conan create`
 #. Add the changes, commit and push: :command:`git add . && git commit -m "first commit" && git push`
 #. Go to Appveyor and see the build, with the different jobs.
 #. When it finish, go to your Bintray repository, you should see there the uploaded packages for different configurations
-#. Check locally, searching in Bintray: :command:`conan search Hello/0.1@<user>/testing -r=mybintray`
+#. Check locally, searching in Bintray: :command:`conan search hello/0.1@<user>/testing -r=mybintray`
 
 If something fails, please report an issue in the ``conan-package-tools`` github repository: https://github.com/conan-io/conan-package-tools
 
