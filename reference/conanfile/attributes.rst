@@ -309,8 +309,10 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
         arch = self.settings.get_safe("arch")
         # Will be None if doesn't exist
         compiler_version = self.settings.get_safe("compiler.version")
+        # Will be the default version if the return is None
+        build_type = self.settings.get_safe("build_type", default="Release")
 
-The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist.
+The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
 .. _conanfile_options:
 
@@ -454,6 +456,18 @@ consistent implementation take into account these considerations:
 
 - A different behavior has ``self.options.option = None``, because
   ``assert self.options.option != None``.
+
+If you want to do a safe check of options values, you could use the ``get_safe()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        # Will be None if doesn't exist
+        fpic = self.options.get_safe("fPIC")
+        # Will be the default version if the return is None
+        shared = self.options.get_safe("shared", default=False)
+
+The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
 
 
 .. _conanfile_default_options:
@@ -729,11 +743,11 @@ the cache and can be only modified for the local flow with :command:`conan build
 build_policy
 ------------
 
-With the ``build_policy`` attribute the package creator can change the default Conan's build behavior.
+With the ``build_policy`` attribute the package creator can change conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, Conan will build it without the need to invoke :command:`conan install --build missing` option.
-- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+- ``missing``: If this package is not found as a binary package, Conan will build it from source.
+- ``always``: This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -754,11 +768,11 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
     <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
-    and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
+    and on Python, the ``short_paths`` functionality becomes unnecessary, and can be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
 
-Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to the drive root, something like
-``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
+Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to a different
+location, in Windows it will be ``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
 
 Set ``short_paths=True`` in your *conanfile.py*:
 
@@ -774,6 +788,11 @@ Set ``short_paths=True`` in your *conanfile.py*:
 
     There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to force
     activate this behavior for all packages.
+
+
+This behavior will also work in Cygwin, the short folder directory will be ``/home/<user>/.conan_short``
+by default, but it can be modified as we've explained before.
+
 
 .. _no_copy_source:
 
@@ -845,8 +864,8 @@ cpp_info
 
     This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
-The ``self.cpp_info`` is responsible for storing all the information needed by consumers of a package: include directories, library names,
-library paths... There are some default values that will be applied automatically if not indicated otherwise.
+The ``self.cpp_info`` attribute is responsible for storing all the information needed by consumers of a package: include directories,
+library names, library paths... There are some default values that will be applied automatically if not indicated otherwise.
 
 This object should be filled in ``package_info()`` method.
 
@@ -898,9 +917,55 @@ This object should be filled in ``package_info()`` method.
 | self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
 |                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
 +----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components         | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
+|                                  | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
+
+.. _cpp_info_components_attributes_reference:
+
+Components
+++++++++++
+
+.. warning::
+
+    This is a **experimental** feature subject to breaking changes in future releases.
+
+When you are creating a Conan package, it is recommended to have only one library (*.lib*, *.a*, *.so*, *.dll*...) per package. However,
+especially with third-party projects like Boost, Poco or OpenSSL, they would contain several libraries inside.
+
+Usually those libraries inside the same package depend on each other and modelling the relationship among them is required.
+
+With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
+executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.components["crypto"].name = "Crypto"
+        self.cpp_info.components["crypto"].libs = ["libcrypto"]
+        self.cpp_info.components["ssl"].name = "SSL"
+        self.cpp_info.components["ssl"].libs = ["libssl"]
+
+You can also model system dependencies for each component or just header files.
+
+.. warning::
+
+    Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
+    ``self.cpp_info.name`` and ``self.cpp_info.names``).
+
+.. important::
+
+    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
+    dictionary). We are planning to complete this feature in next releases.
+
+    The information of components is not lost but aggregated to the *global* scope and the usage of components should be transparent right
+    now to consumers and generators.
+
+The structure of the ``Component`` object is the same as the one used by the ``cpp_info`` object and has **the same default directories**.
 
 .. seealso::
 
@@ -912,25 +977,29 @@ deps_cpp_info
 -------------
 
 Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also properties to obtain the
-absolute paths:
+absolute paths, and ``name`` and ``version`` attributes:
 
-+-------------------------------------------+---------------------------------------------------------------------+
-| NAME                                      | DESCRIPTION                                                         |
-+===========================================+=====================================================================+
-| self.cpp_info.include_paths               | Same as ``includedirs`` but transformed to absolute paths           |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.lib_paths                   | Same as ``libdirs`` but transformed to absolute paths               |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.bin_paths                   | Same as ``bindirs`` but transformed to absolute paths               |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.framework_paths             | Same as ``frameworkdirs`` but transformed to absolute paths         |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.build_modules_paths         | Same as ``build_modules`` but transformed to absolute paths         |
-+-------------------------------------------+---------------------------------------------------------------------+
++-----------------------------------------------+---------------------------------------------------------------------+
+| NAME                                          | DESCRIPTION                                                         |
++===============================================+=====================================================================+
+| self.deps_cpp_info["dep"].include_paths       | "dep" package ``includedirs`` but transformed to absolute paths     |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].lib_paths           | "dep" package ``libdirs`` but transformed to absolute paths         |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].bin_paths           | "dep" package ``bindirs`` but transformed to absolute paths         |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_paths         | "dep" package ``builddirs`` but transformed to absolute paths       |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].res_paths           | "dep" package ``resdirs`` but transformed to absolute paths         |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].framework_paths     | "dep" package  ``frameworkdirs`` but transformed to absolute paths  |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_modules_paths | "dep" package ``build_modules`` but transformed to absolute paths   |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].name                | Get the ``cpp_info.name`` as defined in "dep" package               |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].version             | Get the version of the "dep" package                                |
++-----------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
 
@@ -962,6 +1031,9 @@ root folder of the package:
 
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
+
+
+.. _env_info_attributes_reference:
 
 env_info
 --------

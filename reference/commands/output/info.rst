@@ -85,6 +85,7 @@ contain a list with the information for each of the nodes.
             "license":[
                 "MIT"
             ],
+            "description": "project A",
             "recipe":"No remote",
             "binary":"Missing",
             "creation_date":"2019-01-29 17:22:41",
@@ -103,6 +104,7 @@ contain a list with the information for each of the nodes.
             "license":[
                 "MIT"
             ],
+            "description": "project C",
             "recipe":"No remote",
             "binary":"Missing",
             "creation_date":"2019-01-29 17:22:41",

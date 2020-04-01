@@ -317,7 +317,8 @@ Just a high level wrapper for download, unzip, and remove the temporary zip file
     tools.get("http://url/file", destination="subfolder")
 
 Parameters:
-    - **url** (Required): URL to download.
+    - **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and
+      the follow URLs will be used as mirror in case of a download error.
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
@@ -411,8 +412,14 @@ If any of them doesn't match, it will raise a ``ConanException``.
     # Download and check file checksum
     tools.download("http://someurl/somefile.zip", "myfilename.zip", md5="e5d695597e9fa520209d1b41edad2a27")
 
+    # to add mirrors
+    tools.download(["https://ftp.gnu.org/gnu/gcc/gcc-9.3.0/gcc-9.3.0.tar.gz",
+                    "http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-9.3.0/gcc-9.3.0.tar.gz"], "gcc-9.3.0.tar.gz",
+                   sha256="5258a9b6afe9463c2e56b9e8355b1a4bee125ca828b8078f910303bc2ef91fa6")
+
 Parameters:
-    - **url** (Required): URL to download
+    - **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and
+      the follow URLs will be used as mirror in case of download error.
     - **filename** (Required): Name of the file to be created in the local storage
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
@@ -1676,6 +1683,7 @@ It raises a ``ConanInvalidConfiguration`` when is not supported.
 * If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
 * If ``gnu_extensions`` is True, it is required that the applied ``cppstd`` supports the gnu extensions.
   (e.g. gnu17), otherwise, an :ref:`ConanInvalidConfiguration<conditional_settings_options_requirements>` will be raised. The ``gnu_extensions`` is checked in any OS.
+* If no compiler has been specified or the compiler is unknown, it raises a ``ConanException`` exception.
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
@@ -1711,3 +1719,19 @@ Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
     - **cppstd** (Required): C++ standard version which must be supported.
     - **gnu_extensions** (Optional): GNU extension is required.
+
+
+.. _tools.cppstd_flag:
+
+tools.cppstd_flag():
+--------------------
+
+.. code-block:: python
+
+    def cppstd_flag(settings)
+
+Returns the corresponding C++ standard flag based on the settings. For instance, it may return ``-std=c++17`` 
+for ``compiler.cppstd=17``, and so on.
+
+Parameters:
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.

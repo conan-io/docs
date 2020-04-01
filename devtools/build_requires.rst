@@ -4,7 +4,7 @@ Build requirements
 ==================
 
 There are some requirements that don't feel natural to add to a package recipe. For example, imagine that you had a ``cmake/3.4`` package in
-Conan. Would you add it as a requirement to the ``ZLib`` package, so it will install cmake first in order to build ``Zlib``?
+Conan. Would you add it as a requirement to the ``zlib`` package, so it will install cmake first in order to build ``zlib``?
 
 In short:
 
@@ -20,12 +20,13 @@ In short:
 
 To address these needs Conan implements ``build_requires``.
 
+
 Declaring build requirements
 ----------------------------
 
 Build requirements can be declared in profiles, like:
 
-.. code-block:: text
+.. code-block:: ini
    :caption: my_profile
 
     [build_requires]
@@ -74,6 +75,57 @@ attribute, the one inside the ``build_requirements()`` method will prevail.
 As a rule of thumb, downstream defined values always override upstream dependency values. If some build requirement is defined in the
 profile, it will overwrite the build requirements defined in package recipes that have the same package name.
 
+
+.. _build_requires_context:
+
+Build and Host contexts
+-----------------------
+
+Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
+the meaning of ``host`` and ``build`` platforms in the :ref:`cross building <cross_building>` section) **when the user
+supplies two profiles** to the command line using the ``--profile:build`` and ``--profile:host`` arguments:
+
+* The **host context** is populated with the root package (the one specified in the :command:`conan install` or :command:`conan create` command),
+  all its requirements and the build requirements forced to be in the host context.
+* The **build context** contains the rest of  build requirements and all of them in the profiles. This category typically
+  includes all the :ref:`dev tools <create_installer_packages>` like CMake, compilers, linkers,...
+
+
+Build requirements declared in the recipes can be forced to stay in the host context, this is needed for testing libraries that will
+be linked to the generated library or other executable we want to deploy to the ``host`` platform, for example:
+
+.. code-block:: python
+
+    class MyPkg(ConanFile):
+        build_requires = "nasm/2.14"  # 'build' context (nasm.exe will be available)
+
+        def build_requirements(self):
+            self.build_requires("protobuf/3.6.1")  # 'build' context (protoc.exe will be available)
+            self.build_requires("gtest/0.1", force_host_context=True)  # 'host' context (our library will link with it)
+
+
+.. image:: ../images/xbuild/conan-gtest_nasm.png
+   :width: 500 px
+   :align: center
+
+
+Take into account that the same package (executable or library) can appear two times in the graph, in the ``host`` and
+in the ``build`` context, with different package IDs. Conan will propagate the proper information to the consumers:
+
+* Build requirements in the ``host`` context will propagate like any other requirement, all the ``cpp_info`` will be
+  available in the ``deps_cpp_info["xxx"]`` object (``env_info`` and ``user_info`` won't be propagated).
+* Build requirements in the ``build`` context will propagate all the ``env_info`` and Conan will also populate the
+  environment variables ``DYLD_LIBRARY_PATH``, ``LD_LIBRARY_PATH`` and ``PATH`` with the corresponding information from
+  the ``cpp_info`` object. All these information will be available in the ``deps_cpp_info`` object.
+
+
+.. important::
+
+    If no ``--profile:build`` is provided, all build requirements will belong to the one and only context and they will share
+    their dependencies with the libraries we are building. In this scenario all the build requirements propagate ``user_info``,
+    ``cpp_info`` and ``env_info`` to the consumer's ``deps_user_info``, ``deps_cpp_info`` and ``deps_env_info``.
+
+
 Properties of build requirements
 --------------------------------
 
@@ -83,10 +135,8 @@ The behavior of ``build_requires`` is the same irrespective if they are defined 
   they will not even be checked for existence.
 - Options and environment variables declared in the profile as well as in the command line will affect the build requirements for packages.
   In that way, you can define, for example, for the ``cmake/3.16.3`` package which CMake version will be installed.
-- Build requirements will be activated for matching packages via the ``deps_cpp_info`` and ``deps_env_info`` members. So, include
-  directories, library names, compile flags (CFLAGS, CXXFLAGS, LINKFLAGS), sysroot, etc. will be applied from the build requirement's
-  package ``self.cpp_info`` values. The same for ``self.env_info``: variables such as ``PATH``, ``PYTHONPATH``, and any other environment
-  variables will be applied to the matching patterns and activated as environment variables.
+- Build requirements will be activated for matching packages, see the section above about :ref:`build requires context <build_requires_context>`
+  to know the information that this package will propagate to its consumers.
 - Build requirements can also be transitive. They can declare their own requirements, both normal requirements and their own build
   requirements. Normal logic for dependency graph resolution applies, such as conflict resolution and dependency overriding.
 - Each matching pattern will produce a different dependency graph of build requirements. These graphs are cached so that they are only
@@ -97,21 +147,29 @@ The behavior of ``build_requires`` is the same irrespective if they are defined 
 - Can also use version-ranges, like ``Tool/[>0.3]@user/channel``.
 - Build requirements are not listed in :command:`conan info` nor are represented in the graph (with :command:`conan info --graph`).
 
-Testing libraries
------------------
 
-One example of a build requirement could be a testing framework, which is implemented as a library. Let's call it ``mytest_framework``, an
-existing Conan package.
+Example: testing framework and build tool
+-----------------------------------------
+
+One example of build requirement is a testing framework implemented as a library, another good example is a build tool used
+in the compile process. Let's call them ``mytest_framework`` and ``cmake_turbo``, and imagine we already have a package available
+for both of them.
 
 Build requirements can be checked for existence (whether they've been applied) in the recipes, which can be useful for conditional logic in
 the recipes. In this example, we could have one recipe with the following ``build()`` method:
 
 .. code-block:: python
 
+    def build_requirements(self):
+        if self.options.enable_testing:
+            self.build_requires("mytest_framework/0.1@user/channel", force_host_context=True)
+
     def build(self):
-        cmake = CMake(self)
-        enable_testing = "mytest_framework" in self.deps_cpp_info.deps
-        cmake.configure(defs={"ENABLE_TESTING": enable_testing})
+        # Use our own 'cmake_turbo' if it is available
+        use_cmake_turbo = "cmake_turbo" in self.deps_env_info.deps
+        cmake_executable = "cmake_turbo" if use_cmake_turbo else None
+        cmake = CMake(self, cmake_program=cmake_executable)
+        cmake.configure(defs={"ENABLE_TESTING": self.options.enable_testing})
         cmake.build()
         if enable_testing:
             cmake.test()
@@ -135,7 +193,7 @@ And the package *CMakeLists.txt*:
                   COMMAND example)
     endif()
 
-This package recipe will not retrieve the ``mytest_framework`` nor build the tests, for normal installation:
+This package recipe won't retrieve the ``cmake_turbo`` package for normal installation:
 
 .. code-block:: bash
 
@@ -143,58 +201,24 @@ This package recipe will not retrieve the ``mytest_framework`` nor build the tes
 
 But if the following profile is defined:
 
-.. code-block:: text
-   :caption: mytest_profile
+.. code-block:: ini
+   :caption: use_cmake_turbo_profile
 
     [build_requires]
-    mytest_framework/0.1@user/channel
+    cmake_turbo/0.1@user/channel
 
-then the install command will retrieve the ``mytest_framework``, build and run the tests:
+then the install command will retrieve the ``cmake_turbo`` and use it:
 
 .. code-block:: bash
 
-    $ conan install . --profile=mytest_profile
+    $ conan install . --profile=use_cmake_turbo_profile
 
-Common python code
-------------------
 
-.. warning::
+Although the previous line would work it is preferred to use the feature from Conan v1.24 and provide
+two profiles to the command line, that way the build requirements in the ``build`` context won't 
+interfer with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
+It can also be needed if cross compiling (see :ref:`section about cross compiling <cross_building_build_requires>`).
 
-    This way of reusing python code has been superseded by ``python_requires``.
-    Please check :ref:`python_requires`
+.. code-block:: bash
 
-The same technique can even be used to inject and reuse python code in the package recipes, without having to declare dependencies to such
-python packages.
-
-If a Conan package is defined to wrap and reuse the *mypythontool.py* file:
-
-.. code-block:: python
-
-    from conans import ConanFile
-
-    class Tool(ConanFile):
-        name = "python_tool"
-        version = "0.1"
-        exports_sources = "mypythontool.py"
-
-        def package(self):
-            self.copy("mypythontool.py")
-
-        def package_info(self):
-            self.env_info.PYTHONPATH.append(self.package_folder)
-
-Then if it is defined in a profile as a build require:
-
-.. code-block:: text
-
-    [build_requires]
-    python_tool/0.1@user/channel
-
-such package can be reused in other recipes like this:
-
-.. code-block:: python
-
-    def build(self):
-        self.run("mytool")
-        import mypythontool
-        self.output.info(mypythontool.hello_world())
+    $ conan install . --profile:host=use_cmake_turbo_profile --profile:build=build_machine

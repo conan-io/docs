@@ -205,8 +205,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
+    self.cpp_info.system_libs = []  # System libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
-    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
+    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc. can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
     self.cpp_info.build_modules = []  # Build system utility module files
@@ -215,7 +216,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
     self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
-    self.cpp_info.system_libs = []  # The system libs to link against
+    self.cpp_info.components  # Dictionary with the different components a package may have
 
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
@@ -250,6 +251,9 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
+- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
+- **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
+  package may have: libraries, executables...
 
 .. code-block:: python
 
@@ -623,12 +627,14 @@ On Windows, there is no standard package manager, however **choco** can be invok
             installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
             installer.install(pack_name)
 
+.. _systempackagetool:
+
 SystemPackageTool
 +++++++++++++++++
 
 .. code-block:: python
 
-    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
+    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None, default_mode="enabled")
 
 Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
 **PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
@@ -650,6 +656,15 @@ When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan w
 
     - :command:`sudo` is available in the ``PATH``.
     - The platform name is ``posix`` and the UID (user id) is not ``0``
+
+Also, when the environment variable :ref:`CONAN_SYSREQUIRES_MODE <env_vars_conan_sysrequires_mode>`
+is not defined, Conan will work as if its value was ``enabled`` unless you pass the ``default_mode``
+argument to the constructor of ``SystemPackageTool``. In that case, it will work as if
+``CONAN_SYSREQUIRES_MODE`` had been defined to that value. If ``CONAN_SYSREQUIRES_MODE`` is defined,
+it will take preference and the ``default_mode`` parameter will not affect. This can be useful when a
+recipe has system requirements but we don't want to automatically install them if the user has not
+defined ``CONAN_SYSREQUIRES_MODE`` but to warn him about the missing requirements and allowing him to
+install them.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
@@ -1058,3 +1073,35 @@ The ``deploy()`` method is designed to work on a package that is installed direc
 
 All other packages and dependencies, even transitive dependencies of "pkg/0.1@user/testing" will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
+
+.. _method_init:
+
+init()
+------
+
+This is an optional method for initializing conanfile values, designed for inheritance from ``python_requires``.
+Assuming we have a ``base/1.1@user/testing`` recipe:
+
+.. code-block:: python
+
+    class MyConanfileBase(ConanFile):
+        license = "MyLicense"
+        settings = "os", # tuple!
+
+
+We could reuse and inherit from it with:
+
+.. code-block:: python
+
+    class PkgTest(ConanFile):
+        license = "MIT"
+        settings = "arch", # tuple!
+        python_requires = "base/1.1@user/testing"
+        python_requires_extend = "base.MyConanfileBase"
+
+        def init(self):
+            base = self.python_requires["base"].module.MyConanfileBase
+            self.settings = base.settings + self.settings  # Note, adding 2 tuples = tuple
+            self.license = base.license  # License is overwritten
+
+The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
