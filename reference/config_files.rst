@@ -15,7 +15,5 @@ These are the most important configuration files, used to customize conan.
    config_files/conandata.yml
    config_files/default_profile
    config_files/editable_layout
-   config_files/metadata.json
-   config_files/remotes.json
    config_files/settings.yml
 
