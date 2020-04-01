@@ -24,6 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.24.0 (31-Mar-2020)
 --------------------
 
+- Feature: Add the needed command-line arguments to existing commands to provide information about host and build profiles. `#5594 <https://github.com/conan-io/conan/pull/5594>`_ . Docs: `here <https://github.com/conan-io/docs/pull/1629>`__
 - Feature: Add `markdown` generator, it exposes useful information to consume the installed packages. `#6758 <https://github.com/conan-io/conan/pull/6758>`_ . Docs `here <https://github.com/conan-io/docs/pull/1638>`__
 - Feature: Add new tool `cppstd_flag` to retrieve the compiler flag for the given settings. `#6744 <https://github.com/conan-io/conan/pull/6744>`_ . Docs `here <https://github.com/conan-io/docs/pull/1639>`__
 - Feature: Short paths feature is available for Cygwin. `#6741 <https://github.com/conan-io/conan/pull/6741>`_ . Docs `here <https://github.com/conan-io/docs/pull/1641>`__
