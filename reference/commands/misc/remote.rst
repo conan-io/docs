@@ -47,15 +47,16 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote list
       conan-center: https://conan.bintray.com [Verify SSL: True]
-      local: http://localhost:9300 [Verify SSL: True]
+      local: http://localhost:9300 [Verify SSL: True, Disabled: True]
 
-- List remotes in a format valid for *remotes.txt* (:command:`conan config install`):
+- List remotes in a format almost valid for the *remotes.txt* to use with :ref:`conan_config_install`, only need
+  to remove the ``True`` boolean appended to disabled remotes (notice line for ``local`` one in the output):
 
   .. code-block:: bash
 
       $ conan remote list --raw
       conan-center https://conan.bintray.com True
-      local http://localhost:9300 True
+      local http://localhost:9300 True True
       # capture the current remotes in a text file
       $ conan remote list --raw > remotes.txt
 
