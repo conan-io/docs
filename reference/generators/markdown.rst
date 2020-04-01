@@ -10,7 +10,7 @@ using different build systems,...
 
 .. code-block:: bash
 
-    ⇒  conan install libxml2/2.9.9@ --generator markdown
+    $ conan install libxml2/2.9.9@ --generator markdown
     ...
     Generator markdown created libxml2.md
 
