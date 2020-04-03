@@ -62,7 +62,7 @@ The recipe for such a package will be to generate a single binary package, no mo
 No matter the settings are defined by the users, including the compiler or version, the package settings and options will always be the same
 (left empty) and they will hash to the same binary package ID. That package will typically contain just the header files.
 
-What happens if we have a library that we can be built with GCC 4.8 and will preserve the ABI compatibility with GCC 4.9?
+What happens if we have a library that can be built with GCC 4.8 and will preserve the ABI compatibility with GCC 4.9?
 (This kind of compatibility is easier to achieve for example for pure C libraries).
 
 Although it could be argued that it is worth rebuilding with 4.9 too -to get fixes and performance improvements-. Let's suppose
