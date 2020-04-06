@@ -17,7 +17,12 @@ When Conan creates the default profile the first time it runs, it adjusts the ``
 compatibility. However, if you are using GCC >= 5 your compiler is likely to be using the new CXX11 ABI by default (libstdc++11).
 
 If you want Conan to use the new ABI, edit the default profile at ``~/.conan/profiles/default`` adjusting ``compiler.libcxx=libstdc++11``
-or override this setting in the profile you are using.
+or override this setting in the profile you are using:
+
+.. code-block:: bash
+
+    $ conan profile new default --detect  # Generates default profile detecting GCC and sets old ABI
+    $ conan profile update settings.compiler.libcxx=libstdc++11 default  # Sets libcxx to C++11 ABI
 
 If you are using the :ref:`CMake build helper <cmake_reference>` or the :ref:`AutotoolsBuildEnvironment build helper <autotools_reference>`
 Conan will automatically adjust the ``_GLIBCXX_USE_CXX11_ABI`` flag to manage the ABI.
