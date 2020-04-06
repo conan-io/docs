@@ -325,7 +325,7 @@ Now, a new release for ``my_other_lib/2.1`` is released with an improved recipe 
     This scenario will be the same in the case that a consuming project of ``my_lib/1.0`` defines a dependency to ``my_other_lib/2.1``, which
     takes precedence over the existing project in ``my_lib/1.0``.
 
-The question is: **Is it necessary to build new ``my_lib/1.0`` binary packages?** or are the existing packages still valid?
+The question is: **Is it necessary to build new** ``my_lib/1.0`` **binary packages?** or are the existing packages still valid?
 
 The answer: **It depends**.
 
