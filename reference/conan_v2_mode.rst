@@ -59,6 +59,7 @@ These changes could break existing recipes:
 * Deprecate ``cpp_info.cppflags`` (use ``cxxflags`` instead).
 * Deprecate environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``.
 * ``PYTHONPATH`` is not added automatically to the environment before running consumer functions.
+* Attribute ``self.version`` is ensured to be a string in all the functions and scenarios.
 
 
 Changes in profiles
@@ -83,3 +84,4 @@ These changes are implemented in these pull-requests:
 
 * `#6490: Add 'CONAN_V2_MODE' to start testing Conan v2 deprecated features <https://github.com/conan-io/conan/pull/6490>`_
 * `#6737: [conan_v2_mode] Deprecate old ways of reusing python code <https://github.com/conan-io/conan/pull/6737>`_
+* `#6782: [CONAN_V2_MODE] Check that 'version' is always a string <https://github.com/conan-io/conan/pull/6782>`_
