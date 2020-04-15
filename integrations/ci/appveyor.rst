@@ -27,7 +27,7 @@ Clone the project from github:
 
 .. code-block:: bash
 
-   $ git clone https://github.com/lasote/conan-gtest-example
+   $ git clone https://github.com/conan-io/examples
 
 
 Create an ``appveyor.yml`` file and paste this code in it:
@@ -46,20 +46,13 @@ Create an ``appveyor.yml`` file and paste this code in it:
 	  - cmd: conan user # Create the conan data directory
 	  - cmd: conan --version
 
-	build_script:
-	  - cmd: mkdir build
-	  - cmd: conan install . -o gtest:shared=True
-	  - cmd: cd build
-	  - cmd: cmake ../ -DBUILD_TEST=TRUE  -G "Visual Studio 14 2015 Win64"
-	  - cmd: cmake --build . --config Release
-
 	test_script:
-	  - cmd: cd bin
-	  - cmd: encryption_test.exe
+	  - cmd: cd libraries/gtest/encryption
+	  - cmd: conan create .
 
 
-Appveyor will install the **Conan** tool and will execute the **conan install** command.
-Then, the **build_script** section creates the build folder, compiles the project with **cmake** and the section **test_script** runs the **tests**.
+Appveyor will install the **Conan** tool and will execute the **conan create** command.
+Then, the **test_script** section compiles the project with **cmake** and the **tests**.
 
 Creating, testing and uploading Conan binary packages
 -------------------------------------------------------
