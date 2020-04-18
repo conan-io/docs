@@ -28,7 +28,7 @@ conan_build_info v2
 
 .. code-block:: bash
 
-    Generates build info build info from lockfiles information
+    Generates build-info from lockfiles information
 
     positional arguments:
       {start,stop,create,update,publish}
