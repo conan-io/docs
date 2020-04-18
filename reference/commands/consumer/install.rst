@@ -83,16 +83,16 @@ generators.
                             (host machine). e.g.: -e CXX=/usr/bin/clang++
       -e:b ENV_BUILD, --env:build ENV_BUILD
                             Environment variables that will be set during the package build
-                            (build machine). e.g.: -e CXX=/usr/bin/clang++
+                            (build machine). e.g.: -e:b CXX=/usr/bin/clang++
       -e:h ENV_HOST, --env:host ENV_HOST
                             Environment variables that will be set during the package build
-                            (host machine). e.g.: -e CXX=/usr/bin/clang++
+                            (host machine). e.g.: -e:h CXX=/usr/bin/clang++
       -o OPTIONS_HOST, --options OPTIONS_HOST
                             Define options values (host machine), e.g.: -o Pkg:with_qt=true
       -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
-                            Define options values (build machine), e.g.: -o Pkg:with_qt=true
+                            Define options values (build machine), e.g.: -o:b Pkg:with_qt=true
       -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
-                            Define options values (host machine), e.g.: -o Pkg:with_qt=true
+                            Define options values (host machine), e.g.: -o:h Pkg:with_qt=true
       -pr PROFILE_HOST, --profile PROFILE_HOST
                             Apply the specified profile to the host machine
       -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
@@ -104,10 +104,10 @@ generators.
                             machine). e.g.: -s compiler=gcc
       -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
                             Settings to build the package, overwriting the defaults (build
-                            machine). e.g.: -s compiler=gcc
+                            machine). e.g.: -s:b compiler=gcc
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the defaults (host
-                            machine). e.g.: -s compiler=gcc
+                            machine). e.g.: -s:h compiler=gcc
 
 
 :command:`conan install` executes methods of a *conanfile.py* in the following order:
