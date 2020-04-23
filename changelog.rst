@@ -21,6 +21,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.24 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.24.1 (21-Apr-2020)
+--------------------
+
+- Bugfix: correct the `cmake` generator target name in the `markdown` generator output. `#6788 <https://github.com/conan-io/conan/pull/6788>`_
+- Bugfix: Avoid `FileNotFoundError` as it is not compatible with Python 2. `#6786 <https://github.com/conan-io/conan/pull/6786>`_
+
 1.24.0 (31-Mar-2020)
 --------------------
 
