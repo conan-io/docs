@@ -47,10 +47,10 @@ Let's illustrate these scenarios with some examples:
   platform Linux, and as we saw before, that Android NDK cross compiler will generate binaries for 
   a ``target`` platform which is Android.
 
-The values of the ``build``, ``host`` and ``target`` platforms are not absolute, and
-they depend on the process we are talking about. The ``host`` when compiling a cross compiler turns
+**The values of the** ``build`` **,** ``host`` **and** ``target`` **platforms are not absolute, and
+they depend on the process we are talking about**: the ``host`` when compiling a cross compiler turns
 into the ``build`` when using that same cross compiler, or the ``target`` of the cross compiler is
-the ``host`` platform of the binaries generated with it.
+the ``host`` platform when we are using it to build binaries.
 
 
 .. seealso::
@@ -68,17 +68,17 @@ Conan package for Windows, you need to tell Conan where to find your toolchain/c
 
 There are two approaches:
 
-- Install the toolchain in your computer and use a ``profile`` to declare the settings and
+- Using a profile: install the toolchain in your computer and use a ``profile`` to declare the settings and
   point to the needed tools/libraries in the toolchain using the ``[env]`` section to declare, at least,
   the ``CC`` and ``CXX`` environment variables.
 
-- Package the toolchain as a Conan package and include it as a ``build_requires``.
+- Using build requires: package the toolchain as a Conan package and include it as a ``build_requires``.
 
 
 Using a profile
 +++++++++++++++
 
-Using a Conan profile we can declare not only the ``settings`` that will identify our binary, but also
+Using a Conan profile we can declare not only the ``settings`` that will identify our binary (``host`` settings), but also
 all the environment variables needed to use a toolchain or cross compiler. The profile needs the following
 sections:
 
@@ -90,7 +90,7 @@ sections:
   where the host system libraries and tools are.
 
 For example, in the following profile we declare the ``host`` platform to be Windows x86_64 with the
-compiler, version and other settings be are using. And we add the **[env]** section with all the variables
+compiler, version and other settings we are using. And we add the **[env]** section with all the variables
 needed to use an installed toolchain:
 
 .. code-block:: ini
@@ -193,6 +193,46 @@ The above means that **Conan is able to compile the full graph in a single execu
 the build requires using the ``profile_build`` and then it will compile the libraries using the ``host_profile``
 settings applying the environment of the former ones.
 
+Starting with Conan v1.25 (if the user provides the ``--profile:build``) it is possible to get the relative context
+where a recipe is running during a Conan invocation. The object instatiated from the recipe contains the following
+attributes:
+
+* ``self.settings`` will always contain the settings corresponding to the binary to build/retrieve. It will contain
+  the settings from the profile ``profile_host`` when this recipe appears in the ``host`` context and the settings
+  from the profile ``profile:build`` if this object belongs to the ``build`` context.
+* ``self.settings_build`` will always contain the settings provided in the profile ``profile_build``, even if the
+  recipe appears in the ``build`` context, the build requirements of the build requirements are expected to
+  run in the ``build`` machine too.
+* ``self.settings_target``: for recipes in the ``host`` context this attribute will be equal to ``None``, for those
+  in the ``build`` context, if will depend on the level of anidation: for recipes that are build requirements of 
+  packages in the ``host`` context, this attribute will contain the settins from the profile ``profile_host``, while
+  for recipes that are build requirements of other build requirements the ``self.settings_target`` will contain
+  the values of the ``profile_build``.
+
+With previous attributes, a draft for a recipe that packages a cross compiler could follow this pattern:
+
+.. code-block:: python
+
+    class CrossCompiler(ConanFile):
+        name = "xbuild"
+    
+        settings = "os", "arch", "compiler", "build_type"
+        options = {"target": "ANY"}
+        default_options = {"shared": False, "target": None}
+
+        def configure(self):
+            settings_target = getattr(self, 'settings_target', None)
+            if settings_target is None:
+                # It is running in 'host', so Conan is compiling this package
+                if not self.options.target:
+                    raise ConanInvalidConfiguration("A value for option 'target' has to be provided")
+            else:
+                # It is running in 'build' and it is being used as a BR, 'target' can be inferred from settings
+                if self.options.target:
+                    raise ConanInvalidConfiguration(f"Value for the option 'target' will be computed from settings_target")
+                self.options.target = get_target_from_settings(self.settings_target)
+
+
 
 Conan older than v1.24
 ......................
@@ -250,8 +290,8 @@ Conan can still compile it from sources but it won't be able to identify the bin
 if the build requirements has other Conan dependencies.
 
 
-Settings ``*_build`` and ``*_target``
-+++++++++++++++++++++++++++++++++++++
+Host settings ``os_build``, ``arch_build``, ``os_target`` and ``arch_target``
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. warning::
 
@@ -265,7 +305,8 @@ Before Conan v1.24 the recommended way to deal with cross building was to use so
 for some Conan tools and build helpers, but they also need to be listed in the recipes themselves creating
 a dedicated set of recipes for *installers* and *tools* in general. This approach should be superseeded with
 the introduction in Conan 1.24 of the command line arguments ``--profile:host`` and ``--profile:build``
-that allow to declare two different profiles with all the information needed for the corresponding platforms.
+that allow to declare two different profiles with all the information needed for the corresponding platforms
+(see section above this one).
 
 The meaning of those settings is the following:
 
@@ -277,27 +318,6 @@ The meaning of those settings is the following:
   a cross compiler, these settings specify where the compiled code will run.
 
 The rest of settings, as we already know, identify the ``host`` platform.
-
-
-Preparing recipes to be cross-compiled
-++++++++++++++++++++++++++++++++++++++
-
-If you use the build helpers :ref:`AutoToolsBuildEnvironment<autotools_reference>` or :ref:`CMake<cmake_reference>`
-together with ``os_build`` and ``arch_build`` settings, Conan will adjust the configuration accordingly to the specified settings.
-
-If not, you can always check the regular settings ``os``, ``arch``,... (matching the ``host`` platform) and
-inject the needed flags to your build system script.
-
-Also, you can use this tool to check if you are cross-building:
-
-- :ref:`tools.cross_building(self.settings)<cross_building_reference>` (returns True or False)
-
-
-.. note::
-
-    In the following releases, this build helpers and tools will take into account the values of the
-    command line arguments ``--profile:host`` and ``--profile:build`` to implement the proper
-    cross building behavior.
 
 
 ARM architecture reference
