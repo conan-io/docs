@@ -14,7 +14,7 @@ Searches package recipes and binaries in the local cache or in a remote.
 
 If you provide a pattern, then it will search for existing package
 recipes matching it.  If a full reference is provided
-(pkg/0.1@user/channel) then the existing binary packages for that
+(``pkg/0.1@user/channel``) then the existing binary packages for that
 reference will be displayed. The default remote is ignored, if no
 remote is specified, the search will be done in the local cache.
 Search is case sensitive, exact case has to be used. For case
@@ -49,14 +49,15 @@ can be forced with '--case-sensitive'.
                             reference.
 
 
-**Examples**
+Examples
+--------
 
 .. code-block:: bash
 
     $ conan search "zlib/*"
     $ conan search "zlib/*" -r=conan-center
 
-To search for recipes in all defined remotes use ``--all`` (this is only valid for searching recipes, not binaries):
+To search for recipes in all defined remotes use ``-r all`` (this is only valid for searching recipes, not binaries):
 
 .. code-block:: bash
 
@@ -70,6 +71,10 @@ that recipe, also in a remote or in the local conan cache:
 
     $ conan search boost/1.71.0@
 
+
+Query syntax
+++++++++++++
+
 A query syntax is allowed to look for specific binaries, you can use ``AND`` and ``OR`` operators
 and parenthesis, with settings and also options.
 
@@ -78,7 +83,7 @@ and parenthesis, with settings and also options.
     $ conan search boost/1.71.0@ -q arch=x86_64
     $ conan search boost/1.71.0@ -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
-Also, query syntax allows sub-settings, even for custom properties. e.g:
+Query syntax allows sub-settings, even for custom properties. e.g:
 
 .. code-block:: bash
 
@@ -91,7 +96,8 @@ setting, Conan won't find the packages. e.g:
 .. code-block:: python
 
     class MyRecipe(ConanFile):
-        settings="arch"
+        name = "my_recipe"
+        settings = "arch",
 
 .. code-block:: bash
 
@@ -104,7 +110,11 @@ The query above won't find the ``my_recipe`` binary packages (because the recipe
 
     $ conan search my_recipe/1.0@lasote/stable -q os=None
 
-You can generate a table for all binaries from a given recipe with the ``--table`` option:
+
+Tabular output
+++++++++++++++
+
+You can generate a table for all binaries from a given recipe with the ``--table`` argument:
 
 .. code-block:: bash
 
@@ -116,6 +126,9 @@ You can generate a table for all binaries from a given recipe with the ``--table
     :width: 600 px
     :align: center
 
+
+Recipe and package revisions
+++++++++++++++++++++++++++++
 
 Search all the local Conan packages matching a pattern and showing the revision:
 
