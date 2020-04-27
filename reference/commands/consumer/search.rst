@@ -118,7 +118,7 @@ You can generate a table for all binaries from a given recipe with the ``--table
 
 .. code-block:: bash
 
-    $ conan search zlib/1.2.11@ --table=file.html -r=conan-center
+    $ conan search jinja2cpp/1.1.0@ --table=file.html -r=conan-center
     $ file.html # or open the file, double-click
 
 .. image:: /images/conan-search_binary_table.png
