@@ -83,7 +83,7 @@ and parenthesis, with settings and also options.
     $ conan search boost/1.71.0@ -q arch=x86_64
     $ conan search boost/1.71.0@ -q "(arch=x86_64 OR arch=ARM) AND (build_type=Release OR os=Windows)"
 
-Query syntax allows sub-settings, even for custom properties. e.g:
+Query syntax allows sub-settings, even for custom ones. e.g:
 
 .. code-block:: bash
 
