@@ -129,6 +129,9 @@ a Conan client configuration.
 
 The :command:`conan config install <item>` calls are stored in a *config_install.json* file in the Conan local cache. That allows to issue a :command:`conan config install` command, without arguments, to iterate over the cached configurations, executing them again (updating).
 
+The :command:`conan config install` can be periodically executed, before any command, when *config_install_interval* is configured in :ref:`conan.conf<conan_conf>`.
+Conan runs it based on *config_install.json*, including the timestamp of the last change.
+
 
 **Examples**:
 
