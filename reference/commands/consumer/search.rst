@@ -57,7 +57,7 @@ Examples
     $ conan search "zlib/*"
     $ conan search "zlib/*" -r=conan-center
 
-To search for recipes in all defined remotes use ``-r all`` (this is only valid for searching recipes, not binaries):
+To search for recipes in all defined remotes use :command:`-r all` (this is only valid for searching recipes, not binaries):
 
 .. code-block:: bash
 
