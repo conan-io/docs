@@ -114,7 +114,7 @@ The query above won't find the ``my_recipe`` binary packages (because the recipe
 Tabular output
 ++++++++++++++
 
-You can generate a table for all binaries from a given recipe with the ``--table`` argument:
+You can generate a table for all binaries from a given recipe with the :command:`--table` argument:
 
 .. code-block:: bash
 
