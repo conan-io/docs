@@ -986,7 +986,7 @@ for components will be calculated and values will be aggregated in the correct o
 
 For a consumers and generators, the order of the libraries from this components graph will be:
 
-.. code-block::
+.. code-block:: python
 
         self.deps_cpp_info.libs == ["libf", "libe", "libd", "libc", "liba", "libb"]
 
