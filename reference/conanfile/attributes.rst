@@ -999,8 +999,9 @@ For a consumers and generators, the order of the libraries from this components 
     now to consumers and generators.
 
 This syntax is also prepared (still not implemented in generators) to make a component require a complete external package or a component
-from a different package. For example, here we have a recipe that requires ``zlib`` and ``OpenSSL``, and it has two components: ``comp1``
-requires the whole ``zlib`` package and ``comp2`` requires the ``ssl`` component in the ``OpenSSL`` package.
+from a different package using the special character ``::``. For example, here we have a recipe that requires ``zlib`` and ``OpenSSL``, and
+it has two components: ``comp1`` requires the whole ``zlib`` package and ``comp2`` requires ``comp1`` as well as the ``ssl`` component in
+the ``OpenSSL`` package.
 
 .. code-block:: python
 
@@ -1010,7 +1011,7 @@ requires the whole ``zlib`` package and ``comp2`` requires the ``ssl`` component
 
     def package_info(self):
         self.cpp_info.components["comp1"].requires("zlib::zlib")
-        self.cpp_info.components["comp2"].requires("openssl::ssl")
+        self.cpp_info.components["comp2"].requires("comp1", "openssl::ssl")
 
 Note that component requires should **explicitly** define requirements to other package (``zlib::zlib``) or other package components
 (``openssl::ssl``).
