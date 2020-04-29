@@ -933,11 +933,6 @@ Components
 
     This is a **experimental** feature subject to breaking changes in future releases.
 
-When you are creating a Conan package, it is recommended to have only one library (*.lib*, *.a*, *.so*, *.dll*...) per package. However,
-especially with third-party projects like Boost, Poco or OpenSSL, they would contain several libraries inside.
-
-Usually those libraries inside the same package depend on each other and modelling the relationship among them is required.
-
 With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
 executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
 
@@ -953,8 +948,8 @@ executable will be one component inside ``cpp_info`` like this (the following ca
         self.cpp_info.components["ssl"].libs = ["libssl"]
         self.cpp_info.components["ssl"].requires = ["crypto"]
 
-You can also model system dependencies for each component or just header files as the structure of the ``Component`` object is the same as
-the one used by the ``cpp_info`` object and has **the same default directories** except for the ``requires``.
+The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object (except for the ``requires`` attribute) and
+has **the same default directories**.
 
 .. warning::
 
@@ -984,7 +979,7 @@ for components will be calculated and values will be aggregated in the correct o
         self.cpp_info.components["LibF"].libs = ["libf"]
         self.cpp_info.components["LibF"].requires = ["LibD", "LibE"]
 
-For a consumers and generators, the order of the libraries from this components graph will be:
+For consumers and generators, the order of the libraries from this components graph will be:
 
 .. code-block:: python
 
@@ -1013,12 +1008,14 @@ the ``OpenSSL`` package.
         self.cpp_info.components["comp1"].requires("zlib::zlib")
         self.cpp_info.components["comp2"].requires("comp1", "openssl::ssl")
 
-Note that component requires should **explicitly** define requirements to other package (``zlib::zlib``) or other package components
-(``openssl::ssl``).
+.. important::
+
+    Note that component requires should **explicitly** define requirements to other package (``zlib::zlib``) or other package components
+    (``openssl::ssl``).
 
 .. seealso::
 
-    Read :ref:`method_package_info` for more info.
+    Read :ref:`method_package_info` to learn more.
 
 .. _deps_cpp_info_attributes_reference:
 
