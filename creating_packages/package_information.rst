@@ -7,7 +7,7 @@ When creating a recipe to package a library, it is important to define the infor
 information correctly. Conan achieves this by decoupling the information of the package from the format needed using
 :ref:`generators_reference`, that translate the generic information into the appropriate format file.
 
-This generic information is define inside the recipe, using the :ref:`method_package_info` method. There you can declare package information
+This generic information is defined inside the recipe, using the :ref:`method_package_info` method. There you can declare package information
 like the location of the header files, library names, defines, flags...
 
 .. code-block:: python
