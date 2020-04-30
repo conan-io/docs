@@ -1296,13 +1296,14 @@ be computed. It can take three different values:
 
 .. _python_requires_attribute:
 
-python_requires
----------------
+python_requires (legacy)
+------------------------
 
 .. warning::
 
-    This attribute is part of the :ref:`python requires<python_requires>` feature, so
-    it is also an **experimental** feature subject to breaking changes in future releases.
+    This attribute has been superseded by the new :ref:`python_requires`. Even if this is an **experimental**
+    feature subject to breaking changes in future releases, this legacy ``python_requires`` syntax has not
+    been removed yet, but it will be removed in Conan 2.0.
 
 Python requires are associated with the ``ConanFile`` declared in the recipe file, data
 from those imported recipes is accessible using the ``python_requires`` attribute in
@@ -1327,7 +1328,34 @@ workspace.:
 
         def source(self):
             pyreq = self.python_requires['pyreq']
-            self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
+            path = os.path.join(pyreq.exports_sources_folder, "CMakeLists.txt")
+            shutil.copy(src=path, dst=self.source_folder)
+
+python_requires
+---------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+This class attribute allows to define a dependency to another Conan recipe and reuse its code.
+Its basic syntax is:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        python_requires = "pyreq/0.1@user/channel"  # recipe to reuse code from
+
+        def build(self):
+            self.python_requires["pyreq"].module # access to the whole conanfile.py module
+            self.python_requires["pyreq"].module.myvar  # access to a variable
+            self.python_requires["pyreq"].module.myfunct()  # access to a global function
+            self.python_requires["pyreq"].path # access to the folder where the reused file is
+
+
+Read more about this attribute in :ref:`python_requires`
 
 .. _conandata_attribute:
 

@@ -18,8 +18,47 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.23 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.24 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.24.1 (21-Apr-2020)
+--------------------
+
+- Bugfix: correct the `cmake` generator target name in the `markdown` generator output. `#6788 <https://github.com/conan-io/conan/pull/6788>`_
+- Bugfix: Avoid `FileNotFoundError` as it is not compatible with Python 2. `#6786 <https://github.com/conan-io/conan/pull/6786>`_
+
+1.24.0 (31-Mar-2020)
+--------------------
+
+- Feature: Add the needed command-line arguments to existing commands to provide information about host and build profiles. `#5594 <https://github.com/conan-io/conan/pull/5594>`_ . Docs: `here <https://github.com/conan-io/docs/pull/1629>`__
+- Feature: Add `markdown` generator, it exposes useful information to consume the installed packages. `#6758 <https://github.com/conan-io/conan/pull/6758>`_ . Docs `here <https://github.com/conan-io/docs/pull/1638>`__
+- Feature: Add new tool `cppstd_flag` to retrieve the compiler flag for the given settings. `#6744 <https://github.com/conan-io/conan/pull/6744>`_ . Docs `here <https://github.com/conan-io/docs/pull/1639>`__
+- Feature: Short paths feature is available for Cygwin. `#6741 <https://github.com/conan-io/conan/pull/6741>`_ . Docs `here <https://github.com/conan-io/docs/pull/1641>`__
+- Feature: Add Apple Clang as a base compiler for Intel C++. `#6740 <https://github.com/conan-io/conan/pull/6740>`_ . Docs `here <https://github.com/conan-io/docs/pull/1637>`__
+- Feature: Make `settings.get_safe` and `options.get_safe` accept a default value. `#6739 <https://github.com/conan-io/conan/pull/6739>`_ . Docs `here <https://github.com/conan-io/docs/pull/1631>`__
+- Feature: `CONAN_V2_MODE` deprecates two legacy ways of reusing python code: the `<cache>/python` path and the automatic `PYTHONPATH` environment variable. `#6737 <https://github.com/conan-io/conan/pull/6737>`_ . Docs `here <https://github.com/conan-io/docs/pull/1630>`__
+- Feature: Add the _description_ field to the output of the :command:`conan info` command. `#6724 <https://github.com/conan-io/conan/pull/6724>`_ . Docs `here <https://github.com/conan-io/docs/pull/1627>`__
+- Feature: Add more detailed information when there are `missing` packages. `#6700 <https://github.com/conan-io/conan/pull/6700>`_ . Docs `here <https://github.com/conan-io/docs/pull/1616>`__
+- Feature: Support mirrors for `tools.download` and `tools.get`. `#6679 <https://github.com/conan-io/conan/pull/6679>`_ . Docs `here <https://github.com/conan-io/docs/pull/1623>`__
+- Feature: Modify the default behaviour in `SystemPackageTool` to be able to create a recipe that does not install system requirements by default if the `CONAN_SYSREQUIRES_MODE` is not set. `#6677 <https://github.com/conan-io/conan/pull/6677>`_ . Docs `here <https://github.com/conan-io/docs/pull/1613>`__
+- Feature: Add `cpp_info.components` package creator interface to model internal dependencies inside a recipe. `#6653 <https://github.com/conan-io/conan/pull/6653>`_ . Docs `here <https://github.com/conan-io/docs/pull/1363>`__
+- Feature: Add a new ``init()`` method to ``conanfile.py`` recipes that can be used to add extra logic when inheriting from ``python_requires`` classes. `#6614 <https://github.com/conan-io/conan/pull/6614>`_ . Docs `here <https://github.com/conan-io/docs/pull/1622>`__
+- Fix: Add Sun C compiler version 5.15 into default settings.yml. `#6767 <https://github.com/conan-io/conan/pull/6767>`_
+- Fix: Raises `ConanException` when package folder is invalid for `export-pkg`. `#6720 <https://github.com/conan-io/conan/pull/6720>`_ . Docs `here <https://github.com/conan-io/docs/pull/1624>`__
+- Fix: Added print to stderr and exit into pyinstaller script when it detects python usage of python 3.8 or higher as currently pyinstaller does not support python 3.8. `#6686 <https://github.com/conan-io/conan/pull/6686>`_
+- Fix: Improve the command line help for the `conan install --build` option. `#6681 <https://github.com/conan-io/conan/pull/6681>`_ . Docs `here <https://github.com/conan-io/docs/pull/1595>`__
+- Fix: Add build policy help for `--build` argument when used in `conan graph build-order` command. `#6650 <https://github.com/conan-io/conan/pull/6650>`_
+- Fix: Remove file before copying in ``conan config install`` to avoid permission issues. `#6601 <https://github.com/conan-io/conan/pull/6601>`_
+- Fix: check_min_cppstd raises an exception for an unknown compiler. `#6548 <https://github.com/conan-io/conan/pull/6548>`_ . Docs `here <https://github.com/conan-io/docs/pull/1559>`__
+- Fix: cmake_find_package no longer seeks to find packages which are already found. `#6389 <https://github.com/conan-io/conan/pull/6389>`_
+- Bugfix: Fixes the auto-detection of ``sun-cc`` compiler when it outputs ``Studio 12.5 Sun C``. `#6757 <https://github.com/conan-io/conan/pull/6757>`_
+- Bugfix: Add values to ``definitions`` passed to ``MSBuild`` build helper which values are not None (0, False...). `#6730 <https://github.com/conan-io/conan/pull/6730>`_
+- Bugfix: Include name and version in the data from ``conanbuildinfo.txt``, so it is available in ``self.deps_cpp_info["dep"].version`` and ``self.deps_cpp_info["dep"].name``, so it can be used in :command:`conan build` and in ``test_package/conanfile.py``. `#6723 <https://github.com/conan-io/conan/pull/6723>`_ . Docs `here <https://github.com/conan-io/docs/pull/1626>`__
+- Bugfix: Fix `check_output_runner()` to handle dirs with whitespaces. `#6703 <https://github.com/conan-io/conan/pull/6703>`_
+- Bugfix: Fix vcvars_arch usage before assignment, that can cause a crash in ``tools.vcvars_command()`` that is also used internally by ``MSBuild`` helper. `#6675 <https://github.com/conan-io/conan/pull/6675>`_
+- Bugfix: Silent output from cmake_find_package generator with `CONAN_CMAKE_SILENT_OUTPUT`. `#6672 <https://github.com/conan-io/conan/pull/6672>`_
+- Bugfix: Use always LF line separator for .sh scripts generated by ``virtualenv`` generators. `#6670 <https://github.com/conan-io/conan/pull/6670>`_
+- Bugfix: Use the real settings value to check the compiler and compiler version in the ``cmake`` generator local flow when the ``package_id()`` method changes values. `#6659 <https://github.com/conan-io/conan/pull/6659>`_
 
 1.23.0 (10-Mar-2020)
 --------------------
