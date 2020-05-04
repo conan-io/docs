@@ -26,6 +26,8 @@ like the location of the header files, library names, defines, flags...
 The package information is done using the attributes of the :ref:`cpp_info_attributes_reference` object. This information will be aggregated
 by Conan and exposed via ``self.deps_cpp_info`` to consumers and generators.
 
+.. _package_information_components:
+
 Using Components
 ----------------
 
@@ -42,7 +44,7 @@ especially with third-party projects like Boost, Poco or OpenSSL, they would con
 Usually those libraries inside the same package depend on each other and modelling the relationship among them is required.
 
 With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
-executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
+executable will be one component inside ``cpp_info`` like this:
 
 .. code-block:: python
 
@@ -68,14 +70,20 @@ Declaration of requires from other packages is also allowed:
         requires = "zlib/1.2.11", "openssl/1.1.1g"
 
     def package_info(self):
-        self.cpp_info.components["comp1"].requires("zlib::zlib")             # Depends on all components in zlib package
-        self.cpp_info.components["comp2"].requires("comp1", "openssl::ssl")  # Depends on ssl component in openssl package
+        self.cpp_info.components["comp1"].requires = ["zlib::zlib"]             # Depends on all components in zlib package
+        self.cpp_info.components["comp2"].requires = ["comp1", "openssl::ssl"]  # Depends on ssl component in openssl package
+
+By default, components **won't link against any other package required by the recipe**. The requires list has to be **populated explicitly**
+with the list of components from other packages to use: it can be the full requirement (``zlib::zlib``) or a single component
+(``openssl::ssl``).
 
 .. important::
 
-    Note that component requires should **explicitly** define requirements to other package (``zlib::zlib``) or other package components
-    (``openssl::ssl``).
+    Components information is still not available from the generators' side. We are planning to complete this feature in next releases.
+
+    Currently, the information of components is not lost but aggregated to the *global* scope and the usage of components should be
+    transparent right now.
 
 .. seealso::
 
-    Read :ref:`components reference <cpp_info_components_attributes_reference>` for more information.
+    Read :ref:`components reference <cpp_info_attributes_reference>` for more information.

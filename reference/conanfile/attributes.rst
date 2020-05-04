@@ -924,17 +924,13 @@ This object should be filled in ``package_info()`` method.
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
 
-.. _cpp_info_components_attributes_reference:
-
-Components
-++++++++++
-
 .. warning::
 
-    This is a **experimental** feature subject to breaking changes in future releases.
+    Components is a **experimental** feature subject to breaking changes in future releases.
 
-With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
-executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
+:ref:`Using components <package_information_components>` you can achieve a more fine-grained control over individual libraries available in
+a single Conan package. Components allow you define a ``cpp_info`` like object per each of those libraries and also requirements between
+them and to components of other packages (the following case is not a real example):
 
 .. code-block:: python
 
@@ -985,14 +981,6 @@ For consumers and generators, the order of the libraries from this components gr
 
         self.deps_cpp_info.libs == ["libf", "libe", "libd", "libc", "liba", "libb"]
 
-.. important::
-
-    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
-    dictionary). We are planning to complete this feature in next releases.
-
-    The information of components is not lost but aggregated to the *global* scope and the usage of components should be transparent right
-    now to consumers and generators.
-
 This syntax is also prepared (still not implemented in generators) to make a component require a complete external package or a component
 from a different package using the special character ``::``. For example, here we have a recipe that requires ``zlib`` and ``OpenSSL``, and
 it has two components: ``comp1`` requires the whole ``zlib`` package and ``comp2`` requires ``comp1`` as well as the ``ssl`` component in
@@ -1008,10 +996,14 @@ the ``OpenSSL`` package.
         self.cpp_info.components["comp1"].requires("zlib::zlib")
         self.cpp_info.components["comp2"].requires("comp1", "openssl::ssl")
 
+Note that components **do not link with recipe requirements by default**, and they require **explicit definition** in their requires to
+all libraries in another package (``zlib::zlib``) or other package components (``openssl::ssl``).
+
 .. important::
 
-    Note that component requires should **explicitly** define requirements to other package (``zlib::zlib``) or other package components
-    (``openssl::ssl``).
+    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
+    dictionary). The information of components is not lost but aggregated to the *global* scope and the usage of components should be
+    transparent right now to consumers and generators.
 
 .. seealso::
 
