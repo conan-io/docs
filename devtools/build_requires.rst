@@ -69,7 +69,7 @@ Build requirements can also be specified in a package recipe, with the ``build_r
 The above ``tool_a`` and ``tool_b`` will always be retrieved and used for building this recipe, while the ``tool_win`` one will only be used
 only in Windows.
 
-If some build requirement defined inside ``build_requirements()`` have the same package name as the one defined in the ``build_requires``
+If any build requirement defined inside ``build_requirements()`` has the same package name as the one defined in the ``build_requires``
 attribute, the one inside the ``build_requirements()`` method will prevail.
 
 As a rule of thumb, downstream defined values always override upstream dependency values. If some build requirement is defined in the

@@ -214,7 +214,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
 .. code-block:: python
 
     class CrossCompiler(ConanFile):
-        name = "xbuild"
+        name = "my_compiler"
     
         settings = "os", "arch", "compiler", "build_type"
         options = {"target": "ANY"}
@@ -229,7 +229,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
             else:
                 # It is running in 'build' and it is being used as a BR, 'target' can be inferred from settings
                 if self.options.target:
-                    raise ConanInvalidConfiguration(f"Value for the option 'target' will be computed from settings_target")
+                    raise ConanInvalidConfiguration("Value for the option 'target' will be computed from settings_target")
                 self.options.target = get_target_from_settings(self.settings_target)
 
 
