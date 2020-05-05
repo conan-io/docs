@@ -72,7 +72,7 @@ executable will be one component inside ``cpp_info`` like this:
 You can define dependencies among different components using the ``requires`` attribute and the name of the component. The dependency graph
 for components will be calculated and values will be aggregated in the correct order for each field.
 
-. code-block:: python
+.. code-block:: python
 
     def package_info(self):
         self.cpp_info.components["LibA"].libs = ["liba"]      # Name of the library for the 'LibA' component
