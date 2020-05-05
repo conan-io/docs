@@ -26,6 +26,13 @@ like the location of the header files, library names, defines, flags...
 The package information is done using the attributes of the :ref:`cpp_info_attributes_reference` object. This information will be aggregated
 by Conan and exposed via ``self.deps_cpp_info`` to consumers and generators.
 
+.. important::
+
+    This information is important as it describes the package contents in a generic way with a pretty straightforward syntax that can later
+    be translated to a suitable format. The advantage of having this information here, is that the package could be consumed from a
+    different build system that the one used to compile the library. For example, a library that builds using Autotools can be consumed
+    later in CMake with this information using any of the CMake generators.
+
 .. _package_information_components:
 
 Using Components
@@ -60,6 +67,32 @@ executable will be one component inside ``cpp_info`` like this:
 
 You can define dependencies among different components using the ``requires`` attribute and the name of the component. The dependency graph
 for components will be calculated and values will be aggregated in the correct order for each field.
+
+. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.components["LibA"].libs = ["liba"]      # Name of the library for the 'LibA' component
+        self.cpp_info.components["LibA"].requires = ["LibB"]  # Requires point to the name of the component
+
+        self.cpp_info.components["LibB"].libs = ["libb"]
+
+        self.cpp_info.components["LibC"].libs = ["libc"]
+        self.cpp_info.components["LibC"].requires = ["LibA"]
+
+        self.cpp_info.components["LibD"].libs = ["libD"]
+        self.cpp_info.components["LibD"].requires = ["LibA"]
+
+        self.cpp_info.components["LibE"].libs = ["libe"]
+        self.cpp_info.components["LibE"].requires = ["LibB"]
+
+        self.cpp_info.components["LibF"].libs = ["libf"]
+        self.cpp_info.components["LibF"].requires = ["LibD", "LibE"]
+
+For consumers and generators, the order of the libraries from this components graph will be:
+
+.. code-block:: python
+
+        self.deps_cpp_info.libs == ["libf", "libe", "libd", "libc", "liba", "libb"]
 
 Declaration of requires from other packages is also allowed:
 

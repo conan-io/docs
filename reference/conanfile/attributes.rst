@@ -939,10 +939,13 @@ them and to components of other packages (the following case is not a real examp
         self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
         self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
+        self.cpp_info.components["crypto"].requires = ["zlib::zlib"]  # Depends on all components in zlib package
+
         self.cpp_info.components["ssl"].names["cmake"] = "SSL"
         self.cpp_info.components["ssl"].includedirs = ["include/headers_ssl"]
         self.cpp_info.components["ssl"].libs = ["libssl"]
-        self.cpp_info.components["ssl"].requires = ["crypto"]
+        self.cpp_info.components["ssl"].requires = ["crypto",
+                                                    "boost::headers"]  # Depends on headers component in boost package
 
 The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object (except for the ``requires`` attribute) and
 has **the same default directories**.
@@ -952,52 +955,8 @@ has **the same default directories**.
     Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
     ``self.cpp_info.name`` and ``self.cpp_info.names``).
 
-You can define dependencies among different components using the ``requires`` attribute and the name of the component. The dependency graph
-for components will be calculated and values will be aggregated in the correct order for each field. For example:
-
-.. code-block:: python
-
-    def package_info(self):
-        self.cpp_info.components["LibA"].libs = ["liba"]      # Name of the library for the 'LibA' component
-        self.cpp_info.components["LibA"].requires = ["LibB"]  # Requires point to the name of the component
-
-        self.cpp_info.components["LibB"].libs = ["libb"]
-
-        self.cpp_info.components["LibC"].libs = ["libc"]
-        self.cpp_info.components["LibC"].requires = ["LibA"]
-
-        self.cpp_info.components["LibD"].libs = ["libD"]
-        self.cpp_info.components["LibD"].requires = ["LibA"]
-
-        self.cpp_info.components["LibE"].libs = ["libe"]
-        self.cpp_info.components["LibE"].requires = ["LibB"]
-
-        self.cpp_info.components["LibF"].libs = ["libf"]
-        self.cpp_info.components["LibF"].requires = ["LibD", "LibE"]
-
-For consumers and generators, the order of the libraries from this components graph will be:
-
-.. code-block:: python
-
-        self.deps_cpp_info.libs == ["libf", "libe", "libd", "libc", "liba", "libb"]
-
-This syntax is also prepared (still not implemented in generators) to make a component require a complete external package or a component
-from a different package using the special character ``::``. For example, here we have a recipe that requires ``zlib`` and ``OpenSSL``, and
-it has two components: ``comp1`` requires the whole ``zlib`` package and ``comp2`` requires ``comp1`` as well as the ``ssl`` component in
-the ``OpenSSL`` package.
-
-.. code-block:: python
-
-    class MyConan(ConanFile):
-        ...
-        requires = "zlib/1.2.11", "openssl/1.1.1g"
-
-    def package_info(self):
-        self.cpp_info.components["comp1"].requires("zlib::zlib")
-        self.cpp_info.components["comp2"].requires("comp1", "openssl::ssl")
-
-Note that components **do not link with recipe requirements by default**, and they require **explicit definition** in their requires to
-all libraries in another package (``zlib::zlib``) or other package components (``openssl::ssl``).
+Dependencies among different components can be defined using the ``requires`` attribute and the name of the component. The dependency graph
+for components will be calculated and values will be aggregated in the correct order for each field.
 
 .. important::
 
