@@ -204,10 +204,12 @@ attributes:
   recipe appears in the ``build`` context, the build requirements of the build requirements are expected to
   run in the ``build`` machine too.
 * ``self.settings_target``: for recipes in the ``host`` context this attribute will be equal to ``None``, for those
-  in the ``build`` context, if will depend on the level of anidation: for recipes that are build requirements of 
-  packages in the ``host`` context, this attribute will contain the settins from the profile ``profile_host``, while
-  for recipes that are build requirements of other build requirements the ``self.settings_target`` will contain
-  the values of the ``profile_build``.
+  in the ``build`` context, if will depend on the level of anidation:
+  
+  + for recipes that are build requirements of packages in the ``host`` context, this attribute will contain
+    the settins from the profile ``profile_host``, while 
+  + for recipes that are build requirements of other build requirements the ``self.settings_target``
+    will contain the values of the ``profile_build``.
 
 With previous attributes, a draft for a recipe that packages a cross compiler could follow this pattern:
 
@@ -230,7 +232,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
                 # It is running in 'build' and it is being used as a BR, 'target' can be inferred from settings
                 if self.options.target:
                     raise ConanInvalidConfiguration("Value for the option 'target' will be computed from settings_target")
-                self.options.target = get_target_from_settings(self.settings_target)
+                self.options.target = "<target-value>"  # Use 'self.settings_target' to get this value
 
 
 
