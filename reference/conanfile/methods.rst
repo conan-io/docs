@@ -197,7 +197,7 @@ cpp_info
 Each package has to specify certain build information for its consumers. This can be done in the ``cpp_info`` attribute within the
 ``package_info()`` method.
 
-The ``cpp_info`` attribute has the following properties you can assign/append to:
+The :ref:`cpp_info_attributes_reference` attribute has the following properties you can assign/append to:
 
 .. code-block:: python
 
@@ -253,7 +253,7 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
   if different dependencies are setting incompatible flags (c++11 after c++14).
 - **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
-  package may have: libraries, executables...
+  package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 
 .. code-block:: python
 

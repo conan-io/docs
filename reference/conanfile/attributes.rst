@@ -958,15 +958,9 @@ has **the same default directories**.
 Dependencies among different components can be defined using the ``requires`` attribute and the name of the component. The dependency graph
 for components will be calculated and values will be aggregated in the correct order for each field.
 
-.. important::
-
-    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
-    dictionary). The information of components is not lost but aggregated to the *global* scope and the usage of components should be
-    transparent right now to consumers and generators.
-
 .. seealso::
 
-    Read :ref:`method_package_info` to learn more.
+    Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
 
 .. _deps_cpp_info_attributes_reference:
 

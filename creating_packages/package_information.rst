@@ -33,6 +33,10 @@ by Conan and exposed via ``self.deps_cpp_info`` to consumers and generators.
     different build system that the one used to compile the library. For example, a library that builds using Autotools can be consumed
     later in CMake with this information using any of the CMake generators.
 
+.. seealso::
+
+    Read :ref:`method_package_info` to learn more about this method.
+
 .. _package_information_components:
 
 Using Components
