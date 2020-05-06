@@ -660,6 +660,14 @@ It is possible to change the default ``semver_direct_mode`` package-id mode, in 
 
 Possible values are the names of the above methods: ``full_recipe_mode``, ``semver_mode``, etc.
 
+.. note::
+
+    The ``default_package_id_mode`` is a global configuration. It will change how all the package-ids are
+    computed, for all packages. It is impossible to mix different ``default_package_id_mode`` values.
+    The same ``default_package_id_mode`` must be used in all clients, servers, CI, etc., and it cannot
+    be changed without rebuilding all packages.
+
+
 Note that the default package-id mode is the mode that is used when the package is initialized
 and **before** ``package_id()`` method is called. You can still define ``full_package_mode``
 as default in *conan.conf*, but if a recipe declare that it is header-only, with:

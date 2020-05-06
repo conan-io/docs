@@ -110,7 +110,6 @@ The query above won't find the ``my_recipe`` binary packages (because the recipe
 
     $ conan search my_recipe/1.0@lasote/stable -q os=None
 
-
 Tabular output
 ++++++++++++++
 
