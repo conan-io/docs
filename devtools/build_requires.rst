@@ -39,9 +39,9 @@ Build requirements can be declared in profiles, like:
 
 Build requirements are specified by a ``pattern:``. If such pattern is not specified, it will be assumed to be ``*``, i.e. to apply to all
 packages. Packages can be declared in different lines or by a comma separated list. In this example, ``tool1``, ``tool2``, ``tool3`` and
-``Tool4`` will be used for all packages in the dependency graph (while running :command:`conan install` or :command:`conan create`).
+``tool4`` will be used for all packages in the dependency graph (while running :command:`conan install` or :command:`conan create`).
 
-If a pattern like ``my_pkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern. ``tool5``
+If a pattern like ``my_pkg*`` is specified, the declared build requirements will only be applied to packages matching that pattern: ``tool5``
 will not be applied to Zlib for example, but it will be applied to ``my_pkg_zlib``.
 
 The special case of a **consumer** conanfile (without name or version) it is impossible to match with a pattern, so it is handled with the
@@ -69,7 +69,7 @@ Build requirements can also be specified in a package recipe, with the ``build_r
 The above ``tool_a`` and ``tool_b`` will always be retrieved and used for building this recipe, while the ``tool_win`` one will only be used
 only in Windows.
 
-If some build requirement defined inside ``build_requirements()`` has the same package name as the one defined in the ``build_requires``
+If any build requirement defined inside ``build_requirements()`` has the same package name as the one defined in the ``build_requires``
 attribute, the one inside the ``build_requirements()`` method will prevail.
 
 As a rule of thumb, downstream defined values always override upstream dependency values. If some build requirement is defined in the
