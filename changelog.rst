@@ -18,8 +18,38 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.24 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.25 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.25.0 (06-May-2020)
+--------------------
+
+- Feature: Consume ``settings_build`` to get the value of the OS and arch from the ``build`` machine (only when ``--profile:build`` is provided). `#6916 <https://github.com/conan-io/conan/pull/6916>`_ . Docs `here <https://github.com/conan-io/docs/pull/1678>`__
+- Feature: Implements ``cpp_info.components`` dependencies. `#6871 <https://github.com/conan-io/conan/pull/6871>`_ . Docs `here <https://github.com/conan-io/docs/pull/1682>`__
+- Feature: Change HTML output for `conan search --table` command. `#6832 <https://github.com/conan-io/conan/pull/6832>`_ . Docs `here <https://github.com/conan-io/docs/pull/1676>`__
+- Feature: Execute periodic config install command. `#6824 <https://github.com/conan-io/conan/pull/6824>`_ . Docs `here <https://github.com/conan-io/docs/pull/1679>`__
+- Feature: Add `build_modules` to markdown generator output. `#6800 <https://github.com/conan-io/conan/pull/6800>`_
+- Feature: Resume interrupted file downloads if server supports it. `#6791 <https://github.com/conan-io/conan/pull/6791>`_
+- Feature: Using `CONAN_V2_MODE` the `version` attribute in a `ConanFile` is always a string (already documented). `#6782 <https://github.com/conan-io/conan/pull/6782>`_ . Docs `here <https://github.com/conan-io/docs/pull/1660>`__
+- Feature: Support GCC 9.3. `#6772 <https://github.com/conan-io/conan/pull/6772>`_ . Docs `here <https://github.com/conan-io/docs/pull/1644>`__
+- Feature: Populate `settings_build` and `settings_target` in conanfile (only if provided ``--profile:build``). `#6769 <https://github.com/conan-io/conan/pull/6769>`_ . Docs `here <https://github.com/conan-io/docs/pull/1678>`__
+- Feature: handle C++ standard for Intel C++ compiler `#6766 <https://github.com/conan-io/conan/pull/6766>`_
+- Feature: add Intel 19.1 (2020). `#6733 <https://github.com/conan-io/conan/pull/6733>`_
+- Fix: `tools.unix_path` is noop in all platforms but Windows (already documented behavior). `#6935 <https://github.com/conan-io/conan/pull/6935>`_
+- Fix: Preserve symbolic links for deploy generator. `#6922 <https://github.com/conan-io/conan/pull/6922>`_ . Docs `here <https://github.com/conan-io/docs/pull/1681>`__
+- Fix: Adds missing version GCC 10 to default settings. `#6911 <https://github.com/conan-io/conan/pull/6911>`_ . Docs `here <https://github.com/conan-io/docs/pull/1675>`__
+- Fix: Populate `requires` returned by the servers from the search endpoint using `requires` (Artifactory) or `full_requires` (conan_server) fields. `#6861 <https://github.com/conan-io/conan/pull/6861>`_
+- Fix: Avoid failures that happen when Conan runs in a non-existing folder. `#6825 <https://github.com/conan-io/conan/pull/6825>`_
+- Fix: Use pep508 environment markers for defining Conan pip requirements. `#6798 <https://github.com/conan-io/conan/pull/6798>`_
+- Fix: Improve error message when ``[options]`` are not specified correctly in conanfile.txt. `#6794 <https://github.com/conan-io/conan/pull/6794>`_
+- Fix: add missing compiler version check for Intel. `#6734 <https://github.com/conan-io/conan/pull/6734>`_
+- Bugfix: Prevent crash when mixing package_id modes for the same dependency. `#6947 <https://github.com/conan-io/conan/pull/6947>`_
+- BugFix: Propagate arch parameter to ``tools.vcvars_command()`` in `MSBuild()` build helper. `#6928 <https://github.com/conan-io/conan/pull/6928>`_
+- Bugfix: Fix the output of :command:`conan info` package folder when using ``build_id()`` method. `#6917 <https://github.com/conan-io/conan/pull/6917>`_
+- Bugfix: Generate correct PACKAGE_VERSION in ``cmake_find_package_multi`` generator for multi-config packages. `#6914 <https://github.com/conan-io/conan/pull/6914>`_
+- Bugfix: enable C++20 on Apple Clang. `#6858 <https://github.com/conan-io/conan/pull/6858>`_
+- Bugfix: Variable `package_name` in `conan new -t <template>` command contains a _CamelCase_ version of the name of the package. `#6821 <https://github.com/conan-io/conan/pull/6821>`_ . Docs `here <https://github.com/conan-io/docs/pull/1663>`__
+- Bugfix: Changed the CMake generator template to properly handle exelinkflags and sharedlinkflags using generator expressions. `#6780 <https://github.com/conan-io/conan/pull/6780>`_
 
 1.24.1 (21-Apr-2020)
 --------------------
