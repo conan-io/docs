@@ -924,52 +924,43 @@ This object should be filled in ``package_info()`` method.
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
 
-.. _cpp_info_components_attributes_reference:
-
-Components
-++++++++++
-
 .. warning::
 
-    This is a **experimental** feature subject to breaking changes in future releases.
+    Components is a **experimental** feature subject to breaking changes in future releases.
 
-When you are creating a Conan package, it is recommended to have only one library (*.lib*, *.a*, *.so*, *.dll*...) per package. However,
-especially with third-party projects like Boost, Poco or OpenSSL, they would contain several libraries inside.
-
-Usually those libraries inside the same package depend on each other and modelling the relationship among them is required.
-
-With **components**, you can model libraries and executables inside the same package and how one depends on the other. Each library or
-executable will be one component inside ``cpp_info`` like this (the following case is not a real example):
+:ref:`Using components <package_information_components>` you can achieve a more fine-grained control over individual libraries available in
+a single Conan package. Components allow you define a ``cpp_info`` like object per each of those libraries and also requirements between
+them and to components of other packages (the following case is not a real example):
 
 .. code-block:: python
 
     def package_info(self):
         self.cpp_info.name = "OpenSSL"
-        self.cpp_info.components["crypto"].name = "Crypto"
+        self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
         self.cpp_info.components["crypto"].libs = ["libcrypto"]
-        self.cpp_info.components["ssl"].name = "SSL"
-        self.cpp_info.components["ssl"].libs = ["libssl"]
+        self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
+        self.cpp_info.components["crypto"].requires = ["zlib::zlib"]  # Depends on all components in zlib package
 
-You can also model system dependencies for each component or just header files.
+        self.cpp_info.components["ssl"].names["cmake"] = "SSL"
+        self.cpp_info.components["ssl"].includedirs = ["include/headers_ssl"]
+        self.cpp_info.components["ssl"].libs = ["libssl"]
+        self.cpp_info.components["ssl"].requires = ["crypto",
+                                                    "boost::headers"]  # Depends on headers component in boost package
+
+The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object (except for the ``requires`` attribute) and
+has **the same default directories**.
 
 .. warning::
 
     Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
     ``self.cpp_info.name`` and ``self.cpp_info.names``).
 
-.. important::
-
-    Components information is still not available from the consumer side (``self.deps_cpp_info`` doesn't provide the ``components``
-    dictionary). We are planning to complete this feature in next releases.
-
-    The information of components is not lost but aggregated to the *global* scope and the usage of components should be transparent right
-    now to consumers and generators.
-
-The structure of the ``Component`` object is the same as the one used by the ``cpp_info`` object and has **the same default directories**.
+Dependencies among different components can be defined using the ``requires`` attribute and the name of the component. The dependency graph
+for components will be calculated and values will be aggregated in the correct order for each field.
 
 .. seealso::
 
-    Read :ref:`method_package_info` for more info.
+    Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
 
 .. _deps_cpp_info_attributes_reference:
 
