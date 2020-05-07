@@ -104,7 +104,7 @@ be linked to the generated library or other executable we want to deploy to the 
             self.build_requires("gtest/0.1", force_host_context=True)  # 'host' context (our library will link with it)
 
 
-.. image:: ../images/xbuild/conan-gtest_nasm.png
+.. image:: ../images/xbuild/cross-build-variables.png
    :width: 500 px
    :align: center
 
