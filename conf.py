@@ -36,6 +36,7 @@ extensions = [
     'sphinx.ext.todo',
     'conan',
     'sphinxcontrib.spelling',
+    'sphinx_sitemap',
 ]
 
 # The short X.Y version.
@@ -147,6 +148,9 @@ html_theme_path = conan.get_html_theme_path()
 html_theme_options = {
   "base_url": "https://docs.conan.io/en/latest/",
 }
+
+# for sphinx-sitemap
+html_baseurl = html_theme_options['base_url']
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
