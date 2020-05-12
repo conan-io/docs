@@ -16,7 +16,7 @@ Calls your local conanfile.py 'build()' method.
 The recipe will be built in the local directory specified by
 --build-folder, reading the sources from --source-folder. If you are
 using a build helper, like CMake(), the --package-folder will be
-configured as destination folder for the install step.
+configured as the destination folder for the install step.
 
 .. code-block:: text
 
@@ -31,7 +31,7 @@ configured as destination folder for the install step.
                             unless --configure/--install/--test specified
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             Directory for the build process. Defaulted to the
-                            current directory. A relative path to current
+                            current directory. A relative path to the current
                             directory can also be specified
       -c, --configure       Execute the configuration step (variable
                             should_configure=True). When specified,
@@ -56,7 +56,7 @@ configured as destination folder for the install step.
                             absolute path is allowed.
       -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             Directory containing the sources. Defaulted to the
-                            conanfile's directory. A relative path to current
+                            conanfile's directory. A relative path to the current
                             directory can also be specified
 
 

@@ -11,7 +11,7 @@ conan profile
 Lists profiles in the '.conan/profiles' folder, or shows profile details.
 
 The 'list' subcommand will always use the default user 'conan/profiles' folder. But the
-'show' subcommand is able to resolve absolute and relative paths, as well as to map names to
+'show' subcommand can resolve absolute and relative paths, as well as to map names to
 '.conan/profiles' folder, in the same way as the '--profile' install argument.
 
 .. code-block:: text
