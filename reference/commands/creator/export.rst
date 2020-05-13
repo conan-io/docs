@@ -26,9 +26,9 @@ to any remote with the 'conan upload' command.
     optional arguments:
       -h, --help            show this help message and exit
       -k, -ks, --keep-source
-                            Do not remove the source folder in local cache, even
-                            if the recipe changed. Use this for testing purposes
-                            only
+                            Do not remove the source folder in the local cache,
+                            even if the recipe changed. Use this for testing
+                            purposes only
       -l [LOCKFILE], --lockfile [LOCKFILE]
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile will be updated with the exported
