@@ -13,7 +13,7 @@ conan remove
 
 Removes packages or binaries matching pattern from local cache or remote.
 
-It can also be used to remove temporary source or build folders in the
+It can also be used to remove the temporary source or build folders in the
 local conan cache. If no remote is specified, the removal will be done
 by default in the local conan cache.
 
