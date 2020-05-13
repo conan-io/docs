@@ -18,7 +18,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
     positional arguments:
       name                  Package name, e.g.: "poco/1.9.4" or complete reference
-                            for CI scripts: "poco/1.9.4@"
+                            for CI scripts: "poco/1.9.4@user/channel"
 
     optional arguments:
       -h, --help            show this help message and exit

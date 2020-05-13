@@ -10,14 +10,14 @@ conan search
                    [--raw] [--table TABLE] [-j JSON] [-rev]
                    [pattern_or_reference]
 
-Searches package recipes and binaries in the local cache or in a remote.
+Searches package recipes and binaries in the local cache or a remote.
 
 If you provide a pattern, then it will search for existing package
 recipes matching it.  If a full reference is provided
-(``pkg/0.1@user/channel``) then the existing binary packages for that
+(pkg/0.1@user/channel) then the existing binary packages for that
 reference will be displayed. The default remote is ignored, if no
 remote is specified, the search will be done in the local cache.
-Search is case sensitive, exact case has to be used. For case
+Search is case sensitive, the exact case has to be used. For case
 insensitive file systems, like Windows, case sensitive search
 can be forced with '--case-sensitive'.
 
