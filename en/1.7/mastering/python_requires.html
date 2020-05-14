@@ -1,0 +1,564 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python requires: reusing python code in recipes &mdash; conan 1.7.4 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.7.4 documentation" href="../index.html"/>
+        <link rel="up" title="Mastering conan" href="../mastering.html"/>
+        <link rel="next" title="Use conanfile.py for consumers" href="conanfile_py.html"/>
+        <link rel="prev" title="Mastering conan" href="../mastering.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-WK44ZFM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-WK44ZFM');
+</script>
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mastering.html">Mastering conan</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python requires: reusing python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conanfile_py.html">Use conanfile.py for consumers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_cache.html">Conan local cache: concurrency, Continuous Integration, isolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mastering.html">Mastering conan</a> &raquo;</li>
+        
+      <li>Python requires: reusing python code in recipes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mastering/python_requires.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-requires-reusing-python-code-in-recipes">
+<span id="python-requires"></span><h1>Python requires: reusing python code in recipes<a class="headerlink" href="#python-requires-reusing-python-code-in-recipes" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an EXPERIMENTAL feature released in 1.7. Subject to breaking changes.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> feature allows to reuse python from other conanfile.py recipes easily, even for inheritance approaches.
+The code to be reused will be in a <em>conanfile.py</em> recipe, and will be managed as any other conan package. Let’s create for example
+some reusable base class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">MyBase</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool source!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool build!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool package!&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;My cool package_info!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With this conanfile, we can export it to the local cache to make it available, and also upload to our remote:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . MyBase/0.1@user/channel
+$ conan upload MyBase/0.1@user/channel -r<span class="o">=</span>myremote
+</pre></div>
+</div>
+<p>It is not necessary to “create” any package binaries, or to <code class="docutils literal notranslate"><span class="pre">upload</span> <span class="pre">--all</span></code>, because there are no binaries for this recipe.</p>
+<p>Now, using the <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> we can write a new package recipe like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">python_requires</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;MyBase/0.1@user/channel&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PkgTest</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">MyBase</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>If we run a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code>, of this recipe, we can see how it is effectively reusing the above code:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . Pkg/0.1@user/channel
+
+Pkg/0.1@lasote/testing: Installing package
+Requirements
+    Pkg/0.1@lasote/testing from <span class="nb">local</span> cache - Cache
+Python requires
+    MyConanfileBase/1.1@lasote/testing
+Packages
+    Pkg/0.1@lasote/testing:5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9 - Build
+...
+Pkg/0.1@lasote/testing: Configuring sources
+Pkg/0.1@lasote/testing: My cool source!
+...
+Pkg/0.1@lasote/testing: Calling build<span class="o">()</span>
+Pkg/0.1@lasote/testing: My cool build!
+...
+Pkg/0.1@lasote/testing: Calling package<span class="o">()</span>
+Pkg/0.1@lasote/testing: My cool package!
+...
+Pkg/0.1@lasote/testing: My cool package_info!
+</pre></div>
+</div>
+<p>It is not compulsory to extend the reused <code class="docutils literal notranslate"><span class="pre">MyBase</span></code> class, it is possible to reuse just functions too:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">def</span> <span class="nf">my_build</span><span class="p">(</span><span class="n">settings</span><span class="p">):</span>
+    <span class="c1"># doing custom stuff based on settings</span>
+
+<span class="k">class</span> <span class="nc">MyBase</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . MyBuild/0.1@user/channel
+$ conan upload MyBuild/0.1@user/channel -r<span class="o">=</span>myremote
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">python_requires</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;MyBuild/0.1@user/channel&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PkgTest</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">base</span><span class="o">.</span><span class="n">my_build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Version ranges are possible with the version ranges notation <code class="docutils literal notranslate"><span class="pre">[]</span></code>, similar to regular requirements.
+Multiple <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> are also possible</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><strong>conanfile.py</strong></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">python_requires</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;MyBase/[~0.1]@user/channel&quot;</span><span class="p">)</span>
+<span class="n">other</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;Other/1.2@user/channel&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">MyBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">other</span><span class="o">.</span><span class="n">some_function</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>It is possible to structure the code in different files too:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><strong>conanfile.py</strong></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">import</span> <span class="nn">mydata</span> <span class="c1"># reuse the strings from here</span>
+<span class="k">class</span> <span class="nc">MyConanfileBase</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;*.py&quot;</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">mydata</span><span class="o">.</span><span class="n">src</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><strong>mydata.py</strong></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="s2">&quot;My cool source!&quot;</span>
+<span class="n">build</span> <span class="o">=</span> <span class="s2">&quot;My cool build!&quot;</span>
+<span class="n">pkg</span> <span class="o">=</span> <span class="s2">&quot;My cool package!&quot;</span>
+<span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;My cool package_info!&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>This would be created with the same <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">export</span></code> and consumed with the same <code class="docutils literal notranslate"><span class="pre">base</span> <span class="pre">=</span> <span class="pre">python_requires(&quot;MyBase/0.1&#64;user/channel&quot;)</span></code> as above.</p>
+<p>There are a few important considerations regarding <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code>:</p>
+<ul class="simple">
+<li>They are required at every step of the conan commands. If you are creating a package that <code class="docutils literal notranslate"><span class="pre">python_requires(&quot;MyBase/...&quot;)</span></code>,
+the <code class="docutils literal notranslate"><span class="pre">MyBase</span></code> package should be already available in the local cache or to be downloaded from the remotes. Otherwise, conan
+will raise a “missing package” error.</li>
+<li>They do not affect the package binary ID (hash). Depending on different version, or different channel of
+such <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> do not change the package IDs as the normal dependencies do.</li>
+<li>They are imported only once. The python code that is reused is imported only once, the first time it is required.
+Subsequent requirements of that conan recipe will reuse the previously imported module. Global initialization at
+parsing time and global state are discouraged.</li>
+<li>They are transitive. One recipe using <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> can be also consumed with a <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> from
+another package recipe.</li>
+<li>They are not automatically updated with the <code class="docutils literal notranslate"><span class="pre">--update</span></code> argument from remotes.</li>
+<li>Different packages can require different versions in their <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code>. They are private to each recipe,
+so they do not conflict with each other, but it is the responsibility of the user to keep consistency.</li>
+<li>They are not overridden from downstream consumers. Again, as they are private, they are not affected by other packages,
+even consumers</li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conanfile_py.html" class="btn btn-neutral float-right" title="Use conanfile.py for consumers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../mastering.html" class="btn btn-neutral" title="Mastering conan" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.7
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.7/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.7.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.7");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

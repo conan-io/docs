@@ -1,0 +1,443 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contributing packages to conan-center &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Using Bintray" href="../using_bintray.html"/>
+        <link rel="next" title="Artifactory Community Edition for C/C++" href="../artifactory_ce.html"/>
+        <link rel="prev" title="Uploading to Bintray" href="uploading_bintray.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../remotes.html">Remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../uploading_to_remotes.html">Uploading packages to remotes</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../using_bintray.html">Using Bintray</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="uploading_bintray.html">Uploading to Bintray</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Contributing packages to conan-center</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#inclusion-guidelines-for-third-party-libraries">Inclusion guidelines for third party libraries</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../artifactory_ce.html">Artifactory Community Edition for C/C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../running_your_server.html">Running conan_server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../uploading_packages.html">Uploading packages</a> &raquo;</li>
+        
+          <li><a href="../using_bintray.html">Using Bintray</a> &raquo;</li>
+        
+      <li>Contributing packages to conan-center</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/uploading_packages/bintray/conan_center_guide.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="contributing-packages-to-conan-center">
+<span id="conan-center-flow"></span><h1>Contributing packages to conan-center<a class="headerlink" href="#contributing-packages-to-conan-center" title="Permalink to this headline">¶</a></h1>
+<p>As a moderated and curated repository, <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a> will not be populated automatically.
+Initially, it will be empty. To have your recipe or binary packages available on <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a>,
+you need to submit an inclusion request to Bintray, and the Bintray team will review your request.</p>
+<ul class="simple">
+<li>If you are the <strong>author of an open source library</strong>, your package will be approved. Keep in mind
+that it is your responsibility to maintain acceptable standards of quality for all packages you
+submit for inclusion in <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a>.</li>
+<li>If you are packaging a third-party library you need to follow the guidelines below.</li>
+</ul>
+<p>When you know how to <a class="reference internal" href="uploading_bintray.html#uploading-to-bintray"><span class="std std-ref">upload your packages to your own Bintray repository</span></a>, contributing a library to Conan
+Center is really straightforward. All you have to do is to navigate to the main page of the package in Bintray and click the
+<strong>“Add to Conan Center”</strong> button to start the inclusion request process.</p>
+<img alt="../../_images/add_to_conan-center.png" class="align-center" src="../../_images/add_to_conan-center.png" />
+<div class="section" id="inclusion-guidelines-for-third-party-libraries">
+<h2>Inclusion guidelines for third party libraries<a class="headerlink" href="#inclusion-guidelines-for-third-party-libraries" title="Permalink to this headline">¶</a></h2>
+<p>In the inclusion request process, the JFrog staff will perform a general review and will make
+suggestions for improvements or better/cleaner ways to implement the package.</p>
+<div class="section" id="one-conan-package-per-oss-library">
+<h3>One conan package per OSS library<a class="headerlink" href="#one-conan-package-per-oss-library" title="Permalink to this headline">¶</a></h3>
+<p>Before creating packages for third party libraries, please read these general guidelines.</p>
+<ul class="simple">
+<li>Ensure that there is no other conan package for the same library. If you are planning to support a
+new version of a library that already exists in the <code class="docutils literal notranslate"><span class="pre">conan-center</span></code> repository, please, contact
+the package author and collaborate. All the versions of the same library have to be on the same
+Bintray Conan package.</li>
+<li>It is recommended to contact the <strong>library author</strong> and suggest to maintain the Conan package.
+When possible, open a pull request to the original repository of the library with the conan needed
+files or suggest to open a new repository with the recipe.</li>
+<li>If you are going to collaborate with different users to maintain the Conan package, open a Bintray
+organization.</li>
+</ul>
+</div>
+<div class="section" id="recipe-quality">
+<h3>Recipe quality<a class="headerlink" href="#recipe-quality" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><strong>Git public repository</strong>: The recipe needs to be hosted in a public Git repository that allows
+collaboration.</li>
+<li><strong>Recipe fields</strong>: <cite>description</cite>, <cite>license</cite> and <cite>url</cite> are required. The <cite>license</cite> field refers to
+the library being packaged.</li>
+<li><strong>Linter:</strong> Is important to have a reasonable clean Linter, <strong class="command">conan export</strong> and  <strong class="command">conan create</strong>
+will output some warnings and errors, keep it as clean as possible to guarantee a recipe less
+error prone and more understandable.</li>
+<li><strong>Updated:</strong> Not using deprecated features and when possible, using latest conan features, build
+helpers etc.</li>
+<li><strong>Clean:</strong> The code style will be reviewed to guarantee the readability of the recipe.</li>
+<li><strong>test_package:</strong> The recipes must contain a <a class="reference internal" href="../../creating_packages/getting_started.html#packaging-getting-started"><span class="std std-ref">test_package</span></a></li>
+<li><strong>Maintenance commitment:</strong> You will be the responsible to keep the recipe updated, fix issues
+etc., so a minimal commitment will be required. Conan organization reserves the right to unlink a
+poorly maintained package or replace it with better alternatives.</li>
+<li><strong>Raise errors on invalid configurations:</strong> If the library doesn’t work for a specific
+configuration, e.g. requires <strong>gcc&gt;7</strong> the recipe must contain a <code class="docutils literal notranslate"><span class="pre">configure(self)</span></code> method  that
+raises an exception in case of invalid settings/options.</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">():</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;gcc&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span> <span class="o">&lt;</span> <span class="s2">&quot;7.0&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConanException</span><span class="p">(</span><span class="s2">&quot;GCC &gt; 7.0 is required&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ConanException</span><span class="p">(</span><span class="s2">&quot;Windows not supported&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>Without version ranges</strong>: As many libraries does not follow semantic versioning and the dependency resolution of version ranges is not
+always clear, recipes in conan center should fix the version of their dependencies and not use version ranges.</li>
+<li><strong>LICENSE of the recipe:</strong> The public repository must contain a <code class="docutils literal notranslate"><span class="pre">LICENSE</span></code> file with an OSS
+license.</li>
+<li><strong>LICENSE of the library:</strong> Every built binary package must contain one or more <code class="docutils literal notranslate"><span class="pre">license*</span></code>
+file(s), so make sure that in the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method of your recipe, you are copying the library
+licenses to a <code class="docutils literal notranslate"><span class="pre">licenses</span></code> subfolder.</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">():</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;license*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;licenses&quot;</span><span class="p">,</span>  <span class="n">ignore_case</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sometimes there is no <code class="docutils literal notranslate"><span class="pre">license</span></code> file, and you need to extract the license from a header file, this
+is an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">():</span>
+    <span class="c1"># Extract the License/s from the header to a file</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;header.h&quot;</span><span class="p">)</span>
+    <span class="n">license_contents</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="n">tmp</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;*/&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span> <span class="c1"># The license begins with a C comment /* and ends with */</span>
+    <span class="n">tools</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;LICENSE&quot;</span><span class="p">,</span> <span class="n">license_contents</span><span class="p">)</span>
+
+    <span class="c1"># Package it</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;license*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;licenses&quot;</span><span class="p">,</span>  <span class="n">ignore_case</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ci-integration">
+<h3>CI Integration<a class="headerlink" href="#ci-integration" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">If you are packaging a header only library, it is only needed to provide one CI configuration
+(e.g. Travis with gcc 6.1) to check that the package is built correctly (use <strong class="command">conan create</strong>).</p>
+</li>
+<li><p class="first">Unless your library is a header only library or doesn’t support a concrete operating system or
+compiler you will need to provide a CI systems integration to support:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>Linux:</strong> GCC, desirable latest version from each major (4.9, 5.4, 6.3)</li>
+<li><strong>Linux:</strong> Clang, desirable latest version from each major (3.9, 4.0)</li>
+<li><strong>Mac OSX:</strong> Two latest versions of apple-clang, e.j (8.0, 8.1) or newer.</li>
+<li><strong>Windows:</strong> Visual Studio 12, 14 and 15 (or newer)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">The easiest way to provide the CI integration (with Appveyor for Windows builds, Travis.ci for
+Linux and OSX, and Gitlab for Linux) is to use the <a class="reference internal" href="../../reference/commands/creator/new.html#conan-new"><span class="std std-ref">conan new</span></a> command. Take a
+look to the options to generate a library layout with the needed appveyor/travis/gitlab.</p>
+<p>You can also copy the following files from this <a class="reference external" href="https://github.com/lasote/conan-zlib">zlib Conan package repository</a> and adapt them:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">.travis</span></code> folder. Not needed to adjust anything.</li>
+<li><code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> file. Adjust your username, library reference etc</li>
+<li><code class="docutils literal notranslate"><span class="pre">appveyor.yml</span></code> file. Adjust your username, library reference etc</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Take a look to the <a class="reference internal" href="../../integrations/travisci.html#travis-integration"><span class="std std-ref">Travis CI</span></a>, <a class="reference internal" href="../../integrations/appveyor.html#appveyor-ci"><span class="std std-ref">Appveyor</span></a> and
+<a class="reference internal" href="../../integrations/gitlab.html#gitlab-integration"><span class="std std-ref">GitLab CI</span></a> integration guides.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="bintray-package-information">
+<h3>Bintray package information<a class="headerlink" href="#bintray-package-information" title="Permalink to this headline">¶</a></h3>
+<p>In the bintray page of your package fill the following fields:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Description (description of the packaged library)</li>
+<li>Licenses (license of the packaged library)</li>
+<li>Tags</li>
+<li>Maturity</li>
+<li>Website: If any, website of the library</li>
+<li>Issues tracker: URL of the issue tracker from your github repository e.j:
+<a class="reference external" href="https://github.com/lasote/conan-zlib/issues">https://github.com/lasote/conan-zlib/issues</a></li>
+<li>Version control: URL of your recipe github repository. e.j:
+<a class="reference external" href="https://github.com/lasote/conan-zlib">https://github.com/lasote/conan-zlib</a></li>
+<li>GitHub repo (user/repo): e.j lasote/conan-zlib</li>
+</ul>
+</div></blockquote>
+<p>In each version page (optional, but welcomed):</p>
+<blockquote>
+<div><ul class="simple">
+<li>Select the README from github.</li>
+<li>Select the Release Notes.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../artifactory_ce.html" class="btn btn-neutral float-right" title="Artifactory Community Edition for C/C++" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="uploading_bintray.html" class="btn btn-neutral" title="Uploading to Bintray" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

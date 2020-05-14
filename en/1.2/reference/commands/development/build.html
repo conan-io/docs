@@ -1,0 +1,423 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan build &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan package" href="package.html"/>
+        <link rel="prev" title="conan source" href="source.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="source.html">conan source</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="package.html">conan package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan build</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/reference/commands/development/build.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-build">
+<h1>conan build<a class="headerlink" href="#conan-build" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan build <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-sf SOURCE_FOLDER<span class="o">]</span> <span class="o">[</span>-bf BUILD_FOLDER<span class="o">]</span>
+              <span class="o">[</span>-pf PACKAGE_FOLDER<span class="o">]</span> <span class="o">[</span>-if INSTALL_FOLDER<span class="o">]</span> <span class="o">[</span>-c<span class="o">]</span> <span class="o">[</span>-b<span class="o">]</span> <span class="o">[</span>-i<span class="o">]</span>
+              path
+</pre></div>
+</div>
+<p>Calls your local conanfile.py ‘build()’ method. The recipe will be built in
+the local directory specified by –build-folder, reading the sources from
+–source-folder. If you are using a build helper, like CMake(), the
+–package-folder will be configured as destination folder for the install
+step.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  path                  path to a recipe (conanfile.py), e.g., conan build .
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                        local folder containing the sources. Defaulted to the
+                        directory of the conanfile. A relative path can also
+                        be specified (relative to the current directory)
+  -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
+                        build folder, working directory of the build process.
+                        Defaulted to the current directory. A relative path
+                        can also be specified (relative to the current
+                        directory)
+  -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
+                        folder to install the package (when the build system
+                        or build() method does it). Defaulted to the
+                        &#39;{build_folder}/package&#39; folder. A relative path can
+                        be specified, relative to the current folder. Also an
+                        absolute path is allowed.
+  -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                        Optional. Local folder containing the conaninfo.txt
+                        and conanbuildinfo.txt files (from a previous conan
+                        install execution). Defaulted to --build-folder
+  -c, --configure       Execute the configuration step (variable
+                        should_configure=True). When specified, build/install
+                        won&#39;t run unless --build/--install specified
+  -b, --build           Execute the build step (variable should_build=True).
+                        When specified, configure/install won&#39;t run unless
+                        --configure/--install specified
+  -i, --install         Execute the install step (variable
+                        should_install=True). When specified, configure/build
+                        won&#39;t run unless --configure/--build specified
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">build()</span></code> method might use <cite>settings</cite>, <cite>options</cite> and <cite>environment variables</cite> from the specified profile and dependencies information
+from the declared <code class="docutils literal notranslate"><span class="pre">deps_XXX_info</span></code> objects in the conanfile requirements. All that information is saved automatically in the
+<em>conaninfo.txt</em> and <em>conanbuildinfo.txt</em> files respectively, when you run the <strong class="command">conan install</strong> command. Those files have to be located
+in the specified <strong class="command">--build-folder</strong> or in the <strong class="command">--install-folder</strong> if specified.</p>
+<p>The <strong class="command">--configure, --build, --install</strong> arguments control which parts of the <code class="docutils literal notranslate"><span class="pre">build()</span></code> are actually executed.
+They have related conanfile boolean variables <code class="docutils literal notranslate"><span class="pre">should_configure,</span> <span class="pre">should_build,</span> <span class="pre">should_install</span></code>, which are <code class="docutils literal notranslate"><span class="pre">True</span></code>
+by default, but that will change if some of these arguments are used in the command line. The <code class="docutils literal notranslate"><span class="pre">CMake</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Meson</span></code> and <code class="docutils literal notranslate"><span class="pre">AutotoolsBuildEnvironment</span></code> helpers already use these variables.</p>
+<p><strong>Example</strong>: Building a conan package (for architecture x86) in a local directory.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+
+ <span class="k">class</span> <span class="nc">LibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;git clone https://github.com/memsharded/hello.git&quot;</span><span class="p">)</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+         <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">source_folder</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+         <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>First we will call <strong class="command">conan source</strong> to get our source code in the <em>src</em> directory, then <strong class="command">conan install</strong> to install the requirements
+and generate the info files, and finally <strong class="command">conan build</strong> to build the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span> $ conan <span class="nb">source</span> . --source-folder src
+ $ conan install . --install-folder build_x86 -s <span class="nv">arch</span><span class="o">=</span>x86
+<span class="hll"> $ conan build . --build-folder build_x86 --source-folder src
+</span></pre></div>
+</div>
+<p>Or if we want to create the <code class="docutils literal notranslate"><span class="pre">conaninfo.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> files in a different folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span> $ conan <span class="nb">source</span> . --source-folder src
+ $ conan install --install-folder install_x86 -s <span class="nv">arch</span><span class="o">=</span>x86
+<span class="hll"> $ conan build . --build-folder build_x86 --install-folder install_x86 --source-folder src
+</span></pre></div>
+</div>
+<p>However, we recommend the <code class="docutils literal notranslate"><span class="pre">conaninfo.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> to be generated in the same
+–build-folder, otherwise, you will need to specify a different folder in your build system to include
+the files generators file. e.j <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code></p>
+<p><strong>Example</strong>: Control the build stages</p>
+<p>Given a conanfile with this <code class="docutils literal notranslate"><span class="pre">build()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If nothing is specified, all three methods will be called. But using command line arguments, this can be changed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan build . -c <span class="c1"># only run cmake.configure(). Other methods will do nothing</span>
+$ conan build . -b <span class="c1"># only run cmake.build(). Other methods will do nothing</span>
+$ conan build . -i <span class="c1"># only run cmake.install(). Other methods will do nothing</span>
+<span class="c1"># They can be combined</span>
+$ conan build . -c -b <span class="c1"># run cmake.configure() + cmake.build(), but not cmake.install()</span>
+</pre></div>
+</div>
+<p>Autotools and Meson helpers already implement the same functionality. For other build systems, you can use
+the following variables in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_configure</span><span class="p">:</span>
+        <span class="c1"># Run my configure stage</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_build</span><span class="p">:</span>
+        <span class="c1"># Run my build stage</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">should_install</span><span class="p">:</span> <span class="c1"># If my build has install, otherwise use package()</span>
+        <span class="c1"># Run my install stage</span>
+</pre></div>
+</div>
+<p>Note these <code class="docutils literal notranslate"><span class="pre">should_configure,</span> <span class="pre">should_build,</span> <span class="pre">should_install</span></code> variables will always be <code class="docutils literal notranslate"><span class="pre">True</span></code> while
+building in the local cache. They can only be modified for the local flow with <strong class="command">conan build</strong>.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="package.html" class="btn btn-neutral float-right" title="conan package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="source.html" class="btn btn-neutral" title="conan source" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

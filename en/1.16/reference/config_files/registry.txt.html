@@ -1,0 +1,494 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>registry.txt / registry.json &mdash; conan 1.16.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.16.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Configuration files" href="../config_files.html"/>
+        <link rel="next" title="client.crt / client.key" href="client_certificates.html"/>
+        <link rel="prev" title="settings.yml" href="settings.yml.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../config_files.html">Configuration files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="conan.conf.html">conan.conf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="default_profile.html">profiles/default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="settings.yml.html">settings.yml</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">registry.txt / registry.json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="client_certificates.html">client.crt / client.key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="artifacts.properties.html">artifacts.properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="editable_layout.html">Editable layout files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hooks.html">Hooks [EXPERIMENTAL]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../config_files.html">Configuration files</a> &raquo;</li>
+        
+      <li>registry.txt / registry.json</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/config_files/registry.txt.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="registry-txt-registry-json">
+<span id="registry-txt"></span><h1>registry.txt / registry.json<a class="headerlink" href="#registry-txt-registry-json" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><em>registry.json</em> was introduced in Conan 1.9 and it substitutes the <em>registry.txt</em>. Both files are equivalent in content.</p>
+</div>
+<p>This file is generally automatically managed and it stores information about the remotes configured in the Conan client and the installed
+packages in your cache associated with the remote they were retrieved from.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">The recommendation is not to modify this file directly and only use it as registry information. In case you want to change a remote the
+information of the remotes can be accessed or changed via the <strong class="command">conan remote</strong> command.</p>
+</div>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>registry.txt</em></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> conan-center https://conan.bintray.com True
+ local http://localhost:9300 True
+
+ Hello/0.1@demo/testing local
+</pre></div>
+</div>
+</div>
+<p>The first section of the file is listing <code class="docutils literal notranslate"><span class="pre">remote-name</span></code>: <code class="docutils literal notranslate"><span class="pre">remote-url</span></code> <code class="docutils literal notranslate"><span class="pre">verify_ssl</span></code>. Adding, removing or changing
+those lines, will add, remove or change the respective remote. If <code class="docutils literal notranslate"><span class="pre">verify_ssl</span></code> is enabled, Conan will verify the SSL certificates for that
+remote server.</p>
+<p>The second part of the file contains a list of package references and the remote-name. This is a reference to which remote was that package
+retrieved from, which will act also as the default for operations on that package.</p>
+<p>Here you have an example of the file <em>registry.json</em>:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>registry.json</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span> <span class="p">{</span>
+     <span class="nt">&quot;remotes&quot;</span><span class="p">:[</span>
+         <span class="p">{</span>
+             <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;conan-center&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;https://api.bintray.com/conan/conan/conan-center&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;verify_ssl&quot;</span><span class="p">:</span><span class="kc">true</span>
+         <span class="p">},</span>
+         <span class="p">{</span>
+             <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;artifactory_local&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;http://192.168.43.191:8081/artifactory/api/conan/conan-local&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;verify_ssl&quot;</span><span class="p">:</span><span class="kc">true</span>
+         <span class="p">},</span>
+         <span class="p">{</span>
+             <span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;bincrafters&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="s2">&quot;https://api.bintray.com/conan/bincrafters/public-conan&quot;</span><span class="p">,</span>
+             <span class="nt">&quot;verify_ssl&quot;</span><span class="p">:</span><span class="kc">true</span>
+         <span class="p">}</span>
+     <span class="p">],</span>
+     <span class="nt">&quot;references&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;nanomsg/1.1.2@bincrafters/stable&quot;</span><span class="p">:</span><span class="s2">&quot;bincrafters&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Poco/1.9.0@pocoproject/stable:09378ed7f51185386e9f04b212b79fe2d12d005c&quot;</span><span class="p">:</span><span class="s2">&quot;conan-center&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hello/1.0@user/channel:2bb76c9adac7b8cd7c5e3b377ac9f06934aba606&quot;</span><span class="p">:</span><span class="s2">&quot;artifactory_local&quot;</span>
+     <span class="p">},</span>
+     <span class="nt">&quot;package_references&quot;</span><span class="p">:{</span>
+         <span class="nt">&quot;nanomsg/1.1.2@bincrafters/stable:26d575619895d584ff4fb07701901d53ff4cdd6b&quot;</span><span class="p">:</span> <span class="s2">&quot;bincrafters&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Poco/1.9.0@pocoproject/stable:09378ed7f51185386e9f04b212b79fe2d12d005c&quot;</span><span class="p">:</span><span class="s2">&quot;conan-center&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hello/1.0@user/channel:2bb76c9adac7b8cd7c5e3b377ac9f06934aba606&quot;</span><span class="p">:</span><span class="s2">&quot;artifactory_local&quot;</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="client_certificates.html" class="btn btn-neutral float-right" title="client.crt / client.key" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="settings.yml.html" class="btn btn-neutral" title="settings.yml" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.16
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.16/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.16.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.16");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,505 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Travis CI &mdash; conan 1.25.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.25.1 documentation" href="../../index.html"/>
+        <link rel="up" title="CI Platforms" href="../ci.html"/>
+        <link rel="next" title="Appveyor" href="appveyor.html"/>
+        <link rel="prev" title="Jenkins" href="jenkins.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compilers.html">Compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ides.html">IDEs</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ci.html">CI Platforms</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Travis CI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing-dependencies-and-building-your-project">Installing dependencies and building your project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-testing-and-uploading-conan-binary-packages">Creating, testing and uploading Conan binary packages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="circleci.html"> Circle CI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="azure_devops.html"> Microsoft’s Azure DevOps (TFS, VSTS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cross_platform.html">Other Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../ci.html">CI Platforms</a> &raquo;</li>
+        
+      <li> Travis CI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/ci/travisci.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="travisci-logo-travis-ci">
+<span id="travis-ci"></span><span id="travis-integration"></span><h1><img alt="travisci_logo" src="../../_images/conan-travisci_logo.jpeg" /> Travis CI<a class="headerlink" href="#travisci-logo-travis-ci" title="Permalink to this headline">¶</a></h1>
+<p>You can use the <a class="reference external" href="https://travis-ci.org/">Travis CI</a> cloud service to automatically build and test your project in Linux/MacOS environments in the cloud.
+It is free for OSS projects, and offers an easy integration with GitHub, so builds can be automatically
+fired in Travis-CI after a <strong class="command">git push</strong> to GitHub.</p>
+<p>You can use Travis-CI both for:</p>
+<ul class="simple">
+<li>Building and testing your project, which manages dependencies with Conan, and probably a <em>conanfile.txt</em> file.</li>
+<li>Building and testing Conan binary packages for a given Conan package recipe (with a <em>conanfile.py</em>).</li>
+</ul>
+<div class="section" id="installing-dependencies-and-building-your-project">
+<h2>Installing dependencies and building your project<a class="headerlink" href="#installing-dependencies-and-building-your-project" title="Permalink to this headline">¶</a></h2>
+<p>A very common use case is to build your project after Conan takes care of installing your dependencies. Doing this process in Travis CI is
+quite convenient as you can do it with <strong class="command">conan install</strong>.</p>
+<p>To enable <strong>Travis CI</strong> support, you need to create a <em>.travis.yml</em> file and paste this code in it:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>os: linux
+language: python
+python: &quot;3.7&quot;
+dist: xenial
+compiler:
+  - gcc
+install:
+# Install conan
+  - pip install conan
+# Automatic detection of your arch, compiler, etc.
+  - conan user
+script:
+# Download dependencies and build project
+  - conan install .
+# Call your build system
+  - cmake . -G &quot;Unix Makefiles&quot;
+  - cmake --build .
+# Run your tests
+  - ctest .
+</pre></div>
+</div>
+<p>Travis will install the gcc compiler and the <strong class="command">conan</strong> client and will execute the <strong class="command">conan install</strong> command using the
+requirements and generators indicated in your <em>conanfile.py</em> or <em>conanfile.txt</em>. Then, the <strong>script</strong> section installs the requirements and
+then you can use your build system to compile the project (using <strong class="command">make</strong> in this example).</p>
+</div>
+<div class="section" id="creating-testing-and-uploading-conan-binary-packages">
+<h2>Creating, testing and uploading Conan binary packages<a class="headerlink" href="#creating-testing-and-uploading-conan-binary-packages" title="Permalink to this headline">¶</a></h2>
+<p>You can also use Travis CI to automate building new Conan binary packages with every change you push to GitHub. You can probably set up
+your own way, but Conan has some utilities to help in the process.</p>
+<p>The command <strong class="command">conan new</strong> has arguments to create a default working <em>.travis.yml</em> file. Other setups might be possible, but for this
+example we are assuming that you are using GitHub and also uploading your final packages to Bintray.</p>
+<p>You could follow these steps:</p>
+<ol class="arabic simple">
+<li>First, create an empty GitHub repository. Let’s call it “hello”, for creating a “hello world” package. GitHub allows creating it with a Readme and .gitignore.</li>
+<li>Get the credentials User and API Key. (Remember, Bintray uses the API key as “password”, not your main Bintray account password.)</li>
+<li>Create a Conan repository in Bintray under your user or organization, and get its URL (“Set me up”). We will call it <code class="docutils literal notranslate"><span class="pre">UPLOAD_URL</span></code></li>
+<li>Activate the repo in your Travis account, so it is built when we push changes to it.</li>
+<li>Under <em>Travis More Options -&gt; Settings-&gt;Environment Variables</em>, add the <code class="docutils literal notranslate"><span class="pre">CONAN_PASSWORD</span></code> environment variable with the Bintray API Key.
+If your Bintray user is different from the package user, you can also define your Bintray username, defining the environment variable
+<code class="docutils literal notranslate"><span class="pre">CONAN_LOGIN_USERNAME</span></code>.</li>
+<li>Clone the repo: <strong class="command">git clone &lt;your_repo/hello&gt; &amp;&amp; cd hello</strong>.</li>
+<li>Create the package: <strong class="command">conan new hello/0.1&#64;&lt;user&gt;/testing -t -s -cilg -cis -ciu=UPLOAD_URL</strong> where <strong>user</strong> is your Bintray username.</li>
+<li>You can inspect the created files: both <em>.travis.yml</em>, <em>.travis/run.sh</em>, and <code class="docutils literal notranslate"><span class="pre">.travis/install.sh</span></code> and the <em>build.py</em> script, that is
+used by <strong>conan-package-tools</strong> utility to split different builds with different configurations in different Travis CI jobs.</li>
+<li>You can test locally, before pushing, with <strong class="command">conan test</strong>.</li>
+<li>Add the changes, commit and push: <strong class="command">git add . &amp;&amp; git commit -m &quot;first commit&quot; &amp;&amp; git push</strong>.</li>
+<li>Go to Travis and see the build, with the different jobs.</li>
+<li>When it has finished, go to your Bintray repository, you should see there the uploaded packages for different configurations.</li>
+<li>Check locally, searching in Bintray: <strong class="command">conan search hello/0.1&#64;&lt;user&gt;/testing -r=mybintray</strong>.</li>
+</ol>
+<p>If something fails, please report an issue in the <code class="docutils literal notranslate"><span class="pre">conan-package-tools</span></code> GitHub repository: <a class="reference external" href="https://github.com/conan-io/conan-package-tools">https://github.com/conan-io/conan-package-tools</a></p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="appveyor.html" class="btn btn-neutral float-right" title="Appveyor" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="jenkins.html" class="btn btn-neutral" title="Jenkins" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.25
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.25.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.25");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

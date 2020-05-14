@@ -1,0 +1,647 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python requires: reusing code [EXPERIMENTAL] &mdash; conan 1.15.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.15.1 documentation" href="../index.html"/>
+        <link rel="up" title="Extending Conan" href="../extending.html"/>
+        <link rel="next" title="Hooks" href="hooks.html"/>
+        <link rel="prev" title="Customizing settings" href="custom_settings.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../extending.html">Extending Conan</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="custom_settings.html">Customizing settings</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python requires: reusing code [EXPERIMENTAL]</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#import-a-python-requires">Import a python requires</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reuse-python-sources">Reuse python sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reuse-source-files">Reuse source files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../extending.html">Extending Conan</a> &raquo;</li>
+        
+      <li>Python requires: reusing code [EXPERIMENTAL]</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/extending/python_requires.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-requires-reusing-code-experimental">
+<span id="python-requires"></span><h1>Python requires: reusing code [EXPERIMENTAL]<a class="headerlink" href="#python-requires-reusing-code-experimental" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> feature is a very convenient way to share files and code between
+different recipes. A <em>Python Requires</em> is just like any other recipe, it is the way it is
+required from the consumer what makes the difference.</p>
+<p>The <em>Python Requires</em> recipe file, besides exporting its own required sources, can export
+files to be used by the consumer recipes and also python code in the recipe file itself.</p>
+<p>Let’s have a look at an example showing all its capabilities (you can find all
+the sources in <a class="reference external" href="https://github.com/conan-io/examples/tree/master/features/">Conan examples repository</a>):</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Python requires recipe:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+<span class="kn">from</span> <span class="nn">scm_utils</span> <span class="kn">import</span> <span class="n">get_version</span>
+
+
+<span class="k">class</span> <span class="nc">PythonRequires</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pyreq&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;version&quot;</span>
+
+    <span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;scm_utils.py&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;CMakeLists.txt&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">get_conanfile</span><span class="p">():</span>
+
+    <span class="k">class</span> <span class="nc">BaseConanFile</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+
+        <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+        <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+        <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+        <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+
+        <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># Copy the CMakeLists.txt file exported with the python requires</span>
+            <span class="n">pyreq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;pyreq&quot;</span><span class="p">]</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pyreq</span><span class="o">.</span><span class="n">exports_sources_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">),</span>
+                        <span class="n">dst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">)</span>
+
+            <span class="c1"># Rename the project to match the consumer name</span>
+            <span class="n">tools</span><span class="o">.</span><span class="n">replace_in_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">),</span>
+                                  <span class="s2">&quot;add_library(mylibrary $</span><span class="si">{sources}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;add_library(</span><span class="si">{}</span><span class="s2"> ${{sources}})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+
+        <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+            <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">BaseConanFile</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Consumer recipe</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">python_requires</span>
+
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;pyreq/version@user/channel&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ConsumerConan</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">get_conanfile</span><span class="p">()):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;consumer&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span>
+
+    <span class="c1"># Everything else is inherited</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>We must make available for other to use the recipe with the <em>Python Requires</em>, this recipe
+won’t have any associated binaries, only the sources will be needed, so we only need to execute
+the export and upload commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . pyreq/version@user/channel
+$ conan upload pyreq/version@user/channel -r<span class="o">=</span>myremote
+</pre></div>
+</div>
+<p>Now any consumer will be able to reuse the business logic and files available in the recipe,
+let’s have a look at the most common use cases.</p>
+<div class="section" id="import-a-python-requires">
+<h2>Import a python requires<a class="headerlink" href="#import-a-python-requires" title="Permalink to this headline">¶</a></h2>
+<p>To import a recipe as a <em>Python requires</em> it is needed to call the <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code>
+function with the reference as the only parameter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">base</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;pyreq/version@user/channel&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All the code available in the <em>conanfile.py</em> file of the imported recipe will be available
+in the consumer through the <code class="docutils literal notranslate"><span class="pre">base</span></code> variable.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>There are <strong>several important considerations</strong> regarding <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code>:</p>
+<ul class="last simple">
+<li>They are required at every step of the conan commands. If you are creating a package that <code class="docutils literal notranslate"><span class="pre">python_requires(&quot;MyBase/...&quot;)</span></code>,
+the <code class="docutils literal notranslate"><span class="pre">MyBase</span></code> package should be already available in the local cache or to be downloaded from the remotes. Otherwise, conan
+will raise a “missing package” error.</li>
+<li>They do not affect the package binary ID (hash). Depending on different version, or different channel of
+such <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> do not change the package IDs as the normal dependencies do.</li>
+<li>They are imported only once. The python code that is reused is imported only once, the first time it is required.
+Subsequent requirements of that conan recipe will reuse the previously imported module. Global initialization at
+parsing time and global state are discouraged.</li>
+<li>They are transitive. One recipe using <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> can be also consumed with a <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> from
+another package recipe.</li>
+<li>They are not automatically updated with the <code class="docutils literal notranslate"><span class="pre">--update</span></code> argument from remotes.</li>
+<li>Different packages can require different versions in their <code class="docutils literal notranslate"><span class="pre">python_requires()</span></code>. They are private to each recipe,
+so they do not conflict with each other, but it is the responsibility of the user to keep consistency.</li>
+<li>They are not overridden from downstream consumers. Again, as they are private, they are not affected by other packages,
+even consumers</li>
+</ul>
+</div>
+</div>
+<div class="section" id="reuse-python-sources">
+<h2>Reuse python sources<a class="headerlink" href="#reuse-python-sources" title="Permalink to this headline">¶</a></h2>
+<p>In the example proposed we are using two functions through the <code class="docutils literal notranslate"><span class="pre">base</span></code>
+variable: <code class="docutils literal notranslate"><span class="pre">base.get_conanfile()</span></code> and <code class="docutils literal notranslate"><span class="pre">base.get_version()</span></code>. The first one is defined
+directly in the <em>conanfile.py</em> file, but the second one is in a different source file that
+was exported together with the <code class="docutils literal notranslate"><span class="pre">pyreq/version&#64;user/channel</span></code> recipe using the
+<code class="docutils literal notranslate"><span class="pre">exports</span></code> attribute.</p>
+<p>This works without any Conan magic, it is just plain Python and you can even return a
+class from a function and inherit from it. That’s just what we are proposing in this
+example: all the business logic in contained in the <em>Python Requires</em> so every recipe
+will reuse it automatically. The consumer only needs to define the <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">version</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">python_requires</span>
+
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">python_requires</span><span class="p">(</span><span class="s2">&quot;pyreq/version@user/channel&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">ConsumerConan</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">get_conanfile</span><span class="p">()):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;consumer&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;version&quot;</span>
+
+    <span class="c1"># Everything else is inherited</span>
+</pre></div>
+</div>
+<p>while all the functional code is defined in the <em>python requires</em> recipe file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">python_requires</span>
+
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_conanfile</span><span class="p">():</span>
+
+    <span class="k">class</span> <span class="nc">BaseConanFile</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reuse-source-files">
+<h2>Reuse source files<a class="headerlink" href="#reuse-source-files" title="Permalink to this headline">¶</a></h2>
+<p>Up to now, we have been reusing python code, but we can also package files within the
+<em>python requires</em> recipe and consume them afterward, that’s what we are doing with a
+<em>CMakeList.txt</em> file, it will allow us to share the CMake code and ensure that all
+the libraries using the same <em>python requires</em> will have the same build script. These
+are the relevant code snippets from the example files:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">The <em>python requires</em> exports the needed sources (the file exists next to this <em>conanfile.py</em>):</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PythonRequires</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;pyreq&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;version&quot;</span>
+
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;CMakeLists.txt&quot;</span>
+
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The file will be exported together with the recipe <code class="docutils literal notranslate"><span class="pre">pyreq/version&#64;user/channel</span></code>
+during the call to <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">export</span> <span class="pre">.</span> <span class="pre">pyreq/version&#64;user/channel</span></code> as it is expected
+for any Conan package.</p>
+</li>
+<li><p class="first">The consumer recipe will copy the file from the <em>python requires</em> folder, we need to
+make this copy ourselves, there is nothing run automatically during the
+<code class="docutils literal notranslate"><span class="pre">python_requires()</span></code> call:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BaseConanFile</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Copy the CMakeLists.txt file exported with the python requires</span>
+        <span class="n">pyreq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">python_requires</span><span class="p">[</span><span class="s2">&quot;pyreq&quot;</span><span class="p">]</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pyreq</span><span class="o">.</span><span class="n">exports_sources_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">),</span>
+                    <span class="n">dst</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">)</span>
+
+        <span class="c1"># Rename the project to match the consumer name</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">replace_in_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">),</span>
+                              <span class="s2">&quot;add_library(mylibrary $</span><span class="si">{sources}</span><span class="s2">)&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;add_library(</span><span class="si">{}</span><span class="s2"> ${{sources}})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>As you can see, in the inherited <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, we are copying the <em>CMakeLists.txt</em>
+file from the <em>exports_sources</em> folder of the python requires (take a look at
+the <a class="reference internal" href="../reference/conanfile/attributes.html#python-requires-attribute"><span class="std std-ref">python_requires attribute</span></a>), and modifying a line to
+name the library with the current recipe name.</p>
+<p>In the example, our <code class="docutils literal notranslate"><span class="pre">ConsumerConan</span></code> class will also inherit the <code class="docutils literal notranslate"><span class="pre">build()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">package()</span></code> and <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, turning the actual <em>conanfile.py</em> of the
+library into a mere declaration of the name and version.</p>
+</li>
+</ul>
+</div></blockquote>
+<p>You can find the full example in the <a class="reference external" href="https://github.com/conan-io/examples/tree/master/features/">Conan examples repository</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hooks.html" class="btn btn-neutral float-right" title="Hooks" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="custom_settings.html" class="btn btn-neutral" title="Customizing settings" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.15
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.15/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.15");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

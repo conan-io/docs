@@ -1,0 +1,393 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Use conanfile.py for consumers &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Mastering conan" href="../mastering.html"/>
+        <link rel="next" title="Conditional settings, options and requirements" href="conditional.html"/>
+        <link rel="prev" title="Mastering conan" href="../mastering.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mastering.html">Mastering conan</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Use conanfile.py for consumers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conan-build">conan build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-local-commands">Other local commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_cache.html">Conan local cache: concurrency, Continuous Integration, isolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mastering.html">Mastering conan</a> &raquo;</li>
+        
+      <li>Use conanfile.py for consumers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mastering/conanfile_py.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="use-conanfile-py-for-consumers">
+<h1>Use conanfile.py for consumers<a class="headerlink" href="#use-conanfile-py-for-consumers" title="Permalink to this headline">¶</a></h1>
+<p>You can use a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> for installing/consuming packages, even if you are not creating a package with it. You can also use the existing <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> in a given package while developing it to install dependencies, no need to have a separate <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code>.</p>
+<p>Let’s take a look at the complete <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> from the previous <em>timer</em> example with POCO library, in which we have added a couple of extra generators</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+
+[generators]
+gcc
+cmake
+txt
+
+[options]
+Poco:shared=True
+OpenSSL:shared=True
+
+[imports]
+bin, *.dll -&gt; ./bin # Copies all dll files from the package &quot;bin&quot; folder to my project &quot;bin&quot; folder
+lib, *.dylib* -&gt; ./bin # Copies all dylib files from the package &quot;lib&quot; folder to my project &quot;bin&quot; folder
+</pre></div>
+</div>
+<p>The equivalent <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> file is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">PocoTimerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+   <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+   <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Poco/1.7.8p3@pocoproject/stable&quot;</span> <span class="c1"># comma separated list of requirements</span>
+   <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span><span class="p">,</span> <span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="s2">&quot;txt&quot;</span>
+   <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;Poco:shared=True&quot;</span><span class="p">,</span> <span class="s2">&quot;OpenSSL:shared=True&quot;</span>
+
+   <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span> <span class="c1"># From bin to bin</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">)</span> <span class="c1"># From lib to bin</span>
+</pre></div>
+</div>
+<p>Note that this <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> doesn’t have a name, version, or <code class="docutils literal notranslate"><span class="pre">build()</span></code> or <code class="docutils literal notranslate"><span class="pre">package()</span></code> method, as it is not creating a package, they are not required.</p>
+<p>With this <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> you can just work as usual, nothing changes from the user’s perspective.
+You can install the requirements with (from mytimer/build folder):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install ..
+</pre></div>
+</div>
+<div class="section" id="conan-build">
+<h2>conan build<a class="headerlink" href="#conan-build" title="Permalink to this headline">¶</a></h2>
+<p>One advantage of using <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> is that the project build can be further simplified,
+using the conanfile.py <code class="docutils literal notranslate"><span class="pre">build()</span></code> method.</p>
+<p>If you are building your project with CMake, edit your <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> and add the following <code class="docutils literal notranslate"><span class="pre">build()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">PocoTimerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+   <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+   <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Poco/1.7.8p3@pocoproject/stable&quot;</span>
+   <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span><span class="p">,</span> <span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="s2">&quot;txt&quot;</span>
+   <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;Poco:shared=True&quot;</span><span class="p">,</span> <span class="s2">&quot;OpenSSL:shared=True&quot;</span>
+
+   <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span> <span class="c1"># From bin to bin</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">)</span> <span class="c1"># From lib to bin</span>
+
+<span class="hll">   <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">      <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">      <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+</span><span class="hll">      <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>Then execute, from your project root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . --install-folder build
+$ conan build . --build-folder build
+</pre></div>
+</div>
+<p>The <strong class="command">conan install</strong> command downloads and prepares the requirements of your project
+(for the specified settings) and the <strong class="command">conan build</strong> command uses all that information
+to invoke your <code class="docutils literal notranslate"><span class="pre">build()</span></code> method to build your project, which in turn calls <code class="docutils literal notranslate"><span class="pre">cmake</span></code>.</p>
+<p>This <strong class="command">conan build</strong> will use the settings used in the <strong class="command">conan install</strong> which have been cached in the local <em>conaninfo.txt</em> and file
+in your build folder, which simplifies the process and reduces the errors of mismatches between the installed packages and the current
+project configuration. Also, the <em>conanbuildinfo.txt</em> file contains all the needed information obtained from the requirements:
+<code class="docutils literal notranslate"><span class="pre">deps_cpp_info</span></code>, <code class="docutils literal notranslate"><span class="pre">deps_env_info</span></code>, <code class="docutils literal notranslate"><span class="pre">deps_user_info</span></code> objects.</p>
+<p>If you want to build your project for <strong>x86</strong> or another setting just change the parameters passed to <strong class="command">conan install</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . --install-folder build_x86 -s <span class="nv">arch</span><span class="o">=</span>x86
+$ conan build . --build-folder build_x86
+</pre></div>
+</div>
+<p>Implementing and using the conanfile.py <code class="docutils literal notranslate"><span class="pre">build()</span></code> method ensures that we always use the same
+settings both in the installation of requirements and the build of the project, and simplifies
+calling the build system.</p>
+</div>
+<div class="section" id="other-local-commands">
+<h2>Other local commands<a class="headerlink" href="#other-local-commands" title="Permalink to this headline">¶</a></h2>
+<p>Conan implements other commands that can be executed locally over a consumer <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> which is in user space, not in the local cache:</p>
+<ul class="simple">
+<li><strong class="command">conan source &lt;path&gt;</strong>: Execute locally the <em>conanfile.py</em> <code class="docutils literal notranslate"><span class="pre">source()</span></code> method.</li>
+<li><strong class="command">conan package &lt;path&gt;</strong>: Execute locally the <em>conanfile.py</em> <code class="docutils literal notranslate"><span class="pre">package()</span></code> method.</li>
+</ul>
+<p>These commands are mostly used for testing and debugging while developing a new package, before <strong>exporting</strong> such package recipe into the
+local cache.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the section <a class="reference internal" href="../reference/commands.html#commands"><span class="std std-ref">Reference/Commands</span></a> to find out more.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conditional.html" class="btn btn-neutral float-right" title="Conditional settings, options and requirements" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../mastering.html" class="btn btn-neutral" title="Mastering conan" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

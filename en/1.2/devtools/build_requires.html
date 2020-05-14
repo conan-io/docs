@@ -1,0 +1,425 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build requirements &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Package apps and devtools" href="../devtools.html"/>
+        <link rel="next" title="Mastering conan" href="../mastering.html"/>
+        <link rel="prev" title="Creating conan packages to install dev tools" href="create_installer_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../devtools.html">Package apps and devtools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="running_packages.html">Running and deploying packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="create_installer_packages.html">Creating conan packages to install dev tools</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#declaring-build-requirements">Declaring build requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#properties-of-build-requirements">Properties of build requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-libraries">Testing libraries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-python-code">Common python code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../devtools.html">Package apps and devtools</a> &raquo;</li>
+        
+      <li>Build requirements</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/devtools/build_requires.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-requirements">
+<span id="build-requires"></span><h1>Build requirements<a class="headerlink" href="#build-requirements" title="Permalink to this headline">¶</a></h1>
+<p>There are some requirements that don’t feel natural to add to a package recipe. For example, imagine that you had a <code class="docutils literal notranslate"><span class="pre">cmake/3.4</span></code> package in conan. Would you add it as a requirement to the <code class="docutils literal notranslate"><span class="pre">ZLib</span></code> package, so it will install cmake first in order to build <code class="docutils literal notranslate"><span class="pre">Zlib</span></code>? In short:</p>
+<ul class="simple">
+<li>There are requirements that are only needed when you need to build a package from sources, but if the binary package already exists, you don’t want to install or retrieve them.</li>
+<li>These could be dev tools, compilers, build systems, code analyzers, testing libraries, …, etc.</li>
+<li>They can be very orthogonal to the creation of the package. It doesn’t matter whether you build ZLib with cmake 3.4, 3.5 or 3.6. As long as the CMakeLists.txt is compatible, it will produce the same final package.</li>
+<li>You don’t want to add a lot of different versions (like those of cmake) to be able to use them to build the package. You want to easily change the requirements, without needing to edit the ZLib package recipe.</li>
+<li>Some of them might not be even be taken into account when a package like ZLib is created, such as cross-compiling it to Android (in which the Android toolchain would be a build requirement).</li>
+</ul>
+<p>To address these needs, conan implements <code class="docutils literal notranslate"><span class="pre">build_requires</span></code>.</p>
+<div class="section" id="declaring-build-requirements">
+<h2>Declaring build requirements<a class="headerlink" href="#declaring-build-requirements" title="Permalink to this headline">¶</a></h2>
+<p>Build requirements can be declared in profiles, like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[build_requires]
+Tool1/0.1@user/channel
+Tool2/0.1@user/channel, Tool3/0.1@user/channel
+*: Tool4/0.1@user/channel
+MyPkg*: Tool5/0.1@user/channel
+&amp;: Tool6/0.1@user/channel
+&amp;!: Tool7/0.1@user/channel
+</pre></div>
+</div>
+<p>Build requirements are specified by a <code class="docutils literal notranslate"><span class="pre">pattern:</span></code>. If such pattern is not specified, it will be assumed to be <code class="docutils literal notranslate"><span class="pre">*</span></code>, i.e. to apply to all packages. Packages can be declared in different lines or by a comma separated list.
+In this example, Tool1, Tool2, Tool3 and Tool4 will be used for all packages in the dependency graph (while running <strong class="command">conan install</strong> or <strong class="command">conan create</strong>)</p>
+<p>If a pattern like <code class="docutils literal notranslate"><span class="pre">MyPkg*</span></code> is specified, the declared build requirements will only be applied to packages matching that pattern. Tool5 will not be applied to Zlib, for example, but it will be applied to MyPkgZlib.</p>
+<p>The special case of a <strong>consumer</strong> conanfile, which might have no name or version, and thus impossible to match with a pattern, is handled
+with the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> character. <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> means apply these build requirements to the consumer conanfile, while <code class="docutils literal notranslate"><span class="pre">&amp;!</span></code> means apply the build
+requirements to all packages except the consumer one. Remember that the consumer conanfile is the one inside the <em>test_package</em> folder or
+the one referenced in the <strong class="command">conan install</strong> command.</p>
+<p>Build requirements can be also specified in a package recipe, with the <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> attribute and the <code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">build_requires</span> <span class="o">=</span> <span class="s2">&quot;ToolA/0.2@user/testing&quot;</span><span class="p">,</span> <span class="s2">&quot;ToolB/0.2@user/testing&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build_requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># useful for example for conditional build_requires</span>
+        <span class="c1"># This means, if we are running on a Windows machine, require ToolWin</span>
+        <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">build_requires</span><span class="p">(</span><span class="s2">&quot;ToolWin/0.1@user/stable&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above <code class="docutils literal notranslate"><span class="pre">ToolA</span></code> and <code class="docutils literal notranslate"><span class="pre">ToolB</span></code> will be always retrieved and used for building this recipe, while the <code class="docutils literal notranslate"><span class="pre">ToolWin</span></code> one will only be used in Windows.</p>
+<p>If some build requirement defined inside <code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code> has the same package name as the one defined in the <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> attribute, the one inside the <code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code> method will prevail.</p>
+<p>Also, as a rule of thumb, downstream defined values always override upstream dependency values. If some build requirement is defined in the profile, it will overwrite the build requirements defined in package recipes that have the same package name.</p>
+</div>
+<div class="section" id="properties-of-build-requirements">
+<h2>Properties of build requirements<a class="headerlink" href="#properties-of-build-requirements" title="Permalink to this headline">¶</a></h2>
+<p>The behavior of <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> is the same, irrespective if they are defined in the profile, or if defined in the package recipe:</p>
+<ul class="simple">
+<li>Build requirements will only be retrieved and installed if some package that has to be built from sources matches the declared pattern. Otherwise, they will not be even checked for existence.</li>
+<li>Options and environment variables declared in the <code class="docutils literal notranslate"><span class="pre">profile</span></code> as well as in the command line will affect the build requirements for packages. In that way, you can define, for example, for the <code class="docutils literal notranslate"><span class="pre">cmake_installer/0.1</span></code> package, which cmake version will be installed.</li>
+<li>Build requirements will be activated for matching packages via the <code class="docutils literal notranslate"><span class="pre">deps_cpp_info</span></code> and <code class="docutils literal notranslate"><span class="pre">deps_env_info</span></code> members. So, include directories, library names, compile flags (CFLAGS, CXXFLAGS, LINKFLAGS), sysroot, etc. will be applied from the build requirement package <code class="docutils literal notranslate"><span class="pre">self.cpp_info</span></code> values. The same for <code class="docutils literal notranslate"><span class="pre">self.env_info</span></code>: variables such as PATH, PYTHONPATH, and any other environment variables will be applied to the matching patterns and activated as environment variables.</li>
+<li>Build requirements can also be transitive. They can declare their own requirements, both normal requirements and their own build requirements. Normal logic for dependency graph resolution applies, such as conflict resolution and dependency overriding.</li>
+<li>Each matching pattern will produce a different dependency graph of build requirements. These graphs are cached so that they are only computed once. If a build requirement applies to different packages with the same configuration it will only be installed once (same behavior as normal dependencies - once they are cached locally, there is no need to retrieve or build them again).</li>
+<li>Build requirements do not affect the binary package ID. If using a different build requirement produces a different binary, you should consider adding an option or a setting to model that (if not already modeled).</li>
+<li>Build requires can also use version-ranges, like <code class="docutils literal notranslate"><span class="pre">Tool/[&gt;0.3]&#64;user/channel</span></code>.</li>
+<li>Build requirements are not listed in <strong class="command">conan info</strong> nor are represented in the graph (with <strong class="command">conan info --graph</strong>).</li>
+</ul>
+</div>
+<div class="section" id="testing-libraries">
+<h2>Testing libraries<a class="headerlink" href="#testing-libraries" title="Permalink to this headline">¶</a></h2>
+<p>One example of build requirement could be a testing framework, which is implemented as a library. Let’s call it <code class="docutils literal notranslate"><span class="pre">mytest_framework</span></code>, an existing conan package.</p>
+<p>Build requirements can be checked for existence (whether they’ve been applied) in the recipes, which can be useful for conditional logic on the recipes. In this example, we could have one recipe with the following <code class="docutils literal notranslate"><span class="pre">build()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">enable_testing</span> <span class="o">=</span> <span class="s2">&quot;mytest_framework&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">deps</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">defs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ENABLE_TESTING&quot;</span><span class="p">:</span> <span class="n">enable_testing</span><span class="p">})</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">enable_testing</span><span class="p">:</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And the package <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">project</span><span class="p">(</span><span class="s">PackageTest</span> <span class="s">CXX</span><span class="p">)</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.12</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+<span class="nb">conan_basic_setup</span><span class="p">()</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">ENABLE_TESTING</span><span class="p">)</span>
+    <span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span> <span class="s">test.cpp</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span>
+
+    <span class="nb">enable_testing</span><span class="p">()</span>
+    <span class="nb">add_test</span><span class="p">(</span><span class="s">NAME</span> <span class="s">example</span>
+              <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/bin</span>
+              <span class="s">COMMAND</span> <span class="s">example</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This package recipe will not retrieve the <code class="docutils literal notranslate"><span class="pre">mytest_framework</span></code> nor build the tests, for normal installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install
+</pre></div>
+</div>
+<p>But if the following profile—let’s call it <code class="docutils literal notranslate"><span class="pre">mytest_profile</span></code>—is defined:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[build_requires]
+mytest_framework/0.1@user/channel
+</pre></div>
+</div>
+<p>Then, the following command will retrieve the <code class="docutils literal notranslate"><span class="pre">mytest_framework</span></code> and build and run the tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install --profile<span class="o">=</span>mytest_profile
+</pre></div>
+</div>
+</div>
+<div class="section" id="common-python-code">
+<h2>Common python code<a class="headerlink" href="#common-python-code" title="Permalink to this headline">¶</a></h2>
+<p>The same technique can be even used to inject and reuse python code in the package recipes, without having to declare dependencies to such python packages.</p>
+<p>If a conan package is defined to wrap and reuse the <code class="docutils literal notranslate"><span class="pre">mypythontool.py</span></code> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Tool</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;PythonTool&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;mypythontool.py&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;mypythontool.py&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">PYTHONPATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, if a profile is defined:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[build_requires]
+PythonTool/0.1@user/channel
+</pre></div>
+</div>
+<p>such package can be reused in other recipes, such as the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;mytool&quot;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">mypythontool</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">mypythontool</span><span class="o">.</span><span class="n">hello_world</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../mastering.html" class="btn btn-neutral float-right" title="Mastering conan" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="create_installer_packages.html" class="btn btn-neutral" title="Creating conan packages to install dev tools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

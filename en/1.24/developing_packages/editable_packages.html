@@ -1,0 +1,672 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Packages in editable mode &mdash; conan 1.24.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.24.1 documentation" href="../index.html"/>
+        <link rel="up" title="Developing packages" href="../developing_packages.html"/>
+        <link rel="next" title="Workspaces" href="workspaces.html"/>
+        <link rel="prev" title="Package development flow" href="package_dev_flow.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developing_packages.html">Developing packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Packages in editable mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#put-a-package-in-editable-mode">Put a package in editable mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#editable-packages-layouts">Editable packages layouts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#recipe-defined-layout">Recipe defined layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#layout-files">Layout files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#specifying-layout-files">Specifying layout files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#evaluation-order-and-priority">Evaluation order and priority</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#using-a-package-in-editable-mode">Using a package in editable mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#revert-the-editable-mode">Revert the editable mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="workspaces.html">Workspaces</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../developing_packages.html">Developing packages</a> &raquo;</li>
+        
+      <li>Packages in editable mode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/developing_packages/editable_packages.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="packages-in-editable-mode">
+<span id="editable-packages"></span><h1>Packages in editable mode<a class="headerlink" href="#packages-in-editable-mode" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>When working in big projects with several functionalities interconnected it is recommended to avoid
+the one-and-only huge project approach in favor of several libraries, each one specialized
+in a set of common tasks, even maintained by dedicated teams. This approach helps to isolate
+and reusing code helps with compiling times and reduces the likelihood of including files that
+not correspond to the API of the required library.</p>
+<p>Nevertheless, in some case, it is useful to work in several libraries at the same time and see how
+the changes in one of them are propagated to the others. Following the
+<a class="reference internal" href="package_dev_flow.html#package-dev-flow"><span class="std std-ref">local workflow</span></a> an user can execute the commands <strong class="command">conan source</strong>,
+<strong class="command">conan install</strong>, <strong class="command">conan build</strong> and <strong class="command">conan package</strong>, but in order to
+get the changes ready for a consumer library, it is needed the <strong class="command">conan create</strong> that will
+actually trigger a build to generate the binaries in the cache or to run <strong class="command">conan export-pkg</strong>
+to copy locally built artifacts into the conan cache and make them available to consumers.</p>
+<p>With the editable packages, you can tell Conan where to find the headers and the artifacts ready for
+consumption in your local working directory. There is no need to package.</p>
+<p>Let’s see this feature over an practical example; the code can be found in the conan examples repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/examples.git
+</pre></div>
+</div>
+<p>In the project <cite>examples/features/editable/cmake</cite> a developer is creating the app
+<code class="docutils literal notranslate"><span class="pre">hello</span></code> but at the same time they want to work on <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> library which
+is tightly coupled to the app.</p>
+<p>The package <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> is already working, the developer has the sources in a
+local folder and they are using whatever method to build and develop locally and can perform
+a <strong class="command">conan create . say/0.1&#64;user/channel</strong> to create the package.</p>
+<p>Also, there is a <em>conanfile.txt</em> (or a more complex recipe) for the application <code class="docutils literal notranslate"><span class="pre">hello</span></code> that
+has <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> among its requirements. When building this application, the
+resources of <code class="docutils literal notranslate"><span class="pre">say</span></code> are used from the Conan local cache.</p>
+<div class="section" id="put-a-package-in-editable-mode">
+<h2>Put a package in editable mode<a class="headerlink" href="#put-a-package-in-editable-mode" title="Permalink to this headline">¶</a></h2>
+<p>To avoid creating the package <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> in the cache for every change, we are going
+to put that package in editable mode, creating <strong>a link from the reference in the cache to the local
+working directory</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan editable add examples/features/editable/cmake/say say/0.1@user/channel
+<span class="c1"># you could do &quot;cd &lt;examples/features/editable/cmake/say&gt; &amp;&amp; conan editable add . say/0.1@user/channel&quot;</span>
+</pre></div>
+</div>
+<p>That is it. Now, every usage of <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code>, by any other Conan package or project,
+will be redirected to the <code class="docutils literal notranslate"><span class="pre">examples/features/editable/cmake/say</span></code> user folder instead of using the package
+from the conan cache.</p>
+<p>The Conan package recipes define a package “layout” in their <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> methods. The default one,
+if nothing is specified is equivalent to:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># default behavior, doesn&#39;t need to be explicitly defined in recipes</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;include&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lib&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">bindirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;bin&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">resdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;res&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>That means that conan will use the path <code class="docutils literal notranslate"><span class="pre">examples/features/editable/cmake/say/include</span></code> for locating the headers of
+the <code class="docutils literal notranslate"><span class="pre">say</span></code> package, the <code class="docutils literal notranslate"><span class="pre">examples/features/editable/cmake/say/lib</span></code> to locate the libraries of the package, and so on.</p>
+<p>That might not be very useful, as typically while editing the source code and doing incremental builds, the
+development layout is different from that final “package” layout. While it is possible to run a
+<strong class="command">conan package</strong> local command to execute the packaging in the user folder, and that will achieve that
+final layout, that is not very elegant. Conan provides several ways to customize the layout for editable packages.</p>
+</div>
+<div class="section" id="editable-packages-layouts">
+<h2>Editable packages layouts<a class="headerlink" href="#editable-packages-layouts" title="Permalink to this headline">¶</a></h2>
+<p>The custom layout of a package while it is in editable mode can be defined in different ways:</p>
+<div class="section" id="recipe-defined-layout">
+<h3>Recipe defined layout<a class="headerlink" href="#recipe-defined-layout" title="Permalink to this headline">¶</a></h3>
+<p>A recipe can define a custom layout when it is not living in the local cache, in its <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method,
+something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_local_cache</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="s2">&quot;include_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">includedirs</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>That will map the include directories to <code class="docutils literal notranslate"><span class="pre">examples/features/editable/cmake/say/include_debug</span></code> when working with <code class="docutils literal notranslate"><span class="pre">build_type=Debug</span></code>
+conan setting, and to <code class="docutils literal notranslate"><span class="pre">examples/features/editable/cmake/say/include_release</span></code> if <code class="docutils literal notranslate"><span class="pre">build_type=Release</span></code>. In the same way, other
+directories (libdirs, bindirs, etc) can be customized, with any logic, different for different OS, build systems, etc.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_local_cache</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;Visual Studio&quot;</span><span class="p">:</span>
+                <span class="c1"># NOTE: Use the real layout used in your VS projects, this is just an example</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libdirs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>That will define the libraries directories to <code class="docutils literal notranslate"><span class="pre">examples/features/editable/cmake/say/Release_x86_64</span></code>, for example.
+That is only an example, the real layout used by VS would be different.</p>
+</div>
+<div class="section" id="layout-files">
+<h3>Layout files<a class="headerlink" href="#layout-files" title="Permalink to this headline">¶</a></h3>
+<p>Instead of changing the recipe file to match the local layout, it’s possible to define the
+layout in a separate file. This is especially useful if you have a large number of libraries
+with the same structure so you can write it once and use it for several packages.</p>
+<p>Layout files are <em>ini</em> files, but before parsing them Conan uses the Jinja2 template
+engine passing the <code class="docutils literal notranslate"><span class="pre">settings</span></code>, <code class="docutils literal notranslate"><span class="pre">options</span></code> and current <code class="docutils literal notranslate"><span class="pre">reference</span></code> objects, so you
+can add logic to the files:</p>
+<blockquote>
+<div><div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[build_folder]</span>
+<span class="na">build/{{settings.build_type}}</span>
+
+<span class="k">[source_folder]</span>
+<span class="na">src</span>
+
+<span class="k">[includedirs]</span>
+<span class="na">src</span>
+
+<span class="k">[libdirs]</span>
+<span class="na">build/{{settings.build_type}}/lib</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>You can have a look at the <a class="reference external" href="https://palletsprojects.com/p/jinja/">Jinja2 documentation</a> to know more
+about its powerful syntax.</p>
+<p>This file can use the package reference to customize logic for a specific package:</p>
+<blockquote>
+<div><div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[say/0.1@user/channel:build_folder]</span>
+<span class="na">{% if settings.compiler</span> <span class="o">=</span><span class="s">= &quot;Visual Studio&quot; %}</span>
+<span class="na">build</span>
+<span class="na">{% else %}</span>
+<span class="na">build/{{settings.build_type}}</span>
+<span class="na">{% endif %}</span>
+
+<span class="k">[build_folder]</span>
+<span class="na">build/{{settings.arch}}/{{settings.build_type}}</span>
+
+<span class="k">[source_folder]</span>
+<span class="na">src</span>
+
+<span class="k">[includedirs]</span>
+<span class="na">src</span>
+
+<span class="k">[libdirs]</span>
+<span class="na">build/{{settings.build_type}}/lib</span>
+
+<span class="k">[bindirs]</span>
+<span class="na">build/{{settings.build_type}}/bin</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This layout will define the <code class="docutils literal notranslate"><span class="pre">src</span></code> include directory for the <code class="docutils literal notranslate"><span class="pre">say</span></code> and for other packages in editable mode.
+Also, the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> has a condition only for <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> package. It will use a specific path,
+according the compiler.</p>
+<p>In every case the directories that will be affected by the editable mode will be <code class="docutils literal notranslate"><span class="pre">includedirs</span></code>,
+<code class="docutils literal notranslate"><span class="pre">libdirs</span></code>, <code class="docutils literal notranslate"><span class="pre">bindirs</span></code>, <code class="docutils literal notranslate"><span class="pre">resdirs</span></code>, <code class="docutils literal notranslate"><span class="pre">srcdirs</span></code> and <code class="docutils literal notranslate"><span class="pre">builddirs</span></code>, all of them declared in the
+<a class="reference internal" href="../reference/conanfile/attributes.html#cpp-info-attributes-reference"><span class="std std-ref">cpp_info</span></a> dictionary; the rest of values in that dictionary won’t
+be modified. So <code class="docutils literal notranslate"><span class="pre">cflags</span></code>, <code class="docutils literal notranslate"><span class="pre">defines</span></code>, library names in <code class="docutils literal notranslate"><span class="pre">libs</span></code> defined in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>
+will still be used.</p>
+<p>By default all folders paths are relative to the directory where the <em>conanfile.py</em>
+of the editable package is (which is the path used to create the link), though they also allow absolute
+paths.</p>
+</div>
+<div class="section" id="specifying-layout-files">
+<h3>Specifying layout files<a class="headerlink" href="#specifying-layout-files" title="Permalink to this headline">¶</a></h3>
+<p>Layout files are specified in the <strong class="command">conan editable add</strong> command, as an extra argument:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> examples/features/editable/cmake/say
+$ conan editable add . say/0.1@user/channel --layout<span class="o">=</span>layout_vs
+</pre></div>
+</div>
+<p>That <code class="docutils literal notranslate"><span class="pre">layout_vs</span></code> file will be first looked for relative to the current directory (the
+path can be absolute too). If it is found, that will be used. It is possible to add those
+layouts in the source repositories, so they are always easy to find after a clone.</p>
+<p>If the specified layout is not found relative to the current directory, it will be looked
+for in the conan cache, in the <code class="docutils literal notranslate"><span class="pre">.conan/layouts</span></code> folder. This is very convenient to have
+a single definition of layouts that can be shared with the team and installed with
+<code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>.</p>
+<p>If no argument is specified, the <strong class="command">conan editable add</strong> command will try to use a <cite>.conan/layouts/default</cite>
+layout from the local cache.</p>
+<p>You can switch layout files by passing a different argument to new calls to <strong class="command">conan editable add</strong>.</p>
+</div>
+<div class="section" id="evaluation-order-and-priority">
+<h3>Evaluation order and priority<a class="headerlink" href="#evaluation-order-and-priority" title="Permalink to this headline">¶</a></h3>
+<p>It is important to understand the evaluation order and priorities regarding the definitions of layouts:</p>
+<ul class="simple">
+<li>The first thing that will always execute is the recipe <code class="docutils literal notranslate"><span class="pre">package_info()</span></code>. That will define
+the flags, definitions, as well as some values for the layout folders: <code class="docutils literal notranslate"><span class="pre">includedirs</span></code>, <code class="docutils literal notranslate"><span class="pre">libdirs</span></code>, etc.</li>
+<li>If a layout file is defined, either explicitly or using the implicit <code class="docutils literal notranslate"><span class="pre">.conan/layouts/default</span></code>,
+conan will look for matches, based on its package reference.</li>
+<li>If a match is found, either because of global definitions like <code class="docutils literal notranslate"><span class="pre">[includedirs]</span></code>
+or because a match like <code class="docutils literal notranslate"><span class="pre">[pkg/version&#64;user/channel:includedirs]</span></code>, then the layout folders
+(includedirs, libdirs, resdirs, builddirs, bindirs), will be invalidated and replaced by the ones
+defined in the file.</li>
+<li>If a specific match like <code class="docutils literal notranslate"><span class="pre">[pkg/version&#64;user/channel:includedirs]</span></code> is found, it is expected to
+have defined also its specific <code class="docutils literal notranslate"><span class="pre">[pkg/version&#64;user/channel:libdirs]</span></code>, etc. The global layout
+folders specified without package reference won’t be applied once a match is found.</li>
+<li>It no match is found, the original values for the layout folders defined in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> will
+be respected.</li>
+<li>The layout file to be used is defined at <strong class="command">conan editable add</strong> time. If a <code class="docutils literal notranslate"><span class="pre">.conan/layouts/default</span></code> file
+is added after the <strong class="command">conan editable add</strong>, it will not be used at all.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="using-a-package-in-editable-mode">
+<h2>Using a package in editable mode<a class="headerlink" href="#using-a-package-in-editable-mode" title="Permalink to this headline">¶</a></h2>
+<p>Once a reference is in editable mode it is used <strong>system wide</strong> (for every set of <code class="docutils literal notranslate"><span class="pre">settings</span></code> and
+<code class="docutils literal notranslate"><span class="pre">options</span></code>) by Conan (by every Conan client that uses the same cache), no changes are
+required in the consumers. Every <strong class="command">conan install</strong> command that requires our editable
+<code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> package will use the paths to the local directory and the changes
+made to this project will be taken into account by the packages using its headers or linking
+against it.</p>
+<p>To summarize, consumption of packages in editable mode is transparent to their consumers.
+To try that it is working, the following flow should work:</p>
+<ul class="simple">
+<li>Get sources of <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code>: <strong class="command">git/svn clone... &amp;&amp; cd folder</strong></li>
+<li>Put package in editable mode: <strong class="command">conan editable add . say/0.1&#64;user/channel --layout=layout_gcc</strong></li>
+<li>Work with it and build using any tool. Check that your local layout is reflected in the layout
+file <em>layout_gcc</em> specified in the previous step.</li>
+<li>Go to the consumer project: <code class="docutils literal notranslate"><span class="pre">hello</span></code></li>
+<li>Build it using any local flow: <strong class="command">conan install</strong> and build</li>
+<li>Go back to <code class="docutils literal notranslate"><span class="pre">say/0.1&#64;user/channel</span></code> source folder, do some changes, and just build. No Conan commands necessary</li>
+<li>Go to the consumer project: <code class="docutils literal notranslate"><span class="pre">hello</span></code> and rebuild. It should get the changes from the <code class="docutils literal notranslate"><span class="pre">say</span></code> library.</li>
+</ul>
+<p>In that way, it is possible to be developing both the <code class="docutils literal notranslate"><span class="pre">say</span></code> library and the <code class="docutils literal notranslate"><span class="pre">hello</span></code> application, at the same
+time, without any Conan command.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When a package is in editable mode, most of the commands will not work. It is not possible to <strong class="command">conan upload</strong>,
+<strong class="command">conan export</strong> or <strong class="command">conan create</strong> when a package is in editable mode.</p>
+</div>
+</div>
+<div class="section" id="revert-the-editable-mode">
+<h2>Revert the editable mode<a class="headerlink" href="#revert-the-editable-mode" title="Permalink to this headline">¶</a></h2>
+<p>In order to revert the editable mode just remove the link using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan editable remove say/0.1@user/channel
+</pre></div>
+</div>
+<p>It will remove the link (the local directory won’t be affected) and all the packages consuming this
+requirement will get it from the cache again.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Packages that are built consuming an editable package in its graph upstreams can generate binaries
+and packages incompatible with the released version of the editable package. Avoid uploading
+these packages without re-creating them with the in-cache version of all the libraries.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="workspaces.html" class="btn btn-neutral float-right" title="Workspaces" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="package_dev_flow.html" class="btn btn-neutral" title="Package development flow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.24
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.24/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.24.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.24");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

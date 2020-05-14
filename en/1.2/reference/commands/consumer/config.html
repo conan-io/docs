@@ -1,0 +1,406 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan config &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan get" href="get.html"/>
+        <link rel="prev" title="conan install" href="install.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="install.html">conan install</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get.html">conan get</a></li>
+<li class="toctree-l4"><a class="reference internal" href="info.html">conan info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="search.html">conan search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan config</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/reference/commands/consumer/config.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-config">
+<span id="id1"></span><h1>conan config<a class="headerlink" href="#conan-config" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config <span class="o">[</span>-h<span class="o">]</span> <span class="o">{</span>rm,set,get,install<span class="o">}</span> ...
+</pre></div>
+</div>
+<p>Manages configuration. Edits the conan.conf or installs config files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  <span class="o">{</span>rm,set,get,install<span class="o">}</span>  sub-command <span class="nb">help</span>
+    rm                  rm an existing config element
+    <span class="nb">set</span>                 set/add value
+    get                 get the value of existing element
+    install             install a full configuration from a zip file, <span class="nb">local</span> or
+                        remote
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+<p><strong>Examples</strong></p>
+<ul>
+<li><p class="first">Change the logging level to 10:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config <span class="nb">set</span> log.level<span class="o">=</span><span class="m">10</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Get the logging level:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config get log.level
+$&gt; <span class="m">10</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="section" id="conan-config-install">
+<span id="id2"></span><h2>conan config install<a class="headerlink" href="#conan-config-install" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">config</span> <span class="pre">install</span></code> is intended to share the Conan client configuration. For example, in a company or organization,
+is important to have common <code class="docutils literal notranslate"><span class="pre">settings.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">profiles</span></code>, etc.</p>
+<p>It retrieves a zip file from a local directory or url and apply the files in the local Conan configuration.</p>
+<p>The zip can contain only a subset of all the allowed configuration files, only the present files will be
+replaced, except the <strong>conan.conf</strong> file, that will apply only the declared variables in the zipped <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code> file
+and will keep the rest of the local variables.</p>
+<p>The <strong>profiles files</strong>, that will be overwritten if already present, but won’t delete any other profile file that the user
+has in the local machine.</p>
+<p>All files in the zip will be copied to the conan home directory.
+These are the special files and the rules applied to merge them:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">File</th>
+<th class="head">How it is applied</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>profiles/MyProfile</td>
+<td>Overrides the local ~/.conan/profiles/MyProfile if already exists</td>
+</tr>
+<tr class="row-odd"><td>settings.yml</td>
+<td>Overrides the local ~/.conan/settings.yml</td>
+</tr>
+<tr class="row-even"><td>remotes.txt</td>
+<td>Overrides remotes. Will remove remotes that are not present in file</td>
+</tr>
+<tr class="row-odd"><td>config/conan.conf</td>
+<td>Merges the variables, overriding only the declared variables</td>
+</tr>
+</tbody>
+</table>
+<p>The local cache <em>registry.txt</em> file contains the remotes definitions, as well as the mapping from packages
+to remotes. In general it is not a good idea to add it to the installed files.</p>
+<p>The specified URL will be stored in the <code class="docutils literal notranslate"><span class="pre">general.config_install</span></code> variable of the <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code> file,
+so following calls to <strong class="command">conan config install</strong> command doesn’t need to specify the URL.</p>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li><p class="first">Install the configuration from an url:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config install http://url/to/some/config.zip
+</pre></div>
+</div>
+<p>Conan config command stores the specified URL in the conan.conf <code class="docutils literal notranslate"><span class="pre">general.config_install</span></code> variable.</p>
+</li>
+<li><p class="first">Install from an url skipping SSL verification:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config install http://url/to/some/config.zip --verify-ssl<span class="o">=</span>False
+</pre></div>
+</div>
+<p>This will disable the SSL check of the certificate. This option is defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</li>
+<li><p class="first">Refresh the configuration again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config install
+</pre></div>
+</div>
+<p>It’s not needed to specify the url again, it is already stored.</p>
+</li>
+<li><p class="first">Install the configuration from a local path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config install /path/to/some/config.zip
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="get.html" class="btn btn-neutral float-right" title="conan get" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral" title="conan install" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

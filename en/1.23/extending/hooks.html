@@ -1,0 +1,594 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hooks &mdash; conan 1.23.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.23.0 documentation" href="../index.html"/>
+        <link rel="up" title="Extending Conan" href="../extending.html"/>
+        <link rel="next" title="Integrations" href="../integrations.html"/>
+        <link rel="prev" title="Python requires (legacy)" href="python_requires_legacy.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../extending.html">Extending Conan</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="custom_settings.html">Customizing settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_requires.html">Python requires</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_requires_legacy.html">Python requires (legacy)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hook-structure">Hook structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#importing-from-a-module">Importing from a module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#storage-activation-and-sharing">Storage, activation and sharing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#official-hooks">Official Hooks</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../extending.html">Extending Conan</a> &raquo;</li>
+        
+      <li>Hooks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/extending/hooks.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hooks">
+<span id="id1"></span><h1>Hooks<a class="headerlink" href="#hooks" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>The Conan hooks is a feature intended to extend the Conan functionalities and let users customize the client behavior at determined
+points.</p>
+<div class="section" id="hook-structure">
+<h2>Hook structure<a class="headerlink" href="#hook-structure" title="Permalink to this headline">¶</a></h2>
+<p>A hook is a Python function that will be executed at certain points of Conan workflow
+to customize the client behavior without modifying the client sources or the recipe ones.
+In the <a class="reference internal" href="../reference/hooks.html#hooks-reference"><span class="std std-ref">hooks reference</span></a> you can find the full list of hook functions
+and exhaustive documentation about their arguments.</p>
+<p>Hooks can implement any functionality: it could be Conan commands, recipe interactions
+such as exporting or packaging, or interactions with the remotes.</p>
+<p>Here is an example of a simple hook:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>example_hook.py</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span>
+
+
+ <span class="k">def</span> <span class="nf">pre_export</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="n">test</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">reference</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">reference</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
+     <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="s2">&quot;license&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">]:</span>
+         <span class="n">field_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">conanfile</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+         <span class="k">if</span> <span class="ow">not</span> <span class="n">field_value</span><span class="p">:</span>
+             <span class="n">output</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Conanfile doesn&#39;t have &#39;</span><span class="si">%s</span><span class="s2">&#39;. It is recommended to add it as attribute: </span><span class="si">%s</span><span class="s2">&quot;</span>
+                         <span class="o">%</span> <span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">))</span>
+
+ <span class="k">def</span> <span class="nf">pre_source</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="n">conanfile_content</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">conanfile_path</span><span class="p">)</span>
+     <span class="k">if</span> <span class="s2">&quot;def source(self):&quot;</span> <span class="ow">in</span> <span class="n">conanfile_content</span><span class="p">:</span>
+         <span class="n">test</span> <span class="o">=</span> <span class="s2">&quot;[IMMUTABLE SOURCES]&quot;</span>
+         <span class="n">valid_content</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.zip&quot;</span><span class="p">,</span> <span class="s2">&quot;.tar&quot;</span><span class="p">,</span> <span class="s2">&quot;.tgz&quot;</span><span class="p">,</span> <span class="s2">&quot;.tbz2&quot;</span><span class="p">,</span> <span class="s2">&quot;.txz&quot;</span><span class="p">]</span>
+         <span class="n">invalid_content</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;git checkout master&quot;</span><span class="p">,</span> <span class="s2">&quot;git checkout devel&quot;</span><span class="p">,</span> <span class="s2">&quot;git checkout develop&quot;</span><span class="p">]</span>
+         <span class="k">if</span> <span class="s2">&quot;git clone&quot;</span> <span class="ow">in</span> <span class="n">conanfile_content</span> <span class="ow">and</span> <span class="s2">&quot;git checkout&quot;</span> <span class="ow">in</span> <span class="n">conanfile_content</span><span class="p">:</span>
+             <span class="n">fixed_sources</span> <span class="o">=</span> <span class="kc">True</span>
+             <span class="k">for</span> <span class="n">invalid</span> <span class="ow">in</span> <span class="n">invalid_content</span><span class="p">:</span>
+                 <span class="k">if</span> <span class="n">invalid</span> <span class="ow">in</span> <span class="n">conanfile_content</span><span class="p">:</span>
+                     <span class="n">fixed_sources</span> <span class="o">=</span> <span class="kc">False</span>
+         <span class="k">else</span><span class="p">:</span>
+             <span class="n">fixed_sources</span> <span class="o">=</span> <span class="kc">False</span>
+             <span class="k">for</span> <span class="n">valid</span> <span class="ow">in</span> <span class="n">valid_content</span><span class="p">:</span>
+                 <span class="k">if</span> <span class="n">valid</span> <span class="ow">in</span> <span class="n">conanfile_content</span><span class="p">:</span>
+                     <span class="n">fixed_sources</span> <span class="o">=</span> <span class="kc">True</span>
+
+         <span class="k">if</span> <span class="ow">not</span> <span class="n">fixed_sources</span><span class="p">:</span>
+             <span class="n">output</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> Source files does not come from and immutable place. Checkout to a &quot;</span>
+                         <span class="s2">&quot;commit/tag or download a compressed source file for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">reference</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<p>This hook checks the recipe content prior to it being exported and prior to downloading the sources. Basically the
+<code class="docutils literal notranslate"><span class="pre">pre_export()</span></code> function checks the attributes of the <code class="docutils literal notranslate"><span class="pre">conanfile</span></code> object to see if there is an URL, a license and a description and if missing,
+warns the user with a message through the <code class="docutils literal notranslate"><span class="pre">output</span></code>. This is done <strong>before</strong> the recipe is exported to the local cache.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pre_source()</span></code> function checks if the recipe contains a <code class="docutils literal notranslate"><span class="pre">source()</span></code> method (this time it is using the <em>conanfile.py</em> content instead of
+the <code class="docutils literal notranslate"><span class="pre">conanfile</span></code> object) and in that case it checks if the download of the sources are likely coming from immutable places (a compressed
+file or a determined <strong class="command">git checkout</strong>). This is done <strong>before</strong> the <strong>source()</strong> method of the recipe is called.</p>
+<p>Any kind of Python script can be executed. You can create global functions and call them from different hook functions, import from a
+relative module and warn, error or even raise to abort the Conan client execution.</p>
+<p>Other useful task where a hook may come handy are the upload and download actions. There are <strong>pre</strong> and <strong>post</strong> functions for every
+download/upload as a whole and for fine download tasks such as recipe and package downloads/uploads.</p>
+<p>For example they can be used to sign the packages (including a file with the signature) when the package is created and check that
+signature every time they are downloaded.</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>signing_hook.py</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">os</span>
+ <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span>
+
+ <span class="n">SIGNATURE</span> <span class="o">=</span> <span class="s2">&quot;this is my signature&quot;</span>
+
+ <span class="k">def</span> <span class="nf">post_package</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="n">sign_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conanfile</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;.sign&quot;</span><span class="p">)</span>
+     <span class="n">tools</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">sign_path</span><span class="p">,</span> <span class="n">SIGNATURE</span><span class="p">)</span>
+     <span class="n">output</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;Package signed successfully&quot;</span><span class="p">)</span>
+
+ <span class="k">def</span> <span class="nf">post_download_package</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="n">package_id</span><span class="p">,</span> <span class="n">remote_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="n">package_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">conanfile_path</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;package&quot;</span><span class="p">,</span> <span class="n">package_id</span><span class="p">))</span>
+     <span class="n">sign_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">package_path</span><span class="p">,</span> <span class="s2">&quot;.sign&quot;</span><span class="p">)</span>
+     <span class="n">content</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">sign_path</span><span class="p">)</span>
+     <span class="k">if</span> <span class="n">content</span> <span class="o">!=</span> <span class="n">SIGNATURE</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Wrong signature&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="importing-from-a-module">
+<h2>Importing from a module<a class="headerlink" href="#importing-from-a-module" title="Permalink to this headline">¶</a></h2>
+<p>The hook interface should always be placed inside a Python file with the name of the hook and stored in the <em>~/.conan/hooks</em> folder. However,
+you can use functionalities from imported modules if you have them installed in your system or if they are installed with Conan:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">example_hook.py</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">requests</span>
+ <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span>
+
+ <span class="k">def</span> <span class="nf">post_export</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+     <span class="n">cmakelists_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">conanfile_path</span><span class="p">),</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">)</span>
+     <span class="n">tools</span><span class="o">.</span><span class="n">replace_in_file</span><span class="p">(</span><span class="n">cmakelists_path</span><span class="p">,</span> <span class="s2">&quot;PROJECT(MyProject)&quot;</span><span class="p">,</span> <span class="s2">&quot;PROJECT(MyProject CPP)&quot;</span><span class="p">)</span>
+     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://api.github.com/events&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>You can also import functionalities from a relative module:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>hooks
+├── custom_module
+│   ├── custom.py
+│   └── __init__.py
+└── my_hook.py
+</pre></div>
+</div>
+<p>Inside the <em>custom.py</em> from my <em>custom_module</em> there is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_printer</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+    <span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;my_printer(): CUSTOM MODULE&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And it can be used in the hook importing the module, just like regular Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">custom_module.custom</span> <span class="kn">import</span> <span class="n">my_printer</span>
+
+<span class="k">def</span> <span class="nf">pre_export</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">conanfile_path</span><span class="p">,</span> <span class="n">reference</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">my_printer</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="storage-activation-and-sharing">
+<h2>Storage, activation and sharing<a class="headerlink" href="#storage-activation-and-sharing" title="Permalink to this headline">¶</a></h2>
+<p>Hooks are Python files stored under <em>~/.conan/hooks</em> folder and <strong>their file name should be the same used for activation</strong> (the
+<em>.py</em> extension could be indicated or not).</p>
+<p>The activation of the hooks is done in the <em>conan.conf</em> section named <code class="docutils literal notranslate"><span class="pre">[hooks]</span></code>. The hook names or paths listed under this section will be
+considered activated.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>conan.conf</em></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> ...
+ [hooks]
+ attribute_checker.py
+ conan-center.py
+ my_custom_hook/hook.py
+</pre></div>
+</div>
+</div>
+<p>They can be easily activated and deactivated from the command line using the <strong class="command">conan config set</strong> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config <span class="nb">set</span> hooks.my_custom_hook/hook  <span class="c1"># Activates &#39;my_custom_hook&#39;</span>
+
+$ conan config rm hooks.my_custom_hook/hook  <span class="c1"># Deactivates &#39;my_custom_hook&#39;</span>
+</pre></div>
+</div>
+<p>There is also an environment variable <a class="reference internal" href="../reference/env_vars.html#env-vars-conan-hooks"><span class="std std-ref">CONAN_HOOKS</span></a> that you can use to declare which hooks should be
+activated.</p>
+<p>Hooks are considered part of the Conan client configuration and can be shared as usual with the <a class="reference internal" href="../reference/commands/consumer/config.html#conan-config-install"><span class="std std-ref">conan config install</span></a> command.
+However, they can also be managed in isolated Git repositories cloned into the <em>~/.conan/hooks</em> folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/.conan/hooks
+$ git clone https://github.com/conan-io/hooks.git conan_hooks
+$ conan config <span class="nb">set</span> hooks.conan_hooks/hooks/conan-center.py
+</pre></div>
+</div>
+<p>This way you can easily change from one version to another.</p>
+</div>
+<div class="section" id="official-hooks">
+<h2>Official Hooks<a class="headerlink" href="#official-hooks" title="Permalink to this headline">¶</a></h2>
+<p>There are some officially maintained hooks in its own repository in <a class="reference external" href="https://github.com/conan-io/hooks">GitHub</a>,
+including the <code class="docutils literal notranslate"><span class="pre">attribute_checker</span></code> that has been packaged with Conan sources for several versions (although it is
+distributed with Conan still, it is no longer maintained and we may remove it in the future, so we encourage you to install
+the one in the hooks repository and activate it).</p>
+<p>Using the hooks in the official repository is as easy as installing them and activating the ones of interest:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conan config install https://github.com/conan-io/hooks.git -sf hooks -tf hooks
+conan config set hooks.attribute_checker
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../integrations.html" class="btn btn-neutral float-right" title="Integrations" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="python_requires_legacy.html" class="btn btn-neutral" title="Python requires (legacy)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.23
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.23/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.23.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.23");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

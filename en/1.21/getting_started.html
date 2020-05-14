@@ -1,0 +1,808 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started &mdash; conan 1.21.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.21.3 documentation" href="index.html"/>
+        <link rel="next" title="Using packages" href="using_packages.html"/>
+        <link rel="prev" title="Install" href="installation.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#an-md5-hash-calculator-using-the-poco-libraries">An MD5 hash calculator using the Poco Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-dependencies">Installing Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-dependencies">Inspecting Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#searching-packages">Searching Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-with-other-configurations">Building with Other Configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/getting_started.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Let’s get started with an example: We are going to create an MD5 hash calculator app that uses one of the
+most popular C++ libraries: <a class="reference external" href="https://pocoproject.org/">Poco</a>.</p>
+<p>We’ll use CMake as build system in this case but keep in mind that Conan <strong>works with any build
+system</strong> and is not limited to using CMake.</p>
+<p>Make sure you are running the latest Conan version. Read the <a class="reference internal" href="installation.html#conan-update"><span class="std std-ref">Conan update</span></a>
+section get more information.</p>
+<div class="section" id="an-md5-hash-calculator-using-the-poco-libraries">
+<h2>An MD5 hash calculator using the Poco Libraries<a class="headerlink" href="#an-md5-hash-calculator-using-the-poco-libraries" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The source files to recreate this project are available in the <a class="reference external" href="https://github.com/conan-io/examples">example repository</a> in GitHub.
+You can skip the manual creation of the folder and sources with this command:</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/examples.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> examples/libraries/poco/md5
+</pre></div>
+</div>
+</div>
+<ol class="arabic">
+<li><p class="first">Create the following source file inside a folder. This will be the source file of our application:</p>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><strong>md5.cpp</strong></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="cp">#include</span> <span class="cpf">&quot;Poco/MD5Engine.h&quot;</span><span class="cp"></span>
+ <span class="cp">#include</span> <span class="cpf">&quot;Poco/DigestStream.h&quot;</span><span class="cp"></span>
+
+ <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="n">Poco</span><span class="o">::</span><span class="n">MD5Engine</span> <span class="n">md5</span><span class="p">;</span>
+     <span class="n">Poco</span><span class="o">::</span><span class="n">DigestOutputStream</span> <span class="n">ds</span><span class="p">(</span><span class="n">md5</span><span class="p">);</span>
+     <span class="n">ds</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="p">;</span>
+     <span class="n">ds</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">Poco</span><span class="o">::</span><span class="n">DigestEngine</span><span class="o">::</span><span class="n">digestToHex</span><span class="p">(</span><span class="n">md5</span><span class="p">.</span><span class="n">digest</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">We know that our application relies on the Poco libraries. Let’s look for it in the Conan Center remote:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search poco --remote<span class="o">=</span>conan-center
+Existing package recipes:
+
+poco/1.8.1
+poco/1.9.3
+poco/1.9.4
+</pre></div>
+</div>
+<p>Conan remotes must be specified in search. It will otherwise only search local cache.</p>
+</div></blockquote>
+</li>
+<li><p class="first">We got some interesting references for Poco. Let’s inspect the metadata of the 1.9.4 version:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan inspect poco/1.9.4
+name: poco
+version: <span class="m">1</span>.9.4
+url: https://github.com/conan-io/conan-center-index
+homepage: https://pocoproject.org
+license: BSL-1.0
+author: None
+description: Modern, powerful open <span class="nb">source</span> C++ class libraries <span class="k">for</span> building network- and internet-based applications that run on desktop, server, mobile and embedded systems.
+topics: <span class="o">(</span><span class="s1">&#39;conan&#39;</span>, <span class="s1">&#39;poco&#39;</span>, <span class="s1">&#39;building&#39;</span>, <span class="s1">&#39;networking&#39;</span>, <span class="s1">&#39;server&#39;</span>, <span class="s1">&#39;mobile&#39;</span>, <span class="s1">&#39;embedded&#39;</span><span class="o">)</span>
+generators: cmake
+exports: None
+exports_sources: CMakeLists.txt
+short_paths: False
+apply_env: True
+build_policy: None
+revision_mode: <span class="nb">hash</span>
+settings: <span class="o">(</span><span class="s1">&#39;os&#39;</span>, <span class="s1">&#39;arch&#39;</span>, <span class="s1">&#39;compiler&#39;</span>, <span class="s1">&#39;build_type&#39;</span><span class="o">)</span>
+options:
+    cxx_14: <span class="o">[</span>True, False<span class="o">]</span>
+    enable_apacheconnector: <span class="o">[</span>True, False<span class="o">]</span>
+    enable_cppparser: <span class="o">[</span>True, False<span class="o">]</span>
+    enable_crypto: <span class="o">[</span>True, False<span class="o">]</span>
+    <span class="o">[</span>...<span class="o">]</span>
+default_options:
+    cxx_14: False
+    enable_apacheconnector: False
+    enable_cppparser: False
+    enable_crypto: True
+    <span class="o">[</span>...<span class="o">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Ok, it looks like this dependency could work with our hash calculator app. We should indicate which are
+the requirements and the generator for our build system. Let’s create a <em>conanfile.txt</em> inside our
+project’s folder with the following content:</p>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><strong>conanfile.txt</strong></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [requires]
+ poco/1.9.4
+
+ [generators]
+ cmake
+</pre></div>
+</div>
+</div>
+<p>In this example we are using CMake to build the project, which is why the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator is
+specified. This generator creates a <em>conanbuildinfo.cmake</em> file that defines CMake variables
+including paths and library names that can be used in our build. Read more about
+<a class="reference internal" href="reference/generators.html#generators-reference"><span class="std std-ref">Generators</span></a>.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Next step: We are going to install the required dependencies and generate the information for the build system:</p>
+<blockquote>
+<div><div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>If you are using <strong>GCC compiler &gt;= 5.1</strong>, Conan will set the <code class="docutils literal notranslate"><span class="pre">compiler.libcxx</span></code> to the old
+ABI for backwards compatibility. You can change this with the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan profile new default --detect  <span class="c1"># Generates default profile detecting GCC and sets old ABI</span>
+$ conan profile update settings.compiler.libcxx<span class="o">=</span>libstdc++11 default  <span class="c1"># Sets libcxx to C++11 ABI</span>
+</pre></div>
+</div>
+<p class="last">You will find more information in <a class="reference internal" href="howtos/manage_gcc_abi.html#manage-gcc-abi"><span class="std std-ref">How to manage the GCC &gt;= 5 ABI</span></a>.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan install ..
+...
+Requirements
+    openssl/1.0.2t from <span class="s1">&#39;conan-center&#39;</span> - Downloaded
+    poco/1.9.4 from <span class="s1">&#39;conan-center&#39;</span> - Downloaded
+    zlib/1.2.11 from <span class="s1">&#39;conan-center&#39;</span> - Downloaded
+Packages
+    openssl/1.0.2t:eb50d18a5a5d59bd0c332464a4c348ab65e353bf - Download
+    poco/1.9.4:645aaff0a79e6036c77803601e44677556109dd9 - Download
+    zlib/1.2.11:f74366f76f700cc6e991285892ad7a23c30e6d47 - Download
+
+zlib/1.2.11: Retrieving package f74366f76f700cc6e991285892ad7a23c30e6d47 from remote <span class="s1">&#39;conan-center&#39;</span>
+Downloading conanmanifest.txt completed <span class="o">[</span><span class="m">0</span>.25k<span class="o">]</span>
+Downloading conaninfo.txt completed <span class="o">[</span><span class="m">0</span>.44k<span class="o">]</span>
+Downloading conan_package.tgz completed <span class="o">[</span><span class="m">83</span>.15k<span class="o">]</span>
+Decompressing conan_package.tgz completed <span class="o">[</span><span class="m">0</span>.00k<span class="o">]</span>
+zlib/1.2.11: Package installed f74366f76f700cc6e991285892ad7a23c30e6d47
+zlib/1.2.11: Downloaded package revision <span class="m">0</span>
+openssl/1.0.2t: Retrieving package eb50d18a5a5d59bd0c332464a4c348ab65e353bf from remote <span class="s1">&#39;conan-center&#39;</span>
+Downloading conanmanifest.txt completed <span class="o">[</span><span class="m">4</span>.92k<span class="o">]</span>
+Downloading conaninfo.txt completed <span class="o">[</span><span class="m">1</span>.28k<span class="o">]</span>
+Downloading conan_package.tgz completed <span class="o">[</span><span class="m">3048</span>.81k<span class="o">]</span>
+Decompressing conan_package.tgz completed <span class="o">[</span><span class="m">0</span>.00k<span class="o">]</span>
+openssl/1.0.2t: Package installed eb50d18a5a5d59bd0c332464a4c348ab65e353bf
+openssl/1.0.2t: Downloaded package revision <span class="m">0</span>
+poco/1.9.4: Retrieving package 645aaff0a79e6036c77803601e44677556109dd9 from remote <span class="s1">&#39;conan-center&#39;</span>
+Downloading conanmanifest.txt completed <span class="o">[</span><span class="m">48</span>.75k<span class="o">]</span>
+Downloading conaninfo.txt completed <span class="o">[</span><span class="m">2</span>.44k<span class="o">]</span>
+Downloading conan_package.tgz completed <span class="o">[</span><span class="m">5128</span>.39k<span class="o">]</span>
+Decompressing conan_package.tgz completed <span class="o">[</span><span class="m">0</span>.00k<span class="o">]</span>
+poco/1.9.4: Package installed 645aaff0a79e6036c77803601e44677556109dd9
+poco/1.9.4: Downloaded package revision <span class="m">0</span>
+conanfile.txt: Generator cmake created conanbuildinfo.cmake
+conanfile.txt: Generator txt created conanbuildinfo.txt
+conanfile.txt: Generated conaninfo.txt
+conanfile.txt: Generated graphinfo
+</pre></div>
+</div>
+<p>Conan installed our Poco dependency but also the <strong>transitive dependencies</strong> for it: OpenSSL and zlib. It has also generated a
+<em>conanbuildinfo.cmake</em> file for our build system.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Now let’s create our build file. To inject the Conan information, include the generated <em>conanbuildinfo.cmake</em> file like this:</p>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><strong>CMakeLists.txt</strong></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span> <span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.12</span><span class="p">)</span>
+ <span class="nb">project</span><span class="p">(</span><span class="s">MD5Encrypter</span><span class="p">)</span>
+
+ <span class="nb">add_definitions</span><span class="p">(</span><span class="s2">&quot;-std=c++11&quot;</span><span class="p">)</span>
+
+ <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+ <span class="nb">conan_basic_setup</span><span class="p">()</span>
+
+ <span class="nb">add_executable</span><span class="p">(</span><span class="s">md5</span> <span class="s">md5.cpp</span><span class="p">)</span>
+ <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">md5</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Now we are ready to build and run our Encrypter app:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>win<span class="o">)</span>
+$ cmake .. -G <span class="s2">&quot;Visual Studio 16&quot;</span>
+$ cmake --build . --config Release
+
+<span class="o">(</span>linux, mac<span class="o">)</span>
+$ cmake .. -G <span class="s2">&quot;Unix Makefiles&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+$ cmake --build .
+...
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span> Built target md5
+$ ./bin/md5
+c3fcd3d76192e4007dfb496cca67e13b
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="installing-dependencies">
+<h2>Installing Dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The <strong class="command">conan install</strong> command downloads the binary package required for your configuration (detected the first time you ran the
+command), <strong>together with other (transitively required by Poco) libraries, like OpenSSL and Zlib</strong>. It will also create the
+<em>conanbuildinfo.cmake</em> file in the current directory, in which you can see the CMake variables, and a <em>conaninfo.txt</em> in which the settings,
+requirements and optional information is saved.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Conan generates a <a class="reference internal" href="reference/config_files/default_profile.html#default-profile"><span class="std std-ref">default profile</span></a> with your detected settings (OS, compiler, architecture…) and that
+configuration is printed at the top of every <strong class="command">conan install</strong> command. However, it is strongly recommended to review it and
+adjust the settings to accurately describe your system as shown in the <a class="reference internal" href="#getting-started-other-configurations"><span class="std std-ref">Building with Other Configurations</span></a> section.</p>
+</div>
+<p>It is very important to understand the installation process. When the <strong class="command">conan install</strong> command runs, settings specified on the
+command line or taken from the defaults in <em>&lt;userhome&gt;/.conan/profiles/default</em> file are applied.</p>
+<a class="reference internal image-reference" href="_images/conan-install_flow.png"><img alt="_images/conan-install_flow.png" class="align-center" src="_images/conan-install_flow.png" style="width: 500px; height: 400px;" /></a>
+<p>For example, the command <strong class="command">conan install .. --settings os=&quot;Linux&quot; --settings compiler=&quot;gcc&quot;</strong>, performs these steps:</p>
+<ul class="simple">
+<li>Checks if the package recipe (for <code class="docutils literal notranslate"><span class="pre">poco/1.9.4</span></code> package) exists in the local cache. If we are just starting, the
+cache is empty.</li>
+<li>Looks for the package recipe in the defined remotes. Conan comes with <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a> Bintray remote as the default, but can be changed.</li>
+<li>If the recipe exists, the Conan client fetches and stores it in your local cache.</li>
+<li>With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary in the local cache.</li>
+<li>Then Conan searches the corresponding binary package in the remote and fetches it.</li>
+<li>Finally, it generates an appropriate file for the build system specified in the <code class="docutils literal notranslate"><span class="pre">[generators]</span></code> section.</li>
+</ul>
+<p>There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
+15, Linux GCC 4.9 and Apple Clang 3.5… Conan will throw an error if the binary package required for specific settings doesn’t exist. You
+can build the binary package from sources using <strong class="command">conan install .. --build=missing</strong>, it will succeed if your configuration is
+supported by the recipe. You will find more info in the <a class="reference internal" href="#getting-started-other-configurations"><span class="std std-ref">Building with Other Configurations</span></a> section.</p>
+</div>
+<div class="section" id="inspecting-dependencies">
+<h2>Inspecting Dependencies<a class="headerlink" href="#inspecting-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The retrieved packages are installed to your local user cache (typically <em>.conan/data</em>), and can be reused from this location for other
+projects. This allows to clean your current project and continue working even without network connection. To search for packages in the
+local cache run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search <span class="s2">&quot;*&quot;</span>
+Existing package recipes:
+
+openssl/1.0.2t
+poco/1.9.4
+zlib/1.2.11
+</pre></div>
+</div>
+<p>To inspect the different binary packages of a reference run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search poco/1.9.4@
+Existing packages <span class="k">for</span> recipe poco/1.9.4:
+
+Package_ID: 645aaff0a79e6036c77803601e44677556109dd9
+    <span class="o">[</span>options<span class="o">]</span>
+        cxx_14: False
+        enable_apacheconnector: False
+        enable_cppparser: False
+        enable_crypto: True
+        enable_data: True
+...
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol at the end of the package name is important to search for a specific package. If you
+don’t add the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>, Conan will interpret the argument as a pattern search and return all the
+packages that match the <code class="docutils literal notranslate"><span class="pre">poco/1.9.4</span></code> pattern and may have different <a class="reference internal" href="reference/conanfile/attributes.html#user-channel"><span class="std std-ref">user and channel</span></a>.</p>
+<p>To inspect all your current project’s dependencies use the <strong class="command">conan info</strong> command by pointing it to the location of the
+<em>conanfile.txt</em> folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info ..
+conanfile.txt
+    ID: db91af4811b080e02ebe5a626f1d256bb90d5223
+    BuildID: None
+    Requires:
+        poco/1.9.4
+openssl/1.0.2t
+    ID: eb50d18a5a5d59bd0c332464a4c348ab65e353bf
+    BuildID: None
+    Remote: conan-center<span class="o">=</span>https://api.bintray.com/conan/conan/conan-center
+    URL: https://github.com/conan-io/conan-center-index
+    Homepage: https://github.com/openssl/openssl
+    License: OpenSSL
+    Topics: conan, openssl, ssl, tls, encryption, security
+    Recipe: Cache
+    Binary: Cache
+    Binary remote: conan-center
+    Creation date: <span class="m">2019</span>-11-13 <span class="m">23</span>:14:37
+    Required by:
+        poco/1.9.4
+    Requires:
+        zlib/1.2.11
+poco/1.9.4
+    ID: 645aaff0a79e6036c77803601e44677556109dd9
+    BuildID: None
+    Remote: conan-center<span class="o">=</span>https://api.bintray.com/conan/conan/conan-center
+    URL: https://github.com/conan-io/conan-center-index
+    Homepage: https://pocoproject.org
+    License: BSL-1.0
+    Topics: conan, poco, building, networking, server, mobile, embedded
+    Recipe: Cache
+    Binary: Cache
+    Binary remote: conan-center
+    Creation date: <span class="m">2020</span>-01-07 <span class="m">17</span>:29:24
+    Required by:
+        conanfile.txt
+    Requires:
+        openssl/1.0.2t
+zlib/1.2.11
+    ID: f74366f76f700cc6e991285892ad7a23c30e6d47
+    BuildID: None
+    Remote: conan-center<span class="o">=</span>https://api.bintray.com/conan/conan/conan-center
+    URL: https://github.com/conan-io/conan-center-index
+    Homepage: https://zlib.net
+    License: Zlib
+    Recipe: Cache
+    Binary: Cache
+    Binary remote: conan-center
+    Creation date: <span class="m">2020</span>-01-07 <span class="m">17</span>:01:29
+    Required by:
+        openssl/1.0.2t
+</pre></div>
+</div>
+<p>Or generate a graph of your dependencies using Dot or HTML formats:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info .. --graph<span class="o">=</span>file.html
+$ file.html <span class="c1"># or open the file, double-click</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/conan-info_deps_html_graph.png"><img alt="_images/conan-info_deps_html_graph.png" class="align-center" src="_images/conan-info_deps_html_graph.png" style="width: 200px; height: 310px;" /></a>
+</div>
+<div class="section" id="searching-packages">
+<h2>Searching Packages<a class="headerlink" href="#searching-packages" title="Permalink to this headline">¶</a></h2>
+<p>The remote repository where packages are installed from is configured by default in Conan. It is called Conan Center (configured as
+<strong class="command">conan-center</strong> remote) and it is located in <a class="reference external" href="https://bintray.com/conan/conan-center">Bintray</a>.</p>
+<p>You can search packages in Conan Center using this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search open* --remote<span class="o">=</span>conan-center
+Existing package recipes:
+
+openal/1.18.2@bincrafters/stable
+openal/1.19.0@bincrafters/stable
+openal/1.19.1
+opencv/2.4.13.5@conan/stable
+opencv/3.4.3@conan/stable
+opencv/3.4.5@conan/stable
+opencv/4.0.0@conan/stable
+opencv/4.0.1@conan/stable
+opencv/4.1.0@conan/stable
+opencv/4.1.1@conan/stable
+openexr/2.3.0
+openexr/2.3.0@conan/stable
+openexr/2.4.0
+openjpeg/2.3.0@bincrafters/stable
+openjpeg/2.3.1
+openjpeg/2.3.1@bincrafters/stable
+openssl/1.0.2s
+...
+</pre></div>
+</div>
+<p>As you can see, some of the libraries end with a <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol followed by two strings separated by a
+slash. These fields are the <a class="reference internal" href="reference/conanfile/attributes.html#user-channel"><span class="std std-ref">user and channel</span></a> for the Conan package, and they are
+useful if you want to make specific changes and disambiguate your modified recipe from the one in the
+Conan Center or any other remote.</p>
+<p>There are additional community repositories that can be configured and used. See <a class="reference internal" href="uploading_packages/remotes.html#bintray-repositories"><span class="std std-ref">Bintray Repositories</span></a> for more
+information.</p>
+</div>
+<div class="section" id="building-with-other-configurations">
+<span id="getting-started-other-configurations"></span><h2>Building with Other Configurations<a class="headerlink" href="#building-with-other-configurations" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we have built our project using the default configuration detected by Conan. This configuration is known as the
+<a class="reference internal" href="reference/config_files/default_profile.html#default-profile"><span class="std std-ref">default profile</span></a>.</p>
+<p>A profile needs to be available prior to running commands such as <strong class="command">conan install</strong>. When running the command, your settings are
+automatically detected (compiler, architecture…) and stored as the default profile. You can edit these settings
+<em>~/.conan/profiles/default</em> or create new profiles with your desired configuration.</p>
+<p>For example, if we have a profile with a 32-bit GCC configuration in a profile called <em>gcc_x86</em>, we can run the following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .. --profile<span class="o">=</span>gcc_x86
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">We strongly recommend using <a class="reference internal" href="reference/profiles.html#profiles"><span class="std std-ref">Profiles</span></a> and managing them with <a class="reference internal" href="reference/commands/consumer/config.html#conan-config-install"><span class="std std-ref">conan config install</span></a>.</p>
+</div>
+<p>However, the user can always override the profile settings in the <strong class="command">conan install</strong> command using the <strong class="command">--settings</strong>
+parameter. As an exercise, try building the 32-bit version of the hash calculator project like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .. --settings <span class="nv">arch</span><span class="o">=</span>x86
+</pre></div>
+</div>
+<p>The above command installs a different package, using the <strong class="command">--settings arch=x86</strong> instead of the one of the default profile used
+previously.</p>
+<p>To use the 32-bit binaries, you will also have to change your project build:</p>
+<ul class="simple">
+<li>In Windows, change the CMake invocation to <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">14</span></code>.</li>
+<li>In Linux, you have to add the <code class="docutils literal notranslate"><span class="pre">-m32</span></code> flag to your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> by running <code class="docutils literal notranslate"><span class="pre">SET(CMAKE_CXX_FLAGS</span> <span class="pre">&quot;${CMAKE_CXX_FLAGS}</span> <span class="pre">-m32&quot;)</span></code>, and
+the same applies to <code class="docutils literal notranslate"><span class="pre">CMAKE_C_FLAGS,</span> <span class="pre">CMAKE_SHARED_LINK_FLAGS</span> <span class="pre">and</span> <span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code>. This can also be done more easily, by
+automatically using Conan, as we’ll show later.</li>
+<li>In macOS, you need to add the definition <code class="docutils literal notranslate"><span class="pre">-DCMAKE_OSX_ARCHITECTURES=i386</span></code>.</li>
+</ul>
+<p>Got any doubts? Check our <a class="reference internal" href="faq.html#faq"><span class="std std-ref">FAQ</span></a>, <a href="mailto:info@conan.io" target="_blank">write us</a> or join the community in <a class="reference external" href="https://cpplang.now.sh/">Cpplang Slack</a> <code class="docutils literal notranslate"><span class="pre">#conan</span></code> channel!</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using_packages.html" class="btn btn-neutral float-right" title="Using packages" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Install" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.21
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.21/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.21.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="_static/js/modernizr.min.js"></script>
+  <script src="_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.21");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

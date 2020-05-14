@@ -1,0 +1,331 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Inspecting packages &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Creating packages" href="../creating_packages.html"/>
+        <link rel="next" title="Packaging approaches" href="package_approaches.html"/>
+        <link rel="prev" title="Define package ABI compatibility" href="define_abi_compatibility.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_repo.html">Recipe and sources in the same repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="existing_binaries.html">Packaging existing binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="understand_packaging.html">Understanding packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define_abi_compatibility.html">Define package ABI compatibility</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Inspecting packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_approaches.html">Packaging approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_tools.html">Tools for package creators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../creating_packages.html">Creating packages</a> &raquo;</li>
+        
+      <li>Inspecting packages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/creating_packages/inspecting_packages.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="inspecting-packages">
+<h1>Inspecting packages<a class="headerlink" href="#inspecting-packages" title="Permalink to this headline">¶</a></h1>
+<p>You can inspect the uploaded packages and also the packages in the local cache with the
+<strong class="command">conan get</strong> command.</p>
+<ul>
+<li><p class="first">List the files of a local recipe folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan get zlib/1.2.8@conan/stable .
+
+Listing directory <span class="s1">&#39;.&#39;</span>:
+ CMakeLists.txt
+ conanfile.py
+ conanmanifest.txt
+</pre></div>
+</div>
+</li>
+<li><p class="first">Print the <em>conaninfo.txt</em> file of a binary package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan get zlib/1.2.11@conan/stable -p 09512ff863f37e98ed748eadd9c6df3e4ea424a8
+</pre></div>
+</div>
+</li>
+<li><p class="first">Print the <em>conanfile.py</em> from a remote package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan get zlib/1.2.8@conan/stable -r conan-center
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+<span class="kn">from</span> <span class="nn">conans.util</span> <span class="kn">import</span> <span class="n">files</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">conan_version</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">class</span> <span class="nc">ZlibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;zlib&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.2.8&quot;</span>
+    <span class="n">ZIP_FOLDER_NAME</span> <span class="o">=</span> <span class="s2">&quot;zlib-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">version</span>
+
+    <span class="c1">#...</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Check the <a class="reference internal" href="../reference/commands/consumer/get.html#conan-get"><span class="std std-ref">conan get command</span></a> command reference and more examples.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="package_approaches.html" class="btn btn-neutral float-right" title="Packaging approaches" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="define_abi_compatibility.html" class="btn btn-neutral" title="Define package ABI compatibility" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,447 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Conan: A Go package manager &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="How to use Conan as other language package manager" href="../other_languages_package_manager.html"/>
+        <link rel="next" title="Conan: A Python package manager" href="python.html"/>
+        <link rel="prev" title="How to use Conan as other language package manager" href="../other_languages_package_manager.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../other_languages_package_manager.html">How to use Conan as other language package manager</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Conan: A Go package manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-source-code">The source code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#declaring-and-installing-dependencies">Declaring and installing dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-our-server">Running our server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-go-packages">Generating Go packages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="python.html">Conan: A Python package manager</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../howtos.html">Howtos</a> &raquo;</li>
+        
+          <li><a href="../other_languages_package_manager.html">How to use Conan as other language package manager</a> &raquo;</li>
+        
+      <li>Conan: A Go package manager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/howtos/other_languages_package_manager/go.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-a-go-package-manager">
+<span id="go-package-manager"></span><h1>Conan: A Go package manager<a class="headerlink" href="#conan-a-go-package-manager" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-source-code">
+<h2>The source code<a class="headerlink" href="#the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>You can just clone the following example repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/lasote/conan-goserver-example
+</pre></div>
+</div>
+<p>Or, alternatively, manually create the folder and copy the following files inside:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir conan-goserver-example
+$ <span class="nb">cd</span> conan-goserver-example
+$ mkdir src
+$ mkdir src/server
+</pre></div>
+</div>
+<p>The files are:</p>
+<p><em>src/server/main.go</em> is a small http server that will answer “Hello world!” if we connect to it.</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/go-martini/martini&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">m</span> <span class="o">:=</span> <span class="nx">martini</span><span class="p">.</span><span class="nx">Classic</span><span class="p">()</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">&quot;Hello world!&quot;</span>
+  <span class="p">})</span>
+  <span class="nx">m</span><span class="p">.</span><span class="nx">Run</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="declaring-and-installing-dependencies">
+<h2>Declaring and installing dependencies<a class="headerlink" href="#declaring-and-installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Create a <em>conanfile.txt</em>, with the following content:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.txt</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [requires]
+ go-martini/1.0@lasote/stable
+
+ [imports]
+ src, * -&gt; ./deps/src
+</pre></div>
+</div>
+</div>
+<p>Our project requires a package, <strong>go-martini/1.0&#64;lasote/stable</strong>, and we indicate that all <strong>src contents</strong> from all our requirements have
+to be copied to <em>./deps/src</em>.</p>
+<p>The package go-martini depends on go-inject, so Conan will handle automatically the go-inject dependency.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+</pre></div>
+</div>
+<p>This command will download our packages and will copy the contents in the <em>./deps/src</em> folder.</p>
+</div>
+<div class="section" id="running-our-server">
+<h2>Running our server<a class="headerlink" href="#running-our-server" title="Permalink to this headline">¶</a></h2>
+<p>Just add the <strong>deps</strong> folder to <code class="docutils literal notranslate"><span class="pre">GOPATH</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Linux / Macos</span>
+$ <span class="nb">export</span> <span class="nv">GOPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">GOPATH</span><span class="si">}</span>:<span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/deps
+
+<span class="c1"># Windows</span>
+$ SET <span class="nv">GOPATH</span><span class="o">=</span>%GOPATH%<span class="p">;</span>%CD%/deps
+</pre></div>
+</div>
+<p>And run the server:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> src/server
+$ go run main.go
+</pre></div>
+</div>
+<p>Open your browser and go to <a class="reference external" href="http://localhost:9300">localhost:9300</a></p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span>Hello World!
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-go-packages">
+<h2>Generating Go packages<a class="headerlink" href="#generating-go-packages" title="Permalink to this headline">¶</a></h2>
+<p>Creating a Conan package for a Go library is very simple. In a Go project, you compile all the code from sources in the project itself,
+including all of its dependencies.</p>
+<p>So we don’t need to take care of settings at all. Architecture, compiler, operating system, etc. are only relevant for pre-compiled
+binaries. Source code packages are settings agnostic.</p>
+<p>Let’s take a look at the <em>conanfile.py</em> of the <strong>go inject</strong> library:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+ <span class="k">class</span> <span class="nc">InjectConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;go-inject&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+
+     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;git clone https://github.com/codegangsta/inject.git&quot;</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cd inject &amp;&amp; git checkout v1.0-rc1&quot;</span><span class="p">)</span>  <span class="c1"># TAG v1.0-rc1</span>
+
+     <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s1">&#39;src/github.com/codegangsta/inject&#39;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;inject&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If you have read the <a class="reference internal" href="../../creating_packages/getting_started.html#packaging-getting-started"><span class="std std-ref">Building a hello world package</span></a>, the previous code may look quite simple to you.</p>
+<p>We want to pack <strong>version 1.0</strong> of the <strong>go inject</strong> library, so the <strong>version</strong> variable is <strong>“1.0”</strong>. In the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, we
+declare how to obtain the source code of the library, in this case just by cloning the github repository and making a checkout of the
+<strong>v1.0-rc1</strong> tag. In the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method, we are just copying all the sources to a folder named “src/github.com/codegangsta/inject”.</p>
+<p>This way, we can keep importing the library in the same way:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="s2">&quot;github.com/codegangsta/inject&quot;</span>
+</pre></div>
+</div>
+<p>We can export and upload the package to a remote and we are done:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . lasote/stable  <span class="c1"># Or any other user/channel</span>
+$ conan upload go-inject/1.0@lasote/stable --all
+</pre></div>
+</div>
+<p>Now look at the <strong>go martini</strong> conanfile:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+ <span class="k">class</span> <span class="nc">InjectConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;go-martini&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s1">&#39;go-inject/1.0@lasote/stable&#39;</span>
+
+     <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;git clone https://github.com/go-martini/martini.git&quot;</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cd martini &amp;&amp; git checkout v1.0&quot;</span><span class="p">)</span>  <span class="c1"># TAG v1.0</span>
+
+     <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s1">&#39;src/github.com/go-martini/martini&#39;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;martini&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>It is very similar. The only difference is the <code class="docutils literal notranslate"><span class="pre">requires</span></code> variable. It defines the <strong>go-inject/1.0&#64;lasote/stable</strong> library, as a
+requirement.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . lasote/stable  <span class="c1"># Or any other user/channel</span>
+$ conan upload go-martini/1.0@lasote/stable  --all
+</pre></div>
+</div>
+<p>Now we are able to use them easily and without the problems of versioning with github checkouts.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python.html" class="btn btn-neutral float-right" title="Conan: A Python package manager" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../other_languages_package_manager.html" class="btn btn-neutral" title="How to use Conan as other language package manager" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,652 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to use Docker to create and cross-build C and C++ Conan packages &mdash; conan 1.24.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.24.1 documentation" href="../index.html"/>
+        <link rel="up" title="Howtos" href="../howtos.html"/>
+        <link rel="next" title="How to reuse Python code in recipes" href="python_code_reuse.html"/>
+        <link rel="prev" title="How to manage C++ standard [EXPERIMENTAL]" href="manage_cpp_standard.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intel_compiler.html">Working with Intel compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard [EXPERIMENTAL]</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to use Docker to create and cross-build C and C++ Conan packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-conan-inside-a-container">Using Conan inside a container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sharing-a-local-folder-with-a-docker-container">Sharing a local folder with a Docker container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-images-to-cross-build-packages">Using the images to <em>cross build</em> packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#available-docker-images">Available Docker images</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate with other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html#how-to-package-apple-frameworks">How to package Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract_licenses_from_headers.html">How to extract licenses from headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to dynamically define the name and version of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-scm-git">How to capture package version from SCM: git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-scm-svn">How to capture package version from SCM: svn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-text-or-build-files">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check_conan_version_in_conanfile.html">How to check the version of the Conan client inside a conanfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic_ci_artifactory.html">Use a generic CI with Conan and Artifactory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sanitizers.html">Compiler sanitizers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../howtos.html">Howtos</a> &raquo;</li>
+        
+      <li>How to use Docker to create and cross-build C and C++ Conan packages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/howtos/run_conan_in_docker.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-use-docker-to-create-and-cross-build-c-and-c-conan-packages">
+<span id="docker-conan"></span><h1>How to use Docker to create and cross-build C and C++ Conan packages<a class="headerlink" href="#how-to-use-docker-to-create-and-cross-build-c-and-c-conan-packages" title="Permalink to this headline">¶</a></h1>
+<p>With Docker, you can run different virtual Linux operating systems in a Linux, Mac OSX or Windows machine.
+It is useful to reproduce build environments, for example to automate CI processes. You can have
+different images with different compilers or toolchains and run containers every time is needed.</p>
+<p>In this section you will find a <a class="reference internal" href="#available-docker-images"><span class="std std-ref">list of pre-built images</span></a> with common
+build tools and compilers as well as Conan installed.</p>
+<div class="section" id="using-conan-inside-a-container">
+<h2>Using Conan inside a container<a class="headerlink" href="#using-conan-inside-a-container" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ docker run -it --rm conanio/gcc7 /bin/bash
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use <code class="docutils literal notranslate"><span class="pre">sudo</span></code> when needed to run <code class="docutils literal notranslate"><span class="pre">docker</span></code>.</p>
+</div>
+<p>The previous code will run a shell in container. We have specified:</p>
+<ul class="simple">
+<li><strong class="command">-it</strong>: Keep STDIN open and allocate a pseudo-tty, in other words, we want to type in the container because we are opening a bash.</li>
+<li><strong class="command">--rm</strong>: Once the container exits, remove the container. Helps to keep clean or hard drive.</li>
+<li><strong class="command">conanio/gcc7</strong>: Image name, check the <a class="reference internal" href="#available-docker-images"><span class="std std-ref">available Docker images</span></a>.</li>
+<li><strong class="command">/bin/bash</strong>: The command to run</li>
+</ul>
+<p>Now we are running on the conangcc7 container we can use Conan normally. In the following example we are
+creating a package from the recipe by cloning the repository, for OpenSSL.
+It is always recommended to upgrade Conan from pip first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ sudo pip install conan --upgrade <span class="c1"># We make sure we are running the latest Conan version</span>
+$ git clone https://github.com/conan-community/conan-openssl
+$ <span class="nb">cd</span> conan-openssl
+$ conan create . user/channel
+</pre></div>
+</div>
+</div>
+<div class="section" id="sharing-a-local-folder-with-a-docker-container">
+<h2>Sharing a local folder with a Docker container<a class="headerlink" href="#sharing-a-local-folder-with-a-docker-container" title="Permalink to this headline">¶</a></h2>
+<p>You can share a local folder with your container, for example a project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-community/conan-openssl
+$ <span class="nb">cd</span> conan-openssl
+$ docker run -it -v<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/conan/project --rm conanio/gcc7 /bin/bash
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">v$(pwd):/home/conan/project</span></code>: We are mapping the current directory (conan-openssl) to the container
+<code class="docutils literal notranslate"><span class="pre">/home/conan/project</span></code> directory, so anything we change in this shared folder, will be reflected
+in our host machine.</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we are running on the conangcc7 container</span>
+$ sudo pip install conan --upgrade <span class="c1"># We make sure we are running the latest Conan version</span>
+$ <span class="nb">cd</span> project
+$ conan create . user/channel --build missing
+$ conan remote add myremote http://some.remote.url
+$ conan upload <span class="s2">&quot;*&quot;</span> -r myremote --all
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-images-to-cross-build-packages">
+<span id="use-docker-to-crossbuild"></span><h2>Using the images to <em>cross build</em> packages<a class="headerlink" href="#using-the-images-to-cross-build-packages" title="Permalink to this headline">¶</a></h2>
+<p>You can use the <a class="reference internal" href="#available-docker-images"><span class="std std-ref">available docker images</span></a> (with the suffix <code class="docutils literal notranslate"><span class="pre">-i386</span></code>, <code class="docutils literal notranslate"><span class="pre">-armv7</span></code> and <code class="docutils literal notranslate"><span class="pre">-armv7gh</span></code>)
+to generate packages for those platforms.</p>
+<p>For example, the <code class="docutils literal notranslate"><span class="pre">armv7</span></code> images have a toolchain for linux ARM installed, and declared as main compiler with the
+environment variables <code class="docutils literal notranslate"><span class="pre">CC</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code>. Also, the default Conan profile (<code class="docutils literal notranslate"><span class="pre">~/.conan/profiles/default</span></code>)
+is adjusted to declare the correct arch (<code class="docutils literal notranslate"><span class="pre">armv7</span></code> / <code class="docutils literal notranslate"><span class="pre">armv7hf</span></code>).</p>
+<p>This process will run a native compilation inside docker, so we cannot say it is actual cross building, but if we were talking
+in terms of cross compiling: the docker service is running in your machine (the <code class="docutils literal notranslate"><span class="pre">build</span></code> platform) a docker
+image (which is the <code class="docutils literal notranslate"><span class="pre">host</span></code> platform) to generate the binaries.
+To read about actual cross compiling with Conan we have a dedicated section in the docs: <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building"><span class="std std-ref">Cross building</span></a>.</p>
+<p>Building and uploading a package along with all its missing dependencies for <code class="docutils literal notranslate"><span class="pre">Linux/armv7hf</span></code> is done in few steps:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-community/conan-openssl
+$ <span class="nb">cd</span> conan-openssl
+$ docker run -it -v<span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/home/conan/project --rm conanio/gcc49-armv7hf /bin/bash
+
+<span class="c1"># Now we are running on the conangcc49-armv7hf container</span>
+<span class="c1"># The default profile is automatically adjusted to armv7hf</span>
+$ cat ~/.conan/profiles/default
+
+<span class="o">[</span>settings<span class="o">]</span>
+<span class="nv">os</span><span class="o">=</span>Linux
+<span class="nv">arch</span><span class="o">=</span>armv7hf
+<span class="nv">compiler</span><span class="o">=</span>gcc
+compiler.version<span class="o">=</span><span class="m">4</span>.9
+compiler.libcxx<span class="o">=</span>libstdc++
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="o">[</span>options<span class="o">]</span>
+<span class="o">[</span>build_requires<span class="o">]</span>
+<span class="o">[</span>env<span class="o">]</span>
+
+$ sudo pip install conan --upgrade <span class="c1"># We make sure we are running the latest Conan version</span>
+$ <span class="nb">cd</span> project
+
+$ conan create . user/channel --build missing
+$ conan remote add myremoteARMV7 http://some.remote.url
+$ conan upload <span class="s2">&quot;*&quot;</span> -r myremoteARMV7 --all
+</pre></div>
+</div>
+</div>
+<div class="section" id="available-docker-images">
+<span id="id1"></span><h2>Available Docker images<a class="headerlink" href="#available-docker-images" title="Permalink to this headline">¶</a></h2>
+<p>We provide a set of images with the most common compilers installed that can be used to generate Conan packages for different profiles.
+Their dockerfiles can be found in the <a class="reference external" href="https://github.com/conan-io/conan-docker-tools">Conan Docker Tools</a> repository.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The images listed below are intended for generating open-source library packages and we cannot guarantee any kind of stability.
+We strongly recommend using your own generated images for production environments taking these dockerfiles as a reference.</p>
+</div>
+<p><strong>GCC</strong> images</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="84%" />
+<col width="16%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Version</strong></td>
+<td><strong>Target Arch</strong></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc49/">conanio/gcc49 (GCC 4.9)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc49-i386/">conanio/gcc49-i386 (GCC 4.9)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc49-armv7/">conanio/gcc49-armv7 (GCC 4.9)</a></td>
+<td>armv7</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc49-armv7hf/">conanio/gcc49-armv7hf (GCC 4.9)</a></td>
+<td>armv7hf</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc5-armv7/">conanio/gcc5-armv7 (GCC 5)</a></td>
+<td>armv7</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc5-armv7hf/">conanio/gcc5-armv7hf (GCC 5)</a></td>
+<td>armv7hf</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc5/">conanio/gcc5 (GCC 5)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc5-i386/">conanio/gcc5-i386 (GCC 5)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc5-armv7/">conanio/gcc5-armv7 (GCC 5)</a></td>
+<td>armv7</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc5-armv7hf/">conanio/gcc5-armv7hf (GCC 5)</a></td>
+<td>armv7hf</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc6/">conanio/gcc6 (GCC 6)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc6-i386/">conanio/gcc6-i386 (GCC 6)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc6-armv7/">conanio/gcc6-armv7 (GCC 6)</a></td>
+<td>armv7</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc6-armv7hf/">conanio/gcc6-armv7hf: (GCC 6)</a></td>
+<td>armv7hf</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc7-i386/">conanio/gcc7-i386 (GCC 7)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc7/">conanio/gcc7 (GCC 7)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc7-armv7/">conanio/gcc7-armv7 (GCC 7)</a></td>
+<td>armv7</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/gcc7-armv7hf/">conanio/gcc7-armv7hf (GCC 7)</a></td>
+<td>armv7hf</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Clang</strong> images</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="83%" />
+<col width="17%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Version</td>
+<td><strong>Target Arch</strong></td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang38/">conanio/clang38 (Clang 3.8)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang39-i386/">conanio/clang39-i386 (Clang 3.9)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang39/">conanio/clang39 (Clang 3.9)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang40/-i386">conanio/clang40-i386 (Clang 4)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang40/">conanio/clang40 (Clang 4)</a></td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang50-i386/">conanio/clang50-i386 (Clang 5)</a></td>
+<td>x86</td>
+</tr>
+<tr class="row-even"><td><a class="reference external" href="https://hub.docker.com/r/conanio/clang50/">conanio/clang50 (Clang 5)</a></td>
+<td>x86_64</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python_code_reuse.html" class="btn btn-neutral float-right" title="How to reuse Python code in recipes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="manage_cpp_standard.html" class="btn btn-neutral" title="How to manage C++ standard [EXPERIMENTAL]" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.24
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.24/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.24.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.24");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

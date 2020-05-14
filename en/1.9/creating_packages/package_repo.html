@@ -1,0 +1,559 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Recipe and Sources in the Same Repo &mdash; conan 1.9.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.9.2 documentation" href="../index.html"/>
+        <link rel="up" title="Creating Packages" href="../creating_packages.html"/>
+        <link rel="next" title="Packaging Existing Binaries" href="existing_binaries.html"/>
+        <link rel="prev" title="Recipe and Sources in a Different Repo" href="external_repo.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-WK44ZFM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-WK44ZFM');
+</script>
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../creating_packages.html">Creating Packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="external_repo.html">Recipe and Sources in a Different Repo</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Recipe and Sources in the Same Repo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-the-sources-with-the-recipe-exports-sources">Exporting the Sources with the Recipe: <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#capturing-the-remote-and-commit-scm-experimental">Capturing the Remote and Commit: <code class="docutils literal notranslate"><span class="pre">scm</span></code> [EXPERIMENTAL]</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="existing_binaries.html">Packaging Existing Binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="understand_packaging.html">Understanding Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define_abi_compatibility.html">Defining Package ABI Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspecting_packages.html">Inspecting Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_approaches.html">Packaging Approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_tools.html">Package Creator Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../creating_packages.html">Creating Packages</a> &raquo;</li>
+        
+      <li>Recipe and Sources in the Same Repo</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/creating_packages/package_repo.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="recipe-and-sources-in-the-same-repo">
+<span id="package-repo"></span><h1>Recipe and Sources in the Same Repo<a class="headerlink" href="#recipe-and-sources-in-the-same-repo" title="Permalink to this headline">¶</a></h1>
+<p>Sometimes it is more convenient to have the recipe and source code together in the same repository.
+This is true especially if you are developing and packaging your own library, and not one from a third-party.</p>
+<p>There are two different approaches:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Using the <a class="reference internal" href="../reference/conanfile/attributes.html#exports-sources-attribute"><span class="std std-ref">exports sources attribute</span></a> of the conanfile to</dt>
+<dd>export the source code together with the recipe. This way the recipe is self-contained and will
+not need to fetch the code from external origins when building from sources. It can be considered
+a “snapshot” of the source code.</dd>
+</dl>
+</li>
+<li>Using the <a class="reference internal" href="../reference/conanfile/attributes.html#scm-attribute"><span class="std std-ref">scm attribute</span></a> of the conanfile to capture the remote and
+commit of your repository automatically.</li>
+</ul>
+<div class="section" id="exporting-the-sources-with-the-recipe-exports-sources">
+<h2>Exporting the Sources with the Recipe: <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code><a class="headerlink" href="#exporting-the-sources-with-the-recipe-exports-sources" title="Permalink to this headline">¶</a></h2>
+<p>This could be an appropriate approach if we want the package recipe to live in the same repository
+as the source code it is packaging.</p>
+<p>First, let’s get the initial source code and create the basic package recipe:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1 -t -s
+</pre></div>
+</div>
+<p>A <em>src</em> folder will be created with the same “hello” source code as in the previous example. You
+can have a look at it and see that the code is straightforward.</p>
+<p>Now let’s have a look at <em>conanfile.py</em>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;&lt;Put the package license here&gt;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;&lt;Package recipe repository url here, for issues about the package&gt;&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&lt;Description of Hello here&gt;&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">source_folder</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="c1"># Explicit way:</span>
+        <span class="c1"># self.run(&#39;cmake &quot;%s/src&quot; %s&#39; % (self.source_folder, cmake.command_line))</span>
+        <span class="c1"># self.run(&quot;cmake --build . %s&quot; % cmake.build_config)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>There are two important changes:</p>
+<ul class="simple">
+<li>Added the <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> field, indicating to Conan to copy all the files from the local <em>src</em>
+folder into the package recipe.</li>
+<li>Removed the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, since it is no longer necessary to retrieve external sources.</li>
+</ul>
+<p>Also, you can notice the two CMake lines:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+<span class="nb">conan_basic_setup</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>They are not added in the package recipe, as they can be directly added to the <code class="docutils literal notranslate"><span class="pre">src/CMakeLists.txt</span></code>
+file.</p>
+<p>And simply create the package for user and channel <strong>demo/testing</strong> as described previously:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . demo/testing
+...
+Hello/0.1@demo/testing <span class="nb">test</span> package: Running test<span class="o">()</span>
+Hello world!
+</pre></div>
+</div>
+</div>
+<div class="section" id="capturing-the-remote-and-commit-scm-experimental">
+<span id="scm-feature"></span><h2>Capturing the Remote and Commit: <code class="docutils literal notranslate"><span class="pre">scm</span></code> [EXPERIMENTAL]<a class="headerlink" href="#capturing-the-remote-and-commit-scm-experimental" title="Permalink to this headline">¶</a></h2>
+<p>You can use the <a class="reference internal" href="../reference/conanfile/attributes.html#scm-attribute"><span class="std std-ref">scm attribute</span></a> with the <code class="docutils literal notranslate"><span class="pre">url</span></code> and <code class="docutils literal notranslate"><span class="pre">revision</span></code> field set to <code class="docutils literal notranslate"><span class="pre">auto</span></code>.
+When you export the recipe (or when <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> is called) the exported recipe will capture the
+remote and commit of the local repository:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+
+ <span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+      <span class="n">scm</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>  <span class="c1"># Use &quot;type&quot;: &quot;svn&quot;, if local repo is managed using SVN</span>
+         <span class="s2">&quot;subfolder&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+<span class="hll">         <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+</span><span class="hll">         <span class="s2">&quot;revision&quot;</span><span class="p">:</span> <span class="s2">&quot;auto&quot;</span>
+</span>      <span class="p">}</span>
+     <span class="o">...</span>
+</pre></div>
+</div>
+<p>You can commit and push the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> to your origin repository, which will always preserve the “auto”
+values. But when the file is exported to the conan local cache, the copied recipe in the local cache
+will point to the captured remote and commit:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+
+ <span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+      <span class="n">scm</span> <span class="o">=</span> <span class="p">{</span>
+         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;git&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;subfolder&quot;</span><span class="p">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+<span class="hll">         <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/memsharded/hello.git&quot;</span><span class="p">,</span>
+</span><span class="hll">         <span class="s2">&quot;revision&quot;</span><span class="p">:</span> <span class="s2">&quot;437676e15da7090a1368255097f51b1a470905a0&quot;</span>
+</span>      <span class="p">}</span>
+     <span class="o">...</span>
+</pre></div>
+</div>
+<p>So when you <a class="reference internal" href="../uploading_packages.html#uploading-packages"><span class="std std-ref">upload the recipe</span></a> to a conan remote, the recipe will contain
+the “absolute” URL and commit.</p>
+<p>When you are requiring your <code class="docutils literal notranslate"><span class="pre">HelloConan</span></code>, the <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> will retrieve the recipe from the
+remote. If you are building the package, the source code will be fetched from the captured url/commit.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">While you are in the same computer (the same conan cache), even when you have exported the recipe and
+Conan has captured the absolute url and commit, Conan will store the local folder where your source code lives.
+If you build your package locally, it will use the local repository (in the local folder) instead of the remote URL,
+even if the local directory contains uncommitted changes.
+This allows you to speed up the development of your packages when cloning from a local repository.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="existing_binaries.html" class="btn btn-neutral float-right" title="Packaging Existing Binaries" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="external_repo.html" class="btn btn-neutral" title="Recipe and Sources in a Different Repo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.9
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.9/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.9.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.9");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

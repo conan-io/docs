@@ -1,0 +1,612 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compiler sanitizers &mdash; conan 1.24.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.24.1 documentation" href="../index.html"/>
+        <link rel="up" title="Howtos" href="../howtos.html"/>
+        <link rel="next" title="Reference" href="../reference.html"/>
+        <link rel="prev" title="Use a generic CI with Conan and Artifactory" href="generic_ci_artifactory.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intel_compiler.html">Working with Intel compiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard [EXPERIMENTAL]</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_conan_in_docker.html">How to use Docker to create and cross-build C and C++ Conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate with other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html#how-to-package-apple-frameworks">How to package Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="extract_licenses_from_headers.html">How to extract licenses from headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to dynamically define the name and version of a package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-scm-git">How to capture package version from SCM: git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-scm-svn">How to capture package version from SCM: svn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html#how-to-capture-package-version-from-text-or-build-files">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="check_conan_version_in_conanfile.html">How to check the version of the Conan client inside a conanfile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generic_ci_artifactory.html">Use a generic CI with Conan and Artifactory</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compiler sanitizers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-custom-settings">Adding custom settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-a-list-of-commonly-used-values">Adding a list of commonly used values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-different-values-to-combine">Adding different values to combine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#passing-the-information-to-the-compiler-or-build-system">Passing the information to the compiler or build system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-from-custom-profiles">Using from custom profiles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-sanitizer-settings-with-the-build-system">Managing sanitizer settings with the build system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-conan-hooks-to-set-compiler-environment-variables">Using conan Hooks to set compiler environment variables</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../howtos.html">Howtos</a> &raquo;</li>
+        
+      <li>Compiler sanitizers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/howtos/sanitizers.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compiler-sanitizers">
+<span id="sanitizers"></span><h1>Compiler sanitizers<a class="headerlink" href="#compiler-sanitizers" title="Permalink to this headline">¶</a></h1>
+<p>Sanitizers are tools that can detect bugs such as buffer overflows or accesses, dangling pointer or
+different types of undefined behavior.</p>
+<p>The two compilers that mainly support sanitizing options are gcc and clang. These options are
+passed to the compiler as flags and, depending on if you are using
+<a class="reference external" href="https://clang.llvm.org/docs/UsersManual.html#controlling-code-generation">clang</a> or
+<a class="reference external" href="https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html">gcc</a>, different sanitizers are
+supported.</p>
+<p>Here we explain different options on how to model and use sanitizers with your Conan packages.</p>
+<div class="section" id="adding-custom-settings">
+<h2>Adding custom settings<a class="headerlink" href="#adding-custom-settings" title="Permalink to this headline">¶</a></h2>
+<p>If you want to model the sanitizer options so that the package id is affected by them, you have to
+introduce new settings in the <em>settings.yml</em> file (see <a class="reference internal" href="../extending/custom_settings.html#custom-settings"><span class="std std-ref">Customizing settings</span></a> section for more
+information).</p>
+<p>Sanitizer options should be modeled as sub-settings of the compiler. Depending on how you want to
+combine the sanitizers you have two choices.</p>
+<div class="section" id="adding-a-list-of-commonly-used-values">
+<h3>Adding a list of commonly used values<a class="headerlink" href="#adding-a-list-of-commonly-used-values" title="Permalink to this headline">¶</a></h3>
+<p>If you have a fixed set of sanitizers or combinations of them that are the ones you usually set for
+your builds you can add the sanitizers as a list of values. An example for <em>apple-clang</em> would be
+like this:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>settings.yml</em></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apple-clang</span><span class="p">:</span>
+    <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;5.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.1&quot;</span><span class="p p-Indicator">,</span>
+              <span class="s">&quot;9.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.0&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">libstdc++</span><span class="p p-Indicator">,</span> <span class="nv">libc++</span><span class="p p-Indicator">]</span>
+    <span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">98</span><span class="p p-Indicator">,</span> <span class="nv">gnu98</span><span class="p p-Indicator">,</span> <span class="nv">11</span><span class="p p-Indicator">,</span> <span class="nv">gnu11</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">gnu14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">gnu17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">,</span> <span class="nv">gnu20</span><span class="p p-Indicator">]</span>
+<span class="hll">    <span class="nt">sanitizer</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">Address</span><span class="p p-Indicator">,</span> <span class="nv">Thread</span><span class="p p-Indicator">,</span> <span class="nv">Memory</span><span class="p p-Indicator">,</span> <span class="nv">UndefinedBehavior</span><span class="p p-Indicator">,</span> <span class="nv">AddressUndefinedBehavior</span><span class="p p-Indicator">]</span>
+</span></pre></div>
+</div>
+</div>
+<p>Here you have modeled the use of <code class="docutils literal notranslate"><span class="pre">-fsanitize=address</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=thread</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-fsanitize=memory</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=undefined</span></code> and the combination of <code class="docutils literal notranslate"><span class="pre">-fsanitize=address</span></code> and
+<code class="docutils literal notranslate"><span class="pre">-fsanitize=undefined</span></code>. Note that for example, for clang it is not possible to combine more than
+one of the <code class="docutils literal notranslate"><span class="pre">-fsanitize=address</span></code>, <code class="docutils literal notranslate"><span class="pre">-fsanitize=thread</span></code>, and <code class="docutils literal notranslate"><span class="pre">-fsanitize=memory</span></code> checkers in the
+same program.</p>
+<p>Adding thread sanitizer for a <strong class="command">conan install</strong>, in this case, could be done by calling
+<strong class="command">conan install .. -s compiler.sanitizer=Thread</strong></p>
+</div>
+<div class="section" id="adding-different-values-to-combine">
+<h3>Adding different values to combine<a class="headerlink" href="#adding-different-values-to-combine" title="Permalink to this headline">¶</a></h3>
+<p>Another option would be to add the sanitizer values as multiple <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code> fields so that
+they can be freely combined later. An example of that for the previous sanitizer options would be as
+follows:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>settings.yml</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apple-clang</span><span class="p">:</span>
+    <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;5.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.0&quot;</span><span class="p p-Indicator">,</span>
+              <span class="s">&quot;8.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.0&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">libstdc++</span><span class="p p-Indicator">,</span> <span class="nv">libc++</span><span class="p p-Indicator">]</span>
+    <span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">98</span><span class="p p-Indicator">,</span> <span class="nv">gnu98</span><span class="p p-Indicator">,</span> <span class="nv">11</span><span class="p p-Indicator">,</span> <span class="nv">gnu11</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">gnu14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">gnu17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">,</span> <span class="nv">gnu20</span><span class="p p-Indicator">]</span>
+<span class="hll">    <span class="nt">address_sanitizer</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">True</span><span class="p p-Indicator">]</span>
+</span><span class="hll">    <span class="nt">thread_sanitizer</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">True</span><span class="p p-Indicator">]</span>
+</span><span class="hll">    <span class="nt">undefined_sanitizer</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">True</span><span class="p p-Indicator">]</span>
+</span></pre></div>
+</div>
+</div>
+<p>Then, you can add different sanitizers calling, for example, to <strong class="command">conan install ..
+-s compiler.address_sanitizer=True -s compiler.undefined_sanitizer=True</strong></p>
+<p>A drawback of this approach is that not all the combinations will be valid or will make sense, but it
+is up to the consumer to use it correctly.</p>
+</div>
+</div>
+<div class="section" id="passing-the-information-to-the-compiler-or-build-system">
+<h2>Passing the information to the compiler or build system<a class="headerlink" href="#passing-the-information-to-the-compiler-or-build-system" title="Permalink to this headline">¶</a></h2>
+<p>Here again, we have multiple choices to pass sanitizers information to the compiler or build system.</p>
+<div class="section" id="using-from-custom-profiles">
+<h3>Using from custom profiles<a class="headerlink" href="#using-from-custom-profiles" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to have different custom profiles defining the compiler sanitizer setting and
+environment variables to inject that information to the compiler, and then passing those profiles to
+Conan commands. An example of this would be a profile like:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>address_sanitizer_profile</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [settings]
+ os=Macos
+ os_build=Macos
+ arch=x86_64
+ arch_build=x86_64
+ compiler=apple-clang
+ compiler.version=10.0
+ compiler.libcxx=libc++
+ build_type=Release
+<span class="hll"> compiler.sanitizer=Address
+</span> [env]
+<span class="hll"> CXXFLAGS=-fsanitize=address
+</span><span class="hll"> CFLAGS=-fsanitize=address
+</span></pre></div>
+</div>
+</div>
+<p>Then calling to <strong class="command">conan create . -pr address_sanitizer_profile</strong> would inject
+<code class="docutils literal notranslate"><span class="pre">-fsanitize=address</span></code> to the build through the <code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> environment variable.</p>
+</div>
+<div class="section" id="managing-sanitizer-settings-with-the-build-system">
+<h3>Managing sanitizer settings with the build system<a class="headerlink" href="#managing-sanitizer-settings-with-the-build-system" title="Permalink to this headline">¶</a></h3>
+<p>Another option is to make use of the information that is propagated to the <em>conan generator</em>. For
+example, if we are using CMake we could use the information from the <em>CMakeLists.txt</em> to append
+the flags to the compiler settings like this:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>CMakeLists.txt</em></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span> <span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.2</span><span class="p">)</span>
+ <span class="nb">project</span><span class="p">(</span><span class="s">SanitizerExample</span><span class="p">)</span>
+ <span class="nb">set</span> <span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span> <span class="s">11</span><span class="p">)</span>
+ <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+ <span class="nb">conan_basic_setup</span><span class="p">()</span>
+ <span class="nb">set</span><span class="p">(</span><span class="s">SANITIZER</span> <span class="o">${</span><span class="nv">CONAN_SETTINGS_COMPILER_SANITIZER</span><span class="o">}</span><span class="p">)</span>
+ <span class="nb">if</span><span class="p">(</span><span class="s">SANITIZER</span><span class="p">)</span>
+     <span class="nb">if</span><span class="p">(</span><span class="s">SANITIZER</span> <span class="s">MATCHES</span> <span class="s2">&quot;(Address)&quot;</span><span class="p">)</span>
+     <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_FLAGS</span> <span class="s2">&quot;${CMAKE_CXX_FLAGS} -fsanitize=address&quot;</span> <span class="p">)</span>
+     <span class="nb">endif</span><span class="p">()</span>
+ <span class="nb">endif</span><span class="p">()</span>
+ <span class="nb">add_executable</span><span class="p">(</span><span class="s">sanit_example</span> <span class="s">src/main.cpp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The sanitizer setting is propagated to CMake as the <code class="docutils literal notranslate"><span class="pre">CONAN_SETTINGS_COMPILER_SANITIZER</span></code> variable
+with a value equals to <code class="docutils literal notranslate"><span class="pre">&quot;Address&quot;</span></code> and we can set the behavior in CMake depending on the value of
+the variable.</p>
+</div>
+<div class="section" id="using-conan-hooks-to-set-compiler-environment-variables">
+<h3>Using conan Hooks to set compiler environment variables<a class="headerlink" href="#using-conan-hooks-to-set-compiler-environment-variables" title="Permalink to this headline">¶</a></h3>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Take into account that the package ID doesn’t encode information about the environment,
+so different binaries due to different <cite>CXX_FLAGS</cite> would be considered by Conan as the same package.</p>
+</div>
+<p>If you are not interested in modelling the settings in the Conan package you can use a
+<a class="reference internal" href="../reference/hooks.html#hooks-reference"><span class="std std-ref">Hook</span></a> to modify the environment variable and apply the sanitizer
+flags to the build. It could be something like:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>sanitizer_hook.py</em></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_sanitize_address_flag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_old_cxx_flags</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CXXFLAGS&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SOURCE_DATE_EPOCH&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_old_flags</span> <span class="o">+</span> <span class="s2">&quot; -fsanitize=address&quot;</span>
+
+<span class="k">def</span> <span class="nf">reset_sanitize_address_flag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_cxx_flags</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CXXFLAGS&quot;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;CXXFLAGS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_old_cxx_flags</span>
+</pre></div>
+</div>
+</div>
+<p>And then calling those functions from a <em>pre_build</em> and a <em>post_build</em> hook:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>sanitizer_hook.py</em></span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pre_build</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">set_sanitize_address_flag</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">post_build</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">reset_sanitize_address_flag</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="generic_ci_artifactory.html" class="btn btn-neutral" title="Use a generic CI with Conan and Artifactory" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.24
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.24/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.24.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.24");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

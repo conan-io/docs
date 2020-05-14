@@ -1,0 +1,361 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Upgrading to conan 1.0 &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Introduction" href="introduction.html"/>
+        <link rel="prev" title="Welcome to conan" href="index.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Upgrading to conan 1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-changes">Command line changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deprecations-removals">Deprecations/removals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#settings-and-profiles-gcc-clang-versioning">Settings and profiles. Gcc/CLang versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#new-features">New features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Upgrading to conan 1.0</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/conan1.0.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="upgrading-to-conan-1-0">
+<span id="conan-1-0"></span><h1>Upgrading to conan 1.0<a class="headerlink" href="#upgrading-to-conan-1-0" title="Permalink to this headline">¶</a></h1>
+<p>If you were using a 0.X conan version, there are some things to consider while upgrading. They are reflected in the <a class="reference internal" href="changelog.html#changelog"><span class="std std-ref">changelog</span></a>., but this section summarizes the most important changes here:</p>
+<div class="section" id="command-line-changes">
+<h2>Command line changes<a class="headerlink" href="#command-line-changes" title="Permalink to this headline">¶</a></h2>
+<p>There has been a few things that will break existing usage (compared to 0.30). Most of them are in command line arguments, so they are relatively easy to fix. The most important one is that now most commands require the path to the conanfile folder or file, instead of using <code class="docutils literal notranslate"><span class="pre">--path</span></code> and <code class="docutils literal notranslate"><span class="pre">--file</span></code> arguments. Specifically, <strong class="command">conan install</strong>, <strong class="command">conan export</strong> and <strong class="command">conan create</strong> will be the ones most affected:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># instead of --path=myfolder --file=myconanfile.py, now you can do:</span>
+$ conan install . <span class="c1"># Note the &quot;.&quot; is now mandatory</span>
+$ conan install folder/myconanfile.txt
+$ conan install ../myconanfile.py
+$ conan info .
+$ conan create . user/channel
+$ conan create . Pkg/0.1@user/channel
+$ conan create mypkgconanfile.py Pkg/0.1@user/channel
+$ conan <span class="nb">export</span> . user/channel
+$ conan <span class="nb">export</span> . Pkg/0.1@user/channel
+$ conan <span class="nb">export</span> myfolder/myconanfile.py Pkg/0.1@user/channel
+</pre></div>
+</div>
+<p>This behavior aligns with the <strong class="command">conan source</strong>, <strong class="command">conan build</strong>, <strong class="command">conan package</strong> commands, that all use the same arguments to locate the <em>conanfile.py</em> containing the logic to be run.</p>
+<p>Now all commands read: <strong class="command">command &lt;origin-conanfile&gt; ...</strong></p>
+<p>Also, all arguments to command line now use dash instead of underscore:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan build .. --source-folder<span class="o">=</span>../src  <span class="c1"># not --source_folder</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deprecations-removals">
+<h2>Deprecations/removals<a class="headerlink" href="#deprecations-removals" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>scopes were completely removed in conan 0.30.X</li>
+<li><code class="docutils literal notranslate"><span class="pre">self.conanfile_directory</span></code> has been removed. Use <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>, <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code>, etc. instead</li>
+<li><code class="docutils literal notranslate"><span class="pre">self.cpp_info</span></code>, <code class="docutils literal notranslate"><span class="pre">self.env_info</span></code> and <code class="docutils literal notranslate"><span class="pre">self.user_info</span></code> scope has been reduced to only the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method</li>
+<li><code class="docutils literal notranslate"><span class="pre">gcc</span></code> and <code class="docutils literal notranslate"><span class="pre">ConfigureEnvironment</span></code> were already removed in conan 0.30.1</li>
+<li><code class="docutils literal notranslate"><span class="pre">werror</span></code> doesn’t exist anymore. Now it is the builtin behavior.</li>
+<li>Command <code class="docutils literal notranslate"><span class="pre">test_package</span></code> has been removed. Use <strong class="command">conan create</strong> and <strong class="command">conan test</strong> instead.</li>
+<li><code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper only allows now (from conan 0.29). the <code class="docutils literal notranslate"><span class="pre">CMake(self)</span></code> syntax</li>
+<li><strong class="command">conan package_files</strong> command was replaced in conan 0.28 by <strong class="command">conan export-pkg</strong> command.</li>
+</ul>
+</div>
+<div class="section" id="settings-and-profiles-gcc-clang-versioning">
+<h2>Settings and profiles. Gcc/CLang versioning<a class="headerlink" href="#settings-and-profiles-gcc-clang-versioning" title="Permalink to this headline">¶</a></h2>
+<p>gcc and clang compilers have modified their versioning approach, from gcc &gt; 5 and clang &gt; 4,
+the minors are really bugfixes, and then they have binary compatibility. To adapt to this,
+conan now includes major version in the <em>settings.yml</em> default settings file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">gcc</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">version</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;4.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.5&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.7&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.9&quot;</span><span class="p p-Indicator">,</span>
+              <span class="s">&quot;5&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.4&quot;</span><span class="p p-Indicator">,</span>
+              <span class="s">&quot;6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.4&quot;</span><span class="p p-Indicator">,</span>
+              <span class="s">&quot;7&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.2&quot;</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Most package creators want to use the major-only settings, like <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">compiler=gcc</span> <span class="pre">-s</span> <span class="pre">compiler.version=5</span></code>,
+instead of specifying the minors too.</p>
+<p>The default profile detection and creation has been modified accordingly, but if you have a default
+profile you may want to update it to reflect this:</p>
+<p>Conan associated tools (conan-package-tools, conan.cmake) have been upgraded to accomodate this new defaults.</p>
+</div>
+<div class="section" id="new-features">
+<h2>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Cross-compilation support with new default settings in settings.yml: <code class="docutils literal notranslate"><span class="pre">os_build</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_build</span></code>, <code class="docutils literal notranslate"><span class="pre">os_target</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_target</span></code>.
+They are automatically removed from the <code class="docutils literal notranslate"><span class="pre">package_id</span></code> computation, or kept if they
+are the only ones defined (as it happens usually with dev-tools packages). It is possible to keep them too with the <code class="docutils literal notranslate"><span class="pre">self.info.include_build_settings()</span></code> method (call it in your <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method).</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Please <strong>don’t</strong> use cross-build settings <code class="docutils literal notranslate"><span class="pre">os_build</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> for standard packages and libraries.
+They are only useful for packages that are used via <code class="docutils literal notranslate"><span class="pre">build_requires</span></code>, like <code class="docutils literal notranslate"><span class="pre">cmake_installer</span></code> or <code class="docutils literal notranslate"><span class="pre">mingw_installer</span></code>.</p>
+</div>
+<ul class="simple">
+<li>Model and utilities for Windows subsystems</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>os:
+    Windows:
+        subsystem: <span class="o">[</span>None, cygwin, msys, msys2, wsl<span class="o">]</span>
+</pre></div>
+</div>
+<p>This subsetting can be used by build helpers as <code class="docutils literal notranslate"><span class="pre">CMake</span></code>, to act accordingly.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to conan" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

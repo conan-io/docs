@@ -1,0 +1,404 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conanfile.txt &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Reference" href="../reference.html"/>
+        <link rel="next" title="conanfile.py" href="conanfile.html"/>
+        <link rel="prev" title="Install and Create output [EXPERIMENTAL]" href="commands/output/install.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">conanfile.txt</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sections">Sections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#requires">[requires]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-requires">[build_requires]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generators">[generators]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#options">[options]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#imports">[imports]</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../reference.html">Reference</a> &raquo;</li>
+        
+      <li>conanfile.txt</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/conanfile_txt.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conanfile-txt">
+<span id="conanfile-txt-reference"></span><h1>conanfile.txt<a class="headerlink" href="#conanfile-txt" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sections">
+<h2>Sections<a class="headerlink" href="#sections" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="requires">
+<h3>[requires]<a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h3>
+<p>List of requirements, specifing the full reference.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+zlib/1.2.11@conan/stable
+</pre></div>
+</div>
+<p>Also support <a class="reference internal" href="../mastering/version_ranges.html#version-ranges"><span class="std std-ref">version ranges</span></a>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/[&gt;1.0,&lt;1.8]@pocoproject/stable
+zlib/1.2.11@conan/stable
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-requires">
+<h3>[build_requires]<a class="headerlink" href="#build-requires" title="Permalink to this headline">¶</a></h3>
+<p>List of build requirements, specifing the full reference.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[build_requires]
+7z_installer/1.0@conan/stable
+</pre></div>
+</div>
+<p>Also support <a class="reference internal" href="../mastering/version_ranges.html#version-ranges"><span class="std std-ref">version ranges</span></a></p>
+<p>In practice the <code class="docutils literal notranslate"><span class="pre">[build_requires]</span></code> will be always installed, the same as <code class="docutils literal notranslate"><span class="pre">[requires]</span></code>.
+Installing from a <em>conanfile.txt</em> means that something is going to be built, so the build
+requirements are indeed needed.</p>
+<p>Still, it is useful and conceptually cleaner to have them in separate sections, so users of
+this <em>conanfile.txt</em> might quickly identify some dev-tools that they have already installed
+on their machine, differentiating them from the required libraries to link with.</p>
+</div>
+<div class="section" id="generators">
+<h3>[generators]<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h3>
+<p>List of <a class="reference internal" href="generators.html#generators-reference"><span class="std std-ref">generators</span></a></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+zlib/1.2.11@conan/stable
+
+[generators]
+xcode
+cmake
+qmake
+</pre></div>
+</div>
+</div>
+<div class="section" id="options">
+<h3>[options]<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h3>
+<p>List of <a class="reference internal" href="../using_packages/conanfile_txt.html#options-txt"><span class="std std-ref">options</span></a>. Always specifying <strong>package_name:option = Value</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+zlib/1.2.11@conan/stable
+
+[generators]
+cmake
+
+[options]
+Poco:shared=True
+OpenSSL:shared=True
+</pre></div>
+</div>
+</div>
+<div class="section" id="imports">
+<h3>[imports]<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h3>
+<p>List of files to be imported to a local directory. Read more: <a class="reference internal" href="../using_packages/conanfile_txt.html#imports-txt"><span class="std std-ref">imports</span></a>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+zlib/1.2.11@conan/stable
+
+[generators]
+cmake
+
+[options]
+Poco:shared=True
+OpenSSL:shared=True
+
+[imports]
+bin, *.dll -&gt; ./bin # Copies all dll files from packages bin folder to my local &quot;bin&quot; folder
+lib, *.dylib* -&gt; ./bin # Copies all dylib files from packages lib folder to my local &quot;bin&quot; folder
+</pre></div>
+</div>
+<p>The first item is the subfolder of the packages (could be the root “.” one), the second is the pattern to match. Both relate to the local
+cache. The third (after the arrow) item, is the destination folder, living in user space, not in the local cache.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[imports]</span></code> section also support the same arguments as the equivalent <code class="docutils literal notranslate"><span class="pre">imports()</span></code> method in <em>conanfile.py</em>, separated with an <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>.</p>
+<ul class="simple">
+<li><strong>root_package</strong> (Optional, Defaulted to <em>all packages in deps</em>): fnmatch pattern of the package name (“OpenCV”, “Boost”) from which files
+will be copied.</li>
+<li><strong>folder</strong>: (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>). If enabled, it will copy the files from the local cache to a subfolder named as the
+package containing the files. Useful to avoid conflicting imports of files with the same name (e.g. License).</li>
+<li><strong>ignore_case</strong>: (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>). If enabled will do a case-insensitive pattern matching.</li>
+<li><strong>excludes</strong>: (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>). Allows defining a list of patterns (even a single pattern) to be excluded from the copy,
+even if they match the main <code class="docutils literal notranslate"><span class="pre">pattern</span></code>.</li>
+<li><strong>keep_path</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>): Means if you want to keep the relative path when you copy the files from the <strong>src</strong>
+folder to the <strong>dst</strong> one. Useful to ignore (<code class="docutils literal notranslate"><span class="pre">keep_path=False</span></code>) path of <em>library.dll</em> files in the package it is imported from.</li>
+</ul>
+<p>Example to collect license files from dependencies, into a <em>licenses</em> folder, excluding (just an example) html and jpeg files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[imports]
+., license* -&gt; ./licenses @ folder=True, ignore_case=True, excludes=*.html *.jpeg
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conanfile.html" class="btn btn-neutral float-right" title="conanfile.py" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="commands/output/install.html" class="btn btn-neutral" title="Install and Create output [EXPERIMENTAL]" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

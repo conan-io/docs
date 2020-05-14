@@ -1,0 +1,355 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>qbs &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Meson Build" href="meson.html"/>
+        <link rel="prev" title="Premake" href="premake.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li>qbs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/qbs.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="qbs">
+<span id="id1"></span><h1>qbs<a class="headerlink" href="#qbs" title="Permalink to this headline">¶</a></h1>
+<p>Conan provides a <strong>qbs</strong> generator, it will generate a <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.qbs</span></code> file that can be used for your
+qbs builds.</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.qbs</span></code> as a reference on the project level and a Depends item with the name <code class="docutils literal notranslate"><span class="pre">conanbuildinfo</span></code>:</p>
+<p><strong>yourproject.qbs</strong></p>
+<div class="highlight-qbs notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">qbs</span>
+
+<span class="nx">Project</span> <span class="p">{</span>
+   <span class="k">references:</span> <span class="p">[</span><span class="s2">&quot;conanbuildinfo.qbs&quot;</span><span class="p">]</span>
+   <span class="nx">Product</span> <span class="p">{</span>
+        <span class="k">type:</span> <span class="s2">&quot;application&quot;</span>
+        <span class="k">consoleApplication:</span> <span class="kc">true</span>
+        <span class="k">files:</span> <span class="p">[</span>
+            <span class="s2">&quot;conanfile.txt&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;main.cpp&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="nx">Depends</span> <span class="p">{</span> <span class="k">name:</span> <span class="s2">&quot;cpp&quot;</span> <span class="p">}</span>
+        <span class="nx">Depends</span> <span class="p">{</span> <span class="k">name:</span> <span class="s2">&quot;ConanBasicSetup&quot;</span> <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will include the product called <code class="docutils literal notranslate"><span class="pre">ConanBasicSetup</span></code> which holds all
+the necessary settings for all your dependencies.</p>
+<p>If you’d rather like to manually add each dependency, just replace
+<code class="docutils literal notranslate"><span class="pre">ConanBasicSetup</span></code> with the dependency you would like to include.
+You may also specify multiple dependencies:</p>
+<p><strong>yourproject.qbs</strong></p>
+<div class="highlight-qbs notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">qbs</span>
+
+<span class="nx">Project</span> <span class="p">{</span>
+   <span class="k">references:</span> <span class="p">[</span><span class="s2">&quot;conanbuildinfo.qbs&quot;</span><span class="p">]</span>
+   <span class="nx">Product</span> <span class="p">{</span>
+        <span class="k">type:</span> <span class="s2">&quot;application&quot;</span>
+        <span class="k">consoleApplication:</span> <span class="kc">true</span>
+        <span class="k">files:</span> <span class="p">[</span>
+            <span class="s2">&quot;conanfile.txt&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;main.cpp&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="nx">Depends</span> <span class="p">{</span> <span class="k">name:</span> <span class="s2">&quot;cpp&quot;</span> <span class="p">}</span>
+        <span class="nx">Depends</span> <span class="p">{</span> <span class="k">name:</span> <span class="s2">&quot;catch&quot;</span> <span class="p">}</span>
+        <span class="nx">Depends</span> <span class="p">{</span> <span class="k">name:</span> <span class="s2">&quot;Poco&quot;</span> <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../reference/generators/qbs.html#qbs-generator"><span class="std std-ref">Reference/Generators/qbs</span></a> section for get more details.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="meson.html" class="btn btn-neutral float-right" title="Meson Build" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="premake.html" class="btn btn-neutral" title="Premake" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

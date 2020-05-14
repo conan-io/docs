@@ -1,0 +1,359 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to test test your project with Google Test &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>How to test test your project with Google Test</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/howtos/use_gtest.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-test-test-your-project-with-google-test">
+<span id="google-test-example"></span><h1>How to test test your project with Google Test<a class="headerlink" href="#how-to-test-test-your-project-with-google-test" title="Permalink to this headline">¶</a></h1>
+<p>Google Test is a framework for writing C++ tests on a variety of platforms.
+We are going to see an example of how to use GTest with conan.</p>
+<div class="section" id="the-source-code">
+<h2>The source code<a class="headerlink" href="#the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>Clone the project from github:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/lasote/conan-gtest-example
+</pre></div>
+</div>
+<p>This is our project layout:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>conan-gtest-example/
+      ├── .travis.yml
+      ├── .gitlab-ci.yml
+      ├── appveyor.yml
+      ├── CMakeLists.txt
+      ├── conanfile.py
+      ├── encrypter.cpp
+      ├── encrypter.h
+      ├── LICENSE
+      ├── README.md
+      └── test_package
+          ├── CMakeLists.txt
+          ├── conanfile.py
+          └── encryption_test.cpp
+</pre></div>
+</div>
+<p>We will compile our project with CMake and Conan, so we use the <strong>cmake</strong> generator in <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code></p>
+</div>
+<div class="section" id="installing-requirements-compiling-and-running-our-tests">
+<h2>Installing requirements, compiling and running our tests<a class="headerlink" href="#installing-requirements-compiling-and-running-our-tests" title="Permalink to this headline">¶</a></h2>
+<p>Conan will install all dependencies, build your project, create a package and run all tests</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . demo/testing
+</pre></div>
+</div>
+<p>The <strong class="command">conan create</strong> automates all steps for you. However, you need to create the test directory and <em>conanfile.py</em> to make sure that
+your package is correct.</p>
+</div>
+<div class="section" id="cmake">
+<h2>CMake<a class="headerlink" href="#cmake" title="Permalink to this headline">¶</a></h2>
+<p>Optionally, you could use CMake to build your project:</p>
+<p>Install requirements</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+</pre></div>
+</div>
+<p>Build your project normally with CMake:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ cmake .. <span class="o">&amp;&amp;</span> cmake --build .
+</pre></div>
+</div>
+<p>If you just want to build the project, all steps can be executed directly
+by CMake, or just invoking <strong class="command">conan build</strong>.</p>
+</div>
+<div class="section" id="step-by-step">
+<h2>Step by step<a class="headerlink" href="#step-by-step" title="Permalink to this headline">¶</a></h2>
+<p>You could execute all Conan steps individually,</p>
+<p>Install dependencies</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+</pre></div>
+</div>
+<p>Export and build the project</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . lasote/testing
+$ conan install conan-gtest-example/0.1.0@lasote/testing --build conan-gtest-example
+</pre></div>
+</div>
+<p>So far, the package was exported and created, without testing.</p>
+<p>Build test project</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> test_package
+$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan install ..
+$ conan build ..
+</pre></div>
+</div>
+<p>And run!</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bin/encryption_test
+
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span> Built target mytest
+Running main<span class="o">()</span> from gtest_main.cc
+<span class="o">[==========]</span> Running <span class="m">1</span> <span class="nb">test</span> from <span class="m">1</span> <span class="nb">test</span> <span class="k">case</span>.
+<span class="o">[</span>----------<span class="o">]</span> Global <span class="nb">test</span> environment set-up.
+<span class="o">[</span>----------<span class="o">]</span> <span class="m">1</span> <span class="nb">test</span> from TestingEncryption
+<span class="o">[</span> RUN      <span class="o">]</span> TestingEncryption.cipher
+
+Decrypted text is:
+The quick brown fox jumps over the lazy dog
+<span class="o">[</span>       OK <span class="o">]</span> TestingEncryption.cipher <span class="o">(</span><span class="m">2</span> ms<span class="o">)</span>
+<span class="o">[</span>----------<span class="o">]</span> <span class="m">1</span> <span class="nb">test</span> from TestingEncryption <span class="o">(</span><span class="m">2</span> ms total<span class="o">)</span>
+
+<span class="o">[</span>----------<span class="o">]</span> Global <span class="nb">test</span> environment tear-down
+<span class="o">[==========]</span> <span class="m">1</span> <span class="nb">test</span> from <span class="m">1</span> <span class="nb">test</span> <span class="k">case</span> ran. <span class="o">(</span><span class="m">2</span> ms total<span class="o">)</span>
+<span class="o">[</span>  PASSED  <span class="o">]</span> <span class="m">1</span> test.
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

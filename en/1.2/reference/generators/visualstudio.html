@@ -1,0 +1,383 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>visual_studio &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Generators" href="../generators.html"/>
+        <link rel="next" title="visual_studio_multi" href="visualstudiomulti.html"/>
+        <link rel="prev" title="cmake_multi" href="cmakemulti.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../generators.html">Generators</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake.html"><cite>cmake</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cmakemulti.html"><cite>cmake_multi</cite></a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">visual_studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visualstudiomulti.html"><cite>visual_studio_multi</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visualstudiolegacy.html">visual_studio_legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="xcode.html">xcode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compiler_args.html">compiler_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gcc.html">gcc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boost_build.html">Boost Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qmake.html">qmake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scons.html">scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pkg_config.html">pkg_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html">virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbuildenv.html">virtualbuildenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualrunenv.html">virtualrunenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ycm.html">youcompleteme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="text.html">txt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="json.html">json</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../generators.html">Generators</a> &raquo;</li>
+        
+      <li>visual_studio</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/generators/visualstudio.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visual-studio">
+<span id="visualstudio-generator"></span><h1>visual_studio<a class="headerlink" href="#visual-studio" title="Permalink to this headline">¶</a></h1>
+<div class="out-reference-box docutils container">
+This is the reference page for <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator.
+Go to <a class="reference internal" href="../../integrations/visual_studio.html#visual-studio"><span class="std std-ref">Integrations/Visual Studio</span></a> if you want to learn how to integrate your project or recipes with Visual Studio.</div>
+<p>Generates a file named <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.props</span></code> containing an XML that can be imported to your <em>Visual Studio</em> project.</p>
+<p>Generated xml structure:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;Project</span> <span class="na">ToolsVersion=</span><span class="s">&quot;4.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/developer/msbuild/2003&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ImportGroup</span> <span class="na">Label=</span><span class="s">&quot;PropertySheets&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;PropertyGroup</span> <span class="na">Label=</span><span class="s">&quot;UserMacros&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;PropertyGroup</span> <span class="na">Label=</span><span class="s">&quot;Conan-RootDirs&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Conan-Lib1-Root&gt;</span>{PACKAGE LIB1 FOLDER}<span class="nt">&lt;/Conan-Poco-Root&gt;</span>
+    <span class="nt">&lt;Conan-Lib2-Root&gt;</span>{PACKAGE LIB2 FOLDER}<span class="nt">&lt;/Conan-Poco-Root&gt;</span>
+    ...
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+  <span class="nt">&lt;PropertyGroup</span> <span class="na">Label=</span><span class="s">&quot;ConanVariables&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ConanBinaryDirectories&gt;</span>{CONAN BINARY DIRECTORIES LIST}<span class="nt">&lt;/ConanBinaryDirectories&gt;</span>
+    <span class="nt">&lt;ConanResourceDirectories&gt;</span>{CONAN RESOURCE DIRECTORIES LIST}<span class="nt">&lt;/ConanResourceDirectories&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+  <span class="nt">&lt;PropertyGroup&gt;</span>
+    <span class="nt">&lt;LocalDebuggerEnvironment&gt;</span>PATH=%PATH%;{CONAN BINARY DIRECTORIES LIST}<span class="nt">&lt;/LocalDebuggerEnvironment&gt;</span>
+    <span class="nt">&lt;DebuggerFlavor&gt;</span>WindowsLocalDebugger<span class="nt">&lt;/DebuggerFlavor&gt;</span>
+  <span class="nt">&lt;/PropertyGroup&gt;</span>
+  <span class="nt">&lt;ItemDefinitionGroup&gt;</span>
+    <span class="nt">&lt;ClCompile&gt;</span>
+      <span class="nt">&lt;AdditionalIncludeDirectories&gt;</span>{CONAN INCLUDE DIRECTORIES LIST}%(AdditionalIncludeDirectories)<span class="nt">&lt;/AdditionalIncludeDirectories&gt;</span>
+      <span class="nt">&lt;PreprocessorDefinitions&gt;</span>{CONAN DEFINITIONS}%(PreprocessorDefinitions)<span class="nt">&lt;/PreprocessorDefinitions&gt;</span>
+      <span class="nt">&lt;AdditionalOptions&gt;</span> %(AdditionalOptions)<span class="nt">&lt;/AdditionalOptions&gt;</span>
+    <span class="nt">&lt;/ClCompile&gt;</span>
+    <span class="nt">&lt;Link&gt;</span>
+      <span class="nt">&lt;AdditionalLibraryDirectories&gt;</span>{CONAN LIB DIRECTORIES LIST}%(AdditionalLibraryDirectories)<span class="nt">&lt;/AdditionalLibraryDirectories&gt;</span>
+      <span class="nt">&lt;AdditionalDependencies&gt;</span>{CONAN LIBS LIST}<span class="nt">&lt;/AdditionalDependencies&gt;</span>
+      <span class="nt">&lt;AdditionalOptions&gt;</span> %(AdditionalOptions)<span class="nt">&lt;/AdditionalOptions&gt;</span>
+    <span class="nt">&lt;/Link&gt;</span>
+  <span class="nt">&lt;/ItemDefinitionGroup&gt;</span>
+  <span class="nt">&lt;ItemGroup</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/Project&gt;</span>
+</pre></div>
+</div>
+<p>Note that for single-configuration packages, which is the most typical, conan install Debug/Release, 32/64bits, packages separately. So a different property sheet will be generated for each configuration. The process could be:</p>
+<p>Given for example a <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Pkg/0.1@user/channel
+
+[generators]
+visual_studio
+</pre></div>
+</div>
+<p>And assuming that binary packages exist for <code class="docutils literal notranslate"><span class="pre">Pkg/0.1&#64;user/channel</span></code>, we could do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir debug32 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> debug32
+$ conan install .. -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.version<span class="o">=</span><span class="m">15</span> -s <span class="nv">arch</span><span class="o">=</span>x86 -s <span class="nv">build_type</span><span class="o">=</span>Debug
+$ <span class="nb">cd</span> ..
+$ mkdir debug64 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> debug64
+$ conan install .. -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.version<span class="o">=</span><span class="m">15</span> -s <span class="nv">arch</span><span class="o">=</span>x86_64 -s <span class="nv">build_type</span><span class="o">=</span>Debug
+$ <span class="nb">cd</span> ..
+$ mkdir release32 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> release32
+$ conan install .. -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.version<span class="o">=</span><span class="m">15</span> -s <span class="nv">arch</span><span class="o">=</span>x86 -s <span class="nv">build_type</span><span class="o">=</span>Release
+$ <span class="nb">cd</span> ..
+$ mkdir release64 <span class="o">&amp;&amp;</span> <span class="nb">cd</span> release64
+$ conan install .. -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.version<span class="o">=</span><span class="m">15</span> -s <span class="nv">arch</span><span class="o">=</span>x86_64 -s <span class="nv">build_type</span><span class="o">=</span>Release
+...
+<span class="c1"># Now go to VS 2017 Property Manager, load the respective sheet into each configuration</span>
+</pre></div>
+</div>
+<p>The above process can be simplified using profiles (assuming you have created the respective profiles), and you can also specify the generators in the command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .. -pr<span class="o">=</span>vs15release64 -g visual_studio
+...
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="visualstudiomulti.html" class="btn btn-neutral float-right" title="visual_studio_multi" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cmakemulti.html" class="btn btn-neutral" title="cmake_multi" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

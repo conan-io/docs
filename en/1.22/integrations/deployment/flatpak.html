@@ -1,0 +1,489 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Flatpak &mdash; conan 1.22.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.22.3 documentation" href="../../index.html"/>
+        <link rel="up" title="Deployment" href="../deployment.html"/>
+        <link rel="next" title="Configuration" href="../../configuration.html"/>
+        <link rel="prev" title="Snap" href="snap.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compilers.html">Compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ides.html">IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">CI Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cross_platform.html">Other Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../deployment.html">Deployment</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="system_package_manager.html">System package manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="makeself.html">Makeself</a></li>
+<li class="toctree-l3"><a class="reference internal" href="appimage.html">AppImage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="snap.html">Snap</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Flatpak</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../deployment.html">Deployment</a> &raquo;</li>
+        
+      <li>Flatpak</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/deployment/flatpak.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="flatpak">
+<span id="deployment-flatpak"></span><h1>Flatpak<a class="headerlink" href="#flatpak" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://flatpak.org/">Flatpak</a> (former <code class="docutils literal notranslate"><span class="pre">xdg-app</span></code>) is a package management system to distribute desktop applications for Linux. It is based on <a class="reference external" href="https://ostree.readthedocs.io/en/latest/manual/introduction/">OSTree</a>.
+Flatpak is <a class="reference external" href="https://www.redhat.com/en">RedHat</a> initiative.</p>
+<p>Unlike <a class="reference internal" href="appimage.html#deployment-appimage"><span class="std std-ref">AppImage</span></a>, usually applications are distributed via <a class="reference external" href="https://flathub.org">flathub</a> store, and require a special runtime to install applications on target machines.</p>
+<p>The major advantage of <code class="docutils literal notranslate"><span class="pre">Flatpak</span></code> is sandboxing: each application runs in its own isolated environment. <code class="docutils literal notranslate"><span class="pre">Flatpak</span></code> provides fine-grained control to system resources
+(e.g. network, bluetooth, host filesystem, etc.). <code class="docutils literal notranslate"><span class="pre">Flatpak</span></code> also offers a set of runtimes for various Linux desktop applications, e.g.
+<a class="reference external" href="https://www.freedesktop.org/wiki/">Freedesktop</a>, <a class="reference external" href="https://www.gnome.org/">GNOME</a> and <a class="reference external" href="https://kde.org/">KDE</a>.</p>
+<p>The <a class="reference external" href="http://docs.flatpak.org/en/latest/first-build.html">packaging process</a> is:</p>
+<ul class="simple">
+<li>Install the flatpak runtime, flatpak-builder and SDK.</li>
+<li>Create a manifest <code class="docutils literal notranslate"><span class="pre">&lt;app-id&gt;.json</span></code></li>
+<li>Run the <code class="docutils literal notranslate"><span class="pre">flatpak-builder</span></code> in order to produce the application</li>
+<li><a class="reference external" href="http://docs.flatpak.org/en/latest/publishing.html">Publish</a> the application for further distribution</li>
+</ul>
+<p>With help of conan’s <a class="reference internal" href="../../devtools/running_packages.html#deployable-json-generator"><span class="std std-ref">json generator</span></a>, the <a class="reference external" href="http://docs.flatpak.org/en/latest/manifests.html">manifest</a> creation could be easily automated. For example, the custom script could generate <code class="docutils literal notranslate"><span class="pre">build-commands</span></code> and <code class="docutils literal notranslate"><span class="pre">sources</span></code> entries within the manifest file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app_id</span> <span class="o">=</span> <span class="s2">&quot;org.flatpak.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+<span class="n">manifest</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;app-id&quot;</span><span class="p">:</span> <span class="n">app_id</span><span class="p">,</span>
+    <span class="s2">&quot;runtime&quot;</span><span class="p">:</span> <span class="s2">&quot;org.freedesktop.Platform&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;runtime-version&quot;</span><span class="p">:</span> <span class="s2">&quot;18.08&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sdk&quot;</span><span class="p">:</span> <span class="s2">&quot;org.freedesktop.Sdk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;command&quot;</span><span class="p">:</span> <span class="s2">&quot;conan-entrypoint.sh&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;modules&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+            <span class="s2">&quot;buildsystem&quot;</span><span class="p">:</span> <span class="s2">&quot;simple&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;build-commands&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;install -D conan-entrypoint.sh /app/bin/conan-entrypoint.sh&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;sources&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;conan-entrypoint.sh&quot;</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+<span class="n">sources</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">build_commands</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">temp_folder</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="n">unique_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">filepath</span><span class="p">,</span>
+            <span class="s2">&quot;dest-filename&quot;</span><span class="p">:</span> <span class="n">unique_name</span>
+        <span class="p">}</span>
+        <span class="n">build_command</span> <span class="o">=</span> <span class="s2">&quot;install -D </span><span class="si">%s</span><span class="s2"> /app/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">unique_name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">temp_folder</span><span class="p">))</span>
+        <span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="n">build_commands</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">build_command</span><span class="p">)</span>
+
+<span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;modules&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;sources&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sources</span><span class="p">)</span>
+<span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;modules&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;build-commands&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">build_commands</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, <code class="docutils literal notranslate"><span class="pre">flatpak</span></code> allows distributing the <a class="reference external" href="http://docs.flatpak.org/en/latest/single-file-bundles.html">single-file</a> package. Such package, however, cannot be run or installed on its own, it’s needed to be imported to the local repository on another machine.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="snap.html" class="btn btn-neutral" title="Snap" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.22
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.22/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.22.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.22");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

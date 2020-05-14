@@ -1,0 +1,686 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Workspaces &mdash; conan 1.14.5 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.14.5 documentation" href="../index.html"/>
+        <link rel="up" title="Developing packages" href="../developing_packages.html"/>
+        <link rel="next" title="Package apps and devtools" href="../devtools.html"/>
+        <link rel="prev" title="Packages in editable mode" href="editable_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developing_packages.html">Developing packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="editable_packages.html">Packages in editable mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Workspaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conan-workspace-definition">Conan workspace definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#single-configuration-build-environments">Single configuration build environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multi-configuration-build-environments">Multi configuration build environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#out-of-source-builds">Out of source builds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../developing_packages.html">Developing packages</a> &raquo;</li>
+        
+      <li>Workspaces</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/developing_packages/workspaces.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="workspaces">
+<span id="id1"></span><h1>Workspaces<a class="headerlink" href="#workspaces" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature. This is actually a preview of the feature, with the main goal of receiving feedbacks and improving
+it. Consider the file formats, commands and flows to be unstable and subject to changes in the next releases.</p>
+</div>
+<p>Sometimes, it is necessary to work simultaneously on more than one package. In theory, each package should be a “work unit”, and developers
+should be able to work on them in isolation. But sometimes, some changes require modifications in more than one package at the same time.
+The local development flow can help, but it still requires using <strong class="command">export-pkg</strong> to put the artifacts in the local cache, where other
+packages under development will consume them.</p>
+<p>The Conan workspaces allow to have more than one package in user folders, and have them directly use other packages from user folders
+without needing to put them in the local cache. Furthermore, they enable incremental builds on large projects containing multiple packages.</p>
+<p>Lets introduce them with a practical example; the code can be found in the conan examples repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/examples.git
+$ <span class="nb">cd</span> features/workspace/cmake
+</pre></div>
+</div>
+<p>Note that this folder contains two files <em>conanws_gcc.yml</em> and <em>conan_vs.yml</em>, for gcc (Makefiles, single-configuration build environments)
+and for Visual Studio (MSBuild, multi-configuration build environment), respectively.</p>
+<div class="section" id="conan-workspace-definition">
+<h2>Conan workspace definition<a class="headerlink" href="#conan-workspace-definition" title="Permalink to this headline">¶</a></h2>
+<p>Workspaces are defined in a yaml file, with any user defined name. Its structure is:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">editables</span><span class="p">:</span>
+    <span class="nt">say/0.1@user/testing</span><span class="p">:</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">say</span>
+    <span class="nt">hello/0.1@user/testing</span><span class="p">:</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello</span>
+    <span class="nt">chat/0.1@user/testing</span><span class="p">:</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">chat</span>
+<span class="nt">layout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">layout_gcc</span>
+<span class="nt">workspace_generator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cmake</span>
+<span class="nt">root</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">chat/0.1@user/testing</span>
+</pre></div>
+</div>
+<p>The first section <code class="docutils literal notranslate"><span class="pre">editables</span></code> defines the mapping between package references and relative paths. Each one is equivalent to
+a <a class="reference internal" href="../reference/commands/development/editable.html#conan-editable-add"><span class="std std-ref">conan editable add</span></a> command (Do NOT do this – it is not necessary. It will be automatically done later. Just to understand
+the behavior):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan editable add say say/0.1@user/testing --layout<span class="o">=</span>layout_gcc
+$ conan editable add hello hello/0.1@user/testing --layout<span class="o">=</span>layout_gcc
+$ conan editable add chat chat/0.1@user/testing --layout<span class="o">=</span>layout_gcc
+</pre></div>
+</div>
+<p>The main difference is that this <em>Editable</em> state is only temporary for this workspace. It doesn’t affect other projects or
+packages, which can still consume these say, hello, chat packages from the local cache.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">layout:</span> <span class="pre">layout_gcc</span></code> declaration in the workspace affects all the packages. It is also possible to define
+a different layout per package, as:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">editables</span><span class="p">:</span>
+    <span class="nt">say/0.1@user/testing</span><span class="p">:</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">say</span>
+        <span class="nt">layout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">custom_say_layout</span>
+</pre></div>
+</div>
+<p>Layout files are explained in <a class="reference internal" href="../reference/config_files/editable_layout.html#editable-layout"><span class="std std-ref">Editable layout files</span></a> and in the <a class="reference internal" href="editable_packages.html#editable-packages"><span class="std std-ref">Packages in editable mode</span></a> sections.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">workspace_generator</span></code> defines the file that will be generated for the top project. The only supported value so far
+is <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and it will generate a <em>conanworkspace.cmake</em> file that looks like:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">PACKAGE_say_SRC</span> <span class="s2">&quot;&lt;path&gt;/examples/workspace/cmake/say/src&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PACKAGE_say_BUILD</span> <span class="s2">&quot;&lt;path&gt;/examples/workspace/cmake/say/build/Debug&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PACKAGE_hello_SRC</span> <span class="s2">&quot;&lt;path&gt;/examples/workspace/cmake/hello/src&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PACKAGE_hello_BUILD</span> <span class="s2">&quot;&lt;path&gt;/examples/workspace/cmake/hello/build/Debug&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PACKAGE_chat_SRC</span> <span class="s2">&quot;&lt;path&gt;/examples/workspace/cmake/chat/src&quot;</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">PACKAGE_chat_BUILD</span> <span class="s2">&quot;&lt;path&gt;/examples/workspace/cmake/chat/build/Debug&quot;</span><span class="p">)</span>
+
+<span class="nb">macro</span><span class="p">(</span><span class="s">conan_workspace_subdirectories</span><span class="p">)</span>
+    <span class="nb">add_subdirectory</span><span class="p">(</span><span class="o">${</span><span class="nv">PACKAGE_say_SRC</span><span class="o">}</span> <span class="o">${</span><span class="nv">PACKAGE_say_BUILD</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">add_subdirectory</span><span class="p">(</span><span class="o">${</span><span class="nv">PACKAGE_hello_SRC</span><span class="o">}</span> <span class="o">${</span><span class="nv">PACKAGE_hello_BUILD</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">add_subdirectory</span><span class="p">(</span><span class="o">${</span><span class="nv">PACKAGE_chat_SRC</span><span class="o">}</span> <span class="o">${</span><span class="nv">PACKAGE_chat_BUILD</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endmacro</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This file can be included in your user-defined <em>CMakeLists.txt</em> (this file is not generated).
+Here you can see the <em>CMakeLists.txt</em> used in this project:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0</span><span class="p">)</span>
+
+<span class="nb">project</span><span class="p">(</span><span class="s">WorkspaceProject</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanworkspace.cmake</span><span class="p">)</span>
+<span class="nb">conan_workspace_subdirectories</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">root:</span> <span class="pre">chat/0.1&#64;user/testing</span></code> defines which is the consumer node of the graph, typically some kind of executable. You
+can provide a comma separated list of references. All the root nodes will be in the same dependency graph, leading to conflicts if they
+depend on different versions of the same library, as in any other Conan command.</p>
+</div>
+<div class="section" id="single-configuration-build-environments">
+<h2>Single configuration build environments<a class="headerlink" href="#single-configuration-build-environments" title="Permalink to this headline">¶</a></h2>
+<p>There are some build systems, like Make, that require the developer to manage different configurations in different build folders,
+and switch between folders to change configuration. The file described above is <em>conan_gcc.yml</em> file, which defines a Conan workspace that
+works for a CMake based project for MinGW/Unix Makefiles gcc environments (working for apple-clang or clang would be very similar, if not identical).</p>
+<p>Lets use it to install this workspace:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build_release <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build_release
+$ conan workspace install ../conanws_gcc.yml --profile<span class="o">=</span>my_profile
+</pre></div>
+</div>
+<p>Here we assume that you have a <code class="docutils literal notranslate"><span class="pre">my_profile</span></code> profile defined which would use a single-configuration build system (like Makefiles). The
+example is tested with gcc in Linux, but working with apple-clang with Makefiles would be the same).
+You should see something like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Configuration:
+<span class="o">[</span>settings<span class="o">]</span>
+...
+<span class="nv">build_type</span><span class="o">=</span>Release
+<span class="nv">compiler</span><span class="o">=</span>gcc
+compiler.libcxx<span class="o">=</span>libstdc++
+compiler.version<span class="o">=</span><span class="m">4</span>.9
+...
+
+Requirements
+    chat/0.1@user/testing from user folder - Editable
+    hello/0.1@user/testing from user folder - Editable
+    say/0.1@user/testing from user folder - Editable
+Packages
+    chat/0.1@user/testing:df2c4f4725219597d44b7eab2ea5c8680abd57f9 - Editable
+    hello/0.1@user/testing:b0e473ad8697d6069797b921517d628bba8b5901 - Editable
+    say/0.1@user/testing:80faec7955dcba29246085ff8d64a765db3b414f - Editable
+
+say/0.1@user/testing: Generator cmake created conanbuildinfo.cmake
+...
+hello/0.1@user/testing: Generator cmake created conanbuildinfo.cmake
+...
+chat/0.1@user/testing: Generator cmake created conanbuildinfo.cmake
+...
+</pre></div>
+</div>
+<p>These <em>conanbuildinfo.cmake</em> files have been created in each package <em>build/Release</em> folder, as defined by the
+<em>layout_gcc</em> file:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># This helps to define the location of CMakeLists.txt within package</span>
+<span class="k">[source_folder]</span>
+<span class="na">src</span>
+
+<span class="c1"># This defines where the conanbuildinfo.cmake will be written to</span>
+<span class="k">[build_folder]</span>
+<span class="na">build/{{settings.build_type}}</span>
+</pre></div>
+</div>
+<p>Now we can configure and build our project as usual:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cmake .. -G <span class="s2">&quot;Unix Makefiles&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+$ cmake --build . <span class="c1"># or just $ make</span>
+$ ../chat/build/Release/app
+Release: Hello World!
+Release: Hello World!
+Release: Hello World!
+</pre></div>
+</div>
+<p>Now, go do a change in some of the packages, for example the “say” one, and rebuild. See how it does an incremental build (fast).</p>
+<p>Note that nothing will really be installed in the local cache, all the dependencies are resolved locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search say
+There are no packages matching the <span class="s1">&#39;say&#39;</span> pattern
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The package <em>conanfile.py</em> recipes do not contain anything special, they are standard recipes. But the packages <em>CMakeLists.txt</em>
+have defined the following:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">conan_basic_setup</span><span class="p">(</span><span class="s">NO_OUTPUT_DIRS</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">This is because the default <code class="docutils literal notranslate"><span class="pre">conan_basic_setup()</span></code> does define output directories for artifacts such as <em>bin</em>, <em>lib</em>, etc, which
+is not what the local project layout expects. You need to check and make sure that your build scripts and recipe matches both
+the expected local layout (as defined in layout files), and the recipe <code class="docutils literal notranslate"><span class="pre">package()</span></code> method logic.</p>
+</div>
+<p>Building for debug mode is done in its own folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> mkdir build_debug <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build_debug
+$ conan workspace install ../conanws_gcc.yml --profile<span class="o">=</span>my_gcc_profile -s <span class="nv">build_type</span><span class="o">=</span>Debug
+$ cmake .. -G <span class="s2">&quot;Unix Makefiles&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span>Debug
+$ cmake --build . <span class="c1"># or just $ make</span>
+$ ../chat/build/Debug/app
+Debug: Bye World!
+Debug: Bye World!
+Debug: Bye World!
+</pre></div>
+</div>
+</div>
+<div class="section" id="multi-configuration-build-environments">
+<h2>Multi configuration build environments<a class="headerlink" href="#multi-configuration-build-environments" title="Permalink to this headline">¶</a></h2>
+<p>Some build systems, like Visual Studio (MSBuild), use “multi-configuration” environments. That is, even if the project is configured just once
+you can switch between different configurations (like Debug/Release) directly in the IDE and build there.</p>
+<p>The above example uses the Conan <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator, that creates a single <em>conanbuildinfo.cmake</em> file. This is not a problem if we have our
+configurations built in different folders. Each one will contain its own <em>conanbuildinfo.cmake</em>. For Visual Studio that means that if
+we wanted to switch from Debug&lt;-&gt;Release, we should issue a new <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">workspace</span> <span class="pre">install</span></code> command with the right <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">build_type</span></code> and
+do a clean build, in order to get the right dependencies.</p>
+<p>Conan has the <a class="reference internal" href="../integrations/cmake/cmake_multi_generator.html#cmake-multi"><span class="std std-ref">cmake_multi generator</span></a> generator, that allows this direct switch of Debug/Release configuration in the IDE. The <em>conanfile.py</em>
+recipes they have defined the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator, so the first step is to override that in our <em>conanws_vs.yml</em> file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">editables</span><span class="p">:</span>
+<span class="nt">say/0.1@user/testing</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">say</span>
+<span class="nt">hello/0.1@user/testing</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hello</span>
+<span class="nt">chat/0.1@user/testing</span><span class="p">:</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">chat</span>
+<span class="nt">layout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">layout_vs</span>
+<span class="nt">generators</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cmake_multi</span>
+<span class="nt">workspace_generator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cmake</span>
+<span class="nt">root</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">chat/0.1@user/testing</span>
+</pre></div>
+</div>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">generators:</span> <span class="pre">cmake_multi</span></code> line, that will define the generators to be used by our workspace packages. Also, our <em>CMakeLists.txt</em>
+should take into account that now we won’t have a <em>conanbuildinfo.cmake</em> file, but a <em>conanbuildinfo_multi.cmake</em> file. See for example
+the <em>hello/src/CMakeLists.txt</em> file:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">project</span><span class="p">(</span><span class="s">Hello</span><span class="p">)</span>
+
+<span class="nb">if</span><span class="p">(</span><span class="s">EXISTS</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo_multi.cmake</span><span class="p">)</span>
+    <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo_multi.cmake</span><span class="p">)</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">conan_basic_setup</span><span class="p">(</span><span class="s">NO_OUTPUT_DIRS</span><span class="p">)</span>
+
+<span class="nb">add_library</span><span class="p">(</span><span class="s">hello</span> <span class="s">hello.cpp</span><span class="p">)</span>
+<span class="nb">conan_target_link_libraries</span><span class="p">(</span><span class="s">hello</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The last <code class="docutils literal notranslate"><span class="pre">conan_target_link_libraries(hello)</span></code> is a helper that does the right linking with Debug/Release libraries (also works when using cmake
+targets).</p>
+<p>Make sure to install both Debug and Release configurations straight ahead, if we want to later switch between them in the IDE:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan workspace install ../conanws_vs.yml
+$ conan workspace install ../conanws_vs.yml -s <span class="nv">build_type</span><span class="o">=</span>Debug
+$ cmake .. -G <span class="s2">&quot;Visual Studio 15 Win64&quot;</span>
+</pre></div>
+</div>
+<p>With those commands you will get a Visual Studio solution, that you can open, select the <em>app</em> executable as StartUp project, and start building,
+executing, debugging, switching from Debug and Release configurations freely from the IDE, without needing to issue further Conan commands.</p>
+<p>You can check in the project folders, how the following files have been generated:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>hello
+  |- build
+        | - conanbuildinfo_multi.cmake
+        | - conanbuildinfo_release.cmake
+        | - conanbuildinfo_debug.cmake
+</pre></div>
+</div>
+<p>Note that they are not located in <em>build/Release</em> and <em>build/Debug</em> subfolders; that is because of the multi-config environment. To account for that
+the <em>layout_vs</em> define the <code class="docutils literal notranslate"><span class="pre">[build_folder]</span></code> not as <code class="docutils literal notranslate"><span class="pre">build/{settings.build_type}</span></code> but just as:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[build_folder]</span>
+<span class="na">build</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="out-of-source-builds">
+<h2>Out of source builds<a class="headerlink" href="#out-of-source-builds" title="Permalink to this headline">¶</a></h2>
+<p>The above examples are using a build folder in-source of the packages in editable mode. It is possible to define out-of-source builds layouts,
+using relative paths and the <code class="docutils literal notranslate"><span class="pre">reference</span></code> argument. The following layout definition could be used to locate the build artifacts of an
+editable package in a sibling <code class="docutils literal notranslate"><span class="pre">build/&lt;package-name&gt;</span></code> folder:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[build_folder]</span>
+<span class="na">../build/{{reference.name}}/{{settings.build_type}}</span>
+
+<span class="k">[includedirs]</span>
+<span class="na">src</span>
+
+<span class="k">[libdirs]</span>
+<span class="na">../build/{{reference.name}}/{{settings.build_type}}/lib</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<p>Note that this way of developing packages shouldn’t be used to create the final packages (you could try to use <strong class="command">conan export-pkg</strong>), but instead,
+a full package creation with <strong class="command">conan create</strong> (best in CI) is recommended.</p>
+<p>So far, only the CMake super-project generator is implemented. A Visual Studio one is being considered, and seems feasible, but not yet available.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">We really want your feedback. Please submit any issues to <a class="reference external" href="https://github.com/conan-io/conan/issues">https://github.com/conan-io/conan/issues</a> with any suggestion, problem, idea,
+and using [workspaces] prefix in the issue title.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../devtools.html" class="btn btn-neutral float-right" title="Package apps and devtools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="editable_packages.html" class="btn btn-neutral" title="Packages in editable mode" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.14
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.14/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.14.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.14");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

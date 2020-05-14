@@ -1,0 +1,427 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Android Studio &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="CLion" href="clion.html"/>
+        <link rel="prev" title="Compilers on command line" href="gcc.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li> Android Studio</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/android_studio.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="android-studio-logo-android-studio">
+<span id="android-studio"></span><h1><img alt="android_studio_logo" src="../_images/android_studio_logo.png" /> Android Studio<a class="headerlink" href="#android-studio-logo-android-studio" title="Permalink to this headline">¶</a></h1>
+<p>You can use Conan to <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building-android"><span class="std std-ref">cross-build your libraries for Android</span></a> in different architectures.
+If you are using Android Studio for your Android application development, you can integrate it conan to automate the
+library building for the different architectures that you want to support in your project.</p>
+<p>Here is an example of how to integrate the <code class="docutils literal notranslate"><span class="pre">libpng</span></code> conan package library in an Android application, but any library
+that can be cross-compiled to Android could be used using the same procedure.</p>
+<p>We are going to start from the “Hello World” wizard application and then will add it the <code class="docutils literal notranslate"><span class="pre">libpng</span></code> C library:</p>
+<ol class="arabic simple">
+<li>Follow the <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building-android"><span class="std std-ref">cross-build your libraries for Android</span></a> guide to create
+a standalone toolchain and create a profile <code class="docutils literal notranslate"><span class="pre">android_21_arm_clang</span></code> for Android.
+You can also use the NDK that the Android Studio installs.</li>
+<li>Create a new Android Studio project and include C++ support.</li>
+</ol>
+<blockquote>
+<div><img alt="wizard1" src="../_images/wizard1.png" /></div></blockquote>
+<p>3. Select your API level and target, the arch and api level have to match with the standalone
+toolchain created in step 1.</p>
+<blockquote>
+<div><img alt="wizard2" src="../_images/wizard2.png" /></div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Add an empty Activity and name it.</li>
+</ol>
+<blockquote>
+<div><p><img alt="wizard3" src="../_images/wizard3.png" /></p>
+<p><img alt="wizard4" src="../_images/wizard4.png" /></p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li>Select the C++ standard</li>
+</ol>
+<blockquote>
+<div><img alt="wizard5" src="../_images/wizard5.png" /></div></blockquote>
+<p>6. Change to the <cite>project view</cite> and in the <cite>app</cite> folder create a <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> with
+the following contents:</p>
+<p><strong>conanfile.txt</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+libpng/1.6.23@lasote/stable
+
+[generators]
+cmake
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>Open the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file from the app folder and replace the contents with:</li>
+</ol>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cmake_minimum_required(VERSION 3.4.1)
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/conan_build/conanbuildinfo.cmake)
+set(CMAKE_CXX_COMPILER_VERSION &quot;5.0&quot;) # Unknown miss-detection of the compiler by CMake
+conan_basic_setup(TARGETS)
+
+add_library(native-lib SHARED src/main/cpp/native-lib.cpp)
+target_link_libraries(native-lib CONAN_PKG::libpng)
+</pre></div>
+</div>
+<p>8. Open the <em>app/build.gradle</em> file, we are configuring the architectures we want to build specifying adding a new task <code class="docutils literal notranslate"><span class="pre">conanInstall</span></code>
+that will call <strong class="command">conan install</strong> to install the requirements:</p>
+<ul class="simple">
+<li>In the defaultConfig section, append:</li>
+</ul>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">ndk</span> <span class="o">{</span>
+   <span class="c1">// Specifies the ABI configurations of your native</span>
+   <span class="c1">// libraries Gradle should build and package with your APK.</span>
+   <span class="n">abiFilters</span> <span class="s1">&#39;armeabi-v7a&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>After the android block:</li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>task conanInstall {
+    def buildDir = new File(&quot;app/conan_build&quot;)
+    buildDir.mkdirs()
+    // if you have problems running the command try to specify the absolute
+    // path to conan (Known problem in MacOSX) /usr/local/bin/conan
+    def cmmd = &quot;conan install ../conanfile.txt --profile android_21_arm_clang --build missing &quot;
+    print(&quot;&gt;&gt; ${cmmd} \n&quot;)
+
+    def sout = new StringBuilder(), serr = new StringBuilder()
+    def proc = cmmd.execute(null, buildDir)
+    proc.consumeProcessOutput(sout, serr)
+    proc.waitFor()
+    println &quot;$sout $serr&quot;
+    if(proc.exitValue() != 0){
+        throw new Exception(&quot;out&gt; $sout err&gt; $serr&quot; + &quot;\nCommand: ${cmmd}&quot;)
+    }
+}
+</pre></div>
+</div>
+<ol class="arabic simple" start="9">
+<li>Finally open the default example cpp library in <code class="docutils literal notranslate"><span class="pre">app/src/main/cpp/native-lib.cpp</span></code> and include some lines using your library.
+Be careful with the JNICALL name if you used other app name in the wizard:</li>
+</ol>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;jni.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;png.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;zlib.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+<span class="k">extern</span> <span class="s">&quot;C&quot;</span>
+<span class="n">JNIEXPORT</span> <span class="n">jstring</span> <span class="n">JNICALL</span>
+<span class="n">Java_com_jfrog_myconanandroidcppapp_MainActivity_stringFromJNI</span><span class="p">(</span>
+       <span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span>
+       <span class="n">jobject</span> <span class="cm">/* this */</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">std</span><span class="o">::</span><span class="n">ostringstream</span> <span class="n">oss</span><span class="p">;</span>
+   <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Compiled with libpng: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">PNG_LIBPNG_VER_STRING</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+   <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Running with libpng: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">png_libpng_ver</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+   <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Compiled with zlib: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">ZLIB_VERSION</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+   <span class="n">oss</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Running with zlib: &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">zlib_version</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+   <span class="k">return</span> <span class="n">env</span><span class="o">-&gt;</span><span class="n">NewStringUTF</span><span class="p">(</span><span class="n">oss</span><span class="p">.</span><span class="n">str</span><span class="p">().</span><span class="n">c_str</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Build your project normally, conan will create a “conan” folder with a folder for each different architecture you have speified in the abiFilters with a <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> file.</p>
+<p>Then run the app using an x86 emulator for best performance:</p>
+<p><img alt="wizard9" src="../_images/wizard9.png" /></p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the section <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building-android"><span class="std std-ref">howtos/Cross building/Android</span></a> to read more about cross
+building for Android.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clion.html" class="btn btn-neutral float-right" title="CLion" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gcc.html" class="btn btn-neutral" title="Compilers on command line" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

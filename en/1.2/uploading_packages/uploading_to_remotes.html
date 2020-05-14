@@ -1,0 +1,337 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Uploading packages to remotes &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Uploading packages" href="../uploading_packages.html"/>
+        <link rel="next" title="Using Bintray" href="using_bintray.html"/>
+        <link rel="prev" title="Remotes" href="remotes.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="remotes.html">Remotes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Uploading packages to remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_bintray.html">Using Bintray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="artifactory_ce.html">Artifactory Community Edition for C/C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_your_server.html">Running conan_server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../uploading_packages.html">Uploading packages</a> &raquo;</li>
+        
+      <li>Uploading packages to remotes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/uploading_packages/uploading_to_remotes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="uploading-packages-to-remotes">
+<h1>Uploading packages to remotes<a class="headerlink" href="#uploading-packages-to-remotes" title="Permalink to this headline">¶</a></h1>
+<p>First, check if the remote you want to upload to is already in your current remote list:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote list
+</pre></div>
+</div>
+<p>You can add any remote easily. For a remote running in your machine, you could run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote add my_local_server http://localhost:9300
+</pre></div>
+</div>
+<p>You can search any remote in the same way you search your computer. Actually, many conan commands
+can specify a specific remote.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search -r<span class="o">=</span>my_local_server
+</pre></div>
+</div>
+<p>Now, upload the package recipe and all the packages to your remote. In this example we are using
+our <code class="docutils literal notranslate"><span class="pre">my_local_server</span></code> remote, but you could use any other.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload Hello/0.1@demo/testing --all -r<span class="o">=</span>my_local_server
+</pre></div>
+</div>
+<p>You might be prompted for a username and password. The default conan server remote has a
+<strong>demo/demo</strong> account we can use for testing.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">--all</span></code> option will upload the package recipe plus all the binary packages. Now try again to
+read the information from the remote (we refer to it as remote, even if it is running on your local
+machine, as it could be run on another server in your LAN):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search Hello/0.1@demo/testing -r<span class="o">=</span>my_local_server
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If package upload fails, you can try to upload it again. Conan keeps track of the
+upload integrity and will only upload missing files.</p>
+</div>
+<p>Now we can check if we are able to download and use them in a project. For that purpose, we first
+have to <strong>remove the local copies</strong>, otherwise the remote packages will not be downloaded. Since we
+have just uploaded them, they are identical to the local ones.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remove Hello*
+$ conan search
+</pre></div>
+</div>
+<p>Since we have our test setup from the previous section, we can just use it for our test. Go to your
+package folder and run the tests again, now saying that we don’t want to build the sources again, we
+just want to check if we can download the binaries and use them:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . demo/testing --not-export --build<span class="o">=</span>never
+</pre></div>
+</div>
+<p>You will see that the test is built, but the packages are not. The binaries are simply downloaded
+from your local server. You can check their existence on your local computer again with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using_bintray.html" class="btn btn-neutral float-right" title="Using Bintray" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="remotes.html" class="btn btn-neutral" title="Remotes" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

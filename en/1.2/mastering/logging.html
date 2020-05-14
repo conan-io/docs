@@ -1,0 +1,365 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Logging &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Mastering conan" href="../mastering.html"/>
+        <link rel="next" title="Sharing the settings and other configuration" href="sharing_settings_and_config.html"/>
+        <link rel="prev" title="Virtual Environments" href="virtualenv.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mastering.html">Mastering conan</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="conanfile_py.html">Use conanfile.py for consumers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Logging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-log-and-debug-a-conan-execution">How to log and debug a conan execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-log-the-build-process">How to log the build process</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#package-the-log-files">Package the log files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_cache.html">Conan local cache: concurrency, Continuous Integration, isolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mastering.html">Mastering conan</a> &raquo;</li>
+        
+      <li>Logging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mastering/logging.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="logging">
+<h1>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-to-log-and-debug-a-conan-execution">
+<span id="logging-and-debugging"></span><h2>How to log and debug a conan execution<a class="headerlink" href="#how-to-log-and-debug-a-conan-execution" title="Permalink to this headline">¶</a></h2>
+<p>You can use the <a class="reference internal" href="../reference/env_vars.html#conan-trace-file"><span class="std std-ref">CONAN_TRACE_FILE</span></a> environment variable to log and debug several conan command execution.
+Set the <code class="docutils literal notranslate"><span class="pre">CONAN_TRACE_FILE</span></code> environment variable pointing to a log file.</p>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CONAN_TRACE_FILE</span><span class="o">=</span>/tmp/conan_trace.log <span class="c1"># Or SET in windows</span>
+conan install zlib/1.2.8@lasote/stable
+</pre></div>
+</div>
+<p>The <cite>/tmp/conan_trace.log</cite> file:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;COMMAND&quot;</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;all&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;generator&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;manifests&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;manifests_interactive&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;no_imports&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;package&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;reference&quot;</span><span class="p">:</span> <span class="s2">&quot;zlib/1.2.8@lasote/stable&quot;</span><span class="p">,</span> <span class="nt">&quot;remote&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;verify&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;werror&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">},</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345289.250117</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;REST_API_CALL&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">1.8255090713500977</span><span class="p">,</span> <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Client-Anonymous-Id&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Client-Id&quot;</span><span class="p">:</span> <span class="s2">&quot;lasote2&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Conan-Client-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.19.0-dev&quot;</span><span class="p">},</span> <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345291.092218</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://server.conan.io/v1/conans/zlib/1.2.8/lasote/stable/download_urls&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.4136989116668701</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345291.506399</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/export/conanmanifest.txt&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.10367798805236816</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345291.610335</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/export/conanfile.py&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.059114933013916016</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345291.669744</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/export/conan_export.tgz&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOADED_RECIPE&quot;</span><span class="p">,</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;zlib/1.2.8@lasote/stable&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">2.40762996673584</span><span class="p">,</span> <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;conan_export.tgz&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/laso/.conan/data/zlib/1.2.8/lasote/stable/export/conan_export.tgz&quot;</span><span class="p">,</span> <span class="nt">&quot;conanfile.py&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/laso/.conan/data/zlib/1.2.8/lasote/stable/export/conanfile.py&quot;</span><span class="p">,</span> <span class="nt">&quot;conanmanifest.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/laso/.conan/data/zlib/1.2.8/lasote/stable/export/conanmanifest.txt&quot;</span><span class="p">},</span> <span class="nt">&quot;remote&quot;</span><span class="p">:</span> <span class="s2">&quot;conan.io&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345291.670017</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;REST_API_CALL&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.4844989776611328</span><span class="p">,</span> <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Client-Anonymous-Id&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Client-Id&quot;</span><span class="p">:</span> <span class="s2">&quot;lasote2&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Conan-Client-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.19.0-dev&quot;</span><span class="p">},</span> <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345292.160912</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://server.conan.io/v1/conans/zlib/1.2.8/lasote/stable/packages/c6d75a933080ca17eb7f076813e7fb21aaa740f2/download_urls&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.06388187408447266</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345292.225308</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conaninfo.txt?Signature=c1KAOqvxtCUnnQOeYizZ9bgcwwY%3D&amp;Expires=1485352492&amp;AWSAccessKeyId=AKIAJXMWDMVCDMAZQK5Q&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;REST_API_CALL&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.8182470798492432</span><span class="p">,</span> <span class="nt">&quot;headers&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Client-Anonymous-Id&quot;</span><span class="p">:</span> <span class="s2">&quot;**********&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Client-Id&quot;</span><span class="p">:</span> <span class="s2">&quot;lasote2&quot;</span><span class="p">,</span> <span class="nt">&quot;X-Conan-Client-Version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.19.0-dev&quot;</span><span class="p">},</span> <span class="nt">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345293.044904</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://server.conan.io/v1/conans/zlib/1.2.8/lasote/stable/packages/c6d75a933080ca17eb7f076813e7fb21aaa740f2/download_urls&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.07849907875061035</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345293.123831</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conanmanifest.txt&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.06638002395629883</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345293.190465</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conaninfo.txt&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOAD&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">0.3634459972381592</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345293.554206</span><span class="p">,</span> <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://conanio-production.s3.amazonaws.com/storage/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conan_package.tgz&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;DOWNLOADED_PACKAGE&quot;</span><span class="p">,</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;zlib/1.2.8@lasote/stable:c6d75a933080ca17eb7f076813e7fb21aaa740f2&quot;</span><span class="p">,</span> <span class="nt">&quot;duration&quot;</span><span class="p">:</span> <span class="mf">1.3279249668121338</span><span class="p">,</span> <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;conan_package.tgz&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conan_package.tgz&quot;</span><span class="p">,</span> <span class="nt">&quot;conaninfo.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conaninfo.txt&quot;</span><span class="p">,</span> <span class="nt">&quot;conanmanifest.txt&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/c6d75a933080ca17eb7f076813e7fb21aaa740f2/conanmanifest.txt&quot;</span><span class="p">},</span> <span class="nt">&quot;remote&quot;</span><span class="p">:</span> <span class="s2">&quot;conan.io&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485345293.554466</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>In the traces we can see:</p>
+<ol class="arabic simple">
+<li>A command <code class="docutils literal notranslate"><span class="pre">install</span></code> execution.</li>
+<li>A rest api call to get some <code class="docutils literal notranslate"><span class="pre">download_urls</span></code>.</li>
+<li>Three files downloaded (corresponding to the previously retrieved urls).</li>
+<li><code class="docutils literal notranslate"><span class="pre">DOWNLOADED_RECIPE</span></code> tells us that the recipe retrieving is finished. We can see that the whole retrieve process took 2.4 seconds.</li>
+<li>conan client has computed the needed binary package SHA and now will get it. So will request and download the package <code class="docutils literal notranslate"><span class="pre">package_id</span></code> file to perform some checks like outdated binaries.</li>
+<li>Another rest api call to get some more <code class="docutils literal notranslate"><span class="pre">download_urls</span></code>, for the package files and download them.</li>
+<li>Finally we get a <code class="docutils literal notranslate"><span class="pre">DOWNLOADED_PACKAGE</span></code> telling us that the package has beed downloaded. It took 1.3 seconds.</li>
+</ol>
+<p>If we execute conan install again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CONAN_TRACE_FILE</span><span class="o">=</span>/tmp/conan_trace.log <span class="c1"># Or SET in windows</span>
+conan install zlib/1.2.8@lasote/stable
+</pre></div>
+</div>
+<p>The <cite>/tmp/conan_trace.log</cite> file only three lines will be appended:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;COMMAND&quot;</span><span class="p">,</span> <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;install&quot;</span><span class="p">,</span> <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;all&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;build&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;env&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;file&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;generator&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;manifests&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;manifests_interactive&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;no_imports&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;package&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;profile&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;reference&quot;</span><span class="p">:</span> <span class="s2">&quot;zlib/1.2.8@lasote/stable&quot;</span><span class="p">,</span> <span class="nt">&quot;remote&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;update&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nt">&quot;verify&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span> <span class="nt">&quot;werror&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">},</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485346039.817543</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;GOT_RECIPE_FROM_LOCAL_CACHE&quot;</span><span class="p">,</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;zlib/1.2.8@lasote/stable&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485346039.824949</span><span class="p">}</span>
+<span class="p">{</span><span class="nt">&quot;_action&quot;</span><span class="p">:</span> <span class="s2">&quot;GOT_PACKAGE_FROM_LOCAL_CACHE&quot;</span><span class="p">,</span> <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;zlib/1.2.8@lasote/stable:c6d75a933080ca17eb7f076813e7fb21aaa740f2&quot;</span><span class="p">,</span> <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="mf">1485346039.827915</span><span class="p">}</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>A command <code class="docutils literal notranslate"><span class="pre">install</span></code> execution.</li>
+<li>A <code class="docutils literal notranslate"><span class="pre">GOT_RECIPE_FROM_LOCAL_CACHE</span></code> because we already have it available in local cache.</li>
+<li>A <code class="docutils literal notranslate"><span class="pre">GOT_PACKAGE_FROM_LOCAL_CACHE</span></code> because the package is cached too.</li>
+</ol>
+</div>
+<div class="section" id="how-to-log-the-build-process">
+<h2>How to log the build process<a class="headerlink" href="#how-to-log-the-build-process" title="Permalink to this headline">¶</a></h2>
+<p>You can log your command executions <code class="docutils literal notranslate"><span class="pre">self.run</span></code> in a file named <code class="docutils literal notranslate"><span class="pre">conan_run.log</span></code> using the environment variable CONAN_LOG_RUN_FILE.
+Check for more details here: <a class="reference internal" href="../reference/env_vars.html#conan-log-run-to-file"><span class="std std-ref">CONAN_LOG_RUN_TO_FILE</span></a>.</p>
+<p>You can also use the variable <a class="reference internal" href="../reference/env_vars.html#conan-print-run-commands"><span class="std std-ref">CONAN_PRINT_RUN_COMMANDS</span></a> to log extra information about the commands being executed.</p>
+<div class="section" id="package-the-log-files">
+<h3>Package the log files<a class="headerlink" href="#package-the-log-files" title="Permalink to this headline">¶</a></h3>
+<p>The <cite>conan_run.log`</cite> file will be available in your <code class="docutils literal notranslate"><span class="pre">build</span></code> folder so you can package it the same way you package a library file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;conan_run.log&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sharing_settings_and_config.html" class="btn btn-neutral float-right" title="Sharing the settings and other configuration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="virtualenv.html" class="btn btn-neutral" title="Virtual Environments" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

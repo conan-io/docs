@@ -1,0 +1,600 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cmake_find_package generator &mdash; conan 1.18.5 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.18.5 documentation" href="../../../index.html"/>
+        <link rel="up" title="CMake" href="../cmake.html"/>
+        <link rel="next" title="cmake_find_package_multi" href="cmake_find_package_multi_generator.html"/>
+        <link rel="prev" title="cmake_paths generator" href="cmake_paths_generator.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../build_system.html">Build systems</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../cmake.html"> CMake</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cmake_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake_multi_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake_multi</span></code> generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake_paths_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code> generator</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cmake_find_package_multi_generator.html"><code class="docutils literal notranslate"><span class="pre">cmake_find_package_multi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="build_automation.html">Build automation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="find_packages.html">Find Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../msbuild.html"> MSBuild (Visual Studio)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../pkg_config_pc_files.html"><strong class="command">pkg-config</strong> and <em>.pc</em> files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../boost_build.html"> Boost Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../b2.html"> B2 (Boost Build)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qmake.html">QMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../premake.html"> Premake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../make.html">Make</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../qbs.html">qbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../meson.html"> Meson Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scons.html"> SCons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gcc.html">Compilers on command line</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../ides.html">IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../ci.html">CI Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../cross_platform.html">Other Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../linting.html">Linting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../../build_system.html">Build systems</a> &raquo;</li>
+        
+          <li><a href="../cmake.html"> CMake</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> generator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/build_system/cmake/cmake_find_package_generator.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cmake-find-package-generator">
+<span id="id1"></span><h1><code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> generator<a class="headerlink" href="#cmake-find-package-generator" title="Permalink to this headline">¶</a></h1>
+<p>This generator is especially useful if you are using <code class="docutils literal notranslate"><span class="pre">CMake</span></code> using the <code class="docutils literal notranslate"><span class="pre">find_package</span></code>
+feature to locate the dependencies.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> generator creates a file for each requirement specified in a conanfile.</p>
+<p>The name of the files follows the pattern <code class="docutils literal notranslate"><span class="pre">Find&lt;package_name&gt;.cmake</span></code>. So for the <code class="docutils literal notranslate"><span class="pre">zlib/1.2.11&#64;conan/stable</span></code> package,
+a <code class="docutils literal notranslate"><span class="pre">Findzlib.cmake</span></code> file will be generated.</p>
+<div class="section" id="in-a-conanfile-py">
+<h2>In a conanfile.py<a class="headerlink" href="#in-a-conanfile-py" title="Permalink to this headline">¶</a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">conanfile.py</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span>
+
+
+<span class="k">class</span> <span class="nc">LibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11@conan/stable&quot;</span>
+<span class="hll">    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake_find_package&quot;</span>
+</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># it will find the packages by using our auto-generated FindXXX.cmake files</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>In the previous example, the <code class="docutils literal notranslate"><span class="pre">CMake</span></code> build helper will automatically adjust the <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> to the <code class="docutils literal notranslate"><span class="pre">conanfile.install_folder</span></code>,
+where the generated <code class="docutils literal notranslate"><span class="pre">Find&lt;package_name&gt;.cmake</span></code> is.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">CMakeList.txt</span></code> you do not need to specify or include anything related with Conan at all; just rely on the <code class="docutils literal notranslate"><span class="pre">find_package</span></code>
+feature:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">CMakeList.txt</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">helloworld</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">helloworld</span> <span class="s">hello.c</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">zlib</span><span class="p">)</span>
+
+<span class="c"># Global approach</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">zlib_FOUND</span><span class="p">)</span>
+   <span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">zlib_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+   <span class="nb">target_link_libraries</span> <span class="p">(</span><span class="s">helloworld</span> <span class="o">${</span><span class="nv">zlib_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># Modern CMake targets approach</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">zlib::zlib</span><span class="p">)</span>
+   <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">helloworld</span> <span class="s">zlib::zlib</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/channel
+
+lib/1.0@user/channel: Calling build<span class="o">()</span>
+-- The C compiler identification is AppleClang <span class="m">9</span>.1.0.9020039
+...
+<span class="hll">-- Conan: Using autogenerated Findzlib.cmake
+</span><span class="hll">-- Found: /Users/user/.conan/data/zlib/1.2.11/conan/stable/package/0eaf3bfbc94fb6d2c8f230d052d75c6c1a57a4ce/lib/libz.a
+</span>lib/1.0@user/channel: Package <span class="s1">&#39;72bce3af445a371b892525bc8701d96c568ead8b&#39;</span> created
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-a-conanfile-txt">
+<h2>In a <em>conanfile.txt</em><a class="headerlink" href="#in-a-conanfile-txt" title="Permalink to this headline">¶</a></h2>
+<p>If you are using a <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> file in your project, instead of a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>, this generator can be used together with the
+<a class="reference internal" href="cmake_paths_generator.html#cmake-paths-generator"><span class="std std-ref">cmake_paths</span></a> generator to adjust the <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> variables automatically
+and let CMake locate the generated <code class="docutils literal notranslate"><span class="pre">Find&lt;package_name&gt;.cmake</span></code> files.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">cmake_paths</span></code>:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">conanfile.txt</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+zlib/1.2.11@conan/stable
+...
+
+[generators]
+cmake_find_package
+cmake_paths
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text">CMakeList.txt</span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">helloworld</span><span class="p">)</span>
+<span class="hll"><span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conan_paths.cmake</span><span class="p">)</span>
+</span><span class="nb">add_executable</span><span class="p">(</span><span class="s">helloworld</span> <span class="s">hello.c</span><span class="p">)</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">zlib</span><span class="p">)</span>
+
+<span class="c"># Global approach</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">zlib_FOUND</span><span class="p">)</span>
+   <span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">zlib_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+   <span class="nb">target_link_libraries</span> <span class="p">(</span><span class="s">helloworld</span> <span class="o">${</span><span class="nv">zlib_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="c"># Modern CMake targets approach</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">zlib::zlib</span><span class="p">)</span>
+   <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">helloworld</span> <span class="s">zlib::zlib</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan install ..
+$ cmake .. -G <span class="s2">&quot;Unix Makefiles&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+<span class="hll">  -- Conan: Using autogenerated Findzlib.cmake
+</span><span class="hll">  -- Found: /Users/user/.conan/data/zlib/1.2.11/conan/stable/package/0eaf3bfbc94fb6d2c8f230d052d75c6c1a57a4ce/lib/libz.a
+</span>  ...
+
+$ cmake --build .
+</pre></div>
+</div>
+<p>Or you can also adjust <code class="docutils literal notranslate"><span class="pre">CMAKE_MODULE_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> manually.</p>
+<p>Without <strong>cmake_paths</strong>, adjusting the variables manually:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text">conanfile.txt</span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [requires]
+ zlib/1.2.11@conan/stable
+ ...
+
+ [generators]
+ cmake_find_package
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text">CMakeList.txt</span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span> <span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.0</span><span class="p">)</span>
+ <span class="nb">project</span><span class="p">(</span><span class="s">helloworld</span><span class="p">)</span>
+<span class="hll"> <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_MODULE_PATH</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span> <span class="o">${</span><span class="nv">CMAKE_MODULE_PATH</span><span class="o">}</span><span class="p">)</span>
+</span> <span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_PREFIX_PATH</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span> <span class="o">${</span><span class="nv">CMAKE_PREFIX_PATH</span><span class="o">}</span><span class="p">)</span>
+
+ <span class="nb">add_executable</span><span class="p">(</span><span class="s">helloworld</span> <span class="s">hello.c</span><span class="p">)</span>
+ <span class="nb">find_package</span><span class="p">(</span><span class="s">zlib</span><span class="p">)</span>
+
+ <span class="c"># Global approach</span>
+ <span class="nb">if</span><span class="p">(</span><span class="s">zlib_FOUND</span><span class="p">)</span>
+    <span class="nb">include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">zlib_INCLUDE_DIRS</span><span class="o">}</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span> <span class="p">(</span><span class="s">helloworld</span> <span class="o">${</span><span class="nv">zlib_LIBRARIES</span><span class="o">}</span><span class="p">)</span>
+ <span class="nb">endif</span><span class="p">()</span>
+
+ <span class="c"># Modern CMake targets approach</span>
+ <span class="nb">if</span><span class="p">(</span><span class="s">TARGET</span> <span class="s">zlib::zlib</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">helloworld</span> <span class="s">zlib::zlib</span><span class="p">)</span>
+ <span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the section <a class="reference internal" href="../../../reference/generators/cmake_find_package.html#cmake-cmake-find-package-generator-reference"><span class="std std-ref">cmake_find_package</span></a> to read more about this generator and the adjusted CMake
+variables/targets.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cmake_find_package_multi_generator.html" class="btn btn-neutral float-right" title="cmake_find_package_multi" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cmake_paths_generator.html" class="btn btn-neutral" title="cmake_paths generator" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.18
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.18/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.18.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../../_static/js/modernizr.min.js"></script>
+  <script src="../../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.18");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

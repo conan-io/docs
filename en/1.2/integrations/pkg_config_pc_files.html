@@ -1,0 +1,494 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pkg-config and pc files &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Boost Build" href="boost_build.html"/>
+        <link rel="prev" title="Ninja, NMake, Borland" href="ninja.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pkg-config and pc files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#intro">Intro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach-1-import-and-patch-the-prefix-in-the-pc-files">Approach 1: Import and patch the prefix in the <cite>pc</cite> files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach-2-prepare-and-package-pc-files-before-package-them">Approach 2: Prepare and package <cite>pc</cite> files before package them</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach-3-use-define-prefix">Approach 3: Use <cite>–define-prefix</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach-4-use-pkg-config-package-variable">Approach 4: Use <cite>PKG_CONFIG_$PACKAGE_$VARIABLE</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#approach-5-use-the-pkg-config-generator">Approach 5: Use the <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li>pkg-config and pc files</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/pkg_config_pc_files.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pkg-config-and-pc-files">
+<span id="pc-files"></span><h1>pkg-config and pc files<a class="headerlink" href="#pkg-config-and-pc-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>If you are creating a Conan package for a library (A) and the build system uses <code class="docutils literal notranslate"><span class="pre">.pc</span></code> files to locate
+its dependencies (B and C), Conan packages too, you can follow different approaches.</p>
+<p>The main issue to solve is the absolute paths. When an user installs a package in the local cache,
+the directory will probably be different from the directory where the package was created,
+because of the different computer, conan home directory or even different user or channel:</p>
+<p>In the machine where the packages were created:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/home/user/lasote/.data/storage/zlib/1.2.11/conan/stable
+</pre></div>
+</div>
+<p>In the machine where some user are reusing the library:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/custom/dir/.data/storage/zlib/1.2.11/conan/testing
+</pre></div>
+</div>
+<p>So the <code class="docutils literal notranslate"><span class="pre">.pc</span></code>  files containing absolute paths won’t work to locate the dependencies.</p>
+<p>Example of a <code class="docutils literal notranslate"><span class="pre">.pc</span></code> file with an absolute path:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>prefix=/Users/lasote/.conan/data/zlib/1.2.11/lasote/stable/package/b5d68b3533204ad67e01fa587ad28fb8ce010527
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+sharedlibdir=${libdir}
+includedir=${prefix}/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.11
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
+</pre></div>
+</div>
+</div>
+<div class="section" id="approach-1-import-and-patch-the-prefix-in-the-pc-files">
+<h2>Approach 1: Import and patch the prefix in the <cite>pc</cite> files<a class="headerlink" href="#approach-1-import-and-patch-the-prefix-in-the-pc-files" title="Permalink to this headline">¶</a></h2>
+<p>Following this approach your library <cite>A</cite> will import to a local directory the <code class="docutils literal notranslate"><span class="pre">.pc</span></code> files from <cite>B</cite> and <cite>C</cite>, then,
+as they will contain absolute paths, the recipe for <cite>A</cite> will patch the paths to match the current installation
+directory.</p>
+<p>You will need to package the <cite>pc</cite> files from your dependencies.
+You can adjust the <cite>PKG_CONFIG_PATH</cite> to let <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> tool locate your <code class="docutils literal notranslate"><span class="pre">.pc</span></code> files.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="k">class</span> <span class="nc">LibAConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;libA&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;*.cpp&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;libB/1.0@conan/stable&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">lib_b_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libB&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span>
+        <span class="n">copyfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lib_b_path</span><span class="p">,</span> <span class="s2">&quot;libB.pc&quot;</span><span class="p">),</span> <span class="s2">&quot;libB.pc&quot;</span><span class="p">)</span>
+        <span class="c1"># Patch copied file with the libB path</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">replace_prefix_in_pc_file</span><span class="p">(</span><span class="s2">&quot;libB.pc&quot;</span><span class="p">,</span> <span class="n">lib_b_path</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">({</span><span class="s2">&quot;PKG_CONFIG_PATH&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()}):</span>
+           <span class="c1"># CALL YOUR BUILD SYSTEM (configure, make etc)</span>
+           <span class="c1"># E.j: self.run(&#39;g++ main.cpp $(pkg-config libB --libs --cflags) -o main&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="approach-2-prepare-and-package-pc-files-before-package-them">
+<h2>Approach 2: Prepare and package <cite>pc</cite> files before package them<a class="headerlink" href="#approach-2-prepare-and-package-pc-files-before-package-them" title="Permalink to this headline">¶</a></h2>
+<p>With this approach you will patch the <code class="docutils literal notranslate"><span class="pre">pc</span></code> files from B and C before package them.
+The goal is to replace the absolute path (the variable part of the path) with a variable placeholder.
+Then in the consumer package A, declare the variable using <code class="docutils literal notranslate"><span class="pre">--define-variable</span></code> when calling the
+<cite>pkg-config</cite> command.</p>
+<p>This approach is cleaner than approach 1, because the packaged files are already prepared to be
+reused with or without conan, just declaring the needed variable. And it’s not needed to import the <code class="docutils literal notranslate"><span class="pre">pc</span></code>
+files to the consumer package. However, you need B and C libraries to package the <code class="docutils literal notranslate"><span class="pre">pc</span></code> files correctly.</p>
+<p>Library B recipe (preparing the <code class="docutils literal notranslate"><span class="pre">pc</span></code> file):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="k">class</span> <span class="nc">LibraryBrecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">....</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">replace_prefix_in_pc_file</span><span class="p">(</span><span class="s2">&quot;mypcfile.pc&quot;</span><span class="p">,</span> <span class="s2">&quot;${package_root_path_lib_b}&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;*.pc&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Library A recipe (importing and consuming <code class="docutils literal notranslate"><span class="pre">pc</span></code> file):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LibraryArecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">....</span>
+
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;libB/1.0@conan/stable, libC/1.0@conan/stable&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">args</span> <span class="o">=</span> <span class="s1">&#39;--define-variable package_root_path_lib_b=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libB&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span>
+        <span class="n">args</span> <span class="o">+=</span> <span class="s1">&#39; --define-variable package_root_path_lib_c=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libC&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span>
+        <span class="n">pkgconfig_exec</span> <span class="o">=</span> <span class="s1">&#39;pkg-config &#39;</span> <span class="o">+</span> <span class="n">args</span>
+
+        <span class="nb">vars</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PKG_CONFIG&#39;</span><span class="p">:</span> <span class="n">pkgconfig_exec</span><span class="p">,</span> <span class="c1"># Used by autotools</span>
+                <span class="s1">&#39;PKG_CONFIG_PATH&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libB&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libC&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">)}</span>
+
+        <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="nb">vars</span><span class="p">):</span>
+            <span class="c1"># Call autotools (./configure ./make, will read PKG_CONFIG)</span>
+            <span class="c1"># Or directly declare the variables:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;g++ main.cpp $(pkg-config </span><span class="si">%s</span><span class="s1"> libB --libs --cflags) -o main&#39;</span> <span class="o">%</span> <span class="n">args</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="approach-3-use-define-prefix">
+<h2>Approach 3: Use <cite>–define-prefix</cite><a class="headerlink" href="#approach-3-use-define-prefix" title="Permalink to this headline">¶</a></h2>
+<p>If you have available <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> &gt;= 0.29 and you have only one dependency, you can use directly
+the <code class="docutils literal notranslate"><span class="pre">--define-prefix</span></code> option to declare a custom <code class="docutils literal notranslate"><span class="pre">prefix</span></code> variable. With this approach you won’t
+need to patch anything, just declare the correct variable.</p>
+</div>
+<div class="section" id="approach-4-use-pkg-config-package-variable">
+<h2>Approach 4: Use <cite>PKG_CONFIG_$PACKAGE_$VARIABLE</cite><a class="headerlink" href="#approach-4-use-pkg-config-package-variable" title="Permalink to this headline">¶</a></h2>
+<p>If you have available <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> &gt;= 0.29.1 you can manage multiple dependencies declaring N variables
+with the prefixes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LibraryArecipe</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">....</span>
+
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;libB/1.0@conan/stable, libC/1.0@conan/stable&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="nb">vars</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PKG_CONFIG_libB_PREFIX&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libB&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">,</span>
+                <span class="s1">&#39;PKG_CONFIG_libC_PREFIX&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libC&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">,</span>
+                <span class="s1">&#39;PKG_CONFIG_PATH&#39;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libB&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;libC&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">)}</span>
+
+        <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="nb">vars</span><span class="p">):</span>
+            <span class="c1"># Call the build system</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="approach-5-use-the-pkg-config-generator">
+<span id="pkg-config-generator-example"></span><h2>Approach 5: Use the <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator<a class="headerlink" href="#approach-5-use-the-pkg-config-generator" title="Permalink to this headline">¶</a></h2>
+<p>If you use <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> in libB and libC, and specify all the library names and any other needed flag,
+you can use the <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator during the <code class="docutils literal notranslate"><span class="pre">libA</span></code>. Those files doesn’t need to be patched, because
+are dynamically generated with the correct path.</p>
+<p>So it can be a good solution in case you are building <code class="docutils literal notranslate"><span class="pre">libA</span></code> with a build system that manages <code class="docutils literal notranslate"><span class="pre">pc</span> <span class="pre">files</span></code> like
+<a class="reference internal" href="meson.html#meson-build-tool"><span class="std std-ref">Meson Build</span></a> or <a class="reference internal" href="makefile.html#autotools-build-tool"><span class="std std-ref">AutoTools</span></a>:</p>
+<p><strong>Meson Build</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">Meson</span>
+ <span class="kn">import</span> <span class="nn">os</span>
+
+ <span class="k">class</span> <span class="nc">ConanFileToolsTest</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+<span class="hll">     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;pkg_config&quot;</span>
+</span>     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;LIB_A/0.1@conan/stable&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">         <span class="n">meson</span> <span class="o">=</span> <span class="n">Meson</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">meson</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+</span><span class="hll">         <span class="n">meson</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p><strong>Autotools</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">Meson</span>
+ <span class="kn">import</span> <span class="nn">os</span>
+
+ <span class="k">class</span> <span class="nc">ConanFileToolsTest</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+<span class="hll">     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;pkg_config&quot;</span>
+</span>     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;LIB_A/0.1@conan/stable&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">         <span class="n">autotools</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">         <span class="c1"># When using the pkg_config generator, self.build_folder will be added to PKG_CONFIG_PATH</span>
+</span><span class="hll">         <span class="c1"># so pkg_config will be able to locate the generated pc files from the requires (LIB_A)</span>
+</span><span class="hll">         <span class="n">autotools</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+</span>         <span class="n">autotools</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../reference/tools.html#pkgconfigtool"><span class="std std-ref">tools.PkgConfig() class</span></a>,
+a wrapper of the <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> tool that allows to extract flags, library paths, etc for any <code class="docutils literal notranslate"><span class="pre">pc</span></code> file.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="boost_build.html" class="btn btn-neutral float-right" title="Boost Build" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ninja.html" class="btn btn-neutral" title="Ninja, NMake, Borland" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

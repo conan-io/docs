@@ -1,0 +1,756 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MSBuild &mdash; conan 1.22.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.22.3 documentation" href="../../index.html"/>
+        <link rel="up" title="Build helpers" href="../build_helpers.html"/>
+        <link rel="next" title="Meson" href="meson.html"/>
+        <link rel="prev" title="AutoToolsBuildEnvironment (configure/make)" href="autotools.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../build_helpers.html">Build helpers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake.html">CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autotools.html">AutoToolsBuildEnvironment (configure/make)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MSBuild</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructor">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#visualstudiobuildenvironment">VisualStudioBuildEnvironment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_environment.html">RunEnvironment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hooks.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../build_helpers.html">Build helpers</a> &raquo;</li>
+        
+      <li>MSBuild</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/build_helpers/visual_studio.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="msbuild">
+<span id="id1"></span><h1>MSBuild<a class="headerlink" href="#msbuild" title="Permalink to this headline">¶</a></h1>
+<p>Calls Visual Studio <strong class="command">MSBuild</strong> command to build a <em>.sln</em> project:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">MSBuild</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msbuild</span> <span class="o">=</span> <span class="n">MSBuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">msbuild</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;MyProject.sln&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Internally the <code class="docutils literal notranslate"><span class="pre">MSBuild</span></code> build helper uses <a class="reference internal" href="#visual-studio-build"><span class="std std-ref">VisualStudioBuildEnvironment</span></a> to adjust the <code class="docutils literal notranslate"><span class="pre">LIB</span></code> and <code class="docutils literal notranslate"><span class="pre">CL</span></code> environment variables with all the
+information from the requirements: include directories, library names, flags etc. and then calls <strong class="command">MSBuild</strong>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="#visual-studio-build"><span class="std std-ref">VisualStudioBuildEnvironment</span></a> to adjust the <code class="docutils literal notranslate"><span class="pre">LIB</span></code> and <code class="docutils literal notranslate"><span class="pre">CL</span></code>
+environment variables with all the information from the requirements: include directories, library names, flags etc.</li>
+<li><a class="reference internal" href="../tools.html#tools-msvc-build-command"><span class="std std-ref">tools.msvc_build_command() [DEPRECATED]</span></a> to call :command:<code class="docutils literal notranslate"><span class="pre">MSBuild</span></code>.</li>
+</ul>
+</div></blockquote>
+<p>You can adjust all the information from the requirements accessing to the <code class="docutils literal notranslate"><span class="pre">build_env</span></code> that it is a <a class="reference internal" href="#visual-studio-build"><span class="std std-ref">VisualStudioBuildEnvironment</span></a> object:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">MSBuild</span>
+
+ <span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">msbuild</span> <span class="o">=</span> <span class="n">MSBuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="hll">         <span class="n">msbuild</span><span class="o">.</span><span class="n">build_env</span><span class="o">.</span><span class="n">include_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mycustom/directory/to/headers&quot;</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">msbuild</span><span class="o">.</span><span class="n">build_env</span><span class="o">.</span><span class="n">lib_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mycustom/directory/to/libs&quot;</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">msbuild</span><span class="o">.</span><span class="n">build_env</span><span class="o">.</span><span class="n">link_flags</span> <span class="o">=</span> <span class="p">[]</span>
+</span>
+         <span class="n">msbuild</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;MyProject.sln&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To inject the flags corresponding to the <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code>, <code class="docutils literal notranslate"><span class="pre">build_type</span></code> and
+<code class="docutils literal notranslate"><span class="pre">compiler.cppstd</span></code> settings, this build helper also generates a
+properties file (in the build folder) that is passed to :command:<code class="docutils literal notranslate"><span class="pre">MSBuild</span></code> with
+:command:<code class="docutils literal notranslate"><span class="pre">/p:ForceImportBeforeCppTargets=&quot;conan_build.props&quot;</span></code>.</p>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MSBuild</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>conanfile</strong> (Required): ConanFile object. Usually <code class="docutils literal notranslate"><span class="pre">self</span></code> in a <em>conanfile.py</em>.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="build-env">
+<h3>build_env<a class="headerlink" href="#build-env" title="Permalink to this headline">¶</a></h3>
+<p>A <a class="reference internal" href="#visual-studio-build"><span class="std std-ref">VisualStudioBuildEnvironment</span></a> object with the needed environment variables.</p>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="build">
+<h3>build()<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_file</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upgrade_project</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">force_vcvars</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">toolset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">platforms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_env</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">vcvars_ver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">winsdk_version</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_binary_log</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">property_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">definitions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">user_property_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Builds Visual Studio project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last">
+<li><p class="first"><strong>project_file</strong> (Required): Path to the <em>.sln</em> file.</p>
+</li>
+<li><p class="first"><strong>targets</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets <code class="docutils literal notranslate"><span class="pre">/target</span></code> flag to the specified list of targets to build.</p>
+</li>
+<li><p class="first"><strong>upgrade_project</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>): Will call <strong class="command">devenv /upgrade</strong> to upgrade the solution to your current
+Visual Studio.</p>
+</li>
+<li><p class="first"><strong>build_type</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets <code class="docutils literal notranslate"><span class="pre">/p:Configuration</span></code> flag to the specified value. It will override the value
+from <code class="docutils literal notranslate"><span class="pre">settings.build_type</span></code>.</p>
+</li>
+<li><p class="first"><strong>arch</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets <code class="docutils literal notranslate"><span class="pre">/p:Platform</span></code> flag to the specified value. It will override the value from
+<code class="docutils literal notranslate"><span class="pre">settings.arch</span></code>. This value (or the <code class="docutils literal notranslate"><span class="pre">settings.arch</span></code> one if not overridden) will be used as the key for the <code class="docutils literal notranslate"><span class="pre">msvc_arch</span></code>
+dictionary that returns the final string used for the <code class="docutils literal notranslate"><span class="pre">/p:Platform</span></code> flag (see <strong>platforms</strong> argument documentation below).</p>
+</li>
+<li><p class="first"><strong>parallel</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>): Will use the configured number of cores in the <a class="reference internal" href="../config_files/conan.conf.html#conan-conf"><span class="std std-ref">conan.conf</span></a> file or
+<a class="reference internal" href="../tools.html#tools-cpu-count"><span class="std std-ref">tools.cpu_count()</span></a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>In the solution</strong>: Building the solution with the projects in parallel. (<code class="docutils literal notranslate"><span class="pre">/m:</span></code> parameter).</li>
+<li><strong>CL compiler</strong>: Building the sources in parallel. (<code class="docutils literal notranslate"><span class="pre">/MP:</span></code> compiler flag).</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first"><strong>force_vcvars</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>): Will ignore if the environment is already set for a different Visual Studio
+version.</p>
+</li>
+<li><p class="first"><strong>toolset</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets <code class="docutils literal notranslate"><span class="pre">/p:PlatformToolset</span></code> to the specified toolset. When <code class="docutils literal notranslate"><span class="pre">None</span></code> it will apply the
+setting <code class="docutils literal notranslate"><span class="pre">compiler.toolset</span></code> if specified. When <code class="docutils literal notranslate"><span class="pre">False</span></code> it will skip adjusting the <code class="docutils literal notranslate"><span class="pre">/p:PlatformToolset</span></code>.</p>
+</li>
+<li><p class="first"><strong>platforms</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): This dictionary will update the default one (see <code class="docutils literal notranslate"><span class="pre">msvc_arch</span></code> below) and will be
+used to get the mapping of architectures to platforms from the Conan naming to another one. It is useful for Visual Studio solutions
+that have a different naming in architectures. Example: <code class="docutils literal notranslate"><span class="pre">platforms={&quot;x86&quot;:&quot;Win32&quot;}</span></code> (Visual solution uses “Win32” instead of “x86”).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">msvc_arch</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x86&#39;</span><span class="p">:</span> <span class="s1">&#39;x86&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;x86_64&#39;</span><span class="p">:</span> <span class="s1">&#39;x64&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;armv7&#39;</span><span class="p">:</span> <span class="s1">&#39;ARM&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;armv8&#39;</span><span class="p">:</span> <span class="s1">&#39;ARM64&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><strong>use_env</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>: Sets <code class="docutils literal notranslate"><span class="pre">/p:UseEnv=true</span></code> flag. Note that this setting does not guarantee that
+environment variables from Conan will not be used by the compiler or linker. This is an MSBuild setting which simply
+specifies the behavior when environment variables conflict with equivalent properties from the project (via <em>.vcxproj</em>,
+<em>.props</em> or <em>.targets</em> files).  Conan will still apply the relevant compiler and linker environment variables when spawning
+the MSBuild process. For example, if <code class="docutils literal notranslate"><span class="pre">use_env=False</span></code> is specified <strong>and</strong> if there is no <code class="docutils literal notranslate"><span class="pre">AdditionalDependencies</span></code> variable
+defined in the project, the <code class="docutils literal notranslate"><span class="pre">LINK</span></code> environment variable passed by Conan will still be used by the linker because it technically
+doesn’t conflict with the project variable.</p>
+</li>
+<li><p class="first"><strong>vcvars_ver</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies the Visual Studio compiler toolset to use.</p>
+</li>
+<li><p class="first"><strong>winsdk_version</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies the version of the Windows SDK to use.</p>
+</li>
+<li><p class="first"><strong>properties</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Dictionary with new properties, for each element in the dictionary <code class="docutils literal notranslate"><span class="pre">{name:</span> <span class="pre">value}</span></code>
+it will append a <code class="docutils literal notranslate"><span class="pre">/p:name=&quot;value&quot;</span></code> option.</p>
+</li>
+<li><p class="first"><strong>output_binary_log</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets <code class="docutils literal notranslate"><span class="pre">/bl</span></code> flag. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code> then MSBuild will output a binary log
+file called <em>msbuild.binlog</em> in the working directory. It can also be used to set the name of log file like this
+<code class="docutils literal notranslate"><span class="pre">output_binary_log=&quot;my_log.binlog&quot;</span></code>. This parameter is only supported
+<a class="reference external" href="http://msbuildlog.com/">starting from MSBuild version 15.3 and onwards</a>.</p>
+</li>
+<li><p class="first"><strong>property_file_name</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets <code class="docutils literal notranslate"><span class="pre">p:ForceImportBeforeCppTargets</span></code>. When <code class="docutils literal notranslate"><span class="pre">None</span></code> it will generate a
+file named <em>conan_build.props</em>. You can specify a different name for the generated properties file.</p>
+</li>
+<li><p class="first"><strong>verbosity</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Sets the <code class="docutils literal notranslate"><span class="pre">/verbosity</span></code> flag to the specified verbosity level. Possible values are
+<code class="docutils literal notranslate"><span class="pre">&quot;quiet&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;minimal&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;normal&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;detailed&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;diagnostic&quot;</span></code>.</p>
+</li>
+<li><p class="first"><strong>definitions</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Dictionary with additional compiler definitions to be applied during the build.
+Use a dictionary with the desired key and its value set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to set a compiler definition with no value.</p>
+</li>
+<li><p class="first"><strong>user_property_file_name</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Filename or list of filenames of user properties files to be automatically passed to the build command. These files have priority over the <em>conan_build.props</em> file (user can override that file values), and if a list of file names is provided, later file names also have priority over the former ones. These filenames will be passed, together with <em>conan_build.props</em> files as <code class="docutils literal notranslate"><span class="pre">/p:ForceImportBeforeCppTargets</span></code> argument.</p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal notranslate"><span class="pre">MSBuild()</span></code> build helper will, before calling to <strong class="command">MSBuild</strong>, call <a class="reference internal" href="../tools.html#tools-vcvars-command"><span class="std std-ref">tools.vcvars_command()</span></a> to adjust the environment
+according to the settings. When cross-building from x64 to x86 the toolchain by default is <code class="docutils literal notranslate"><span class="pre">x86</span></code>. If you want to use <code class="docutils literal notranslate"><span class="pre">amd64_x86</span></code>
+instead, set the environment variable <code class="docutils literal notranslate"><span class="pre">PreferredToolArchitecture=x64</span></code>.</p>
+</div>
+</div>
+<div class="section" id="get-command">
+<h3>get_command()<a class="headerlink" href="#get-command" title="Permalink to this headline">¶</a></h3>
+<p>Returns a string command calling <strong class="command">MSBuild</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_command</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_file</span><span class="p">,</span> <span class="n">props_file_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upgrade_project</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">toolset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">platforms</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">use_env</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_binary_log</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">user_property_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>props_file_path</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Path to a property file to be included in the compilation command. This
+parameter is automatically set by the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method to set the runtime from settings.</li>
+<li>Same parameters as the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="get-version">
+<h3>get_version()<a class="headerlink" href="#get-version" title="Permalink to this headline">¶</a></h3>
+<p>Static method that returns the version of MSBuild for the specified settings.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_version</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Result is returned in a <code class="docutils literal notranslate"><span class="pre">conans.model.Version</span></code> object as it is evaluated by the command line. It will raise an exception if it cannot
+resolve it to a valid result.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>settings</strong> (Required): Conanfile settings. Use <code class="docutils literal notranslate"><span class="pre">self.settings</span></code>.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="section" id="visualstudiobuildenvironment">
+<span id="visual-studio-build"></span><h1>VisualStudioBuildEnvironment<a class="headerlink" href="#visualstudiobuildenvironment" title="Permalink to this headline">¶</a></h1>
+<p>Prepares the needed environment variables to invoke the Visual Studio compiler.
+Use it together with <a class="reference internal" href="../tools.html#tools-vcvars-command"><span class="std std-ref">tools.vcvars_command()</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">VisualStudioBuildEnvironment</span>
+
+ <span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;Visual Studio&quot;</span><span class="p">:</span>
+<span class="hll">             <span class="n">env_build</span> <span class="o">=</span> <span class="n">VisualStudioBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">             <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="n">env_build</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
+</span><span class="hll">                 <span class="n">vcvars</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">vcvars_command</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &amp;&amp; cl /c /EHsc hello.cpp&#39;</span> <span class="o">%</span> <span class="n">vcvars</span><span class="p">)</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &amp;&amp; lib hello.obj -OUT:hello.lib&#39;</span> <span class="o">%</span> <span class="n">vcvars</span>
+</pre></div>
+</div>
+<p>You can adjust the automatically filled attributes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;Visual Studio&quot;</span><span class="p">:</span>
+<span class="hll">     <span class="n">env_build</span> <span class="o">=</span> <span class="n">VisualStudioBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">     <span class="n">env_build</span><span class="o">.</span><span class="n">include_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mycustom/directory/to/headers&quot;</span><span class="p">)</span>
+</span><span class="hll">     <span class="n">env_build</span><span class="o">.</span><span class="n">lib_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;mycustom/directory/to/libs&quot;</span><span class="p">)</span>
+</span>     <span class="n">env_build</span><span class="o">.</span><span class="n">link_flags</span> <span class="o">=</span> <span class="p">[]</span>
+     <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="n">env_build</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
+         <span class="n">vcvars</span> <span class="o">=</span> <span class="n">tools</span><span class="o">.</span><span class="n">vcvars_command</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &amp;&amp; cl /c /EHsc hello.cpp&#39;</span> <span class="o">%</span> <span class="n">vcvars</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> &amp;&amp; lib hello.obj -OUT:hello.lib&#39;</span> <span class="o">%</span> <span class="n">vcvars</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h2>Constructor<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">VisualStudioBuildEnvironment</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">with_build_type_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>conanfile</strong> (Required): ConanFile object. Usually <code class="docutils literal notranslate"><span class="pre">self</span></code> in a <em>conanfile.py</em>.</li>
+<li><strong>with_build_type_flags</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>): If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it adjusts the compiler flags according to the
+<code class="docutils literal notranslate"><span class="pre">build_type</span></code> setting. e.g: <cite>-Zi</cite>, <cite>-Ob0</cite>, <cite>-Od</cite>…</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="environment-variables">
+<h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NAME</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>LIB</td>
+<td>Library paths separated with “;”</td>
+</tr>
+<tr class="row-odd"><td>CL</td>
+<td>“/I” flags with include directories, Runtime (/MT, /MD…), Definitions (/DXXX), and any other C and CXX flags.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h2>Attributes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="include-paths">
+<h3>include_paths<a class="headerlink" href="#include-paths" title="Permalink to this headline">¶</a></h3>
+<p>List with directories of include paths.</p>
+</div>
+<div class="section" id="lib-paths">
+<h3>lib_paths<a class="headerlink" href="#lib-paths" title="Permalink to this headline">¶</a></h3>
+<p>List with directories of libraries.</p>
+</div>
+<div class="section" id="defines">
+<h3>defines<a class="headerlink" href="#defines" title="Permalink to this headline">¶</a></h3>
+<p>List with definitions from requirements’ <code class="docutils literal notranslate"><span class="pre">cpp_info.defines</span></code>.</p>
+</div>
+<div class="section" id="runtime">
+<h3>runtime<a class="headerlink" href="#runtime" title="Permalink to this headline">¶</a></h3>
+<p>List with directories from <code class="docutils literal notranslate"><span class="pre">settings.compiler.runtime</span></code>.</p>
+</div>
+<div class="section" id="flags">
+<h3>flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h3>
+<p>List with flags from requirements’ <code class="docutils literal notranslate"><span class="pre">cpp_info.cflags</span></code>.</p>
+</div>
+<div class="section" id="cxx-flags">
+<h3>cxx_flags<a class="headerlink" href="#cxx-flags" title="Permalink to this headline">¶</a></h3>
+<p>List with cxx flags from requirements’ <code class="docutils literal notranslate"><span class="pre">cpp_info.cxxflags</span></code>.</p>
+</div>
+<div class="section" id="link-flags">
+<h3>link_flags<a class="headerlink" href="#link-flags" title="Permalink to this headline">¶</a></h3>
+<p>List with linker flags from requirements’ <code class="docutils literal notranslate"><span class="pre">cpp_info.sharedlinkflags</span></code> and <code class="docutils literal notranslate"><span class="pre">cpp_info.exelinkflags</span></code></p>
+</div>
+<div class="section" id="std">
+<h3>std<a class="headerlink" href="#std" title="Permalink to this headline">¶</a></h3>
+<p>This property contains the flag corresponding to the C++ standard. If you are still using
+the deprecated setting <code class="docutils literal notranslate"><span class="pre">cppstd</span></code> (see <a class="reference internal" href="../../howtos/manage_cpp_standard.html#manage-cpp-standard"><span class="std std-ref">How to manage C++ standard [EXPERIMENTAL]</span></a>) and you are not providing
+any value for this setting, the property will be <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</div>
+<div class="section" id="parallel">
+<h3>parallel<a class="headerlink" href="#parallel" title="Permalink to this headline">¶</a></h3>
+<p>Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<p>Sets the flag <code class="docutils literal notranslate"><span class="pre">/MP</span></code> in order to compile the sources in parallel using cores found by <a class="reference internal" href="../tools.html#tools-cpu-count"><span class="std std-ref">tools.cpu_count()</span></a>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about <a class="reference internal" href="../tools.html#tools-environment-append"><span class="std std-ref">tools.environment_append()</span></a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="meson.html" class="btn btn-neutral float-right" title="Meson" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="autotools.html" class="btn btn-neutral" title="AutoToolsBuildEnvironment (configure/make)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.22
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.22/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.22.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.22");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

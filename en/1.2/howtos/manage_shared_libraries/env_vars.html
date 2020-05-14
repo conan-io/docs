@@ -1,0 +1,510 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Manage Shared Libraries with Environment Variables &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="How to manage shared libraries" href="../manage_shared_libraries.html"/>
+        <link rel="next" title="Manage RPATHs" href="rpaths.html"/>
+        <link rel="prev" title="How to manage shared libraries" href="../manage_shared_libraries.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../manage_shared_libraries.html">How to manage shared libraries</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Manage Shared Libraries with Environment Variables</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-tool-from-a-different-package">Using the tool from a different package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-an-application-using-the-shared-library-from-toola">Building an application using the shared library from <code class="docutils literal notranslate"><span class="pre">toolA</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-shared-libraries-from-dependencies">Using shared libraries from dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-virtualenv-generator">Using the <strong>virtualenv</strong> generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-the-virtualrunenv-generator">Using the <strong>virtualrunenv</strong> generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="rpaths.html">Manage RPATHs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../howtos.html">Howtos</a> &raquo;</li>
+        
+          <li><a href="../manage_shared_libraries.html">How to manage shared libraries</a> &raquo;</li>
+        
+      <li>Manage Shared Libraries with Environment Variables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/howtos/manage_shared_libraries/env_vars.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="manage-shared-libraries-with-environment-variables">
+<h1>Manage Shared Libraries with Environment Variables<a class="headerlink" href="#manage-shared-libraries-with-environment-variables" title="Permalink to this headline">¶</a></h1>
+<p>The shared libraries, are loaded at runtime. The application executable needs to know where to find the
+required shared libraries when it runs.</p>
+<p>Depending on the operating system, we can use environment variables to help the dynamic linker to find the
+shared libraries:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">OPERATING SYSTEM</th>
+<th class="head">ENVIRONMENT VARIABLE</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>WINDOWS</td>
+<td>PATH</td>
+</tr>
+<tr class="row-odd"><td>LINUX</td>
+<td>LD_LIBRARY_PATH</td>
+</tr>
+<tr class="row-even"><td>OSX</td>
+<td>DYLD_LIBRARY_PATH</td>
+</tr>
+</tbody>
+</table>
+<p>If your package recipe (A) is generating shared libraries you can declare the needed environment variables
+pointing to the package directory. This way, any other package depending on (A) will automatically have
+the right environment variable set, so they will be able to locate the (A) shared library.</p>
+<p>Similarly if you use the <a class="reference internal" href="../../mastering/virtualenv.html#virtual-environment-generator"><span class="std std-ref">virtualenv generator</span></a> and you
+activate it, you will get the paths needed to locate the shared libraries in your terminal.</p>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>We are packaging a tool called <code class="docutils literal notranslate"><span class="pre">toolA</span></code> with a library and an executable that, for example, compress data.</p>
+<p>The package offers two flavors, shared library or static library (embedded in the executable of the tool and
+available to link with).
+You can use the <code class="docutils literal notranslate"><span class="pre">toolA</span></code> package library to develop another executable or library or you can just use the
+executable provided by the package. In both cases, if you choose to install the <cite>shared</cite> package of <code class="docutils literal notranslate"><span class="pre">toolA</span></code>
+you will need to have the shared library available.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span><span class="p">,</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">ToolA</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">....</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;toolA&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;shared=False&quot;</span>
+
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># build your shared library</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Copy the executable</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;toolA*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="c1"># Copy the libraries</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;*.dylib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;*.so*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="o">...</span>
+
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">PATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">LD_LIBRARY_PATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">DYLD_LIBRARY_PATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-tool-from-a-different-package">
+<h2>Using the tool from a different package<a class="headerlink" href="#using-the-tool-from-a-different-package" title="Permalink to this headline">¶</a></h2>
+<p>If we are creating now a package that uses the <code class="docutils literal notranslate"><span class="pre">ToolA</span></code> executable to compress some data. You can
+call directly to the <code class="docutils literal notranslate"><span class="pre">toolA.exe</span></code>, the required environment variables to locate both the executable
+and the shared libraries are automatically available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span><span class="p">,</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">PackageB</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">....</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;packageB&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;toolA/1.0@myuser/stable&quot;</span>
+
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="o">...</span>
+        <span class="c1"># we can call directly the ``toolA`` executable. the shared library will be located too</span>
+        <span class="n">exe_name</span> <span class="o">=</span> <span class="s2">&quot;toolA.exe&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="k">else</span> <span class="s2">&quot;toolA&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> --someparams&quot;</span> <span class="o">%</span> <span class="n">exe_name</span><span class="p">)</span>
+        <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-an-application-using-the-shared-library-from-toola">
+<h2>Building an application using the shared library from <code class="docutils literal notranslate"><span class="pre">toolA</span></code><a class="headerlink" href="#building-an-application-using-the-shared-library-from-toola" title="Permalink to this headline">¶</a></h2>
+<p>As we are building a final application, probably we will want to distribute it together with the
+shared library from the <code class="docutils literal notranslate"><span class="pre">toolA</span></code>, so we can use the <a class="reference internal" href="../../using_packages/conanfile_txt.html#imports-txt"><span class="std std-ref">Imports</span></a> to import the required
+shared libraries to our user space.</p>
+<p><strong>conanfile.txt</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">requires</span><span class="p">]</span>
+<span class="n">toolA</span><span class="o">/</span><span class="mf">1.0</span><span class="nd">@myuser</span><span class="o">/</span><span class="n">stable</span>
+
+<span class="p">[</span><span class="n">generators</span><span class="p">]</span>
+<span class="n">cmake</span>
+
+<span class="p">[</span><span class="n">options</span><span class="p">]</span>
+<span class="n">toolA</span><span class="p">:</span><span class="n">shared</span><span class="o">=</span><span class="bp">True</span>
+
+<span class="p">[</span><span class="n">imports</span><span class="p">]</span>
+<span class="nb">bin</span><span class="p">,</span> <span class="o">*.</span><span class="n">dll</span> <span class="o">-&gt;</span> <span class="o">./</span><span class="nb">bin</span> <span class="c1"># Copies all dll files from packages bin folder to my &quot;bin&quot; folder</span>
+<span class="n">lib</span><span class="p">,</span> <span class="o">*.</span><span class="n">dylib</span><span class="o">*</span> <span class="o">-&gt;</span> <span class="o">./</span><span class="nb">bin</span> <span class="c1"># Copies all dylib files from packages lib folder to my &quot;bin&quot; folder</span>
+<span class="n">lib</span><span class="p">,</span> <span class="o">*.</span><span class="n">so</span><span class="o">*</span> <span class="o">-&gt;</span> <span class="o">./</span><span class="nb">bin</span> <span class="c1"># Copies all dylib files from packages lib folder to my &quot;bin&quot; folder</span>
+</pre></div>
+</div>
+<p><strong>In the terminal window and build the project:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan install ..
+$ cmake .. -G <span class="s2">&quot;Visual Studio 14 Win64&quot;</span>
+$ cmake --build . --config Release
+$ <span class="nb">cd</span> bin <span class="o">&amp;&amp;</span> mytool
+</pre></div>
+</div>
+<p>The previous example will work only in Windows and OSX (changing the CMake generator), because the
+dynamic linker will look in the current directory (the binary directory) where we copied the shared
+libraries too.</p>
+<p>In Linux you still need to set the <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>, or in OSX, the <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> bin <span class="o">&amp;&amp;</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span> <span class="o">&amp;&amp;</span> ./mytool
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-shared-libraries-from-dependencies">
+<h2>Using shared libraries from dependencies<a class="headerlink" href="#using-shared-libraries-from-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>If you are executing something that depends on shared libraries belonging to your dependencies, such shared libraries have to be found at
+runtime. In Windows, it is enough if the package added its binary folder to the system <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. In Linux and OSX, it is necessary that the
+<code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> environment variables are used.</p>
+<p>Security restrictions might apply in OSX
+(<a class="reference external" href="https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here">read this thread</a>), so the
+<code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> environment variable is not directly transferred to the child process. In that case, you have to use it explicitely in
+your conanfile.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># self.run(&#39;./myexe&quot;) # won&#39;t work, even if &#39;DYLD_LIBRARY_PATH&#39; is in the env</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;DYLD_LIBRARY_PATH=</span><span class="si">%s</span><span class="s1"> ./myexe&quot; </span><span class="si">% o</span><span class="s1">s.environ[&#39;</span><span class="n">DYLD_LIBRARY_PATH</span><span class="s1">&#39;])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-virtualenv-generator">
+<h2>Using the <strong>virtualenv</strong> generator<a class="headerlink" href="#using-the-virtualenv-generator" title="Permalink to this headline">¶</a></h2>
+<p>We could also use a <a class="reference internal" href="../../mastering/virtualenv.html#virtual-environment-generator"><span class="std std-ref">virtualenv generator</span></a> to get the
+<code class="docutils literal notranslate"><span class="pre">toolA</span></code> executable available:</p>
+<p><strong>conanfile.txt</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">requires</span><span class="p">]</span>
+<span class="n">toolA</span><span class="o">/</span><span class="mf">1.0</span><span class="nd">@myuser</span><span class="o">/</span><span class="n">stable</span>
+
+<span class="p">[</span><span class="n">options</span><span class="p">]</span>
+<span class="n">toolA</span><span class="p">:</span><span class="n">shared</span><span class="o">=</span><span class="bp">True</span>
+
+<span class="p">[</span><span class="n">generators</span><span class="p">]</span>
+<span class="n">virtualenv</span>
+</pre></div>
+</div>
+<p><strong>In the terminal window:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan install .
+<span class="nb">source</span> activate
+toolA --someparams
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-the-virtualrunenv-generator">
+<h2>Using the <strong>virtualrunenv</strong> generator<a class="headerlink" href="#using-the-virtualrunenv-generator" title="Permalink to this headline">¶</a></h2>
+<p>Even if <code class="docutils literal notranslate"><span class="pre">toolA</span></code> doesn’t declare the variables in the <code class="docutils literal notranslate"><span class="pre">package_info</span></code> method, you can use
+the <a class="reference internal" href="../../mastering/virtualenv.html#virtual-run-environment-generator"><span class="std std-ref">virtualrunenv generator</span></a>. It will set automatically
+the environment variables poiting to the “lib” and “bin” folders.</p>
+<p><strong>conanfile.txt</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">requires</span><span class="p">]</span>
+<span class="n">toolA</span><span class="o">/</span><span class="mf">1.0</span><span class="nd">@myuser</span><span class="o">/</span><span class="n">stable</span>
+
+<span class="p">[</span><span class="n">options</span><span class="p">]</span>
+<span class="n">toolA</span><span class="p">:</span><span class="n">shared</span><span class="o">=</span><span class="bp">True</span>
+
+<span class="p">[</span><span class="n">generators</span><span class="p">]</span>
+<span class="n">virtualenv</span>
+</pre></div>
+</div>
+<p><strong>In the terminal window:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan install .
+<span class="nb">source</span> activate
+toolA --someparams
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rpaths.html" class="btn btn-neutral float-right" title="Manage RPATHs" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../manage_shared_libraries.html" class="btn btn-neutral" title="How to manage shared libraries" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

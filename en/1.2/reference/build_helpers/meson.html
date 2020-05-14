@@ -1,0 +1,444 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Meson &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Build helpers" href="../build_helpers.html"/>
+        <link rel="next" title="RunEnvironment" href="run_environment.html"/>
+        <link rel="prev" title="MSBuild" href="visual_studio.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../build_helpers.html">Build helpers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake.html">CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="autotools.html">AutoToolsBuildEnvironment (configure/make)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html">MSBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html#visualstudiobuildenvironment">VisualStudioBuildEnvironment</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Meson</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructor">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="run_environment.html">RunEnvironment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../build_helpers.html">Build helpers</a> &raquo;</li>
+        
+      <li>Meson</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/build_helpers/meson.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="meson">
+<span id="meson-build-reference"></span><h1>Meson<a class="headerlink" href="#meson" title="Permalink to this headline">¶</a></h1>
+<p>If you are using <strong>Meson Build</strong> as your build system, you can use the <strong>Meson</strong> build helper.
+Specially useful with the <a class="reference internal" href="../generators/pkg_config.html#pkg-config-generator"><span class="std std-ref">pkg_config generator</span></a> that will generate the <code class="docutils literal notranslate"><span class="pre">*.pc</span></code>
+files of our requirements, then <code class="docutils literal notranslate"><span class="pre">Meson()</span></code> build helper will locate them automatically.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">Meson</span>
+ <span class="kn">import</span> <span class="nn">os</span>
+
+ <span class="k">class</span> <span class="nc">ConanFileToolsTest</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+<span class="hll">     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;pkg_config&quot;</span>
+</span>     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;LIB_A/0.1@conan/stable&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">         <span class="n">meson</span> <span class="o">=</span> <span class="n">Meson</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">meson</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+</span><span class="hll">         <span class="n">meson</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Meson</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>conanfile</strong> (Required): Use <code class="docutils literal notranslate"><span class="pre">self</span></code> inside a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>.</li>
+<li><strong>backend</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specify a backend to be used, otherwise it will use <code class="docutils literal notranslate"><span class="pre">&quot;Ninja&quot;</span></code>.</li>
+<li><strong>build_type</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Force to use a build type, ignoring the value from the settings.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configure">
+<h3>configure()<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">defs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">source_folder</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_folder</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+              <span class="n">pkg_config_paths</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cache_build_folder</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Configures <cite>Meson</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script. Each argument will
+be escaped according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</li>
+<li><strong>defs</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of definitions.</li>
+<li><strong>source_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Meson’s source directory where <code class="docutils literal notranslate"><span class="pre">meson.build</span></code> is located. The default value is the <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>.
+Relative paths are allowed and will be relative to <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>.</li>
+<li><strong>build_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Meson’s output directory. The default value is the <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> if <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified.
+The <code class="docutils literal notranslate"><span class="pre">Meson</span></code> object will store <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> internally for subsequent calls to <code class="docutils literal notranslate"><span class="pre">build()</span></code>.</li>
+<li><strong>pkg_config_paths</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list containing paths to locate the pkg-config files (*.pc). If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</li>
+<li><strong>cache_build_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Subfolder to be used as build folder when building the package in the local cache.
+This argument doesn’t have effect when the package is being built in user folder with <strong class="command">conan build</strong> but overrides <strong>build_folder</strong> when working in the local cache.
+See <a class="reference internal" href="../conanfile/attributes.html#in-local-cache"><span class="std std-ref">self.in_local_cache</span></a>.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="build">
+<h3>build()<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">targets</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Builds <cite>Meson</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">make</span></code> command. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</li>
+<li><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Build folder. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will be set to <code class="docutils literal notranslate"><span class="pre">conanfile.build_folder</span></code>.</li>
+<li><strong>targets</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of targets to be built. No targets will be added if <code class="docutils literal notranslate"><span class="pre">targets=None</span></code>.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>A typical usage of the Meson build helper, if you want to be able to both execute <strong class="command">conan create</strong> and also build your package for a
+library locally (in your user folder, not in the local cache), could be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">Meson</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;pkg_config&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">meson</span> <span class="o">=</span> <span class="n">Meson</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">meson</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">source_folder</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/src&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span>
+                        <span class="n">build_folder</span><span class="o">=</span><span class="s2">&quot;build&quot;</span><span class="p">)</span>
+        <span class="n">meson</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Note the <strong>pkg_config</strong> generator, which generates .pc files, which are understood by Meson to process dependencies informations (no need for a “meson” generator).</p>
+<p>The layout is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;folder&gt;
+  | - conanfile.py
+  | - src
+      | - meson.build
+      | - hello.cpp
+      | - hello.h
+</pre></div>
+</div>
+<p>And the <code class="docutils literal notranslate"><span class="pre">meson.build</span></code> could be as simple as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>project(&#39;hello&#39;, &#39;cpp&#39;, version : &#39;0.1.0&#39;,
+                 default_options : [&#39;cpp_std=c++11&#39;])
+
+library(&#39;hello&#39;, [&#39;hello.cpp&#39;])
+</pre></div>
+</div>
+<p>This allows, to create the package with <strong class="command">conan create</strong> as well as to build the package locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> &lt;folder&gt;
+$ conan create user/testing
+<span class="c1"># Now local build</span>
+$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan install ..
+$ conan build ..
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="run_environment.html" class="btn btn-neutral float-right" title="RunEnvironment" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="visual_studio.html" class="btn btn-neutral" title="MSBuild" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Remotes &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Uploading packages" href="../uploading_packages.html"/>
+        <link rel="next" title="Uploading packages to remotes" href="uploading_to_remotes.html"/>
+        <link rel="prev" title="Uploading packages" href="../uploading_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Remotes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bintray-official-repositories">Bintray official repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bintray-community-repositories">Bintray community repositories</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_to_remotes.html">Uploading packages to remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_bintray.html">Using Bintray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="artifactory_ce.html">Artifactory Community Edition for C/C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_your_server.html">Running conan_server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../uploading_packages.html">Uploading packages</a> &raquo;</li>
+        
+      <li>Remotes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/uploading_packages/remotes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="remotes">
+<h1>Remotes<a class="headerlink" href="#remotes" title="Permalink to this headline">¶</a></h1>
+<p>In the previous sections, we built several packages in our computer, those packages are stored
+in the local cache, typically <em>~/.conan/data</em>. Now, you might want to upload them to a conan server
+for later reuse on another machine, project, or for sharing them.</p>
+<p>Conan packages can be uploaded to different remotes previously configured with a name and an URL.
+The remotes are just servers used as binary repositories that store packages by reference.</p>
+<p>There are several possibilities to have a server where to upload packages:</p>
+<p>For private development:</p>
+<ul class="simple">
+<li><strong>Artifactory Community Edition for C/C++</strong>: Artifactory Community Edition (CE) for C/C++ is a
+completely free Artifactory server that implements both Conan and generic repositories. It is
+the recommended server for companies and teams wanting to host their own private repository.
+It has a web UI, advanced authentication and permissions, very good performance and scalability,
+a Rest API, it can host generic artifacts (tarballs, zips, etc). Check <a class="reference internal" href="artifactory_ce.html#artifactory-ce"><span class="std std-ref">Artifactory Community Edition for C/C++</span></a>
+for more information.</li>
+<li><strong>Artifactory Pro</strong>: Artifactory is the binary repository manager for all major packaging formats. It
+is the recommended remote type for enterprise and professional package management. Check
+<a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Welcome+to+Artifactory">Artifactory documentation</a> for more information. For comparison between Artifactory editions,
+check the <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Artifactory+Comparison+Matrix">Artifactory Comparison Matrix</a>.</li>
+<li><strong>Conan server</strong>: Simple, free and open source, MIT licensed server that comes bundled with the conan client.
+Check <a class="reference internal" href="running_your_server.html#running-your-server"><span class="std std-ref">Running conan_server</span></a> for more information.</li>
+</ul>
+<p>For distribution:</p>
+<ul class="simple">
+<li><strong>Bintray</strong>: Bintray is a cloud platform that gives you full control over how you publish, store,
+promote, and distribute software. You can create binary repositories in Bintray to share conan
+packages or even create an organization. It is free for open source packages, and the recommended
+server to distribute them to the C and C++ communities. Check <a class="reference internal" href="using_bintray.html#using-bintray"><span class="std std-ref">Using Bintray</span></a> for more information.</li>
+</ul>
+<div class="section" id="bintray-official-repositories">
+<h2>Bintray official repositories<a class="headerlink" href="#bintray-official-repositories" title="Permalink to this headline">¶</a></h2>
+<p>Conan official repositories for open source libraries are hosted in Bintray. These repositories are maintained by the Conan
+team. Currently there are two central repositories:</p>
+<p><strong>conan-center</strong>: <a class="reference external" href="https://bintray.com/conan/conan-center">https://bintray.com/conan/conan-center</a></p>
+<blockquote class="pull-quote">
+<div>This repository has moderated, curated and well-maintained packages, and is the place where you
+can share your packages with the community. To share your package, you can upload it to your own
+(or your organization’s) repositories and submit an inclusion request to <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a>.
+Check <a class="reference internal" href="bintray/conan_center_guide.html#conan-center-flow"><span class="std std-ref">conan-center guide</span></a> for more information.</div></blockquote>
+<p><strong>conan-transit</strong>: <a class="reference external" href="https://bintray.com/conan/conan-transit">https://bintray.com/conan/conan-transit</a> (DEPRECATED)</p>
+<blockquote class="pull-quote">
+<div>Deprecated. Contains mostly outdated packages some of them even not compatible with latest Conan
+versions, so its usage is discouraged. This repository only exists for backwards compatibility,
+it is not a default remote in the Conan client and will be completely removed soon. This
+repository is an exact copy of the old <code class="docutils literal notranslate"><span class="pre">server.conan.io</span></code> repository at
+<strong>June 11, 2017 08:00 CET</strong>. It’s a read-only repository, so you can only download hosted
+packages.</div></blockquote>
+<p>Conan comes with <strong>conan-center</strong> repository configured by default. Just in case you want to manually configure this repository you can
+always add it like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote add conan-center https://conan.bintray.com
+</pre></div>
+</div>
+</div>
+<div class="section" id="bintray-community-repositories">
+<h2>Bintray community repositories<a class="headerlink" href="#bintray-community-repositories" title="Permalink to this headline">¶</a></h2>
+<p>There are some popular community repositories that may be of interest for conan users to retrieve
+open source packages from. Some of these repositories are not affiliated with the Conan team.</p>
+<p><strong>bincrafters</strong> : <a class="reference external" href="https://bintray.com/bincrafters/public-conan">https://bintray.com/bincrafters/public-conan</a></p>
+<blockquote class="pull-quote">
+<div><p>The <a class="reference external" href="https://bincrafters.github.io">Bincrafters</a> team builds binary software packages for the
+OSS community. This repository contains a wide and growing variety of conan packages from
+contributors.</p>
+<p>Use the following command to add this remote to Conan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>conan-community</strong> : <a class="reference external" href="https://bintray.com/conan-community/conan">https://bintray.com/conan-community/conan</a></p>
+<blockquote class="pull-quote">
+<div><p>Created by Conan developers, it should be considered as an incubator to mature packages before contacting authors or including them in
+<a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a>. This repository contains work-in-progress packages that may still not work and may not be fully featured.</p>
+<p>Use the following command to add this remote to Conan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are working in a team, you probably want to use the same remotes everywhere: developer machines, CI. The <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">config</span> <span class="pre">install</span></code>
+command can automatically define the remotes in a conan client, as well as other resources as profiles. Have a look to the
+<a class="reference internal" href="../reference/commands/consumer/config.html#conan-config-install"><span class="std std-ref">conan config install</span></a> command.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="uploading_to_remotes.html" class="btn btn-neutral float-right" title="Uploading packages to remotes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../uploading_packages.html" class="btn btn-neutral" title="Uploading packages" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

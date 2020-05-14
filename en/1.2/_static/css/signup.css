@@ -1,0 +1,102 @@
+.mktoForm .mktoFormRow {
+    float: left !important;
+}
+.mktoButtonWrap.mktoSimple{
+    margin-left: 0px !important;
+}
+.mktoLabel.mktoHasWidth{
+}
+
+.mktoOffset{
+    width: 0px !important;
+}
+
+
+.dark_newsletter-div div, .dark_newsletter-div span, .dark_newsletter-div label{
+    display:block !important;
+    float:left !important;
+    width: 100%;
+}
+
+.dark_newsletter-div .mktoButtonRow{
+    float: left !important;
+
+}
+
+.dark_newsletter-div form{
+     width: auto !important;
+}
+
+.dark_newsletter-div .mktoClear, .dark_newsletter-div .mktoFormRow{
+    float:left !important;
+    clear:none !important;
+}
+
+
+.dark_newsletter-div p {
+      font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif !important;
+      color: #C3C4C5 !important;
+      font-size: 14.4px;
+      margin-bottom: 0px;
+}
+
+.dark_newsletter-div{
+      display: block !important;
+      border-top: 1px solid grey;
+      margin-top: 0.618em;
+      padding-top: 0.618em;
+      padding-left: 1.618em
+
+}
+
+.mktoFieldWrap .mktoLabel{
+    width: 0px !important;
+}
+
+.mktoFieldWrap .mktoHasWidth{
+    width: 0px !important;
+}
+
+
+.dark_newsletter-div button[type="submit"] {
+  background-color: #468BC7 !important;
+  background-image: none !important;
+  border: 1px solid #848484 !important;
+  color: #fff !important;
+  font-weight: 200 !important;
+  display: flex !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  clear:both;
+}
+
+.dark_newsletter-div button i {
+  font-size: 28px !important;
+  padding: 0 5px !important;
+}
+
+.dark_newsletter-div input[type="email"] {
+    background-color: #444546 !important;
+    padding: 3px !important;
+    border: 1px solid #848484 !important;
+    max-width: 170px !important;
+    font-weight: 200 !important;
+    font-size: 17px !important;
+    color: #C3C4C5 !important;
+    width: 200px !important;
+}
+
+
+.out-reference-box{
+    border: 1px solid #848484;
+    border-left: none;
+    border-right: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-image: url("book.jpg");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 80px;
+
+
+}

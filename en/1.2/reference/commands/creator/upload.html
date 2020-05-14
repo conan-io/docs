@@ -1,0 +1,378 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan upload &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan test" href="test.html"/>
+        <link rel="prev" title="conan new" href="new.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="create.html">conan create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan upload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">conan test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan upload</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/reference/commands/creator/upload.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-upload">
+<span id="id1"></span><h1>conan upload<a class="headerlink" href="#conan-upload" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-p PACKAGE<span class="o">]</span> <span class="o">[</span>-r REMOTE<span class="o">]</span> <span class="o">[</span>--all<span class="o">]</span> <span class="o">[</span>--skip-upload<span class="o">]</span>
+               <span class="o">[</span>--force<span class="o">]</span> <span class="o">[</span>--check<span class="o">]</span> <span class="o">[</span>-c<span class="o">]</span> <span class="o">[</span>--retry RETRY<span class="o">]</span>
+               <span class="o">[</span>--retry-wait RETRY_WAIT<span class="o">]</span> <span class="o">[</span>-no <span class="o">[{</span>all,recipe<span class="o">}]]</span>
+               pattern
+</pre></div>
+</div>
+<p>Uploads a recipe and binary packages to a remote. If you use the –force
+variable, it won’t check the package date. It will override the remote with
+the local package. If you use a pattern instead of a conan recipe reference
+you can use the -c or –confirm option to upload all the matching recipes. If
+you use the –retry option you can specify how many times should conan try to
+upload the packages in case of failure. The default is 2. With –retry_wait
+you can specify the seconds to wait between upload attempts. If no remote is
+specified, the first configured remote (by default conan-center, use ‘conan remote
+list’ to list the remotes) will be used.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  pattern               Pattern or package recipe reference, e.g.,
+                       <span class="s2">&quot;openssl/*&quot;</span>, <span class="s2">&quot;MyPackage/1.2@user/channel&quot;</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  -p PACKAGE, --package PACKAGE
+                        package ID to upload
+  -r REMOTE, --remote REMOTE
+                        upload to this specific remote
+  --all                 Upload both package recipe and packages
+  --skip-upload         Do not upload anything, just run the checks and the
+                        compression.
+  --force               Do not check conan recipe date, override remote with
+                        <span class="nb">local</span>
+  --check               Perform an integrity check, using the manifests,
+                        before upload
+  -c, --confirm         If pattern is given upload all matching recipes
+                        without confirmation
+  --retry RETRY         In <span class="k">case</span> of fail retries to upload again the specified
+                        <span class="nb">times</span>
+  --retry-wait RETRY_WAIT
+                        Waits specified seconds before retry again
+  -no <span class="o">[{</span>all,recipe<span class="o">}]</span>, --no-overwrite <span class="o">[{</span>all,recipe<span class="o">}]</span>
+                        Uploads package only <span class="k">if</span> recipe is the same as the
+                        remote one
+</pre></div>
+</div>
+<p><strong>Examples</strong>:</p>
+<p>Uploads a package recipe (conanfile.py and the exported files):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload OpenCV/1.4.0@lasote/stable
+</pre></div>
+</div>
+<p>Uploads a package recipe and all the generated binary packages to a specified remote:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload OpenCV/1.4.0@lasote/stable --all -r my_remote
+</pre></div>
+</div>
+<p>Uploads all recipes and binary packages from our local cache to <code class="docutils literal notranslate"><span class="pre">my_remote</span></code> without confirmation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload <span class="s2">&quot;*&quot;</span> --all -r my_remote -c
+</pre></div>
+</div>
+<p>Upload all local packages and recipes beginning with “Op” retrying 3 times and waiting 10 seconds
+between upload attempts:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload <span class="s2">&quot;Op*&quot;</span> --all -r my_remote -c --retry <span class="m">3</span> --retry_wait <span class="m">10</span>
+</pre></div>
+</div>
+<p>Upload packages without overwriting the recipe and packages if the recipe has changed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite  <span class="c1"># defaults to --no-overwrite all</span>
+</pre></div>
+</div>
+<p>Upload packages without overwriting the recipe if the packages has changed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite recipe
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="test.html" class="btn btn-neutral float-right" title="conan test" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="new.html" class="btn btn-neutral" title="conan new" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

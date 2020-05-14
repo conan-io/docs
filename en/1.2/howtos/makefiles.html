@@ -1,0 +1,431 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Creating and reusing packages based on Makefiles &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Howtos" href="../howtos.html"/>
+        <link rel="next" title="How to manage the GCC &gt;= 5 ABI" href="manage_gcc_abi.html"/>
+        <link rel="prev" title="How to create and reuse packages based on Visual Studio" href="visual_studio_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating and reusing packages based on Makefiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-packages">Creating packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-packages">Using packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../howtos.html">Howtos</a> &raquo;</li>
+        
+      <li>Creating and reusing packages based on Makefiles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/howtos/makefiles.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="creating-and-reusing-packages-based-on-makefiles">
+<span id="makefiles-howto"></span><h1>Creating and reusing packages based on Makefiles<a class="headerlink" href="#creating-and-reusing-packages-based-on-makefiles" title="Permalink to this headline">¶</a></h1>
+<p>Conan can create packages and reuse them with Makefiles. The <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code>
+build helper helps with most of the necessary task.</p>
+<p>This how-to has been tested in Windows with MinGW and Linux with gcc. It is using static libraries
+but could be exteded to shared libraries too. The Makefiles surely can be improved they are just an example.</p>
+<div class="section" id="creating-packages">
+<h2>Creating packages<a class="headerlink" href="#creating-packages" title="Permalink to this headline">¶</a></h2>
+<p>Start cloning the existing example repository, containing a simple “Hello World” library, and application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/memsharded/conan-example-makefiles
+$ <span class="nb">cd</span> conan-example-makefiles
+$ <span class="nb">cd</span> hellolib
+</pre></div>
+</div>
+<p>It contains a <em>src</em> folder with the source code and a <em>conanfile.py</em> file for creating a package.</p>
+<p>Inside the <em>src</em> folder, there is <em>Makefile</em> to build the static library. This <em>Makefile</em> is using
+standard variables like <code class="docutils literal notranslate"><span class="pre">$(CPPFLAGS)</span></code> or <code class="docutils literal notranslate"><span class="pre">$(CXX)</span></code> to build it:</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">SRC</span> <span class="o">=</span> hello.cpp
+<span class="nv">OBJ</span> <span class="o">=</span> <span class="k">$(</span>SRC:.cpp<span class="o">=</span>.o<span class="k">)</span>
+<span class="nv">OUT</span> <span class="o">=</span> libhello.a
+<span class="nv">INCLUDES</span> <span class="o">=</span> -I.
+
+<span class="nf">.SUFFIXES</span><span class="o">:</span> .<span class="n">cpp</span>
+
+<span class="nf">default</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OUT</span><span class="k">)</span>
+
+<span class="nf">.cpp.o</span><span class="o">:</span>
+    <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>INCLUDES<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> -c $&lt; -o <span class="nv">$@</span>
+
+<span class="nf">$(OUT)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJ</span><span class="k">)</span>
+    ar rcs <span class="k">$(</span>OUT<span class="k">)</span> <span class="k">$(</span>OBJ<span class="k">)</span>
+</pre></div>
+</div>
+<p>The <em>conanfile.py</em> file uses the <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code> build helper. This helper defines
+the necessasry environment variables with information from dependencies, as well as other variables
+to match the current conan settings (like <code class="docutils literal notranslate"><span class="pre">-m32</span></code> or <code class="docutils literal notranslate"><span class="pre">-m64</span></code> based on the conan <code class="docutils literal notranslate"><span class="pre">arch</span></code> setting)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">):</span>
+            <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="c1"># env_build.configure() # use it to run &quot;./configure&quot; if using autotools</span>
+            <span class="n">env_build</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>With this <em>conanfile.py</em> you can create the package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/testing -s <span class="nv">compiler</span><span class="o">=</span>gcc -s compiler.version<span class="o">=</span><span class="m">4</span>.9 -s compiler.libcxx<span class="o">=</span>libstdc++
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-packages">
+<h2>Using packages<a class="headerlink" href="#using-packages" title="Permalink to this headline">¶</a></h2>
+<p>Now lets move to the application folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ../helloapp
+</pre></div>
+</div>
+<p>There you can see also a <em>src</em> folder with a <em>Makefile</em> creating an executable:</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">SRC</span> <span class="o">=</span> app.cpp
+<span class="nv">OBJ</span> <span class="o">=</span> <span class="k">$(</span>SRC:.cpp<span class="o">=</span>.o<span class="k">)</span>
+<span class="nv">OUT</span> <span class="o">=</span> app
+<span class="nv">INCLUDES</span> <span class="o">=</span> -I.
+
+<span class="nf">.SUFFIXES</span><span class="o">:</span> .<span class="n">cpp</span>
+
+<span class="nf">default</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OUT</span><span class="k">)</span>
+
+<span class="nf">.cpp.o</span><span class="o">:</span>
+    <span class="k">$(</span>CXX<span class="k">)</span> <span class="k">$(</span>CPPFLAGS<span class="k">)</span> <span class="k">$(</span>CXXFLAGS<span class="k">)</span> -c $&lt; -o <span class="nv">$@</span>
+
+<span class="nf">$(OUT)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">OBJ</span><span class="k">)</span>
+    <span class="k">$(</span>CXX<span class="k">)</span> -o <span class="k">$(</span>OUT<span class="k">)</span>  <span class="k">$(</span>OBJ<span class="k">)</span>  <span class="k">$(</span>LDFLAGS<span class="k">)</span>  <span class="k">$(</span>LIBS<span class="k">)</span>
+</pre></div>
+</div>
+<p>And also a <em>conanfile.py</em> very similar to the previous one, in this case adding a <code class="docutils literal notranslate"><span class="pre">requires</span></code> and a <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+ <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span>
+
+ <span class="k">class</span> <span class="nc">AppConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;App&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+     <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span>
+<span class="hll">     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Hello/0.1@user/testing&quot;</span>
+</span>
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">):</span>
+             <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+             <span class="n">env_build</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+
+     <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*app&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*app.exe&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="hll">     <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span>         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that in this case, the <code class="docutils literal notranslate"><span class="pre">AutoToolsBuildEnvironment</span></code> will automatically set values to <code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code>,
+<code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">LIBS</span></code>, etc. existing in the <em>Makefile</em> with the correct include directories, library names,
+etc. to properly build and link with the <code class="docutils literal notranslate"><span class="pre">hello</span></code> library contained in the “Hello” package.</p>
+<p>As above, we can create the package with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/testing -s <span class="nv">compiler</span><span class="o">=</span>gcc -s compiler.version<span class="o">=</span><span class="m">4</span>.9 -s compiler.libcxx<span class="o">=</span>libstdc++
+</pre></div>
+</div>
+<p>There are different ways to run executables contained in packages, like using <code class="docutils literal notranslate"><span class="pre">virtualrunenv</span></code> generators.
+In this case, as the package has a <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method, we can use it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install Hello/0.1user/testing -s <span class="nv">compiler</span><span class="o">=</span>gcc -s compiler.version<span class="o">=</span><span class="m">4</span>.9 -s compiler.libcxx<span class="o">=</span>libstdc++
+$ ./bin/app
+$ Hello World Release!
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="manage_gcc_abi.html" class="btn btn-neutral float-right" title="How to manage the GCC &gt;= 5 ABI" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="visual_studio_packages.html" class="btn btn-neutral" title="How to create and reuse packages based on Visual Studio" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

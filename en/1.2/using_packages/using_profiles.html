@@ -1,0 +1,373 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using profiles &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Using packages" href="../using_packages.html"/>
+        <link rel="next" title="Workflows" href="workflows.html"/>
+        <link rel="prev" title="Installing dependencies" href="conanfile_txt.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../using_packages.html">Using packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="conanfile_txt.html">Installing dependencies</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../using_packages.html">Using packages</a> &raquo;</li>
+        
+      <li>Using profiles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using_packages/using_profiles.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-profiles">
+<span id="id1"></span><h1>Using profiles<a class="headerlink" href="#using-profiles" title="Permalink to this headline">¶</a></h1>
+<p>So far we have used the default settings stored in <code class="docutils literal notranslate"><span class="pre">~/.conan/profiles/default</span></code> and defined as command line arguments.</p>
+<p>However, configurations can be large, settings can be very different, and we might want to switch easily between different configurations
+with different settings, options, etc. The best way to do it is using profiles.</p>
+<p>A profile file contains a predefined set of <code class="docutils literal notranslate"><span class="pre">settings</span></code>, <code class="docutils literal notranslate"><span class="pre">options</span></code>, <code class="docutils literal notranslate"><span class="pre">environment</span> <span class="pre">variables</span></code>, and <code class="docutils literal notranslate"><span class="pre">build_requires</span></code> and has this
+structure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+setting=value
+
+[options]
+MyLib:shared=True
+
+[env]
+env_var=value
+
+[build_requires]
+Tool1/0.1@user/channel
+Tool2/0.1@user/channel, Tool3/0.1@user/channel
+*: Tool4/0.1@user/channel
+</pre></div>
+</div>
+<p>Options allow definition with wildcards, to apply same option value to many packages:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[options]
+*:shared=True
+</pre></div>
+</div>
+<p>They would contain the desired configuration, for example:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>clang_3.5</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [settings]
+ os=Macos
+ arch=x86_64
+ compiler=clang
+ compiler.version=3.5
+ compiler.libcxx=libstdc++11
+ build_type=Release
+
+ [env]
+ CC=/usr/bin/clang
+ CXX=/usr/bin/clang++
+</pre></div>
+</div>
+</div>
+<p>You can store them in the default profile folder or anywhere in you project and you can use it instead of command line arguments:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create demo/testing -pr<span class="o">=</span>clang_3.5
+</pre></div>
+</div>
+<p>If we continue with the example of Poco, we could have a handy profile to help us build our project with the desired configuration and avoid
+the usage of all the command line arguments when installing the dependency packages.</p>
+<p>A profile to install dependencies as <strong>shared</strong> and in <strong>debug</strong> mode will look like this:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>debug_shared</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> include(default)
+
+ [settings]
+ build_type=Debug
+
+ [options]
+ Poco:shared=True
+ Poco:enable_apacheconnector=False
+ OpenSSL:shared=True
+</pre></div>
+</div>
+</div>
+<p>With this we could just install using the profile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -pr<span class="o">=</span>debug_shared
+</pre></div>
+</div>
+<p>We could also create a new profile to use a different compiler version and store it in our project directory:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>poco_clang_3.5</em></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> include(clang_3.5)
+
+ [options]
+ Poco:shared=True
+ Poco:enable_apacheconnector=False
+ OpenSSL:shared=True
+</pre></div>
+</div>
+</div>
+<p>Installation will be as easy as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -pr<span class="o">=</span>./poco_clang_3.5
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about <a class="reference internal" href="../reference/profiles.html#profiles"><span class="std std-ref">Profiles</span></a> for full reference.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="workflows.html" class="btn btn-neutral float-right" title="Workflows" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="conanfile_txt.html" class="btn btn-neutral" title="Installing dependencies" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

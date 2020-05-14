@@ -1,0 +1,539 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AutoToolsBuildEnvironment (configure/make) &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Build helpers" href="../build_helpers.html"/>
+        <link rel="next" title="MSBuild" href="visual_studio.html"/>
+        <link rel="prev" title="CMake" href="cmake.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../build_helpers.html">Build helpers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake.html">CMake</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">AutoToolsBuildEnvironment (configure/make)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructor">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html">MSBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html#visualstudiobuildenvironment">VisualStudioBuildEnvironment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_environment.html">RunEnvironment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../build_helpers.html">Build helpers</a> &raquo;</li>
+        
+      <li>AutoToolsBuildEnvironment (configure/make)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/build_helpers/autotools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="autotoolsbuildenvironment-configure-make">
+<span id="autotools-reference"></span><h1>AutoToolsBuildEnvironment (configure/make)<a class="headerlink" href="#autotoolsbuildenvironment-configure-make" title="Permalink to this headline">¶</a></h1>
+<p>If you are using <strong>configure</strong>/<strong>make</strong> you can use <strong>AutoToolsBuildEnvironment</strong> helper.
+This helper sets <code class="docutils literal notranslate"><span class="pre">LIBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LDFLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code> and <code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code> environment variables based on your requirements.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+   <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+   <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Poco/1.7.8p3@pocoproject/stable&quot;</span>
+   <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;Poco:shared=True&quot;</span><span class="p">,</span> <span class="s2">&quot;OpenSSL:shared=True&quot;</span>
+
+   <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">)</span>
+
+   <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">      <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</span><span class="hll">      <span class="n">env_build</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+</span><span class="hll">      <span class="n">env_build</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+</span></pre></div>
+</div>
+<p>It also works using the <a class="reference internal" href="../tools.html#environment-append-tool"><span class="std std-ref">environment_append</span></a> context manager applied to your <strong>configure and make</strong> commands, calling <cite>configure</cite> and <cite>make</cite> manually:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="n">env_build</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;./configure&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;make&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can change some variables like <code class="docutils literal notranslate"><span class="pre">.fpic</span></code>, <code class="docutils literal notranslate"><span class="pre">.libs</span></code>, <code class="docutils literal notranslate"><span class="pre">.include_paths</span></code>, <code class="docutils literal notranslate"><span class="pre">defines</span></code> before accessing the <code class="docutils literal notranslate"><span class="pre">vars</span></code> to override
+an automatic value or add new values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+   <span class="o">...</span>
+
+   <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="hll">      <span class="n">env_build</span><span class="o">.</span><span class="n">fpic</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class="hll">      <span class="n">env_build</span><span class="o">.</span><span class="n">libs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;pthread&quot;</span><span class="p">)</span>
+</span><span class="hll">      <span class="n">env_build</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;NEW_DEFINE=23&quot;</span><span class="p">)</span>
+</span>      <span class="n">env_build</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+      <span class="n">env_build</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can use it also with <code class="docutils literal notranslate"><span class="pre">MSYS2</span></code>/<code class="docutils literal notranslate"><span class="pre">MinGW</span></code> subsystems installed by setting the <cite>win_bash</cite> parameter
+in the constructor. It will run the the <code class="docutils literal notranslate"><span class="pre">configure</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span></code> commands inside a <code class="docutils literal notranslate"><span class="pre">bash</span></code> that
+has to be in the path or declared in <code class="docutils literal notranslate"><span class="pre">CONAN_BASH_PATH</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+   <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+   <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">)</span>
+
+   <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="hll">      <span class="n">in_win</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span>
+</span>      <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">win_bash</span><span class="o">=</span><span class="n">in_win</span><span class="p">)</span>
+      <span class="n">env_build</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+      <span class="n">env_build</span><span class="o">.</span><span class="n">make</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">win_bash</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>conanfile</strong> (Required): Conanfile object. Usually <code class="docutils literal notranslate"><span class="pre">self</span></code> in a conanfile.py</li>
+<li><strong>win_bash</strong>: (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>): When True, it will run the configure/make commands inside a
+bash.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<p>You can adjust the automatically filled values modifying the attributes like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">AutoToolsBuildEnvironment</span>
+
+ <span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="hll">         <span class="n">env_build</span><span class="o">.</span><span class="n">fpic</span> <span class="o">=</span> <span class="bp">True</span>
+</span><span class="hll">         <span class="n">env_build</span><span class="o">.</span><span class="n">libs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;pthread&quot;</span><span class="p">)</span>
+</span><span class="hll">         <span class="n">env_build</span><span class="o">.</span><span class="n">defines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;NEW_DEFINE=23&quot;</span><span class="p">)</span>
+</span>
+         <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="n">env_build</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;./configure&quot;</span><span class="p">)</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;make&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="fpic">
+<h3>fpic<a class="headerlink" href="#fpic" title="Permalink to this headline">¶</a></h3>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+<p>Set it to <code class="docutils literal notranslate"><span class="pre">True</span></code> if you want to append the <code class="docutils literal notranslate"><span class="pre">-fPIC</span></code> flag.</p>
+</div>
+<div class="section" id="libs">
+<h3>libs<a class="headerlink" href="#libs" title="Permalink to this headline">¶</a></h3>
+<p>List with library names of the requirements (<code class="docutils literal notranslate"><span class="pre">-l</span></code> in <code class="docutils literal notranslate"><span class="pre">LIBS</span></code>).</p>
+</div>
+<div class="section" id="include-paths">
+<h3>include_paths<a class="headerlink" href="#include-paths" title="Permalink to this headline">¶</a></h3>
+<p>List with the include paths of the requires (-I in CPPFLAGS).</p>
+</div>
+<div class="section" id="library-paths">
+<h3>library_paths<a class="headerlink" href="#library-paths" title="Permalink to this headline">¶</a></h3>
+<p>List with library paths of the requirements  (-L in LDFLAGS).</p>
+</div>
+<div class="section" id="defines">
+<h3>defines<a class="headerlink" href="#defines" title="Permalink to this headline">¶</a></h3>
+<p>List with variables that will be defined with <code class="docutils literal notranslate"><span class="pre">-D</span></code>  in <code class="docutils literal notranslate"><span class="pre">CPPFLAGS</span></code>.</p>
+</div>
+<div class="section" id="flags">
+<h3>flags<a class="headerlink" href="#flags" title="Permalink to this headline">¶</a></h3>
+<p>List with compilation flags (<code class="docutils literal notranslate"><span class="pre">CFLAGS</span></code> and <code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code>).</p>
+</div>
+<div class="section" id="cxx-flags">
+<h3>cxx_flags<a class="headerlink" href="#cxx-flags" title="Permalink to this headline">¶</a></h3>
+<p>List with only C++ compilation flags (<code class="docutils literal notranslate"><span class="pre">CXXFLAGS</span></code>).</p>
+</div>
+<div class="section" id="link-flags">
+<h3>link_flags<a class="headerlink" href="#link-flags" title="Permalink to this headline">¶</a></h3>
+<p>List with linker flags</p>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configure">
+<h3>configure()<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configure_dir</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+              <span class="n">pkg_config_paths</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Configures <cite>Autotools</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>configure_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Directory where the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script is. If <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will use the current directory.</li>
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">configure</span></code> script. Each argument will be escaped
+according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</li>
+<li><strong>build</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): To specify a value for the parameter <code class="docutils literal notranslate"><span class="pre">--build</span></code>. If <code class="docutils literal notranslate"><span class="pre">None</span></code> it will try to detect the value if cross-building
+is detected according to the settings. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it will not use this argument at all.</li>
+<li><strong>host</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): To specify a value for the parameter <code class="docutils literal notranslate"><span class="pre">--host</span></code>. If <code class="docutils literal notranslate"><span class="pre">None</span></code> it will try to detect the value if cross-building
+is detected according to the settings. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it will not use this argument at all.</li>
+<li><strong>target</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): To specify a value for the parameter <code class="docutils literal notranslate"><span class="pre">--target</span></code>. If <code class="docutils literal notranslate"><span class="pre">None</span></code> it will try to detect the value if cross-building
+is detected according to the settings. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it will not use this argument at all.</li>
+<li><strong>pkg_config_paths</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): To specify folders (in a list) where to find <code class="docutils literal notranslate"><span class="pre">*.pc</span></code> files (by using the env var <code class="docutils literal notranslate"><span class="pre">PKG_CONFIG_PATH</span></code>).
+If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified but the conanfile is using the <code class="docutils literal notranslate"><span class="pre">pkg_config</span></code> generator, the <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> will be added to the <code class="docutils literal notranslate"><span class="pre">PKG_CONFIG_PATH</span></code> in order to
+locate the pc files of the requirements of the conanfile.</li>
+</ul>
+</dd>
+</dl>
+<p>A typical example of the <code class="docutils literal notranslate"><span class="pre">args</span></code> could be adding the <code class="docutils literal notranslate"><span class="pre">--prefix</span></code> argument, in case the configure script is using it, typically pointing to the
+package folder:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">configure_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;--prefix=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">]</span>
+<span class="o">...</span> <span class="c1"># You can add more args to the list</span>
+<span class="n">env_build</span> <span class="o">=</span> <span class="n">AutoToolsBuildEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">win_bash</span><span class="o">=</span><span class="n">win_bash</span><span class="p">)</span>
+<span class="n">env_build</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">configure_args</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="make">
+<h3>make()<a class="headerlink" href="#make" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">make_program</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Builds <cite>Autotools</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">make</span></code> command. Each argument will be escaped according to the current
+shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=&quot;&quot;</span></code>.</li>
+<li><strong>make_program</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Allows to specify a different <code class="docutils literal notranslate"><span class="pre">make</span></code> executable, e.j: <code class="docutils literal notranslate"><span class="pre">mingw32-make</span></code>. Also the environment variable
+<a class="reference internal" href="../env_vars.html#conan-make-program"><span class="std std-ref">CONAN_MAKE_PROGRAM</span></a> can be used.</li>
+<li><strong>target</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Choose which target to build. This allows building of e.g. docs, shared libraries or install for some autotools projects. For example, to issue to the command <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code>, use <code class="docutils literal notranslate"><span class="pre">target=&quot;install&quot;</span></code></li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="environment-variables">
+<h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>The following environment variables will also affect the <cite>AutoToolsBuildEnvironment</cite> helper class.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NAME</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>LIBS</td>
+<td>Library names to link</td>
+</tr>
+<tr class="row-odd"><td>LDFLAGS</td>
+<td>Link flags, (-L, -m64, -m32)</td>
+</tr>
+<tr class="row-even"><td>CFLAGS</td>
+<td>Options for the C compiler (-g, -s, -m64, -m32, -fPIC)</td>
+</tr>
+<tr class="row-odd"><td>CXXFLAGS</td>
+<td>Options for the C++ compiler (-g, -s, -stdlib, -m64, -m32, -fPIC, -std)</td>
+</tr>
+<tr class="row-even"><td>CPPFLAGS</td>
+<td>Preprocessor definitions (-D, -I)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li><a class="reference internal" href="../tools.html#environment-append-tool"><span class="std std-ref">Reference/Tools/environment_append</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="visual_studio.html" class="btn btn-neutral float-right" title="MSBuild" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cmake.html" class="btn btn-neutral" title="CMake" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

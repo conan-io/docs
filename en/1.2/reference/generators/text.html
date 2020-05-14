@@ -1,0 +1,429 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>txt &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Generators" href="../generators.html"/>
+        <link rel="next" title="json" href="json.html"/>
+        <link rel="prev" title="youcompleteme" href="ycm.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../generators.html">Generators</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cmake.html"><cite>cmake</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="cmakemulti.html"><cite>cmake_multi</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visualstudio.html">visual_studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visualstudiomulti.html"><cite>visual_studio_multi</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="visualstudiolegacy.html">visual_studio_legacy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="xcode.html">xcode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="compiler_args.html">compiler_args</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gcc.html">gcc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boost_build.html">Boost Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qmake.html">qmake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scons.html">scons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pkg_config.html">pkg_config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html">virtualenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbuildenv.html">virtualbuildenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualrunenv.html">virtualrunenv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ycm.html">youcompleteme</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">txt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#file-format">File format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-declared-vars">Package declared vars</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="json.html">json</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../generators.html">Generators</a> &raquo;</li>
+        
+      <li>txt</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/generators/text.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="txt">
+<span id="text-generator"></span><h1>txt<a class="headerlink" href="#txt" title="Permalink to this headline">¶</a></h1>
+<div class="out-reference-box docutils container">
+This is the reference page for <code class="docutils literal notranslate"><span class="pre">txt</span></code> generator.
+Go to <a class="reference internal" href="../../integrations/other.html#txt-integration"><span class="std std-ref">Integrations/Custom integrations / Use the text generator</span></a> to know how to use it.</div>
+<div class="section" id="file-format">
+<h2>File format<a class="headerlink" href="#file-format" title="Permalink to this headline">¶</a></h2>
+<p>The generated <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> file is a generic config file with <code class="docutils literal notranslate"><span class="pre">[sections]</span></code> and values.</p>
+</div>
+<div class="section" id="package-declared-vars">
+<h2>Package declared vars<a class="headerlink" href="#package-declared-vars" title="Permalink to this headline">¶</a></h2>
+<p>For each requirement <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.txt</span></code> file declares the following sections.
+<code class="docutils literal notranslate"><span class="pre">XXX</span></code> is the name of the require in lowercase. e.k “zlib” for <code class="docutils literal notranslate"><span class="pre">zlib/1.2.8&#64;lasote/stable</span></code> requirement:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SECTION</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>[include_dirs_XXX]</td>
+<td>List with the include paths of the requirement</td>
+</tr>
+<tr class="row-odd"><td>[libdirs_XXX]</td>
+<td>List with library paths of the requirement</td>
+</tr>
+<tr class="row-even"><td>[bindirs_XXX]</td>
+<td>List with binary directories of the requirement</td>
+</tr>
+<tr class="row-odd"><td>[resdirs_XXX]</td>
+<td>List with the resource directories of the requirement</td>
+</tr>
+<tr class="row-even"><td>[builddirs_XXX]</td>
+<td>List with the build directories of the requirement</td>
+</tr>
+<tr class="row-odd"><td>[libs_XXX]</td>
+<td>List with library names of the requirement</td>
+</tr>
+<tr class="row-even"><td>[defines_XXX]</td>
+<td>List with the defines of the requirement</td>
+</tr>
+<tr class="row-odd"><td>[cflags_XXX]</td>
+<td>List with C compilation flags</td>
+</tr>
+<tr class="row-even"><td>[sharedlinkflags_XXX]</td>
+<td>List with shared libraries link flags</td>
+</tr>
+<tr class="row-odd"><td>[exelinkflags_XXX]</td>
+<td>List with executable link flags</td>
+</tr>
+<tr class="row-even"><td>[cppflags_XXX]</td>
+<td>List with C++ compilation flags</td>
+</tr>
+<tr class="row-odd"><td>[rootpath_XXX]</td>
+<td>Root path of the package</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Global declared vars</strong></p>
+<p>Conan also declares some global variables with the aggregated values of all our requirements.
+The values are ordered in the right order according to the dependency tree.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">SECTION</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>[include_dirs]</td>
+<td>List with the aggregated include paths of the requirements</td>
+</tr>
+<tr class="row-odd"><td>[libdirs]</td>
+<td>List with aggregated library paths of the requirements</td>
+</tr>
+<tr class="row-even"><td>[bindirs]</td>
+<td>List with aggregated binary directories of the requirements</td>
+</tr>
+<tr class="row-odd"><td>[resdirs]</td>
+<td>List with the aggregated resource directories of the requirements</td>
+</tr>
+<tr class="row-even"><td>[builddirs]</td>
+<td>List with the aggregated build directories of the requirements</td>
+</tr>
+<tr class="row-odd"><td>[libs]</td>
+<td>List with aggregated library names of the requirements</td>
+</tr>
+<tr class="row-even"><td>[defines]</td>
+<td>List with the aggregated defines of the requirements</td>
+</tr>
+<tr class="row-odd"><td>[cflags]</td>
+<td>List with aggregated C compilation flags</td>
+</tr>
+<tr class="row-even"><td>[sharedlinkflags]</td>
+<td>List with aggregated shared libraries link flags</td>
+</tr>
+<tr class="row-odd"><td>[exelinkflags]</td>
+<td>List with aggregated executable link flags</td>
+</tr>
+<tr class="row-even"><td>[cppflags]</td>
+<td>List with aggregated C++ compilation flags</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="json.html" class="btn btn-neutral float-right" title="json" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ycm.html" class="btn btn-neutral" title="youcompleteme" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

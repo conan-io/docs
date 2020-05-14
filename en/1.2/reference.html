@@ -1,0 +1,435 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reference &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Commands" href="reference/commands.html"/>
+        <link rel="prev" title="How to manage SSL (TLS) certificates" href="howtos/use_tls_certificates.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/reference.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reference">
+<span id="references"></span><h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
+<p>General information about the commands, configuration files, etc.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference/commands.html">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html#creator-commands">Creator commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/conanfile_txt.html">conanfile.txt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile_txt.html#sections">Sections</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/conanfile.html">conanfile.py</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile/attributes.html">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile/methods.html">Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile/other.html">Output and Running</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/generators.html">Generators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/cmake.html"><cite>cmake</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/cmakemulti.html"><cite>cmake_multi</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/visualstudio.html">visual_studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/visualstudiomulti.html"><cite>visual_studio_multi</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/visualstudiolegacy.html">visual_studio_legacy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/xcode.html">xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/compiler_args.html">compiler_args</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/gcc.html">gcc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/boost_build.html">Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/qmake.html">qmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/scons.html">scons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/pkg_config.html">pkg_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/virtualenv.html">virtualenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/virtualbuildenv.html">virtualbuildenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/virtualrunenv.html">virtualrunenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/ycm.html">youcompleteme</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/text.html">txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators/json.html">json</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/profiles.html">Profiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/profiles.html#package-settings-and-env-vars">Package settings and env vars</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/profiles.html#profile-includes">Profile includes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/profiles.html#variable-declaration">Variable declaration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/profiles.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/build_helpers.html">Build helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers/cmake.html">CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers/autotools.html">AutoToolsBuildEnvironment (configure/make)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers/visual_studio.html">MSBuild</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers/visual_studio.html#visualstudiobuildenvironment">VisualStudioBuildEnvironment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers/meson.html">Meson</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers/run_environment.html">RunEnvironment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/tools.html">Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-cpu-count">tools.cpu_count()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-vcvars-command">tools.vcvars_command()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-vcvars-dict">tools.vcvars_dict()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-vcvars">tools.vcvars()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-build-sln-command-deprecated">tools.build_sln_command() (DEPRECATED)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-msvc-build-command-deprecated">tools.msvc_build_command() (DEPRECATED)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-unzip">tools.unzip()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-untargz">tools.untargz()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-get">tools.get()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-get-env">tools.get_env()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-download">tools.download()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-ftp-download">tools.ftp_download()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-replace-in-file">tools.replace_in_file()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-check-with-algorithm-sum">tools.check_with_algorithm_sum()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-patch">tools.patch()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-environment-append">tools.environment_append()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-chdir">tools.chdir()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-pythonpath">tools.pythonpath()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-no-op">tools.no_op()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-human-size">tools.human_size()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-osinfo-and-tools-systempackagetool">tools.OSInfo and tools.SystemPackageTool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-cross-building">tools.cross_building()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-run-in-windows-bash">tools.run_in_windows_bash()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-get-cased-path">tools.get_cased_path()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-remove-from-path">tools.remove_from_path()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-unix-path">tools.unix_path()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-escape-windows-cmd">tools.escape_windows_cmd()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-sha1sum-sha256sum-md5sum">tools.sha1sum(), sha256sum(), md5sum()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-md5">tools.md5()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-save">tools.save()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-load">tools.load()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-mkdir-tools-rmdir">tools.mkdir(), tools.rmdir()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-which">tools.which()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-touch">tools.touch()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-relative-dirs">tools.relative_dirs()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-vswhere">tools.vswhere()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-vs-comntools">tools.vs_comntools()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-vs-installation-path">tools.vs_installation_path()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-replace-prefix-in-pc-file">tools.replace_prefix_in_pc_file()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-collect-libs">tools.collect_libs()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html#tools-pkgconfig">tools.PkgConfig()</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/config_files.html">Configuration files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files/conan.conf.html">conan.conf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files/default_profile.html">profiles/default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files/settings.yml.html">settings.yml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files/registry.txt.html">registry.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files/client_certificates.html">client.crt / client.key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files/artifacts.properties.html">artifacts.properties</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference/env_vars.html">Environment variables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#cmake-related-variables">CMAKE RELATED VARIABLES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-bash-path">CONAN_BASH_PATH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-cmake-generator">CONAN_CMAKE_GENERATOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-color-dark">CONAN_COLOR_DARK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-color-display">CONAN_COLOR_DISPLAY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-compression-level">CONAN_COMPRESSION_LEVEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-cpu-count">CONAN_CPU_COUNT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-non-interactive">CONAN_NON_INTERACTIVE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-env-xxxx-yyyy">CONAN_ENV_XXXX_YYYY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-log-run-to-file">CONAN_LOG_RUN_TO_FILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-log-run-to-output">CONAN_LOG_RUN_TO_OUTPUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-logging-level">CONAN_LOGGING_LEVEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-login-username-conan-login-username-remote-name">CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-make-program">CONAN_MAKE_PROGRAM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-password-conan-password-remote-name">CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-print-run-commands">CONAN_PRINT_RUN_COMMANDS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-read-only-cache">CONAN_READ_ONLY_CACHE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-run-tests">CONAN_RUN_TESTS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-skip-vs-projects-upgrade">CONAN_SKIP_VS_PROJECTS_UPGRADE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-sysrequires-mode">CONAN_SYSREQUIRES_MODE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-sysrequires-sudo">CONAN_SYSREQUIRES_SUDO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-temp-test-folder">CONAN_TEMP_TEST_FOLDER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-trace-file">CONAN_TRACE_FILE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-user-conan-channel">CONAN_USER, CONAN_CHANNEL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-user-home">CONAN_USER_HOME</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-user-home-short">CONAN_USER_HOME_SHORT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-verbose-traceback">CONAN_VERBOSE_TRACEBACK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html#conan-vs-installation-preference">CONAN_VS_INSTALLATION_PREFERENCE</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reference/commands.html" class="btn btn-neutral float-right" title="Commands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="howtos/use_tls_certificates.html" class="btn btn-neutral" title="How to manage SSL (TLS) certificates" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

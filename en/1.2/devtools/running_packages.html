@@ -1,0 +1,479 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running and deploying packages &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Package apps and devtools" href="../devtools.html"/>
+        <link rel="next" title="Creating conan packages to install dev tools" href="create_installer_packages.html"/>
+        <link rel="prev" title="Package apps and devtools" href="../devtools.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../devtools.html">Package apps and devtools</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running and deploying packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-virtual-environments">Using virtual environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imports">Imports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployable-packages">Deployable packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-from-packages">Running from packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#runtime-packages-and-re-packaging">Runtime packages and re-packaging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="create_installer_packages.html">Creating conan packages to install dev tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_requires.html">Build requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../devtools.html">Package apps and devtools</a> &raquo;</li>
+        
+      <li>Running and deploying packages</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/devtools/running_packages.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-and-deploying-packages">
+<span id="running-packages"></span><h1>Running and deploying packages<a class="headerlink" href="#running-and-deploying-packages" title="Permalink to this headline">¶</a></h1>
+<p>Executables and applications including shared libraries can be also distributed, deployed and run with conan. This might have
+some advantages compared to deploying with other systems:</p>
+<ul class="simple">
+<li>A unified development and distribution tool, for all systems and platforms</li>
+<li>Manage any number of different deployment configurations in the same way you manage them for development</li>
+<li>Use a conan server remote to store all your applications and runtimes for all Operating Systems, platforms and targets</li>
+</ul>
+<p>There are different approaches:</p>
+<div class="section" id="using-virtual-environments">
+<h2>Using virtual environments<a class="headerlink" href="#using-virtual-environments" title="Permalink to this headline">¶</a></h2>
+<p>We can crate a package that contains an executable, for example from the default package template created by <strong class="command">conan new</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1
+</pre></div>
+</div>
+<p>The source code used contains an executable called <code class="docutils literal notranslate"><span class="pre">greet</span></code>, but it is not packaged by default. Let’s modify the recipe
+<code class="docutils literal notranslate"><span class="pre">package()</span></code> method to also package the executable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*greet*&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;hello/bin&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can create the package as usual, but if we try to run the executable, it won’t be found:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/testing
+...
+Hello/0.1@user/testing package<span class="o">()</span>: Copied <span class="m">1</span> <span class="s1">&#39;.h&#39;</span> files: hello.h
+Hello/0.1@user/testing package<span class="o">()</span>: Copied <span class="m">1</span> <span class="s1">&#39;.exe&#39;</span> files: greet.exe
+Hello/0.1@user/testing package<span class="o">()</span>: Copied <span class="m">1</span> <span class="s1">&#39;.lib&#39;</span> files: hello.lib
+
+$ greet
+&gt; ... not found...
+</pre></div>
+</div>
+<p>Conan does not modify by default the environment, it will just create the package in the local cache, and that is not
+in the system PATH, so the <code class="docutils literal notranslate"><span class="pre">greet</span></code> executable is not found.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">virtualrunenv</span></code> generator will generate files that add the packages default binary locations to the necessary paths:</p>
+<ul class="simple">
+<li>It adds the dependencies <code class="docutils literal notranslate"><span class="pre">lib</span></code> subfolder to the <code class="docutils literal notranslate"><span class="pre">DYLD_LIBRARY_PATH</span></code> environment variable (for OSX shared libraries)</li>
+<li>It adds the dependencies <code class="docutils literal notranslate"><span class="pre">lib</span></code> subfolder to the <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable (for Linux shared libraries)</li>
+<li>It adds the dependencies <code class="docutils literal notranslate"><span class="pre">bin</span></code> subfolder to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable (for executables)</li>
+</ul>
+<p>So if we install the package, specifying such <code class="docutils literal notranslate"><span class="pre">virtualrunenv</span></code> like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install Hello/0.1@user/testing -g virtualrunenv
+</pre></div>
+</div>
+<p>We will get some files, that can be called to activate and deactivate such environment variables</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ activate_run.sh <span class="c1"># $ source activate_run.sh in Unix/Linux</span>
+$ greet
+&gt; Hello World!
+$ deactivate_run.sh <span class="c1"># $ source deactivate_run.sh in Unix/Linux</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to define a custom conanfile (either .txt or .py), with an <code class="docutils literal notranslate"><span class="pre">imports</span></code> section, that can retrieve from local
+cache the desired files. This approach, requires an user conanfile.
+For more details see example below <a class="reference internal" href="#repackage"><span class="std std-ref">runtime packages</span></a></p>
+</div>
+<div class="section" id="deployable-packages">
+<h2>Deployable packages<a class="headerlink" href="#deployable-packages" title="Permalink to this headline">¶</a></h2>
+<p>With the <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method, a package can specify which files and artifacts to copy to user space or to other
+locations in the system. Let’s modify the example recipe adding the <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And run <strong class="command">conan create</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/testing
+</pre></div>
+</div>
+<p>With that method in our package recipe, it will copy the executable when installed directly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install Hello/0.1@user/testing
+...
+&gt; Hello/0.1@user/testing deploy<span class="o">()</span>: Copied <span class="m">1</span> <span class="s1">&#39;.exe&#39;</span> files: greet.exe
+$ bin<span class="se">\g</span>reet.exe
+&gt; Hello World!
+</pre></div>
+</div>
+<p>The deploy will create a <code class="docutils literal notranslate"><span class="pre">deploy_manifest.txt</span></code> file with the files that have been deployed.</p>
+<p>Sometimes it is useful to adjust the package ID of the deployable package in order to deploy it regardless of the compiler it was compiled
+with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about the <a class="reference internal" href="../reference/conanfile/methods.html#method-deploy"><span class="std std-ref">deploy()</span></a> method.</p>
+</div>
+</div>
+<div class="section" id="running-from-packages">
+<h2>Running from packages<a class="headerlink" href="#running-from-packages" title="Permalink to this headline">¶</a></h2>
+<p>If you want to directly run one executable from your dependencies, it is not necessary to use the generators
+and activate the environment, as it can be directly done in code with the <code class="docutils literal notranslate"><span class="pre">RunEnvironment</span></code> helper. So if
+the <code class="docutils literal notranslate"><span class="pre">Consumer</span></code> package is willing to execute the <code class="docutils literal notranslate"><span class="pre">greet</span></code> app while building its own package, it can be done:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">RunEnvironment</span>
+
+<span class="k">class</span> <span class="nc">ConsumerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Consumer&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Hello/0.1@user/testing&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">RunEnvironment</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">vars</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;greet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now run <strong class="command">conan install</strong> and <strong class="command">conan build</strong> for this consumer recipe:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . <span class="o">&amp;&amp;</span> conan build .
+...
+Project: Running build<span class="o">()</span>
+Hello World!
+</pre></div>
+</div>
+<p>Instead of using the environment, it is also possible to access the path of the dependencies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Hello&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/greet&quot;</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note, however, that this might not be enough if shared libraries exist, while using the above <code class="docutils literal notranslate"><span class="pre">RunEnvironment</span></code>
+is a more complete solution</p>
+<p>Finally, there is another approach: the package containing the executable, adds its “bin” folder to the PATH.
+In this case the <strong>Hello</strong> package conanfile would contain:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this is not enough for shared libraries, and defining DYLD_LIBRARY_PATH and LD_LIBRARY_PATH could be
+necessary.</p>
+<p>The consumer package would be simple, as the PATH environment variable will already contain the desired path
+to greet executable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;greet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="runtime-packages-and-re-packaging">
+<span id="repackage"></span><h2>Runtime packages and re-packaging<a class="headerlink" href="#runtime-packages-and-re-packaging" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to create packages that contain only runtime binaries, getting rid of all build-time dependencies.
+If we want to create a package from the above “Hello” one, but only containing the executable (rembember that the above
+package also contains a library, and the headers), we could do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">HellorunConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;HelloRun&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">build_requires</span> <span class="o">=</span> <span class="s2">&quot;Hello/0.1@user/testing&quot;</span>
+    <span class="n">keep_imports</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.exe&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This recipe has the following characteristics:</p>
+<ul class="simple">
+<li>It includes the <code class="docutils literal notranslate"><span class="pre">Hello/0.1&#64;user/testing</span></code> package as <code class="docutils literal notranslate"><span class="pre">build_requires</span></code>.
+That means that it will be used to build this “HelloRun” package, but once the “HelloRun” package is built,
+it will not be necessary to retrieve it.</li>
+<li>It is using an <code class="docutils literal notranslate"><span class="pre">imports()</span></code> to copy from the dependencies, in this case, the executable</li>
+<li>It is using <code class="docutils literal notranslate"><span class="pre">keep_imports</span></code> attribute to define that imported artifacts during the <code class="docutils literal notranslate"><span class="pre">build()</span></code> step (which
+is not define, then using the default empty one), are kept and not removed after build</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">package()</span></code> method packages the imported artifacts that will be in the build folder.</li>
+</ul>
+<p>To create and upload to remote this package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/testing
+$ conan upload HelloRun* --all -r<span class="o">=</span>my-remote
+</pre></div>
+</div>
+<p>After that, installing and running this package, can be done by any of the means presented above,
+for example, we could do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install HelloRun/0.1@user/testing -g virtualrunenv
+<span class="c1"># You can specify the remote with -r=my-remote</span>
+<span class="c1"># It will not install Hello/0.1@...</span>
+$ activate_run.sh <span class="c1"># $ source activate_run.sh in Unix/Linux</span>
+$ greet
+&gt; Hello World!
+$ deactivate_run.sh <span class="c1"># $ source deactivate_run.sh in Unix/Linux</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="create_installer_packages.html" class="btn btn-neutral float-right" title="Creating conan packages to install dev tools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../devtools.html" class="btn btn-neutral" title="Package apps and devtools" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

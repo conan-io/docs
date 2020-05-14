@@ -1,0 +1,523 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installing dependencies &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Using packages" href="../using_packages.html"/>
+        <link rel="next" title="Using profiles" href="using_profiles.html"/>
+        <link rel="prev" title="Using packages" href="../using_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../using_packages.html">Using packages</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installing dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requires">Requires</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overriding-requirements">Overriding requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#generators">Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#imports">Imports</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="using_profiles.html">Using profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../using_packages.html">Using packages</a> &raquo;</li>
+        
+      <li>Installing dependencies</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/using_packages/conanfile_txt.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installing-dependencies">
+<span id="conanfile-txt"></span><h1>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h1>
+<p>In <a class="reference internal" href="../getting_started.html#getting-started"><span class="std std-ref">Getting started</span></a> we used <strong class="command">conan install</strong> command to download the
+<strong>Poco</strong> library and build an example.</p>
+<p>Please take a moment to inspect the generated <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> file that was created when we
+did <strong class="command">conan install</strong>. You can see there that there are many CMake variables declared. For example
+<code class="docutils literal notranslate"><span class="pre">CONAN_INCLUDE_DIRS_ZLIB</span></code>, which defines the include path to the ZLib headers, or
+<code class="docutils literal notranslate"><span class="pre">CONAN_INCLUDE_DIRS</span></code> that defines include paths for all dependencies headers.</p>
+<a class="reference internal image-reference" href="../_images/local_cache_cmake.png"><img alt="../_images/local_cache_cmake.png" class="align-center" src="../_images/local_cache_cmake.png" style="width: 500px; height: 400px;" /></a>
+<p>If you check the full path, you will see that they are pointing to a folder in your <code class="docutils literal notranslate"><span class="pre">&lt;userhome&gt;</span></code>
+folder, this is called the <strong>local cache</strong>. It is the place where package recipes and binary
+packages are stored and cached, so they don’t have to be retrieved again. You can inspect the
+<strong>local cache</strong> with <strong class="command">conan search</strong>, and you can also remove packages from it with
+<strong class="command">conan remove</strong> command.</p>
+<p>If you navigate to the paths pointed by the <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> you will be able to see the
+headers and the libraries for each package.</p>
+<p>If you execute a <strong class="command">conan install Poco/1.7.8p3&#64;pocoproject/stable</strong> command in your shell, conan will
+download the Poco package and its dependencies (<em>OpenSSL/1.0.2l&#64;conan/stable</em> and
+<em>zlib/1.2.11&#64;conan/stable</em>) to your local cache and print information about the folder of the where
+they are installed. You could handle them manually if you want. But the recommended approach is
+using a <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code>.</p>
+<div class="section" id="requires">
+<h2>Requires<a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h2>
+<p>We put the required dependencies in the <strong>[requires]</strong> section.
+The requirements look like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">Poco</span></code> is the name of the package, usually the same of the project/library.</li>
+<li><code class="docutils literal notranslate"><span class="pre">1.7.3</span></code> is the version, usually matching the one of the packaged project/library. Can be any
+string, not necessarily a number, so it is possible to have a “develop” or “master” version.
+Packages can be overwritten, so it is also OK to have packages like “nightly” or “weekly”, that
+are regenerated periodically.</li>
+<li><code class="docutils literal notranslate"><span class="pre">pocoproject</span></code> is the owner of this package version. It is basically a namespace that allows
+different users to have their own packages for the same library with the same name, and
+interchange them. So, for example, you can easily upload a certain library under your own user
+name “lasote”, and later those packages can be uploaded without modifications to another
+official group or company username.</li>
+<li><code class="docutils literal notranslate"><span class="pre">stable</span></code> is the channel. Channels also allow to have different packages for the same library
+and use them interchangeably. They usually denote the maturity of the package, as an arbitrary
+string: “stable”, “testing”, but it can be used for any purpose, like package revisions (the
+library version has not changed, but the package recipe has evolved).</li>
+</ul>
+</div></blockquote>
+<div class="section" id="overriding-requirements">
+<h3>Overriding requirements<a class="headerlink" href="#overriding-requirements" title="Permalink to this headline">¶</a></h3>
+<p>You can specify multiple requirements and you can <strong>override</strong> the transitive “require’s
+requirements”. In our example, conan installed the Poco package and all its requirements
+transitively:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>OpenSSL/1.0.2l&#64;conan/stable</strong></li>
+<li><strong>zlib/1.2.11&#64;conan/stable</strong></li>
+</ul>
+</div></blockquote>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">This is a good example to explain requirements overriding. We all know the importance of keeping
+the OpenSSL library updated.</p>
+</div>
+<p>Now imagine that a new release of OpenSSL library is out, and a new conan package for it is
+available. Do we need to wait until the author <a class="reference external" href="https://bintray.com/pocoproject/conan/Poco%3Apocoproject">pocoproject</a> generates a new package of POCO that
+includes the new OpenSSL library?</p>
+<p>Not necessarily, just enter the new version in <strong>[requires]</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+OpenSSL/1.0.2p@conan/stable
+</pre></div>
+</div>
+<p>The second line will override the OpenSSL/1.0.2l required by POCO, with the (non-existent yet)
+<strong>OpenSSL/1.0.2p</strong>.</p>
+<p>Other example could be, in order to try out some new zlib alpha features, we could replace the zlib
+requirement with one from another user or channel.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+OpenSSL/1.0.2p@conan/stable
+zlib/1.2.11@otheruser/alpha
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="generators">
+<span id="id1"></span><h2>Generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h2>
+<p>Conan reads the <strong>[generators]</strong> section from <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> and creates files for each generator
+with all the necessary information to link your program with the specified requirements. The
+generated files are usually temporary, created in build folders and not committed to version
+control, as they have paths to local folder that will not exist in another machine. Also, it is very
+important to highlight that generated files match the given configuration (Debug/Release,
+x86/x86_64, etc), specified at <strong class="command">conan install</strong> time. If the configuration changes, the files will
+change.</p>
+<p>Check the complete <a class="reference internal" href="../reference/generators.html#generators-reference"><span class="std std-ref">generators</span></a> reference.</p>
+</div>
+<div class="section" id="options">
+<span id="options-txt"></span><h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>We have already seen that there are some <strong>settings</strong> that can be specified at install time, for
+example <strong class="command">conan install . -s build_type=Debug</strong>. The settings are typically a project-wide
+configuration, defined by the client machine. So they cannot have a default value in the recipe. For
+example, it doesn’t make sense for a package recipe to declare as default compiler “Visual Studio”,
+because that is something defined by the end consumer, and unlikely to make sense if they are
+working in Linux.</p>
+<p>On the other hand, <strong>options</strong> are intended for package specific configuration, that can be set to a
+default value in the recipe. For example, one package can define that its default linkage is static,
+and such default will be used if consumers don’t specify otherwise.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>You can see the available options for a package inspecting the recipe with <strong class="command">conan get &lt;reference&gt;</strong> command:</p>
+<div class="last highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan get Poco/1.7.8p3@pocoproject/stable
+</pre></div>
+</div>
+</div>
+<p>As an example, we can modify the previous example to use dynamic linkage instead of the default one, which was static. Just edit the
+<em>conanfile.txt</em>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+
+[generators]
+cmake
+
+[options]
+Poco:shared=True # PACKAGE:OPTION=VALUE
+OpenSSL:shared=True
+</pre></div>
+</div>
+<p>Install the requirements and compile from the build folder (change the CMake generator if not in Windows):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install ..
+$ cmake .. -G <span class="s2">&quot;Visual Studio 14 Win64&quot;</span>
+$ cmake --build . --config Release
+</pre></div>
+</div>
+<p>You can also avoid defining the options in the <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> and directly define them in the
+command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .. -o Poco:shared<span class="o">=</span>True -o OpenSSL:shared<span class="o">=</span>True
+<span class="c1"># or even with wildcards, to apply to many packages</span>
+$ conan install .. -o *:shared<span class="o">=</span>True
+</pre></div>
+</div>
+<p>Conan will install the shared library packages binaries, and the example will link with them. You can again inspect the different installed
+binaries, e.g. <strong class="command">conan search zlib/1.2.8&#64;lasote/stable</strong>.</p>
+<p>Finally, launch the executable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./bin/timer
+</pre></div>
+</div>
+<p>What happened? It fails because it can’t find the shared libraries in the path. Remember that shared
+libraries are used at runtime, and should be locatable by the OS, which is the one running the
+application.</p>
+<p>We could inspect the generated executable, and see that it is using the shared libraries. For
+example in Linux, we could use the <cite>objdump</cite> tool and see in <em>Dynamic section</em>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> bin
+$ objdump -p timer
+...
+Dynamic Section:
+ NEEDED               libPocoUtil.so.31
+ NEEDED               libPocoXML.so.31
+ NEEDED               libPocoJSON.so.31
+ NEEDED               libPocoMongoDB.so.31
+ NEEDED               libPocoNet.so.31
+ NEEDED               libPocoCrypto.so.31
+ NEEDED               libPocoData.so.31
+ NEEDED               libPocoDataSQLite.so.31
+ NEEDED               libPocoZip.so.31
+ NEEDED               libPocoFoundation.so.31
+ NEEDED               libpthread.so.0
+ NEEDED               libdl.so.2
+ NEEDED               librt.so.1
+ NEEDED               libssl.so.1.0.0
+ NEEDED               libcrypto.so.1.0.0
+ NEEDED               libstdc++.so.6
+ NEEDED               libm.so.6
+ NEEDED               libgcc_s.so.1
+ NEEDED               libc.so.6
+</pre></div>
+</div>
+</div>
+<div class="section" id="imports">
+<span id="imports-txt"></span><h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<p>There are some differences between shared libraries on linux (*.so), windows (*.dll) and MacOS
+(*.dylib). The shared libraries must be located in some folder where they can be found, either by
+the linker, or by the OS runtime.</p>
+<p>It is possible to add the folders of the libraries to the path (dynamic linker LD_LIBRARY_PATH path
+in Linux, DYLD_LIBRARY_PATH in OSX, or system PATH in Windows), or copy those shared libraries to
+some system folder, so they are found by the OS. But those are typical operations of deploys or
+final installation of apps, not desired while developing, and conan is intended for developers, so
+it tries not to mess with the OS.</p>
+<p>In Windows and OSX, the simplest approach is just to copy the shared libraries to the executable
+folder, so they are found by the executable, without having to modify the path.</p>
+<p>We can easily do that with the <strong>[imports]</strong> section in <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code>. Let’s try it.</p>
+<p>Edit the <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> file and paste the following <strong>[imports]</strong> section:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+
+[generators]
+cmake
+
+[options]
+Poco:shared=True
+OpenSSL:shared=True
+
+[imports]
+bin, *.dll -&gt; ./bin # Copies all dll files from packages bin folder to my &quot;bin&quot; folder
+lib, *.dylib* -&gt; ./bin # Copies all dylib files from packages lib folder to my &quot;bin&quot; folder
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can explore the package folder in your local cache (~/.conan/data) and look where the shared
+libraries are. It is common that <strong>*.dll</strong> are copied in <strong>/bin</strong> the rest of the libraries
+should be found in the <strong>/lib</strong> folder. But it’s just a convention, different layouts are
+possible.</p>
+</div>
+<p>Install the requirements (from the <code class="docutils literal notranslate"><span class="pre">mytimer/build</span></code> folder), and run the binary again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install ..
+$ ./bin/timer
+</pre></div>
+</div>
+<p>Now look at the <code class="docutils literal notranslate"><span class="pre">mytimer/build/bin</span></code> folder and verify that the needed shared libraries are there.</p>
+<p>As you can see, the <strong>[imports]</strong> section is a very generic way to import files from your
+requirements to your project.</p>
+<p>This method can be used for packaging applications and copying the result executables to your bin
+folder, or for copying assets, images, sounds, test static files, etc. Conan is a generic solution
+for package management, not only (but focused in) for C/C++ or libraries.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the section <a class="reference internal" href="../howtos/manage_shared_libraries.html#manage-shared"><span class="std std-ref">Howtos/Manage shared libraries</span></a> to know more about
+working with shared libraries.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using_profiles.html" class="btn btn-neutral float-right" title="Using profiles" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../using_packages.html" class="btn btn-neutral" title="Using packages" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Packaging existing binaries &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Creating packages" href="../creating_packages.html"/>
+        <link rel="next" title="Understanding packaging" href="understand_packaging.html"/>
+        <link rel="prev" title="Package development flow" href="package_dev_flow.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_repo.html">Recipe and sources in the same repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Packaging existing binaries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packaging-pre-built-binaries">Packaging pre-built binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#downloading-and-packaging-pre-built-binaries">Downloading and Packaging pre-built binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="understand_packaging.html">Understanding packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define_abi_compatibility.html">Define package ABI compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspecting_packages.html">Inspecting packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_approaches.html">Packaging approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_tools.html">Tools for package creators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../creating_packages.html">Creating packages</a> &raquo;</li>
+        
+      <li>Packaging existing binaries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/creating_packages/existing_binaries.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="packaging-existing-binaries">
+<span id="existing-binaries"></span><h1>Packaging existing binaries<a class="headerlink" href="#packaging-existing-binaries" title="Permalink to this headline">¶</a></h1>
+<p>Sometimes, it is necessary to create packages from existing binaries, like binaries from third
+parties, or previously built by another process or team not using conan, so building from sources is
+not wanted. You would want to package local files in two situations:</p>
+<blockquote>
+<div><ul class="simple">
+<li>When it is not possible to build the packages from sources (only pre-built binaries available).</li>
+<li>When you are developing your package locally and want to export the built artifacts to the local
+cache.
+As you don’t want to rebuild again (clean copy) your artifacts, you don’t want to call
+<strong class="command">conan create</strong>.
+This way you can keep your build cache if you are using an IDE or calling locally to the
+<strong class="command">conan build</strong> command.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="packaging-pre-built-binaries">
+<h2>Packaging pre-built binaries<a class="headerlink" href="#packaging-pre-built-binaries" title="Permalink to this headline">¶</a></h2>
+<p>If the files we want to package are just local, creating a <code class="docutils literal notranslate"><span class="pre">build()</span></code> method that would copy them
+from the user folder is not reproducible, so it doesn’t add any value. For this use case, it is
+possible to use <strong class="command">conan export-pkg</strong> command directly.</p>
+<p>A conan recipe is still needed, in this case it will be very simple, just the meta information of
+the package. A basic recipe can be created with the <strong class="command">conan new</strong> command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1 --bare
+</pre></div>
+</div>
+<p>This will create and store in the local cache the following package recipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_libs</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The provided <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method will scan the package files to provide the end consumers with
+the name of the libraries to link with. This method can be further customized to provide other build
+flags (typically conditioned to the settings). The default <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> applies: it will
+define headers in “include” folder, libraries in “lib” folder, binaries in “bin” folder. A different
+package layout can be defined in <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method.</p>
+<p>This package recipe can be also extended to provide support for more configurations (for example,
+adding options: shared/static, or using different settings), adding dependencies (<code class="docutils literal notranslate"><span class="pre">requires</span></code>),
+etc.</p>
+<p>Then, we will assume that we have in our current directory a <em>lib</em> folder with some binary for this
+“hello” library <em>libhello.a</em>, compatible for example with Windows MinGW (gcc) version 4.9:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan export-pkg . Hello/0.1@myuser/testing  -s <span class="nv">os</span><span class="o">=</span>Windows -s <span class="nv">compiler</span><span class="o">=</span>gcc -s compiler.version<span class="o">=</span><span class="m">4</span>.9 ...
+</pre></div>
+</div>
+<p>Having a <em>test_package</em> folder is still very recommended, to locally test the package before
+uploading. As we don’t want to build the package from sources, the flow would be:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1 --bare --test
+<span class="c1"># customize test_package project</span>
+<span class="c1"># customize package recipe if necessary</span>
+$ <span class="nb">cd</span> my/path/to/binaries
+$ conan export-pkg PATH/TO/conanfile.py Hello/0.1@myuser/testing  -s <span class="nv">os</span><span class="o">=</span>Windows -s <span class="nv">compiler</span><span class="o">=</span>gcc -s compiler.version<span class="o">=</span><span class="m">4</span>.9 ...
+$ conan <span class="nb">test</span> PATH/TO/test_package/conanfile.py Hello/0.1@myuser/testing -s <span class="nv">os</span><span class="o">=</span>Windows -s <span class="nv">compiler</span><span class="o">=</span>gcc -s ...
+</pre></div>
+</div>
+<p>The last 2 steps can be repeated for any number of configurations.</p>
+</div>
+<div class="section" id="downloading-and-packaging-pre-built-binaries">
+<h2>Downloading and Packaging pre-built binaries<a class="headerlink" href="#downloading-and-packaging-pre-built-binaries" title="Permalink to this headline">¶</a></h2>
+<p>In this case, having a complete conan recipe, with the detailed retrieval of the binaries could be
+the preferred way, because it has better reproducibility, and the original binaries might be traced.
+Such a recipe would be like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;Visual Studio&quot;</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://&lt;someurl&gt;/downloads/hello_binary</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">.zip&quot;</span>
+                   <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="o">...</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="o">...</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Binary does not exist for these settings&quot;</span><span class="p">)</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span> <span class="c1"># assume package as-is, but you can also copy specific files or rearrange</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># still very useful for package consumers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Typically, pre-compiled binaries come for different configurations, so the only task that the
+<code class="docutils literal notranslate"><span class="pre">build()</span></code> method has to implement is to map the <code class="docutils literal notranslate"><span class="pre">settings</span></code> to the different URLs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>This is a normal conan package, even if the binaries are being retrieved from somewhere.
+The <strong>recommended approach</strong> is using <strong class="command">conan create</strong>, and have a small consuming project
+besides the above recipe, to test locally, then upload the conan package with the binaries to
+the conan remote with <strong class="command">conan upload</strong>.</li>
+<li>The same building policies apply. Having a recipe will fail if no conan packages are
+created, and the <strong class="command">--build</strong> argument is not defined. A typical approach for this kind of
+packages could be to define a <strong class="command">build_policy=&quot;missing&quot;</strong>, especially if the URLs are also
+under the team control. If they are external (internet), it could be better to create the
+packages and store them in your own conan server, so builds do not rely on the third party URL
+being available.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="understand_packaging.html" class="btn btn-neutral float-right" title="Understanding packaging" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="package_dev_flow.html" class="btn btn-neutral" title="Package development flow" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

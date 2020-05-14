@@ -1,0 +1,319 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build policies &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Mastering conan" href="../mastering.html"/>
+        <link rel="next" title="Environment variables" href="envvars.html"/>
+        <link rel="prev" title="Version ranges" href="version_ranges.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mastering.html">Mastering conan</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="conanfile_py.html">Use conanfile.py for consumers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_cache.html">Conan local cache: concurrency, Continuous Integration, isolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mastering.html">Mastering conan</a> &raquo;</li>
+        
+      <li>Build policies</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mastering/policies.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-policies">
+<h1>Build policies<a class="headerlink" href="#build-policies" title="Permalink to this headline">¶</a></h1>
+<p>By default, <strong class="command">conan install</strong> command will search for a binary package (corresponding to our settings and defined options) in a remote,
+if it’s not present the install command will fail.</p>
+<p>As previously demonstrated, we can use the <strong>–build</strong> option to change the default <strong class="command">conan install</strong> behaviour:</p>
+<ul class="simple">
+<li><strong class="command">--build some_package</strong> will build only “some_package”.</li>
+<li><strong class="command">--build missing</strong> will build only the missing requires.</li>
+<li><strong class="command">--build</strong> will build all requirements from sources.</li>
+<li><strong class="command">--build outdated</strong> will try to build from code if the binary is not built with the current recipe or when missing binary package.</li>
+</ul>
+<p>With the <code class="docutils literal notranslate"><span class="pre">build_policy</span></code> attribute the package creator can change the default conan’s build behavior. The allowed build_policy values are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">missing</span></code>: If no binary package is found, conan will build it without the need of invoke conan install with <strong class="command">--build missing</strong>
+option.</li>
+<li><code class="docutils literal notranslate"><span class="pre">always</span></code>: The package will be built always, <strong>retrieving each time the source code</strong> executing the “source” method.</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">class</span> <span class="nc">PocoTimerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Poco/1.7.8p3@pocoproject/stable&quot;</span> <span class="c1"># comma separated list of requirements</span>
+     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span><span class="p">,</span> <span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="s2">&quot;txt&quot;</span>
+     <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;Poco:shared=True&quot;</span><span class="p">,</span> <span class="s2">&quot;OpenSSL:shared=True&quot;</span>
+<span class="hll">     <span class="n">build_policy</span> <span class="o">=</span> <span class="s2">&quot;always&quot;</span> <span class="c1"># &quot;missing&quot;</span>
+</span></pre></div>
+</div>
+<p>These build policies are especially useful if the package creator doesn’t want to provide binary package, for example, with header only
+libraries.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">always</span></code> policy, will retrieve the sources each time the package is installed so it can be useful for providing a “latest” mechanism
+or ignoring the uploaded binary packages.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="envvars.html" class="btn btn-neutral float-right" title="Environment variables" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="version_ranges.html" class="btn btn-neutral" title="Version ranges" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

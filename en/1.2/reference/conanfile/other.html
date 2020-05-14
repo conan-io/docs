@@ -1,0 +1,343 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Output and Running &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="conanfile.py" href="../conanfile.html"/>
+        <link rel="next" title="Generators" href="../generators.html"/>
+        <link rel="prev" title="Methods" href="methods.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../conanfile.html">conanfile.py</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="attributes.html">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html">Methods</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Output and Running</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#output-contents">Output contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-commands">Running commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../conanfile.html">conanfile.py</a> &raquo;</li>
+        
+      <li>Output and Running</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/conanfile/other.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="output-and-running">
+<h1>Output and Running<a class="headerlink" href="#output-and-running" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="output-contents">
+<h2>Output contents<a class="headerlink" href="#output-contents" title="Permalink to this headline">¶</a></h2>
+<p>Use the <cite>self.output</cite> to print contents to the output.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;This is a good, should be green&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This is a neutral, should be white&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;This is a warning, should be yellow&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error, should be red&quot;</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">rewrite_line</span><span class="p">(</span><span class="s2">&quot;for progress bars, issues a cr&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Check the source code. You might be able to produce different outputs with different colors.</p>
+</div>
+<div class="section" id="running-commands">
+<h2>Running commands<a class="headerlink" href="#running-commands" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">win_bash</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">subsystem</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">msys_mingw</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">self.run()</span></code> is a helper to run system commands and throw exceptions when errors occur,
+so that command errors are do not pass unnoticed. It is just a wrapper for <code class="docutils literal notranslate"><span class="pre">os.system()</span></code></p>
+<p>Optional parameters:</p>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt><strong>output</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>) When True it will write in stdout.</dt>
+<dd>You can pass any stream that accepts a <code class="docutils literal notranslate"><span class="pre">write</span></code> method like a <code class="docutils literal notranslate"><span class="pre">six.StringIO()</span></code>:</dd>
+</dl>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">StringIO</span>  <span class="c1"># Python 2 and 3 compatible</span>
+<span class="n">mybuf</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;mycommand&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">mybuf</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">mybuf</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>cwd</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">.</span></code> current directory): Current directory to run the command.</li>
+<li><strong>win_bash</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">False</span></code>): When True, it will run the configure/make commands inside a bash.</li>
+<li><strong>subsystem</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code> will autodetect the subsystem). Used to escape the command according to the specified subsystem.</li>
+<li><strong>msys_mingw</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>) If the specified subsystem is MSYS2, will start it in MinGW mode (native windows development).</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../generators.html" class="btn btn-neutral float-right" title="Generators" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="methods.html" class="btn btn-neutral" title="Methods" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

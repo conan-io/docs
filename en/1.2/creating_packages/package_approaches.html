@@ -1,0 +1,497 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Packaging approaches &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Creating packages" href="../creating_packages.html"/>
+        <link rel="next" title="Tools for package creators" href="package_tools.html"/>
+        <link rel="prev" title="Inspecting packages" href="inspecting_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_repo.html">Recipe and sources in the same repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="existing_binaries.html">Packaging existing binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="understand_packaging.html">Understanding packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define_abi_compatibility.html">Define package ABI compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspecting_packages.html">Inspecting packages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Packaging approaches</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#config-1-build-1-package">1 config (1 build) -&gt; 1 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#n-configs-1-package">N configs -&gt; 1 package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#n-configs-1-build-n-packages">N configs (1 build) -&gt; N packages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="package_tools.html">Tools for package creators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../creating_packages.html">Creating packages</a> &raquo;</li>
+        
+      <li>Packaging approaches</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/creating_packages/package_approaches.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="packaging-approaches">
+<h1>Packaging approaches<a class="headerlink" href="#packaging-approaches" title="Permalink to this headline">¶</a></h1>
+<p>Package recipes have three methods to control the package’s binary compatibility and to implement
+different packaging approaches: <a class="reference internal" href="../reference/conanfile/methods.html#method-package-id"><span class="std std-ref">package_id()</span></a>, <a class="reference internal" href="../reference/conanfile/methods.html#method-build-id"><span class="std std-ref">build_id()</span></a> and <a class="reference internal" href="../reference/conanfile/methods.html#method-package-info"><span class="std std-ref">package_info()</span></a>.</p>
+<p>The above methods let package creators follow different package approaches to choose
+the best fit for each library.</p>
+<div class="section" id="config-1-build-1-package">
+<h2>1 config (1 build) -&gt; 1 package<a class="headerlink" href="#config-1-build-1-package" title="Permalink to this headline">¶</a></h2>
+<p>A typical approach is to have one configuration for each package containing the artifacts.
+In this approach, for example, the debug pre-compiled libraries will be in a different package than the
+release pre-compiled libraries.</p>
+<p>So if there is a package recipe that builds a “hello” library, there will be one package containing
+the release version of the “hello.lib” library and a different package containing a debug version of
+that library (in the figure denoted as “hello_d.lib”, to make it clear, it is not necessary to use
+different names).</p>
+<a class="reference internal image-reference" href="../_images/single_conf_packages.png"><img alt="../_images/single_conf_packages.png" class="align-center" src="../_images/single_conf_packages.png" style="width: 400px; height: 300px;" /></a>
+<p>In this approach, the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method can just set the appropriate values for consumers,
+to let them know about the package library names, and necessary definitions and compile flags.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mylib&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>It is very important to note that it is declaring the <code class="docutils literal notranslate"><span class="pre">build_type</span></code> as a setting. This means that a
+different package will be generated for each different value of such setting.</p>
+<p>The values that packages declare here (the <em>include</em>, <em>lib</em> and <em>bin</em> subfolders are already
+defined by default, so they define the include and library path to the package) are translated
+to variables of the respective build system by the used generators. That is, if using the <code class="docutils literal notranslate"><span class="pre">cmake</span></code>
+generator, such above definition will be translated in <em>conanbuildinfo.cmake</em> to something like:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">CONAN_LIBS_MYPKG</span> <span class="s">mylib</span><span class="p">)</span>
+<span class="c"># ...</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CONAN_LIBS</span> <span class="s">mylib</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Those variables, will be used in the <code class="docutils literal notranslate"><span class="pre">conan_basic_setup()</span></code> macro to actually set cmake relevant
+variables.</p>
+<p>If the developer wants to switch configuration of the dependencies, he will usually switch with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install -s <span class="nv">build_type</span><span class="o">=</span>Release ...
+<span class="c1"># when need to debug</span>
+$ conan install -s <span class="nv">build_type</span><span class="o">=</span>Debug ...
+</pre></div>
+</div>
+<p>These switches will be fast, since all the dependencies are already cached locally.</p>
+<p>This process has some advantages: it is quite easy to implement and maintain. The packages are of
+minimal size, so disk space and transfers are faster, and builds from sources are also kept to the
+necessary minimum. The decoupling of configurations might help with isolating issues related to
+mixing different types of artifacts, and also protecting valuable information from deploy and
+distribution mistakes. For example, debug artifacts might contain symbols or source code, which
+could help or directly provide means for reverse engineering. So distributing debug artifacts by
+mistake could be a very risky issue.</p>
+<p>Read more about this in <a class="reference internal" href="../reference/conanfile/methods.html#method-package-info"><span class="std std-ref">package_info()</span></a>.</p>
+</div>
+<div class="section" id="n-configs-1-package">
+<h2>N configs -&gt; 1 package<a class="headerlink" href="#n-configs-1-package" title="Permalink to this headline">¶</a></h2>
+<p>It is possible that someone wants to package both debug and release artifacts in the same package,
+so it can be consumed from IDEs like Visual Studio changing debug/release configuration from the
+IDE, and not having to specify it in the command line. This type of package will include different
+artifacts for different configurations, like both the release and debug version of the “hello”
+library, in the same package.</p>
+<a class="reference internal image-reference" href="../_images/multi_conf_packages.png"><img alt="../_images/multi_conf_packages.png" class="align-center" src="../_images/multi_conf_packages.png" style="width: 400px; height: 300px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>A complete working example of the following code can be found in a github repo. You should be
+able to run:</p>
+<div class="code bash last highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/memsharded/hello_multi_config
+$ cd hello_multi_config
+$ conan create . user/channel -s build_type=Release
+$ conan create . user/channel -s build_type=Debug --build=missing
+</pre></div>
+</div>
+</div>
+<p>Creating a multi-configuration Debug/Release package is not difficult, see the following example
+using CMake.</p>
+<p>The first step is to remove <code class="docutils literal notranslate"><span class="pre">build_type</span></code> from the settings. It will not be an input setting, the
+generated package will always be the same, containing both Debug and Release artifacts.
+The Visual Studio runtime is different for debug and release (<code class="docutils literal notranslate"><span class="pre">MDd</span></code> or <code class="docutils literal notranslate"><span class="pre">MD</span></code>), so if we are fine
+with the default runtime (MD/MDd), it is also good to remove the <code class="docutils literal notranslate"><span class="pre">runtime</span></code> subsetting in the
+<code class="docutils literal notranslate"><span class="pre">configure()</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="c1"># build_type has been ommitted. It is not an input setting.</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># it is also necessary to remove the VS runtime</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span> <span class="o">==</span> <span class="s2">&quot;Visual Studio&quot;</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">runtime</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmake</span><span class="o">.</span><span class="n">is_multi_configuration</span><span class="p">:</span>
+            <span class="n">cmmd</span> <span class="o">=</span> <span class="s1">&#39;cmake &quot;</span><span class="si">%s</span><span class="s1">&quot; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmmd</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build . --config Debug&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build . --config Release&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;Debug&quot;</span><span class="p">,</span> <span class="s2">&quot;Release&quot;</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Building </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">config</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;cmake &quot;</span><span class="si">%s</span><span class="s1">&quot; </span><span class="si">%s</span><span class="s1"> -DCMAKE_BUILD_TYPE=</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">,</span> <span class="n">config</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build .&quot;</span><span class="p">)</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s2">&quot;CMakeFiles&quot;</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;CMakeCache.txt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, we are assuming that the binaries will be differentiated with a suffix, in cmake
+syntax:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set_target_properties</span><span class="p">(</span><span class="s">mylibrary</span> <span class="s">PROPERTIES</span> <span class="s">DEBUG_POSTFIX</span> <span class="s">_d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Such a package can define its information for consumers as:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">release</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mylibrary&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">debug</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mylibrary_d&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This will translate to the cmake variables:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span><span class="p">(</span><span class="s">CONAN_LIBS_MYPKG_DEBUG</span> <span class="s">mylibrary_d</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CONAN_LIBS_MYPKG_RELEASE</span> <span class="s">mylibrary</span><span class="p">)</span>
+<span class="c"># ...</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CONAN_LIBS_DEBUG</span> <span class="s">mylibrary_d</span> <span class="o">${</span><span class="nv">CONAN_LIBS_DEBUG</span><span class="o">}</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CONAN_LIBS_RELEASE</span> <span class="s">mylibrary</span> <span class="o">${</span><span class="nv">CONAN_LIBS_RELEASE</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And these variables will be correctly applied to each configuration by <code class="docutils literal notranslate"><span class="pre">conan_basic_setup()</span></code>
+helper.</p>
+<p>In this case you can still use the general, not config-specific variables. For example, the include
+directory, set by default to <em>include</em>, is still the same for both debug and release. Those general
+variables will be applied for all configurations.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>The above code assumes that the package will always use the default Visual Studio runtime (MD/MDd).
+If we want to keep the package configurable for supporting static(MT)/dynamic(MD) linking with the VS runtime
+library, some extra work is needed. Basically:</p>
+<ul class="simple">
+<li>Keep, the <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code> setting, i.e. do not implement the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method removing it</li>
+<li>Don’t let the <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper define the <code class="docutils literal notranslate"><span class="pre">CONAN_LINK_RUNTIME</span></code> env-var to define the runtime, because
+being defined by the consumer it would be incorrectly applied to both Debug and Release artifacts.
+This can be done with a <code class="docutils literal notranslate"><span class="pre">cmake.command_line.replace(&quot;CONAN_LINK_RUNTIME&quot;,</span> <span class="pre">&quot;CONAN_LINK_RUNTIME_MULTI&quot;)</span></code>
+to define a new variable</li>
+<li>Write a <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method that defines the packages to be built, one for MD/MDd, and other for MT/MTd</li>
+<li>In <em>CMakeLists.txt</em>, use the <code class="docutils literal notranslate"><span class="pre">CONAN_LINK_RUNTIME_MULTI</span></code> variable to correctly setup up the runtime for
+debug and release flags</li>
+</ul>
+<p class="last">All these steps are already coded in the repo <a class="reference external" href="https://github.com/memsharded/hello_multi_config">https://github.com/memsharded/hello_multi_config</a> and commented
+out as <strong>“Alternative 2”</strong></p>
+</div>
+<p>Also, you can use any custom configuration you want, they are not restricted. For example, if
+your package is a multi-library package, you could try doing something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myregexlib1&quot;</span><span class="p">,</span> <span class="s2">&quot;myregexlib2&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">filesystem</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;myfilesystemlib&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>These specific config variables will not be automatically applied, but you can directly use them
+in your consumer CMake build script.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The automatic conversion of multi-config variables to generators is currently only implemented
+in the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">txt</span></code> generators. If you want to have support for them in another
+build system, please open a GitHub issue for it.</p>
+</div>
+</div>
+<div class="section" id="n-configs-1-build-n-packages">
+<h2>N configs (1 build) -&gt; N packages<a class="headerlink" href="#n-configs-1-build-n-packages" title="Permalink to this headline">¶</a></h2>
+<p>It’s possible that an already existing build script is building binaries for different
+configurations at once, like debug/release, or different architectures (32/64bits), or library types
+(shared/static). If such build script is used in the previous “Single configuration packages”
+approach, it will definitely work without problems, but we’ll be wasting precious build time, as
+we’ll be re-building the whole project for each package, then extracting the relevant artifacts for
+the given configuration, leaving the others.</p>
+<p>It is possible to specify the logic, so the same build can be reused to create different packages,
+which will be more efficient:</p>
+<a class="reference internal image-reference" href="../_images/build_once.png"><img alt="../_images/build_once.png" class="align-center" src="../_images/build_once.png" style="width: 400px; height: 300px;" /></a>
+<p>This can be done by defining a <code class="docutils literal notranslate"><span class="pre">build_id()</span></code> method in the package recipe that will specify the
+logic.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+
+<span class="k">def</span> <span class="nf">build_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">info_build</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span> <span class="o">=</span> <span class="s2">&quot;Any&quot;</span>
+
+<span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">build_type</span> <span class="o">==</span> <span class="s2">&quot;Debug&quot;</span><span class="p">:</span>
+        <span class="c1">#package debug artifacts</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># package release</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">build_id()</span></code> method uses the <code class="docutils literal notranslate"><span class="pre">self.info_build</span></code> object to alter the build hash. If
+the method doesn’t change it, the hash will match the package folder one. By setting
+<code class="docutils literal notranslate"><span class="pre">build_type=&quot;Any&quot;</span></code>, we are forcing that for both Debug and Release values of <code class="docutils literal notranslate"><span class="pre">build_type</span></code>, the
+hash will be the same (the particular string is mostly irrelevant, as long as it is the same for
+both configurations). Note that the build hash <code class="docutils literal notranslate"><span class="pre">sha3</span></code> will be different of both <code class="docutils literal notranslate"><span class="pre">sha1</span></code> and
+<code class="docutils literal notranslate"><span class="pre">sha2</span></code> package identifiers.</p>
+<p>This doesn’t imply that there will be strictly one build folder. There will be a build folder for
+every configuration (architecture, compiler version, etc). So if we just have Debug/Release build
+types, and we’re producing N packages for N different configurations, we’ll have N/2 build folders,
+saving half of the build time.</p>
+<p>Read more about this in <a class="reference internal" href="../reference/conanfile/methods.html#method-build-id"><span class="std std-ref">build_id()</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="package_tools.html" class="btn btn-neutral float-right" title="Tools for package creators" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="inspecting_packages.html" class="btn btn-neutral" title="Inspecting packages" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

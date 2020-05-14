@@ -1,0 +1,448 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Creating conan packages to install dev tools &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Package apps and devtools" href="../devtools.html"/>
+        <link rel="next" title="Build requirements" href="build_requires.html"/>
+        <link rel="prev" title="Running and deploying packages" href="running_packages.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../devtools.html">Package apps and devtools</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="running_packages.html">Running and deploying packages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating conan packages to install dev tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-tool-packages-in-other-recipes">Using the tool packages in other recipes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-tool-packages-in-your-system">Using the tool packages in your system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="build_requires.html">Build requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../devtools.html">Package apps and devtools</a> &raquo;</li>
+        
+      <li>Creating conan packages to install dev tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/devtools/create_installer_packages.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="creating-conan-packages-to-install-dev-tools">
+<span id="create-installer-packages"></span><h1>Creating conan packages to install dev tools<a class="headerlink" href="#creating-conan-packages-to-install-dev-tools" title="Permalink to this headline">¶</a></h1>
+<p>Conan 1.0 introduced two new settings, <code class="docutils literal notranslate"><span class="pre">os_build</span></code> and <code class="docutils literal notranslate"><span class="pre">arch_build</span></code>. These settings represent
+the machine where Conan is running, and are important settings when we are packaging tools.</p>
+<p>These settings are different from <code class="docutils literal notranslate"><span class="pre">os</span></code> and <code class="docutils literal notranslate"><span class="pre">arch</span></code>. These mean where the built software by the Conan
+recipe will run. When we are packaging a tool, it usually makes no sense, because we are not
+building any software, but it makes sense if you are <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building"><span class="std std-ref">cross building software</span></a>.</p>
+<p>We recommend the use of <code class="docutils literal notranslate"><span class="pre">os_build</span></code> and <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> settings instead of <code class="docutils literal notranslate"><span class="pre">os</span></code> and <code class="docutils literal notranslate"><span class="pre">arch</span></code> if you are
+packaging a tool involved in the building process, like a compiler, a build system etc. If you are
+building a package to be run on the <code class="docutils literal notranslate"><span class="pre">host</span></code> system you can use <code class="docutils literal notranslate"><span class="pre">os</span></code> and <code class="docutils literal notranslate"><span class="pre">arch</span></code>.</p>
+<p>A Conan package for a tool follow always a similar structure, this is a recipe for packaging the
+<code class="docutils literal notranslate"><span class="pre">nasm</span></code> tool for building assembler:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+<span class="kn">from</span> <span class="nn">conans.client</span> <span class="kn">import</span> <span class="n">tools</span>
+
+
+<span class="k">class</span> <span class="nc">NasmConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;nasm&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;2.13.01&quot;</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;BSD-2-Clause&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/lasote/conan-nasm-installer&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os_build&quot;</span><span class="p">,</span> <span class="s2">&quot;arch_build&quot;</span>
+    <span class="n">build_policy</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Nasm for windows. Useful as a build_require.&quot;</span>
+
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os_build</span> <span class="o">!=</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Only windows supported for nasm&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nasm_folder_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;nasm-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;win32&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch_build</span> <span class="o">==</span> <span class="s2">&quot;x86&quot;</span> <span class="k">else</span> <span class="s2">&quot;win64&quot;</span>
+        <span class="n">nasm_zip_name</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%s</span><span class="s2">.zip&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s2">&quot;http://www.nasm.us/pub/nasm/releasebuilds/&quot;</span>
+                       <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">nasm_zip_name</span><span class="p">),</span> <span class="n">nasm_zip_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Downloading nasm: &quot;</span>
+                         <span class="s2">&quot;http://www.nasm.us/pub/nasm/releasebuilds&quot;</span>
+                         <span class="s2">&quot;/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span> <span class="n">suffix</span><span class="p">,</span> <span class="n">nasm_zip_name</span><span class="p">))</span>
+        <span class="n">tools</span><span class="o">.</span><span class="n">unzip</span><span class="p">(</span><span class="n">nasm_zip_name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">nasm_zip_name</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;license*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using </span><span class="si">%s</span><span class="s2"> version&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nasm_folder_name</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>The configure method discards some combinations of settings and options, by throwing an exception. In this case this
+package is only for Windows.</li>
+<li>The build method downloads the appropriate file and unzips it.</li>
+<li>The package method is copying all the files from the zip to the package folder.</li>
+<li>The package info is using the <code class="docutils literal notranslate"><span class="pre">self.env_info</span></code> to append to the environment variable “path” the package’s bin folder.</li>
+</ul>
+<p>This package has only 2 differences from a regular conan library package:</p>
+<ul class="simple">
+<li>The <code class="docutils literal notranslate"><span class="pre">source</span></code> method is missing. That’s because when you compile a library, the source code is always the same for all the generated packages, but in this case we are downloading the binaries,
+so we do it in the build method to download the appropriate zip file according to each combination of settings/options.  Instead of actually building the tools, we just download them.
+Of course, if you want to build it from source, you can do it too, by creating your own package recipe.</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">package_info</span></code> method uses the new “self.env_info” object.  With “self.env_info” the package can declare environment variables that will be set automatically before the <cite>build</cite>,
+<cite>package</cite>, <cite>source</cite> and <cite>imports</cite> methods of the conanfile requiring this package. This is a convenient method to use these tools without having to mess with the system PATH.</li>
+</ul>
+<div class="section" id="using-the-tool-packages-in-other-recipes">
+<h2>Using the tool packages in other recipes<a class="headerlink" href="#using-the-tool-packages-in-other-recipes" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">self.env_info</span></code> variables will be automatically applied when you require a recipe that declares them.
+For example, take a look at the MinGW conanfile.py recipe (<a class="reference external" href="https://github.com/lasote/conan-mingw-installer">https://github.com/lasote/conan-mingw-installer</a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MingwInstallerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mingw_installer&quot;</span>
+    <span class="o">...</span>
+
+<span class="hll">    <span class="n">build_requires</span> <span class="o">=</span> <span class="s2">&quot;7z_installer/1.0@conan/stable&quot;</span>
+</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">keychain</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch_build</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">exception</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">threads</span><span class="p">)</span>
+
+        <span class="n">files</span> <span class="o">=</span> <span class="p">{</span>
+           <span class="o">...</span>        <span class="p">}</span>
+
+        <span class="n">tools</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">files</span><span class="p">[</span><span class="n">keychain</span><span class="p">],</span> <span class="s2">&quot;file.7z&quot;</span><span class="p">)</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;7z x file.7z&quot;</span><span class="p">)</span>
+</span>
+   <span class="o">...</span>
+</pre></div>
+</div>
+<p>We are requiring a <strong>build_require</strong> to another package, the <code class="docutils literal notranslate"><span class="pre">7z_installer</span></code>, which will be used to unzip the mingw installers (with 7z compression).</p>
+<p>In the build method we download the appropriate MinGW installer. The 7z executable will be in the PATH, because the 7z_installer dependency declares the “bin” folder in its “package_info” method.</p>
+</div>
+<div class="section" id="using-the-tool-packages-in-your-system">
+<h2>Using the tool packages in your system<a class="headerlink" href="#using-the-tool-packages-in-your-system" title="Permalink to this headline">¶</a></h2>
+<p>You can use the <a class="reference internal" href="../reference/generators/virtualenv.html#virtualenv-generator"><span class="std std-ref">virtualenv generator</span></a> to get the requirements applied
+in your system.</p>
+<p>For example, if you are working in Windows, with MinGW and CMake.</p>
+<ol class="arabic simple">
+<li>Create a separate folder from your project, this folder will handle our global development environment.</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir my_cpp_environ
+<span class="nb">cd</span> my_cpp_environ
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Create a ‘conanfile.txt’ file:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>requires<span class="o">]</span>
+mingw_installer/1.0@conan/stable
+cmake_installer/3.10.0@conan/stable
+
+<span class="o">[</span>generators<span class="o">]</span>
+virtualenv
+</pre></div>
+</div>
+<p>Note that you can adjust the <code class="docutils literal notranslate"><span class="pre">options</span></code> and retrieve a different configuration of the required packages,
+or leave them unspecified in the file and pass them as command line parameters.</p>
+<ol class="arabic simple" start="3">
+<li>Install them:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Activate the virtual environment in your shell:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ activate
+<span class="o">(</span>my_cpp_environ<span class="o">)</span>$
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>Check that the tools are in the path:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>my_cpp_environ<span class="o">)</span>$ gcc --version
+
+&gt; gcc <span class="o">(</span>x86_64-posix-seh-rev1, Built by MinGW-W64 project<span class="o">)</span> <span class="m">4</span>.9.2
+
+ Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2014</span> Free Software Foundation, Inc.
+ This is free software<span class="p">;</span> see the <span class="nb">source</span> <span class="k">for</span> copying conditions.  There is NO
+ warranty<span class="p">;</span> not even <span class="k">for</span> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+<span class="o">(</span>my_cpp_environ<span class="o">)</span>$ cmake --version
+
+&gt; cmake version <span class="m">3</span>.10
+
+  CMake suite maintained and supported by Kitware <span class="o">(</span>kitware.com/cmake<span class="o">)</span>.
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li>You can deactivate the virtual environment with the “deactivate.bat” script</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>my_cpp_environ<span class="o">)</span>$ deactivate
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="build_requires.html" class="btn btn-neutral float-right" title="Build requirements" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="running_packages.html" class="btn btn-neutral" title="Running and deploying packages" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

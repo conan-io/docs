@@ -1,0 +1,555 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Emscripten &mdash; conan 1.18.5 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.18.5 documentation" href="../../index.html"/>
+        <link rel="up" title="Other Systems" href="../cross_platform.html"/>
+        <link rel="next" title="QNX Neutrino" href="qnx_neutrino.html"/>
+        <link rel="prev" title="Docker" href="docker.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ides.html">IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">CI Platforms</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../cross_platform.html">Other Systems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="buildroot.html"> Buildroot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Emscripten</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#running-the-code-inside-the-browser">Running the code inside the browser</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="qnx_neutrino.html"> QNX Neutrino</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yocto.html"> Yocto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="android.html"> Android</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../cross_platform.html">Other Systems</a> &raquo;</li>
+        
+      <li> Emscripten</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/cross_platform/emscripten.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="emscripten-logo-emscripten">
+<span id="emscripten"></span><h1><a class="reference internal" href="../../_images/conan-emscripten_logo.png"><img alt="emscripten_logo" src="../../_images/conan-emscripten_logo.png" style="width: 180px;" /></a> Emscripten<a class="headerlink" href="#emscripten-logo-emscripten" title="Permalink to this headline">¶</a></h1>
+<p>It should be possible to build packages for <a class="reference external" href="https://emscripten.org/">Emscripten</a> (<a class="reference external" href="http://asmjs.org/">asm.js</a>) via the following conan profile:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+os=Emscripten
+arch=asm.js
+compiler=clang
+compiler.version=6.0
+compiler.libcxx=libc++
+[options]
+[build_requires]
+emsdk_installer/1.38.29@bincrafters/stable
+[env]
+</pre></div>
+</div>
+<p>And the following conan profile is required for the <a class="reference external" href="https://webassembly.org/">WASM</a> (Web Assembly):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+os=Emscripten
+arch=wasm
+compiler=clang
+compiler.version=6.0
+compiler.libcxx=libc++
+[options]
+[build_requires]
+emsdk_installer/1.38.29@bincrafters/stable
+[env]
+</pre></div>
+</div>
+<p>These profile above are using the <a class="reference external" href="https://github.com/bincrafters/conan-emsdk_installer">emsdk_installer/1.38.29&#64;bincrafters/stable</a> conan package.
+It will automatically download the <a class="reference external" href="https://github.com/emscripten-core/emsdk">Emscripten SDK</a> and set up required environment variables (like <code class="docutils literal notranslate"><span class="pre">CC</span></code>, <code class="docutils literal notranslate"><span class="pre">CXX</span></code>, etc.).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>In order to use <code class="docutils literal notranslate"><span class="pre">emsdk_installer</span></code> package, you need to add it to the remotes:</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Alternatively, it’s always possible to use an existing <code class="docutils literal notranslate"><span class="pre">emsdk</span></code> installation and manually specify required environment variables within the <cite>[env]</cite> section of the conan profile.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In addition to the above, Windows users may need to specify <code class="docutils literal notranslate"><span class="pre">CONAN_MAKE_PROGRAM</span></code>,
+for instance from the existing MinGW installation (e.g. <code class="docutils literal notranslate"><span class="pre">C:\MinGW\bin\mingw32-make.exe</span></code>), or use make from the <code class="docutils literal notranslate"><span class="pre">mingw_installer/1.0&#64;conan/stable</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In addition to the above, Windows users may need to specify <code class="docutils literal notranslate"><span class="pre">CONAN_CMAKE_GENERATOR</span></code>, e.g. to <code class="docutils literal notranslate"><span class="pre">MinGW</span> <span class="pre">Makefiles</span></code>, because default one is Visual Studio.
+Other options (e.g. Ninja) work as well.</p>
+</div>
+<p>As specified, <code class="docutils literal notranslate"><span class="pre">os</span></code> has been set to the <code class="docutils literal notranslate"><span class="pre">Emscripten</span></code>, and <code class="docutils literal notranslate"><span class="pre">arch</span></code> has been set to either <code class="docutils literal notranslate"><span class="pre">asm.js</span></code> or <code class="docutils literal notranslate"><span class="pre">wasm</span></code> (only these two are currently supported).
+And <code class="docutils literal notranslate"><span class="pre">compiler</span></code> setting has been set to match the one used by <code class="docutils literal notranslate"><span class="pre">Emscripten</span></code> - Clang 6.0 with libc++ standard library.</p>
+<div class="section" id="running-the-code-inside-the-browser">
+<h2>Running the code inside the browser<a class="headerlink" href="#running-the-code-inside-the-browser" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Emscripten requires Python 2.7.12 or above, make sure that you have an up-to-date Python version installed.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Running demo on Windows may require pywin32 module. Install it by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pywin32</span></code>.</p>
+</div>
+<p>In order to demonstrate how to use conan with Emscripten, let’s check out the example project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone --depth <span class="m">1</span> git@github.com:conan-io/examples.git
+</pre></div>
+</div>
+<p>Change the directory to the Emscripten demo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> features
+$ <span class="nb">cd</span> emscripten
+</pre></div>
+</div>
+<p>This is an extremely simple demo, which just imports the famous <a class="reference external" href="https://www.zlib.net/">zlib</a> library and outputs its version into the browser.</p>
+<p>In order to build it for the Emscripten run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./build.sh
+</pre></div>
+</div>
+<p>or (on Windows):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./build.cmd
+</pre></div>
+</div>
+<p>Please note that running the above command may take a while to download and build required dependencies.
+This script will execute several conan commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remove conan-hello-emscripten/* -f
+$ conan create . conan/testing  -k -p emscripten.profile --build missing
+$ conan install conanfile.txt  -pr emscripten.profile
+</pre></div>
+</div>
+<p>First one removes any traces of previous demo installations, just to ensure that environment is clean.
+Then, it builds the simple demo (it uses <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">main.cpp</span></code> files from the current directory).
+The following local profile is used (file <code class="docutils literal notranslate"><span class="pre">emscripten.profile</span></code> within the current directory):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+os=Emscripten
+arch=wasm
+compiler=clang
+compiler.version=6.0
+compiler.libcxx=libc++
+[options]
+[build_requires]
+emsdk_installer/1.38.29@bincrafters/stable
+ninja_installer/1.8.2@bincrafters/stable
+[env]
+</pre></div>
+</div>
+<p>Finally, it installs the demo importing ithe required files (<code class="docutils literal notranslate"><span class="pre">.html</span></code>, <code class="docutils literal notranslate"><span class="pre">.js</span></code> and <code class="docutils literal notranslate"><span class="pre">.wasm</span></code>) into the <code class="docutils literal notranslate"><span class="pre">bin</span></code> subdirectory.</p>
+<p>Then we can run the code inside the browser via <a class="reference external" href="https://emscripten.org/docs/compiling/Running-html-files-with-emrun.html">emrun</a> helper:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./run.sh
+</pre></div>
+</div>
+<p>or (on Windows):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./run.cmd
+</pre></div>
+</div>
+<p>The command above uses <a class="reference internal" href="../../mastering/virtualenv.html#virtual-environment-generator"><span class="std std-ref">virtualenv generator</span></a> generator in order to get <code class="docutils literal notranslate"><span class="pre">emrun</span></code> command available in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.
+And as the result, Web Browser should be opened (or new tab in Web Browser will be opened, if it was already run), and the following output should be displayed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Using zlib version: <span class="m">1</span>.2.11
+</pre></div>
+</div>
+<p>It confirms the fact we have just built <code class="docutils literal notranslate"><span class="pre">zlib</span></code> into JavaScript and run it inside the Web Browser.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="qnx_neutrino.html" class="btn btn-neutral float-right" title="QNX Neutrino" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker.html" class="btn btn-neutral" title="Docker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.18
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.18/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.18.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.18");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

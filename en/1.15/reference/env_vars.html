@@ -1,0 +1,950 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Environment variables &mdash; conan 1.15.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.15.1 documentation" href="../index.html"/>
+        <link rel="up" title="Reference" href="../reference.html"/>
+        <link rel="next" title="Hooks [EXPERIMENTAL]" href="hooks.html"/>
+        <link rel="prev" title="Editable layout files" href="config_files/editable_layout.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_files.html">Configuration files</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Environment variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cmake-related-variables">CMAKE RELATED VARIABLES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-bash-path">CONAN_BASH_PATH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-cache-no-locks">CONAN_CACHE_NO_LOCKS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-cmake-generator">CONAN_CMAKE_GENERATOR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-cmake-generator-platform">CONAN_CMAKE_GENERATOR_PLATFORM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-color-dark">CONAN_COLOR_DARK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-color-display">CONAN_COLOR_DISPLAY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-compression-level">CONAN_COMPRESSION_LEVEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-cpu-count">CONAN_CPU_COUNT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-default-profile-path">CONAN_DEFAULT_PROFILE_PATH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-non-interactive">CONAN_NON_INTERACTIVE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-env-xxxx-yyyy">CONAN_ENV_XXXX_YYYY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-log-run-to-file">CONAN_LOG_RUN_TO_FILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-log-run-to-output">CONAN_LOG_RUN_TO_OUTPUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-logging-level">CONAN_LOGGING_LEVEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-login-username-conan-login-username-remote-name">CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-make-program">CONAN_MAKE_PROGRAM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-cmake-program">CONAN_CMAKE_PROGRAM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-msbuild-verbosity">CONAN_MSBUILD_VERBOSITY</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-password-conan-password-remote-name">CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-hooks">CONAN_HOOKS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-print-run-commands">CONAN_PRINT_RUN_COMMANDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-read-only-cache">CONAN_READ_ONLY_CACHE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-run-tests">CONAN_RUN_TESTS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-skip-vs-projects-upgrade">CONAN_SKIP_VS_PROJECTS_UPGRADE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-sysrequires-mode">CONAN_SYSREQUIRES_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-sysrequires-sudo">CONAN_SYSREQUIRES_SUDO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-temp-test-folder">CONAN_TEMP_TEST_FOLDER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-trace-file">CONAN_TRACE_FILE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-username-conan-channel">CONAN_USERNAME, CONAN_CHANNEL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-user-home">CONAN_USER_HOME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-user-home-short">CONAN_USER_HOME_SHORT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-use-always-short-paths">CONAN_USE_ALWAYS_SHORT_PATHS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-verbose-traceback">CONAN_VERBOSE_TRACEBACK</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-error-on-override">CONAN_ERROR_ON_OVERRIDE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-vs-installation-preference">CONAN_VS_INSTALLATION_PREFERENCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-cacert-path">CONAN_CACERT_PATH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-default-package-id-mode">CONAN_DEFAULT_PACKAGE_ID_MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-skip-broken-symlinks-check">CONAN_SKIP_BROKEN_SYMLINKS_CHECK</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hooks.html">Hooks [EXPERIMENTAL]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../reference.html">Reference</a> &raquo;</li>
+        
+      <li>Environment variables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/env_vars.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="environment-variables">
+<span id="env-vars"></span><h1>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h1>
+<p>These are the environment variables used to customize Conan.</p>
+<blockquote>
+<div>Most of them can be set in the <em>conan.conf</em> configuration file (inside your <code class="docutils literal notranslate"><span class="pre">&lt;userhome&gt;/.conan</span></code> folder). However, this environment
+variables will take precedence over the <em>conan.conf</em> configuration.</div></blockquote>
+<div class="section" id="cmake-related-variables">
+<span id="id1"></span><h2>CMAKE RELATED VARIABLES<a class="headerlink" href="#cmake-related-variables" title="Permalink to this headline">¶</a></h2>
+<p>There are some Conan environment variables that will set the equivalent CMake variable using the <a class="reference internal" href="generators/cmake.html#cmake-generator"><span class="std std-ref">cmake generator</span></a> and
+the <a class="reference internal" href="build_helpers/cmake.html#cmake-reference"><span class="std std-ref">CMake build tool</span></a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">CMake set variable</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CONAN_CMAKE_TOOLCHAIN_FILE</td>
+<td>CMAKE_TOOLCHAIN_FILE</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_SYSTEM_NAME</td>
+<td>CMAKE_SYSTEM_NAME</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_SYSTEM_VERSION</td>
+<td>CMAKE_SYSTEM_VERSION</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_SYSTEM_PROCESSOR</td>
+<td>CMAKE_SYSTEM_PROCESSOR</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_FIND_ROOT_PATH</td>
+<td>CMAKE_FIND_ROOT_PATH</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</td>
+<td>CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</td>
+<td>CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</td>
+<td>CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_GENERATOR_PLATFORM</td>
+<td>CMAKE_GENERATOR_PLATFORM</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">See <a class="reference external" href="https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling">CMake cross building wiki</a></p>
+</div>
+</div>
+<div class="section" id="conan-bash-path">
+<span id="conan-bash-path-env"></span><h2>CONAN_BASH_PATH<a class="headerlink" href="#conan-bash-path" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Used only in windows to help the <a class="reference internal" href="tools.html#tools-run-in-windows-bash"><span class="std std-ref">tools.run_in_windows_bash()</span></a> function
+to locate our Cygwin/MSYS2 bash. Set it with the bash executable path if it’s not in the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or you want to use a different one.</p>
+</div>
+<div class="section" id="conan-cache-no-locks">
+<h2>CONAN_CACHE_NO_LOCKS<a class="headerlink" href="#conan-cache-no-locks" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Set it to <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code> to disable locking mechanism of local cache.
+Set it to <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code> to enable locking mechanism of local cache.
+Use it with caution, and only for debugging purposes. Disabling locks may easily lead to corrupted packages.
+Not recommended for production environments, and in general should be used for conan development and contributions only.</p>
+</div>
+<div class="section" id="conan-cmake-generator">
+<h2>CONAN_CMAKE_GENERATOR<a class="headerlink" href="#conan-cmake-generator" title="Permalink to this headline">¶</a></h2>
+<p>Conan <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper class is just a convenience to help to translate Conan
+settings and options into CMake parameters, but you can easily do it yourself, or adapt it.</p>
+<p>For some compiler configurations, as <code class="docutils literal notranslate"><span class="pre">gcc</span></code> it will use by default the <code class="docutils literal notranslate"><span class="pre">Unix</span> <span class="pre">Makefiles</span></code>
+CMake generator. Note that this is not a package settings, building it with makefiles or other
+build system, as Ninja, should lead to the same binary if using appropriately the same
+underlying compiler settings. So it doesn’t make sense to provide a setting or option for this.</p>
+<p>So it can be set with the environment variable <code class="docutils literal notranslate"><span class="pre">CONAN_CMAKE_GENERATOR</span></code>. Just set its value
+to your desired CMake generator (as <code class="docutils literal notranslate"><span class="pre">Ninja</span></code>).</p>
+</div>
+<div class="section" id="conan-cmake-generator-platform">
+<h2>CONAN_CMAKE_GENERATOR_PLATFORM<a class="headerlink" href="#conan-cmake-generator-platform" title="Permalink to this headline">¶</a></h2>
+<p>Defines generator platform to be used by particular CMake generator (see <cite>CMAKE_GENERATOR_PLATFORM documentation &lt;https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR_PLATFORM.html&gt;</cite>).
+Resulting value is passed to the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command line (<code class="docutils literal notranslate"><span class="pre">-A</span></code> argument) by the Conan <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper class during the configuration step.
+Passing <code class="docutils literal notranslate"><span class="pre">None</span></code> causes auto-detection, which currently only happens for the <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">16</span> <span class="pre">2019</span></code> generator. The detection is according to the following table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="46%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">settings.arch</th>
+<th class="head">generator platform</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>x86</td>
+<td>Win32</td>
+</tr>
+<tr class="row-odd"><td>x86_64</td>
+<td>x64</td>
+</tr>
+<tr class="row-even"><td>armv7</td>
+<td>ARM</td>
+</tr>
+<tr class="row-odd"><td>armv8</td>
+<td>ARM64</td>
+</tr>
+<tr class="row-even"><td>other</td>
+<td>(none)</td>
+</tr>
+</tbody>
+</table>
+<p>For any other generators besides the <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">16</span> <span class="pre">2019</span></code> generator, detection results in no generator platform applied (and no <code class="docutils literal notranslate"><span class="pre">-A</span></code> argument passed to the CMake command line).</p>
+</div>
+<div class="section" id="conan-color-dark">
+<h2>CONAN_COLOR_DARK<a class="headerlink" href="#conan-color-dark" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Set it to <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code> to use dark colors in the terminal output, instead of light ones.
+Useful for terminal or consoles with light colors as white, so text is rendered in Blue, Black, Magenta,
+instead of Yellow, Cyan, White.</p>
+</div>
+<div class="section" id="conan-color-display">
+<h2>CONAN_COLOR_DISPLAY<a class="headerlink" href="#conan-color-display" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>By default if undefined Conan output will use color if a tty is detected.</p>
+<p>Set it to <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code> to remove console output colors.
+Set it to <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code> to force console output colors.</p>
+</div>
+<div class="section" id="conan-compression-level">
+<h2>CONAN_COMPRESSION_LEVEL<a class="headerlink" href="#conan-compression-level" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">9</span></code></p>
+<p>Conan uses <em>.tgz</em> compression for archives before uploading them to remotes. The default compression
+level is good and fast enough for most cases, but users with huge packages might want to change it and
+set <code class="docutils literal notranslate"><span class="pre">CONAN_COMPRESSION_LEVEL</span></code> environment variable to a lower number, which is able to get slightly
+bigger archives but much better compression speed.</p>
+</div>
+<div class="section" id="conan-cpu-count">
+<span id="env-vars-conan-cpu-count"></span><h2>CONAN_CPU_COUNT<a class="headerlink" href="#conan-cpu-count" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Number of available cores in your machine.</p>
+<p>Set the number of cores that the <a class="reference internal" href="tools.html#tools-cpu-count"><span class="std std-ref">tools.cpu_count()</span></a> will return.
+Conan recipes can use the <code class="docutils literal notranslate"><span class="pre">cpu_count()</span></code> tool to build the library using more than one core.</p>
+</div>
+<div class="section" id="conan-default-profile-path">
+<h2>CONAN_DEFAULT_PROFILE_PATH<a class="headerlink" href="#conan-default-profile-path" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>This variable can be used to define a path to an existing profile file that Conan will use
+as default. If relative, the path will be resolved from the profiles folder.</p>
+</div>
+<div class="section" id="conan-non-interactive">
+<h2>CONAN_NON_INTERACTIVE<a class="headerlink" href="#conan-non-interactive" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>This environment variable, if set to <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code>, will prevent interactive prompts.
+Invocations of Conan commands where an interactive prompt would otherwise appear, will fail instead.</p>
+<p>This variable can also be set in <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code> as <code class="docutils literal notranslate"><span class="pre">non_interactive</span> <span class="pre">=</span> <span class="pre">True</span></code> in the <code class="docutils literal notranslate"><span class="pre">[general]</span></code>
+section.</p>
+</div>
+<div class="section" id="conan-env-xxxx-yyyy">
+<h2>CONAN_ENV_XXXX_YYYY<a class="headerlink" href="#conan-env-xxxx-yyyy" title="Permalink to this headline">¶</a></h2>
+<p>You can override the default settings (located in your <code class="docutils literal notranslate"><span class="pre">~/.conan/profiles/default</span></code> directory) with environment variables.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">XXXX</span></code> is the setting name upper-case, and the <code class="docutils literal notranslate"><span class="pre">YYYY</span></code> (optional) is the sub-setting name.</p>
+<p><strong>Examples</strong>:</p>
+<ul class="simple">
+<li>Override the default compiler:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONAN_ENV_COMPILER</span> <span class="o">=</span> <span class="s2">&quot;Visual Studio&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Override the default compiler version:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONAN_ENV_COMPILER_VERSION</span> <span class="o">=</span> <span class="s2">&quot;14&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Override the architecture:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONAN_ENV_ARCH</span> <span class="o">=</span> <span class="s2">&quot;x86&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-log-run-to-file">
+<span id="env-vars-conan-log-run-to-file"></span><h2>CONAN_LOG_RUN_TO_FILE<a class="headerlink" href="#conan-log-run-to-file" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code> will log every <code class="docutils literal notranslate"><span class="pre">self.run(&quot;{Some</span> <span class="pre">command}&quot;)</span></code> command output in a file called <code class="docutils literal notranslate"><span class="pre">conan_run.log</span></code>.
+That file will be located in the current execution directory, so if we call <code class="docutils literal notranslate"><span class="pre">self.run</span></code> in the conanfile.py’s build method, the file
+will be located in the build folder.</p>
+<p>In case we execute <code class="docutils literal notranslate"><span class="pre">self.run</span></code> in our <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, the <code class="docutils literal notranslate"><span class="pre">conan_run.log</span></code> will be created in the source directory, but then conan will copy it
+to the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder following the regular execution flow. So the <code class="docutils literal notranslate"><span class="pre">conan_run.log</span></code> will contain all the logs from your conanfile.py command
+executions.</p>
+<p>The file can be included in the Conan package (for debugging purposes) using the <code class="docutils literal notranslate"><span class="pre">package</span></code> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;conan_run.log&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-log-run-to-output">
+<h2>CONAN_LOG_RUN_TO_OUTPUT<a class="headerlink" href="#conan-log-run-to-output" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">0</span></code> Conan won’t print the command output to the stdout.
+Can be used with <code class="docutils literal notranslate"><span class="pre">CONAN_LOG_RUN_TO_FILE</span></code> set to <code class="docutils literal notranslate"><span class="pre">1</span></code> to log only to file and not printing the output.</p>
+</div>
+<div class="section" id="conan-logging-level">
+<h2>CONAN_LOGGING_LEVEL<a class="headerlink" href="#conan-logging-level" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">50</span></code></p>
+<p>By default Conan logging level is only set for critical events. If you want
+to show more detailed logging information, set this variable to lower values, as <code class="docutils literal notranslate"><span class="pre">10</span></code> to show
+debug information.</p>
+</div>
+<div class="section" id="conan-login-username-conan-login-username-remote-name">
+<h2>CONAN_LOGIN_USERNAME, CONAN_LOGIN_USERNAME_{REMOTE_NAME}<a class="headerlink" href="#conan-login-username-conan-login-username-remote-name" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>You can define the username for the authentication process using environment variables.
+Conan will use a variable <strong>CONAN_LOGIN_USERNAME_{REMOTE_NAME}</strong>, if the variable is not
+declared Conan will use the variable <strong>CONAN_LOGIN_USERNAME</strong>, if the variable is not declared either,
+Conan will request to the user to input a username.</p>
+<p>These variables are useful for unattended executions like CI servers or automated tasks.</p>
+<p>If the remote name contains “-” you have to replace it with “_” in the variable name:</p>
+<p>For example: For a remote named “conan-center”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>SET <span class="nv">CONAN_LOGIN_USERNAME_CONAN_CENTER</span><span class="o">=</span>MyUser
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-make-program">
+<span id="env-vars-conan-make-program"></span><h2>CONAN_MAKE_PROGRAM<a class="headerlink" href="#conan-make-program" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Specify an alternative <code class="docutils literal notranslate"><span class="pre">make</span></code> program to use with:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The build helper <a class="reference internal" href="build_helpers/autotools.html#autotools-reference"><span class="std std-ref">AutoToolsBuildEnvironment</span></a>. Will invoke the specified executable in the <cite>make</cite> method.</li>
+<li>The build helper <a class="reference internal" href="build_helpers/cmake.html#cmake-reference"><span class="std std-ref">build helper CMake</span></a>. By adjusting the CMake variable <a class="reference external" href="https://cmake.org/cmake/help/v3.0/variable/CMAKE_MAKE_PROGRAM.html">CMAKE_MAKE_PROGRAM</a>.</li>
+</ul>
+</div></blockquote>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONAN_MAKE_PROGRAM</span><span class="o">=</span><span class="s2">&quot;/path/to/mingw32-make&quot;</span>
+
+<span class="c1"># Or only the exe name if it is in the path</span>
+
+<span class="nv">CONAN_MAKE_PROGRAM</span><span class="o">=</span><span class="s2">&quot;mingw32-make&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-cmake-program">
+<h2>CONAN_CMAKE_PROGRAM<a class="headerlink" href="#conan-cmake-program" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Specify an alternative <code class="docutils literal notranslate"><span class="pre">cmake</span></code> program to use with <a class="reference internal" href="build_helpers/cmake.html#cmake-reference"><span class="std std-ref">CMake</span></a> build helper.</p>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONAN_MAKE_PROGRAM</span><span class="o">=</span><span class="s2">&quot;scan-build cmake&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-msbuild-verbosity">
+<h2>CONAN_MSBUILD_VERBOSITY<a class="headerlink" href="#conan-msbuild-verbosity" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Specify <code class="docutils literal notranslate"><span class="pre">`MSBuild`</span></code> verbosity level to use with:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The build helper <a class="reference internal" href="build_helpers/cmake.html#cmake-reference"><span class="std std-ref">CMake</span></a>.</li>
+<li>The build helper <a class="reference internal" href="build_helpers/visual_studio.html#msbuild"><span class="std std-ref">MSBuild</span></a>.</li>
+</ul>
+</div></blockquote>
+<p>For list of allowed values and their meaning, check out the
+<a class="reference external" href="https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2017">MSBuild documentation</a>.</p>
+</div>
+<div class="section" id="conan-password-conan-password-remote-name">
+<h2>CONAN_PASSWORD, CONAN_PASSWORD_{REMOTE_NAME}<a class="headerlink" href="#conan-password-conan-password-remote-name" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>You can define the authentication password using environment variables.
+Conan will use a variable <strong>CONAN_PASSWORD_{REMOTE_NAME}</strong>, if the variable is not
+declared Conan will use the variable <strong>CONAN_PASSWORD</strong>, if the variable is not declared either,
+Conan will request to the user to input a password.</p>
+<p>These variables are useful for unattended executions like CI servers or automated tasks.</p>
+<p>The remote name is transformed to all uppercase. If the remote name contains “-“,
+you have to replace it with “_” in the variable name.</p>
+<p>For example, for a remote named “conan-center”:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>SET <span class="nv">CONAN_PASSWORD_CONAN_CENTER</span><span class="o">=</span>Mypassword
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-hooks">
+<h2>CONAN_HOOKS<a class="headerlink" href="#conan-hooks" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Can be set to a comma separated list with the names of the hooks that will be executed when running a Conan command.</p>
+</div>
+<div class="section" id="conan-print-run-commands">
+<span id="env-vars-conan-print-run-commands"></span><h2>CONAN_PRINT_RUN_COMMANDS<a class="headerlink" href="#conan-print-run-commands" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, every <code class="docutils literal notranslate"><span class="pre">self.run(&quot;{Some</span> <span class="pre">command}&quot;)</span></code> call will log the executed command {Some command} to the output.</p>
+<p>For example: In the <cite>conanfile.py</cite> file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cd </span><span class="si">%s</span><span class="s2"> &amp;&amp; </span><span class="si">%s</span><span class="s2"> ./configure&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ZIP_FOLDER_NAME</span><span class="p">,</span> <span class="n">env_line</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Will print to the output (stout and/or file):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>----Running------
+&gt; <span class="nb">cd</span> zlib-1.2.9 <span class="o">&amp;&amp;</span> env <span class="nv">LIBS</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nv">LDFLAGS</span><span class="o">=</span><span class="s2">&quot; -m64   </span><span class="nv">$LDFLAGS</span><span class="s2">&quot;</span> <span class="nv">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-mstackrealign -fPIC </span><span class="nv">$CFLAGS</span><span class="s2"> -m64  -s -DNDEBUG  &quot;</span> <span class="nv">CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$CPPFLAGS</span><span class="s2"> -m64  -s -DNDEBUG  &quot;</span> <span class="nv">C_INCLUDE_PATH</span><span class="o">=</span><span class="nv">$C_INCLUDE_PATH</span>: <span class="nv">CPLUS_INCLUDE_PATH</span><span class="o">=</span><span class="nv">$CPLUS_INCLUDE_PATH</span>: ./configure
+-----------------
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-read-only-cache">
+<h2>CONAN_READ_ONLY_CACHE<a class="headerlink" href="#conan-read-only-cache" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>This environment variable if defined, will make the Conan cache read-only. This could prevent
+developers to accidentally edit some header of their dependencies while navigating code in their
+IDEs.</p>
+<p>This variable can also be set in <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code> as <code class="docutils literal notranslate"><span class="pre">read_only_cache</span> <span class="pre">=</span> <span class="pre">True</span></code> in the <code class="docutils literal notranslate"><span class="pre">[general]</span></code>
+section.</p>
+<p>The packages are made read-only in two points: when a package is built from sources, and when
+a package is retrieved from a remote repository.</p>
+<p>The packages are not modified for upload, so users should take that into consideration before
+uploading packages, as they will be read-only and that could have other side-effects.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">It is not recommended to upload packages directly from developers machines with read-only mode as it could lead to inconsistencies.
+For better reproducibility we recommend that packages are created and uploaded by CI machines.</p>
+</div>
+</div>
+<div class="section" id="conan-run-tests">
+<span id="env-vars-conan-run-tests"></span><h2>CONAN_RUN_TESTS<a class="headerlink" href="#conan-run-tests" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined (True/False if defined)</p>
+<p>This environment variable (if defined) can be used in <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> to enable/disable the tests for a library or
+application.</p>
+<p>It can be used as a convention variable and it’s specially useful if a library has unit tests
+and you are doing <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building"><span class="std std-ref">cross building</span></a>, the target binary can’t be executed in current
+host machine building the package.</p>
+<p>It can be defined in your profile files at <code class="docutils literal notranslate"><span class="pre">~/.conan/profiles</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="p">[</span><span class="n">env</span><span class="p">]</span>
+<span class="n">CONAN_RUN_TESTS</span><span class="o">=</span><span class="kc">False</span>
+</pre></div>
+</div>
+<p>or declared in command line when invoking <strong class="command">conan install</strong> to reduce the variable scope for conan execution</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -e <span class="nv">CONAN_RUN_TEST</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
+</div>
+<p>See how to retrieve the value with <a class="reference internal" href="tools.html#tools-get-env"><span class="std std-ref">tools.get_env()</span></a> and check a use case
+with <a class="reference internal" href="../howtos/header_only.html#header-only-unit-tests-tip"><span class="std std-ref">a header only with unit tests recipe</span></a> while cross building.</p>
+<p>See example of build method in <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> to enable/disable running tests with CMake:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">&quot;CONAN_RUN_TESTS&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">cmake</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-skip-vs-projects-upgrade">
+<span id="env-vars-conan-skip-vs-project-upgrade"></span><h2>CONAN_SKIP_VS_PROJECTS_UPGRADE<a class="headerlink" href="#conan-skip-vs-projects-upgrade" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code>, the <a class="reference internal" href="tools.html#tools-build-sln-command"><span class="std std-ref">tools.build_sln_command() [DEPRECATED]</span></a>, the <a class="reference internal" href="tools.html#tools-msvc-build-command"><span class="std std-ref">tools.msvc_build_command() [DEPRECATED]</span></a>
+and the <a class="reference internal" href="build_helpers/visual_studio.html#msbuild"><span class="std std-ref">MSBuild()</span></a> build helper, will not call <code class="docutils literal notranslate"><span class="pre">devenv</span></code> command to upgrade the <code class="docutils literal notranslate"><span class="pre">sln</span></code> project, irrespective of
+the <code class="docutils literal notranslate"><span class="pre">upgrade_project</span></code> parameter value.</p>
+</div>
+<div class="section" id="conan-sysrequires-mode">
+<h2>CONAN_SYSREQUIRES_MODE<a class="headerlink" href="#conan-sysrequires-mode" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">enabled</span></code> allowed values <code class="docutils literal notranslate"><span class="pre">enabled</span></code>/<code class="docutils literal notranslate"><span class="pre">verify</span></code>/<code class="docutils literal notranslate"><span class="pre">disabled</span></code></p>
+<p>This environment variable controls whether system packages should be installed into the system
+via <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> helper, typically used in <a class="reference internal" href="conanfile/methods.html#method-system-requirements"><span class="std std-ref">system_requirements()</span></a>.</p>
+<p>See values behavior:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">enabled</span></code>: Default value and any call to install method of <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> helper should modify
+the system packages.</li>
+<li><code class="docutils literal notranslate"><span class="pre">verify</span></code>: Display a report of system packages to be installed and abort with exception.
+Useful if you don’t want to allow Conan to modify your system but you want to get a report of
+packages to be installed.</li>
+<li><code class="docutils literal notranslate"><span class="pre">disabled</span></code>: Display a report of system packages that should be installed but continue the Conan execution and
+doesn’t install any package in your system. Useful if you want to keep manual control of these dependencies,
+for example in your development environment.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="conan-sysrequires-sudo">
+<h2>CONAN_SYSREQUIRES_SUDO<a class="headerlink" href="#conan-sysrequires-sudo" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>This environment variable controls whether <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is used for installing apt, yum, etc. system
+packages via <code class="docutils literal notranslate"><span class="pre">SystemPackageTool</span></code> helper, typically used in <code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code>.
+By default when the environment variable does not exist, “True” is assumed, and <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is
+automatically prefixed in front of package management commands.  If you set this to “False” or “0”
+<code class="docutils literal notranslate"><span class="pre">sudo</span></code> will not be prefixed in front of the commands, however installation or updates of some
+packages may fail due to a lack of privilege, depending on the user account Conan is running under.</p>
+</div>
+<div class="section" id="conan-temp-test-folder">
+<h2>CONAN_TEMP_TEST_FOLDER<a class="headerlink" href="#conan-temp-test-folder" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Activating this variable will make build folder of <em>test_package</em> to be created in the temporary folder of your machine.</p>
+</div>
+<div class="section" id="conan-trace-file">
+<span id="env-vars-conan-trace-file"></span><h2>CONAN_TRACE_FILE<a class="headerlink" href="#conan-trace-file" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>If you want extra logging information about your Conan command executions, you can enable it by setting the <code class="docutils literal notranslate"><span class="pre">CONAN_TRACE_FILE</span></code> environment variable.
+Set it with an absolute path to a file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CONAN_TRACE_FILE</span><span class="o">=</span>/tmp/conan_trace.log
+</pre></div>
+</div>
+<p>When the Conan command is executed, some traces will be appended to the specified file.
+Each line contains a JSON object. The <code class="docutils literal notranslate"><span class="pre">_action</span></code> field contains the action type, like <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> for command executions,
+<code class="docutils literal notranslate"><span class="pre">EXCEPTION</span></code> for errors and <code class="docutils literal notranslate"><span class="pre">REST_API_CALL</span></code> for HTTP calls to a remote.</p>
+<p>The logger will append the traces until the <code class="docutils literal notranslate"><span class="pre">CONAN_TRACE_FILE</span></code> variable is unset or pointed to a different file.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more here: <a class="reference internal" href="../mastering/logging.html#logging-and-debugging"><span class="std std-ref">How to log and debug a conan execution</span></a></p>
+</div>
+</div>
+<div class="section" id="conan-username-conan-channel">
+<h2>CONAN_USERNAME, CONAN_CHANNEL<a class="headerlink" href="#conan-username-conan-channel" title="Permalink to this headline">¶</a></h2>
+<p>These environment variables will be checked when using <code class="docutils literal notranslate"><span class="pre">self.user</span></code> or <code class="docutils literal notranslate"><span class="pre">self.channel</span></code> in package recipes in user space, where the user
+and channel have not been assigned yet (they are assigned when exported in the local cache).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about it in <a class="reference internal" href="conanfile/attributes.html#user-channel"><span class="std std-ref">user, channel</span></a></p>
+</div>
+</div>
+<div class="section" id="conan-user-home">
+<h2>CONAN_USER_HOME<a class="headerlink" href="#conan-user-home" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Allows defining a custom Conan cache directory. Can be useful for concurrent builds under different
+users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read more about it in <a class="reference internal" href="../mastering/custom_cache.html#custom-cache"><span class="std std-ref">Conan local cache: concurrency, Continuous Integration, isolation</span></a></p>
+</div>
+</div>
+<div class="section" id="conan-user-home-short">
+<h2>CONAN_USER_HOME_SHORT<a class="headerlink" href="#conan-user-home-short" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Specify the base folder to be used with the <a class="reference internal" href="conanfile/attributes.html#short-paths-reference"><span class="std std-ref">short paths</span></a> feature. When not specified, the packages
+marked as <cite>short_paths</cite> will be stored in the <code class="docutils literal notranslate"><span class="pre">C:\.conan</span></code> (or the current drive letter).</p>
+<p>If set to <code class="docutils literal notranslate"><span class="pre">None</span></code>, it will disable the <cite>short_paths</cite> feature in Windows for modern Windows that enable long paths at the system level.</p>
+</div>
+<div class="section" id="conan-use-always-short-paths">
+<h2>CONAN_USE_ALWAYS_SHORT_PATHS<a class="headerlink" href="#conan-use-always-short-paths" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>If defined to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>, every package will be stored in the <em>short paths directory</em> resolved
+by Conan after evaluating <code class="docutils literal notranslate"><span class="pre">CONAN_USER_HOME_SHORT</span></code> variable (see above). This variable, therefore,
+overrides the value defined in recipes for the attribute <a class="reference internal" href="conanfile/attributes.html#short-paths-reference"><span class="std std-ref">short paths</span></a>.</p>
+</div>
+<div class="section" id="conan-verbose-traceback">
+<h2>CONAN_VERBOSE_TRACEBACK<a class="headerlink" href="#conan-verbose-traceback" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>When an error is raised in a recipe or even in the Conan code base, if set to <code class="docutils literal notranslate"><span class="pre">1</span></code> it will show the complete traceback to ease the debugging.</p>
+</div>
+<div class="section" id="conan-error-on-override">
+<span id="env-vars-conan-error-on-override"></span><h2>CONAN_ERROR_ON_OVERRIDE<a class="headerlink" href="#conan-error-on-override" title="Permalink to this headline">¶</a></h2>
+<p>** Defaulted to**: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+<p>When a consumer overrides one transitive requirement without using explicitly the keyword <code class="docutils literal notranslate"><span class="pre">override</span></code>
+Conan will raise an error if this environmente variable is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>This variable can also be set in the <a class="reference internal" href="config_files/conan.conf.html#conan-conf"><span class="std std-ref">*conan.conf*</span></a> file under the section <code class="docutils literal notranslate"><span class="pre">[general]</span></code>.</p>
+</div>
+<div class="section" id="conan-vs-installation-preference">
+<span id="env-vars-conan-vs-installation-preference"></span><h2>CONAN_VS_INSTALLATION_PREFERENCE<a class="headerlink" href="#conan-vs-installation-preference" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">Enterprise,</span> <span class="pre">Professional,</span> <span class="pre">Community,</span> <span class="pre">BuildTools</span></code></p>
+<p>This environment variables defines the order of preference when searching for a Visual installation product. This would affect every tool
+that uses <code class="docutils literal notranslate"><span class="pre">tools.vs_installation_path()</span></code> and will search in the order indicated.</p>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="nv">CONAN_VS_INSTALLATION_PREFERENCE</span><span class="o">=</span>Enterprise, Professional, Community, BuildTools
+</pre></div>
+</div>
+<p>It can also be used to fix the type of installation you want to use indicating just one product type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">set</span> <span class="nv">CONAN_VS_INSTALLATION_PREFERENCE</span><span class="o">=</span>BuildTools
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-cacert-path">
+<h2>CONAN_CACERT_PATH<a class="headerlink" href="#conan-cacert-path" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: Not defined</p>
+<p>Specify an alternative path to a <em>cacert.pem</em> file to be used for requests. This variable
+overrides the value defined in the <em>conan.conf</em> as <code class="docutils literal notranslate"><span class="pre">cacert_path</span> <span class="pre">=</span> <span class="pre">&lt;path/to/cacert.pem&gt;</span></code>
+under the section <code class="docutils literal notranslate"><span class="pre">[general]</span></code>.</p>
+</div>
+<div class="section" id="conan-default-package-id-mode">
+<h2>CONAN_DEFAULT_PACKAGE_ID_MODE<a class="headerlink" href="#conan-default-package-id-mode" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: semver_direct_mode</p>
+<p>It changes the way package IDs are computed, but can change to any value defined in <a class="reference internal" href="../creating_packages/define_abi_compatibility.html#package-id-mode"><span class="std std-ref">Using package_id() for Package Dependencies</span></a>.</p>
+</div>
+<div class="section" id="conan-skip-broken-symlinks-check">
+<h2>CONAN_SKIP_BROKEN_SYMLINKS_CHECK<a class="headerlink" href="#conan-skip-broken-symlinks-check" title="Permalink to this headline">¶</a></h2>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code>/<code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>/<code class="docutils literal notranslate"><span class="pre">1</span></code>, Conan will allow the existence broken symlinks while creating a package.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hooks.html" class="btn btn-neutral float-right" title="Hooks [EXPERIMENTAL]" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="config_files/editable_layout.html" class="btn btn-neutral" title="Editable layout files" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.15
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.15/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.15");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

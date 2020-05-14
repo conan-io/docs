@@ -1,0 +1,690 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Lockfiles &mdash; conan 1.25.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.25.1 documentation" href="../index.html"/>
+        <link rel="up" title="Versioning" href="../versioning.html"/>
+        <link rel="next" title="Mastering Conan" href="../mastering.html"/>
+        <link rel="prev" title="Package Revisions" href="revisions.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction to versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revisions.html">Package Revisions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Lockfiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-lockfiles">Using lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-use-lockfiles-in-ci">How to use lockfiles in CI</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../versioning.html">Versioning</a> &raquo;</li>
+        
+      <li>Lockfiles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/versioning/lockfiles.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lockfiles">
+<span id="versioning-lockfiles"></span><h1>Lockfiles<a class="headerlink" href="#lockfiles" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>Lockfiles are files that store the information of a dependency graph, including the
+exact versions, revisions, options, and configuration of that dependency graph. As
+they depend on the configuration, and the dependency graph can change with every
+different configuration, there will be one lockfile for every configuration.</p>
+<p>Lockfiles are useful for achieving deterministic builds, even if the dependency
+definitions in conanfile recipes are not fully deterministic, for example when using
+version ranges or using package revisions.</p>
+<p>Let’s say we have 3 package recipes <code class="docutils literal notranslate"><span class="pre">pkgc</span></code>, <code class="docutils literal notranslate"><span class="pre">pkgb</span></code>, and <code class="docutils literal notranslate"><span class="pre">pkga</span></code>, that define this dependency graph:</p>
+<img alt="../_images/conan-graph_not_deterministic.png" src="../_images/conan-graph_not_deterministic.png" />
+<p>The first time, when a <strong class="command">conan install .</strong> is executed, the requirement defined
+in <code class="docutils literal notranslate"><span class="pre">pkgb</span></code> is resolved to <strong>pkga/1.0</strong>, because that was the latest at that time that
+satisfied the version range <code class="docutils literal notranslate"><span class="pre">pkga/[*]</span></code>. After such install, the user can build and
+run an application in the source code of <code class="docutils literal notranslate"><span class="pre">pkgc</span></code>. But some time later, another colleague
+tries to do exactly the same, and suddenly it is pulling a newer version of <code class="docutils literal notranslate"><span class="pre">pkga</span></code> that
+was recently published, getting different results (maybe even not working). Builds with
+version ranges are not reproducible by default.</p>
+<div class="section" id="using-lockfiles">
+<h2>Using lockfiles<a class="headerlink" href="#using-lockfiles" title="Permalink to this headline">¶</a></h2>
+<p>Lockfiles solve this problem creating a file that stores this information. In the example
+above, the first <strong class="command">conan install .</strong> will generate a <em>conan.lock</em> file that can be
+used later:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> PkgC
+$ conan install .  <span class="c1"># generates conan.lock</span>
+<span class="c1"># After PkgA/1.1 has been created</span>
+$ conan install . --lockfile <span class="c1"># uses the existing conan.lock</span>
+</pre></div>
+</div>
+<p>The second time that <strong class="command">conan install . --lockfile</strong> is called, with the lockfile argument
+it will load the previously generated <em>conan.lock</em> file, that contains the information that
+<code class="docutils literal notranslate"><span class="pre">pkga/1.0</span></code> is used, and will apply it again to the dependency resolution, resolving exactly
+the same dependency graph:</p>
+<img alt="../_images/conan-graph_locked.png" src="../_images/conan-graph_locked.png" />
+<p>The <em>conan.lock</em> file contains more information than the versions of the dependencies, it contains:</p>
+<ul class="simple">
+<li>The “effective” profile that has been used to compute this lockfile. The effective profile is the
+combination of the profile files that could have been passed in the command line, plus any
+other settings or options directly defined in the command line.</li>
+<li>It encodes a graph, not just a list of versions, as different nodes in the graph might be using
+different versions too.</li>
+<li>The options values at each package. As downstream consumers can define options values, it is
+important that this information is also stored, so it is also possible to build intermediate nodes
+of the graph leading to the same result.</li>
+<li>Another kind of requirements like python_requires.</li>
+</ul>
+<p>Again, it is important to remember that every different configuration will generate a different
+graph, and then a different <em>conan.lock</em> as result. So the example above would be more like the
+following if we wanted to work with different configurations (e.g. Debug/Release):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> PkgC
+$ <span class="nb">cd</span> release
+$ conan install .. <span class="c1"># generates conan.lock (release) in this folder</span>
+$ <span class="nb">cd</span> ../debug
+$ conan install .. -s <span class="nv">build_type</span><span class="o">=</span>Debug <span class="c1"># generates conan.lock (debug)</span>
+<span class="c1"># After PkgA/1.1 has been created</span>
+$ conan install .. --lockfile <span class="c1"># uses the existing conan.lock (debug)</span>
+$ <span class="nb">cd</span> ../release
+$ conan install .. --lockfile <span class="c1"># uses the existing conan.lock (release)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 main entry points for lockfile information in conan commands:</p>
+<ul>
+<li><p class="first"><strong class="command">--lockfile</strong> argument in <strong class="command">install/create/export/info</strong></p>
+<blockquote>
+<div><p>If the command builds a package, it can modify its reference. Even if the version is not changed,
+if something in the recipe changes, it will get a new recipe revision RREV and if the package is
+built from sources again, it might end with a new, different package revision PREV. Those changes
+will be updated in the <em>conan.lock</em> lockfile, and the package will be marked as “modified”.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><strong class="command">conan graph</strong> command</p>
+<blockquote>
+<div><p>This command group contains several functions related to the management of lockfiles:</p>
+<ul>
+<li><p class="first"><strong class="command">conan graph lock</strong></p>
+<blockquote>
+<div><p>This command will generate a <em>conan.lock</em> file. It behaves like <strong class="command">conan install</strong> command,
+(this will also generate a lockfile by default), but without needing to actually install the
+binaries, so it will be faster. In that regard, it is equal to <strong class="command">conan info</strong> that can also
+generate a lockfile, but the problem with <strong class="command">conan info -if=.</strong> is that it does not allow to
+specify a profile or settings.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><strong class="command">conan graph clean-modified</strong></p>
+<blockquote>
+<div><p>When a <strong class="command">conan create</strong> command that uses a lockfile builds a new binary, its reference
+will change. This change, typically in the form of a recipe revision and/or package revision
+is updated in the lockfile and the node is marked as “modified”. This <strong class="command">clean-modified</strong>
+removes these “modified” flags from a lockfile. This operation is typically needed before starting
+the build of a package in a locked graph, to know exactly which nodes have been modified by this
+operation.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><strong class="command">conan graph update-lock</strong></p>
+<blockquote>
+<div><p>Update the current lockfile with the information of the second lockfile. Only the nodes marked
+as “modified” will be updated. Trying to update to the current lockfile one node that has already
+been “modified” will result in an error.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><strong class="command">conan graph build-order</strong></p>
+<blockquote>
+<div><p>Takes a lockfile as an argument, and return a list of lists indicating the order in which packages
+in the graph have to be built. It only returns those packages that really need to be built,
+following the <strong class="command">--build</strong> arguments and the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> rules.</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>For more information see <a class="reference internal" href="../reference/commands.html#commands"><span class="std std-ref">Commands</span></a></p>
+</div>
+<div class="section" id="how-to-use-lockfiles-in-ci">
+<h2>How to use lockfiles in CI<a class="headerlink" href="#how-to-use-lockfiles-in-ci" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The code used in this section, including a <em>build.py</em> script to reproduce it, is in the
+examples repository: <a class="reference external" href="https://github.com/conan-io/examples">https://github.com/conan-io/examples</a></p>
+<div class="code bash last highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/examples.git
+$ cd features/lockfiles/ci
+$ python build.py
+</pre></div>
+</div>
+</div>
+<p>One of the applications of lockfiles is to be able to propagate changes in one package
+belonging to a dependency graph downstream its affected consumers.</p>
+<p>Lets say that we have the following project in which packages <code class="docutils literal notranslate"><span class="pre">pkga</span></code>, <code class="docutils literal notranslate"><span class="pre">pkgb</span></code>, <code class="docutils literal notranslate"><span class="pre">pkgc</span></code>, <code class="docutils literal notranslate"><span class="pre">pkgz</span></code> and <code class="docutils literal notranslate"><span class="pre">app</span></code>
+have already been created and only one version of each, the version 0.1 exists. All packages
+are using version ranges with a range like <code class="docutils literal notranslate"><span class="pre">pkgz/[&gt;0.0]</span></code>, so basically they will resolve to
+any new version of their dependencies that it is published.</p>
+<p>Also, the <code class="docutils literal notranslate"><span class="pre">full_version_mode</span></code> will be defined for dependencies. This means that if the version
+number of one package dependencies change, then it will require a new binary. This assumption
+is reasonable, as PkgA, PkgZ are header only libraries and PkgB and PkgC are static libraries
+that inline functionality defined in PkgA and PkgZ. No matter what the changes in PkgA and PkgZ
+are in new versions, it will be necessary to build new binaries for the downstream consumers.</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan config set general.default_package_id_mode=full_version_mode
+</pre></div>
+</div>
+<p>Now, some developer does some changes to PkgA, and do a pull request to the develop branch,
+and we want our CI to build the new binaries for the dependants packages, down to the final
+application App, to make sure that every works as expected.</p>
+<p>The process starts generating a <em>conan.lock</em> lockfile in the <em>release</em> subfolder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan graph lock app/0.1@user/testing --lockfile<span class="o">=</span>release
+</pre></div>
+</div>
+<p>This lockfile will contain the resolved dependencies in the graph, as we only have one version
+0.1 for all the packages, all of them will be locked to that 0.1 version.</p>
+<img alt="../_images/conan-lockfile_ci_1.png" src="../_images/conan-lockfile_ci_1.png" />
+<p>Once the lockfile has been generated, it doesn’t matter if new, unrelated versions of other
+packages, like <strong>pkgz/0.2</strong> is created with <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">pkgz</span> <span class="pre">&amp;&amp;</span> <span class="pre">conan</span> <span class="pre">create</span> <span class="pre">.</span> <span class="pre">pkgz/0.2&#64;user/testing</span></code></p>
+<p>Now we can safely create the new version of <strong>pkga/0.2</strong>, that will resolve to use <strong>pkgz/0.1</strong>
+instead of the latest 0.2, if we use the lockfile:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> pkga <span class="o">&amp;&amp;</span> conan create . pkga/0.2@user/testing --lockfile<span class="o">=</span>../release
+<span class="c1"># lockfile in release/conan.lock is modified to contain pkga/0.2</span>
+</pre></div>
+</div>
+<p>Note that the lockfile is modified, to contain the new <strong>pkga/0.2</strong> version.</p>
+<p>The next step is to know which dependents need to be built because they are affected by the new
+<strong>pkga/0.2</strong> version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan graph build-order ./release --json<span class="o">=</span>bo.json --build<span class="o">=</span>missing
+<span class="o">[[</span>PkgC, PkgD<span class="o">]</span>, <span class="o">[</span>App<span class="o">]]</span>  <span class="c1"># simplified format</span>
+</pre></div>
+</div>
+<p>This command will return a list of lists, in order, of those packages to be built. It will be
+stored in a <em>bo.json</em> json file too. Note that the <code class="docutils literal notranslate"><span class="pre">--build=missing</span></code> follows the same rules
+as <strong class="command">create</strong> and <strong class="command">install</strong> commands. The result of evaluating the graph with
+the <strong>pkga/0.2</strong> version, due to the <code class="docutils literal notranslate"><span class="pre">full_version_mode</span></code> policy is that new binaries for
+PkgB, PkgC and App are necessary, and they do not exist yet. If we don’t provide the <code class="docutils literal notranslate"><span class="pre">--build=missing</span></code>
+it will return an empty list (but it will fail later, because binary packages are not available).</p>
+<p>We can now proceed iteratively with the following procedure:</p>
+<ol class="arabic">
+<li><p class="first">pop the first element of the first sublist of the build order result, get its <code class="docutils literal notranslate"><span class="pre">ref</span></code> reference</p>
+<blockquote>
+<div><div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># python</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">build_order</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">allocate some resource, like a CI build server, or create a temporary folder.</p>
+<blockquote>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ mkdir build_server_folder &amp;&amp; mkdir build_server_folder/release
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">copy the lockfile to that resource (and move to it)</p>
+<blockquote>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cp release/conan.lock build_server_folder/release
+$ cd build_server_folder
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">build the package</p>
+<blockquote>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan install &lt;ref&gt; --build=&lt;ref&gt; --lockfile=release
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">go back to the parent, update the lockfile with the changes</p>
+<blockquote>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd ..
+$ conan graph update-lock release build_server_folder/release
+$ rm -rf build_server_folder
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">compute again the build-order of packages, if not empty, goto 1</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan graph build-order ./release --json<span class="o">=</span>bo.json --build<span class="o">=</span>missing
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">clean “modified” nodes from the lockfile</p>
+<blockquote>
+<div><div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan graph clean-modified release/
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>Note that this is a suboptimal approach, in order to explain the functionality, which
+is more easy to follow if it is sequential. In reality, the CI can take the first
+sublist output of <strong class="command">conan graph build-order</strong> and fire all its packages in parallel,
+because they are guaranteed to be independent. Then, as soon as they start finishing and
+build servers become available, the <strong class="command">conan graph build-order</strong> can be reevaluated,
+and new builds can be launched accordingly, just taking care of not re-launching the same
+build again. Note that the result of build-order contains a unique UUID, which is the identifier
+of the node in the graph, which could be useful to dissambiguate.</p>
+<img alt="../_images/conan-lockfile_ci_2.png" src="../_images/conan-lockfile_ci_2.png" />
+<p>With this later approach, a deterministic build with optimal Continuous Integration process
+with optimal utilization of resources and minimizing unnecessary rebuilds is achieved.</p>
+<p>Note that this example has been using incremental versions and version ranges.
+With package revisions it is also possible to achieve the same flow without bumping the versions and using fixed version dependencies:</p>
+<ul class="simple">
+<li>It will not be necessary to change the recipes or even to inject the values in CI.
+Every change in a recipe will produce a new different recipe revision.</li>
+<li>Revisions are also locked in lockfiles.</li>
+<li>As revisions are resolved by default to latest, and the conan cache can only hold
+one revision, it might be necessary to pass <code class="docutils literal notranslate"><span class="pre">--update</span></code> argument so the correct revision is updated in the cache.</li>
+<li>It is necessary to define the <code class="docutils literal notranslate"><span class="pre">recipe_revision_mode</span></code> or the <code class="docutils literal notranslate"><span class="pre">package_revision_mode</span></code> if we want to guarantee that the binaries correctly model the dependencies changes.</li>
+</ul>
+<p>For implementing this flow, it might be necessary to share the different <code class="docutils literal notranslate"><span class="pre">conan.lock</span></code> lockfiles among different machines, to pass them to build servers. A git repo could be used, but also an Artifactory generic repository could be very convenient for this purpose.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is a <strong>very experimental, temporary</strong> configuration (<code class="docutils literal notranslate"><span class="pre">general.relax_lockfile</span></code>), that allows to expand dependency
+graphs with packages that are not in the lockfile. This scenario happens for example when a <code class="docutils literal notranslate"><span class="pre">test_package/conanfile.py</span></code> contains
+other requirements. If the lockfile was built from another downstream consumer, the <code class="docutils literal notranslate"><span class="pre">test_package</span></code> and its requirements will
+not be contained in the lockfile. But we might still want to do a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">create</span></code> for that node of the graph.
+Putting the <code class="docutils literal notranslate"><span class="pre">general.relax_lockfile=1</span></code> will allow this case. This is a temporary thing introduced at 1.23, will be removed in future versions
+(while probably leaving the behavior in some of its forms)</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../mastering.html" class="btn btn-neutral float-right" title="Mastering Conan" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="revisions.html" class="btn btn-neutral" title="Package Revisions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.25
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.25.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.25");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

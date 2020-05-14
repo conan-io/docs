@@ -1,0 +1,550 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction to versioning &mdash; conan 1.25.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.25.1 documentation" href="../index.html"/>
+        <link rel="up" title="Versioning" href="../versioning.html"/>
+        <link rel="next" title="Version ranges" href="version_ranges.html"/>
+        <link rel="prev" title="Versioning" href="../versioning.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction to versioning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#versioning-approaches">Versioning approaches</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fixed-versions">Fixed versions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version-ranges">Version ranges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-alias">Package alias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-revisions">Package revisions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#version-and-configuration-conflicts">Version and configuration conflicts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies-overriding">Dependencies overriding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#versioning-and-binary-compatibility">Versioning and binary compatibility</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revisions.html">Package Revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lockfiles.html">Lockfiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../versioning.html">Versioning</a> &raquo;</li>
+        
+      <li>Introduction to versioning</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/versioning/introduction.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction-to-versioning">
+<span id="versioning-introduction"></span><h1>Introduction to versioning<a class="headerlink" href="#introduction-to-versioning" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="versioning-approaches">
+<h2>Versioning approaches<a class="headerlink" href="#versioning-approaches" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fixed-versions">
+<h3>Fixed versions<a class="headerlink" href="#fixed-versions" title="Permalink to this headline">¶</a></h3>
+<p>This is the standard, direct way to specify dependencies versions, with their exact
+version, for example in a <em>conanfile.py</em> recipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11&quot;</span>
+</pre></div>
+</div>
+<p>When doing a <strong class="command">conan install</strong>, it will try to fetch from the remotes exactly
+that <em>1.2.11</em> version.</p>
+<p>This method is nicely explicit and deterministic, and is probably the most used one.
+As a possible disadvantage, it requires the consumers to explicitly modify the recipes
+to use updated versions, which could be tedious or difficult to scale for large projects
+with many dependencies, in which those dependencies are frequently modified, and
+it is desired to move the whole project forward to those updated dependencies.</p>
+<p>To mitigate that issue, especially while developing the packages, you can use fixed versions with
+<cite>package revisions</cite> (see below) to resolve automatically the latest revision for a given fixed
+version.</p>
+</div>
+<div class="section" id="version-ranges">
+<h3>Version ranges<a class="headerlink" href="#version-ranges" title="Permalink to this headline">¶</a></h3>
+<p>A <em>conanfile</em> can specify a range of valid versions that could be consumed, using brackets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;pkg/[&gt;1.0 &lt;1.8]@user/stable&quot;</span>
+</pre></div>
+</div>
+<p>When a <strong class="command">conan install</strong> is executed, it will check in the local cache first and if
+not in the remotes what <code class="docutils literal notranslate"><span class="pre">pkg</span></code> versions are available and will select the latest one
+that satisfies the defined range.</p>
+<p>By default, it is less deterministic, one <strong class="command">conan install</strong> can resolve to <code class="docutils literal notranslate"><span class="pre">pkg/1.1</span></code> and
+then <code class="docutils literal notranslate"><span class="pre">pkg/1.2</span></code> is published, and a new <strong class="command">conan install</strong> (by users, or CI), will automatically
+pick the newer 1.2 version, with different results. On the other hand it doesn’t require
+changes to consumer recipes to upgrade to use new versions of dependencies.</p>
+<p>It is also true that the <em>semver</em> definition that comes from other programming languages
+doesn’t fit that well to C and C++ packages, because of different reasons, because of
+open source libraries that don’t closely follow the semver specification, but also because
+of the ABI compatibility issues and compilation model that is so characteristic of C and C++ binaries.</p>
+<p>Read more about it in <a class="reference internal" href="version_ranges.html#version-ranges"><span class="std std-ref">Version ranges</span></a> section.</p>
+</div>
+<div class="section" id="package-alias">
+<h3>Package alias<a class="headerlink" href="#package-alias" title="Permalink to this headline">¶</a></h3>
+<p>It is possible to define a “proxy” package that references another one, using the syntax:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">AliasConanfile</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">alias</span> <span class="o">=</span> <span class="s2">&quot;pkg/0.1@user/testing&quot;</span>
+</pre></div>
+</div>
+<p>This package creation can be automatically created with the <a class="reference internal" href="../reference/commands/misc/alias.html#conan-alias"><span class="std std-ref">conan alias</span></a> command, that
+can for example create a <code class="docutils literal notranslate"><span class="pre">pkg/latest&#64;user/testing</span></code> alias that will be pointing to that
+<code class="docutils literal notranslate"><span class="pre">pkg/0.1&#64;user/testing</span></code>. Consumers can define <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;pkg/latest&#64;user/testing&quot;</span></code> and
+when the graph is evaluated, it will be directly replaced by the <code class="docutils literal notranslate"><span class="pre">pkg/0.1</span></code> one. That is,
+the <code class="docutils literal notranslate"><span class="pre">pkg/latest</span></code> package will not appear in the dependency graph at all.</p>
+<p>This is also less deterministic, and puts the control on the package creator side, instead of
+the consumer (version ranges are controlled by the consumer). Package creators can control
+which real versions will their consumers be using. This is probably not the recommended way
+for normal dependencies versions management.</p>
+</div>
+<div class="section" id="package-revisions">
+<h3>Package revisions<a class="headerlink" href="#package-revisions" title="Permalink to this headline">¶</a></h3>
+<p>Revisions are automatic internal versions to both recipes and binary packages.
+When revisions are enabled, when a recipe changes and it is used to
+create a package, a new recipe revision is generated, with the hash of the
+contents of the recipe. The revisioned reference of the recipe is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pkg/version@user/channel#recipe_revision1
+# after the change of the recipe
+pkg/version@user/channel#recipe_revision2
+</pre></div>
+</div>
+<p>A conanfile can reference a specific revision of its dependencies, but in
+the general case that they are not specified, it will fetch the latest
+revision available in the remote server:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+# Use the latest revision of pkg1
+pkg1/version@user/channel
+# use the specific revision RREV1 of pkg2
+pkg2/version@user/channel#RREV1
+</pre></div>
+</div>
+<p>Each binary package will also be revisioned. The good practice is to build each
+binary just once. But if for some reason, like a change in the environment, a new
+build of exactly the same recipe with the same code (and the same recipe revision)
+is fired again, a new package revision can be created. The package revision
+is the hash of the contents of the package (headers, libraries…), so unless
+deterministic builds are achieved, new package revisions will be generated.</p>
+<p>In general revisions are not intended to be defined explicitly in conanfiles,
+although they can for specific purposes like debugging.</p>
+<p>Read more about <a class="reference internal" href="revisions.html#package-revisions"><span class="std std-ref">Package Revisions</span></a></p>
+</div>
+</div>
+<div class="section" id="version-and-configuration-conflicts">
+<h2>Version and configuration conflicts<a class="headerlink" href="#version-and-configuration-conflicts" title="Permalink to this headline">¶</a></h2>
+<p>When two different branches of the same dependency graph require the same package,
+this is known as “diamonds” in the graph. If the two branches of a diamond require
+the same package but different versions, this is known as a conflict (a version conflict).</p>
+<p>Lets say that we are building an executable in <strong>pkgd/1.0</strong>, that depends on <strong>pkgb/1.0</strong> and <strong>pkgc/1.0</strong>,
+which contain static libraries. In turn, <strong>pkgb/1.0</strong> depends on <strong>pkga/1.0</strong> and finally <strong>pkgc/1.0</strong> depends on
+<strong>pkga/2.0</strong>, which is also another static library.</p>
+<p>The executable in <strong>pkgd/1.0</strong>, cannot link with 2 different versions of the same static library in <strong>pkgc</strong>, and the dependency resolution algorithm raises an error to let the
+user decide which one.</p>
+<img alt="../_images/conan-graph_conflicts.png" src="../_images/conan-graph_conflicts.png" />
+<p>The same situation happens if the different packages require different configurations of the same upstream package, even if the same version is used. In the example above, both <strong>PkgB</strong> and <strong>PkgC</strong> can be requiring the same version <strong>pkga/1.0</strong>, but one of them will try to use it as a static library and the other one will try to use it as shared library.
+The dependency resolution algorithm will also raise an error.</p>
+</div>
+<div class="section" id="dependencies-overriding">
+<h2>Dependencies overriding<a class="headerlink" href="#dependencies-overriding" title="Permalink to this headline">¶</a></h2>
+<p>The downstream consumer packages always have higher priority, so the versions they request, will be overridden upstream as the dependency graph is built, re-defining the possible requires that the packages could have. For example, <strong>pkgb/1.0</strong> could define in its recipe a dependency to <strong>pkga/1.0</strong>. But if a downstream consumer defines a requirement to <strong>pkga/2.0</strong>, then that version will be used in the upstream graph:</p>
+<img alt="../_images/conan-graph_override.png" src="../_images/conan-graph_override.png" />
+<p>This is what enables the users to have control. Even when a package recipe upstream defines an older version, the downstream consumers can force to use an updated version. Note that this is not a diamond structure in the graph, so it is not a conflict by default. This behavior can be also restricted defining the <a class="reference internal" href="../reference/env_vars.html#env-vars-conan-error-on-override"><span class="std std-ref">CONAN_ERROR_ON_OVERRIDE</span></a> environment variable to raise an error when these overrides happen, and then the user can go and explicitly modify the upstream <strong>pkgb/1.0</strong> recipe to match the version of PkgA and avoid the override.</p>
+<p>In some scenarios, the downstream consumer <strong>pkgd/1.0</strong> might not want to force a dependency on <code class="docutils literal notranslate"><span class="pre">pkga</span></code>. There are several possibilities, for example that PkgA is a conditional requirement that only happens in some operating systems. If <code class="docutils literal notranslate"><span class="pre">pkgd</span></code> defines a normal requirement to <code class="docutils literal notranslate"><span class="pre">pkga</span></code>, then, it will be introducing that edge in the graph, forcing pkga to be used always, in all operating systems. For this purpose the <code class="docutils literal notranslate"><span class="pre">override</span></code> qualifier can be defined in requirement, see <a class="reference internal" href="../reference/conanfile/methods.html#method-requirements"><span class="std std-ref">requirements()</span></a>.</p>
+</div>
+<div class="section" id="versioning-and-binary-compatibility">
+<h2>Versioning and binary compatibility<a class="headerlink" href="#versioning-and-binary-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>It is important to note and this point that versioning approaches and strategies should also be
+consistent with the binary management.</p>
+<p>By default, Conan assumes <em>semver</em> compatibility, so it will not require to build a new binary for a package when its dependencies change their minor or patch versions. This might not be enough for C or C++ libraries which versioning scheme doesn’t strictly follow semver. It is strongly suggested to read more about this in <a class="reference internal" href="../creating_packages/define_abi_compatibility.html#define-abi-compatibility"><span class="std std-ref">Defining Package ABI Compatibility</span></a></p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="version_ranges.html" class="btn btn-neutral float-right" title="Version ranges" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../versioning.html" class="btn btn-neutral" title="Versioning" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.25
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.25.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.25");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

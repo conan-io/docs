@@ -1,0 +1,506 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan test &mdash; conan 1.15.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.15.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan source" href="../development/source.html"/>
+        <link rel="prev" title="conan upload" href="upload.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="create.html">conan create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l4"><a class="reference internal" href="upload.html">conan upload</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#output">Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#return-codes">Return codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hooks.html">Hooks [EXPERIMENTAL]</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan test</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/commands/creator/test.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-test">
+<span id="id1"></span><h1>conan test<a class="headerlink" href="#conan-test" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">test</span> <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-tbf TEST_BUILD_FOLDER<span class="o">]</span> <span class="o">[</span>-b <span class="o">[</span>BUILD<span class="o">]]</span> <span class="o">[</span>-e ENV<span class="o">]</span>
+             <span class="o">[</span>-o OPTIONS<span class="o">]</span> <span class="o">[</span>-pr PROFILE<span class="o">]</span> <span class="o">[</span>-r REMOTE<span class="o">]</span> <span class="o">[</span>-s SETTINGS<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span>
+             path reference
+</pre></div>
+</div>
+<p>Test a package consuming it from a conanfile.py with a test() method. This
+command installs the conanfile dependencies (including the tested package),
+calls a ‘conan build’ to build test apps and finally executes the test()
+method. The testing recipe does not require name or version, neither
+definition of package() or package_info() methods. The package to be tested
+must exist in the local cache or in any configured remote.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  path                  Path to the &quot;testing&quot; folder containing a conanfile.py
+                        or to a recipe file with test() methode.g. conan
+                        test_package/conanfile.py pkg/version@user/channel
+  reference             pkg/version@user/channel of the package to be tested
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -tbf TEST_BUILD_FOLDER, --test-build-folder TEST_BUILD_FOLDER
+                        Working directory of the build process.
+  -b [BUILD], --build [BUILD]
+                        Optional, use it to choose if you want to build from
+                        sources: --build Build all from sources, do not use
+                        binary packages. --build=never Never build, use binary
+                        packages or fail if a binary package is not found.
+                        --build=missing Build from code if a binary package is
+                        not found. --build=outdated Build from code if the
+                        binary is not built with the current recipe or when
+                        missing binary package. --build=[pattern] Build always
+                        these packages from source, but never build the
+                        others. Allows multiple --build parameters. &#39;pattern&#39;
+                        is a fnmatch file pattern of a package name. Default
+                        behavior: If you don&#39;t specify anything, it will be
+                        similar to &#39;--build=never&#39;, but package recipes can
+                        override it with their &#39;build_policy&#39; attribute in the
+                        conanfile.py.
+  -e ENV, --env ENV     Environment variables that will be set during the
+                        package build, -e CXX=/usr/bin/clang++
+  -o OPTIONS, --options OPTIONS
+                        Define options values, e.g., -o Pkg:with_qt=true
+  -pr PROFILE, --profile PROFILE
+                        Apply the specified profile to the install command
+  -r REMOTE, --remote REMOTE
+                        Look in the specified remote server
+  -s SETTINGS, --settings SETTINGS
+                        Settings to build the package, overwriting the
+                        defaults. e.g., -s compiler=gcc
+  -u, --update          Check updates exist from upstream remotes
+</pre></div>
+</div>
+<p>This command is util for testing existing packages, that have been previously built (with <strong class="command">conan create</strong>, for example).
+<strong class="command">conan create</strong> will automatically run this test if a <em>test_package</em> folder is found besides the <em>conanfile.py</em>, or if the
+<strong class="command">--test-folder</strong> argument is provided to <strong class="command">conan create</strong>.</p>
+<p><strong>Example</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1 -s -t
+$ mv test_package test_package2
+$ conan create . user/testing
+<span class="c1"># doesn&#39;t automatically run test, it has been renamed</span>
+<span class="c1"># now run test</span>
+$ conan <span class="nb">test</span> test_package2 Hello/0.1@user/testing
+</pre></div>
+</div>
+<p>The test package folder, could be elsewhere, or could be even applied to different versions of the
+package.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../development/source.html" class="btn btn-neutral float-right" title="conan source" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="upload.html" class="btn btn-neutral" title="conan upload" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.15
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.15/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.15.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../../_static/js/modernizr.min.js"></script>
+  <script src="../../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.15");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

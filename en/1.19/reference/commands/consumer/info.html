@@ -1,0 +1,637 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan info &mdash; conan 1.19.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.19.3 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan search" href="search.html"/>
+        <link rel="prev" title="conan get" href="get.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="install.html">conan install</a></li>
+<li class="toctree-l4"><a class="reference internal" href="config.html">conan config</a></li>
+<li class="toctree-l4"><a class="reference internal" href="get.html">conan get</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="search.html">conan search</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#json-output">JSON Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#return-codes">Return codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hooks.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan info</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/commands/consumer/info.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-info">
+<span id="id1"></span><h1>conan info<a class="headerlink" href="#conan-info" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--paths<span class="o">]</span> <span class="o">[</span>-bo BUILD_ORDER<span class="o">]</span> <span class="o">[</span>-g GRAPH<span class="o">]</span>
+             <span class="o">[</span>-if INSTALL_FOLDER<span class="o">]</span> <span class="o">[</span>-j <span class="o">[</span>JSON<span class="o">]]</span> <span class="o">[</span>-n ONLY<span class="o">]</span>
+             <span class="o">[</span>--package-filter <span class="o">[</span>PACKAGE_FILTER<span class="o">]]</span> <span class="o">[</span>-db <span class="o">[</span>DRY_BUILD<span class="o">]]</span>
+             <span class="o">[</span>-b <span class="o">[</span>BUILD<span class="o">]]</span> <span class="o">[</span>-e ENV<span class="o">]</span> <span class="o">[</span>-o OPTIONS<span class="o">]</span> <span class="o">[</span>-pr PROFILE<span class="o">]</span> <span class="o">[</span>-r REMOTE<span class="o">]</span>
+             <span class="o">[</span>-s SETTINGS<span class="o">]</span> <span class="o">[</span>-u<span class="o">]</span> <span class="o">[</span>-l <span class="o">[</span>LOCKFILE<span class="o">]]</span>
+             path_or_reference
+</pre></div>
+</div>
+<p>Gets information about the dependency graph of a recipe.</p>
+<p>It can be used with a recipe or a reference for any existing package in
+your local cache.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  path_or_reference     Path to a folder containing a recipe (conanfile.py or
+                        conanfile.txt) or to a recipe file. e.g.,
+                        ./my_project/conanfile.txt. It could also be a
+                        reference
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --paths               Show package paths in local cache
+  -bo BUILD_ORDER, --build-order BUILD_ORDER
+                        given a modified reference, return an ordered list to
+                        build (CI). [DEPRECATED: use &#39;conan graph build-order
+                        ...&#39; instead]
+  -g GRAPH, --graph GRAPH
+                        Creates file with project dependencies graph. It will
+                        generate a DOT or HTML file depending on the filename
+                        extension
+  -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                        local folder containing the conaninfo.txt and
+                        conanbuildinfo.txt files (from a previous conan
+                        install execution). Defaulted to current folder,
+                        unless --profile, -s or -o is specified. If you
+                        specify both install-folder and any setting/option it
+                        will raise an error.
+  -j [JSON], --json [JSON]
+                        Path to a json file where the information will be
+                        written
+  -n ONLY, --only ONLY  Show only the specified fields: &quot;id&quot;, &quot;build_id&quot;,
+                        &quot;remote&quot;, &quot;url&quot;, &quot;license&quot;, &quot;requires&quot;, &quot;update&quot;,
+                        &quot;required&quot;, &quot;date&quot;, &quot;author&quot;, &quot;None&quot;. &#39;--paths&#39;
+                        information can also be filtered with options
+                        &quot;export_folder&quot;, &quot;build_folder&quot;, &quot;package_folder&quot;,
+                        &quot;source_folder&quot;. Use &#39;--only None&#39; to show only
+                        references.
+  --package-filter [PACKAGE_FILTER]
+                        Print information only for packages that match the
+                        filter pattern e.g., MyPackage/1.2@user/channel or
+                        MyPackage*
+  -db [DRY_BUILD], --dry-build [DRY_BUILD]
+                        Apply the --build argument to output the information,
+                        as it would be done by the install command
+  -b [BUILD], --build [BUILD]
+                        Given a build policy, return an ordered list of
+                        packages that would be built from sources during the
+                        install command
+  -e ENV, --env ENV     Environment variables that will be set during the
+                        package build, -e CXX=/usr/bin/clang++
+  -o OPTIONS, --options OPTIONS
+                        Define options values, e.g., -o Pkg:with_qt=true
+  -pr PROFILE, --profile PROFILE
+                        Apply the specified profile to the install command
+  -r REMOTE, --remote REMOTE
+                        Look in the specified remote server
+  -s SETTINGS, --settings SETTINGS
+                        Settings to build the package, overwriting the
+                        defaults. e.g., -s compiler=gcc
+  -u, --update          Check updates exist from upstream remotes
+  -l [LOCKFILE], --lockfile [LOCKFILE]
+                        Path to a lockfile or folder containing &#39;conan.lock&#39;
+                        file. Lockfile can be updated if packages change
+</pre></div>
+</div>
+<p><strong>Examples</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info .
+$ conan info myproject_folder
+$ conan info myproject_folder/conanfile.py
+$ conan info Hello/1.0@user/channel
+</pre></div>
+</div>
+<p>The output will look like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Dependency/0.1@user/channel
+ ID: 5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9
+ BuildID: None
+ Remote: None
+ URL: http://...
+ License: MIT
+ Updates: Version not checked
+ Creation date: <span class="m">2017</span>-10-31 <span class="m">14</span>:45:34
+ Required by:
+    Hello/1.0@user/channel
+
+Hello/1.0@user/channel
+ ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
+ BuildID: None
+ Remote: None
+ URL: http://...
+ License: MIT
+ Updates: Version not checked
+ Required by:
+    Project
+ Requires:
+    Hello0/0.1@user/channel
+</pre></div>
+</div>
+<p><strong class="command">conan info</strong> builds the complete dependency graph, like <strong class="command">conan install</strong> does. The main
+difference is that it doesn’t try to install or build the binaries, but the package recipes
+will be retrieved from remotes if necessary.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">There is a dedicated command to work with the graph of dependencies and to retrieve information
+about it. We encourage you to use <a class="reference internal" href="../misc/graph.html#conan-graph"><span class="std std-ref">conan graph</span></a> instead of this <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">info</span></code>
+command for those tasks.</p>
+</div>
+<p>It is very important to note, that the <strong class="command">info</strong> command outputs the dependency graph for a
+given configuration (settings, options), as the dependency graph can be different for different
+configurations. Then, the input to the <strong class="command">conan info</strong> command is the same as <strong class="command">conan install</strong>,
+the configuration can be specified directly with settings and options, or using profiles.</p>
+<p>Also, if you did a previous <strong class="command">conan install</strong> with a specific configuration, or maybe different
+installs with different configurations, you can reuse that information with the <strong class="command">--install-folder</strong>
+argument:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="c1"># dir with a conanfile.txt</span>
+$ mkdir build_release <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build_release
+$ conan install .. --profile<span class="o">=</span>gcc54release
+$ <span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> mkdir build_debug <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build_debug
+$ conan install .. --profile<span class="o">=</span>gcc54debug
+$ <span class="nb">cd</span> ..
+$ conan info . --install-folder<span class="o">=</span>build_release
+&gt; info <span class="k">for</span> the release dependency graph install
+$ conan info . --install-folder<span class="o">=</span>build_debug
+&gt; info <span class="k">for</span> the debug dependency graph install
+</pre></div>
+</div>
+<p>It is possible to use the <strong class="command">conan info</strong> command to extract useful information for Continuous
+Integration systems. More precisely, it has the <strong class="command">--build-order, -bo</strong> option (deprecated in
+favor of <a class="reference internal" href="../misc/graph.html#conan-graph-build-order"><span class="std std-ref">conan graph build-order</span></a>), that will produce
+a machine-readable output with an ordered list of package references, in the order they should be
+built. E.g., let’s assume that we have a project that depends on Boost and Poco, which in turn
+depends on OpenSSL and zlib transitively. So we can query our project with a reference that has
+changed (most likely due to a git push on that package):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info . -bo zlib/1.2.11@conan/stable
+<span class="o">[</span>zlib/1.2.11@conan/stable<span class="o">]</span>, <span class="o">[</span>OpenSSL/1.0.2l@conan/stable<span class="o">]</span>, <span class="o">[</span>Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable<span class="o">]</span>
+</pre></div>
+</div>
+<p>Note the result is a list of lists. When there is more than one element in one of the lists, it means
+that they are decoupled projects and they can be built in parallel by the CI system.</p>
+<p>You can also specify the <strong class="command">--build-order=ALL</strong> argument, if you want just to compute the whole dependency graph build order</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info . --build-order<span class="o">=</span>ALL
+&gt; <span class="o">[</span>zlib/1.2.11@conan/stable<span class="o">]</span>, <span class="o">[</span>OpenSSL/1.0.2l@conan/stable<span class="o">]</span>, <span class="o">[</span>Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable<span class="o">]</span>
+</pre></div>
+</div>
+<p>Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the <code class="docutils literal notranslate"><span class="pre">--build</span></code> parameter.</p>
+<p>E.g., if I try to install <code class="docutils literal notranslate"><span class="pre">Boost/1.60.0&#64;lasote/stable</span></code> recipe with <code class="docutils literal notranslate"><span class="pre">--build</span> <span class="pre">missing</span></code> build policy and <code class="docutils literal notranslate"><span class="pre">arch=x86</span></code>, which libraries will be built?</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info Boost/1.60.0@lasote/stable --build missing -s <span class="nv">arch</span><span class="o">=</span>x86
+bzip2/1.0.6@lasote/stable, zlib/1.2.8@lasote/stable, Boost/1.60.0@lasote/stable
+</pre></div>
+</div>
+<p>You can generate a graph of your dependencies, in dot or html formats:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info .. --graph<span class="o">=</span>file.html
+$ file.html <span class="c1"># or open the file, double-click</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/conan-info_deps_html_graph.png"><img alt="../../../_images/conan-info_deps_html_graph.png" class="align-center" src="../../../_images/conan-info_deps_html_graph.png" style="width: 300px; height: 250px;" /></a>
+<p>The generated html output contains links to third party resources, the <em>vis.js</em> library (2 files: <em>vis.min.js</em>, <em>vis.min.css</em>).
+By default they are retrieved from cloudfare. However, for environments without internet connection, these files
+could be also used from the local cache and installed with <strong class="command">conan config install</strong> by putting those
+files in the root of the configuration folder:</p>
+<ul class="simple">
+<li><em>vis.min.js</em>: Default link to “<a class="reference external" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js">https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js</a>”</li>
+<li><em>vis.min.css</em>: Default link to “<a class="reference external" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css">https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css</a>”</li>
+</ul>
+<p>It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
+present, or the internet ones if not.</p>
+<p>You can find where the package is installed in your cache by using the argument <strong class="command">--paths</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info foobar/1.0.0@user/channel --paths
+</pre></div>
+</div>
+<p>The output will look like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>foobar/1.0.0@user/channel
+    ID: 6af9cc7cb931c5ad942174fd7838eb655717c709
+    BuildID: None
+    export_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/export
+    source_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/source
+    build_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/build/6af9cc7cb931c5ad942174fd7838eb655717c709
+    package_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/package/6af9cc7cb931c5ad942174fd7838eb655717c709
+    Remote: None
+    License: MIT
+    Author: Dummy
+    Topics: None
+    Recipe: Cache
+    Binary: Cache
+    Binary remote: None
+    Creation date: <span class="m">2019</span>-09-03 <span class="m">11</span>:22:17
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="search.html" class="btn btn-neutral float-right" title="conan search" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="get.html" class="btn btn-neutral" title="conan get" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.19
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.19/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.19.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../../_static/js/modernizr.min.js"></script>
+  <script src="../../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.19");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Artifactory Community Edition for C/C++ &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Uploading packages" href="../uploading_packages.html"/>
+        <link rel="next" title="Running conan_server" href="running_your_server.html"/>
+        <link rel="prev" title="Contributing packages to conan-center" href="bintray/conan_center_guide.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="remotes.html">Remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_to_remotes.html">Uploading packages to remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_bintray.html">Using Bintray</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Artifactory Community Edition for C/C++</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-artifactory-ce">Running Artifactory CE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-and-using-a-conan-repo">Creating and using a conan repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#migrating-from-other-servers">Migrating from other servers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="running_your_server.html">Running conan_server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../uploading_packages.html">Uploading packages</a> &raquo;</li>
+        
+      <li>Artifactory Community Edition for C/C++</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/uploading_packages/artifactory_ce.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="artifactory-community-edition-for-c-c">
+<span id="artifactory-ce"></span><h1>Artifactory Community Edition for C/C++<a class="headerlink" href="#artifactory-community-edition-for-c-c" title="Permalink to this headline">¶</a></h1>
+<p>Artifactory Community Edition (CE) for C/C++ is the recommended server for development and hosting private
+packages for a team or company. It is completely free, and it features a WebUI, advanded authentication and permissions, great performance
+and scalability, a Rest API, a generic CLI tool and generic repositories to host any kind of source or binary
+artifact.</p>
+<p>This is a very brief introduction to Artifactory CE, for the complete Artifactory CE documentation,
+visit <a class="reference external" href="https://www.jfrog.com/confluence/">Artifactory docs</a>.</p>
+<div class="section" id="running-artifactory-ce">
+<h2>Running Artifactory CE<a class="headerlink" href="#running-artifactory-ce" title="Permalink to this headline">¶</a></h2>
+<p>There are several ways to download and run Artifactory CE. The simplest one might be to download and unzip the
+given zip file, though other installers, included running from a docker image, are available.
+When the file is unzipped, Artifactory can be launched double clicking on the .bat or .sh script in the <em>bin</em>
+subfolder, depending on the OS. Java 8 update 45 or later runtime is required, if you don’t have it, please install it first
+(newer Java versions preferred).</p>
+<img alt="../_images/artifactory_ce.png" src="../_images/artifactory_ce.png" />
+<p>Once Artifactory has started, navigate to the default URL <a class="reference external" href="http://localhost:8081">http://localhost:8081</a>, where the Web UI should be running.
+The default user and password are <code class="docutils literal notranslate"><span class="pre">admin:password</span></code>.</p>
+</div>
+<div class="section" id="creating-and-using-a-conan-repo">
+<h2>Creating and using a conan repo<a class="headerlink" href="#creating-and-using-a-conan-repo" title="Permalink to this headline">¶</a></h2>
+<p>Navigate to Admin -&gt; Repositories -&gt; Local, then click on the “New” button. A dialog for selecting the package
+type will appear, select Conan, then type a “Repository Key” (the name of the repository you are about to create),
+for example “conan-local”. You can create multiple repositories to serve different flows, teams, or projects.</p>
+<p>Now, it is necessary to set-up the client. Go to Artifacts, and click on the created repository. The “Set Me Up”
+button in the top right corner will give instructions how to configure the remote in the conan client:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan remote add artifactory http://localhost:8081/artifactory/api/conan/conan-local
+</pre></div>
+</div>
+<p>From now, you can upload, download, search, etc. this remote as any other one.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload * --all -r<span class="o">=</span>artifactory
+$ conan search * -r<span class="o">=</span>artifactory
+</pre></div>
+</div>
+</div>
+<div class="section" id="migrating-from-other-servers">
+<h2>Migrating from other servers<a class="headerlink" href="#migrating-from-other-servers" title="Permalink to this headline">¶</a></h2>
+<p>If you are already running another server, like the open source <em>conan_server</em>, it is very easy to migrate
+your packages, using the conan client to download the packages and re-upload them to the new server.</p>
+<p>This python script might be helpful, given that it had already defined the respective <code class="docutils literal notranslate"><span class="pre">local</span></code> and <code class="docutils literal notranslate"><span class="pre">artifactory</span></code> remotes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
+<span class="n">ret</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Command failed: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cmd</span><span class="p">)</span>
+
+<span class="c1"># Assuming local = conan_server and artifactory remotes</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="s2">&quot;conan search -r=local --raw&quot;</span><span class="p">)</span>
+<span class="n">packages</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">package</span> <span class="ow">in</span> <span class="n">packages</span><span class="p">:</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Downloading </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">package</span><span class="p">)</span>
+<span class="n">run</span><span class="p">(</span><span class="s2">&quot;conan download </span><span class="si">%s</span><span class="s2"> -r=local&quot;</span> <span class="o">%</span> <span class="n">package</span><span class="p">)</span>
+
+<span class="n">run</span><span class="p">(</span><span class="s2">&quot;conan upload * --all --confirm -r=artifactory&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="running_your_server.html" class="btn btn-neutral float-right" title="Running conan_server" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bintray/conan_center_guide.html" class="btn btn-neutral" title="Contributing packages to conan-center" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

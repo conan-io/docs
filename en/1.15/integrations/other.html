@@ -1,0 +1,673 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Custom integrations &mdash; conan 1.15.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.15.1 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Linting conanfile.py" href="pylint.html"/>
+        <link rel="prev" title="YouCompleteMe (vim)" href="youcompleteme.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Apple/Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html"><strong class="command">pkg-config</strong> and <em>.pc</em> files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="b2.html"> B2 (Boost Build)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="make.html">Make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="circleci.html"> Circle CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom integrations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-json-generator">Use the JSON generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-text-generator">Use the text generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-conan-data-model-in-a-conanfile-py">Use the Conan data model (in a <em>conanfile.py</em>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-your-own-generator">Create your own generator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pylint.html">Linting conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="azure_devops.html"> Microsoft’s Azure DevOps (TFS, VSTS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="emscripten.html"> Emscripten</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li>Custom integrations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/other.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="custom-integrations">
+<span id="other-generator"></span><h1>Custom integrations<a class="headerlink" href="#custom-integrations" title="Permalink to this headline">¶</a></h1>
+<p>If you intend to use a build system that does not have a built-in generator, you may still be
+able to do so. There are several options:</p>
+<ul class="simple">
+<li>First, search in Bintray for generator packages. Generators can be created and contributed by users as regular packages, so you can depend
+on them as a normal requirement, use versioning and evolve faster without depending on the Conan releases.</li>
+<li>You can use the <a class="reference internal" href="../reference/generators/text.html#text-generator"><span class="std std-ref">txt</span></a> or <a class="reference internal" href="../reference/generators/json.html#json-generator"><span class="std std-ref">json</span></a> generators. They will generate a text file, simple to read that you can
+easily parse with your tools to extract the required information.</li>
+<li>Use the <strong>conanfile data model</strong> (<a class="reference internal" href="../reference/conanfile/attributes.html#deps-cpp-info-attributes-reference"><span class="std std-ref">deps_cpp_info</span></a>, <a class="reference internal" href="../reference/conanfile/attributes.html#deps-env-info-attributes-reference"><span class="std std-ref">deps_env_info</span></a>) in your recipe to
+access its properties and values, so you can directly call your build system with that information, without requiring to generate a file.</li>
+<li>Write and <strong>create your own generator</strong>. So you can upload it, version and reuse it, as well as share it with your team or community.
+Check <a class="reference internal" href="../howtos/custom_generators.html#dyn-generators"><span class="std std-ref">How to create and share a custom generator with generator packages</span></a>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Need help integrating your build system? Tell us what you need: <a class="reference external" href="mailto:info&#37;&#52;&#48;conan&#46;io">info<span>&#64;</span>conan<span>&#46;</span>io</a></p>
+</div>
+<div class="section" id="use-the-json-generator">
+<span id="json-integration"></span><h2>Use the JSON generator<a class="headerlink" href="#use-the-json-generator" title="Permalink to this headline">¶</a></h2>
+<p>Specify the <code class="docutils literal notranslate"><span class="pre">json</span></code> generator in your recipe:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.txt</em></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span> <span class="k">[requires]</span>
+ <span class="na">fmt/5.3.0@bincrafters/stable</span>
+ <span class="na">Poco/1.9.0@pocoproject/stable</span>
+
+ <span class="k">[generators]</span>
+ <span class="na">json</span>
+</pre></div>
+</div>
+</div>
+<p>A file named <em>conanbuildinfo.json</em> will be generated. It will contain the information about every dependency:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>conanbuildinfo.json</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span> <span class="p">{</span>
+   <span class="nt">&quot;dependencies&quot;</span><span class="p">:</span>
+   <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;fmt&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;5.3.0&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;include_paths&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="s2">&quot;/path/to/.conan/data/fmt/5.3.0/bincrafters/stable/package/&lt;id&gt;/include&quot;</span>
+       <span class="p">],</span>
+       <span class="nt">&quot;lib_paths&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="s2">&quot;/path/to/.conan/data/fmt/5.3.0/bincrafters/stable/package/&lt;id&gt;/lib&quot;</span>
+       <span class="p">],</span>
+       <span class="nt">&quot;libs&quot;</span><span class="p">:</span> <span class="p">[</span>
+         <span class="s2">&quot;fmt&quot;</span>
+       <span class="p">],</span>
+       <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+     <span class="p">},</span>
+     <span class="p">{</span>
+       <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Poco&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.9.0&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;...&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+     <span class="p">}</span>
+   <span class="p">]</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="use-the-text-generator">
+<span id="txt-integration"></span><h2>Use the text generator<a class="headerlink" href="#use-the-text-generator" title="Permalink to this headline">¶</a></h2>
+<p>Just specify the <code class="docutils literal notranslate"><span class="pre">txt</span></code> generator in your recipe:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.txt</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [requires]
+ Poco/1.9.0@pocoproject/stable
+
+ [generators]
+ txt
+</pre></div>
+</div>
+</div>
+<p>A file is generated with the same information in a generic text format.</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>conanbuildinfo.txt</em></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [includedirs]
+ /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/include
+ /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/include
+ /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/include
+
+ [libs]
+ PocoUtil
+ PocoXML
+ PocoJSON
+ PocoMongoDB
+ PocoNet
+ PocoCrypto
+ PocoData
+ PocoDataSQLite
+ PocoZip
+ PocoFoundation
+ pthread
+ dl
+ rt
+ ssl
+ crypto
+ z
+
+ [libdirs]
+ /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/lib
+ /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/lib
+ /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/lib
+
+ [bindirs]
+ /home/laso/.conan/data/Poco/1.6.1/lasote/stable/package/afafc631e705f7296bec38318b28e4361ab6787c/bin
+ /home/laso/.conan/data/OpenSSL/1.0.2d/lasote/stable/package/154942d8bccb87fbba9157e1daee62e1200e80fc/bin
+ /home/laso/.conan/data/zlib/1.2.8/lasote/stable/package/3b92a20cb586af0d984797002d12b7120d38e95e/bin
+
+ [defines]
+ POCO_STATIC=ON
+ POCO_NO_AUTOMATIC_LIBS
+
+ [USER_MyRequiredLib1]
+ somevariable=Some Value
+ othervar=Othervalue
+
+ [USER_MyRequiredLib2]
+ myvar=34
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="use-the-conan-data-model-in-a-conanfile-py">
+<h2>Use the Conan data model (in a <em>conanfile.py</em>)<a class="headerlink" href="#use-the-conan-data-model-in-a-conanfile-py" title="Permalink to this headline">¶</a></h2>
+<p>If you are using any other build system you can use Conan too. In the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method you can access your settings and build information
+from your requirements and pass it to your build system. Note, however, that probably is simpler and much more reusable to create a
+generator to simplify the task for your build system.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+
+ <span class="k">class</span> <span class="nc">MyProjectWithConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Poco/1.9.0@pocoproject/stable&quot;</span>
+     <span class="c1">########### IT&#39;S IMPORTANT TO DECLARE THE TXT GENERATOR TO DEAL WITH A GENERIC BUILD SYSTEM</span>
+     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;txt&quot;</span>
+     <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Poco:shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;OpenSSL:shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+     <span class="k">def</span> <span class="nf">imports</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span> <span class="c1"># From bin to bin</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib*&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">)</span> <span class="c1"># From lib to bin</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="c1">############ Without any helper ###########</span>
+         <span class="c1"># Settings</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">os</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">arch</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="p">)</span>
+
+         <span class="c1"># Options</span>
+         <span class="c1">#print(self.options.my_option)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shared</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shared</span><span class="p">)</span>
+
+         <span class="c1"># Paths and libraries, all</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-------- ALL --------------&quot;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">include_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">lib_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">bin_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">libs</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">defines</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">cflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">cxxflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">sharedlinkflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">exelinkflags</span><span class="p">)</span>
+
+         <span class="c1"># Just from OpenSSL</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------- FROM OPENSSL -------------&quot;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">include_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lib_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">bin_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">libs</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">defines</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cxxflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sharedlinkflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">exelinkflags</span><span class="p">)</span>
+
+         <span class="c1"># Just from POCO</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------- FROM POCO -------------&quot;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">include_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lib_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">bin_paths</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">libs</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">defines</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cxxflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sharedlinkflags</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;Poco&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">exelinkflags</span><span class="p">)</span>
+
+         <span class="c1"># self.run(&quot;invoke here your configure, make, or others&quot;)</span>
+         <span class="c1"># self.run(&quot;basically you can do what you want with your requirements build info)</span>
+
+         <span class="c1"># Environment variables (from requirements self.env_info objects)</span>
+         <span class="c1"># are automatically applied in the python ``os.environ`` but can be accesible as well:</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------- Globally -------------&quot;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">)</span>
+
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------- FROM MyLib -------------&quot;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_env_info</span><span class="p">[</span><span class="s2">&quot;MyLib&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">some_env_var</span><span class="p">)</span>
+
+         <span class="c1"># User declared variables (from requirements self.user_info objects)</span>
+         <span class="c1"># are available in the self.deps_user_info object</span>
+         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------- FROM MyLib -------------&quot;</span><span class="p">)</span>
+         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">deps_user_info</span><span class="p">[</span><span class="s2">&quot;MyLib&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">some_user_var</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="create-your-own-generator">
+<h2>Create your own generator<a class="headerlink" href="#create-your-own-generator" title="Permalink to this headline">¶</a></h2>
+<p>There are two ways in which generators can be contributed:</p>
+<ul class="simple">
+<li>Forking and adding the new generator in the Conan codebase. This will be a built-in generator. It might have a much slower release and
+update cycle, it needs to pass some tests before being accepted, but it has the advantage than no extra things are needed to use that
+generator (once next Conan version is released).</li>
+<li>Creating a custom <a class="reference internal" href="../howtos/custom_generators.html#dyn-generators"><span class="std std-ref">generator package</span></a>. You can write a <em>conanfile.py</em> and add the custom logic for a generator
+inside that file, then upload, refer and depend on it as any other package. These generators will be another node in the dependency graph
+but they have many advantages: much faster release cycles, independent from the Conan codebase and can be versioned. So backwards
+compatibility and upgrades are much easier.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pylint.html" class="btn btn-neutral float-right" title="Linting conanfile.py" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="youcompleteme.html" class="btn btn-neutral" title="YouCompleteMe (vim)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.15
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.15/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.15.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.15");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

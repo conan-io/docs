@@ -1,0 +1,101 @@
+.mktoForm .mktoFormRow {
+    float: left !important;
+}
+.mktoButtonWrap.mktoSimple{
+    margin-left: 0px !important;
+}
+.mktoLabel.mktoHasWidth{
+}
+
+.mktoOffset{
+    width: 0px !important;
+}
+
+
+.mktoForm{
+    display: inline !important;
+    color: white;
+}
+
+
+.dark_newsletter-div div, .dark_newsletter-div span, .dark_newsletter-div label{
+    display:inline !important;
+    width: 100%;
+}
+
+
+.dark_newsletter-div .mktoLabel a{
+    display: inline !important;
+    padding: 0px;
+    color: #538cc3 !important;
+}
+
+.dark_newsletter-div p {
+      font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif !important;
+      color:white;
+      font-size: 14.4px;
+      margin-bottom: 0px;
+}
+
+.mktoForm .mktoRequiredField label.mktoLabel {
+    font-weight: bold;
+    color: white;
+    width: 80% !important;
+}
+
+.mktoForm .mktoAsterix {
+    float: none !important;
+    padding-left: 0px !important;
+    display: none !important;
+}
+
+.mktoForm .mktoFormCol {
+    float: none;
+    width: 100%;
+    color:white;
+}
+
+.mktoForm .mktoFieldWrap label{
+    width: 0 !important;
+    margin-left: 0px !important;
+}
+
+.mktoForm .mktoGutter {
+    float: left;
+    height: 1.2em;
+    margin: 0;
+    width: 0 !important;
+}
+
+.mktoForm .mktoRadioList, .mktoForm .mktoCheckboxList {
+    padding: 0.3em;
+    float: left;
+    width: 20px !important;
+}
+
+.mktoForm .mktoError .mktoErrorMsg {
+    display: block !important;
+}
+
+.dark_newsletter-div {
+    margin-left: 8px;
+    margin-top: 20px;
+    border: 1px solid #80808080;
+    padding: 10px;
+    width: 88%;
+    margin-bottom: 50px;
+}
+
+.out-reference-box{
+    border: 1px solid #848484;
+    border-left: none;
+    border-right: none;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-image: url("book.jpg");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 80px;
+
+
+}

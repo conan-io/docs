@@ -1,0 +1,380 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>General &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="FAQ" href="../faq.html"/>
+        <link rel="next" title="Using conan" href="using.html"/>
+        <link rel="prev" title="FAQ" href="../faq.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../faq.html">FAQ</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">General</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#is-conan-cmake-based-or-is-cmake-a-requirement">Is Conan CMake based, or is CMake a requirement?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-build-system-xxxxx-supported">Is build-system XXXXX supported?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-my-compiler-version-architecture-or-setting-supported">Is my compiler, version, architecture, or setting supported?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#does-it-run-offline">Does it run offline?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-it-possible-to-install-2-different-versions-of-the-same-library">Is it possible to install 2 different versions of the same library?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-run-multiple-conan-isolated-instances-virtual-environments-on-the-same-machine">Can I run multiple conan isolated instances (virtual environments) on the same machine?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-run-the-conan-server-behind-a-firewall-on-premises">Can I run the conan_server behind a firewall (on-premises)?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-connect-to-conan-remote-servers-through-a-corporate-proxy">Can I connect to conan remote servers through a corporate proxy?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-create-packages-for-third-party-libraries">Can I create packages for third-party libraries?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-upload-closed-source-libraries">Can I upload closed source libraries?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#do-i-always-need-to-specify-how-to-build-the-package-from-source">Do I always need to specify how to build the package from source?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#does-conan-use-semantic-versioning-semver-for-dependencies">Does conan use semantic versioning (semver) for dependencies?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="using.html">Using conan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../faq.html">FAQ</a> &raquo;</li>
+        
+      <li>General</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/faq/general.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="general">
+<h1>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="is-conan-cmake-based-or-is-cmake-a-requirement">
+<h2>Is Conan CMake based, or is CMake a requirement?<a class="headerlink" href="#is-conan-cmake-based-or-is-cmake-a-requirement" title="Permalink to this headline">¶</a></h2>
+<p>No. It isn’t. Conan is build-system agnostic. Package creators could very well use cmake to
+create their packages, but you will only need it if you want to build packages from source, or
+if there are no available precompiled packages for your system/settings. We use CMake extensively
+in our examples and documentation, but only because it is very convenient and most C/C++ devs are
+familiar with it.</p>
+</div>
+<div class="section" id="is-build-system-xxxxx-supported">
+<h2>Is build-system XXXXX supported?<a class="headerlink" href="#is-build-system-xxxxx-supported" title="Permalink to this headline">¶</a></h2>
+<p>Yes. It is. Conan makes no assumption about the build system. It just wraps any build commands
+specified by the package creators. There are already some helper methods in code to ease the
+use of CMake, but similar functions can be very easily added for your favourite build system.
+Please check out the alternatives explained in <a class="reference internal" href="../howtos/custom_generators.html#dyn-generators"><span class="std std-ref">generator packages</span></a></p>
+</div>
+<div class="section" id="is-my-compiler-version-architecture-or-setting-supported">
+<h2>Is my compiler, version, architecture, or setting supported?<a class="headerlink" href="#is-my-compiler-version-architecture-or-setting-supported" title="Permalink to this headline">¶</a></h2>
+<p>Yes. Conan is very general, and does not restrict any configuration at all.
+However, conan comes with some compilers, versions, architectures, …, etc. pre-configured in the
+<code class="docutils literal notranslate"><span class="pre">~/.conan/settings.yml</span></code> file, and you can get an error if using settings not present in that file.
+Go to <a class="reference internal" href="troubleshooting.html#error-invalid-setting"><span class="std std-ref">invalid settings</span></a> to learn more about it.</p>
+</div>
+<div class="section" id="does-it-run-offline">
+<h2>Does it run offline?<a class="headerlink" href="#does-it-run-offline" title="Permalink to this headline">¶</a></h2>
+<p>Yes. It runs offline very well. Package recipes and binary packages are stored in your machine, per user, and so
+you can start new projects that depend on the same libraries without any Internet connection at all.
+Packages can be fully created, tested and consumed locally, without needing to upload them anywhere.</p>
+</div>
+<div class="section" id="is-it-possible-to-install-2-different-versions-of-the-same-library">
+<h2>Is it possible to install 2 different versions of the same library?<a class="headerlink" href="#is-it-possible-to-install-2-different-versions-of-the-same-library" title="Permalink to this headline">¶</a></h2>
+<p>Yes. You can install as many different versions of the same library as you need, and easily
+switch among them in the same project, or have different projects use different versions simultaneously,
+and without having to install/uninstall or re-build any of them.</p>
+<p>Package binaries are stored per user in (e.g.) <code class="docutils literal notranslate"><span class="pre">~/.conan/data/Boost/1.59/user/stable/package/{sha_0,</span> <span class="pre">sha_1,</span> <span class="pre">sha_2...}</span></code>
+with a different SHA signature for every different configuration (debug, release, 32-bit, 64-bit, compiler…).
+Packages are managed per user, but additionally differentiated by version and channel, and also by their configuration.
+So large packages, like Boost, don’t have to be compiled or downloaded for every project.</p>
+</div>
+<div class="section" id="can-i-run-multiple-conan-isolated-instances-virtual-environments-on-the-same-machine">
+<h2>Can I run multiple conan isolated instances (virtual environments) on the same machine?<a class="headerlink" href="#can-i-run-multiple-conan-isolated-instances-virtual-environments-on-the-same-machine" title="Permalink to this headline">¶</a></h2>
+<p>Yes, conan supports the concept of virtual environments; so it manages all the information (packages, remotes, user credentials, …, etc.) in different, isolated environments.
+Check <a class="reference internal" href="../mastering/custom_cache.html#custom-cache"><span class="std std-ref">virtual environments</span></a> for more details.</p>
+</div>
+<div class="section" id="can-i-run-the-conan-server-behind-a-firewall-on-premises">
+<h2>Can I run the conan_server behind a firewall (on-premises)?<a class="headerlink" href="#can-i-run-the-conan-server-behind-a-firewall-on-premises" title="Permalink to this headline">¶</a></h2>
+<p>Yes. Conan does not require a connection to conan.io site or any other external service at all for its operation. You can
+install packages from the bintray conan-center repository if you want, test them, and only after approval, upload
+them to your on-premises server and forget about the original repository. Or you can just get
+the package recipes, re-build from source on your premises, and then upload the packages to your
+server.</p>
+</div>
+<div class="section" id="can-i-connect-to-conan-remote-servers-through-a-corporate-proxy">
+<h2>Can I connect to conan remote servers through a corporate proxy?<a class="headerlink" href="#can-i-connect-to-conan-remote-servers-through-a-corporate-proxy" title="Permalink to this headline">¶</a></h2>
+<p>Yes, it can be configured in your <strong>~/.conan/conan.conf</strong> configuration file or with some
+environment variables. Check <a class="reference internal" href="../reference/config_files/conan.conf.html#proxys"><span class="std std-ref">proxy configuration</span></a> for more details.</p>
+</div>
+<div class="section" id="can-i-create-packages-for-third-party-libraries">
+<h2>Can I create packages for third-party libraries?<a class="headerlink" href="#can-i-create-packages-for-third-party-libraries" title="Permalink to this headline">¶</a></h2>
+<p>Of course, as long as their license allows it.</p>
+</div>
+<div class="section" id="can-i-upload-closed-source-libraries">
+<h2>Can I upload closed source libraries?<a class="headerlink" href="#can-i-upload-closed-source-libraries" title="Permalink to this headline">¶</a></h2>
+<p>Yes. As long as the resulting binary artifact can be distributed freely and free of charge, at least
+for educational and research purposes, and as long as you comply with all licenses and IP rights of the original
+authors, as well as the Terms of Service.
+If you want to distribute your libraries only for your paying customers, please contact us.</p>
+</div>
+<div class="section" id="do-i-always-need-to-specify-how-to-build-the-package-from-source">
+<h2>Do I always need to specify how to build the package from source?<a class="headerlink" href="#do-i-always-need-to-specify-how-to-build-the-package-from-source" title="Permalink to this headline">¶</a></h2>
+<p>No. But it is highly recommended. If you want, you can just directly start with the binaries,
+build elsewhere, and upload them directly. Maybe your <code class="docutils literal notranslate"><span class="pre">build()</span></code> step can download pre-compiled
+binaries from another source and unzip them, instead of actually compiling from sources.</p>
+</div>
+<div class="section" id="does-conan-use-semantic-versioning-semver-for-dependencies">
+<h2>Does conan use semantic versioning (semver) for dependencies?<a class="headerlink" href="#does-conan-use-semantic-versioning-semver-for-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>It uses a convention by which package dependencies follow semver by default; thus it intelligently
+avoids recompilation/repackaging if you update upstream minor versions, but will correctly do so if you
+update major versions upstream. This behavior can be easily configured and changed in the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code>
+method of your conanfile, and any versioning scheme you desire is supported.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using.html" class="btn btn-neutral float-right" title="Using conan" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../faq.html" class="btn btn-neutral" title="FAQ" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

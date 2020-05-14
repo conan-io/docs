@@ -1,0 +1,358 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Understanding packaging &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Creating packages" href="../creating_packages.html"/>
+        <link rel="next" title="Define package ABI compatibility" href="define_abi_compatibility.html"/>
+        <link rel="prev" title="Packaging existing binaries" href="existing_binaries.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_repo.html">Recipe and sources in the same repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="existing_binaries.html">Packaging existing binaries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Understanding packaging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#manual-package-creation-and-testing">Manual package creation and testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-creation-process">The package creation process</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="define_abi_compatibility.html">Define package ABI compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspecting_packages.html">Inspecting packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_approaches.html">Packaging approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_tools.html">Tools for package creators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../creating_packages.html">Creating packages</a> &raquo;</li>
+        
+      <li>Understanding packaging</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/creating_packages/understand_packaging.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="understanding-packaging">
+<span id="understand-packaging"></span><h1>Understanding packaging<a class="headerlink" href="#understanding-packaging" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="manual-package-creation-and-testing">
+<h2>Manual package creation and testing<a class="headerlink" href="#manual-package-creation-and-testing" title="Permalink to this headline">¶</a></h2>
+<p>The previous <strong>create</strong> approach  using <em>test_package</em> subfolder, is not strictly necessary, though
+<strong>very strongly recommended</strong>. If we didn’t want to use the <em>test_package</em> functionality, we could
+just write our recipe ourselves or use the <strong class="command">conan new</strong> command without the <strong class="command">-t</strong>.
+command line argument.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir mypkg <span class="o">&amp;&amp;</span> <span class="nb">cd</span> mypkg
+$ conan new Hello/0.1
+</pre></div>
+</div>
+<p>This will create just the <em>conanfile.py</em> recipe file. Now we could create our package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create demo/testing
+</pre></div>
+</div>
+<p>This would be equivalent to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . demo/testing
+$ conan install Hello/0.1@demo/testing --build<span class="o">=</span>Hello
+</pre></div>
+</div>
+<p>Once the package is there, it can be consumed like any other package, just add
+<code class="docutils literal notranslate"><span class="pre">Hello/0.1&#64;demo/testing</span></code> to some project <em>conanfile.txt</em> or <em>conanfile.py</em> requirements and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+<span class="c1"># build and run your project to ensure the package works</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-package-creation-process">
+<h2>The package creation process<a class="headerlink" href="#the-package-creation-process" title="Permalink to this headline">¶</a></h2>
+<p>It is very useful for package creators and conan users in general to understand the flow of package
+creation inside the conan local cache, and its layout.</p>
+<p>For every package recipe, there are 5 important folders in the <strong>local cache</strong>:</p>
+<ul class="simple">
+<li><strong>export</strong>: The folder where the package recipe is stored.</li>
+<li><strong>export_source</strong>: The folder where code copied with the recipe <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> attribute is
+stored.</li>
+<li><strong>source</strong>: Where the source code for building from sources is stored.</li>
+<li><strong>build</strong>: Where the actual compilation of sources is done. There will typically be one subfolder
+for each different binary configuration</li>
+<li><strong>package</strong>: Where the final package artifacts are stored. There will be one subfolder for each
+different binary configuration</li>
+</ul>
+<p>The <em>source</em> and <em>build</em> folders only exist when the packages have been built from sources.</p>
+<a class="reference internal image-reference" href="../_images/package_create_flow.png"><img alt="../_images/package_create_flow.png" class="align-center" src="../_images/package_create_flow.png" style="width: 600px; height: 500px;" /></a>
+<p>The process starts when a package is “exported”, via the <strong class="command">conan export</strong> command or more
+typically, with the <strong class="command">conan create</strong> command. The <em>conanfile.py</em> and files specified by the
+<code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> field are copied from the user space into the <strong>local cache</strong>.</p>
+<p>The <em>export</em> and <em>export_source</em> files are copied to the <em>source</em> folder, and then the <code class="docutils literal notranslate"><span class="pre">source()</span></code>
+method is executed (if existing). Note that there is only one source folder for all the binary
+packages. If some source code is to be generated that will be different for different
+configurations, it cannot be generated in the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method, it has to be done in the
+<code class="docutils literal notranslate"><span class="pre">build()</span></code> method.</p>
+<p>Then, for each different configuration of settings and options, a package ID will be computed in the
+form of a SHA-1 hash of such configuration. Sources will be copied to the <em>build/hashXXX</em> folder,
+and the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method will be triggered.</p>
+<p>After that, the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method will be called to copy artifacts from the <em>build/hashXXX</em>
+folder to the <em>package/hashXXX</em> folder.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> methods of all dependencies will be called and gathered to be able
+to generate files for the consumer build system, as the <em>conanbuildinfo.cmake</em> for the <code class="docutils literal notranslate"><span class="pre">cmake</span></code>
+generator. Also the <code class="docutils literal notranslate"><span class="pre">imports</span></code> feature will copy artifacts from the local cache into user space if
+specified.</p>
+<p>Any doubts? Please check out our <a class="reference internal" href="../faq.html#faq"><span class="std std-ref">FAQ section</span></a> or <a href="mailto:info@conan.io" target="_blank">write us</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="define_abi_compatibility.html" class="btn btn-neutral float-right" title="Define package ABI compatibility" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="existing_binaries.html" class="btn btn-neutral" title="Packaging existing binaries" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,572 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>settings.yml &mdash; conan 1.20.5 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.20.5 documentation" href="../../index.html"/>
+        <link rel="up" title="Configuration files" href="../config_files.html"/>
+        <link rel="next" title="registry.txt / registry.json" href="registry.txt.html"/>
+        <link rel="prev" title="profiles/default" href="default_profile.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../config_files.html">Configuration files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="conan.conf.html">conan.conf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="default_profile.html">profiles/default</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">settings.yml</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#architectures">Architectures</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="registry.txt.html">registry.txt / registry.json</a></li>
+<li class="toctree-l3"><a class="reference internal" href="client_certificates.html">client.crt / client.key</a></li>
+<li class="toctree-l3"><a class="reference internal" href="artifacts.properties.html">artifacts.properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="editable_layout.html">Editable layout files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conandata.yml.html">conandata.yml</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hooks.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../config_files.html">Configuration files</a> &raquo;</li>
+        
+      <li>settings.yml</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/config_files/settings.yml.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="settings-yml">
+<span id="id1"></span><h1>settings.yml<a class="headerlink" href="#settings-yml" title="Permalink to this headline">¶</a></h1>
+<p>The input <code class="docutils literal notranslate"><span class="pre">settings</span></code> for packages in Conan are predefined in <code class="docutils literal notranslate"><span class="pre">~/.conan/settings.yml</span></code> file, so only a few like <code class="docutils literal notranslate"><span class="pre">os</span></code> or <code class="docutils literal notranslate"><span class="pre">compiler</span></code>
+are possible. These are the <strong>default</strong> values, but it is possible to customize them, see <a class="reference internal" href="../../extending/custom_settings.html#custom-settings"><span class="std std-ref">Customizing settings</span></a>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only for cross building, &#39;os_build/arch_build&#39; is the system that runs Conan</span>
+<span class="nt">os_build</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">Windows</span><span class="p p-Indicator">,</span> <span class="nv">WindowsStore</span><span class="p p-Indicator">,</span> <span class="nv">Linux</span><span class="p p-Indicator">,</span> <span class="nv">Macos</span><span class="p p-Indicator">,</span> <span class="nv">FreeBSD</span><span class="p p-Indicator">,</span> <span class="nv">SunOS</span><span class="p p-Indicator">,</span> <span class="nv">AIX</span><span class="p p-Indicator">]</span>
+<span class="nt">arch_build</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">x86</span><span class="p p-Indicator">,</span> <span class="nv">x86_64</span><span class="p p-Indicator">,</span> <span class="nv">ppc32be</span><span class="p p-Indicator">,</span> <span class="nv">ppc32</span><span class="p p-Indicator">,</span> <span class="nv">ppc64le</span><span class="p p-Indicator">,</span> <span class="nv">ppc64</span><span class="p p-Indicator">,</span> <span class="nv">armv5el</span><span class="p p-Indicator">,</span> <span class="nv">armv5hf</span><span class="p p-Indicator">,</span> <span class="nv">armv6</span><span class="p p-Indicator">,</span> <span class="nv">armv7</span><span class="p p-Indicator">,</span> <span class="nv">armv7hf</span><span class="p p-Indicator">,</span> <span class="nv">armv7s</span><span class="p p-Indicator">,</span> <span class="nv">armv7k</span><span class="p p-Indicator">,</span> <span class="nv">armv8</span><span class="p p-Indicator">,</span> <span class="nv">armv8_32</span><span class="p p-Indicator">,</span> <span class="nv">armv8.3</span><span class="p p-Indicator">,</span> <span class="nv">sparc</span><span class="p p-Indicator">,</span> <span class="nv">sparcv9</span><span class="p p-Indicator">,</span> <span class="nv">mips</span><span class="p p-Indicator">,</span> <span class="nv">mips64</span><span class="p p-Indicator">,</span> <span class="nv">avr</span><span class="p p-Indicator">,</span> <span class="nv">s390</span><span class="p p-Indicator">,</span> <span class="nv">s390x</span><span class="p p-Indicator">,</span> <span class="nv">sh4le</span><span class="p p-Indicator">]</span>
+
+<span class="c1"># Only for building cross compilation tools, &#39;os_target/arch_target&#39; is the system for</span>
+<span class="c1"># which the tools generate code</span>
+<span class="nt">os_target</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">Windows</span><span class="p p-Indicator">,</span> <span class="nv">Linux</span><span class="p p-Indicator">,</span> <span class="nv">Macos</span><span class="p p-Indicator">,</span> <span class="nv">Android</span><span class="p p-Indicator">,</span> <span class="nv">iOS</span><span class="p p-Indicator">,</span> <span class="nv">watchOS</span><span class="p p-Indicator">,</span> <span class="nv">tvOS</span><span class="p p-Indicator">,</span> <span class="nv">FreeBSD</span><span class="p p-Indicator">,</span> <span class="nv">SunOS</span><span class="p p-Indicator">,</span> <span class="nv">AIX</span><span class="p p-Indicator">,</span> <span class="nv">Arduino</span><span class="p p-Indicator">,</span> <span class="nv">Neutrino</span><span class="p p-Indicator">]</span>
+<span class="nt">arch_target</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">x86</span><span class="p p-Indicator">,</span> <span class="nv">x86_64</span><span class="p p-Indicator">,</span> <span class="nv">ppc32be</span><span class="p p-Indicator">,</span> <span class="nv">ppc32</span><span class="p p-Indicator">,</span> <span class="nv">ppc64le</span><span class="p p-Indicator">,</span> <span class="nv">ppc64</span><span class="p p-Indicator">,</span> <span class="nv">armv5el</span><span class="p p-Indicator">,</span> <span class="nv">armv5hf</span><span class="p p-Indicator">,</span> <span class="nv">armv6</span><span class="p p-Indicator">,</span> <span class="nv">armv7</span><span class="p p-Indicator">,</span> <span class="nv">armv7hf</span><span class="p p-Indicator">,</span> <span class="nv">armv7s</span><span class="p p-Indicator">,</span> <span class="nv">armv7k</span><span class="p p-Indicator">,</span> <span class="nv">armv8</span><span class="p p-Indicator">,</span> <span class="nv">armv8_32</span><span class="p p-Indicator">,</span> <span class="nv">armv8.3</span><span class="p p-Indicator">,</span> <span class="nv">sparc</span><span class="p p-Indicator">,</span> <span class="nv">sparcv9</span><span class="p p-Indicator">,</span> <span class="nv">mips</span><span class="p p-Indicator">,</span> <span class="nv">mips64</span><span class="p p-Indicator">,</span> <span class="nv">avr</span><span class="p p-Indicator">,</span> <span class="nv">s390</span><span class="p p-Indicator">,</span> <span class="nv">s390x</span><span class="p p-Indicator">,</span> <span class="nv">asm.js</span><span class="p p-Indicator">,</span> <span class="nv">wasm</span><span class="p p-Indicator">,</span> <span class="nv">sh4le</span><span class="p p-Indicator">]</span>
+
+<span class="c1"># Rest of the settings are &quot;host&quot; settings:</span>
+<span class="c1"># - For native building/cross building: Where the library/program will run.</span>
+<span class="c1"># - For building cross compilation tools: Where the cross compiler will run.</span>
+<span class="nt">os</span><span class="p">:</span>
+    <span class="nt">Windows</span><span class="p">:</span>
+        <span class="nt">subsystem</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">cygwin</span><span class="p p-Indicator">,</span> <span class="nv">msys</span><span class="p p-Indicator">,</span> <span class="nv">msys2</span><span class="p p-Indicator">,</span> <span class="nv">wsl</span><span class="p p-Indicator">]</span>
+    <span class="nt">WindowsStore</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;8.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.0&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">WindowsCE</span><span class="p">:</span>
+        <span class="nt">platform</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ANY</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;5.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.0&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">Linux</span><span class="p">:</span>
+    <span class="nt">Macos</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.7&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.9&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.10&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.11&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.12&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.13&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.14&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">Android</span><span class="p">:</span>
+        <span class="nt">api_level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ANY</span>
+    <span class="nt">iOS</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;12.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;12.1&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">watchOS</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;4.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.1&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">tvOS</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;11.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;12.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;12.1&quot;</span><span class="p p-Indicator">]</span>
+    <span class="nt">FreeBSD</span><span class="p">:</span>
+    <span class="nt">SunOS</span><span class="p">:</span>
+    <span class="nt">AIX</span><span class="p">:</span>
+    <span class="nt">Arduino</span><span class="p">:</span>
+        <span class="nt">board</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ANY</span>
+    <span class="nt">Emscripten</span><span class="p">:</span>
+    <span class="nt">Neutrino</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;6.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.5&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">]</span>
+<span class="nt">arch</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">x86</span><span class="p p-Indicator">,</span> <span class="nv">x86_64</span><span class="p p-Indicator">,</span> <span class="nv">ppc32be</span><span class="p p-Indicator">,</span> <span class="nv">ppc32</span><span class="p p-Indicator">,</span> <span class="nv">ppc64le</span><span class="p p-Indicator">,</span> <span class="nv">ppc64</span><span class="p p-Indicator">,</span> <span class="nv">armv4</span><span class="p p-Indicator">,</span> <span class="nv">armv4i</span><span class="p p-Indicator">,</span> <span class="nv">armv5el</span><span class="p p-Indicator">,</span> <span class="nv">armv5hf</span><span class="p p-Indicator">,</span> <span class="nv">armv6</span><span class="p p-Indicator">,</span> <span class="nv">armv7</span><span class="p p-Indicator">,</span> <span class="nv">armv7hf</span><span class="p p-Indicator">,</span> <span class="nv">armv7s</span><span class="p p-Indicator">,</span> <span class="nv">armv7k</span><span class="p p-Indicator">,</span> <span class="nv">armv8</span><span class="p p-Indicator">,</span> <span class="nv">armv8_32</span><span class="p p-Indicator">,</span> <span class="nv">armv8.3</span><span class="p p-Indicator">,</span> <span class="nv">sparc</span><span class="p p-Indicator">,</span> <span class="nv">sparcv9</span><span class="p p-Indicator">,</span> <span class="nv">mips</span><span class="p p-Indicator">,</span> <span class="nv">mips64</span><span class="p p-Indicator">,</span> <span class="nv">avr</span><span class="p p-Indicator">,</span> <span class="nv">s390</span><span class="p p-Indicator">,</span> <span class="nv">s390x</span><span class="p p-Indicator">,</span> <span class="nv">asm.js</span><span class="p p-Indicator">,</span> <span class="nv">wasm</span><span class="p p-Indicator">,</span> <span class="nv">sh4le</span><span class="p p-Indicator">]</span>
+<span class="nt">compiler</span><span class="p">:</span>
+    <span class="nt">sun-cc</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;5.10&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.11&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.12&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.13&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.14&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">threads</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">posix</span><span class="p p-Indicator">]</span>
+        <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">libCstd</span><span class="p p-Indicator">,</span> <span class="nv">libstdcxx</span><span class="p p-Indicator">,</span> <span class="nv">libstlport</span><span class="p p-Indicator">,</span> <span class="nv">libstdc++</span><span class="p p-Indicator">]</span>
+    <span class="nt">gcc</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;4.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.5&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.7&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.9&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;5&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.5&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.4&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;7&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.3&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.2&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.3&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;9&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.2&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">libstdc++</span><span class="p p-Indicator">,</span> <span class="nv">libstdc++11</span><span class="p p-Indicator">]</span>
+        <span class="nt">threads</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">posix</span><span class="p p-Indicator">,</span> <span class="nv">win32</span><span class="p p-Indicator">]</span> <span class="c1">#  Windows MinGW</span>
+        <span class="nt">exception</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">dwarf2</span><span class="p p-Indicator">,</span> <span class="nv">sjlj</span><span class="p p-Indicator">,</span> <span class="nv">seh</span><span class="p p-Indicator">]</span> <span class="c1"># Windows MinGW</span>
+        <span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">98</span><span class="p p-Indicator">,</span> <span class="nv">gnu98</span><span class="p p-Indicator">,</span> <span class="nv">11</span><span class="p p-Indicator">,</span> <span class="nv">gnu11</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">gnu14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">gnu17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">,</span> <span class="nv">gnu20</span><span class="p p-Indicator">]</span>
+    <span class="nt">Visual Studio</span><span class="p">:</span>
+        <span class="nt">runtime</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">MD</span><span class="p p-Indicator">,</span> <span class="nv">MT</span><span class="p p-Indicator">,</span> <span class="nv">MTd</span><span class="p p-Indicator">,</span> <span class="nv">MDd</span><span class="p p-Indicator">]</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;12&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;14&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;15&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;16&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">toolset</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">v90</span><span class="p p-Indicator">,</span> <span class="nv">v100</span><span class="p p-Indicator">,</span> <span class="nv">v110</span><span class="p p-Indicator">,</span> <span class="nv">v110_xp</span><span class="p p-Indicator">,</span> <span class="nv">v120</span><span class="p p-Indicator">,</span> <span class="nv">v120_xp</span><span class="p p-Indicator">,</span>
+                  <span class="nv">v140</span><span class="p p-Indicator">,</span> <span class="nv">v140_xp</span><span class="p p-Indicator">,</span> <span class="nv">v140_clang_c2</span><span class="p p-Indicator">,</span> <span class="nv">LLVM-vs2012</span><span class="p p-Indicator">,</span> <span class="nv">LLVM-vs2012_xp</span><span class="p p-Indicator">,</span>
+                  <span class="nv">LLVM-vs2013</span><span class="p p-Indicator">,</span> <span class="nv">LLVM-vs2013_xp</span><span class="p p-Indicator">,</span> <span class="nv">LLVM-vs2014</span><span class="p p-Indicator">,</span> <span class="nv">LLVM-vs2014_xp</span><span class="p p-Indicator">,</span>
+                  <span class="nv">LLVM-vs2017</span><span class="p p-Indicator">,</span> <span class="nv">LLVM-vs2017_xp</span><span class="p p-Indicator">,</span> <span class="nv">v141</span><span class="p p-Indicator">,</span> <span class="nv">v141_xp</span><span class="p p-Indicator">,</span> <span class="nv">v141_clang_c2</span><span class="p p-Indicator">,</span> <span class="nv">v142</span><span class="p p-Indicator">]</span>
+        <span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">]</span>
+    <span class="nt">clang</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;3.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;3.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;3.5&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;3.6&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;3.7&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;3.8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;3.9&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;4.0&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;5.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">,</span>
+                  <span class="s">&quot;8&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">libstdc++</span><span class="p p-Indicator">,</span> <span class="nv">libstdc++11</span><span class="p p-Indicator">,</span> <span class="nv">libc++</span><span class="p p-Indicator">,</span> <span class="nv">c++_shared</span><span class="p p-Indicator">,</span> <span class="nv">c++_static</span><span class="p p-Indicator">]</span>
+        <span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">98</span><span class="p p-Indicator">,</span> <span class="nv">gnu98</span><span class="p p-Indicator">,</span> <span class="nv">11</span><span class="p p-Indicator">,</span> <span class="nv">gnu11</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">gnu14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">gnu17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">,</span> <span class="nv">gnu20</span><span class="p p-Indicator">]</span>
+    <span class="nt">apple-clang</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;5.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;6.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;7.3&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;8.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;9.1&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;10.0&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;11.0&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">libstdc++</span><span class="p p-Indicator">,</span> <span class="nv">libc++</span><span class="p p-Indicator">]</span>
+        <span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">98</span><span class="p p-Indicator">,</span> <span class="nv">gnu98</span><span class="p p-Indicator">,</span> <span class="nv">11</span><span class="p p-Indicator">,</span> <span class="nv">gnu11</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">gnu14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">gnu17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">,</span> <span class="nv">gnu20</span><span class="p p-Indicator">]</span>
+    <span class="nt">qcc</span><span class="p">:</span>
+        <span class="nt">version</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;4.4&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;5.4&quot;</span><span class="p p-Indicator">]</span>
+        <span class="nt">libcxx</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">cxx</span><span class="p p-Indicator">,</span> <span class="nv">gpp</span><span class="p p-Indicator">,</span> <span class="nv">cpp</span><span class="p p-Indicator">,</span> <span class="nv">cpp-ne</span><span class="p p-Indicator">,</span> <span class="nv">accp</span><span class="p p-Indicator">,</span> <span class="nv">acpp-ne</span><span class="p p-Indicator">,</span> <span class="nv">ecpp</span><span class="p p-Indicator">,</span> <span class="nv">ecpp-ne</span><span class="p p-Indicator">]</span>
+
+<span class="nt">build_type</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">Debug</span><span class="p p-Indicator">,</span> <span class="nv">Release</span><span class="p p-Indicator">,</span> <span class="nv">RelWithDebInfo</span><span class="p p-Indicator">,</span> <span class="nv">MinSizeRel</span><span class="p p-Indicator">]</span>
+<span class="nt">cppstd</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="nv">98</span><span class="p p-Indicator">,</span> <span class="nv">gnu98</span><span class="p p-Indicator">,</span> <span class="nv">11</span><span class="p p-Indicator">,</span> <span class="nv">gnu11</span><span class="p p-Indicator">,</span> <span class="nv">14</span><span class="p p-Indicator">,</span> <span class="nv">gnu14</span><span class="p p-Indicator">,</span> <span class="nv">17</span><span class="p p-Indicator">,</span> <span class="nv">gnu17</span><span class="p p-Indicator">,</span> <span class="nv">20</span><span class="p p-Indicator">,</span> <span class="nv">gnu20</span><span class="p p-Indicator">]</span>  <span class="c1"># Deprecated, use compiler.cppstd</span>
+</pre></div>
+</div>
+<p>As you can see, the possible values <code class="docutils literal notranslate"><span class="pre">settings</span></code> can take are restricted in the same file. This is done to ensure matching naming and
+spelling as well as defining a common settings model among users and the OSS community.
+If a setting is allowed to be set to any value, you can use <code class="docutils literal notranslate"><span class="pre">ANY</span></code>.
+If a setting is allowed to be set to any value or it can also be unset, you can use <code class="docutils literal notranslate"><span class="pre">[None,</span> <span class="pre">ANY]</span></code>.</p>
+<p>However, this configuration file can be modified to any needs, including new settings or subsettings and their values. If you want
+to distribute a unified <em>settings.yml</em> file you can use the <a class="reference internal" href="../commands/consumer/config.html#conan-config-install"><span class="std std-ref">conan config install command</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <em>settings.yml</em> file is not perfect nor definitive and surely incomplete. Please share any suggestion in the Conan issue tracker
+with any missing settings and values that could make sense for other users.</p>
+</div>
+<div class="section" id="architectures">
+<h2>Architectures<a class="headerlink" href="#architectures" title="Permalink to this headline">¶</a></h2>
+<p>Here you can find a brief explanation of each of the architectures defined as <code class="docutils literal notranslate"><span class="pre">arch</span></code>, <code class="docutils literal notranslate"><span class="pre">arch_build</span></code> and <code class="docutils literal notranslate"><span class="pre">arch_target</span></code> settings.</p>
+<ul class="simple">
+<li><strong>x86</strong>: The popular 32 bit x86 architecture.</li>
+<li><strong>x86_64</strong>: The popular 64 bit x64 architecture.</li>
+<li><strong>ppc64le</strong>: The PowerPC 64 bit Big Endian architecture.</li>
+<li><strong>ppc32</strong>: The PowerPC 32 bit architecture.</li>
+<li><strong>ppc64le</strong>: The PowerPC 64 bit Little Endian architecture.</li>
+<li><strong>ppc64</strong>: The PowerPC 64 bit Big Endian architecture.</li>
+<li><strong>armv5el</strong>: The ARM 32 bit version 5 architecture, soft-float.</li>
+<li><strong>armv5hf</strong>: The ARM 32 bit version 5 architecture, hard-float.</li>
+<li><strong>armv6</strong>: The ARM 32 bit version 6 architecture.</li>
+<li><strong>armv7</strong>: The ARM 32 bit version 7 architecture.</li>
+<li><strong>armv7hf</strong>: The ARM 32 bit version 7 hard-float architecture.</li>
+<li><strong>armv7s</strong>: The ARM 32 bit version 7 <em>swift</em> architecture mostly used in Apple’s A6 and A6X chips on iPhone 5, iPhone 5C and iPad 4.</li>
+<li><strong>armv7k</strong>: The ARM 32 bit version 7 <em>k</em> architecture mostly used in Apple’s WatchOS.</li>
+<li><strong>armv8</strong>: The ARM 64 bit and 32 bit compatible version 8 architecture. It covers only the <code class="docutils literal notranslate"><span class="pre">aarch64</span></code> instruction set.</li>
+<li><strong>armv8_32</strong>: The ARM 32 bit version 8 architecture. It covers only the <code class="docutils literal notranslate"><span class="pre">aarch32</span></code> instruction set (a.k.a. <code class="docutils literal notranslate"><span class="pre">ILP32</span></code>).</li>
+<li><strong>armv8.3</strong>: The ARM 64 bit and 32 bit compatible version 8.3 architecture. Also known as <code class="docutils literal notranslate"><span class="pre">arm64e</span></code>, it is used on the A12 chipset added
+in the latest iPhone models (XS/XS Max/XR).</li>
+<li><strong>sparc</strong>: The SPARC (Scalable Processor Architecture) originally developed by Sun Microsystems.</li>
+<li><strong>sparcv9</strong>: The SPARC version 9 architecture.</li>
+<li><strong>mips</strong>: The 32 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
+Systems).</li>
+<li><strong>mips64</strong>: The 64 bit MIPS (Microprocessor without Interlocked Pipelined Stages) developed by MIPS Technologies (formerly MIPS Computer
+Systems).</li>
+<li><strong>avr</strong>: The 8 bit AVR microcontroller architecture developed by Atmel (Microchip Technology).</li>
+<li><strong>s390</strong>: The 32 bit address Enterprise Systems Architecture 390 from IBM.</li>
+<li><strong>s390x</strong>: The 64 bit address Enterprise Systems Architecture 390 from IBM.</li>
+<li><strong>asm.js</strong>: The subset of JavaScript that can be used as low-level target for compilers, not really a processor architecture, it’s produced
+by Emscripten. Conan treats it as an architecture to align with build systems design (e.g. GNU auto tools and CMake).</li>
+<li><strong>wasm</strong>: The Web Assembly, not really a processor architecture, but byte-code format for Web, it’s produced by Emscripten. Conan treats it
+as an architecture to align with build systems design (e.g. GNU auto tools and CMake).</li>
+<li><strong>sh4le</strong>: The Hitachi SH-4 SuperH architecture.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="registry.txt.html" class="btn btn-neutral float-right" title="registry.txt / registry.json" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="default_profile.html" class="btn btn-neutral" title="profiles/default" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.20
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.20/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.20.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.20");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

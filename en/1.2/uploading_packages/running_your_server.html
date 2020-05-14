@@ -1,0 +1,597 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Running conan_server &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Uploading packages" href="../uploading_packages.html"/>
+        <link rel="next" title="Package apps and devtools" href="../devtools.html"/>
+        <link rel="prev" title="Artifactory Community Edition for C/C++" href="artifactory_ce.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="remotes.html">Remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_to_remotes.html">Uploading packages to remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_bintray.html">Using Bintray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="artifactory_ce.html">Artifactory Community Edition for C/C++</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running conan_server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-from-source-linux">Running from source (linux)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server-configuration">Server configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#server-parameters">Server parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-conan-server-with-ssl-using-nginx">Running conan server with SSL using nginx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-conan-server-with-ssl-using-nginx-in-a-subdirectory">Running conan server with SSL using nginx in a subdirectory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-conan-server-using-apache">Running conan server using Apache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#permissions-parameters">Permissions parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#authentication">Authentication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../uploading_packages.html">Uploading packages</a> &raquo;</li>
+        
+      <li>Running conan_server</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/uploading_packages/running_your_server.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="running-conan-server">
+<span id="running-your-server"></span><h1>Running conan_server<a class="headerlink" href="#running-conan-server" title="Permalink to this headline">¶</a></h1>
+<p><em>conan_server</em> is a free and open source server that implements conan remote repositories. It is a very simple application,
+bundled with the regular conan client installation. For most cases, it is recommended to use the free Artifactory
+Community Edition for C/C++ server, check <a class="reference internal" href="artifactory_ce.html#artifactory-ce"><span class="std std-ref">Artifactory Community Edition for C/C++</span></a> for more information.</p>
+<p>Running the simple open source <em>conan_server</em> that comes with the conan installers (or pip packages) is simple. Just open
+a terminal and type:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan_server
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">On Windows, you might experience problems with the server, if you run it under bash/msys. It is
+better to launch it in a regular <code class="docutils literal notranslate"><span class="pre">cmd</span></code> window.</p>
+</div>
+<p>This server is mainly for testing (though it might work fine for small teams). If you need a
+more stable, responsive and robust server, you should run it from source:</p>
+<div class="section" id="running-from-source-linux">
+<h2>Running from source (linux)<a class="headerlink" href="#running-from-source-linux" title="Permalink to this headline">¶</a></h2>
+<p>The conan installer includes a simple executable <strong>conan_server</strong> for a server quick start.
+But you can use the <strong>conan server</strong> through the WSGI application, which means that you can use gunicorn
+to run the app, for example.</p>
+<p>First, clone the conan repository from source and install the requirements:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/conan.git
+$ <span class="nb">cd</span> conan
+$ git checkout master
+$ pip install -r conans/requirements.txt
+$ pip install -r conans/requirements_server.txt
+$ pip install gunicorn
+</pre></div>
+</div>
+<p>Run the server application with <code class="docutils literal notranslate"><span class="pre">gunicorn</span></code>. In the following example we will run server on port 9300 with 4 workers and a timeout of 5 minutes (300 seconds, for large uploads/downloads, you can also decrease it if you don’t have very large binaries):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gunicorn -b <span class="m">0</span>.0.0.0:9300 -w <span class="m">4</span> -t <span class="m">300</span> conans.server.server_launcher:app
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please note the timeout of <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">300</span></code> seconds, 5 minutes parameter. If your transfers are very large or in a slow network, you might need to increase that value.</p>
+</div>
+<p>You can also bind to an IPV6 address or specify both IPv4 and IPv6 addresses:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ gunicorn -b <span class="m">0</span>.0.0.0:9300 -b <span class="o">[</span>::1<span class="o">]</span>:9300 -w <span class="m">4</span> -t <span class="m">300</span> conans.server.server_launcher:app
+</pre></div>
+</div>
+</div>
+<div class="section" id="server-configuration">
+<h2>Server configuration<a class="headerlink" href="#server-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Your server configuration lives in <code class="docutils literal notranslate"><span class="pre">~/.conan_server/server.conf</span></code>. You can change values
+there, prior to launching the server. Note that the server is not reloaded when the values are changed. You
+have to stop and restart it manually.</p>
+<p>The server configuration file is by default:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[server]
+jwt_secret: MnpuzsExftskYGOMgaTYDKfw
+jwt_expire_minutes: 120
+
+ssl_enabled: False
+port: 9300
+public_port:
+host_name: localhost
+
+store_adapter: disk
+authorize_timeout: 1800
+
+# Just for disk storage adapter
+disk_storage_path: ~/.conan_server/data
+disk_authorize_timeout: 1800
+
+updown_secret: NyiSWNWnwumTVpGpoANuyyhR
+
+
+[write_permissions]
+# &quot;opencv/2.3.4@lasote/testing&quot;: default_user,default_user2
+
+[read_permissions]
+# opencv/1.2.3@lasote/testing: default_user default_user2
+# By default all users can read all blocks
+*/*@*/*: *
+
+[users]
+demo: demo
+</pre></div>
+</div>
+<div class="section" id="server-parameters">
+<h3>Server parameters<a class="headerlink" href="#server-parameters" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Conan server from v1.1 supports relative URLs, so you can avoid setting <code class="docutils literal notranslate"><span class="pre">host_name</span></code>, <code class="docutils literal notranslate"><span class="pre">public_port</span></code> and <code class="docutils literal notranslate"><span class="pre">ssl_enabled</span></code>.
+The URLs used to upload/download packages will be automatically generated in the client following the URL of the remote.
+It allows to access the conan server from different networks.</p>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">port</span></code>: Port where <strong>conan_server</strong> will run.</li>
+<li>The client server authorization is done with JWT. <code class="docutils literal notranslate"><span class="pre">jwt_secret</span></code> is a random string used to
+generate authentication tokens. You can change it safely anytime (in fact it is a good practice),
+the change will just force users to log in again. <code class="docutils literal notranslate"><span class="pre">jwt_expire_minutes</span></code> is the amount of time
+that users remain logged-in within the client without having to introduce their credentials
+again.</li>
+</ul>
+<p>Other parameters (not recommended from Conan 1.1, but necessary for previous versions):</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">host_name</span></code> If you set <code class="docutils literal notranslate"><span class="pre">host_name</span></code> you must use the machine’s IP
+where you are running your server (or domain name), something like <strong>host_name: 192.168.1.100</strong>.
+This IP (or domain name) has to be visible (and resolved) by the conan client, so take it in account
+if your server has multiple network interfaces.</p>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">public_port</span></code> Which might be needed if running virtualized, docker or any other kind of port redirection.
+Files uploads/downloads are served with their own URLs, generated by the system, so the file storage backend is independent.
+Those URLs need the public port they have to communicate from the outside. If you leave it
+blank, it will use the <code class="docutils literal notranslate"><span class="pre">port</span></code> value.</p>
+<p><strong>Example:</strong> Use conan_server in a docker container that internally runs in the 9300 port but it
+exposes the 9999 port (where the clients will connect to):</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run ... -p9300:9999 ... <span class="c1"># Check Docker docs for that</span>
+</pre></div>
+</div>
+<p><strong>server.conf</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[server]
+
+ssl_enabled: False
+port: 9300
+public_port: 9999
+host_name: localhost
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">ssl_enabled</span></code> Conan doesn’t handle the SSL traffic by itself, but you can use a proxy like nginx to redirect the SSL traffic to your conan server.
+If your conan clients are connecting with “https” set <cite>ssl_enabled</cite> to True. This way conan_server will generate the upload/download urls with “https” instead of “http”.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p><strong>Important</strong>: Conan client, by default, will validate the server SSL certificates and won’t connect if it’s not valid.
+If you have self signed certificates you have two options:</p>
+<ol class="arabic simple">
+<li>Use the <strong class="command">conan remote</strong> command to disable the SSL certifate checks. e.j: <em>conan remote add/update myremote https://somedir False</em></li>
+<li>Append the server <em>.crt</em> file contents to <em>~/.conan/cacert.pem</em> file.</li>
+</ol>
+<p class="last">Check the section <a class="reference internal" href="../howtos/use_tls_certificates.html#use-tls-certificates"><span class="std std-ref">How to manage SSL (TLS) certificates</span></a> section to know more about it.</p>
+</div>
+<p>Conan has implemented an extensible storage backend, based on the abstract class <code class="docutils literal notranslate"><span class="pre">StorageAdapter</span></code>.
+Currently the server only supports storage in <code class="docutils literal notranslate"><span class="pre">disk</span></code>. The folder in which uploaded packages
+are stored (i.e., the folder you would want to backup) is defined in <code class="docutils literal notranslate"><span class="pre">disk_storage_path</span></code>.</p>
+<p>The storage backend might use a different channel, and uploads/downloads are authorized up to
+a maximum of <code class="docutils literal notranslate"><span class="pre">authorize_timeout</span></code> seconds. The value should be enough so large downloads/uploads
+are not rejected, but not too big to prevent hanging up the file transfers. The value
+<code class="docutils literal notranslate"><span class="pre">disk_authorize_timeout</span></code> is not currently used. File transfers are authorized with their own
+tokens, generated with the secret <code class="docutils literal notranslate"><span class="pre">updown_secret</span></code>. This value should be different from the above
+<code class="docutils literal notranslate"><span class="pre">jwt_secret</span></code>.</p>
+</div>
+<div class="section" id="running-conan-server-with-ssl-using-nginx">
+<h3>Running conan server with SSL using nginx<a class="headerlink" href="#running-conan-server-with-ssl-using-nginx" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><strong>server.conf</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[server]
+port: 9300
+</pre></div>
+</div>
+<p><strong>nginx conf file</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>server {
+    listen 443;
+    server_name myservername.mydomain.com;
+
+    location / {
+      proxy_pass http://0.0.0.0:9300;
+    }
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+}
+</pre></div>
+</div>
+<p><strong>remote configuration in Conan client</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan remote add myremote https://myservername.mydomain.com/subdir
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="running-conan-server-with-ssl-using-nginx-in-a-subdirectory">
+<h3>Running conan server with SSL using nginx in a subdirectory<a class="headerlink" href="#running-conan-server-with-ssl-using-nginx-in-a-subdirectory" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p><strong>server.conf</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[server]
+port: 9300
+</pre></div>
+</div>
+<p><strong>nginx conf file</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>server {
+
+       listen 443;
+       ssl on;
+       ssl_certificate /usr/local/etc/nginx/ssl/server.crt;
+       ssl_certificate_key /usr/local/etc/nginx/ssl/server.key;
+       server_name myservername.mydomain.com;
+
+       location ~/subdir/(.*)$ {
+          proxy_pass http://0.0.0.0:9300/$1;
+       }
+  }
+</pre></div>
+</div>
+<p><strong>remote configuration in Conan client</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ conan remote add myremote https://myservername.mydomain.com/subdir
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="running-conan-server-using-apache">
+<h3>Running conan server using Apache<a class="headerlink" href="#running-conan-server-using-apache" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>You need to install <code class="docutils literal notranslate"><span class="pre">mod_wsgi</span></code>. If you want to use Conan installed from <code class="docutils literal notranslate"><span class="pre">pip</span></code>, the conf file should be roughly as follows:</p>
+<p><strong>Apache conf file</strong> (e.j /etc/apache2/sites-available/0_conan.conf)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
+    WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/conans/server/server_launcher.py
+    WSGICallableObject app
+    WSGIPassAuthorization On
+
+    &lt;Directory /usr/local/lib/python2.7/dist-packages/conans&gt;
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</pre></div>
+</div>
+<p>If you want to use Conan checked out from source in, say, <cite>/srv/conan</cite>, the conf file should be as follows:</p>
+<p><strong>Apache conf file</strong> (e.j /etc/apache2/sites-available/0_conan.conf)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;VirtualHost *:80&gt;
+    WSGIScriptAlias / /srv/conan/conans/server/server_launcher.py
+    WSGICallableObject app
+    WSGIPassAuthorization On
+
+    &lt;Directory /srv/conan/conans&gt;
+        Require all granted
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</pre></div>
+</div>
+<p>The directive <code class="docutils literal notranslate"><span class="pre">WSGIPassAuthorization</span> <span class="pre">On</span></code> is needed to pass the HTTP basic authentication to Conan.</p>
+<p>Also take into account that the server config files are located in the home of the configured Apache user,
+e.j var/www/.conan_server, so remember to use that directory to configure your conan server.</p>
+</div></blockquote>
+</div>
+<div class="section" id="permissions-parameters">
+<h3>Permissions parameters<a class="headerlink" href="#permissions-parameters" title="Permalink to this headline">¶</a></h3>
+<p>By default, the server configuration is: Read can be done anonymous,
+but uploading requires registered users. Users can be easily registered in the <code class="docutils literal notranslate"><span class="pre">[users]</span></code> section,
+defining a pair of <code class="docutils literal notranslate"><span class="pre">login:</span> <span class="pre">password</span></code> for each one. Yes, plain text passwords at the moment, but
+as the server is on-premises (behind firewall), you just need to trust your sysadmin :)</p>
+<p>If you want to restrict read/write access to specific packages, configure it in the <code class="docutils literal notranslate"><span class="pre">[read_permissions]</span></code>
+and <code class="docutils literal notranslate"><span class="pre">[write_permissions]</span></code> sections. These sections allow a sequence of patterns and allowed users,
+in the form:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># use a comma separated, no-spaces list of users
+package/version@user/channel: allowed_user1,allowed_user2
+</pre></div>
+</div>
+<p>E.g.:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>*/*@*/*: * # allow all users to all packages
+PackageA/*@*/*: john,peter # allow john and peter access to any PackageA
+*/*@project/*: john # Allow john to access any package from the &quot;project&quot; user
+</pre></div>
+</div>
+<p>The rules are evaluated in order, if the left side of the pattern matches, the rule is applied
+and it will not look further.</p>
+</div>
+<div class="section" id="authentication">
+<h3>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h3>
+<p>Conan provides by default a simple <code class="docutils literal notranslate"><span class="pre">user:</span> <span class="pre">password</span></code> users list in the <code class="docutils literal notranslate"><span class="pre">server.conf</span></code> file.</p>
+<p>There is also a plugin mechanism for setting other authentication methods. The process to install any of them
+is a simple 2 step process:</p>
+<ol class="arabic simple">
+<li>Copy the authenticator source file into the <code class="docutils literal notranslate"><span class="pre">.conan_server/plugins/authenticator</span></code> folder</li>
+<li>Add <code class="docutils literal notranslate"><span class="pre">custom_authenticator:</span> <span class="pre">authenticator_name</span></code> in the <code class="docutils literal notranslate"><span class="pre">server.conf</span></code> [server] section</li>
+</ol>
+<p>This is a list of available authenticators, visit their URLs to get them, but also to report issues and collaborate:</p>
+<ul class="simple">
+<li><strong>htpasswd</strong>: Use your server Apache htpasswd file to authenticate users. Get it: <a class="reference external" href="https://github.com/d-schiffner/conan-htpasswd">https://github.com/d-schiffner/conan-htpasswd</a></li>
+<li><strong>LDAP</strong>: Use your LDAP server to authenticate users. Get it: <a class="reference external" href="https://github.com/uilianries/conan-ldap-authentication">https://github.com/uilianries/conan-ldap-authentication</a></li>
+</ul>
+<div class="section" id="create-your-own-custom-authenticator">
+<h4>Create your own custom Authenticator<a class="headerlink" href="#create-your-own-custom-authenticator" title="Permalink to this headline">¶</a></h4>
+<p>If you want to create your own Authenticator, create a python module
+in <code class="docutils literal notranslate"><span class="pre">~/.conan_server/plugins/authenticator/my_authenticator.py</span></code></p>
+<p><strong>Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_class</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">MyAuthenticator</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">MyAuthenticator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">valid_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">plain_password</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">username</span> <span class="o">==</span> <span class="s2">&quot;foo&quot;</span> <span class="ow">and</span> <span class="n">plain_password</span> <span class="o">==</span> <span class="s2">&quot;bar&quot;</span>
+</pre></div>
+</div>
+<p>The module has to implement:</p>
+<ul class="simple">
+<li>A factory function <code class="docutils literal notranslate"><span class="pre">get_class()</span></code> that returns a class with a <code class="docutils literal notranslate"><span class="pre">valid_user()</span></code> method instance.</li>
+<li>The class containing the <code class="docutils literal notranslate"><span class="pre">valid_user()</span></code> that has to return True if the user and password are valid or False otherwise.</li>
+</ul>
+<p>Got any doubts? Please check out our <a class="reference internal" href="../faq.html#faq"><span class="std std-ref">FAQ section</span></a> or <a href="mailto:info@conan.io" target="_blank">write us</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../devtools.html" class="btn btn-neutral float-right" title="Package apps and devtools" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="artifactory_ce.html" class="btn btn-neutral" title="Artifactory Community Edition for C/C++" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

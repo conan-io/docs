@@ -1,0 +1,584 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Install &mdash; conan 1.23.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.23.0 documentation" href="index.html"/>
+        <link rel="next" title="Getting Started" href="getting_started.html"/>
+        <link rel="prev" title="Introduction" href="introduction.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-with-pip-recommended">Install with pip (recommended)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#known-installation-issues-with-pip">Known installation issues with pip</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-brew-osx">Install from brew (OSX)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-aur-arch-linux">Install from AUR (Arch Linux)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-the-binaries">Install the binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initial-configuration">Initial configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-source">Install from source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update">Update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#python-2-deprecation-notice">Python 2 Deprecation Notice</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Install</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/installation.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="install">
+<span id="id1"></span><h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<p>Conan can be installed in many Operating Systems. It has been extensively used and tested in Windows, Linux (different distros), OSX, and is
+also actively used in FreeBSD and Solaris SunOS. There are also several additional operating systems on which it has been reported to work.</p>
+<p>There are three ways to install Conan:</p>
+<ol class="arabic simple">
+<li>The preferred and <strong>strongly recommended way to install Conan</strong> is from PyPI, the Python Package Index, using the <code class="docutils literal notranslate"><span class="pre">pip</span></code> command.</li>
+<li>There are other available installers for different systems, which might come with a bundled python interpreter, so that you don’t have to
+install python first. Note that some of <strong>these installers might have some limitations</strong>, especially those created with pyinstaller
+(such as Windows exe &amp; Linux deb).</li>
+<li>Running Conan from sources.</li>
+</ol>
+<div class="section" id="install-with-pip-recommended">
+<h2>Install with pip (recommended)<a class="headerlink" href="#install-with-pip-recommended" title="Permalink to this headline">¶</a></h2>
+<p>To install Conan using <code class="docutils literal notranslate"><span class="pre">pip</span></code>, you need Python &gt;= 3.5 distribution installed on your machine. Python 3.4 support has been dropped and
+<a class="reference internal" href="#python2"><span class="std std-ref">Python 2</span></a> is being deprecated. Modern Python distros come
+with pip pre-installed. However, if necessary you can install pip by following the instructions in <a class="reference external" href="https://pip.pypa.io/en/stable/installing/">pip docs</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"><strong>Python 2 has been deprecated on January 1st, 2020 by the Python maintainers</strong> and Conan project will completely stop working with it
+in the following releases. See <a class="reference internal" href="#python2"><span class="std std-ref">Python 2 Deprecation Notice</span></a> for details.</p>
+</div>
+<p>Install Conan:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install conan
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p><strong>Please READ carefully</strong></p>
+<ul class="last simple">
+<li>Make sure that your <strong>pip</strong> installation matches your <strong>Python (2.7 or &gt;= 3.5)</strong> version. Python 3.4 support has been dropped.</li>
+<li>In <strong>Linux</strong>, you may need <strong>sudo</strong> permissions to install Conan globally.</li>
+<li>We strongly recommend using <strong>virtualenvs</strong> (virtualenvwrapper works great) for everything related to Python.
+(check <a class="reference external" href="https://virtualenvwrapper.readthedocs.io/en/stable/">https://virtualenvwrapper.readthedocs.io/en/stable/</a>, or <a class="reference external" href="https://pypi.org/project/virtualenvwrapper-win/">https://pypi.org/project/virtualenvwrapper-win/</a> in Windows)
+With Python 3, the built-in module <code class="docutils literal notranslate"><span class="pre">venv</span></code> can also be used instead (check <a class="reference external" href="https://docs.python.org/3/library/venv.html">https://docs.python.org/3/library/venv.html</a>).
+If not using a <strong>virtualenv</strong> it is possible that conan dependencies will conflict with previously existing dependencies,
+especially if you are using Python for other purposes.</li>
+<li>In <strong>Windows</strong> and Python 2.7, you may need to use <strong>32bit</strong> python distribution (which is the Windows default), instead
+of 64 bit.</li>
+<li>In <strong>OSX</strong>, especially the latest versions that may have <strong>System Integrity Protection</strong>, pip may fail. Try using virtualenvs, or
+install with another user <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--user</span> <span class="pre">conan</span></code>.</li>
+<li>Some Linux distros, such as Linux Mint, require a restart (shell restart, or logout/system if not enough) after
+installation, so Conan is found in the path.</li>
+<li>In Windows, Python 3 installation can fail installing the <code class="docutils literal notranslate"><span class="pre">wrapt</span></code> dependency because of a bug in <strong>pip</strong>. Information about this issue and
+workarounds is available here: <a class="reference external" href="https://github.com/GrahamDumpleton/wrapt/issues/112">https://github.com/GrahamDumpleton/wrapt/issues/112</a>.</li>
+<li>Conan works with Python 2.7, but not all features are available when not using Python 3.x starting with version 1.6</li>
+</ul>
+</div>
+<div class="section" id="known-installation-issues-with-pip">
+<h3>Known installation issues with pip<a class="headerlink" href="#known-installation-issues-with-pip" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">When Conan is installed with <strong class="command">pip install --user &lt;username&gt;</strong>, usually a new directory is created for it. However, the directory
+is not appended automatically to the <cite>PATH</cite> and the <strong class="command">conan</strong> commands do not work. This can usually be solved restarting the session of
+the terminal or running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> ~/.profile
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="install-from-brew-osx">
+<h2>Install from brew (OSX)<a class="headerlink" href="#install-from-brew-osx" title="Permalink to this headline">¶</a></h2>
+<p>There is a brew recipe, so in OSX, you can install Conan as follows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ brew update
+$ brew install conan
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-from-aur-arch-linux">
+<h2>Install from AUR (Arch Linux)<a class="headerlink" href="#install-from-aur-arch-linux" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to install Conan on Arch Linux is by using one of the <a class="reference external" href="https://wiki.archlinux.org/index.php/AUR_helpers">Arch User Repository (AUR) helpers</a>, e.g., <strong>yay</strong>, <strong>aurman</strong>, or <strong>pakku</strong>.
+For example, the following command installs Conan using <code class="docutils literal notranslate"><span class="pre">yay</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ yay -S conan
+</pre></div>
+</div>
+<p>Alternatively, build and install Conan manually using <code class="docutils literal notranslate"><span class="pre">makepkg</span></code> and <code class="docutils literal notranslate"><span class="pre">pacman</span></code> as described in <a class="reference external" href="https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages">the Arch Wiki</a>.
+Conan build files can be downloaded from AUR: <a class="reference external" href="https://aur.archlinux.org/packages/conan/">https://aur.archlinux.org/packages/conan/</a>.
+Make sure to first install the three Conan dependencies which are also found in AUR:</p>
+<ul class="simple">
+<li>python-patch-ng</li>
+<li>python-node-semver</li>
+<li>python-pluginbase</li>
+</ul>
+</div>
+<div class="section" id="install-the-binaries">
+<h2>Install the binaries<a class="headerlink" href="#install-the-binaries" title="Permalink to this headline">¶</a></h2>
+<p>Go to the conan website and <a class="reference external" href="https://conan.io/downloads.html">download the installer for your platform</a>!</p>
+<p>Execute the installer. You don’t need to install python.</p>
+</div>
+<div class="section" id="initial-configuration">
+<h2>Initial configuration<a class="headerlink" href="#initial-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Check if Conan is installed correctly. Run the following command in your console:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan
+</pre></div>
+</div>
+<p>The response should be similar to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Consumer commands
+  install    Installs the requirements specified in a recipe <span class="o">(</span>conanfile.py or conanfile.txt<span class="o">)</span>.
+  config     Manages Conan configuration.
+  get        Gets a file or list a directory of a given reference or package.
+  info       Gets information about the dependency graph of a recipe.
+  ...
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">If you are using Bash, there is a bash autocompletion project created by the community for Conan commands:
+<a class="reference external" href="https://gitlab.com/akim.saidani/conan-bashcompletion">https://gitlab.com/akim.saidani/conan-bashcompletion</a></p>
+</div>
+</div>
+<div class="section" id="install-from-source">
+<h2>Install from source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h2>
+<p>You can run Conan directly from source code. First, you need to install Python and
+pip.</p>
+<p>Clone (or download and unzip) the git repository and install its requirements:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/conan.git
+$ <span class="nb">cd</span> conan
+$ pip install -r conans/requirements.txt
+</pre></div>
+</div>
+<p>Create a script to run Conan and add it to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>#!/usr/bin/env python
+
+import sys
+
+conan_repo_path = &quot;/home/your_user/conan&quot; # ABSOLUTE PATH TO CONAN REPOSITORY FOLDER
+
+sys.path.append(conan_repo_path)
+from conans.client.command import main
+main(sys.argv[1:])
+</pre></div>
+</div>
+<p>Test your <code class="docutils literal notranslate"><span class="pre">conan</span></code> script.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan
+</pre></div>
+</div>
+<p>You should see the Conan commands help.</p>
+</div>
+<div class="section" id="update">
+<span id="conan-update"></span><h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>If installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code>, Conan can be easily updated:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install conan --upgrade  <span class="c1"># Might need sudo or --user</span>
+</pre></div>
+</div>
+<p>If installed via the installers (<em>.exe</em>, <em>.deb</em>), download the new installer and execute it.</p>
+<p>The default <em>&lt;userhome&gt;/.conan/settings.yml</em> file, containing the definition of compiler versions, etc.,
+will be upgraded if Conan does not detect local changes, otherwise it will create a <em>settings.yml.new</em> with the new settings.
+If you want to regenerate the settings, you can remove the <em>settings.yml</em> file manually and it will be created with the new information the first time it is required.</p>
+<p>The upgrade shouldn’t affect the installed packages or cache information. If the cache becomes inconsistent somehow, you may want to remove its content by deleting it (<em>&lt;userhome&gt;/.conan</em>).</p>
+</div>
+<div class="section" id="python-2-deprecation-notice">
+<span id="python2"></span><h2>Python 2 Deprecation Notice<a class="headerlink" href="#python-2-deprecation-notice" title="Permalink to this headline">¶</a></h2>
+<p>All features of Conan until version 1.6 are fully supported in both Python 2 and Python 3. However, new features in upcoming Conan releases
+that are only available in Python 3 or more easily available in Python 3 will be implemented and tested only in Python 3, and versions of
+Conan using Python 2 will not have access to that feature. This will be clearly described in code and documentation.</p>
+<p>Starting in Conan 1.22, Python 2 is no longer supported and Conan will stop working with it in the following releases.</p>
+<p>Conan 2.x won’t support Python 2.</p>
+<p>We encourage you to upgrade to Python 3 as soon as possible. However, if this is impossible for you or your team, we would like to know it.
+Please give feedback in the <a class="reference external" href="https://github.com/conan-io/conan/issues/3334">Conan issue tracker</a> or write us to <a class="reference external" href="mailto:info&#37;&#52;&#48;conan&#46;io">info<span>&#64;</span>conan<span>&#46;</span>io</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="Getting Started" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.23
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.23/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.23.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="_static/js/modernizr.min.js"></script>
+  <script src="_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.23");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

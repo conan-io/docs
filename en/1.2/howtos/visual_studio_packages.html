@@ -1,0 +1,482 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to create and reuse packages based on Visual Studio &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Howtos" href="../howtos.html"/>
+        <link rel="next" title="Creating and reusing packages based on Makefiles" href="makefiles.html"/>
+        <link rel="prev" title="How to launch conan install from cmake" href="cmake_launch.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to create and reuse packages based on Visual Studio</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-packages">Creating packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uploading-binaries">Uploading binaries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reusing-packages">Reusing packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-configurations">Other configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../howtos.html">Howtos</a> &raquo;</li>
+        
+      <li>How to create and reuse packages based on Visual Studio</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/howtos/visual_studio_packages.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-create-and-reuse-packages-based-on-visual-studio">
+<span id="visual-studio-packages"></span><h1>How to create and reuse packages based on Visual Studio<a class="headerlink" href="#how-to-create-and-reuse-packages-based-on-visual-studio" title="Permalink to this headline">¶</a></h1>
+<p>Conan has different helpers to manage Visual Studio and MSBuild based projects.
+This how-to illustrates how to put them together to create and consume packages that are purely
+based on Visual Studio. This how-to is using VS2015, but other versions can be used too.</p>
+<div class="section" id="creating-packages">
+<h2>Creating packages<a class="headerlink" href="#creating-packages" title="Permalink to this headline">¶</a></h2>
+<p>Start cloning the existing example repository, containing a simple “Hello World” library, and application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/memsharded/hello_vs
+$ <span class="nb">cd</span> hello_vs
+</pre></div>
+</div>
+<p>It contains a <code class="docutils literal notranslate"><span class="pre">src</span></code> folder with the source code and a <code class="docutils literal notranslate"><span class="pre">build</span></code> folder with a Visual Studio 2015 solution,
+containing 2 projects: the HelloLib static library, and the Greet application. Open it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ build<span class="se">\H</span>elloLib<span class="se">\H</span>elloLib.sln
+</pre></div>
+</div>
+<p>You should be able to select the <code class="docutils literal notranslate"><span class="pre">Greet</span></code> subproject -&gt; <code class="docutils literal notranslate"><span class="pre">Set</span> <span class="pre">as</span> <span class="pre">Startup</span> <span class="pre">Project</span></code>.
+Then build and run the app with Ctrl+F5. (Debug -&gt; Start Without Debugging)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ Hello World Debug!
+<span class="c1"># Switch IDE to Release mode, repeat</span>
+$ Hello World Release!
+</pre></div>
+</div>
+<p>Because the <code class="docutils literal notranslate"><span class="pre">hello.cpp</span></code> file contains an <code class="docutils literal notranslate"><span class="pre">#ifdef</span> <span class="pre">_DEBUG</span></code> to switch between debug and release message.</p>
+<p>In the repository, there is already a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> recipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">MSBuild</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;MIT&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/memsharded/hello_vs&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;src/*&quot;</span><span class="p">,</span> <span class="s2">&quot;build/*&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msbuild</span> <span class="o">=</span> <span class="n">MSBuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">msbuild</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="s2">&quot;build/HelloLib/HelloLib.sln&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;HelloLib&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>This recipe is using the <a class="reference internal" href="../reference/build_helpers/visual_studio.html#msbuild"><span class="std std-ref">MSBuild() build helper</span></a> to build the <code class="docutils literal notranslate"><span class="pre">sln</span></code> project.
+If our recipe had <code class="docutils literal notranslate"><span class="pre">requires</span></code>, the <code class="docutils literal notranslate"><span class="pre">MSBUILD</span></code> helper will also take care of inject all the needed
+information from the requirements, as include directories, library names, definitions, flags etc
+to allow our project to locate the declared dependencies.</p>
+<p>The recipe contains also a <code class="docutils literal notranslate"><span class="pre">test_package</span></code> folder with a simple example consuming application.
+In this example, the consuming application is using cmake to build, but it could also use Visual Studio too.
+We have left the cmake one because it is the default generated with <strong class="command">conan new</strong>, and also to show that packages
+created from Visual Studio projects can also be consumed with other build systems like CMake.</p>
+<p>Once we want to create a package, it is advised to close VS IDE, clean the temporary build files from VS to avoid problems,
+then create and test the package (here it is using system defaults, assuming they are Visual Studio 14, Release, x86_64):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># close VS</span>
+$ git clean -xdf
+$ conan create . memsharded/testing
+...
+&gt; Hello World Release!
+</pre></div>
+</div>
+<p>Instead of closing the IDE and running command:<cite>git clean</cite> we could also configure a smarter filter in <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> field, so temporary
+build files are not exported into the recipe.</p>
+<p>This process can be repeated to create and test packages for different configurations:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . memsharded/testing -s <span class="nv">arch</span><span class="o">=</span>x86
+$ conan create . memsharded/testing -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.runtime<span class="o">=</span>MDd -s <span class="nv">build_type</span><span class="o">=</span>Debug
+$ conan create . memsharded/testing -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.runtime<span class="o">=</span>MDd -s <span class="nv">build_type</span><span class="o">=</span>Debug -s <span class="nv">arch</span><span class="o">=</span>x86
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is not mandatory to specify the <code class="docutils literal notranslate"><span class="pre">compiler.runtime</span></code> setting. If it is not explicitly defined, Conan will
+automatically use <code class="docutils literal notranslate"><span class="pre">runtime=MDd</span></code> for <code class="docutils literal notranslate"><span class="pre">build_type==Debug</span></code> and <code class="docutils literal notranslate"><span class="pre">runtime=MD</span></code> for <code class="docutils literal notranslate"><span class="pre">build_type==Release</span></code>.</p>
+</div>
+<p>You can list the different created binary packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search Hello/0.1@memsharded/testing
+</pre></div>
+</div>
+</div>
+<div class="section" id="uploading-binaries">
+<h2>Uploading binaries<a class="headerlink" href="#uploading-binaries" title="Permalink to this headline">¶</a></h2>
+<p>Your locally created packages can already be uploaded to a conan remote.
+If you created them with the original username “memsharded”, as from the git clone, you might want to do a <strong class="command">conan copy</strong>
+to put them on your own username. Of course, you can also directly use your user name in <strong class="command">conan create</strong>.</p>
+<p>Another alternative is to configure the permissions in the remote, to allow uploading packages with
+different usernames. By default artifactory will do it but conan server won’t:
+permissions must be given in <code class="docutils literal notranslate"><span class="pre">[write_permissions]</span></code> section of <code class="docutils literal notranslate"><span class="pre">server.conf</span></code>.</p>
+</div>
+<div class="section" id="reusing-packages">
+<h2>Reusing packages<a class="headerlink" href="#reusing-packages" title="Permalink to this headline">¶</a></h2>
+<p>To use existing packages directly from Visual Studio, conan provides the <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator.
+Let’s clone an existing “Chat” project, consisting of a ChatLib static library that makes use of the
+previous “Hello World” package, and a MyChat application, calling the ChatLib library function.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/memsharded/chat_vs
+$ <span class="nb">cd</span> chat_vs
+</pre></div>
+</div>
+<p>As above, the repository contains a Visual Studio solution in the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder.
+But if you try to open it, it will fail to load.
+This is because it is expecting to find a file with the required information about dependencies,
+so it is necessary to obtain that file first. Just run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+</pre></div>
+</div>
+<p>You will see that it created two files, a <code class="docutils literal notranslate"><span class="pre">conaninfo.txt</span></code> file, containing the current
+configuration of dependencies, and a <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.props</span></code> file, containing the Visual Studio
+properties (like <code class="docutils literal notranslate"><span class="pre">&lt;AdditionalIncludeDirectories&gt;</span></code>), so it is able to find the installed dependencies.</p>
+<p>Now you can open the IDE and build and run the app (by the way, the chat function is just calling
+the <code class="docutils literal notranslate"><span class="pre">hello()</span></code> function two or three times, depending on the build type):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$  build<span class="se">\C</span>hatLib<span class="se">\C</span>hatLib.sln
+<span class="c1"># Switch to Release</span>
+<span class="c1"># MyChat -&gt; Set as Startup Project</span>
+<span class="c1"># Ctrl + F5 (Debug -&gt; Run without debugging)</span>
+&gt; Hello World Release!
+&gt; Hello World Release!
+</pre></div>
+</div>
+<p>If you wish to link with the debug version of Hello package, just install it and change IDE build type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -s <span class="nv">build_type</span><span class="o">=</span>Debug -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.runtime<span class="o">=</span>MDd
+<span class="c1"># Switch to Debug</span>
+<span class="c1"># Ctrl + F5 (Debug -&gt; Run without debugging)</span>
+&gt; Hello World Debug!
+&gt; Hello World Debug!
+&gt; Hello World Debug!
+</pre></div>
+</div>
+<p>Now you can close the IDE and clean the temporary files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># close VS IDE</span>
+$ git clean -xdf
+</pre></div>
+</div>
+<p>Again, there is a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> package recipe in the repository, together with a <code class="docutils literal notranslate"><span class="pre">test_package</span></code>.
+The recipe is almost identical to the above one, just with two minor differences:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Hello/0.1@memsharded/testing&quot;</span>
+<span class="o">...</span>
+<span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;visual_studio&quot;</span>
+</pre></div>
+</div>
+<p>This will allow us to create and test the package of the ChatLib library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . memsharded/testing
+&gt; Hello World Release!
+&gt; Hello World Release!
+</pre></div>
+</div>
+<p>You can also repeat the process for different build types and architectures.</p>
+</div>
+<div class="section" id="other-configurations">
+<h2>Other configurations<a class="headerlink" href="#other-configurations" title="Permalink to this headline">¶</a></h2>
+<p>The above example works as-is for VS2017, because VS supports upgrading from previous versions.
+The <code class="docutils literal notranslate"><span class="pre">MSBuild()</span></code> already implements such functionality, so building and testing
+packages with VS2017 can be done.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . demo/testing -s <span class="nv">compiler</span><span class="o">=</span><span class="s2">&quot;Visual Studio&quot;</span> -s compiler.version<span class="o">=</span><span class="m">15</span>
+</pre></div>
+</div>
+<p>If you have to build for older versions of Visual Studio, it is also possible.
+In that case, you would probably have different solution projects inside your build folder.
+Then the recipe only has to select the correct one, something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># assuming HelloLibVS12, HelloLibVS14 subfolders</span>
+    <span class="n">sln_file</span> <span class="o">=</span> <span class="s2">&quot;build/HelloLibVS</span><span class="si">%s</span><span class="s2">/HelloLib.sln&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="o">.</span><span class="n">version</span>
+    <span class="n">msbuild</span> <span class="o">=</span> <span class="n">MSBuild</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">msbuild</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">sln_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, we used just one <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.props</span></code> file, which the solution loaded at a global level.
+You could also define multiple <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.props</span></code> files, one per configuration (Release/Debug, x86/x86_64), and load them accordingly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">So far, the <code class="docutils literal notranslate"><span class="pre">visual_studio</span></code> generator is single-configuration (packages containing debug or release artifacts,
+the generally recommended approach), it does not support multi-config packages (packages containing both debug and release artifacts).
+Please report and provide feedback (submit an issue in github) to request this feature if necessary.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="makefiles.html" class="btn btn-neutral float-right" title="Creating and reusing packages based on Makefiles" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cmake_launch.html" class="btn btn-neutral" title="How to launch conan install from cmake" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

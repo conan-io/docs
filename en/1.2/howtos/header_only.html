@@ -1,0 +1,430 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to package header-only libraries &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Howtos" href="../howtos.html"/>
+        <link rel="next" title="How to launch conan install from cmake" href="cmake_launch.html"/>
+        <link rel="prev" title="Howtos" href="../howtos.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How to package header-only libraries</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#without-unit-tests">Without unit tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-unit-tests">With unit tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../howtos.html">Howtos</a> &raquo;</li>
+        
+      <li>How to package header-only libraries</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/howtos/header_only.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to-package-header-only-libraries">
+<span id="header-only"></span><h1>How to package header-only libraries<a class="headerlink" href="#how-to-package-header-only-libraries" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="without-unit-tests">
+<h2>Without unit tests<a class="headerlink" href="#without-unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>Packaging a header only library, without requiring to build and run unit tests for it within conan, can be
+done with a very simple recipe. Assuming you have the recipe in the source repo root folder, and the headers
+in a subfolder called <code class="docutils literal notranslate"><span class="pre">include</span></code>, you could do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="c1"># No settings/options are necessary, this is header only</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;include/*&quot;</span>
+    <span class="n">no_copy_source</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to package an external repository, you can use the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method to do a clone or download
+instead of the <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> fields.</p>
+<ul class="simple">
+<li>There is no need for <code class="docutils literal notranslate"><span class="pre">settings</span></code>, as changing them will not affect the final package artifacts</li>
+<li>There is no need for <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, as header-only are not built</li>
+<li>There is no need for a custom <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method. The default one already adds “include” subfolder
+to the include path</li>
+<li><code class="docutils literal notranslate"><span class="pre">no_copy_source</span> <span class="pre">=</span> <span class="pre">True</span></code> will disable the copy of the source folder to the build directory as there is
+no need to do so because source code is not modified at all by the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> or <code class="docutils literal notranslate"><span class="pre">build()</span></code> methods.</li>
+<li>Note that this recipe has no other dependencies, settings or options. If it had any of those, it would be very
+convenient to add the <code class="docutils literal notranslate"><span class="pre">package_id()</span></code> method, to ensure that only one package with always the same ID is
+create irrespective of the configurations and dependencies:</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">header_only</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Package is created with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/channel
+</pre></div>
+</div>
+</div>
+<div class="section" id="with-unit-tests">
+<h2>With unit tests<a class="headerlink" href="#with-unit-tests" title="Permalink to this headline">¶</a></h2>
+<p>If you want to run the library unit test while packaging, you would need this recipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;include/*&quot;</span><span class="p">,</span> <span class="s2">&quot;CMakeLists.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;example.cpp&quot;</span>
+    <span class="n">no_copy_source</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1"># this is not building a library, just tests</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">header_only</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p id="header-only-unit-tests-tip">If you are <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building"><span class="std std-ref">cross building</span></a> your <strong>library</strong> or <strong>app</strong> you’ll probably need
+to skip the <strong>unit tests</strong> because your target binary cannot be executed in current building host.
+To do it you can use <a class="reference internal" href="../reference/tools.html#tools-get-env"><span class="std std-ref">tools.get_env()</span></a> in combination with
+<a class="reference internal" href="../reference/env_vars.html#conan-run-tests"><span class="std std-ref">CONAN_RUN_TESTS</span></a> env variable, defined as <strong>False</strong>
+in profile for cross building and replace <code class="docutils literal notranslate"><span class="pre">cmake.test()</span></code> with:</p>
+<div class="last highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">tools</span><span class="o">.</span><span class="n">get_env</span><span class="p">(</span><span class="s2">&quot;CONAN_RUN_TESTS&quot;</span><span class="p">,</span> <span class="bp">True</span><span class="p">):</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">test</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Which will use a <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file in the root folder:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">project</span><span class="p">(</span><span class="s">Package</span> <span class="s">CXX</span><span class="p">)</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.12</span><span class="p">)</span>
+
+<span class="nb">include_directories</span><span class="p">(</span><span class="s2">&quot;include&quot;</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span> <span class="s">example.cpp</span><span class="p">)</span>
+
+<span class="nb">enable_testing</span><span class="p">()</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">NAME</span> <span class="s">example</span>
+        <span class="s">WORKING_DIRECTORY</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/bin</span>
+        <span class="s">COMMAND</span> <span class="s">example</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>and some <code class="docutils literal notranslate"><span class="pre">example.cpp</span></code> file, which will be our “unit test” of the library:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;hello.h&quot;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">hello</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>This will use different compilers and versions, as configured by conan settings (in command line or
+profiles), but will always generate just 1 output package, always with the same ID.</li>
+<li>The necessary files for the unit tests, must be <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> too (or retrieved from <code class="docutils literal notranslate"><span class="pre">source()</span></code> method)</li>
+<li>If the package had dependencies, via <code class="docutils literal notranslate"><span class="pre">requires</span></code>, it would be necessary to add the <code class="docutils literal notranslate"><span class="pre">generators</span> <span class="pre">=</span> <span class="pre">&quot;cmake&quot;</span></code>
+to the package recipe and adding the <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> file to the testing CMakeLists.txt:</li>
+</ul>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+<span class="nb">conan_basic_setup</span><span class="p">()</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span> <span class="s">example.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span> <span class="c"># not necessary if dependencies are also header-only</span>
+</pre></div>
+</div>
+<p>Package is created with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/channel
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This with/without tests is referring to running full unitary tests over the library, which is different to the <strong class="command">test</strong> functionality
+that checks the integrityg of the package. The above examples are describing the approaches for unit-testing the library within the
+recipe. In either case, it is recommended to have a <em>test_package</em> folder, so the <strong class="command">conan create</strong> command checks the package once
+it is created. Check the <a class="reference internal" href="../creating_packages/getting_started.html#packaging-getting-started"><span class="std std-ref">packaging getting started guide</span></a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cmake_launch.html" class="btn btn-neutral float-right" title="How to launch conan install from cmake" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../howtos.html" class="btn btn-neutral" title="Howtos" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

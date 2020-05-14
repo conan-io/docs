@@ -1,0 +1,507 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Using packages" href="using_packages.html"/>
+        <link rel="prev" title="Install" href="installation.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-timer-using-poco-libraries">A Timer using POCO libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-dependencies">Installing dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-timer-example">Building the timer example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#inspecting-dependencies">Inspecting dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-with-other-configurations">Building with other configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<span id="id1"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Let’s start with an example using one of the most popular C++ libraries: <a class="reference external" href="https://pocoproject.org/">POCO</a>. For convenience purposes we’ll use CMake. Keep in mind that
+Conan <strong>works with any build system</strong> and does not depend on CMake.</p>
+<div class="section" id="a-timer-using-poco-libraries">
+<h2>A Timer using POCO libraries<a class="headerlink" href="#a-timer-using-poco-libraries" title="Permalink to this headline">¶</a></h2>
+<p>First, let’s create a folder for our project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir mytimer
+$ <span class="nb">cd</span> mytimer
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If your code is in a GitHub repository you can simply clone the project, instead of creating this folder, using the following command:</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/memsharded/example-poco-timer.git mytimer
+</pre></div>
+</div>
+</div>
+<p>Next, create the following source files inside this folder:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><strong>timer.cpp</strong></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="c1">// $Id: //poco/1.4/Foundation/samples/Timer/src/Timer.cpp#1 $</span>
+ <span class="c1">// This sample demonstrates the Timer and Stopwatch classes.</span>
+ <span class="c1">// Copyright (c) 2004-2006, Applied Informatics Software Engineering GmbH.</span>
+ <span class="c1">// and Contributors.</span>
+ <span class="c1">// SPDX-License-Identifier:    BSL-1.0</span>
+
+ <span class="cp">#include</span> <span class="cpf">&quot;Poco/Timer.h&quot;</span><span class="cp"></span>
+ <span class="cp">#include</span> <span class="cpf">&quot;Poco/Thread.h&quot;</span><span class="cp"></span>
+ <span class="cp">#include</span> <span class="cpf">&quot;Poco/Stopwatch.h&quot;</span><span class="cp"></span>
+ <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+
+ <span class="k">using</span> <span class="n">Poco</span><span class="o">::</span><span class="n">Timer</span><span class="p">;</span>
+ <span class="k">using</span> <span class="n">Poco</span><span class="o">::</span><span class="n">TimerCallback</span><span class="p">;</span>
+ <span class="k">using</span> <span class="n">Poco</span><span class="o">::</span><span class="n">Thread</span><span class="p">;</span>
+ <span class="k">using</span> <span class="n">Poco</span><span class="o">::</span><span class="n">Stopwatch</span><span class="p">;</span>
+
+ <span class="k">class</span> <span class="nc">TimerExample</span><span class="p">{</span>
+ <span class="k">public</span><span class="o">:</span>
+     <span class="n">TimerExample</span><span class="p">(){</span> <span class="n">_sw</span><span class="p">.</span><span class="n">start</span><span class="p">();}</span>
+
+     <span class="kt">void</span> <span class="n">onTimer</span><span class="p">(</span><span class="n">Timer</span><span class="o">&amp;</span> <span class="n">timer</span><span class="p">){</span>
+         <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;Callback called after &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">_sw</span><span class="p">.</span><span class="n">elapsed</span><span class="p">()</span><span class="o">/</span><span class="mi">1000</span> <span class="o">&lt;&lt;</span> <span class="s">&quot; milliseconds.&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+     <span class="p">}</span>
+ <span class="k">private</span><span class="o">:</span>
+     <span class="n">Stopwatch</span> <span class="n">_sw</span><span class="p">;</span>
+ <span class="p">};</span>
+
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">){</span>
+     <span class="n">TimerExample</span> <span class="n">example</span><span class="p">;</span>
+     <span class="n">Timer</span> <span class="n">timer</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+     <span class="n">timer</span><span class="p">.</span><span class="n">start</span><span class="p">(</span><span class="n">TimerCallback</span><span class="o">&lt;</span><span class="n">TimerExample</span><span class="o">&gt;</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">TimerExample</span><span class="o">::</span><span class="n">onTimer</span><span class="p">));</span>
+
+     <span class="n">Thread</span><span class="o">::</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+     <span class="n">timer</span><span class="p">.</span><span class="n">stop</span><span class="p">();</span>
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>Now create a <em>conanfile.txt</em> inside this folder with the following content:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><strong>conanfile.txt</strong></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [requires]
+ Poco/1.8.0.1@pocoproject/stable
+
+ [generators]
+ cmake
+</pre></div>
+</div>
+</div>
+<p>In this example we will use CMake to build the project, which is why the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator is specified. This generator will create a
+<em>conanbuildinfo.cmake</em> file that defines CMake variables as include paths and library names, that can be used in our build.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are not a CMake user, change the <code class="docutils literal notranslate"><span class="pre">[generators]</span></code> section of your <em>conanfile.txt</em> to <code class="docutils literal notranslate"><span class="pre">gcc</span></code> or a more generic one <code class="docutils literal notranslate"><span class="pre">txt</span></code> to
+handle requirements with any build system. Learn more in <a class="reference internal" href="using_packages.html#using-packages"><span class="std std-ref">Using packages</span></a>.</p>
+</div>
+<p>Just include the generated file and use these variables inside our <em>CMakeLists.txt</em>:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><strong>CMakeLists.txt</strong></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span> <span class="nb">project</span><span class="p">(</span><span class="s">FoundationTimer</span><span class="p">)</span>
+ <span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.12</span><span class="p">)</span>
+ <span class="nb">add_definitions</span><span class="p">(</span><span class="s2">&quot;-std=c++11&quot;</span><span class="p">)</span>
+
+ <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+ <span class="nb">conan_basic_setup</span><span class="p">()</span>
+
+ <span class="nb">add_executable</span><span class="p">(</span><span class="s">timer</span> <span class="s">timer.cpp</span><span class="p">)</span>
+ <span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">timer</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installing-dependencies">
+<h2>Installing dependencies<a class="headerlink" href="#installing-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>If you have a terminal with light colors, like the default gnome terminal in Ubuntu, set <code class="docutils literal notranslate"><span class="pre">CONAN_COLOR_DARK=1</span></code> to have a better contrast.
+Then create a build folder, for temporary build files, and install the requirements (pointing to the parent directory, as it is where the
+<em>conanfile.txt</em> is):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+$ conan install ..
+</pre></div>
+</div>
+<p>This <strong class="command">conan install</strong> command will download the binary package required for your configuration (detected the first time that you ran the
+command), <strong>together with other (transitively required by Poco) libraries, like OpenSSL and Zlib</strong>. It will also create the
+<em>conanbuildinfo.cmake</em> file in the current directory, in which you can see the cmake defined variables, and a <em>conaninfo.txt</em> where
+information about settings, requirements and options is saved.</p>
+<p>It is very important to understand the installation process. When <strong class="command">conan install</strong> command is issued, it will use some settings,
+specified on the command line or taken from the defaults in <code class="docutils literal notranslate"><span class="pre">&lt;userhome&gt;/.conan/profiles/default</span></code> file.</p>
+<a class="reference internal image-reference" href="_images/install_flow.png"><img alt="_images/install_flow.png" class="align-center" src="_images/install_flow.png" style="width: 500px; height: 400px;" /></a>
+<p>For a command like <strong class="command">conan install . -s os=&quot;Linux&quot; -s compiler=&quot;gcc&quot;</strong>, the steps are:</p>
+<ul class="simple">
+<li>Check if the package recipe (for <code class="docutils literal notranslate"><span class="pre">Poco/1.8.0.1&#64;pocoproject/stable</span></code> package) exists in the local cache. If we are just starting, the
+cache will be empty.</li>
+<li>Look for the package recipe in the defined remotes. Conan comes with <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a> Bintray remote by default (you can change that).</li>
+<li>If the recipe exists, Conan client will fetch and store it in your local cache.</li>
+<li>With the package recipe and the input settings (Linux, gcc), Conan client will check in the local cache if the corresponding binary is
+there, if we are installing for the first time, it won’t.</li>
+<li>Conan client will search for the corresponding binary package in the remote, if it exists, it will be fetched.</li>
+<li>Conan client will then finish generating the requested files specified in <code class="docutils literal notranslate"><span class="pre">generators</span></code>.</li>
+</ul>
+<p>If the binary package necessary for some given settings doesn’t exist, Conan client will throw an error. It is possible to try to build the
+binary package from sources with the <code class="docutils literal notranslate"><span class="pre">--build=missing</span></code> command line argument to install. A detailed description of how a binary package is
+built from sources will be given in a later section.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">In the Bintray repositories there are binaries for several mainstream compilers and versions, such as Visual Studio 12, 14, linux-gcc
+4.9 and apple-clang 3.5. If you are using another setup, the command might fail because of the missing package. You could try to change
+your settings or build the package from source, using the <code class="docutils literal notranslate"><span class="pre">--build=missing</span></code> option, instead of retrieving the binaries. Such a build
+might not have been tested and eventually fail.</p>
+</div>
+</div>
+<div class="section" id="building-the-timer-example">
+<h2>Building the timer example<a class="headerlink" href="#building-the-timer-example" title="Permalink to this headline">¶</a></h2>
+<p>Now you are ready to build and run your project:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>win<span class="o">)</span>
+$ cmake .. -G <span class="s2">&quot;Visual Studio 14 Win64&quot;</span>
+$ cmake --build . --config Release
+
+<span class="o">(</span>linux, mac<span class="o">)</span>
+$ cmake .. -G <span class="s2">&quot;Unix Makefiles&quot;</span> -DCMAKE_BUILD_TYPE<span class="o">=</span>Release
+$ cmake --build .
+...
+<span class="o">[</span><span class="m">100</span>%<span class="o">]</span> Built target timer
+$ ./bin/timer
+Callback called after <span class="m">250</span> milliseconds.
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="inspecting-dependencies">
+<h2>Inspecting dependencies<a class="headerlink" href="#inspecting-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The retrieved packages are installed to your local user cache (typically <code class="docutils literal notranslate"><span class="pre">.conan/data</span></code>), and can be reused from there in other projects.
+This allows to clean your current project and keep working even without network connection. Search packages in the local cache using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search
+</pre></div>
+</div>
+<p>Inspect binary package details (for different installed binaries for a given package recipe) using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search Poco/1.8.0.1@pocoproject/stable
+</pre></div>
+</div>
+<p>There is also the option to generate a table for all binaries from a given recipe with the <code class="docutils literal notranslate"><span class="pre">--table</span></code> option, even in remotes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan search zlib/1.2.11@conan/stable --table<span class="o">=</span>file.html -r<span class="o">=</span>conan-center
+$ file.html <span class="c1"># or open the file, double-click</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/search_binary_table.png"><img alt="_images/search_binary_table.png" class="align-center" src="_images/search_binary_table.png" style="width: 300px; height: 250px;" /></a>
+<p>Check the reference for more information on how to search in remotes, how to remove or clean packages from the local cache, and how to
+define custom cache directory per user or per project.</p>
+<p>Inspect your current project’s dependencies with the <code class="docutils literal notranslate"><span class="pre">info</span></code> command, pointing it to the folder where the <em>conanfile.txt</em> is:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info ..
+</pre></div>
+</div>
+<p>Generate a graph of your dependencies in dot or html formats:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan info .. --graph<span class="o">=</span>file.html
+$ file.html <span class="c1"># or open the file, double-click</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/info_deps_html_graph.png"><img alt="_images/info_deps_html_graph.png" class="align-center" src="_images/info_deps_html_graph.png" style="width: 200px; height: 150px;" /></a>
+</div>
+<div class="section" id="building-with-other-configurations">
+<h2>Building with other configurations<a class="headerlink" href="#building-with-other-configurations" title="Permalink to this headline">¶</a></h2>
+<p>In this example we have built our project using the default configuration detected by conan, this configuration is known as the
+<a class="reference internal" href="reference/config_files/default_profile.html#default-profile"><span class="std std-ref">default profile</span></a>.</p>
+<p>The first time you run the command that requires a profile, such as <strong class="command">conan install</strong>, your settings are detected (compiler,
+architecture…) automatically and stored as default in a profile. You can change your those
+settings by editing <code class="docutils literal notranslate"><span class="pre">~/.conan/profiles/default</span></code> or create new profiles with the desired
+configuration.</p>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<ul class="last simple">
+<li>It is strongly recommended to review the generated default profile and adjust the settings to describe accurately your system.</li>
+<li>When a GCC <strong>compiler &gt;= 5.1</strong> is detected, the setting modeling the c++ standard library:
+<code class="docutils literal notranslate"><span class="pre">compiler.libcxx</span></code> will be set to <code class="docutils literal notranslate"><span class="pre">libstdc++</span></code> that represent the old ABI compatibility for better compatibility. Your compiler
+default is likely the new ABI so you might want to change it to <code class="docutils literal notranslate"><span class="pre">libstdc++11</span></code> to use the new ABI compliant with CXX11 directives.
+<a class="reference internal" href="howtos/manage_gcc_abi.html#manage-gcc-abi"><span class="std std-ref">Read more here</span></a>.</li>
+</ul>
+</div>
+<p>For example, if we have a profile with a gcc configutarion for 32 bits in a profile called <em>gcc_x86</em>, we could issue the <code class="docutils literal notranslate"><span class="pre">install</span></code> command
+like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -pr gcc_x86
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Using profiles is strongly recommended. Learn more about them <a class="reference internal" href="reference/profiles.html#profiles"><span class="std std-ref">here</span></a>.</p>
+</div>
+<p>However, the user can always override the default profile settings in <code class="docutils literal notranslate"><span class="pre">install</span></code> command with the <code class="docutils literal notranslate"><span class="pre">-s</span></code> parameter. As an exercise, try
+building your timer project with a different configuration. For example, you could try building the 32 bits version:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -s <span class="nv">arch</span><span class="o">=</span>x86
+</pre></div>
+</div>
+<p>This will install a different package, using the <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">arch=x86</span></code> setting, instead of the default used previously, that in most cases will be
+<code class="docutils literal notranslate"><span class="pre">x86_64</span></code>.</p>
+<p>To use the 32 bits binaries you will also have to change your project build:</p>
+<ul class="simple">
+<li>In Windows, change the CMake invocation accordingly to <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">14</span></code>.</li>
+<li>In Linux, you have to add the <code class="docutils literal notranslate"><span class="pre">-m32</span></code> flag to your <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> with <code class="docutils literal notranslate"><span class="pre">SET(CMAKE_CXX_FLAGS</span> <span class="pre">&quot;${CMAKE_CXX_FLAGS}</span> <span class="pre">-m32&quot;)</span></code>, and the
+same to <code class="docutils literal notranslate"><span class="pre">CMAKE_C_FLAGS,</span> <span class="pre">CMAKE_SHARED_LINK_FLAGS</span> <span class="pre">and</span> <span class="pre">CMAKE_EXE_LINKER_FLAGS</span></code>. This can also be done more easily, automatically with
+Conan, as we’ll see later.
+- In Mac, you need to add the definition <code class="docutils literal notranslate"><span class="pre">-DCMAKE_OSX_ARCHITECTURES=i386</span></code>.</li>
+</ul>
+<p>Got any doubts? Check out our <a class="reference internal" href="faq.html#faq"><span class="std std-ref">FAQ section</span></a> or <a href="mailto:info@conan.io" target="_blank">write us</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using_packages.html" class="btn btn-neutral float-right" title="Using packages" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Install" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

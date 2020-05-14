@@ -1,0 +1,482 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Apple/Xcode &mdash; conan 1.17.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.17.2 documentation" href="../../index.html"/>
+        <link rel="up" title="IDEs" href="../ides.html"/>
+        <link rel="next" title="Android Studio" href="android_studio.html"/>
+        <link rel="prev" title="CLion" href="clion.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ides.html">IDEs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">  Apple/Xcode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#with-cmake">With CMake</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#with-the-xcode-generator">With the <em>xcode</em> generator</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l3"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">CI Platforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cross_platform.html">Other Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../ides.html">IDEs</a> &raquo;</li>
+        
+      <li>  Apple/Xcode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/ide/xcode.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="xcode-logo-apple-xcode">
+<span id="xcode"></span><h1><img alt="xcode_logo" src="../../_images/xcode_logo.jpg" />  Apple/Xcode<a class="headerlink" href="#xcode-logo-apple-xcode" title="Permalink to this headline">¶</a></h1>
+<p>Conan can be integrated with <strong>Apple’s XCode</strong> in two different ways:</p>
+<ul class="simple">
+<li>Using the <strong>cmake</strong> generator to create a <strong>conanbuildinfo.cmake</strong> file.</li>
+<li>Using the <strong>xcode</strong> generator to create a  <strong>conanbuildinfo.xcconfig</strong> file.</li>
+</ul>
+<div class="section" id="with-cmake">
+<h2>With CMake<a class="headerlink" href="#with-cmake" title="Permalink to this headline">¶</a></h2>
+<p>Check the <a class="reference internal" href="../build_system/cmake.html#cmake"><span class="std std-ref">Integrations/cmake</span></a> section to read about the <strong>cmake</strong> generator.
+Check the official <a class="reference external" href="https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html">CMake docs</a> to find out more about generating Xcode projects with CMake.</p>
+</div>
+<div class="section" id="with-the-xcode-generator">
+<h2>With the <em>xcode</em> generator<a class="headerlink" href="#with-the-xcode-generator" title="Permalink to this headline">¶</a></h2>
+<p>You can use the <strong>xcode</strong> generator to integrate your requirements with your <em>Xcode</em>  project.
+This generator creates an <code class="docutils literal notranslate"><span class="pre">xcconfig</span></code> file, with all the <em>include paths</em>, <em>lib paths</em>, <em>libs</em>, <em>flags</em> etc, that can be imported in your project.</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> and change (or add) the <strong>xcode</strong> generator:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+
+[generators]
+xcode
+</pre></div>
+</div>
+<p>Install the requirements:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install .
+</pre></div>
+</div>
+<p>Go to your <strong>Xcode</strong> project, click on the project and select <strong>Add files to</strong>…</p>
+<img alt="../../_images/xcode1.png" src="../../_images/xcode1.png" />
+<p>Choose <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.xcconfig</span></code> generated.</p>
+<img alt="../../_images/xcode2.png" src="../../_images/xcode2.png" />
+<p>Click on the project again. In the <strong>info/configurations</strong> section, choose <strong>conanbuildinfo</strong> for <em>release</em> and <em>debug</em>.</p>
+<img alt="../../_images/xcode3.png" src="../../_images/xcode3.png" />
+<p>Build your project as usual.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../../reference/generators/xcode.html#xcode-generator"><span class="std std-ref">Reference/Generators/xcode</span></a> for the complete reference.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../../reference/tools.html#tools-is-apple-os"><span class="std std-ref">Tools section about Apple tools</span></a> to ease the integration with the Apple development tools in your
+recipes using the toolchain as a <a class="reference internal" href="../../devtools/build_requires.html#build-requires"><span class="std std-ref">build require</span></a>.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../../systems_cross_building/cross_building.html#darwin-toolchain"><span class="std std-ref">Darwin Toolchain package</span></a> section to learn how to <strong>cross build</strong> for <code class="docutils literal notranslate"><span class="pre">iOS</span></code>, <code class="docutils literal notranslate"><span class="pre">watchOS</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tvOS</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="android_studio.html" class="btn btn-neutral float-right" title="Android Studio" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clion.html" class="btn btn-neutral" title="CLion" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.17
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.17/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.17.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.17");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

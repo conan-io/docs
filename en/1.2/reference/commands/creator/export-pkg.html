@@ -1,0 +1,458 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan export-pkg &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan new" href="new.html"/>
+        <link rel="prev" title="conan export" href="export.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="create.html">conan create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan export-pkg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l4"><a class="reference internal" href="upload.html">conan upload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">conan test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan export-pkg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/reference/commands/creator/export-pkg.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-export-pkg">
+<span id="conan-export-pkg-command"></span><h1>conan export-pkg<a class="headerlink" href="#conan-export-pkg" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan export-pkg <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-sf SOURCE_FOLDER<span class="o">]</span> <span class="o">[</span>-bf BUILD_FOLDER<span class="o">]</span>
+                   <span class="o">[</span>-pf PACKAGE_FOLDER<span class="o">]</span> <span class="o">[</span>-if INSTALL_FOLDER<span class="o">]</span>
+                   <span class="o">[</span>-pr PROFILE<span class="o">]</span> <span class="o">[</span>-o OPTIONS<span class="o">]</span> <span class="o">[</span>-s SETTINGS<span class="o">]</span> <span class="o">[</span>-e ENV<span class="o">]</span>
+                   <span class="o">[</span>-f<span class="o">]</span>
+                   path reference
+</pre></div>
+</div>
+<p>Exports a recipe &amp; creates a package with given files calling ‘package’. It
+executes the package() method applied to the local folders ‘–source-folder’
+and ‘–build-folder’ and creates a new package in the local cache for the
+specified ‘reference’ and for the specified ‘–settings’, ‘–options’ and or ‘
+–profile’.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  path                  path to a recipe (conanfile.py). e.j: &quot;.&quot;
+  reference             user/channel, or a full package reference
+                        (Pkg/version@user/channel), if name and version are
+                        not declared in the recipe (conanfile.py)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
+                        local folder containing the sources. Defaulted to the
+                        directory of the conanfile. A relative path can also
+                        be specified (relative to the current directory)
+  -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
+                        build folder, working directory of the build process.
+                        Defaulted to the current directory. A relative path
+                        can also be specified (relative to the current
+                        directory)
+  -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
+                        folder containing a locally created package. If a
+                        value is giving, it won&#39;t call the recipe &#39;package()&#39;
+                        method, and will run a copy of the provided folder.
+  -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                        local folder containing the conaninfo.txt and
+                        conanbuildinfo.txt files (from a previous conan
+                        install execution). Defaulted to --build-folder. If
+                        these files are found in the specified folder, they
+                        will be used, then if you specify --profile, -s, -o,
+                        --env, it will raise an error.
+  -pr PROFILE, --profile PROFILE
+                        Profile for this package
+  -o OPTIONS, --options OPTIONS
+                        Define options values, e.g., -o Pkg:with_qt=true
+  -s SETTINGS, --settings SETTINGS
+                        Define settings values, e.g., -s compiler=gcc
+  -e ENV, --env ENV     Environment variables that will be set during the
+                        package build, -e CXX=/usr/bin/clang++
+  -f, --force           Overwrite existing package if existing
+</pre></div>
+</div>
+<p>Note that this is <strong>not</strong> the normal or recommended flow for creating conan packages,
+as packages created this way will not have a reproducible build from sources.
+This command should be used when:</p>
+<blockquote>
+<div><ul class="simple">
+<li>It is not possible to build the packages from sources (only pre-built binaries available).</li>
+<li>You are developing your package locally and want to export the built artifacts to the local
+cache.</li>
+</ul>
+</div></blockquote>
+<p>The command <strong class="command">conan new &lt;ref&gt; --bare</strong> will create a simple recipe that could be used in combination
+with the <code class="docutils literal notranslate"><span class="pre">export-pkg</span></code> command. Check this <a class="reference internal" href="../../../creating_packages/existing_binaries.html#existing-binaries"><span class="std std-ref">How to package existing binaries</span></a>.</p>
+<p><strong class="command">export-pkg</strong> has two different modes of operation:</p>
+<ul class="simple">
+<li>Specifying <strong class="command">--package-folder</strong> will perform a copy of the given folder, without executing the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method.
+Use it if you have already created the package, for example with <strong class="command">conan package</strong> or
+with <code class="docutils literal notranslate"><span class="pre">cmake.install()</span></code> from the <code class="docutils literal notranslate"><span class="pre">build()</span></code> step.</li>
+<li>Specifying <strong class="command">--build-folder</strong> and/or <strong class="command">--source-folder</strong> will execute the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method,
+to filter, select and arrange the layout of the artifacts.</li>
+</ul>
+<p><strong>Examples</strong>:</p>
+<ul>
+<li><p class="first">Create a package from a directory containing the binaries for Windows/x86/Release:</p>
+<p>Having these files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Release_x86/lib/libmycoollib.a
+Release_x86/lib/other.a
+Release_x86/include/mylib.h
+Release_x86/include/other.h
+</pre></div>
+</div>
+<p>Run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1 --bare  <span class="c1"># In case you still don&#39;t have a recipe for the binaries</span>
+$ conan export-pkg . Hello/0.1@user/stable -s <span class="nv">os</span><span class="o">=</span>Windows -s <span class="nv">arch</span><span class="o">=</span>x86 -s <span class="nv">build_type</span><span class="o">=</span>Release --build-folder<span class="o">=</span>Release_x86
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a package from a user folder build and sources folders:</p>
+<p>Given these files in the current folder</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sources/include/mylib.h
+sources/src/file.cpp
+build/lib/mylib.lib
+build/lib/mylib.tmp
+build/file.obj
+</pre></div>
+</div>
+<p>And assuming the <code class="docutils literal notranslate"><span class="pre">Hello/0.1&#64;user/stable</span></code> recipe has a <code class="docutils literal notranslate"><span class="pre">package()</span></code> method like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, the following code will create a package in the conan local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan export-pkg . Hello/0.1@user/stable -pr<span class="o">=</span>myprofile --source-folder<span class="o">=</span>sources --build-folder<span class="o">=</span>build
+</pre></div>
+</div>
+<p>And such package will contain just the files:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include/mylib.h
+lib/mylib.lib
+</pre></div>
+</div>
+</li>
+<li><p class="first">Building a conan package (for architecture x86) in a local directory and then send it to the local cache:</p>
+<p><strong>conanfile.py</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+
+<span class="k">class</span> <span class="nc">LibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;git clone https://github.com/memsharded/hello.git&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">source_folder</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>First we will call <strong class="command">conan source</strong> to get our source code in the <em>src</em> directory, then
+<strong class="command">conan install</strong> to install the requirements and generate the info files, <strong class="command">conan build</strong> to
+build the package, and finally <strong class="command">conan export-pkg</strong> to send the binary files to a package in the
+local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">source</span> . --source-folder src
+$ conan install --install-folder build_x86 -s <span class="nv">arch</span><span class="o">=</span>x86
+$ conan build . --build-folder build_x86 --source-folder src
+<span class="hll">$ conan export-pkg . Hello/0.1@user/stable --build-folder build_x86
+</span></pre></div>
+</div>
+<p>In this case, in the <strong class="command">conan export-pkg</strong>, you don’t need to specify the <strong class="command">-s arch=x86</strong> or any other setting, option, or profile,
+because it will all the information in the <strong class="command">--build-folder</strong> the <em>conaninfo.txt</em> and <em>conanbuildinfo.txt`</em> that have been created with
+<strong class="command">conan install</strong>.</p>
+</li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="new.html" class="btn btn-neutral float-right" title="conan new" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="export.html" class="btn btn-neutral" title="conan export" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

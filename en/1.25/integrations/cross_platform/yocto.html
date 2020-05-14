@@ -1,0 +1,786 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Yocto &mdash; conan 1.25.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.25.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Other Systems" href="../cross_platform.html"/>
+        <link rel="next" title="Android" href="android.html"/>
+        <link rel="prev" title="QNX Neutrino" href="qnx_neutrino.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compilers.html">Compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ides.html">IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">CI Platforms</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../cross_platform.html">Other Systems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="buildroot.html"> Buildroot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="emscripten.html"> Emscripten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qnx_neutrino.html"> QNX Neutrino</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Yocto</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-conan">Integration with Conan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-conan-packages-with-yocto-s-sdk">Creating Conan packages with Yocto’s SDK</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deploying-an-application-to-a-yocto-image">Deploying an application to a Yocto image</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="android.html"> Android</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../cross_platform.html">Other Systems</a> &raquo;</li>
+        
+      <li> Yocto</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/cross_platform/yocto.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="yocto-logo-yocto">
+<span id="yocto-integration"></span><h1><a class="reference internal" href="../../_images/conan-yocto.png"><img alt="yocto_logo" src="../../_images/conan-yocto.png" style="width: 180px;" /></a> Yocto<a class="headerlink" href="#yocto-logo-yocto" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://www.yoctoproject.org/">Yocto Project</a> is an open-source project that delivers a set of tools that create operating system images for embedded Linux systems.
+The Yocto Project tools are based on the <a class="reference external" href="http://www.openembedded.org/wiki/Main_Page">OpenEmbedded</a> project, which uses the BitBake build tool, to construct complete Linux images.</p>
+<p>Yocto supports several Linux host distributions and it also provides a way to install the correct version of these tools by either
+downloading a buildtools-tarball or building one on a supported machine. This allows virtually any Linux distribution to be able to run
+Yocto, and also makes sure that it will be possible to replicate your Yocto build system in the future. The Yocto Project build system also
+isolates itself from the host distribution’s C library, which makes it possible to share build caches between different distributions and
+also helps in future-proofing the build system.</p>
+<div class="section" id="integration-with-conan">
+<h2>Integration with Conan<a class="headerlink" href="#integration-with-conan" title="Permalink to this headline">¶</a></h2>
+<p>You can create Conan packages building with the Yocto SDK as any other package for other configuration. Those packages can be integrated
+into a Yocto build installing them from a remote and without compiling them again.</p>
+<p>Three stages can be differentiated in the proposed flow:</p>
+<p>1. Developers can create an application with the native tools in their desktop platform of choice using their usual IDE, compiler or
+debugger and test the application.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="../../_images/conan-yocto_development.png"><img alt="../../_images/conan-yocto_development.png" class="align-center" src="../../_images/conan-yocto_development.png" style="width: 600px; height: 600px;" /></a>
+</div></blockquote>
+<ol class="arabic" start="2">
+<li><p class="first">Packages can be cross-built for the target device using the Yocto SDK and uploaded to Artifactory, even automated in a CI process.</p>
+<a class="reference internal image-reference" href="../../_images/conan-yocto_cross-build.png"><img alt="../../_images/conan-yocto_cross-build.png" class="align-center" src="../../_images/conan-yocto_cross-build.png" style="width: 600px; height: 600px;" /></a>
+</li>
+<li><p class="first">Once the cross-built packages are available in Artifactory, the application can be directly deployed to the Yocto image. This step can also be automated also in a CI.
+it from sources again.</p>
+<a class="reference internal image-reference" href="../../_images/conan-yocto_deploy.png"><img alt="../../_images/conan-yocto_deploy.png" class="align-center" src="../../_images/conan-yocto_deploy.png" style="width: 450px; height: 450px;" /></a>
+</li>
+</ol>
+</div>
+<div class="section" id="creating-conan-packages-with-yocto-s-sdk">
+<h2>Creating Conan packages with Yocto’s SDK<a class="headerlink" href="#creating-conan-packages-with-yocto-s-sdk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="prepare-your-recipes">
+<h3>Prepare your recipes<a class="headerlink" href="#prepare-your-recipes" title="Permalink to this headline">¶</a></h3>
+<p>First of all, the recipe of the application to be deployed to the final image should have a
+<a class="reference external" href="https://docs.conan.io/en/latest/devtools/running_packages.html">deploy() method</a>. There you can specify the files of the application
+needed in the image as well as any other from its dependencies (like shared libraries or assets):</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+
+ <span class="k">class</span> <span class="nc">MosquittoConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mosquitto&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.4.15&quot;</span>
+     <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Open source message broker that implements the MQTT protocol&quot;</span>
+     <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;EPL&quot;</span><span class="p">,</span> <span class="s2">&quot;EDL&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;openssl/1.0.2u&quot;</span><span class="p">,</span> <span class="s2">&quot;c-ares/1.15.0&quot;</span>
+
+ <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="n">source_url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/eclipse/mosquitto&quot;</span>
+     <span class="n">tools</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">/archive/v</span><span class="si">{1}</span><span class="s2">.tar.gz&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source_url</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">))</span>
+
+ <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+     <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+     <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+ <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*mosquitto.conf&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="hll"> <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span class="hll">     <span class="c1"># Deploy the executables from this eclipse/mosquitto package</span>
+</span><span class="hll">     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+</span><span class="hll">     <span class="c1"># Deploy the shared libs from this eclipse/mosquitto package</span>
+</span>     <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so*&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+    <span class="c1"># Deploy all the shared libs from the transitive deps</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">copy_deps</span><span class="p">(</span><span class="s2">&quot;*.so*&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">)</span>
+
+ <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mosquitto&quot;</span><span class="p">,</span> <span class="s2">&quot;mosquitopp&quot;</span><span class="p">,</span> <span class="s2">&quot;rt&quot;</span><span class="p">,</span> <span class="s2">&quot;pthread&quot;</span><span class="p">,</span> <span class="s2">&quot;dl&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="setting-up-a-yocto-sdk">
+<h3>Setting up a Yocto SDK<a class="headerlink" href="#setting-up-a-yocto-sdk" title="Permalink to this headline">¶</a></h3>
+<p>Yocto SDKs are completely self-contained, there is no dependency on libraries of the build machine or tools installed in it. The SDK is a
+cross-building toolchain matching the target and it is generated from that specific configuration. This means that you will have to use a
+different SDK toolchain to build for a different target architecture or that some SDK’s may have specific settings to enable some system
+dependency of the final target and those libraries will be available in the SDK.</p>
+<p>You can <a class="reference external" href="https://www.yoctoproject.org/docs/2.6/sdk-manual/sdk-manual.html#sdk-building-an-sdk-installer">create your own Yocto SDKs</a>
+or download and use <a class="reference external" href="http://downloads.yoctoproject.org/releases/yocto/yocto-2.6.2/toolchain/x86_64/">the prebuilt ones</a>.</p>
+<p><strong>In the case that you are using CMake</strong> to create the Conan packages, Yocto injects a toolchain that configures CMake to only search for
+libraries in the rootpath of the SDK with
+<a class="reference external" href="https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH.html#variable:CMAKE_FIND_ROOT_PATH">CMAKE_FIND_ROOT_PATH</a>. This is
+something that has to be patched to allow CMake to find libraries in the Conan cache as well:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>sdk/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span> <span class="nb">set</span><span class="p">(</span> <span class="s">CMAKE_FIND_ROOT_PATH</span> <span class="o">$ENV{</span><span class="nv">OECORE_TARGET_SYSROOT</span><span class="o">}</span> <span class="o">$ENV{</span><span class="nv">OECORE_NATIVE_SYSROOT</span><span class="o">}</span> <span class="p">)</span>
+ <span class="nb">set</span><span class="p">(</span> <span class="s">CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</span> <span class="s">NEVER</span> <span class="p">)</span>
+ <span class="c"># COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY )</span>
+ <span class="c"># COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY )</span>
+ <span class="c"># COMMENT THIS: set( CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY )</span>
+</pre></div>
+</div>
+</div>
+<p>You can read more about those variables here:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_LIBRARY.html">CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</a></li>
+<li><a class="reference external" href="https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_INCLUDE.html">CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</a></li>
+<li><a class="reference external" href="https://cmake.org/cmake/help/v3.0/variable/CMAKE_FIND_ROOT_PATH_MODE_PACKAGE.html">CMAKE_FIND_ROOT_PATH_MODE_PACKAGE</a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cross-building-conan-packages-with-the-sdk-toolchain">
+<h3>Cross-building Conan packages with the SDK toolchain<a class="headerlink" href="#cross-building-conan-packages-with-the-sdk-toolchain" title="Permalink to this headline">¶</a></h3>
+<p>After setting up your desired SDK, you can start creating Conan packages setting up the environment of the Yocto SDK and running a
+<strong class="command">conan create</strong> command with a suitable profile with the specific architecture of the toolchain.</p>
+<p>For example, creating packages for <cite>arch=armv8</cite>:</p>
+<p>The profile will be:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>armv8</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [settings]
+ os_build=Linux
+ arch_build=x86_64
+ os=Linux
+ arch=armv8
+ compiler=gcc
+ compiler.version=8
+ compiler.libcxx=libstdc++11
+ build_type=Release
+</pre></div>
+</div>
+</div>
+<p>Activate the SDK environment and execute the create command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> oe-environment-setup-aarch64-poky-linux
+$ conan create . user/channel --profile armv8
+</pre></div>
+</div>
+<p>This will generate the packages using the Yocto toolchain from the environment variables such as <code class="docutils literal notranslate"><span class="pre">CC</span></code>, <code class="docutils literal notranslate"><span class="pre">CXX</span></code>, <code class="docutils literal notranslate"><span class="pre">LD</span></code>… Now you can
+<a class="reference internal" href="../../uploading_packages.html#uploading-packages"><span class="std std-ref">upload the binaries</span></a> to an Artifactory server to share and reuse in your Yocto builds.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload mosquitto/1.4.15@user/channel --all --remote my_repo
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">We strongly recommend using the Yocto’s SDK toolchain to create packages as they will be built with the optimization flags suitable to
+be deployed later to an image generated in a Yocto build.</p>
+</div>
+</div>
+</div>
+<div class="section" id="deploying-an-application-to-a-yocto-image">
+<h2>Deploying an application to a Yocto image<a class="headerlink" href="#deploying-an-application-to-a-yocto-image" title="Permalink to this headline">¶</a></h2>
+<p>Now that you have your cross-built Conan packages in Artifactory, you can deploy them in a Yocto build.</p>
+<div class="section" id="set-up-the-conan-layer">
+<h3>Set up the Conan layer<a class="headerlink" href="#set-up-the-conan-layer" title="Permalink to this headline">¶</a></h3>
+<p>We have created a <a class="reference external" href="https://github.com/conan-io/meta-conan">meta-conan</a> layer that includes all the configuration, the Conan client and a
+generic BitBake recipe. To add the layer you will have to clone the repository and the dependency layers of <code class="docutils literal notranslate"><span class="pre">meta-openembedded</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> poky
+$ git clone https://github.com/conan-io/meta-conan.git
+$ git clone --branch thud https://github.com/openembedded/meta-openembedded.git
+</pre></div>
+</div>
+<p>You would also have to activate the layers in the <em>bblayers.conf</em> file of your build folder:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>conf/bblayers.conf</em></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> POKY_BBLAYERS_CONF_VERSION = &quot;2&quot;
+
+ BBPATH = &quot;${TOPDIR}&quot;
+ BBFILES ?= &quot;&quot;
+
+ BBLAYERS ?= &quot; \
+ /home/username/poky/meta \
+ /home/username/poky/meta-poky \
+ /home/username/poky/meta-yocto-bsp \
+ /home/username/poky/meta-openembedded/meta-oe \
+ /home/username/poky/meta-openembedded/meta-python \
+ /home/username/poky/meta-conan \
+ &quot;
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Currently there is no support for <code class="docutils literal notranslate"><span class="pre">CONAN_REVISIONS_ENABLED</span></code>, so remote and virtual Artifactory repositories will not work in this
+case. We will continue working on this layer to support more features.</p>
+<p class="last">Please report any question, feature request or issue related to the <code class="docutils literal notranslate"><span class="pre">meta-conan</span></code> layer in its
+<a class="reference external" href="https://github.com/conan-io/meta-conan/issues">GitHub issue tracker</a>.</p>
+</div>
+</div>
+<div class="section" id="write-the-bitbake-recipe-for-the-conan-package">
+<h3>Write the Bitbake recipe for the Conan package<a class="headerlink" href="#write-the-bitbake-recipe-for-the-conan-package" title="Permalink to this headline">¶</a></h3>
+<p>With the <code class="docutils literal notranslate"><span class="pre">meta-conan</span></code> layer, a Conan recipe to deploy a Conan package should look as easy as this recipe:</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>conan-mosquitto_1.4.15.bb</em></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> inherit conan
+
+ DESCRIPTION = &quot;An open source MQTT broker&quot;
+ LICENSE = &quot;EPL-1.0&quot;
+
+ CONAN_PKG = &quot;mosquitto/1.4.15@bincrafters/stable&quot;
+</pre></div>
+</div>
+</div>
+<p>This recipe will be placed inside your application layer that should be also added to the <em>conf/bblayers.conf</em> file.</p>
+</div>
+<div class="section" id="configure-conan-variables-for-the-build">
+<h3>Configure Conan variables for the build<a class="headerlink" href="#configure-conan-variables-for-the-build" title="Permalink to this headline">¶</a></h3>
+<p>Additionally to the recipe, you will need to provide the information about the credentials for Artifactory or the profile to be used to
+retrieve the packages in the <em>local.conf</em> file of your build folder.</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>poky_build_folder/conf/local.conf</em></span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> IMAGE_INSTALL_append = &quot; conan-mosquitto&quot;
+
+ # Profile for installation
+ CONAN_PROFILE_PATH = &quot;${TOPDIR}/conf/armv8&quot;
+ # Artifactory repository
+ CONAN_REMOTE_URL = &quot;https://localhost:8081/artifactory/api/conan/&lt;repository&gt;&quot;
+ # Artifactory Credentials
+ CONAN_USER = &quot;REPO_USER&quot;
+ CONAN_PASSWORD = &quot;REPO_PASSWORD&quot;
+</pre></div>
+</div>
+</div>
+<p>Notice the <em>armv8</em> profile to indicate your configuration next to the <em>local.conf</em>. That way you will be able to match the Conan
+configuration with the specific architecture or board of your Yocto build.</p>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>poky_build_folder/conf/armv8</em></span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [settings]
+ os_build=Linux
+ arch_build=x86_64
+ os=Linux
+ arch=armv8
+ compiler=gcc
+ compiler.version=8
+ compiler.libcxx=libstdc++11
+ build_type=Release
+</pre></div>
+</div>
+</div>
+<p>It is recommended to set up the specific profile to use in your build with <code class="docutils literal notranslate"><span class="pre">CONAN_PROFILE_PATH</span></code> pointing to profile stored in the
+configuration folder of your build (next to the <em>conf/local.conf</em> file), for example: <code class="docutils literal notranslate"><span class="pre">CONAN_PROFILE_PATH</span> <span class="pre">=</span> <span class="pre">&quot;${TOPDIR}/conf/armv8&quot;</span></code>.</p>
+<p>Finally, the Artifactory repository URL where you want to retrieve the packages from and its credentials.</p>
+<p>You can also use <code class="docutils literal notranslate"><span class="pre">CONAN_CONFIG_URL</span></code> with a custom Conan configuration to be used with <strong class="command">conan config install</strong> and the name of the
+profile to use in <code class="docutils literal notranslate"><span class="pre">CONAN_PROFILE_PATH</span></code> and just the name of the remote in <code class="docutils literal notranslate"><span class="pre">CONAN_REMOTE_NAME</span></code>. For example:</p>
+<div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text"><em>poky_build_folder/conf/local.conf</em></span><a class="headerlink" href="#id8" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> IMAGE_INSTALL_append = &quot; conan-mosquitto&quot;
+
+ CONAN_CONFIG_URL = &quot;https://github.com/&lt;your-organization&gt;/conan-config.git&quot;
+ CONAN_PROFILE_PATH = &quot;armv8&quot;
+ CONAN_REMOTE_NAME = &quot;my_repo&quot;
+ CONAN_USER = &quot;REPO_USER&quot;
+ CONAN_PASSWORD = &quot;REPO_PASSWORD&quot;
+</pre></div>
+</div>
+</div>
+<p>In this case the <em>armv8</em> profile and the <code class="docutils literal notranslate"><span class="pre">my_repo</span></code> remote will be taken from the ones installed with the <strong class="command">conan config install</strong>
+command.</p>
+<div class="section" id="architecture-conversion-table">
+<h4>Architecture conversion table<a class="headerlink" href="#architecture-conversion-table" title="Permalink to this headline">¶</a></h4>
+<p>If no specific profile is indicated in <code class="docutils literal notranslate"><span class="pre">CONAN_PROFILE_PATH</span></code>, Conan will map the most common Yocto architectures and machines to the
+existing ones in Conan. This is the current mapping from Conan architectures to the Yocto ones:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="33%" />
+<col width="41%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Yocto SDK</strong></th>
+<th class="head"><strong>Yocto Machine</strong></th>
+<th class="head"><strong>Conan arch setting</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>aarch64</td>
+<td>qemuarm64</td>
+<td>armv8</td>
+</tr>
+<tr class="row-odd"><td>armv5e</td>
+<td>qemuarmv5</td>
+<td>armv5el</td>
+</tr>
+<tr class="row-even"><td>core2-64</td>
+<td>qemux86_64</td>
+<td>x86_64</td>
+</tr>
+<tr class="row-odd"><td>cortexa8hf</td>
+<td>quemuarm</td>
+<td>armv7hf</td>
+</tr>
+<tr class="row-even"><td>i586</td>
+<td>qemux86</td>
+<td>x86</td>
+</tr>
+<tr class="row-odd"><td>mips32r2</td>
+<td>qemumips</td>
+<td>mips</td>
+</tr>
+<tr class="row-even"><td>mips64</td>
+<td>qemumips64</td>
+<td>mips64</td>
+</tr>
+<tr class="row-odd"><td>ppc7400</td>
+<td>qemuppc</td>
+<td>ppc32</td>
+</tr>
+</tbody>
+</table>
+<p>This mapping may not be complete and some of the binaries generated with the Yocto toolchains will have specific optimization flags for
+the specific architectures.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>For heavy Yocto users, having a custom setting for this may be very useful. For example, including the specific architecture names in
+your <em>settings.yml</em></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">arch</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">,</span> <span class="s">&quot;aarch64&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;armv5e&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;core2-64&quot;</span><span class="p p-Indicator">,</span> <span class="nv">...</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p>Or using a <code class="docutils literal notranslate"><span class="pre">machine</span></code> subsetting under the <code class="docutils literal notranslate"><span class="pre">Linux</span></code> operating system:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">os</span><span class="p">:</span>
+    <span class="nt">Linux</span><span class="p">:</span>
+        <span class="nt">machine</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">None</span><span class="p p-Indicator">,</span> <span class="s">&quot;qemuarm64&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;qemuarm64&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;qemux86_64&quot;</span><span class="p p-Indicator">,</span> <span class="nv">...</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+<p class="last">Note that the <code class="docutils literal notranslate"><span class="pre">None</span></code> value is important here to be able to build other packages without value for this subsetting to target a
+non-yocto Linux distro.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li>Yocto Machine configurations: <a class="reference external" href="https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/conf/machine">https://git.yoctoproject.org/cgit.cgi/poky/tree/meta/conf/machine</a></li>
+<li>Conan Architectures in <a class="reference internal" href="../../reference/config_files/settings.yml.html#settings-yml"><span class="std std-ref">settings.yml</span></a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="deploy-the-application-and-its-dependencies-to-the-final-image">
+<h3>Deploy the application and its dependencies to the final image<a class="headerlink" href="#deploy-the-application-and-its-dependencies-to-the-final-image" title="Permalink to this headline">¶</a></h3>
+<p>You can build the recipe to test that the packages are correctly deployed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bitbake -c install conan-mosquitto
+</pre></div>
+</div>
+<p>Packages will be installed with the profile indicated and installed with its dependencies only from the remote specified.</p>
+<p>Finally, you can build your image with the Conan packages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ bitbake core-image-minimal
+</pre></div>
+</div>
+<p>The binaries of <strong>the Conan packages will be deployed</strong> to the <em>/bin</em> folder of the image once it is created.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="android.html" class="btn btn-neutral float-right" title="Android" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="qnx_neutrino.html" class="btn btn-neutral" title="QNX Neutrino" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.25
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.25.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.25");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

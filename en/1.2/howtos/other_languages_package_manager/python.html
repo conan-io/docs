@@ -1,0 +1,438 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Conan: A Python package manager &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="How to use Conan as other language package manager" href="../other_languages_package_manager.html"/>
+        <link rel="next" title="How to manage SSL (TLS) certificates" href="../use_tls_certificates.html"/>
+        <link rel="prev" title="Conan: A Go package manager" href="go.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../other_languages_package_manager.html">How to use Conan as other language package manager</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="go.html">Conan: A Go package manager</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Conan: A Python package manager</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#a-full-python-and-c-c-package-manager">A full Python and C/C++ package manager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../howtos.html">Howtos</a> &raquo;</li>
+        
+          <li><a href="../other_languages_package_manager.html">How to use Conan as other language package manager</a> &raquo;</li>
+        
+      <li>Conan: A Python package manager</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/howtos/other_languages_package_manager/python.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-a-python-package-manager">
+<h1>Conan: A Python package manager<a class="headerlink" href="#conan-a-python-package-manager" title="Permalink to this headline">¶</a></h1>
+<p>Conan is a C and C++ package manager, and to deal with the vast variability of C and C++ build systems, compilers, configurations, etc., it
+was designed with a great flexibility in mind, trying to let the users do almost what they want. This is one of the reasons to use Python as
+the scripting language for Conan package recipes.</p>
+<p>With this flexibility, Conan is able to do very different tasks: package
+<a class="reference external" href="http://blog.conan.io/2016/06/01/Building-and-packaging-C++-modules-in-VS2015.html">Visual Studio modules</a>,
+<a class="reference internal" href="go.html#go-package-manager"><span class="std std-ref">package Go code</span></a>, build packages from sources or from binaries retrieved from elsewhere, etc.</p>
+<p><a class="reference internal" href="../python_code_reuse.html#python-reuse"><span class="std std-ref">Python code can be reused and packaged with Conan</span></a> to share functionalities or tools among <em>conanfile.py</em> files. Here we can
+see a full example of Conan as a Python package manager.</p>
+<div class="section" id="a-full-python-and-c-c-package-manager">
+<h2>A full Python and C/C++ package manager<a class="headerlink" href="#a-full-python-and-c-c-package-manager" title="Permalink to this headline">¶</a></h2>
+<p>The real utility of this is that Conan is a C and C++ package manager. So if we want to create a python package that wraps the functionality
+of, lets say the Poco C++ library, it can be easily done. Poco itself has transitive (C/C++) dependencies, but they are already handled by
+Conan. Furthermore, a very interesting thing is that nothing has to be done in advance for that library, thanks to useful tools as
+<strong>pybind11</strong>, that allows to create python bindings easily.</p>
+<p>So let’s build a package with the following files:</p>
+<ul class="simple">
+<li><em>conanfile.py</em>: The package recipe.</li>
+<li><em>__init__.py</em>: necessary file, blank.</li>
+<li><em>pypoco.cpp</em>: The C++ code with the <code class="docutils literal notranslate"><span class="pre">pybind11</span></code> wrapper for Poco that generates a python extension (a shared library that can be imported
+from python).</li>
+<li><em>CMakeLists.txt</em>: cmake build file that is able to compile <em>pypoco.cpp</em> into a Python extension (<em>pypoco.pyd</em> in Windows,
+<em>pypoco.so</em> in Linux)</li>
+<li><em>poco.py</em>: A Python file that makes use of the pypoco Python binary extension built with <em>pypoco.cpp</em>.</li>
+<li><em>test_package/conanfile.py</em>: A test consumer recipe for convenience to create and test the package.</li>
+</ul>
+<p>The <em>pypoco.cpp</em> file can be coded easily thanks to the elegant <code class="docutils literal notranslate"><span class="pre">pybind11</span></code> library:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">pypoco.cpp</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="cp">#include</span> <span class="cpf">&lt;pybind11/pybind11.h&gt;</span><span class="cp"></span>
+ <span class="cp">#include</span> <span class="cpf">&quot;Poco/Random.h&quot;</span><span class="cp"></span>
+
+ <span class="k">using</span> <span class="n">Poco</span><span class="o">::</span><span class="n">Random</span><span class="p">;</span>
+ <span class="k">namespace</span> <span class="n">py</span> <span class="o">=</span> <span class="n">pybind11</span><span class="p">;</span>
+
+ <span class="n">PYBIND11_PLUGIN</span><span class="p">(</span><span class="n">pypoco</span><span class="p">)</span> <span class="p">{</span>
+     <span class="n">py</span><span class="o">::</span><span class="n">module</span> <span class="n">m</span><span class="p">(</span><span class="s">&quot;pypoco&quot;</span><span class="p">,</span> <span class="s">&quot;pybind11 example plugin&quot;</span><span class="p">);</span>
+     <span class="n">py</span><span class="o">::</span><span class="n">class_</span><span class="o">&lt;</span><span class="n">Random</span><span class="o">&gt;</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s">&quot;Random&quot;</span><span class="p">)</span>
+         <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="n">py</span><span class="o">::</span><span class="n">init</span><span class="o">&lt;&gt;</span><span class="p">())</span>
+         <span class="p">.</span><span class="n">def</span><span class="p">(</span><span class="s">&quot;nextFloat&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Random</span><span class="o">::</span><span class="n">nextFloat</span><span class="p">);</span>
+     <span class="k">return</span> <span class="n">m</span><span class="p">.</span><span class="n">ptr</span><span class="p">();</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<p>And the <em>poco.py</em> file is straigthforward:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>poco.py</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="n">import</span> <span class="n">sys</span>
+ <span class="n">import</span> <span class="n">pypoco</span>
+
+ <span class="n">def</span> <span class="n">random_float</span><span class="p">()</span><span class="o">:</span>
+     <span class="n">r</span> <span class="o">=</span> <span class="n">pypoco</span><span class="p">.</span><span class="n">Random</span><span class="p">()</span>
+     <span class="k">return</span> <span class="n">r</span><span class="p">.</span><span class="n">nextFloat</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>The <em>conanfile.py</em> has a few more lines than the above, but it is still quite easy to understand:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>conanfile.py</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">tools</span><span class="p">,</span> <span class="n">CMake</span>
+
+ <span class="k">class</span> <span class="nc">PocoPyReuseConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;PocoPy&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Poco/1.7.8p3@pocoproject/stable&quot;</span><span class="p">,</span> <span class="s2">&quot;pybind11/any@memsharded/stable&quot;</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+     <span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+     <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+     <span class="n">build_policy</span> <span class="o">=</span> <span class="s2">&quot;missing&quot;</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+         <span class="n">pythonpaths</span> <span class="o">=</span> <span class="s2">&quot;-DPYTHON_INCLUDE_DIR=C:/Python27/include -DPYTHON_LIBRARY=C:/Python27/libs/python27.lib&quot;</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;cmake </span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1"> -DEXAMPLE_PYTHON_VERSION=2.7&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">,</span> <span class="n">pythonpaths</span><span class="p">))</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build . </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cmake</span><span class="o">.</span><span class="n">build_config</span><span class="p">)</span>
+
+     <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s1">&#39;*.py*&#39;</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">)</span>
+
+     <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">env_info</span><span class="o">.</span><span class="n">PYTHONPATH</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">package_folder</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The recipe now declares 2 <code class="docutils literal notranslate"><span class="pre">requires</span></code>, the <strong>Poco library</strong> and the <strong>pybind11 library</strong> that we will be using to create the binary
+extension.</p>
+<p>As we are actually building some C++ code, we need a few important things:</p>
+<ul class="simple">
+<li>Input <code class="docutils literal notranslate"><span class="pre">settings</span></code> that define the OS, compiler, version and architecture we are using to build our extension. This is necessary because
+the binary we are building must match the architecture of the python interpreter that we will be using.</li>
+<li>The <code class="docutils literal notranslate"><span class="pre">build()</span></code> method is used actually to invoke CMake. See we had to hardcode the python path in the example, as the <em>CMakeLists.txt</em>
+call to <code class="docutils literal notranslate"><span class="pre">find_package(PythonLibs)</span></code> didn’t find my python installed in <em>C:/Python27</em>, quite a standard path. I have added the <code class="docutils literal notranslate"><span class="pre">cmake</span></code>
+generator too to be able to easily use the declared <code class="docutils literal notranslate"><span class="pre">requires</span></code> build information inside my <em>CMakeLists.txt</em>.</li>
+<li>The <em>CMakeLists.txt</em> is not posted here, but is basically the one used in the pybind11 example with just 2 lines to include the conan
+generated cmake file for dependencies. It can be inspected in the github repo.</li>
+<li>Note that we are using Python 2.7 as an input option. If necessary, more options for other interpreters/architectures could be easily
+provided, as well as avoiding the hardcoded paths. Even the Python interpreter itself could be packaged in a conan package.</li>
+</ul>
+<p>The above recipe will generate a different binary for different compilers or versions. As the binary is being wrapped by python, we could
+avoid this and use the same binary for different setups, modifying this behavior with the <code class="docutils literal notranslate"><span class="pre">conan_info()</span></code> method.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . memsharded/testing
+$ conan install PocoPy/0.1@memsharded/testing -s <span class="nv">arch</span><span class="o">=</span>x86 -g virtualenv
+$ activate
+$ python
+&gt;&gt;&gt; import poco
+&gt;&gt;&gt; poco.random_float<span class="o">()</span>
+<span class="m">0</span>.697845458984375
+</pre></div>
+</div>
+<p>Now the first invocation of <strong class="command">conan install</strong> will build retrieve the dependencies and build the package. The next invocation will use the
+cached binaries and be much faster. Note how we have to specify <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">arch=x86</span></code> to build matching the architecture of the python interpreter
+to be used, in our case, 32 bits.</p>
+<p>We can also read in the output of the <strong class="command">conan install</strong> the dependencies that are being pulled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Requirements
+    OpenSSL/1.0.2l@conan/stable from conan.io
+    Poco/1.7.8p3@pocoproject/stable from conan.io
+    PocoPy/0.1@memsharded/testing from <span class="nb">local</span>
+    pybind11/any@memsharded/stable from conan.io
+    zlib/1.2.11@conan/stable from conan.io
+</pre></div>
+</div>
+<p>This is the great thing about using Conan for this task, by depending on Poco, other C and C++ transitive dependencies are being retrieved
+and used in the application.</p>
+<p>If you want to have a further look to the code of these examples, you can check
+<a class="reference external" href="https://github.com/memsharded/python-conan-packages">this github repo</a>. The above examples and code have been tested only in Win10, VS14u2,
+but might work with other configurations with little or no extra work.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../use_tls_certificates.html" class="btn btn-neutral float-right" title="How to manage SSL (TLS) certificates" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="go.html" class="btn btn-neutral" title="Conan: A Go package manager" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

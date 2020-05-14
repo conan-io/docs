@@ -1,0 +1,504 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Conan local cache: concurrency, Continuous Integration, isolation &mdash; conan 1.17.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.17.2 documentation" href="../index.html"/>
+        <link rel="up" title="Mastering Conan" href="../mastering.html"/>
+        <link rel="next" title="Systems and cross building" href="../systems_cross_building.html"/>
+        <link rel="prev" title="Sharing the settings and other configuration" href="sharing_settings_and_config.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../versioning.html">Versioning</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mastering.html">Mastering Conan</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="conanfile_py.html">Use conanfile.py for consumers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Conan local cache: concurrency, Continuous Integration, isolation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#concurrency">Concurrency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-requirements">System Requirements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mastering.html">Mastering Conan</a> &raquo;</li>
+        
+      <li>Conan local cache: concurrency, Continuous Integration, isolation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/mastering/custom_cache.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-local-cache-concurrency-continuous-integration-isolation">
+<span id="custom-cache"></span><h1>Conan local cache: concurrency, Continuous Integration, isolation<a class="headerlink" href="#conan-local-cache-concurrency-continuous-integration-isolation" title="Permalink to this headline">¶</a></h1>
+<p>Conan needs access to some per user configuration files, such as the <strong>conan.conf</strong> file that
+defines the basic client app configuration. By convention, this file will be located in the
+user home folder <strong>~/.conan/</strong>. This folder will also typically store the package cache in
+<strong>~/.conan/data</strong>. Even though the latter is configurable in <em>conan.conf</em>, Conan needs
+some place to look for this initial configuration file.</p>
+<p>There are some scenarios in which you might want to use different initial locations for the
+Conan client application:</p>
+<ul class="simple">
+<li>Continuous Integration (CI) environments, in which multiple jobs can also work concurrently.
+Moreover, these environments would typically want to run with different user credentials, different
+remote configurations, etc. Note that using Continuous Integration with the same user, with
+isolated machine instances (virtual machines), or with sequential jobs is perfectly possible. For
+example, we use a lot CI cloud services of travis-ci and appveyor.</li>
+<li>Independent per project management and storage. If as a single developer you want to
+manage different projects with different user credentials and/or different remotes, you might find
+that having multiple independent caches makes it easier.</li>
+</ul>
+<p>Using different caches is very simple. You can just define the environment variable <strong>CONAN_USER_HOME</strong>.
+By setting this variable to different paths, you have multiple conan caches,
+something like python “virtualenvs”. Just changing the value of <strong>CONAN_USER_HOME</strong>, you can
+switch among isolated Conan instances that will have independent package storage caches, and also
+different user credentials, different user default settings, and different remotes configuration.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Use an absolute path or a path starting with ~/ (relative to user home). In Windows do not use quotes.</p>
+</div>
+<p>Windows users:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ SET <span class="nv">CONAN_USER_HOME</span><span class="o">=</span>c:<span class="se">\d</span>ata
+$ conan install . <span class="c1"># call conan normally, config &amp; data will be in c:\data</span>
+</pre></div>
+</div>
+<p>Linux/macOS users:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">CONAN_USER_HOME</span><span class="o">=</span>/tmp/conan
+$ conan install . <span class="c1"># call conan normally, config &amp; data will be in /tmp/conan</span>
+</pre></div>
+</div>
+<p>You can now:</p>
+<ul class="simple">
+<li>Build concurrent jobs, parallel builds in Continuous Integration or locally, by just setting the variable before launching Conan commands.</li>
+<li>You can test locally different user credentials, default configurations, or different remotes, just by switching from one cache to another.</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">CONAN_USER_HOME</span><span class="o">=</span>/tmp/conan
+$ conan search  <span class="c1"># using that /tmp/conan cache</span>
+$ conan user  <span class="c1"># using that /tmp/conan cache</span>
+
+$ <span class="nb">export</span> <span class="nv">CONAN_USER_HOME</span><span class="o">=</span>/tmp/conan2
+$ conan search  <span class="c1"># different packages</span>
+$ conan user  <span class="c1"># can be different users</span>
+
+$ <span class="nb">export</span> <span class="nv">CONAN_USER_HOME</span><span class="o">=</span>/tmp/conan  <span class="c1"># just go back to use the other cache</span>
+</pre></div>
+</div>
+<div class="section" id="concurrency">
+<span id="id1"></span><h2>Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline">¶</a></h2>
+<p>Conan local cache support some degree of concurrency, allowing simultaneous creation or installation of different packages, or building
+different binaries for the same package. However, concurrent operations like removal of packages while creating them will fail. If you need
+different environments that operate totally independently, you probably want to use different Conan caches for that.</p>
+<p>The concurrency is implemented with a Readers-Writers lock mechanism, which in turn uses <code class="docutils literal notranslate"><span class="pre">fasteners</span></code> library file locks to achieve
+multi-platform portability. As this “mutex” resource is by definition not enough to implement a Readers-Writers solution, some active-wait
+with time sleeps in a loop is necessary. However, this time sleeps will be rare, only sleeping when there is actually a collision and
+waiting on a lock.</p>
+<p>The lock files will be stored inside each <code class="docutils literal notranslate"><span class="pre">Pkg/version/user/channel</span></code> folder in the local cache, in a <code class="docutils literal notranslate"><span class="pre">rw</span></code> file for locking the entire
+package, or in a set of locks (one per each different binary package, under a subfolder called <code class="docutils literal notranslate"><span class="pre">locks</span></code>, with each lock named with the binary
+ID of the package).</p>
+<p>It is possible to disable the locking mechanism in <code class="docutils literal notranslate"><span class="pre">conan.conf</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[general]
+cache_no_locks = True
+</pre></div>
+</div>
+</div>
+<div class="section" id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
+<p>When <code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code> runs, Conan creates the <code class="docutils literal notranslate"><span class="pre">system_reqs</span></code> folder. This folder could be created individually by package id or
+globally when <code class="docutils literal notranslate"><span class="pre">global_system_requirements</span></code> is <strong>True</strong>.</p>
+<p>However, sometimes you want to run <code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code> again for a specific package, so you
+could either remove the <code class="docutils literal notranslate"><span class="pre">system_reqs.txt</span></code> file for the specific package id, or you could
+<a class="reference internal" href="../reference/commands/misc/remove.html#conan-remove-system-reqs"><span class="std std-ref">remove system_reqs globally for the package name referred</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../systems_cross_building.html" class="btn btn-neutral float-right" title="Systems and cross building" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sharing_settings_and_config.html" class="btn btn-neutral" title="Sharing the settings and other configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.17
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.17/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.17.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.17");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

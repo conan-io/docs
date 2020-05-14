@@ -1,0 +1,437 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using Visual Studio 2017 - CMake integration &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Howtos" href="../howtos.html"/>
+        <link rel="next" title="How to manage C++ standard" href="manage_cpp_standard.html"/>
+        <link rel="prev" title="How to manage the GCC &gt;= 5 ABI" href="manage_gcc_abi.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../howtos.html">Howtos</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Using Visual Studio 2017 - CMake integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-cmake-conan">Using cmake-conan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-tasks-with-tasks-vs-json">Using tasks with tasks.vs.json</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../howtos.html">Howtos</a> &raquo;</li>
+        
+      <li>Using Visual Studio 2017 - CMake integration</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/howtos/vs2017_cmake.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-visual-studio-2017-cmake-integration">
+<span id="visual2017-cmake-howto"></span><h1>Using Visual Studio 2017 - CMake integration<a class="headerlink" href="#using-visual-studio-2017-cmake-integration" title="Permalink to this headline">¶</a></h1>
+<p>Visual Studio 2017 comes with a CMake integration that allows to just open a folder that contains a <em>CMakeLists.txt</em>
+and Visual will use it to define the project build.</p>
+<p>Conan can also be used in this setup to install dependencies. Let`s say that we are going to build an application, that depends
+on an existing conan package called <code class="docutils literal notranslate"><span class="pre">Hello/0.1&#64;user/testing</span></code>. For the purpuse of this example, you can quickly create
+this package typing in your terminal:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new Hello/0.1 -s
+$ conan create . user/testing <span class="c1"># Default conan profile is Release</span>
+$ conan create . user/testing -s <span class="nv">build_type</span><span class="o">=</span>Debug
+</pre></div>
+</div>
+<p>The project we want to develop will be a simple application, with these 3 files in the same folder:</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text"><strong>example.cpp</strong></span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span> <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+ <span class="cp">#include</span> <span class="cpf">&quot;hello.h&quot;</span><span class="cp"></span>
+
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+     <span class="n">hello</span><span class="p">();</span>
+     <span class="n">std</span><span class="o">::</span><span class="n">cin</span><span class="p">.</span><span class="n">ignore</span><span class="p">();</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><strong>conanfile.txt</strong></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Hello/0.1@user/testing
+
+[generators]
+cmake
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><strong>CMakeLists.txt</strong></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">project</span><span class="p">(</span><span class="s">Example</span> <span class="s">CXX</span><span class="p">)</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.12</span><span class="p">)</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+<span class="nb">conan_basic_setup</span><span class="p">()</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span> <span class="s">example.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If we open Visual Studio 2017 (with CMake support installed), and in the Menu, select “Open Folder” and select the above folder,
+we will see something like the following error:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">1</span>&gt; Command line: C:<span class="se">\P</span>ROGRAM FILES <span class="o">(</span>X86<span class="o">)</span><span class="se">\M</span>ICROSOFT VISUAL STUDIO<span class="se">\2</span><span class="m">017</span><span class="se">\C</span>OMMUNITY<span class="se">\C</span>OMMON7<span class="se">\I</span>DE<span class="se">\C</span>OMMONEXTENSIONS<span class="se">\M</span>ICROSOFT<span class="se">\C</span>MAKE<span class="se">\C</span>Make<span class="se">\b</span>in<span class="se">\c</span>make.exe  -G <span class="s2">&quot;Ninja&quot;</span> -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span><span class="s2">&quot;C:\Users\user\CMakeBuilds\df6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab\install\x64-Debug&quot;</span>  -DCMAKE_CXX_COMPILER<span class="o">=</span><span class="s2">&quot;C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/bin/HostX64/x64/cl.exe&quot;</span>  -DCMAKE_C_COMPILER<span class="o">=</span><span class="s2">&quot;C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/bin/HostX64/x64/cl.exe&quot;</span>  -DCMAKE_BUILD_TYPE<span class="o">=</span><span class="s2">&quot;Debug&quot;</span> -DCMAKE_MAKE_PROGRAM<span class="o">=</span><span class="s2">&quot;C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO\2017\COMMUNITY\COMMON7\IDE\COMMONEXTENSIONS\MICROSOFT\CMAKE\Ninja\ninja.exe&quot;</span> <span class="s2">&quot;C:\Users\user\conanws\visual-cmake&quot;</span>
+<span class="hll"><span class="m">1</span>&gt; Working directory: C:<span class="se">\U</span>sers<span class="se">\u</span>ser<span class="se">\C</span>MakeBuilds<span class="se">\d</span>f6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab<span class="se">\b</span>uild<span class="se">\x</span><span class="m">64</span>-Debug
+</span><span class="m">1</span>&gt; -- The CXX compiler identification is MSVC <span class="m">19</span>.12.25831.0
+<span class="m">1</span>&gt; -- Check <span class="k">for</span> working CXX compiler: C:/Program Files <span class="o">(</span>x86<span class="o">)</span>/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/bin/HostX64/x64/cl.exe
+<span class="m">1</span>&gt; -- Check <span class="k">for</span> working CXX compiler: C:/Program Files <span class="o">(</span>x86<span class="o">)</span>/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.12.25827/bin/HostX64/x64/cl.exe -- works
+<span class="m">1</span>&gt; -- Detecting CXX compiler ABI info
+<span class="m">1</span>&gt; -- Detecting CXX compiler ABI info - <span class="k">done</span>
+<span class="m">1</span>&gt; -- Detecting CXX compile features
+<span class="m">1</span>&gt; -- Detecting CXX compile features - <span class="k">done</span>
+<span class="hll"><span class="m">1</span>&gt; CMake Error at CMakeLists.txt:4 <span class="o">(</span>include<span class="o">)</span>:
+</span><span class="hll"><span class="m">1</span>&gt;   include could not find load file:
+</span><span class="hll"><span class="m">1</span>&gt;
+</span><span class="hll"><span class="m">1</span>&gt;     C:/Users/user/CMakeBuilds/df6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab/build/x64-Debug/conanbuildinfo.cmake
+</span></pre></div>
+</div>
+<p>As expected, our <em>CMakeLists.txt</em> is using a <code class="docutils literal notranslate"><span class="pre">include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)</span></code>, and that file doesn’t exist yet,
+because conan has not installed the dependencies of this project yet. Visual Studio 2017 uses different build folders for each
+configuration. In this case, the default configuration at startup is <code class="docutils literal notranslate"><span class="pre">x64-Debug</span></code>. This means that we need to install the
+dependencies that match this configuration. Assuming that our default profile is using Visual Studio 2017 for x64 (it should typically be
+the default one created by conan if VS2017 is present), then all we need to specify is the <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">build_type=Debug</span></code> setting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -s <span class="nv">build_type</span><span class="o">=</span>Debug -if<span class="o">=</span>C:<span class="se">\U</span>sers<span class="se">\u</span>ser<span class="se">\C</span>MakeBuilds<span class="se">\d</span>f6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab<span class="se">\b</span>uild<span class="se">\x</span><span class="m">64</span>-Debug
+</pre></div>
+</div>
+<p>Now, you should be able to regenerate the CMake project from the IDE, Menu-&gt;CMake, build it, select the “example” executable to run, and run it.</p>
+<p>Now, lets say that you want to build the Release application. You switch configuration from the IDE, and then the above error happens again.
+The dependencies for Release mode need to be installed too:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -if<span class="o">=</span>C:<span class="se">\U</span>sers<span class="se">\u</span>ser<span class="se">\C</span>MakeBuilds<span class="se">\d</span>f6639d2-3ef2-bc32-abb3-2cd1bdb3c1ab<span class="se">\b</span>uild<span class="se">\x</span><span class="m">64</span>-Release
+</pre></div>
+</div>
+<p>The process can be extended to x86 (passing <code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">arch=x86</span></code> in the command line), or to other configurations. For production usage,
+conan <strong>profiles</strong> are highly recommended.</p>
+<div class="section" id="using-cmake-conan">
+<h2>Using cmake-conan<a class="headerlink" href="#using-cmake-conan" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>cmake-conan</strong> project in <a class="reference external" href="https://github.com/conan-io/cmake-conan">https://github.com/conan-io/cmake-conan</a> is a CMake script that runs an <code class="docutils literal notranslate"><span class="pre">execute_process</span></code> that automatically
+launches <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> to install dependencies. The settings passed in the command line will be deduced from the current CMake
+configuration, that will match the Visual Studio one. This script can be used to further automate the installation task:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">project</span><span class="p">(</span><span class="s">Example</span> <span class="s">CXX</span><span class="p">)</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">2.8.12</span><span class="p">)</span>
+
+<span class="c"># Download automatically, you can also just copy the conan.cmake file</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">NOT</span> <span class="s">EXISTS</span> <span class="s2">&quot;${CMAKE_BINARY_DIR}/conan.cmake&quot;</span><span class="p">)</span>
+<span class="nb">message</span><span class="p">(</span><span class="s">STATUS</span> <span class="s2">&quot;Downloading conan.cmake from https://github.com/conan-io/cmake-conan&quot;</span><span class="p">)</span>
+    <span class="nb">file</span><span class="p">(</span><span class="s">DOWNLOAD</span> <span class="s2">&quot;https://raw.githubusercontent.com/conan-io/cmake-conan/v0.9/conan.cmake&quot;</span>
+                <span class="s2">&quot;${CMAKE_BINARY_DIR}/conan.cmake&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+
+<span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conan.cmake</span><span class="p">)</span>
+
+<span class="nb">conan_cmake_run</span><span class="p">(</span><span class="s">CONANFILE</span> <span class="s">conanfile.txt</span>
+                <span class="s">BASIC_SETUP</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">example</span> <span class="s">example.cpp</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">example</span> <span class="o">${</span><span class="nv">CONAN_LIBS</span><span class="o">}</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code will manage to download the <strong>cmake-conan</strong> CMake script, and use it automatically, calling a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> automatically.</p>
+<p>There could be an issue, though, for the <code class="docutils literal notranslate"><span class="pre">Release</span></code> configuration. Internally, the Visual Studio 2017 defines the <code class="docutils literal notranslate"><span class="pre">configurationType</span></code> As
+<code class="docutils literal notranslate"><span class="pre">RelWithDebInfo</span></code> for <code class="docutils literal notranslate"><span class="pre">Release</span></code> builds. But conan default settings (in the conan <em>settings.yml</em> file), only have <code class="docutils literal notranslate"><span class="pre">Debug</span></code> and <code class="docutils literal notranslate"><span class="pre">Release</span></code>
+defined. It is possible to modify the <em>settings.yml</em> file, and add those extra build types. Then you should create the <code class="docutils literal notranslate"><span class="pre">Hello</span></code> package
+for those settings. And most existing packages, specially in central repositories, are built only for Debug and Release modes.</p>
+<p>An easier approach is to change the CMake configuration in Visual: go to the Menu -&gt; CMake -&gt; Change CMake Configuration. That should open
+the <em>CMakeSettings.json</em> file, and there you can change the <code class="docutils literal notranslate"><span class="pre">configurationType</span></code> to <code class="docutils literal notranslate"><span class="pre">Release</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+  &quot;name&quot;: &quot;x64-Release&quot;,
+  &quot;generator&quot;: &quot;Ninja&quot;,
+<span class="hll">  &quot;configurationType&quot;: &quot;Release&quot;,
+</span>  &quot;inheritEnvironments&quot;: [ &quot;msvc_x64_x64&quot; ],
+  &quot;buildRoot&quot;: &quot;${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\build\\${name}&quot;,
+  &quot;installRoot&quot;: &quot;${env.USERPROFILE}\\CMakeBuilds\\${workspaceHash}\\install\\${name}&quot;,
+  &quot;cmakeCommandArgs&quot;: &quot;&quot;,
+  &quot;buildCommandArgs&quot;: &quot;-v&quot;,
+  &quot;ctestCommandArgs&quot;: &quot;&quot;
+},
+</pre></div>
+</div>
+<p>Note that the above CMake code is only valid for consuming existing packages. If you are also creating a package, you
+would need to make sure the right CMake code is executed, please check <a class="reference external" href="https://github.com/conan-io/cmake-conan/blob/master/README.md#creating-packages">https://github.com/conan-io/cmake-conan/blob/master/README.md#creating-packages</a></p>
+</div>
+<div class="section" id="using-tasks-with-tasks-vs-json">
+<h2>Using tasks with tasks.vs.json<a class="headerlink" href="#using-tasks-with-tasks-vs-json" title="Permalink to this headline">¶</a></h2>
+<p>Another alternative is using file <a class="reference external" href="https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson">tasks</a> feature of Visual Studio 2017. This way you can install dependencies by running conan install as task directly in the IDE.</p>
+<p>All you need is to right click on your <cite>conanfile.py</cite>-&gt; Configure Tasks (see the <a class="reference external" href="https://docs.microsoft.com/en-us/cpp/ide/non-msbuild-projects#define-tasks-with-tasksvsjson">link above</a>) and add the following to your <em>tasks.vs.json</em>.</p>
+<p>Then just right click on your <em>conanfile.py</em> and launch your <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> and regenerate your <em>CMakeLists.txt</em>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="manage_cpp_standard.html" class="btn btn-neutral float-right" title="How to manage C++ standard" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="manage_gcc_abi.html" class="btn btn-neutral" title="How to manage the GCC &gt;= 5 ABI" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

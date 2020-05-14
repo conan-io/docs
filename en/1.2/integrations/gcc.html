@@ -1,0 +1,371 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compilers on command line &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Android Studio" href="android_studio.html"/>
+        <link rel="prev" title="Xcode" href="xcode.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li>Compilers on command line</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/gcc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compilers-on-command-line">
+<span id="gcc-integration"></span><h1>Compilers on command line<a class="headerlink" href="#compilers-on-command-line" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>compiler_args</strong> generator creates a file named <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.args</span></code> containing a command
+line arguments to invoke <code class="docutils literal notranslate"><span class="pre">gcc</span></code>, <code class="docutils literal notranslate"><span class="pre">clang</span></code> or <code class="docutils literal notranslate"><span class="pre">cl</span></code> (Visual Studio) compiler.</p>
+<p>Now we are going to compile the <a class="reference internal" href="../getting_started.html#getting-started"><span class="std std-ref">getting started</span></a> example using <strong>compiler_args</strong> instead of the <strong>cmake</strong> generator.</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> and change (or add) <strong>compiler_args</strong> generator:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.9@pocoproject/stable
+
+[generators]
+compiler_args
+</pre></div>
+</div>
+<p>Install the requirements (from the mytimer/build folder):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install ..
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Remember, if you don’t specify settings in <strong>install command</strong> with <strong>-s</strong>, conan will use the detected defaults.
+You can always change them by editing the <code class="docutils literal notranslate"><span class="pre">~/.conan/profiles/default</span></code> or override them with “-s” parameters.</p>
+</div>
+<p>The generated <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.args</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-DPOCO_STATIC=ON -DPOCO_NO_AUTOMATIC_LIBS
+-Ipath/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/include
+-Ipath/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/include
+-Ipath/to/zlib/1.2.11/conan/stable/package/8018a4df6e7d2b4630a814fa40c81b85b9182d2b/include
+-m64 -DNDEBUG -Wl,-rpath,&quot;path/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/lib&quot;
+-Wl,-rpath,&quot;path/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/lib&quot;
+-Wl,-rpath,&quot;path/to/zlib/1.2.11/conan/stable/package/8018a4df6e7d2b4630a814fa40c81b85b9182d2b/lib&quot;
+-Lpath/to/Poco/1.7.9/pocoproject/stable/package/dd758cf2da203f96c86eb99047ac152bcd0c0fa9/lib
+-Lpath/to/OpenSSL/1.0.2l/conan/stable/package/227fb0ea22f4797212e72ba94ea89c7b3fbc2a0c/lib
+-Lpath/to/zlib/1.2.11/conan/stable/package/8018a4df6e7d2b4630a814fa40c81b85b9182d2b/lib
+-lPocoUtil -lPocoMongoDB -lPocoNet -lPocoNetSSL -lPocoCrypto -lPocoData -lPocoDataSQLite -lPocoZip
+-lPocoXML -lPocoJSON -lPocoFoundation -lssl -lcrypto -lz -stdlib=libc++
+</pre></div>
+</div>
+<p>This is hard to read, but those are just the <strong>compiler_args</strong> parameters needed to compile our program:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>-I</strong> options with headers directories</li>
+<li><strong>-L</strong> for libraries directories</li>
+<li><strong>-l</strong> for library names</li>
+<li>and so on… see the <a class="reference internal" href="../reference/generators/compiler_args.html#compiler-args-generator"><span class="std std-ref">complete reference here</span></a></li>
+</ul>
+</div></blockquote>
+<p>It’s almost the same information we can see in <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> and many other generators’ files.</p>
+<p>Run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir bin
+$ g++ ../timer.cpp @conanbuildinfo.args -std<span class="o">=</span>c++14 -o bin/timer
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">“&#64;conanbuildinfo.args” appends all the file contents to g++ command parameters</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./bin/timer
+ Callback called after <span class="m">250</span> milliseconds.
+ ...
+</pre></div>
+</div>
+<p>To invoke <code class="docutils literal notranslate"><span class="pre">cl</span></code> (Visual Studio compiler):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cl /EHsc timer.cpp @conanbuildinfo.args
+</pre></div>
+</div>
+<p>You can also use the generator within your <code class="docutils literal notranslate"><span class="pre">build()</span></code> method of your conanfile.py.</p>
+<p>Check the <a class="reference internal" href="../reference/generators/compiler_args.html#compiler-args-generator"><span class="std std-ref">Reference, generators, compiler_args</span></a> section for more info.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="android_studio.html" class="btn btn-neutral float-right" title="Android Studio" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="xcode.html" class="btn btn-neutral" title="Xcode" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

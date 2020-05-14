@@ -1,0 +1,597 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CMake &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="Build helpers" href="../build_helpers.html"/>
+        <link rel="next" title="AutoToolsBuildEnvironment (configure/make)" href="autotools.html"/>
+        <link rel="prev" title="Build helpers" href="../build_helpers.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../build_helpers.html">Build helpers</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">CMake</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#constructor">Constructor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autotools.html">AutoToolsBuildEnvironment (configure/make)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html">MSBuild</a></li>
+<li class="toctree-l3"><a class="reference internal" href="visual_studio.html#visualstudiobuildenvironment">VisualStudioBuildEnvironment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="meson.html">Meson</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_environment.html">RunEnvironment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../build_helpers.html">Build helpers</a> &raquo;</li>
+        
+      <li>CMake</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/build_helpers/cmake.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cmake">
+<span id="cmake-reference"></span><h1>CMake<a class="headerlink" href="#cmake" title="Permalink to this headline">¶</a></h1>
+<p>The <cite>CMake</cite> class helps us to invoke <cite>cmake</cite> command with the generator, flags and definitions, reflecting the specified Conan settings.</p>
+<p>There are two ways to invoke your cmake tools:</p>
+<ul class="simple">
+<li>Using the helper attributes <code class="docutils literal notranslate"><span class="pre">cmake.command_line</span></code> and <code class="docutils literal notranslate"><span class="pre">cmake.build_config</span></code>:</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+ <span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;cmake &quot;</span><span class="si">%s</span><span class="s1">&quot; </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_folder</span><span class="p">,</span> <span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">))</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;cmake --build . </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">cmake</span><span class="o">.</span><span class="n">build_config</span><span class="p">)</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;cmake --build . --target install&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Using the helper methods:</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># same as cmake.configure(source_folder=self.source_folder, build_folder=self.build_folder)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">test</span><span class="p">()</span> <span class="c1"># Build the &quot;RUN_TESTS&quot; or &quot;test&quot; target</span>
+        <span class="c1"># Build the &quot;install&quot; target, defining CMAKE_INSTALL_PREFIX to self.package_folder</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="section" id="constructor">
+<h2>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CMake</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cmake_system_name</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                 <span class="n">parallel</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">toolset</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>conanfile</strong> (Required): Conanfile object. Usually <code class="docutils literal notranslate"><span class="pre">self</span></code> in a conanfile.py</li>
+<li><strong>generator</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specify a custom generator instead of autodetect it. e.j: “MinGW Makefiles”</li>
+<li><strong>cmake_system_name</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>): Specify a custom value for <code class="docutils literal notranslate"><span class="pre">CMAKE_SYSTEM_NAME</span></code> instead of autodetect it.</li>
+<li><strong>parallel</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">True</span></code>): If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will append the <cite>-jN</cite> attribute for parallel building being N the <a class="reference internal" href="../tools.html#cpu-count"><span class="std std-ref">cpu_count()</span></a>.</li>
+<li><strong>build_type</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Force the build type to be declared in <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code>. If you set this parameter the build type
+not will be taken from the settings.</li>
+<li><strong>toolset</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specify a toolset for Visual Studio.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="verbose">
+<h3>verbose<a class="headerlink" href="#verbose" title="Permalink to this headline">¶</a></h3>
+<p><strong>Defaulted to</strong>: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+<p>Set it to <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code> to automatically set the definition <code class="docutils literal notranslate"><span class="pre">CMAKE_VERBOSE_MAKEFILE</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="command-line-read-only">
+<h3>command_line (read only)<a class="headerlink" href="#command-line-read-only" title="Permalink to this headline">¶</a></h3>
+<p>Generator, conan definitions and flags that reflects the specified Conan settings.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-G &quot;Unix Makefiles&quot; -DCMAKE_BUILD_TYPE=Release ... -DCONAN_C_FLAGS=-m64 -Wno-dev
+</pre></div>
+</div>
+</div>
+<div class="section" id="build-config-read-only">
+<h3>build_config (read only)<a class="headerlink" href="#build-config-read-only" title="Permalink to this headline">¶</a></h3>
+<p>Value for <code class="docutils literal notranslate"><span class="pre">--config</span></code> option for Multi-configuration IDEs.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--config Release
+</pre></div>
+</div>
+</div>
+<div class="section" id="definitions">
+<h3>definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h3>
+<p>The CMake helper will automatically append some definitions based on your settings:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="37%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>CMAKE_BUILD_TYPE</td>
+<td>Debug or Release (from self.settings.build_type)</td>
+</tr>
+<tr class="row-odd"><td>CMAKE_OSX_ARCHITECTURES</td>
+<td>“i386” if architecture is x86 in an OSX system</td>
+</tr>
+<tr class="row-even"><td>BUILD_SHARED_LIBS</td>
+<td>Only If your conanfile has a “shared” option</td>
+</tr>
+<tr class="row-odd"><td>CONAN_COMPILER</td>
+<td>Conan internal variable to check compiler</td>
+</tr>
+<tr class="row-even"><td>CMAKE_SYSTEM_NAME</td>
+<td>If detected cross building it’s set to self.settings.os</td>
+</tr>
+<tr class="row-odd"><td>CMAKE_SYSTEM_VERSION</td>
+<td>If detected cross building it’s set to the self.settings.os_version</td>
+</tr>
+<tr class="row-even"><td>CMAKE_ANDROID_ARCH_ABI</td>
+<td>If detected cross building to Android</td>
+</tr>
+<tr class="row-odd"><td>CONAN_LIBCXX</td>
+<td>from self.settings.compiler.libcxx</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_SYSTEM_PROCESSOR</td>
+<td>Definition only set if same environment variable is declared by user</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_FIND_ROOT_PATH</td>
+<td>Definition only set if same environment variable is declared by user</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM</td>
+<td>Definition only set if same environment variable is declared by user</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY</td>
+<td>Definition only set if same environment variable is declared by user</td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE</td>
+<td>Definition only set if same environment variable is declared by user</td>
+</tr>
+<tr class="row-odd"><td>CONAN_SHARED_LINKER_FLAGS</td>
+<td>-m32 and -m64 based on your architecture</td>
+</tr>
+<tr class="row-even"><td>CONAN_C_FLAGS</td>
+<td>-m32 and -m64 based on your architecture and /MP for MSVS</td>
+</tr>
+<tr class="row-odd"><td>CONAN_C_FLAGS</td>
+<td>-m32 and -m64 based on your architecture and /MP for MSVS</td>
+</tr>
+<tr class="row-even"><td>CONAN_LINK_RUNTIME</td>
+<td>Runtime from self.settings.compiler.runtime for MSVS</td>
+</tr>
+<tr class="row-odd"><td>CONAN_CMAKE_CXX_STANDARD</td>
+<td>From setting <code class="docutils literal notranslate"><span class="pre">cppstd</span></code></td>
+</tr>
+<tr class="row-even"><td>CONAN_CMAKE_CXX_EXTENSIONS</td>
+<td>From setting <code class="docutils literal notranslate"><span class="pre">cppstd</span></code>, when GNU extensions are enabled</td>
+</tr>
+<tr class="row-odd"><td>CONAN_STD_CXX_FLAG</td>
+<td>From setting <code class="docutils literal notranslate"><span class="pre">cppstd</span></code>. Flag for compiler directly (for CMake &lt; 3.1)</td>
+</tr>
+</tbody>
+</table>
+<p>But you can change the automatic definitions after the <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> object creation using the <code class="docutils literal notranslate"><span class="pre">definitions</span></code> property:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span>
+
+<span class="k">class</span> <span class="nc">ExampleConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">definitions</span><span class="p">[</span><span class="s2">&quot;CMAKE_SYSTEM_NAME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Generic&quot;</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">install</span><span class="p">()</span> <span class="c1"># Build --target=install</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configure">
+<h3>configure()<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">defs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">source_folder</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_folder</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+              <span class="n">cache_build_folder</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Configures <cite>CMake</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command. Each argument will be escaped according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code></li>
+<li><strong>definitions</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A dict that will be converted to a list of CMake command line variable definitions of the form <code class="docutils literal notranslate"><span class="pre">-DKEY=VALUE</span></code>. Each value will be escaped according to the current shell and can be either <code class="docutils literal notranslate"><span class="pre">str</span></code>, <code class="docutils literal notranslate"><span class="pre">bool</span></code> or of numeric type</li>
+<li><strong>source_folder</strong>: CMake’s source directory where <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> is located. The default value is the <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>.
+Relative paths are allowed and will be relative to <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>.</li>
+<li><strong>build_folder</strong>: CMake’s output directory. The default value is the <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code> if <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified.
+The <code class="docutils literal notranslate"><span class="pre">CMake</span></code> object will store <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> internally for subsequent calls to <code class="docutils literal notranslate"><span class="pre">build()</span></code>.</li>
+<li><strong>cache_build_folder</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Use the given subfolder as build folder when building the package in the local cache.
+This argument doesn’t have effect when the package is being built in user folder with <strong class="command">conan build</strong> but overrides <strong>build_folder</strong> when working in the local cache.
+See <a class="reference internal" href="../conanfile/attributes.html#in-local-cache"><span class="std std-ref">self.in_local_cache</span></a>.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="build">
+<h3>build()<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Builds <cite>CMake</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command. Each argument will be escaped according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code></li>
+<li><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): CMake’s output directory. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_dir</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.</li>
+<li><strong>target</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): Specifies the target to execute. The default <em>all</em> target will be built if <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified. <code class="docutils literal notranslate"><span class="pre">&quot;install&quot;</span></code> can be used to relocate files to aid packaging.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="test">
+<h3>test()<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Build <cite>CMake</cite> test target (could be RUN_TESTS in multi-config projects or <code class="docutils literal notranslate"><span class="pre">test</span></code> in single-config projects), which usually means building and running unit tests</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command. Each argument will be escaped according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</li>
+<li><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): CMake’s output directory. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.</li>
+<li><strong>target</strong> (Optional, default to <code class="docutils literal notranslate"><span class="pre">None</span></code>). Alternative target name for running the tests. If not defined RUN_TESTS or <code class="docutils literal notranslate"><span class="pre">test</span></code> will be used</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="install">
+<h3>install()<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">build_dir</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Installs <cite>CMake</cite> project with the given parameters.</p>
+<dl class="docutils">
+<dt>Parameters:</dt>
+<dd><ul class="first last simple">
+<li><strong>args</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): A list of additional arguments to be passed to the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> command. Each argument will be escaped according to the current shell. No extra arguments will be added if <code class="docutils literal notranslate"><span class="pre">args=None</span></code>.</li>
+<li><strong>build_dir</strong> (Optional, Defaulted to <code class="docutils literal notranslate"><span class="pre">None</span></code>): CMake’s output directory. If <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified the <code class="docutils literal notranslate"><span class="pre">build_folder</span></code> from <code class="docutils literal notranslate"><span class="pre">configure()</span></code> will be used.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="patch-config-paths-experimental">
+<h3>patch_config_paths() [EXPERIMENTAL]<a class="headerlink" href="#patch-config-paths-experimental" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">patch_config_paths</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This method changes references to the absolute path of the installed package in exported CMake config files to the appropriate Conan
+variable. This makes most CMake config files portable.</p>
+<p>For example, if a package foo installs a file called <em>fooConfig.cmake</em> to be used by cmake’s <code class="docutils literal notranslate"><span class="pre">find_package()</span></code> method, normally this file
+will contain absolute paths to the installed package folder, for example it will contain a line such as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SET(Foo_INSTALL_DIR /home/developer/.conan/data/Foo/1.0.0/...)
+</pre></div>
+</div>
+<p>This will cause cmake’s <code class="docutils literal notranslate"><span class="pre">find_package()</span></code> method to fail when someone else installs the package via Conan. This function will replace such
+paths to:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SET(Foo_INSTALL_DIR ${CONAN_FOO_ROOT})
+</pre></div>
+</div>
+<p>Which is a variable that is set by <em>conanbuildinfo.cmake</em>, so that <code class="docutils literal notranslate"><span class="pre">find_package()</span></code> now correctly works on this Conan package.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">install()</span></code> method of the CMake object in the conanfile is used, this function should be called <strong>after</strong> that invocation. For
+example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">install</span><span class="p">()</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">patch_config_paths</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="environment-variables">
+<h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
+<p>There are some environment variables that will also affect the <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> helper class. Check them in the
+<a class="reference internal" href="../env_vars.html#cmake-related-variables"><span class="std std-ref">CMAKE RELATED VARIABLES</span></a> section.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="autotools.html" class="btn btn-neutral float-right" title="AutoToolsBuildEnvironment (configure/make)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../build_helpers.html" class="btn btn-neutral" title="Build helpers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

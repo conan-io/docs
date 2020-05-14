@@ -1,0 +1,393 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Visual Studio &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Xcode" href="xcode.html"/>
+        <link rel="prev" title="Autotools: configure/make" href="makefile.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> Visual Studio</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#with-cmake">With CMake</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#with-visual-studio-generator">With <em>visual_studio</em> generator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calling-visual-studio-compiler">Calling Visual Studio compiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-an-existing-visual-studio-project">Build an existing Visual Studio project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#toolsets">Toolsets</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li> Visual Studio</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/visual_studio.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="visual-logo-visual-studio">
+<span id="visual-studio"></span><h1><img alt="visual_logo" src="../_images/visual-studio-logo.png" /> Visual Studio<a class="headerlink" href="#visual-logo-visual-studio" title="Permalink to this headline">¶</a></h1>
+<p>Conan can be integrated with <strong>Visual Studio</strong> in two different ways:</p>
+<ul class="simple">
+<li>Using the <strong>cmake</strong> generator to create a <strong>conanbuildinfo.cmake</strong> file.</li>
+<li>Using the <strong>visual_studio</strong> generator to create a  <strong>conanbuildinfo.props</strong> file.</li>
+</ul>
+<div class="section" id="with-cmake">
+<h2>With CMake<a class="headerlink" href="#with-cmake" title="Permalink to this headline">¶</a></h2>
+<p>Use the <strong>cmake</strong> generator, or <strong>cmake_multi</strong>, if you are using cmake to machine-generate your Visual Studio projects.</p>
+<p>Check the <a class="reference internal" href="../using_packages/conanfile_txt.html#generators"><span class="std std-ref">generator</span></a> section to read about the <strong>cmake</strong> generator.
+Check the official <a class="reference external" href="https://cmake.org/cmake/help/v3.0/manual/cmake-generators.7.html">CMake docs</a> to find out more about generating Visual Studio projects with CMake.</p>
+<p>However, beware of some current cmake limitations, such as not dealing well with find-packages, because cmake doesn’t know how to handle finding both debug and release packages.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to use the Visual Studio 2017 + CMake integration, <a class="reference internal" href="../howtos/vs2017_cmake.html#visual2017-cmake-howto"><span class="std std-ref">check this how-to</span></a></p>
+</div>
+</div>
+<div class="section" id="with-visual-studio-generator">
+<h2>With <em>visual_studio</em> generator<a class="headerlink" href="#with-visual-studio-generator" title="Permalink to this headline">¶</a></h2>
+<p>Use this, or <strong>visual_studio_multi</strong>, if you are maintaining your Visual Studio projects, and want to use Conan to to tell Visual Studio how to find your third-party dependencies.</p>
+<p>You can use the <strong>visual_studio</strong> generator to manage your requirements via your <em>Visual Studio</em>  project.</p>
+<p>This generator creates a <a class="reference external" href="https://msdn.microsoft.com/en-us/library/669zx6zc.aspx">Visual Studio project properties</a> file, with all the <em>include paths</em>, <em>lib paths</em>, <em>libs</em>, <em>flags</em> etc, that can be imported in your project.</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> and change (or add) the <strong>visual_studio</strong> generator:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+
+[generators]
+visual_studio
+</pre></div>
+</div>
+<p>Install the requirements:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install
+</pre></div>
+</div>
+<p>Go to your Visual Studio project, and open the <strong>Property Manager</strong>, usually in <strong>View -&gt; Other Windows -&gt; Property Manager</strong>.</p>
+<img alt="../_images/property_manager.png" src="../_images/property_manager.png" />
+<p>Click the <strong>“+”</strong> icon and select the generated <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.props</span></code> file:</p>
+<img alt="../_images/property_manager2.png" src="../_images/property_manager2.png" />
+<p>Build your project as usual.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Remember to set your project’s architecture and build type accordingly, explicitly or implicitly, when issuing the <strong>conan install</strong> command.
+If these values don’t match, you build will probably fail.</p>
+<p class="last">e.g. <strong>Release/x64</strong></p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../reference/generators/visualstudio.html#visualstudio-generator"><span class="std std-ref">Reference/Generators/visual_studio</span></a> for the complete reference.</p>
+</div>
+</div>
+<div class="section" id="calling-visual-studio-compiler">
+<h2>Calling Visual Studio compiler<a class="headerlink" href="#calling-visual-studio-compiler" title="Permalink to this headline">¶</a></h2>
+<p>You can call your Visual Studio compiler from your <code class="docutils literal notranslate"><span class="pre">build()</span></code> method using the <code class="docutils literal notranslate"><span class="pre">VisualStudioBuildEnvironment</span></code>
+and the <code class="docutils literal notranslate"><span class="pre">tools.vcvars_command</span></code>.</p>
+<p>Check <a class="reference internal" href="../reference/build_helpers/visual_studio.html#msbuild"><span class="std std-ref">Build with Visual Studio</span></a> section for more info.</p>
+</div>
+<div class="section" id="build-an-existing-visual-studio-project">
+<span id="building-visual-project"></span><h2>Build an existing Visual Studio project<a class="headerlink" href="#build-an-existing-visual-studio-project" title="Permalink to this headline">¶</a></h2>
+<p>You can build an existing Visual Studio from your <code class="docutils literal notranslate"><span class="pre">build()</span></code> method using the <code class="docutils literal notranslate"><span class="pre">tools.build_sln_command</span></code>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Check the <a class="reference internal" href="../reference/tools.html#build-sln-commmand"><span class="std std-ref">tools.build_sln_command()</span></a> reference section for more info.</p>
+</div>
+</div>
+<div class="section" id="toolsets">
+<h2>Toolsets<a class="headerlink" href="#toolsets" title="Permalink to this headline">¶</a></h2>
+<p>You can use the subsetting <code class="docutils literal notranslate"><span class="pre">toolset</span></code> of the Visual Studio compiler to specify a custom toolset.
+It will be automatically applied when using the <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> build helper, <code class="docutils literal notranslate"><span class="pre">tools.build_sln_command</span></code> or <code class="docutils literal notranslate"><span class="pre">tools.msvc_build_command</span></code>.
+The toolset can be also specified manually in these build helpers with the <code class="docutils literal notranslate"><span class="pre">toolset</span></code> parameter.</p>
+<p>By default, Conan will not generate a new binary package if
+the specified <code class="docutils literal notranslate"><span class="pre">compiler.toolset</span></code> matches an already generated package for the corresponding
+<code class="docutils literal notranslate"><span class="pre">compiler.version</span></code>. Check the <a class="reference internal" href="../reference/conanfile/methods.html#method-package-id"><span class="std std-ref">package_id()</span></a> reference to know more.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li>Check the <a class="reference internal" href="../reference/tools.html#build-sln-commmand"><span class="std std-ref">tools.build_sln_command()</span></a> reference section for more info.</li>
+<li>Check the <a class="reference internal" href="../reference/tools.html#msvc-build-command"><span class="std std-ref">tools.msvc_build_command()</span></a> reference section for more info.</li>
+<li>Check the <a class="reference internal" href="../reference/build_helpers/cmake.html#cmake-reference"><span class="std std-ref">CMake()</span></a> reference section for more info.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="xcode.html" class="btn btn-neutral float-right" title="Xcode" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="makefile.html" class="btn btn-neutral" title="Autotools: configure/make" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

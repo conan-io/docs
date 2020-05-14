@@ -1,0 +1,501 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to conan &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="#"/>
+        <link rel="next" title="Upgrading to conan 1.0" href="conan1.0.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to conan</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-conan">
+<h1>Welcome to conan<a class="headerlink" href="#welcome-to-conan" title="Permalink to this headline">¶</a></h1>
+<p>Conan is a portable package manager, intended for C and C++ developers, but it is able to manage
+builds from source, dependencies, and precompiled binaries for any language.</p>
+<p>For more information, check <a class="reference external" href="http://www.conan.io">conan.io</a>.</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="conan1.0.html">Upgrading to conan 1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="conan1.0.html#command-line-changes">Command line changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conan1.0.html#deprecations-removals">Deprecations/removals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conan1.0.html#settings-and-profiles-gcc-clang-versioning">Settings and profiles. Gcc/CLang versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conan1.0.html#new-features">New features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#open-source">Open Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#decentralized-package-manager">Decentralized package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#binary-management">Binary management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#cross-platform-build-system-agnostic">Cross platform, build system agnostic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#stable">Stable</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-with-pip-recommended">Install with pip (recommended)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-brew-osx">Install from brew (OSX)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-aur-arch-linux">Install from AUR (Arch Linux)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-the-binaries">Install the binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#initial-configuration">Initial configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-source">Install from source</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#a-timer-using-poco-libraries">A Timer using POCO libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#installing-dependencies">Installing dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#building-the-timer-example">Building the timer example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#inspecting-dependencies">Inspecting dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#building-with-other-configurations">Building with other configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using_packages/conanfile_txt.html">Installing dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_packages/using_profiles.html">Using profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_packages/workflows.html">Workflows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/package_repo.html">Recipe and sources in the same repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/package_dev_flow.html">Package development flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/existing_binaries.html">Packaging existing binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/understand_packaging.html">Understanding packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/define_abi_compatibility.html">Define package ABI compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/inspecting_packages.html">Inspecting packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/package_approaches.html">Packaging approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="creating_packages/package_tools.html">Tools for package creators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uploading_packages/remotes.html">Remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_packages/uploading_to_remotes.html">Uploading packages to remotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_packages/using_bintray.html">Using Bintray</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_packages/artifactory_ce.html">Artifactory Community Edition for C/C++</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uploading_packages/running_your_server.html">Running conan_server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="devtools/running_packages.html">Running and deploying packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devtools/create_installer_packages.html">Creating conan packages to install dev tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="devtools/build_requires.html">Build requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mastering/conanfile_py.html">Use conanfile.py for consumers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/policies.html">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mastering/custom_cache.html">Conan local cache: concurrency, Continuous Integration, isolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="systems_cross_building/cross_building.html">Cross building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems_cross_building/windows_subsystems.html">Windows Subsystems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integrations/cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integrations/other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howtos/header_only.html">How to package header-only libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/cmake_launch.html">How to launch conan install from cmake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/visual_studio_packages.html">How to create and reuse packages based on Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/makefiles.html">Creating and reusing packages based on Makefiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/manage_gcc_abi.html">How to manage the GCC &gt;= 5 ABI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/vs2017_cmake.html">Using Visual Studio 2017 - CMake integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/manage_cpp_standard.html">How to manage C++ standard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/run_conan_in_docker.html">How to use docker to create and cross build C and C++ conan packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/python_code_reuse.html">How to reuse Python code in recipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/custom_generators.html">How to create and share a custom generator with generator packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/manage_shared_libraries.html">How to manage shared libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/cmake_install.html">How to reuse cmake install for package() method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/collaborate_packages.html">How to collaborate on other users’ packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/link_apple_framework.html">How to link with Apple Frameworks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/collect_licenses.html">How to collect licenses of dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/capture_version.html">How to capture package version from text or build files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/other_languages_package_manager.html">How to use Conan as other language package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howtos/use_tls_certificates.html">How to manage SSL (TLS) certificates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq/general.html">General</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/using.html">Using conan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq/troubleshooting.html">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#apr-2017">1.2.3 (10-Apr-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#apr-2018">1.2.1 (3-Apr-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#mar-2018">1.2.0 (28-Mar-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">1.1.1 (5-Mar-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#feb-2018">1.1.0 (27-Feb-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#january-2018">1.0.4 (30-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">1.0.3 (22-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">1.0.2 (16-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">1.0.1 (12-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">1.0.0 (10-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#beta5-8-january-2018">1.0.0-beta5 (8-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#beta4-4-january-2018">1.0.0-beta4 (4-January-2018)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#beta3-28-december-2017">1.0.0-beta3 (28-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#beta2-23-december-2017">1.0.0-beta2 (23-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#december-2017">0.30.3 (15-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">0.30.2 (14-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">0.30.1 (12-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">0.29.2 (2-December-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#november-2017">0.29.1 (23-November-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">0.29.0 (21-November-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#october-2017">0.28.1 (31-October-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">0.28.0 (26-October-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#september-2017">0.27.0 (20-September-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">0.26.1 (05-September-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#august-2017">0.26.0 (31-August-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#july-2017">0.25.1 (20-July-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">0.25.0 (19-July-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#june-2017">0.24.0 (15-June-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">0.23.1 (05-June-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">0.23.0 (01-June-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#may-2017">0.22.3 (03-May-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#april-2017">0.22.2 (20-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">0.22.1 (18-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">0.22.0 (18-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">0.21.2 (04-April-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#march-2017">0.21.1 (23-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">0.21.0 (21-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">0.20.3 (06-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">0.20.2 (02-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">0.20.1 (01-March-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#february-2017">0.20.0 (27-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">0.19.3 (27-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">0.19.2 (15-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">0.19.1 (02-February-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#january-2017">0.19.0 (31-January-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">0.18.1 (11-January-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">0.18.0 (3-January-2017)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#december-2016">0.17.2 (21-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">0.17.1 (15-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">0.17.0 (13-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">0.16.1 (05-December-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#november-2016">0.16.0 (19-November-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">0.15.0 (08-November-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#october-2016">0.14.1 (20-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">0.14.0 (20-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">0.13.3 (13-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">0.13.0 (03-October-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#september-2016">0.12.0 (13-September-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#august-2016">0.11.1 (31-August-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">0.11.0 (3-August-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#june-2016">0.10.0 (29-June-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#may-2016">0.9.2 (11-May-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">0.9 (3-May-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#mar-2016">0.8.4 (28-Mar-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">0.8 (15-Mar-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#feb-2016">0.7 (5-Feb-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#jan-2016">0.6 (11-Jan-2016)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#dec-2015">0.5 (18-Dec-2015)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conan1.0.html" class="btn btn-neutral float-right" title="Upgrading to conan 1.0" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

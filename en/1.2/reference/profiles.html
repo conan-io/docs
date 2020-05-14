@@ -1,0 +1,510 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Profiles &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Reference" href="../reference.html"/>
+        <link rel="next" title="Build helpers" href="build_helpers.html"/>
+        <link rel="prev" title="json" href="generators/json.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generators.html">Generators</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Profiles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#package-settings-and-env-vars">Package settings and env vars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#profile-includes">Profile includes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-declaration">Variable declaration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../reference.html">Reference</a> &raquo;</li>
+        
+      <li>Profiles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/reference/profiles.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="profiles">
+<span id="id1"></span><h1>Profiles<a class="headerlink" href="#profiles" title="Permalink to this headline">¶</a></h1>
+<p>Profiles allows users to set a complete configurateion set for <strong>settings</strong>, <strong>options</strong>, <strong>environment variables</strong>, and <strong>build
+requirements</strong> in a file. They have this structure:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+setting=value
+
+[options]
+MyLib:shared=True
+
+[env]
+env_var=value
+
+[build_requires]
+Tool1/0.1@user/channel
+Tool2/0.1@user/channel, Tool3/0.1@user/channel
+*: Tool4/0.1@user/channel
+</pre></div>
+</div>
+<p>Profile files can be used with <code class="docutils literal notranslate"><span class="pre">-pr</span></code>/<code class="docutils literal notranslate"><span class="pre">--profile</span></code> option in <strong class="command">conan install</strong> and <strong class="command">conan create</strong> commands.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create demo/testing -pr<span class="o">=</span>myprofile
+</pre></div>
+</div>
+<p>Profiles can be located in different folders, for example, the default <code class="docutils literal notranslate"><span class="pre">&lt;userhome&gt;/.conan/profiles</span></code>, and be referenced by absolute or
+relative path:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install --profile /abs/path/to/profile  <span class="c1"># abs path</span>
+$ conan install --profile ./relpath/to/profile  <span class="c1"># resolved to current dir</span>
+$ conan install --profile profile  <span class="c1"># resolved to user/.conan/profiles/profile</span>
+</pre></div>
+</div>
+<p>Listing existing profiles can be done like this:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan profile list
+default
+myprofile1
+myprofile2
+...
+</pre></div>
+</div>
+<p>You can also show profile’s content:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan profile show myprofile1
+Configuration <span class="k">for</span> profile myprofile1:
+
+<span class="o">[</span>settings<span class="o">]</span>
+    <span class="nv">os</span><span class="o">=</span>Windows
+    <span class="nv">arch</span><span class="o">=</span>x86_64
+    <span class="nv">compiler</span><span class="o">=</span>Visual Studio
+    compiler.version<span class="o">=</span><span class="m">15</span>
+    <span class="nv">build_type</span><span class="o">=</span>Release
+<span class="o">[</span>options<span class="o">]</span>
+<span class="o">[</span>build_requires<span class="o">]</span>
+<span class="o">[</span>env<span class="o">]</span>
+</pre></div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">$PROFILE_DIR</span></code> in your profile and it will be replaced with the absolute path to the profile file. It is useful to declare relative
+folders:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[env]
+PYTHONPATH=$PROFILE_DIR/my_python_tools
+</pre></div>
+</div>
+<div class="section" id="package-settings-and-env-vars">
+<h2>Package settings and env vars<a class="headerlink" href="#package-settings-and-env-vars" title="Permalink to this headline">¶</a></h2>
+<p>Profiles also support <strong>package settings</strong> and <strong>package environment variables</strong> definition, so you can override some settings or
+environment variables for some specific package:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text"><em>.conan/profiles/zlib_with_clang</em></span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [settings]
+ zlib:compiler=clang
+ zlib:compiler.version=3.5
+ zlib:compiler.libcxx=libstdc++11
+ compiler=gcc
+ compiler.version=4.9
+ compiler.libcxx=libstdc++11
+
+ [env]
+ zlib:CC=/usr/bin/clang
+ zlib:CXX=/usr/bin/clang++
+</pre></div>
+</div>
+</div>
+<p>Your build tool will locate <strong>clang</strong> compiler only for the <strong>zlib</strong> package and <strong>gcc</strong> (default one) for the rest of your dependency tree.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you want to override existing system environment variables, you should use the <code class="docutils literal notranslate"><span class="pre">key=value</span></code> syntax. If you need to pre-pend to the
+system environment variables you should use the syntax <code class="docutils literal notranslate"><span class="pre">key=[value]</span></code> or <code class="docutils literal notranslate"><span class="pre">key=[value1,</span> <span class="pre">value2,</span> <span class="pre">...]</span></code>. A typical example is the
+<code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable, when you want to add paths to the existing system PATH, not override it, you would use:</p>
+<div class="last highlight-text notranslate"><div class="highlight"><pre><span></span>[env]
+PATH=[/some/path/to/my/tool]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="profile-includes">
+<h2>Profile includes<a class="headerlink" href="#profile-includes" title="Permalink to this headline">¶</a></h2>
+<p>You can include other profiles using the <code class="docutils literal notranslate"><span class="pre">include()</span></code> statement. The path can be relative to the current profile, absolute, or a profile
+name from the default profile location in the local cache.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">include()</span></code> statement has to be at the top of the profile file:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text"><em>gcc_49</em></span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> [settings]
+ compiler=gcc
+ compiler.version=4.9
+ compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> include(gcc_49)
+
+ [settings]
+ zlib:compiler=clang
+ zlib:compiler.version=3.5
+ zlib:compiler.libcxx=libstdc++11
+
+ [env]
+ zlib:CC=/usr/bin/clang
+ zlib:CXX=/usr/bin/clang++
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="variable-declaration">
+<h2>Variable declaration<a class="headerlink" href="#variable-declaration" title="Permalink to this headline">¶</a></h2>
+<p>In a profile you can declare variables that will be replaced automatically by conan before the profile is applied. The variables have to be
+declared at the top of the file, after the <code class="docutils literal notranslate"><span class="pre">include()</span></code> statements.</p>
+<div class="literal-block-wrapper docutils container" id="id5">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id5" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(gcc_49)
+CLANG=/usr/bin/clang
+
+[settings]
+zlib:compiler=clang
+zlib:compiler.version=3.5
+zlib:compiler.libcxx=libstdc++11
+
+[env]
+zlib:CC=$CLANG/clang
+zlib:CXX=$CLANG/clang++
+</pre></div>
+</div>
+</div>
+<p>The variables will be inherited too, so you can declare variables in a profile and then include the profile in a different one, all the
+variables will be available:</p>
+<div class="literal-block-wrapper docutils container" id="id6">
+<div class="code-block-caption"><span class="caption-text"><em>gcc_49</em></span><a class="headerlink" href="#id6" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GCC_PATH=/my/custom/toolchain/path/
+
+[settings]
+compiler=gcc
+compiler.version=4.9
+compiler.libcxx=libstdc++11
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id7">
+<div class="code-block-caption"><span class="caption-text"><em>myprofile</em></span><a class="headerlink" href="#id7" title="Permalink to this code">¶</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(gcc_49)
+
+[settings]
+zlib:compiler=clang
+zlib:compiler.version=3.5
+zlib:compiler.libcxx=libstdc++11
+
+[env]
+zlib:CC=$GCC_PATH/gcc
+zlib:CXX=$GCC_PATH/g++
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>If you are working with Linux and you usually work with <code class="docutils literal notranslate"><span class="pre">gcc</span></code> compiler, but you have installed <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler and want to install some
+package for <code class="docutils literal notranslate"><span class="pre">clang</span></code> compiler, you could do:</p>
+<ul class="simple">
+<li>Create a <code class="docutils literal notranslate"><span class="pre">.conan/profiles/clang</span></code> file:</li>
+</ul>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[settings]
+compiler=clang
+compiler.version=3.5
+compiler.libcxx=libstdc++11
+
+[env]
+CC=/usr/bin/clang
+CXX=/usr/bin/clang++
+</pre></div>
+</div>
+<ul class="simple">
+<li>Execute conan install command passing the <code class="docutils literal notranslate"><span class="pre">--profile</span></code> or <code class="docutils literal notranslate"><span class="pre">-pr</span></code> parameter:</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conan install --profile clang
+</pre></div>
+</div>
+<p>Without profiles you would have needed to set the CC and CXX variables in the environment to point to your clang compiler and use <code class="docutils literal notranslate"><span class="pre">-s</span></code>
+parameters to specify the settings:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/usr/bin/clang
+<span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/usr/bin/clang++
+conan install -s <span class="nv">compiler</span><span class="o">=</span>clang -s compiler.version<span class="o">=</span><span class="m">3</span>.5 -s compiler.libcxx<span class="o">=</span>libstdc++11
+</pre></div>
+</div>
+<p>A profile can also be used in <strong class="command">conan create</strong> and <strong class="command">conan info</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create demo/testing --profile clang
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<ul class="last simple">
+<li>Check the section <a class="reference internal" href="../devtools/build_requires.html#build-requires"><span class="std std-ref">Build requirements</span></a> to read more about its ussage in a profile.</li>
+<li>Check <a class="reference internal" href="commands/misc/profile.html#conan-profile-command"><span class="std std-ref">conan profile</span></a> for full reference.</li>
+<li>Check <a class="reference internal" href="config_files/default_profile.html#default-profile"><span class="std std-ref">profiles/default</span></a> for full reference.</li>
+<li>Related section: <a class="reference internal" href="../systems_cross_building/cross_building.html#cross-building"><span class="std std-ref">Cross building</span></a>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="build_helpers.html" class="btn btn-neutral float-right" title="Build helpers" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="generators/json.html" class="btn btn-neutral" title="json" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

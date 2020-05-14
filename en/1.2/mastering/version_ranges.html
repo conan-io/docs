@@ -1,0 +1,329 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Version ranges &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Mastering conan" href="../mastering.html"/>
+        <link rel="next" title="Build policies" href="policies.html"/>
+        <link rel="prev" title="Conditional settings, options and requirements" href="conditional.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mastering.html">Mastering conan</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="conanfile_py.html">Use conanfile.py for consumers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="conditional.html">Conditional settings, options and requirements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html">Build policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="envvars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing_settings_and_config.html">Sharing the settings and other configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_cache.html">Conan local cache: concurrency, Continuous Integration, isolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mastering.html">Mastering conan</a> &raquo;</li>
+        
+      <li>Version ranges</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/mastering/version_ranges.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="version-ranges">
+<span id="id1"></span><h1>Version ranges<a class="headerlink" href="#version-ranges" title="Permalink to this headline">¶</a></h1>
+<p>Version range expressions are supported, both in <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> and in <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> requirements.</p>
+<p>The syntax is using brackets. The square brackets are the way to specify conan that is a version range. Otherwise, versions are plain strings, they can be whatever you want them to be (up to limitations of length and allowed characters).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+   <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Pkg/[&gt;1.0,&lt;1.8]@user/stable&quot;</span>
+</pre></div>
+</div>
+<p>So when specifying <code class="docutils literal notranslate"><span class="pre">Pkg/[expression]&#64;user/stable</span></code> it means that <code class="docutils literal notranslate"><span class="pre">expression</span></code> will be evaluated as a version range. Otherwise it will be understand as plain text, so <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;Pkg/version&#64;user/stable&quot;</span></code> always means to use the version <code class="docutils literal notranslate"><span class="pre">version</span></code> literally.</p>
+<p>There are some packages that do not follow semver, a popular one would be the OpenSSL package with versions as <code class="docutils literal notranslate"><span class="pre">1.0.2n</span></code>. They cannot be used with version-ranges, to require such packages you always have to use explicit versions (without brackets).</p>
+<p>The process to manage plain versions vs version-ranges is also different. The second one requires a “search” in the remote, which is orders of magnitude slower than direct retrieval of the reference (plain versions), so take it into account if you plan to use it for very large projects.</p>
+<p>Expressions are those defined and implemented by <a class="reference external" href="https://pypi.python.org/pypi/node-semver">https://pypi.python.org/pypi/node-semver</a>,
+but using a comma instead of spaces. Accepted expressions would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="mf">1.1</span><span class="p">,</span><span class="o">&lt;</span><span class="mf">2.1</span>    <span class="c1"># In such range</span>
+<span class="mf">2.8</span>          <span class="c1"># equivalent to =2.8</span>
+<span class="o">~=</span><span class="mf">3.0</span>        <span class="c1"># compatible, according to semver</span>
+<span class="o">&gt;</span><span class="mf">1.1</span> <span class="o">||</span> <span class="mf">0.8</span>  <span class="c1"># conditions can be OR&#39;ed</span>
+</pre></div>
+</div>
+<p>Version range expressions are evaluated at the time of building the dependency graph, from
+downstream to upstream dependencies. No joint-compatibility of the full graph is computed, instead,
+version ranges are evaluated when dependencies are first retrieved.</p>
+<p>This means, that if a package A depends on another package B (A-&gt;B), and A has a requirement for
+<code class="docutils literal notranslate"><span class="pre">C/[&gt;1.2,&lt;1.8]</span></code>, this requirement is evaluated first and it can lead to get the version <code class="docutils literal notranslate"><span class="pre">C/1.7</span></code>. If
+package B has the requirement to <code class="docutils literal notranslate"><span class="pre">C/[&gt;1.3,&lt;1.6]</span></code>, this one will be overwritten by the downstream one,
+it will output a version incompatibility error. But the “joint” compatibility of the graph will not
+be obtained. Downstream packages or consumer projects can impose their own requirements to comply
+with upstream constraints, in this case a override dependency to <code class="docutils literal notranslate"><span class="pre">C/[&gt;1.3,&lt;1.6]</span></code> can be easily defined
+in the downstream package or project.</p>
+<p>The order of search for matching versions is as follows:</p>
+<ul class="simple">
+<li>First, the local conan storage is searched for matching versions, unless the <strong class="command">--update</strong> flag is provided to <strong class="command">conan install</strong>.</li>
+<li>If a matching version is found, it is used in the dependency graph as a solution.</li>
+<li>If no matching version is locally found, it starts to search in the remotes, in order. If some remote is specified with <strong class="command">-r=remote</strong>,
+then only that remote will be used.</li>
+<li>If the <strong class="command">--update</strong> parameter is used, then the existing packages in the local conan cache will not be used, and the same search of the
+previous steps is carried out in the remotes. If new matching versions are found, they will be retrieved, so subsequent calls to
+<strong class="command">install</strong> will find them locally and use them.</li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="policies.html" class="btn btn-neutral float-right" title="Build policies" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="conditional.html" class="btn btn-neutral" title="Conditional settings, options and requirements" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

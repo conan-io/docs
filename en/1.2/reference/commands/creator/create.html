@@ -1,0 +1,417 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan create &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="conan export" href="export.html"/>
+        <link rel="prev" title="conan search" href="../consumer/search.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export.html">conan export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="export-pkg.html">conan export-pkg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="new.html">conan new</a></li>
+<li class="toctree-l4"><a class="reference internal" href="upload.html">conan upload</a></li>
+<li class="toctree-l4"><a class="reference internal" href="test.html">conan test</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan create</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/reference/commands/creator/create.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-create">
+<span id="conan-create-command"></span><h1>conan create<a class="headerlink" href="#conan-create" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-ne<span class="o">]</span> <span class="o">[</span>-tf TEST_FOLDER<span class="o">]</span> <span class="o">[</span>-k<span class="o">]</span> <span class="o">[</span>-kb<span class="o">]</span> <span class="o">[</span>-m <span class="o">[</span>MANIFESTS<span class="o">]]</span>
+               <span class="o">[</span>-mi <span class="o">[</span>MANIFESTS_INTERACTIVE<span class="o">]]</span> <span class="o">[</span>-v <span class="o">[</span>VERIFY<span class="o">]]</span> <span class="o">[</span>-u<span class="o">]</span>
+               <span class="o">[</span>-pr PROFILE<span class="o">]</span> <span class="o">[</span>-r REMOTE<span class="o">]</span> <span class="o">[</span>-o OPTIONS<span class="o">]</span> <span class="o">[</span>-s SETTINGS<span class="o">]</span>
+               <span class="o">[</span>-e ENV<span class="o">]</span> <span class="o">[</span>-b <span class="o">[</span>BUILD <span class="o">[</span>BUILD ...<span class="o">]]]</span>
+               path reference
+</pre></div>
+</div>
+<p>Builds a binary package for recipe (conanfile.py) located in current dir. Uses
+the specified configuration in a profile or in -s settings, -o options etc. If
+a ‘test_package’ folder (the name can be configured with -tf) is found, the
+command will run the consumer project to ensure that the package has been
+created correctly. Check the ‘conan test’ command to know more about the
+‘test_folder’ project.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>positional arguments:
+  path                  path to a folder containing a recipe <span class="o">(</span>conanfile.py<span class="o">)</span> or
+                        to a recipe file, e.g., conan package
+                        folder/conanfile.py
+  reference             user/channel, or a full package reference
+                        <span class="o">(</span>Pkg/version@user/channel<span class="o">)</span>, <span class="k">if</span> name and version are
+                        not declared in the recipe <span class="o">(</span>conanfile.py<span class="o">)</span>
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  -ne, --not-export     Do not <span class="nb">export</span> the conanfile
+  -tf TEST_FOLDER, --test-folder TEST_FOLDER
+                        alternative <span class="nb">test</span> folder name, by default is
+                        <span class="s2">&quot;test_package&quot;</span>. <span class="s2">&quot;None&quot;</span> <span class="k">if</span> <span class="nb">test</span> stage needs to be
+                        disabled
+  -k, --keep-source     Optional. Do not remove the <span class="nb">source</span> folder in <span class="nb">local</span>
+                        cache. Use <span class="k">for</span> testing purposes only
+  -kb, --keep-build     Optional. Do not remove the build folder in <span class="nb">local</span>
+                        cache. Use <span class="k">for</span> testing purposes only
+  -j JSON, --json JSON  Path to a json file where the install information will
+                        be written
+  -m <span class="o">[</span>MANIFESTS<span class="o">]</span>, --manifests <span class="o">[</span>MANIFESTS<span class="o">]</span>
+                        Install dependencies manifests in folder <span class="k">for</span> later
+                        verify. Default folder is .conan_manifests, but can be
+                        changed
+  -mi <span class="o">[</span>MANIFESTS_INTERACTIVE<span class="o">]</span>, --manifests-interactive <span class="o">[</span>MANIFESTS_INTERACTIVE<span class="o">]</span>
+                        Install dependencies manifests in folder <span class="k">for</span> later
+                        verify, asking user <span class="k">for</span> confirmation. Default folder
+                        is .conan_manifests, but can be changed
+  -v <span class="o">[</span>VERIFY<span class="o">]</span>, --verify <span class="o">[</span>VERIFY<span class="o">]</span>
+                        Verify dependencies manifests against stored ones
+  -u, --update          check updates exist from upstream remotes
+  -pr PROFILE, --profile PROFILE
+                        Apply the specified profile to the install <span class="nb">command</span>
+  -r REMOTE, --remote REMOTE
+                        look in the specified remote server
+  -o OPTIONS, --options OPTIONS
+                        Define options values, e.g., -o Pkg:with_qt<span class="o">=</span><span class="nb">true</span>
+  -s SETTINGS, --settings SETTINGS
+                        Settings to build the package, overwriting the
+                        defaults. e.g., -s <span class="nv">compiler</span><span class="o">=</span>gcc
+  -e ENV, --env ENV     Environment variables that will be <span class="nb">set</span> during the
+                        package build, -e <span class="nv">CXX</span><span class="o">=</span>/usr/bin/clang++
+  -b <span class="o">[</span>BUILD <span class="o">[</span>BUILD ...<span class="o">]]</span>, --build <span class="o">[</span>BUILD <span class="o">[</span>BUILD ...<span class="o">]]</span>
+                        Optional, use it to choose <span class="k">if</span> you want to build from
+                        sources: --build Build all from sources, <span class="k">do</span> not use
+                        binary packages. --build<span class="o">=</span>never Never build, use binary
+                        packages or fail <span class="k">if</span> a binary package is not found.
+                        --build<span class="o">=</span>missing Build from code <span class="k">if</span> a binary package is
+                        not found. --build<span class="o">=</span>outdated Build from code <span class="k">if</span> the
+                        binary is not built with the current recipe or when
+                        missing binary package. --build<span class="o">=[</span>pattern<span class="o">]</span> Build always
+                        these packages from source, but never build the
+                        others. Allows multiple --build parameters. <span class="s2">&quot;pattern&quot;</span>
+                        is a fnmatch file pattern of a package name. Default
+                        behavior: If you dont specify anything, it will be
+                        similar to --build<span class="o">=</span>never, but package recipes can
+                        override it and decide to build with <span class="s2">&quot;build_policy&quot;</span>
+</pre></div>
+</div>
+<p>This is the recommended way to create packages.</p>
+<p><strong class="command">conan create . demo/testing</strong> is equivalent to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> . demo/testing
+$ conan install Hello/0.1@demo/testing --build<span class="o">=</span>Hello
+<span class="c1"># package is created now, use test to test it</span>
+$ <span class="nb">cd</span> test_package
+$ conan <span class="nb">test</span> . Hello/0.1@demo/testing
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>Sometimes you need to <strong>skip/disable test stage</strong> to avoid a failure while creating the package,
+i.e: when you are cross compiling libraries and target code cannot be executed in current host platform.
+In that case you can skip/disable the test package stage:</p>
+<div class="last highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . demo/testing --test-folder<span class="o">=</span>None
+</pre></div>
+</div>
+</div>
+<p><strong class="command">conan create</strong> executes methods of a <em>conanfile.py</em> in the following order:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">config_options()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">configure()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">requirements()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">package_id()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">build_requirements()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">build_id()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">system_requirements()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">source()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">imports()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">build()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">package()</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">package_info()</span></code></li>
+</ol>
+<p>In case of installing a pre-built binary, steps from 5 to 11 will be skipped. Note <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> is used for consumers, it should not
+be fired if there is no <em>test_package</em>. Note also that <code class="docutils literal notranslate"><span class="pre">deploy()</span></code> method is only used in <strong class="command">conan install</strong>.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="export.html" class="btn btn-neutral float-right" title="conan export" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../consumer/search.html" class="btn btn-neutral" title="conan search" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

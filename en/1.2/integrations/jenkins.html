@@ -1,0 +1,399 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jenkins &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Travis Ci" href="travisci.html"/>
+        <link rel="prev" title="Git" href="git.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clion.html"> CLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> Jenkins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#artifactory-and-jenkins-integration">Artifactory and Jenkins integration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-test-your-project-getting-requirements-from-artifactory">Example: Test your project getting requirements from Artifactory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-build-a-conan-package-and-upload-it-to-artifactory">Example: Build a conan package and upload it to Artifactory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li> Jenkins</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/jenkins.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jenkins-logo-jenkins">
+<h1><img alt="jenkins_logo" src="../_images/jenkins.png" /> Jenkins<a class="headerlink" href="#jenkins-logo-jenkins" title="Permalink to this headline">¶</a></h1>
+<p>You can use <cite>Jenkins CI</cite> both for:</p>
+<ul class="simple">
+<li>Building and testing your project, which manages dependencies with Conan, and probably a conanfile.txt file</li>
+<li>Building and testing conan binary packages for a given conan package recipe (with a conanfile.py) and uploading to a
+conan remote (Artifactory or conan_server)</li>
+</ul>
+<p>There is no need for any special setup for it, just install conan and your build tools in the Jenkins machine and call
+the needed <code class="docutils literal notranslate"><span class="pre">conan</span></code> commands.</p>
+<div class="section" id="artifactory-and-jenkins-integration">
+<h2>Artifactory and Jenkins integration<a class="headerlink" href="#artifactory-and-jenkins-integration" title="Permalink to this headline">¶</a></h2>
+<p>If you are using <a class="reference external" href="https://www.jfrog.com/artifactory/">Artifactory</a> you can take advantage of the <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Jenkins+%28Hudson%29+Artifactory+Plug-in">Jenkins Artifactory Plugin</a>.
+Check <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Jenkins+%28Hudson%29+Artifactory+Plug-in">here how to install the plugin</a> and <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Working+With+Pipeline+Jobs+in+Jenkins">here you can check the full documentation about the DSL</a>.</p>
+<p>The Artifactory Jenkins plugin provides a powerful DSL language to call conan, connect with your Artifactory instance,
+upload and download your packages from Artifactory and manage your <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Build+Integration">build information</a>.</p>
+<div class="section" id="example-test-your-project-getting-requirements-from-artifactory">
+<h3>Example: Test your project getting requirements from Artifactory<a class="headerlink" href="#example-test-your-project-getting-requirements-from-artifactory" title="Permalink to this headline">¶</a></h3>
+<p>This is a template to use Jenkins with Artifactory plugin and Conan to retrieve your package from Artifactory server
+and publish the <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Build+Integration">build information</a> about the downloaded packages to Artifactory.</p>
+<p>In this script we assume that we already have all our dependencies in the Artifactory server, and we are building
+our project that uses <strong>Boost</strong> and <strong>Poco</strong> libraries.</p>
+<p>Create a new Jenkins Pipeline task using this script:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">//Adjust your artifactory instance name/repository and your source code repository</span>
+<span class="kt">def</span> <span class="n">artifactory_name</span> <span class="o">=</span> <span class="s2">&quot;artifactory&quot;</span>
+<span class="kt">def</span> <span class="n">artifactory_repo</span> <span class="o">=</span> <span class="s2">&quot;conan-local&quot;</span>
+<span class="kt">def</span> <span class="n">repo_url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/memsharded/example-boost-poco.git&#39;</span>
+<span class="kt">def</span> <span class="n">repo_branch</span> <span class="o">=</span> <span class="s1">&#39;master&#39;</span>
+
+<span class="n">node</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">server</span> <span class="o">=</span> <span class="n">Artifactory</span><span class="o">.</span><span class="na">server</span> <span class="n">artifactory_name</span>
+    <span class="kt">def</span> <span class="n">client</span> <span class="o">=</span> <span class="n">Artifactory</span><span class="o">.</span><span class="na">newConanClient</span><span class="o">()</span>
+
+    <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Get project&quot;</span><span class="o">){</span>
+        <span class="n">git</span> <span class="nl">branch:</span> <span class="n">repo_branch</span><span class="o">,</span> <span class="nl">url:</span> <span class="n">repo_url</span>
+    <span class="o">}</span>
+
+    <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Get dependencies and publish build info&quot;</span><span class="o">){</span>
+        <span class="n">sh</span> <span class="s2">&quot;mkdir -p build&quot;</span>
+        <span class="n">dir</span> <span class="o">(</span><span class="s1">&#39;build&#39;</span><span class="o">)</span> <span class="o">{</span>
+          <span class="kt">def</span> <span class="n">b</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nl">command:</span> <span class="s2">&quot;install ..&quot;</span><span class="o">)</span>
+          <span class="n">server</span><span class="o">.</span><span class="na">publishBuildInfo</span> <span class="n">b</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Build/Test project&quot;</span><span class="o">){</span>
+        <span class="n">dir</span> <span class="o">(</span><span class="s1">&#39;build&#39;</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">sh</span> <span class="s2">&quot;cmake ../ &amp;&amp; cmake --build .&quot;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><img alt="jenkins_stages" src="../_images/jenkins_stages.png" /></p>
+</div>
+<div class="section" id="example-build-a-conan-package-and-upload-it-to-artifactory">
+<h3>Example: Build a conan package and upload it to Artifactory<a class="headerlink" href="#example-build-a-conan-package-and-upload-it-to-artifactory" title="Permalink to this headline">¶</a></h3>
+<p>In this example we will call conan <a class="reference internal" href="../creating_packages/getting_started.html#creating-and-testing-packages"><span class="std std-ref">test package</span></a> command to create a binary packages
+and then upload it to Artifactory. We also upload the <a class="reference external" href="https://www.jfrog.com/confluence/display/RTF/Build+Integration">build information</a>:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">artifactory_name</span> <span class="o">=</span> <span class="s2">&quot;artifactory&quot;</span>
+<span class="kt">def</span> <span class="n">artifactory_repo</span> <span class="o">=</span> <span class="s2">&quot;conan-local&quot;</span>
+<span class="kt">def</span> <span class="n">repo_url</span> <span class="o">=</span> <span class="s1">&#39;https://github.com/lasote/conan-zlib.git&#39;</span>
+<span class="kt">def</span> <span class="n">repo_branch</span> <span class="o">=</span> <span class="s2">&quot;release/1.2.11&quot;</span>
+
+<span class="n">node</span> <span class="o">{</span>
+    <span class="kt">def</span> <span class="n">server</span> <span class="o">=</span> <span class="n">Artifactory</span><span class="o">.</span><span class="na">server</span> <span class="n">artifactory_name</span>
+    <span class="kt">def</span> <span class="n">client</span> <span class="o">=</span> <span class="n">Artifactory</span><span class="o">.</span><span class="na">newConanClient</span><span class="o">()</span>
+    <span class="kt">def</span> <span class="n">serverName</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">remote</span><span class="o">.</span><span class="na">add</span> <span class="nl">server:</span> <span class="n">server</span><span class="o">,</span> <span class="nl">repo:</span> <span class="n">artifactory_repo</span>
+
+    <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Get recipe&quot;</span><span class="o">){</span>
+        <span class="n">git</span> <span class="nl">branch:</span> <span class="n">repo_branch</span><span class="o">,</span> <span class="nl">url:</span> <span class="n">repo_url</span>
+    <span class="o">}</span>
+
+    <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Test recipe&quot;</span><span class="o">){</span>
+        <span class="n">client</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nl">command:</span> <span class="s2">&quot;create&quot;</span><span class="o">)</span>
+    <span class="o">}</span>
+
+    <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Upload packages&quot;</span><span class="o">){</span>
+        <span class="n">String</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;upload * --all -r ${serverName} --confirm&quot;</span>
+        <span class="kt">def</span> <span class="n">b</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nl">command:</span> <span class="n">command</span><span class="o">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="na">publishBuildInfo</span> <span class="n">b</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p><img alt="jenkins_stages_creator" src="../_images/jenkins_stages_creator.png" /></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="travisci.html" class="btn btn-neutral float-right" title="Travis Ci" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="git.html" class="btn btn-neutral" title="Git" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

@@ -1,0 +1,478 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CLion &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Integrations" href="../integrations.html"/>
+        <link rel="next" title="Ninja, NMake, Borland" href="ninja.html"/>
+        <link rel="prev" title="Android Studio" href="android_studio.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cmake.html"> CMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="makefile.html">Autotools: configure/make</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visual_studio.html"> Visual Studio</a></li>
+<li class="toctree-l2"><a class="reference internal" href="xcode.html">  Xcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gcc.html">Compilers on command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="android_studio.html"> Android Studio</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"> CLion</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-packages-in-a-clion-project">Using packages in a CLion project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-conan-packages-in-a-clion-project">Creating conan packages in a CLion project</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ninja.html">Ninja, NMake, Borland</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pkg_config_pc_files.html">pkg-config and pc files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boost_build.html"> Boost Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qmake.html">QMake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="premake.html"> Premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qbs.html">qbs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="meson.html"> Meson Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git.html"> Git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jenkins.html"> Jenkins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="travisci.html"> Travis Ci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appveyor.html"> Appveyor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gitlab.html"> Gitlab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="youcompleteme.html">YouCompleteMe (vim)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="scons.html"> SCons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="other.html">Custom integrations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../integrations.html">Integrations</a> &raquo;</li>
+        
+      <li> CLion</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/integrations/clion.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="clion-logo-clion">
+<span id="clion"></span><h1><img alt="clion_logo" src="../_images/icon_CLion.png" /> CLion<a class="headerlink" href="#clion-logo-clion" title="Permalink to this headline">¶</a></h1>
+<p>CLion uses <strong>CMake</strong> as the build system of projects, so you can use the <a class="reference internal" href="cmake.html#cmake"><span class="std std-ref">CMake generator</span></a> to manage your requirements in your CLion project.</p>
+<p>Just include the <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> this way:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">EXISTS</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+    <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+    <span class="nb">conan_basic_setup</span><span class="p">()</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">WARNING</span> <span class="s2">&quot;The file conanbuildinfo.cmake doesn&#39;t exist, you have to run conan install first&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If the <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> file is not found, it will print a warning message in the <code class="docutils literal notranslate"><span class="pre">Messages</span></code> console of your Clion IDE.</p>
+<div class="section" id="using-packages-in-a-clion-project">
+<h2>Using packages in a CLion project<a class="headerlink" href="#using-packages-in-a-clion-project" title="Permalink to this headline">¶</a></h2>
+<p>Let see an example of how to consume Conan packages in a CLion project. We are going to require and use
+the <code class="docutils literal notranslate"><span class="pre">zlib</span></code> conan package.</p>
+<ol class="arabic simple">
+<li>Create a new CLion project</li>
+</ol>
+<p><img alt="wizard_new" src="../_images/wizard_new.png" /></p>
+<ol class="arabic simple" start="2">
+<li>Edit the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file and add the following lines:</li>
+</ol>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">EXISTS</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+    <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+    <span class="nb">conan_basic_setup</span><span class="p">()</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">WARNING</span> <span class="s2">&quot;The file conanbuildinfo.cmake doesn&#39;t exist, you have to run conan install first&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="cmakelists" src="../_images/cmakelists.png" /></p>
+<p>3. CLion will reload your CMake project and you will be able to see a Warning in the console, because the
+<code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> file still doesn’t exists:</p>
+<p><img alt="configure_warning_info" src="../_images/configure_warning_info.png" /></p>
+<p>4. Create a <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code> with all your requirements and use the <code class="docutils literal notranslate"><span class="pre">cmake</span></code> generator. In this case we are only
+requiring zlib library from a conan package:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+zlib/1.2.11@conan/stable
+
+[generators]
+cmake
+</pre></div>
+</div>
+<p><img alt="conanfile_txt" src="../_images/conanfile_txt.png" /></p>
+<p id="step-five">5. Now you can <strong class="command">conan install</strong> for debug in the <code class="docutils literal notranslate"><span class="pre">cmake-build-debug</span></code> folder to install your requirements and
+generate the <code class="docutils literal notranslate"><span class="pre">conanbuildinfo.cmake</span></code> file there:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -s <span class="nv">build_type</span><span class="o">=</span>Debug --install-folder<span class="o">=</span>cmake-build-debug
+</pre></div>
+</div>
+<p>6. Repeat the last step if you have the release build types configured in your CLion IDE, but changing the build_type
+setting accordingly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . -s <span class="nv">build_type</span><span class="o">=</span>Release --install-folder<span class="o">=</span>cmake-build-release
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>Now reconfigure your CLion project, the Warning message is not shown anymore:</li>
+</ol>
+<p><img alt="configure_ok" src="../_images/configure_ok.png" /></p>
+<p>8. Open the <code class="docutils literal notranslate"><span class="pre">library.cpp</span></code> file and include the <code class="docutils literal notranslate"><span class="pre">zlib.h</span></code>, if you follow the link you can see that CLion automatically
+detect the <code class="docutils literal notranslate"><span class="pre">zlib.h</span></code> header file from the local conan cache.</p>
+<p><img alt="library_cpp" src="../_images/library_cpp.png" /></p>
+<ol class="arabic simple" start="9">
+<li>Build your project normally using your CLion IDE:</li>
+</ol>
+<p><img alt="built_ok" src="../_images/built_ok.png" /></p>
+<p>You can check a full example of a CLion project reusing conan packages in this github repository: <a class="reference external" href="https://github.com/lasote/clion-conan-consumer">lasote/clion-conan-consumer</a>.</p>
+</div>
+<div class="section" id="creating-conan-packages-in-a-clion-project">
+<h2>Creating conan packages in a CLion project<a class="headerlink" href="#creating-conan-packages-in-a-clion-project" title="Permalink to this headline">¶</a></h2>
+<p>Now we are going to see how to create a conan package from the previous library.</p>
+<ol class="arabic simple">
+<li>Create a new CLion project</li>
+</ol>
+<p><img alt="wizard_new" src="../_images/wizard_new.png" /></p>
+<ol class="arabic simple" start="2">
+<li>Edit the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file and add the following lines:</li>
+</ol>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">if</span><span class="p">(</span><span class="s">EXISTS</span> <span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+    <span class="nb">include</span><span class="p">(</span><span class="o">${</span><span class="nv">CMAKE_BINARY_DIR</span><span class="o">}</span><span class="s">/conanbuildinfo.cmake</span><span class="p">)</span>
+    <span class="nb">conan_basic_setup</span><span class="p">()</span>
+<span class="nb">else</span><span class="p">()</span>
+    <span class="nb">message</span><span class="p">(</span><span class="s">WARNING</span> <span class="s2">&quot;The file conanbuildinfo.cmake doesn&#39;t exist, you have to run conan install first&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="cmakelists" src="../_images/cmakelists.png" /></p>
+<ol class="arabic simple" start="3">
+<li>Create a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> file. It’s recommended to use the <strong class="command">conan new</strong> command.</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan new mylibrary/1.0@myuser/channel
+</pre></div>
+</div>
+<p>And edit the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>:</p>
+<ul class="simple">
+<li>We are removing the <code class="docutils literal notranslate"><span class="pre">source</span></code> method because we have the sources in the same project, so we can use the
+<code class="docutils literal notranslate"><span class="pre">exports_sources</span></code>.</li>
+<li>In the <code class="docutils literal notranslate"><span class="pre">package_info</span></code> method adjust the library name, in this case our <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> is creating a target library called
+<code class="docutils literal notranslate"><span class="pre">mylibrary</span></code>.</li>
+<li>Adjust the CMake helper in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, the <code class="docutils literal notranslate"><span class="pre">cmake.configure()</span></code> doesn’t need to specify the <code class="docutils literal notranslate"><span class="pre">source_folder</span></code>, because
+we have the <code class="docutils literal notranslate"><span class="pre">library.*</span></code> files in the root directory.</li>
+<li>Adjust the <code class="docutils literal notranslate"><span class="pre">copy</span></code> function calls in the <code class="docutils literal notranslate"><span class="pre">package</span></code> method to ensure that all your headers and libraries are copied to the conan package.</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">tools</span>
+
+
+<span class="k">class</span> <span class="nc">MylibraryConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;mylibrary&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;1.0&quot;</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;&lt;Put the package license here&gt;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;&lt;Package recipe repository url here, for issues about the package&gt;&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&lt;Description of Mylibrary here&gt;&quot;</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;shared=False&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11@conan/stable&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">()</span>
+        <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+
+        <span class="c1"># Explicit way:</span>
+        <span class="c1"># self.run(&#39;cmake &quot;%s&quot; %s&#39; % (self.source_folder, cmake.command_line))</span>
+        <span class="c1"># self.run(&quot;cmake --build . %s&quot; % cmake.build_config)</span>
+
+    <span class="k">def</span> <span class="nf">package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.h&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;include&quot;</span><span class="p">,</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.lib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dll&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.so&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.dylib&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="s2">&quot;*.a&quot;</span><span class="p">,</span> <span class="n">dst</span><span class="o">=</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="n">keep_path</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">package_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpp_info</span><span class="o">.</span><span class="n">libs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;mylibrary&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>To build your library with CLion follow the guide of <a class="reference internal" href="#step-five"><span class="std std-ref">Using packages from the step 5</span></a>.</li>
+</ol>
+<p>5. To package your library use the <strong class="command">conan export-pkg</strong> command passing the used build-folder. It
+will call your <code class="docutils literal notranslate"><span class="pre">package()</span></code> method to extract the artifacts and push the conan package to the local
+cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan export-pkg . mylibrary/1.0@myuser/channel --build-folder cmake-build-debug
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>Now you can upload it to a conan server if needed:</li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan upload mylibrary/1.0@myuser/channel <span class="c1"># This will upload only the recipe, use --all to upload all the generated binary packages.</span>
+</pre></div>
+</div>
+<p>8. If you would like to see how the package looks like before exporting it to the local cache (conan export-pkg)
+you can use the <strong class="command">conan package</strong> command to create the package in a local directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan package . --build-folder cmake-build-debug --package-folder<span class="o">=</span>mypackage
+</pre></div>
+</div>
+<p>If we list the <code class="docutils literal notranslate"><span class="pre">mypackage</span></code> folder we can see:</p>
+<blockquote>
+<div><ul class="simple">
+<li>A <code class="docutils literal notranslate"><span class="pre">lib</span></code> folder containing our library</li>
+<li>A <code class="docutils literal notranslate"><span class="pre">include</span></code> folder containing our header files</li>
+<li>A <code class="docutils literal notranslate"><span class="pre">conaninfo.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">conanmanifest.txt</span></code> conan files, always present in all packages.</li>
+</ul>
+</div></blockquote>
+<p>You can check a full example of a CLion project for creating a conan package in this github repository: <a class="reference external" href="https://github.com/lasote/clion-conan-package">lasote/clion-conan-package</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ninja.html" class="btn btn-neutral float-right" title="Ninja, NMake, Borland" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="android_studio.html" class="btn btn-neutral" title="Android Studio" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

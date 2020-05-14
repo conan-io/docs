@@ -1,0 +1,558 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>conan_build_info v1 &mdash; conan 1.19.3 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="conan 1.19.3 documentation" href="../../../index.html"/>
+        <link rel="up" title="Commands" href="../../commands.html"/>
+        <link rel="next" title="Install and Create output" href="../output/install.html"/>
+        <link rel="prev" title="conan help" href="help.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../commands.html">Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#consumer-commands">Consumer commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#creator-commands">Creator commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#package-development-commands">Package development commands</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../../commands.html#misc-commands">Misc commands</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="profile.html">conan profile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remote.html">conan remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user.html">conan user</a></li>
+<li class="toctree-l4"><a class="reference internal" href="imports.html">conan imports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="copy.html">conan copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="download.html">conan download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="remove.html">conan remove</a></li>
+<li class="toctree-l4"><a class="reference internal" href="alias.html">conan alias</a></li>
+<li class="toctree-l4"><a class="reference internal" href="inspect.html">conan inspect</a></li>
+<li class="toctree-l4"><a class="reference internal" href="graph.html">conan graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="help.html">conan help</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">conan_build_info v1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conan-build-info-v2">conan_build_info v2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#json-output">JSON Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../commands.html#return-codes">Return codes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../conanfile.html">conanfile.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../env_vars.html">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../hooks.html">Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../../commands.html">Commands</a> &raquo;</li>
+        
+      <li>conan_build_info v1</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/reference/commands/misc/conan_build_info.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="conan-build-info-v1">
+<span id="conan-build-info"></span><h1>conan_build_info v1<a class="headerlink" href="#conan-build-info-v1" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: conan_build_info <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--output OUTPUT<span class="o">]</span> trace_path
+
+Extracts build-info from a specified conan trace log and <span class="k">return</span> a valid JSON
+
+positional arguments:
+  trace_path       Path to the conan trace log file e.g.: /tmp/conan_trace.log
+
+optional arguments:
+  -h, --help       show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --output OUTPUT  Optional file to output the JSON contents, <span class="k">if</span> not specified
+                  the JSON will be printed to stdout
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-build-info-v2">
+<h1>conan_build_info v2<a class="headerlink" href="#conan-build-info-v2" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan_build_info --v2 <span class="o">[</span>-h<span class="o">]</span> <span class="o">{</span>start,stop,create,update,publish<span class="o">}</span> ...
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Generates build info build info from lockfiles information
+
+positional arguments:
+  <span class="o">{</span>start,stop,create,update,publish<span class="o">}</span>
+                        sub-command <span class="nb">help</span>
+    start               Command to incorporate to the artifacts.properties the
+                        build name and number
+    stop                Command to remove from the artifacts.properties the
+                        build name and number
+    create              Command to generate a build info json from a lockfile
+    update              Command to update a build info json with another one
+    publish             Command to publish the build info to Artifactory
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+<p><strong>start subcommand</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: conan_build_info --v2 start <span class="o">[</span>-h<span class="o">]</span> build_name build_number
+
+positional arguments:
+  build_name    build name to assign
+  build_number  build number to assign
+
+optional arguments:
+  -h, --help    show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+<p><strong>stop subcommand</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: conan_build_info --v2 stop <span class="o">[</span>-h<span class="o">]</span>
+
+optional arguments:
+  -h, --help  show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</pre></div>
+</div>
+<p><strong>create subcommand</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: conan_build_info --v2 create <span class="o">[</span>-h<span class="o">]</span> --lockfile LOCKFILE
+                                    <span class="o">[</span>--multi-module <span class="o">[</span>MULTI_MODULE<span class="o">]]</span>
+                                    <span class="o">[</span>--skip-env <span class="o">[</span>SKIP_ENV<span class="o">]]</span> <span class="o">[</span>--user <span class="o">[</span>USER<span class="o">]]</span>
+                                    <span class="o">[</span>--password <span class="o">[</span>PASSWORD<span class="o">]]</span> <span class="o">[</span>--apikey <span class="o">[</span>APIKEY<span class="o">]]</span>
+                                    build_info_file
+
+positional arguments:
+  build_info_file       build info json <span class="k">for</span> output
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --lockfile LOCKFILE   input lockfile
+  --multi-module <span class="o">[</span>MULTI_MODULE<span class="o">]</span>
+                        <span class="k">if</span> enabled, the module_id will be identified by the
+                        recipe reference plus the package ID
+  --skip-env <span class="o">[</span>SKIP_ENV<span class="o">]</span>
+                        capture or not the environment
+  --user <span class="o">[</span>USER<span class="o">]</span>         user
+  --password <span class="o">[</span>PASSWORD<span class="o">]</span>
+                        password
+  --apikey <span class="o">[</span>APIKEY<span class="o">]</span>     apikey
+</pre></div>
+</div>
+<p><strong>publish subcommand</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: conan_build_info --v2 publish <span class="o">[</span>-h<span class="o">]</span> --url URL <span class="o">[</span>--user <span class="o">[</span>USER<span class="o">]]</span>
+                                     <span class="o">[</span>--password <span class="o">[</span>PASSWORD<span class="o">]]</span> <span class="o">[</span>--apikey <span class="o">[</span>APIKEY<span class="o">]]</span>
+                                     buildinfo
+
+positional arguments:
+  buildinfo             build info to upload
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --url URL             url
+  --user <span class="o">[</span>USER<span class="o">]</span>         user
+  --password <span class="o">[</span>PASSWORD<span class="o">]</span>
+                        password
+  --apikey <span class="o">[</span>APIKEY<span class="o">]</span>     apikey
+</pre></div>
+</div>
+<p><strong>update subcommand</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>usage: conan_build_info --v2 update <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--output-file OUTPUT_FILE<span class="o">]</span>
+                                    buildinfo <span class="o">[</span>buildinfo ...<span class="o">]</span>
+
+positional arguments:
+  buildinfo             buildinfo files to merge
+
+optional arguments:
+  -h, --help            show this <span class="nb">help</span> message and <span class="nb">exit</span>
+  --output-file OUTPUT_FILE
+                        path to generated build info file
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../output/install.html" class="btn btn-neutral float-right" title="Install and Create output" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="help.html" class="btn btn-neutral" title="conan help" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.19
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.19/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.19.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../../_static/js/modernizr.min.js"></script>
+  <script src="../../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.19");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

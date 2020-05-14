@@ -1,0 +1,967 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Attributes &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../../index.html"/>
+        <link rel="up" title="conanfile.py" href="../conanfile.html"/>
+        <link rel="next" title="Methods" href="methods.html"/>
+        <link rel="prev" title="conanfile.py" href="../conanfile.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../conanfile_txt.html">conanfile.txt</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../conanfile.html">conanfile.py</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Attributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#name">name</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#version">version</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#description">description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#homepage">homepage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#url">url</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#license">license</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#author">author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#user-channel">user, channel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#settings">settings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#options-default-options">options, default_options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#requires">requires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-requires">build_requires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exports">exports</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#exports-sources">exports_sources</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#generators">generators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build-policy">build_policy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#short-paths">short_paths</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#no-copy-source">no_copy_source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#folders">folders</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cpp-info">cpp_info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deps-cpp-info">deps_cpp_info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#env-info">env_info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deps-env-info">deps_env_info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#info">info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apply-env">apply_env</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#in-local-cache">in_local_cache</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#develop">develop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keep-imports">keep_imports</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="methods.html">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="other.html">Output and Running</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../generators.html">Generators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../profiles.html">Profiles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_helpers.html">Build helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../config_files.html">Configuration files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../env_vars.html">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../reference.html">Reference</a> &raquo;</li>
+        
+          <li><a href="../conanfile.html">conanfile.py</a> &raquo;</li>
+        
+      <li>Attributes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/reference/conanfile/attributes.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="attributes">
+<h1>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="name">
+<h2>name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<p>This is a string, with a minimun of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the <code class="docutils literal notranslate"><span class="pre">&lt;PkgName&gt;/version&#64;user/channel</span></code> of the package reference.
+It should match the following regex <code class="docutils literal notranslate"><span class="pre">^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]$</span></code>, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.</p>
+<p>The name is only necessary for <code class="docutils literal notranslate"><span class="pre">export</span></code>-ing the recipe into the local cache (<code class="docutils literal notranslate"><span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> commands), if they are not defined in the command line.
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
+However, the most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.</p>
+</div>
+<div class="section" id="version">
+<h2>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h2>
+<p>The version attribute will define the version part of the package reference: <code class="docutils literal notranslate"><span class="pre">PkgName/&lt;version&gt;&#64;user/channel</span></code>
+It is a string, and can take any value, matching the same constraints as the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute.
+In case the version follows semantic versioning in the form <code class="docutils literal notranslate"><span class="pre">X.Y.Z-pre1+build2</span></code>, that value might be used for requiring this package through version ranges instead of exact versions.</p>
+<p>The version is only strictly necessary for <code class="docutils literal notranslate"><span class="pre">export</span></code>-ing the recipe into the local cache (<code class="docutils literal notranslate"><span class="pre">export</span></code> and <code class="docutils literal notranslate"><span class="pre">create</span></code> commands), if they are not defined in the command line.
+It might take its value from an environment variable, or even any python code that defines it (e.g. a function that reads an environment variable, or a file from disk).
+Please note that this value might be used in the recipe in other places (as in <code class="docutils literal notranslate"><span class="pre">source()</span></code> method to retrieve code from elsewhere), making this value not constant means that it may evaluate differently in different contexts (e.g., on different machines or for different users) leading to unrepeatable or unpredictable results.
+The most common and suggested approach would be to define it in plain text as a constant, or provide it as command line arguments.</p>
+</div>
+<div class="section" id="description">
+<h2>description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>This is an optional, but strongly recommended text field, containing the description of the package,
+and any information that might be useful for the consumers. The first line might be used as a
+short description of the package.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;This is a Hello World library.</span>
+<span class="s2">                    A fully featured, portable, C++ library to say Hello World in the stdout,</span>
+<span class="s2">                    with incredible iostreams performance&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="homepage">
+<h2>homepage<a class="headerlink" href="#homepage" title="Permalink to this headline">¶</a></h2>
+<p>Use this attribute to indicate the home web page of the library being packaged. This is useful to link
+the recipe to further explanations of the library itself like an overview of its features, documentation, FAQ
+as well as other related information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">EigenConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;eigen&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;3.3.4&quot;</span>
+    <span class="n">homepage</span> <span class="o">=</span> <span class="s2">&quot;http://eigen.tuxfamily.org&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="url">
+<span id="package-url"></span><h2>url<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h2>
+<p>It is possible, even typical, if you are packaging a thid party lib, that you just develop
+the packaging code. Such code is also subject to change, often via collaboration, so it should be stored
+in a VCS like git, and probably put on GitHub or a similar service. If you do indeed maintain such a
+repository, please indicate it in the <code class="docutils literal notranslate"><span class="pre">url</span></code> attribute, so that it can be easily found.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://github.com/memsharded/hellopack.git&quot;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">url</span></code> is the url <strong>of the package</strong> repository, i.e. not necessarily the original source code.
+It is optional, but highly recommended, that it points to GitHub, Bitbucket or your preferred
+code collaboration platform. Of course, if you have the conanfile inside your library source,
+you can point to it, and afterwards use the <code class="docutils literal notranslate"><span class="pre">url</span></code> in your <code class="docutils literal notranslate"><span class="pre">source()</span></code> method.</p>
+<p>This is a recommended, but not mandatory attribute.</p>
+</div>
+<div class="section" id="license">
+<h2>license<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<p>This field is intended for the license of the <strong>target</strong> source code and binaries, i.e. the code
+that is being packaged, not the <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> itself. This info is used to be displayed by
+the <strong class="command">conan info</strong> command and possibly other search and report tools.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">license</span> <span class="o">=</span> <span class="s2">&quot;MIT&quot;</span>
+</pre></div>
+</div>
+<p>This attribute can contain several, comma separated licenses. It is a text string, so it can
+contain any text, including hyperlinks to license files elsewhere.</p>
+<p>This is a recommended, but not mandatory attribute.</p>
+</div>
+<div class="section" id="author">
+<h2>author<a class="headerlink" href="#author" title="Permalink to this headline">¶</a></h2>
+<p>Intended to add information about the author, in case it is different from the conan user. It is
+possible that the conan user is the name of an organization, project, company or group, and many
+users have permissions over that account. In this case, the author information can explicitely
+define who is the creator/maintainer of the package</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="s2">&quot;John J. Smith (john.smith@company.com)&quot;</span>
+</pre></div>
+</div>
+<p>This is an optional attribute</p>
+</div>
+<div class="section" id="user-channel">
+<span id="id1"></span><h2>user, channel<a class="headerlink" href="#user-channel" title="Permalink to this headline">¶</a></h2>
+<p>The fields <code class="docutils literal notranslate"><span class="pre">user</span></code> and <code class="docutils literal notranslate"><span class="pre">channel</span></code> can be accessed from within a <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code>.
+Though their usage is usually not encouraged, it could be useful in different cases,
+e.g. to define requirements with the same user and
+channel than the current package, which could be achieved with something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+
+    <span class="k">def</span> <span class="nf">requirements</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">requires</span><span class="p">(</span><span class="s2">&quot;Say/0.1@</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Only package recipes that are in the conan local cache (i.e. “exported”) have an user/channel assigned.
+For package recipes working in user space, there is no current user/channel. The properties <code class="docutils literal notranslate"><span class="pre">self.user</span></code>
+and <code class="docutils literal notranslate"><span class="pre">self.channel</span></code> will then look for environment variables <code class="docutils literal notranslate"><span class="pre">CONAN_USERNAME</span></code> and <code class="docutils literal notranslate"><span class="pre">CONAN_CHANNEL</span></code>
+respectively. If they are not defined, an error will be raised.</p>
+</div>
+<div class="section" id="settings">
+<span id="settings-property"></span><h2>settings<a class="headerlink" href="#settings" title="Permalink to this headline">¶</a></h2>
+<p>There are several things that can potentially affect a package being created, i.e. the final
+package will be different (a different binary, for example), if some input is different.</p>
+<p>Development project-wide variables, like the compiler, its version, or the OS
+itself. These variables have to be defined, and they cannot have a default value listed in the
+conanfile, as it would not make sense.</p>
+<p>It is obvious that changing the OS produces a different binary in most cases. Changing the compiler
+or compiler version changes the binary too, which might have a compatible ABI or not, but the
+package will be different in any case.</p>
+<p>For these reasons, the most common convention among Conan recipes is to distinguish binaries by the following four settings, which is reflected in the <cite>conanfile.py</cite> template used in the <cite>conan new</cite> command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+</pre></div>
+</div>
+<p>When Conan generates a compiled binary for a package with a given combination of the settings above, it generates a unique ID for that binary by hashing the current values of these settings.</p>
+<p>But what happens for example to <strong>header only libraries</strong>? The final package for such libraries is not
+binary and, in most cases it will be identical, unless it is automatically generating code.
+We can indicate that in the conanfile:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+ <span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Hello&quot;</span>
+     <span class="n">version</span> <span class="o">=</span> <span class="s2">&quot;0.1&quot;</span>
+     <span class="c1"># We can just omit the settings attribute too</span>
+     <span class="n">settings</span> <span class="o">=</span> <span class="bp">None</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="c1">#empty too, nothing to build in header only</span>
+</pre></div>
+</div>
+<p>You can restrict existing settings and accepted values as well, by redeclaring the settings
+attribute:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;os&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Windows&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;compiler&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;Visual Studio&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">]}},</span>
+        <span class="s2">&quot;arch&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>In this example we have just defined that this package only works in Windows, with VS 10 and 11.
+Any attempt to build it in other platforms with other settings will throw an error saying so.
+We have also defined that the runtime (the MD and MT flags of VS) is irrelevant for us
+(maybe we using a universal one?). Using None as a value means, <em>maintain the original values</em> in order
+to avoid re-typing them. Then, “arch”: None is totally equivalent to “arch”: [“x86”, “x86_64”, “arm”]
+Check the reference or your ~/.conan/settings.yml file.</p>
+<p>As re-defining the whole settings attribute can be tedious, it is sometimes much simpler to
+remove or tune specific fields in the <code class="docutils literal notranslate"><span class="pre">configure()</span></code> method. For example, if our package is runtime
+independent in VS, we can just remove that setting field:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span>
+
+<span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">compiler</span><span class="p">[</span><span class="s2">&quot;Visual Studio&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;runtime&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="options-default-options">
+<span id="conanfile-options"></span><h2>options, default_options<a class="headerlink" href="#options-default-options" title="Permalink to this headline">¶</a></h2>
+<p>Conan packages recipes can generate different binary packages when different settings are used, but can also customize, per-package any other configuration that will produce a different binary.</p>
+<p>A typical option would be being shared or static for a certain library. Note that this is optional, different packages can have this option, or not (like header-only packages), and different packages can have different values for this option, as opposed to settings, which typically have the same values for all packages being installed (though this can be controlled too, defining different settings for specific packages)</p>
+<p>Options are defined in package recipes as dictionaries of name and allowed values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p>There is an special value <code class="docutils literal notranslate"><span class="pre">ANY</span></code> to allow any value for a given option. The range of values for such an option will not be checked, and any value (as string) will be accepted:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s2">&quot;commit&quot;</span><span class="p">:</span> <span class="s2">&quot;ANY&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>When a package is installed, it will need all its options be defined a value. Those values can be defined in command line, profiles, but they can also (and they will be typically) defined in conan package recipes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">],</span> <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;shared=False&quot;</span><span class="p">,</span> <span class="s2">&quot;fPIC=False&quot;</span>
+</pre></div>
+</div>
+<p>The options will typically affect the <code class="docutils literal notranslate"><span class="pre">build()</span></code> of the package in some way, for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="bp">True</span><span class="p">,</span> <span class="bp">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;shared=False&quot;</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">shared</span> <span class="o">=</span> <span class="s2">&quot;-DBUILD_SHARED_LIBS=ON&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">shared</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake . </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">,</span> <span class="n">shared</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build . </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cmake</span><span class="o">.</span><span class="n">build_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that you have to consider the option properly in your build scripts. In this case, we are using the CMake way. So if you had explicit <strong>STATIC</strong> linkage in the <strong>CMakeLists.txt</strong> file, you have to remove it. If you are using VS, you also need to change your code to correctly import/export symbols for the dll.</p>
+<p>This is only an example. Actually, the <code class="docutils literal notranslate"><span class="pre">CMake</span></code> helper already automates this, so it is enough to do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="c1"># internally it will check self.options.shared</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake . </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cmake</span><span class="o">.</span><span class="n">command_line</span><span class="p">)</span> <span class="c1"># or cmake.configure()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;cmake --build . </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">cmake</span><span class="o">.</span><span class="n">build_config</span><span class="p">)</span> <span class="c1"># or cmake.build()</span>
+</pre></div>
+</div>
+<p>You can also specify default option values of the required dependencies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">OtherPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Pkg/0.1@user/channel&quot;</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="s2">&quot;Pkg:pkg_option=value&quot;</span>
+</pre></div>
+</div>
+<p>If you need to dynamically set some dependency options, you could do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">OtherPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Pkg/0.1@user/channel&quot;</span>
+
+    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;Pkg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pkg_option</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span>
+</pre></div>
+</div>
+<p>Option values can be given in command line, and they will have priority over the default values in the recipe:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install -o Pkg:shared<span class="o">=</span>True -o OtherPkg:option<span class="o">=</span>value
+</pre></div>
+</div>
+<p>You can also defined them in consumer <code class="docutils literal notranslate"><span class="pre">conanfile.txt</span></code>, as described in <a class="reference internal" href="../../using_packages/conanfile_txt.html#options-txt"><span class="std std-ref">this section</span></a></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[requires]
+Poco/1.7.8p3@pocoproject/stable
+
+[options]
+Poco:shared=True
+OpenSSL:shared=True
+</pre></div>
+</div>
+<p>And finally, you can define options in <a class="reference internal" href="../profiles.html#profiles"><span class="std std-ref">profiles</span></a> too, with the same syntax:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># file &quot;myprofile&quot;
+# use it as $ conan install -pr=myprofile
+[settings]
+setting=value
+
+[options]
+MyLib:shared=True
+</pre></div>
+</div>
+<p>You can inspect available package options, reading the package recipe, which is conveniently done with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan get Pkg/0.1@user/channel
+</pre></div>
+</div>
+</div>
+<div class="section" id="requires">
+<h2>requires<a class="headerlink" href="#requires" title="Permalink to this headline">¶</a></h2>
+<p>Specify package dependencies as a list of other packages:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyLibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Hello/1.0@user/stable&quot;</span><span class="p">,</span> <span class="s2">&quot;OtherLib/2.1@otheruser/testing&quot;</span>
+</pre></div>
+</div>
+<p>You can specify further information about the package requirements:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyLibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="p">((</span><span class="s2">&quot;Hello/0.1@user/testing&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Say/0.2@dummy/stable&quot;</span><span class="p">,</span> <span class="s2">&quot;override&quot;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">&quot;Bye/2.1@coder/beta&quot;</span><span class="p">,</span> <span class="s2">&quot;private&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Requirements can be complemented by 2 different parameters:</p>
+<p><strong>private</strong>: a dependency can be declared as private if it is going to be fully embedded and hidden
+from consumers of the package. Typical examples could be a header only library which is not exposed
+through the public interface of the package, or the linking of a static library inside a dynamic
+one, in which the functionality or the objects of the linked static library are not exposed through
+the public interface of the dynamic library.</p>
+<p><strong>override</strong>: packages can define overrides of their dependencies, if they require the definition of
+specific versions of the upstream required libraries, but not necessarily direct dependencies. For example,
+a package can depend on A(v1.0), which in turn could conditionally depend on Zlib(v2), depending on whether
+the compression is enabled or not. Now, if you want to force the usage of Zlib(v3) you can:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;A/1.0@user/stable&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;Zlib/3.0@other/beta&quot;</span><span class="p">,</span> <span class="s2">&quot;override&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This <strong>will not introduce a new dependency</strong>, it will just change Zlib v2 to v3 if A actually
+requires it. Otherwise Zlib will not be a dependency of your package.</p>
+<div class="section" id="version-ranges">
+<span id="version-ranges-reference"></span><h3>version ranges<a class="headerlink" href="#version-ranges" title="Permalink to this headline">¶</a></h3>
+<p>The syntax is using brackets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">HelloConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;Pkg/[&gt;1.0,&lt;1.8]@user/stable&quot;</span>
+</pre></div>
+</div>
+<p>Expressions are those defined and implemented by [python node-semver](<a class="reference external" href="https://pypi.python.org/pypi/node-semver">https://pypi.python.org/pypi/node-semver</a>),
+but using a comma instead of spaces. Accepted expressions would be:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span><span class="mf">1.1</span><span class="p">,</span><span class="o">&lt;</span><span class="mf">2.1</span>    <span class="c1"># In such range</span>
+<span class="mf">2.8</span>          <span class="c1"># equivalent to =2.8</span>
+<span class="o">~=</span><span class="mf">3.0</span>        <span class="c1"># compatible, according to semver</span>
+<span class="o">&gt;</span><span class="mf">1.1</span> <span class="o">||</span> <span class="mf">0.8</span>  <span class="c1"># conditions can be OR&#39;ed</span>
+</pre></div>
+</div>
+<div class="out-reference-box docutils container">
+Go to <a class="reference internal" href="../../mastering/version_ranges.html#version-ranges"><span class="std std-ref">Mastering/Version Ranges</span></a> if you want to learn more about version ranges.</div>
+</div>
+</div>
+<div class="section" id="build-requires">
+<h2>build_requires<a class="headerlink" href="#build-requires" title="Permalink to this headline">¶</a></h2>
+<p>Build requirements are requirements that are only installed and used when the package is built from sources. If there is an existing pre-compiled binary, then the build requirements for this package will not be retrieved.</p>
+<p>They can be specified as a comma separated tuple in the package recipe:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyPkg</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">build_requires</span> <span class="o">=</span> <span class="s2">&quot;ToolA/0.2@user/testing&quot;</span><span class="p">,</span> <span class="s2">&quot;ToolB/0.2@user/testing&quot;</span>
+</pre></div>
+</div>
+<p>Read more: <a class="reference internal" href="../../devtools/build_requires.html#build-requires"><span class="std std-ref">Build requiremens</span></a></p>
+</div>
+<div class="section" id="exports">
+<h2>exports<a class="headerlink" href="#exports" title="Permalink to this headline">¶</a></h2>
+<p>If a package recipe <code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> requires other external files, like other python files that
+it is importing (python importing), or maybe some text file with data it is reading, those files
+must be exported with the <code class="docutils literal notranslate"><span class="pre">exports</span></code> field, so they are stored together, side by side with the
+<code class="docutils literal notranslate"><span class="pre">conanfile.py</span></code> recipe.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">exports</span></code> field can be one single pattern, like <code class="docutils literal notranslate"><span class="pre">exports=&quot;*&quot;</span></code>, or several inclusion patterns.
+For example, if we have some python code that we want the recipe to use in a <code class="docutils literal notranslate"><span class="pre">helpers.py</span></code> file,
+and have some text file, <code class="docutils literal notranslate"><span class="pre">info.txt</span></code>, we want to read and display during the recipe evaluation
+we would do something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;helpers.py&quot;</span><span class="p">,</span> <span class="s2">&quot;info.txt&quot;</span>
+</pre></div>
+</div>
+<p>Exclude patterns are also possible, with the <code class="docutils literal notranslate"><span class="pre">!</span></code> prefix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">exports</span> <span class="o">=</span> <span class="s2">&quot;*.py&quot;</span><span class="p">,</span> <span class="s2">&quot;!*tmp.py&quot;</span>
+</pre></div>
+</div>
+<p>This is an optional attribute, only to be used if the package recipe requires these other files
+for evaluation of the recipe.</p>
+</div>
+<div class="section" id="exports-sources">
+<h2>exports_sources<a class="headerlink" href="#exports-sources" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 ways of getting source code to build a package. Using the <code class="docutils literal notranslate"><span class="pre">source()</span></code> recipe method
+and using the <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> field. With <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> you specify which sources are required,
+and they will be exported together with the <strong>conanfile.py</strong>, copying them from your folder to the
+local conan cache. Using <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code>
+the package recipe can be self-contained, containing the source code like in a snapshot, and then
+not requiring downloading or retrieving the source code from other origins (git, download) with the
+<code class="docutils literal notranslate"><span class="pre">source()</span></code> method when it is necessary to build from sources.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> field can be one single pattern, like <code class="docutils literal notranslate"><span class="pre">exports_sources=&quot;*&quot;</span></code>, or several inclusion patterns.
+For example, if we have the source code inside “include” and “src” folders, and there are other folders
+that are not necessary for the package recipe, we could do:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;include*&quot;</span><span class="p">,</span> <span class="s2">&quot;src*&quot;</span>
+</pre></div>
+</div>
+<p>Exclude patterns are also possible, with the <code class="docutils literal notranslate"><span class="pre">!</span></code> prefix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">exports_sources</span> <span class="o">=</span> <span class="s2">&quot;include*&quot;</span><span class="p">,</span> <span class="s2">&quot;src*&quot;</span><span class="p">,</span> <span class="s2">&quot;!src/build/*&quot;</span>
+</pre></div>
+</div>
+<p>This is an optional attribute, used typically when <code class="docutils literal notranslate"><span class="pre">source()</span></code> is not specified. The main difference with
+<code class="docutils literal notranslate"><span class="pre">exports</span></code> is that <code class="docutils literal notranslate"><span class="pre">exports</span></code> files are always retrieved (even if pre-compiled packages exist),
+while <code class="docutils literal notranslate"><span class="pre">exports_sources</span></code> files are only retrieved when it is necessary to build a package from sources.</p>
+</div>
+<div class="section" id="generators">
+<h2>generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h2>
+<p>Generators specify which is the output of the <code class="docutils literal notranslate"><span class="pre">install</span></code> command in your project folder. By default, a <em>conanbuildinfo.txt</em> file is
+generated, but you can specify different generators and even use more than one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyLibConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake&quot;</span><span class="p">,</span> <span class="s2">&quot;gcc&quot;</span>
+</pre></div>
+</div>
+<p>Check the full <a class="reference internal" href="../../using_packages/conanfile_txt.html#generators"><span class="std std-ref">generators list</span></a>.</p>
+</div>
+<div class="section" id="build-policy">
+<h2>build_policy<a class="headerlink" href="#build-policy" title="Permalink to this headline">¶</a></h2>
+<p>With the <code class="docutils literal notranslate"><span class="pre">build_policy</span></code> attribute the package creator can change the default conan’s build behavior.
+The allowed <code class="docutils literal notranslate"><span class="pre">build_policy</span></code> values are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">missing</span></code>: If no binary package is found, conan will build it without the need of invoke conan install with <strong>–build missing</strong> option.</li>
+<li><code class="docutils literal notranslate"><span class="pre">always</span></code>: The package will be built always, <strong>retrieving each time the source code</strong> executing the “source” method.</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">class</span> <span class="nc">PocoTimerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+<span class="hll">     <span class="n">build_policy</span> <span class="o">=</span> <span class="s2">&quot;always&quot;</span> <span class="c1"># &quot;missing&quot;</span>
+</span></pre></div>
+</div>
+</div>
+<div class="section" id="short-paths">
+<span id="short-paths-reference"></span><h2>short_paths<a class="headerlink" href="#short-paths" title="Permalink to this headline">¶</a></h2>
+<p>If one of the packages you are creating hits the limit of 260 chars path length in Windows, add
+<code class="docutils literal notranslate"><span class="pre">short_paths=True</span></code> in your conanfile.py:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span>
+
+<span class="k">class</span> <span class="nc">ConanFileTest</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="n">short_paths</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+<p>This will automatically “link” the <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">build</span></code> directories of the package to the drive root,
+something like <cite>C:/.conan/tmpdir</cite>. All the folder layout in the conan cache is maintained.</p>
+<p>This attribute will not have any effect in other OS, it will be discarded.</p>
+<p>From Windows 10 (ver. 10.0.14393), it is possible to opt-in disabling the path limits. Check <a class="reference external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa365247(v=vs.85).aspx#maxpath">this link</a> for more info.
+Latest python installers might offer to enable this while installing python. With this limit removed, the <code class="docutils literal notranslate"><span class="pre">short_paths</span></code> functionality is totally unnecessary.
+Please note that this only works with Python 3.6 and newer.</p>
+</div>
+<div class="section" id="no-copy-source">
+<h2>no_copy_source<a class="headerlink" href="#no-copy-source" title="Permalink to this headline">¶</a></h2>
+<p>The attribute <code class="docutils literal notranslate"><span class="pre">no_copy_source</span></code> tells the recipe that the source code will not be copied from the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder to the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder.
+This is mostly an optimization for packages with large source codebases, to avoid extra copies. It is <strong>mandatory</strong> that the source code must not be modified at all by the configure or build scripts, as the source code will be shared among all builds.</p>
+<p>To be able to use it, the package recipe can access the <code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code> attribute, which will point to the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder when <code class="docutils literal notranslate"><span class="pre">no_copy_source=False</span></code> or not defined, and will point to the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder when <code class="docutils literal notranslate"><span class="pre">no_copy_source=True</span></code></p>
+<p>When this attribute is set to True, the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method will be called twice, one copying from the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder and the other copying from the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder.</p>
+</div>
+<div class="section" id="folders">
+<h2>folders<a class="headerlink" href="#folders" title="Permalink to this headline">¶</a></h2>
+<p>In the package recipe methods, some attributes pointing to the relevant folders can be defined. Not all of them will be defined always, only in those relevant methods that might use them.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">self.source_folder</span></code>: the folder in which the source code to be compiled lives. When a package is built in the conan local cache, by default it is the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder,
+as the source code is copied from the <code class="docutils literal notranslate"><span class="pre">source</span></code> folder to the <code class="docutils literal notranslate"><span class="pre">build</span></code> folder,
+to ensure isolation and avoiding modifications of shared common source code among builds for different configurations.
+Only when <code class="docutils literal notranslate"><span class="pre">no_copy_source=True</span></code> this folder will actually point to the package <code class="docutils literal notranslate"><span class="pre">source</span></code> folder in the local cache.</li>
+<li><code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code>: the folder in which the build is being done</li>
+<li><code class="docutils literal notranslate"><span class="pre">self.install_folder</span></code>: the folder in which the install has outputed the generator files, by default, and always in the local cache, is the same <code class="docutils literal notranslate"><span class="pre">self.build_folder</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">self.package_folder</span></code>: the folder to copy the final artifacts for the binary package</li>
+</ul>
+<p>When executing local conan commands (for a package not in the local cache, but in user folder), those fields would be pointing to the corresponding local user folder.</p>
+</div>
+<div class="section" id="cpp-info">
+<h2>cpp_info<a class="headerlink" href="#cpp-info" title="Permalink to this headline">¶</a></h2>
+<p>This attribute is only defined inside <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, being None elsewhere, so please use it only inside this method.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">self.cpp_info</span></code> object can be filled with the needed information for the consumers of the current
+package:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NAME</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>self.cpp_info.includedirs</td>
+<td>Ordered list with include paths, by default [‘include’]</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.libdirs</td>
+<td>Ordered list with lib paths, by default [‘lib’]</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.resdirs</td>
+<td>Ordered list of resource (data) paths, by default [‘res’]</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.bindirs</td>
+<td>Ordered list with include paths, by default [‘bin’]</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.builddirs</td>
+<td>Ordered list with build scripts paths, by default [‘’]</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.libs</td>
+<td>Ordered list with the library names, by default empty []</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.defines</td>
+<td>Preprocessor definitions, by default empty []</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.cflags</td>
+<td>Ordered list with pure C flags, by default empty []</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.cppflags</td>
+<td>Ordered list with C++ flags, by default empty []</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.sharedlinkflags</td>
+<td>Ordered list with linker flags (shared libs), by default empty []</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.exelinkflags</td>
+<td>Ordered list with linker flags (executables), by default empty []</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.rootpath</td>
+<td>Filled with the root directory of the package, see deps_cpp_info</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read <a class="reference internal" href="methods.html#method-package-info"><span class="std std-ref">package_info() method docs</span></a> for more info.</p>
+</div>
+</div>
+<div class="section" id="deps-cpp-info">
+<h2>deps_cpp_info<a class="headerlink" href="#deps-cpp-info" title="Permalink to this headline">¶</a></h2>
+<p>Contains the <code class="docutils literal notranslate"><span class="pre">cpp_info</span></code> object of the requirements of the recipe. In addition of the above fields, there are also
+properties to obtain the absolute paths:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="62%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NAME</th>
+<th class="head">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>self.cpp_info.include_paths</td>
+<td>Same as <code class="docutils literal notranslate"><span class="pre">includedirs</span></code> but transformed to absolute paths</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.lib_paths</td>
+<td>Same as <code class="docutils literal notranslate"><span class="pre">libdirs</span></code> but transformed to absolute paths</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.bin_paths</td>
+<td>Same as <code class="docutils literal notranslate"><span class="pre">bindirs</span></code> but transformed to absolute paths</td>
+</tr>
+<tr class="row-odd"><td>self.cpp_info.build_paths</td>
+<td>Same as <code class="docutils literal notranslate"><span class="pre">builddirs</span></code> but transformed to absolute paths</td>
+</tr>
+<tr class="row-even"><td>self.cpp_info.res_paths</td>
+<td>Same as <code class="docutils literal notranslate"><span class="pre">resdirs</span></code> but transformed to absolute paths</td>
+</tr>
+</tbody>
+</table>
+<p>To get a list of all the dependency names from <code class="docutils literal notranslate"><span class="pre">`deps_cpp_info`</span></code>, you can call the <cite>deps</cite> member:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PocoTimerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># deps is a list of package names: [&quot;Poco&quot;, &quot;zlib&quot;, &quot;OpenSSL&quot;]</span>
+        <span class="n">deps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="o">.</span><span class="n">deps</span>
+</pre></div>
+</div>
+<p>It can be used to get information about the dependencies, like used compilation flags or the
+root folder of the package:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="k">class</span> <span class="nc">PocoTimerConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="o">...</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;zlib/1.2.11@conan/stable&quot;</span><span class="p">,</span> <span class="s2">&quot;OpenSSL/1.0.2l@conan/stable&quot;</span>
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="c1"># Get the directory where zlib package is installed</span>
+<span class="hll">         <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;zlib&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rootpath</span>
+</span>
+         <span class="c1"># Get the absolute paths to zlib include directories (list)</span>
+<span class="hll">         <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;zlib&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">include_paths</span>
+</span>
+         <span class="c1"># Get the sharedlinkflags property from OpenSSL package</span>
+<span class="hll">         <span class="bp">self</span><span class="o">.</span><span class="n">deps_cpp_info</span><span class="p">[</span><span class="s2">&quot;OpenSSL&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sharedlinkflags</span>
+</span></pre></div>
+</div>
+</div>
+<div class="section" id="env-info">
+<h2>env_info<a class="headerlink" href="#env-info" title="Permalink to this headline">¶</a></h2>
+<p>This attribute is only defined inside <code class="docutils literal notranslate"><span class="pre">package_info()</span></code> method, being None elsewhere, so please use it only inside this method.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">self.env_info</span></code> object can be filled with the environment variables to be declared in the packages reusing the recipe.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">Read <a class="reference internal" href="methods.html#method-package-info"><span class="std std-ref">package_info() method docs</span></a> for more info.</p>
+</div>
+</div>
+<div class="section" id="deps-env-info">
+<h2>deps_env_info<a class="headerlink" href="#deps-env-info" title="Permalink to this headline">¶</a></h2>
+<p>You can access to the declared environment variables of the requirements of the recipe.</p>
+<p><strong>Note:</strong> The environment variables declared in the requirements of a recipe are automatically applied
+and it can be accesed with the python <code class="docutils literal notranslate"><span class="pre">os.environ</span></code> dictionary. Nevertheless if
+you want to access to the variable declared by some specific requirement you can use the <code class="docutils literal notranslate"><span class="pre">self.deps_env_info</span></code> object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="hll">
+</span> <span class="k">class</span> <span class="nc">RecipeConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="o">...</span>
+     <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;package1/1.0@conan/stable&quot;</span><span class="p">,</span> <span class="s2">&quot;package2/1.2@conan/stable&quot;</span>
+     <span class="o">...</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="c1"># Get the SOMEVAR environment variable declared in the &quot;package1&quot;</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">deps_env_info</span><span class="p">[</span><span class="s2">&quot;package1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">SOMEVAR</span>
+
+         <span class="c1"># Access to the environment variables globally</span>
+         <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SOMEVAR&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="info">
+<h2>info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>Object used to control the unique ID for a package. Check the <a class="reference internal" href="methods.html#method-package-id"><span class="std std-ref">package_id()</span></a> to see the details of the <code class="docutils literal notranslate"><span class="pre">self.info</span></code>
+object.</p>
+</div>
+<div class="section" id="apply-env">
+<span id="id2"></span><h2>apply_env<a class="headerlink" href="#apply-env" title="Permalink to this headline">¶</a></h2>
+<p>When <code class="docutils literal notranslate"><span class="pre">True</span></code> (Default), the values from <code class="docutils literal notranslate"><span class="pre">self.deps_env_info</span></code> (corresponding to the declared <code class="docutils literal notranslate"><span class="pre">env_info</span></code> in the <code class="docutils literal notranslate"><span class="pre">requires</span></code> and <code class="docutils literal notranslate"><span class="pre">build_requires</span></code>)
+will be automatically applied to the <code class="docutils literal notranslate"><span class="pre">os.environ</span></code>.</p>
+<p>Disable it setting <code class="docutils literal notranslate"><span class="pre">apply_env</span></code> to False if you want to control by yourself the environment variables
+applied to your recipes.</p>
+<p>You can apply manually the environment variables from the requires and build_requires:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="hll"> <span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">tools</span>
+</span>
+ <span class="k">class</span> <span class="nc">RecipeConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+     <span class="n">apply_env</span> <span class="o">=</span> <span class="bp">False</span>
+
+     <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+         <span class="k">with</span> <span class="n">tools</span><span class="o">.</span><span class="n">environment_append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">):</span>
+             <span class="c1"># The same if we specified apply_env = True</span>
+             <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="in-local-cache">
+<span id="id3"></span><h2>in_local_cache<a class="headerlink" href="#in-local-cache" title="Permalink to this headline">¶</a></h2>
+<p>A boolean attribute useful for conditional logic to apply in user folders local commands.
+It will return <cite>True</cite> if the conanfile resides in the local cache ( we are installing the package)
+and <cite>False</cite> if we are running the conanfile in a user folder (local Conan commands).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">class</span> <span class="nc">RecipeConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_local_cache</span><span class="p">:</span>
+            <span class="c1"># we are installing the package</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># we are building the package in a local directory</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="develop">
+<h2>develop<a class="headerlink" href="#develop" title="Permalink to this headline">¶</a></h2>
+<p>A boolean attribute useful for conditional logic. It will be <code class="docutils literal notranslate"><span class="pre">True</span></code> if the package is created with <strong class="command">conan create</strong>, or if the
+<em>conanfile.py</em> is in user space:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RecipeConan</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">develop</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Develop mode&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It can be used for conditional logic in other methods too, like <code class="docutils literal notranslate"><span class="pre">requirements()</span></code>, <code class="docutils literal notranslate"><span class="pre">package()</span></code>, etc.</p>
+<p>This recipe will output “Develop mode” if:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create user/testing
+<span class="c1"># or</span>
+$ mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build <span class="o">&amp;&amp;</span> conan install ..
+$ conan build ..
+</pre></div>
+</div>
+<p>But it will not output that when it is a transitive requirement or installed with <strong class="command">conan install</strong>.</p>
+</div>
+<div class="section" id="keep-imports">
+<span id="id4"></span><h2>keep_imports<a class="headerlink" href="#keep-imports" title="Permalink to this headline">¶</a></h2>
+<p>Just before the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method is executed, if the conanfile has an <code class="docutils literal notranslate"><span class="pre">imports()</span></code> method, it is
+executed into the build folder, to copy binaries from dependencies that might be necessary for
+the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method to work. After the method finishes, those copied (imported) files are removed,
+so they are not later unnecessarily repackaged.</p>
+<p>This behavior can be avoided declaring the <code class="docutils literal notranslate"><span class="pre">keep_imports=True</span></code> attribute. This can be useful, for example
+to <a class="reference internal" href="../../devtools/running_packages.html#repackage"><span class="std std-ref">repackage artifacts</span></a></p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="methods.html" class="btn btn-neutral float-right" title="Methods" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../conanfile.html" class="btn btn-neutral" title="conanfile.py" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

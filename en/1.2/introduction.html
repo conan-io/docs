@@ -1,0 +1,375 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="index.html"/>
+        <link rel="next" title="Install" href="installation.html"/>
+        <link rel="prev" title="Upgrading to conan 1.0" href="conan1.0.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#open-source">Open Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decentralized-package-manager">Decentralized package manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#binary-management">Binary management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cross-platform-build-system-agnostic">Cross platform, build system agnostic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stable">Stable</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creating_packages.html">Creating packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="open-source">
+<h2>Open Source<a class="headerlink" href="#open-source" title="Permalink to this headline">¶</a></h2>
+<p>Conan is OSS, with an MIT license. Check out the source code and issue tracking (for reporting bugs
+and for feature requests) at <a class="reference external" href="https://github.com/conan-io/conan">https://github.com/conan-io/conan</a></p>
+</div>
+<div class="section" id="decentralized-package-manager">
+<h2>Decentralized package manager<a class="headerlink" href="#decentralized-package-manager" title="Permalink to this headline">¶</a></h2>
+<p>Conan is a decentralized package manager with a client-server architecture. This means that clients
+can fetch packages from, as well as upload packages to, different servers (“remotes”), similar to
+the “git” push-pull model to/from git remotes.</p>
+<p>On a high level, the servers are just package storage. They do not build nor create the packages.
+The packages are created by the client, and if binaries are built from sources, that compilation is
+also done by the client application.</p>
+<a class="reference internal image-reference" href="_images/systems.png"><img alt="_images/systems.png" class="align-center" src="_images/systems.png" style="width: 400px; height: 200px;" /></a>
+<p>The different applications in the image above are:</p>
+<ul class="simple">
+<li>The <strong>conan client</strong>: this is a console/terminal command line application, containing the heavy
+logic for package creation and consumption. Conan client has a local cache for package storage,
+and so it allows you to fully create and test packages offline.  You can also <strong>work offline</strong> so
+long as no new packages are needed from remote servers.</li>
+<li>The <strong>conan server</strong>: this is a TCP server that can be easily run as your <strong>own server
+on-premises</strong> to host your private packages. It is also a service application that can be run as a
+daemon or service, behind a web server (apache, nginx), or easily as stand-alone application. Both
+the conan client and the conan_server are OSS, MIT license, so you can use them for free in your
+company, customize them, or redistribute them without any legal issue.</li>
+<li><strong>JFrog</strong> <a class="reference external" href="https://www.jfrog.com/artifactory/">Artifactory</a> offers conan repositories; so it can
+also be used as an on-premises server. It is a more powerful solution, featuring a WebUI, multiple
+auth protocols, High Availability, etc. It also has cloud offerings that will allow you to have
+private packages without having any on-premises infrastructure.</li>
+<li><strong>JFrog</strong> <a class="reference external" href="https://bintray.com/">Bintray</a> provides a public and free hosting service for OSS
+conan packages. Users can create their own repositories under their accounts and organizations,
+and freely upload conan packages there, without moderation. You should, however, take into account
+that those packages will be public, and so they must conform to the respective licenses,
+especially if the packages contain third party code. Just reading or retrieving conan packages
+from Bintray, doesn’t require an account, an account is only needed to upload packages. Besides
+that, Bintray provides a central repository called <a class="reference external" href="https://bintray.com/conan/conan-center">conan-center</a> which is moderated, and packages are reviewed before
+being accepted to ensure quality.</li>
+</ul>
+</div>
+<div class="section" id="binary-management">
+<h2>Binary management<a class="headerlink" href="#binary-management" title="Permalink to this headline">¶</a></h2>
+<p>One of the most powerful features of Conan is that it can manage pre-compiled binaries for packages. To
+define a package, referenced by its name, version, user and channel, a package recipe is needed.
+Such a package recipe is a conanfile.py python script that defines how the package is built from
+sources, what the final binary artifacts are, the package dependencies, etc.</p>
+<a class="reference internal image-reference" href="_images/binary_mgmt.png"><img alt="_images/binary_mgmt.png" class="align-center" src="_images/binary_mgmt.png" style="width: 400px; height: 200px;" /></a>
+<p>When a package recipe is used in the Conan client, and a “binary package” is built from sources, that
+binary package will be compatible with specific settings, such as the OS it was created for, the
+compiler and compiler version, or the computer architecture. If the package is built again from the
+same sources but with different settings, (e.g. for a different architecture), a new, different
+binary will be generated. By the way, “binary package” is in quotes because, strictly, it is not
+necessarily a binary. A header-only library, for example, will contain just the headers in the
+“binary package”.</p>
+<p>All the binary packages generated from a package recipe are managed and stored coherently. When they
+are uploaded to a remote, they stay connected. Also, different clients building binaries from the
+same package recipe (like CI build slaves in different operating systems), will upload their
+binaries under the same package name to the remotes.</p>
+<p>Package consumers (client application users that are installing existing packages to reuse in their
+projects) will typically retrieve pre-compiled binaries for their systems in case such compatible
+binaries exist. Otherwise those packages will be built from sources on the client machine to create
+a binary package matching their settings.</p>
+</div>
+<div class="section" id="cross-platform-build-system-agnostic">
+<h2>Cross platform, build system agnostic<a class="headerlink" href="#cross-platform-build-system-agnostic" title="Permalink to this headline">¶</a></h2>
+<p>Conan works and is being actively used on Windows, Linux (Ubuntu, Debian, RedHat, ArchLinux, Raspbian), OSX, FreeBSD, and SunOS, and, as it
+is portable, it might work in any other platform that can run python. In the documentation, examples for a specific OS might be found, such
+as <strong class="command">conan install . -s compiler=&quot;Visual Studio&quot;</strong>, which will be specific for Windows users. If on a different system, the reader should
+adapt to their own platform and settings (for example <strong class="command">conan install . -s compiler=gcc</strong>).</p>
+<p>Also <strong>conan works with any build system</strong>. In the documentation, CMake will be widely used, because
+it is portable and well known. But conan does not depend on CMake at all; it is not a requirement.
+<strong>Conan is totally orthogonal to the build system</strong>. There are some utilities that improve the usage
+of popular build systems such as CMake or Autotools, but they are just helpers. Furthermore, it is
+not necessary that all the packages are built with the same build system. It is possible to depend
+on packages created with other build system than the one you are using to build your project.</p>
+</div>
+<div class="section" id="stable">
+<span id="stability"></span><h2>Stable<a class="headerlink" href="#stable" title="Permalink to this headline">¶</a></h2>
+<p>From conan 1.0, there is a commitment to stability, not breaking user space while evolving the tool and the platform. This means:</p>
+<ul class="simple">
+<li>Moving forward to following minor versions 1.1, 1.2, …, 1.X should never break existing recipes, packages or command line flows</li>
+<li>If something is breaking, it will be considered a bug and reverted</li>
+<li>Bug fixes will not be considered breaking, recipes and packages relying on the incorrect behavior of such bug will be considered already broken.</li>
+<li>Only documented features are considered part of the public interface of conan. Private implementation details, and everything not included in the documentation is subject to change.</li>
+<li>Configuration and automatic tools detection, like the detection of the default profile might be subject to change. Users are encouraged to define their configurations in profiles for repeatability. New installations of conan might use different configuration.</li>
+</ul>
+<p>The compatibility is always considered forward. New APIs, tools, methods, helpers can be added in following 1.X versions. Recipes and packages created with these features will be backwards incompatible with earlier conan versions.</p>
+<p>This means that public repositories, like conan-center assume the use of the latest version of the conan client, and using an older version may result in failure of packages and recipes created with a newer version of the client.</p>
+<p>If you have any question regarding conan updates, stability, or any clarification about this definition of stability, please report in the documentation issue tracker: <a class="reference external" href="https://github.com/conan-io/docs">https://github.com/conan-io/docs</a>.</p>
+<p>Got any doubts? Please check out our <a class="reference internal" href="faq.html#faq"><span class="std std-ref">FAQ section</span></a> or <a href="mailto:info@conan.io" target="_blank">write to us</a>.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installation.html" class="btn btn-neutral float-right" title="Install" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="conan1.0.html" class="btn btn-neutral" title="Upgrading to conan 1.0" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

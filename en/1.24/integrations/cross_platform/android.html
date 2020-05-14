@@ -1,0 +1,605 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Android &mdash; conan 1.24.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.24.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Other Systems" href="../cross_platform.html"/>
+        <link rel="next" title="Version Control System" href="../vcs.html"/>
+        <link rel="prev" title="Yocto" href="yocto.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compilers.html">Compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ides.html">IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">CI Platforms</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../cross_platform.html">Other Systems</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="buildroot.html"> Buildroot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="emscripten.html"> Emscripten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qnx_neutrino.html"> QNX Neutrino</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yocto.html"> Yocto</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Android</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-android-ndk-installer-package-build-require">Using android_ndk_installer package (build require)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-docker-images">Using Docker images</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-existing-ndk">Using existing NDK</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../cross_platform.html">Other Systems</a> &raquo;</li>
+        
+      <li> Android</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/cross_platform/android.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="android-logo-android">
+<span id="android"></span><h1><a class="reference internal" href="../../_images/android_logo.png"><img alt="android_logo" src="../../_images/android_logo.png" style="width: 180px;" /></a> Android<a class="headerlink" href="#android-logo-android" title="Permalink to this headline">¶</a></h1>
+<p>There are several ways to cross-compile packages for <a class="reference external" href="https://www.android.com">Android</a> platform via conan.</p>
+<div class="section" id="using-android-ndk-installer-package-build-require">
+<h2>Using android_ndk_installer package (build require)<a class="headerlink" href="#using-android-ndk-installer-package-build-require" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way so far is to use <a class="reference external" href="https://github.com/bincrafters/conan-android_ndk_installer">android_ndk_installer</a> conan package (which is in <code class="docutils literal notranslate"><span class="pre">conan-center</span></code> repository).</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">android_ndk_installer</span></code> package as a build requirement will do the following steps:</p>
+<ul class="simple">
+<li>Download the appropriate <a class="reference external" href="https://developer.android.com/ndk">Android NDK</a> archive.</li>
+<li>Set up required environment variables, such as <code class="docutils literal notranslate"><span class="pre">CC</span></code>, <code class="docutils literal notranslate"><span class="pre">CXX</span></code>, <code class="docutils literal notranslate"><span class="pre">RANLIB</span></code> and so on to the appropriate tools from the NDK.</li>
+<li>In case of using CMake, it will inject the appropriate <a class="reference external" href="https://developer.android.com/ndk/guides/cmake#the_cmake_toolchain_file">toolchain file</a> and set up the necessary CMake <a class="reference external" href="https://developer.android.com/ndk/guides/cmake#variables">variables</a>.</li>
+</ul>
+<p>For instance, in order to cross-compile for <code class="docutils literal notranslate"><span class="pre">ARMv8</span></code>, the following conan profile might be used:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+arch=armv8
+build_type=Release
+compiler=clang
+compiler.libcxx=libc++
+compiler.version=8
+os=Android
+os.api_level=21
+[build_requires]
+android_ndk_installer/r20@bincrafters/stable
+[options]
+[env]
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In addition to the above, Windows users may need to specify <code class="docutils literal notranslate"><span class="pre">CONAN_MAKE_PROGRAM</span></code>,
+for instance from the existing MinGW installation (e.g. <code class="docutils literal notranslate"><span class="pre">C:\MinGW\bin\mingw32-make.exe</span></code>), or use make from the <code class="docutils literal notranslate"><span class="pre">mingw_installer/1.0&#64;conan/stable</span></code>.</p>
+</div>
+<p>Similar profile might be used to cross-compile for <code class="docutils literal notranslate"><span class="pre">ARMv7</span></code> (notice the <code class="docutils literal notranslate"><span class="pre">arch</span></code> change):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+arch=armv7
+build_type=Release
+compiler=clang
+compiler.libcxx=libc++
+compiler.version=8
+os=Android
+os.api_level=21
+[build_requires]
+android_ndk_installer/r20@bincrafters/stable
+[options]
+[env]
+</pre></div>
+</div>
+<p>By adjusting <code class="docutils literal notranslate"><span class="pre">arch</span></code> setting, you may cross-compile for <code class="docutils literal notranslate"><span class="pre">x86</span></code> and <code class="docutils literal notranslate"><span class="pre">x86_64</span></code> Android as well (e.g. if you need to run code in a simulator).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">os.api_level</span></code> is an important setting which affects compatibility - it defines the <strong>minimum</strong> Android version supported.
+In other words, it is the same meaning as <a class="reference external" href="https://developer.android.com/guide/topics/manifest/uses-sdk-element">minSdkVersion</a>.</p>
+</div>
+</div>
+<div class="section" id="using-docker-images">
+<h2>Using Docker images<a class="headerlink" href="#using-docker-images" title="Permalink to this headline">¶</a></h2>
+<p>If you’re using <a class="reference external" href="https://www.docker.com">Docker</a> for builds, you may consider using docker images from the
+<a class="reference external" href="https://github.com/conan-io/conan-docker-tools">Conan Docker Tools</a> repository.</p>
+<p>Currently, Conan Docker Tools provide the following Android images:</p>
+<ul class="simple">
+<li>conanio/android-clang8</li>
+<li>conanio/android-clang8-x86</li>
+<li>conanio/android-clang8-armv7</li>
+<li>conanio/android-clang8-armv8</li>
+</ul>
+<p>All above mentioned images have corresponding <a class="reference external" href="https://developer.android.com/ndk">Android NDK</a> installed, with required environment variables
+set and with default conan profile configured for android cross-building. Therefore, these images might be especially useful for CI systems.</p>
+</div>
+<div class="section" id="using-existing-ndk">
+<h2>Using existing NDK<a class="headerlink" href="#using-existing-ndk" title="Permalink to this headline">¶</a></h2>
+<p>It’s also possible to use an existing <a class="reference external" href="https://developer.android.com/ndk">Android NDK</a> installation with conan.
+For instance, if you’re using <a class="reference external" href="https://developer.android.com/studio/">Android Studio</a> IDE, you may already have an NDK at <code class="docutils literal notranslate"><span class="pre">~/Library/Android/sdk/ndk</span></code>.</p>
+<p>You have to specify different environment variables in the Conan profile for make-based projects. For instance:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+target_host=aarch64-linux-android
+android_ndk=/home/conan/Library/Android/sdk/ndk/20.0.5594570
+api_level=21
+[settings]
+arch=armv8
+build_type=Release
+compiler=clang
+compiler.libcxx=libc++
+compiler.version=8
+os=Android
+os.api_level=$api_level
+[build_requires]
+[options]
+[env]
+PATH=[$android_ndk/toolchains/llvm/prebuilt/darwin-x86_64/bin]
+CHOST=$target_host
+AR=$target_host-ar
+AS=$target_host-as
+RANLIB=$target_host-ranlib
+CC=$target_host$api_level-clang
+CXX=$target_host$api_level-clang++
+LD=$target_host-ld
+STRIP=$target_host-strip
+</pre></div>
+</div>
+<p>However, when building CMake projects, there are several approaches available, and it’s not always clear which one to follow.</p>
+<div class="section" id="using-toolchain-from-android-ndk">
+<h3>Using toolchain from Android NDK<a class="headerlink" href="#using-toolchain-from-android-ndk" title="Permalink to this headline">¶</a></h3>
+<p>This is the official way recommended by Android developers.</p>
+<p>For this, you will need a small CMake toolchain file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>set(ANDROID_PLATFORM 21)
+set(ANDROID_ABI arm64-v8a)
+include($ENV{HOME}/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake)
+</pre></div>
+</div>
+<p>This toolchain file only sets up the required CMake <a class="reference external" href="https://developer.android.com/ndk/guides/cmake#variables">variables</a>,
+and then includes the default <a class="reference external" href="https://developer.android.com/ndk/guides/cmake#the_cmake_toolchain_file">toolchain file</a> supplied with Android NDK.</p>
+<p>And then, you may use the following profile:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+arch=armv8
+build_type=Release
+compiler=clang
+compiler.libcxx=libc++
+compiler.version=8
+os=Android
+os.api_level=21
+[build_requires]
+[options]
+[env]
+CONAN_CMAKE_TOOLCHAIN_FILE=/home/conan/my_android_toolchain.cmake
+</pre></div>
+</div>
+<p>In the profile, <code class="docutils literal notranslate"><span class="pre">CONAN_CMAKE_TOOLCHAIN_FILE</span></code> points to the CMake toolchain file listed above.</p>
+</div>
+<div class="section" id="using-cmake-build-in-android-ndk-support">
+<h3>Using CMake build-in Android NDK support<a class="headerlink" href="#using-cmake-build-in-android-ndk-support" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This workflow is not supported by Android and is often broken with new NDK releases or when using older versions of CMake.
+This workflow is <strong>strongly discouraged</strong> and will not work with Gradle.</p>
+</div>
+<p>For this approach, you don’t need to specify CMake toolchain file at all. It’s enough to indicate <code class="docutils literal notranslate"><span class="pre">os</span></code> is Android
+and Conan will automatically set up all required CMake
+<a class="reference external" href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-android">variables</a> for you.</p>
+<p>Therefore, the following conan profile could be used for <code class="docutils literal notranslate"><span class="pre">ARMv8</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>include(default)
+[settings]
+arch=armv8
+build_type=Release
+compiler=clang
+compiler.libcxx=libc++
+compiler.version=7.0
+os=Android
+os.api_level=21
+[build_requires]
+[options]
+[env]
+ANDROID_NDK_ROOT=/home/conan/android-ndk-r18b
+</pre></div>
+</div>
+<p>The only way you have to configure is <code class="docutils literal notranslate"><span class="pre">ANDROID_NDK_ROOT</span></code> which is a path to the Android NDK installation.</p>
+<p>Once profile is configured, you should see the following output during the CMake build:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-- Android: Targeting API &#39;21&#39; with architecture &#39;arm64&#39;, ABI &#39;arm64-v8a&#39;, and processor &#39;aarch64&#39;
+-- Android: Selected Clang toolchain &#39;aarch64-linux-android-clang&#39; with GCC toolchain &#39;aarch64-linux-android-4.9&#39;
+</pre></div>
+</div>
+<p>It means native CMake integration has successfully found Android NDK and configured the build.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../vcs.html" class="btn btn-neutral float-right" title="Version Control System" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="yocto.html" class="btn btn-neutral" title="Yocto" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.24
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.24/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.24.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.24");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

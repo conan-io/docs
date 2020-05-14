@@ -1,0 +1,578 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Package development flow &mdash; conan 1.2.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="conan 1.2.0 documentation" href="../index.html"/>
+        <link rel="up" title="Creating packages" href="../creating_packages.html"/>
+        <link rel="next" title="Packaging existing binaries" href="existing_binaries.html"/>
+        <link rel="prev" title="Recipe and sources in the same repo" href="package_repo.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-53TFLK7');</script>
+<!-- End Google Tag Manager -->
+ 
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../_static/conan_logo.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../conan1.0.html">Upgrading to conan 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../creating_packages.html">Creating packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_repo.html">Recipe and sources in the same repo</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Package development flow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conan-source">conan source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-install">conan install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-build">conan build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-package">conan package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-export-pkg">conan export-pkg</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-test">conan test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conan-create">conan create</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="existing_binaries.html">Packaging existing binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="understand_packaging.html">Understanding packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="define_abi_compatibility.html">Define package ABI compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inspecting_packages.html">Inspecting packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_approaches.html">Packaging approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="package_tools.html">Tools for package creators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../uploading_packages.html">Uploading packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mastering.html">Mastering conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="http://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("http://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../creating_packages.html">Creating packages</a> &raquo;</li>
+        
+      <li>Package development flow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/creating_packages/package_dev_flow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="package-development-flow">
+<h1>Package development flow<a class="headerlink" href="#package-development-flow" title="Permalink to this headline">¶</a></h1>
+<p>In the previous examples, we used <strong class="command">conan create</strong> command to create a package of our library. Every time we run it, conan will perform
+some costly operations:</p>
+<ol class="arabic simple">
+<li>Copy the sources to a new and clean build folder.</li>
+<li>Build the entire library from scratch.</li>
+<li>Package the library once it is built.</li>
+<li>Build the <code class="docutils literal notranslate"><span class="pre">test_package</span></code> example and test if it works.</li>
+</ol>
+<p>But sometimes, specially with big libraries, while we are developing the recipe, <strong>we cannot afford</strong> to perform every time these
+operations.</p>
+<p>The following section is the local development flow description based on the
+<a class="reference external" href="https://bincrafters.github.io">Bincrafters community blog</a>.</p>
+<hr class="docutils" />
+<p>The local workflow encourages users to do trial-and-error in a local sub-directory relative to their recipe, much like how developers
+typically test building their projects with other build tools. The strategy is to test the <em>conanfile.py</em> methods individually during this
+phase.</p>
+<p>We will use the following <a class="reference external" href="https://github.com/memsharded/example_conan_flow.git">conan flow example</a> to follow the steps in the order below:</p>
+<div class="section" id="conan-source">
+<h2>conan source<a class="headerlink" href="#conan-source" title="Permalink to this headline">¶</a></h2>
+<p>You will generally want to start off with the <strong class="command">conan source</strong> command. The strategy here is that you’re testing your source method in
+isolation, and downloading the files to a temporary sub-folder relative to the <em>conanfile.py</em>. This just makes it easier to get to the
+sources and validate them.</p>
+<p>This method outputs the source files into the source-folder.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input folders</th>
+<th class="head">Output folders</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>–</td>
+<td><code class="docutils literal notranslate"><span class="pre">source-folder</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> example_conan_flow
+$ conan <span class="nb">source</span> . --source-folder<span class="o">=</span>tmp/source
+
+PROJECT: Configuring sources in C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\e</span>xample_conan_flow<span class="se">\t</span>mp<span class="se">\s</span>ource
+Cloning into <span class="s1">&#39;hello&#39;</span>...
+...
+</pre></div>
+</div>
+<p>Once you’ve got your source method right and it contains the files you expect, you can move on to testing the various attributes and methods
+relating to the downloading of dependencies.</p>
+</div>
+<div class="section" id="conan-install">
+<h2>conan install<a class="headerlink" href="#conan-install" title="Permalink to this headline">¶</a></h2>
+<p>Conan has multiple methods and attributes which relate to dependencies (all the ones with the word “require” in the name). The command
+<strong class="command">conan install</strong> activates all them.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input folders</th>
+<th class="head">Output folders</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>–</td>
+<td><code class="docutils literal notranslate"><span class="pre">install-folder</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install . --install-folder<span class="o">=</span>tmp/install <span class="o">[</span>--profile XXXX<span class="o">]</span>
+
+PROJECT: Installing C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\e</span>xample_conan_flow<span class="se">\c</span>onanfile.py
+Requirements
+Packages
+...
+</pre></div>
+</div>
+<p>This also generates <em>conaninfo.txt</em> and <em>conanbuildinfo.xyz</em> (extension depends on generator you’ve used) in the temp folder
+(<code class="docutils literal notranslate"><span class="pre">install-folder</span></code>), which will be needed for the next step. Once you’ve got this command working with no errors, you can move on to
+testing the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method.</p>
+</div>
+<div class="section" id="conan-build">
+<h2>conan build<a class="headerlink" href="#conan-build" title="Permalink to this headline">¶</a></h2>
+<p>The build method takes a path to a folder that has sources and also to the install folder to get the information of the settings and
+dependencies. It uses a path to a folder where it will perform the build.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input folders</th>
+<th class="head">Output folders</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first"><code class="docutils literal notranslate"><span class="pre">source-folder</span></code></p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">install-folder</span></code></p>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">build-folder</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan build . --source-folder<span class="o">=</span>tmp/source --install-folder<span class="o">=</span>tmp/install --build-folder<span class="o">=</span>tmp/build
+
+Project: Running build<span class="o">()</span>
+...
+Build succeeded.
+    <span class="m">0</span> Warning<span class="o">(</span>s<span class="o">)</span>
+    <span class="m">0</span> Error<span class="o">(</span>s<span class="o">)</span>
+
+Time Elapsed <span class="m">00</span>:00:03.34
+</pre></div>
+</div>
+<p>This is pretty strightforward, but it does add a very helpful new shortcut for people who are packaging their own library. Now, developers
+can make changes in their normal source directory and just pass that path as the <code class="docutils literal notranslate"><span class="pre">--source-folder</span></code>.</p>
+</div>
+<div class="section" id="conan-package">
+<h2>conan package<a class="headerlink" href="#conan-package" title="Permalink to this headline">¶</a></h2>
+<p>Just as it sounds, this command now simply runs the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method of a recipe. It needs all the information of the other folders in
+order to collect the needed information for the package: header files from source folder, settings and depency information from the install
+folder and built artifacts from the build folder.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input folders</th>
+<th class="head">Output folders</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first"><code class="docutils literal notranslate"><span class="pre">source-folder</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">install-folder</span></code></p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">build-folder</span></code></p>
+</td>
+<td><code class="docutils literal notranslate"><span class="pre">package-folder</span></code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan package . --source-folder<span class="o">=</span>tmp/source --install-folder<span class="o">=</span>tmp/install --build-folder<span class="o">=</span>tmp/build --package-folder<span class="o">=</span>tmp/package
+
+PROJECT: Generating the package
+PROJECT: Package folder C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\e</span>xample_conan_flow<span class="se">\t</span>mp<span class="se">\p</span>ackage
+PROJECT: Calling package<span class="o">()</span>
+PROJECT package<span class="o">()</span>: Copied <span class="m">1</span> <span class="s1">&#39;.h&#39;</span> files: hello.h
+PROJECT package<span class="o">()</span>: Copied <span class="m">2</span> <span class="s1">&#39;.lib&#39;</span> files: greet.lib, hello.lib
+PROJECT: Package <span class="s1">&#39;package&#39;</span> created
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-export-pkg">
+<h2>conan export-pkg<a class="headerlink" href="#conan-export-pkg" title="Permalink to this headline">¶</a></h2>
+<p>When you have checked that the packaged is done correctly, you can generate the package in the local cache. Note that the package is
+generated again to make sure this step is always reproducible.</p>
+<p>This parameters takes the same parameters as <code class="docutils literal notranslate"><span class="pre">package()</span></code>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Input folders</th>
+<th class="head">Output folders</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><p class="first"><code class="docutils literal notranslate"><span class="pre">source-folder</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">install-folder</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">build-folder</span></code></p>
+<p class="last"><code class="docutils literal notranslate"><span class="pre">package-folder</span></code></p>
+</td>
+<td>–</td>
+</tr>
+</tbody>
+</table>
+<p>There are 2 modes of operation:</p>
+<ul class="simple">
+<li>Using <code class="docutils literal notranslate"><span class="pre">source-folder</span></code> and <code class="docutils literal notranslate"><span class="pre">build-folder``will</span> <span class="pre">use</span> <span class="pre">the</span> <span class="pre">``package()</span></code> method to extract the artifacts from those
+folders and create the package, directly in the conan local cache. Strictly speaking, it doesn’t require executing
+a <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">conan</span> <span class="pre">package</span></code> before, as it packages directly from those source and build folder, though <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">conan</span> <span class="pre">package</span></code>
+is still recommended in the dev-flow to debug the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method.</li>
+<li>Using the <code class="docutils literal notranslate"><span class="pre">package-folder</span></code> argument (incompatible with the above 2), will not use the <code class="docutils literal notranslate"><span class="pre">package()</span></code> method,
+it will do an exact copy of the provided folder. It assumes the package has already been created by a previous
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">conan</span> <span class="pre">package</span></code> command or with a <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">conan</span> <span class="pre">build</span></code> command with a <code class="docutils literal notranslate"><span class="pre">build()</span></code> method running a <code class="docutils literal notranslate"><span class="pre">cmake.install()</span></code>.</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan export-pkg . user/testing --source-folder<span class="o">=</span>tmp/source --install-folder<span class="o">=</span>tmp/install --build-folder<span class="o">=</span>tmp/build
+
+Packaging to 6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+Hello/0.1@user/channel: Generating the package
+Hello/0.1@user/channel: Package folder C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\.</span>conan<span class="se">\d</span>ata<span class="se">\H</span>ello<span class="se">\0</span>.1<span class="se">\u</span>ser<span class="se">\c</span>hannel<span class="se">\p</span>ackage<span class="se">\6</span>cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+Hello/0.1@user/channel: Calling package<span class="o">()</span>
+Hello/0.1@user/channel package<span class="o">()</span>: Copied <span class="m">2</span> <span class="s1">&#39;.lib&#39;</span> files: greet.lib, hello.lib
+Hello/0.1@user/channel package<span class="o">()</span>: Copied <span class="m">2</span> <span class="s1">&#39;.lib&#39;</span> files: greet.lib, hello.lib
+Hello/0.1@user/channel: Package <span class="s1">&#39;6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7&#39;</span> created
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-test">
+<h2>conan test<a class="headerlink" href="#conan-test" title="Permalink to this headline">¶</a></h2>
+<p>The finally step to test the package for consumer is the test command. This step is quite straight-forward:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">test</span> test_package Hello/0.1@user/channel
+
+Hello/0.1@user/channel <span class="o">(</span><span class="nb">test</span> package<span class="o">)</span>: Installing C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\r</span>epos<span class="se">\e</span>xample_conan_flow<span class="se">\t</span>est_package<span class="se">\c</span>onanfile.py
+Requirements
+    Hello/0.1@user/channel from <span class="nb">local</span>
+Packages
+    Hello/0.1@user/channel:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+
+Hello/0.1@user/channel: Already installed!
+Hello/0.1@user/channel <span class="o">(</span><span class="nb">test</span> package<span class="o">)</span>: Generator cmake created conanbuildinfo.cmake
+Hello/0.1@user/channel <span class="o">(</span><span class="nb">test</span> package<span class="o">)</span>: Generator txt created conanbuildinfo.txt
+Hello/0.1@user/channel <span class="o">(</span><span class="nb">test</span> package<span class="o">)</span>: Generated conaninfo.txt
+Hello/0.1@user/channel <span class="o">(</span><span class="nb">test</span> package<span class="o">)</span>: Running build<span class="o">()</span>
+...
+</pre></div>
+</div>
+<p>There is often a need to repeatedly re-run the test to check the package is well generated for consumers.</p>
+<p>As a summary, you could use the default folders and the flow would be as simple as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:memsharded/example_conan_flow.git
+$ <span class="nb">cd</span> example_conan_flow
+$ conan <span class="nb">source</span> .
+$ conan install .
+$ conan build .
+$ conan package .
+...
+PROJECT package<span class="o">()</span>: Copied <span class="m">1</span> <span class="s1">&#39;.h&#39;</span> files: hello.h
+PROJECT package<span class="o">()</span>: Copied <span class="m">2</span> <span class="s1">&#39;.lib&#39;</span> files: greet.lib, hello.lib
+PROJECT: Package <span class="s1">&#39;package&#39;</span> created
+</pre></div>
+</div>
+</div>
+<div class="section" id="conan-create">
+<h2>conan create<a class="headerlink" href="#conan-create" title="Permalink to this headline">¶</a></h2>
+<p>Now we know we have all the steps of a recipe working. Thus, now is an appropriate time to try to run the recipe all the way through, and
+put it completely in the local cache.</p>
+<p>The usual command for this is <strong class="command">conan create</strong> and it basically performs the previous commands with <strong class="command">conan test</strong> for the <cite>test_package</cite>
+folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/channel
+</pre></div>
+</div>
+<p>Even with this command, the package creator can iterate over the local cache if something does not work. This could be done with
+<code class="docutils literal notranslate"><span class="pre">--keep-source</span></code> and <code class="docutils literal notranslate"><span class="pre">--keep-build</span></code> flags.</p>
+<p>If you see in the traces that the <code class="docutils literal notranslate"><span class="pre">source()</span></code> method has been properly executed but the package creation finally failed, you can skip the
+<code class="docutils literal notranslate"><span class="pre">source()</span></code> method the next time you issue <strong class="command">conan create</strong> using <strong class="command">--keep-source</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create . user/channel --keep-source
+
+Hello/0.1@user/channel: A new conanfile.py version was exported
+Hello/0.1@user/channel: Folder: C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\.</span>conan<span class="se">\d</span>ata<span class="se">\H</span>ello<span class="se">\0</span>.1<span class="se">\u</span>ser<span class="se">\c</span>hannel<span class="se">\e</span>xport
+Hello/0.1@user/channel <span class="o">(</span><span class="nb">test</span> package<span class="o">)</span>: Installing C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\r</span>epos<span class="se">\e</span>xample_conan_flow<span class="se">\t</span>est_package<span class="se">\c</span>onanfile.py
+Requirements
+    Hello/0.1@user/channel from <span class="nb">local</span>
+Packages
+    Hello/0.1@user/channel:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+
+Hello/0.1@user/channel: WARN: Forced build from <span class="nb">source</span>
+Hello/0.1@user/channel: Building your package in C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\.</span>conan<span class="se">\d</span>ata<span class="se">\H</span>ello<span class="se">\0</span>.1<span class="se">\u</span>ser<span class="se">\c</span>hannel<span class="se">\b</span>uild<span class="se">\6</span>cc50b139b9c3d27b3e9042d5f5372d327b3a9f7
+Hello/0.1@user/channel: Configuring sources in C:<span class="se">\U</span>sers<span class="se">\c</span>onan<span class="se">\.</span>conan<span class="se">\d</span>ata<span class="se">\H</span>ello<span class="se">\0</span>.1<span class="se">\u</span>ser<span class="se">\c</span>hannel<span class="se">\s</span>ource
+Cloning into <span class="s1">&#39;hello&#39;</span>...
+remote: Counting objects: <span class="m">17</span>, <span class="k">done</span>.
+remote: Total <span class="m">17</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta <span class="m">0</span><span class="o">)</span>, pack-reused <span class="m">17</span>
+Unpacking objects: <span class="m">100</span>% <span class="o">(</span><span class="m">17</span>/17<span class="o">)</span>, <span class="k">done</span>.
+Switched to a new branch <span class="s1">&#39;static_shared&#39;</span>
+Branch <span class="s1">&#39;static_shared&#39;</span> <span class="nb">set</span> up to track remote branch <span class="s1">&#39;static_shared&#39;</span> from <span class="s1">&#39;origin&#39;</span>.
+Hello/0.1@user/channel: Copying sources to build folder
+Hello/0.1@user/channel: Generator cmake created conanbuildinfo.cmake
+Hello/0.1@user/channel: Calling build<span class="o">()</span>
+...
+</pre></div>
+</div>
+<p>If you see that library builds correctly too, you can do the same to skip also the <code class="docutils literal notranslate"><span class="pre">build()</span></code> step with the <code class="docutils literal notranslate"><span class="pre">--keep-build</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create --keep-build
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="existing_binaries.html" class="btn btn-neutral float-right" title="Packaging existing binaries" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="package_repo.html" class="btn btn-neutral" title="Recipe and sources in the same repo" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2018, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.2.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53TFLK7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

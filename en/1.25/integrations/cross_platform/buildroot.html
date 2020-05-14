@@ -1,0 +1,617 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Buildroot &mdash; conan 1.25.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.25.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Other Systems" href="../cross_platform.html"/>
+        <link rel="next" title="Docker" href="docker.html"/>
+        <link rel="prev" title="Other Systems" href="../cross_platform.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../integrations.html">Integrations</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compilers.html">Compilers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../build_system.html">Build systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ides.html">IDEs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ci.html">CI Platforms</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../cross_platform.html">Other Systems</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"> Buildroot</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integration-with-conan">Integration with Conan</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#creating-conan-packages-with-buildroot">Creating Conan packages with Buildroot</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#customizing-conan-remote">Customizing Conan remote</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="docker.html"> Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="emscripten.html"> Emscripten</a></li>
+<li class="toctree-l3"><a class="reference internal" href="qnx_neutrino.html"> QNX Neutrino</a></li>
+<li class="toctree-l3"><a class="reference internal" href="yocto.html"> Yocto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="android.html"> Android</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../vcs.html">Version Control System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../custom.html">Custom integrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../linting.html">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment.html">Deployment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../integrations.html">Integrations</a> &raquo;</li>
+        
+          <li><a href="../cross_platform.html">Other Systems</a> &raquo;</li>
+        
+      <li> Buildroot</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/integrations/cross_platform/buildroot.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="buildroot-logo-buildroot">
+<span id="buildroot-integration"></span><h1><a class="reference internal" href="../../_images/conan-buildroot_logo.png"><img alt="buildroot_logo" src="../../_images/conan-buildroot_logo.png" style="width: 180px;" /></a> Buildroot<a class="headerlink" href="#buildroot-logo-buildroot" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="https://buildroot.org/">Buildroot Project</a> is a tool for automating the creation of Embedded Linux distributions. It
+builds the code for the architecture of the board so it was set up, all through an overview of
+Makefiles. In addition to being open-source, it is licensed under <a class="reference external" href="https://spdx.org/licenses/GPL-2.0-or-later.html">GPL-2.0-or-later</a>.</p>
+<div class="section" id="integration-with-conan">
+<h2>Integration with Conan<a class="headerlink" href="#integration-with-conan" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a new file called <strong>pkg-conan.mk</strong> in the <cite>package/</cite> directory. At the same time, we
+need to add it in <cite>package/Makefile.in</cite> file in order to Buildroot be able to list it.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;include package/pkg-conan.mk&#39;</span> &gt;&gt; package/Makefile.in
+</pre></div>
+</div>
+<p>For this development we will break it down into a few steps. Because it is a large file, we will
+only portray parts of it in this post, but the full version can be found in <a class="reference external" href="https://github.com/conan-community/buildroot/blob/feature/conan/package/pkg-conan.mk">pkg-conan.mk</a>.</p>
+<p>Buildroot defines its settings, including processor, compiler version, and build type through
+variables. However, these variables do not have directly valid values for Conan, so we need to
+parse most of them. Let’s start with the compiler version, by default Buildroot uses a GCC-based
+toolchain, so we will only filter on its possible versions:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="nv">CONAN_SETTING_COMPILER_VERSION</span>  <span class="o">?=</span>
+<span class="cp">ifeq ($(BR2_GCC_VERSION_8_X),y)</span>
+<span class="nv">CONAN_SETTING_COMPILER_VERSION</span> <span class="o">=</span> <span class="m">8</span>
+<span class="cp">else ifeq ($(BR2_GCC_VERSION_7_X),y)</span>
+<span class="nv">CONAN_SETTING_COMPILER_VERSION</span> <span class="o">=</span> <span class="m">7</span>
+<span class="cp">else ifeq ($(BR2_GCC_VERSION_6_X),y)</span>
+<span class="nv">CONAN_SETTING_COMPILER_VERSION</span> <span class="o">=</span> <span class="m">6</span>
+<span class="cp">else ifeq ($(BR2_GCC_VERSION_5_X),y)</span>
+<span class="nv">CONAN_SETTING_COMPILER_VERSION</span> <span class="o">=</span> <span class="m">5</span>
+<span class="cp">else ifeq ($(BR2_GCC_VERSION_4_9_X),y)</span>
+<span class="nv">CONAN_SETTING_COMPILER_VERSION</span> <span class="o">=</span> <span class="m">4</span>.9
+<span class="cp">endif</span>
+</pre></div>
+</div>
+<p>This same process should be repeated for build_type, arch, and so on.
+For the Conan package installation step we will have the following routine:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">define $(2)_BUILD_CMDS</span>
+    <span class="nv">$$</span><span class="o">(</span>TARGET_MAKE_ENV<span class="o">)</span> <span class="nv">$$</span><span class="o">(</span>CONAN_ENV<span class="o">)</span> <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_CONAN_ENV<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">CC</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>TARGET_CC<span class="o">)</span> <span class="nv">CXX</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>TARGET_CXX<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">$$</span><span class="o">(</span>CONAN<span class="o">)</span> install <span class="nv">$$</span><span class="o">(</span>CONAN_OPTS<span class="o">)</span> <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_CONAN_OPTS<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_REFERENCE<span class="o">)</span> <span class="se">\</span>
+        -s <span class="nv">build_type</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_BUILD_TYPE<span class="o">)</span> <span class="se">\</span>
+        -s <span class="nv">arch</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_ARCH<span class="o">)</span> <span class="se">\</span>
+        -s <span class="nv">compiler</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_COMPILER<span class="o">)</span> <span class="se">\</span>
+        -s compiler.version<span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_COMPILER_VERSION<span class="o">)</span> <span class="se">\</span>
+        -g deploy <span class="se">\</span>
+        --build <span class="nv">$$</span><span class="o">(</span>CONAN_BUILD_POLICY<span class="o">)</span>
+<span class="cp">endef</span>
+</pre></div>
+</div>
+<p>The <strong class="command">conan install</strong> command will be executed as usual, but the settings and options are configured
+through what was previously collected from Buildroot, and accept new ones through the Buildroot
+package recipe. Because it was a scenario where previously all sources were compiled in the first
+moment, we will set Conan build policy to <code class="docutils literal notranslate"><span class="pre">missing</span></code>, so any package will be built if not available.</p>
+<p>Also, note that we are using the generator <a class="reference internal" href="../../reference/generators/deploy.html#deploy-generator"><span class="std std-ref">deploy</span></a>, as we will need to copy all the artifacts into
+the Buildroot internal structure. Once built, we will copy the libraries, binaries and headers
+through the following routine:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">define $(2)_INSTALL_CMDS</span>
+    cp -f -a <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_BUILDDIR<span class="o">)</span>/bin/. /usr/bin <span class="m">2</span>&gt;/dev/null <span class="o">||</span> :
+    cp -f -a <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_BUILDDIR<span class="o">)</span>/lib/. /usr/lib <span class="m">2</span>&gt;/dev/null <span class="o">||</span> :
+    cp -f -a <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_BUILDDIR<span class="o">)</span>/include/. /usr/include <span class="m">2</span>&gt;/dev/null <span class="o">||</span> :
+<span class="cp">endef</span>
+</pre></div>
+</div>
+<p>With this script we will be able to install the vast majority of Conan packages, using only simpler
+information for each Buildroot recipe.</p>
+</div>
+<div class="section" id="creating-conan-packages-with-buildroot">
+<h2>Creating Conan packages with Buildroot<a class="headerlink" href="#creating-conan-packages-with-buildroot" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-conan-zlib">
+<h3>Installing Conan Zlib<a class="headerlink" href="#installing-conan-zlib" title="Permalink to this headline">¶</a></h3>
+<p>Once we have our script for installing Conan packages, now let’s install a fairly simple and
+well-known project: <a class="reference external" href="https://www.zlib.net">zlib</a>.
+For this case we will create a new recipe in the package directory. Let’s start with the package
+configuration file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir package/conan-zlib
+touch package/conan-zlib/Config.in
+touch package/conan-zlib/conan-zlib.mk
+</pre></div>
+</div>
+<p>The contents of the file <em>Config.in</em> should be as follows:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config BR2_PACKAGE_CONAN_ZLIB
+ bool &quot;conan-zlib&quot;
+ help
+   Standard (de)compression library. Used by things like
+   gzip and libpng.
+
+   http://www.zlib.net
+</pre></div>
+</div>
+<p>Now let’s go to the <em>conan-zlib.mk</em> that contains the Zlib data:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="c"># conan-zlib.mk</span>
+<span class="nv">CONAN_ZLIB_VERSION</span> <span class="o">=</span> <span class="m">1</span>.2.11
+<span class="nv">CONAN_ZLIB_LICENSE</span> <span class="o">=</span> Zlib
+<span class="nv">CONAN_ZLIB_LICENSE_FILES</span> <span class="o">=</span> licenses/LICENSE
+<span class="nv">CONAN_ZLIB_SITE</span> <span class="o">=</span> <span class="k">$(</span>call github,conan-community,conan-zlib,92d34d0024d64a8f307237f211e43ab9952ef0a1<span class="k">)</span>
+<span class="nv">CONAN_ZLIB_REFERENCE</span> <span class="o">=</span> zlib/<span class="k">$(</span>CONAN_ZLIB_VERSION<span class="k">)</span>@
+
+<span class="k">$(</span><span class="nv">eval</span> <span class="k">$(</span><span class="nv">conan-package</span><span class="k">))</span>
+</pre></div>
+</div>
+<p>An important note here is the fact that <code class="docutils literal notranslate"><span class="pre">CONAN_ZLIB_SITE</span></code> is required even if not used for our
+purpose. If it is not present, Buildroot will raise an error during its execution.
+The other variables are simple, just expressing the package reference, name, version and license.
+Note that in the end we are calling our script which should execute Conan.</p>
+<p>Once created, we still need to add it to the Buildroot configuration list.
+To do so, let’s update the list with a new menu named <em>Conan</em>. In <em>package/Config.in</em> file,
+let’s add the following section:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>menu &quot;Conan&quot;
+    source &quot;package/conan-zlib/Config.in&quot;
+endmenu
+</pre></div>
+</div>
+<p>Now just select the package through <strong>menuconfig</strong>: <cite>Target Packages -&gt; Conan -&gt; conan-zlib</cite></p>
+<p><a class="reference internal" href="../../_images/conan-buildroot_menuconfig_conan.png"><img alt="buildroot_menuconfig_conan" src="../../_images/conan-buildroot_menuconfig_conan.png" style="width: 800px;" /></a></p>
+<p>Once configured and saved, simply run <strong class="command">make</strong> again to install the package.</p>
+<p>As you can see, Conan is following the same profile used by Buildroot, which gives us the advantage
+of not having to create a profile manually.</p>
+<p>At the end of the installation it will be copied to the output directory.</p>
+</div>
+</div>
+<div class="section" id="customizing-conan-remote">
+<h2>Customizing Conan remote<a class="headerlink" href="#customizing-conan-remote" title="Permalink to this headline">¶</a></h2>
+<p>Let’s say we have an <a class="reference internal" href="../../uploading_packages/artifactory_ce.html#artifactory-ce"><span class="std std-ref">Artifatory</span></a> instance where all packages are available
+for download. How could we customize the remote used by Buildroot? We need to introduce a new
+option, where we can write the remote name and Conan will be able to consume such variable. First
+we need to create a new configuration file to insert new options in Conan’s menu:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir package/conan
+touch package/conan/Config.in
+</pre></div>
+</div>
+<p>The file <em>Config.in</em> should contain:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>config CONAN_REMOTE_NAME
+        string &quot;Conan remote name&quot;
+    help
+          Look in the specified remote server.
+</pre></div>
+</div>
+<p>Also, we need to parse the option <code class="docutils literal notranslate"><span class="pre">CONAN_REMOTE_NAME</span></code> in <em>pkg-conan.mk</em> and add it to Conan
+command line:</p>
+<div class="highlight-makefile notranslate"><div class="highlight"><pre><span></span><span class="cp">ifneq ($(CONAN_REMOTE_NAME),&quot;&quot;)</span>
+<span class="nv">CONAN_REMOTE</span> <span class="o">=</span> -r <span class="nv">$$</span><span class="o">(</span>CONAN_REMOTE_NAME<span class="o">)</span>
+<span class="cp">endif</span>
+
+<span class="cp">define $(2)_BUILD_CMDS</span>
+    <span class="nv">$$</span><span class="o">(</span>TARGET_MAKE_ENV<span class="o">)</span> <span class="nv">$$</span><span class="o">(</span>CONAN_ENV<span class="o">)</span> <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_CONAN_ENV<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">CC</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>TARGET_CC<span class="o">)</span> <span class="nv">CXX</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>TARGET_CXX<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">$$</span><span class="o">(</span>CONAN<span class="o">)</span> install <span class="nv">$$</span><span class="o">(</span>CONAN_OPTS<span class="o">)</span> <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_CONAN_OPTS<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">$$</span><span class="o">(</span><span class="nv">$$</span><span class="o">(</span>PKG<span class="o">)</span>_REFERENCE<span class="o">)</span> <span class="se">\</span>
+        -s <span class="nv">build_type</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_BUILD_TYPE<span class="o">)</span> <span class="se">\</span>
+        -s <span class="nv">arch</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_ARCH<span class="o">)</span> <span class="se">\</span>
+        -s <span class="nv">compiler</span><span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_COMPILER<span class="o">)</span> <span class="se">\</span>
+        -s compiler.version<span class="o">=</span><span class="nv">$$</span><span class="o">(</span>CONAN_SETTING_COMPILER_VERSION<span class="o">)</span> <span class="se">\</span>
+        -g deploy <span class="se">\</span>
+        --build <span class="nv">$$</span><span class="o">(</span>CONAN_BUILD_POLICY<span class="o">)</span> <span class="se">\</span>
+        <span class="nv">$$</span><span class="o">(</span>CONAN_REMOTE<span class="o">)</span>
+<span class="cp">endef</span>
+</pre></div>
+</div>
+<p>Now we are ready to set our specific remote name. We only need to run <strong class="command">make menuconfig</strong> and
+follow the path: <cite>Target Packages -&gt; Libraries -&gt; Conan -&gt; Conan remote name</cite></p>
+<p>And we will see:</p>
+<p><a class="reference internal" href="../../_images/conan-buildroot_custom_remote.png"><img alt="buildroot_custom_remote" src="../../_images/conan-buildroot_custom_remote.png" style="width: 500px;" /></a></p>
+<p>Now Conan is configured to search for packages in the remote named <em>artifactory</em>. But we need to
+run <strong class="command">make</strong> again. Note that it will cost less time to build, since now we are using pre-built
+packages provided by Conan.</p>
+<p>If no errors have occurred during the process we will have the following output folder:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls output/images/
+    bcm2710-rpi-3-b.dtb bcm2710-rpi-3-b-plus.dtb bcm2710-rpi-cm3.dtb boot.vfat rootfs.ext2 rootfs.ext4 rpi-firmware sdcard.img zImage
+
+ls -lh output/images/sdcard.img
+    -rw-r--r-- <span class="m">1</span> conan conan 153M ago  <span class="m">6</span> <span class="m">11</span>:43 output/images/sdcard.img
+</pre></div>
+</div>
+<p>These artifacts are the final compilation of everything that was generated during the build
+process, here we will be interested in the <em>sdcard.img</em> file. This is the final image that we
+will use on our <em>RaspberryPi3</em> and it is only 153MB. Compared to other embedded distributions like
+<em>Raspbian</em>, it is much smaller.</p>
+<p>If you are interested in knowing more, we have a complete <a class="reference external" href="https://blog.conan.io/2019/08/27/Creating-small-Linux-images-with-Buildroot.html">blog post</a> about Buildroot integration.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="docker.html" class="btn btn-neutral float-right" title="Docker" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../cross_platform.html" class="btn btn-neutral" title="Other Systems" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.25
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/latest/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/latest/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.25.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.25");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>
