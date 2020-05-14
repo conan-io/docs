@@ -1,0 +1,8 @@
+:orphan:
+
+Page Not Found
+==============
+
+Unfortunately, the page you are looking does not exist or was removed.
+
+.. image:: images/page-not-found.png
