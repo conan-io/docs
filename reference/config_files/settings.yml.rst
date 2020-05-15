@@ -115,6 +115,8 @@ to distribute a unified *settings.yml* file you can use the :ref:`conan config i
     The *settings.yml* file is not perfect nor definitive and surely incomplete. Please share any suggestion in the Conan issue tracker
     with any missing settings and values that could make sense for other users.
 
+    To force the creation of the *settings.yml* the command ``conan config init`` is available.
+
 
 Architectures
 -------------
