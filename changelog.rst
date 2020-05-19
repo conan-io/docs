@@ -34,7 +34,6 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 - Feature: Add missing gcc versions: 6.5, 7.5, 8.4, 10.1. `#6993 <https://github.com/conan-io/conan/pull/6993>`_ . Docs `here <https://github.com/conan-io/docs/pull/1689>`__
 - Bugfix: Resumable download introduced a bug when there is a fronted (like Apache) to Artifactory or other server that gzips the returned files, returning an incorrect ``Content-Length`` header that doesn't match the real content length. `#6996 <https://github.com/conan-io/conan/pull/6996>`_
-- Bugfix: Fix deploy generator in regards to relative symlinks. `#6994 <https://github.com/conan-io/conan/pull/6994>`_
 - Bugfix: Set ``shared_linker_flags`` to CMake ``MODULE`` targets too in ``cmake`` generators, not only to ``SHARED_LIBRARIES``. `#6983 <https://github.com/conan-io/conan/pull/6983>`_
 - Bugfix: Fix `conan_get_policy` return value. `#6982 <https://github.com/conan-io/conan/pull/6982>`_
 - Bugfix: Fix json output serialization for ``cpp_info.components``. `#6966 <https://github.com/conan-io/conan/pull/6966>`_
