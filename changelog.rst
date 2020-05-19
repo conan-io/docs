@@ -21,6 +21,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.25 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.25.2 (19-May-2020)
+--------------------
+
+- Bugfix: Previously conan always set ``cpp_std`` option in meson project, even if ``cppstd`` option was not set in conan profile. Now it sets the option only if ``cppstd`` profile option has a concrete value. `#7047 <https://github.com/conan-io/conan/pull/7047>`_
+- Bugfix: Fix deploy generator management of relative symlinks. `#7044 <https://github.com/conan-io/conan/pull/7044>`_
+- Bugfix: Fixes an issue where Apple Framework lookup wasn't working on RelWithDebInfo. `#7041 <https://github.com/conan-io/conan/pull/7041>`_
+- Bugfix: Fix broken ``AutoToolsBuildEnvironment`` when a profile:build is defined. `#7032 <https://github.com/conan-io/conan/pull/7032>`_
+
 1.25.1 (13-May-2020)
 --------------------
 
