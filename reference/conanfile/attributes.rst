@@ -100,8 +100,8 @@ This attribute can contain several, comma separated licenses. It is a text strin
 contain any text, including hyperlinks to license files elsewhere.
 
 However, we strongly recommend packagers of Open-Source projects to use
-[SPDX](https://spdx.org/) identifiers from the [SPDX license
-list](https://spdx.org/licenses/) instead of free-formed text. This will help
+[SPDX](https://spdx.dev/) identifiers from the [SPDX license
+list](https://spdx.dev/licenses/) instead of free-formed text. This will help
 people wanting to automate license compatibility checks, like consumers of your
 package, or you if your package has Open-Source dependencies.
 

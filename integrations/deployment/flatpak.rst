@@ -12,14 +12,14 @@ The major advantage of ``Flatpak`` is sandboxing: each application runs in its o
 (e.g. network, bluetooth, host filesystem, etc.). ``Flatpak`` also offers a set of runtimes for various Linux desktop applications, e.g. 
 `Freedesktop <https://www.freedesktop.org/wiki/>`_, `GNOME <https://www.gnome.org>`_ and `KDE <https://kde.org>`_.
 
-The `packaging process <http://docs.flatpak.org/en/latest/first-build.html>`__ is:
+The `packaging process <https://docs.flatpak.org/en/latest/first-build.html>`__ is:
 
 - Install the flatpak runtime, flatpak-builder and SDK.
 - Create a manifest ``<app-id>.json``
 - Run the ``flatpak-builder`` in order to produce the application
-- `Publish <http://docs.flatpak.org/en/latest/publishing.html>`__ the application for further distribution
+- `Publish <https://docs.flatpak.org/en/latest/publishing.html>`__ the application for further distribution
 
-With help of conan's :ref:`json generator<deployable_json_generator>`, the `manifest <http://docs.flatpak.org/en/latest/manifests.html>`_ creation could be easily automated. For example, the custom script could generate ``build-commands`` and ``sources`` entries within the manifest file:
+With help of conan's :ref:`json generator<deployable_json_generator>`, the `manifest <https://docs.flatpak.org/en/latest/manifests.html>`_ creation could be easily automated. For example, the custom script could generate ``build-commands`` and ``sources`` entries within the manifest file:
 
 .. code-block:: python
 
@@ -62,4 +62,4 @@ With help of conan's :ref:`json generator<deployable_json_generator>`, the `mani
 	manifest["modules"][0]["sources"].extend(sources)
 	manifest["modules"][0]["build-commands"].extend(build_commands)
 
-Alternatively, ``flatpak`` allows distributing the `single-file <http://docs.flatpak.org/en/latest/single-file-bundles.html>`_ package. Such package, however, cannot be run or installed on its own, it's needed to be imported to the local repository on another machine.
+Alternatively, ``flatpak`` allows distributing the `single-file <https://docs.flatpak.org/en/latest/single-file-bundles.html>`_ package. Such package, however, cannot be run or installed on its own, it's needed to be imported to the local repository on another machine.
