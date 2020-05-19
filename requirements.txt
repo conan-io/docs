@@ -1,6 +1,7 @@
 sphinx==1.7.9
 sphinx-sitemap>=2.1.0
 sphinxcontrib-spelling
+sphinx-notfound-page
 elasticsearch>=6.0.0,<7.0.0
 boto3
 requests
