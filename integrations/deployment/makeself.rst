@@ -4,7 +4,7 @@ Makeself
 --------
 
 `Makeself <https://makeself.io>`_ is a small command-line utility to generate self-extracting archives for Unix. It is pretty popular and it
-is used by `VirtualBox <https://www.virtualbox.org/>`_ and `CMake <https://cmake.org/download/>`_ projects.
+is used by `VirtualBox <https://en.wikipedia.org/wiki/VirtualBox>`_ and `CMake <https://cmake.org/download/>`_ projects.
 
 Makeself creates archives that are just small startup scripts (*.run*, *.bin* or *.sh*) concatenated with tarballs.
 
