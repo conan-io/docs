@@ -37,12 +37,13 @@ extensions = [
     'conan',
     'sphinxcontrib.spelling',
     'sphinx_sitemap',
+    'notfound.extension',
 ]
 
 # The short X.Y version.
 version = "1.25"
 # The full version, including alpha/beta/rc tags.
-release = u'1.25.1'
+release = u'1.25.2'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -396,6 +397,9 @@ linkcheck_workers = 15
 linkcheck_timeout = 90
 linkcheck_retries = 2
 
+# Not Found
+notfound_pagename = 'Page Not Found'
+
 
 # copy legacy redirects
 def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
@@ -453,7 +457,7 @@ def copy_legacy_redirects(app, docname): # Sphinx expects two arguments
 </head>
 </html>
 """
- 
+
     if app.builder.name == 'html':
         for html_src_path, dst_path in redirect_files.items():
             target_path = app.outdir + '/' + html_src_path
