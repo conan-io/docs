@@ -394,13 +394,16 @@ Dynamically define ``name`` and ``version`` attributes in the recipe with these 
 defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
 recipe's repository.
 
+These functions are executed after assigning the values of the ``name`` and ``version`` from the command line.
+
 ..  code-block:: python
 
     from conans import ConanFile, tools
 
     class HelloConan(ConanFile):
         def set_name(self):
-            self.name = tools.load("name.txt")
+            # Read the value from 'name.txt' if it is not provided in the command line
+            self.name = self.name or tools.load("name.txt")
 
         def set_version(self):
             git = tools.Git()
