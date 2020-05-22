@@ -394,7 +394,8 @@ Dynamically define ``name`` and ``version`` attributes in the recipe with these 
 defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
 recipe's repository.
 
-These functions are executed after assigning the values of the ``name`` and ``version`` from the command line.
+These functions are executed after assigning the values of the ``name`` and ``version`` if they are provided 
+from the command line.
 
 ..  code-block:: python
 
