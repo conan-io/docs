@@ -54,7 +54,7 @@ code that we want to reuse.
 
 
 We can reuse the above recipe functionality declaring the dependency in the ``python_requires``
-attribute and we can access its members using ``self.python_requires["<name>"]``:
+attribute and we can access its members using ``self.python_requires["<name>"].module``:
 
 .. code-block:: python
     
