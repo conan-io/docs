@@ -39,7 +39,7 @@ tools.vcvars_command()
 
 .. code-block:: python
 
-    def vcvars_command(settings, arch=None, compiler_version=None, force=False, vcvars_ver=None,
+    def vcvars_command(conanfile, arch=None, compiler_version=None, force=False, vcvars_ver=None,
                        winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual Studio environment variables for a certain Visual Studio
@@ -53,7 +53,7 @@ the same subprocess. It will be typically used in the ``build()`` method, like t
 
     def build(self):
         if self.settings.build_os == "Windows":
-            vcvars = tools.vcvars_command(self.settings)
+            vcvars = tools.vcvars_command(self)
             build_command = ...
             self.run("%s && configure %s" % (vcvars, " ".join(args)))
             self.run("%s && %s %s" % (vcvars, build_command, " ".join(build_args)))
@@ -67,7 +67,7 @@ If **arch** or **compiler_version** is specified, it will ignore the settings an
 for these parameters.
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **conanfile** (Required): Conanfile object. Use ``self`` in a ``conanfile.py``.
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
@@ -810,19 +810,31 @@ tools.cross_building()
 
 .. code-block:: python
 
-    def cross_building(settings, self_os=None, self_arch=None, skip_x64_x86=False)
+    def cross_building(conanfile, self_os=None, self_arch=None, skip_x64_x86=False)
 
-Reading the settings and the current host machine it returns ``True`` if we are cross building a Conan package:
+
+Evaluates operating system and architecture from the ``host`` machine and the ``build`` machine
+to return a boolean ``True`` if it is a cross building scenario. Settings from ``host`` machine are
+taken from the ``conanfile.settings``, while setting from the ``build`` context can provide from
+different sources:
+
+* if ``conanfile.settings_build`` is available (Conan was called with a ``--profile:build``) it will
+  use settings in that profile (read more about :ref:`build_requires_context`).
+* otherwise, the values for the ``build`` context will come from (in this order of precedence):
+  ``self_os`` and ``self_arch`` if they are given to the function, the values for ``os_build``
+  and ``arch_build`` from ``conanfile.settings`` or auto-detected. 
+
+This tool can be used to run special actions depending on its return value:
 
 .. code-block:: python
 
     from conans import tools
 
-    if tools.cross_building(self.settings):
+    if tools.cross_building(self):
         # Some special action
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **conanfile** (Required): Conanfile object. Use ``self`` in a ``conanfile.py``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
     - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine

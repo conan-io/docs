@@ -438,6 +438,6 @@ Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cppla
 
 .. _`Bintray`: https://bintray.com/conan/conan-center
 
-.. _`Cpplang Slack`: https://cpplang.now.sh/
+.. _`Cpplang Slack`: https://cpplang-inviter.cppalliance.org/
 
 .. _`example repository`: https://github.com/conan-io/examples

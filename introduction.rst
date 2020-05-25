@@ -96,7 +96,7 @@ But an essential part of Conan is that many of those users will contribute back,
 
 - The https://github.com/conan-io/conan project has more than 3.5K stars in Github and counts with contributions of nearly 200 different users (this is just the client tool).
 - Many other users contribute recipes for ConanCenter via the https://github.com/conan-io/conan-center-index repo, creating packages for popular Open Source libraries.
-- More than one thousand of Conan users hang around the `CppLang Slack #conan channel <https://cpplang.now.sh/>`_, and help responding to questions, discussing problems and approaches..
+- More than one thousand of Conan users hang around the `CppLang Slack #conan channel <https://cpplang-inviter.cppalliance.org/>`_, and help responding to questions, discussing problems and approaches..
 
 
 Have any questions? Please check out our :ref:`FAQ section <faq>` or |write_us|.

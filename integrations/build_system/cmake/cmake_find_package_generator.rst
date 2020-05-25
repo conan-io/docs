@@ -20,7 +20,7 @@ In a conanfile.py
    :caption: conanfile.py
    :emphasize-lines: 7
 
-   from conans import ConanFile, tools
+   from conans import ConanFile, CMake, tools
 
 
    class LibConan(ConanFile):

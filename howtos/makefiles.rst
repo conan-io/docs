@@ -2,7 +2,7 @@
 
 
 Creating and reusing packages based on Makefiles
-============================================================
+================================================
 
 Conan can create packages and reuse them with Makefiles. The ``AutoToolsBuildEnvironment``
 build helper helps with most of the necessary tasks.
@@ -12,14 +12,15 @@ but could be extended to shared libraries too. The Makefiles surely can be impro
 
 
 Creating packages
-------------------
+-----------------
 
-Start cloning the existing example repository, containing a simple "Hello World" library, and application:
+Sources for this example can be found in our `examples repository <https://github.com/conan-io/examples>`_ 
+in the *features/makefiles* folder:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/memsharded/conan-example-makefiles
-    $ cd conan-example-makefiles
+    $ git clone https://github.com/conan-io/examples.git
+    $ cd examples/features/makefiles
     $ cd hellolib
 
 
@@ -64,9 +65,9 @@ to match the current Conan settings (like ``-m32`` or ``-m64`` based on the Cona
 
         def build(self):
             with tools.chdir("src"):
-                env_build = AutoToolsBuildEnvironment(self)
-                # env_build.configure() # use it to run "./configure" if using autotools
-                env_build.make()
+                atools = AutoToolsBuildEnvironment(self)
+                # atools.configure() # use it to run "./configure" if using autotools
+                atools.make()
 
         def package(self):
             self.copy("*.h", dst="include", src="src")
@@ -131,8 +132,8 @@ And also a *conanfile.py* very similar to the previous one. In this case adding 
 
         def build(self):
             with tools.chdir("src"):
-                env_build = AutoToolsBuildEnvironment(self)
-                env_build.make()
+                atools = AutoToolsBuildEnvironment(self)
+                atools.make()
 
         def package(self):
             self.copy("*app", dst="bin", keep_path=False)

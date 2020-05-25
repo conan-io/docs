@@ -121,18 +121,16 @@ the *~/.conan* folder. Its format is a list of entries, one on each line, with t
     [remote name] [remote url] [bool]
 
 where ``[bool]`` (either ``True`` or ``False``) indicates whether SSL should be used to verify that remote. The remote definitions can be
-found in the *registry.txt*/*registry.json* files and they provide a helpful starting point when writing the *remotes.txt* to be packaged in
+found in the *remotes.json* file and it provides a helpful starting point when writing the *remotes.txt* to be packaged in
 a Conan client configuration.
-
-.. important::
-    The local cache *registry.txt*/*registry.json* file contains the remotes definitions as well as the mapping of installed packages from
-    remotes. Sharing the complete contents of this file via this command is not recommended as this records the status of the local cache,
-    which may be different from one machine to another.
 
 .. note::
     During the installation, Conan skips any file with the name *README.md* or *LICENSE.txt*.
 
 The :command:`conan config install <item>` calls are stored in a *config_install.json* file in the Conan local cache. That allows to issue a :command:`conan config install` command, without arguments, to iterate over the cached configurations, executing them again (updating).
+
+The :command:`conan config install` can be periodically executed, before any command, when *config_install_interval* is configured in :ref:`conan.conf<conan_conf>`.
+Conan runs it based on *config_install.json*, including the timestamp of the last change.
 
 
 **Examples**:

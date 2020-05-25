@@ -18,7 +18,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
     positional arguments:
       name                  Package name, e.g.: "poco/1.9.4" or complete reference
-                            for CI scripts: "poco/1.9.4@"
+                            for CI scripts: "poco/1.9.4@user/channel"
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -103,5 +103,6 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
         name = "{{name}}"
         version = "{{version}}"
 
-  Where ``name`` and ``version`` placeholders are defined from the command line, and ``package_name`` is a camel case
-  variant of the package ``name``.
+  Where ``name`` and ``version`` placeholders are defined from the command line, and ``package_name`` is a *CamelCase*
+  variant of the name: any valid Conan package name like ``package_name``, ``package+name``, ``package.name`` or
+  ``package-name`` will be converted into a suitable name for a Python class, ``PackageName``.

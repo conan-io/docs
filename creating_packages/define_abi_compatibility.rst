@@ -62,7 +62,7 @@ The recipe for such a package will be to generate a single binary package, no mo
 No matter the settings are defined by the users, including the compiler or version, the package settings and options will always be the same
 (left empty) and they will hash to the same binary package ID. That package will typically contain just the header files.
 
-What happens if we have a library that we can be built with GCC 4.8 and will preserve the ABI compatibility with GCC 4.9?
+What happens if we have a library that can be built with GCC 4.8 and will preserve the ABI compatibility with GCC 4.9?
 (This kind of compatibility is easier to achieve for example for pure C libraries).
 
 Although it could be argued that it is worth rebuilding with 4.9 too -to get fixes and performance improvements-. Let's suppose
@@ -325,7 +325,7 @@ Now, a new release for ``my_other_lib/2.1`` is released with an improved recipe 
     This scenario will be the same in the case that a consuming project of ``my_lib/1.0`` defines a dependency to ``my_other_lib/2.1``, which
     takes precedence over the existing project in ``my_lib/1.0``.
 
-The question is: **Is it necessary to build new ``my_lib/1.0`` binary packages?** or are the existing packages still valid?
+The question is: **Is it necessary to build new** ``my_lib/1.0`` **binary packages?** or are the existing packages still valid?
 
 The answer: **It depends**.
 
@@ -659,6 +659,14 @@ It is possible to change the default ``semver_direct_mode`` package-id mode, in 
    default_package_id_mode=full_package_mode
 
 Possible values are the names of the above methods: ``full_recipe_mode``, ``semver_mode``, etc.
+
+.. note::
+
+    The ``default_package_id_mode`` is a global configuration. It will change how all the package-ids are
+    computed, for all packages. It is impossible to mix different ``default_package_id_mode`` values.
+    The same ``default_package_id_mode`` must be used in all clients, servers, CI, etc., and it cannot
+    be changed without rebuilding all packages.
+
 
 Note that the default package-id mode is the mode that is used when the package is initialized
 and **before** ``package_id()`` method is called. You can still define ``full_package_mode``

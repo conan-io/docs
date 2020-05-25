@@ -55,6 +55,8 @@ Files from dependencies are deployed under a folder with the name of the depende
 
 The generated *deploy_manifest.txt* file is a manifest file with a list of all the files deployed and hash of the contents for each of them.
 
+If any symbolic is present in the package folder, it will be preserved as well, and not copied as a new file.
+
 .. tip::
 
     You can use the parameter :command:`--install-folder` in the :command:`conan install` to output the contents of the packages to a

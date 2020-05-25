@@ -21,7 +21,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     request_timeout = 60                  # environment CONAN_REQUEST_TIMEOUT (seconds)
     default_package_id_mode = semver_direct_mode # environment CONAN_DEFAULT_PACKAGE_ID_MODE
     # parallel_download = 8               # experimental download binaries in parallel
-    # full_transitive_package_id = 0      
+    # full_transitive_package_id = 0
     # retry = 2                           # environment CONAN_RETRY
     # retry_wait = 5                      # environment CONAN_RETRY_WAIT (seconds)
     # sysrequires_mode = enabled          # environment CONAN_SYSREQUIRES_MODE (allowed modes enabled/verify/disabled)
@@ -62,6 +62,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
 
     # cacert_path                         # environment CONAN_CACERT_PATH
     # scm_to_conandata                    # environment CONAN_SCM_TO_CONANDATA
+
+    # config_install_interval = 1h
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -211,6 +213,9 @@ The ``scm_to_conandata`` variable tells Conan to store the resolved information 
 this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
 
 The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the existence broken symlinks while creating a package.
+
+The ``config_install_interval`` variable starts a time scheduler which runs :command:`conan config install` according the time interval
+configured. It only accepts the follow time intervals: minutes, hours and days.
 
 Storage
 +++++++
