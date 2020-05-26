@@ -1367,8 +1367,8 @@ to use.
     from conans import ConanFile
 
     class Pkg(ConanFile):
-        python_requires = "pyreq/0.1@user/channel"
-        python_requires_extend = "pyreq.MyConanfileBase"  # class to inject as base class
+        python_requires = "pyreq/0.1@user/channel", "utils/0.1@user/channel"
+        python_requires_extend = "pyreq.MyConanfileBase", "utils.UtilsBase"  # class/es to inject
 
 
 Read more about this attribute in :ref:`python_requires`

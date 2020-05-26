@@ -129,7 +129,7 @@ Note that there are two classes in the recipe file:
 
 
 Once the package with the base class we want to reuse is available we can use it in other
-recipes to inherit the functionality from the base class. We'd need to declare the
+recipes to inherit the functionality from that base class. We'd need to declare the
 ``python_requires`` as we did before and we'd need to tell Conan the base classes to use
 in the attribute ``python_requires_extend``. Here our recipe will inherit from the
 class ``MyBase``:
@@ -144,6 +144,7 @@ class ``MyBase``:
         python_requires_extend = "pyreq.MyBase"
 
 
+The resulting inheritance is equivalent to declare our ``Pkg`` class as ``class Pkg(pyreq.MyBase, ConanFile)``.
 So creating the package we can see how the methods from the base class are reused:
 
 .. code-block:: bash
