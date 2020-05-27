@@ -1756,12 +1756,12 @@ tools.stdcpp_library():
 
 .. code-block:: python
 
-    def stdcpp_library(settings)
+    def stdcpp_library(conanfile)
 
-Returns the corresponding C++ standard library to link with based on the settings. For instance, it may return ``c++`` for ``compiler.libcxx=libc++``,
+Returns the corresponding C++ standard library to link with based on the settings of the given conanfile. For instance, it may return ``c++`` for ``compiler.libcxx=libc++``,
  and it may return ``stdc++`` for ``compiler.libcxx=libstdc++`` or ``compiler.libcxx=libstdc++11``. Returns ``None`` if there is no C++ standard library
  need to be linked. Usually, this is required to populate ``self.cpp_info.libs`` for C++ libraries with plain C API, therefore such libraries might be
  safely used in pure C projects (or in general, non-C++ projects capable of using C API, such as written in Objective-C, Fortran, etc.).
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
