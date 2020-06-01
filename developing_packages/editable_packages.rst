@@ -77,8 +77,13 @@ the ``say`` package, the ``examples/features/editable/cmake/say/lib`` to locate 
 
 That might not be very useful, as typically while editing the source code and doing incremental builds, the
 development layout is different from that final "package" layout. While it is possible to run a
-:command:`conan package` local command to execute the packaging in the user folder, and that will achieve that
-final layout, that is not very elegant. Conan provides several ways to customize the layout for editable packages.
+:command:`conan package` local command to execute the packaging in the user folder and it will achieve that
+final layout, that is not very elegant as it should be run after every modification.
+
+In order to populate ``cpp_info.libs`` is discouraged the usage of ``tools.collect_libs()`` as it won't find
+any library when the package is in editable mode and it hasn't been compiled yet. This empty list will be
+written to files written by generators and it won't get updated when working on the editable package.
+
 
 Editable packages layouts
 -------------------------
