@@ -179,3 +179,50 @@ Here you can find a brief explanation of each of the architectures defined as ``
   as an architecture to align with build systems design (e.g. GNU auto tools and CMake).
 
 - **sh4le**: The Hitachi SH-4 SuperH architecture.
+
+C++ standard libraries (aka compiler.libcxx)
+--------------------------------------------
+
+``compiler.libcxx`` sub-setting defines C++ standard libraries implementation to be used. The sub-setting applies only to certain compilers,
+e.g. it applies to *clang*, *apple-clang* and *gcc*, but doesn't apply to *Visual Studio*.
+
+- **libstdc++** (gcc, clang, apple-clang, sun-cc): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
+  defines **_GLIBCXX_USE_CXX11_ABI=0** to use old ABI. See :ref:`How to manage the GCC >= 5 ABI <manage_gcc_abi>` for the additional details. Might
+  be a wise choice for old systems, such as CentOS 6. On Linux systems, you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_
+  (package name could be different in various distros) in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
+
+- **libstdc++11** (gcc, clang, apple-clang): `The GNU C++ Library <https://gcc.gnu.org/onlinedocs/libstdc++/>`__. NOTE that this implicitly
+  defines **_GLIBCXX_USE_CXX11_ABI=1** to use new ABI. See :ref:`How to manage the GCC >= 5 ABI <manage_gcc_abi>` for the additional details. Might
+  be a wise choice for newer systems, such as Ubuntu 20. On Linux systems, you may need to install `libstdc++-dev <https://packages.debian.org/sid/libstdc++-dev>`_
+  (package name could be different in various distros) in order to use the standard library. NOTE that on Apple systems usage of **libstdc++** has been deprecated.
+
+- **libc++** (clang, apple-clang): `LLVM libc++ <https://libcxx.llvm.org/>`__. On Linux systems, you may need to install `libc++-dev <https://packages.debian.org/sid/libc++-dev>`_
+  (package name could be different in various distros) in order to use the standard library.
+
+- **c++_shared** (clang, Android only): use `LLVM libc++ <https://libcxx.llvm.org/>`__ as a shared library. Refer to the `C++ Library Support <https://developer.android.com/ndk/guides/cpp-support>`__ for the
+  additiona details.
+
+- **c++_static** (clang, Android only): use `LLVM libc++ <https://libcxx.llvm.org/>`__ as a static library. Refer to the `C++ Library Support <https://developer.android.com/ndk/guides/cpp-support>`__ for the
+  additiona details.
+
+- **libCstd** (sun-cc): Rogue Wave's stdlib. See `Comparing C++ Standard Libraries libCstd, libstlport, and libstdcxx <https://www.oracle.com/solaris/technologies/cmp-stlport-libcstd.html>`__.
+
+- **libstlport** (sun-cc): `STLport <http://www.stlport.org/>`__. See `Comparing C++ Standard Libraries libCstd, libstlport, and libstdcxx <https://www.oracle.com/solaris/technologies/cmp-stlport-libcstd.html>`__.
+
+- **libstdcxx** (sun-cc): `Apache C++ Standard Library <http://people.apache.org/~gmcdonald/stdcxx/index.html>`__. See `Comparing C++ Standard Libraries libCstd, libstlport, and libstdcxx <https://www.oracle.com/solaris/technologies/cmp-stlport-libcstd.html>`__.
+
+- **gpp** (qcc): GNU C++ lib. See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **cpp** (qcc): Dinkum C++ lib. See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **cpp-ne** (qcc): Dinkum C++ lib (no exceptions). See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **acpp** (qcc): Dinkum Abridged C++ lib. See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **acpp-ne** (qcc): Dinkum Abridged C++ lib (no exceptions). See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **ecpp** (qcc): Embedded Dinkum C++ lib. See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **ecpp-ne** (qcc): Embedded Dinkum C++ lib (no exceptions). See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
+
+- **cxx** (qcc): LLVM C++. See `QCC documentation <https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_utilities/q/qcc.html>`__.
