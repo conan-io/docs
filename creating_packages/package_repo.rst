@@ -205,4 +205,4 @@ be valid too:
    As the warning message explains, the ``auto`` fields won't be replaced unless you specify ``--ignore-dirty``,
    and by default, the :command:`conan upload` will block the upload of the recipe. This prevents recipes
    to be uploaded with incorrect scm values exported.
-   You can use :command:`conan upload --force` to force uploading the recipe with the "auto" values un-replaced.
+   You can use :command:`conan upload --force` to force uploading the recipe with the ``auto`` values un-replaced.

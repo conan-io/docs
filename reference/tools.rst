@@ -1838,3 +1838,36 @@ This is a context manager that allows to append to the environment all the varia
     def build(self):
         with tools.compilervars(self.settings):
             do_something()
+
+.. _tools.remove_files_by_mask:
+
+tools.remove_files_by_mask()
+----------------------------
+
+.. code-block:: python
+
+    def remove_files_by_mask(directory, pattern)
+
+Removes files in the given ``directory`` matching the ``pattern``. The function removes only files, and never removes directories, even if their names match the pattern. The functions returns the array of the files removed (empty array in case no files were removed). The paths in the returned array are relative to the given ``directory``.
+
+Parameters:
+    - **directory** (Required): Directory to remove files inside. You may use ``os.getcwd`` or ``self.package_folder``, for instance.
+    - **pattern** (Required): Pattern to check. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+
+.. _tools.stdcpp_library:
+
+tools.stdcpp_library():
+-----------------------
+
+.. code-block:: python
+
+    def stdcpp_library(conanfile)
+
+Returns the corresponding C++ standard library to link with based on the settings of the given conanfile. For instance, it may return ``c++`` for ``compiler.libcxx=libc++``,
+ and it may return ``stdc++`` for ``compiler.libcxx=libstdc++`` or ``compiler.libcxx=libstdc++11``. Returns ``None`` if there is no C++ standard library
+ need to be linked. Usually, this is required to populate ``self.cpp_info.system_libs`` for C++ libraries with plain C API, therefore such libraries might be
+ safely used in pure C projects (or in general, non-C++ projects capable of using C API, such as written in Objective-C, Fortran, etc.).
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+
