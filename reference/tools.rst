@@ -1749,6 +1749,22 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
 
 
+
+.. _tools.remove_files_by_mask:
+
+tools.remove_files_by_mask()
+----------------------------
+
+.. code-block:: python
+
+    def remove_files_by_mask(directory, pattern)
+
+Removes files in the given ``directory`` matching the ``pattern``. The function removes only files, and never removes directories, even if their names match the pattern. The functions returns the array of the files removed (empty array in case no files were removed). The paths in the returned array are relative to the given ``directory``.
+
+Parameters:
+    - **directory** (Required): Directory to remove files inside. You may use ``os.getcwd`` or ``self.package_folder``, for instance.
+    - **pattern** (Required): Pattern to check. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+
 .. _tools.stdcpp_library:
 
 tools.stdcpp_library():
