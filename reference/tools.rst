@@ -1751,8 +1751,8 @@ Parameters:
 
 .. _tools.msvs_toolset:
 
-tools.msvs_toolset():
----------------------
+tools.msvs_toolset()
+--------------------
 
 .. code-block:: python
 
