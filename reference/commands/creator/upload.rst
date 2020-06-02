@@ -39,8 +39,10 @@ If no remote is specified, the first configured remote (by default conan-center,
       --all                 Upload both package recipe and packages
       --skip-upload         Do not upload anything, just run the checks and the
                             compression
-      --force               Do not check conan recipe date, override remote with
-                            local
+      --force               Ignore checks before uploading the recipe: it will
+                            bypass missing fields in the scm attribute and it will
+                            override remote recipe with local regardless of recipe
+                            date
       --check               Perform an integrity check, using the manifests,
                             before upload
       -c, --confirm         Upload all matching recipes without confirmation

@@ -1223,7 +1223,6 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
         ...
 
 
-
 - **type** (Required): Currently only ``git`` and ``svn`` are supported. Others can be added eventually.
 - **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working
   copy (credentials will be removed from it). When type is ``svn`` it can contain
@@ -1238,6 +1237,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
+
+Attributes ``type``, ``url`` and ``revision`` are required to upload the recipe to a remote server.
 
 SCM attributes are evaluated in the working directory where the *conanfile.py* is located before
 exporting it to the Conan cache, so these values can be returned from arbitrary functions that
