@@ -80,7 +80,7 @@ development layout is different from that final "package" layout. While it is po
 :command:`conan package` local command to execute the packaging in the user folder and it will achieve that
 final layout, that is not very elegant as it should be run after every modification.
 
-In order to populate ``cpp_info.libs`` is discouraged the usage of ``tools.collect_libs()`` as it won't find
+In order to populate ``cpp_info.libs``, the usage of ``tools.collect_libs()`` is discouraged as it won't find
 any library when the package is in editable mode and it hasn't been compiled yet. This empty list will be
 written to files by generators and it won't be updated after working on the editable package.
 
