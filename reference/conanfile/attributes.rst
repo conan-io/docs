@@ -991,6 +991,9 @@ absolute paths, and ``name`` and ``version`` attributes:
 +-----------------------------------------------+---------------------------------------------------------------------+
 | self.deps_cpp_info["dep"].version             | Get the version of the "dep" package                                |
 +-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].components          | | **[Experimental]** Dictionary with different components a package |
+|                                               | | may have: libraries, executables...                               |
++-----------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
 
@@ -1022,7 +1025,6 @@ root folder of the package:
 
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
-
 
 .. _env_info_attributes_reference:
 

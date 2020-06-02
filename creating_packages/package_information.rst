@@ -116,10 +116,20 @@ with the list of components from other packages to use: it can be the full requi
 
 .. important::
 
-    Components information is still not available from the generators' side. We are planning to complete this feature in next releases.
+    The information of components is aggregated to the *global* ``cpp_info`` scope and the usage of components should be transparent.
 
-    Currently, the information of components is not lost but aggregated to the *global* scope and the usage of components should be
-    transparent right now.
+Consumers can get this information via ``self.deps_cpp_info`` as usual and use it in the ``build()`` method of any dependent recipe:
+
+.. code-block:: python
+
+    class PocoTimerConan(ConanFile):
+        ...
+        requires = "zlib/1.2.11", "openssl/1.0.2u"
+        ...
+
+        def build(self):
+            # Get the include directories of the SSL component of openssl package
+            self.deps_cpp_info["openssl"].components["ssl"].include_paths
 
 .. seealso::
 

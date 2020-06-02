@@ -55,8 +55,56 @@ utilities exported by the package available for consumers just by setting `find_
 Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
 modules in those directories can be found.
 
-Target in Find<PKG-NAME>.cmake
-------------------------------
+Components
+++++++++++
+
+If a recipe defines different components using ``self.cpp_info.components``, the variables declared in *Find<PKG-NAME>.cmake* will be:
+
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| NAME                               | VALUE                                                                                               |
++====================================+=====================================================================================================+
+| <PKG-NAME>_FOUND                   | Set to 1                                                                                            |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_VERSION                 | Package version                                                                                     |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <PKG-NAME>_COMPONENTS              | List of components of the package                                                                   |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_INCLUDE_DIRS           | Containing all the include directories of the component                                             |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_INCLUDE_DIR            | Containing the first include directory declared by the component                                    |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_INCLUDES               | Same as ``<COMP-NAME>_INCLUDE_DIRS``                                                                |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_LIB_DIRS               | Containing all the library directories of the component                                             |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_RES_DIRS               | Containing all the resources directories of the component                                           |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_DEFINITIONS            | Definitions of the component                                                                        |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_COMPILE_DEFINITIONS    | Definitions of the component                                                                        |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_COMPILE_OPTIONS_LIST   | Compile option flags of the component                                                               |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_LINKER_FLAGS_LIST      | Definitions of the component                                                                        |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_LIBS                   | Library paths to link                                                                               |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_SYSTEM_LIBS            | System libraries to link                                                                            |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_BUILD_MODULES_PATHS    | List of CMake module files with functionalities for consumers                                       |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_FRAMEWORKS             | Framework names to do a `find_library()`                                                            |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_FRAMEWORK_DIRS         | Framework directories to perform the `find_library()` of <PKG-NAME>_FRAMEWORKS                      |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+| <COMP-NAME>_DEPENDENCIES           | List of requirements                                                                                |
++------------------------------------+-----------------------------------------------------------------------------------------------------+
+
+Being ``<COMP-NAME>`` the component name used as key in the components dictionary (by default) or the one declared in ``cpp_info.name`` or
+in ``cpp_info.names["cmake_find_package"]`` if specified
+
+Targets in Find<PKG-NAME>.cmake
+-------------------------------
 
 A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following properties adjusted:
 
@@ -67,3 +115,18 @@ A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following
 The targets are transitive. So, if your project depends on a packages ``A`` and ``B``, and at the same time
 ``A`` depends on ``C``, the ``A`` target will contain automatically the properties of the ``C`` dependency, so
 in your `CMakeLists.txt` file you only need to ``find_package(A)`` and ``find_package(B)``.
+
+Components
+++++++++++
+
+If a recipe uses components, the targets generated will be ``<PKG-NAME>::<COMP-NAME>`` with the following properties adjusted:
+
+- ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the component.
+- ``INTERFACE_LINK_DIRECTORIES``: Containing all the lib directories of the component.
+- ``INTERFACE_LINK_LIBRARIES``: Containing the targets to link the component to (includes component's libraries and dependencies).
+- ``INTERFACE_COMPILE_DEFINITIONS``: Containing the definitions of the component.
+- ``INTERFACE_COMPILE_OPTIONS``: Containing the compile options of the component.
+
+Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
+
+- ``INTERFACE_LINK_LIBRARIES``: Containing all the component targets to link the global target to (includes package's components only).
