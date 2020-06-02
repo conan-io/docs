@@ -1751,8 +1751,8 @@ Parameters:
 
 .. _tools.remove_files_by_mask:
 
-tools.remove_files_by_mask():
------------------------------
+tools.remove_files_by_mask()
+----------------------------
 
 .. code-block:: python
 
