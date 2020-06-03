@@ -1756,14 +1756,14 @@ tools.msvs_toolset()
 
 .. code-block:: python
 
-    def msvs_toolset(settings)
+    def msvs_toolset(conanfile)
 
-Returns the corresponding Visual Studio platform toolset based on the settings. For instance, it may return ``v142``
+Returns the corresponding Visual Studio platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v142``
 for ``compiler=Visual Studio`` with ``compiler.version=16``. If ``compiler.toolset`` was set in settings, it has a
 priority and always returned.
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
 
 .. _tools.stdcpp_library:
 
