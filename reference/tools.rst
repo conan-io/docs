@@ -322,7 +322,7 @@ Parameters:
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
-    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from the URL.
+    - **filename** (Optional, Defaulted to ``""``): Specify the name of the compressed file if it cannot be deduced from the URL.
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
     - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
