@@ -106,9 +106,9 @@ Declaration of requires from other packages is also allowed:
         ...
         requires = "zlib/1.2.11", "openssl/1.1.1g"
 
-    def package_info(self):
-        self.cpp_info.components["comp1"].requires = ["zlib::zlib"]             # Depends on all components in zlib package
-        self.cpp_info.components["comp2"].requires = ["comp1", "openssl::ssl"]  # Depends on ssl component in openssl package
+        def package_info(self):
+            self.cpp_info.components["comp1"].requires = ["zlib::zlib"]  # Depends on all components in zlib package
+            self.cpp_info.components["comp2"].requires = ["comp1", "openssl::ssl"]  # Depends on ssl component in openssl package
 
 By default, components **won't link against any other package required by the recipe**. The requires list has to be **populated explicitly**
 with the list of components from other packages to use: it can be the full requirement (``zlib::zlib``) or a single component
