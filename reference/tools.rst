@@ -1756,9 +1756,9 @@ tools.compilervars_command()
 
 .. code-block:: python
 
-    def compilervars_command(settings, arch=None, compiler_version=None, force=False)
+    def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
 
-Returns, for given settings, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
+Returns, for given settings of the given ``conanfile``, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
 version. It wraps the functionality of `compilervars <https://software.intel.com/en-us/intel-system-studio-cplusplus-compiler-user-and-reference-guide-using-compilervars-file>`_
 but does not execute the command, as that typically have to be done in the same command as the compilation, so the variables are loaded for
 the same subprocess. It will be typically used in the ``build()`` method, like this:
@@ -1768,7 +1768,7 @@ the same subprocess. It will be typically used in the ``build()`` method, like t
     from conans import tools
 
     def build(self):
-        cvars_command = tools.compilervars_command(self.settings)
+        cvars_command = tools.compilervars_command(self)
         build_command = ...
         self.run("%s && configure %s" % (cvars_command, " ".join(args)))
         self.run("%s && %s %s" % (cvars, build_command, " ".join(build_args)))
@@ -1782,9 +1782,9 @@ If **arch** or **compiler_version** is specified, it will ignore the settings an
 for these parameters.
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
-    - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
-    - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **arch** (Optional, Defaulted to ``None``): Will use ``conanfile.settings.arch``.
+    - **compiler_version** (Optional, Defaulted to ``None``): Will use ``conanfile.settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Intel C++ version.
 
 
@@ -1795,7 +1795,7 @@ tools.compilervars_dict()
 
 .. code-block:: python
 
-    def compilervars_dict(settings, arch=None, compiler_version=None, force=False, only_diff=True)
+    def compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
 
 Returns a dictionary with the variables set by the :ref:`tools_compilervars_command` that can be directly applied to
 :ref:`tools_environment_append`.
@@ -1826,7 +1826,7 @@ tools.compilervars()
 
 .. code-block:: python
 
-    def compilervars(settings, arch=None, compiler_version=None, force=False, only_diff=True)
+    def compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
 
 This is a context manager that allows to append to the environment all the variables set by the :ref:`tools_compilervars_dict`. You can replace
 :ref:`tools_compilervars_dict` and use this context manager to get a cleaner way to activate the Intel C++ environment:
