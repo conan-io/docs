@@ -1749,6 +1749,23 @@ Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
 
 
+.. _tools.msvs_toolset:
+
+tools.msvs_toolset()
+--------------------
+
+.. code-block:: python
+
+    def msvs_toolset(conanfile)
+
+Returns the corresponding Visual Studio platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v142``
+for ``compiler=Visual Studio`` with ``compiler.version=16``. If ``compiler.toolset`` was set in settings, it has a
+priority and always returned.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+
+
 .. _tools_compilervars_command:
 
 tools.compilervars_command()
@@ -1853,6 +1870,7 @@ Removes files in the given ``directory`` matching the ``pattern``. The function 
 Parameters:
     - **directory** (Required): Directory to remove files inside. You may use ``os.getcwd`` or ``self.package_folder``, for instance.
     - **pattern** (Required): Pattern to check. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+
 
 .. _tools.stdcpp_library:
 
