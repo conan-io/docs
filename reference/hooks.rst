@@ -1,17 +1,18 @@
 .. _hooks_reference:
 
-Hooks [EXPERIMENTAL]
-======================
+Hooks
+=====
 
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
 The Conan hooks are Python functions that are intended to extend the Conan functionalities and let users customize the client behavior at
-determined execution points.
+determined execution points. Check the :ref:`hooks section in extending Conan <hooks>` to see
+some examples of how to use them and already available ones providing useful functionality.
 
 Hook interface
-----------------
+--------------
 
 Here you can see a complete example of all the hook functions available and the different parameters for each of them depending on the
 context:

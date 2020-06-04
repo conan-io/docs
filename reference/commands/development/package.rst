@@ -28,7 +28,7 @@ command.
       -h, --help            show this help message and exit
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             Directory for the build process. Defaulted to the
-                            current directory. A relative path to current
+                            current directory. A relative path to the current
                             directory can also be specified
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Directory containing the conaninfo.txt and
@@ -41,7 +41,7 @@ command.
                             an absolute path is allowed.
       -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             Directory containing the sources. Defaulted to the
-                            conanfile's directory. A relative path to current
+                            conanfile's directory. A relative path to the current
                             directory can also be specified
 
 
@@ -62,7 +62,7 @@ This example shows how ``package()`` works in a package which can be edited and 
 
 .. code-block:: bash
 
-    $ conan new Hello/0.1 -s
+    $ conan new hello/0.1 -s
     $ conan install . --install-folder=build_x86 -s arch=x86
     $ conan build . --build-folder=build_x86
     $ conan package . --build-folder=build_x86 --package-folder=package_x86
@@ -78,7 +78,7 @@ This example shows how ``package()`` works in a package which can be edited and 
 
     .. code-block:: bash
 
-        $ conan new Hello/0.1 -s
+        $ conan new hello/0.1 -s
         $ conan install . --install-folder=build_x86 -s arch=x86
         $ conan build . --build-folder=build_x86
-        $ conan export-pkg . Hello/0.1@user/stable --build-folder=build_x86 -s arch=x86
+        $ conan export-pkg . hello/0.1@user/stable --build-folder=build_x86 -s arch=x86

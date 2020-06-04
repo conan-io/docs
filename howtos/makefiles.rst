@@ -2,7 +2,7 @@
 
 
 Creating and reusing packages based on Makefiles
-============================================================
+================================================
 
 Conan can create packages and reuse them with Makefiles. The ``AutoToolsBuildEnvironment``
 build helper helps with most of the necessary tasks.
@@ -12,14 +12,15 @@ but could be extended to shared libraries too. The Makefiles surely can be impro
 
 
 Creating packages
-------------------
+-----------------
 
-Start cloning the existing example repository, containing a simple "Hello World" library, and application:
+Sources for this example can be found in our `examples repository <https://github.com/conan-io/examples>`_ 
+in the *features/makefiles* folder:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/memsharded/conan-example-makefiles
-    $ cd conan-example-makefiles
+    $ git clone https://github.com/conan-io/examples.git
+    $ cd examples/features/makefiles
     $ cd hellolib
 
 
@@ -56,7 +57,7 @@ to match the current Conan settings (like ``-m32`` or ``-m64`` based on the Cona
     from conans import tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
@@ -64,9 +65,9 @@ to match the current Conan settings (like ``-m32`` or ``-m64`` based on the Cona
 
         def build(self):
             with tools.chdir("src"):
-                env_build = AutoToolsBuildEnvironment(self)
-                # env_build.configure() # use it to run "./configure" if using autotools
-                env_build.make()
+                atools = AutoToolsBuildEnvironment(self)
+                # atools.configure() # use it to run "./configure" if using autotools
+                atools.make()
 
         def package(self):
             self.copy("*.h", dst="include", src="src")
@@ -127,12 +128,12 @@ And also a *conanfile.py* very similar to the previous one. In this case adding 
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         exports_sources = "src/*"
-        requires = "Hello/0.1@user/testing"
+        requires = "hello/0.1@user/testing"
 
         def build(self):
             with tools.chdir("src"):
-                env_build = AutoToolsBuildEnvironment(self)
-                env_build.make()
+                atools = AutoToolsBuildEnvironment(self)
+                atools.make()
 
         def package(self):
             self.copy("*app", dst="bin", keep_path=False)
@@ -144,7 +145,7 @@ And also a *conanfile.py* very similar to the previous one. In this case adding 
 
 Note that in this case, the ``AutoToolsBuildEnvironment`` will automatically set values to ``CPPFLAGS``,
 ``LDFLAGS``, ``LIBS``, etc. existing in the *Makefile* with the correct include directories, library names,
-etc. to properly build and link with the ``hello`` library contained in the "Hello" package.
+etc. to properly build and link with the ``hello`` library contained in the "hello" package.
 
 As above, we can create the package with:
 
@@ -158,6 +159,6 @@ In this case, since the package has a ``deploy()`` method, we can use it:
 
 .. code-block:: bash
 
-    $ conan install Hello/0.1user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
+    $ conan install hello/0.1user/testing -s compiler=gcc -s compiler.version=4.9 -s compiler.libcxx=libstdc++
     $ ./bin/app
     $ Hello World Release!

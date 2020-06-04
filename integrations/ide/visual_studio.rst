@@ -11,7 +11,7 @@ extension for Visual Studio in the Microsoft Marketplace, it is called **Conan E
 for Visual Studio** and it provides integration with Conan using the
 :ref:`Visual Studio generators <visualstudio_generator>`.
 
-.. image:: ../../images/visual_studio/marketplace-header.png
+.. image:: ../../images/visual_studio/conan-marketplace-header.png
    :width: 90%
    :alt: Conan Extension for Visual Studio in the Microsoft marketplace
 
@@ -44,7 +44,7 @@ Check the :ref:`MSBuild() integration<msbuild_integration>`, that contains infor
 generators to be used with Visual Studio.
 
 
-.. |visual_logo| image:: ../../images/visual-studio-logo.png
+.. |visual_logo| image:: ../../images/conan-visual-studio-logo.png
                  :width: 100 px
                  :alt: Visual Studio logo
 

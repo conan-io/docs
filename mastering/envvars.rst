@@ -38,9 +38,9 @@ syntax:
 
 .. code-block:: bash
 
-    $ conan install . -e PYTHONPATH=[/other/path]
+    $ conan install . -e PATH=[/other/path]
 
-This way the first entry in the PYTHONPATH variable will be */other/path*, but the PYTHONPATH values declared in the requirements
+This way the first entry in the ``PATH`` variable will be */other/path*, but the ``PATH`` values declared in the requirements
 of the project will be appended at the end using the system path separator.
 
 Automatic environment variables inheritance

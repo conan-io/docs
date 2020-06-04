@@ -69,17 +69,24 @@ You can share a local folder with your container, for example a project:
     $ conan upload "*" -r myremote --all
 
 
-Using the images to cross-build packages
-----------------------------------------
+.. _use_docker_to_crossbuild:
 
-You can use the :ref:`images<available_docker_images>` ``-i386``, ``-armv7`` and ``-armv7gh`` to cross-build
-Conan packages.
+Using the images to *cross build* packages
+------------------------------------------
 
-The ``armv7`` images have a cross toolchain for linux ARM installed, and declared as main compiler with the
+You can use the :ref:`available docker images <available_docker_images>` (with the suffix ``-i386``, ``-armv7`` and ``-armv7gh``)
+to generate packages for those platforms.
+
+For example, the ``armv7`` images have a toolchain for linux ARM installed, and declared as main compiler with the
 environment variables ``CC`` and ``CXX``. Also, the default Conan profile (``~/.conan/profiles/default``)
 is adjusted to declare the correct arch (``armv7`` / ``armv7hf``).
 
-Cross-building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
+This process will run a native compilation inside docker, so we cannot say it is actual cross building, but if we were talking
+in terms of cross compiling: the docker service is running in your machine (the ``build`` platform) a docker
+image (which is the ``host`` platform) to generate the binaries.
+To read about actual cross compiling with Conan we have a dedicated section in the docs: :ref:`cross_building`.
+
+Building and uploading a package along with all its missing dependencies for ``Linux/armv7hf`` is done in few steps:
 
 .. code-block:: bash
 
@@ -93,9 +100,7 @@ Cross-building and uploading a package along with all its missing dependencies f
 
     [settings]
     os=Linux
-    os_build=Linux
     arch=armv7hf
-    arch_build=x86_64
     compiler=gcc
     compiler.version=4.9
     compiler.libcxx=libstdc++
@@ -112,11 +117,18 @@ Cross-building and uploading a package along with all its missing dependencies f
     $ conan upload "*" -r myremoteARMV7 --all
 
 
-
 .. _available_docker_images:
 
 Available Docker images
 -----------------------
+
+We provide a set of images with the most common compilers installed that can be used to generate Conan packages for different profiles.
+Their dockerfiles can be found in the `Conan Docker Tools <https://github.com/conan-io/conan-docker-tools>`_ repository.
+
+.. warning::
+
+    The images listed below are intended for generating open-source library packages and we cannot guarantee any kind of stability.
+    We strongly recommend using your own generated images for production environments taking these dockerfiles as a reference.
 
 **GCC** images
 
@@ -180,6 +192,3 @@ Available Docker images
 +--------------------------------------------------------------------------------------+------------------+
 | `conanio/clang50 (Clang 5) <https://hub.docker.com/r/conanio/clang50/>`_             | x86_64           |
 +--------------------------------------------------------------------------------------+------------------+
-
-
-The Dockerfiles for all these images can be found `here <https://github.com/conan-io/conan-docker-tools>`_.

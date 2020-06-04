@@ -10,6 +10,7 @@ packages can be consumed, created, and continuously deployed/tested with each, a
 .. toctree::
    :maxdepth: 2
 
+   integrations/compilers
    integrations/build_system
    integrations/ides
    integrations/ci
@@ -17,4 +18,4 @@ packages can be consumed, created, and continuously deployed/tested with each, a
    integrations/vcs
    integrations/custom
    integrations/linting
-
+   integrations/deployment

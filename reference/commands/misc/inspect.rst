@@ -14,7 +14,7 @@ conan inspect
     $ conan inspect [-h] [-a [ATTRIBUTE]] [-r REMOTE] [-j JSON] [--raw RAW]
                     path_or_reference
 
-Displays conanfile attributes, like name, version and options. Works locally,
+Displays conanfile attributes, like name, version, and options. Works locally,
 in local cache and remote.
 
 .. code-block:: text
@@ -38,7 +38,7 @@ Examples:
 
 .. code-block:: bash
 
-    $ conan inspect zlib/1.2.11@conan/stable -a=name -a=version -a=options -a default_options -r=conan-center
+    $ conan inspect zlib/1.2.11@ -a=name -a=version -a=options -a default_options -r=conan-center
     name: zlib
     version: 1.2.11
     options
@@ -47,13 +47,13 @@ Examples:
 
 .. code-block:: bash
 
-    $ conan inspect zlib/1.2.11@conan/stable -a=license -a=url
-    license: http://www.zlib.net/zlib_license.html
-    url: http://github.com/conan-community/conan-zlib
+    $ conan inspect zlib/1.2.11@ -a=license -a=url
+    license: Zlib
+    url: https://github.com/conan-io/conan-center-index
 
 .. code-block:: bash
 
-    $ conan inspect zlib/1.2.11@conan/stable --raw=settings
+    $ conan inspect zlib/1.2.11@ --raw=settings
     ('os', 'arch', 'compiler', 'build_type')
 
 
@@ -61,22 +61,28 @@ If no specific attributes are defined via ``-a``, then, some default attributes 
 
 .. code-block:: bash
 
-    $ conan inspect zlib/1.2.11@conan/stable
+    $ conan inspect zlib/1.2.11@
     name: zlib
     version: 1.2.11
-    url: http://github.com/conan-community/conan-zlib
-    license: http://www.zlib.net/zlib_license.html
+    url: https://github.com/conan-io/conan-center-index
+    homepage: https://zlib.net
+    license: Zlib
     author: None
     description: A Massively Spiffy Yet Delicately Unobtrusive Compression Library (Also Free, Not to Mention Unencumbered by Patents)
+    topics: None
     generators: cmake
     exports: None
-    exports_sources: ['CMakeLists.txt']
+    exports_sources: ['CMakeLists.txt', 'CMakeLists_minizip.txt', 'minizip.patch']
     short_paths: False
     apply_env: True
     build_policy: None
-    topics: None
+    revision_mode: hash
     settings: ('os', 'arch', 'compiler', 'build_type')
     options:
+        fPIC: [True, False]
+        minizip: [True, False]
         shared: [True, False]
     default_options:
+        fPIC: True
+        minizip: False
         shared: False

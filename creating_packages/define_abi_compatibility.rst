@@ -12,7 +12,7 @@ different binary:
 .. code-block:: python
 
     class MyLibConanPackage(ConanFile):	
-        name = "MyLib"
+        name = "mylib"
         version = "1.0"
         settings = "os", "arch", "compiler", "build_type"
 
@@ -20,13 +20,13 @@ When this package is installed by a *conanfile.txt*, another package *conanfile.
 
 .. code-block:: bash
 
-    $ conan install MyLib/1.0@user/channel -s arch=x86_64 -s ...
+    $ conan install mylib/1.0@user/channel -s arch=x86_64 -s ...
 
 The process is:
 
 1. Conan gets the user input settings and options. Those settings and options can come from the command line, profiles or from the values
    cached in the latest :command:`conan install` execution.
-2. Conan retrieves the ``MyLib/1.0@user/channel`` recipe, reads the ``settings`` attribute, and assigns the necessary values.
+2. Conan retrieves the ``mylib/1.0@user/channel`` recipe, reads the ``settings`` attribute, and assigns the necessary values.
 3. With the current package values for ``settings`` (also ``options`` and ``requires``), it will compute a SHA1 hash that will serve as the binary
    package ID, e.g., ``c6d75a933080ca17eb7f076813e7fb21aaa740f2``.
 4. Conan will try to find the ``c6d75...`` binary package. If it exists, it will be retrieved. If it cannot be found, it will fail and indicate that it
@@ -36,7 +36,7 @@ If the package is installed again using different settings, for example, on a 32
 
 .. code-block:: bash
 
-    $ conan install MyLib/1.0@user/channel -s arch=x86 -s ...
+    $ conan install mylib/1.0@user/channel -s arch=x86 -s ...
 
 The process will be repeated with a different generated package ID, because the ``arch``
 setting will have a different value. The same applies to different compilers, compiler versions, build types. When generating multiple
@@ -62,7 +62,7 @@ The recipe for such a package will be to generate a single binary package, no mo
 No matter the settings are defined by the users, including the compiler or version, the package settings and options will always be the same
 (left empty) and they will hash to the same binary package ID. That package will typically contain just the header files.
 
-What happens if we have a library that we can be built with GCC 4.8 and will preserve the ABI compatibility with GCC 4.9?
+What happens if we have a library that can be built with GCC 4.8 and will preserve the ABI compatibility with GCC 4.9?
 (This kind of compatibility is easier to achieve for example for pure C libraries).
 
 Although it could be argued that it is worth rebuilding with 4.9 too -to get fixes and performance improvements-. Let's suppose
@@ -74,7 +74,7 @@ Defining a Custom package_id()
 ------------------------------
 
 The default ``package_id()`` uses the ``settings`` and ``options`` directly as defined, and assumes the
-`semantic versioning <https://semver.org/>`_ for dependencies is defined in ``requires``.
+`semantic versioning <https://semver.org>`_ for dependencies is defined in ``requires``.
 
 This ``package_id()`` method can be overridden to control the package ID generation. Within the ``package_id()``, we have access to the
 ``self.info`` object, which is hashed to compute the binary ID and contains:
@@ -95,7 +95,7 @@ For example, if you are sure your package ABI compatibility is fine for GCC vers
     from conans.model.version import Version
 
     class PkgConan(ConanFile):
-        name = "Pkg"
+        name = "pkg"
         version = "1.0"
         settings = "compiler", "build_type"
 
@@ -112,24 +112,24 @@ Let's try and check that it works properly when installing the package for GCC 4
 
 .. code-block:: bash
 
-    $ conan create . Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.5 ...
+    $ conan create . pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.5 ...
 
     Requirements
-        Pkg/1.0@myuser/mychannel from local
+        pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
+        pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
     ...
 
 We can see that the computed package ID is ``af04...46ad`` (not real). What happens if we specify GCC 4.6?
 
 .. code-block:: bash
 
-    $ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.6 ...
+    $ conan install pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.6 ...
 
     Requirements
-        Pkg/1.0@myuser/mychannel from local
+        pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
+        pkg/1.0@myuser/mychannel:af044f9619574eceb8e1cca737a64bdad88246ad
 
 The required package has the same result again ``af04...46ad``. Now we can try using GCC 4.4 (< 4.5):
 
@@ -138,9 +138,9 @@ The required package has the same result again ``af04...46ad``. Now we can try u
     $ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.4 ...
 
     Requirements
-        Pkg/1.0@myuser/mychannel from local
+        pkg/1.0@myuser/mychannel from local
     Packages
-        Pkg/1.0@myuser/mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
+        pkg/1.0@myuser/mychannel:7d02dc01581029782b59dcc8c9783a73ab3c22dd
 
 The computed package ID is different which means that we need a different binary package for GCC 4.4.
 
@@ -153,33 +153,190 @@ The same way we have adjusted the ``self.info.settings``, we could set the ``sel
         - Recipes packaging **header only** libraries.
         - Adjusting **Visual Studio toolsets** compatibility.
 
+
+.. _compatible_packages:
+
+
+Compatible packages
+-------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+The above approach defined 1 package ID for different input configurations. For example, all ``gcc`` versions
+in the range ``(v >= "4.5" and v < "5.0")`` will have exactly the same package ID, no matter what was the gcc version
+used to build it. It worked like an information erasure, once the binary is built, it is not possible to know which
+gcc was used to build it.
+
+But it is possible to define compatible binaries that have different package IDs. For instance, it
+is possible to have a different binary for each ``gcc`` version, so the
+``gcc 4.8`` package will be a different one with a different package ID than the ``gcc 4.9`` one, and still define
+that you can use the ``gcc 4.8`` package when building with ``gcc 4.9``.
+
+We can define an ordered list of compatible packages, that will be checked in order if
+the package ID that our profile defines is not available. Let's see it with an example:
+
+Lets say that we are building with a profile of ``gcc 4.9``. But for a given package we want to
+fallback to binaries built with ``gcc 4.8`` or ``gcc 4.7`` if we cannot find a binary built with ``gcc 4.9``.
+That can be defined as:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                for version in ("4.8", "4.7"):
+                    compatible_pkg = self.info.clone()
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)
+
+Note that if the input configuration is ``gcc 4.8``, it will not try to fallback to binaries of ``gcc 4.7`` as the
+condition is not met.
+
+The ``self.info.clone()`` method copies the values of ``settings``, ``options`` and ``requires`` from the current instance of
+the recipe so they can be modified to model the compatibility.
+
+It is the responsibility of the developer to guarantee that such binaries are indeed compatible. For example in:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    class Pkg(ConanFile):
+        options = {"optimized": [1, 2, 3]}
+        default_options = {"optimized": 1}
+        def package_id(self):
+            for optimized in range(int(self.options.optimized), 0, -1):
+                compatible_pkg = self.info.clone()
+                compatible_pkg.options.optimized = optimized
+                self.compatible_packages.append(compatible_pkg)
+
+This recipe defines that the binaries are compatible with binaries of itself built with a lower optimization value. It can
+have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary 
+built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
+in their configuration. But a binary built with ``optimized=2`` will not be considered if the requested one is ``optimized=1``.
+
+**The binary should be interchangeable at all effects**. This also applies to other usages of that configuration. If this example used
+the ``optimized`` option to conditionally require different dependencies, that will not be taken into account. The ``package_id()``
+step is processed after the whole dependency graph has been built, so it is not possible to define how dependencies are resolved
+based on this compatibility model, it only applies to use-cases where the binaries can be *interchanged*.
+
+.. note::
+
+    Compatible packages are a match for a binary in the dependency graph. When a compatible package is found, the :command:`--build=missing`
+    build policy will **not** build from sources that package.
+
+Check the :ref:`Compatible Compilers<compatible_compilers>` section to see another example of how to take benefit of compatible packages.
+
+
+.. _compatible_compilers:
+
+Compatible Compilers
+--------------------
+
+Some compilers make use of a base compiler to operate, for example, the ``intel`` compiler uses
+the ``Visual Studio`` compiler in Windows environments and ``gcc`` in Linux environments.
+
+The ``intel`` compiler is declared this way in the :ref:`settings.yml<settings_yml>`:
+
+ .. code-block:: yaml
+
+    intel:
+        version: ["11", "12", "13", "14", "15", "16", "17", "18", "19"]
+        base:
+            gcc:
+                <<: *gcc
+                threads: [None]
+                exception: [None]
+            Visual Studio:
+                <<: *visual_studio
+
+Remember, you can :ref:`extend Conan<extending>` to support other compilers.
+
+
+You can use the ``package_id()`` method to define the compatibility between the packages generated by the ``base`` compiler and the ``parent`` one.
+You can use the following helpers together with the :ref:`compatible packages<compatible_packages>` feature to:
+
+    - Consume native ``Visual Studio`` packages when the input compiler in the profile is ``intel`` (if no ``intel`` package is available).
+    - The opposite, consume an ``intel`` compiler package when a consumer profile specifies ``Visual Studio`` as the input compiler (if no
+      ``Visual Studio`` package is available).
+
+- ``base_compatible()``: This function will transform the settings used to calculate the package ID into the "base" compiler.
+
+  .. code-block:: python
+
+      def package_id(self):
+
+          if self.settings.compiler == "intel":
+              p = self.info.clone()
+              p.base_compatible()
+              self.compatible_packages.append(p)
+
+  Using the above ``package_id()`` method, if a consumer specifies a profile with a intel profile (**-s compiler=="intel"**) and there is no binary available, it will resolve to a
+  Visual Studio package ID corresponding to the base compiler.
+
+
+- ``parent_compatible(compiler="compiler", version="version")``: This function transforms the settings of a compiler into the settings of a
+  parent one using the specified one as the base compiler. As the details of the "parent" compatible cannot be guessed, you have to provide them as **keyword args** to the
+  function. The "compiler" argument is mandatory, the rest of keyword arguments will be used to initialize the ``info.settings.compiler.XXX`` objects
+  to calculate the correct package ID.
+
+  .. code-block:: python
+
+      def package_id(self):
+
+         if self.settings.compiler == "Visual Studio":
+            compatible_pkg = self.info.clone()
+            compatible_pkg.parent_compatible(compiler="intel", version=16)
+            self.compatible_packages.append(compatible_pkg)
+
+  In this case, for a consumer specifying Visual Studio compiler, if no package is found, it will search for an "intel" package for the version 16.
+
+
+Take into account that you can use also these helpers without the "compatible packages" feature:
+
+  .. code-block:: python
+
+      def package_id(self):
+
+         if self.settings.compiler == "Visual Studio":
+            self.info.parent_compatible(compiler="intel", version=16)
+
+In the above example, we will transform the package ID of the ``Visual Studio`` package to be the same as the ``intel 16``, but you won't
+be able to differentiate the packages built with ``intel`` with the ones built by ``Visual Studio`` because both will have the same package ID,
+and that is not always desirable.
+
 .. _problem_of_dependencies:
 
 Dependency Issues
 -----------------
 
-Let's define a simple scenario whereby there are two packages: ``MyOtherLib/2.0`` and ``MyLib/1.0`` which depends on
-``MyOtherLib/2.0``. Let's assume that their recipes and binaries have already been created and uploaded to a Conan remote.
+Let's define a simple scenario whereby there are two packages: ``my_other_lib/2.0`` and ``my_lib/1.0`` which depends on
+``my_other_lib/2.0``. Let's assume that their recipes and binaries have already been created and uploaded to a Conan remote.
 
-Now, a new release for ``MyOtherLib/2.1`` is released with an improved recipe and new binaries. The ``MyLib/1.0`` is modified and is required to be upgraded to ``MyOtherLib/2.1``.
+Now, a new release for ``my_other_lib/2.1`` is released with an improved recipe and new binaries. The ``my_lib/1.0`` is modified and is required to be upgraded to ``my_other_lib/2.1``.
 
 .. note::
 
-    This scenario will be the same in the case that a consuming project of ``MyLib/1.0`` defines a dependency to ``MyOtherLib/2.1``, which
-    takes precedence over the existing project in ``MyLib/1.0``.
+    This scenario will be the same in the case that a consuming project of ``my_lib/1.0`` defines a dependency to ``my_other_lib/2.1``, which
+    takes precedence over the existing project in ``my_lib/1.0``.
 
-The question is: **Is it necessary to build new MyLib/1.0 binary packages?** or are the existing packages still valid?
+The question is: **Is it necessary to build new** ``my_lib/1.0`` **binary packages?** or are the existing packages still valid?
 
 The answer: **It depends**.
 
-Let's assume that both packages are compiled as static libraries and that the API exposed by ``MyOtherLib`` to ``MyLib/1.0`` through the
-public headers, has not changed at all. In this case, it is not required to build new binaries for ``MyLib/1.0`` because the final consumer will
-link against both ``Mylib/1.0`` and ``MyOtherLib/2.1``.
+Let's assume that both packages are compiled as static libraries and that the API exposed by ``my_other_lib`` to ``my_lib/1.0`` through the
+public headers, has not changed at all. In this case, it is not required to build new binaries for ``my_lib/1.0`` because the final consumer will
+link against both ``my_lib/1.0`` and ``my_other_lib/2.1``.
 
-On the other hand, it could happen that the API exposed by **MyOtherLib** in the public headers has changed, but without affecting the
-``MyLib/1.0`` binary for any reason (like changes consisting on new functions not used by **MyLib**). The same reasoning would apply if **MyOtherLib** was only the header.
+On the other hand, it could happen that the API exposed by **my_other_lib** in the public headers has changed, but without affecting the
+``my_lib/1.0`` binary for any reason (like changes consisting on new functions not used by **my_lib**). The same reasoning would apply if **MyOtherLib** was only the header.
 
-But what if a header file of ``MyOtherLib`` -named *myadd.h*- has changed from ``2.0`` to ``2.1``:
+But what if a header file of ``my_other_lib`` -named *myadd.h*- has changed from ``2.0`` to ``2.1``:
 
 .. code-block:: cpp
    :caption: *myadd.h* header file in version 2.0
@@ -191,11 +348,12 @@ But what if a header file of ``MyOtherLib`` -named *myadd.h*- has changed from `
 
     int addition (int a, int b) { return a + b; }
 
-And the ``addition()`` function is called from the compiled *.cpp* files of ``MyLib/1.0``?
+And the ``addition()`` function is called from the compiled *.cpp* files of ``my_lib/1.0``?
 
-Then, **a new binary for MyLib/1.0 is required to be built for the new dependency version**. Otherwise it will maintain the old, buggy
-``addition()`` version. Even in the case that ``MyLib/1.0`` doesn't have any change in its code lines neither in the recipe, the resulting
-binary rebuilding ``MyLib`` requires ``MyOtherLib/2.1`` and the package to be different.
+Then, **a new binary for my_lib/1.0 is required to be built for the new dependency version**. Otherwise it will maintain the old, buggy
+``addition()`` version. Even in the case that ``my_lib/1.0`` doesn't have any change in its code lines neither in the recipe, the resulting
+binary rebuilding ``my_lib`` requires ``my_other_lib/2.1`` and the package to be different.
+
 
 .. _package_id_mode:
 
@@ -203,11 +361,11 @@ Using package_id() for Package Dependencies
 -------------------------------------------
 
 The ``self.info`` object has also a ``requires`` object. It is a dictionary containing the necessary information for each requirement, all direct
-and transitive dependencies. For example, ``self.info.requires["MyOtherLib"]`` is a ``RequirementInfo`` object.
+and transitive dependencies. For example, ``self.info.requires["my_other_lib"]`` is a ``RequirementInfo`` object.
 
 - Each ``RequirementInfo`` has the following `read only` reference fields:
 
-    - ``full_name``: Full require's name, e.g., **MyOtherLib**
+    - ``full_name``: Full require's name, e.g., **my_other_lib**
     - ``full_version``: Full require's version, e.g., **1.2**
     - ``full_user``: Full require's user, e.g., **my_user**
     - ``full_channel``: Full require's channel, e.g., **stable**
@@ -215,7 +373,7 @@ and transitive dependencies. For example, ``self.info.requires["MyOtherLib"]`` i
 
 - The following fields are used in the ``package_id()`` evaluation:
 
-    - ``name``: By default same value as full_name, e.g., **MyOtherLib**.
+    - ``name``: By default same value as full_name, e.g., **my_other_lib**.
     - ``version``: By default the major version representation of the ``full_version``.
       E.g., **1.Y** for a **1.2** ``full_version`` field and **1.Y.Z** for a **1.2.3**
       ``full_version`` field.
@@ -231,7 +389,7 @@ When defining a package ID for model dependencies, it is necessary to take into 
 Versioning Schema
 +++++++++++++++++
 
-By default Conan assumes `semver <https://semver.org/>`_ compatibility. For example, if a version changes from minor **2.0** to **2.1**, Conan will
+By default Conan assumes `semver <https://semver.org>`_ compatibility. For example, if a version changes from minor **2.0** to **2.1**, Conan will
 assume that the API is compatible (headers not changing), and that it is not necessary to build a new binary for it. This also applies to
 patches, whereby changing from **2.1.10** to **2.1.11** doesn't require a re-build.
 
@@ -243,13 +401,13 @@ If it is necessary to change the default behavior, the applied versioning schema
     from conans.model.version import Version
 
     class PkgConan(ConanFile):
-        name = "Mylib"
+        name = "my_lib"
         version = "1.0"
         settings = "os", "compiler", "build_type", "arch"
-        requires = "MyOtherLib/2.0@lasote/stable"
+        requires = "my_other_lib/2.0@lasote/stable"
 
         def package_id(self):
-            myotherlib = self.info.requires["MyOtherLib"]
+            myotherlib = self.info.requires["my_other_lib"]
 
             # Any change in the MyOtherLib version will change current Package ID
             myotherlib.version = myotherlib.full_version
@@ -265,7 +423,7 @@ You can determine if the following variables within any requirement change the I
 
 +----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
 | **Modes / Variables**      | ``name`` | ``version``                             | ``user`` | ``channel`` | ``package_id`` | RREV | PREV |
-+============================+==========+=========================================+==========+=============+================+=============+
++============================+==========+=========================================+==========+=============+================+======+======+
 | ``semver_direct_mode()``   | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             | No   | No   |
 +----------------------------+----------+-----------------------------------------+----------+-------------+----------------+------+------+
 | ``semver_mode()``          | Yes      | Yes, only > 1.0.0 (e.g., **1**.2.Z+b102)| No       | No          | No             | No   | No   |
@@ -312,11 +470,11 @@ All the modes can be applied to all dependencies, or to individual ones:
 
   .. code-block:: text
 
-    MyLib/1.2.3@user/testing       => MyLib/1.Y.Z
-    MyOtherLib/2.3.4@user/testing  =>
+    my_lib/1.2.3@user/testing       => my_lib/1.Y.Z
+    my_other_lib/2.3.4@user/testing  =>
 
   So the direct dependencies are mapped to the major version only. Changing its channel, or using version
-  ``MyLib/1.4.5`` will still produce ``MyLib/1.Y.Z`` and thus the same package-id.
+  ``my_lib/1.4.5`` will still produce ``my_lib/1.Y.Z`` and thus the same package-id.
   The indirect, transitive dependency doesn't affect the package-id at all.
 
 - ``semver_mode()``: In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
@@ -325,21 +483,21 @@ All the modes can be applied to all dependencies, or to individual ones:
   .. code-block:: python
 
     def package_id(self):
-      self.info.requires["MyOtherLib"].semver_mode()
+      self.info.requires["my_other_lib"].semver_mode()
 
   This results in:
 
   .. code-block:: text
 
-    MyLib/1.2.3@user/testing       => MyLib/1.Y.Z
-    MyOtherLib/2.3.4@user/testing  => MyOtherLib/2.Y.Z
+    my_lib/1.2.3@user/testing       => my_lib/1.Y.Z
+    my_other_lib/2.3.4@user/testing  => my_other_lib/2.Y.Z
 
   In this mode, versions starting with ``0`` are considered unstable and mapped to the full version:
 
   .. code-block:: text
 
-    MyLib/0.2.3@user/testing       => MyLib/0.2.3
-    MyOtherLib/0.3.4@user/testing  => MyOtherLib/0.3.4
+    my_lib/0.2.3@user/testing       => my_lib/0.2.3
+    my_other_lib/0.3.4@user/testing  => my_other_lib/0.3.4
 
 - ``major_mode()``: Any change in the major release version (starting from **0.0.0**) changes the package ID.
 
@@ -356,14 +514,14 @@ All the modes can be applied to all dependencies, or to individual ones:
   .. code-block:: python
 
       def package_id(self):
-          self.info.requires["MyOtherLib"].minor_mode()
+          self.info.requires["my_other_lib"].minor_mode()
 
 - ``patch_mode()``: Any changes to major, minor or patch (not build) versions of the required dependency change the package ID.
 
   .. code-block:: python
 
       def package_id(self):
-          self.info.requires["MyOtherLib"].patch_mode()
+          self.info.requires["my_other_lib"].patch_mode()
 
 - ``base_mode()``: Any changes to the base of the version (not build) of the required dependency changes the package ID. Note that in the
   case of semver notation this may produce the same result as ``patch_mode()``, but it is actually intended to dismiss the build part of the
@@ -372,38 +530,38 @@ All the modes can be applied to all dependencies, or to individual ones:
   .. code-block:: python
 
       def package_id(self):
-          self.info.requires["MyOtherLib"].base_mode()
+          self.info.requires["my_other_lib"].base_mode()
 
 - ``full_version_mode()``: Any changes to the version of the required dependency changes the package ID.
 
   .. code-block:: python
 
     def package_id(self):
-      self.info.requires["MyOtherLib"].full_version_mode()
+      self.info.requires["my_other_lib"].full_version_mode()
 
   .. code-block:: text
 
-    MyOtherLib/1.3.4-a4+b3@user/testing  => MyOtherLib/1.3.4-a4+b3   
+    my_other_lib/1.3.4-a4+b3@user/testing  => my_other_lib/1.3.4-a4+b3   
 
 - ``full_recipe_mode()``: Any change in the reference of the requirement (user & channel too) changes the package ID.
 
   .. code-block:: python
 
     def package_id(self):
-      self.info.requires["MyOtherLib"].full_recipe_mode()
+        self.info.requires["my_other_lib"].full_recipe_mode()
 
   This keeps the whole dependency reference, except the package-id of the dependency.
 
   .. code-block:: text
 
-    MyOtherLib/1.3.4-a4+b3@user/testing  => MyOtherLib/1.3.4-a4+b3@user/testing   
+    my_other_lib/1.3.4-a4+b3@user/testing  => my_other_lib/1.3.4-a4+b3@user/testing   
 
 - ``full_package_mode()``: Any change in the required version, user, channel or package ID changes the package ID.
 
   .. code-block:: python
 
     def package_id(self):
-      self.info.requires["MyOtherLib"].full_package_mode()
+        self.info.requires["my_other_lib"].full_package_mode()
 
   Any change to the dependency, including its binary package-id, will in turn
   produce a new package-id for the consumer package.
@@ -419,8 +577,9 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["MyOtherLib"].unrelated_mode()
 
-- ``recipe_revision_mode()``: The full reference `pkg/version@user/channel#RREV` of the dependencies,
-  including the recipe revision will be taken into account to compute the consumer package ID
+- ``recipe_revision_mode()``: The full reference and the package ID of the dependencies,
+  `pkg/version@user/channel#RREV:pkg_id` (including the recipe revision), will be taken
+  into account to compute the consumer package ID
 
  .. code-block:: text
 
@@ -431,7 +590,7 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["mypkg"].recipe_revision_mode()
 
-- ``package_revision_mode()``: The full pckage reference `pkg/version@user/channel#RREV:ID#PREV`
+- ``package_revision_mode()``: The full package reference `pkg/version@user/channel#RREV:ID#PREV`
   of the dependencies, including the recipe revision, the binary package ID and the package revision
   will be taken into account to compute the consumer package ID
 
@@ -489,6 +648,7 @@ The default behavior produces a *conaninfo.txt* that looks like:
 
 Changing the default package-id mode
 ++++++++++++++++++++++++++++++++++++
+
 It is possible to change the default ``semver_direct_mode`` package-id mode, in the
 *conan.conf* file:
 
@@ -499,6 +659,14 @@ It is possible to change the default ``semver_direct_mode`` package-id mode, in 
    default_package_id_mode=full_package_mode
 
 Possible values are the names of the above methods: ``full_recipe_mode``, ``semver_mode``, etc.
+
+.. note::
+
+    The ``default_package_id_mode`` is a global configuration. It will change how all the package-ids are
+    computed, for all packages. It is impossible to mix different ``default_package_id_mode`` values.
+    The same ``default_package_id_mode`` must be used in all clients, servers, CI, etc., and it cannot
+    be changed without rebuilding all packages.
+
 
 Note that the default package-id mode is the mode that is used when the package is initialized
 and **before** ``package_id()`` method is called. You can still define ``full_package_mode``
@@ -516,52 +684,114 @@ that only generates 1 package-id for all possible configurations and versions of
 
 Remember that *conan.conf* can be shared and installed with :ref:`conan_config_install`.
 
+Take into account that you can combine the :ref:`compatible packages<compatible_packages>` with the package-id modes.
+
+For example, if you are generating binary packages with the default ``recipe_revision_mode``,
+but you want these packages to be consumed from a client with a different mode activated,
+you can create a compatible package transforming the mode to ``recipe_revision_mode`` so the package
+generated with the ``recipe_revision_mode`` can be resolved if no package for the default mode is found:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        ...
+
+        def package_id(self):
+            p = self.info.clone()
+            p.requires.recipe_revision_mode()
+            self.compatible_packages.append(p)
+
+
+.. _full_transitive_package_id:
+
+Enabling full transitivity in package_id modes
+++++++++++++++++++++++++++++++++++++++++++++++
+
+.. warning::
+
+    This will become the default behavior in the future (Conan 2.0). It is recommended to activate it when possible (it might require rebuilding some packages,
+    as their package IDs will change)
+
+
+When a package declares in its ``package_id()`` method that it is not affected by its dependencies, that will propagate down
+to the indirect consumers of that package. There are several ways this can be done, ``self.info.header_only()``, ``self.info.requires.clear()``,
+``self.info.requires.remove["dep"]`` and ``self.info.requires.unrelated_mode()``, for example.
+
+Let's assume for the discussion that it is a header only library, using the ``self.info.header_only()`` helper. This header only package has
+a single dependency, which is a static library. Then, downstream
+consumers of the header only library that uses a package mode different from the default, should be also affected by the upstream
+transitivity dependency. Lets say that we have the following scenario:
+
+- ``app/1.0`` depends on ``pkgc/1.0`` and ``pkga/1.0``
+- ``pkgc/1.0`` depends only on ``pkgb/1.0``
+- ``pkgb/1.0`` depends on ``pkga/1.0``, and defines ``self.info.header_only()`` in its ``package_id()``
+- We are using ``full_version_mode``
+- Now we create a new ``pkga/2.0`` that has some changes in its header, that would require to rebuild ``pkgc/1.0`` against it.
+- ``app/1.0`` now depends on ```pkgc/1.0`` and ``pkga/2.0``
+
+.. image:: /images/conan-full_transitive_package_id.png
+    :width: 100 %
+    :align: center
+
+With the default behavior, the header only ``pkgb`` is isolating ``pkgc`` from the upstream changes effects. The package-id ``PIDC1`` we
+get for ``pkgc/1.0`` is exactly the same when depending on ``pkga/1.0`` and ``pkga/2.0``.
+
+If we want to have the ``full_version_mode`` to be fully transitive, irrespective of the local package-id modes of the packages,
+we can configure it in the :ref:`conan_conf` section. To summarize, you can activate the ``general.full_transitive_package_id``
+configuration (``$ conan config set general.full_transitive_package_id=1``).
+
+If we do this, then ``pkgc/1.0`` will compute 2 different package-ids, one for ``pkga/1.0`` (``PIDC1``) and the other to link with
+``pkga/2.0`` (``PIDC2``).
+
+
 Library Types: Shared, Static, Header-only
 ++++++++++++++++++++++++++++++++++++++++++
 
 Let's see some examples, corresponding to common scenarios:
 
-- ``MyLib/1.0`` is a shared library that links with a static library ``MyOtherLib/2.0`` package.
-  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for
-  ``MyLib/1.0`` to link with it?
+- ``my_lib/1.0`` is a shared library that links with a static library ``my_other_lib/2.0`` package.
+  When a new ``my_other_lib/2.1`` version is released: Do I need to create a new binary for
+  ``my_lib/1.0`` to link with it?
 
-  Yes, always, as the implementation is embedded in the ``MyLib/1.0`` shared library. If we
+  Yes, always, as the implementation is embedded in the ``my_lib/1.0`` shared library. If we
   always want to rebuild our library, even if the channel changes (we assume a channel change could
   mean a source code change):
 
   .. code-block:: python
 
       def package_id(self):
-          # Any change in the MyOtherLib version, user or
+          # Any change in the my_other_lib version, user or
           # channel or Package ID will affect our package ID
-          self.info.requires["MyOtherLib"].full_package_mode()
+          self.info.requires["my_other_lib"].full_package_mode()
 
-- ``MyLib/1.0`` is a shared library, requiring another shared library ``MyOtherLib/2.0`` package.
-  When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for
-  ``MyLib/1.0`` to link with it?
+- ``my_lib/1.0`` is a shared library, requiring another shared library ``my_other_lib/2.0`` package.
+  When a new ``my_other_lib/2.1`` version is released: Do I need to create a new binary for
+  ``my_lib/1.0`` to link with it?
 
   It depends. If the public headers have not changed at all, it is not necessary. Actually it might
   be necessary to consider transitive dependencies that are shared among the public headers, how
   they are linked and if they cross the frontiers of the API, it might also lead to
   incompatibilities. If the public headers have changed, it would depend on what changes and how are
-  they used in ``MyLib/1.0``. Adding new methods to the public headers will have no impact, but
+  they used in ``my_lib/1.0``. Adding new methods to the public headers will have no impact, but
   changing the implementation of some functions that will be inlined when compiled from
-  ``MyLib/1.0`` will definitely require re-building. For this case, it could make sense to have this configuration:
+  ``my_lib/1.0`` will definitely require re-building. For this case, it could make sense to have this configuration:
 
   .. code-block:: python
 
       def package_id(self):
-          # Any change in the MyOtherLib version, user or channel
+          # Any change in the my_other_lib version, user or channel
           # or Package ID will affect our package ID
-          self.info.requires["MyOtherLib"].full_package_mode()
+          self.info.requires["my_other_lib"].full_package_mode()
 
-          # Or any change in the MyOtherLib version, user or
+          # Or any change in the my_other_lib version, user or
           # channel will affect our package ID
-          self.info.requires["MyOtherLib"].full_recipe_mode()
+          self.info.requires["my_other_lib"].full_recipe_mode()
 
-- ``MyLib/1.0`` is a header-only library, linking with any kind (header, static, shared) of library
-  in ``MyOtherLib/2.0`` package. When a new ``MyOtherLib/2.1`` version is released: Do I need to
-  create a new binary for ``MyLib/1.0`` to link with it?
+- ``my_lib/1.0`` is a header-only library, linking with any kind (header, static, shared) of library
+  in ``my_other_lib/2.0`` package. When a new ``my_other_lib/2.1`` version is released: Do I need to
+  create a new binary for ``my_lib/1.0`` to link with it?
 
   Never. The package should always be the same as there are no settings, no options, and in any way a
   dependency can affect a binary, because there is no such binary. The default behavior should be
@@ -572,11 +802,11 @@ Let's see some examples, corresponding to common scenarios:
       def package_id(self):
           self.info.requires.clear()
 
-- ``MyLib/1.0`` is a static library linking to a header only library in ``MyOtherLib/2.0``
-  package. When a new ``MyOtherLib/2.1`` version is released: Do I need to create a new binary for
-  ``MyLib/1.0`` to link with it? It could happen that the ``MyOtherLib`` headers are strictly used
-  in some ``MyLib`` headers, which are not compiled, but transitively included. But in general,
-  it is more likely that ``MyOtherLib`` headers are used in ``MyLib`` implementation files, so every
+- ``my_lib/1.0`` is a static library linking to a header only library in ``my_other_lib/2.0``
+  package. When a new ``my_other_lib/2.1`` version is released: Do I need to create a new binary for
+  ``my_lib/1.0`` to link with it? It could happen that the ``my_other_lib`` headers are strictly used
+  in some ``my_lib`` headers, which are not compiled, but transitively included. But in general,
+  it is more likely that ``my_other_lib`` headers are used in ``MyLib`` implementation files, so every
   change in them should imply a new binary to be built. If we know that changes in the channel never
   imply a source code change, as set in our workflow/lifecycle, we could
   write:
@@ -584,5 +814,5 @@ Let's see some examples, corresponding to common scenarios:
   .. code-block:: python
 
       def package_id(self):
-          self.info.requires["MyOtherLib"].full_package()
-          self.info.requires["MyOtherLib"].channel = None # Channel doesn't change out package ID
+          self.info.requires["my_other_lib"].full_package()
+          self.info.requires["my_other_lib"].channel = None # Channel doesn't change out package ID

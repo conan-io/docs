@@ -8,9 +8,13 @@ conan install
 
     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-m [MANIFESTS]]
                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
-                    [--no-imports] [-j JSON] [-b [BUILD]] [-e ENV]
-                    [-o OPTIONS] [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
-                    [-l [LOCKFILE]]
+                    [--no-imports] [-j JSON] [-b [BUILD]] [-r REMOTE] [-u]
+                    [-l [LOCKFILE]] [-e ENV_HOST] [-e:b ENV_BUILD]
+                    [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
+                    [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                    [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
+                    [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
+                    [-s:h SETTINGS_HOST]
                     path_or_reference [reference]
 
 Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -21,7 +25,7 @@ retrieve the recipe from a remote, looking for it sequentially in the
 configured remotes. When the recipes have been downloaded it will try
 to download a binary package matching the specified settings, only from
 the remote from which the recipe was retrieved. If no binary package is
-found, it can be build from sources using the '--build' option. When
+found, it can be built from sources using the '--build' option. When
 the package is installed, Conan will write the files for the specified
 generators.
 
@@ -58,41 +62,70 @@ generators.
       -j JSON, --json JSON  Path to a json file where the install information will
                             be written
       -b [BUILD], --build [BUILD]
-                            Optional, use it to choose if you want to build from
-                            sources: --build Build all from sources, do not use
-                            binary packages. --build=never Never build, use binary
-                            packages or fail if a binary package is not found.
-                            --build=missing Build from code if a binary package is
-                            not found. --build=cascade Will build from code all
-                            the nodes with some dependency being built (for any
-                            reason). Can be used together with any other build
-                            policy. Useful to make sure that any new change
-                            introduced in a dependency is incorporated by building
-                            again the package. --build=outdated Build from code if
-                            the binary is not built with the current recipe or
-                            when missing binary package. --build=[pattern] Build
-                            always these packages from source, but never build the
-                            others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package reference.
-                            Default behavior: If you don't specify anything, it
-                            will be similar to '--build=never', but package
-                            recipes can override it with their 'build_policy'
-                            attribute in the conanfile.py.
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
+                            Optional, specify which packages to build from source.
+                            Combining multiple '--build' options on one command
+                            line is allowed. For dependencies, the optional
+                            'build_policy' attribute in their conanfile.py takes
+                            precedence over the command line parameter. Possible
+                            parameters: --build Force build for all packages, do
+                            not use binary packages. --build=never Disallow build
+                            for all packages, use binary packages or fail if a
+                            binary package is not found. Cannot be combined with
+                            other '--build' options. --build=missing Build
+                            packages from source whose binary package is not
+                            found. --build=outdated Build packages from source
+                            whose binary package was not generated from the latest
+                            recipe or is not found. --build=cascade Build packages
+                            from source that have at least one dependency being
+                            built from source. --build=[pattern] Build packages
+                            from source whose package reference matches the
+                            pattern. The pattern uses 'fnmatch' style wildcards.
+                            Default behavior: If you omit the '--build' option,
+                            the 'build_policy' attribute in conanfile.py will be
+                            used if it exists, otherwise the behavior is like '--
+                            build=never'.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
       -l [LOCKFILE], --lockfile [LOCKFILE]
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile can be updated if packages change
+      -e ENV_HOST, --env ENV_HOST
+                            Environment variables that will be set during the
+                            package build (host machine). e.g.: -e
+                            CXX=/usr/bin/clang++
+      -e:b ENV_BUILD, --env:build ENV_BUILD
+                            Environment variables that will be set during the
+                            package build (build machine). e.g.: -e:b
+                            CXX=/usr/bin/clang++
+      -e:h ENV_HOST, --env:host ENV_HOST
+                            Environment variables that will be set during the
+                            package build (host machine). e.g.: -e:h
+                            CXX=/usr/bin/clang++
+      -o OPTIONS_HOST, --options OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o
+                            Pkg:with_qt=true
+      -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+                            Define options values (build machine), e.g.: -o:b
+                            Pkg:with_qt=true
+      -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o:h
+                            Pkg:with_qt=true
+      -pr PROFILE_HOST, --profile PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+                            Apply the specified profile to the build machine
+      -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -s SETTINGS_HOST, --settings SETTINGS_HOST
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s compiler=gcc
+      -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+                            Settings to build the package, overwriting the
+                            defaults (build machine). e.g.: -s:b compiler=gcc
+      -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s:h compiler=gcc
 
 
 :command:`conan install` executes methods of a *conanfile.py* in the following order:
@@ -129,7 +162,7 @@ executes the following:
 
   .. code-block:: bash
 
-      $ conan install . -o PkgName:use_debug_mode=on -s compiler=clang
+      $ conan install . -o pkg_name:use_debug_mode=on -s compiler=clang
 
 - Install the requirements defined in a ``conanfile.py`` file in your current directory, with the
   default settings in default profile ``<userhome>/.conan/profiles/default``, and specifying the
@@ -155,35 +188,44 @@ executes the following:
   Those values are cached in a file, so later calls to local commands like ``conan build`` can find
   and use this version, user and channel data.
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference with its default options and default
+- Install the **opencv/4.1.1@conan/stable** reference with its default options and default
   settings from ``<userhome>/.conan/profiles/default``:
 
   .. code-block:: bash
 
-      $ conan install opencv/2.4.10@lasote/testing
+      $ conan install opencv/4.1.1@conan/stable
 
-- Install the **OpenCV/2.4.10@lasote/testing** reference updating the recipe and the binary package
+- Install the **opencv/4.1.1@conan/stable** reference updating the recipe and the binary package
   if new upstream versions are available:
 
   .. code-block:: bash
 
-      $ conan install opencv/2.4.10@lasote/testing --update
+      $ conan install opencv/4.1.1@conan/stable --update
 
 .. _buildoptions:
 
 build options
 -------------
 
-Both the conan **install** and **create** commands have options to specify whether conan should try
-to build things or not:
+Both the conan **install** and **create** commands accept :command:`--build` options to specify
+which packages to build from source. Combining multiple :command:`--build` options on one command
+line is allowed, where a package is built from source if at least one of the given build options
+selects it for the build. For dependencies, the optional ``build_policy`` attribute in their
+`conanfile.py` can override the behavior of the given command line parameters.
+Possible values are:
 
-* :command:`--build=never`: This is the default option. It is not necessary to write it explicitly.
-  Conan will not try to build packages when the requested configuration does not match, in which
-  case it will throw an error.
-* :command:`--build=missing`: Conan will try to build from source, all packages of which the
-  requested configuration was not found on any of the active remotes.
-* :command:`--build=outdated`: Conan will try to build from code if the binary is not built with the
-  current recipe or when missing binary package.
+* :command:`--build`: Always build everything from source. Produces a clean re-build of all packages.
+  and transitively dependent packages
+* :command:`--build=never`: Conan will not try to build packages when the requested configuration
+  does not match, in which case it will throw an error. This option can not be combined with other
+  :command:`--build` options.
+* :command:`--build=missing`: Conan will try to build packages from source whose binary package was
+  not found in the requested configuration on any of the active remotes or the cache.
+* :command:`--build=outdated`: Conan will try to build packages from source whose binary package was
+  not built with the current recipe or when missing the binary package.
+* :command:`--build=cascade`: Conan selects packages for the build where at least one of its
+  dependencies is selected for the build. This is useful to rebuild packages that, directly or
+  indirectly, depend on changed packages.
 * :command:`--build=[pattern]`: A fnmatch case-sensitive pattern of a package reference or only the package name.
   Conan will force the build of the packages whose reference matches the given
   **pattern**. Several patterns can be specified, chaining multiple options:
@@ -192,8 +234,9 @@ to build things or not:
    - e.g., :command:`--build=zlib` will match any package named ``zlib`` (same as ``zlib/*``).
    - e.g., :command:`--build=z*@conan/stable` will match any package starting with ``z`` with ``conan/stable`` as user/channel.
 
-* :command:`--build`: Always build everything from source. Produces a clean re-build of all packages
-  and transitively dependent packages
+If you omit the :command:`--build` option, the ``build_policy`` attribute in `conanfile.py` will be
+looked up. If it is set to ``missing`` or ``always``, this build option will be used, otherwise the
+command will behave like :command:`--build=never` was set.
 
 env variables
 -------------
@@ -213,9 +256,9 @@ requirements you can use the [] syntax:
 
 .. code-block:: bash
 
-    $ conan install . -e PYTHONPATH=[/other/path]
+    $ conan install . -e PATH=[/other/path]
 
-This way the first entry in the PYTHONPATH variable will be :command:`/other/path` but the PYTHONPATH values
+This way the first entry in the ``PATH`` variable will be */other/path* but the ``PATH`` values
 declared in the requirements of the project will be appended at the end using the system path
 separator.
 
@@ -264,3 +307,9 @@ they should match, otherwise, an error will be raised.
     $ conan install . version@user/testing # OK
     $ conan install . pkg/version@user/testing # OK
     $ conan install pkg/version@user/testing user/channel # Error, first arg is not a path
+
+
+.. note::
+
+  Installation of binaries can be accelerated setting up parallel downloads with the ``general.parallel_download``
+  **experimental** configuration in :ref:`conan_conf`.

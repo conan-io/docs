@@ -3,8 +3,6 @@ import os
 import shutil
 import tempfile
 
-from _elastic.indexer import ElasticManager
-
 
 def copytree(src, dst, symlinks=False, ignore=None):
     for item in os.listdir(src):
@@ -20,14 +18,6 @@ def call(command, ignore_error=False):
     ret = os.system(command)
     if ret != 0 and not ignore_error:
         raise Exception("Command failed: %s" % command)
-
-
-excluded_files = (".git", "CNAME", "index.html")
-
-
-def config_git():
-    call('git config --global user.email "lasote@gmail.com"')
-    call('git config --global user.name "Luis Martinez de Bartolome"')
 
 
 def clean_gh_pages():
@@ -49,20 +39,16 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
     shutil.rmtree("_themes")
     copytree(themes_dir, "_themes")
 
-    call("make html")
-    call("make json")
+    call("make html > /dev/null")
 
     if validate_links:
-        call("make spelling")
+        call("make spelling > /dev/null")
         call("make linkcheck")
-    call("make latexpdf")
+    call("make latexpdf > /dev/null")
     tmp_dir = tempfile.mkdtemp()
 
     copytree("_build/html/", tmp_dir)
     shutil.copy2("_build/latex/conan.pdf", tmp_dir)
-
-    tmp_dir_json = tempfile.mkdtemp()
-    copytree("_build/json/", tmp_dir_json)
 
     shutil.rmtree("_build")
 
@@ -87,8 +73,6 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
         call("git add -A .")
         call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
 
-    return tmp_dir_json
-
 
 def should_deploy():
     if not os.getenv("TRAVIS_BRANCH", None) == "master":
@@ -107,9 +91,14 @@ def should_deploy():
 
 
 def deploy():
+    call('rm -rf .git')
+    call('git init .')
+    call('git add .')
+    call('git checkout -b gh-pages')
+    call('git commit -m "Cleared web"')
     call('git remote add origin-pages '
          'https://%s@github.com/conan-io/docs.git > /dev/null 2>&1' % os.getenv("GITHUB_API_KEY"))
-    call('git push origin-pages gh-pages')
+    call('git push origin-pages gh-pages --force')
 
 
 if __name__ == "__main__":
@@ -119,14 +108,16 @@ if __name__ == "__main__":
         themes_dir = tempfile.mkdtemp()
         copytree("_themes", themes_dir)
 
-        host = os.getenv("ELASTIC_SEARCH_HOST")
-        region = os.getenv("ELASTIC_SEARCH_REGION")
-        es = ElasticManager(host, region)
-        es.ping()
-
-        # config_git()
         clean_gh_pages()
-        versions_dict = {"master": "1.17",
+        versions_dict = {"master": "1.25",
+                         "release/1.24.1": "1.24",
+                         "release/1.23.0": "1.23",
+                         "release/1.22.3": "1.22",
+                         "release/1.21.3": "1.21",
+                         "release/1.20.5": "1.20",
+                         "release/1.19.3": "1.19",
+                         "release/1.18.5": "1.18",
+                         "release/1.17.2": "1.17",
                          "release/1.16.1": "1.16",
                          "release/1.15.2": "1.15",
                          "release/1.14.5": "1.14",
@@ -142,28 +133,13 @@ if __name__ == "__main__":
                          "release/1.4.5": "1.4",
                          "release/1.3.3": "1.3"}
 
-        to_index = {}
         for branch, folder_name in versions_dict.items():
-            json_folder = build_and_copy(branch, folder_name, versions_dict, themes_dir,
-                                         validate_links=branch == "master")
-            to_index[folder_name] = json_folder
-
-        # Index
-        print("Indexing...")
-        print(to_index)
-
-        try:
-            es.remove_index()
-        except:
-            pass
-        es.create_index()
-        for version, folder in to_index.items():
-            es.index(version, folder)
+            print("Building {}...".format(branch))
+            build_and_copy(branch, folder_name, versions_dict, themes_dir)
 
         deploy()
 
     else:
-        call("make html")
-        call("make json")
+        call("make html > /dev/null")
         call("make spelling")
         call("make linkcheck")

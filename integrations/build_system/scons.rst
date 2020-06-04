@@ -10,7 +10,7 @@ generator. The package recipe ``build()`` method could be similar to:
 
     class PkgConan(ConanFile):
         settings = 'os', 'compiler', 'build_type', 'arch'
-        requires = 'Hello/1.0@user/stable'
+        requires = 'hello/1.0@user/stable'
         generators = "scons"
         ...
 
@@ -53,4 +53,4 @@ repository. Give it a try!
     > Hello World Debug!
 
 
-.. |scons_logo| image:: ../../images/scons.png
+.. |scons_logo| image:: ../../images/conan-scons.png

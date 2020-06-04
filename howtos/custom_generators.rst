@@ -89,7 +89,7 @@ This is a full working example. Note the ``PremakeDeps`` class as a helper. The 
 individual library separately, then also an aggregated information for all dependencies. This ``PremakeDeps`` wraps a single item of such
 information.
 
-Note the **name of the package** will be **PremakeGen/0.1@<user>/<channel>** as that is the name given to it, while the generator name is
+Note the **name of the package** will be **premakegen/0.1@<user>/<channel>** as that is the name given to it, while the generator name is
 **Premake** (the name of the class that inherits from ``Generator``). You can give the package any name you want, even the same as the
 generator's name if desired.
 
@@ -120,15 +120,15 @@ Now, let's create a folder for the application that will use Premake as build sy
     $ cd ..
     $ mkdir premake-project && cd premake-project
 
-Put the following files inside. Note the ``PremakeGen@0.1@myuser/testing`` package reference in your *conanfile.txt*.
+Put the following files inside. Note the ``premakegen@0.1@myuser/testing`` package reference in your *conanfile.txt*.
 
 .. code-block:: text
    :caption: *conanfile.txt*
 
     [requires]
     hello/0.1@myuser/testing
-    PremakeGen@0.1@myuser/testing
-    
+    premakegen@0.1@myuser/testing
+
     [generators]
     Premake
 
@@ -136,7 +136,7 @@ Put the following files inside. Note the ``PremakeGen@0.1@myuser/testing`` packa
    :caption: *main.cpp*
 
     #include "hello.h"
-    
+
     int main (void) {
         hello();
     }
@@ -185,7 +185,7 @@ Now we are ready to build the project:
     $ premake4 gmake
     $ make (or mingw32-make if in windows-mingw)
     $ ./MyApplication
-    Hello World!
+    Hello World Release!
 
 Now everything works, so you might want to share your generator:
 

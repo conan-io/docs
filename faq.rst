@@ -11,10 +11,9 @@ FAQ
 .. toctree::
    :maxdepth: 2
 
-   faq/conan1.0
    faq/general
    faq/using
    faq/troubleshooting
 
 
-.. _`Cpplang Slack`: https://cpplang.now.sh/
+.. _`Cpplang Slack`: https://cpplang-inviter.cppalliance.org/

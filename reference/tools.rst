@@ -28,8 +28,9 @@ tools.cpu_count()
 
     def tools.cpu_count()
 
-Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. Can be
-overwritten with the environment variable :ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
+Returns the number of CPUs available, for parallel builds. If processor detection is not enabled, it will safely return 1. When
+running in Docker, it reads cgroup to detect the configured number of CPUs. It Can be overwritten with the environment variable
+:ref:`env_vars_conan_cpu_count` and configured in the :ref:`conan_conf`.
 
 .. _tools_vcvars_command:
 
@@ -38,7 +39,7 @@ tools.vcvars_command()
 
 .. code-block:: python
 
-    def vcvars_command(settings, arch=None, compiler_version=None, force=False, vcvars_ver=None,
+    def vcvars_command(conanfile, arch=None, compiler_version=None, force=False, vcvars_ver=None,
                        winsdk_version=None)
 
 Returns, for given settings, the command that should be called to load the Visual Studio environment variables for a certain Visual Studio
@@ -52,9 +53,9 @@ the same subprocess. It will be typically used in the ``build()`` method, like t
 
     def build(self):
         if self.settings.build_os == "Windows":
-            vcvars = tools.vcvars_command(self.settings)
+            vcvars_command = tools.vcvars_command(self)
             build_command = ...
-            self.run("%s && configure %s" % (vcvars, " ".join(args)))
+            self.run("%s && configure %s" % (vcvars_command, " ".join(args)))
             self.run("%s && %s %s" % (vcvars, build_command, " ".join(build_args)))
 
 The ``vcvars_command`` string will contain something like ``call "%vsXX0comntools%../../VC/vcvarsall.bat"`` for the corresponding Visual
@@ -66,7 +67,7 @@ If **arch** or **compiler_version** is specified, it will ignore the settings an
 for these parameters.
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **conanfile** (Required): Conanfile object. Use ``self`` in a ``conanfile.py``.
     - **arch** (Optional, Defaulted to ``None``): Will use ``settings.arch``.
     - **compiler_version** (Optional, Defaulted to ``None``): Will use ``settings.compiler.version``.
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Visual Studio version.
@@ -299,8 +300,9 @@ tools.get()
 
 .. code-block:: python
 
-    def get(url, filenname="", md5="", sha1="", sha256="", keep_permissions=False, pattern=None,
-            verify=True, retry=2, retry_wait=5, overwrite=False, auth=None, headers=None)
+    def get(url, md5='', sha1='', sha256='', destination=".", filename="", keep_permissions=False,
+            pattern=None, requester=None, output=None, verify=True, retry=None, retry_wait=None,
+            overwrite=False, auth=None, headers=None)
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. You can pass hash checking parameters:
 ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked. If any of them doesn't match, it will raise a
@@ -315,13 +317,16 @@ Just a high level wrapper for download, unzip, and remove the temporary zip file
     tools.get("http://url/file", destination="subfolder")
 
 Parameters:
-    - **url** (Required): URL to download.
-    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from the URL.
+    - **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and
+      the follow URLs will be used as mirror in case of a download error.
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
-    - **sha1** (Optional, Defaulted to ``""``): SHA1 hash code to check the downloaded file.
-    - **sha256** (Optional, Defaulted to ``""``): SHA256 hash code to check the downloaded file.
+    - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
+    - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
+    - **filename** (Optional, Defaulted to ``""``): Specify the name of the compressed file if it cannot be deduced from the URL.
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
+    - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
+    - **output** (Optional, Defaulted to ``None``): Stream object.
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
@@ -331,7 +336,7 @@ Parameters:
       will raise.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user, password can be passed to use HTTPBasic authentication. This is passed
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
-      https://2.python-requests.org/en/master/user/authentication/
+      https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
 
 .. _tools_get_env:
@@ -377,11 +382,14 @@ tools.download()
 
 .. code-block:: python
 
-    def download(url, filename, verify=True, out=None, retry=2, retry_wait=5, overwrite=False,
-                 auth=None, headers=None)
+    def download(url, filename, verify=True, out=None, retry=None, retry_wait=None, overwrite=False,
+                 auth=None, headers=None, requester=None, md5='', sha1='', sha256='')
 
 Retrieves a file from a given URL into a file with a given filename. It uses certificates from a list of known verifiers for https
 downloads, but this can be optionally disabled.
+
+You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked.
+If any of them doesn't match, it will raise a ``ConanException``.
 
 .. code-block:: python
 
@@ -401,21 +409,34 @@ downloads, but this can be optionally disabled.
     # Pass some header
     tools.download("http://someurl/somefile.zip", "myfilename.zip", headers={"Myheader": "My value"})
 
+    # Download and check file checksum
+    tools.download("http://someurl/somefile.zip", "myfilename.zip", md5="e5d695597e9fa520209d1b41edad2a27")
+
+    # to add mirrors
+    tools.download(["https://ftp.gnu.org/gnu/gcc/gcc-9.3.0/gcc-9.3.0.tar.gz",
+                    "http://mirror.linux-ia64.org/gnu/gcc/releases/gcc-9.3.0/gcc-9.3.0.tar.gz"], "gcc-9.3.0.tar.gz",
+                   sha256="5258a9b6afe9463c2e56b9e8355b1a4bee125ca828b8078f910303bc2ef91fa6")
+
 Parameters:
-    - **url** (Required): URL to download
+    - **url** (Required): URL to download. It can be a list, which only the first one will be downloaded, and
+      the follow URLs will be used as mirror in case of download error.
     - **filename** (Required): Name of the file to be created in the local storage
     - **verify** (Optional, Defaulted to ``True``): When False, disables https certificate validation.
     - **out**: (Optional, Defaulted to ``None``): An object with a ``write()`` method can be passed to get the output. ``stdout`` will use
       if not specified.
-    - **retry** (Optional, Defaulted to ``2``): Number of retries in case of failure. Default is overriden by ``general.retry``
+    - **retry** (Optional, Defaulted to ``1``): Number of retries in case of failure. Default is overriden by ``general.retry``
       in the *conan.conf* file or an env variable ``CONAN_RETRY``.
     - **retry_wait** (Optional, Defaulted to ``5``): Seconds to wait between download attempts. Default is overriden by ``general.retry_wait``
       in the *conan.conf* file or an env variable ``CONAN_RETRY_WAIT``.
     - **overwrite**: (Optional, Defaulted to ``False``): When ``True``, Conan will overwrite the destination file if exists. Otherwise it
       will raise an exception.
     - **auth** (Optional, Defaulted to ``None``): A tuple of user and password to use HTTPBasic authentication. This is used directly in the
-      ``requests`` Python library. Check other uses here: https://2.python-requests.org/en/master/user/authentication/
+      ``requests`` Python library. Check other uses here: https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
+    - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
+    - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
+    - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
+    - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
 
 .. _tools_ftp_download:
 
@@ -449,7 +470,7 @@ tools.replace_in_file()
 
 .. code-block:: python
 
-    def replace_in_file(file_path, search, replace, strict=True)
+    def replace_in_file(file_path, search, replace, strict=True, encoding=None)
 
 This function is useful for a simple "patch" or modification of source files. A typical use would be to augment some library existing
 *CMakeLists.txt* in the ``source()`` method of a *conanfile.py*, so it uses Conan dependencies without forking or modifying the original
@@ -472,6 +493,9 @@ Parameters:
     - **replace** (Required): String to replace the searched string.
     - **strict** (Optional, Defaulted to ``True``): If ``True``, it raises an error if the searched string is not found, so nothing is
       actually replaced.
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      In case of ``None``, the output file is saved to the ``utf-8``
 
 .. _tools_replace_path_in_file:
 
@@ -480,7 +504,8 @@ tools.replace_path_in_file()
 
 .. code-block:: python
 
-    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None)
+    def replace_path_in_file(file_path, search, replace, strict=True, windows_paths=None,
+                             encoding=None)
 
 Replace a path in a file with another string. In Windows, it will match the path even if the casing and the path separator doesn't match.
 
@@ -503,6 +528,11 @@ Parameters:
       - ``None``: Only when Windows operating system is detected.
       - ``False``: Deactivated, it will match exact patterns (like :ref:`tools_replace_in_file`).
       - ``True``: Always activated, irrespective of the detected operating system.
+
+    - **encoding** (Optional, Defaulted to ``None``): Specifies the input and output files text encoding. The ``None`` value has a special
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      In case of ``None``, the output file is saved to the ``utf-8``
+
 
 .. _tools_run_environment:
 
@@ -565,10 +595,9 @@ tools.patch()
 
 .. code-block:: python
 
-    def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None)
+    def patch(base_path=None, patch_file=None, patch_string=None, strip=0, output=None, fuzz=False)
 
-Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff) format. To be used mainly in
-the ``source()`` method.
+Applies a patch from a file or from a string into the given path. The patch should be in diff (unified diff) format. Use it preferably in the ``build()`` method.
 
 .. code-block:: python
 
@@ -580,6 +609,11 @@ the ``source()`` method.
     tools.patch(patch_string=patch_content)
     # to apply in subfolder
     tools.patch(base_path=mysubfolder, patch_string=patch_content)
+    # from conandata
+    tools.patch(**self.conan_data["patches"][self.version])
+    # from conandata, using multiple versions
+    for patch in self.conan_data["patches"][self.version]:
+        tools.patch(**patch)
 
 If the patch to be applied uses alternate paths that have to be stripped like this example:
 
@@ -599,12 +633,23 @@ Then, the number of folders to be stripped from the path can be specified:
 
     tools.patch(patch_file="file.patch", strip=1)
 
+If the patch to be applied differs from the source (fuzzy) the patch will fail by default, however,
+you can force it using the ``fuzz`` option:
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.patch(patch_file="file.patch", fuzz=True)
+
+
 Parameters:
     - **base_path** (Optional, Defaulted to ``None``): Base path where the patch should be applied.
     - **patch_file** (Optional, Defaulted to ``None``): Patch file that should be applied.
     - **patch_string** (Optional, Defaulted to ``None``): Patch string that should be applied.
     - **strip** (Optional, Defaulted to ``0``): Number of folders to be stripped from the path.
     - **output** (Optional, Defaulted to ``None``): Stream object.
+    - **fuzz** (Optional, Defaulted to ``False``): Accept fuzzy patches.
 
 .. _tools_environment_append:
 
@@ -765,21 +810,36 @@ tools.cross_building()
 
 .. code-block:: python
 
-    def cross_building(settings, self_os=None, self_arch=None)
+    def cross_building(conanfile, self_os=None, self_arch=None, skip_x64_x86=False)
 
-Reading the settings and the current host machine it returns ``True`` if we are cross building a Conan package:
+
+Evaluates operating system and architecture from the ``host`` machine and the ``build`` machine
+to return a boolean ``True`` if it is a cross building scenario. Settings from ``host`` machine are
+taken from the ``conanfile.settings``, while setting from the ``build`` context can provide from
+different sources:
+
+* if ``conanfile.settings_build`` is available (Conan was called with a ``--profile:build``) it will
+  use settings in that profile (read more about :ref:`build_requires_context`).
+* otherwise, the values for the ``build`` context will come from (in this order of precedence):
+  ``self_os`` and ``self_arch`` if they are given to the function, the values for ``os_build``
+  and ``arch_build`` from ``conanfile.settings`` or auto-detected. 
+
+This tool can be used to run special actions depending on its return value:
 
 .. code-block:: python
 
     from conans import tools
 
-    if tools.cross_building(self.settings):
+    if tools.cross_building(self):
         # Some special action
 
 Parameters:
-    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+    - **conanfile** (Required): Conanfile object. Use ``self`` in a ``conanfile.py``.
     - **self_os** (Optional, Defaulted to ``None``): Current operating system where the build is being done.
     - **self_arch** (Optional, Defaulted to ``None``): Current architecture where the build is being done.
+    - **skip_x64_x86** (Optional, Defaulted to ``False``): Do not consider building for ``x86`` host from ``x86_64`` build machine
+      as cross building, in case of host and build machine use the same operating system. Normally, in such case build machine may
+      execute binaries produced for the target machine, and special cross-building handling may not be needed.
 
 .. _tools_get_gnu_triplet:
 
@@ -957,7 +1017,7 @@ tools.save()
 
 .. code-block:: python
 
-    def save(path, content, append=False)
+    def save(path, content, append=False, encoding="utf-8")
 
 Utility function to save files in one line. It will manage the open and close of the file and creating directories if necessary.
 
@@ -971,6 +1031,7 @@ Parameters:
     - **path** (Required): Path to the file.
     - **content** (Required): Content that should be saved into the file.
     - **append** (Optional, Defaulted to ``False``): If ``True``, it will append the content.
+    - **encoding** (Optional, Defaulted to ``utf-8``): Specifies the output file text encoding.
 
 .. _tools_load:
 
@@ -979,7 +1040,7 @@ tools.load()
 
 .. code-block:: python
 
-    def load(path, binary=False)
+    def load(path, binary=False, encoding="auto")
 
 Utility function to load files in one line. It will manage the open and close of the file, and load binary encodings. Returns the content of
 the file.
@@ -993,6 +1054,9 @@ the file.
 Parameters:
     - **path** (Required): Path to the file.
     - **binary** (Optional, Defaulted to ``False``): If ``True``, it reads the the file as binary code.
+    - **encoding** (Optional, Defaulted to ``auto``): Specifies the input file text encoding. The ``auto`` value has a special
+      meaning - perform the encoding detection by checking the BOM (byte order mask), if no BOM is present tries to use: ``utf-8``, ``cp1252``.
+      The value is ignored in case of ``binary`` set to the ``True``.
 
 .. _tools_mkdir_rmdir:
 
@@ -1605,3 +1669,223 @@ Converts Conan style architecture into Android NDK style architecture.
 
 Parameters:
     - **arch** (Required): Arch to perform the conversion. Usually this would be ``self.settings.arch``.
+
+.. _tools.check_min_cppstd:
+
+tools.check_min_cppstd()
+------------------------
+
+.. code-block:: python
+
+    def check_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+Validates if the applied cppstd setting (from `compiler.cppstd` settings or deducing the default from `compiler` and `compiler.version`) is at least the value specified in the `cppstd` argument.
+It raises a ``ConanInvalidConfiguration`` when is not supported.
+
+.. code-block:: python
+
+    from conans import tools, ConanFile
+
+    class Recipe(ConanFile):
+        ...
+
+        def configure(self):
+            tools.check_min_cppstd(self, "17")
+
+* If the current cppstd does not support C++17, ``check_min_cppstd`` will raise an ``ConanInvalidConfiguration`` error.
+* If ``gnu_extensions`` is True, it is required that the applied ``cppstd`` supports the gnu extensions.
+  (e.g. gnu17), otherwise, an :ref:`ConanInvalidConfiguration<conditional_settings_options_requirements>` will be raised. The ``gnu_extensions`` is checked in any OS.
+* If no compiler has been specified or the compiler is unknown, it raises a ``ConanException`` exception.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **cppstd** (Required): C++ standard version which must be supported.
+    - **gnu_extensions** (Optional): GNU extension is required.
+
+.. _tools.valid_min_cppstd:
+
+tools.valid_min_cppstd()
+------------------------
+
+.. code-block:: python
+
+    def valid_min_cppstd(conanfile, cppstd, gnu_extensions=False)
+
+Validate the current cppstd from settings or compiler, if it is supported by the required cppstd version.
+It returns ``True`` when is valid, otherwise, ``False``.
+
+.. code-block:: python
+
+    from conans import tools, ConanFile
+
+    class Recipe(ConanFile):
+        ...
+
+        def configure(self):
+            if not tools.valid_min_cppstd(self, "17"):
+                self.output.error("C++17 is required.")
+
+* The ``valid_min_cppstd`` works exactly like ``check_min_cppstd``, however, it does not raise ``ConanInvalidConfiguration`` error.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **cppstd** (Required): C++ standard version which must be supported.
+    - **gnu_extensions** (Optional): GNU extension is required.
+
+
+.. _tools.cppstd_flag:
+
+tools.cppstd_flag():
+--------------------
+
+.. code-block:: python
+
+    def cppstd_flag(settings)
+
+Returns the corresponding C++ standard flag based on the settings. For instance, it may return ``-std=c++17`` 
+for ``compiler.cppstd=17``, and so on.
+
+Parameters:
+    - **settings** (Required): Conanfile settings. Use ``self.settings``.
+
+
+.. _tools.msvs_toolset:
+
+tools.msvs_toolset()
+--------------------
+
+.. code-block:: python
+
+    def msvs_toolset(conanfile)
+
+Returns the corresponding Visual Studio platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v142``
+for ``compiler=Visual Studio`` with ``compiler.version=16``. If ``compiler.toolset`` was set in settings, it has a
+priority and always returned.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+
+
+.. _tools_compilervars_command:
+
+tools.compilervars_command()
+----------------------------
+
+.. code-block:: python
+
+    def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
+
+Returns, for given settings of the given ``conanfile``, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
+version. It wraps the functionality of `compilervars <https://software.intel.com/en-us/intel-system-studio-cplusplus-compiler-user-and-reference-guide-using-compilervars-file>`_
+but does not execute the command, as that typically have to be done in the same command as the compilation, so the variables are loaded for
+the same subprocess. It will be typically used in the ``build()`` method, like this:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        cvars_command = tools.compilervars_command(self)
+        build_command = ...
+        self.run("%s && configure %s" % (cvars_command, " ".join(args)))
+        self.run("%s && %s %s" % (cvars, build_command, " ".join(build_args)))
+
+The ``cvars_command`` string will contain something like ``call "compilervars.bat"`` for the corresponding Intel C++
+version for the current settings.
+
+This is typically not needed if using CMake, as the ``cmake`` generator will handle the correct Intel C++ version.
+
+If **arch** or **compiler_version** is specified, it will ignore the settings and return the command to set the Intel C++ environment
+for these parameters.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **arch** (Optional, Defaulted to ``None``): Will use ``conanfile.settings.arch``.
+    - **compiler_version** (Optional, Defaulted to ``None``): Will use ``conanfile.settings.compiler.version``.
+    - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Intel C++ version.
+
+
+.. _tools_compilervars_dict:
+
+tools.compilervars_dict()
+-------------------------
+
+.. code-block:: python
+
+    def compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
+
+Returns a dictionary with the variables set by the :ref:`tools_compilervars_command` that can be directly applied to
+:ref:`tools_environment_append`.
+
+The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will be returned as a list. When used with
+:ref:`tools_environment_append`, the previous environment values that these variables may have will be appended automatically.
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        env_vars = tools.compilervars_dict(self.settings)
+        with tools.environment_append(env_vars):
+            # Do something
+
+Parameters:
+    - Same as :ref:`tools_compilervars_command`.
+    - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by ``compilervars`` and not
+      the whole environment. If `compilervars` modifies an environment variable by appending values to the old value (separated by ``;``), only
+      the new values will be returned, as a list.
+
+
+.. _tools_compilervars:
+
+tools.compilervars()
+--------------------
+
+.. code-block:: python
+
+    def compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
+
+This is a context manager that allows to append to the environment all the variables set by the :ref:`tools_compilervars_dict`. You can replace
+:ref:`tools_compilervars_dict` and use this context manager to get a cleaner way to activate the Intel C++ environment:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        with tools.compilervars(self.settings):
+            do_something()
+
+.. _tools.remove_files_by_mask:
+
+tools.remove_files_by_mask()
+----------------------------
+
+.. code-block:: python
+
+    def remove_files_by_mask(directory, pattern)
+
+Removes files in the given ``directory`` matching the ``pattern``. The function removes only files, and never removes directories, even if their names match the pattern. The functions returns the array of the files removed (empty array in case no files were removed). The paths in the returned array are relative to the given ``directory``.
+
+Parameters:
+    - **directory** (Required): Directory to remove files inside. You may use ``os.getcwd`` or ``self.package_folder``, for instance.
+    - **pattern** (Required): Pattern to check. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+
+
+.. _tools.stdcpp_library:
+
+tools.stdcpp_library():
+-----------------------
+
+.. code-block:: python
+
+    def stdcpp_library(conanfile)
+
+Returns the corresponding C++ standard library to link with based on the settings of the given conanfile. For instance, it may return ``c++`` for ``compiler.libcxx=libc++``,
+ and it may return ``stdc++`` for ``compiler.libcxx=libstdc++`` or ``compiler.libcxx=libstdc++11``. Returns ``None`` if there is no C++ standard library
+ need to be linked. Usually, this is required to populate ``self.cpp_info.system_libs`` for C++ libraries with plain C API, therefore such libraries might be
+ safely used in pure C projects (or in general, non-C++ projects capable of using C API, such as written in Objective-C, Fortran, etc.).
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+

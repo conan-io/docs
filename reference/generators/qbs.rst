@@ -8,12 +8,10 @@ qbs
     This is the reference page for ``qbs`` generator.
     Go to :ref:`Integrations/Qbs<qbs>` if you want to learn how to integrate your project or recipes with Qbs.
 
-
-Generates a file named ``conanbuildinfo.qbs`` that can be used for your qbs builds.
+Generates a file named *conanbuildinfo.qbs* that can be used for your Qbs builds.
 
 A Product ``ConanBasicSetup`` contains the aggregated requirement values and also there is N Product declared, one per
 requirement.
-
 
 .. code-block:: text
 

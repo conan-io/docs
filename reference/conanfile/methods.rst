@@ -18,7 +18,7 @@ control. But if the source code is available in a repository, you can directly g
     from conans import ConanFile
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
 
@@ -44,7 +44,7 @@ is a snippet of the conanfile of the Poco library:
     import shutil
 
     class PocoConan(ConanFile):
-        name = "Poco"
+        name = "poco"
         version = "1.6.0"
 
         def source(self):
@@ -197,22 +197,28 @@ cpp_info
 Each package has to specify certain build information for its consumers. This can be done in the ``cpp_info`` attribute within the
 ``package_info()`` method.
 
-The ``cpp_info`` attribute has the following properties you can assign/append to:
+The :ref:`cpp_info_attributes_reference` attribute has the following properties you can assign/append to:
 
 .. code-block:: python
 
+    self.cpp_info.name = "<PKG_NAME>"
+    self.cpp_info.names["generator_name"] = "<PKG_NAME>"
     self.cpp_info.includedirs = ['include']  # Ordered list of include paths
     self.cpp_info.libs = []  # The libs to link against
+    self.cpp_info.system_libs = []  # System libs to link against
     self.cpp_info.libdirs = ['lib']  # Directories where libraries can be found
-    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc can be found
+    self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc. can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
+    self.cpp_info.build_modules = []  # Build system utility module files
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
     self.cpp_info.cxxflags = []  # C++ compilation flags
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
+    self.cpp_info.components  # Dictionary with the different components a package may have
 
+- **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
   initialized to ``['include']``, and it is rarely changed.
 - **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
@@ -235,11 +241,19 @@ The ``cpp_info`` attribute has the following properties you can assign/append to
 - **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
+- **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
+  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules.append("cmake/myfunctions.cmake")``. Those files
+  will be included automatically in `cmake`/`cmake_multi` generators when using `conan_basic_setup()` and will be automatically added in
+  `cmake_find_package`/`cmake_find_package_multi` generators when `find_package()` is used.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
-  so that including the library headers matches the binaries:
+  so that including the library headers matches the binaries.
+- **system_libs**: Ordered list of system libs the consumer should link against. Empty by default.
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
+- **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
+- **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
+  package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 
 .. code-block:: python
 
@@ -373,6 +387,58 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 
 .. _method_configure_config_options:
 
+
+set_name(), set_version()
+--------------------------
+Dynamically define ``name`` and ``version`` attributes in the recipe with these methods. The following example
+defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
+recipe's repository.
+
+These functions are executed after assigning the values of the ``name`` and ``version`` if they are provided 
+from the command line.
+
+..  code-block:: python
+
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            # Read the value from 'name.txt' if it is not provided in the command line
+            self.name = self.name or tools.load("name.txt")
+
+        def set_version(self):
+            git = tools.Git()
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``set_name()`` and ``set_version()`` methods should respectively set the ``self.name`` and ``self.version`` attributes.
+These methods are only executed when the recipe is in a user folder (:command:`export`, :command:`create` and
+:command:`install <path>` commands).
+
+The above example uses the current working directory as the one to resolve the relative "name.txt" path and the git repository.
+That means that the "name.txt" should exist in the directory where conan was launched.
+To define a relative path to the *conanfile.py*, irrespective of the current working directory it is necessary to do:
+
+..  code-block:: python
+
+    import os
+    from conans import ConanFile, tools
+
+    class HelloConan(ConanFile):
+        def set_name(self):
+            f = os.path.join(self.recipe_folder, "name.txt")
+            self.name = tools.load(f)
+
+        def set_version(self):
+            git = tools.Git(folder=self.recipe_folder)
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
+
+The ``self.recipe_folder`` attribute is only defined in these two methods.
+
+.. seealso::
+
+    See more examples :ref:`in this howto <capture_version>`.
+
+
 configure(), config_options()
 -----------------------------
 
@@ -469,10 +535,12 @@ It also has optional parameters that allow defining the special cases, as is sho
         self.requires("zlib/1.2@drl/testing", private=True, override=False)
 
 ``self.requires()`` parameters:
+
     - **override** (Optional, Defaulted to ``False``): True means that this is not an actual requirement, but something to be passed
       upstream and override possible existing values.
-    - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded (like a static lib linked
-      into a shared lib), so it is not required to link.
+    - **private** (Optional, Defaulted to ``False``): True means that this requirement will be somewhat embedded, and totally hidden. It might be necessary in some extreme cases, like having to use two
+      different versions of the same library (provided that they are totally hidden in a shared library, for
+      example), but it is mostly discouraged otherwise.
 
 .. note::
 
@@ -495,7 +563,7 @@ This method is useful for defining conditional build requirements, for example:
 
         def build_requirements(self):
             if self.settings.os == "Windows":
-                self.build_requires("ToolWin/0.1@user/stable")
+                self.build_requires("tool_win/0.1@user/stable")
 
 .. seealso::
 
@@ -506,10 +574,10 @@ This method is useful for defining conditional build requirements, for example:
 system_requirements()
 ---------------------
 
-It is possible to install system-wide packages from conan. Just add a ``system_requirements()`` method to your conanfile and specify what
+It is possible to install system-wide packages from Conan. Just add a ``system_requirements()`` method to your conanfile and specify what
 you need there.
 
-For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system, version and distribution (linux):
+For a special use case you can use also ``conans.tools.os_info`` object to detect the operating system, version and distribution (Linux):
 
 - ``os_info.is_linux``: True if Linux.
 - ``os_info.is_windows``: True if Windows.
@@ -523,8 +591,9 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 - ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
-You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package tool: **apt**, **yum**, **pkg**,
-**pkgutil**, **brew** and **pacman** depending on the system we are running.
+You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package
+tool: **apt**, **yum**, **dnf**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the
+system we are running.
 
 ..  code-block:: python
 
@@ -562,15 +631,17 @@ On Windows, there is no standard package manager, however **choco** can be invok
             installer = SystemPackageTool(tool=ChocolateyTool()) # Invoke choco package manager to install the package
             installer.install(pack_name)
 
+.. _systempackagetool:
+
 SystemPackageTool
 +++++++++++++++++
 
 .. code-block:: python
 
-    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None)
+    def SystemPackageTool(runner=None, os_info=None, tool=None, recommends=False, output=None, conanfile=None, default_mode="enabled")
 
-Available tool classes: **AptTool**, **YumTool**, **BrewTool**, **PkgTool**, **PkgUtilTool**, **ChocolateyTool**,
-**PacManTool**.
+Available tool classes: **AptTool**, **YumTool**, **DnfTool**, **BrewTool**, **PkgTool**,
+**PkgUtilTool**, **ChocolateyTool**, **PacManTool**.
 
 Methods:
     - **add_repository(repository, repo_key=None)**: Add ``repository`` address in your current repo list.
@@ -589,6 +660,15 @@ When the environment variable ``CONAN_SYSREQUIRES_SUDO`` is not defined, Conan w
 
     - :command:`sudo` is available in the ``PATH``.
     - The platform name is ``posix`` and the UID (user id) is not ``0``
+
+Also, when the environment variable :ref:`CONAN_SYSREQUIRES_MODE <env_vars_conan_sysrequires_mode>`
+is not defined, Conan will work as if its value was ``enabled`` unless you pass the ``default_mode``
+argument to the constructor of ``SystemPackageTool``. In that case, it will work as if
+``CONAN_SYSREQUIRES_MODE`` had been defined to that value. If ``CONAN_SYSREQUIRES_MODE`` is defined,
+it will take preference and the ``default_mode`` parameter will not affect. This can be useful when a
+recipe has system requirements but we don't want to automatically install them if the user has not
+defined ``CONAN_SYSREQUIRES_MODE`` but to warn him about the missing requirements and allowing him to
+install them.
 
 Conan will keep track of the execution of this method, so that it is not invoked again and again at every Conan command. The execution is
 done per package, since some packages of the same library might have different system dependencies. If you are sure that all your binary
@@ -656,7 +736,8 @@ Parameters:
     - **dst** (Optional, Defaulted to ``""``): Destination local folder, with reference to current directory, to which the files will be
       copied.
     - **src** (Optional, Defaulted to ``""``): Source folder in which those files will be searched. This folder will be stripped from the
-      dst parameter. E.g., `lib/Debug/x86`
+      dst parameter. E.g., `lib/Debug/x86`. It accepts symbolic folder names like ``@bindirs`` and ``@libdirs`` which will map to the 
+      ``self.cpp_info.bindirs`` and ``self.cpp_info.libdirs`` of the source package, instead of a hardcoded name.
     - **root_package** (Optional, Defaulted to *all packages in deps*): An fnmatch pattern of the package name ("OpenCV", "Boost") from
       which files will be copied.
     - **folder** (Optional, Defaulted to ``False``): If enabled, it will copy the files from the local cache to a subfolder named as the
@@ -685,6 +766,21 @@ do:
         self.copy("*.dylib*", dst=dest, src="lib")
 
 And then use, for example: :command:`conan install . -e CONAN_IMPORT_PATH=Release -g cmake_multi`
+
+
+To import files from packages that have different layouts, for example a package uses folder ``libraries`` instead of ``lib``,
+or to import files from packages that could be in editable mode, a symbolic ``src`` argument can be provided:
+
+.. code-block:: python
+
+    def imports(self):
+        self.copy("*", src="@bindirs", dst="bin")
+        self.copy("*", src="@libdirs", dst="lib")
+
+This will import all files from all the dependencies ``self.cpp_info.bindirs`` folders to the local "bin" folder, and all files
+from the dependencies ``self.cpp_info.libdirs`` folders to the local "lib" folder. This include packages that are in *editable*
+mode and declares ``[libdirs]`` and ``[bindirs]`` in their editable layouts.
+
 
 When a conanfile recipe has an ``imports()`` method and it builds from sources, it will do the following:
 
@@ -733,12 +829,46 @@ any setting or option:
 self.info.header_only()
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The package will always be the same, irrespective of the OS, compiler or architecture the consumer is building with.
+The package will always be the same, irrespective of the settings (OS, compiler or architecture), options and dependencies.
 
 .. code-block:: python
 
     def package_id(self):
         self.info.header_only()
+
+
+self.info.shared_library_package_id()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When a shared library links with a static library, the binary code of the later one is "embedded" or copied into the shared library.
+That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
+Note that this doesn't happen in the static-static and shared-shared library dependencies.
+
+
+Use this ``shared_library_package_id()`` helper in the ``package_id()`` method:
+
+.. code-block:: python
+
+    def package_id(self):
+        self.info.shared_library_package_id()
+
+This helper automatically detects if the current package has the ``shared`` option and it is ``True`` and if it is depending on static libraries in other packages (having a ``shared`` option equal ``False`` or not having it, which means a header-only library). Only then, any change in the dependencies will affect the ``package_id`` of this package, (internally, ``package_revision_mode`` is applied to the dependencies).
+It is recommended its usage in packages that have the ``shared`` option.
+
+If you want to have in your dependency graph all static libraries or all shared libraries, (but not shared with embedded static ones) it can be defined with a ``*:shared=True``
+option in command line or profiles, but can also be defined in recipes like:
+
+.. code-block:: python
+
+    def configure(self):
+        if self.options.shared:
+            self.options["*"].shared = True
+
+Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for
+`Conan-center packages <https://github.com/conan-io/conan-center-index>`_ that have dependencies
+to compiled libraries and have the ``shared`` option.
+
+
 
 self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -829,6 +959,37 @@ even if it matches with the default of the compiler being used:
 
 Same behavior applies if you use the deprecated setting ``cppstd``.
 
+
+Compatible packages
+^^^^^^^^^^^^^^^^^^^
+The ``package_id()`` method serves to define the "canonical" binary package ID, the identifier of the binary that correspond to the
+input configuration of settings and options. This canonical binary package ID will be always computed, and Conan will check for its
+existence to be downloaded and installed.
+
+If the binary of that package ID is not found, Conan lets the recipe writer define an ordered list of compatible package IDs, of other configurations
+that should be binary compatible and can be used as a fallback. The syntax to do this is:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+
+        def package_id(self):
+            if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
+                compatible_pkg = self.info.clone()
+                compatible_pkg.settings.compiler.version = "4.8"
+                self.compatible_packages.append(compatible_pkg)
+
+This will define that, if we try to install this package with ``gcc 4.9`` and there isn't a binary available for that configuration, Conan will check
+if there is one available built with ``gcc 4.8`` and use it. But not the other way round.
+
+.. seealso::
+
+    For more information about :ref:`compatible packages read this <compatible_packages>`
+
+
 .. _method_build_id:
 
 build_id()
@@ -909,10 +1070,42 @@ The ``deploy()`` method is designed to work on a package that is installed direc
 
 .. code-block:: bash
 
-    $ conan install Pkg/0.1@user/channel
+    $ conan install pkg/0.1@user/channel
     > ...
-    > Pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
-    > Pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
+    > pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
+    > pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
 
-All other packages and dependencies, even transitive dependencies of "Pkg/0.1@user/testing" will not be deployed, it is the responsibility
+All other packages and dependencies, even transitive dependencies of "pkg/0.1@user/testing" will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
+
+.. _method_init:
+
+init()
+------
+
+This is an optional method for initializing conanfile values, designed for inheritance from ``python_requires``.
+Assuming we have a ``base/1.1@user/testing`` recipe:
+
+.. code-block:: python
+
+    class MyConanfileBase(ConanFile):
+        license = "MyLicense"
+        settings = "os", # tuple!
+
+
+We could reuse and inherit from it with:
+
+.. code-block:: python
+
+    class PkgTest(ConanFile):
+        license = "MIT"
+        settings = "arch", # tuple!
+        python_requires = "base/1.1@user/testing"
+        python_requires_extend = "base.MyConanfileBase"
+
+        def init(self):
+            base = self.python_requires["base"].module.MyConanfileBase
+            self.settings = base.settings + self.settings  # Note, adding 2 tuples = tuple
+            self.license = base.license  # License is overwritten
+
+The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.

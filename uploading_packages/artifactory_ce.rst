@@ -21,7 +21,7 @@ subfolder, depending on the OS.
 Java 8 update 45 or later runtime is required. If you don't have it, please install it first
 (newer Java versions preferred).
 
-.. image:: ../images/artifactory_ce.png
+.. image:: ../images/conan-artifactory_ce.png
 
 Once Artifactory has started, navigate to the default URL `http://localhost:8081`, where the Web UI should be running.
 The default user and password are ``admin:password``.
@@ -45,8 +45,8 @@ From now, you can upload, download, search, etc. the remote repos similarly to t
 
 .. code-block:: bash
 
-    $ conan upload * --all -r=artifactory
-    $ conan search * -r=artifactory
+    $ conan upload "*" --all -r=artifactory
+    $ conan search "*" -r=artifactory
 
 Migrating from Other Servers
 ----------------------------
@@ -75,4 +75,4 @@ This Python script might be helpful, given that it already defines the respectiv
         print("Downloading %s" % package)
         run("conan download %s -r=local" % package)
 
-    run("conan upload * --all --confirm -r=artifactory")
+    run("conan upload \"*\" --all --confirm -r=artifactory")

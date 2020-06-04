@@ -51,7 +51,7 @@ Constructor
         def __init__(self, conanfile, generator=None, cmake_system_name=True,
                      parallel=True, build_type=None, toolset=None, make_program=None,
                      set_cmake_flags=False, msbuild_verbosity='minimal', cmake_program=None,
-                     generator_platform=None)
+                     generator_platform=None, append_vcvars=False)
 
 Parameters:
     - **conanfile** (Required): Conanfile object. Usually ``self`` in a *conanfile.py*
@@ -70,6 +70,7 @@ Parameters:
       using it in the command line.
     - **cmake_program** (Optional, Defaulted to ``None``): Path to the custom cmake executable.
     - **generator_platform** (Optional, Defaulted to ``None``): Generator platform name or none to autodetect (-A cmake option).
+    - **append_vcvars** (Optional, Defaulted to ``False``): When a Visual Studio environment is activated by the build helper, append it to respect existing environment. ``CMake`` helper sometimes, like when using the Ninja generator, needs to call ``vcvars`` to set the VS environment. By default the ``vcvars`` is pre-pended to the environment, taking precedence. With ``append_vcvars=True``, the ``vcvars`` will append to the end of the environment (for "list" environment variables, like ``PATH``), instead of pre-pending, so the existing environment takes precedence.
 
 Attributes
 ----------
@@ -176,57 +177,61 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | Variable                                  | Description                                                                                                                  |
 +===========================================+==============================================================================================================================+
-| CMAKE_BUILD_TYPE                          | Debug, Release... from ``self.settings.build_type`` or ``build_type`` attribute **only** if ``is_multi_configuration``       |
+| ANDROID_ABI                               | Just alias for CMAKE_ANDROID_ARCH_ABI                                                                                        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CMAKE_OSX_ARCHITECTURES                   | ``i386`` if architecture is x86 in an OSX system                                                                             |
+| ANDROID_NDK                               | Defined when one of ANDROID_NDK_ROOT or ANDROID_NDK_HOME environment variables presented                                     |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | BUILD_SHARED_LIBS                         | Only if your recipe has a ``shared`` option                                                                                  |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_COMPILER                            | Conan internal variable to check the compiler                                                                                |
+| CMAKE_ANDROID_ARCH_ABI                    | Set to a suitable value if cross-building to an Android is detected                                                          |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CMAKE_BUILD_TYPE                          | Debug, Release... from ``self.settings.build_type`` or ``build_type`` attribute **only** if ``is_multi_configuration``       |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CMAKE_EXPORT_NO_PACKAGE_REGISTRY          | Defined by default to disable the package registry                                                                           |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CMAKE_MODULE_PATH                         | Set to ``conanfile.install_folder`` when using ``cmake_find_package`` or ``cmake_find_package_multi``                        |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CMAKE_OSX_ARCHITECTURES                   | ``i386`` if architecture is x86 in an OSX system                                                                             |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CMAKE_PREFIX_PATH                         | Set to ``conanfile.install_folder`` when using ``cmake_find_package_multi``                                                  |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSTEM_NAME                         | Set to ``self.settings.os`` value if cross-building is detected                                                              |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os_version`` value if cross-building is detected                                                      |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CMAKE_ANDROID_ARCH_ABI                    | Set to a suitable value if cross-building to an Android is detected                                                          |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_LIBCXX                              | Set to ``self.settings.compiler.libcxx`` value                                                                               |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_SYSTEM_PROCESSOR              | Definition set only if same environment variable is declared by user                                                         |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH                | Definition set only if same environment variable is declared by user                                                         |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM   | Definition set only if same environment variable is declared by user                                                         |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY   | Definition set only if same environment variable is declared by user                                                         |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE   | Definition set only if same environment variable is declared by user                                                         |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_POSITION_INDEPENDENT_CODE     | Set when ``fPIC`` option exists and ``True`` or ``fPIC`` exists and ``False`` but ``shared`` option exists and ``True``      |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_SHARED_LINKER_FLAGS                 | Set to ``-m32`` or ``-m64`` values based on the architecture                                                                 |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_C_FLAGS                             | Set to ``-m32`` or ``-m64`` values based on the architecture and ``/MP`` for MSVS                                            |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CXX_FLAGS                           | Set to ``-m32`` or ``-m64`` values based on the architecture and ``/MP`` for MSVS                                            |
-+-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_LINK_RUNTIME                        | Set to the runtime value from ``self.settings.compiler.runtime`` for MSVS                                                    |
+| CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_CXX_STANDARD                  | Set to the ``self.settings.compiler.cppstd`` value (or ``self.settings.cppstd`` for backward compatibility)                  |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
+| CONAN_CMAKE_FIND_ROOT_PATH                | Definition set only if same environment variable is declared by user                                                         |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_STD_CXX_FLAG                        | Set to the flag corresponding to the C++ standard defined in ``self.settings.compiler.cppstd``. Used for CMake < 3.1)        |
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_INCLUDE   | Definition set only if same environment variable is declared by user                                                         |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CMAKE_EXPORT_NO_PACKAGE_REGISTRY          | Defined by default to disable the package registry                                                                           |
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_LIBRARY   | Definition set only if same environment variable is declared by user                                                         |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| CONAN_IN_LOCAL_CACHE                      | ``ON`` if the build runs in local cache, ``OFF`` if running in a user folder                                                 |
+| CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM   | Definition set only if same environment variable is declared by user                                                         |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_POSITION_INDEPENDENT_CODE     | Set when ``fPIC`` option exists and ``True`` or ``fPIC`` exists and ``False`` but ``shared`` option exists and ``True``      |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSTEM_PROCESSOR              | Definition set only if same environment variable is declared by user                                                         |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_COMPILER                            | Conan internal variable to check the compiler                                                                                |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_CXX_FLAGS                           | Set to ``-m32`` or ``-m64`` values based on the architecture and ``/MP`` for MSVS                                            |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_C_FLAGS                             | Set to ``-m32`` or ``-m64`` values based on the architecture and ``/MP`` for MSVS                                            |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_EXPORTED                            | Defined when CMake is called using Conan CMake helper                                                                        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| ANDROID_ABI                               | Just alias for CMAKE_ANDROID_ARCH_ABI                                                                                        |
+| CONAN_IN_LOCAL_CACHE                      | ``ON`` if the build runs in local cache, ``OFF`` if running in a user folder                                                 |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
-| ANDROID_NDK                               | Defined when one of ANDROID_NDK_ROOT or ANDROID_NDK_HOME environment variables presented                                     |
+| CONAN_LIBCXX                              | Set to ``self.settings.compiler.libcxx`` value                                                                               |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_LINK_RUNTIME                        | Set to the runtime value from ``self.settings.compiler.runtime`` for MSVS                                                    |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_SHARED_LINKER_FLAGS                 | Set to ``-m32`` or ``-m64`` values based on the architecture                                                                 |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CONAN_STD_CXX_FLAG                        | Set to the flag corresponding to the C++ standard defined in ``self.settings.compiler.cppstd``. Used for CMake < 3.1)        |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 
 There are some definitions set to be used later on the the ``install()`` step too:
@@ -234,21 +239,21 @@ There are some definitions set to be used later on the the ``install()`` step to
 +-----------------------------+---------------------------------------------+
 | Variable                    | Description                                 |
 +=============================+=============================================+
-| CMAKE_INSTALL_PREFIX        | Set to ``conanfile.package_folder`` value.  |
-+-----------------------------+---------------------------------------------+
 | CMAKE_INSTALL_BINDIR        | Set to *bin* inside the package folder.     |
 +-----------------------------+---------------------------------------------+
-| CMAKE_INSTALL_SBINDIR       | Set to *bin* inside the package folder.     |
-+-----------------------------+---------------------------------------------+
-| CMAKE_INSTALL_LIBEXECDIR    | Set to *bin* inside the package folder.     |
-+-----------------------------+---------------------------------------------+
-| CMAKE_INSTALL_LIBDIR        | Set to *lib* inside the package folder.     |
+| CMAKE_INSTALL_DATAROOTDIR   | Set to *share* inside the package folder.   |
 +-----------------------------+---------------------------------------------+
 | CMAKE_INSTALL_INCLUDEDIR    | Set to *include* inside the package folder. |
 +-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_LIBDIR        | Set to *lib* inside the package folder.     |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_LIBEXECDIR    | Set to *bin* inside the package folder.     |
++-----------------------------+---------------------------------------------+
 | CMAKE_INSTALL_OLDINCLUDEDIR | Set to *include* inside the package folder. |
 +-----------------------------+---------------------------------------------+
-| CMAKE_INSTALL_DATAROOTDIR   | Set to *share* inside the package folder.   |
+| CMAKE_INSTALL_PREFIX        | Set to ``conanfile.package_folder`` value.  |
++-----------------------------+---------------------------------------------+
+| CMAKE_INSTALL_SBINDIR       | Set to *bin* inside the package folder.     |
 +-----------------------------+---------------------------------------------+
 
 But you can change the automatic definitions after the ``CMake()`` object creation using the ``definitions`` property or even add your own
@@ -374,7 +379,7 @@ will contain absolute paths to the installed package folder, for example it will
 
 .. code-block:: text
 
-    SET(Foo_INSTALL_DIR /home/developer/.conan/data/Foo/1.0.0/...)
+    SET(Foo_INSTALL_DIR /home/developer/.conan/data/foo/1.0.0/...)
 
 This will cause cmake's ``find_package()`` method to fail when someone else installs the package via Conan. This function will replace such
 paths to:
@@ -389,7 +394,7 @@ For dependent packages method replaces lines with references to dependencies ins
 
 .. code-block:: text
 
-    SET_TARGET_PROPERTIES(foo PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "/home/developer/.conan/data/Bar/1.0.0/user/channel/id/include")
+    SET_TARGET_PROPERTIES(foo PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "/home/developer/.conan/data/bar/1.0.0/user/channel/id/include")
 
 to following lines:
 

@@ -22,7 +22,7 @@ The output JSON contains a two first level keys:
                   recipe and optionally also packages when searching them.
 
         - **recipe**: Document representing the uploaded recipe.
-            - **id**: Reference, e.g., "OpenSSL/1.0.2n@conan/stable"
+            - **id**: Reference, e.g., "openssl/1.0.2u"
 
         - **packages**: List of elements representing the binary packages found for the recipe.
             - **id**: Package ID, e.g., "8018a4df6e7d2b4630a814fa40c81b85b9182d2b"
@@ -37,46 +37,44 @@ The output JSON contains a two first level keys:
 
   .. code-block:: json
 
-      {
-          "error":false,
-          "results":[
-              {  
-                  "remote":"conan-center",
-                  "items":[
-                      {
-                          "recipe":{
-                              "id":"eigen/3.3.4@conan/stable"
-                          }
-                      }
-                  ]
-              },
-              {
-                  "remote":"upload_repo",
-                  "items":[
-                      {
-                          "recipe":{
-                              "id":"eigen/3.3.4@danimtb/stable"
-                          }
-                      },
-                      {
-                          "recipe":{
-                              "id":"eigen/3.3.4@danimtb/testing"
-                          }
-                      }
-                  ]
-              },
-              {  
-                  "remote":"conan-community",
-                  "items":[
-                      {
-                          "recipe":{
-                              "id":"eigen/3.3.4@conan/stable"
-                          }
-                      }
-                  ]
-              }
-          ]
-      }
+    {
+        "error": false,
+        "results": [{
+            "remote": "conan-center",
+            "items": [{
+                "recipe": {
+                    "id": "eigen/3.3.4@conan/stable"
+                }
+            }, {
+                "recipe": {
+                    "id": "eigen/3.3.5@conan/stable"
+                }
+            }, {
+                "recipe": {
+                    "id": "eigen/3.3.7"
+                }
+            }, {
+                "recipe": {
+                    "id": "eigen/3.3.7@conan/stable"
+                }
+            }]
+        }, {
+            "remote": "conan-community",
+            "items": [{
+                "recipe": {
+                    "id": "eigen/3.3.4@conan/stable"
+                }
+            }, {
+                "recipe": {
+                    "id": "eigen/3.3.5@conan/stable"
+                }
+            }, {
+                "recipe": {
+                    "id": "eigen/3.3.7@conan/stable"
+                }
+            }]
+        }]
+    }
 
 - Search packages of a reference in a remote: :command:`conan search paho-c/1.2.0@conan/stable -r conan-center --json search.json`
 
@@ -289,7 +287,7 @@ The output JSON contains a two first level keys:
                                       "os":"Windows"
                                   },
                                   "requires":[
-                                      "OpenSSL/1.0.2n@conan/stable:606fdb601e335c2001bdf31d478826b644747077",
+                                      "openssl/1.0.2n@conan/stable:606fdb601e335c2001bdf31d478826b644747077",
                                       "zlib/1.2.11@conan/stable:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7"
                                   ],
                                   "outdated":true
@@ -311,7 +309,7 @@ The output JSON contains a two first level keys:
                                       "os":"Windows"
                                   },
                                   "requires":[
-                                      "OpenSSL/1.0.2n@conan/stable:f761d91cef7988eafb88c6b6179f4cf261609f26",
+                                      "openssl/1.0.2n@conan/stable:f761d91cef7988eafb88c6b6179f4cf261609f26",
                                       "zlib/1.2.11@conan/stable:6dc82da13f94df549e60f9c1ce4c5d11285a4dff"
                                   ],
                                   "outdated":true

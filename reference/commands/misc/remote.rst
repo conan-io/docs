@@ -7,15 +7,15 @@ conan remote
 .. code-block:: bash
 
     $ conan remote [-h]
-                   {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref,list_pref,add_pref,remove_pref,update_pref,clean}
+                   {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref,list_pref,add_pref,remove_pref,update_pref,clean,enable,disable}
                    ...
 
-Manages the remote list and the package recipes associated to a remote.
+Manages the remote list and the package recipes associated with a remote.
 
 .. code-block:: text
 
     positional arguments:
-      {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref,list_pref,add_pref,remove_pref,update_pref,clean}
+      {list,add,remove,update,rename,list_ref,add_ref,remove_ref,update_ref,list_pref,add_pref,remove_pref,update_pref,clean,enable,disable}
                             sub-command help
         list                List current remotes
         add                 Add a remote
@@ -32,6 +32,8 @@ Manages the remote list and the package recipes associated to a remote.
         update_pref         Update the remote associated with a binary package
         clean               Clean the list of remotes and all recipe-remote
                             associations
+        enable              Enable a remote
+        disable             Disable a remote
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -45,15 +47,16 @@ Manages the remote list and the package recipes associated to a remote.
 
       $ conan remote list
       conan-center: https://conan.bintray.com [Verify SSL: True]
-      local: http://localhost:9300 [Verify SSL: True]
+      local: http://localhost:9300 [Verify SSL: True, Disabled: True]
 
-- List remotes in a format valid for *remotes.txt* (:command:`conan config install`):
+- List remotes in a format almost valid for the *remotes.txt* to use with :ref:`conan_config_install`, only need
+  to remove the ``True`` boolean appended to disabled remotes (notice line for ``local`` one in the output):
 
   .. code-block:: bash
 
       $ conan remote list --raw
       conan-center https://conan.bintray.com True
-      local http://localhost:9300 True
+      local http://localhost:9300 True True
       # capture the current remotes in a text file
       $ conan remote list --raw > remotes.txt
 
@@ -136,13 +139,20 @@ the command will insert the remote in the specified position
 
   .. code-block:: bash
 
-      $ conan remote add_ref OpenSSL/1.0.2i@conan/stable conan-center
+      $ conan remote add_ref openssl/1.0.2u conan-center
 
 - Update the remote associated with a package recipe:
 
   .. code-block:: bash
 
-      $ conan remote update_ref OpenSSL/1.0.2i@conan/stable local-remote
+      $ conan remote update_ref openssl/1.0.2t local-remote
+
+- Enable or disable remotes (accepts patterns such as ``*`` as argument using Unix shell-style wildcards):
+
+  .. code-block:: bash
+
+      $ conan remote disable "*"
+      $ conan remote enable local-remote
 
 .. note::
 

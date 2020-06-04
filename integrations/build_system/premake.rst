@@ -13,7 +13,7 @@ Since Conan 1.9.0 the ``premake`` generator is built-in and works with :command:
 Example
 -------
 
-We are going to use the same example from :ref:`getting_started`, a MD5 Encrypter app.
+We are going to use the same example from :ref:`getting_started`, a MD5 hash calculator app.
 
 This is the main source file for it:
 
@@ -43,7 +43,7 @@ Premake generator:
    :caption: conanfile.txt
 
     [requires]
-    Poco/1.9.0@pocoproject/stable
+    poco/1.9.4
 
     [generators]
     premake
@@ -100,7 +100,7 @@ Then let's call :command:`premake` to generate our project:
 Now you can build your project with Visual Studio or Make.
 
 
-.. |premake_logo| image:: ../../images/premake_logo.png
+.. |premake_logo| image:: ../../images/conan-premake_logo.png
 
 .. seealso::
 

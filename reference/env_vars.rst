@@ -42,7 +42,7 @@ the :ref:`CMake build tool<cmake_reference>`:
 
 .. seealso::
 
-    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/wikis/doc/cmake/CrossCompiling>`_
+    See `CMake cross building wiki <https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/CrossCompiling>`_
 
 .. _conan_bash_path_env:
 
@@ -75,7 +75,7 @@ CMake generator. Note that this is not a package settings, building it with make
 build system, as Ninja, should lead to the same binary if using appropriately the same
 underlying compiler settings. So it doesn't make sense to provide a setting or option for this.
 
-So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value 
+So it can be set with the environment variable ``CONAN_CMAKE_GENERATOR``. Just set its value
 to your desired CMake generator (as ``Ninja``).
 
 CONAN_CMAKE_GENERATOR_PLATFORM
@@ -221,11 +221,28 @@ Can be used with ``CONAN_LOG_RUN_TO_FILE`` set to ``1`` to log only to file and 
 CONAN_LOGGING_LEVEL
 -------------------
 
-**Defaulted to**: ``50``
+**Defaulted to**: ``critical``
 
 By default Conan logging level is only set for critical events. If you want
-to show more detailed logging information, set this variable to lower values, as ``10`` to show
-debug information.
+to show more detailed logging information, set this variable according to
+`Python Logging Levels`_ or, use a logging level name:
+
++---------------------+------------------+
+| logging level name  | logging level id |
++=====================+==================+
+| critical            | 50               |
++---------------------+------------------+
+| error               | 40               |
++---------------------+------------------+
+| warning/warn        | 30               |
++---------------------+------------------+
+| info                | 20               |
++---------------------+------------------+
+| debug               | 10               |
++---------------------+------------------+
+
+Both names and IDs are acceptable by environment variable, or using the conan.conf file.
+
 
 .. _env_vars_conan_login_username:
 
@@ -328,6 +345,8 @@ For example, for a remote named "conan-center":
 
     See the :ref:`conan_user` command documentation for more information about login to remotes
 
+.. _env_vars_conan_hooks:
+
 CONAN_HOOKS
 -----------
 
@@ -408,7 +427,7 @@ or declared in command line when invoking :command:`conan install` to reduce the
 
 .. code-block:: bash
 
-    $ conan install . -e CONAN_RUN_TEST=0
+    $ conan install . -e CONAN_RUN_TESTS=0
 
 See how to retrieve the value with :ref:`tools.get_env() <tools_get_env>` and check a use case
 with :ref:`a header only with unit tests recipe <header_only_unit_tests_tip>` while cross building.
@@ -420,7 +439,7 @@ See example of build method in ``conanfile.py`` to enable/disable running tests 
     from conans import ConanFile, CMake, tools
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
 
         def build(self):
@@ -437,14 +456,17 @@ CONAN_SKIP_VS_PROJECTS_UPGRADE
 
 **Defaulted to**: ``False``/``0``
 
-When set to ``True``/``1``, the :ref:`tools_build_sln_command`, the :ref:`tools_msvc_build_command`
-and the :ref:`MSBuild()<msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
+When set to ``True``/``1``, the :ref:`tools.build_sln_command() <tools_build_sln_command>`,
+the :ref:`tools.msvc_build_command() <tools_msvc_build_command>`
+and the :ref:`MSBuild() <msbuild>` build helper, will not call ``devenv`` command to upgrade the ``sln`` project, irrespective of
 the ``upgrade_project`` parameter value.
+
+.. _env_vars_conan_sysrequires_mode:
 
 CONAN_SYSREQUIRES_MODE
 ----------------------
 
-**Defaulted to**: ``enabled`` allowed values ``enabled``/``verify``/``disabled``
+**Defaulted to**: Not defined (allowed values ``enabled``/``verify``/``disabled``)
 
 This environment variable controls whether system packages should be installed into the system
 via ``SystemPackageTool`` helper, typically used in :ref:`method_system_requirements`.
@@ -459,6 +481,7 @@ See values behavior:
     - ``disabled``: Display a report of system packages that should be installed but continue the Conan execution and
       doesn't install any package in your system. Useful if you want to keep manual control of these dependencies,
       for example in your development environment.
+
 
 CONAN_SYSREQUIRES_SUDO
 ----------------------
@@ -493,33 +516,38 @@ Set it with an absolute path to a file.
 
     export CONAN_TRACE_FILE=/tmp/conan_trace.log
 
-When the Conan command is executed, some traces will be appended to the specified file. 
-Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions, 
+When the Conan command is executed, some traces will be appended to the specified file.
+Each line contains a JSON object. The ``_action`` field contains the action type, like ``COMMAND`` for command executions,
 ``EXCEPTION`` for errors and ``REST_API_CALL`` for HTTP calls to a remote.
 
 The logger will append the traces until the ``CONAN_TRACE_FILE`` variable is unset or pointed to a different file.
 
 .. seealso::
 
-    Read more here: :ref:`logging_and_debugging` 
+    Read more here: :ref:`logging_and_debugging`
 
 CONAN_USERNAME, CONAN_CHANNEL
 -----------------------------
 
-These environment variables will be checked when using ``self.user`` or ``self.channel`` in package recipes in user space, where the user
-and channel have not been assigned yet (they are assigned when exported in the local cache).
+.. warning::
 
-.. seealso::
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` are deprecated and will be
+    removed in Conan 2.0. Don't use them to populate the value of ``self.user`` and ``self.channel``.
 
-    Read more about it in :ref:`user_channel`
+These environment variables will be checked when using ``self.user`` or ``self.channel`` in package
+recipes in user space, where the user and channel have not been assigned yet (they are assigned
+when exported in the local cache). More about these variables in
+the :ref:`attributes reference <user_channel>`.
+
 
 CONAN_USER_HOME
 ---------------
 
 **Defaulted to**: Not defined
 
-Allows defining a custom Conan cache directory. Can be useful for concurrent builds under different
-users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example).
+Allows defining a custom base directory for Conan cache directory. Can be useful for concurrent builds under different
+users in CI, to retrieve and store per-project specific dependencies (useful for deployment, for example). Conan will
+generate the folder ``.conan`` under the custom base path.
 
 .. seealso::
 
@@ -535,6 +563,9 @@ marked as `short_paths` will be stored in the ``C:\.conan`` (or the current driv
 
 If set to ``None``, it will disable the `short_paths` feature in Windows for modern Windows that enable long paths at the system level.
 
+Setting this variable equal to, or to a subdirectory of, the local conan cache (e.g. ~/.conan)
+would result in an invalid cache configuration and is therefore disallowed.
+
 CONAN_USE_ALWAYS_SHORT_PATHS
 ----------------------------
 
@@ -543,6 +574,11 @@ CONAN_USE_ALWAYS_SHORT_PATHS
 If defined to ``True`` or ``1``, every package will be stored in the *short paths directory* resolved
 by Conan after evaluating ``CONAN_USER_HOME_SHORT`` variable (see above). This variable, therefore,
 overrides the value defined in recipes for the attribute :ref:`short paths<short_paths_reference>`.
+
+If the variable is not defined or it evaluates to ``False`` then every recipe will be stored
+according to the value of its ``short_paths`` attribute. So, ``CONAN_USE_ALWAYS_SHORT_PATHS`` can
+force every recipe to use short paths, but it won't work to force the opposite behavior.
+
 
 CONAN_VERBOSE_TRACEBACK
 -----------------------
@@ -609,3 +645,13 @@ CONAN_SKIP_BROKEN_SYMLINKS_CHECK
 **Defaulted to**: ``False``/``0``
 
 When set to ``True``/``1``, Conan will allow the existence broken symlinks while creating a package.
+
+CONAN_PYLINT_WERR
+-----------------
+
+**Defaulted to**: Not defined
+
+This environment variable changes the PyLint behavior from *warning* level to *error*. Therefore,
+any inconsistency found in the recipe will break the process during linter analysis.
+
+.. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels

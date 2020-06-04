@@ -13,7 +13,7 @@ conan remove
 
 Removes packages or binaries matching pattern from local cache or remote.
 
-It can also be used to remove temporary source or build folders in the
+It can also be used to remove the temporary source or build folders in the
 local conan cache. If no remote is specified, the removal will be done
 by default in the local conan cache.
 
@@ -33,7 +33,8 @@ by default in the local conan cache.
       -o, --outdated        Remove only outdated from recipe packages. This flag
                             can only be used with a reference
       -p [PACKAGES [PACKAGES ...]], --packages [PACKAGES [PACKAGES ...]]
-                            Select package to remove specifying the package ID
+                            Remove all packages of the specified reference if no
+                            specific package ID is provided
       -q QUERY, --query QUERY
                             Packages query: 'os=Windows AND (arch=x86 OR
                             compiler=gcc)'. The 'pattern_or_reference' parameter
@@ -50,30 +51,30 @@ The ``-q`` parameter can't be used along with ``-p`` nor ``-b`` parameters.
 **Examples**:
 
 - Remove from the local cache the binary packages (the package recipes will not be removed)
-  from all the recipes matching ``OpenSSL/*`` pattern:
+  from all the recipes matching ``openssl/*`` pattern:
 
   .. code-block:: bash
 
-      $ conan remove OpenSSL/* --packages
+      $ conan remove openssl/* --packages
 
-- Remove the temporary build folders from all the recipes matching ``OpenSSL/*`` pattern without
+- Remove the temporary build folders from all the recipes matching ``openssl/*`` pattern without
   requesting confirmation:
 
   .. code-block:: bash
 
-      $ conan remove OpenSSL/* --builds --force
+      $ conan remove openssl/* --builds --force
 
 - Remove the recipe and the binary packages from a specific remote:
 
   .. code-block:: bash
 
-      $ conan remove OpenSSL/1.0.2@lasote/stable -r myremote
+      $ conan remove openssl/1.0.u@ -r myremote
 
-- Remove only Windows OpenSSL packages from local cache:
+- Remove only Windows openssl packages from local cache:
 
   .. code-block:: bash
 
-      $ conan remove OpenSSL/1.0.2@lasote/stable -q "os=Windows"
+      $ conan remove openssl/1.0.u@ -q "os=Windows"
 
 .. _conan_remove_system_reqs:
 

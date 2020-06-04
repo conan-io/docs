@@ -3,7 +3,7 @@
 RunEnvironment
 ==============
 
-The ``RunEnvironment`` helper prepares ``PATH``, ``LD_LIBRARY_PATH`` and ``DYLD_LIBRARY_PATH`` environment variables to locate shared libraries and executables of your requirements at runtime.
+The ``RunEnvironment`` helper prepares ``PATH``, ``LD_LIBRARY_PATH``, ``DYLD_LIBRARY_PATH`` and ``DYLD_FRAMEWORK_PATH`` environment variables to locate shared libraries, frameworks and executables of your requirements at runtime.
 
 .. warning::
 
@@ -29,6 +29,7 @@ This helper is specially useful if:
             self.run("....")
             # All the requirements bin folder will be available at PATH
             # All the lib folders will be available in LD_LIBRARY_PATH and DYLD_LIBRARY_PATH
+            # All the framework_paths folders will be available in DYLD_FRAMEWORK_PATH
 
 
 It sets the following environment variables:
@@ -42,12 +43,14 @@ It sets the following environment variables:
 +--------------------+---------------------------------------------------------------------+
 | DYLD_LIBRARY_PATH  | Containing all the requirements ``lib`` folders. (OSX)              |
 +--------------------+---------------------------------------------------------------------+
+| DYLD_FRAMEWORK_PATH| Containing all the requirements ``framework_paths`` folders. (OSX)  |
++--------------------+---------------------------------------------------------------------+
 
 .. important::
 
     Security restrictions might apply in OSX
     (`read this thread <https://stackoverflow.com/questions/35568122/why-isnt-dyld-library-path-being-propagated-here>`_), so the
-    ``DYLD_LIBRARY_PATH`` environment variable is not directly transferred to the child process. In that case, you have to use it explicitly in
+    ``DYLD_LIBRARY_PATH`` and ``DYLD_FRAMEWORK_PATH`` environment variables are not directly transferred to the child process. In that case, you have to use it explicitly in
     your *conanfile.py*:
 
     .. code-block:: python
@@ -55,8 +58,8 @@ It sets the following environment variables:
         def build(self):
             env_build = RunEnvironment(self)
             with tools.environment_append(env_build.vars):
-                # self.run("./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' is in the env
-                self.run("DYLD_LIBRARY_PATH=%s ./myexetool" % os.environ['DYLD_LIBRARY_PATH'])
+                # self.run("./myexetool") # won't work, even if 'DYLD_LIBRARY_PATH' and 'DYLD_FRAMEWORK_PATH' are in the env
+                self.run("DYLD_LIBRARY_PATH=%s DYLD_FRAMEWORK_PATH=%s ./myexetool" % (os.environ['DYLD_LIBRARY_PATH'], os.environ['DYLD_FRAMEWORK_PATH']))
 
     This is already handled automatically by the ``self.run(..., run_environment=True)`` argument.
 

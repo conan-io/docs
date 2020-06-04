@@ -17,34 +17,45 @@ Variables in *conanbuildinfo.cmake*
 
 - **Package declared variables**:
 
-  For each requirement *conanbuildinfo.cmake* file declares the following variables. ``XXX`` is the name of the require in uppercase. e.g.
-  "ZLIB" for ``zlib/1.2.8@lasote/stable`` requirement:
+  For each requirement *conanbuildinfo.cmake* file declares the following variables. Where ``<PKG-NAME>`` is the placeholder for the name of
+  the require in uppercase (``ZLIB`` for ``zlib/1.2.8@lasote/stable``) or the one declared in ``cpp_info.name`` or in 
+  ``cpp_info.names["cmake"]`` if specified:
 
-  +--------------------------------+----------------------------------------------------------------------+
-  | NAME                           | VALUE                                                                |
-  +================================+======================================================================+
-  | CONAN_XXX_ROOT                 | Abs path to root package folder.                                     |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_INCLUDE_DIRS_XXX         | Header's folders                                                     |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_LIB_DIRS_XXX             | Library folders  (default {CONAN_XXX_ROOT}/lib)                      |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_BIN_DIRS_XXX             | Binary folders  (default {CONAN_XXX_ROOT}/bin)                       |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_SRC_DIRS_XXX             | Sources folders                                                      |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_LIBS_XXX                 | Library names to link                                                |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_DEFINES_XXX              | Library defines                                                      |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_COMPILE_DEFINITIONS_XXX  | Compile definitions                                                  |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_CXX_FLAGS_XXX            | CXX flags                                                            |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_SHARED_LINK_FLAGS_XXX    | Shared link flags                                                    |
-  +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_C_FLAGS_XXX              | C flags                                                              |
-  +--------------------------------+----------------------------------------------------------------------+
+  +---------------------------------------+----------------------------------------------------------------------+
+  | NAME                                  | VALUE                                                                |
+  +=======================================+======================================================================+
+  | CONAN_<PKG-NAME>_ROOT                 | Abs path to root package folder.                                     |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_INCLUDE_DIRS_<PKG-NAME>         | Header's folders                                                     |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_LIB_DIRS_<PKG-NAME>             | Library folders  (default {CONAN_<PKG-NAME>_ROOT}/lib)               |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_BIN_DIRS_<PKG-NAME>             | Binary folders  (default {CONAN_<PKG-NAME>_ROOT}/bin)                |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_SRC_DIRS_<PKG-NAME>             | Sources folders                                                      |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_LIBS_<PKG-NAME>                 | Library names to link (package libs, system libs and frameworks)     |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_PKG_LIBS_<PKG-NAME>             | Package library names to link                                        |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_SYSTEM_LIBS_<PKG-NAME>          | System library names to link                                         |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_DEFINES_<PKG-NAME>              | Library defines                                                      |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_COMPILE_DEFINITIONS_<PKG-NAME>  | Compile definitions                                                  |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_CXX_FLAGS_<PKG-NAME>            | CXX flags                                                            |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_SHARED_LINK_FLAGS_<PKG-NAME>    | Shared link flags                                                    |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_C_FLAGS_<PKG-NAME>              | C flags                                                              |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORKS_<PKG-NAME>           | Frameworks names to use them in `find_library()`                     |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORKS_FOUND_<PKG-NAME>     | Frameworks found after using CONAN_FRAMEWORKS in `find_library()`    |
+  +---------------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORK_PATHS_<PKG-NAME>      | Framework folders to locate the frameworks (OSX)                     |
+  +---------------------------------------+----------------------------------------------------------------------+
 
 - **Global declared variables**:
 
@@ -62,7 +73,9 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_SRC_DIRS                 | Aggregated sources folders                                           |
   +--------------------------------+----------------------------------------------------------------------+
-  | CONAN_LIBS                     | Aggregated library names to link                                     |
+  | CONAN_LIBS                     | Aggregated library names to link (with system libs and frameworks)   |
+  +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_SYSTEM_LIBS              | Aggregated system libraries names to link                            |
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_DEFINES                  | Aggregated library defines                                           |
   +--------------------------------+----------------------------------------------------------------------+
@@ -74,19 +87,28 @@ Variables in *conanbuildinfo.cmake*
   +--------------------------------+----------------------------------------------------------------------+
   | CONAN_C_FLAGS                  | Aggregated C flags                                                   |
   +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORKS               | Aggregated frameworks to be found with `find_library()` (OSX)        |
+  +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORKS_FOUND         | Aggregated found frameworks after `find_library()` call (OSX)        |
+  +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_FRAMEWORK_PATHS          | Aggregated framework folders (OSX)                                   |
+  +--------------------------------+----------------------------------------------------------------------+
+  | CONAN_BUILD_MODULES            | Aggregated paths for build module files (like *.cmake*)              |
+  +--------------------------------+----------------------------------------------------------------------+
 
 - **User information declared variables**:
 
   If any of the requirements is filling the :ref:`user_info<method_package_info_user_info>` object in the
   :ref:`package_info<method_package_info>` method a set of variables will be declared following this naming:
 
-  +--------------------------------+----------------------------------------------------------------------+
-  | NAME                           | VALUE                                                                |
-  +================================+======================================================================+
-  | CONAN_USER_XXXX_YYYY           | User declared value                                                  |
-  +--------------------------------+----------------------------------------------------------------------+
+  +-----------------------------------+-------------------------------------------------------------------+
+  | NAME                              | VALUE                                                             |
+  +===================================+===================================================================+
+  | CONAN_USER_<PKG-NAME>_<VAR-NAME>  | User declared value                                               |
+  +-----------------------------------+-------------------------------------------------------------------+
 
-  Where ``XXXX`` means the name of the requirement in uppercase and ``YYYY`` the variable name. For example, if this recipe declares:
+  Where ``<PKG-NAME>`` means the name of the requirement in uppercase and ``<VAR-NAME>`` the variable name. For example, if this recipe
+  declares:
 
   .. code-block:: python
 
@@ -126,7 +148,7 @@ variables. See the macros below for detailed information.
 Parameters:
     - ``TARGETS`` (Optional): Setup all the CMake variables by target (only CMake > 3.1.2). Activates the call to the macro
       ``conan_target_link_libraries()``.
-    - ``NO_OUTPUT_DIRS`` (Optional): Do not adjust the output directories. Deactivates the call to the macro ``conan_output_dirs_setup()``.
+    - ``NO_OUTPUT_DIRS`` (Optional): Do not adjust the build output directories. Deactivates the call to the macro [``conan_output_dirs_setup()``](#conan_output_dirs_setup).
     - ``SKIP_RPATH`` (Optional): **[DEPRECATED]** Use ``KEEP_RPATHS`` instead. Activate ``CMAKE_SKIP_RPATH`` variable in OSX.
     - ``KEEP_RPATHS`` (Optional): Do not adjust the ``CMAKE_SKIP_RPATH`` variable in OSX. Activates the call to the macro ``conan_set_rpath()``
     - ``SKIP_STD`` (Optional): Do not adjust the C++ standard flag in ``CMAKE_CXX_FLAGS``. Deactivates the call to the macro
@@ -145,12 +167,13 @@ Helper to link all libraries to a specified target.
 
 These targets are:
 
-- A ``CONAN_PKG::PkgName`` target per package in the dependency graph. This is an ``IMPORTED INTERFACE`` target. ``IMPORTED`` because it is
+- A ``CONAN_PKG::<PKG-NAME>`` target per package in the dependency graph. This is an ``IMPORTED INTERFACE`` target. ``IMPORTED`` because it is
   external, a pre-compiled library. ``INTERFACE``, because it doesn't necessarily match a library, it could be a header-only library, or the
-  package could even contain several libraries. It contains all the properties (include paths, compile flags, etc.) that are defined in the
+  package could even contain several libraries. It contains all the properties (include paths, compile flags, etc.) that are defined in the consumer.
+  It contains all the properties (include paths, compile flags, etc.) that are defined in the
   ``package_info()`` method of the recipe.
 
-- Inside each package a ``CONAN_LIB::PkgName_LibName`` target will be generated for each library. Its type is ``IMPORTED UNKNOWN`` and its
+- Inside each package a ``CONAN_LIB::<PKG-NAME>_<LIB-NAME>`` target will be generated for each library. Its type is ``IMPORTED UNKNOWN`` and its
   main purpose is to provide a correct link order. Their only properties are the location and the dependencies.
 
 - A ``CONAN_PKG`` depends on every ``CONAN_LIB`` that belongs to it, and to its direct public dependencies (e.g. other ``CONAN_PKG`` targets
@@ -171,7 +194,13 @@ This method can be disabled setting the :ref:`conan_disable_check_compiler` vari
 conan_output_dirs_setup()
 +++++++++++++++++++++++++
 
-Adjusts the *bin/* and *lib/* output directories.
+Adjusts each `CMAKE_RUNTIME_OUTPUT_DIRECTORY` variable to be ``${CMAKE_CURRENT_BINARY_DIR}/bin`` 
+and each ``CMAKE_ARCHIVE_OUTPUT_DIRECTORY`` and ``CMAKE_LIBRARY_OUTPUT_DIRECTORY`` variable to be 
+``${CMAKE_CURRENT_BINARY_DIR}/lib``.
+
+Calling this method makes writing the ``package()`` method for recipies easier. All artifacts will 
+always be found in the same location. Otherwise, they may be found in different locations depending 
+on your build environment (eg Linux vs Windows).
 
 conan_set_find_library_paths()
 ++++++++++++++++++++++++++++++
@@ -212,6 +241,19 @@ conan_set_find_paths()
 ++++++++++++++++++++++
 
 Adjusts ``CMAKE_MODULE_PATH`` and ``CMAKE_PREFIX_PATH`` to the values of ``deps_cpp_info.build_paths``.
+
+
+conan_include_build_modules()
++++++++++++++++++++++++++++++
+
+Includes CMake files declared in ``CONAN_BUILD_MODULES`` using the ``include(...)`` directive. This loads the functions or macros that
+packages may export and makes them available for usage in the consumers *CMakeLists.txt*.
+
+conan_find_apple_frameworks(FRAMEWORKS_FOUND FRAMEWORKS)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Find framework library names provided in `${FRAMEWORKS}` using `find_library()` and return the found values in `FRAMEWORKS_FOUND`.
+
 
 Input variables for *conanbuildinfo.cmake*
 ------------------------------------------

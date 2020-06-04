@@ -1,3 +1,18 @@
+.. _capture_version:
+
+How to dynamically define the name and version of a package
+===========================================================
+
+The ``name`` and ``version`` fields are used to define constant values. The ``set_name()`` and ``set_version()``
+methods can be used to dynamically define those values, for example if we want to extract the version from a text
+file or from the git repository.
+
+The version of a recipe is stored in the package metadata when it is exported (or created) and always taken from
+the metadata later on. This means that the ``set_name()`` and ``set_version()`` methods will not be executed once
+the recipe is in the cache, or when it is installed from a server. Both methods will use the current folder as
+the current working directory to resolve relative paths. To define paths relative to the location of the *conanfile.py*
+use the ``self.recipe_folder`` attribute.
+
 
 How to capture package version from SCM: git
 ============================================
@@ -9,25 +24,18 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
 
     from conans import ConanFile, tools
 
-    def get_version():
-        git = tools.Git()
-        try:
-            return "%s_%s" % (git.get_branch(), git.get_revision())
-        except:
-            return None
-
     class HelloConan(ConanFile):
-        name = "Hello"
-        version = get_version()
+        name = "hello"
+
+        def set_version(self):
+            git = tools.Git(folder=self.recipe_folder)
+            self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
         def build(self):
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/branch_commit@user/channel``. Note that ``get_version()`` returns ``None``
-if it is not able to get the Git data. This is necessary when the recipe is already in the
-Conan cache, and the Git repository may not be there. A value of ``None`` makes Conan
-get the version from the metadata.
+``hello/branch_commit@user/channel``.
 
 How to capture package version from SCM: svn
 ============================================
@@ -39,9 +47,10 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
 
     from conans import ConanFile, tools
 
-    def get_svn_version(version):
-        try:
-            scm = tools.SVN()
+    class HelloLibrary(ConanFile):
+        name = "hello"
+        def set_version(self):
+            scm = tools.SVN(folder=self.recipe_folder)
             revision = scm.get_revision()
             branch = scm.get_branch() # Delivers e.g trunk, tags/v1.0.0, branches/my_branch
             branch = branch.replace("/","_")
@@ -49,22 +58,14 @@ the *conanfile.py* recipe resides, and use it to define the version of the Conan
                 dirty = ""
             else:
                 dirty = ".dirty"
-            return "%s-%s+%s%s" % (version, revision, branch, dirty) # e.g. 1.2.0-1234+trunk.dirty
-        except Exception:
-            return None
-
-    class HelloLibrary(ConanFile):
-        name = "Hello"
-        version = get_svn_version("1.2.0")
+            self.version = "%s-%s+%s%s" % (version, revision, branch, dirty) # e.g. 1.2.0-1234+trunk.dirty
         
         def build(self):
             ...
 
 In this example, the package created with :command:`conan create` will be called 
-``Hello/generated_version@user/channel``. Note that ``get_svn_version()`` returns ``None``
-if it is not able to get the subversion data. This is necessary when the recipe is already in the
-Conan cache, and the subversion repository may not be there. A value of ``None`` makes Conan
-get the version from the metadata.
+``hello/generated_version@user/channel``. Note: this function should never raise, see the section
+about when the version is computed and saved above.
 
 How to capture package version from text or build files
 =======================================================
@@ -80,7 +81,6 @@ As an example, let's assume we have the following library layout, and that we wa
        hello.cpp
        ...
 
-
 The *CMakeLists.txt* will have some variables to define the library version number. For simplicity, let's also assume
 that it includes a line such as the following:
 
@@ -90,39 +90,17 @@ that it includes a line such as the following:
     set(MY_LIBRARY_VERSION 1.2.3) # This is the version we want
     add_library(hello src/hello.cpp)
 
-
-Typically, our *conanfile.py* package recipe will include:
-
-
-.. code-block:: python
-
-    class HelloConan(ConanFile):
-        name = "Hello"
-        version = "1.2.3"
-
-
-This usually requires very little maintenance, and when the CMakeLists version is bumped, so is the *conanfile.py* version.
-However, if you only want to have to update the *CMakeLists.txt* version, you can extract the version dynamically, using:
-
+You can extract the version dynamically using:
 
 .. code-block:: python
 
     from conans import ConanFile
     from conans.tools import load
-    import re
-
-    def get_version():
-        try:
-            content = load("CMakeLists.txt")
-            version = re.search(b"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)
-            return version.strip()
-        except Exception as e:
-            return None
+    import re, os
 
     class HelloConan(ConanFile):
-        name = "Hello"
-        version = get_version()
-
-
-Even if the *CMakeLists.txt* file is not exported to the local cache, it will still work, as the ``get_version()`` function returns None
-when it is not found, and then takes the version number from the package metadata (layout).
+        name = "hello"
+        def set_version(self):
+            content = load(os.path.join(self.recipe_folder, "CMakeLists.txt"))
+            version = re.search(b"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)
+            self.version = version.strip()

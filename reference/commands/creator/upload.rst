@@ -9,6 +9,7 @@ conan upload
     $ conan upload [-h] [-p PACKAGE] [-q QUERY] [-r REMOTE] [--all]
                    [--skip-upload] [--force] [--check] [-c] [--retry RETRY]
                    [--retry-wait RETRY_WAIT] [-no [{all,recipe}]] [-j JSON]
+                   [--parallel]
                    pattern_or_reference
 
 Uploads a recipe and binary packages to a remote.
@@ -38,8 +39,10 @@ If no remote is specified, the first configured remote (by default conan-center,
       --all                 Upload both package recipe and packages
       --skip-upload         Do not upload anything, just run the checks and the
                             compression
-      --force               Do not check conan recipe date, override remote with
-                            local
+      --force               Ignore checks before uploading the recipe: it will
+                            bypass missing fields in the scm attribute and it will
+                            override remote recipe with local regardless of recipe
+                            date
       --check               Perform an integrity check, using the manifests,
                             before upload
       -c, --confirm         Upload all matching recipes without confirmation
@@ -52,6 +55,8 @@ If no remote is specified, the first configured remote (by default conan-center,
                             remote one
       -j JSON, --json JSON  json file path where the upload information will be
                             written to
+      --parallel            Upload files in parallel using multiple threads The
+                            default number of launched threads is 8
 
 
 **Examples**:
@@ -106,3 +111,13 @@ Upload packages without overwriting the recipe if the packages have changed:
 .. code-block:: bash
 
     $ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite recipe
+
+Upload packages using multiple threads without requiring confirmation to my_remote:
+
+.. code-block:: bash
+
+    $ conan upload "*" --confirm --parallel -r my_remote
+
+.. warning::
+
+    Note that :ref:`non_interactive mode<conan_conf>` will be forced to `true` when using parallel upload

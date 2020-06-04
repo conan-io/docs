@@ -38,7 +38,7 @@ short description of the package.
 .. code-block:: python
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         description = """This is a Hello World library.
                         A fully featured, portable, C++ library to say Hello World in the stdout,
@@ -71,7 +71,7 @@ repository, please indicate it in the ``url`` attribute, so that it can be easil
 .. code-block:: python
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         url = "https://github.com/conan-io/hello.git"
 
@@ -92,7 +92,7 @@ the :command:`conan info` command and possibly other search and report tools.
 .. code-block:: python
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         license = "MIT"
 
@@ -100,8 +100,8 @@ This attribute can contain several, comma separated licenses. It is a text strin
 contain any text, including hyperlinks to license files elsewhere.
 
 However, we strongly recommend packagers of Open-Source projects to use
-[SPDX](https://spdx.org/) identifiers from the [SPDX license
-list](https://spdx.org/licenses/) instead of free-formed text. This will help
+[SPDX](https://spdx.dev/) identifiers from the [SPDX license
+list](https://spdx.dev/licenses/) instead of free-formed text. This will help
 people wanting to automate license compatibility checks, like consumers of your
 package, or you if your package has Open-Source dependencies.
 
@@ -118,7 +118,7 @@ define who is the creator/maintainer of the package
 .. code-block:: python
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         author = "John J. Smith (john.smith@company.com)"
 
@@ -147,37 +147,48 @@ This is an optional attribute.
 user, channel
 -------------
 
-The fields ``user`` and ``channel`` can be accessed from within a ``conanfile.py``.
-Though their usage is usually not encouraged, it could be useful in different cases,
-e.g. to define requirements with the same user and
-channel as the current package, which could be achieved with something like:
+**These fields are optional in a Conan reference**, they could be useful to identify a forked recipe
+from the community with changes specific for your company. Using these fields you may keep the
+same ``name`` and ``version`` and use the ``user/channel`` to disambiguate your recipe.
+
+The value of these fields can be accessed from within a ``conanfile.py``:
 
 .. code-block:: python
 
     from conans import ConanFile
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
 
         def requirements(self):
-            self.requires("Say/0.1@%s/%s" % (self.user, self.channel))
+            self.requires("common-lib/version")
+            if self.user and self.channel:
+                # If the recipe is using them, I want to consume my fork.
+                self.requires("say/0.1@%s/%s" % (self.user, self.channel))
+            else:
+                # otherwise, I'll consume the community one
+                self.requires("say/0.1")
 
-Only package recipes that are in the conan local cache (i.e. "exported") have a user/channel assigned.
-For package recipes working in user space, there is no current user/channel by default. They can be
-defined at ``conan install`` time with:
+
+Only packages that have already been exported (packages in the local cache or in a remote server)
+can have a user/channel assigned. For package recipes working in the user space, there is no
+current user/channel by default, although they can be defined at :command:`conan install` time with:
 
 .. code-block:: bash
 
     $ conan install <path to conanfile.py> user/channel
 
-If they are not defined via command line, the properties ``self.user`` and ``self.channel`` will then look 
-for environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` respectively. If they are not defined, 
-an error will be raised unless ``default_user`` and ``default_channel`` are declared in the recipe.
-
 .. seealso::
 
     FAQ: :ref:`faq_recommendation_user_channel`
+
+.. warning::
+
+    Environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL`` that were used to assign a value
+    to these fields are now deprecated and will be removed in Conan 2.0. Don't use them to
+    populate the value of ``self.user`` and ``self.channel``.
+
 
 default_user, default_channel
 -----------------------------
@@ -192,7 +203,7 @@ you need to declare the environment variables ``CONAN_USERNAME`` and ``CONAN_CHA
     from conans import ConanFile
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         default_user = "myuser"
 
@@ -201,7 +212,7 @@ you need to declare the environment variables ``CONAN_USERNAME`` and ``CONAN_CHA
             return "mydefaultchannel"
 
         def requirements(self):
-            self.requires("Pkg/0.1@%s/%s" % (self.user, self.channel))
+            self.requires("pkg/0.1@%s/%s" % (self.user, self.channel))
 
 
 .. _settings_property:
@@ -237,7 +248,7 @@ We can indicate that in the conanfile:
    from conans import ConanFile
 
     class HelloConan(ConanFile):
-        name = "Hello"
+        name = "hello"
         version = "0.1"
         # We can just omit the settings attribute too
         settings = None
@@ -284,10 +295,10 @@ It is possible to check the settings to implement conditional logic, with attrib
             # Other different commands
 
 Those comparisons do content checking, for example if you do a typo like ``self.settings.os == "Windos"``,
-conan will fail and tell you that is not a valid ``settings.os`` value, and the possible range of values.
+Conan will fail and tell you that is not a valid ``settings.os`` value, and the possible range of values.
 
 Likewise, if you try to access some setting that doesn't exist, like ``self.settings.compiler.libcxx``
-for the ``Visual Studio`` setting, conan will fail telling that ``libcxx`` does not exist for that compiler.
+for the ``Visual Studio`` setting, Conan will fail telling that ``libcxx`` does not exist for that compiler.
 
 If you want to do a safe check of settings values, you could use the ``get_safe()`` method:
 
@@ -298,10 +309,10 @@ If you want to do a safe check of settings values, you could use the ``get_safe(
         arch = self.settings.get_safe("arch")
         # Will be None if doesn't exist
         compiler_version = self.settings.get_safe("compiler.version")
+        # Will be the default version if the return is None
+        build_type = self.settings.get_safe("build_type", default="Release")
 
-The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist.
-
-
+The ``get_safe()`` method will return ``None`` if that setting or subsetting doesn't exist and there is no default value assigned.
 
 .. _conanfile_options:
 
@@ -361,12 +372,12 @@ legacy reasons.
 .. tip::
 
     - You can inspect available package options reading the package recipe, which can be
-      done with the command :command:`conan inspect MyPkg/0.1@user/channel`.
+      done with the command :command:`conan inspect mypkg/0.1@user/channel`.
     - Options ``"shared": [True, False]`` and ``"fPIC": [True, False]`` are automatically managed in :ref:`cmake_reference` and
       :ref:`autotools_reference` build helpers.
 
 As we mentioned before, values for options in a recipe can be defined using different ways, let's
-go over all of them for the example recipe ``MyPkg`` defined above:
+go over all of them for the example recipe ``mypkg`` defined above:
 
 - Using the attribute ``default_options`` in the recipe itself.
 - In the ``default_options`` of a recipe that requires this one: the values defined here
@@ -375,18 +386,18 @@ go over all of them for the example recipe ``MyPkg`` defined above:
   .. code-block:: python
 
       class OtherPkg(ConanFile):
-          requires = "MyPkg/0.1@user/channel"
-          default_options = {"MyPkg:shared": False}
+          requires = "mypkg/0.1@user/channel"
+          default_options = {"mypkg:shared": False}
 
   Of course, this will work in the same way working with a *conanfile.txt*:
 
   .. code-block:: text
 
       [requires]
-      MyPkg/0.1@user/channel
+      mypkg/0.1@user/channel
 
       [options]
-      MyPkg:shared=False
+      mypkg:shared=False
 
 - It is also possible to define default values for the options of a recipe using
   :ref:`profiles<profiles>`. They will apply whenever that recipe is used:
@@ -425,7 +436,7 @@ consistent implementation take into account these considerations:
 
     - ``default_options = {"shared": True, "option": None}``
     - ``default_options = {"shared": "True", "option": "None"}``
-    - ``MyPkg:shared=True``, ``MyPkg:option=None`` on profiles, command line or *conanfile.txt*
+    - ``mypkg:shared=True``, ``mypkg:option=None`` on profiles, command line or *conanfile.txt*
 
 - **Implicit conversion to boolean is case insensitive**, so the
   expression ``bool(self.options.option)``:
@@ -446,6 +457,18 @@ consistent implementation take into account these considerations:
 - A different behavior has ``self.options.option = None``, because
   ``assert self.options.option != None``.
 
+If you want to do a safe check of options values, you could use the ``get_safe()`` method:
+
+.. code-block:: python
+
+    def build(self):
+        # Will be None if doesn't exist
+        fpic = self.options.get_safe("fPIC")
+        # Will be the default version if the return is None
+        shared = self.options.get_safe("shared", default=False)
+
+The ``get_safe()`` method will return ``None`` if that option doesn't exist and there is no default value assigned.
+
 
 .. _conanfile_default_options:
 
@@ -458,21 +481,21 @@ However, you can also specify default option values of the required dependencies
 .. code-block:: python
 
     class OtherPkg(ConanFile):
-        requires = "Pkg/0.1@user/channel"
-        default_options = {"Pkg:pkg_option": "value"}
+        requires = "pkg/0.1@user/channel"
+        default_options = {"pkg:pkg_option": "value"}
 
 And it also works with default option values of conditional required dependencies:
 
 .. code-block:: python
 
     class OtherPkg(ConanFile):
-        default_options = {"Pkg:pkg_option": "value"}
+        default_options = {"pkg:pkg_option": "value"}
 
         def requirements(self):
             if self.settings.os != "Windows":
-                self.requires("Pkg/0.1@user/channel")
+                self.requires("pkg/0.1@user/channel")
 
-For this example running in Windows, the `default_options` for the `Pkg/0.1@user/channel` will be ignored, they will only be used on every
+For this example running in Windows, the `default_options` for the `pkg/0.1@user/channel` will be ignored, they will only be used on every
 other OS.
 
 You can also set the options conditionally to a final value with ``config_options()`` instead of using ``default_options``:
@@ -513,30 +536,29 @@ Specify package dependencies as a list or tuple of other packages:
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        requires = "Hello/1.0@user/stable", "OtherLib/2.1@otheruser/testing"
+        requires = "hello/1.0@user/stable", "OtherLib/2.1@otheruser/testing"
 
 You can specify further information about the package requirements:
 
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        requires = [("Hello/0.1@user/testing"),
-                    ("Say/0.2@dummy/stable", "override"),
-                    ("Bye/2.1@coder/beta", "private")]
+        requires = [("hello/0.1@user/testing"),
+                    ("say/0.2@dummy/stable", "override"),
+                    ("bye/2.1@coder/beta", "private")]
 
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        requires = (("Hello/1.0@user/stable", "private"), )
+        requires = (("hello/1.0@user/stable", "private"), )
 
 
 Requirements can be complemented by 2 different parameters:
 
 **private**: a dependency can be declared as private if it is going to be fully embedded and hidden
-from consumers of the package. Typical examples could be a header only library which is not exposed
-through the public interface of the package, or the linking of a static library inside a dynamic
-one, in which the functionality or the objects of the linked static library are not exposed through
-the public interface of the dynamic library.
+from consumers of the package. It might be necessary in some extreme cases, like having to use two
+different versions of the same library (provided that they are totally hidden in a shared library, for
+example), but it is mostly discouraged otherwise.
 
 **override**: packages can define overrides of their dependencies, if they require the definition of
 specific versions of the upstream required libraries, but not necessarily direct dependencies. For example,
@@ -546,17 +568,16 @@ the compression is enabled or not. Now, if you want to force the usage of Zlib(v
 ..  code-block:: python
 
     class HelloConan(ConanFile):
-        requires = ("A/1.0@user/stable", ("Zlib/3.0@other/beta", "override"))
+        requires = ("ab/1.0@user/stable", ("zlib/3.0@other/beta", "override"))
 
-This **will not introduce a new dependency**, it will just change Zlib v2 to v3 if A actually
-requires it. Otherwise Zlib will not be a dependency of your package.
+This **will not introduce a new dependency**, it will just change ``zlib/2.0`` to ``zlib/3.0`` if ``ab`` actually
+requires it. Otherwise zlib will not be a dependency of your package.
 
 .. note::
 
     To prevent accidental override of transitive dependencies, check the config variable
     :ref:`general.error_on_override<conan_conf>` or the environment variable
     :ref:`CONAN_ERROR_ON_OVERRIDE<env_vars_conan_error_on_override>`.
-
 
 .. _version_ranges_reference:
 
@@ -568,7 +589,7 @@ The syntax is using brackets:
 ..  code-block:: python
 
     class HelloConan(ConanFile):
-        requires = "Pkg/[>1.0 <1.8]@user/stable"
+        requires = "pkg/[>1.0 <1.8]@user/stable"
 
 Expressions are those defined and implemented by [python node-semver](https://pypi.org/project/node-semver/). Accepted expressions would be:
 
@@ -578,7 +599,6 @@ Expressions are those defined and implemented by [python node-semver](https://py
     2.8          # equivalent to =2.8
     ~=3.0        # compatible, according to semver
     >1.1 || 0.8  # conditions can be OR'ed
-
 
 .. container:: out_reference_box
 
@@ -594,7 +614,7 @@ They can be specified as a comma separated tuple in the package recipe:
 .. code-block:: python
 
     class MyPkg(ConanFile):
-        build_requires = "ToolA/0.2@user/testing", "ToolB/0.2@user/testing"
+        build_requires = "tool_a/0.2@user/testing", "tool_b/0.2@user/testing"
 
 Read more: :ref:`Build requirements <build_requires>`
 
@@ -603,14 +623,16 @@ Read more: :ref:`Build requirements <build_requires>`
 exports
 -------
 
-If a package recipe ``conanfile.py`` requires other external files, like other python files that
-it is importing (python importing), or maybe some text file with data it is reading, those files
-must be exported with the ``exports`` field, so they are stored together, side by side with the
-``conanfile.py`` recipe.
+This **optional attribute** declares the set of files that should be exported and stored side by
+side with the *conanfile.py* file to make the recipe work: other python files that the recipe will
+import, some text file with data to read,...
 
-The ``exports`` field can be one single pattern, like ``exports="*"``, or several inclusion patterns.
+The ``exports`` field can declare one single file or pattern, or a list of any of the previous
+elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+formatting to declare files to include or exclude.
+
 For example, if we have some python code that we want the recipe to use in a ``helpers.py`` file,
-and have some text file, ``info.txt``, we want to read and display during the recipe evaluation
+and have some text file *info.txt* we want to read and display during the recipe evaluation
 we would do something like:
 
 .. code-block:: python
@@ -623,24 +645,29 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports = "*.py", "!*tmp.py"
 
-This is an optional attribute, only to be used if the package recipe requires these other files
-for evaluation of the recipe.
 
 .. _exports_sources_attribute:
 
 exports_sources
 ---------------
-There are 2 ways of getting source code to build a package. Using the ``source()`` recipe method
-and using the ``exports_sources`` field. With ``exports_sources`` you specify which sources are required,
-and they will be exported together with the **conanfile.py**, copying them from your folder to the
-local conan cache. Using ``exports_sources``
-the package recipe can be self-contained, containing the source code like in a snapshot, and then
-not requiring downloading or retrieving the source code from other origins (git, download) with the
-``source()`` method when it is necessary to build from sources.
 
-The ``exports_sources`` field can be one single pattern, like ``exports_sources="*"``, or several inclusion patterns.
-For example, if we have the source code inside "include" and "src" folders, and there are other folders
-that are not necessary for the package recipe, we could do:
+This **optional attribute** declares the set of files that should be exported together with the
+recipe and will be available to generate the package. Unlike ``exports`` attribute, these files
+shouldn't be used by the *conanfile.py* Python code, but to compile the library or generate
+the final package. And, due to its purpose, these files will only be retrieved if requested
+binaries are not available or the user forces Conan to compile from sources.
+
+The ``exports_sources`` attribute can declare one single file or pattern, or a list of any of the
+previous elements. Patterns use `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_
+formatting to declare files to include or exclude.
+
+Together with the ``source()`` and ``imports()`` methods, and the :ref:`SCM feature<scm_feature>`,
+this is another way to retrieve the sources to create a package. Unlike the other methods, files
+declared in ``exports_sources`` will be exported together with the *conanfile.py* recipe, so,
+if nothing else is required, it can create a self-contained package with all the sources
+(like a snapshot) that will be used to generate the final artifacts.
+
+Some examples for this attribute are:
 
 .. code-block:: python
 
@@ -652,14 +679,10 @@ Exclude patterns are also possible, with the ``!`` prefix:
 
     exports_sources = "include*", "src*", "!src/build/*"
 
-This is an optional attribute, used typically when ``source()`` is not specified. The main difference with
-``exports`` is that ``exports`` files are always retrieved (even if pre-compiled packages exist),
-while ``exports_sources`` files are only retrieved when it is necessary to build a package from sources.
-
 generators
 ----------
 
-Generators specify which is the output of the ``install`` command in your project folder. By default, a *conanbuildinfo.txt* file is
+Generators specify which is the output of the :command:`install` command in your project folder. By default, a *conanbuildinfo.txt* file is
 generated, but you can specify different generators and even use more than one.
 
 .. code-block:: python
@@ -720,11 +743,11 @@ the cache and can be only modified for the local flow with :command:`conan build
 build_policy
 ------------
 
-With the ``build_policy`` attribute the package creator can change the default conan's build behavior.
+With the ``build_policy`` attribute the package creator can change conan's build behavior.
 The allowed ``build_policy`` values are:
 
-- ``missing``: If no binary package is found, Conan will build it without the need to invoke :command:`conan install --build missing` option.
-- ``always``: The package will be built always, **retrieving each time the source code** executing the "source" method.
+- ``missing``: If this package is not found as a binary package, Conan will build it from source.
+- ``always``: This package will always be built from source, also **retrieving the source code each time** by executing the "source" method.
 
 .. code-block:: python
    :emphasize-lines: 2
@@ -745,11 +768,11 @@ It tells Conan to workaround the limitation of 260 chars in Windows paths.
     Since Windows 10 (ver. 10.0.14393), it is possible to `enable long paths at the system level
     <https://docs.microsoft.com/es-es/windows/win32/fileio/naming-a-file#maximum-path-length-limitation>`_.
     Latest python 2.x and 3.x installers enable this by default. With the path limit removed both on the OS
-    and on Python, the ``short_paths`` functionality becomes unnecessary, and may be disabled explicitly
+    and on Python, the ``short_paths`` functionality becomes unnecessary, and can be disabled explicitly
     through the ``CONAN_USER_HOME_SHORT`` environment variable.
 
-Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to the drive root, something like
-``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
+Enabling short paths management will "link" the ``source`` and ``build`` directories of the package to a different
+location, in Windows it will be ``C:\.conan\tmpdir``. All the folder layout in the local cache is maintained.
 
 Set ``short_paths=True`` in your *conanfile.py*:
 
@@ -763,7 +786,13 @@ Set ``short_paths=True`` in your *conanfile.py*:
 
 .. seealso::
 
-    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to globally enable this behavior for all packages.
+    There is an :ref:`environment variable <env_vars>` ``CONAN_USE_ALWAYS_SHORT_PATHS`` to force
+    activate this behavior for all packages.
+
+
+This behavior will also work in Cygwin, the short folder directory will be ``/home/<user>/.conan_short``
+by default, but it can be modified as we've explained before.
+
 
 .. _no_copy_source:
 
@@ -835,48 +864,103 @@ cpp_info
 
     This attribute is only defined inside ``package_info()`` method being `None` elsewhere.
 
-The ``self.cpp_info`` is responsible for storing all the information needed by consumers of a package: include directories, library names,
-library paths... There are some default values that will be applied automatically if not indicated otherwise.
+The ``self.cpp_info`` attribute is responsible for storing all the information needed by consumers of a package: include directories,
+library names, library paths... There are some default values that will be applied automatically if not indicated otherwise.
 
 This object should be filled in ``package_info()`` method.
 
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                           | DESCRIPTION                                                                                             |
-+================================+=========================================================================================================+
-| self.cpp_info.includedirs      | Ordered list with include paths. Defaulted to ``["include"]``                                           |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libdirs          | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.resdirs          | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.bindirs          | Ordered list with include paths. Defaulted to ``["bin"]``                                               |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.builddirs        | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
-|                                | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libs             | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.defines          | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cflags           | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cppflags         | [DEPRECATED: use cxxflags instead]                                                                      |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cxxflags         | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags  | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.exelinkflags     | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.rootpath         | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
-+--------------------------------+---------------------------------------------------------------------------------------------------------+
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| NAME                             | DESCRIPTION                                                                                             |
++==================================+=========================================================================================================+
+| self.cpp_info.includedirs        | Ordered list with include paths. Defaulted to ``["include"]``                                           |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs            | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs            | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs            | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs          | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
+|                                  | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs               | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines            | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags             | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags           | [DEPRECATED: Use cxxflags instead]                                                                      |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cxxflags           | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags    | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags       | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks         | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs      | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath           | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name               | | Alternative name for the package used by generators to create files or variables.                     |
+|                                  | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
+|                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.names["generator"] | | Alternative name for the package used by an specific generator to create files or variables.          |
+|                                  | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
+|                                  | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
+|                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.system_libs        | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
+|                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components         | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
+|                                  | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
++----------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
 
+.. warning::
+
+    Components is a **experimental** feature subject to breaking changes in future releases.
+
+:ref:`Using components <package_information_components>` you can achieve a more fine-grained control over individual libraries available in
+a single Conan package. Components allow you define a ``cpp_info`` like object per each of those libraries and also requirements between
+them and to components of other packages (the following case is not a real example):
+
+.. code-block:: python
+
+    def package_info(self):
+        self.cpp_info.name = "OpenSSL"
+        self.cpp_info.components["crypto"].names["cmake_find_package"] = "Crypto"
+        self.cpp_info.components["crypto"].libs = ["libcrypto"]
+        self.cpp_info.components["crypto"].defines = ["DEFINE_CRYPTO=1"]
+        self.cpp_info.components["crypto"].requires = ["zlib::zlib"]  # Depends on all components in zlib package
+
+        self.cpp_info.components["ssl"].names["cmake"] = "SSL"
+        self.cpp_info.components["ssl"].includedirs = ["include/headers_ssl"]
+        self.cpp_info.components["ssl"].libs = ["libssl"]
+        self.cpp_info.components["ssl"].requires = ["crypto",
+                                                    "boost::headers"]  # Depends on headers component in boost package
+
+The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object (except for the ``requires`` attribute) and
+has **the same default directories**.
+
+.. warning::
+
+    Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
+    ``self.cpp_info.name`` and ``self.cpp_info.names``).
+
+Dependencies among different components can be defined using the ``requires`` attribute and the name of the component. The dependency graph
+for components will be calculated and values will be aggregated in the correct order for each field.
+
 .. seealso::
 
-    Read :ref:`method_package_info` for more info.
+    Read :ref:`package_information_components` and :ref:`method_package_info` to learn more.
 
 .. _deps_cpp_info_attributes_reference:
 
@@ -884,21 +968,29 @@ deps_cpp_info
 -------------
 
 Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also properties to obtain the
-absolute paths:
+absolute paths, and ``name`` and ``version`` attributes:
 
-+-------------------------------------------+---------------------------------------------------------------------+
-| NAME                                      | DESCRIPTION                                                         |
-+===========================================+=====================================================================+
-| self.cpp_info.include_paths               | Same as ``includedirs`` but transformed to absolute paths           |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.lib_paths                   | Same as ``libdirs`` but transformed to absolute paths               |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.bin_paths                   | Same as ``bindirs`` but transformed to absolute paths               |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.build_paths                 | Same as ``builddirs`` but transformed to absolute paths             |
-+-------------------------------------------+---------------------------------------------------------------------+
-| self.cpp_info.res_paths                   | Same as ``resdirs`` but transformed to absolute paths               |
-+-------------------------------------------+---------------------------------------------------------------------+
++-----------------------------------------------+---------------------------------------------------------------------+
+| NAME                                          | DESCRIPTION                                                         |
++===============================================+=====================================================================+
+| self.deps_cpp_info["dep"].include_paths       | "dep" package ``includedirs`` but transformed to absolute paths     |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].lib_paths           | "dep" package ``libdirs`` but transformed to absolute paths         |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].bin_paths           | "dep" package ``bindirs`` but transformed to absolute paths         |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_paths         | "dep" package ``builddirs`` but transformed to absolute paths       |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].res_paths           | "dep" package ``resdirs`` but transformed to absolute paths         |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].framework_paths     | "dep" package  ``frameworkdirs`` but transformed to absolute paths  |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_modules_paths | "dep" package ``build_modules`` but transformed to absolute paths   |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].name                | Get the ``cpp_info.name`` as defined in "dep" package               |
++-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].version             | Get the version of the "dep" package                                |
++-----------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
 
@@ -907,7 +999,7 @@ To get a list of all the dependency names from ```deps_cpp_info```, you can call
     class PocoTimerConan(ConanFile):
         ...
         def build(self):
-            # deps is a list of package names: ["Poco", "zlib", "OpenSSL"]
+            # deps is a list of package names: ["poco", "zlib", "openssl"]
             deps = self.deps_cpp_info.deps
 
 It can be used to get information about the dependencies, like used compilation flags or the
@@ -918,7 +1010,7 @@ root folder of the package:
 
     class PocoTimerConan(ConanFile):
         ...
-        requires = "zlib/1.2.11@conan/stable", "OpenSSL/1.0.2l@conan/stable"
+        requires = "zlib/1.2.11", "openssl/1.0.2u"
         ...
 
         def build(self):
@@ -929,7 +1021,10 @@ root folder of the package:
             self.deps_cpp_info["zlib"].include_paths
 
             # Get the sharedlinkflags property from OpenSSL package
-            self.deps_cpp_info["OpenSSL"].sharedlinkflags
+            self.deps_cpp_info["openssl"].sharedlinkflags
+
+
+.. _env_info_attributes_reference:
 
 env_info
 --------
@@ -941,8 +1036,6 @@ The ``self.env_info`` object can be filled with the environment variables to be 
 .. seealso::
 
     Read :ref:`package_info() method docs <method_package_info>` for more info.
-
-
 
 .. _deps_env_info_attributes_reference:
 
@@ -971,8 +1064,6 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
-
-
 
 user_info
 ---------
@@ -1132,7 +1223,6 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
         ...
 
 
-
 - **type** (Required): Currently only ``git`` and ``svn`` are supported. Others can be added eventually.
 - **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working
   copy (credentials will be removed from it). When type is ``svn`` it can contain
@@ -1143,16 +1233,28 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **username** (Optional, Defaulted to ``None``): When present, it will be used as the login to authenticate with the remote.
 - **password** (Optional, Defaulted to ``None``): When present, it will be used as the password to authenticate with the remote.
 - **verify_ssl** (Optional, Defaulted to ``True``): Verify SSL certificate of the specified **url**.
+- **shallow** (Optional, Defaulted to ``True``): Use shallow clone for Git repositories.
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
 
-SCM attributes are evaluated in the workspace context where the *conanfile.py* is located before
+Attributes ``type``, ``url`` and ``revision`` are required to upload the recipe to a remote server.
+
+SCM attributes are evaluated in the working directory where the *conanfile.py* is located before
 exporting it to the Conan cache, so these values can be returned from arbitrary functions that
-depend on the workspace layout. Nevertheless, all the other code in the recipe must be able to
+depend on the local directory. Nevertheless, all the other code in the recipe must be able to
 run in the export folder inside the cache, where it has access only to the files exported (see
-attribute :ref:`exports <exports_attribute>`) and to any other functionality
-from a :ref:`python_requires <python_requires>`.
+attribute :ref:`exports <exports_attribute>` and :ref:`conandata_yml`) and to any other functionality
+from a :ref:`python_requires <python_requires>` package.
+
+.. warning::
+
+    By default, in Conan v1.x the information after evaluating the attribute ``scm`` will be stored in the
+    *conanfile.py* file (the recipe will be modified when exported to the Conan cache) and any value will be
+    written in plain text (watch out about passwords).
+    However, you can activate the :ref:`scm_to_conandata<conan_conf>` config option, the *conanfile.py*
+    won't be modified (data is stored in a different file) and the fields ``username`` and ``password`` won't be
+    stored, so these one will be computed each time the recipe is loaded.
 
 .. note::
 
@@ -1186,13 +1288,14 @@ be computed. It can take three different values:
 
 .. _python_requires_attribute:
 
-python_requires
----------------
+python_requires (legacy)
+------------------------
 
 .. warning::
 
-    This attribute is part of the :ref:`python requires<python_requires>` feature, so
-    it is also an **experimental** feature subject to breaking changes in future releases.
+    This attribute has been superseded by the new :ref:`python_requires`. Even if this is an **experimental**
+    feature subject to breaking changes in future releases, this legacy ``python_requires`` syntax has not
+    been removed yet, but it will be removed in Conan 2.0.
 
 Python requires are associated with the ``ConanFile`` declared in the recipe file, data
 from those imported recipes is accessible using the ``python_requires`` attribute in
@@ -1217,6 +1320,57 @@ workspace.:
 
         def source(self):
             pyreq = self.python_requires['pyreq']
-            self.copy("CMakeLists.txt", src=pyreq.exports_sources_folder, dst=self.source_folder)
+            path = os.path.join(pyreq.exports_sources_folder, "CMakeLists.txt")
+            shutil.copy(src=path, dst=self.source_folder)
+
+python_requires
+---------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+This class attribute allows to define a dependency to another Conan recipe and reuse its code.
+Its basic syntax is:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        python_requires = "pyreq/0.1@user/channel"  # recipe to reuse code from
+
+        def build(self):
+            self.python_requires["pyreq"].module # access to the whole conanfile.py module
+            self.python_requires["pyreq"].module.myvar  # access to a variable
+            self.python_requires["pyreq"].module.myfunct()  # access to a global function
+            self.python_requires["pyreq"].path # access to the folder where the reused file is
 
 
+Read more about this attribute in :ref:`python_requires`
+
+.. _conandata_attribute:
+
+conan_data
+----------
+
+This attribute is a dictionary with the keys and values provided in a :ref:`conandata_yml` file format placed next to the *conanfile.py*.
+This YAML file is automatically exported with the recipe and automatically loaded with it too.
+
+You can declare information in the *conandata.yml* file and then access it inside any of the methods of the recipe.
+For example, a *conandata.yml* with information about sources that looks like this:
+
+.. code-block:: YAML
+
+    sources:
+      "1.1.0":
+        url: "https://www.url.org/source/mylib-1.0.0.tar.gz"
+        sha256: "8c48baf3babe0d505d16cfc0cf272589c66d3624264098213db0fb00034728e9"
+      "1.1.1":
+        url: "https://www.url.org/source/mylib-1.0.1.tar.gz"
+        sha256: "15b6393c20030aab02c8e2fe0243cb1d1d18062f6c095d67bca91871dc7f324a"
+
+.. code-block:: python
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])

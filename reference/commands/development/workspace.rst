@@ -33,50 +33,79 @@ conan workspace install
 
 .. code-block:: bash
 
-    $ conan workspace install [-h] [-b [BUILD]] [-e ENV] [-o OPTIONS]
-                              [-pr PROFILE] [-r REMOTE] [-s SETTINGS] [-u]
+    $ conan workspace install [-h] [-b [BUILD]] [-r REMOTE] [-u] [-l [LOCKFILE]]
+                              [-e ENV_HOST] [-e:b ENV_BUILD] [-e:h ENV_HOST]
+                              [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                              [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                              [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                              [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
                               [-if INSTALL_FOLDER]
                               path
 
 .. code-block:: text
 
     positional arguments:
-    path                    path to workspace definition file (it will look for a
-                            "conanws.yml" inside if a directory is given)
+      path                  path to workspace definition file (it will look for a "conanws.yml"
+                            inside if a directory is given)
 
     optional arguments:
-    -h, --help              show this help message and exit
-    -b [BUILD], --build [BUILD]
-                            Optional, use it to choose if you want to build from
-                            sources: --build Build all from sources, do not use
-                            binary packages. --build=never Never build, use binary
-                            packages or fail if a binary package is not found.
-                            --build=missing Build from code if a binary package is
-                            not found. --build=outdated Build from code if the
-                            binary is not built with the current recipe or when
-                            missing binary package. --build=[pattern] Build always
-                            these packages from source, but never build the
-                            others. Allows multiple --build parameters. 'pattern'
-                            is a fnmatch file pattern of a package name. Default
-                            behavior: If you don't specify anything, it will be
-                            similar to '--build=never', but package recipes can
-                            override it with their 'build_policy' attribute in the
-                            conanfile.py.
-    -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-    -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-    -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
-    -r REMOTE, --remote REMOTE
+      -h, --help            show this help message and exit
+      -b [BUILD], --build [BUILD]
+                            Optional, use it to choose if you want to build from sources:
+                            --build Build all from sources, do not use binary packages.
+                            --build=never Never build, use binary packages or fail if a binary
+                            package is not found. --build=missing Build from code if a binary
+                            package is not found. --build=cascade Will build from code all the
+                            nodes with some dependency being built (for any reason). Can be
+                            used together with any other build policy. Useful to make sure that
+                            any new change introduced in a dependency is incorporated by
+                            building again the package. --build=outdated Build from code if the
+                            binary is not built with the current recipe or when missing a
+                            binary package. --build=[pattern] Build always these packages from
+                            source, but never build the others. Allows multiple --build
+                            parameters. 'pattern' is a fnmatch file pattern of a package
+                            reference. Default behavior: If you don't specify anything, it will
+                            be similar to '--build=never', but package recipes can override it
+                            with their 'build_policy' attribute in the conanfile.py.
+      -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-    -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
-    -u, --update            Check updates exist from upstream remotes
-    -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
-                            Folder where the workspace files will be created
-                            (default to current working directory)
+      -u, --update          Check updates exist from upstream remotes
+      -l [LOCKFILE], --lockfile [LOCKFILE]
+                            Path to a lockfile or folder containing 'conan.lock' file. Lockfile
+                            can be updated if packages change
+      -e ENV_HOST, --env ENV_HOST
+                            Environment variables that will be set during the package build
+                            (host machine). e.g.: -e CXX=/usr/bin/clang++
+      -e:b ENV_BUILD, --env:build ENV_BUILD
+                            Environment variables that will be set during the package build
+                            (build machine). e.g.: -e CXX=/usr/bin/clang++
+      -e:h ENV_HOST, --env:host ENV_HOST
+                            Environment variables that will be set during the package build
+                            (host machine). e.g.: -e CXX=/usr/bin/clang++
+      -o OPTIONS_HOST, --options OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o Pkg:with_qt=true
+      -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+                            Define options values (build machine), e.g.: -o Pkg:with_qt=true
+      -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o Pkg:with_qt=true
+      -pr PROFILE_HOST, --profile PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+                            Apply the specified profile to the build machine
+      -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -s SETTINGS_HOST, --settings SETTINGS_HOST
+                            Settings to build the package, overwriting the defaults (host
+                            machine). e.g.: -s compiler=gcc
+      -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+                            Settings to build the package, overwriting the defaults (build
+                            machine). e.g.: -s compiler=gcc
+      -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+                            Settings to build the package, overwriting the defaults (host
+                            machine). e.g.: -s compiler=gcc
+      -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
+                            Folder where the workspace files will be created (default to
+                            current working directory)
 
 
 Note that these arguments, like ``settings`` and ``options`` mostly apply to the dependencies,

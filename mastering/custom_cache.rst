@@ -36,7 +36,7 @@ Windows users:
 .. code-block:: bash
 
    $ SET CONAN_USER_HOME=c:\data
-   $ conan install . # call conan normally, config & data will be in c:\data
+   $ conan install . # call conan normally, config & data will be in c:\data\.conan
 
 
 Linux/macOS users:
@@ -44,7 +44,7 @@ Linux/macOS users:
 .. code-block:: bash
 
    $ export CONAN_USER_HOME=/tmp/conan
-   $ conan install . # call conan normally, config & data will be in /tmp/conan
+   $ conan install . # call conan normally, config & data will be in /tmp/conan/.conan
 
 You can now:
 

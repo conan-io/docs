@@ -9,8 +9,12 @@ conan info
     $ conan info [-h] [--paths] [-bo BUILD_ORDER] [-g GRAPH]
                  [-if INSTALL_FOLDER] [-j [JSON]] [-n ONLY]
                  [--package-filter [PACKAGE_FILTER]] [-db [DRY_BUILD]]
-                 [-b [BUILD]] [-e ENV] [-o OPTIONS] [-pr PROFILE] [-r REMOTE]
-                 [-s SETTINGS] [-u] [-l [LOCKFILE]]
+                 [-b [BUILD]] [-r REMOTE] [-u] [-l [LOCKFILE]] [-e ENV_HOST]
+                 [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                 [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                 [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
+                 [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
+                 [-s:h SETTINGS_HOST]
                  path_or_reference
 
 Gets information about the dependency graph of a recipe.
@@ -31,7 +35,8 @@ your local cache.
       --paths               Show package paths in local cache
       -bo BUILD_ORDER, --build-order BUILD_ORDER
                             given a modified reference, return an ordered list to
-                            build (CI)
+                            build (CI). [DEPRECATED: use 'conan graph build-order
+                            ...' instead]
       -g GRAPH, --graph GRAPH
                             Creates file with project dependencies graph. It will
                             generate a DOT or HTML file depending on the filename
@@ -48,8 +53,8 @@ your local cache.
                             written
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
-                            "required", "date", "author", "None". '--paths'
-                            information can also be filtered with options
+                            "required", "date", "author", "description", "None". '
+                            --paths' information can also be filtered with options
                             "export_folder", "build_folder", "package_folder",
                             "source_folder". Use '--only None' to show only
                             references.
@@ -64,21 +69,48 @@ your local cache.
                             Given a build policy, return an ordered list of
                             packages that would be built from sources during the
                             install command
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o Pkg:with_qt=true
-      -pr PROFILE, --profile PROFILE
-                            Apply the specified profile to the install command
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -s SETTINGS, --settings SETTINGS
-                            Settings to build the package, overwriting the
-                            defaults. e.g., -s compiler=gcc
       -u, --update          Check updates exist from upstream remotes
       -l [LOCKFILE], --lockfile [LOCKFILE]
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile can be updated if packages change
+      -e ENV_HOST, --env ENV_HOST
+                            Environment variables that will be set during the
+                            package build (host machine). e.g.: -e
+                            CXX=/usr/bin/clang++
+      -e:b ENV_BUILD, --env:build ENV_BUILD
+                            Environment variables that will be set during the
+                            package build (build machine). e.g.: -e:b
+                            CXX=/usr/bin/clang++
+      -e:h ENV_HOST, --env:host ENV_HOST
+                            Environment variables that will be set during the
+                            package build (host machine). e.g.: -e:h
+                            CXX=/usr/bin/clang++
+      -o OPTIONS_HOST, --options OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o
+                            Pkg:with_qt=true
+      -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+                            Define options values (build machine), e.g.: -o:b
+                            Pkg:with_qt=true
+      -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o:h
+                            Pkg:with_qt=true
+      -pr PROFILE_HOST, --profile PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+                            Apply the specified profile to the build machine
+      -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -s SETTINGS_HOST, --settings SETTINGS_HOST
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s compiler=gcc
+      -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+                            Settings to build the package, overwriting the
+                            defaults (build machine). e.g.: -s:b compiler=gcc
+      -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s:h compiler=gcc
 
 
 **Examples**:
@@ -88,7 +120,7 @@ your local cache.
     $ conan info .
     $ conan info myproject_folder
     $ conan info myproject_folder/conanfile.py
-    $ conan info Hello/1.0@user/channel
+    $ conan info hello/1.0@user/channel
 
 The output will look like:
 
@@ -100,26 +132,34 @@ The output will look like:
      Remote: None
      URL: http://...
      License: MIT
+     Description: A common dependency
      Updates: Version not checked
      Creation date: 2017-10-31 14:45:34
      Required by:
-        Hello/1.0@user/channel
+        hello/1.0@user/channel
 
-    Hello/1.0@user/channel
+    hello/1.0@user/channel
      ID: 5ab84d6acfe1f23c4fa5ab84d6acfe1f23c4fa8
      BuildID: None
      Remote: None
      URL: http://...
      License: MIT
+     Description: Hello World!
      Updates: Version not checked
      Required by:
         Project
      Requires:
-        Hello0/0.1@user/channel
+        hello0/0.1@user/channel
 
 :command:`conan info` builds the complete dependency graph, like :command:`conan install` does. The main
 difference is that it doesn't try to install or build the binaries, but the package recipes
 will be retrieved from remotes if necessary.
+
+.. important::
+
+    There is a dedicated command to work with the graph of dependencies and to retrieve information
+    about it. We encourage you to use :ref:`conan graph<conan_graph>` instead of this ``conan info``
+    command for those tasks.
 
 It is very important to note, that the :command:`info` command outputs the dependency graph for a
 given configuration (settings, options), as the dependency graph can be different for different
@@ -143,8 +183,10 @@ argument:
     $ conan info . --install-folder=build_debug
     > info for the debug dependency graph install
 
+
 It is possible to use the :command:`conan info` command to extract useful information for Continuous
-Integration systems. More precisely, it has the :command:`--build-order, -bo` option, that will produce
+Integration systems. More precisely, it has the :command:`--build-order, -bo` option (deprecated in
+favor of :ref:`conan graph build-order<conan_graph_build_order>`), that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
 built. E.g., let's assume that we have a project that depends on Boost and Poco, which in turn
 depends on OpenSSL and zlib transitively. So we can query our project with a reference that has
@@ -152,8 +194,8 @@ changed (most likely due to a git push on that package):
 
 .. code-block:: bash
 
-    $ conan info . -bo zlib/1.2.11@conan/stable
-    [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+    $ conan info . -bo zlib/1.2.11@
+    [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.9.4]
 
 Note the result is a list of lists. When there is more than one element in one of the lists, it means
 that they are decoupled projects and they can be built in parallel by the CI system.
@@ -163,17 +205,17 @@ You can also specify the :command:`--build-order=ALL` argument, if you want just
 .. code-block:: bash
 
     $ conan info . --build-order=ALL
-    > [zlib/1.2.11@conan/stable], [OpenSSL/1.0.2l@conan/stable], [Boost/1.60.0@lasote/stable, Poco/1.7.8p3@pocoproject/stable]
+    > [zlib/1.2.11], [openssl/1.0.2u], [boost/1.71.0, poco/1.9.4]
 
 
 Also you can get a list of nodes that would be built (simulation) in an install command specifying a build policy with the ``--build`` parameter.
 
-E.g., if I try to install ``Boost/1.60.0@lasote/stable`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
+E.g., if I try to install ``boost/1.71.0`` recipe with ``--build missing`` build policy and ``arch=x86``, which libraries will be built?
 
 .. code-block:: bash
 
-	$ conan info Boost/1.60.0@lasote/stable --build missing -s arch=x86
-	bzip2/1.0.6@lasote/stable, zlib/1.2.8@lasote/stable, Boost/1.60.0@lasote/stable
+	$ conan info boost/1.71.0@ --build missing -s arch=x86
+	bzip2/1.0.8, zlib/1.2.11, boost/1.71.0
 
 
 You can generate a graph of your dependencies, in dot or html formats:
@@ -183,7 +225,7 @@ You can generate a graph of your dependencies, in dot or html formats:
     $ conan info .. --graph=file.html
     $ file.html # or open the file, double-click
 
-.. image:: /images/info_deps_html_graph.png
+.. image:: /images/conan-info_deps_html_graph.png
     :height: 250 px
     :width: 300 px
     :align: center
@@ -199,3 +241,30 @@ files in the root of the configuration folder:
 
 It is not necessary to modify the generated html file. Conan will automatically use the local paths to the cache files if
 present, or the internet ones if not.
+
+You can find where the package is installed in your cache by using the argument :command:`--paths`:
+
+.. code-block:: bash
+
+    $ conan info foobar/1.0.0@user/channel --paths
+
+The output will look like:
+
+.. code-block:: bash
+
+    foobar/1.0.0@user/channel
+        ID: 6af9cc7cb931c5ad942174fd7838eb655717c709
+        BuildID: None
+        export_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/export
+        source_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/source
+        build_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/build/6af9cc7cb931c5ad942174fd7838eb655717c709
+        package_folder: /home/conan/.conan/data/foobar/1.0.0/user/channel/package/6af9cc7cb931c5ad942174fd7838eb655717c709
+        Remote: None
+        License: MIT
+        Description: Foobar project
+        Author: Dummy
+        Topics: None
+        Recipe: Cache
+        Binary: Cache
+        Binary remote: None
+        Creation date: 2019-09-03 11:22:17

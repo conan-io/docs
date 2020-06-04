@@ -14,7 +14,7 @@ command line argument.
 .. code-block:: bash
 
     $ mkdir mypkg && cd mypkg
-    $ conan new Hello/0.1
+    $ conan new hello/0.1
 
 This will create just the *conanfile.py* recipe file. Now we can create our package:
 
@@ -27,10 +27,10 @@ This is equivalent to:
 .. code-block:: bash
 
     $ conan export . demo/testing
-    $ conan install Hello/0.1@demo/testing --build=Hello
+    $ conan install hello/0.1@demo/testing --build=hello
 
 Once the package is created, it can be consumed like any other package, by adding
-``Hello/0.1@demo/testing`` to a project *conanfile.txt* or *conanfile.py* requirements and running:
+``hello/0.1@demo/testing`` to a project *conanfile.txt* or *conanfile.py* requirements and running:
 
 .. code-block:: bash
 
@@ -56,7 +56,7 @@ Each package recipe contains five important folders in the **local cache**:
 
 The *source* and *build* folders only exist when the packages have been built from sources.
 
-.. image:: /images/package_create_flow.png
+.. image:: /images/conan-package_create_flow.png
     :height: 500 px
     :width: 600 px
     :align: center

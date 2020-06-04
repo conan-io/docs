@@ -6,15 +6,19 @@ conan export-pkg
 
 .. code-block:: bash
 
-    $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-e ENV] [-f]
-                       [-if INSTALL_FOLDER] [-o OPTIONS] [-pr PROFILE]
-                       [-pf PACKAGE_FOLDER] [-s SETTINGS] [-sf SOURCE_FOLDER]
-                       [-j JSON] [-l [LOCKFILE]]
-                       path reference
+    $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-f] [-if INSTALL_FOLDER]
+                       [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER] [-j JSON]
+                       [-l [LOCKFILE]] [--ignore-dirty] [-e ENV_HOST]
+                       [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                       [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                       [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                       [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                       [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                       path [reference]
 
 Exports a recipe, then creates a package from local source and build folders.
 
-If '--package-folder' is provided it will copy the files from there, otherwise it
+If '--package-folder' is provided it will copy the files from there, otherwise, it
 will execute package() method over '--source-folder' and '--build-folder' to create
 the binary package.
 
@@ -30,10 +34,8 @@ the binary package.
       -h, --help            show this help message and exit
       -bf BUILD_FOLDER, --build-folder BUILD_FOLDER
                             Directory for the build process. Defaulted to the
-                            current directory. A relative path to current
+                            current directory. A relative path to the current
                             directory can also be specified
-      -e ENV, --env ENV     Environment variables that will be set during the
-                            package build, -e CXX=/usr/bin/clang++
       -f, --force           Overwrite existing package if existing
       -if INSTALL_FOLDER, --install-folder INSTALL_FOLDER
                             Directory containing the conaninfo.txt and
@@ -42,19 +44,13 @@ the binary package.
                             are found in the specified folder and any of '-e',
                             '-o', '-pr' or '-s' arguments are used, it will raise
                             an error.
-      -o OPTIONS, --options OPTIONS
-                            Define options values, e.g., -o pkg:with_qt=true
-      -pr PROFILE, --profile PROFILE
-                            Profile for this package
       -pf PACKAGE_FOLDER, --package-folder PACKAGE_FOLDER
                             folder containing a locally created package. If a
                             value is given, it won't call the recipe 'package()'
                             method, and will run a copy of the provided folder.
-      -s SETTINGS, --settings SETTINGS
-                            Define settings values, e.g., -s compiler=gcc
       -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
                             Directory containing the sources. Defaulted to the
-                            conanfile's directory. A relative path to current
+                            conanfile's directory. A relative path to the current
                             directory can also be specified
       -j JSON, --json JSON  Path to a json file where the install information will
                             be written
@@ -62,6 +58,45 @@ the binary package.
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile will be updated with the exported
                             package
+      --ignore-dirty        When using the "scm" feature with "auto" values,
+                            capture the revision and url even if there are
+                            uncommitted changes
+      -e ENV_HOST, --env ENV_HOST
+                            Environment variables that will be set during the
+                            package build (host machine). e.g.: -e
+                            CXX=/usr/bin/clang++
+      -e:b ENV_BUILD, --env:build ENV_BUILD
+                            Environment variables that will be set during the
+                            package build (build machine). e.g.: -e:b
+                            CXX=/usr/bin/clang++
+      -e:h ENV_HOST, --env:host ENV_HOST
+                            Environment variables that will be set during the
+                            package build (host machine). e.g.: -e:h
+                            CXX=/usr/bin/clang++
+      -o OPTIONS_HOST, --options OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o
+                            Pkg:with_qt=true
+      -o:b OPTIONS_BUILD, --options:build OPTIONS_BUILD
+                            Define options values (build machine), e.g.: -o:b
+                            Pkg:with_qt=true
+      -o:h OPTIONS_HOST, --options:host OPTIONS_HOST
+                            Define options values (host machine), e.g.: -o:h
+                            Pkg:with_qt=true
+      -pr PROFILE_HOST, --profile PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -pr:b PROFILE_BUILD, --profile:build PROFILE_BUILD
+                            Apply the specified profile to the build machine
+      -pr:h PROFILE_HOST, --profile:host PROFILE_HOST
+                            Apply the specified profile to the host machine
+      -s SETTINGS_HOST, --settings SETTINGS_HOST
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s compiler=gcc
+      -s:b SETTINGS_BUILD, --settings:build SETTINGS_BUILD
+                            Settings to build the package, overwriting the
+                            defaults (build machine). e.g.: -s:b compiler=gcc
+      -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
+                            Settings to build the package, overwriting the
+                            defaults (host machine). e.g.: -s:h compiler=gcc
 
 
 The :command:`export-pkg` command let you create a package from already existing files
@@ -83,6 +118,8 @@ different sources for the files:
    and the ``self.copy(...)`` functions will copy matching files from the ``source_folder``
    **and** ``build_folder`` to the corresponding path in the Conan cache (working directory
    corresponds to the ``build_folder``).
+ * If the arguments ``--package-folder``, ```--build-folder`` or ``--source-folder`` are
+   declared, but the path is incorrect, :command:`export-pkg` will raise an exception.
 
 
 There are different scenarios where this command could look like useful:
@@ -128,8 +165,8 @@ There are different scenarios where this command could look like useful:
 
   .. code-block:: bash
 
-      $ conan new Hello/0.1 --bare  # It creates a minimum recipe example
-      $ conan export-pkg . Hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --package-folder=Release_x86
+      $ conan new hello/0.1 --bare  # It creates a minimum recipe example
+      $ conan export-pkg . hello/0.1@user/stable -s os=Windows -s arch=x86 -s build_type=Release --package-folder=Release_x86
 
   This last command will copy all the contents from the ``package-folder`` and
   create the package associated with the settings provided through the command
@@ -163,4 +200,4 @@ There are different scenarios where this command could look like useful:
 
   .. code-block:: bash
 
-      $ conan export-pkg . Hello/0.1@user/stable -pr=myprofile --source-folder=sources --build-folder=build
+      $ conan export-pkg . hello/0.1@user/stable -pr:host=myprofile --source-folder=sources --build-folder=build

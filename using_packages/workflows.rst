@@ -21,32 +21,33 @@ When working with a  single configuration, your conanfile will be quite simple a
 
 .. code-block:: bash
 
-    $ git clone https://github.com/memsharded/example-poco-timer
-    $ conan install ./example-poco-timer --install-folder=example-poco-build
+    $ git clone git@github.com:conan-io/examples
+    $ cd libraries/poco
+    $ conan install ./md5 --install-folder=md5_build
 
 This will result in the following layout:
 
 .. code-block:: text
 
-    example-poco-build
+    md5_build
         conaninfo.txt
         conanbuildinfo.txt
         conanbuildinfo.cmake
-    example-poco-timer
+    md5
         CMakeLists.txt  # If using cmake, but can be Makefile, sln...
-        LICENSE
         README.md
         conanfile.txt
-        timer.cpp
+        md5.cpp
 
 Now you are ready to build:
 
 .. code-block:: bash
 
-    $ cd example-poco-build
-    $ cmake ../example-poco-timer -G "Visual Studio 15 Win64"  # or other generator
+    $ cd md5_build
+    $ cmake ../md5 -G "Visual Studio 15 Win64"  # or other generator
     $ cmake --build . --config Release
-    $ ./bin/timer
+    $ ./bin/md5
+    > c3fcd3d76192e4007dfb496cca67e13b
 
 We have created a separate build configuration of the project without affecting the original
 source directory in any way. The benefit is that we can freely experiment with the configuration: 
@@ -55,10 +56,11 @@ We can clear the build folder and build another. For example, changing the build
 .. code-block:: bash
 
     $ rm -rf *
-    $ conan install ../example-poco-timer -s build_type=Debug
-    $ cmake ../example-poco-timer -G "Visual Studio 15 Win64"
+    $ conan install ../md5 -s build_type=Debug
+    $ cmake ../md5 -G "Visual Studio 15 Win64"
     $ cmake --build . --config Debug
-    $ ./bin/timer
+    $ ./bin/md5
+    > c3fcd3d76192e4007dfb496cca67e13b
 
 Multi configuration
 -------------------
@@ -68,12 +70,13 @@ them without having to re-issue the :command:`conan install` command (Note howev
 
 .. code-block:: bash
 
-    $ git clone https://github.com/memsharded/example-poco-timer
-    $ conan install example-poco-timer -s build_type=Debug -if example-poco-build/debug
-    $ conan install example-poco-timer -s build_type=Release -if example-poco-build/release
+    $ git clone git@github.com:conan-io/examples
+    $ cd libraries/poco
+    $ conan install md5 -s build_type=Debug -if md5_build_debug
+    $ conan install md5 -s build_type=Release -if md5_build_release
 
-    $ cd example-poco-build/debug && cmake ../../example-poco-timer -G "Visual Studio 15 Win64" && cd ../..
-    $ cd example-poco-build/release && cmake ../../example-poco-timer -G "Visual Studio 15 Win64" && cd ../..
+    $ cd md5_build_debug && cmake ../md5 -G "Visual Studio 15 Win64" && cd ../..
+    $ cd md5_build_release && cmake ../md5 -G "Visual Studio 15 Win64" && cd ../..
 
 .. note::
 
@@ -84,23 +87,21 @@ So the layout will be:
 
 .. code-block:: text
 
-    example-poco-build
-      debug
-          conaninfo.txt
-          conanbuildinfo.txt
-          conanbuildinfo.cmake
-          CMakeCache.txt # and other cmake files
-      release
-          conaninfo.txt
-          conanbuildinfo.txt
-          conanbuildinfo.cmake
-          CMakeCache.txt # and other cmake files
+    md5_build_debug
+        conaninfo.txt
+        conanbuildinfo.txt
+        conanbuildinfo.cmake
+        CMakeCache.txt # and other cmake files
+    md5_build_release
+        conaninfo.txt
+        conanbuildinfo.txt
+        conanbuildinfo.cmake
+        CMakeCache.txt # and other cmake files
     example-poco-timer
         CMakeLists.txt  # If using cmake, but can be Makefile, sln...
-        LICENSE
         README.md
         conanfile.txt
-        timer.cpp
+        md5.cpp
 
 Now you can switch between your build configurations in exactly the same way you do for CMake or
 other build systems, by moving to the folder in which the build configuration is located, because the Conan
@@ -108,8 +109,8 @@ configuration files for that build configuration will also be there.
 
 .. code-block:: bash
 
-    $ cd example-poco-build/debug && cmake --build . --config Debug && cd ../..
-    $ cd example-poco-build/release && cmake --build . --config Release && cd ../..
+    $ cd md5_build_debug && cmake --build . --config Debug && cd ../..
+    $ cd md5_build_release && cmake --build . --config Release && cd ../..
 
 Note that the CMake ``include()`` of your project must be prefixed with the current cmake binary
 directory, otherwise it will not find the necessary file:

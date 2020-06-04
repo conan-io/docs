@@ -4,7 +4,13 @@ Ninja, NMake, Borland
 =========================
 
 These build systems still don't have a Conan generator for using them natively. However, if
-you are using cmake, you can instruct Conan to use them instead of the default generator
-(typically ``Unix Makefiles``) defining the environment variable ``CONAN_CMAKE_GENERATOR``.
+you are using CMake, you can instruct Conan to use them instead of the default generator
+(typically ``Unix Makefiles``).
 
-Read more about this variable in :ref:`env_vars`.
+Set it globally in your *conan.conf* file:
+
+.. code-block:: bash
+
+    $ conan config set general.cmake_generator=Ninja
+
+or use the environment variable :ref:`CONAN_CMAKE_GENERATOR <env_vars>`.

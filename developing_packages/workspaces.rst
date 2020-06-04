@@ -24,7 +24,7 @@ Lets introduce them with a practical example; the code can be found in the conan
     $ cd features/workspace/cmake
 
 
-Note that this folder contains two files *conanws_gcc.yml* and *conan_vs.yml*, for gcc (Makefiles, single-configuration build environments)
+Note that this folder contains two files *conanws_gcc.yml* and *conanws_vs.yml*, for gcc (Makefiles, single-configuration build environments)
 and for Visual Studio (MSBuild, multi-configuration build environment), respectively. 
 
 Conan workspace definition
@@ -118,11 +118,11 @@ depend on different versions of the same library, as in any other Conan command.
 
     root: chat/0.1@user/testing, say/0.1@user/testing
     # or
-    root: ["HelloA/0.1@lasote/stable", "HelloB/0.1@lasote/stable"]
+    root: ["helloa/0.1@lasote/stable", "hellob/0.1@lasote/stable"]
     # or
     root:
-        - HelloA/0.1@lasote/stable
-        - HelloB/0.1@lasote/stable
+        - helloa/0.1@lasote/stable
+        - hellob/0.1@lasote/stable
 
 
 Single configuration build environments

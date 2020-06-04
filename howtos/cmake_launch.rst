@@ -42,4 +42,4 @@ If you want to use targets, you could do:
                     BASIC_SETUP CMAKE_TARGETS)
 
     add_executable(main main.cpp)
-    target_link_libraries(main CONAN_PKG::Hello)
+    target_link_libraries(main CONAN_PKG::hello)

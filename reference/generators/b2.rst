@@ -1,12 +1,12 @@
 .. _b2_generator:
 
-`B2` [EXPERIMENTAL]
-===================
+b2
+==
 
 .. container:: out_reference_box
 
-    This is the reference page for the ``B2``, aka *Boost Build*, generator. It is
-    a multi-generator to match the multi-build nature of ``B2``.
+    This is the reference page for the ``b2`` (*Boost Build*) generator. It is
+    a multi-generator to match the multi-build nature of B2.
 
 .. warning::
 
@@ -38,10 +38,10 @@ The commands will generate 3 files:
 Sub-projects in conanbuildinfo-XXX.jam
 --------------------------------------
 
-The ``B2`` generator defines sub-projects relative to the location of the
-``B2`` project you generate the conan configuration. For each package a
+The ``b2`` generator defines sub-projects relative to the location of the
+B2 project you generate the Conan configuration. For each package a
 sub-project with the package name is created that contains targets you can
-use as ``B2`` sources in your projects.
+use as B2 sources in your projects.
 
 For example with this ``conanfile.txt``:
 
@@ -65,13 +65,13 @@ location:
     project zlib ;
 
 For a root level project those could be referenced with an absolute project
-path, for example ``/clara``. Or you can use relative project paths as needed,
-for example ``../clara`` or ``subproject/clara``.
+path, for example */clara*. Or you can use relative project paths as needed,
+for example *../clara* or *subproject/clara*.
 
 .. _conanbuildinfo_jam_targets:
 
-Targets in conanbuildinfo-XXX.jam
----------------------------------
+Targets in *conanbuildinfo-XXX.jam*
+-----------------------------------
 
 For each package a target in the corresponding package subproject is created
 that is specific to the variant built. There is also a general ``libs`` target
@@ -79,11 +79,10 @@ that is an alias to all the package library targets. For header only packages
 this ``libs`` target would not contain references to the package libraries
 as they do not exist. But it would still contain the rest of the Usage
 requirements for you to make use of the headers in that package. For example,
-for the above ``conanfile.txt`` the targets would be..
-
-``clara subproject``:
+for the above *conanfile.txt*, the targets would be:
 
 .. code-block:: text
+   :caption: ``clara subproject``
 
     alias libs
         : # source, none as it's header only
@@ -103,9 +102,8 @@ for ``boost_predef`` is equivalent as that's also a header only library. For
 ``libz`` it contains a built linkable library and hence it has additional
 targets for that.
 
-``libz subproject``:
-
 .. code-block:: text
+   :caption: ``libz subproject``
 
     alias z
         : # source, no source as it's a searched pre-built library
@@ -138,8 +136,8 @@ targets for that.
 
 .. _conanbuildinfo_jam_variables:
 
-Constants in conanbuildinfo-XXX.jam
------------------------------------
+Constants in *conanbuildinfo-XXX.jam*
+-------------------------------------
 
 This generator also defines constants, and path constants, in the project
 where the conanfile.txt is located. The constants define variant specific
@@ -153,7 +151,7 @@ constants. ``variation`` is the name of the package and variation. That
 ``YYY`` variation takes the form of a comma separated list of: package name,
 address-model, architecture, target-os, toolset with version, and variant
 (``debug``, ``release``, ``relwithdebinfo``, and ``minsizerel``). All are lower case and use
-the values of the corresponding ``B2`` features. For example a ``boost_predef``
+the values of the corresponding B2 features. For example a ``boost_predef``
 package dependency when building with apple-clang 9.0 and debug would be:
 ``boost_predef,64,x86,darwin,clang-9.0,debug``.
 
@@ -187,7 +185,7 @@ other constants.
 
 The generator also defines a corresponding set of constants that aggregate
 the values of all the package requirements. The constants for this are the same
-as the package-specific ones but with "conan" as the name of the project.
+as the package-specific ones but with ``conan`` as the name of the project.
 
 - **Constants from user_info**
 
@@ -205,21 +203,18 @@ name in lower case. For example:
 
 .. code-block:: python
 
+    class MyLibConan(ConanFile):
+        name = "MyLib"
+        version = "1.6.0"
 
-   class MyLibConan(ConanFile):
-       name = "MyLib"
-       version = "1.6.0"
+        # ...
 
-       # ...
+        def package_info(self):
+            self.user_info.var1 = 2
 
-       def package_info(self):
-           self.user_info.var1 = 2
-
-
-When other library requires ``MyLib`` and uses the ``B2`` generator:
-
-**conanbuildinfo-XXX.jam**:
+When other library requires ``MyLib`` and uses the ``b2`` generator:
 
 .. code-block:: text
+   :caption: *conanbuildinfo-XXX.jam*
 
     constant user(var1,mylib,...) : "2" ;
