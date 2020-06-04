@@ -140,7 +140,7 @@ with a dictionary of environment variables to have more priority than the others
 
     def build(self):
         # ...
-        vs_path = tools.vcvars_dict(self.settings)["PATH"] # Extract the path from the vcvars_dict tool
+        vs_path = tools.vcvars_dict(self)["PATH"] # Extract the path from the vcvars_dict tool
         tools.run_in_windows_bash(self, command, env={"PATH": vs_path})
 
 So you will get first the ``link.exe`` from the Visual Studio.
