@@ -1776,7 +1776,7 @@ tools.compilervars_command()
     def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
 
 Returns, for given settings of the given ``conanfile``, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
-version. It wraps the functionality of `compilervars <https://software.intel.com/en-us/intel-system-studio-cplusplus-compiler-user-and-reference-guide-using-compilervars-file>`_
+version. It wraps the functionality of `compilervars <https://software.intel.com/content/www/us/en/develop/documentation/intel-system-studio-cplusplus-compiler-user-and-reference-guide/top/target-platform-build-instructions/using-compilervars-file.html>`_
 but does not execute the command, as that typically have to be done in the same command as the compilation, so the variables are loaded for
 the same subprocess. It will be typically used in the ``build()`` method, like this:
 
