@@ -86,7 +86,7 @@ tools.vcvars_dict()
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
+    vcvars_dict(conanfile, arch=None, compiler_version=None, force=False, filter_known_paths=False,
                 vcvars_ver=None, winsdk_version=None, only_diff=True)
 
 Returns a dictionary with the variables set by the :ref:`tools_vcvars_command` that can be directly applied to
@@ -100,7 +100,7 @@ The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will 
     from conans import tools
 
     def build(self):
-        env_vars = tools.vcvars_dict(self.settings)
+        env_vars = tools.vcvars_dict(self)
         with tools.environment_append(env_vars):
             # Do something
 
@@ -119,7 +119,7 @@ tools.vcvars()
 
 .. code-block:: python
 
-    vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
+    vcvars(conanfile, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 .. note::
 
@@ -133,7 +133,7 @@ This is a context manager that allows to append to the environment all the varia
     from conans import tools
 
     def build(self):
-        with tools.vcvars(self.settings):
+        with tools.vcvars(self):
             do_something()
 
 .. _tools_build_sln_command:
