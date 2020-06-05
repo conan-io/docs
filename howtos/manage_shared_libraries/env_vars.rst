@@ -82,7 +82,7 @@ execute directly ``tool_a`` using RunEnvironment build helper to set the environ
 
         def build(self):
             exe_name = "tool_a.exe" if self.settings.os == "Windows" else "tool_a"
-            self.run("%s --someparams" % exe_name, run_environment=True)
+            self.run([exe_name, "--someparams"], run_environment=True)
             ...
 
 Building an application using the shared library from ``tool_a``
