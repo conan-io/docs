@@ -52,7 +52,7 @@ Toolchains have some important advantages:
   the build that is done in the cache with a ``conan create``.
 - They are more extensible and configurable.
 
-The toolchains implement most of the build system logic, leaving the build helpers, like ``CMake``,
+The toolchains implement most of the build system logic, leaving the build helpers, like ``CMake()``,
 doing less work, and acting basically as a high level wrapper of the build system. Many of the
 existing arguments, attributes or methds of those build helpers will not be available. Check
 the documentation of each toolchain to check the associated build helper available functionality.
