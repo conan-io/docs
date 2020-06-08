@@ -20,7 +20,8 @@ The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
             return tc
 
 
-The ``CMakeToolchain`` will generate 2 files:
+The ``CMakeToolchain`` will generate 2 files, after a ``conan install`` command (or
+before calling the ``build()`` method when the package is being built in the cache):
 
 - The main *conan_toolchain.cmake* file, that can be used in the command line.
 - A *conan_project_include.cmake* file, that will automatically be called right after the 
@@ -114,7 +115,9 @@ configure()
     def configure(self, source_folder=None):
 
 Calls ``cmake``, with the given generator and passing ``-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake``.
-
+It will also provide the CMake generator in the command like, like ``-G "Visual Studio 15"``. Note
+that it is not necessary to specify the platform, like ``-G "Visual Studio 15 Win64"``, as the
+platform is already defined in the toolchain file.
 
 - ``source_folder``: Relative path to the folder containing the root *CMakeLists.txt*
 
