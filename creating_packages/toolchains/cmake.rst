@@ -159,7 +159,7 @@ test()
     def test(self, build_type=None, target=None, output_on_failure=False):
 
 
-Equivalent to run ``cmake --build . --target=RUN_TESTS``
+Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
 
 - ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It 
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
