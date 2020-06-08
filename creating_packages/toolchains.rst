@@ -4,8 +4,11 @@ Toolchains
 .. warning: 
 
     This is a very **EXPERIMENTAL** feature, introduced in Conan 1.26, only supporting CMake
-    and with limited functionality. The current goal is to gather experience and feedback
+    and with limited functionality, and subject to breaking changes in the future.
+    The current goal is to gather experience and feedback
     to evolve it, while adding more build systems.
+
+    Please try it and give feedback at please provide feedback at: https://github.com/conan-io/conan/issues
 
 
 Toolchains are the new, experimental way to integrate with build systems in Conan.
