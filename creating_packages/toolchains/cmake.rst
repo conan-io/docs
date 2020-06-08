@@ -22,8 +22,8 @@ The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
 
 The ``CMakeToolchain`` will generate 2 files:
 
-- The main ``conan_toolchain.cmake`` file, that can be used in command line.
-- A ``conan_project_include.cmake`` file, that will automatically be called right after the 
+- The main *conan_toolchain.cmake* file, that can be used in the command line.
+- A *conan_project_include.cmake* file, that will automatically be called right after the 
   ``project()`` call for cmake>=3.15, containing definitions that only take effect after such
   call. For older cmake versions you should explicitly call ``include(.../conan_project_include.cmake)``
   in your ``CMakeLists.txt``.
