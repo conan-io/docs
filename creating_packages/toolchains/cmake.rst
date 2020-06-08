@@ -26,7 +26,7 @@ The ``CMakeToolchain`` will generate 2 files:
 - A *conan_project_include.cmake* file, that will automatically be called right after the 
   ``project()`` call for cmake>=3.15, containing definitions that only take effect after such
   call. For older cmake versions you should explicitly call ``include(.../conan_project_include.cmake)``
-  in your ``CMakeLists.txt``.
+  in your *CMakeLists.txt*.
 
 
 These file will automatically manage the definition of cmake values according to current Conan
