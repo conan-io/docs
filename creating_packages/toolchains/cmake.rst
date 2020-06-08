@@ -57,7 +57,7 @@ necessary to define them.
 definitions
 +++++++++++
 
-This attribute allows to define cmake variables, for multiple configurations (Debug, Release, etc)
+This attribute allows defining CMake variables, for multiple configurations (Debug, Release, etc).
 
 .. code:: python
 
