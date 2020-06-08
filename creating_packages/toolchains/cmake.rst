@@ -70,8 +70,8 @@ This attribute allows to define cmake variables, for multiple configurations (De
 
 This will be translated to:
 
-- one ``set()`` definition for ``MYVAR`` in ``conan_toolchain.cmake`` file.
-- one ``set()`` definition, using a cmake generator expression in ``conan_project_include.cmake`` file,
+- One ``set()`` definition for ``MYVAR`` in ``conan_toolchain.cmake`` file.
+- One ``set()`` definition, using a cmake generator expression in ``conan_project_include.cmake`` file,
   using the different values for different configurations. It is important to recall that things
   that depend on the build type cannot be directly set in the toolchain.
 
