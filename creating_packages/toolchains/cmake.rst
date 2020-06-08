@@ -127,7 +127,7 @@ build()
     def build(self, build_type=None, target=None):
 
 
-Calls the build system. Equivalent to call ``cmake --build .`` in the build folder.
+Calls the build system. Equivalent to :command:`cmake --build .` in the build folder.
 
 
 - ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It 
