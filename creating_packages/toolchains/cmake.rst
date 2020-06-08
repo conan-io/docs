@@ -97,14 +97,13 @@ constructor
     def __init__(self, conanfile, generator=None, build_folder=None, parallel=True,
                  msbuild_verbosity="minimal"):
 
-- ``conanfile``: the current recipe object. Always pass ``self``
-- ``generator``: CMake generator. Define it only to override the default one (like ``Visual Studio 15``)
-  Note that as the platform (x64, Win32...) is now defined in the toolchain it is not necessary to 
-  specify it here
+- ``conanfile``: the current recipe object. Always use ``self``.
+- ``generator``: CMake generator. Define it only to override the default one (like ``Visual Studio 15``).
+  Note that as the platform (x64, Win32...) is now defined in the toolchain it is not necessary to specify it here.
 - ``build_folder``: Relative path to a folder to contain the temporary build files
 - ``parallel``: Set it to ``False`` to deactivate using parallel builds. If activated, it will use
   ``cpu_count`` configuration as the number of parallel jobs to use.
-- ``msbuild_verbosity``: Used to define the output of MSBuild builds 
+- ``msbuild_verbosity``: Used to define the output of MSBuild builds.
 
 
 configure()
