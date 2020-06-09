@@ -48,8 +48,8 @@ Toolchains have some important advantages:
 - They execute at :command:`conan install` time. They generate files, not command line
   arguments, providing better reproducibility and debugging of builds.
 - They provide a better developer experience. The command line used by developers locally, like
-  ``cmake ...`` will achieve the same build, with the same flags, than a ``conan build`` or 
-  the build that is done in the cache with a ``conan create``.
+  ``cmake ...`` will achieve the same build, with the same flags, as the :command:`conan build` or 
+  the build that is done in the cache with a :command:`conan create`.
 - They are more extensible and configurable.
 
 The toolchains implement most of the build system logic, leaving the build helpers, like ``CMake()``,
