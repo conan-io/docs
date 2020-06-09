@@ -10,7 +10,7 @@ and ``visualstudiomulti`` generators.
 
     This generator is experimental and subject to breaking changes.
 
-This is a generator to be used for Visual Studio projects (.sln solutions and .vcxproject files),
+This is a generator to be used for Visual Studio projects (*.sln* solutions and *.vcxproject* files),
 natively, without using CMake at all. The generator will create Visual Studio properties files
 that can be added to the projects and solutions in the IDE, under the "properties" tab.
 
