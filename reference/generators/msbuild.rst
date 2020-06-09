@@ -15,7 +15,7 @@ natively, without using CMake at all. The generator will create Visual Studio pr
 that can be added to the projects and solutions in the IDE, under the "properties" tab.
 
 If a conanfile declares two requirements ``"zlib/1.2.11", "poco/1.9.4"``, then
-running the ``conan install -g=msbuild`` will create the following files:
+running the :command:`conan install -g=msbuild` will create the following files:
 
 - One properties file for each dependency and transitive dependency, like *conan_zlib.props*, 
   *conan_openssl.props*and *conan_poco.props*. These files will transitively import other files, 
