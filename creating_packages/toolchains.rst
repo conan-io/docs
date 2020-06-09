@@ -8,7 +8,7 @@ Toolchains
     The current goal is to gather experience and feedback
     to evolve it, while adding more build systems.
 
-    Please try it and give feedback at please provide feedback at: https://github.com/conan-io/conan/issues
+    Please try it and provide feedback at: https://github.com/conan-io/conan/issues
 
 
 Toolchains are the new, experimental way to integrate with build systems in Conan.
