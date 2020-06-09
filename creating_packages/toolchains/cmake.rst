@@ -83,12 +83,78 @@ The ``CMakeToolchain`` only works with the ``cmake_find_package`` and ``cmake_fi
 generators. Using others will raise, as they can have overlapping definitions that can conflict.
 
 
+Using the toolchain in developer flow
+-------------------------------------
+
+One of the advantages of using Conan toolchains is that they can help to achieve the exact same build
+with local development flows, than when the package is created in the cache.
+
+With the ``CMakeToolchain`` it is possible to do, for multi-configuration systems like Visual Studio
+(assuming we are using the ``cmake_find_package_multi`` generator):
+
+.. code:: bash
+
+    # Lets start in the folder containing the conanfile.py
+    $ mkdir build && cd build
+    # Install both debug and release deps and create the toolchain
+    $ conan install ..
+    $ conan install .. -s build_type=Debug 
+    # the conan_toolchain.cmake is common for both configurations
+    # Need to pass the generator WITHOUT the platform, that matches your default settings
+    $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    # Now you can open the IDE, select Debug or Release config and build
+    # or, in the command line
+    $ cmake --build . --config Release
+    $ cmake --build . --config Debug
+
+
+**NOTE**: The platform (Win64), is already encoded in the toolchain. The command line shouldn't pass it, so using
+``-G "Visual Studio 15"`` instead of the ``-G "Visual Studio 15 Win64"``
+
+
+For single-configuration build systems:
+
+.. code:: bash
+
+    # Lets start in the folder containing the conanfile.py
+    $ mkdir build_release && cd build_release
+    $ conan install ..
+    # the build type Release is encoded in the toolchain already.
+    # This conan_toolchain.cmake is specific for release
+    $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake --build .  # or just "make"
+
+    # debug build requires its own folder
+    $ cd .. && mkdir build_debug && cd build_debug
+    $ conan install .. -s build_type=Debug
+    # the build type Debug is encoded in the toolchain already.
+    # This conan_toolchain.cmake is specific for release
+    $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+    $ cmake --build .  # or just "make"
+
+
+
 CMake build helper
 ------------------
 
 The ``CMake()`` build helper that works with the ``CMakeToolchain`` is also experimental,
 and subject to breaking change in the future. It will evolve to adapt and complement the
-toolchain functionality. It supports the following methods:
+toolchain functionality. 
+
+The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
+when a package is being built directly by Conan (create, install)
+
+.. code:: python
+
+    from conans import CMake
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure(source_folder="src")
+        cmake.build()
+
+
+It supports the following methods:
 
 constructor
 +++++++++++
@@ -133,9 +199,8 @@ build()
 Calls the build system. Equivalent to :command:`cmake --build .` in the build folder.
 
 
-- ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It 
-  can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
-  type must be specified at configure time, not build type.
+- ``build_type``: Use it only to override the value defined in the ``settings.build_type`` for a multi-configuration generator (e.g. Visual Studio, XCode).
+  This value will be ignored for single-configuration generators, they will use the one defined in the toolchain file during the install step"
 - ``target``: name of the build target to run.
 
 
