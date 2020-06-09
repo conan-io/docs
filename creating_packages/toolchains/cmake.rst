@@ -200,7 +200,7 @@ Calls the build system. Equivalent to :command:`cmake --build .` in the build fo
 
 
 - ``build_type``: Use it only to override the value defined in the ``settings.build_type`` for a multi-configuration generator (e.g. Visual Studio, XCode).
-  This value will be ignored for single-configuration generators, they will use the one defined in the toolchain file during the install step"
+  This value will be ignored for single-configuration generators, they will use the one defined in the toolchain file during the install step.
 - ``target``: name of the build target to run.
 
 
