@@ -1348,6 +1348,32 @@ Its basic syntax is:
 
 Read more about this attribute in :ref:`python_requires`
 
+
+python_requires_extend
+----------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
+This class attribute defines one or more classes that will be injected in runtime as base classes of
+the recipe class. Syntax for each of these classes should be a string like ``pyreq.MyConanfileBase``
+where the ``pyreq`` is the name of a ``python_requires`` and ``MyConanfileBase`` is the name of the class
+to use.
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        python_requires = "pyreq/0.1@user/channel", "utils/0.1@user/channel"
+        python_requires_extend = "pyreq.MyConanfileBase", "utils.UtilsBase"  # class/es to inject
+
+
+Read more about this attribute in :ref:`python_requires`
+
+
 .. _conandata_attribute:
 
 conan_data

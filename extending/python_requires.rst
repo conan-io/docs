@@ -53,7 +53,8 @@ code that we want to reuse.
     $ conan export . pyreq/0.1@user/channel
 
 
-We can reuse the above recipe functionality with:
+We can reuse the above recipe functionality declaring the dependency in the ``python_requires``
+attribute and we can access its members using ``self.python_requires["<name>"].module``:
 
 .. code-block:: python
     
@@ -65,7 +66,7 @@ We can reuse the above recipe functionality with:
         def build(self):  
             v = self.python_requires["pyreq"].module.myvar  # v will be 123
             f = self.python_requires["pyreq"].module.myfunct()  # f will be 234
-            self.output.info("%s,%s" % (v, f))
+            self.output.info("%s, %s" % (v, f))
 
 .. code-block:: bash
 
@@ -92,7 +93,8 @@ to address the functionality:
 Extending base classes
 ----------------------
 
-A common use case would be to reuse methods of a base class. So we could write a recipe like:
+A common use case would be to declare a base class with methods we want to reuse in several
+recipes via inheritance. We'd write this base class in a python-requires package: 
 
 .. code-block:: python
 
@@ -116,14 +118,22 @@ And make it available for reuse with:
 
 .. code-block:: bash
 
-    $ conan export . user/channel
+    $ conan export . pyreq/0.1@user/channel
 
 
-Note that there are 2 classes, ``MyBase`` is the one intended for inheritance, and do not
-extend ``ConanFile``. The other ``PyReq`` is the one that defines the current package being
-exported.
+Note that there are two classes in the recipe file:
 
-Now, other packages, could ``python_require`` it, and inherit from ``MyBase`` class with:
+ * ``MyBase`` is the one intended for inheritance and doesn't extend ``ConanFile``.
+ * ``PyReq`` is the one that defines the current package being exported, it is the recipe
+   for the reference ``pyreq/0.1@user/channel``.
+
+
+Once the package with the base class we want to reuse is available we can use it in other
+recipes to inherit the functionality from that base class. We'd need to declare the
+``python_requires`` as we did before and we'd need to tell Conan the base classes to use
+in the attribute ``python_requires_extend``. Here our recipe will inherit from the
+class ``MyBase``:
+
 
 .. code-block:: python
     
@@ -134,6 +144,7 @@ Now, other packages, could ``python_require`` it, and inherit from ``MyBase`` cl
         python_requires_extend = "pyreq.MyBase"
 
 
+The resulting inheritance is equivalent to declare our ``Pkg`` class as ``class Pkg(pyreq.MyBase, ConanFile)``.
 So creating the package we can see how the methods from the base class are reused:
 
 .. code-block:: bash
@@ -145,6 +156,7 @@ So creating the package we can see how the methods from the base class are reuse
     pkg/0.1@user/channel: My cool package!
     pkg/0.1@user/channel: My cool package_info!
     ...
+
 
 If there is extra logic needed to extend from a base class, like composing the base class settings
 with the current recipe, the ``init()`` method can be used for it:

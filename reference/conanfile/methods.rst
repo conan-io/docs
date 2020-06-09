@@ -1071,7 +1071,7 @@ The ``deploy()`` method is designed to work on a package that is installed direc
     > pkg/0.1@user/testing deploy(): Copied 1 '.dll' files: mylib.dll
     > pkg/0.1@user/testing deploy(): Copied 1 '.exe' files: myexe.exe
 
-All other packages and dependencies, even transitive dependencies of "pkg/0.1@user/testing" will not be deployed, it is the responsibility
+All other packages and dependencies, even transitive dependencies of ``pkg/0.1@user/testing`` will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
 
 .. _method_init:
@@ -1079,14 +1079,19 @@ of the installed package to deploy what it needs from its dependencies.
 init()
 ------
 
-This is an optional method for initializing conanfile values, designed for inheritance from ``python_requires``.
+This is an optional method for initializing conanfile values, designed for inheritance from :ref:`python requires <python_requires>`.
 Assuming we have a ``base/1.1@user/testing`` recipe:
 
 .. code-block:: python
 
-    class MyConanfileBase(ConanFile):
+    class MyConanfileBase(object):
         license = "MyLicense"
         settings = "os", # tuple!
+
+
+    class PyReq(ConanFile):
+        name = "base"
+        version = "1.1"
 
 
 We could reuse and inherit from it with:
