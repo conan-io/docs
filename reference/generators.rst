@@ -23,6 +23,7 @@ Available generators:
    generators/cmake_paths
    generators/cmake_find_package
    generators/cmake_find_package_multi
+   generators/msbuild
    generators/visualstudio
    generators/visualstudiomulti
    generators/visualstudiolegacy
