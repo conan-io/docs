@@ -128,7 +128,7 @@ For single-configuration build systems:
     $ cd .. && mkdir build_debug && cd build_debug
     $ conan install .. -s build_type=Debug
     # the build type Debug is encoded in the toolchain already.
-    # This conan_toolchain.cmake is specific for release
+    # This conan_toolchain.cmake is specific for debug
     $ cmake .. -G "Unix Makefiles" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
     $ cmake --build .  # or just "make"
 
