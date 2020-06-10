@@ -394,13 +394,17 @@ Dynamically define ``name`` and ``version`` attributes in the recipe with these 
 defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
 recipe's repository.
 
+These functions are executed after assigning the values of the ``name`` and ``version`` if they are provided 
+from the command line.
+
 ..  code-block:: python
 
     from conans import ConanFile, tools
 
     class HelloConan(ConanFile):
         def set_name(self):
-            self.name = tools.load("name.txt")
+            # Read the value from 'name.txt' if it is not provided in the command line
+            self.name = self.name or tools.load("name.txt")
 
         def set_version(self):
             git = tools.Git()
@@ -1110,3 +1114,99 @@ We could reuse and inherit from it with:
             self.license = base.license  # License is overwritten
 
 The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
+
+
+export()
+--------
+
+Equivalent to the ``exports`` attribute, but in method form. It supports the ``self.copy()`` to do pattern
+based copy of files from the local user folder (the folder containing the *conanfile.py*) to the
+cache ``export_folder``
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+
+        def export(self):
+            self.copy("LICENSE.md")
+
+The current folder (``os.getcwd()``) and the ``self.export_folder`` can be used in the method:
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile
+    from conans.tools import save, load
+    
+    class Pkg(ConanFile):
+
+        def export(self):
+            # we can load files in the user folder
+            content = load(os.path.join(os.getcwd(), "data.txt"))
+            # We have access to the cache export_folder
+            save(os.path.join(self.export_folder, "myfile.txt"), "some content")
+
+
+The ``self.copy`` support ``src`` and ``dst`` subfolder arguments. The ``src`` is relative to the
+current folder (the one containing the *conanfile.py*). The ``dst`` is relative to the cache
+``export_folder``.
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+
+        def export(self):
+            self.output.info("Executing export() method")
+            # will copy all .txt files from the local "subfolder" folder to the cache "mydata" one
+            self.copy("*.txt", src="mysubfolder", dst="mydata")
+
+
+export_sources()
+----------------
+
+Equivalent to the ``exports_sources`` attribute, but in method form. It supports the ``self.copy()`` to do pattern
+based copy of files from the local user folder (the folder containing the *conanfile.py*) to the
+cache ``export_sources_folder``
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+
+        def export_sources(self):
+            self.copy("LICENSE.md")
+
+The current folder (``os.getcwd()``) and the ``self.export_sources_folder`` can be used in the method:
+
+.. code-block:: python
+
+    import os
+    from conans import ConanFile
+    from conans.tools import save, load
+
+    class Pkg(ConanFile):
+
+        def export_sources(self):
+            content = load(os.path.join(os.getcwd(), "data.txt"))
+            save(os.path.join(self.export_sources_folder, "myfile.txt"), content)
+
+
+The ``self.copy`` support ``src`` and ``dst`` subfolder arguments. The ``src`` is relative to the
+current folder (the one containing the *conanfile.py*). The ``dst`` is relative to the cache
+``export_sources_folder``.
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+
+        def export_sources(self):
+            self.output.info("Executing export_sources() method")
+            # will copy all .txt files from the local "subfolder" folder to the cache "mydata" one
+            self.copy("*.txt", src="mysubfolder", dst="mydata")

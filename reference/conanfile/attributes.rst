@@ -991,6 +991,9 @@ absolute paths, and ``name`` and ``version`` attributes:
 +-----------------------------------------------+---------------------------------------------------------------------+
 | self.deps_cpp_info["dep"].version             | Get the version of the "dep" package                                |
 +-----------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].components          | | **[Experimental]** Dictionary with different components a package |
+|                                               | | may have: libraries, executables...                               |
++-----------------------------------------------+---------------------------------------------------------------------+
 
 To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
 
@@ -1022,7 +1025,6 @@ root folder of the package:
 
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
-
 
 .. _env_info_attributes_reference:
 
@@ -1223,7 +1225,6 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
         ...
 
 
-
 - **type** (Required): Currently only ``git`` and ``svn`` are supported. Others can be added eventually.
 - **url** (Required): URL of the remote or ``auto`` to capture the remote from the local working
   copy (credentials will be removed from it). When type is ``svn`` it can contain
@@ -1238,6 +1239,8 @@ Used to clone/checkout a repository. It is a dictionary with the following possi
 - **submodule** (Optional, Defaulted to ``None``):
    - ``shallow``: Will sync the git submodules using ``submodule sync``
    - ``recursive``: Will sync the git submodules using ``submodule sync --recursive``
+
+Attributes ``type``, ``url`` and ``revision`` are required to upload the recipe to a remote server.
 
 SCM attributes are evaluated in the working directory where the *conanfile.py* is located before
 exporting it to the Conan cache, so these values can be returned from arbitrary functions that

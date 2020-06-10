@@ -36,13 +36,14 @@ extensions = [
     'sphinx.ext.todo',
     'conan',
     'sphinxcontrib.spelling',
+    'sphinx_sitemap',
     'notfound.extension',
 ]
 
 # The short X.Y version.
-version = "1.25"
+version = "1.26"
 # The full version, including alpha/beta/rc tags.
-release = u'1.25.2'
+release = u'1.26.0'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if not os.path.exists(os.path.join(dir_path, "versions.json")):
@@ -148,6 +149,9 @@ html_theme_path = conan.get_html_theme_path()
 html_theme_options = {
   "base_url": "https://docs.conan.io/en/latest/",
 }
+
+# for sphinx-sitemap
+html_baseurl = html_theme_options['base_url']
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []

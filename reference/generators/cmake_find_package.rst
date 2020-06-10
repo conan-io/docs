@@ -55,8 +55,8 @@ utilities exported by the package available for consumers just by setting `find_
 Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
 modules in those directories can be found.
 
-Target in Find<PKG-NAME>.cmake
-------------------------------
+Targets in Find<PKG-NAME>.cmake
+-------------------------------
 
 A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following properties adjusted:
 
@@ -67,3 +67,18 @@ A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following
 The targets are transitive. So, if your project depends on a packages ``A`` and ``B``, and at the same time
 ``A`` depends on ``C``, the ``A`` target will contain automatically the properties of the ``C`` dependency, so
 in your `CMakeLists.txt` file you only need to ``find_package(A)`` and ``find_package(B)``.
+
+Components
+++++++++++
+
+If a recipe uses components, the targets generated will be ``<PKG-NAME>::<COMP-NAME>`` with the following properties adjusted:
+
+- ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the component.
+- ``INTERFACE_LINK_DIRECTORIES``: Containing all the lib directories of the component.
+- ``INTERFACE_LINK_LIBRARIES``: Containing the targets to link the component to (includes component's libraries and dependencies).
+- ``INTERFACE_COMPILE_DEFINITIONS``: Containing the definitions of the component.
+- ``INTERFACE_COMPILE_OPTIONS``: Containing the compile options of the component.
+
+Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
+
+- ``INTERFACE_LINK_LIBRARIES``: Containing all the component targets to link the global target to (includes package's components only).

@@ -73,7 +73,7 @@ the ``my_tool_installer`` package will be automatically appended to the system P
        ...
 
        def build(self):
-           self.run("my_tool_executable some_arguments")
+           self.run(["my_tool_executable", "some_arguments"])
 
 You could also set ``CC``, ``CXX`` variables if we are packing a compiler to define what compiler to use or any other environment variable.
 Read more about tool packages :ref:`here<create_installer_packages>`.

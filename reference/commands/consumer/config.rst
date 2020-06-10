@@ -27,6 +27,7 @@ Used to edit conan.conf, or install config files.
                             zip file
         rm                  Remove an existing config element
         set                 Set a value for a configuration item
+        init                Initializes Conan configuration files
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -53,6 +54,18 @@ Used to edit conan.conf, or install config files.
 
       $ conan config home
       $> /home/user/.conan
+
+- Create all missing configuration files:
+
+  .. code-block:: bash
+
+      $ conan config init
+
+- Delete the existing configuration files and create all configuration files:
+
+  .. code-block:: bash
+
+      $ conan config init --force
 
 .. _conan_config_install:
 

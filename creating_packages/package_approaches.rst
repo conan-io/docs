@@ -172,16 +172,6 @@ In this case you can still use the general and not config-specific variables. Fo
     All these steps are already coded in the repo https://github.com/conan-io/examples/tree/master/features/multi_config and commented
     out as **"Alternative 2"**.
 
-Also, you can use any custom configuration as they are not restricted. For example, if your package is a multi-library package, you could
-try to do something like:
-
-.. code-block:: python
-
-    def package_info(self):
-        self.cpp_info.regex.libs = ["myregexlib1", "myregexlib2"]
-        self.cpp_info.filesystem.libs = ["myfilesystemlib"]
-
-These specific config variables will not be automatically applied, but you can directly use them in your consumer CMake build script.
 
 .. note::
 

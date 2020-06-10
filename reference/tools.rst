@@ -53,9 +53,9 @@ the same subprocess. It will be typically used in the ``build()`` method, like t
 
     def build(self):
         if self.settings.build_os == "Windows":
-            vcvars = tools.vcvars_command(self)
+            vcvars_command = tools.vcvars_command(self)
             build_command = ...
-            self.run("%s && configure %s" % (vcvars, " ".join(args)))
+            self.run("%s && configure %s" % (vcvars_command, " ".join(args)))
             self.run("%s && %s %s" % (vcvars, build_command, " ".join(build_args)))
 
 The ``vcvars_command`` string will contain something like ``call "%vsXX0comntools%../../VC/vcvarsall.bat"`` for the corresponding Visual
@@ -86,7 +86,7 @@ tools.vcvars_dict()
 
 .. code-block:: python
 
-    vcvars_dict(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False,
+    vcvars_dict(conanfile, arch=None, compiler_version=None, force=False, filter_known_paths=False,
                 vcvars_ver=None, winsdk_version=None, only_diff=True)
 
 Returns a dictionary with the variables set by the :ref:`tools_vcvars_command` that can be directly applied to
@@ -100,7 +100,7 @@ The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will 
     from conans import tools
 
     def build(self):
-        env_vars = tools.vcvars_dict(self.settings)
+        env_vars = tools.vcvars_dict(self)
         with tools.environment_append(env_vars):
             # Do something
 
@@ -119,7 +119,7 @@ tools.vcvars()
 
 .. code-block:: python
 
-    vcvars(settings, arch=None, compiler_version=None, force=False, filter_known_paths=False)
+    vcvars(conanfile, arch=None, compiler_version=None, force=False, filter_known_paths=False)
 
 .. note::
 
@@ -133,7 +133,7 @@ This is a context manager that allows to append to the environment all the varia
     from conans import tools
 
     def build(self):
-        with tools.vcvars(self.settings):
+        with tools.vcvars(self):
             do_something()
 
 .. _tools_build_sln_command:
@@ -322,7 +322,7 @@ Parameters:
     - **md5** (Optional, Defaulted to ``""``): MD5 hash code to check the downloaded file.
     - **sha1** (Optional, Defaulted to ``""``): SHA-1 hash code to check the downloaded file.
     - **sha256** (Optional, Defaulted to ``""``): SHA-256 hash code to check the downloaded file.
-    - **filename** (Optional, Defaulted to ```""``): Specify the name of the compressed file if it cannot be deduced from the URL.
+    - **filename** (Optional, Defaulted to ``""``): Specify the name of the compressed file if it cannot be deduced from the URL.
     - **keep_permissions** (Optional, Defaulted to ``False``): Propagates the parameter to :ref:`tools_unzip`.
     - **pattern** (Optional, Defaulted to ``None``): Propagates the parameter to :ref:`tools_unzip`.
     - **requester** (Optional, Defaulted to ``None``): HTTP requests instance
@@ -1747,3 +1747,145 @@ for ``compiler.cppstd=17``, and so on.
 
 Parameters:
     - **settings** (Required): Conanfile settings. Use ``self.settings``.
+
+
+.. _tools.msvs_toolset:
+
+tools.msvs_toolset()
+--------------------
+
+.. code-block:: python
+
+    def msvs_toolset(conanfile)
+
+Returns the corresponding Visual Studio platform toolset based on the settings of the given ``conanfile``. For instance, it may return ``v142``
+for ``compiler=Visual Studio`` with ``compiler.version=16``. If ``compiler.toolset`` was set in settings, it has a
+priority and always returned.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+
+
+.. _tools_compilervars_command:
+
+tools.compilervars_command()
+----------------------------
+
+.. code-block:: python
+
+    def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
+
+Returns, for given settings of the given ``conanfile``, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
+version. It wraps the functionality of `compilervars <https://software.intel.com/content/www/us/en/develop/documentation/intel-system-studio-cplusplus-compiler-user-and-reference-guide/top/target-platform-build-instructions/using-compilervars-file.html>`_
+but does not execute the command, as that typically have to be done in the same command as the compilation, so the variables are loaded for
+the same subprocess. It will be typically used in the ``build()`` method, like this:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        cvars_command = tools.compilervars_command(self)
+        build_command = ...
+        self.run("%s && configure %s" % (cvars_command, " ".join(args)))
+        self.run("%s && %s %s" % (cvars, build_command, " ".join(build_args)))
+
+The ``cvars_command`` string will contain something like ``call "compilervars.bat"`` for the corresponding Intel C++
+version for the current settings.
+
+This is typically not needed if using CMake, as the ``cmake`` generator will handle the correct Intel C++ version.
+
+If **arch** or **compiler_version** is specified, it will ignore the settings and return the command to set the Intel C++ environment
+for these parameters.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **arch** (Optional, Defaulted to ``None``): Will use ``conanfile.settings.arch``.
+    - **compiler_version** (Optional, Defaulted to ``None``): Will use ``conanfile.settings.compiler.version``.
+    - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Intel C++ version.
+
+
+.. _tools_compilervars_dict:
+
+tools.compilervars_dict()
+-------------------------
+
+.. code-block:: python
+
+    def compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
+
+Returns a dictionary with the variables set by the :ref:`tools_compilervars_command` that can be directly applied to
+:ref:`tools_environment_append`.
+
+The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will be returned as a list. When used with
+:ref:`tools_environment_append`, the previous environment values that these variables may have will be appended automatically.
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        env_vars = tools.compilervars_dict(self.settings)
+        with tools.environment_append(env_vars):
+            # Do something
+
+Parameters:
+    - Same as :ref:`tools_compilervars_command`.
+    - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by ``compilervars`` and not
+      the whole environment. If `compilervars` modifies an environment variable by appending values to the old value (separated by ``;``), only
+      the new values will be returned, as a list.
+
+
+.. _tools_compilervars:
+
+tools.compilervars()
+--------------------
+
+.. code-block:: python
+
+    def compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
+
+This is a context manager that allows to append to the environment all the variables set by the :ref:`tools_compilervars_dict`. You can replace
+:ref:`tools_compilervars_dict` and use this context manager to get a cleaner way to activate the Intel C++ environment:
+
+.. code-block:: python
+
+    from conans import tools
+
+    def build(self):
+        with tools.compilervars(self.settings):
+            do_something()
+
+.. _tools.remove_files_by_mask:
+
+tools.remove_files_by_mask()
+----------------------------
+
+.. code-block:: python
+
+    def remove_files_by_mask(directory, pattern)
+
+Removes files in the given ``directory`` matching the ``pattern``. The function removes only files, and never removes directories, even if their names match the pattern. The functions returns the array of the files removed (empty array in case no files were removed). The paths in the returned array are relative to the given ``directory``.
+
+Parameters:
+    - **directory** (Required): Directory to remove files inside. You may use ``os.getcwd`` or ``self.package_folder``, for instance.
+    - **pattern** (Required): Pattern to check. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+
+
+.. _tools.stdcpp_library:
+
+tools.stdcpp_library():
+-----------------------
+
+.. code-block:: python
+
+    def stdcpp_library(conanfile)
+
+Returns the corresponding C++ standard library to link with based on the settings of the given conanfile. For instance, it may return ``c++`` for ``compiler.libcxx=libc++``,
+ and it may return ``stdc++`` for ``compiler.libcxx=libstdc++`` or ``compiler.libcxx=libstdc++11``. Returns ``None`` if there is no C++ standard library
+ need to be linked. Usually, this is required to populate ``self.cpp_info.system_libs`` for C++ libraries with plain C API, therefore such libraries might be
+ safely used in pure C projects (or in general, non-C++ projects capable of using C API, such as written in Objective-C, Fortran, etc.).
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+
