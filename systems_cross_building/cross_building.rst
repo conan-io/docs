@@ -33,7 +33,7 @@ Depending on the values of these platforms, there are different scenarios:
   a cross compiler running in the build platform that generates binaries for the host platform.
 
 
-The ``target`` platform plays and important role when compiling a cross compiler, in that scenario
+The ``target`` platform plays an important role when compiling a cross compiler, in that scenario
 the ``target`` is the platform the compiler will generate binaries for: in order to be a cross compiler
 the ``host`` platform (where the cross compiler will run) has to be different from the ``target`` platform.
 If the ``build`` platform is also different, it is called **Canadian Cross**.
