@@ -18,8 +18,44 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.25 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.26 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.26.0 (10-Jun-2020)
+--------------------
+
+- Feature: Expose `msvs_toolset` tool. `#7134 <https://github.com/conan-io/conan/pull/7134>`_ . Docs `here <https://github.com/conan-io/docs/pull/1715>`__
+- Feature: Add components to `cmake_find_package` generator. `#7108 <https://github.com/conan-io/conan/pull/7108>`_ . Docs `here <https://github.com/conan-io/docs/pull/1722>`__
+- Feature: Add `stdcpp_library` tool. `#7082 <https://github.com/conan-io/conan/pull/7082>`_ . Docs `here <https://github.com/conan-io/docs/pull/1714>`__
+- Feature: Add remove_files_by_mask helper `#7080 <https://github.com/conan-io/conan/pull/7080>`_ . Docs `here <https://github.com/conan-io/docs/pull/1713>`__
+- Feature: New ``toolchain()`` recipe method, as a new paradigm for integrating build systems, and simplifying developer flows. `#7076 <https://github.com/conan-io/conan/pull/7076>`_ . Docs `here <https://github.com/conan-io/docs/pull/1729>`__
+- Feature: New experimental ``msvc`` generator that generates a .props file per dependency and is also multi-configuration. `#7035 <https://github.com/conan-io/conan/pull/7035>`_ . Docs `here <https://github.com/conan-io/docs/pull/1732>`__
+- Feature: Add `conan config init` command. `#6959 <https://github.com/conan-io/conan/pull/6959>`_ . Docs `here <https://github.com/conan-io/docs/pull/1704>`__
+- Feature: Add ``export()`` and ``export_sources()`` methods, that provide the ``self.copy()`` helper to add files to recipe or sources in the same way as the corresponding attributes. `#6945 <https://github.com/conan-io/conan/pull/6945>`_ . Docs `here <https://github.com/conan-io/docs/pull/1733>`__
+- Feature: Allow access to ``self.name`` and ``self.version`` in ``set_name()`` and ``set_version()`` methods. `#6940 <https://github.com/conan-io/conan/pull/6940>`_ . Docs `here <https://github.com/conan-io/docs/pull/1710>`__
+- Feature: Use a template approach for the `html` and `dot` output of the Conan graph. `#6833 <https://github.com/conan-io/conan/pull/6833>`_
+- Feature: Handle C++ standard flag for Intel C++ compiler. `#6766 <https://github.com/conan-io/conan/pull/6766>`_
+- Feature: Call compilervars.sh within CMake helper (Intel C++). `#6735 <https://github.com/conan-io/conan/pull/6735>`_ . Docs `here <https://github.com/conan-io/docs/pull/1716>`__
+- Feature: Pass command to Runner as a sequence instead of string. `#5583 <https://github.com/conan-io/conan/pull/5583>`_ . Docs `here <https://github.com/conan-io/docs/pull/1385>`__
+- Fix: JSON-serialize sets as a list when using `conan inspect --json`. `#7151 <https://github.com/conan-io/conan/pull/7151>`_
+- Fix: Update the lockfile passed as an argument to the install command instead of the default `conan.lock`. `#7127 <https://github.com/conan-io/conan/pull/7127>`_
+- Fix: Adding a package as editable stores full path to `conanfile.py`. `#7079 <https://github.com/conan-io/conan/pull/7079>`_
+- Fix: Fix broken test `PkgGeneratorTest`. `#7065 <https://github.com/conan-io/conan/pull/7065>`_
+- Fix: Fix wrong naming of variables in the ``pkg_config`` generator. `#7059 <https://github.com/conan-io/conan/pull/7059>`_
+- Fix: Do not modify `scm` attribute when the `origin` remote cannot be deduced. `#7048 <https://github.com/conan-io/conan/pull/7048>`_
+- Fix: `vcvars_dict` should accept a conanfile too. `#7010 <https://github.com/conan-io/conan/pull/7010>`_ . Docs `here <https://github.com/conan-io/docs/pull/1696>`__
+- Fix: ``conan config install`` can overwrite read-only files and won't copy permissions. `#7004 <https://github.com/conan-io/conan/pull/7004>`_
+- Fix: Better error message for missing binaries, including multiple "--build=xxx" outputs. `#7003 <https://github.com/conan-io/conan/pull/7003>`_
+- Fix: Add quotes to folders to accept paths with spaces when calling pyinstaller. `#6955 <https://github.com/conan-io/conan/pull/6955>`_
+- Fix: Previously `conan` always set `cpp_std` option in `meson` project, even if `cppstd` option was not set in `conan` profile. Now it sets the option only if `cppstd` profile option has a concrete value. `#6895 <https://github.com/conan-io/conan/pull/6895>`_
+- Fix: handle compiler flags for Intel C++ (AutoToolsBuildEnvironment, Meson). `#6819 <https://github.com/conan-io/conan/pull/6819>`_
+- Fix: set the default CMake generator and toolset for Intel C++. `#6804 <https://github.com/conan-io/conan/pull/6804>`_
+- Bugfix: Fix iOS CMake architecture. `#7164 <https://github.com/conan-io/conan/pull/7164>`_
+- Bugfix: Getting attribute of ``self.deps_user_info["dep"]`` now raise ``AttributeError`` instead of a (wrong) ``KeyError``, enabling ``hasattr()`` and correct ``getattr()`` behaviors. `#7131 <https://github.com/conan-io/conan/pull/7131>`_
+- Bugfix: Fix crash while computing the ``package_id`` of a package when different ``package_id_mode`` are mixed and include ``package_revision_mode``. `#7051 <https://github.com/conan-io/conan/pull/7051>`_
+- Bugfix: Do not allow uploading packages with missing information in the `scm` attribute. `#7048 <https://github.com/conan-io/conan/pull/7048>`_
+- Bugfix: Fixes an issue where Apple Framework lookup wasn't working on `RelWithDebInfo` CMake build types. `#7024 <https://github.com/conan-io/conan/pull/7024>`_
+- Bugfix: Do not check patch compiler version in the ``cmake`` generators. `#6976 <https://github.com/conan-io/conan/pull/6976>`_
 
 1.25.2 (19-May-2020)
 --------------------
