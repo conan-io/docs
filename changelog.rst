@@ -48,8 +48,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Fix: Better error message for missing binaries, including multiple "--build=xxx" outputs. `#7003 <https://github.com/conan-io/conan/pull/7003>`_
 - Fix: Add quotes to folders to accept paths with spaces when calling pyinstaller. `#6955 <https://github.com/conan-io/conan/pull/6955>`_
 - Fix: Previously `conan` always set `cpp_std` option in `meson` project, even if `cppstd` option was not set in `conan` profile. Now it sets the option only if `cppstd` profile option has a concrete value. `#6895 <https://github.com/conan-io/conan/pull/6895>`_
-- Fix: handle compiler flags for Intel C++ (AutoToolsBuildEnvironment, Meson). `#6819 <https://github.com/conan-io/conan/pull/6819>`_
-- Fix: set the default CMake generator and toolset for Intel C++. `#6804 <https://github.com/conan-io/conan/pull/6804>`_
+- Fix: Handle compiler flags for Intel C++ (AutoToolsBuildEnvironment, Meson). `#6819 <https://github.com/conan-io/conan/pull/6819>`_
+- Fix: Set the default CMake generator and toolset for Intel C++. `#6804 <https://github.com/conan-io/conan/pull/6804>`_
 - Bugfix: Fix iOS CMake architecture. `#7164 <https://github.com/conan-io/conan/pull/7164>`_
 - Bugfix: Getting attribute of ``self.deps_user_info["dep"]`` now raise ``AttributeError`` instead of a (wrong) ``KeyError``, enabling ``hasattr()`` and correct ``getattr()`` behaviors. `#7131 <https://github.com/conan-io/conan/pull/7131>`_
 - Bugfix: Fix crash while computing the ``package_id`` of a package when different ``package_id_mode`` are mixed and include ``package_revision_mode``. `#7051 <https://github.com/conan-io/conan/pull/7051>`_
