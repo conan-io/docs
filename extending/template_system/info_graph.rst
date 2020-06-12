@@ -46,7 +46,7 @@ The ``Node`` objects in the context provide all the required information about e
  * ``node.is_build_requires``: 
  * ``node.binary``: it identifies where the binary comes from (cache, download, build,
     missing, update). 
- * ``node.data``: dictionary that contains data from the recipe, members are ``url``,
+ * ``node.data()``: returns a dictionary that contains data from the recipe, members are ``url``,
    ``homepage``, ``license``, ``author`` and ``topics``.
 
 
