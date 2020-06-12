@@ -64,6 +64,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # scm_to_conandata                    # environment CONAN_SCM_TO_CONANDATA
 
     # config_install_interval = 1h
+    # required_conan_version = >=1.26
 
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
@@ -216,6 +217,10 @@ The ``skip_broken_symlinks_check`` variable (defaulted to ``False``) allows the 
 
 The ``config_install_interval`` variable starts a time scheduler which runs :command:`conan config install` according the time interval
 configured. It only accepts the follow time intervals: minutes, hours and days.
+
+The ``required_conan_version`` variable validates if the current Conan client version is valid according to its version. When it's not
+according to the required version or its range, Conan raises an exception before running any command. It accepts SemVer format, including version range.
+This configuration is useful When a company wants to align the Conan client version used by all teams.
 
 Storage
 +++++++
