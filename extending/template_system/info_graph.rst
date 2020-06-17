@@ -25,7 +25,7 @@ Context
 These files should be valid `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_
 templates and they will be feed with the following context:
 
- * ``base_template_path``: path to the directory where the choosen template file is
+ * ``base_template_path``: absolute path to the directory where the choosen template file is
    located. It is needed if your output file needs to link assets distributed together
    with the template file (see HTML example linking CSS and JS files).
  * ``graph``: this object contains all the information from the graph of dependencies. It

@@ -33,7 +33,7 @@ Context
 Conan feeds this template with the information about the packages found, this information
 is called context and it contains these objects:
 
- * ``base_template_path``: path to the directory where the choosen template file is
+ * ``base_template_path``: absolute path to the directory where the choosen template file is
    located. It is needed if your output file needs to link assets distributed together
    with the template file.
  * ``search``: it contains the pattern used in the command line to search packages.
@@ -43,12 +43,12 @@ is called context and it contains these objects:
 
 When the output is a table, the first thing needed are the headers, these can be a sinle row
 or two rows like the image above. In order to get the headers you should use
-``results.get_headers(keys)`` with a list of extra ``keys`` you want to include. Conan will
-always return a header for all the different settings and options values, with this ``keys``
-you can retrieve other information that might be useful in your table like ``remote``, 
+``results.get_headers(keys)`` with a list of extra ``keys`` you want to include (see example below).
+Conan will always return a header for all the different settings and options values, with this ``keys``
+list variable you can retrieve other information that might be useful in your table like ``remote``, 
 ``reference``, ``outdated`` or ``package_id``.
 
-Then you can use the returned job to get the actual headers:
+Then you can use the returned object to get the actual headers:
 
  * single row headers: it just returns a list with all the headers, it is straightforward to use:
 
@@ -56,6 +56,7 @@ Then you can use the returned job to get the actual headers:
 
         <thead>
             <tr>
+                {%- set headers = results.get_headers(keys=['remote', 'package_id']) %}
                 {%- for header in headers.row(n_rows=1) %}
                 <th>{{ header }}</th>
                 {%- endfor %}
