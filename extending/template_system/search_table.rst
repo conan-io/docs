@@ -20,7 +20,8 @@ query when looking for binaries
     :align: center
 
 
-This is the default Canan provides, but you can use your own Jinja2 template to customize
+This is the default Canan provides, but you can use your own
+`Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ template to customize
 this output to your needs:
 
  * *<cache>/templates/output/search_table.html*.

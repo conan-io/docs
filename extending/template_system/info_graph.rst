@@ -22,8 +22,8 @@ cache folder:
 Context
 -------
 
-These files should be valid Jinja2 templates and they will be feed with the following
-context:
+These files should be valid `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_
+templates and they will be feed with the following context:
 
  * ``base_template_path``: path to the directory where the choosen template file is
    located. It is needed if your output file needs to link assets distributed together
