@@ -20,9 +20,14 @@ For example:
       "1.71.0":
         url: "https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.bz2"
         sha256: "d73a8da01e8bf8c7eda40b4c84915071a8c8a0df4a6734537ddde4a8580524ee"
-    my_requirements:
-      - "foo/1.0@"
-      - "bar/1.0@"
+    patches:
+       "1.70.0":
+         patches: "0001-beast-fix-moved-from-executor.patch,bcp_namespace_issues.patch"
+       "1.71.0":
+         patches: "bcp_namespace_issues.patch,boost_build_qcc_fix_debug_build_parameter.patch"
+    requirements:
+      - "foo/1.0"
+      - "bar/1.0"
 
 Usages in a *conanfile.py*:
 
@@ -30,9 +35,11 @@ Usages in a *conanfile.py*:
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
+        for patch in self.conan_data["patches"][self.version]:
+            tools.patch(**patch)
 
     def requirements(self):
-        for req in self.conan_data["my_requirements"]:
+        for req in self.conan_data["requirements"]:
             self.requires(req)
 
 .. warning::
@@ -43,4 +50,3 @@ Usages in a *conanfile.py*:
 .. note::
 
     The first level entry key ``.conan`` is reserved for Conan usage.
-
