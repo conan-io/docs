@@ -167,14 +167,14 @@ I see many CMake generators, what should I use?
 -----------------------------------------------
 Each generator related to CMake has a specific proposal, according its usage:
 
-* :ref:`cmake<cmake_generator>`: It contains some variables and methods.
+* :ref:`cmake<cmake_generator>`: It contains some variables and methods which can be consumed from your cmake file.
   However, it requires an injection in your CMake file, adding the macro ``conan_basic_setup``.
   If you don't have restriction about changing your cmake file, it's a good choice.
 * :ref:`cmake_multi<cmakemulti_generator>`: Just like ``cmake`` generator, but it generates one
   file per build type. It's useful if you use separated build folders or configurations according
   each build type.
 * :ref:`cmake_paths<cmake_paths_generator_reference>`: It generates a file named `conan_paths.cmake`
-  which declares only basic variables. It's useful when using only ``find_library``. Less intrusive,
+  which declares only basic cmake variables. It's useful when using only ``find_library``. Less intrusive,
   don't require any cmake file adjust.
 * :ref:`cmake_find_package<cmake_cmake_find_package_generator_reference>`: It generates a
   `Findxxx.cmake` file for each requirement. It's a good choice when you can't change you cmake file
