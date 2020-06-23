@@ -36,6 +36,7 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # skip_vs_projects_upgrade = False    # environment CONAN_SKIP_VS_PROJECTS_UPGRADE
     # non_interactive = False             # environment CONAN_NON_INTERACTIVE
     # skip_broken_symlinks_check = False  # enviornment CONAN_SKIP_BROKEN_SYMLINKS_CHECK
+    # revisions_enabled = False           # environment CONAN_REVISIONS_ENABLED
 
     # conan_make_program = make           # environment CONAN_MAKE_PROGRAM (overrides the make program used in AutoToolsBuildEnvironment.make)
     # conan_cmake_program = cmake         # environment CONAN_CMAKE_PROGRAM (overrides the make program used in CMake.cmake_program)
@@ -149,6 +150,7 @@ feature, subject to change. It is known that the output is still not clean, and 
 threads. Please report on https://github.com/conan-io/conan/issues about performance gains, and other issues.
 You might want to try this one in combination with the ``storage.download_cache`` configuration (see below.)
 
+The ``revisions_enabled`` variable controls the package revisioning feature. See :ref:`package_revisions` for more info`
 
 The ``cmake_***`` variables will declare the corresponding CMake variable when you use the
 :ref:`cmake generator<cmake_generator>` and the :ref:`CMake build tool<cmake_reference>`.
