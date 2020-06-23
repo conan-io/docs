@@ -21,6 +21,12 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.26 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.26.1 (23-Jun-2020)
+--------------------
+
+- Fix: Add missing migrations. `#7213 <https://github.com/conan-io/conan/pull/7213>`_
+- Fix: Packages listed as `build_requires` in recipes that belong to the _host_ context don't add as `build_requires` those listed in the _host_ profile. `#7169 <https://github.com/conan-io/conan/pull/7169>`_
+
 1.26.0 (10-Jun-2020)
 --------------------
 
