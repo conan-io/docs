@@ -154,3 +154,31 @@ It's also possible to define a specific index when adding a remote to the list:
 
 
 The ``bincrafters`` remote needs to be added after ``conan-community``, so we need to set the remote index as **1**.
+
+What is the best choice between "in source" or "out of source" recipes?
+-----------------------------------------------------------------------
+
+It depends, if you fetched the sources of an external library and you want to
+package them, :ref:`out of source<external_repo>` is the best option.
+However, if you have a repository with the sources that you want to package,
+:ref:`in source<package_repo>` is the best choice.
+
+I see many CMake generators, what should I use?
+-----------------------------------------------
+Each generator related to CMake has a specific proposal, according its usage:
+
+* :ref:`cmake<cmake_generator>`: It contains some variables and methods.
+  However, it requires an injection in your CMake file, adding the macro ``conan_basic_setup``.
+  If you don't have restriction about changing your cmake file, it's a good choice.
+* :ref:`cmake_multi<cmakemulti_generator>`: Just like ``cmake`` generator, but it generates one
+  file per build type. It's useful if you use separated build folders or configurations according
+  each build type.
+* :ref:`cmake_paths<cmake_paths_generator_reference>`: It generates a file named `conan_paths.cmake`
+  which declares only basic variables. It's useful when using only ``find_library``. Less intrusive,
+  don't require any cmake file adjust.
+* :ref:`cmake_find_package<cmake_cmake_find_package_generator_reference>`: It generates a
+  `Findxxx.cmake` file for each requirement. It's a good choice when you can't change you cmake file
+  and you are using ``find_package``.
+* :ref:`cmake_find_package_multi<cmake_find_package_multi_generator_reference>`: Just like
+  ``cmake_find_package``, but it generates more files based on the build type. It's useful if you
+  use separated build folders or configurations according each build type.
