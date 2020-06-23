@@ -25,7 +25,22 @@ For example:
         patches: "0001-beast-fix-moved-from-executor.patch,bcp_namespace_issues.patch"
       "1.71.0":
         patches: "bcp_namespace_issues.patch,boost_build_qcc_fix_debug_build_parameter.patch"
+    requirements:
+      - "foo/1.0"
+      - "bar/1.0"
 
+Usages in a *conanfile.py*:
+
+.. code-block:: python
+
+    def source(self):
+        tools.get(**self.conan_data["sources"][self.version])
+        for patch in self.conan_data["patches"][self.version]:
+            tools.patch(**patch)
+
+    def requirements(self):
+        for req in self.conan_data["requirements"]:
+            self.requires(req)
 
 .. warning::
 
