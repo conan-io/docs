@@ -102,5 +102,5 @@ You can extract the version dynamically using:
         name = "hello"
         def set_version(self):
             content = load(os.path.join(self.recipe_folder, "CMakeLists.txt"))
-            version = re.search(b"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)
+            version = re.search(r"set\(MY_LIBRARY_VERSION (.*)\)", content).group(1)
             self.version = version.strip()
