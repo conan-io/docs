@@ -38,25 +38,25 @@ How it works
 
 If a client requests a reference like ``lib/1.0@conan/stable``, Conan will automatically retrieve the latest revision in case
 the local cache doesn't contain any revisions already. If a client needs to update an existing revision, they have to ask for updates explicitly
-with -u, --update argument to :command:`conan install` command. In the client cache there is
+with ``-u, --update`` argument to :command:`conan install` command. In the client cache there is
 **only one revision installed simultaneously**.
 
-The revisions can be pinned when you write a reference (in the recipe requires, or in a reference in a
-:command:`conan install` command…) but if you don’t specify a revision, the server will retrieve the latest revision.
+The revisions can be pinned when you write a reference (in the recipe requires, a reference in a
+:command:`conan install` command,…) but if you don’t specify a revision, the server will retrieve the latest revision.
 
 You can specify the references in the following formats:
 
-+---------------------------------------------+----------------------------------------------------------------+
-| Reference                                   | Meaning                                                        |
-+=============================================+================================================================+
-| `lib/1.0@conan/stable`                      | Latest RREV for lib/1.0@conan/stable                           |
-+---------------------------------------------+----------------------------------------------------------------+
-| `lib/1.0@conan/stable#RREV`                 | Specific RREV for lib/1.0@conan/stable                         |
-+---------------------------------------------+----------------------------------------------------------------+
-| `lib/1.0@conan/stable#RREV:PACKAGE_ID`      | A binary package belonging to the specific RREV                |
-+---------------------------------------------+----------------------------------------------------------------+
-| `lib/1.0@conan/stable#RREV:PACKAGE_ID#PREV` | A binary package revision PREV belonging to the specific RREV  |
-+---------------------------------------------+----------------------------------------------------------------+
++-----------------------------------------------+--------------------------------------------------------------------+
+| Reference                                     | Meaning                                                            |
++===============================================+====================================================================+
+| ``lib/1.0@conan/stable``                      | Latest RREV for ``lib/1.0@conan/stable``                           |
++-----------------------------------------------+--------------------------------------------------------------------+
+| ``lib/1.0@conan/stable#RREV``                 | Specific RREV for ``lib/1.0@conan/stable``                         |
++-----------------------------------------------+--------------------------------------------------------------------+
+| ``lib/1.0@conan/stable#RREV:PACKAGE_ID``      | A binary package belonging to the specific RREV                    |
++-----------------------------------------------+--------------------------------------------------------------------+
+| ``lib/1.0@conan/stable#RREV:PACKAGE_ID#PREV`` | A binary package revision PREV belonging to the specific RREV      |
++-----------------------------------------------+--------------------------------------------------------------------+
 
 **In the server**
 
@@ -65,9 +65,9 @@ By using a new folder layout and protocol it is able to store multiple revisions
 How to activate the revisions
 -----------------------------
 
-You have to explicitly activate the feature by:
+You have to explicitly activate the feature by either:
 
- - Adding ``revisions_enabled=1`` in the ``[general]`` section of your *conan.conf* file.
+ - Adding ``revisions_enabled=1`` in the ``[general]`` section of your *conan.conf* file (preferred)
  - Setting the ``CONAN_REVISIONS_ENABLED=1`` environment variable.
 
 Take into account that it changes the default Conan behavior. e.g:
