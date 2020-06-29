@@ -1882,10 +1882,33 @@ tools.stdcpp_library():
     def stdcpp_library(conanfile)
 
 Returns the corresponding C++ standard library to link with based on the settings of the given conanfile. For instance, it may return ``c++`` for ``compiler.libcxx=libc++``,
- and it may return ``stdc++`` for ``compiler.libcxx=libstdc++`` or ``compiler.libcxx=libstdc++11``. Returns ``None`` if there is no C++ standard library
- need to be linked. Usually, this is required to populate ``self.cpp_info.system_libs`` for C++ libraries with plain C API, therefore such libraries might be
- safely used in pure C projects (or in general, non-C++ projects capable of using C API, such as written in Objective-C, Fortran, etc.).
+and it may return ``stdc++`` for ``compiler.libcxx=libstdc++`` or ``compiler.libcxx=libstdc++11``. Returns ``None`` if there is no C++ standard library
+need to be linked. Usually, this is required to populate ``self.cpp_info.system_libs`` for C++ libraries with plain C API, therefore such libraries might be
+safely used in pure C projects (or in general, non-C++ projects capable of using C API, such as written in Objective-C, Fortran, etc.).
 
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
 
+
+.. _tools.fix_symlinks:
+
+tools.fix_symlinks():
+---------------------
+
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
+.. code-block:: python
+
+    def fix_symlinks(conanfile, raise_if_error=False)
+
+This tool is intended to be used inside the ``package()`` method after all files have been copied. It take care of symlinks:
+
+ * Converts every symlink into a relative one starting in the root of the package.
+ * Removes (or raises) symlinks that point to files/directories outside the package.
+ * Removes (or raises) broken symlinks.
+
+Parameters:
+    - **conanfile** (Required): ConanFile instance. Usually ``self``.
+    - **raise_if_error** (Optional, Defaulted to ``False``): Indicates whether to raise or to remove invalid symlinks.
