@@ -1903,7 +1903,7 @@ tools.fix_symlinks():
 
     def fix_symlinks(conanfile, raise_if_error=False)
 
-This tool is intended to be used inside the ``package()`` method after all files have been copied. It take care of symlinks:
+This tool is intended to be used inside the ``package()`` method after all files have been copied. It takes care of symlinks:
 
  * Converts every symlink into a relative one starting in the root of the package.
  * Removes (or raises) symlinks that point to files/directories outside the package.
