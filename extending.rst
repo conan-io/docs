@@ -12,3 +12,4 @@ This section provides an introduction to extension capabilities of Conan:
    extending/python_requires
    extending/python_requires_legacy
    extending/hooks
+   extending/template_system
