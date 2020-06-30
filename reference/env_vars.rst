@@ -101,6 +101,32 @@ Passing ``None`` causes auto-detection, which currently only happens for the ``V
 
 For any other generators besides the ``Visual Studio 16 2019`` generator, detection results in no generator platform applied (and no ``-A`` argument passed to the CMake command line).
 
+CLICOLOR
+--------
+
+**Defaulted to**: Not defined
+
+Set it to ``0`` to disable console output colors, overriding tty detection.
+Set it to any value other than ``0`` to enable console output colors if a tty is detected.
+If this is left undefined, Conan will use the ``CONAN_COLOR_DISPLAY`` logic to determine
+whether colors should be enabled.
+
+CLICOLOR_FORCE
+--------------
+
+**Defaulted to**: Not defined
+
+Set it to any value other than ``0`` to force the generation of console output colors,
+overriding tty detection and ``CLICOLOR``.
+
+NO_COLOR
+--------
+
+**Defaulted to**: Not defined
+
+Set it to any value to force disable console output colors, overriding tty detection and
+any other color output controls.
+
 CONAN_COLOR_DARK
 ----------------
 
