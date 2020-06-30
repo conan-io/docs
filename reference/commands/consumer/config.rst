@@ -218,5 +218,5 @@ This will display the list of stored origins, with their index inside the list.
 
       $ conan config install --remove=1
 
-This will remove the element with index=1 (second element in the list) of the existing origins. Future :command:`conan config install`
-or scheduled updates will not be using this origin anymore.
+This will remove the element with index=1 (second element in the list) of the existing origins. This means that the next
+:command:`conan config install` manual or scheduled calls to this command will not use this origin anymore.
