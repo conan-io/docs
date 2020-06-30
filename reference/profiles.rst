@@ -231,6 +231,8 @@ variables will be available:
    zlib:CXX=$GCC_PATH/g++
 
 
+.. _build_profiles_and_host_profiles:
+
 Build profiles and host profiles
 --------------------------------
 
