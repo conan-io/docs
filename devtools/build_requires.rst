@@ -117,13 +117,13 @@ in the ``build`` context, with different package IDs. Conan will propagate the p
   + ``cpp_info``: all information will be available in the ``deps_cpp_info["xxx"]`` object.
   + ``env_info``: won't be propagated.
   + ``user_info``: will be available using the ``deps_user_info["xxx"]`` object.
-  
+
 * Build requirements in the ``build`` context will propagate all the ``env_info`` and Conan will also populate the
   environment variables ``DYLD_LIBRARY_PATH``, ``LD_LIBRARY_PATH`` and ``PATH`` with the corresponding information from
   the ``cpp_info`` object. All this information will be available in the ``deps_env_info`` object.
 
   Custom information declared in the ``user_info`` attribute will be available in the ``user_info_build["xxx"]`` object
-  in the consumer *conanfile*. 
+  in the consumer *conanfile*.
 
 
 .. important::
