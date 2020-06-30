@@ -970,32 +970,32 @@ deps_cpp_info
 Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also properties to obtain the
 absolute paths, and ``name`` and ``version`` attributes:
 
-+-----------------------------------------------+---------------------------------------------------------------------+
-| NAME                                          | DESCRIPTION                                                         |
-+===============================================+=====================================================================+
-| self.deps_cpp_info["dep"].include_paths       | "dep" package ``includedirs`` but transformed to absolute paths     |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].lib_paths           | "dep" package ``libdirs`` but transformed to absolute paths         |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].bin_paths           | "dep" package ``bindirs`` but transformed to absolute paths         |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].build_paths         | "dep" package ``builddirs`` but transformed to absolute paths       |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].res_paths           | "dep" package ``resdirs`` but transformed to absolute paths         |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].framework_paths     | "dep" package  ``frameworkdirs`` but transformed to absolute paths  |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].build_modules_paths | "dep" package ``build_modules`` but transformed to absolute paths   |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].name                | Get the ``cpp_info.name`` as defined in "dep" package               |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].version             | Get the version of the "dep" package                                |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].components          | | **[Experimental]** Dictionary with different components a package |
-|                                               | | may have: libraries, executables...                               |
-+-----------------------------------------------+---------------------------------------------------------------------+
++---------------------------------------------------+---------------------------------------------------------------------+
+| NAME                                              | DESCRIPTION                                                         |
++===================================================+=====================================================================+
+| self.deps_cpp_info["dep"].include_paths           | "dep" package ``includedirs`` but transformed to absolute paths     |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].lib_paths               | "dep" package ``libdirs`` but transformed to absolute paths         |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].bin_paths               | "dep" package ``bindirs`` but transformed to absolute paths         |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_paths             | "dep" package ``builddirs`` but transformed to absolute paths       |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].res_paths               | "dep" package ``resdirs`` but transformed to absolute paths         |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].framework_paths         | "dep" package  ``frameworkdirs`` but transformed to absolute paths  |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_modules_paths     | "dep" package ``build_modules`` but transformed to absolute paths   |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].get_name("<generator>") | Get the name declared for the given generator                       |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].version                 | Get the version of the "dep" package                                |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].components              | | **[Experimental]** Dictionary with different components a package |
+|                                                   | | may have: libraries, executables...                               |
++---------------------------------------------------+---------------------------------------------------------------------+
 
-To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
+To get a list of all the dependency names from ``deps_cpp_info``, you can call the `deps` member:
 
 .. code-block:: python
 
