@@ -701,7 +701,7 @@ You can use a profile like the following to cross-build your packages for ``iOS`
 
     **ARM**
 
-    - https://developer.arm.com/documentation/dui0773/latest/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
+    - https://developer.arm.com/documentation/dui0773/j/compiling-c-and-c---code/specifying-a-target-architecture--processor--and-instruction-set
     - https://developer.arm.com/documentation/dui0472/latest/compiler-command-line-options
 
     **ANDROID**
