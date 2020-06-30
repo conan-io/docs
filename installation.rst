@@ -84,7 +84,7 @@ For example, the following command installs Conan using ``yay``:
 
     $ yay -S conan
 
-Alternatively, build and install Conan manually using ``makepkg`` and ``pacman`` as described in `the Arch Wiki <https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages>`_.
+Alternatively, build and install Conan manually using ``makepkg`` and ``pacman`` as described in `the Arch Wiki <https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_and_upgrading_packages>`_.
 Conan build files can be downloaded from AUR: https://aur.archlinux.org/packages/conan/.
 Make sure to first install the three Conan dependencies which are also found in AUR:
 
