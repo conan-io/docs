@@ -204,7 +204,7 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
 
       $ conan config install /path/to/some/config.zip
 
-- List all previously installed origins (the ones that will executed if :command:`conan config install` is called without args):
+- List all previously installed origins (the ones that will be used if :command:`conan config install` is called without args):
 
   .. code-block:: bash
 
