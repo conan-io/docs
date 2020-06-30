@@ -1026,7 +1026,8 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
 
-.. note::
+
+.. note:: 
 
     If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
     attribute will contain only information from packages in the *host* context.
@@ -1072,6 +1073,7 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
+
 
 .. note::
 
