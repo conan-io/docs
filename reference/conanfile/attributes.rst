@@ -1026,6 +1026,12 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
 
+.. note::
+
+    If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
+    attribute will contain only information from packages in the *host* context.
+
+
 .. _env_info_attributes_reference:
 
 env_info
@@ -1051,7 +1057,7 @@ and it can be accessed with the python ``os.environ`` dictionary. Nevertheless i
 you want to access to the variable declared by some specific requirement you can use the ``self.deps_env_info`` object.
 
 .. code-block:: python
-   :emphasize-lines: 2
+   :emphasize-lines: 10
 
     import os
 
@@ -1066,6 +1072,12 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
+
+.. note::
+
+    If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
+    attribute will contain only information from packages in the *build* context.
+
 
 user_info
 ---------
@@ -1087,7 +1099,7 @@ You can access the declared ``user_info.XXX`` variables of the requirements thro
 
 
 .. code-block:: python
-   :emphasize-lines: 2
+   :emphasize-lines: 9
 
     import os
 
@@ -1098,6 +1110,42 @@ You can access the declared ``user_info.XXX`` variables of the requirements thro
 
         def build(self):
             self.deps_user_info["package1"].SOMEVAR
+
+
+.. note::
+
+    If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
+    attribute will contain only information from packages in the *host* context. Use :ref:`user_info_build_attributes_reference`
+    to access information from packages that belong to *build* context.
+
+
+.. _user_info_build_attributes_reference:
+
+user_info_build
+---------------
+
+.. warning::
+
+    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line. It is currently under development, features can be added or removed in the following versions.
+
+
+This attribute offers the information declared in the ``user_info.XXXX`` variables of the requirements that belong to the *build*
+context, it is available only if Conan is invoked with two profiles (see :ref:`this section <build_requires_context>` to
+know more about this feature.
+
+.. code-block:: python
+   :emphasize-lines: 9
+
+    import os
+
+    class RecipeConan(ConanFile):
+        ...
+        build_requires = "tool/1.0"
+        ...
+
+        def build(self):
+            self.user_info_build["tool"].SOMEVAR
 
 
 info
