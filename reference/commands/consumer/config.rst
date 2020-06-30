@@ -75,9 +75,9 @@ conan config install
 .. code-block:: bash
 
   usage: conan config install [-h] [--verify-ssl [VERIFY_SSL]] [--type {git}]
-                            [--args ARGS] [-sf SOURCE_FOLDER]
-                            [-tf TARGET_FOLDER]
-                            [item]
+                              [--args ARGS] [-sf SOURCE_FOLDER] [-tf TARGET_FOLDER]
+                              [-l] [-r REMOVE]
+                              [item]
 
   positional arguments:
     item                  git repository, local folder or zip file (local or
@@ -95,6 +95,9 @@ conan config install
                           specified origin
     -tf TARGET_FOLDER, --target-folder TARGET_FOLDER
                           Install to that path in the conan cache
+    -l, --list            List stored configuration origins
+    -r REMOVE, --remove REMOVE
+                          Remove configuration origin by index in list (index provided by --list argument)
 
 
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
@@ -200,3 +203,20 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
   .. code-block:: bash
 
       $ conan config install /path/to/some/config.zip
+
+- List all previously installed origins (the ones that will executed if :command:`conan config install` is called without args):
+
+  .. code-block:: bash
+
+      $ conan config install --list
+
+This will display the list of stored origins, with their index inside the list.
+
+- Remove one of the previously installed origins:
+
+  .. code-block:: bash
+
+      $ conan config install --remove=1
+
+This will remove the element with index=1 (second element in the list) of the existing origins. Future :command:`conan config install`
+or scheduled updates will not be using this origin anymore.
