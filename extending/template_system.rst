@@ -16,3 +16,4 @@ to distribute them among your developer team.
 
    template_system/search_table
    template_system/info_graph
+   template_system/command_new
