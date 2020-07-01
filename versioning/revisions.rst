@@ -3,10 +3,6 @@
 Package Revisions
 =================
 
-.. warning::
-
-    This is an **experimental** feature subject to breaking changes in future releases.
-
 The goal of the revisions feature is to achieve package immutability, the packages in a server are never overwritten.
 
 .. note::
