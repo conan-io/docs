@@ -109,7 +109,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
   - ``name`` and ``version``: defined from the command line.
   - ``package_name``: a *CamelCase* variant of the name. Any valid Conan package name like ``package_name``, ``package+name``, ``package.name`` or
     ``package-name`` will be converted into a suitable name for a Python class, ``PackageName``.
-  - ``conan_version``: a string containing current conan version, e.g. ``1.24.0``.
+  - ``conan_version``: an object that renders as the current Conan version, e.g. ``1.24.0``.
 
 - Create files from a custom, predefined user template directory:
 
