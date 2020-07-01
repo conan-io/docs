@@ -60,6 +60,8 @@ These changes could break existing recipes:
 * Deprecate environment variables ``CONAN_USERNAME`` and ``CONAN_CHANNEL``.
 * ``PYTHONPATH`` is not added automatically to the environment before running consumer functions.
 * Attribute ``self.version`` is ensured to be a string in all the functions and scenarios.
+* Access to member ``name`` in ``deps_cpp_info`` objects is forbidden, use ``get_name(<generator>)``
+  with the name of the generator.
 
 
 Changes in profiles
@@ -70,18 +72,16 @@ Could break existing profiles:
 * Deprecate ``scopes`` section in profiles.
 
 
+Other changes
+-------------
+
+* Package name used by the ``pkg_config`` generator uses the same rules as any other generator.
+  Previously, if it was not explicit, it was using lowercase ``cpp_info.name`` when it was different
+  from the package name.
+
+
 .. note::
 
    More changes will be added, some of them could be reverted and the behavior may
    change without further noticing. If you are using ``CONAN_V2_MODE``, **thanks!** We
    really appreciate your feedback about the future of Conan.
-
-
-More info
----------
-
-These changes are implemented in these pull-requests:
-
-* `#6490: Add 'CONAN_V2_MODE' to start testing Conan v2 deprecated features <https://github.com/conan-io/conan/pull/6490>`_
-* `#6737: [conan_v2_mode] Deprecate old ways of reusing python code <https://github.com/conan-io/conan/pull/6737>`_
-* `#6782: [CONAN_V2_MODE] Check that 'version' is always a string <https://github.com/conan-io/conan/pull/6782>`_
