@@ -86,7 +86,7 @@ Components
 ++++++++++
 
 If a recipe uses :ref:`components <package_information_components>`, the targets generated will be ``<PKG-NAME>::<COMP-NAME>`` with the following properties adjusted. Being
-``<COMP-NAME>`` the dictionary key used to declare the component or the alternative name declared in
+``<COMP-NAME>`` the dictionary key used to declare the component or the one declared in ``cpp_info.name`` or the alternative name declared in
 ``cpp_info.components["comp_name"].names["cmake_find_package_multi"]`` if specified:
 
 - ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the component.
