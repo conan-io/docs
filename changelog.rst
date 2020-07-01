@@ -43,6 +43,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Allow to extend classes with ``python_requires_extend`` from packages that contain "." dots in the package name. `#7262 <https://github.com/conan-io/conan/pull/7262>`_
 - Bugfix: Correctly inherit ``scm`` definitions from ``python_requires`` base classes. `#7238 <https://github.com/conan-io/conan/pull/7238>`_
 - Bugfix: Change GNU triplet for iOS, watchOS, tvOS to allow simulator builds. `#6748 <https://github.com/conan-io/conan/pull/6748>`_
+- SCM mode with ``scm_to_conandata`` and revisions marked as stable. Docs `here <https://github.com/conan-io/docs/pull/1759>`__
 
 1.26.1 (23-Jun-2020)
 --------------------
