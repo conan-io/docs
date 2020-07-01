@@ -87,13 +87,16 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
       $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://api.bintray.com/conan/myuser/myrepo
 
-- Create files from a custom, predefined user template recipe:
+- Create files from a custom, predefined, user template recipe or template directory:
 
   .. code-block:: bash
 
-      $ conan new mypackage/1.0 --template=myconanfile.py
+      $ conan new mypackage/1.0 --template=myconanfile.py  # Single template file
+      $ conan new mypackage/1.0 --template=header_only  # Template directory
 
 
+  Refer to the section :ref:`template_command_new` for more information about these templates.
+  
   Conan will look for ``templates/command/new/myconanfile.py`` or ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
   These files can be installed and managed by :ref:`conan_config_install` command. The templates use Jinja syntax:
 
