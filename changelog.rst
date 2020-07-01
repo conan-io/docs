@@ -21,6 +21,29 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.26 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.27.0 (01-Jul-2020)
+--------------------
+
+- Feature: (Only if using two profiles) Information from the `self.user_info` field is provided to consumers: information from the _host_ context is accessible via `deps_user_info` attribute,  and information from the _build_ context via `user_info_build` attribute. `#7266 <https://github.com/conan-io/conan/pull/7266>`_ . Docs `here <https://github.com/conan-io/docs/pull/1753>`__
+- Feature: New ``conan config install --list`` and ``conan config install --remove=index`` arguments to display and remove conan config install origins. `#7263 <https://github.com/conan-io/conan/pull/7263>`_ . Docs `here <https://github.com/conan-io/docs/pull/1757>`__
+- Feature: Support components for `cmake_find_package_multi` generator. `#7259 <https://github.com/conan-io/conan/pull/7259>`_ . Docs `here <https://github.com/conan-io/docs/pull/1755>`__
+- Feature: Add Pop!_OS to the list of APT based distributions. `#7237 <https://github.com/conan-io/conan/pull/7237>`_
+- Feature: Use Bootstrap in search table template style. `#7224 <https://github.com/conan-io/conan/pull/7224>`_
+- Feature: Added support for template dir in :command:`conan new`. `#7215 <https://github.com/conan-io/conan/pull/7215>`_ . Docs `here <https://github.com/conan-io/docs/pull/1752>`__
+- Feature: Configuration for checking the required Conan client version. `#7183 <https://github.com/conan-io/conan/pull/7183>`_ . Docs `here <https://github.com/conan-io/docs/pull/1740>`__
+- Feature: Adds tool to fix symlinks in the `package_folder`. `#7178 <https://github.com/conan-io/conan/pull/7178>`_ . Docs `here <https://github.com/conan-io/docs/pull/1751>`__
+- Feature: Templates for `conan search --table` and `conan info --graph` can be overridden by the user. `#7176 <https://github.com/conan-io/conan/pull/7176>`_ . Docs `here <https://github.com/conan-io/docs/pull/1739>`__
+- Feature: Add support for the `CLICOLOR`/`CLICOLOR_FORCE`/`NO_COLOR` output colorization control variables. `#7154 <https://github.com/conan-io/conan/pull/7154>`_ . Docs `here <https://github.com/conan-io/docs/pull/1728>`__
+- Fix: Remove message from the qmake generator. `#7228 <https://github.com/conan-io/conan/pull/7228>`_
+- Fix: Allow ``--build=Pkg/0.1@`` to match the ``Pkg/0.1`` package, so the ``conan install Pkg/0.1@ --build=Pkg/0.1@`` also works. `#7219 <https://github.com/conan-io/conan/pull/7219>`_
+- Fix: Improve error message when svn or git are not in the installed or in the path. `#7194 <https://github.com/conan-io/conan/pull/7194>`_
+- Fix: Graph created for the `test_package/conanfile.py` recipe takes the `profile:build` if given. `#7182 <https://github.com/conan-io/conan/pull/7182>`_
+- Fix: Define user variables in the ``conan_toolchain.cmake`` file, not in the project-include file. `#7160 <https://github.com/conan-io/conan/pull/7160>`_
+- Fix: Set toolset for MSBuild in case of Intel C++. `#6809 <https://github.com/conan-io/conan/pull/6809>`_
+- Bugfix: Allow to extend classes with ``python_requires_extend`` from packages that contain "." dots in the package name. `#7262 <https://github.com/conan-io/conan/pull/7262>`_
+- Bugfix: Correctly inherit ``scm`` definitions from ``python_requires`` base classes. `#7238 <https://github.com/conan-io/conan/pull/7238>`_
+- Bugfix: Change GNU triplet for iOS, watchOS, tvOS to allow simulator builds. `#6748 <https://github.com/conan-io/conan/pull/6748>`_
+
 1.26.1 (23-Jun-2020)
 --------------------
 
