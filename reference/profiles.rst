@@ -231,8 +231,15 @@ variables will be available:
    zlib:CXX=$GCC_PATH/g++
 
 
+.. _build_profiles_and_host_profiles:
+
 Build profiles and host profiles
 --------------------------------
+
+.. warning::
+
+    This is an **experimental feature** subject to breaking changes in future releases.
+
 
 All the commands that take a profile as an argument, from Conan v1.24 are starting to accept two profiles with
 command line arguments ``-pr:h``/``--profile:host`` and ``-pr:b``/``--profile:build``. If both profiles are

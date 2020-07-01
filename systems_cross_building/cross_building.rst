@@ -130,6 +130,12 @@ You can find working examples at the :ref:`bottom of this section <cross_buildin
 Using build requires
 ++++++++++++++++++++
 
+.. warning::
+
+    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line. It is currently under development, features can be added or removed in the following versions.
+
+
 Instead of manually downloading the toolchain and creating a profile, you can create a Conan package
 with it. Starting with Conan v1.24 and the command line arguments ``--profile:host`` and ``--profile:build``
 this should be a regular recipe, for older versions some more work is needed.
@@ -701,8 +707,8 @@ You can use a profile like the following to cross-build your packages for ``iOS`
 
     **ARM**
 
-    - https://developer.arm.com/docs/dui0773/latest/compiling-c-and-c-code/specifying-a-target-architecture-processor-and-instruction-set
-    - https://developer.arm.com/docs/dui0472/latest/compiler-command-line-options
+    - https://developer.arm.com/documentation/dui0773/j/compiling-c-and-c---code/specifying-a-target-architecture--processor--and-instruction-set
+    - https://developer.arm.com/documentation/dui0472/latest/compiler-command-line-options
 
     **ANDROID**
 

@@ -27,7 +27,7 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 +----------------------------------------+--------------------------------------------------------------------------------------+
 | <PKG-NAME>ConfigVersion.cmake          | Package version file for each dep                                                    |
 +----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>Targets.cmake                | It includes the following files                                                      |
+| <PKG-NAME>Targets.cmake                | It includes the files *<PKG-NAME>Targets-<BUILD-TYPE>.cmake*                         |
 +----------------------------------------+--------------------------------------------------------------------------------------+
 | <PKG-NAME>Targets-debug.cmake          | Specific information for the Debug configuration                                     |
 +----------------------------------------+--------------------------------------------------------------------------------------+
@@ -46,6 +46,7 @@ A target named ``<PKG-NAME>::<PKG-NAME>`` target is generated with the following
 - ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the package.
 - ``INTERFACE_LINK_LIBRARIES``: Library paths to link.
 - ``INTERFACE_COMPILE_DEFINITIONS``: Definitions of the library.
+- ``INTERFACE_COMPILE_OPTIONS``: Compile options of the library.
 
 The targets contains multi-configuration properties, for example, the compile options property
 is declared like this:
@@ -81,3 +82,18 @@ the *CMakeLists.txt*.
 Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
 modules in those directories can be found.
 
+Components
+++++++++++
+
+If a recipe uses :ref:`components <package_information_components>`, the targets generated will be ``<PKG-NAME>::<COMP-NAME>`` with the following properties adjusted. Being
+``<COMP-NAME>`` the dictionary key used to declare the component or the one declared in ``cpp_info.name`` or the alternative name declared in
+``cpp_info.components["comp_name"].names["cmake_find_package_multi"]`` if specified:
+
+- ``INTERFACE_INCLUDE_DIRECTORIES``: Containing all the include directories of the component.
+- ``INTERFACE_LINK_LIBRARIES``: Containing the targets to link the component to (includes component's libraries and dependencies).
+- ``INTERFACE_COMPILE_DEFINITIONS``: Containing the definitions of the component.
+- ``INTERFACE_COMPILE_OPTIONS``: Containing the compile options of the component.
+
+Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
+
+- ``INTERFACE_LINK_LIBRARIES``: Containing the list of targets for all the components in the package.

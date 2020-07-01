@@ -81,6 +81,12 @@ profile, it will overwrite the build requirements defined in package recipes tha
 Build and Host contexts
 -----------------------
 
+.. warning::
+
+    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line. It is currently under development, features can be added or removed in the following versions.
+
+
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
 the meaning of ``host`` and ``build`` platforms in the :ref:`cross building <cross_building>` section) **when the user
 supplies two profiles** to the command line using the ``--profile:build`` and ``--profile:host`` arguments:
@@ -112,11 +118,18 @@ be linked to the generated library or other executable we want to deploy to the 
 Take into account that the same package (executable or library) can appear two times in the graph, in the ``host`` and
 in the ``build`` context, with different package IDs. Conan will propagate the proper information to the consumers:
 
-* Build requirements in the ``host`` context will propagate like any other requirement, all the ``cpp_info`` will be
-  available in the ``deps_cpp_info["xxx"]`` object (``env_info`` and ``user_info`` won't be propagated).
+* Build requirements in the ``host`` context will propagate like any other requirement:
+
+  + ``cpp_info``: all information will be available in the ``deps_cpp_info["xxx"]`` object.
+  + ``env_info``: won't be propagated.
+  + ``user_info``: will be available using the ``deps_user_info["xxx"]`` object.
+
 * Build requirements in the ``build`` context will propagate all the ``env_info`` and Conan will also populate the
   environment variables ``DYLD_LIBRARY_PATH``, ``LD_LIBRARY_PATH`` and ``PATH`` with the corresponding information from
-  the ``cpp_info`` object. All these information will be available in the ``deps_cpp_info`` object.
+  the ``cpp_info`` object. All this information will be available in the ``deps_env_info`` object.
+
+  Custom information declared in the ``user_info`` attribute will be available in the ``user_info_build["xxx"]`` object
+  in the consumer *conanfile*.
 
 
 .. important::

@@ -970,32 +970,32 @@ deps_cpp_info
 Contains the ``cpp_info`` object of the requirements of the recipe. In addition of the above fields, there are also properties to obtain the
 absolute paths, and ``name`` and ``version`` attributes:
 
-+-----------------------------------------------+---------------------------------------------------------------------+
-| NAME                                          | DESCRIPTION                                                         |
-+===============================================+=====================================================================+
-| self.deps_cpp_info["dep"].include_paths       | "dep" package ``includedirs`` but transformed to absolute paths     |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].lib_paths           | "dep" package ``libdirs`` but transformed to absolute paths         |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].bin_paths           | "dep" package ``bindirs`` but transformed to absolute paths         |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].build_paths         | "dep" package ``builddirs`` but transformed to absolute paths       |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].res_paths           | "dep" package ``resdirs`` but transformed to absolute paths         |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].framework_paths     | "dep" package  ``frameworkdirs`` but transformed to absolute paths  |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].build_modules_paths | "dep" package ``build_modules`` but transformed to absolute paths   |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].name                | Get the ``cpp_info.name`` as defined in "dep" package               |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].version             | Get the version of the "dep" package                                |
-+-----------------------------------------------+---------------------------------------------------------------------+
-| self.deps_cpp_info["dep"].components          | | **[Experimental]** Dictionary with different components a package |
-|                                               | | may have: libraries, executables...                               |
-+-----------------------------------------------+---------------------------------------------------------------------+
++---------------------------------------------------+---------------------------------------------------------------------+
+| NAME                                              | DESCRIPTION                                                         |
++===================================================+=====================================================================+
+| self.deps_cpp_info["dep"].include_paths           | "dep" package ``includedirs`` but transformed to absolute paths     |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].lib_paths               | "dep" package ``libdirs`` but transformed to absolute paths         |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].bin_paths               | "dep" package ``bindirs`` but transformed to absolute paths         |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_paths             | "dep" package ``builddirs`` but transformed to absolute paths       |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].res_paths               | "dep" package ``resdirs`` but transformed to absolute paths         |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].framework_paths         | "dep" package  ``frameworkdirs`` but transformed to absolute paths  |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].build_modules_paths     | "dep" package ``build_modules`` but transformed to absolute paths   |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].get_name("<generator>") | Get the name declared for the given generator                       |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].version                 | Get the version of the "dep" package                                |
++---------------------------------------------------+---------------------------------------------------------------------+
+| self.deps_cpp_info["dep"].components              | | **[Experimental]** Dictionary with different components a package |
+|                                                   | | may have: libraries, executables...                               |
++---------------------------------------------------+---------------------------------------------------------------------+
 
-To get a list of all the dependency names from ```deps_cpp_info```, you can call the `deps` member:
+To get a list of all the dependency names from ``deps_cpp_info``, you can call the `deps` member:
 
 .. code-block:: python
 
@@ -1026,6 +1026,13 @@ root folder of the package:
             # Get the sharedlinkflags property from OpenSSL package
             self.deps_cpp_info["openssl"].sharedlinkflags
 
+
+.. note:: 
+
+    If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
+    attribute will contain only information from packages in the *host* context.
+
+
 .. _env_info_attributes_reference:
 
 env_info
@@ -1051,7 +1058,7 @@ and it can be accessed with the python ``os.environ`` dictionary. Nevertheless i
 you want to access to the variable declared by some specific requirement you can use the ``self.deps_env_info`` object.
 
 .. code-block:: python
-   :emphasize-lines: 2
+   :emphasize-lines: 10
 
     import os
 
@@ -1066,6 +1073,13 @@ you want to access to the variable declared by some specific requirement you can
 
             # Access to the environment variables globally
             os.environ["SOMEVAR"]
+
+
+.. note::
+
+    If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
+    attribute will contain only information from packages in the *build* context.
+
 
 user_info
 ---------
@@ -1087,7 +1101,7 @@ You can access the declared ``user_info.XXX`` variables of the requirements thro
 
 
 .. code-block:: python
-   :emphasize-lines: 2
+   :emphasize-lines: 9
 
     import os
 
@@ -1098,6 +1112,42 @@ You can access the declared ``user_info.XXX`` variables of the requirements thro
 
         def build(self):
             self.deps_user_info["package1"].SOMEVAR
+
+
+.. note::
+
+    If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
+    attribute will contain only information from packages in the *host* context. Use :ref:`user_info_build_attributes_reference`
+    to access information from packages that belong to *build* context.
+
+
+.. _user_info_build_attributes_reference:
+
+user_info_build
+---------------
+
+.. warning::
+
+    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line. It is currently under development, features can be added or removed in the following versions.
+
+
+This attribute offers the information declared in the ``user_info.XXXX`` variables of the requirements that belong to the *build*
+context, it is available only if Conan is invoked with two profiles (see :ref:`this section <build_requires_context>` to
+know more about this feature.
+
+.. code-block:: python
+   :emphasize-lines: 9
+
+    import os
+
+    class RecipeConan(ConanFile):
+        ...
+        build_requires = "tool/1.0"
+        ...
+
+        def build(self):
+            self.user_info_build["tool"].SOMEVAR
 
 
 info
@@ -1207,7 +1257,9 @@ scm
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    This is an **experimental** feature subject to breaking changes in future releases. Although this
+    is an experimental feature, the use of the feature using ``scm_to_conandata`` is considered
+    stable.
 
 Used to clone/checkout a repository. It is a dictionary with the following possible values:
 

@@ -82,6 +82,12 @@ This two simple declarations are enough to reuse this tool in the scenarios we a
 Using the tool packages in other recipes
 ----------------------------------------
 
+.. warning::
+
+    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line. It is currently under development, features can be added or removed in the following versions.
+
+
 These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so
 you should usually declare them as :ref:`build requirements <build_requires>`, in the recipe itself or in a profile.
 
