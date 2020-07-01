@@ -101,8 +101,9 @@ Capturing the Remote and Commit: ``scm``
 
 .. warning::
 
-    Depending on the use, this feature may be considered **experimental** and subject to breaking
-    changes in future releases. See :ref:`note <scm_to_conandata_note>` below.
+    This is an **experimental** feature subject to breaking changes in future releases. Depending on
+    the use, this is feature may be considered **experimental**. See :ref:`note
+    <scm_to_conandata_note>` below.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when :command:`conan create` is called) the exported recipe will capture the

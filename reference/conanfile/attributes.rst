@@ -1257,8 +1257,9 @@ scm
 
 .. warning::
 
-    Depending on the use, this is feature may be considered **experimental** and subject to breaking
-    changes in future releases. See :ref:`note <scm_to_conandata_note>` below.
+    This is an **experimental** feature subject to breaking changes in future releases. Depending on
+    the use, this is feature may be considered **experimental**. See :ref:`note
+    <scm_to_conandata_note>` below.
 
 Used to clone/checkout a repository. It is a dictionary with the following possible values:
 
