@@ -81,6 +81,12 @@ profile, it will overwrite the build requirements defined in package recipes tha
 Build and Host contexts
 -----------------------
 
+.. warning::
+
+    This section refers to the **experimental feature** that is activated when using ``--profile:build`` and ``--profile:host``
+    in the command-line. It is currently under development, features can be added or removed in the following versions.
+
+
 Conan v1.24 differentiates between the ``build`` context and the ``host`` context in the dependency graph (read more about
 the meaning of ``host`` and ``build`` platforms in the :ref:`cross building <cross_building>` section) **when the user
 supplies two profiles** to the command line using the ``--profile:build`` and ``--profile:host`` arguments:
