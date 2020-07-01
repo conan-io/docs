@@ -87,14 +87,14 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
 
       $ conan new mypackage/1.0@myuser/stable -t -ciglg -ciglc -ciu https://api.bintray.com/conan/myuser/myrepo
 
-- Create files from a custom, predefined user template:
+- Create files from a custom, predefined user template recipe:
 
   .. code-block:: bash
 
       $ conan new mypackage/1.0 --template=myconanfile.py
 
 
-  Conan will look for ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
+  Conan will look for ``templates/command/new/myconanfile.py`` or ``templates/myconanfile.py`` in the Conan local cache. If an absolute path is given as argument, it will be used instead.
   These files can be installed and managed by :ref:`conan_config_install` command. The templates use Jinja syntax:
 
   .. code-block:: text
@@ -102,7 +102,36 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
     class {{package_name}}Conan(ConanFile):
         name = "{{name}}"
         version = "{{version}}"
+        conan_version = "{{conan_version}}"
 
-  Where ``name`` and ``version`` placeholders are defined from the command line, and ``package_name`` is a *CamelCase*
-  variant of the name: any valid Conan package name like ``package_name``, ``package+name``, ``package.name`` or
-  ``package-name`` will be converted into a suitable name for a Python class, ``PackageName``.
+  Supported place-holders:
+  
+  - ``name`` and ``version``: defined from the command line.
+  - ``package_name``: a *CamelCase* variant of the name. Any valid Conan package name like ``package_name``, ``package+name``, ``package.name`` or
+    ``package-name`` will be converted into a suitable name for a Python class, ``PackageName``.
+  - ``conan_version``: an object that renders as the current Conan version, e.g. ``1.24.0``.
+
+- Create files from a custom, predefined user template directory:
+
+  .. code-block:: bash
+
+      $ conan new mypackage/1.0 --template=mytemplate
+
+  Similar to the example above, but it uses a template directory for the basis. Conan will look for ``templates/command/new/mytemplate`` in the Conan local cache. 
+  If an absolute path is given as argument, it will be used instead.
+
+  Jinja processing is applied to all files in the template directory, their paths and their names. Thus the following template directory:
+  
+  .. code-block:: text
+  
+    mytemplate/conanfile.py
+              /src/{{name}}.cpp
+              /src/include/{{name}}/{{name}}.h
+
+  will be translated to:
+  
+  .. code-block:: text
+  
+    ./conanfile.py
+     /src/mypackage.cpp
+     /src/include/mypackage/mypackage.h
