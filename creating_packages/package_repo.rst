@@ -101,7 +101,8 @@ Capturing the Remote and Commit: ``scm``
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Depending on the use, this is feature may be considered **experimental** and subject to breaking
+    changes in future releases. See :ref:`note <scm_to_conandata_note>` below.
 
 You can use the :ref:`scm attribute <scm_attribute>` with the ``url`` and ``revision`` field set to ``auto``.
 When you export the recipe (or when :command:`conan create` is called) the exported recipe will capture the
@@ -158,6 +159,12 @@ Whichever option you choose, the data resolved will be asigned by Conan to the c
 file is loaded, and they will be available for all the methods defined in the recipe. Also, if building the package
 from sources, Conan will fetch the code in the captured url/commit before running the method ``source()`` in the
 recipe (if defined).
+
+.. _scm_to_conandata_note:
+.. note::
+
+    Although this is an experimental feature, the use of the feature using ``scm_to_conandata`` is
+    considered stable.
 
 As SCM attributes are evaluated in the local directory context (see :ref:`scm attribute <scm_attribute>`),
 you can write more complex functions to retrieve the proper values, this source *conanfile.py* will

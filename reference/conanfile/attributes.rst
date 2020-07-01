@@ -1257,7 +1257,8 @@ scm
 
 .. warning::
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+    Depending on the use, this is feature may be considered **experimental** and subject to breaking
+    changes in future releases. See :ref:`note <scm_to_conandata_note>` below.
 
 Used to clone/checkout a repository. It is a dictionary with the following possible values:
 
@@ -1307,6 +1308,12 @@ from a :ref:`python_requires <python_requires>` package.
     However, you can activate the :ref:`scm_to_conandata<conan_conf>` config option, the *conanfile.py*
     won't be modified (data is stored in a different file) and the fields ``username`` and ``password`` won't be
     stored, so these one will be computed each time the recipe is loaded.
+
+.. _scm_to_conandata_note:
+.. note::
+
+    Although this is an experimental feature, the use of the feature using ``scm_to_conandata`` is
+    considered stable.
 
 .. note::
 
