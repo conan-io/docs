@@ -107,7 +107,7 @@ shared libraries to our user space.
     [imports]
     bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my "bin" folder
     lib, *.dylib* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
-    lib, *.so* -> ./bin # Copies all dylib files from packages lib folder to my "bin" folder
+    lib, *.so* -> ./bin # Copies all so files from packages lib folder to my "bin" folder
 
 Now you can build the project:
 
