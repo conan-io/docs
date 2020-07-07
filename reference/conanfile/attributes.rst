@@ -869,57 +869,61 @@ library names, library paths... There are some default values that will be appli
 
 This object should be filled in ``package_info()`` method.
 
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                             | DESCRIPTION                                                                                             |
-+==================================+=========================================================================================================+
-| self.cpp_info.includedirs        | Ordered list with include paths. Defaulted to ``["include"]``                                           |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libdirs            | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.resdirs            | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.bindirs            | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.builddirs          | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
-|                                  | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libs               | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.defines            | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cflags             | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cppflags           | [DEPRECATED: Use cxxflags instead]                                                                      |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cxxflags           | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags    | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.exelinkflags       | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.frameworks         | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.frameworkdirs      | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.rootpath           | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.name               | | Alternative name for the package used by generators to create files or variables.                     |
-|                                  | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
-|                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.names["generator"] | | Alternative name for the package used by an specific generator to create files or variables.          |
-|                                  | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
-|                                  | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
-|                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.system_libs        | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
-|                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.components         | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
-|                                  | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| NAME                                 | DESCRIPTION                                                                                             |
++======================================+=========================================================================================================+
+| self.cpp_info.includedirs            | Ordered list with include paths. Defaulted to ``["include"]``                                           |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs                | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs                | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs                | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs              | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
+|                                      | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs                   | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines                | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags                 | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags               | [DEPRECATED: Use cxxflags instead]                                                                      |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cxxflags               | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags        | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags           | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks             | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs          | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath               | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name                   | | Alternative name for the package used by generators to create files or variables.                     |
+|                                      | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
+|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.names["generator"]     | | Alternative name for the package used by an specific generator to create files or variables.          |
+|                                      | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
+|                                      | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
+|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.filenames["generator"] | | Alternative name for the filename produced by a specific generator. If set for a generator it will    |
+|                                      | | override the "names" value (which itself overrides self.cppinfo.name). This is only supported by      |
+|                                      | | the `cmake_find_package` and `cmake_find_package_multi` generators.                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.build_modules          | | List of relative paths to build system related utility module files created by the package. Used by   |
+|                                      | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
+|                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -1027,7 +1031,7 @@ root folder of the package:
             self.deps_cpp_info["openssl"].sharedlinkflags
 
 
-.. note:: 
+.. note::
 
     If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
     attribute will contain only information from packages in the *host* context.
