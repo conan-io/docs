@@ -7,7 +7,7 @@ HTML output for :command:`conan search` table
 .. warning::
 
     This has to be an considered as an **experimental** feature, we might
-    change the context provided to this templates once we have more exmpales
+    change the context provided to this templates once we have more examples
     from the community.
 
 
@@ -20,12 +20,12 @@ query when looking for binaries
     :align: center
 
 
-This is the default Canan provides, but you can use your own
+This is the default Conan provides, but you can use your own
 `Jinja2 documentation <https://palletsprojects.com/p/jinja/>`_ template to customize
 this output to your needs:
 
  * *<cache>/templates/output/search_table.html*.
- 
+
 
 Context
 -------
@@ -33,7 +33,7 @@ Context
 Conan feeds this template with the information about the packages found, this information
 is called context and it contains these objects:
 
- * ``base_template_path``: absolute path to the directory where the choosen template file is
+ * ``base_template_path``: absolute path to the directory where the chosen template file is
    located. It is needed if your output file needs to link assets distributed together
    with the template file.
  * ``search``: it contains the pattern used in the command line to search packages.
@@ -41,11 +41,11 @@ is called context and it contains these objects:
    is used to get the headers and the rows.
 
 
-When the output is a table, the first thing needed are the headers, these can be a sinle row
+When the output is a table, the first thing needed are the headers, these can be a single row
 or two rows like the image above. In order to get the headers you should use
 ``results.get_headers(keys)`` with a list of extra ``keys`` you want to include (see example below).
 Conan will always return a header for all the different settings and options values, with this ``keys``
-list variable you can retrieve other information that might be useful in your table like ``remote``, 
+list variable you can retrieve other information that might be useful in your table like ``remote``,
 ``reference``, ``outdated`` or ``package_id``.
 
 Then you can use the returned object to get the actual headers:
@@ -56,13 +56,13 @@ Then you can use the returned object to get the actual headers:
 
         <thead>
             <tr>
-                {%- set headers = results.get_headers(keys=['remote', 'package_id']) %}
+                {%- set headers = results.get_headers(keys=['remote', 'package_id', 'outdated']) %}
                 {%- for header in headers.row(n_rows=1) %}
                 <th>{{ header }}</th>
                 {%- endfor %}
             </tr>
         </thead>
-            
+
  * two-rows headers: it returns a list of tuples like the following one:
 
     .. code-block:: python
@@ -70,7 +70,7 @@ Then you can use the returned object to get the actual headers:
         [('os', ['']), ('arch', ['']), ('compiler', ['', 'version', 'libcxx']),]
 
    The first element for this tuple is intended for the top row, while the second element lists
-   all the subsettings in the top header category. An empty string means there is no category, like
+   all the sub-settings in the top header category. An empty string means there is no category, like
    ``compiler=Visual Studio``.
 
    Composing the table headers in HTML requires some more code in the template:
@@ -78,7 +78,7 @@ Then you can use the returned object to get the actual headers:
    .. code-block:: html
 
         <thead>
-            {%- set headers = results.get_headers(keys=['remote', 'package_id']) %}
+            {%- set headers = results.get_headers(keys=['remote', 'package_id', 'outdated']) %}
             {%- set headers2rows = headers.row(n_rows=2) %}
             <tr>
                 {%- for category, subheaders in headers2rows %}
