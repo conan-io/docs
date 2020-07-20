@@ -138,6 +138,8 @@ The syntax of ``self.copy`` inside ``package()`` is as follows:
 
     self.copy(pattern, dst="", src="", keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
+Returns: A list with absolute paths of the files copied in the destination folder.
+
 Parameters:
     - **pattern** (Required): A pattern following fnmatch syntax of the files you want to copy, from the build to the package folders.
       Typically something like ``*.lib`` or ``*.h``.
