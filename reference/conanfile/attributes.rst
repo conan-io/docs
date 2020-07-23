@@ -1454,3 +1454,49 @@ For example, a *conandata.yml* with information about sources that looks like th
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
+
+
+deprecated
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
+This attribute declares that the recipe is deprecated, causing a user-friendly warning message to be emitted whenever it is used.
+For example, the following code:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        name = "cpp-taskflow"
+        version = "1.0"
+        deprecated = True
+
+may emit a warning like:
+
+.. code-block:: bash
+
+    cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated. Please, consider changing your requirements.
+
+Optionally, the attribute may specify the name of the suggested replacement:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        name = "cpp-taskflow"
+        version = "1.0"
+        deprecated = "taskflow"
+
+This will emit a warning like:
+
+.. code-block:: bash
+
+    cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated in favor of 'taskflow'. Please, consider changing your requirements.
+
+If the value of the attribute evaluates to ``False``, no warning is printed.
