@@ -1494,4 +1494,4 @@ will emit warning like:
 
     cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated in favor of 'taskflow'. Please, consider changing your requirements.
 
-If value of the attribute evaluates to ``False``, not warning is printed.
+If the value of the attribute evaluates to ``False``, no warning is printed.
