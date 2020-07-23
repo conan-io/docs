@@ -76,7 +76,8 @@ Activate the virtual environment, and now you can run ``cmake --version`` to che
    $ source activate.sh # Windows: activate.bat without the source
    $ cmake --version
 
-Two sets of scripts are available for Windows - ``activate.bat``/``deactivate.bat`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
+Two sets of scripts are available on all platforms - ``activate.sh``/``deactivate.sh`` and ``activate.ps1``/``deactivate.ps1`` if you are using powershell.
+In additon Windows has ``activate.bat``/``deactivate.bat``
 Deactivate the virtual environment (or close the console) to restore the environment variables:
 
 
