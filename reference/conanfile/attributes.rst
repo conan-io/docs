@@ -1459,6 +1459,11 @@ For example, a *conandata.yml* with information about sources that looks like th
 deprecated
 ----------
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
 This attribute declares that the recipe is deprecated, causing a user-friendly warning message to be emitted whenever it is used.
 For example, the following code:
 
