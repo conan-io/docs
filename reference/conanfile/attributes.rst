@@ -1477,7 +1477,7 @@ may emit warning like:
 
     cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated. Please, consider changing your requirements.
 
-Optionally, the attribute may specify the name of the suggested replacement, e.g.:
+Optionally, the attribute may specify the name of the suggested replacement:
 
 .. code-block:: python
 
