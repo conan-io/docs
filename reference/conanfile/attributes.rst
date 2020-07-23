@@ -1459,7 +1459,7 @@ For example, a *conandata.yml* with information about sources that looks like th
 deprecated
 ----------
 
-This attribute declares that recipe is deprecated, causing user-friendly warning message to be emitted whenever recipe is used.
+This attribute declares that the recipe is deprecated, causing a user-friendly warning message to be emitted whenever it is used.
 For example, the following code:
 
 .. code-block:: python
