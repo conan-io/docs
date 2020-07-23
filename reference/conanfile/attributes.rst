@@ -1488,7 +1488,7 @@ Optionally, the attribute may specify the name of the suggested replacement:
         version = "1.0"
         deprecated = "taskflow"
 
-will emit warning like:
+This will emit a warning like:
 
 .. code-block:: bash
 
