@@ -1471,7 +1471,7 @@ For example, the following code:
         version = "1.0"
         deprecated = True
 
-may emit warning like:
+may emit a warning like:
 
 .. code-block:: bash
 
