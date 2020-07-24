@@ -170,7 +170,13 @@ conan graph lock
                             Packages to build from source
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -u, --update          Check updates exist from upstream remotes
+      -u, --update          Will check the remote and in case a newer version
+                            and/or revision of the dependencies exists there, it
+                            will install those in the local cache. When using
+                            version ranges, it will install the latest version
+                            that satisfies the range. Also, if using revisions, it
+                            will update to the latest revision for the resolved
+                            version range.
       -e ENV_HOST, --env ENV_HOST
                             Environment variables that will be set during the package build
                             (host machine). e.g.: -e CXX=/usr/bin/clang++
