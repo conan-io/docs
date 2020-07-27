@@ -71,7 +71,10 @@ your local cache.
                             install command
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -u, --update          Check updates exist from upstream remotes
+      -u, --update          Will check if updates of the dependencies exist in the
+                            remotes (a new version that satisfies a version range,
+                            a new revision or a newer recipe if not using
+                            revisions).
       -l [LOCKFILE], --lockfile [LOCKFILE]
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile can be updated if packages change

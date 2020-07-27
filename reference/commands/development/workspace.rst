@@ -69,7 +69,13 @@ conan workspace install
                             with their 'build_policy' attribute in the conanfile.py.
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -u, --update          Check updates exist from upstream remotes
+      -u, --update          Will check the remote and in case a newer version
+                            and/or revision of the dependencies exists there, it
+                            will install those in the local cache. When using
+                            version ranges, it will install the latest version
+                            that satisfies the range. Also, if using revisions, it
+                            will update to the latest revision for the resolved
+                            version range.
       -l [LOCKFILE], --lockfile [LOCKFILE]
                             Path to a lockfile or folder containing 'conan.lock' file. Lockfile
                             can be updated if packages change
