@@ -1541,7 +1541,7 @@ For example, to declare that ``libjpeg-turbo`` recipe offers the same functional
         provides = "libjpeg"
 
 
-To declare that recipe provides functionality of several different recipes at the same time, the following code could be used:
+To declare that a recipe provides the functionality of several different recipes at the same time, the following code could be used:
 
 .. code-block:: python
 
