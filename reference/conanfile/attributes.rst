@@ -856,6 +856,14 @@ ID.
 When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan package`, this attribute will be pointing to the folder
 specified in the command line.
 
+.. _attribute_recipe_folder:
+
+recipe_folder
+-------------
+
+The folder where the recipe *conanfile.py* is stored, either in the local folder or in the cache. This is useful in order to access files
+that are exported along with the recipe.
+
 .. _cpp_info_attributes_reference:
 
 cpp_info
