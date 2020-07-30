@@ -80,8 +80,8 @@ Other changes
   from the package name.
 
 * New compiler detection algorithm is used (e.g. when running ``conan profile new <name> --detect``).
-  Previously, ``<compiler> --version`` was parsed to detect the compiler and its version. Now, if you're running
-  ``CONAN_V2_MODE``, conan will try to detect the compiler and its version via compiler's built-in macro definitions.
+  Previously, ``<compiler> --version`` was parsed to detect the compiler and its version. Now, using
+  ``CONAN_V2_MODE``, Conan will try to detect the compiler and its version via compiler's built-in macro definitions.
 
 .. note::
 
