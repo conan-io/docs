@@ -89,3 +89,27 @@ Optional parameters:
   Allows executables to be easily run using shared libraries from its dependencies.
 - **with_login** (Optional, Defaulted to ``True``): Pass the ``--login`` flag to :command:`bash` command when using ``win_bash`` parameter.
   This might come handy when you don't want to create a fresh user session for running the command.
+
+.. _conanfile_required_version:
+
+Requiring a Conan version for the recipe
+----------------------------------------
+
+A required Conan version can be declared in the `conanfile.py` using ``required_conan_version`` to
+throw an error when the Conan version installed does not meet the criteria established by the
+variable. To add ``required_conan_version`` to a `conanfile.py` just declare it before the recipe
+class definition:
+
+  ..  code-block:: python
+      :emphasize-lines: 3
+      
+      from conans import ConanFile
+
+      required_conan_version = ">=1.27.1"
+
+      class Pkg(ConanFile):
+          settings = "os", "compiler", "arch", "build_type"
+          ...
+
+It is also possible to declare ``required_conan_version`` at configuration level for the whole client
+adding it to the :ref:`conan.conf<conan_conf>` file.
