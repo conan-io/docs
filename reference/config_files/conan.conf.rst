@@ -222,8 +222,8 @@ configured. It only accepts the follow time intervals: minutes, hours and days.
 
 The ``required_conan_version`` variable validates if the current Conan client version is valid according to its version. When it's not
 according to the required version or its range, Conan raises an exception before running any command. It accepts SemVer format, including version range.
-This configuration is useful when a company wants to align the Conan client version used by all teams. This can be also specified at recipe level
-if you need adding this information just for certain recipes.
+This configuration is useful when a company wants to align the Conan client version used by all teams. This can be also specified at
+:ref:`recipe level<conanfile_required_version>` if you need adding this information just for certain recipes.
 
 Storage
 +++++++
