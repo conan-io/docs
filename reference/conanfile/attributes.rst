@@ -1527,7 +1527,7 @@ If conan encounters two or more libraries providing the same functionality withi
     At least two recipes provides the same functionality:
      - 'libjpeg' provided by 'libjpeg/9d', 'libjpeg-turbo/2.0.5'
 
-The attribute value should be a string with recipe name, or a tuple of such recipe names.
+The attribute value should be a string with a recipe name or a tuple of such recipe names.
 
 For example, to declare that ``libjpeg-turbo`` recipe offers the same functionality as ``libjpeg`` recipe, the following code could be used:
 
