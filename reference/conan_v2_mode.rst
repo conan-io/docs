@@ -78,6 +78,7 @@ Other changes
 * Package name used by the ``pkg_config`` generator uses the same rules as any other generator.
   Previously, if it was not explicit, it was using lowercase ``cpp_info.name`` when it was different
   from the package name.
+* If ``build_type`` or ``compiler`` are not defined when using build helpers Conan will raise an error.
 
 
 .. note::
