@@ -143,7 +143,7 @@ A core concept of lockfiles is their immutability and the integrity of its data:
 
 .. important::
 
-    Whatever is locked in a lockfile cannot be changed. Any attempt to modify locked data will result in 
+    The information stored in a lockfile cannot be changed. Any attempt to modify locked data will result in 
     an error.
 
 For example, if now we try to do a ``install`` that also builds ``pkga`` from source:
