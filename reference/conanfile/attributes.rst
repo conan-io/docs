@@ -691,6 +691,18 @@ generated, but you can specify different generators and even use more than one.
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
 
+You can also set the generators conditionally in the :ref:`configure() method<method_configure_config_options>`
+like in the example below.
+
+.. code-block:: python
+
+    class MyLibConan(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        def configure(self):
+            if self.settings.os == "Windows":
+                self.generators = ["msbuild"]
+
+
 Check the full :ref:`generators list<generators>`.
 
 .. _attribute_build_stages:
