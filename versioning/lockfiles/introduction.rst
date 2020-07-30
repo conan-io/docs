@@ -8,7 +8,7 @@ Introduction
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-Let's introduce lockfiles by example, with 2 packages, package B ``pkgb`` that depends on ``pkga``.
+Let's introduce lockfiles by example, with 2 packages, package ``pkgb`` that depends on  package ``pkga``.
 
 .. note::
 
@@ -134,8 +134,6 @@ That's it. We managed to depend on ``pkga/0.1@user/testing`` instead of the ``pk
 satisfy the version range and is available in the cache, because we reproduced the same dependency graph at the time
 the lockfile was captured.
 
-.. image:: ../images/lockfiles/conan-lockfile_introduction.png
-
 
 Immutability
 ------------
@@ -164,7 +162,7 @@ It is possible though to control what is being locked with the ``--build`` argum
 command.
 
 The same principle applies if we try to create a package for ``pkgb``, but tries to alter the user and channel ``user/testing``
- that were provided at ``conan lock create`` command above.
+that were provided at ``conan lock create`` command above.
 
 .. code-block:: bash
 
@@ -183,7 +181,7 @@ Reproducibility
 
 That doesn't mean that a lockfile cannot evolve at all. Using the ``--lockfile`` argument, we are able to create
 ``pkgb/0.1@user/testing`` guaranteeing it is being created depending on ``pkga/0.1@user/testing``, and if we use the
- ``--lockfile-out`` argument, we can obtain an updated version of the lockfile:
+``--lockfile-out`` argument, we can obtain an updated version of the lockfile:
 
 .. code-block:: bash
 
@@ -194,15 +192,17 @@ And if we inspect the new *locks/pkgb.lock* file:
 
 .. code-block:: json
 
-    "0": {                                                    
-        "ref": "pkgb/0.1@user/testing",                          
-        "options": "shared=False",                               
-        "package_id": "2418b211603ca0a3858d9dd1fc1108d54a4cab99",
-        "prev": "0",                                             
-        "modified": true,                                        
-        "requires": ["1"],                                                       
-        "context": "host"                                        
-     }                                                      
+    {
+        "0": {
+            "ref": "pkgb/0.1@user/testing",
+            "options": "shared=False",
+            "package_id": "2418b211603ca0a3858d9dd1fc1108d54a4cab99",
+            "prev": "0",
+            "modified": true,
+            "requires": ["1"],
+            "context": "host"
+        }
+    }
 
 It can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*), 
 and contains a ``package_id``. So if we try to use this new file for creating the package again, it will error,
@@ -222,8 +222,8 @@ But we can reproduce the same set of dependencies and the creation of ``pkgb``, 
     $ conan create . user/testing --lockfile=locks/pkgb_deps.lock # OK
 
 
-The *locks/pkgb.lock* can be used later in time to install the ``pkgb`` application (the ``pkgb`` *conanfile.py* contains a ``deploy()``
-method for convenience), and get the same package and dependencies of the above:
+The *pkgb.lock* can be used later in time to install the ``pkgb`` application (the ``pkgb`` *conanfile.py* contains a ``deploy()``
+method for convenience for this example), and get the same package and dependencies:
 
 .. code-block:: bash
 
@@ -236,5 +236,5 @@ method for convenience), and get the same package and dependencies of the above:
     HelloB Release!
     Greetings Release!
 
-As long as we have the *locks/pkgb.lock*, we will be able to robustly reproduce this install, even if the packages were
+As long as we have the *pkgb.lock* lockfile, we will be able to robustly reproduce this install, even if the packages were
 uploaded to a server, if there are new versions that satisfy the version ranges, etc.

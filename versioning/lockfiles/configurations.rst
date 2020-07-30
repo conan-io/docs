@@ -105,7 +105,7 @@ At this point, the new ``pkga/0.2@user/testing`` version packages could be creat
     $ conan create pkga pkga/0.2@user/testing -s build_type=Debug
 
 
-Using the "base" *locks/pkgb.lock* lockfile, now we can obtain a new lockfile for both debug and release configurations, and
+Using the "base" *locks/pkgb_base.lock* lockfile, now we can obtain a new lockfile for both debug and release configurations, and
 it is guaranteed that both will use the ``pkga/0.1@user/testing`` dependency, and not the new one:
 
 .. code-block:: bash
@@ -143,14 +143,14 @@ the dependency to ``pkga/0.1@user/testing``:
 
 .. code-block:: bash
 
-    $ conan install .. --lockfile=../locks/pkgb_deps_release.lock" 
+    $ conan install .. --lockfile=../locks/pkgb_deps_release.lock
     $ cmake ../src -G "Visual Studio 15 Win64"
     $ cmake --build . --config Release
     $ ./bin/greet
     HelloA 0.1 Release
     HelloB Release!
     Greetings Release!
-    $ conan install .. --lockfile=../locks/pkgb_deps_debug.lock" 
+    $ conan install .. --lockfile=../locks/pkgb_deps_debug.lock
     $ cmake --build . --config Debug
     $ ./bin/greet
     HelloA 0.1 Debug
@@ -185,3 +185,7 @@ and configuration that were used to create that package:
     HelloA 0.1 Debug
     HelloB Debug!
     Greetings Debug!
+
+The immutability principle still holds. If we try to use *pkgb_release.lock* to create the ``pkgb`` package
+again instead of the *pkgb_deps_release.lock* lockfile, it will error, as ``pkgb`` would be already fully
+locked in the former.
