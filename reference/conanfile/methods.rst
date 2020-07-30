@@ -1118,9 +1118,9 @@ We could reuse and inherit from it with:
 The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
 
 This method can also be useful if you need to unconditionally initialize class attributes like
-``license`` or ``description`` or any other attribute from datafiles other than `conandata.yml`.
-For example, you have a `json` file containing the information about the ``license``, ``description``
-and ``author`` for the library:
+``license`` or ``description`` or any other :ref:`attributes<conanfile_attributes>` from datafiles other than
+`conandata.yml`. For example, you have a `json` file containing the information about the
+``license``, ``description`` and ``author`` for the library:
 
 
 .. code-block:: json
