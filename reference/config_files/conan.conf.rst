@@ -211,6 +211,8 @@ in the conan code base, allowing to debug the detected error.
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
 
+The ``client_cert_path`` and ``client_cert_key_path`` variables let the user specify a custom path to the :ref:`client_certificates` files.
+
 The ``scm_to_conandata`` variable tells Conan to store the resolved information of the :ref:`SCM feature<scm_feature>` in the
 :ref:`conandata.yml<conandata_yml>` file instead of modifying the recipe file itself. You can also adjust
 this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
