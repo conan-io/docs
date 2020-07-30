@@ -53,7 +53,7 @@ Now, we could (don't do it) create 2 different lockfiles, one for each configura
     configuration/profile. 
 
 
-But what if between both commands, the new ``pkga/0.2@user/testing`` version was created? Although this is unlikely in this
+But, what if a new ``pkga/0.2@user/testing`` version was created in the time between both commands,? Although this is unlikely to happen in this
 example, because everything is local, it is a possibility if ``pkga`` was in a server, and someone (or CI), upload the new
 version while we are running the above commands.
 
