@@ -118,7 +118,7 @@ If now we install and build our code in ``pkgb`` we would get:
     HelloB Release!
     Greetings Release!
 
-But as explained above, the purpose of the lockfile is to capture the dependencies, and used them later.
+But as explained above, the purpose of the lockfile is to capture the dependencies and use them later.
 Lets pass the lockfile as an argument to guarantee the usage of the locked ``pkga/0.1@user/testing`` dependency:
 
 .. code-block:: bash
