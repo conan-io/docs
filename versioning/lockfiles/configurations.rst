@@ -157,7 +157,7 @@ the dependency to ``pkga/0.1@user/testing``:
     HelloB Debug!
     Greetings Debug!
 
-We can again create the ``pkgb`` package for both configurations:
+We can create ``pkgb`` package again for both configurations:
 
 .. code-block:: bash
 
