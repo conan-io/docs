@@ -132,7 +132,7 @@ Let's pass the lockfile as an argument to guarantee the usage of the locked ``pk
     HelloB Release!
     Greetings Release!
 
-That's it. We managed to depend on ``pkga/0.1@user/testing`` instead of the ``pkga/0.2@user/testing`` even if the later
+That's it. We managed to depend on ``pkga/0.1@user/testing`` instead of the ``pkga/0.2@user/testing`` although the later
 satisfies the version range and is available in the cache. Using the same dependency was possible because we used the information stored in the lockfile.
 
 
