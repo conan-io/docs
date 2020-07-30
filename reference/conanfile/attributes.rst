@@ -1553,4 +1553,4 @@ To declare that a recipe provides the functionality of several different recipes
         provides = "cblas", "lapack"
 
 If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for 
-``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by conan.
+``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
