@@ -186,6 +186,6 @@ and configuration that were used to create that package:
     HelloB Debug!
     Greetings Debug!
 
-The immutability principle still holds. If we try to use *pkgb_release.lock* to create the ``pkgb`` package
+As you can see, the immutability principle remains. If we try to use *pkgb_release.lock* to create the ``pkgb`` package
 again instead of the *pkgb_deps_release.lock* lockfile, it will error, as ``pkgb`` would be already fully
 locked in the former.
