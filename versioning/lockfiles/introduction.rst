@@ -57,7 +57,7 @@ contains a require like ``requires = "pkga/[>0.0]@user/testing"``).
 This will create a *pkgb_deps.lock* file in the *locks* folder. Note that we have passed the user and channel of the future
 package that we will create as ``--user=user --channel=testing``.
 
-Lets have a look to this lockfile:
+Let's have a look at the lockfile:
 
 .. code-block:: json
 
