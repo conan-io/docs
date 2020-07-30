@@ -61,7 +61,7 @@ version while we are running the above commands.
 Base lockfiles
 --------------
 
-Conan proposes a "base" lockfile, defined by the ``--base`` argument, that will capture only the versions and topology of the
+Conan proposes a "base" lockfile, with the :command:`--base` argument, that will capture only the versions and topology of the
 graph, but not the package-ids:
 
 .. code-block:: bash
