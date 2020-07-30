@@ -199,7 +199,7 @@ cpp_info
 Each package has to specify certain build information for its consumers. This can be done in the ``cpp_info`` attribute within the
 ``package_info()`` method.
 
-The :ref:`cpp_info_attributes_reference` attribute has the following properties you can assign/append to:
+The :ref:`conanfile_attributes` attribute has the following properties you can assign/append to:
 
 .. code-block:: python
 
@@ -1117,6 +1117,34 @@ We could reuse and inherit from it with:
 
 The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
 
+This method can also be useful if you need to unconditionally initialize class attributes like
+``license`` or ``description`` or any other attribute from datafiles other than `conandata.yml`.
+For example, you have a `json` file containing the information about the ``license``, ``description``
+and ``author`` for the library:
+
+
+.. code-block:: json
+    :caption: *data.json*
+
+    {"license": "MIT", "description": "This is my awesome library.", "author": "Me"}
+
+Then, you can load that information from the ``init()``  method:
+
+.. code-block:: python
+
+    import os
+    import json
+    from conans import ConanFile, load
+
+
+    class Lib(ConanFile):
+        exports = "data.json"
+        def init(self):
+            data = load(os.path.join(self.recipe_folder, "data.json"))
+            d = json.loads(data)
+            self.license = d["license"]
+            self.description = d["description"]
+            self.author = d["description"]
 
 export()
 --------

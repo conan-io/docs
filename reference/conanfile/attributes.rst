@@ -3,6 +3,7 @@
   ing
   ver
 
+.. _conanfile_attributes:
 
 Attributes
 ==========
