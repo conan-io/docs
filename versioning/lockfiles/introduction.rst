@@ -194,6 +194,7 @@ And if we inspect the new *locks/pkgb.lock* file:
 .. code-block:: json
 
     {
+        ...
         "0": {
             "ref": "pkgb/0.1@user/testing",
             "options": "shared=False",
