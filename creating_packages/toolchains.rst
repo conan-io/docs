@@ -27,7 +27,8 @@ A toolchain can be defined, among the built-ins toolchains, with an attribute:
 
 .. note::
 
-    At the moment (Conan 1.26), the only available toolchain is the CMake one.
+    At the moment (Conan 1.26), the only available built-in toolchain is the CMake one.
+
 
 But in the more general case, and if it needs any specific configuration beyond the default
 one:
@@ -40,7 +41,27 @@ one:
     def toolchain(self):
         tc = CMakeToolchain(self)
         # customize toolchain "tc"
-        return tc
+        tc.write_toolchain_files()
+
+
+It is possible to use the ``toolchain()`` method to create your own files, which will typically be
+deduced from the current configuration of ``self.settings`` and ``self.options``.
+
+.. code:: python
+
+    from conans import CMakeToolchain
+    from conans.tools import save
+
+    def toolchain(self):
+        # Based on the self.settings, self.options, the user
+        # can generate their own files:
+        save("mytoolchain.tool", "my own toolchain contents, deduced from the settings and options")
+        # The "mytoolchain.tool" file can be used by the build system to
+        # define the build
+
+
+And as usual, you can create your own toolchain helpers, put them in a ``python_requires`` package and reuse them in all
+your recipes.
 
 
 Toolchains have some important advantages:
@@ -65,7 +86,7 @@ the documentation of each toolchain to check the associated build helper availab
     def toolchain(self):
         tc = CMakeToolchain(self)
         # customize toolchain "tc"
-        return tc
+        tc.write_toolchain_files()
 
     def build(self):
         # NOTE: This is a simplified helper

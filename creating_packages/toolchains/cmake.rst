@@ -17,7 +17,7 @@ The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
 
         def toolchain(self):
             tc = CMakeToolchain(self)
-            return tc
+            tc.write_toolchain_files()
 
 
 The ``CMakeToolchain`` will generate 2 files, after a ``conan install`` command (or
@@ -67,7 +67,7 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
         tc.definitions["MYVAR"] = "MyValue"
         tc.definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
         tc.definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
-        return tc
+        tc.write_toolchain_files()
 
 This will be translated to:
 
