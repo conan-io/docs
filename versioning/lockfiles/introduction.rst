@@ -159,7 +159,7 @@ used, it assumes this package and binary exist and it will try to get them, but 
 that can violate the integrity of the lockfile. For example, if we were using ``package_revision_mode``, a new binary
 of ``pkga`` would produce new package-ids of all its consumers, that will not match the package-ids stored in the lockfile.
 
-It is possible though to control what is being locked with the ``--build`` argument provided to the ``conan lock create``
+It is possible though to control what is being locked with the ``--build`` argument provided to the :command:`conan lock create`
 command.
 
 The same principle applies if we try to create a package for ``pkgb``, but tries to alter the user and channel ``user/testing``
