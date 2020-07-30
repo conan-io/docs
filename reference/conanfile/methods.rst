@@ -199,7 +199,7 @@ cpp_info
 Each package has to specify certain build information for its consumers. This can be done in the ``cpp_info`` attribute within the
 ``package_info()`` method.
 
-The :ref:`conanfile_attributes` attribute has the following properties you can assign/append to:
+The :ref:`cpp_info_attributes_reference` attribute has the following properties you can assign/append to:
 
 .. code-block:: python
 
