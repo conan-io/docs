@@ -163,7 +163,7 @@ It is possible though to control what is being locked with the ``--build`` argum
 command.
 
 The same principle applies if we try to create a package for ``pkgb``, but tries to alter the user and channel ``user/testing``
-that were provided at ``conan lock create`` command above.
+that were provided at the time of the :command:`conan lock create` command used above.
 
 .. code-block:: bash
 
