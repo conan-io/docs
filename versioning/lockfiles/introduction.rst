@@ -180,7 +180,7 @@ the lockfile, any command using this lockfile must respect and keep it without c
 Reproducibility
 ---------------
 
-That doesn't mean that a lockfile cannot evolve at all. Using the ``--lockfile`` argument, we are able to create
+That doesn't mean that a lockfile cannot evolve at all. Using the :command:`--lockfile` argument, we are able to create
 ``pkgb/0.1@user/testing`` guaranteeing it is being created depending on ``pkga/0.1@user/testing``, and if we use the
 :command:`--lockfile-out` argument, we can obtain an updated version of the lockfile:
 
