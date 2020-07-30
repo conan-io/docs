@@ -13,7 +13,8 @@ Let's introduce lockfiles by example, with 2 packages, package B ``pkgb`` that d
 .. note::
 
     The code used in this section, including a *build.py* script to reproduce it, is in the
-    examples repository: https://github.com/conan-io/examples
+    examples repository: https://github.com/conan-io/examples. You can go step by step
+    reproducing this example while reading the below documentation.
 
     .. code:: bash
 
@@ -226,6 +227,7 @@ method for convenience), and get the same package and dependencies of the above:
 
 .. code-block:: bash
 
+    $ cd ..
     $ mkdir consume
     $ cd consume
     $ conan install pkgb/0.1@user/testing --lockfile=../pkgb/locks/pkgb.lock

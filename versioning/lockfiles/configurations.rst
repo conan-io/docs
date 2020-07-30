@@ -7,11 +7,23 @@ Multiple configurations
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-
-This section continues with the previous example with the :ref:`versioning_lockfiles_introduction`.
-In that example we have managed just 1 configuration, for the default profile. In many applications,
+In the previous section we managed just 1 configuration, for the default profile. In many applications,
 packages needs to be built with several different configurations, typically managed by different profile
 files.
+
+.. note::
+
+    This section continues with the previous example with the :ref:`versioning_lockfiles_introduction`.
+    The code used in this section, including a *build.py* script to reproduce it, is in the
+    examples repository: https://github.com/conan-io/examples. You can go step by step
+    reproducing this example while reading the below documentation.
+
+    .. code:: bash
+
+        $ git clone https://github.com/conan-io/examples.git
+        $ cd features/lockfiles/intro
+        # $ python build.py only to run the full example, but better go step by step
+
 
 Lets start in the *features/lockfiles/intro* of the examples repository, remove the previous packages,
 and create both release and debug ``pkga`` packages:
@@ -23,11 +35,12 @@ and create both release and debug ``pkga`` packages:
     $ conan create pkga pkga/0.1@user/testing -s build_type=Debug
 
 
-Now, we could create 2 different lockfiles, one for each configuration:
+Now, we could (don't do it) create 2 different lockfiles, one for each configuration:
 
 
 .. code-block:: bash
 
+    # DO NOT type these commands, we'll do it better below
     $ cd pkgb
     $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_release.lock
     $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_debug.lock -s build_type=Debug
@@ -39,21 +52,24 @@ Now, we could create 2 different lockfiles, one for each configuration:
     conditional requirements, the dependencies can be different. Then, it is necessary to create a lockfile for every different 
     configuration/profile. 
 
-Base lockfiles
---------------
 
 But what if between both commands, the new ``pkga/0.2@user/testing`` version was created? Although this is unlikely in this
 example, because everything is local, it is a possibility if ``pkga`` was in a server, and someone (or CI), upload the new
 version while we are running the above commands.
+
+
+Base lockfiles
+--------------
 
 Conan proposes a "base" lockfile, defined by the ``--base`` argument, that will capture only the versions and topology of the
 graph, but not the package-ids:
 
 .. code-block:: bash
 
-    $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb.lock --base
+    $ cd pkgb
+    $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_base.lock --base
 
-Lets inspect the *locks/pkgb.lock* lockfile:
+Let's inspect the *locks/pkgb_base.lock* lockfile:
 
 .. code-block:: json
 
@@ -95,10 +111,10 @@ it is guaranteed that both will use the ``pkga/0.1@user/testing`` dependency, an
 .. code-block:: bash
 
     $ cd pkgb
-    $ conan lock create conanfile.py --user=user --channel=testing --lockfile=locks/pkgb.lock --lockfile-out=locks/pkgb_debug.lock -s build_type=Debug
-    $ conan lock create conanfile.py --user=user --channel=testing --lockfile=locks/pkgb.lock --lockfile-out=locks/pkgb_release.lock
+    $ conan lock create conanfile.py --user=user --channel=testing --lockfile=locks/pkgb_base.lock --lockfile-out=locks/pkgb_deps_debug.lock -s build_type=Debug
+    $ conan lock create conanfile.py --user=user --channel=testing --lockfile=locks/pkgb_base.lock --lockfile-out=locks/pkgb_deps_release.lock
 
-Now, we will have 2 lockfiles, *locks/pkgb_debug.lock* and *locks/pkgb_release.lock*. Each one will lock different profiles and different package-id
+Now, we will have 2 lockfiles, *locks/pkgb_deps_debug.lock* and *locks/pkgb_deps_release.lock*. Each one will lock different profiles and different package-id
 of ``pkga/0.1@user/testing``.
 
 
@@ -111,10 +127,10 @@ That configuration arguments can be passed to the ``conan lock create`` command,
 .. code-block:: bash
 
     $ mkdir build && cd build
-    $ conan install .. --lockfile=../locks/pkgb_debug.lock -s build_type=Debug
+    $ conan install .. --lockfile=../locks/pkgb_deps_debug.lock -s build_type=Debug
     ERROR: Cannot use profile, settings, options or env 'host' when using lockfile
 
-results in an error, because the *locks/pkgb_debug.lock* already stores the ``settings.build_type`` and passing it in the command line
+results in an error, because the *locks/pkgb_deps_debug.lock* already stores the ``settings.build_type`` and passing it in the command line
 could only result in inconsistencies and errors.
 
 .. important::
@@ -127,14 +143,14 @@ the dependency to ``pkga/0.1@user/testing``:
 
 .. code-block:: bash
 
-    $ conan install .. --lockfile=../locks/pkgb_release.lock" 
+    $ conan install .. --lockfile=../locks/pkgb_deps_release.lock" 
     $ cmake ../src -G "Visual Studio 15 Win64"
     $ cmake --build . --config Release
     $ ./bin/greet
     HelloA 0.1 Release
     HelloB Release!
     Greetings Release!
-    $ conan install .. --lockfile=../locks/pkgb_debug.lock" 
+    $ conan install .. --lockfile=../locks/pkgb_deps_debug.lock" 
     $ cmake --build . --config Debug
     $ ./bin/greet
     HelloA 0.1 Debug
@@ -145,5 +161,27 @@ We can again create the ``pkgb`` package for both configurations:
 
 .. code-block:: bash
 
-    $ conan create . user/testing --lockfile=locks/pkgb_release.lock --lockfile-out=locks/pkgb_release.lock
-    $ conan create . user/testing --lockfile=locks/pkgb_debug.lock --lockfile-out=locks/pkgb_debug.lock
+    $ cd ..
+    $ conan create . user/testing --lockfile=locks/pkgb_deps_release.lock --lockfile-out=locks/pkgb_release.lock
+    $ conan create . user/testing --lockfile=locks/pkgb_deps_debug.lock --lockfile-out=locks/pkgb_debug.lock
+
+
+And we could still use the lockfiles later in time to install the ``pkgb`` package with the same dependencies
+and configuration that were used to create that package:
+
+
+.. code-block:: bash
+
+    $ cd ..
+    $ mkdir consume
+    $ cd consume
+    $ conan install pkgb/0.1@user/testing --lockfile=../pkgb/locks/pkgb_release.lock
+    $ ./bin/greet
+    HelloA 0.1 Release
+    HelloB Release!
+    Greetings Release!
+    $ conan install pkgb/0.1@user/testing --lockfile=../pkgb/locks/pkgb_debug.lock
+    $ ./bin/greet
+    HelloA 0.1 Debug
+    HelloB Debug!
+    Greetings Debug!
