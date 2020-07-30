@@ -1513,3 +1513,56 @@ This will emit a warning like:
     cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated in favor of 'taskflow'. Please, consider changing your requirements.
 
 If the value of the attribute evaluates to ``False``, no warning is printed.
+
+
+provides
+--------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more 
+libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
+
+Some examples are:
+
+ - `LibreSSL <https://www.libressl.org/>`__, `BoringSSL <https://boringssl.googlesource.com/boringssl/>`__ and `OpenSSL <https://www.openssl.org/>`__
+ - `libav <https://libav.org/>`__ and `ffmpeg <https://ffmpeg.org/>`__
+ - `MariaDB client <https://downloads.mariadb.org/client-native>`__ and `MySQL client <https://dev.mysql.com/downloads/c-api/>`__
+
+
+If Conan encounters two or more libraries providing the same functionality within a single graph, it raises an error:
+
+.. code-block:: bash
+
+    At least two recipes provides the same functionality:
+     - 'libjpeg' provided by 'libjpeg/9d', 'libjpeg-turbo/2.0.5'
+
+The attribute value should be a string with a recipe name or a tuple of such recipe names.
+
+For example, to declare that ``libjpeg-turbo`` recipe offers the same functionality as ``libjpeg`` recipe, the following code could be used:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class LibJpegTurbo(ConanFile):
+        name = "libjpeg-turbo"
+        version = "1.0"
+        provides = "libjpeg"
+
+
+To declare that a recipe provides the functionality of several different recipes at the same time, the following code could be used:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class OpenBLAS(ConanFile):
+        name = "openblas"
+        version = "1.0"
+        provides = "cblas", "lapack"
+
+If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for 
+``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
