@@ -1509,7 +1509,6 @@ provides
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-
 This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more 
 libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
 
