@@ -1520,7 +1520,7 @@ Some examples are:
  - `MariaDB client <https://downloads.mariadb.org/client-native>`__ and `MySQL client <https://dev.mysql.com/downloads/c-api/>`__
 
 
-If conan encounters two or more libraries providing the same functionality within a single graph, it raises an error:
+If Conan encounters two or more libraries providing the same functionality within a single graph, it raises an error:
 
 .. code-block:: bash
 
