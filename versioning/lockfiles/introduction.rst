@@ -162,7 +162,7 @@ of ``pkga`` would produce new package-ids of all its consumers, that will not ma
 It is possible though to control what is being locked with the ``--build`` argument provided to the :command:`conan lock create`
 command.
 
-The same principle applies if we try to create a package for ``pkgb``, but tries to alter the user and channel ``user/testing``
+The same principle applies if we try to create a package for ``pkgb` and it tries to alter the user and channel ``user/testing``
 that were provided at the time of the :command:`conan lock create` command used above.
 
 .. code-block:: bash
