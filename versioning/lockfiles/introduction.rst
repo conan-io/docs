@@ -181,7 +181,7 @@ Reproducibility
 ---------------
 
 That doesn't mean that a lockfile cannot evolve at all. Using the :command:`--lockfile` argument, we are able to create
-``pkgb/0.1@user/testing`` guaranteeing it is being created depending on ``pkga/0.1@user/testing``, and if we use the
+``pkgb/0.1@user/testing`` guaranteeing it is being created depending on ``pkga/0.1@user/testing``. Additionally, if we use the
 :command:`--lockfile-out` argument, we can obtain an updated version of the lockfile:
 
 .. code-block:: bash
