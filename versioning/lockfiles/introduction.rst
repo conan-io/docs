@@ -49,10 +49,10 @@ contains a require like ``requires = "pkga/[>0.0]@user/testing"``).
 
 .. code-block:: bash
 
-    $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb.lock
+    $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_deps.lock
 
 
-This will create a *pkgb.lock* file in the *locks* folder. Note that we have passed the user and channel of the future
+This will create a *pkgb_deps.lock* file in the *locks* folder. Note that we have passed the user and channel of the future
 package that we will create as ``--user=user --channel=testing``.
 
 Lets have a look to this lockfile:
@@ -88,7 +88,7 @@ We can see the ``pkga/0.1@user/testing`` dependency in the lockfile, together wi
 dependency is fully locked. The ``pkgb/0.1@user/testing`` doesn't have a ``package_id`` yet, because so far it
 is just a local *conanfile.py* as a consumer, not a package. But the ``user/testing`` user and channel are already defined.
 
-It is important to note that the *pkgb.lock* lockfile contains the current ``profile`` for the current configuration.
+It is important to note that the *pkgb_deps.lock* lockfile contains the current ``profile`` for the current configuration.
  
 At this moment we have captured the dependency graph for ``pkgb``. Now, it would be possible that a new version 
 of ``pkga`` is created:
@@ -120,7 +120,7 @@ Lets pass the lockfile as an argument to guarantee the usage of the locked ``pkg
 
 .. code-block:: bash
 
-    $ conan install .. --lockfile=../locks/pkgb.lock
+    $ conan install .. --lockfile=../locks/pkgb_deps.lock
     > ... pkga/0.1@user/testing from local cache - Cache
     $ cmake ../src -G "Visual Studio 15 Win64"
     $ cmake --build . --config Release
@@ -150,7 +150,7 @@ For example, if now we try to do a ``install`` that also builds ``pkga`` from so
 
 .. code-block:: bash
 
-    $ conan install .. --lockfile=../locks/pkgb.lock --build=pkga
+    $ conan install .. --lockfile=../locks/pkgb_deps.lock --build=pkga
     ERROR: Cannot build 'pkga/0.1@user/testing' because it is already locked in the input lockfile
 
 It is an error, because the ``pkga/0.1@user/testing`` dependency was fully locked. When the lockfile was created, the
@@ -168,7 +168,7 @@ The same principle applies if we try to create a package for ``pkgb``, but tries
 .. code-block:: bash
 
     $ cd ..
-    $ conan create . user/stable --lockfile=locks/pkgb.locked
+    $ conan create . user/stable --lockfile=locks/pkgb_deps.locked
     ERROR: Attempt to modify locked pkgb/0.1@user/testing to pkgb/0.1@user/stable
 
 Again, it is important to keep the integrity. Package recipes can have conditional or parameterized dependencies, based on
@@ -186,9 +186,10 @@ That doesn't mean that a lockfile cannot evolve at all. Using the ``--lockfile``
 
 .. code-block:: bash
 
-    $ conan create . user/testing --lockfile=locks/pkgb.lock --lockfile-out=locks/pkgb_final.lock
+    $ conan create . user/testing --lockfile=locks/pkgb_deps.lock --lockfile-out=locks/pkgb.lock
 
-And if we inspect the *locks/pkgb_final.lock* file:
+
+And if we inspect the new *locks/pkgb.lock* file:
 
 .. code-block:: json
 
@@ -202,36 +203,36 @@ And if we inspect the *locks/pkgb_final.lock* file:
         "context": "host"                                        
      }                                                      
 
-It can be appreciated in *locks/pkgb_final.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*), 
+It can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*), 
 and contains a ``package_id``. So if we try to use this new file for creating the package again, it will error,
 as a package that is fully locked cannot be rebuilt:
 
 
 .. code-block:: bash
 
-    $ conan create . user/testing --lockfile=locks/pkgb_final.lock
+    $ conan create . user/testing --lockfile=locks/pkgb.lock
     ERROR: Attempt to modify locked pkgb/0.1@user/testing to pkgb/0.1@user/testing
 
 
-But we can reproduce the same set of dependencies and the creation of ``pkgb``, using the *pkgb.lock* lockfile:
+But we can reproduce the same set of dependencies and the creation of ``pkgb``, using the *pkgb_deps.lock* lockfile:
 
 .. code-block:: bash
 
-    $ conan create . user/testing --lockfile=locks/pkgb.lock # OK
+    $ conan create . user/testing --lockfile=locks/pkgb_deps.lock # OK
 
 
-The *locks/pkgb_final.lock* can be used later in time to install the ``pkgb`` application (the ``pkgb`` *conanfile.py* contains a ``deploy()``
+The *locks/pkgb.lock* can be used later in time to install the ``pkgb`` application (the ``pkgb`` *conanfile.py* contains a ``deploy()``
 method for convenience), and get the same package and dependencies of the above:
 
 .. code-block:: bash
 
     $ mkdir consume
     $ cd consume
-    $ conan install pkgb/0.1@user/testing --lockfile=../pkgb/locks/pkgb_final.lock
+    $ conan install pkgb/0.1@user/testing --lockfile=../pkgb/locks/pkgb.lock
     $ ./bin/greet
     HelloA 0.1 Release
     HelloB Release!
     Greetings Release!
 
-As long as we have the *locks/pkgb_final.lock*, we will be able to robustly reproduce this install, even if the packages were
+As long as we have the *locks/pkgb.lock*, we will be able to robustly reproduce this install, even if the packages were
 uploaded to a server, if there are new versions that satisfy the version ranges, etc.
