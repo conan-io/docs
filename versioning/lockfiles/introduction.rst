@@ -204,6 +204,7 @@ And if we inspect the new *locks/pkgb.lock* file:
             "requires": ["1"],
             "context": "host"
         }
+        ...
     }
 
 It can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*), 
