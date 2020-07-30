@@ -50,6 +50,7 @@ contains a require like ``requires = "pkga/[>0.0]@user/testing"``).
 
 .. code-block:: bash
 
+    $ cd pkgb
     $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_deps.lock
 
 
