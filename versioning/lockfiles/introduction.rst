@@ -173,7 +173,7 @@ that were provided at ``conan lock create`` command above.
 
 Again, it is important to keep the integrity. Package recipes can have conditional or parameterized dependencies, based on
 user and channel for example. If we try to create the ``pkgb`` package with different user and channel, it could result in
-a different dependency graph, totally incompatible with the used lockfile. If ``pkgb/0.1@user/testing`` was stored in
+a different dependency graph, totally incompatible with the one captured in the lockfile. If ``pkgb/0.1@user/testing`` was stored in
 the lockfile, any command using this lockfile must respect and keep it without changes.
 
 
