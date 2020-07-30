@@ -155,7 +155,7 @@ For example, if now we try to do a :command:`conan install` that also builds ``p
 
 It is an error, because the ``pkga/0.1@user/testing`` dependency was fully locked. When the lockfile was created, the
 ``pkga/0.1@user/testing`` was found, including a binary, and that information was stored. Everytime this lockfile is
-used, it assumes this package and binary exists and it will try to get it, but it will never allow to re-build, because
+used, it assumes this package and binary exist and it will try to get them, but it will never allow to re-build, because
 that can violate the integrity of the lockfile. For example, if we were using ``package_revision_mode``, a new binary
 of ``pkga`` would produce new package-ids of all its consumers, that will not match the package-ids stored in the lockfile.
 
