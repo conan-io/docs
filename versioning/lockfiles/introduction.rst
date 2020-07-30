@@ -98,6 +98,7 @@ of ``pkga`` is created:
 
 .. code-block:: bash
 
+    $ cd ..
     # The recipe generates different package code depending on the version, automatically
     $ conan create pkga pkga/0.2@user/testing
 
