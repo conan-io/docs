@@ -3,6 +3,16 @@
 Use a generic CI with Conan and Artifactory
 ===========================================
 
+.. warning::
+
+    Some problems regarding the use of BuildInfo with Conan packages `have been reported
+    <https://www.jfrog.com/jira/browse/RTFACT-9343>`_. If the BuildInfo contains artifacts that have
+    the same checksum as other artifacts, this may result in losing the path of the artifact in the
+    BuildInfo in Artifactory and also fail in the promotion process. 
+
+    We are currently working along with the Artifactory team to solve those problems. Until this
+    issue gets fixed, we do not recommend using BuildInfo's for Conan.
+
 Uploading the BuildInfo
 -----------------------
 

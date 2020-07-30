@@ -18,8 +18,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.26 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.27 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.27.1 (10-Jul-2020)
+--------------------
+
+- Bugfix: Recover quotes around linker flags in CMake generators, fix failure with Macos frameworks `#7322 <https://github.com/conan-io/conan/pull/7322>`_
 
 1.27.0 (01-Jul-2020)
 --------------------
