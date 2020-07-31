@@ -71,7 +71,10 @@ your local cache.
                             install command
       -r REMOTE, --remote REMOTE
                             Look in the specified remote server
-      -u, --update          Check updates exist from upstream remotes
+      -u, --update          Will check if updates of the dependencies exist in the
+                            remotes (a new version that satisfies a version range,
+                            a new revision or a newer recipe if not using
+                            revisions).
       -l [LOCKFILE], --lockfile [LOCKFILE]
                             Path to a lockfile or folder containing 'conan.lock'
                             file. Lockfile can be updated if packages change
@@ -155,12 +158,6 @@ The output will look like:
 difference is that it doesn't try to install or build the binaries, but the package recipes
 will be retrieved from remotes if necessary.
 
-.. important::
-
-    There is a dedicated command to work with the graph of dependencies and to retrieve information
-    about it. We encourage you to use :ref:`conan graph<conan_graph>` instead of this ``conan info``
-    command for those tasks.
-
 It is very important to note, that the :command:`info` command outputs the dependency graph for a
 given configuration (settings, options), as the dependency graph can be different for different
 configurations. Then, the input to the :command:`conan info` command is the same as :command:`conan install`,
@@ -186,7 +183,7 @@ argument:
 
 It is possible to use the :command:`conan info` command to extract useful information for Continuous
 Integration systems. More precisely, it has the :command:`--build-order, -bo` option (deprecated in
-favor of :ref:`conan graph build-order<conan_graph_build_order>`), that will produce
+favor of :ref:`conan lock build-order<versioning_lockfiles_build_order>`), that will produce
 a machine-readable output with an ordered list of package references, in the order they should be
 built. E.g., let's assume that we have a project that depends on Boost and Poco, which in turn
 depends on OpenSSL and zlib transitively. So we can query our project with a reference that has

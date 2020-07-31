@@ -21,7 +21,7 @@ Build order
 
 .. warning::
 
-    The command ``conan info --build-order`` is deprecated in favor of :ref:`conan graph build-order<conan_graph_build_order>`.
+    The command ``conan info --build-order`` is deprecated in favor of :ref:`conan lock build-order<versioning_lockfiles_build_order>`.
 
 
 The build order printed with the argument :command:`--build-order` can be
@@ -31,14 +31,14 @@ each nested one can be built in parallel.
 .. code-block:: json
    :caption: build_order.json
 
-    {  
-        "groups":[  
-            [  
+    {
+        "groups":[
+            [
                 "liba/0.1@lasote/stable",
                 "libe/0.1@lasote/stable",
                 "libf/0.1@lasote/stable"
             ],
-            [  
+            [
                 "libb/0.1@lasote/stable",
                 "libc/0.1@lasote/stable"
             ]
@@ -55,7 +55,7 @@ references.
 .. code-block:: json
    :caption: nodes_to_build.json
 
-    [  
+    [
         "h0/0.1@lu/st",
         "h1a/0.1@lu/st",
         "h1c/0.1@lu/st",
@@ -89,7 +89,7 @@ contain a list with the information for each of the nodes.
             "recipe":"No remote",
             "binary":"Missing",
             "creation_date":"2019-01-29 17:22:41",
-            "required_by":[  
+            "required_by":[
                 "libc/0.1@lasote/stable",
                 "libb/0.1@lasote/stable"
             ]

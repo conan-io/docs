@@ -18,8 +18,47 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.27 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
+    Conan 1.28 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please submit a report on GitHub.
     Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.28.0 (31-Jul-2020)
+--------------------
+
+- Feature: Show Conan version on HTML output. `#7443 <https://github.com/conan-io/conan/pull/7443>`_ . Docs `here <https://github.com/conan-io/docs/pull/1782>`__
+- Feature: Support for `cpp_info.components` in `pkg_config` generator. `#7413 <https://github.com/conan-io/conan/pull/7413>`_ . Docs `here <https://github.com/conan-io/docs/pull/1781>`__
+- Feature: Adds ps1 virtualenv to other OS for use with powershell 7. #7407 `#7408 <https://github.com/conan-io/conan/pull/7408>`_ . Docs `here <https://github.com/conan-io/docs/pull/1776>`__
+- Feature: Propose ``init()`` method to unconditionally initialize class attributes like ``license`` or ``description``. `#7404 <https://github.com/conan-io/conan/pull/7404>`_ . Docs `here <https://github.com/conan-io/docs/pull/1791>`__
+- Feature: add deprecated attribute `#7399 <https://github.com/conan-io/conan/pull/7399>`_ . Docs `here <https://github.com/conan-io/docs/pull/1775>`__
+- Feature: Allow ``conan.conf`` user configuration of paths to client certificate and key, outside of the Conan cache. `#7398 <https://github.com/conan-io/conan/pull/7398>`_ . Docs `here <https://github.com/conan-io/docs/pull/1791>`__
+- Feature: Document return value of `self.copy()` in the `package()` method. `#7389 <https://github.com/conan-io/conan/pull/7389>`_ . Docs `here <https://github.com/conan-io/docs/pull/1773>`__
+- Feature: Complete cli2.0 framework to handle sub-commands and add :command:`conan user` command for cli 2.0 `#7372 <https://github.com/conan-io/conan/pull/7372>`_
+- Feature: Implement ``required_conan_version`` in ``conanfile.py``, will raise if the current Conan version does not match the defined version range. `#7360 <https://github.com/conan-io/conan/pull/7360>`_ . Docs `here <https://github.com/conan-io/docs/pull/1788>`__
+- Feature: Add `provides` attribute to `ConanFile`: recipes can declare what they provide and Conan will fail if several recipes provide the same functionality (ODR violation). `#7337 <https://github.com/conan-io/conan/pull/7337>`_ . Docs `here <https://github.com/conan-io/docs/pull/1786>`__
+- Feature: When using `CONAN_V2_MODE` if build_type or compiler are not defined Conan will raise an error. `#7327 <https://github.com/conan-io/conan/pull/7327>`_ . Docs `here <https://github.com/conan-io/docs/pull/1783>`__
+- Feature: Adds "filenames" to cppinfo attribute, and changes `cmake_find_package` and `cmake_find_package_multi` generators so that they support it. `#7320 <https://github.com/conan-io/conan/pull/7320>`_ . Docs `here <https://github.com/conan-io/docs/pull/1768>`__
+- Feature: Define ``recipe_folder`` attribute pointing to the folder containing ``conanfile.py`` `#7314 <https://github.com/conan-io/conan/pull/7314>`_ . Docs `here <https://github.com/conan-io/docs/pull/1785>`__
+- Feature: Checking if a Linux distro uses `apt` is now based on the existence of `apt` in the system, instead of checking if the distro currently being used is in a hard-coded list of distros known to use `apt`. `#7309 <https://github.com/conan-io/conan/pull/7309>`_
+- Feature: Add commands management for cli 2.0. `#7278 <https://github.com/conan-io/conan/pull/7278>`_
+- Feature: Complete revamp of the **lockfiles** feature. Including version-only lockfiles, partial lockfiles, new command line syntax, improved management of build-order and many pending fixes. `#7243 <https://github.com/conan-io/conan/pull/7243>`_ . Docs `here <https://github.com/conan-io/docs/pull/1790>`__
+- Feature: More detailed description for `--update` argument. `#7167 <https://github.com/conan-io/conan/pull/7167>`_ . Docs `here <https://github.com/conan-io/docs/pull/1778>`__
+- Feature: improve compiler detection for `CONAN_V2_MODE`. `#5740 <https://github.com/conan-io/conan/pull/5740>`_ . Docs `here <https://github.com/conan-io/docs/pull/1789>`__
+- Feature: Add settings for clang-cl (clang on Windows). `#5705 <https://github.com/conan-io/conan/pull/5705>`_ . Docs `here <https://github.com/conan-io/docs/pull/1784>`__
+- Fix: Relax ``pluginbase`` requirement to ``pluginbase>=0.5``, including latest 1.0.0 . `#7441 <https://github.com/conan-io/conan/pull/7441>`_
+- Fix: Make explicit the file writing of ``toolchain()`` helpers, so the method can be used to save custom files. `#7435 <https://github.com/conan-io/conan/pull/7435>`_ . Docs `here <https://github.com/conan-io/docs/pull/1793>`__
+- Fix: Fixing `--help` for commands in proposal for command line v2.0. `#7394 <https://github.com/conan-io/conan/pull/7394>`_
+- Fix: Show outdated packages when running `search --table`. `#7364 <https://github.com/conan-io/conan/pull/7364>`_ . Docs `here <https://github.com/conan-io/docs/pull/1771>`__
+- Fix: Relax ``msbuild`` generator to not raise in Linux. `#7361 <https://github.com/conan-io/conan/pull/7361>`_
+- Fix: Conan config install does not trigger scheduled config command. `#7311 <https://github.com/conan-io/conan/pull/7311>`_
+- Fix: Implement missing ``__contains__`` method, so checking ``if "myoption" in self.info.options`` is possible in ``package_id()``. `#7303 <https://github.com/conan-io/conan/pull/7303>`_
+- Fix: Build first ocurrence of a node in a lockfile when it is repeated (build requires) `#7144 <https://github.com/conan-io/conan/pull/7144>`_
+- BugFix: Only add User-Agent to headers dict if it was not provided by the user. `#7390 <https://github.com/conan-io/conan/pull/7390>`_
+- Bugfix: `cppstd` was missing in `settings.yml` for the qcc compiler and updates to 8.3. `#7384 <https://github.com/conan-io/conan/pull/7384>`_
+- BugFix: Fix missing download of ``conan_sources.tgz`` created using ``export_sources()`` method. `#7380 <https://github.com/conan-io/conan/pull/7380>`_
+- Bugfix: Intel Compiler install location detection on Windows. `#7370 <https://github.com/conan-io/conan/pull/7370>`_
+- Bugfix: Avoid crash while computing ``package_id`` when using ``package_revision_mode``, and also incorrectly using installed binaries and reporting them installed after the re-computation of ``package_id`` resolved to a different binary. `#7353 <https://github.com/conan-io/conan/pull/7353>`_
+- Bugfix: cmake_multi generator used with Xcode CMake generator. `#7341 <https://github.com/conan-io/conan/pull/7341>`_
+- Bugfix: Do not fail for `conan remove -r remote -p` when there are no packages in the remote. `#7338 <https://github.com/conan-io/conan/pull/7338>`_
+- Bugfix: Add ``system_libs`` to ``scons`` generator. `#7302 <https://github.com/conan-io/conan/pull/7302>`_
 
 1.27.1 (10-Jul-2020)
 --------------------

@@ -3,6 +3,7 @@
   ing
   ver
 
+.. _conanfile_attributes:
 
 Attributes
 ==========
@@ -690,6 +691,18 @@ generated, but you can specify different generators and even use more than one.
     class MyLibConan(ConanFile):
         generators = "cmake", "gcc"
 
+You can also set the generators conditionally in the :ref:`configure() method<method_configure_config_options>`
+like in the example below.
+
+.. code-block:: python
+
+    class MyLibConan(ConanFile):
+        settings = "os", "compiler", "arch", "build_type"
+        def configure(self):
+            if self.settings.os == "Windows":
+                self.generators = ["msbuild"]
+
+
 Check the full :ref:`generators list<generators>`.
 
 .. _attribute_build_stages:
@@ -855,6 +868,14 @@ ID.
 When executing Conan commands in the :ref:`package_dev_flow` like :command:`conan package`, this attribute will be pointing to the folder
 specified in the command line.
 
+.. _attribute_recipe_folder:
+
+recipe_folder
+-------------
+
+The folder where the recipe *conanfile.py* is stored, either in the local folder or in the cache. This is useful in order to access files
+that are exported along with the recipe.
+
 .. _cpp_info_attributes_reference:
 
 cpp_info
@@ -869,57 +890,61 @@ library names, library paths... There are some default values that will be appli
 
 This object should be filled in ``package_info()`` method.
 
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| NAME                             | DESCRIPTION                                                                                             |
-+==================================+=========================================================================================================+
-| self.cpp_info.includedirs        | Ordered list with include paths. Defaulted to ``["include"]``                                           |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libdirs            | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.resdirs            | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.bindirs            | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.builddirs          | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
-|                                  | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.libs               | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.defines            | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cflags             | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cppflags           | [DEPRECATED: Use cxxflags instead]                                                                      |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.cxxflags           | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.sharedlinkflags    | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.exelinkflags       | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.frameworks         | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.frameworkdirs      | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.rootpath           | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.name               | | Alternative name for the package used by generators to create files or variables.                     |
-|                                  | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
-|                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.names["generator"] | | Alternative name for the package used by an specific generator to create files or variables.          |
-|                                  | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
-|                                  | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
-|                                  | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.system_libs        | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.build_modules      | | List of relative paths to build system related utility module files created by the package. Used by   |
-|                                  | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.components         | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
-|                                  | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
-+----------------------------------+---------------------------------------------------------------------------------------------------------+
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| NAME                                 | DESCRIPTION                                                                                             |
++======================================+=========================================================================================================+
+| self.cpp_info.includedirs            | Ordered list with include paths. Defaulted to ``["include"]``                                           |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libdirs                | Ordered list with lib paths. Defaulted to ``["lib"]``                                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.resdirs                | Ordered list of resource (data) paths. Defaulted to ``["res"]``                                         |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.bindirs                | Ordered list with paths to binaries (executables, dynamic libraries,...). Defaulted to ``["bin"]``      |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.builddirs              | | Ordered list with build scripts directory paths. Defaulted to ``[""]`` (Package folder directory)     |
+|                                      | | CMake generators will search in these dirs for files like *findXXX.cmake*                             |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.libs                   | Ordered list with the library names, Defaulted to ``[]`` (empty)                                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.defines                | Preprocessor definitions. Defaulted to ``[]`` (empty)                                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cflags                 | Ordered list with pure C flags. Defaulted to ``[]`` (empty)                                             |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cppflags               | [DEPRECATED: Use cxxflags instead]                                                                      |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.cxxflags               | Ordered list with C++ flags. Defaulted to ``[]`` (empty)                                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.sharedlinkflags        | Ordered list with linker flags (shared libs). Defaulted to ``[]`` (empty)                               |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.exelinkflags           | Ordered list with linker flags (executables). Defaulted to ``[]`` (empty)                               |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworks             | Ordered list with the framework names (OSX), Defaulted to ``[]`` (empty)                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.frameworkdirs          | Ordered list with frameworks search paths (OSX). Defaulted to ``["Frameworks"]``                        |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.rootpath               | Filled with the root directory of the package, see ``deps_cpp_info``                                    |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.name                   | | Alternative name for the package used by generators to create files or variables.                     |
+|                                      | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
+|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.names["generator"]     | | Alternative name for the package used by an specific generator to create files or variables.          |
+|                                      | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
+|                                      | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
+|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.filenames["generator"] | | Alternative name for the filename produced by a specific generator. If set for a generator it will    |
+|                                      | | override the "names" value (which itself overrides self.cppinfo.name). This is only supported by      |
+|                                      | | the `cmake_find_package` and `cmake_find_package_multi` generators.                                   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.build_modules          | | List of relative paths to build system related utility module files created by the package. Used by   |
+|                                      | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
+|                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -1027,7 +1052,7 @@ root folder of the package:
             self.deps_cpp_info["openssl"].sharedlinkflags
 
 
-.. note:: 
+.. note::
 
     If using the experimental feature :ref:`with different context for host and build <build_requires_context>`, this
     attribute will contain only information from packages in the *host* context.
@@ -1454,3 +1479,102 @@ For example, a *conandata.yml* with information about sources that looks like th
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
+
+
+deprecated
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
+This attribute declares that the recipe is deprecated, causing a user-friendly warning message to be emitted whenever it is used.
+For example, the following code:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        name = "cpp-taskflow"
+        version = "1.0"
+        deprecated = True
+
+may emit a warning like:
+
+.. code-block:: bash
+
+    cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated. Please, consider changing your requirements.
+
+Optionally, the attribute may specify the name of the suggested replacement:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class Pkg(ConanFile):
+        name = "cpp-taskflow"
+        version = "1.0"
+        deprecated = "taskflow"
+
+This will emit a warning like:
+
+.. code-block:: bash
+
+    cpp-taskflow/1.0: WARN: Recipe 'cpp-taskflow/1.0' is deprecated in favor of 'taskflow'. Please, consider changing your requirements.
+
+If the value of the attribute evaluates to ``False``, no warning is printed.
+
+
+provides
+--------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more 
+libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
+
+Some examples are:
+
+ - `LibreSSL <https://www.libressl.org/>`__, `BoringSSL <https://boringssl.googlesource.com/boringssl/>`__ and `OpenSSL <https://www.openssl.org/>`__
+ - `libav <https://libav.org/>`__ and `ffmpeg <https://ffmpeg.org/>`__
+ - `MariaDB client <https://downloads.mariadb.org/client-native>`__ and `MySQL client <https://dev.mysql.com/downloads/c-api/>`__
+
+
+If Conan encounters two or more libraries providing the same functionality within a single graph, it raises an error:
+
+.. code-block:: bash
+
+    At least two recipes provides the same functionality:
+     - 'libjpeg' provided by 'libjpeg/9d', 'libjpeg-turbo/2.0.5'
+
+The attribute value should be a string with a recipe name or a tuple of such recipe names.
+
+For example, to declare that ``libjpeg-turbo`` recipe offers the same functionality as ``libjpeg`` recipe, the following code could be used:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class LibJpegTurbo(ConanFile):
+        name = "libjpeg-turbo"
+        version = "1.0"
+        provides = "libjpeg"
+
+
+To declare that a recipe provides the functionality of several different recipes at the same time, the following code could be used:
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class OpenBLAS(ConanFile):
+        name = "openblas"
+        version = "1.0"
+        provides = "cblas", "lapack"
+
+If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for 
+``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.

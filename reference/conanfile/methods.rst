@@ -138,6 +138,8 @@ The syntax of ``self.copy`` inside ``package()`` is as follows:
 
     self.copy(pattern, dst="", src="", keep_path=True, symlinks=None, excludes=None, ignore_case=False)
 
+Returns: A list with absolute paths of the files copied in the destination folder.
+
 Parameters:
     - **pattern** (Required): A pattern following fnmatch syntax of the files you want to copy, from the build to the package folders.
       Typically something like ``*.lib`` or ``*.h``.
@@ -1115,6 +1117,34 @@ We could reuse and inherit from it with:
 
 The final ``PkgTest`` conanfile will have both ``os`` and ``arch`` as settings, and ``MyLicense`` as license.
 
+This method can also be useful if you need to unconditionally initialize class attributes like
+``license`` or ``description`` or any other :ref:`attributes<conanfile_attributes>` from datafiles other than
+`conandata.yml`. For example, you have a `json` file containing the information about the
+``license``, ``description`` and ``author`` for the library:
+
+
+.. code-block:: json
+    :caption: *data.json*
+
+    {"license": "MIT", "description": "This is my awesome library.", "author": "Me"}
+
+Then, you can load that information from the ``init()``  method:
+
+.. code-block:: python
+
+    import os
+    import json
+    from conans import ConanFile, load
+
+
+    class Lib(ConanFile):
+        exports = "data.json"
+        def init(self):
+            data = load(os.path.join(self.recipe_folder, "data.json"))
+            d = json.loads(data)
+            self.license = d["license"]
+            self.description = d["description"]
+            self.author = d["description"]
 
 export()
 --------

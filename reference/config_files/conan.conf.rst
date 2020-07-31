@@ -211,6 +211,8 @@ in the conan code base, allowing to debug the detected error.
 The ``cacert_path`` variable lets the user specify a custom path to the *cacert.pem* file to use
 in requests. You can also adjust this value using the environment variable ``CONAN_CACERT_PATH``.
 
+The ``client_cert_path`` and ``client_cert_key_path`` variables let the user specify a custom path to the :ref:`client_certificates` files.
+
 The ``scm_to_conandata`` variable tells Conan to store the resolved information of the :ref:`SCM feature<scm_feature>` in the
 :ref:`conandata.yml<conandata_yml>` file instead of modifying the recipe file itself. You can also adjust
 this value using the environment variable ``CONAN_SCM_TO_CONANDATA``.
@@ -222,7 +224,8 @@ configured. It only accepts the follow time intervals: minutes, hours and days.
 
 The ``required_conan_version`` variable validates if the current Conan client version is valid according to its version. When it's not
 according to the required version or its range, Conan raises an exception before running any command. It accepts SemVer format, including version range.
-This configuration is useful When a company wants to align the Conan client version used by all teams.
+This configuration is useful when a company wants to align the Conan client version used by all teams. This can be also specified at
+:ref:`recipe level<conanfile_required_version>` if you need adding this information just for certain recipes.
 
 Storage
 +++++++
