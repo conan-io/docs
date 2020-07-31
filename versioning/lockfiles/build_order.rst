@@ -130,7 +130,7 @@ Let's build all the binaries for the exported packages first:
     $ conan install app1/0.1@user/testing --build=missing
 
 
-Now that there are binaries for all packages in the cache, capture a new lockfile, and compute its build order:
+Now that there are binaries for all packages in the cache, let's capture the in a new lockfile and compute the build order:
 
 .. code-block:: bash
 
