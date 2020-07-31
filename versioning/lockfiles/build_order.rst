@@ -9,7 +9,11 @@ Build order in lockfiles
 
 In this section we are going to use the following packages, defining this dependency graph.
 
-[IMAGE]
+.. image:: conan_lock_build_order.png
+   :height: 200 px
+   :width: 400 px
+   :align: center
+
 
 .. note::
 
@@ -38,10 +42,10 @@ Let's start by creating the initial dependency graph, without binaries (just the
 
 .. code-block:: bash
 
-    $ conan export pkga pkga/0.1@user/testing
-    $ conan export pkgb pkgb/0.1@user/testing
-    $ conan export pkgc pkgc/0.1@user/testing
-    $ conan export pkgd pkgd/0.1@user/testing
+    $ conan export liba liba/0.1@user/testing
+    $ conan export libb libb/0.1@user/testing
+    $ conan export libc libc/0.1@user/testing
+    $ conan export libd libd/0.1@user/testing
     $ conan export app1 app1/0.1@user/testing
     $ conan export app2 app2/0.1@user/testing
 
@@ -62,7 +66,7 @@ contain a package revision (``prev``) field at all:
      {
         ...
         "4": {
-        "ref": "pkga/0.1@user/testing",
+        "ref": "liba/0.1@user/testing",
         "options": "",
         "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
         "context": "host"
@@ -88,24 +92,24 @@ The resulting *build_order.json* file is a list of lists, structured by levels o
 .. code-block:: text
 
     [
-      # First level pkga
-      [["pkga/0.1@user/testing", "5ab8...1ac9", "host", "4"]],
-      # Second level pkgb and pkgc
-      [["pkgb/0.1@user/testing", "cfd1...ec23", "host", "3"],
-       ["pkgc/0.1@user/testing", "cfd1...ec23", "host", "5"]],
-      # Third level pkgd
-      [["pkgd/0.1@user/testing", "d075...5b9d", "host", "2"]],
-      # Fourth level pkgd
+      # First level liba
+      [["liba/0.1@user/testing", "5ab8...1ac9", "host", "4"]],
+      # Second level libb and libc
+      [["libb/0.1@user/testing", "cfd1...ec23", "host", "3"],
+       ["libc/0.1@user/testing", "cfd1...ec23", "host", "5"]],
+      # Third level libd
+      [["libd/0.1@user/testing", "d075...5b9d", "host", "2"]],
+      # Fourth level libd
       [["app1/0.1@user/testing", "3bf2...5188", "host", "1"]]
     ]
 
 Every item in the outer list is a "level" in the graph, a set of packages that needs to be built, and
 are independent of every other package in the level, so they can be built in parallel. Levels in the
 build order must be respected, as the second level cannot be built until all the packages in the first level are built
-and so on. In this example, once the build of ``pkga/0.1@user/testing`` finishes, as it is the only
-item in the first level, the second level can start, and it can build both ``pkgb/0.1@user/testing`` and ``pkgc/0.1@user/testing`` in parallel. It is necessary
+and so on. In this example, once the build of ``liba/0.1@user/testing`` finishes, as it is the only
+item in the first level, the second level can start, and it can build both ``libb/0.1@user/testing`` and ``libc/0.1@user/testing`` in parallel. It is necessary
 that both of them finish their build to be able to continue to the third level, that contains
-``pkgd/0.1@user/testing``, because this package depends on them.
+``libd/0.1@user/testing``, because this package depends on them.
 
 Every item in each level has 4 elements: ``[ref, package_id, context, id]``. At the moment the only
 necessary one is the first one. The ``ref`` value is the one that can be used for example in a :command:`conan install`
@@ -152,47 +156,47 @@ If we specify the :command:`--build` flag, then the behavior is different:
     # the lockfile will not lock the binaries
     # And check which one needs to be built
     $ conan lock build-order app1.lock --json=build_order.json
-    [[["pkga/0.1@user/testing", "5ab8...1ac9", "host", "4"]], ...
+    [[["liba/0.1@user/testing", "5ab8...1ac9", "host", "4"]], ...
 
 
 This feature is powerful when combined with ``package_id_modes``, because it can
 automatically define the minimum set of packages that needs to be built for any
 change in the dependency graph.
 
-Let's say that a new version ``pkgb/1.1@user/testing`` is created. But if we
-check the ``pkgd`` *conanfile.py* requirement ``pkgb/[>0.0 <1.0]@user/testing``,
+Let's say that a new version ``libb/1.1@user/testing`` is created. But if we
+check the ``libd`` *conanfile.py* requirement ``libb/[>0.0 <1.0]@user/testing``,
 we can see that this 1.1 version falls outside of the valid version range.
-Then, it does not affect ``pkgd`` or ``app1`` and nothing needs to be built:
+Then, it does not affect ``libd`` or ``app1`` and nothing needs to be built:
 
 .. code-block:: bash
 
-    $ conan create pkgb pkgb/1.1@user/testing
+    $ conan create libb libb/1.1@user/testing
     $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
     $ conan lock build-order app1.lock --json=build_order.json
-    [] # Empty, nothing to build, pkgb/1.1 does not become part of app1
+    [] # Empty, nothing to build, libb/1.1 does not become part of app1
 
 
-If on the contrary, a new ``pkgb/0.2@user/testing`` is created, and we capture a
-new lockfile, it will contain such new version. Other packages, like ``pkga`` and
-``pkgc`` are not affected by this new version, and will be fully locked in the lockfile,
-but the dependents of ``pkgb`` now won't be locked and it will be necessary to build them:
+If on the contrary, a new ``libb/0.2@user/testing`` is created, and we capture a
+new lockfile, it will contain such new version. Other packages, like ``liba`` and
+``libc`` are not affected by this new version, and will be fully locked in the lockfile,
+but the dependents of ``libb`` now won't be locked and it will be necessary to build them:
 
 .. code-block:: bash
 
-    $ conan create pkgb pkgb/0.2@user/testing
+    $ conan create libb libb/0.2@user/testing
     $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
     $ conan lock build-order app1.lock --json=build_order.json
-    [[['pkgd/0.1@user/testing', '97e9...b7f4', 'host', '2']],
+    [[['libd/0.1@user/testing', '97e9...b7f4', 'host', '2']],
      [['app1/0.1@user/testing', '2bf1...e405', 'host', '1']]]
 
 So in this case the *app1.lock* is doing these things:
 
-- Fully locking the non-affected packages (``pkga/0.1``, ``pkgc/0.1``)
-- Fully locking the ``pkgb/0.2``, as the binary that was just created is valid for our ``app1``
-  (Note that this might not always be true, and ``app1`` build could require a different ``pkgb/0.2``
+- Fully locking the non-affected packages (``liba/0.1``, ``libc/0.1``)
+- Fully locking the ``libb/0.2``, as the binary that was just created is valid for our ``app1``
+  (Note that this might not always be true, and ``app1`` build could require a different ``libb/0.2``
   binary).
 - Partial locking (the version and package-id) of the affected packages that need to be
-  built (``pkgd/0.1`` and ``app1/0.1``).
+  built (``libd/0.1`` and ``app1/0.1``).
 - Retrieving via ``build-order`` the right order in which the affected packages need to be built.
 
 Recall that a package in a lockfile is fully locked if it contains a ``prev`` (package revision) field defined.
@@ -200,7 +204,7 @@ Fully locked packages cannot be built from sources. Partially locked packages do
 defined. They lock the reference and the package-id, and they can be built from sources.
 
 
-If we want to check if the new ``pkgb/0.2`` version affects to the ``app2`` and something needs to
+If we want to check if the new ``libb/0.2`` version affects to the ``app2`` and something needs to
 be rebuild, the process is identical:
 
 .. code-block:: bash
@@ -209,4 +213,4 @@ be rebuild, the process is identical:
     $ conan lock build-order app2.lock --json=build_order2.json
     []
 
-As expected, nothing to build, as ``app2`` does not depend on ``pkgb`` at all.
+As expected, nothing to build, as ``app2`` does not depend on ``libb`` at all.
