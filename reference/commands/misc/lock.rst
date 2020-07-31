@@ -11,17 +11,17 @@ Generates and manipulates lock files.
 
 .. code-block:: text
 
-  positional arguments:
-    {update,build-order,clean-modified,create}
-                          sub-command help
-      update              Complete missing information in the first lockfile with information defined in the second lockfile. Both lockfiles must represent the same graph,
-                          and have the same topology with the same identifiers, i.e. the second lockfile must be an evolution based on the first one
-      build-order         Returns build-order
-      clean-modified      Clean modified flags
-      create              Create a lockfile from a conanfile or a reference
+    positional arguments:
+        {update,build-order,clean-modified,create}
+                            sub-command help
+        update              Complete missing information in the first lockfile with information defined in the second lockfile. Both lockfiles must represent the same graph,
+                            and have the same topology with the same identifiers, i.e. the second lockfile must be an evolution based on the first one
+        build-order         Returns build-order
+        clean-modified      Clean modified flags
+        create              Create a lockfile from a conanfile or a reference
 
-  optional arguments:
-    -h, --help            show this help message and exit
+    optional arguments:
+        -h, --help            show this help message and exit
 
 
 
@@ -97,16 +97,16 @@ conan lock update
 
 .. code-block:: bash
 
-  $ conan lock update [-h] old_lockfile new_lockfile
+    $ conan lock update [-h] old_lockfile new_lockfile
 
 .. code-block:: text
 
-  positional arguments:
-    old_lockfile  Path to lockfile to be updated
-    new_lockfile  Path to lockfile containing the new information that is going to be updated into the first lockfile
+    positional arguments:
+        old_lockfile  Path to lockfile to be updated
+        new_lockfile  Path to lockfile containing the new information that is going to be updated into the first lockfile
 
-  optional arguments:
-    -h, --help    show this help message and exit
+    optional arguments:
+        -h, --help    show this help message and exit
 
 
 
@@ -115,16 +115,16 @@ conan lock build-order
 
 .. code-block:: bash
 
-  $ conan lock build-order [-h] [--json JSON] lockfile
+    $ conan lock build-order [-h] [--json JSON] lockfile
 
 .. code-block:: text
 
-  positional arguments:
-    lockfile     lockfile file
+    positional arguments:
+        lockfile     lockfile file
 
-  optional arguments:
-    -h, --help   show this help message and exit
-    --json JSON  generate output file in json format
+    optional arguments:
+        -h, --help   show this help message and exit
+        --json JSON  generate output file in json format
 
 
 conan lock clean-modified
@@ -132,12 +132,12 @@ conan lock clean-modified
 
 .. code-block:: bash
 
-  $ conan lock clean-modified [-h] lockfile
+    $ conan lock clean-modified [-h] lockfile
 
 .. code-block:: text
 
-  positional arguments:
-    lockfile    Path to the lockfile
+    positional arguments:
+        lockfile    Path to the lockfile
 
-  optional arguments:
-    -h, --help  show this help message and exit
+    optional arguments:
+        -h, --help  show this help message and exit
