@@ -108,7 +108,7 @@ that both of them finish their build to be able to continue to the third level, 
 ``pkgd/0.1@user/testing``, because this package depends on them.
 
 Every item in each level has 4 elements: ``[ref, package_id, context, id]``. At the moment the only
-necessary one is the first one. The ``ref`` value is the one that can be used for example in a ``install``
+necessary one is the first one. The ``ref`` value is the one that can be used for example in a :command:`conan install`
 command like:
 
 .. code-block:: bash
