@@ -134,7 +134,7 @@ Now that there are binaries for all packages in the cache, let's capture the in 
 
 .. code-block:: bash
 
-    # Capture a new lockfile, which will find all package binaries and fully lock them
+    # Create a new lockfile now with all the package binaries
     $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
     # And check whats need to be built
     $ conan lock build-order app1.lock --json=build_order.json
