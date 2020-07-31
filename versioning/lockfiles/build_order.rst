@@ -46,8 +46,8 @@ Let's start by creating the initial dependency graph, without binaries (just the
     $ conan export app2 app2/0.1@user/testing
 
 Now we will create a lockfile that captures the dependency graph for ``app1/0.1@user/testing``.
-In the same way we created lockfiles for a local ``conanfile.py`` in a user folder, we can also
-create a lockfile for a recipe in the Conan cache, with the ``--reference`` argument:
+In the same way we created lockfiles for a local *conanfile.py* in a user folder, we can also
+create a lockfile for a recipe in the Conan cache, with the :command:`--reference` argument:
 
 .. code-block:: bash
 
