@@ -7,4 +7,205 @@ Build order in lockfiles
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-TODO
+In this section we are going to use the following packages, defining this dependency graph.
+
+[IMAGE]
+
+.. note::
+
+    The code used in this section, including a *build.py* script to reproduce it, is in the
+    examples repository: https://github.com/conan-io/examples. You can go step by step
+    reproducing this example while reading the below documentation.
+
+    .. code:: bash
+
+        $ git clone https://github.com/conan-io/examples.git
+        $ cd features/lockfiles/build_order
+        # $ python build.py only to run the full example, but better go step by step
+
+
+The example in this section uses ``full_version_mode``, that is, if a package changes any part of its version, its consumers will
+need to build a new binary because a new ``package_id`` will be computed. This example will use version ranges, and
+it is not necessary to have revisions enabled. It also do not require a server, everything can be reproduced locally.
+
+
+.. code-block:: bash
+
+    $ conan config set general.default_package_id_mode=full_version_mode
+
+Let's start by creating the initial dependency graph, without binaries (just the exported recipes), in our local cache:
+
+
+.. code-block:: bash
+
+    $ conan export pkga pkga/0.1@user/testing
+    $ conan export pkgb pkgb/0.1@user/testing
+    $ conan export pkgc pkgc/0.1@user/testing
+    $ conan export pkgd pkgd/0.1@user/testing
+    $ conan export app1 app1/0.1@user/testing
+    $ conan export app2 app2/0.1@user/testing
+
+Now we will create a lockfile that captures the dependency graph for ``app1/0.1@user/testing``.
+In the same way we created lockfiles for a local ``conanfile.py`` in a user folder, we can also
+create a lockfile for a recipe in the Conan cache, with the ``--reference`` argument:
+
+.. code-block:: bash
+
+    $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
+
+The resulting *app1.lock* lockfile will not be able to completely lock the binaries because such
+binaries do not exist at all. This can be checked in the *app1.lock* file, the packages do not
+contain a package revision (``prev``) field at all:
+
+.. code-block:: text
+
+     {
+        ...
+        "4": {
+        "ref": "pkga/0.1@user/testing",
+        "options": "",
+        "package_id": "5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9",
+        "context": "host"
+        }
+        ...
+     }
+
+We can now compute the "build-order" of the dependency graph. The "build-order" lists
+in order all the packages that needs to be built from sources. As the lockfile contains
+the information of existing locked package binaries, the logic is the following:
+
+- If a package is fully locked (it contains a package revision field ``prev`` in the lockfile),
+  it cannot be built from sources, so it will never be returned
+- If a package is not fully locked (it does not contain a package revision ``prev`` in the lockfile),
+  the package will be returned. This situation happens both when the package binary doesn't exist yet,
+  or when the ``--build`` argument was used while creating the lockfile.
+
+.. code-block:: bash
+
+    $ conan lock build-order app1.lock --json=build_order.json
+
+The resulting *build_order.json* file is a list of lists, structured by levels of possible parallel builds:
+
+.. code-block:: text
+
+    [
+      # First level pkga
+      [["pkga/0.1@user/testing", "5ab8...1ac9", "host", "4"]],
+      # Second level pkgb and pkgc
+      [["pkgb/0.1@user/testing", "cfd1...ec23", "host", "3"],
+       ["pkgc/0.1@user/testing", "cfd1...ec23", "host", "5"]],
+      # Third level pkgd
+      [["pkgd/0.1@user/testing", "d075...5b9d", "host", "2"]],
+      # Fourth level pkgd
+      [["app1/0.1@user/testing", "3bf2...5188", "host", "1"]]
+    ]
+
+Every item in the outer list is a "level" in the graph, a set of packages that needs to be built, and
+are independent to every other package in the level, so they can be built in parallel. Levels in the
+build order must be respected, the second level cannot be started until the first level has finished
+and so on. In this example, once the build of ``pkga/0.1@user/testing`` finishes, as it is the only
+item in the first level, the second level can start, and it can build in parallel both ``pkgb/0.1@user/testing``
+and ``pkgc/0.1@user/testing``, because, as we can see in the graph, they are independent. It is necessary
+that both of them finish their build to be able to continue to the third level, that contains
+``pkgd/0.1@user/testing``, because this package depends on them.
+
+Every item in each level has 4 elements: ``[ref, package_id, context, id]``. At the moment the only
+necessary one is the first one. The ``ref`` value is the one that can be used for example in a ``install``
+command like:
+
+.. code-block:: bash
+
+    $ conan install <ref> --build=<ref> --lockfile=mylock.lock
+
+
+Defining builds
+---------------
+
+The definition of what needs to be built comes from the existing binaries plus the ``--build``
+argument in the ``conan lock create``.
+
+Let's build all the binaries for the exported packages first:
+
+.. code-block:: bash
+
+    # Build app1 and dependencies
+    $ conan install app1/0.1@user/testing --build=missing
+
+
+Now that there are binaries for all packages in the cache, capture a new lockfile, and compute its build order:
+
+.. code-block:: bash
+
+    # Capture a new lockfile, which will find all package binaries and fully lock them
+    $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
+    # And check whats need to be built
+    $ conan lock build-order app1.lock --json=build_order.json
+    # The build order is emtpy, nothing to build
+    []
+
+The result of this build order is empty. As the ``lock create`` managed to find existing binaries,
+everything is fully locked, nothing needs to be built.
+
+If we specify ``--build``, then the behavior is different:
+
+.. code-block:: bash
+
+    $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock --build
+    # the lockfile will not lock the binaries
+    # And check whats need to be built
+    $ conan lock build-order app1.lock --json=build_order.json
+    # The build order is emtpy, nothing to build
+    [[["pkga/0.1@user/testing", "5ab8...1ac9", "host", "4"]], ...
+
+
+This feature is powerful when combined with ``package_id_modes``, because it can
+automatically define the minimum set of packages that needs to be built for any
+change in the dependency graph.
+
+Let's say that a new version ``pkgb/2.0@user/testing`` is created. But if we
+check the ``pkgd`` *conanfile.py* requirement, we can see that this falls outside
+of the valid version range. Then, it does not affect ``pkgd`` or ``app1`` and
+nothing needs to be built:
+
+.. code-block:: bash
+
+    $ conan create pkgb pkgb/2.0@user/testing
+    $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
+    $ conan lock build-order app1.lock --json=build_order.json
+    [] # Empty, nothing to build, pkgb/2.0 does not become part of app1
+
+
+If on the contrary, a new ``pkgb/0.2@user/testing`` is created, and we capture a
+new lockfile, it will contain such new version. Other packages, like ``pkga`` and
+``pkgc`` are not affected by this new version, and will be fully locked in the lockfile,
+but the dependents of ``pkgb`` now won't be locked and it will be necessary to build them:
+
+.. code-block:: bash
+
+    $ conan create pkgb pkgb/0.2@user/testing
+    $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
+    $ conan lock build-order app1.lock --json=build_order.json
+    [[['pkgd/0.1@user/testing', '97e9...b7f4', 'host', '2']],
+     [['app1/0.1@user/testing', '2bf1...e405', 'host', '1']]]
+
+So in this case the *app1.lock* is doing these things:
+
+- Fully locking the non-affected packages (``pkga/0.1``, pkgc/0.1``)
+- Fully locking the ``pkgb/0.2``, as the binary that was just created is valid for our ``app1``.
+  Note that this might not always be true, and ``app1`` build could require a diffeent ``pkgb/0.2``
+  binary.
+- Partial locking (the version and package-id) of the affected packages that need to be
+  built (``pkgd/0.1`` and ``app1/0.1``).
+- Retrieving via ``build-order`` the right order in which the affected packages need to be built.
+
+
+If we want to check if the new ``pkgb/0.2`` version affects to the ``app2`` and something needs to
+be rebuild, the process is identical:
+
+.. code-block:: bash
+
+    $ conan lock create --reference=app2/0.1@user/testing --lockfile-out=app2.lock
+    $ conan lock build-order app2.lock --json=build_order2.json
+    []
+
+As expected, nothing to build, as ``app2`` does not depend on ``pkgb`` at all.

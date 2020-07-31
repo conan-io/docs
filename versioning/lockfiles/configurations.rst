@@ -30,7 +30,7 @@ and create both release and debug ``pkga`` packages:
 
 .. code-block:: bash
 
-    $ conan remove "*" -f
+    $ conan remove "pkg*" -f
     $ conan create pkga pkga/0.1@user/testing
     $ conan create pkga pkga/0.1@user/testing -s build_type=Debug
 

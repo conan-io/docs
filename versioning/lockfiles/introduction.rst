@@ -35,7 +35,7 @@ it is not necessary to have revisions enabled. It also do not require a server, 
     $ conan config set general.default_package_id_mode=full_version_mode
 
 
-Let's start by creating from the recipe and source in the ``pkga`` folder, a first ``pkg/0.1@user/testing`` 
+Let's start by creating from the recipe and source in the ``pkga`` folder, a first ``pkg/0.1@user/testing``
 package in our local cache:
 
 .. code-block:: bash
@@ -45,7 +45,7 @@ package in our local cache:
 
 Now we want to start developing and testing the code for ``pkgb``, but we want to create a "snapshot" of the
 dependency graph, to isolate our development from possible changes (note that the recipe in *pkgb/conanfile.py*
-contains a require like ``requires = "pkga/[>0.0]@user/testing"``). 
+contains a require like ``requires = "pkga/[>0.0]@user/testing"``).
 
 
 .. code-block:: bash
@@ -91,8 +91,8 @@ dependency is fully locked. The ``pkgb/0.1@user/testing`` doesn't have a ``packa
 is just a local *conanfile.py* as a consumer, not a package. But the ``user/testing`` user and channel are already defined.
 
 It is important to note that the *pkgb_deps.lock* lockfile contains the current ``profile`` for the current configuration.
- 
-At this moment we have captured the dependency graph for ``pkgb``. Now, it would be possible that a new version 
+
+At this moment we have captured the dependency graph for ``pkgb``. Now, it would be possible that a new version
 of ``pkga`` is created:
 
 
@@ -143,7 +143,7 @@ A core concept of lockfiles is their immutability and the integrity of its data:
 
 .. important::
 
-    The information stored in a lockfile cannot be changed. Any attempt to modify locked data will result in 
+    The information stored in a lockfile cannot be changed. Any attempt to modify locked data will result in
     an error.
 
 For example, if now we try to do a :command:`conan install` that also builds ``pkga`` from source:
@@ -191,7 +191,7 @@ That doesn't mean that a lockfile cannot evolve at all. Using the :command:`--lo
 
 And if we inspect the new *locks/pkgb.lock* file:
 
-.. code-block:: json
+.. code-block:: text
 
     {
         ...
@@ -207,7 +207,7 @@ And if we inspect the new *locks/pkgb.lock* file:
         ...
     }
 
-It can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*), 
+It can be appreciated in *locks/pkgb.lock* that now ``pkgb/0.1@user/testing`` is fully locked, as a package (not a local *conanfile.py*),
 and contains a ``package_id``. So if we try to use this new file for creating the package again, it will error,
 as a package that is fully locked cannot be rebuilt:
 
@@ -241,3 +241,12 @@ method for convenience for this example), and get the same package and dependenc
 
 As long as we have the *pkgb.lock* lockfile, we will be able to robustly reproduce this install, even if the packages were
 uploaded to a server, if there are new versions that satisfy the version ranges, etc.
+
+
+.. important::
+
+    All the examples and documentation of this section is done with version ranges and revisions disabled.
+    Lockfiles also work and can lock both recipe and package revisions, with the same behavior as
+    version-ranges. All is necessary is to enable revisions. The only current limitation is that the local
+    cache cannot store more than one revision at a time, but that is a limitation of the cache and unrelated
+    to lockfiles.
