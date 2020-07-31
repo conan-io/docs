@@ -176,6 +176,12 @@ user and channel for example. If we try to create the ``pkgb`` package with diff
 a different dependency graph, totally incompatible with the one captured in the lockfile. If ``pkgb/0.1@user/testing`` was stored in
 the lockfile, any command using this lockfile must respect and keep it without changes.
 
+.. note::
+
+    A package in a lockfile is fully locked if it contains a ``prev`` (package revision) field defined.
+    Fully locked packages cannot be built from sources. Partially locked packages do not contain a ``prev``
+    defined. They lock the reference and the package-id, and they can be built from sources.
+
 
 Reproducibility
 ---------------

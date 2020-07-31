@@ -195,6 +195,10 @@ So in this case the *app1.lock* is doing these things:
   built (``pkgd/0.1`` and ``app1/0.1``).
 - Retrieving via ``build-order`` the right order in which the affected packages need to be built.
 
+Recall that a package in a lockfile is fully locked if it contains a ``prev`` (package revision) field defined.
+Fully locked packages cannot be built from sources. Partially locked packages do not contain a ``prev``
+defined. They lock the reference and the package-id, and they can be built from sources.
+
 
 If we want to check if the new ``pkgb/0.2`` version affects to the ``app2`` and something needs to
 be rebuild, the process is identical:
