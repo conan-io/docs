@@ -76,8 +76,8 @@ the information of existing locked package binaries, the logic is the following:
 
 - If a package is fully locked (it contains a package revision field ``prev`` in the lockfile),
   it will not be built from sources and will **never** appear in the build-order list.
-- If a package is not fully locked (it does not contain a package revision ``prev`` in the lockfile),
-  the package will be returned. This situation happens both when the package binary doesn't exist yet,
+- If a package is not fully locked (it does **not** contain a package revision ``prev`` in the lockfile),
+  it will appear in the build-order list. This situation happens both when the package binary doesn't exist yet,
   or when the ``--build`` argument was used while creating the lockfile.
 
 .. code-block:: bash
