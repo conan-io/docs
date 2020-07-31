@@ -120,7 +120,7 @@ Defining builds
 ---------------
 
 The definition of what needs to be built comes from the existing binaries plus the :command:`--build`
-argument in the ``conan lock create``.
+argument in the :command:`conan lock create`.
 
 Let's build all the binaries for the exported packages first:
 
