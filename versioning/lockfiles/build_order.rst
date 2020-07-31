@@ -144,7 +144,7 @@ Now that there are binaries for all packages in the cache, let's capture the in 
 The result of this build order is empty. As the :command:`conan lock create` found existing binaries,
 everything is fully locked, nothing needs to be built.
 
-If we specify ``--build``, then the behavior is different:
+If we specify the :command:`--build` flag, then the behavior is different:
 
 .. code-block:: bash
 
