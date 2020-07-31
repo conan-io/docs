@@ -191,9 +191,9 @@ but the dependents of ``pkgb`` now won't be locked and it will be necessary to b
 So in this case the *app1.lock* is doing these things:
 
 - Fully locking the non-affected packages (``pkga/0.1``, ``pkgc/0.1``)
-- Fully locking the ``pkgb/0.2``, as the binary that was just created is valid for our ``app1``.
-  Note that this might not always be true, and ``app1`` build could require a diffeent ``pkgb/0.2``
-  binary.
+- Fully locking the ``pkgb/0.2``, as the binary that was just created is valid for our ``app1``
+  (Note that this might not always be true, and ``app1`` build could require a different ``pkgb/0.2``
+  binary).
 - Partial locking (the version and package-id) of the affected packages that need to be
   built (``pkgd/0.1`` and ``app1/0.1``).
 - Retrieving via ``build-order`` the right order in which the affected packages need to be built.
