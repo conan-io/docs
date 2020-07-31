@@ -75,7 +75,7 @@ in order all the packages that needs to be built from sources. As the lockfile c
 the information of existing locked package binaries, the logic is the following:
 
 - If a package is fully locked (it contains a package revision field ``prev`` in the lockfile),
-  it cannot be built from sources, so it will never be returned
+  it will not be built from sources and will **never** appear in the build-order list.
 - If a package is not fully locked (it does not contain a package revision ``prev`` in the lockfile),
   the package will be returned. This situation happens both when the package binary doesn't exist yet,
   or when the ``--build`` argument was used while creating the lockfile.
