@@ -67,7 +67,7 @@ Other useful commands:
   commands/misc/remove.rst
   commands/misc/alias.rst
   commands/misc/inspect.rst
-  commands/misc/graph.rst
+  commands/misc/lock.rst
   commands/misc/help.rst
   commands/misc/conan_build_info.rst
 
