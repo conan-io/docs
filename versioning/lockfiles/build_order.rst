@@ -71,8 +71,7 @@ contain a package revision (``prev``) field at all:
      }
 
 We can now compute the "build-order" of the dependency graph. The "build-order" lists
-in order all the packages that needs to be built from sources. As the lockfile contains
-the information of existing locked package binaries, the logic is the following:
+in order all the packages that needs to be built from sources. The logic is the following:
 
 - If a package is fully locked (it contains a package revision field ``prev`` in the lockfile),
   it will not be built from sources and will **never** appear in the build-order list.
@@ -161,17 +160,17 @@ This feature is powerful when combined with ``package_id_modes``, because it can
 automatically define the minimum set of packages that needs to be built for any
 change in the dependency graph.
 
-Let's say that a new version ``pkgb/2.0@user/testing`` is created. But if we
-check the ``pkgd`` *conanfile.py* requirement, we can see that this falls outside
-of the valid version range. Then, it does not affect ``pkgd`` or ``app1`` and
-nothing needs to be built:
+Let's say that a new version ``pkgb/1.1@user/testing`` is created. But if we
+check the ``pkgd`` *conanfile.py* requirement ``pkgb/[>0.0 <1.0]@user/testing``,
+we can see that this 1.1 version falls outside of the valid version range.
+Then, it does not affect ``pkgd`` or ``app1`` and nothing needs to be built:
 
 .. code-block:: bash
 
-    $ conan create pkgb pkgb/2.0@user/testing
+    $ conan create pkgb pkgb/1.1@user/testing
     $ conan lock create --reference=app1/0.1@user/testing --lockfile-out=app1.lock
     $ conan lock build-order app1.lock --json=build_order.json
-    [] # Empty, nothing to build, pkgb/2.0 does not become part of app1
+    [] # Empty, nothing to build, pkgb/1.1 does not become part of app1
 
 
 If on the contrary, a new ``pkgb/0.2@user/testing`` is created, and we capture a
