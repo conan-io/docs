@@ -154,7 +154,6 @@ If we specify ``--build``, then the behavior is different:
     # the lockfile will not lock the binaries
     # And check which one needs to be built
     $ conan lock build-order app1.lock --json=build_order.json
-    # The build order is emtpy, nothing to build
     [[["pkga/0.1@user/testing", "5ab8...1ac9", "host", "4"]], ...
 
 
