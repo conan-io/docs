@@ -101,8 +101,8 @@ The resulting *build_order.json* file is a list of lists, structured by levels o
     ]
 
 Every item in the outer list is a "level" in the graph, a set of packages that needs to be built, and
-are independent to every other package in the level, so they can be built in parallel. Levels in the
-build order must be respected, the second level cannot be started until the first level has finished
+are independent of every other package in the level, so they can be built in parallel. Levels in the
+build order must be respected, as the second level cannot be built until all the packages in the first level are built
 and so on. In this example, once the build of ``pkga/0.1@user/testing`` finishes, as it is the only
 item in the first level, the second level can start, and it can build in parallel both ``pkgb/0.1@user/testing``
 and ``pkgc/0.1@user/testing``, because, as we can see in the graph, they are independent. It is necessary
