@@ -90,6 +90,9 @@ Now let's say that one developer does some change to ``libb``:
     $ vim libb/conanfile.py
     # do some changes and save
 
+These changes are local in this example, in reality they will be typically in the form of a Pull Request,
+wanting to merge those changes in the main "develop" branch.
+
 
 Package pipeline
 ----------------
@@ -247,3 +250,12 @@ The process will be repeated (or it could also run in parallel) for the Debug co
 After the ``app1/0.1@user/testing`` product pipeline finishes, then the ``app2/0.2@user/testing`` one will
 be started. With this setup and example, it is very important that the products pipelines are ran sequentially,
 otherwise it is possible that the same binaries are unnecesarily built more than once.
+
+When the products pipeline finishes it means that the changes proposed by the developer in their Pull Request that
+would result in a new ``libb/0.2@user/testing`` package are safe to be merged and will be integrated in our
+product packages without problems. When the Pull Request is merged there might be two alternatives:
+
+- The merge is a merge commit, with a different revision and possible different source as the result of a real merge,
+  than the source used in this CI job. Then it is necessary to fire again a new job that will build these packages.
+- If the merge is a clean fast-forward, then the packages that were built in this job would be valid, and could be
+  copied from the repository ``conan-build`` to the ``conan-develop``.
