@@ -944,6 +944,9 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
 |                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
+|                                      | | **Note**: If a consumer package is using cmake build system, then ``cmake_find_package`` and          |
+|                                      | | ``cmake_find_package_multi`` are the only supported generators to take advantage of dependencies'     |
+|                                      | | components                                                                                            |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
