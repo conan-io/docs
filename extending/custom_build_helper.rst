@@ -40,10 +40,8 @@ and a ``build`` method. Let's see how the most important parts of ``waf_environm
 defines the build helper could look. In this case, for simplification, the build helper will only add
 flags depending on the conan setting value for the ``build_type``.
 
-.. code-block:: python
+.. code-block:: python    
 
-    from conans.client.build.compiler_flags import build_type_flags
-        
     class WafBuildEnvironment(object):
         def __init__(self, conanfile):
             self._conanfile = conanfile
