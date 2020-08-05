@@ -115,4 +115,5 @@ import the ``python_requires``. The *conanfile.py* of that package could look si
 
 As you can see in the ``conanfile.py`` we also are requiring the build tool and a generator for that
 build tool. If you want more detailed information on how to integrate your own build system in Conan,
-please `check this blog-post about that topic <https://waf.io/>`_.
+please `check this blog-post about that topic
+<https://blog.conan.io/2019/07/24/C++-build-systems-new-integrations-in-Conan-package-manager.html>`_.
