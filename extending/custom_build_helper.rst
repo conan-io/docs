@@ -3,20 +3,18 @@
 Creating a custom build helper for Conan
 ----------------------------------------
 
-If Conan has not a build helper for the build tool you are using you can create a custom build helper
-with the help of :ref:`python_requires`. You can create a package defining the build helper for the
-build tool you want to use and reuse it later in the consumers importing the build helper as a
+If Conan has not a build helper for the build tool you are using, you can create a custom build helper
+with the help of :ref:`python_requires`. You can create a package defining the build helper for that
+build tool and reuse it later in the consumers importing the build helper as a
 *Python requires*. 
 
-As you probably know build helpers are wrappers of the build tool that help with the conversion
-of the Conan settings to the build system’s ones. They assist users with the compilation of libraries
+As you probably know, build helpers are wrappers of the build tool that help with the conversion
+of the Conan settings to the build tool’s ones. They assist users with the compilation of libraries
 and applications in the `build()` method of a recipe.
 
-As an example we are going to create a minimal implementation of a build helper for the `Waf build
-system <https://waf.io/>`_ .
-
-First we need to create a recipe for the ``python_requires`` that will export ``waf_environment.py``
-where all the implementation of the build helper is.
+As an example, we are going to create a minimal implementation of a build helper for the `Waf build
+system <https://waf.io/>`_ . First, we need to create a recipe for the ``python_requires`` that will
+export ``waf_environment.py``, where all the implementation of the build helper is.
 
 .. code-block:: python
     
@@ -29,12 +27,13 @@ where all the implementation of the build helper is.
         version = "0.1"
         exports = "waf_environment.py"
 
-As we said the build helper is responsible for translating Conan settings to something that the build
-tool understands. That can be passing arguments through the command line when invoking the tool or
-creating files that the tool will take as an input. In this case, the build helper for *Waf* will
-create one file, named ``waf_toolchain.py`` that will contain linker and compiler flags based on the Conan settings.
+As we said, the build helper is responsible for translating Conan settings to something that the
+build tool understands. That can be passing arguments through the command line when invoking the tool
+or creating files that will take as an input. In this case, the build helper for *Waf* will create
+one file named ``waf_toolchain.py`` that will contain linker and compiler flags based on the Conan
+settings.
 
-To pass that information to `Waf` in the file, you have to modify the configuration environment
+To pass that information to `Waf` in the file, you have to modify its configuration environment
 through the ``conf.env`` variable setting all the relevant flags. We will also define a ``configure``
 and a ``build`` method. Let's see how the most important parts of ``waf_environment.py`` file that
 defines the build helper could look. In this case, for simplification, the build helper will only add
@@ -85,7 +84,13 @@ flags depending on the conan setting value for the ``build_type``.
         self._conanfile.run(command)
 
 
-Now, after exporting this package to the local cache you can use this custom build helper to compile
+Now you can export your custom build helper to the local cache, or upload to a remote:
+
+.. code-block:: bash
+
+    $ conan export .
+
+After exporting this package to the local cache you can use this custom build helper to compile
 our packages using the *Waf* build system. Just add the necessary configuration files for *Waf* and
 import the ``python_requires``. The *conanfile.py* of that package could look similar to this:
 
@@ -108,5 +113,6 @@ import the ``python_requires``. The *conanfile.py* of that package could look si
             waf.configure()
             waf.build()
 
-If you want more detailed information on how to integrate you own build system in Conan, please `check
-this blog-post about that topic <https://waf.io/>`_.
+As you can see in the ``conanfile.py`` we also are requiring the build tool and a generator for that
+build tool. If you want more detailed information on how to integrate your own build system in Conan,
+please `check this blog-post about that topic <https://waf.io/>`_.
