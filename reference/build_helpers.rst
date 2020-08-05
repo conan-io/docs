@@ -19,5 +19,5 @@ Contents:
 
 .. important::
 
-    If need a build helper for any other tools, please check how you can create your own
+    If you need a build helper for any other tools, please check how you can create your own
     :ref:`custom_build_helper`.
