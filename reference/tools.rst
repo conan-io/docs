@@ -603,17 +603,27 @@ Applies a patch from a file or from a string into the given path. The patch shou
 
     from conans import tools
 
-    tools.patch(patch_file="file.patch")
+    # from a file
+    def build(self):
+        tools.patch(patch_file="file.patch")
+
     # from a string:
-    patch_content = " real patch content ..."
-    tools.patch(patch_string=patch_content)
+    def build(self):
+        patch_content = " real patch content ..."
+        tools.patch(patch_string=patch_content)
+
     # to apply in subfolder
-    tools.patch(base_path=mysubfolder, patch_string=patch_content)
+    def build(self):
+        tools.patch(base_path=mysubfolder, patch_string=patch_content)
+
     # from conandata
-    tools.patch(**self.conan_data["patches"][self.version])
+    def build(self):
+        tools.patch(**self.conan_data["patches"][self.version])
+
     # from conandata, using multiple versions
-    for patch in self.conan_data["patches"][self.version]:
-        tools.patch(**patch)
+    def build(self):
+        for patch in self.conan_data.get("patches", {}).get(self.version, []):
+            tools.patch(**patch)
 
 If the patch to be applied uses alternate paths that have to be stripped like this example:
 
@@ -642,6 +652,19 @@ you can force it using the ``fuzz`` option:
 
     tools.patch(patch_file="file.patch", fuzz=True)
 
+When creating a header-only package and there is no usage for build step or build folder, the patch can
+be applied to the source folder:
+
+.. code-block:: python
+
+    from conans import tools, ConanFile
+
+    class HeaderOnly(ConanFile):
+        no_copy_source = True
+
+        def source(self):
+            ...
+            tools.patch(patch_file="file.patch")
 
 Parameters:
     - **base_path** (Optional, Defaulted to ``None``): Base path where the patch should be applied.

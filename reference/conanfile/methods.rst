@@ -83,6 +83,11 @@ verify that a package is downloaded correctly.
     If you need to patch the source code or build scripts differently for different variants of your packages, you can do it in the
     ``build()`` method, which uses a different folder and source code copy for each variant.
 
+    .. code-block:: python
+
+            def build(self):
+                tools.patch(patch_file="0001-fix.patch")
+
 build()
 -------
 
