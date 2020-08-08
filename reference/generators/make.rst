@@ -23,6 +23,8 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_SYSROOT_<PKG-NAME>             | System root folder                                                      |
 +--------------------------------------+-------------------------------------------------------------------------+
+| CONAN_RPATHFLAGS_<PKG-NAME>          | Linker flags to append this LIB_DIRS to RPATH in compiled binary        |
++--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_INCLUDE_DIRS_<PKG-NAME>        | Headers folders                                                         |
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_LIB_DIRS_<PKG-NAME>            | Library folders                                                         |
@@ -39,9 +41,9 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_DEFINES_<PKG-NAME>             | Library definitions                                                     |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_CFLAGS_<PKG-NAME>              | Options for the C compiler (-g, -s, -m64, -m32, -fPIC)                  |
+| CONAN_CFLAGS_<PKG-NAME>              | Options for the C compiler                                              |
 +--------------------------------------+-------------------------------------------------------------------------+
-| CONAN_CXXFLAGS_<PKG-NAME>            | Options for the C++ compiler (-g, -s, -stdlib, -m64, -m32, -fPIC, -std) |
+| CONAN_CXXFLAGS_<PKG-NAME>            | Options for the C++ compiler                                            |
 +--------------------------------------+-------------------------------------------------------------------------+
 | CONAN_SHAREDLINKFLAGS_<PKG-NAME>     | Library Shared linker flags                                             |
 +--------------------------------------+-------------------------------------------------------------------------+
@@ -52,15 +54,12 @@ Variables per package. The ``<PKG-NAME>`` placeholder is filled with the name of
 | CONAN_FRAMEWORK_PATHS_<PKG-NAME>     | Framework folders (OSX)  (default {CONAN_XXX_ROOT}/Frameworks           |
 +--------------------------------------+-------------------------------------------------------------------------+
 
-Conan also declares some **global variables** with the aggregated values of all our requirements. The values are ordered in the right order
+The generator also declares some **global variables** with the aggregated values of all our requirements. The values are ordered in the right order
 according to the dependency tree.
 
 +--------------------------------+----------------------------------------------------------------------+
 | NAME                           | VALUE                                                                |
 +================================+======================================================================+
-| CONAN_ROOTPATH                 | Aggregated root folders                                              |
-+--------------------------------+----------------------------------------------------------------------+
-| CONAN_SYSROOT                  | Aggregated system root folders                                       |
 +--------------------------------+----------------------------------------------------------------------+
 | CONAN_INCLUDE_DIRS             | Aggregated header folders                                            |
 +--------------------------------+----------------------------------------------------------------------+
@@ -91,25 +90,52 @@ according to the dependency tree.
 | CONAN_FRAMEWORK_PATHS          | Aggregated framework folders (OSX)                                   |
 +--------------------------------+----------------------------------------------------------------------+
 
-.. important::
+The generator then further condenses these variables down into a smaller group
+of 5 **global variables** by prepending the associated compiler or linker flags
+and then combining them together. The 5 variables correspond to 5 standard GnuMake variables: 
 
-    Note that the mapping of the Conan variables to the Make ones is done taking the following rules and we suggest to use the
-    variables indicated under the *Makefile* column to apply to a common naming:
+`Gnu Make Well-Known Variables
+<https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html/>`_
 
-    +--------------+-------------------------------+------------+
-    | ``cpp_info`` | *conanbuildinfo.mak*          | *Makefile* |
-    +==============+===============================+============+
-    | defines      | CONAN_DEFINES                 | CPPFLAGS   |
-    +--------------+-------------------------------+------------+
-    | includedirs  | CONAN_INCLUDE_DIRS            | CPPFLAGS   |
-    +--------------+-------------------------------+------------+
-    | libdirs      | CONAN_LIB_DIRS                | LDFLAGS    |
-    +--------------+-------------------------------+------------+
-    | libs         | CONAN_LIBS                    | LDLIBS     |
-    +--------------+-------------------------------+            |
-    | SYSTEM_LIBS  | CONAN_SYSTEM_LIBS             |            |
-    +--------------+-------------------------------+------------+
-    | cflags       | CONAN_CFLAGS                  | CFLAGS     |
-    +--------------+-------------------------------+------------+
-    | cxxflags     | CONAN_CXXFLAGS                | CXXFLAGS   |
-    +--------------+-------------------------------+------------+
+
++-------------------------+--------------------------------------------------------------------------------------------+
+| NAME                    | VALUE                                                                                      |
++=========================+============================================================================================+
+| CONAN_CFLAGS            | Aggregated options for the C compiler                                                      |
++-------------------------+--------------------------------------------------------------------------------------------+
+| CONAN_CXXFLAGS          | Aggregated options for the C++ compiler                                                    |
++-------------------------+--------------------------------------------------------------------------------------------+
+| CONAN_CPPFLAGS          | Aggregated defines with -D prefix and header folders with -I prefix                        |
++-------------------------+--------------------------------------------------------------------------------------------+
+| CONAN_LDFLAGS           | Aggregated library folders with -L prefix, sharedlinkflags or exelinkflags, and rpathflags |
++-------------------------+--------------------------------------------------------------------------------------------+
+| CONAN_LDLIBS            | Aggregated library and system library names with -l prefix                                 |
++-------------------------+--------------------------------------------------------------------------------------------+
+
+Finally, the generator defines one more global variable which is actually a
+user-defined function in **Make**.  This combines appends the 5 aggregated
+variables listed above to the corresponding GnuMake variable names. The function
+is here:
+
++--------------------------------+----------------------------------------------------------------------+
+| NAME                           | USAGE                                                                |
++================================+======================================================================+
+| CONAN_BASIC_SETUP              | $(call CONAN_BASIC_SETUP)                                            |
++--------------------------------+----------------------------------------------------------------------+
+
+Here is the mapping from ``CONAN_`` variable name to **GnuMake** variable name
+after calling this function.
+
++--------------------------------+----------------------------------------------------------------------+
+| NAME                           | GNU MAKE VARIABLE APPENDED TO                                        |
++================================+======================================================================+
+| CONAN_CFLAGS                   | CFLAGS                                                               |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_CXXFLAGS                 | CXXFLAGS                                                             |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_CPPFLAGS                 | CPPFLAGS                                                             |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_LDFLAGS                  | LDFLAGS                                                              |
++--------------------------------+----------------------------------------------------------------------+
+| CONAN_LDLIBS                   | LDLIBS                                                               |
++--------------------------------+----------------------------------------------------------------------+
