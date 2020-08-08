@@ -3,8 +3,22 @@
 Make
 ====
 
-Conan provides integration with plain Makefiles by means of the ``make`` generator. If you are using ``Makefile`` to build your project you
-could get the information of the dependencies in a *conanbuildinfo.mak* file. All you have to do is indicate the generator like this:
+Conan provides two integrations for plain Makefiles:
+#. The :ref:`Make generator<make_generator>`
+#. The :ref:`Make toolchain<make_toolchain>`
+
+Refer to the links above for more detail about each of them. Here we provide a
+high-level explanation of how these integrations are meant to be used. 
+
+If you are using ``Makefile`` to build your project you can use one or both of
+these depending on your needs.
+
+The ``make`` generator outputs all the variables related to package dependencies
+into a file which is named *conanbuildinfo.mak*. The ``make`` toolchain outputs
+all the variables related to settings, options, and platform into a file which
+is named ``conan_toolchain.mak``. 
+
+To use the generator, indicate it in your ``conanfile`` like this:
 
 .. code-block:: text
    :caption: *conanfile.txt*
@@ -12,12 +26,26 @@ could get the information of the dependencies in a *conanbuildinfo.mak* file. Al
     [generators]
     make
 
-.. code-block:: text
+.. code-block:: python
    :caption: *conanfile.py*
 
     class MyConan(ConanFile):
         ...
         generators = "make"
+
+To use the toolchain, add the following function to your ``conanfile``:
+
+.. code-block:: python
+   :caption: *conanfile.py*
+
+    class MyConan(ConanFile):
+        ...
+        def toolchain(self):
+            tc = Make(self)
+            tc.write_toolchain_files()
+
+**NOTE**: This can only be used in a ``conanfile.py`` and not ``conanfile.txt``.
+
 
 Example
 -------
@@ -45,63 +73,59 @@ This is the main source file for it:
         return 0;
     }
 
-As this project relies on the Poco Libraries we are going to create a *conanfile.txt* with our requirement and also declare the Make
-generator:
+As this project relies on the Poco Libraries we are going to create a ``conanfile.py`` with our requirement and also declare the Make
+generator and Make toolchain. For simplicity, this ``conanfile`` declares an
+empty build and package step. They're not needed for for the local developer
+workflow. 
 
-.. code-block:: text
-   :caption: conanfile.txt
+.. code-block:: python
+   :caption: *conanfile.py*
+          
+    from conans import ConanFile, MakeToolchain
+    
+    class MyConan(ConanFile):
+        name = "myconan"
+        version = "0.1"
+        settings = "os", "arch", "compiler", "build_type"
+        generators = "make"
+        exports_sources = "*"
 
-    [requires]
-    poco/1.9.4
+        def toolchain(self):
+            tc = Make(self)
+            tc.write_toolchain_files()
 
-    [generators]
-    make
+        def build(self):
+            pass
+
+        def package(self):
+            pass
 
 In order to use this generator within your project, use the following Makefile as a reference:
 
 .. code-block:: makefile
    :caption: Makefile
 
+    #----------------------------------------
+    #     Prepare flags from make generator
+    #----------------------------------------
+
     include conanbuildinfo.mak
+    $(call CONAN_BASIC_SETUP)
+
+    #----------------------------------------
+    #     Prepare flags from make toolchain
+    #----------------------------------------
+
+    include conan_toolchain.mak
+    $(call CONAN_TC_SETUP)
 
     #----------------------------------------
     #     Make variables for a sample App
     #----------------------------------------
 
-    CXX_SRCS = \
-    main.cpp
-
-    CXX_OBJ_FILES = \
-    main.o
-
-    EXE_FILENAME = \
-    main
-
-
-    #----------------------------------------
-    #     Prepare flags from variables
-    #----------------------------------------
-
-    CFLAGS          += $(CONAN_CFLAGS)
-    CXXFLAGS        += $(CONAN_CXXFLAGS)
-    CPPFLAGS        += $(addprefix -I, $(CONAN_INCLUDE_DIRS))
-    CPPFLAGS        += $(addprefix -D, $(CONAN_DEFINES))
-    LDFLAGS         += $(addprefix -L, $(CONAN_LIB_DIRS))
-    LDLIBS          += $(addprefix -l, $(CONAN_LIBS))
-
-
-    #----------------------------------------
-    #     Make Commands
-    #----------------------------------------
-
-    COMPILE_CXX_COMMAND         ?= \
-        g++ -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
-
-    CREATE_EXE_COMMAND          ?= \
-        g++ $(CXX_OBJ_FILES) \
-        $(CXXFLAGS) $(LDFLAGS) $(LDLIBS) \
-        -o $(EXE_FILENAME)
-
+    SRCS          = main.cpp
+    OBJS          = main.o
+    EXE_FILENAME  = main
 
     #----------------------------------------
     #     Make Rules
@@ -110,13 +134,15 @@ In order to use this generator within your project, use the following Makefile a
     .PHONY                  :   exe
     exe                     :   $(EXE_FILENAME)
 
-    $(EXE_FILENAME)         :   $(CXX_OBJ_FILES)
-        $(CREATE_EXE_COMMAND)
+    $(EXE_FILENAME)         :   $(OBJS)
+        g++ $(OBJS) $(CXXFLAGS) $(LDFLAGS) $(LDLIBS) -o $(EXE_FILENAME)
 
-    %.o                     :   $(CXX_SRCS)
-        $(COMPILE_CXX_COMMAND)
+    %.o                     :   $(SRCS)
+        g++ -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
 
-Now we are going to let Conan retrieve the dependencies and generate the dependency information in a *conanbuildinfo.mak*:
+Now we are going to let Conan retrieve the dependencies, generate the
+dependency information in the file ``conanbuildinfo.mak``, and generate the
+options and settings information in the file ``conan_toolchain.mak``:
 
 .. code-block:: bash
 
@@ -132,4 +158,5 @@ Now you can run your application with ``./main``.
 
 .. seealso::
 
-    Check the complete reference of the :ref:`Make generator<make_generator>`.
+    Complete reference for :ref:`Make generator<make_generator>`
+    Complete reference for :ref:`Make toolchain<make_toolchain>`
