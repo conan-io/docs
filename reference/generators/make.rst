@@ -95,7 +95,7 @@ of 5 **global variables** by prepending the associated compiler or linker flags
 and then combining them together. The 5 variables correspond to 5 standard GnuMake variables: 
 
 `Gnu Make Well-Known Variables
-<https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html/>`__
+<https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html>`_
 
 
 +-------------------------+--------------------------------------------------------------------------------------------+
