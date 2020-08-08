@@ -1,3 +1,5 @@
+.. _make_toolchain:
+
 MakeToolchain
 ==============
 
@@ -80,7 +82,7 @@ which can be undesirable, so Conan provides an alternative. There is list of
 well-known "standard"/"conventional" variables used within **GnuMake**,
 **Autotools**, and other related tools:
 
-`Gnu Make Well-Known Variables <https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html/>`_
+`Gnu Make Well-Known Variables <https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html>`_
 
 The relevant content from the GnuMake manual is provided here for convenience:
 
