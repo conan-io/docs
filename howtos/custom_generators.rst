@@ -228,5 +228,47 @@ templating formats:
         version = "0.1"
         exports = "mytemplate.txt"
 
+Storing generators in the Conan local cache
+-------------------------------------------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+In addition to distributing them using Conan packages, custom generators can be stored
+in the generators folder in the Conan local cache (by default ``~/.conan/generators``).
+
+Generators stored in the local cache can be used in the same ways as the
+:ref:`built-in generators<generators_reference>`, i.e. they can be referenced on the command line
+with :command:`conan install` when using the :command:`--generator` option, and do not require
+installing a package to use. Instead, these generators can be distributed using :command:`conan config install`.
+
+.. code-block:: python
+    :caption: *A custom generator which saves all environment variables defined in a package to a json file*
+
+    import json
+    from conans.model import Generator
+
+
+    # The generator name will be the literal class name (not the filename)
+    class custom_generator(Generator):
+        @property
+        def filename(self):
+            return "custom_generator_output.json"
+
+        @property
+        def content(self):
+            return json.dumps(self.deps_env_info.vars)
+
+.. code-block:: bash
+    :caption: *Using the custom generator at install time*
+
+    $ conan install <path_or_reference> --generator custom_generator
+
+.. note::
+
+    Generators loaded from the local cache do not need to be accompanied by a recipe class.
+    Additionally, more than one generator can be loaded from the same python module when loaded from the local cache.
 
 .. _`Premake`: https://premake.github.io/
+
