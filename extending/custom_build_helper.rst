@@ -4,7 +4,7 @@ Creating a custom build helper for Conan
 ----------------------------------------
 
 If Conan doesn't have a build helper for the build tool you are using, you can create a custom build helper
-with the help of :ref:`python_requires`. You can create a package defining the build helper for that
+with the :ref:`python_requires`. You can create a package defining the build helper for that
 build tool and reuse it later in the consumers importing the build helper as a
 *Python requires*. 
 
