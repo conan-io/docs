@@ -14,7 +14,7 @@ and applications in the `build()` method of a recipe.
 
 As an example, we are going to create a minimal implementation of a build helper for the `Waf build
 system <https://waf.io/>`_ . First, we need to create a recipe for the ``python_requires`` that will
-export ``waf_environment.py``, where all the implementation of the build helper is.
+export *waf_environment.py*, where all the implementation of the build helper is.
 
 .. code-block:: python
     
@@ -30,12 +30,12 @@ export ``waf_environment.py``, where all the implementation of the build helper 
 As we said, the build helper is responsible for translating Conan settings to something that the
 build tool understands. That can be passing arguments through the command line when invoking the tool
 or creating files that will take as an input. In this case, the build helper for *Waf* will create
-one file named ``waf_toolchain.py`` that will contain linker and compiler flags based on the Conan
+one file named *waf_toolchain.py* that will contain linker and compiler flags based on the Conan
 settings.
 
 To pass that information to `Waf` in the file, you have to modify its configuration environment
 through the ``conf.env`` variable setting all the relevant flags. We will also define a ``configure``
-and a ``build`` method. Let's see how the most important parts of ``waf_environment.py`` file that
+and a ``build`` method. Let's see how the most important parts of *waf_environment.py* file that
 defines the build helper could look. In this case, for simplification, the build helper will only add
 flags depending on the conan setting value for the ``build_type``.
 
@@ -79,9 +79,9 @@ flags depending on the conan setting value for the ``build_type``.
             self._conanfile.run(command)
 
         def build(self, args=None): 
-        args = args or []
-        command = "waf build " + " ".join(arg for arg in args)
-        self._conanfile.run(command)
+            args = args or []
+            command = "waf build " + " ".join(arg for arg in args)
+            self._conanfile.run(command)
 
 
 Now you can export your custom build helper to the local cache, or upload to a remote:
@@ -113,7 +113,7 @@ import the ``python_requires``. The *conanfile.py* of that package could look si
             waf.configure()
             waf.build()
 
-As you can see in the ``conanfile.py`` we also are requiring the build tool and a generator for that
+As you can see in the *conanfile.py* we also are requiring the build tool and a generator for that
 build tool. If you want more detailed information on how to integrate your own build system in Conan,
 please `check this blog-post about that topic
 <https://blog.conan.io/2019/07/24/C++-build-systems-new-integrations-in-Conan-package-manager.html>`_.
