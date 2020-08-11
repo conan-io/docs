@@ -1149,7 +1149,7 @@ Then, you can load that information from the ``init()``  method:
             d = json.loads(data)
             self.license = d["license"]
             self.description = d["description"]
-            self.author = d["description"]
+            self.author = d["author"]
 
 export()
 --------
