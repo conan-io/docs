@@ -1879,6 +1879,29 @@ This is a context manager that allows to append to the environment all the varia
         with tools.compilervars(self.settings):
             do_something()
 
+.. tools_intel_installation_path:
+
+tools.intel_installation_path()
+----------------------------
+
+.. code-block:: python
+
+    def intel_installation_path(version, arch)
+
+Returns the Intel Compiler installation path for the given version and target arch. If the tool is not able to return the path it will raise a
+``ConanException``.
+
+.. code-block:: python
+
+    from conans import tools
+
+    intel_path_2020 = tools.intel_installation_path("19.1", "x86")
+
+Parameters:
+    - **version** (Required): Intel Compiler version to locate. Valid version numbers are strings: ``"15"``, ``"16"``, ``"17"``, ``"18"``,
+      ``"19"``, ``"19.1"``...
+    - **arch** (Required): Intel Compiler target arch. Valid archs are ``"x86"`` and ``"x86_64"``.
+
 .. _tools.remove_files_by_mask:
 
 tools.remove_files_by_mask()
