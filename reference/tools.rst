@@ -1882,7 +1882,7 @@ This is a context manager that allows to append to the environment all the varia
 .. tools_intel_installation_path:
 
 tools.intel_installation_path()
-----------------------------
+-------------------------------
 
 .. code-block:: python
 
