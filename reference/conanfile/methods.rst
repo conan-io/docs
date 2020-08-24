@@ -598,6 +598,13 @@ For a special use case you can use also ``conans.tools.os_info`` object to detec
 - ``os_info.uname(options=None)``: Runs the "uname" command and returns the output. You can pass arguments with the `options` parameter.
 - ``os_info.detect_windows_subsystem()``: Returns "MSYS", "MSYS2", "CYGWIN" or "WSL" if any of these Windows subsystems are detected.
 
+.. warning::
+
+    The values returned from some of these variables (``linux_distro``, ``os_version`` and ``os_version_name``) use the external
+    dependency `distro <https://pypi.org/project/distro/>`_, values returned might be different from one version to another,
+    please check their changelog for bugfixes and new features.
+
+
 You can also use ``SystemPackageTool`` class, that will automatically invoke the right system package
 tool: **apt**, **yum**, **dnf**, **pkg**, **pkgutil**, **brew** and **pacman** depending on the
 system we are running.
