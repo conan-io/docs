@@ -16,7 +16,7 @@ Using the ``android_ndk_installer`` package as a build requirement will do the f
 
 - Set up required environment variables, such as ``CC``, ``CXX``, ``RANLIB`` and so on to the appropriate tools from the NDK.
 
-- In case of using CMake, it will inject the appropriate `toolchain file <https://developer.android.com/ndk/guides/cmake#the_cmake_toolchain_file>`_ and set up the necessary CMake `variables <https://developer.android.com/ndk/guides/cmake#variables>`_.
+- In case of using CMake, it will inject the appropriate `toolchain file <https://developer.android.com/ndk/guides/cmake#file>`_ and set up the necessary CMake `variables <https://developer.android.com/ndk/guides/cmake#variables>`_.
 
 For instance, in order to cross-compile for ``ARMv8``, the following conan profile might be used:
 
@@ -36,7 +36,7 @@ For instance, in order to cross-compile for ``ARMv8``, the following conan profi
   [options]
   [env]
 
-.. note:: 
+.. note::
 
    In addition to the above, Windows users may need to specify ``CONAN_MAKE_PROGRAM``,
    for instance from the existing MinGW installation (e.g. ``C:\MinGW\bin\mingw32-make.exe``), or use make from the ``mingw_installer/1.0@conan/stable``.
@@ -61,7 +61,7 @@ Similar profile might be used to cross-compile for ``ARMv7`` (notice the ``arch`
 
 By adjusting ``arch`` setting, you may cross-compile for ``x86`` and ``x86_64`` Android as well (e.g. if you need to run code in a simulator).
 
-.. note:: 
+.. note::
 
   ``os.api_level`` is an important setting which affects compatibility - it defines the **minimum** Android version supported.
   In other words, it is the same meaning as `minSdkVersion <https://developer.android.com/guide/topics/manifest/uses-sdk-element>`_.
@@ -79,7 +79,7 @@ Currently, Conan Docker Tools provide the following Android images:
 - conanio/android-clang8-armv7
 - conanio/android-clang8-armv8
 
-All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed, with required environment variables 
+All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed, with required environment variables
 set and with default conan profile configured for android cross-building. Therefore, these images might be especially useful for CI systems.
 
 Using existing NDK
@@ -133,7 +133,7 @@ For this, you will need a small CMake toolchain file:
   include($ENV{HOME}/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake)
 
 This toolchain file only sets up the required CMake `variables <https://developer.android.com/ndk/guides/cmake#variables>`_,
-and then includes the default `toolchain file <https://developer.android.com/ndk/guides/cmake#the_cmake_toolchain_file>`_ supplied with Android NDK.
+and then includes the default `toolchain file <https://developer.android.com/ndk/guides/cmake#file>`_ supplied with Android NDK.
 
 And then, you may use the following profile:
 
