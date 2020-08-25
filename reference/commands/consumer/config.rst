@@ -87,7 +87,7 @@ conan config install
     -h, --help            show this help message and exit
     --verify-ssl [VERIFY_SSL]
                           Verify SSL connection when downloading file
-    --type {git}, -t {git}
+    --type {git,dir,file,url}, -t {git,dir,file,url}
                           Type of remote config
     --args ARGS, -a ARGS  String with extra arguments for "git clone"
     -sf SOURCE_FOLDER, --source-folder SOURCE_FOLDER
