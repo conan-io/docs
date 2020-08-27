@@ -144,7 +144,15 @@ The required package has the same result again ``af04...46ad``. Now we can try u
 
 The computed package ID is different which means that we need a different binary package for GCC 4.4.
 
-The same way we have adjusted the ``self.info.settings``, we could set the ``self.info.options`` values if needed.
+The same way we have adjusted the ``self.info.settings``, we could set the ``self.info.options`` values if needed. If you want to make packages independent on build_type removing the build_type from the package settings in the package_id will work for OSX and Linux. However when building with Visual studio the compiler.runtime field will change based on the build_type value so in that case you will also want to delete the compiler runtime field like so:
+
+.. code-block:: python
+
+    def package_id(self):
+        if self.settings.os in ["Windows","WindowsStore"] and self.settings.compiler == "Visual Studio":
+            del self.info.settings.build_type
+            del self.info.settings.compiler.runtime
+
 
 .. seealso::
 
