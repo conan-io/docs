@@ -1377,6 +1377,7 @@ Wrapper of the ``pkg-config`` tool.
 
     with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
         pkg_config = PkgConfig("libastral")
+        print(pkg_config.version)
         print(pkg_config.cflags)
         print(pkg_config.cflags_only_I)
         print(pkg_config.variables)
@@ -1397,6 +1398,8 @@ Parameters of the constructor:
 +-----------------------------+---------------------------------------------------------------------+
 | PROPERTY                    | DESCRIPTION                                                         |
 +=============================+=====================================================================+
+| .version                    | get version defined in the module                                   |
++-----------------------------+---------------------------------------------------------------------+
 | .cflags                     | get all pre-processor and compiler flags                            |
 +-----------------------------+---------------------------------------------------------------------+
 | .cflags_only_I              | get -I flags                                                        |
