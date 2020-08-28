@@ -16,7 +16,7 @@ Using the ``android_ndk_installer`` package as a build requirement will do the f
 
 - Set up required environment variables, such as ``CC``, ``CXX``, ``RANLIB`` and so on to the appropriate tools from the NDK.
 
-- In case of using CMake, it will inject the appropriate `toolchain file <https://developer.android.com/ndk/guides/cmake#the_cmake_toolchain_file>`_ and set up the necessary CMake `variables <https://developer.android.com/ndk/guides/cmake#variables>`_.
+- In case of using CMake, it will inject the appropriate `toolchain file <https://developer.android.com/ndk/guides/cmake#file>`_ and set up the necessary CMake `variables <https://developer.android.com/ndk/guides/cmake#variables>`_.
 
 For instance, in order to cross-compile for ``ARMv8``, the following conan profile might be used:
 
@@ -133,7 +133,7 @@ For this, you will need a small CMake toolchain file:
   include($ENV{HOME}/Library/Android/sdk/ndk/20.0.5594570/build/cmake/android.toolchain.cmake)
 
 This toolchain file only sets up the required CMake `variables <https://developer.android.com/ndk/guides/cmake#variables>`_,
-and then includes the default `toolchain file <https://developer.android.com/ndk/guides/cmake#the_cmake_toolchain_file>`_ supplied with Android NDK.
+and then includes the default `toolchain file <https://developer.android.com/ndk/guides/cmake#file>`_ supplied with Android NDK.
 
 And then, you may use the following profile:
 
