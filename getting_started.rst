@@ -10,7 +10,7 @@ We'll use CMake as build system in this case but keep in mind that Conan **works
 system** and is not limited to using CMake.
 
 Make sure you are running the latest Conan version. Read the :ref:`Conan update<conan_update>`
-section get more information.
+section to get more information.
 
 An MD5 hash calculator using the Poco Libraries
 -----------------------------------------------
@@ -34,9 +34,7 @@ An MD5 hash calculator using the Poco Libraries
 
         #include <iostream>
 
-
-        int main(int argc, char** argv)
-        {
+        int main(int argc, char** argv){
             Poco::MD5Engine md5;
             Poco::DigestOutputStream ds(md5);
             ds << "abcdefghijklmnopqrstuvwxyz";
@@ -45,18 +43,25 @@ An MD5 hash calculator using the Poco Libraries
             return 0;
         }
 
-2. We know that our application relies on the Poco libraries. Let's look for it in the Conan Center remote:
+2. We know that our application relies on the Poco libraries. Let's look for it in the ConanCenter remote,
+   going to https://conan.io/center, and typing "poco" in the search box. We will see that there are
+   some different versions available:
 
     .. code-block:: bash
-
-        $ conan search poco --remote=conan-center
-        Existing package recipes:
 
         poco/1.8.1
         poco/1.9.3
         poco/1.9.4
+        ...
 
-    Conan remotes must be specified in search. It will otherwise only search local cache.
+
+   .. note::
+
+    The Conan client contains a command to search in remote repositories, and we could
+    try ``$ conan search poco --remote=conan-center``. You can perfectly use this command to search in your
+    own repositories, but note that at the moment this might timeout in ConanCenter. The infrastructure is being
+    improved to support this command too, but meanwhile using the `ConanCenter UI <https://conan.io/center>`_
+    is recommended.
 
 3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.4 version:
 
@@ -92,8 +97,7 @@ An MD5 hash calculator using the Poco Libraries
             enable_crypto: True
             [...]
 
-4. Ok, it looks like this dependency could work with our hash calculator app. We should indicate which are
-   the requirements and the generator for our build system. Let's create a *conanfile.txt* inside our
+4. Let's use this ``poco/1.9.4`` version for our MD5 calculator app, creating a *conanfile.txt* inside our
    project's folder with the following content:
 
     .. code-block:: text
@@ -130,13 +134,21 @@ An MD5 hash calculator using the Poco Libraries
         $ conan install ..
         ...
         Requirements
-            openssl/1.0.2t from 'conan-center' - Downloaded
-            poco/1.9.4 from 'conan-center' - Downloaded
+            bzip2/1.0.8 from 'conan-center' - Downloaded
+            expat/2.2.9 from 'conan-center' - Downloaded
+            openssl/1.1.1g from 'conan-center' - Downloaded
+            pcre/8.41 from 'conan-center' - Downloaded
+            poco/1.9.4 from 'conan-center' - Cache
+            sqlite3/3.31.1 from 'conan-center' - Downloaded
             zlib/1.2.11 from 'conan-center' - Downloaded
         Packages
-            openssl/1.0.2t:eb50d18a5a5d59bd0c332464a4c348ab65e353bf - Download
-            poco/1.9.4:645aaff0a79e6036c77803601e44677556109dd9 - Download
-            zlib/1.2.11:f74366f76f700cc6e991285892ad7a23c30e6d47 - Download
+            bzip2/1.0.8:5be2b7a2110ec8acdbf9a1cea9de5d60747edb34 - Download
+            expat/2.2.9:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
+            openssl/1.1.1g:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
+            pcre/8.41:20fc3dfce989c458ac2372442673140ea8028c06 - Download
+            poco/1.9.4:73e83a21ea6817fa9ef0f7d1a86ea923190b0205 - Download
+            sqlite3/3.31.1:4559c5d4f09161e1edf374b033b1d6464826db16 - Download
+            zlib/1.2.11:6cc50b139b9c3d27b3e9042d5f5372d327b3a9f7 - Download
 
         zlib/1.2.11: Retrieving package f74366f76f700cc6e991285892ad7a23c30e6d47 from remote 'conan-center'
         Downloading conanmanifest.txt completed [0.25k]
@@ -145,13 +157,7 @@ An MD5 hash calculator using the Poco Libraries
         Decompressing conan_package.tgz completed [0.00k]
         zlib/1.2.11: Package installed f74366f76f700cc6e991285892ad7a23c30e6d47
         zlib/1.2.11: Downloaded package revision 0
-        openssl/1.0.2t: Retrieving package eb50d18a5a5d59bd0c332464a4c348ab65e353bf from remote 'conan-center'
-        Downloading conanmanifest.txt completed [4.92k]
-        Downloading conaninfo.txt completed [1.28k]
-        Downloading conan_package.tgz completed [3048.81k]
-        Decompressing conan_package.tgz completed [0.00k]
-        openssl/1.0.2t: Package installed eb50d18a5a5d59bd0c332464a4c348ab65e353bf
-        openssl/1.0.2t: Downloaded package revision 0
+        ...
         poco/1.9.4: Retrieving package 645aaff0a79e6036c77803601e44677556109dd9 from remote 'conan-center'
         Downloading conanmanifest.txt completed [48.75k]
         Downloading conaninfo.txt completed [2.44k]
@@ -165,8 +171,19 @@ An MD5 hash calculator using the Poco Libraries
         conanfile.txt: Generated graphinfo
 
 
-    Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL and zlib. It has also generated a
-    *conanbuildinfo.cmake* file for our build system.
+   Conan installed our Poco dependency but also the **transitive dependencies** for it: OpenSSL, zlib, sqlite and others.
+   It has also generated a *conanbuildinfo.cmake* file for our build system.
+
+   .. warning::
+
+    There are prebuilt binaries for several mainstream compilers and versions available in Conan Center repository,
+    such as Visual Studio 14, 15, Linux GCC 4.9 and Apple Clang 3.5. Up to >130 different binaries for different
+    configurations can be available in ConanCenter.
+    But if your current configuration is not pre-built in ConanCenter, Conan will raise a "BinaryMissing" error. Please
+    read carefully the error messages. You can build the binary package from sources using :command:`conan install .. --build=missing`,
+    it will succeed if your configuration is supported by the recipe (it is possible that some ConanCenter recipes fail to
+    build for some platforms). You will find more info in the :ref:`getting_started_other_configurations` section.
+
 
 6. Now let's create our build file. To inject the Conan information, include the generated *conanbuildinfo.cmake* file like this:
 
@@ -184,7 +201,12 @@ An MD5 hash calculator using the Poco Libraries
         add_executable(md5 md5.cpp)
         target_link_libraries(md5 ${CONAN_LIBS})
 
-7. Now we are ready to build and run our Encrypter app:
+    .. note::
+
+        There are other integrations with CMake, like the ``cmake_find_package`` generators, that will
+        use the ``find_package`` CMake syntax.
+
+7. Now we are ready to build and run our MD5 app:
 
     .. code-block:: bash
 
@@ -200,6 +222,7 @@ An MD5 hash calculator using the Poco Libraries
         $ ./bin/md5
         c3fcd3d76192e4007dfb496cca67e13b
 
+
 Installing Dependencies
 -----------------------
 
@@ -209,6 +232,7 @@ command), **together with other (transitively required by Poco) libraries, like 
 requirements and optional information is saved.
 
 .. note::
+
     Conan generates a :ref:`default profile <default_profile>` with your detected settings (OS, compiler, architecture...) and that
     configuration is printed at the top of every :command:`conan install` command. However, it is strongly recommended to review it and
     adjust the settings to accurately describe your system as shown in the :ref:`getting_started_other_configurations` section.
@@ -225,16 +249,12 @@ For example, the command :command:`conan install .. --settings os="Linux" --sett
 
 - Checks if the package recipe (for ``poco/1.9.4`` package) exists in the local cache. If we are just starting, the
   cache is empty.
-- Looks for the package recipe in the defined remotes. Conan comes with `conan-center`_ Bintray remote as the default, but can be changed.
-- If the recipe exists, the Conan client fetches and stores it in your local cache.
+- Looks for the package recipe in the defined remotes. Conan comes with ``conan-center`` remote as the default, but can be changed.
+- If the recipe exists, the Conan client fetches and stores it in your local Conan cache.
 - With the package recipe and the input settings (Linux, GCC), Conan looks for the corresponding binary in the local cache.
-- Then Conan searches the corresponding binary package in the remote and fetches it.
+- As the binary is not found in the cache, Conan looks for it in the remote and fetches it.
 - Finally, it generates an appropriate file for the build system specified in the ``[generators]`` section.
 
-There are binaries for several mainstream compilers and versions available in Conan Center repository in Bintray, such as Visual Studio 14,
-15, Linux GCC 4.9 and Apple Clang 3.5... Conan will throw an error if the binary package required for specific settings doesn't exist. You
-can build the binary package from sources using :command:`conan install .. --build=missing`, it will succeed if your configuration is
-supported by the recipe. You will find more info in the :ref:`getting_started_other_configurations` section.
 
 Inspecting Dependencies
 -----------------------
@@ -251,6 +271,7 @@ local cache run:
     openssl/1.0.2t
     poco/1.9.4
     zlib/1.2.11
+    ...
 
 To inspect the different binary packages of a reference run:
 
@@ -342,32 +363,24 @@ Or generate a graph of your dependencies using Dot or HTML formats:
     $ file.html # or open the file, double-click
 
 .. image:: /images/conan-info_deps_html_graph.png
-    :height: 310 px
-    :width: 200 px
+    :width: 400 px
     :align: center
+
 
 Searching Packages
 ------------------
 
-The remote repository where packages are installed from is configured by default in Conan. It is called Conan Center (configured as
-:command:`conan-center` remote) and it is located in Bintray_.
+The remote repository where packages are installed from is configured by default in Conan. It is called Conan Center
+(configured as `conan-center` remote).
 
-You can search packages in Conan Center using this command:
+If we search for something like ``open`` in `ConanCenter <https://conan.io/center>`_ we could find different packages like:
 
 .. code-block:: bash
 
-    $ conan search "open*" --remote=conan-center
-    Existing package recipes:
-
     openal/1.18.2@bincrafters/stable
-    openal/1.19.0@bincrafters/stable
     openal/1.19.1
     opencv/2.4.13.5@conan/stable
     opencv/3.4.3@conan/stable
-    opencv/3.4.5@conan/stable
-    opencv/4.0.0@conan/stable
-    opencv/4.0.1@conan/stable
-    opencv/4.1.0@conan/stable
     opencv/4.1.1@conan/stable
     openexr/2.3.0
     openexr/2.3.0@conan/stable
@@ -381,14 +394,18 @@ You can search packages in Conan Center using this command:
 As you can see, some of the libraries end with a ``@`` symbol followed by two strings separated by a
 slash. These fields are the :ref:`user and channel <user_channel>` for the Conan package, and they are
 useful if you want to make specific changes and disambiguate your modified recipe from the one in the
-Conan Center or any other remote.
+Conan Center or any other remote. These are legacy packages, and the ones without user
+and channel are the ones strongly recommended to use from ConanCenter.
 
-There are additional community repositories that can be configured and used. See :ref:`Bintray Repositories <bintray_repositories>` for more
-information.
+ConanCenter is the central public repository for Conan packages. You can contribute packages to it in
+the `conan-center-index Github repository <https://github.com/conan-io/conan-center-index>`_.
+If you want to store your own private packages, you can download the free Artifactory Community Edition (CE)
+directly from the `Conan downloads page <https://conan.io/downloads>`_.
 
 .. _getting_started_other_configurations:
 
-Building with Other Configurations
+
+Building with other configurations
 ----------------------------------
 
 In this example, we have built our project using the default configuration detected by Conan. This configuration is known as the
@@ -398,7 +415,7 @@ A profile needs to be available prior to running commands such as :command:`cona
 automatically detected (compiler, architecture...) and stored as the default profile. You can edit these settings
 *~/.conan/profiles/default* or create new profiles with your desired configuration.
 
-For example, if we have a profile with a 32-bit GCC configuration in a profile called *gcc_x86*, we can run the following:
+For example, if we have a profile with a 32-bit GCC configuration in a file called *gcc_x86*, we can run the following:
 
 .. code-block:: bash
 
@@ -416,7 +433,8 @@ parameter. As an exercise, try building the 32-bit version of the hash calculato
     $ conan install .. --settings arch=x86
 
 The above command installs a different package, using the :command:`--settings arch=x86` instead of the one of the default profile used
-previously.
+previously. Note you might need to install extra compilers or toolchains in some platforms, as for example, Linux distributions
+no longer install 32bits toolchains by default.
 
 To use the 32-bit binaries, you will also have to change your project build:
 
@@ -434,9 +452,7 @@ Got any doubts? Check our :ref:`faq`, |write_us| or join the community in `Cppla
 
 .. _`Poco`: https://pocoproject.org/
 
-.. _`conan-center`: https://bintray.com/conan/conan-center
-
-.. _`Bintray`: https://bintray.com/conan/conan-center
+.. _`conan-center`: https://conan.io/center
 
 .. _`Cpplang Slack`: https://cpplang-inviter.cppalliance.org/
 
