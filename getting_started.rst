@@ -58,7 +58,7 @@ An MD5 hash calculator using the Poco Libraries
    .. note::
 
     The Conan client contains a command to search in remote repositories, and we could
-    try ``$ conan search poco --remote=conan-center``. You can perfectly use this command to search in your
+    try :command:`$ conan search poco --remote=conan-center`. You can perfectly use this command to search in your
     own repositories, but note that at the moment this might timeout in ConanCenter. The infrastructure is being
     improved to support this command too, but meanwhile using the `ConanCenter UI <https://conan.io/center>`_
     is recommended.
