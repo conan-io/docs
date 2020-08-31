@@ -204,7 +204,7 @@ An MD5 hash calculator using the Poco Libraries
     .. note::
 
         There are other integrations with CMake, like the ``cmake_find_package`` generators, that will
-        use the ``find_package`` CMake syntax.
+        use the ``find_package()`` CMake syntax.
 
 7. Now we are ready to build and run our MD5 app:
 
