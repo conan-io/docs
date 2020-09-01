@@ -1395,7 +1395,7 @@ Wrapper of the ``pkg-config`` tool.
 
     from conans import tools
 
-    with environment_append({'PKG_CONFIG_PATH': tmp_dir}):
+    with tools.environment_append({'PKG_CONFIG_PATH': tmp_dir}):
         pkg_config = PkgConfig("libastral")
         print(pkg_config.version)
         print(pkg_config.cflags)

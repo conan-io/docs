@@ -36,7 +36,7 @@ For instance, in order to cross-compile for ``ARMv8``, the following conan profi
   [options]
   [env]
 
-.. note:: 
+.. note::
 
    In addition to the above, Windows users may need to specify ``CONAN_MAKE_PROGRAM``,
    for instance from the existing MinGW installation (e.g. ``C:\MinGW\bin\mingw32-make.exe``), or use make from the ``mingw_installer/1.0@conan/stable``.
@@ -61,7 +61,7 @@ Similar profile might be used to cross-compile for ``ARMv7`` (notice the ``arch`
 
 By adjusting ``arch`` setting, you may cross-compile for ``x86`` and ``x86_64`` Android as well (e.g. if you need to run code in a simulator).
 
-.. note:: 
+.. note::
 
   ``os.api_level`` is an important setting which affects compatibility - it defines the **minimum** Android version supported.
   In other words, it is the same meaning as `minSdkVersion <https://developer.android.com/guide/topics/manifest/uses-sdk-element>`_.
@@ -79,7 +79,7 @@ Currently, Conan Docker Tools provide the following Android images:
 - conanio/android-clang8-armv7
 - conanio/android-clang8-armv8
 
-All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed, with required environment variables 
+All above mentioned images have corresponding `Android NDK <https://developer.android.com/ndk>`_ installed, with required environment variables
 set and with default conan profile configured for android cross-building. Therefore, these images might be especially useful for CI systems.
 
 Using existing NDK
