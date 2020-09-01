@@ -1174,6 +1174,26 @@ Converts line breaks in a text file from DOS format (CRLF) to Unix format (LF).
 Parameters:
     - **filepath** (Required): The file to convert.
 
+.. _tools_rename:
+
+tools.rename()
+----------------------------
+
+.. code-block:: python
+
+    def rename(src, dst)
+
+Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on windows. This function renames file or folder using robocopy to avoid the exception on windows. 
+
+.. code-block:: python
+
+    from conans import tools
+    tools.rename("src_dir", "dst_dir") # renaming a folder
+
+Parameters:
+    - **src** (Required): Path to be renamed.
+    - **dst** (Required): Path to be renamed to.
+
 .. tools_tocuh:
 
 tools.touch()
