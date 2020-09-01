@@ -19,8 +19,43 @@ etc.
 
 .. important::
 
-    Conan 1.28 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.29.0 (01-Sept-2020)
+---------------------
+
+- Feature: Add QNX Neutrino version 7.1 to settings. `#7627 <https://github.com/conan-io/conan/pull/7627>`_
+- Feature: Added support for `cpp_info.system_libs`, `cpp_info.framework_paths` and `cpp_info.frameworks` for ``qbs`` generator. `#7619 <https://github.com/conan-io/conan/pull/7619>`_
+- Feature: Provide useful information trying to compute the build order using a `--base` lockfile. `#7551 <https://github.com/conan-io/conan/pull/7551>`_
+- Feature: Add `user_info_build` field to JSON generator. `#7550 <https://github.com/conan-io/conan/pull/7550>`_
+- Feature: `PkgConfig` tools now exposes the packages's version as property. `#7534 <https://github.com/conan-io/conan/pull/7534>`_ . Docs `here <https://github.com/conan-io/docs/pull/1820>`__
+- Feature: Support from iOS 13.2 to 13.6. `#7507 <https://github.com/conan-io/conan/pull/7507>`_ . Docs `here <https://github.com/conan-io/docs/pull/1800>`__
+- Feature: Add an experimental toolchain for gnu make. `#7430 <https://github.com/conan-io/conan/pull/7430>`_ . Docs `here <https://github.com/conan-io/docs/pull/1808>`__
+- Feature: New ``tools.rename`` function to rename a file or folder to avoid 'Access is denied' on Windows. `#6774 <https://github.com/conan-io/conan/pull/6774>`_ . Docs `here <https://github.com/conan-io/docs/pull/1646>`__
+- Fix: Fix `conan info --build-order` deprecation message. `#7632 <https://github.com/conan-io/conan/pull/7632>`_
+- Fix: Set CMake targets compile options based on language `#7600 <https://github.com/conan-io/conan/pull/7600>`_
+- Fix: Support installing configs from non-regular files. `#7583 <https://github.com/conan-io/conan/pull/7583>`_ . Docs `here <https://github.com/conan-io/docs/pull/1818>`__
+- Fix: Update docs in `conan info -bo` command. `#7570 <https://github.com/conan-io/conan/pull/7570>`_
+- Fix: Relax python six dependency to allow 1.15. `#7538 <https://github.com/conan-io/conan/pull/7538>`_
+- Fix: Add pre-release versions when resolving `required_conan_version`. `#7535 <https://github.com/conan-io/conan/pull/7535>`_
+- Fix: Adds support of URL-like git ssh syntax. `#7509 <https://github.com/conan-io/conan/pull/7509>`_
+- Fix: Improve message of missing dependencies for components. `#7483 <https://github.com/conan-io/conan/pull/7483>`_
+- Fix: Changed _requirements.txt_ to include distro package version 1.5.0. `#7461 <https://github.com/conan-io/conan/pull/7461>`_
+- Fix: Avoid requiring the existence of all ``conanbuildinfo_xxx.cmake`` files in ``cmake_multi`` generator. `#7376 <https://github.com/conan-io/conan/pull/7376>`_
+- Bugfix: Fix `cpp_info` filename in FindPackageHandleStandardArgs for cmake_find_package generator. `#7610 <https://github.com/conan-io/conan/pull/7610>`_
+- Bugfix: Avoid marking as "modified" packages in a lockfile computed from a base lockfile. `#7592 <https://github.com/conan-io/conan/pull/7592>`_
+- Bugfix: Update correctly "Package_ID_Unknown" nodes when using ``conan lock update`` and ``package_revision_mode``. `#7592 <https://github.com/conan-io/conan/pull/7592>`_
+- Bugfix: consider `/usr/bin/cc` and `usr/bin/c++` for compiler auto-detection. `#7586 <https://github.com/conan-io/conan/pull/7586>`_
+- Bugfix: Respect `winsdk_version` for WindowsStore. `#7584 <https://github.com/conan-io/conan/pull/7584>`_
+- Bugfix: Fix frameworks usage with components for `cmake_find_package_multi` generator. `#7580 <https://github.com/conan-io/conan/pull/7580>`_
+- Bugfix: Support `frameworks` and `framework_paths` in _qmake_ generator. `#7579 <https://github.com/conan-io/conan/pull/7579>`_
+- Bugfix: Provide a more descriptive error when an unknown statement is added to a profile `#7577 <https://github.com/conan-io/conan/pull/7577>`_
+- Bugfix: Add support for `cpp_info.system_libs` to _QMake_ generator. `#7563 <https://github.com/conan-io/conan/pull/7563>`_
+- Bugfix: Make frogarian show up as a whole (not sliced) on linux terminal. `#7553 <https://github.com/conan-io/conan/pull/7553>`_
+- Bugfix: Fix import of `collections.Iterable` compatible with Python2. `#7545 <https://github.com/conan-io/conan/pull/7545>`_
+- Bugfix: Propagate the global version of the recipe for components. `#7524 <https://github.com/conan-io/conan/pull/7524>`_
+- Bugfix: Use `CMAKE_FIND_ROOT_PATH_BOTH` to locate frameworks. `#7515 <https://github.com/conan-io/conan/pull/7515>`_
 
 1.28.2 (31-Aug-2020)
 --------------------
