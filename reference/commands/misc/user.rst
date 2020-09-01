@@ -43,11 +43,9 @@ perform changes in remote packages.
   .. code-block:: bash
 
       $ conan user
-      Current user of remote 'conan-center' set to: 'danimtb' [Authenticated]
-      Current user of remote 'bincrafters' set to: 'None' (anonymous)
-      Current user of remote 'upload_repo' set to: 'danimtb' [Authenticated]
-      Current user of remote 'conan-community' set to: 'danimtb' [Authenticated]
-      Current user of remote 'the_remote' set to: 'None' (anonymous)
+      Current user of remote 'conan-center' set to: 'None' (anonymous)
+      Current user of remote 'myprivateremote' set to: 'danimtb' [Authenticated]
+      Current user of remote 'otherremote' set to: 'None' (anonymous)
 
 - Change **bar** remote user to **foo**:
 
@@ -107,11 +105,11 @@ This applies also to the ``conan user`` command, if you want to force the authen
 scripts, without requiring to put the password in plain text, the following can be done:
 
 
-.. code-block:: bash    
+.. code-block:: bash
 
       $ conan user --clean  # remove previous auth tokens
       $ export CONAN_PASSWORD=mypassword
-      $ conan user mysyusername -p -r=myremote 
+      $ conan user mysyusername -p -r=myremote
       Please enter a password for "mysusername" account: Got password '******' from environment
       Changed user of remote 'myremote' from 'None' (anonymous) to 'mysusername'
       $ conan upload zlib* -r=myremote --all --confirm
@@ -124,5 +122,5 @@ can be defined to guarantee that an error will be raise if user input is require
 builds.
 
 Note that defining ``CONAN_LOGIN_USERNAME`` and/or ``CONAN_PASSWORD`` do not perform in any case an
-authentication request against the server. Only when the server request credentials 
+authentication request against the server. Only when the server request credentials
 (or a explicit :command:`conan user -p` is done), they will be used as an alternative source rather than interactive user input. This means that for servers like Artifactory that allow enabling *"Hide Existence of Unauthorized Resource"* modes, it will be necessary to explicitly call :command:`conan user -p` before downloading or uploading anything from the server, otherwise, Artifactory will return 404 errors instead of requesting authentication.
