@@ -22,7 +22,7 @@ etc.
     Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
-1.29.0 (01-Sept-2020)
+1.29.0 (02-Sept-2020)
 ---------------------
 
 - Feature: Add QNX Neutrino version 7.1 to settings. `#7627 <https://github.com/conan-io/conan/pull/7627>`_
@@ -46,7 +46,6 @@ etc.
 - Bugfix: Fix `cpp_info` filename in FindPackageHandleStandardArgs for cmake_find_package generator. `#7610 <https://github.com/conan-io/conan/pull/7610>`_
 - Bugfix: Avoid marking as "modified" packages in a lockfile computed from a base lockfile. `#7592 <https://github.com/conan-io/conan/pull/7592>`_
 - Bugfix: Update correctly "Package_ID_Unknown" nodes when using ``conan lock update`` and ``package_revision_mode``. `#7592 <https://github.com/conan-io/conan/pull/7592>`_
-- Bugfix: consider `/usr/bin/cc` and `usr/bin/c++` for compiler auto-detection. `#7586 <https://github.com/conan-io/conan/pull/7586>`_
 - Bugfix: Respect `winsdk_version` for WindowsStore. `#7584 <https://github.com/conan-io/conan/pull/7584>`_
 - Bugfix: Fix frameworks usage with components for `cmake_find_package_multi` generator. `#7580 <https://github.com/conan-io/conan/pull/7580>`_
 - Bugfix: Support `frameworks` and `framework_paths` in _qmake_ generator. `#7579 <https://github.com/conan-io/conan/pull/7579>`_
