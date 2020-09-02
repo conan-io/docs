@@ -41,7 +41,7 @@ For distribution:
 Conan-center
 -------------
 
-**Conan-center** (https://bintray.com/conan/conan-center) is the main official repository for open source
+**Conan-center** (https://conan.io/center) is the main official repository for open source
 Conan packages. It is configured as the default remote in the Conan client, but if you want to add it manually:
 
 .. code-block:: bash
@@ -53,7 +53,11 @@ There are 2 different types of packages right now in Conan-center:
 
 - **Packages with full reference**: Packages like `pkg/version@user/channel`. These packages binaries were created by users in their own
   Bintray repositories, and included here. This flow of contributing packages to Conan-center is deprecated now.
-- **Packages without "user/channel"**: Can be used directly as `pkg/version`: These packages are created automatically from the central Github repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_, with an automated build service: C3I (Conan-Center Continuous Integration)
+  These packages are not recommended and should be considered as legacy.
+- **Packages without "user/channel"**: Can be used directly as `pkg/version`: These packages are created
+  automatically from the central Github repository `conan-center-index <https://github.com/conan-io/conan-center-index>`_,
+  with an automated build service: C3I (Conan-Center Continuous Integration). These packages are the recommended
+  ones to use from ConanCenter.
 
 To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
 
@@ -62,7 +66,7 @@ Bintray Community Repositories
 ------------------------------
 
 There are a number of popular community repositories that may be of interest for Conan users for retrieving
-open source packages. A number of these repositories are not affiliated with the Conan team.
+open source packages. These repositories are not affiliated with the Conan team.
 
 Bincrafters
 +++++++++++
@@ -84,18 +88,11 @@ Bincrafters
 Conan Community
 +++++++++++++++
 
-**conan-community** : https://bintray.com/conan-community/conan
+.. warning::
 
-.. pull-quote::
-
-    Created by Conan developers, and should be considered an incubator for maturing packages before contacting authors or including them in
-    `conan-center`_. This repository contains work-in-progress packages that may still not work and may not be fully featured.
-
-    Use the following command to add this remote to Conan:
-
-    .. code-block:: bash
-
-        $ conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+    The conan community repository is deprecated and no longer maintained. Packages in this repository
+    have been moved or are in the process of being added to `conan-center-index <https://github.com/conan-io/conan-center-index>`_
+    and served in `ConanCenter <https://conan.io/center>`_.
 
 .. note::
 

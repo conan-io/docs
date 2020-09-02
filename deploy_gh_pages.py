@@ -109,7 +109,8 @@ if __name__ == "__main__":
         copytree("_themes", themes_dir)
 
         clean_gh_pages()
-        versions_dict = {"master": "1.28",
+        versions_dict = {"master": "1.29",
+                         "release/1.28.2": "1.28",
                          "release/1.27.1": "1.27",
                          "release/1.26.1": "1.26",
                          "release/1.25.2": "1.25",

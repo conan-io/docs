@@ -59,7 +59,7 @@ The output JSON contains a two first level keys:
                 }
             }]
         }, {
-            "remote": "conan-community",
+            "remote": "otherremote",
             "items": [{
                 "recipe": {
                     "id": "eigen/3.3.4@conan/stable"
