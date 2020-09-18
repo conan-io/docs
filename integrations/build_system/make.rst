@@ -4,8 +4,9 @@ Make
 ====
 
 Conan provides two integrations for plain Makefiles:
-#. The :ref:`Make generator<make_generator>`
-#. The :ref:`Make toolchain<make_toolchain>`
+
+ | The :ref:`Make generator<make_generator>`
+ | The :ref:`Make toolchain<make_toolchain>` (experimental)
 
 Refer to the links above for more detail about each of them. Here we provide a
 high-level explanation of how these integrations are meant to be used. 
@@ -158,5 +159,6 @@ Now you can run your application with ``./main``.
 
 .. seealso::
 
-    Complete reference for :ref:`Make generator<make_generator>`
-    Complete reference for :ref:`Make toolchain<make_toolchain>`
+    | Complete reference for :ref:`Make generator<make_generator>`
+    | Complete reference for :ref:`Make toolchain<make_toolchain>` (experimental)
+
