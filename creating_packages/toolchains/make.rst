@@ -143,7 +143,7 @@ This attribute allows defining preprocessor definitions the same way that build 
 
 This will be translated to:
 
-- ``-DMYVAR=MYVAL`` being appended to the ``CONAN_CPPFLAGS`` variable
+- ``-DMYVAR=MYVAL`` being appended to the ``CONAN_TC_CPPFLAGS`` variable
 
 
 generators
@@ -196,7 +196,7 @@ This toolchain should not be used together with the existing
 ``AutoToolsBuildEnvironment`` build helper in Conan at this time. They perform a
 number of similar and probably conflicting operations on the standard
 **GnuMake** variables. There is a goal to continue adding features to this
-toolchain until is achieves feature pairity with ``AutoToolsBuildEnvironment``
+toolchain until is achieves feature parity with ``AutoToolsBuildEnvironment``
 which will take some time. During that process, we'll be trying to determine if
 it's desirable and feasible to make the two co-exist and/or even work together.
 At this time, it's unclear. 
