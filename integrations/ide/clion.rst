@@ -1,8 +1,13 @@
 .. _clion:
 
+.. meta::
+   :subject: CLion Conan Plugin
+   :description: An official Jetbrains Conan plugin for Clion. CLion uses CMake as the build system of projects, so you can use the CMake generator to manage your requirements
+   :keywords: conan, clion, jetbrains, plugin
+
 
 |clion_logo| CLion
-___________________
+__________________
 
 
 Conan-Clion plugin
