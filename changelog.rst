@@ -22,6 +22,11 @@ etc.
     Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.29.2 (18-Sept-2020)
+---------------------
+
+- Feature: Add support for apple-clang 12.0. `#7722 <https://github.com/conan-io/conan/pull/7722>`_ . Docs `here <https://github.com/conan-io/docs/pull/1843>`__
+
 1.29.1 (17-Sept-2020)
 ---------------------
 
