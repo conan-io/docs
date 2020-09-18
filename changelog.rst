@@ -22,6 +22,14 @@ etc.
     Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.29.1 (17-Sept-2020)
+---------------------
+
+- Bugfix: Fix ``pkg_config`` generator adding to .pc files empty include and lib dirs. `#7703 <https://github.com/conan-io/conan/pull/7703>`_
+- Bugfix: Fix non existing (failed import) ``tools.remove_files_by_mask``. `#7700 <https://github.com/conan-io/conan/pull/7700>`_
+- BugFix: Removed lockfile checking build_requires when they come from 2 different origins: profiles and recipes. `#7698 <https://github.com/conan-io/conan/pull/7698>`_
+- Bugfix: CMake build helper: Use actual CMake generator version to append platform generator, instead of the Conan setting `compiler.version`. `#7684 <https://github.com/conan-io/conan/pull/7684>`_
+
 1.29.0 (02-Sept-2020)
 ---------------------
 
