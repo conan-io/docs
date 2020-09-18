@@ -16,3 +16,8 @@ Contents:
    build_helpers/visual_studio
    build_helpers/meson
    build_helpers/run_environment
+
+.. important::
+
+    If you need a build helper for any other tools, please check how you can create your own
+    :ref:`custom_build_helper`.

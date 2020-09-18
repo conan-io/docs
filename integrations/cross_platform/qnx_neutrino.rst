@@ -3,7 +3,7 @@
 |qnx_neutrino_logo| QNX Neutrino
 ________________________________
 
-It's possible to cross-compile packages for `QNX Neutrino <https://blackberry.qnx.com/en/software-solutions/embedded-software/industrial/qnx-neutrino-rtos>`__ operating
+It's possible to cross-compile packages for `QNX Neutrino <https://blackberry.qnx.com/en/software-solutions/embedded-software/qnx-neutrino-rtos>`__ operating
 with Conan.
 
 Conan has support for QNX Neutrino 6.x and 7.x. The following architectures are supported:
