@@ -162,7 +162,7 @@ it seems at first sight, or from the observation of the graph above. It shows th
 has a dependency to ``libb/0.1``, does it means that a new ``libb/0.2`` should produce a re-build
 of ``libd/0.1`` to link with the new version? Not always, if ``libd`` had a pinned dependency
 and not a version range, it will never resolve to the new version, and then it doesn't and it
-cannot be rebuil unless some developer do some changes to ``libd`` and bump the requirement.
+cannot be rebuilt unless some developer makes some changes to ``libd`` and bumps the requirement.
 
 In this example, ``libd`` contains a version range, and if we evaluate it, we will see that the
 new ``libb/0.2`` version lies within the range, and then yes, it needs a new binary to be built,
