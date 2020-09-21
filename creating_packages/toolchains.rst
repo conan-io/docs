@@ -101,3 +101,4 @@ Built-in toolchains
    :maxdepth: 2
 
    toolchains/cmake
+   toolchains/make
