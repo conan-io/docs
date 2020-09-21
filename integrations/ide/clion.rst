@@ -3,12 +3,12 @@
 |clion_logo| CLion Plugin
 _________________________
 
-An official Jetbrains Conan plugin for Clion. CLion uses CMake as the build system of projects, so you can use the CMake generator to manage your requirements.
+An official Jetbrains Conan plugin for CLion. CLion uses CMake as the build system of projects, so you can use the CMake generator to manage your requirements.
 
 |clion_plugin|
 
 There is an `official Jetbrains plugin <https://plugins.jetbrains.com/plugin/11956-conan>`_ Conan
-plugin for Clion.
+plugin for CLion.
 
 You can read how to use it in the following `blog post <https://blog.jetbrains.com/clion/2019/05/getting-started-with-the-conan-clion-plugin/>`_
 
