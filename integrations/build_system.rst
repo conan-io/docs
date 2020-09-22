@@ -25,6 +25,7 @@ Conan can be integrated with any build system. This can be done with:
    build_system/b2
    build_system/qmake
    build_system/premake
+   build_system/xmake
    build_system/make
    build_system/qbs
    build_system/meson
