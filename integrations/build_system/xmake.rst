@@ -1,16 +1,18 @@
 .. xmake:
 
 XMake
-======
+=========
 
 
 Install third-party packages:
-----
+-------
 
-After version 2.2.5, xmake supports support for dependency libraries in third-party package managers, such as: conan, brew, vcpkg, clib and etc.
+After version 2.2.5, xmake supports support for dependency libraries in third-party package managers.
 
-.. code-block:: text
-   :caption: *xmake.lua*
+.. code-block:: lua
+   :caption: xmake.lua
+    
+    -- xmake.lua
     
     add_requires("CONAN::zlib/1.2.11@conan/stable", {alias = "zlib", debug = true})
     add_requires("CONAN::OpenSSL/1.0.2n@conan/stable", {alias = "openssl",
@@ -41,21 +43,20 @@ After executing xmake to compile:
     [  0%]: ccache compiling.release src/main.c
     [100%]: linking.release test
 
----
 
 Find the conan package
-----
+-------
 
 XMake v2.2.6 and later versions also support finding the specified package from the conan:
 
-.. code-block:: text
-   :caption: *xmake.lua*
+.. code-block:: lua
+   :caption: xmake.lua
     
     ...
     find_packages("conan::OpenSSL/1.0.2n@conan/stable")
 
 Test command for finding package
-----
+-------
 
 We can also add a third-party package manager prefix to test:
 
