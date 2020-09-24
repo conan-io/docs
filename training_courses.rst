@@ -14,7 +14,7 @@ critical thinking after each section.
 For additional information about the Conan training series, see the original
 blog post announcement here:  
 
-- https://blog.conan.io/2020/09/22/New-conan-training-series.html
+- https://blog.conan.io/2020/09/24/New-conan-training-series.html
 
 For the complete list of dedicated Conan courses, see the Conan series page
 here:  
