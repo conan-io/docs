@@ -15,7 +15,7 @@ After version 2.2.5, xmake supports support for dependency libraries in third-pa
     -- xmake.lua
     
     add_requires("conan::zlib/1.2.11@conan/stable", {alias = "zlib", debug = true})
-    add_requires("conan::OpenSSL/1.0.2s@conan/stable", {alias = "openssl",
+    add_requires("conan::openssl/1.1.1g", {alias = "openssl",
         configs = {options = "OpenSSL:shared=True"}})
     
     target("test")
@@ -34,11 +34,11 @@ After executing xmake to compile:
     checking for the SDK version of Xcode ... 10.14
     note: try installing these packages (pass -y to skip confirm)?
       -> conan::zlib/1.2.11@conan/stable  (debug)
-      -> conan::OpenSSL/1.0.2s@conan/stable  
+      -> conan::openssl/1.1.1g  
     please input: y (y/n)
 
       => installing conan::zlib/1.2.11@conan/stable .. ok
-      => installing conan::openssl/1.0.2s@conan/stable .. ok
+      => installing conan::openssl/1.1.1g .. ok
 
     [  0%]: ccache compiling.release src/main.c
     [100%]: linking.release test
@@ -53,7 +53,7 @@ XMake v2.2.6 and later versions also support finding the specified package in th
    :caption: xmake.lua
     
     ...
-    find_packages("conan::openssl/1.0.2s@conan/stable")
+    find_packages("conan::openssl/1.1.1g")
 
 Test command for finding package
 --------------------------------
@@ -62,7 +62,7 @@ We can also add a third-party package manager prefix to test:
 
 .. code-block:: bash
     
-    xmake l find_packages conan::openssl/1.0.2s@conan/stable
+    xmake l find_packages conan::openssl/1.1.1g
 
 **Note:** It should be noted that if the find_package command is executed in the project directory with xmake.lua, there will be a cache.
 If the search fails, the next lookup will also use the cached result. If you want to force a retest every time,
