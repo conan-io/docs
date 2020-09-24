@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    introduction
+   training_courses
    installation
    getting_started
    using_packages
