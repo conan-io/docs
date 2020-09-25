@@ -20,8 +20,9 @@ to any remote with the 'conan upload' command.
     positional arguments:
       path                  Path to a folder containing a conanfile.py or to a
                             recipe file e.g., my_folder/conanfile.py
-      reference             user/channel, or Pkg/version@user/channel (if name and
-                            version are not declared in the conanfile.py
+      reference             user/channel, Pkg/version@user/channel (if name and
+                            version are not declared in the conanfile.py) or
+                            Pkg/version@ if user/channel is not relevant.
 
     optional arguments:
       -h, --help            show this help message and exit
@@ -48,7 +49,7 @@ The ``reference`` field can be:
 - The version, user and channel: ``version@user/channel``. The recipe must provide the name, and if it
   does provide the version, it should match the command line one.
 
-There is also a "recipe_linter" hook in the `official hooks repository <https://github.com/conan-io/hooks>`_ 
+There is also a "recipe_linter" hook in the `official hooks repository <https://github.com/conan-io/hooks>`_
 that can be activated to run automatic linter checks on the recipes when they are exported.
 
 **Examples**
@@ -59,6 +60,13 @@ that can be activated to run automatic linter checks on the recipes when they ar
   .. code-block:: bash
 
       $ conan export . mylib/1.0@myuser/channel
+
+- Same as above, but without any ``user/channel``. The ending ``@`` is here to disambiguate from the
+  ``user/channel`` part:
+
+  .. code-block:: bash
+
+      $ conan export . mylib/1.0@
 
 - Export a recipe from any folder directory, under the ``myuser/stable`` user and channel:
 
