@@ -1,13 +1,13 @@
 .. xmake:
 
-XMake
-======
+|xmake_logo| XMake
+==================
 
 
 Install third-party packages:
 -----------------------------
 
-After version 2.2.5, xmake supports support for dependency libraries in third-party package managers.
+After version 2.2.5, xmake supports installing for dependency libraries of conan package manager.
 
 .. code-block:: lua
    :caption: xmake.lua
@@ -63,6 +63,8 @@ We can also add a third-party package manager prefix to test:
 .. code-block:: bash
     
     xmake l find_packages conan::openssl/1.1.1g
+
+.. |xmake_logo| image:: ../../images/conan-xmake_logo.png
 
 **Note:** It should be noted that if the find_package command is executed in the project directory with xmake.lua, there will be a cache.
 If the search fails, the next lookup will also use the cached result. If you want to force a retest every time,
