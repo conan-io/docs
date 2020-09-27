@@ -1357,7 +1357,7 @@ revision_mode
     it is also an **experimental** feature subject to breaking changes in future releases.
 
 This attribute allow each recipe to declare how the revision for the recipe itself should
-be computed. It can take three different values:
+be computed. It can take two different values:
 
  - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
    compute the revision for the recipe.
