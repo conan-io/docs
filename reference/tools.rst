@@ -1794,6 +1794,10 @@ Parameters:
 tools.compilervars_command()
 ----------------------------
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
@@ -1833,6 +1837,10 @@ Parameters:
 tools.compilervars_dict()
 -------------------------
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     def compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
@@ -1864,6 +1872,10 @@ Parameters:
 tools.compilervars()
 --------------------
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     def compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
@@ -1883,6 +1895,10 @@ This is a context manager that allows to append to the environment all the varia
 
 tools.intel_installation_path()
 -------------------------------
+
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
 
 .. code-block:: python
 
