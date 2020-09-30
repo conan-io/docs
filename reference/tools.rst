@@ -1817,6 +1817,10 @@ Parameters:
 tools.compilervars_command()
 ----------------------------
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
@@ -1856,6 +1860,10 @@ Parameters:
 tools.compilervars_dict()
 -------------------------
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     def compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
@@ -1887,6 +1895,10 @@ Parameters:
 tools.compilervars()
 --------------------
 
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
 .. code-block:: python
 
     def compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
@@ -1901,6 +1913,33 @@ This is a context manager that allows to append to the environment all the varia
     def build(self):
         with tools.compilervars(self.settings):
             do_something()
+
+.. tools_intel_installation_path:
+
+tools.intel_installation_path()
+-------------------------------
+
+.. warning::
+
+      This is an **experimental** feature subject to breaking changes in future releases.
+
+.. code-block:: python
+
+    def intel_installation_path(version, arch)
+
+Returns the Intel Compiler installation path for the given version and target arch. If the tool is not able to return the path it will raise a
+``ConanException``.
+
+.. code-block:: python
+
+    from conans import tools
+
+    intel_path_2020 = tools.intel_installation_path("19.1", "x86")
+
+Parameters:
+    - **version** (Required): Intel Compiler version to locate. Valid version numbers are strings: ``"15"``, ``"16"``, ``"17"``, ``"18"``,
+      ``"19"``, ``"19.1"``...
+    - **arch** (Required): Intel Compiler target arch. Valid archs are ``"x86"`` and ``"x86_64"``.
 
 .. _tools.remove_files_by_mask:
 
