@@ -392,8 +392,6 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         jars = self.deps_user_info["Pkg"].jars
         jar_list = jars.replace(" ", "").split(",")
 
-.. _method_configure_config_options:
-
 
 set_name(), set_version()
 --------------------------
@@ -444,6 +442,9 @@ The ``self.recipe_folder`` attribute is only defined in these two methods.
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
+
+
+.. _method_configure_config_options:
 
 
 configure(), config_options()
