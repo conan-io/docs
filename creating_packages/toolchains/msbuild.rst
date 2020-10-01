@@ -47,7 +47,7 @@ Generators
 ----------
 
 The ``MSBuildToolchain`` only works with the ``msbuild`` generator.
-Do not use other generators, as they can have overlapping definitions that can conflict.
+Please, do not use other generators, as they can have overlapping definitions that can conflict.
 
 
 Using the toolchain in developer flow
