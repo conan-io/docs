@@ -43,7 +43,7 @@ The toolchain files can configure:
 - The C++ standard, obtained from Conan input settings
 
 
-generators
+Generators
 ----------
 
 The ``MSBuildToolchain`` only works with the ``msbuild`` generator.
