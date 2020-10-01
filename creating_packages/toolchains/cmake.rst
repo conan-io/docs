@@ -60,8 +60,8 @@ Most of the arguments are optional and will be deduced from the current ``settin
 necessary to define them.
 
 
-definitions
-+++++++++++
+preprocessor_definitions
+++++++++++++++++++++++++
 
 This attribute allows defining CMake variables, for multiple configurations (Debug, Release, etc).
 
@@ -69,9 +69,9 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 
     def toolchain(self):
         tc = CMakeToolchain(self)
-        tc.definitions["MYVAR"] = "MyValue"
-        tc.definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
-        tc.definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
+        tc.preprocessor_definitions["MYVAR"] = "MyValue"
+        tc.preprocessor_definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
+        tc.preprocessor_definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
         tc.write_toolchain_files()
 
 This will be translated to:
