@@ -25,8 +25,8 @@ The ``MSBuildToolchain`` can be used in the ``toolchain()`` method:
             tc.write_toolchain_files()
 
 
-The ``MSBuildToolchain`` will generate 2 files, after a ``conan install`` command (or
-before calling the ``build()`` method when the package is being built in the cache):
+The ``MSBuildToolchain`` will generate two files after a ``conan install`` command or
+before calling the ``build()`` method when the package is building in the cache:
 
 - The main *conan_toolchain.props* file, that can be used in the command line.
 - A *conan_toolchain_<config>.props* file, that will be conditionally included from the previous
