@@ -224,6 +224,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
     self.cpp_info.components  # Dictionary with the different components a package may have
+    self.cpp_info.requires = None  # List of components from requirements
 
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
@@ -231,13 +232,13 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 - **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
   different library names. For example:
 
-.. code-block:: python
+  .. code-block:: python
 
-    def package_info(self):
-        if not self.settings.os == "Windows":
-            self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
-        else:
-            ...
+      def package_info(self):
+          if not self.settings.os == "Windows":
+              self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
+          else:
+              ...
 
 - **libdirs**: List of relative paths (starting from the package root) of directories in which to find library object binaries (\*.lib,
   \*.a, \*.so, \*.dylib). By default it is initialized to ``['lib']``, and it is rarely changed.
@@ -258,32 +259,37 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
+
+  .. code-block:: python
+
+      if self.options.static:
+          if self.settings.compiler == "Visual Studio":
+              self.cpp_info.libs.append("ws2_32")
+          self.cpp_info.defines = ["ZMQ_STATIC"]
+
+          if not self.settings.os == "Windows":
+              self.cpp_info.cxxflags = ["-pthread"]
+
+  Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
+  be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
+  for example, might fail when using CMake targets mode, so the following is preferred and works both
+  in the global and targets mode of CMake:
+
+  .. code-block:: python
+
+      def package_info(self):
+          self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
+                                        "-DEFAULTLIB:LIBCMT"]
+
 - **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
+- **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
+  be used by generators that add support for components features (:ref:`package_information_components`).
+   
 
-.. code-block:: python
-
-    if self.options.static:
-        if self.settings.compiler == "Visual Studio":
-            self.cpp_info.libs.append("ws2_32")
-        self.cpp_info.defines = ["ZMQ_STATIC"]
-
-        if not self.settings.os == "Windows":
-            self.cpp_info.cxxflags = ["-pthread"]
-
-Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
-be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
-for example, might fail when using CMake targets mode, so the following is preferred and works both
-in the global and targets mode of CMake:
-
-.. code-block:: python
-
-    def package_info(self):
-        self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
-                                      "-DEFAULTLIB:LIBCMT"]
-
-If your recipe has requirements, you can access to your requirements ``cpp_info`` as well using the ``deps_cpp_info`` object.
+If your recipe has requirements, you can access to the information stored in the ``cpp_info`` of your requirements 
+using the ``deps_cpp_info`` object:
 
 .. code-block:: python
 
