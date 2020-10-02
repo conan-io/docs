@@ -20,5 +20,6 @@ version ranges or using package revisions.
 
    lockfiles/introduction
    lockfiles/configurations
+   lockfiles/evolving
    lockfiles/build_order
    lockfiles/ci
