@@ -320,7 +320,7 @@ The ``get_safe()`` method will return ``None`` if that setting or subsetting doe
 options
 -------
 
-Conan provides this attribute to declare traits that will affect only to one reference, unlike the settings that are typically the
+Conan provides this attribute to declare traits which will affect only one reference, unlike the settings that are typically the
 same for all the recipes in a Conan graph. Options are declared per recipe, this attribute consist on a dictionary where the key is the 
 option name and the value is the list of different values that the option can take.
 
