@@ -22,6 +22,35 @@ etc.
     Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.30.0 (02-Oct-2020)
+---------------------
+
+- Feature: Implement real detection of ``compiler.libcxx`` value for ``gcc`` compiler. Only enabled in `CONAN_V2_MODE`, otherwise it would be breaking. `#7776 <https://github.com/conan-io/conan/pull/7776>`_
+- Feature: Added [Depends](https://doc.qt.io/qbs/qml-qbslanguageitems-depends.html) items for every public dependency of conanfiles requires/dependencies. `#7729 <https://github.com/conan-io/conan/pull/7729>`_ . Docs `here <https://github.com/conan-io/docs/pull/1847>`__
+- Feature: Instructions on how to run conan tests against a real Artifactory server. `#7697 <https://github.com/conan-io/conan/pull/7697>`_
+- Feature: List `cpp_info.names` and `cpp_info.filenames` in JSON and Markdown generator. `#7690 <https://github.com/conan-io/conan/pull/7690>`_ . Docs `here <https://github.com/conan-io/docs/pull/1844>`__
+- Feature: Add information about components to `markdown` generator. `#7677 <https://github.com/conan-io/conan/pull/7677>`_
+- Feature: New experimental ``MSBuildToolchain`` to generate ``conan_toolchain.props`` files (it is multi-config, will generate one specific toolchain file per configuration) for more transparent integration and better developer experience with Visual Studio. `#7674 <https://github.com/conan-io/conan/pull/7674>`_ . Docs `here <https://github.com/conan-io/docs/pull/1865>`__
+- Feature: Allow packages that do not declare components to depend on other packages components and manage transitivity correctly, with the new ``self.cpp_info.requires`` attribute. `#7644 <https://github.com/conan-io/conan/pull/7644>`_ . Docs `here <https://github.com/conan-io/docs/pull/1864>`__
+- Feature: Add MacOS 11 ("Big Sur") support. `#7601 <https://github.com/conan-io/conan/pull/7601>`_ . Docs `here <https://github.com/conan-io/docs/pull/1819>`__
+- Feature: Expose intel_installation_path, compilervars, compilervars_dict, and compilervars_command under tools module in order to support usage of the intel compiler. `#7572 <https://github.com/conan-io/conan/pull/7572>`_ . Docs `here <https://github.com/conan-io/docs/pull/1815>`__
+- Feature: Allow user-defined generators to be installed and used from the Conan cache. `#7527 <https://github.com/conan-io/conan/pull/7527>`_ . Docs `here <https://github.com/conan-io/docs/pull/1811>`__
+- Feature: Add :command:`conan remote` proposal for cli 2.0. `#7401 <https://github.com/conan-io/conan/pull/7401>`_
+- Fix: Fix capture output when running tests that call the ConanRunner in the conanfile. `#7799 <https://github.com/conan-io/conan/pull/7799>`_
+- Fix: Consider absolute paths when parsing `conanbuildinfo.txt` `#7797 <https://github.com/conan-io/conan/pull/7797>`_
+- Fix: Update parallel uploads help message. `#7785 <https://github.com/conan-io/conan/pull/7785>`_ . Docs `here <https://github.com/conan-io/docs/pull/1863>`__
+- Fix: Removed check in lockfiles computed from other lockfile that it should be part of it. Users can check the resulting lockfile themselves if they want to. `#7763 <https://github.com/conan-io/conan/pull/7763>`_ . Docs `here <https://github.com/conan-io/docs/pull/1868>`__
+- Fix: Extend help message indicating how to run :command:`conan export` without `user/channel`. `#7757 <https://github.com/conan-io/conan/pull/7757>`_ . Docs `here <https://github.com/conan-io/docs/pull/1859>`__
+- Fix: Conan copy shows better description when using full reference for destination. `#7741 <https://github.com/conan-io/conan/pull/7741>`_
+- Fix: Do not capture output for normal conan run (no logging or testing) when launching processes via `ConanRunner` so that color from build tools output is not lost. `#7740 <https://github.com/conan-io/conan/pull/7740>`_
+- Fix: `self.copy()` follows `igore_case` correctly on Windows. `#7704 <https://github.com/conan-io/conan/pull/7704>`_ . Docs `here <https://github.com/conan-io/docs/pull/1862>`__
+- Fix: Use patterns in server query when resolving version ranges. `#7673 <https://github.com/conan-io/conan/pull/7673>`_
+- Fix: Raising conflict errors when options doesn't match in the evaluation of graphs with lockfiles. `#7513 <https://github.com/conan-io/conan/pull/7513>`_
+- Bugfix: Fixed bug where uploading to multiple remotes in a single conan upload command would fail. `#7781 <https://github.com/conan-io/conan/pull/7781>`_
+- BugFix: Add ``armv5hf`` and ``armv5el`` to the Android ABI architectures. `#7730 <https://github.com/conan-io/conan/pull/7730>`_
+- Bugfix: Correctly inherit and use ``system_requirements`` when using ``python_requires``. `#7721 <https://github.com/conan-io/conan/pull/7721>`_
+- Bugfix: Translate `settings.os` value `Macos` to `Darwin` for `CMAKE_SYSTEM_NAME` to allow compiling CMake-based packages for MacOS. `#7695 <https://github.com/conan-io/conan/pull/7695>`_
+
 1.29.2 (21-Sept-2020)
 ---------------------
 
