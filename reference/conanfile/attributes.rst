@@ -331,7 +331,7 @@ option name and the value is the list of different values that the option can ta
     options for some configurations.
 
 
-A very common one is the option ``shared`` with value ``[True, False]`` that many recipes declare and use to configure the
+A very common one is the option ``shared`` with allowed values of ``[True, False]`` that many recipes declare and use to configure the
 build system and link static or dynamically the dependencies.
 
 Values for each option can be typed or plain strings, and there is a special value, ``ANY``, for
