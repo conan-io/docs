@@ -87,4 +87,6 @@ Let's create new lockfiles that will use the existing ``libb_debug.lock`` and ``
 This will create new *app_release.lock* and *app_debug.lock* that will have both ``libb/1.1`` and ``liba/1.0``
 locked. If for some reason, ``libc/1.0`` had fixed a ``requires = "libb/1.0"``, then the resulting lockfile
 would resolve and lock ``libb/1.0`` instead. The following ``build-order`` command will tell us that there
-is nothing to build, as it is effectively computing the same lockfile that existed before.
+is nothing to build, as it is effectively computing the same lockfile that existed before. It is also
+possible, and a CI pipeline could do it, to directly check that ``libb/1.1`` is defined inside the new lockfiles.
+If it is not there, it means that it didn't integrate, and nothing needs to be done downstream.
