@@ -1,6 +1,11 @@
 CMakeToolchain
 ==============
 
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+
 The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
 
 
@@ -24,7 +29,7 @@ The ``CMakeToolchain`` will generate 2 files, after a ``conan install`` command 
 before calling the ``build()`` method when the package is being built in the cache):
 
 - The main *conan_toolchain.cmake* file, that can be used in the command line.
-- A *conan_project_include.cmake* file, that will automatically be called right after the 
+- A *conan_project_include.cmake* file, that will automatically be called right after the
   ``project()`` call for cmake>=3.15, containing definitions that only take effect after such
   call. For older cmake versions you should explicitly call ``include(.../conan_project_include.cmake)``
   in your *CMakeLists.txt*.
@@ -55,8 +60,8 @@ Most of the arguments are optional and will be deduced from the current ``settin
 necessary to define them.
 
 
-definitions
-+++++++++++
+preprocessor_definitions
+++++++++++++++++++++++++
 
 This attribute allows defining CMake variables, for multiple configurations (Debug, Release, etc).
 
@@ -64,9 +69,9 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 
     def toolchain(self):
         tc = CMakeToolchain(self)
-        tc.definitions["MYVAR"] = "MyValue"
-        tc.definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
-        tc.definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
+        tc.preprocessor_definitions["MYVAR"] = "MyValue"
+        tc.preprocessor_definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
+        tc.preprocessor_definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
         tc.write_toolchain_files()
 
 This will be translated to:
@@ -98,7 +103,7 @@ With the ``CMakeToolchain`` it is possible to do, for multi-configuration system
     $ mkdir build && cd build
     # Install both debug and release deps and create the toolchain
     $ conan install ..
-    $ conan install .. -s build_type=Debug 
+    $ conan install .. -s build_type=Debug
     # the conan_toolchain.cmake is common for both configurations
     # Need to pass the generator WITHOUT the platform, that matches your default settings
     $ cmake .. -G "Visual Studio 15" -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
@@ -139,7 +144,7 @@ CMake build helper
 
 The ``CMake()`` build helper that works with the ``CMakeToolchain`` is also experimental,
 and subject to breaking change in the future. It will evolve to adapt and complement the
-toolchain functionality. 
+toolchain functionality.
 
 The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
 when a package is being built directly by Conan (create, install)
@@ -214,7 +219,7 @@ install()
 
 Equivalent to run ``cmake --build . --target=install``
 
-- ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It 
+- ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
   type must be specified at configure time, not build type.
 
@@ -229,7 +234,7 @@ test()
 
 Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
 
-- ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It 
+- ``build_type``: Use it only to override the value defined in the ``settings.build_type``. It
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
   type must be specified at configure time, not build type.
 - ``target``: name of the build target to run, by default ``RUN_TESTS`` or ``test``.

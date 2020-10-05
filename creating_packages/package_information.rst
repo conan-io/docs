@@ -131,6 +131,22 @@ Consumers can get this information via ``self.deps_cpp_info`` as usual and use i
             # Get the include directories of the SSL component of openssl package
             self.deps_cpp_info["openssl"].components["ssl"].include_paths
 
+
+Recipes that require packages that declare components can also take advantage of this granularity, they can declare in the 
+``cpp_info.requires`` attribute the list of components from the requirements they want to link with:
+
+.. code-block:: python
+
+    class Library(ConanFile):
+        name = 'library' 
+        requires = "openssl/1.0.2u"
+
+        def package_info(self):
+            self.cpp_info.requires = ['openssl::ssl']
+
+In the previous example, the 'library' package and transitively all its consumers will link only with the component ``ssl``
+from the ``openssl`` package.
+
 .. seealso::
 
     Read :ref:`components reference <cpp_info_attributes_reference>` for more information.
