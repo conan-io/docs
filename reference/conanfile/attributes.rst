@@ -520,17 +520,17 @@ not define them. This attribute should be defined as a python dictionary:
 
     class MyPkg(ConanFile):
         ...
-        options = {"shared": [True, False],
+        options = {"build_tests": [True, False],
                    "option1": ["value1", "value2"],
                    "option2": "ANY"}
-        default_options = {"shared": True,
+        default_options = {"build_tests": True,
                            "option1": "value1",
                            "option2": 42}
 
         def build(self):
-            shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else "-DBUILD_SHARED_LIBS=OFF"
             cmake = CMake(self)
-            self.run("cmake . %s %s" % (cmake.command_line, shared))
+            cmake.definitions['BUILD_TESTS'] = self.options.build_tests
+            cmake.configure()
             ...
 
 Remember that you can also assign default values for options of your requirements as we've seen in
