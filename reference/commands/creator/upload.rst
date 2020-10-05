@@ -55,8 +55,11 @@ If no remote is specified, the first configured remote (by default conan-center,
                             remote one
       -j JSON, --json JSON  json file path where the upload information will be
                             written to
-      --parallel            Upload files in parallel using multiple threads The
-                            default number of launched threads is 8
+      --parallel            Upload files in parallel using multiple threads. The
+                            default number of launched threads is set to the value
+                            of cpu_count and can be configured using the
+                            CONAN_CPU_COUNT environment variable or defining
+                            cpu_count in conan.conf
 
 
 **Examples**:
@@ -112,7 +115,10 @@ Upload packages without overwriting the recipe if the packages have changed:
 
     $ conan upload OpenCV/1.4.0@lasote/stable --all --no-overwrite recipe
 
-Upload packages using multiple threads without requiring confirmation to my_remote:
+Upload packages using multiple threads without requiring confirmation to my_remote. By default, the
+number of threads used is the number of cores available in the machine running Conan. It can also be
+configured setting the environment variable :ref:`env_vars_conan_cpu_count` or defining ``cpu_count``
+in the :ref:`conan_conf`.
 
 .. code-block:: bash
 

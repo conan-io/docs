@@ -945,6 +945,10 @@ This object should be filled in ``package_info()`` method.
 | self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
 |                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
+| self.cpp_info.requires               | | **[Experimental]** List of components to consume from requirements (it applies only to                |
+|                                      | | generators that implements components feature).                                                       |
+|                                      | | **Warning**: If declared, only the components listed here will used by the linker and consumers.      |
++--------------------------------------+---------------------------------------------------------------------------------------------------------+
 
 The paths of the directories in the directory variables indicated above are relative to the
 :ref:`self.package_folder<folders_attributes_reference>` directory.
@@ -972,7 +976,7 @@ them and to components of other packages (the following case is not a real examp
         self.cpp_info.components["ssl"].requires = ["crypto",
                                                     "boost::headers"]  # Depends on headers component in boost package
 
-The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object (except for the ``requires`` attribute) and
+The interface of the ``Component`` object is the same as the one used by the ``cpp_info`` object and
 has **the same default directories**.
 
 .. warning::
@@ -980,8 +984,8 @@ has **the same default directories**.
     Using components and global ``cpp_info`` non-default values or release/debug configurations at the same time is not allowed (except for
     ``self.cpp_info.name`` and ``self.cpp_info.names``).
 
-Dependencies among different components can be defined using the ``requires`` attribute and the name of the component. The dependency graph
-for components will be calculated and values will be aggregated in the correct order for each field.
+Dependencies among components and to components of other requirements can be defined using the ``requires`` attribute and the name
+of the component. The dependency graph for components will be calculated and values will be aggregated in the correct order for each field.
 
 .. seealso::
 
@@ -1357,7 +1361,7 @@ revision_mode
     it is also an **experimental** feature subject to breaking changes in future releases.
 
 This attribute allow each recipe to declare how the revision for the recipe itself should
-be computed. It can take three different values:
+be computed. It can take two different values:
 
  - ``"hash"`` (by default): Conan will use the checksum hash of the recipe manifest to
    compute the revision for the recipe.

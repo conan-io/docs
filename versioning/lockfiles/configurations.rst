@@ -44,17 +44,17 @@ Now, we could (don't do it) create 2 different lockfiles, one for each configura
     $ cd pkgb
     $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_release.lock
     $ conan lock create conanfile.py --user=user --channel=testing --lockfile-out=locks/pkgb_debug.lock -s build_type=Debug
-        
+
 
 .. important::
 
     The dependency graph is different for each different configuration/profile. Not only the package-ids, but also because of
-    conditional requirements, the dependencies can be different. Then, it is necessary to create a lockfile for every different 
-    configuration/profile. 
+    conditional requirements, the dependencies can be different. Then, it is necessary to create a lockfile for every different
+    configuration/profile.
 
 
-But, what if a new ``pkga/0.2@user/testing`` version was created in the time between both commands,? Although this is unlikely to happen in this
-example, because everything is local. However, it could happen that ``pkga`` was in a server and the CI, uploads the new
+But, what if a new ``pkga/0.2@user/testing`` version was created in the time between both commands? Although this is unlikely to happen in this
+example, because everything is local. However, it could happen that ``pkga`` was in a server and the CI uploads a new ``pkga/0.2@user/testing``
 version while we are running the above commands.
 
 
@@ -73,24 +73,24 @@ Let's inspect the *locks/pkgb_base.lock* lockfile:
 
 .. code-block:: json
 
-    {                                  
-        "graph_lock": {                   
-            "nodes": {                       
-                "0": {                          
+    {
+        "graph_lock": {
+            "nodes": {
+                "0": {
                     "ref": "pkgb/0.1@user/testing",
-                    "requires": ["1"],                             
-                    "path": "..\\conanfile.py",    
-                    "context": "host"              
-                },                              
-                "1": {                          
+                    "requires": ["1"],
+                    "path": "..\\conanfile.py",
+                    "context": "host"
+                },
+                "1": {
                     "ref": "pkga/0.1@user/testing",
-                    "context": "host"              
-                }                               
-            },                               
-            "revisions_enabled": false       
-        },                                
-        "version": "0.4"                  
-    } 
+                    "context": "host"
+                }
+            },
+            "revisions_enabled": false
+        },
+        "version": "0.4"
+    }
 
 This lockfile is different to the ones in the previous section. It does not store the ``profile``, and it does not capture
 the package-ids or the options of the nodes. It captures the topology of the graph, and the package references and versions.
@@ -135,7 +135,7 @@ could only result in inconsistencies and errors.
 
 .. important::
 
-    Lockfiles store the full effective profile configuration. It is not possible to pass configuration, settings, options or 
+    Lockfiles store the full effective profile configuration. It is not possible to pass configuration, settings, options or
     profile arguments when using lockfiles (only when creating the lockfiles)
 
 With the two captured lockfiles, now we can locally build and run our ``pkgb`` application for both configurations, guaranteeing

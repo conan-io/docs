@@ -1,7 +1,7 @@
 Toolchains
 ==========
 
-.. warning: 
+.. warning:
 
     This is a very **EXPERIMENTAL** feature, introduced in Conan 1.26, only supporting CMake
     and with limited functionality, and subject to breaking changes in the future.
@@ -69,7 +69,7 @@ Toolchains have some important advantages:
 - They execute at :command:`conan install` time. They generate files, not command line
   arguments, providing better reproducibility and debugging of builds.
 - They provide a better developer experience. The command line used by developers locally, like
-  ``cmake ...`` will achieve the same build, with the same flags, as the :command:`conan build` or 
+  ``cmake ...`` will achieve the same build, with the same flags, as the :command:`conan build` or
   the build that is done in the cache with a :command:`conan create`.
 - They are more extensible and configurable.
 
@@ -102,3 +102,4 @@ Built-in toolchains
 
    toolchains/cmake
    toolchains/make
+   toolchains/msbuild

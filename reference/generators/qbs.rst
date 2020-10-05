@@ -64,4 +64,22 @@ requirement.
             }
         }
         // lib root path: {ROOT PATH REQUIRE 2}
+
+        Product {
+            name: "REQUIRE3"
+            Export {
+                Depends { name: "cpp" }
+                cpp.includePaths: [{INCLUDE DIRECTORIES REQUIRE 3}]
+                cpp.libraryPaths: [{LIB DIRECTORIES REQUIRE 3}]
+                cpp.systemIncludePaths: [{BIN DIRECTORIES REQUIRE 3}]
+                cpp.dynamicLibraries: ["{LIB NAMES REQUIRE 3}"]
+                cpp.defines: []
+                cpp.cxxFlags: []
+                cpp.cFlags: []
+                cpp.linkerFlags: []
+                Depends { name: "REQUIRE1" }
+                Depends { name: "REQUIRE2" }
+            }
+        }
+        // lib root path: {ROOT PATH REQUIRE 3}
     }
