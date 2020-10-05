@@ -214,6 +214,9 @@ Running the Conan Server with SSL using Nginx in a Subdirectory
 
     **server.conf**
 
+    Set ``port``, but remove ``host_name``, ``public_port`` and ``ssl_enabled``. This instructs Conan Server to use relative urls for upload and download.
+    See "Server Parameters" for more details.
+
     .. code-block:: text
 
        [server]
@@ -237,6 +240,8 @@ Running the Conan Server with SSL using Nginx in a Subdirectory
           }
 
     **remote configuration in Conan client**
+
+    Note: you must add the trailing slash.
 
     .. code-block:: text
 
