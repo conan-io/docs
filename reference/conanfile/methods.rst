@@ -141,7 +141,7 @@ The syntax of ``self.copy`` inside ``package()`` is as follows:
 
 .. code-block:: python
 
-    self.copy(pattern, dst="", src="", keep_path=True, symlinks=None, excludes=None, ignore_case=False)
+    self.copy(pattern, dst="", src="", keep_path=True, symlinks=None, excludes=None, ignore_case=True)
 
 Returns: A list with absolute paths of the files copied in the destination folder.
 
@@ -158,7 +158,7 @@ Parameters:
     - **symlinks** (Optional, Defaulted to ``None``): Set it to True to activate symlink copying, like typical lib.so->lib.so.9.
     - **excludes** (Optional, Defaulted to ``None``): Single pattern or a tuple of patterns to be excluded from the copy. If a file matches
       both the include and the exclude pattern, it will be excluded.
-    - **ignore_case** (Optional, Defaulted to ``False``): If enabled, it will do a case-insensitive pattern matching.
+    - **ignore_case** (Optional, Defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.
 
 For example:
 
@@ -224,6 +224,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
     self.cpp_info.sharedlinkflags = []  # linker flags
     self.cpp_info.exelinkflags = []  # linker flags
     self.cpp_info.components  # Dictionary with the different components a package may have
+    self.cpp_info.requires = None  # List of components from requirements
 
 - **name**: Alternative name for the package to be used by generators.
 - **includedirs**: List of relative paths (starting from the package root) of directories where headers can be found. By default it is
@@ -231,13 +232,13 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 - **libs**: Ordered list of libs the client should link against. Empty by default, it is common that different configurations produce
   different library names. For example:
 
-.. code-block:: python
+  .. code-block:: python
 
-    def package_info(self):
-        if not self.settings.os == "Windows":
-            self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
-        else:
-            ...
+      def package_info(self):
+          if not self.settings.os == "Windows":
+              self.cpp_info.libs = ["libzmq-static.a"] if self.options.static else ["libzmq.so"]
+          else:
+              ...
 
 - **libdirs**: List of relative paths (starting from the package root) of directories in which to find library object binaries (\*.lib,
   \*.a, \*.so, \*.dylib). By default it is initialized to ``['lib']``, and it is rarely changed.
@@ -258,32 +259,37 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 - **cflags**, **cxxflags**, **sharedlinkflags**, **exelinkflags**: List of flags that the consumer should activate for proper behavior.
   Usage of C++11 could be configured here, for example, although it is true that the consumer may want to do some flag processing to check
   if different dependencies are setting incompatible flags (c++11 after c++14).
+
+  .. code-block:: python
+
+      if self.options.static:
+          if self.settings.compiler == "Visual Studio":
+              self.cpp_info.libs.append("ws2_32")
+          self.cpp_info.defines = ["ZMQ_STATIC"]
+
+          if not self.settings.os == "Windows":
+              self.cpp_info.cxxflags = ["-pthread"]
+
+  Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
+  be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
+  for example, might fail when using CMake targets mode, so the following is preferred and works both
+  in the global and targets mode of CMake:
+
+  .. code-block:: python
+
+      def package_info(self):
+          self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
+                                        "-DEFAULTLIB:LIBCMT"]
+
 - **name**: Alternative name for the package so generators can take into account in order to generate targets or file names.
 - **components**: **[Experimental]** Dictionary with names as keys and a component object as value to model the different components a
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
+- **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
+  be used by generators that add support for components features (:ref:`package_information_components`).
+   
 
-.. code-block:: python
-
-    if self.options.static:
-        if self.settings.compiler == "Visual Studio":
-            self.cpp_info.libs.append("ws2_32")
-        self.cpp_info.defines = ["ZMQ_STATIC"]
-
-        if not self.settings.os == "Windows":
-            self.cpp_info.cxxflags = ["-pthread"]
-
-Note that due to the way that some build systems, like CMake, manage forward and back slashes, it might
-be more robust passing flags for Visual Studio compiler with dash instead. Using ``"/NODEFAULTLIB:MSVCRT"``,
-for example, might fail when using CMake targets mode, so the following is preferred and works both
-in the global and targets mode of CMake:
-
-.. code-block:: python
-
-    def package_info(self):
-        self.cpp_info.exelinkflags = ["-NODEFAULTLIB:MSVCRT",
-                                      "-DEFAULTLIB:LIBCMT"]
-
-If your recipe has requirements, you can access to your requirements ``cpp_info`` as well using the ``deps_cpp_info`` object.
+If your recipe has requirements, you can access to the information stored in the ``cpp_info`` of your requirements 
+using the ``deps_cpp_info`` object:
 
 .. code-block:: python
 
@@ -401,7 +407,7 @@ Dynamically define ``name`` and ``version`` attributes in the recipe with these 
 defines the package name reading it from a *name.txt* file and the version from the branch and commit of the
 recipe's repository.
 
-These functions are executed after assigning the values of the ``name`` and ``version`` if they are provided 
+These functions are executed after assigning the values of the ``name`` and ``version`` if they are provided
 from the command line.
 
 ..  code-block:: python
@@ -743,20 +749,20 @@ The ``self.copy()`` method inside ``imports()`` supports the following arguments
 
 .. code-block:: python
 
-    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=False, excludes=None, keep_path=True)
+    def copy(pattern, dst="", src="", root_package=None, folder=False, ignore_case=True, excludes=None, keep_path=True)
 
 Parameters:
     - **pattern** (Required): An fnmatch file pattern of the files that should be copied.
     - **dst** (Optional, Defaulted to ``""``): Destination local folder, with reference to current directory, to which the files will be
       copied.
     - **src** (Optional, Defaulted to ``""``): Source folder in which those files will be searched. This folder will be stripped from the
-      dst parameter. E.g., `lib/Debug/x86`. It accepts symbolic folder names like ``@bindirs`` and ``@libdirs`` which will map to the 
+      dst parameter. E.g., `lib/Debug/x86`. It accepts symbolic folder names like ``@bindirs`` and ``@libdirs`` which will map to the
       ``self.cpp_info.bindirs`` and ``self.cpp_info.libdirs`` of the source package, instead of a hardcoded name.
     - **root_package** (Optional, Defaulted to *all packages in deps*): An fnmatch pattern of the package name ("OpenCV", "Boost") from
       which files will be copied.
     - **folder** (Optional, Defaulted to ``False``): If enabled, it will copy the files from the local cache to a subfolder named as the
       package containing the files. Useful to avoid conflicting imports of files with the same name (e.g. License).
-    - **ignore_case** (Optional, Defaulted to ``False``): If enabled, it will do a case-insensitive pattern matching.
+    - **ignore_case** (Optional, Defaulted to ``True``): If enabled, it will do a case-insensitive pattern matching.
     - **excludes** (Optional, Defaulted to ``None``): Allows defining a list of patterns (even a single pattern) to be excluded from the
       copy, even if they match the main ``pattern``.
     - **keep_path** (Optional, Defaulted to ``True``): Means if you want to keep the relative path when you copy the files from the **src**
@@ -1181,7 +1187,7 @@ The current folder (``os.getcwd()``) and the ``self.export_folder`` can be used 
     import os
     from conans import ConanFile
     from conans.tools import save, load
-    
+
     class Pkg(ConanFile):
 
         def export(self):
