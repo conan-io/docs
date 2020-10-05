@@ -386,7 +386,8 @@ go over all of them for the example recipe ``mypkg`` defined above:
             }
 
             def configure(self):
-                self.options.shared = False
+                if some_condition:
+                    self.options.shared = False
 
 - From a recipe that requires this one:
 
