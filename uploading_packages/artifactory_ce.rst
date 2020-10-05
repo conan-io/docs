@@ -63,9 +63,9 @@ This Python script might be helpful, given that it already defines the respectiv
     import subprocess
 
     def run(cmd):
-    ret = os.system(cmd)
-    if ret != 0:
-        raise Exception("Command failed: %s" % cmd)
+        ret = os.system(cmd)
+        if ret != 0:
+            raise Exception("Command failed: %s" % cmd)
 
     # Assuming local = conan_server and artifactory remotes
     output = subprocess.check_output("conan search -r=local --raw")
