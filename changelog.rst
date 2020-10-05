@@ -22,7 +22,7 @@ etc.
     Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
-1.30.0 (02-Oct-2020)
+1.30.0 (05-Oct-2020)
 ---------------------
 
 - Feature: Implement real detection of ``compiler.libcxx`` value for ``gcc`` compiler. Only enabled in `CONAN_V2_MODE`, otherwise it would be breaking. `#7776 <https://github.com/conan-io/conan/pull/7776>`_
@@ -36,6 +36,7 @@ etc.
 - Feature: Expose intel_installation_path, compilervars, compilervars_dict, and compilervars_command under tools module in order to support usage of the intel compiler. `#7572 <https://github.com/conan-io/conan/pull/7572>`_ . Docs `here <https://github.com/conan-io/docs/pull/1815>`__
 - Feature: Allow user-defined generators to be installed and used from the Conan cache. `#7527 <https://github.com/conan-io/conan/pull/7527>`_ . Docs `here <https://github.com/conan-io/docs/pull/1811>`__
 - Feature: Add :command:`conan remote` proposal for cli 2.0. `#7401 <https://github.com/conan-io/conan/pull/7401>`_
+- Fix: Allow usage of MD5 checksums in FIPS systems that would raise error otherwise. `#7807 <https://github.com/conan-io/conan/pull/7807>`_
 - Fix: Fix capture output when running tests that call the ConanRunner in the conanfile. `#7799 <https://github.com/conan-io/conan/pull/7799>`_
 - Fix: Consider absolute paths when parsing `conanbuildinfo.txt` `#7797 <https://github.com/conan-io/conan/pull/7797>`_
 - Fix: Update parallel uploads help message. `#7785 <https://github.com/conan-io/conan/pull/7785>`_ . Docs `here <https://github.com/conan-io/docs/pull/1863>`__
