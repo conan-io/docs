@@ -619,7 +619,7 @@ When an error is raised in a recipe or even in the Conan code base, if set to ``
 CONAN_ERROR_ON_OVERRIDE
 -----------------------
 
-** Defaulted to**: ``False``
+**Defaulted to**: ``False``
 
 When a consumer overrides one transitive requirement without using explicitly the keyword ``override``
 Conan will raise an error if this environmente variable is set to ``True``.
