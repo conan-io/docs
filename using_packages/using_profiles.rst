@@ -109,3 +109,21 @@ of all the profiles applied in the order they are specified:
     Read more about :ref:`profiles` for full reference. There is a Conan command, :ref:`conan_profile`,
     that can help inspecting and managing profiles. Profiles can be also shared and installed with the
     :ref:`conan_config_install` command.
+
+Example profiles for different toolchains
+--------------
+
+.. code-block:: text
+   :caption: *visual_studio_19*
+
+    include(default)
+
+    [settings]
+    os=Windows
+    os_build=Windows
+    arch=x86_64
+    arch_build=x86_64
+    compiler=Visual Studio
+    compiler.version=16
+    build_type=Debug
+    compiler.runtime=MDd
