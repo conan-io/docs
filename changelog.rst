@@ -14,13 +14,21 @@
 Changelog
 =========
 
-Check https://github.com/conan-io/conan for issues and more details about development, contributors,
-etc.
+Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 .. important::
 
-    Conan 1.29 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.30 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.30.1 (09-Oct-2020)
+---------------------
+
+- Fix: Use quotes around the install path, it can contain spaces. `#7842 <https://github.com/conan-io/conan/pull/7842>`_
+- Fix: prefix intel functions with ``intel_`` because they are now exposed via tools. Fixes https://github.com/conan-io/conan/issues/7820. `#7821 <https://github.com/conan-io/conan/pull/7821>`_ . Docs `here <https://github.com/conan-io/docs/pull/1875>`__
+- Bugfix: Fix regression introduced in 1.30 (https://github.com/conan-io/conan/pull/7673), with incorrect matches of user/channel for version ranges. `#7847 <https://github.com/conan-io/conan/pull/7847>`_
+- Bugfix: Fix ``CMakeToolchain`` with multiple variables definitions. `#7833 <https://github.com/conan-io/conan/pull/7833>`_
+- Bugfix: Check comparing the host and the build architecture to decide if cross building and set `CMAKE_SYSTEM_NAME` in the ``CMake`` build helper. `#7827 <https://github.com/conan-io/conan/pull/7827>`_
 
 1.30.0 (05-Oct-2020)
 ---------------------
