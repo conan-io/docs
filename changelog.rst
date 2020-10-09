@@ -14,8 +14,7 @@
 Changelog
 =========
 
-Check https://github.com/conan-io/conan for issues and more details about development, contributors,
-etc.
+Check https://github.com/conan-io/conan for issues and more details about development, contributors, etc.
 
 .. important::
 
