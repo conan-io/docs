@@ -21,6 +21,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.30 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.30.2 (15-Oct-2020)
+---------------------
+
+- Feature: Supports Clang 11. `#7871 <https://github.com/conan-io/conan/pull/7871>`_ . Docs `here <https://github.com/conan-io/docs/pull/1883>`__
+- Bugfix: Fix regression https://github.com/conan-io/conan/issues/7856, ``imports`` failing to match subfolders in Windows due to backslash differences. `#7861 <https://github.com/conan-io/conan/pull/7861>`_
+- Bugfix: Allow defining new options values when creating a new lockfile from an existing base lockfile. `#7859 <https://github.com/conan-io/conan/pull/7859>`_
+
 1.30.1 (09-Oct-2020)
 ---------------------
 
