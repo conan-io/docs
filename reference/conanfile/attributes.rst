@@ -926,12 +926,12 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.name                   | | Alternative name for the package used by generators to create files or variables.                     |
 |                                      | | Defaulted to the package name. Supported by `cmake`, `cmake_multi`, `cmake_find_package`,             |
-|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
+|                                      | | `cmake_find_package_multi`, `cmake_paths`, `pkg_config` and `b2` generators.                          |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.names["generator"]     | | Alternative name for the package used by an specific generator to create files or variables.          |
 |                                      | | If set for a generator it will overrite the information provided by self.cpp_info.name.               |
 |                                      | | Like the cpp_info.name, this is only supported by `cmake`, `cmake_multi`, `cmake_find_package`,       |
-|                                      | | `cmake_find_package_multi`, `cmake_paths` and `pkg_config` generators.                                |
+|                                      | | `cmake_find_package_multi`, `cmake_paths`, `pkg_config` and `b2` generators.                          |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.filenames["generator"] | | Alternative name for the filename produced by a specific generator. If set for a generator it will    |
 |                                      | | override the "names" value (which itself overrides self.cppinfo.name). This is only supported by      |
@@ -1538,7 +1538,7 @@ provides
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more 
+This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more
 libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
 
 Some examples are:
@@ -1580,5 +1580,5 @@ To declare that a recipe provides the functionality of several different recipes
         version = "1.0"
         provides = "cblas", "lapack"
 
-If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for 
+If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.
