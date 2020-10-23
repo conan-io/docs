@@ -19,7 +19,7 @@ blog post announcement here:
 For the complete list of dedicated Conan courses, see the Conan series page
 here:  
 
-- https://academy.jfrog.com/series/conan
+- https://academy.jfrog.com/path/conan
 
 Finally, here is a brief video introducing the series:
 
