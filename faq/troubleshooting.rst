@@ -1,6 +1,19 @@
 Troubleshooting
 ==================
 
+ERROR: The recipe is contraining settings
+------------------------------------------
+
+When you install or create a package you might have error like the following one:
+
+.. code-block:: text
+
+    ERROR: The recipe is contraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
+    Possible values are ['Windows']
+    Read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-the-recipe-is-contraining-settings"
+
+This means that your target operating system is not supported by the recipe.
+
 ERROR: Missing prebuilt package
 --------------------------------
 
