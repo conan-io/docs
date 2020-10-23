@@ -92,7 +92,7 @@ These kind of tools are not usually part of the application graph itself, they a
 you should usually declare them as :ref:`build requirements <build_requires>`, in the recipe itself or in a profile.
 
 For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like 
-`flac <https://conan.io/center/flac/1.3.3/?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264/20191217/?tab=recipe>`_
+`flac <https://conan.io/center/flac?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264?tab=recipe>`_
 that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm`` 
 being in the PATH to run some assembly optimizations.
 
