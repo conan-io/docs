@@ -6,7 +6,7 @@ Welcome to conan
 Conan is universal and portable. It works in all operating systems including Windows, Linux, OSX, FreeBSD, Solaris, and others, and it can target any platform, including desktop, server, and cross-building for embedded and bare metal devices.
 It integrates with other tools like Docker, MinGW, WSL, and with all build systems such as CMake, MSBuild,
 integrates with oth`er tools like Docker, MinGW, WSL, and with all build systems: CMake, MSBuild,
-Makefiles, Meson, SCons, and it can integrate even with any proprietary build system.
+Makefiles, Meson, SCons. It can even integrate with any proprietary build systems.
 
 Conan is completely `free and open source <https://github.com/conan-io/conan>`_ and fully
 decentralized. It has native integration with JFrog Artifactory, including the free
