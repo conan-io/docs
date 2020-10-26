@@ -1,5 +1,5 @@
-Welcome to conan
-================
+Welcome to Conan C/C++ Package Manager Documentation
+====================================================
 
 `Conan <https://conan.io>`_ is a software package manager which is intended for C and C++ developers.
 
