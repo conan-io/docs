@@ -17,7 +17,7 @@ open source libraries packages, with many pre-compiled binaries for mainstream c
 Conan can manage any number of different binaries for different build configurations, including different
 architectures, compilers, compiler versions, runtimes, C++ standard library, etc. When binaries are not
 available for one configuration, they can be built from sources on-demand. Conan can create,
-upload and download binaries with the same commands and flows in every platform, saving lots of time
+upload and download binaries with the same commands and flows on every platform, saving lots of time
 in development and continuous integration. The binary compatibility can be configured and customized.
 
 Conan has  a very large and active community, especially in `Github repositories <https://github.com/conan-io/conan>`_
