@@ -10,7 +10,7 @@ Makefiles, Meson, SCons. It can even integrate with any proprietary build system
 
 Conan is completely `free and open source <https://github.com/conan-io/conan>`_ and fully
 decentralized. It has native integration with JFrog Artifactory, including the free
-Artifactory Community Edition for Conan, to host your own private packages in your own server.
+Artifactory Community Edition for Conan, enabling developers to host their own private packages on their own server.
 The `ConanCenter <https://conan.io/center>`_ central repository contains hundreds of popular
 open source libraries packages, with many pre-compiled binaries for mainstream compiler versions.
 
