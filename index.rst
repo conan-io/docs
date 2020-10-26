@@ -23,7 +23,7 @@ in development and continuous integration. The binary compatibility can even be 
 Conan has  a very large and active community, especially in `Github repositories <https://github.com/conan-io/conan>`_
 and `Slack #conan channel <https://cpplang-inviter.cppalliance.org/>`_. This community also creates and maintains
 packages in ConanCenter. Conan is used in production by thousands of companies, and consequently, it has a
-commitment to stability, not breaking while moving forward in Conan 1.X versions.
+commitment to stability, with no breaking changes across all Conan 1.X versions.
 
 
 .. toctree::
