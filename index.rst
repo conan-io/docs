@@ -14,7 +14,7 @@ Artifactory Community Edition for Conan, enabling developers to host their own p
 The `ConanCenter <https://conan.io/center>`_ central repository contains hundreds of popular
 open source libraries packages, with many pre-compiled binaries for mainstream compiler versions.
 
-Conan can manage any number of different binaries for different configurations, including different
+Conan can manage any number of different binaries for different build configurations, including different
 architectures, compilers, compiler versions, runtimes, C++ standard library, etc. When binaries are not
 available for one configuration, they can be built from sources. Conan can create,
 upload and download binaries with the same commands and flows in every platform, saving lots of time
