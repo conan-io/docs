@@ -4,7 +4,7 @@ Welcome to conan
 `Conan <https://conan.io>`_ is a software package manager which is intended for C and C++ developers.
 
 Conan is universal and portable. It works in all operating systems including Windows, Linux, OSX, FreeBSD, Solaris, and others, and it can target any platform, including desktop, server, and cross-building for embedded and bare metal devices.
-can target any platform, including desktop, server, cross-building, embedded and bare metal. It
+It integrates with other tools like Docker, MinGW, WSL, and with all build systems such as CMake, MSBuild,
 integrates with oth`er tools like Docker, MinGW, WSL, and with all build systems: CMake, MSBuild,
 Makefiles, Meson, SCons, and it can integrate even with any proprietary build system.
 
