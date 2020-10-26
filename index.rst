@@ -18,7 +18,7 @@ Conan can manage any number of different binaries for different build configurat
 architectures, compilers, compiler versions, runtimes, C++ standard library, etc. When binaries are not
 available for one configuration, they can be built from sources on-demand. Conan can create,
 upload and download binaries with the same commands and flows on every platform, saving lots of time
-in development and continuous integration. The binary compatibility can be configured and customized.
+in development and continuous integration. The binary compatibility can even be configured and customized on a per-package basis.
 
 Conan has  a very large and active community, especially in `Github repositories <https://github.com/conan-io/conan>`_
 and `Slack #conan channel <https://cpplang-inviter.cppalliance.org/>`_. This community also creates and maintains
