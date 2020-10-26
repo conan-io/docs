@@ -1,7 +1,7 @@
 Welcome to conan
 ================
 
-`Conan <https://conan.io>`_ is a portable package manager, intended for C and C++ developers.
+`Conan <https://conan.io>`_ is a software package manager which is intended for C and C++ developers.
 
 Conan is universal, it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and it
 can target any platform, including desktop, server, cross-building, embedded and bare metal. It
