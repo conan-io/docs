@@ -1,12 +1,30 @@
 Welcome to conan
 ================
 
-Conan is a portable package manager, intended for C and C++ developers, but it is able to manage
-builds from source, dependencies, and precompiled binaries for any language. 
+`Conan <https://conan.io>`_ is a portable package manager, intended for C and C++ developers.
 
-For more information, check `conan.io <https://conan.io>`_.
+Conan is universal, it works in all platforms: Windows, Linux, OSX, FreeBSD, Solaris, etc. and it
+can target any platform, including desktop, server, cross-building, embedded and bare metal. It
+integrates with oth`er tools like Docker, MinGW, WSL, and with all build systems: CMake, MSBuild,
+Makefiles, Meson, SCons, and it can integrate even with any proprietary build system.
 
-Contents:
+Conan is completely `free and open source <https://github.com/conan-io/conan>`_ and fully
+decentralized. It has native integration with JFrog Artifactory, including the free
+Artifactory Community Edition for Conan, to host your own private packages in your own server.
+The `ConanCenter <https://conan.io/center>`_ central repository contains hundreds of popular
+open source libraries packages, with many pre-compiled binaries for mainstream compiler versions.
+
+Conan can manage any number of different binaries for different configurations, including different
+architectures, compilers, compiler versions, runtimes, C++ standard library, etc. When binaries are not
+available for one configuration, they can be built from sources. Conan can create,
+upload and download binaries with the same commands and flows in every platform, saving lots of time
+in development and continuous integration. The binary compatibility can be configured and customized.
+
+Conan has  a very large and active community, especially in `Github repositories <https://github.com/conan-io/conan>`_
+and `Slack #conan channel <https://cpplang-inviter.cppalliance.org/>`_. This community also creates and maintains
+packages in ConanCenter. Conan is used in production by thousands of companies, and consequently, it has a
+commitment to stability, not breaking while moving forward in Conan 1.X versions.
+
 
 .. toctree::
    :maxdepth: 2
