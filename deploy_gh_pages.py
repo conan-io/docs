@@ -70,6 +70,11 @@ def build_and_copy(branch, folder_name, versions_available, themes_dir, validate
 
         os.mkdir(version_folder)
         copytree(tmp_dir, version_folder)
+
+        if version_folder == "en/latest":
+            shutil.copy2(os.path.join(version_folder, "404.html"), "404.html")
+            update_404_html("404.html", version_folder)
+
         call("git add -A .")
         call("git commit --message 'committed version %s'" % folder_name, ignore_error=True)
 
@@ -90,14 +95,25 @@ def should_deploy():
     return True
 
 
+def update_404_html(filepath, folder_name):
+    content = None
+    with open(filepath, "r") as fd:
+        content = fd.read()
+    content = content.replace('href="_', 'href="{}/_'.format(folder_name))
+    content = content.replace('src="_', 'src="{}/_'.format(folder_name))
+    content = content.replace('alt="_', 'alt="{}/_'.format(folder_name))
+    with open(filepath, "w") as fd:
+        fd.write(content)
+
+
 def deploy():
     call('rm -rf .git')
     call('git init .')
     call('git add .')
     call('git checkout -b gh-pages')
     call('git commit -m "Cleared web"')
-    call('git remote add origin-pages '
-         'https://%s@github.com/conan-io/docs.git > /dev/null 2>&1' % os.getenv("GITHUB_API_KEY"))
+    call('git remote add origin-pages https://{}@github.com/conan-io/docs.git '
+         '> /dev/null 2>&1'.format(os.getenv("GITHUB_API_KEY")))
     call('git push origin-pages gh-pages --force')
 
 
