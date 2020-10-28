@@ -102,6 +102,10 @@ def update_404_html(filepath, folder_name):
     content = content.replace('href="_', 'href="{}/_'.format(folder_name))
     content = content.replace('src="_', 'src="{}/_'.format(folder_name))
     content = content.replace('alt="_', 'alt="{}/_'.format(folder_name))
+    content = content.replace('alt="_', 'alt="{}/_'.format(folder_name))
+    content = content.replace('internal" href="', 'internal" href="{}/'.format(folder_name))
+    content = content.replace('"search.html"', '"{}/search.html"'.format(folder_name))
+    content = content.replace('"genindex.html"', '"{}/genindex.html"'.format(folder_name))
     with open(filepath, "w") as fd:
         fd.write(content)
 
