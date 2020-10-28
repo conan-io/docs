@@ -7,7 +7,9 @@
 3. Push master.
 
 
-#### Testing Locally
+#### Testing Deploy Locally
+
+NOTE: This is for testing the deploy only. Generating the docs locally is just ``make html``
 
 Testing gh-pages locally is possible, but requires some steps before generating all artifacts.
 We recommend doing it on 'master' branch, because the script is harcoded, but you can use any other branch name too.
