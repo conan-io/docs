@@ -304,7 +304,7 @@ CONAN_LOGIN_ENCRYPTION_KEY
 
 **Defaulted to**: Not defined
 
-This variables is used to obfuscate the credential token when it is stored in the database after
+This variable is used to obfuscate the credential token when it is stored in the database after
 a successful :command:`conan user` command. The encryption algorithm is a basic Vigenere cypher
 which is **not ok for security at all**.
 
