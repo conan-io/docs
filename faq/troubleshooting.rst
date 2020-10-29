@@ -1,14 +1,14 @@
 Troubleshooting
 ==================
 
-ERROR: The recipe is contraining settings
+ERROR: The recipe is constraining settings
 ------------------------------------------
 
 When you install or create a package you might have error like the following one:
 
 .. code-block:: text
 
-    ERROR: The recipe is contraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
+    ERROR: The recipe is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
     Possible values are ['Windows']
     Read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-the-recipe-is-contraining-settings"
 
@@ -17,9 +17,8 @@ This means that your target operating system is not supported by the recipe.
 ERROR: Missing prebuilt package
 --------------------------------
 
-When you are installing packages (with :command:`conan install` or :command:`conan create`) it is possible
+When installing packages (with :command:`conan install` or :command:`conan create`) it is possible
 that you get an error like the following one:
-
 
 .. code-block:: text
 
@@ -31,23 +30,24 @@ that you get an error like the following one:
     - Package ID: 7a4079899e0893ca670df1f682b4606abe79ee5b
 
     ERROR: Missing prebuilt package for 'czmq/4.2.0'
-    Try to build it from sources with "--build czmq"
-    Or read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package"
-
+    Try to build it from sources with '--build czmq'
+    Use 'conan search <reference> --table table.html' and filter using your profile
+    Or read 'http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
 
 This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
 there is no precompiled package for your current settings. Maybe the package creator didn't build
-and shared pre-built packages at all and only uploaded the package recipe, or maybe they are only
+and shared pre-built packages at all and only uploaded the package recipe, or they are only
 providing packages for some platforms or compilers. E.g. the package creator built packages
-from the recipe for Visual Studio 14 and 15, but you are using Visual Studio 16.
+from the recipe for Visual Studio 14 and 15, but you are using Visual Studio 16. Also you may want to check your
+:ref:`package ID mode <default_package_id_mode>` as it may have an influence on the packages available for it.
 
-By default, conan doesn't build packages from sources. There are several possibilities:
+By default, Conan doesn't build packages from sources. There are several possibilities to overcome this error:
 
-- You can try to build the package for your settings from sources, indicating some build
-  policy as argument, like ``--build czmq`` or ``--build missing``. If the package recipe and the source
-  code work for your settings you will have your binaries built locally and ready for use.
+- You can try to build the package for your settings from sources, indicating some build policy as argument, like :command:`--build czmq` or
+  :command:`--build missing`. If the package recipe and the source code work for your settings you will have your binaries built locally and
+  ready for use.
 
-- If building from sources fail, you might want to fork the original recipe, improve it until it
+- If building from sources fails, you might want to fork the original recipe, improve it until it
   supports your configuration, and then use it. Most likely contributing back to the original
   package creator is the way to go. But you can also upload your modified recipe and pre-built
   binaries under your own username too.
