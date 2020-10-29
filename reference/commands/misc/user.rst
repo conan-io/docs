@@ -8,14 +8,13 @@ conan user
 
     $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [-j JSON] [-s] [name]
 
-Authenticates against a remote with user/pass, after a successful login the auth
-token is stored in the local database (see :ref:`env_vars_conan_login_encryption_key`
-to add a basic level of security).
+Authenticates against a remote with user/pass, caching the auth token.
 
 Useful to avoid the user and password being requested later. e.g. while
 you're uploading a package.  You can have one user for each remote.
 Changing the user, or introducing the password is only necessary to
 perform changes in remote packages.
+
 
 .. code-block:: text
 
@@ -36,6 +35,10 @@ perform changes in remote packages.
       -s, --skip-auth       Skips the authentication with the server if there are
                             local stored credentials. It doesn't check if the
                             current credentials are valid or not
+
+
+After a successful login the auth token is stored in the local database (see :ref:`env_vars_conan_login_encryption_key`
+to add a basic level of security).
 
 
 **Examples**:
