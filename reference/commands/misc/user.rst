@@ -8,7 +8,9 @@ conan user
 
     $ conan user [-h] [-c] [-p [PASSWORD]] [-r REMOTE] [-j JSON] [-s] [name]
 
-Authenticates against a remote with user/pass, caching the auth token.
+Authenticates against a remote with user/pass, after a successful login the auth
+token is stored in the local database (see :ref:`env_vars_conan_login_encryption_key`
+to add a basic level of security).
 
 Useful to avoid the user and password being requested later. e.g. while
 you're uploading a package.  You can have one user for each remote.
