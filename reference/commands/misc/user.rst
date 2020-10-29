@@ -15,7 +15,6 @@ you're uploading a package.  You can have one user for each remote.
 Changing the user, or introducing the password is only necessary to
 perform changes in remote packages.
 
-
 .. code-block:: text
 
     positional arguments:
