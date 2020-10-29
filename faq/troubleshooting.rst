@@ -31,7 +31,7 @@ that you get an error like the following one:
 
     ERROR: Missing prebuilt package for 'czmq/4.2.0'
     Try to build it from sources with '--build czmq'
-    Use 'conan search <reference> --table table.html' and filter using your profile
+    Use 'conan search <reference> --table table.html'
     Or read 'http://docs.conan.io/en/latest/faq/troubleshooting.html#error-missing-prebuilt-package'
 
 This means that the package recipe ``czmq/4.2.0@`` exists, but for some reason
