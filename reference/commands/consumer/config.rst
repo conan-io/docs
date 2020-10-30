@@ -80,7 +80,7 @@ conan config install
                               [item]
 
   positional arguments:
-    item                  git repository, local folder or zip file (local or
+    item                  git repository, local file or folder, zip file (local or
                           http) where the configuration is stored
 
   optional arguments:
@@ -103,8 +103,9 @@ conan config install
 The ``config install`` is intended to share the Conan client configuration. For example, in a company or organization,
 is important to have common ``settings.yml``, ``profiles``, etc.
 
-It can get its configuration files from a local or remote zip file, from a local directory or from a git repository. It then installs the
-files in the local Conan configuration.
+It can install one specific file or get its configuration files from a local or remote zip file, from
+a local directory or from a git repository. It then installs the files in the local Conan
+configuration.
 
 The configuration may contain all or a subset of the allowed configuration files. Only the files that are present will be
 replaced. The only exception is the *conan.conf* file for which only the variables declared will be installed,
@@ -198,6 +199,12 @@ Conan runs it based on *config_install.json*, including the timestamp of the las
 
   This will disable the SSL check of the certificate.
 
+- Install a specific file from a local path:
+
+  .. code-block:: bash
+
+      $ conan config install my_settings\settings.yml
+      
 - Install the configuration from a local path:
 
   .. code-block:: bash
