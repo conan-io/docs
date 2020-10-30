@@ -655,6 +655,8 @@ The default behavior produces a *conaninfo.txt* that looks like:
     [full_requires]
     MyOtherLib/2.2@demo/testing:73bce3fd7eb82b2eabc19fe11317d37da81afa56
 
+.. _default_package_id_mode:
+
 Changing the default package-id mode
 ++++++++++++++++++++++++++++++++++++
 
