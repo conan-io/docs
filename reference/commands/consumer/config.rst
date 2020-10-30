@@ -80,7 +80,7 @@ conan config install
                               [item]
 
   positional arguments:
-    item                  git repository, local file or folder, zip file (local or
+    item                  git repository, local file or folder or zip file (local or
                           http) where the configuration is stored
 
   optional arguments:
