@@ -97,15 +97,16 @@ def should_deploy():
 
 def update_404_html(filepath, folder_name):
     content = None
+    prefix = "https://docs.conan.io/{}".format(folder_name)
     with open(filepath, "r") as fd:
         content = fd.read()
-    content = content.replace('href="_', 'href="{}/_'.format(folder_name))
-    content = content.replace('src="_', 'src="{}/_'.format(folder_name))
-    content = content.replace('alt="_', 'alt="{}/_'.format(folder_name))
-    content = content.replace('alt="_', 'alt="{}/_'.format(folder_name))
-    content = content.replace('internal" href="', 'internal" href="{}/'.format(folder_name))
-    content = content.replace('"search.html"', '"{}/search.html"'.format(folder_name))
-    content = content.replace('"genindex.html"', '"{}/genindex.html"'.format(folder_name))
+    content = content.replace('href="_', 'href="{}/_'.format(prefix))
+    content = content.replace('src="_', 'src="{}/_'.format(prefix))
+    content = content.replace('alt="_', 'alt="{}/_'.format(prefix))
+    content = content.replace('alt="_', 'alt="{}/_'.format(prefix))
+    content = content.replace('internal" href="', 'internal" href="{}/'.format(prefix))
+    content = content.replace('"search.html"', '"{}/search.html"'.format(prefix))
+    content = content.replace('"genindex.html"', '"{}/genindex.html"'.format(prefix))
     with open(filepath, "w") as fd:
         fd.write(content)
 
