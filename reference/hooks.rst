@@ -18,7 +18,7 @@ Here you can see a complete example of all the hook functions available and the 
 context:
 
 ..
-  The next code-block is copied from codebase at 'conans/test/functional/hooks/hook_test.py' (minor modifications)
+  The next code-block is copied from codebase at 'conans/test/functional/hooks/hook_test.py' (remove a couple of asserts)
 
 
 .. code-block:: python
