@@ -6,7 +6,7 @@ ____________________________
 There are several ways to cross-compile packages for `Android <https://www.android.com>`__ platform via conan.
 
 Using android_ndk_installer package (build require)
-=========================================================
+===================================================
 
 The easiest way so far is to use `android_ndk_installer <https://github.com/bincrafters/conan-android_ndk_installer>`_ conan package (which is in ``conan-center`` repository).
 
@@ -65,6 +65,60 @@ By adjusting ``arch`` setting, you may cross-compile for ``x86`` and ``x86_64`` 
 
   ``os.api_level`` is an important setting which affects compatibility - it defines the **minimum** Android version supported.
   In other words, it is the same meaning as `minSdkVersion <https://developer.android.com/guide/topics/manifest/uses-sdk-element>`_.
+
+
+.. _conan-cmake-toolchain-android:
+
+Use built-in Conan toolchain
+============================
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+Conan will generate a toolchain for Android if the recipe is using a :ref:`conan-cmake-toolchain`. In
+that case all you need is to provide the path to the Android NDK and :ref:`working profiles <build_requires_context>`.
+This approach can also use the Android NDK package referenced in the previous section.
+
+Use a regular profile for the *host* context:
+
+.. code-block:: ini
+   :caption: **profile_host**
+
+   [settings]
+   os=Android
+   os.api_level=23
+   arch=x86_64
+   compiler=clang
+   compiler.version=9
+   compiler.libcxx=c++_shared
+   build_type=Release
+
+and add Android NDK to the ``PATH`` or populate the ``CONAN_CMAKE_ANDROID_NDK`` environment variable.
+
+Together with the files created by the generators that make it possible to find and link the
+requirements, :command:`conan install` command will generate a toolchain file like the following one:
+
+.. code-block:: cmake
+   :caption: **conan_toolchain.cmake** (some parts are stripped)
+
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
+
+    set(CMAKE_SYSTEM_NAME Android)
+    set(CMAKE_SYSTEM_VERSION 23)
+    set(CMAKE_ANDROID_ARCH_ABI x86_64)
+    set(CMAKE_ANDROID_STL_TYPE c++_shared)
+    set(CMAKE_ANDROID_NDK <path/provided/via/environment/variable>)
+
+
+With this toolchain file you can execute CMake's command to generate the binaries:
+
+.. code-block:: bash
+
+   conan install <conanfile> --profile:host=profile_host --profile:build=default
+   cmake . -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+   cmake --build . --config Release
+
 
 Using Docker images
 ===================
