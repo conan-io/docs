@@ -250,3 +250,4 @@ Conan is able to generate a toolchain file for some configurations. In the
 following sections you can find more information about them:
 
  * :ref:`Android <conan-cmake-toolchain-android>`.
+ * :ref:`iOS <conan-cmake-toolchain-ios>`.
