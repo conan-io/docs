@@ -75,24 +75,40 @@ With the ``MSBuildToolchain`` it is possible to do:
 MSBuild build helper
 ---------------------
 
+When using the toolchain feature, the ``MSBuild`` helper that is used in the ``build()`` method
+will be a new, different one with new behavior.
+
 .. warning::
 
-    The existing ``MSBuild`` helper is not suitable to be used with toolchain yet. A new
-    helper will be added in future releases.
+    The new ``MSBuild`` helper that is used with toolchains is experimental and subject to
+    breaking changes in the future
 
-
-At the moment there is no build helper to work with the ``MSBuildToolchain``. Call directly
-``msbuild`` in your recipes to build your project, something like:
+The ``MSBuild`` helper can be used like:
 
 .. code:: python
 
-    def build(self):
-        vs_path = vs_installation_path("15")
-        vcvars_path = os.path.join(vs_path, "VC/Auxiliary/Build/vcvarsall.bat")
+    from conans import ConanFile, MSBuildToolchain, MSBuild
 
-        platform_arch = "x86" if self.settings.arch == "x86" else "x64"
-        build_type = self.settings.build_type
-        cmd = ('set "VSCMD_START_DIR=%%CD%%" && '
-                   '"%s" x64 && msbuild "MyProject.sln" /p:Configuration=%s '
-                   '/p:Platform=%s ' % (vcvars_path, build_type, platform_arch))
-        self.run(cmd)
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        def toolchain(self):
+            ...
+
+        def build(self):
+            msbuild = MSBuild(self)
+            msbuild.build("MyProject.sln")
+
+The ``MSBuild.build()`` method internally implements a call to ``msbuild`` like:
+
+
+.. code:: bash
+
+    $ <vcvars-cmd> && msbuild "MyProject.sln" /p:Configuration=<conf> /p:Platform=<platform>
+
+Where:
+
+- ``vcvars-cmd`` is calling the Visual Studio prompt that matches the current recipe ``settings``
+- ``conf`` is the configuration, typically Release, Debug, which will be obtained from ``settings.build_type``
+  but this will be configurable. Please open a `Github issue <https://github.com/conan-io/conan/issues>`_ if you want to define custom configurations.
+- ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
+  If your platform is unsupported, please report in `Github issues <https://github.com/conan-io/conan/issues>`_ as well:
