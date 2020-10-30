@@ -17,129 +17,136 @@ Hook interface
 Here you can see a complete example of all the hook functions available and the different parameters for each of them depending on the
 context:
 
+..
+  The next code-block is copied from codebase at 'conans/test/functional/hooks/hook_test.py' (minor modifications)
+
+
 .. code-block:: python
 
     def pre_export(output, conanfile, conanfile_path, reference, **kwargs):
         assert conanfile
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+    
     def post_export(output, conanfile, conanfile_path, reference, **kwargs):
         assert conanfile
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+    
     def pre_source(output, conanfile, conanfile_path, **kwargs):
         assert conanfile
-        output.info("conanfile_path=%s" % conanfile_path)
+        output.info("conanfile_path={}".format(conanfile_path))
         if conanfile.in_local_cache:
-            output.info("reference=%s" % str(kwargs["reference"]))
-
+            output.info("reference={}".format(kwargs["reference"].full_str()))
+    
     def post_source(output, conanfile, conanfile_path, **kwargs):
         assert conanfile
-        output.info("conanfile_path=%s" % conanfile_path)
+        output.info("conanfile_path={}".format(conanfile_path))
         if conanfile.in_local_cache:
-            output.info("reference=%s" % str(kwargs["reference"]))
-
+            output.info("reference={}".format(kwargs["reference"].full_str()))
+    
     def pre_build(output, conanfile, **kwargs):
         assert conanfile
         if conanfile.in_local_cache:
-            output.info("reference=%s" % str(kwargs["reference"]))
-            output.info("package_id=%s" % kwargs["package_id"])
+            output.info("reference={}".format(kwargs["reference"].full_str()))
+            output.info("package_id={}".format(kwargs["package_id"]))
         else:
-            output.info("conanfile_path=%s" % kwargs["conanfile_path"])
-
+            output.info("conanfile_path={}".format(kwargs["conanfile_path"]))
+    
     def post_build(output, conanfile, **kwargs):
         assert conanfile
         if conanfile.in_local_cache:
-            output.info("reference=%s" % str(kwargs["reference"]))
-            output.info("package_id=%s" % kwargs["package_id"])
+            output.info("reference={}".format(kwargs["reference"].full_str()))
+            output.info("package_id={}".format(kwargs["package_id"]))
         else:
-            output.info("conanfile_path=%s" % kwargs["conanfile_path"])
-
+            output.info("conanfile_path={}".format(kwargs["conanfile_path"]))
+    
     def pre_package(output, conanfile, conanfile_path, **kwargs):
         assert conanfile
-        output.info("conanfile_path=%s" % conanfile_path)
+        output.info("conanfile_path={}".format(conanfile_path))
         if conanfile.in_local_cache:
-            output.info("reference=%s" % str(kwargs["reference"]))
-            output.info("package_id=%s" % kwargs["package_id"])
-
+            output.info("reference={}".format(kwargs["reference"].full_str()))
+            output.info("package_id={}".format(kwargs["package_id"]))
+    
     def post_package(output, conanfile, conanfile_path, **kwargs):
         assert conanfile
-        output.info("conanfile_path=%s" % conanfile_path)
+        output.info("conanfile_path={}".format(conanfile_path))
         if conanfile.in_local_cache:
-            output.info("reference=%s" % str(kwargs["reference"]))
-            output.info("package_id=%s" % kwargs["package_id"])
-
+            output.info("reference={}".format(kwargs["reference"].full_str()))
+            output.info("package_id={}".format(kwargs["package_id"]))
+    
     def pre_upload(output, conanfile_path, reference, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def post_upload(output, conanfile_path, reference, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def pre_upload_recipe(output, conanfile_path, reference, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def post_upload_recipe(output, conanfile_path, reference, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def pre_upload_package(output, conanfile_path, reference, package_id, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("package_id=%s" % package_id)
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("package_id={}".format(package_id))
+        output.info("remote.name={}".format(remote.name))
+    
     def post_upload_package(output, conanfile_path, reference, package_id, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("package_id=%s" % package_id)
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("package_id={}".format(package_id))
+        output.info("remote.name={}".format(remote.name))
+    
     def pre_download(output, reference, remote, **kwargs):
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def post_download(output, conanfile_path, reference, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def pre_download_recipe(output, reference, remote, **kwargs):
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
     def post_download_recipe(output, conanfile_path, reference, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("remote.name=%s" % remote.name)
-
-    def pre_download_package(output, conanfile_path, reference, package_id, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("package_id=%s" % package_id)
-        output.info("remote.name=%s" % remote.name)
-
-    def post_download_package(output, conanfile_path, reference, package_id, remote, **kwargs):
-        output.info("conanfile_path=%s" % conanfile_path)
-        output.info("reference=%s" % str(reference))
-        output.info("package_id=%s" % package_id)
-        output.info("remote.name=%s" % remote.name)
-
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("remote.name={}".format(remote.name))
+    
+    def pre_download_package(output, conanfile, conanfile_path, reference, package_id, remote, **kwargs):
+        output.info("conanfile.name={}".format(conanfile.name))
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("package_id={}".format(package_id))
+        output.info("remote.name={}".format(remote.name))
+    
+    def post_download_package(output, conanfile, conanfile_path, reference, package_id, remote, **kwargs):
+        output.info("conanfile.name={}".format(conanfile.name))
+        output.info("conanfile_path={}".format(conanfile_path))
+        output.info("reference={}".format(reference.full_str()))
+        output.info("package_id={}".format(package_id))
+        output.info("remote.name={}".format(remote.name))
+    
     def pre_package_info(output, conanfile, reference, **kwargs):
-        output.info("reference=%s" % reference.full_repr())
-        output.info("conanfile.cpp_info.defines=%s" % conanfile.cpp_info.defines)
-
+        output.info("reference={}".format(reference.full_str()))
+        output.info("conanfile.cpp_info.defines={}".format(conanfile.cpp_info.defines))
+    
     def post_package_info(output, conanfile, reference, **kwargs):
-        output.info("reference=%s" % reference.full_repr())
-        output.info("conanfile.cpp_info.defines=%s" % conanfile.cpp_info.defines)
+        output.info("reference={}".format(reference.full_str()))
+        output.info("conanfile.cpp_info.defines={}".format(conanfile.cpp_info.defines))
+
 
 Functions of the hooks are intended to be self-descriptive regarding to the execution of them. For example, the ``pre_package()`` function
 is called just before the ``package()`` method of the recipe is executed.
