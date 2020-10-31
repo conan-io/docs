@@ -11,6 +11,7 @@ conan search
                    [pattern_or_reference]
 
 Searches package recipes and binaries in the local cache or a remote.
+Unless a remote is specified only the local cache is searched.
 
 If you provide a pattern, then it will search for existing package
 recipes matching it.  If a full reference is provided

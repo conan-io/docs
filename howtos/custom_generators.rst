@@ -45,7 +45,7 @@ Create a folder with a new *conanfile.py* with the following contents:
             self.rootpath = "%s" % deps_cpp_info.rootpath.replace("\\", "/")
 
 
-    class Premake(Generator):
+    class premake(Generator):
 
         @property
         def filename(self):
@@ -79,8 +79,8 @@ Create a folder with a new *conanfile.py* with the following contents:
             return "\n".join(sections)
 
 
-    class MyCustomGeneratorPackage(ConanFile):
-        name = "PremakeGen"
+    class MyPremakeGeneratorPackage(ConanFile):
+        name = "premakegen"
         version = "0.1"
         url = "https://github.com/memsharded/conan-premake"
         license = "MIT"
@@ -90,7 +90,7 @@ individual library separately, then also an aggregated information for all depen
 information.
 
 Note the **name of the package** will be **premakegen/0.1@<user>/<channel>** as that is the name given to it, while the generator name is
-**Premake** (the name of the class that inherits from ``Generator``). You can give the package any name you want, even the same as the
+**premake** (the name of the class that inherits from ``Generator``). You can give the package any name you want, even the same as the
 generator's name if desired.
 
 You ``export`` the package recipe to the local cache, so it can be used by other projects as usual:
@@ -130,7 +130,7 @@ Put the following files inside. Note the ``premakegen@0.1@myuser/testing`` packa
     premakegen@0.1@myuser/testing
 
     [generators]
-    Premake
+    premake
 
 .. code-block:: cpp
    :caption: *main.cpp*
@@ -191,7 +191,7 @@ Now everything works, so you might want to share your generator:
 
 .. code-block:: bash
 
-    $ conan upload PremakeGen/0.1@myuser/testing
+    $ conan upload premakegen/0.1@myuser/testing
 
 .. tip::
 
@@ -224,7 +224,7 @@ templating formats:
             return template % "Hello"
 
     class MyCustomGeneratorPackage(ConanFile):
-        name = "custom"
+        name = "custom_generator"
         version = "0.1"
         exports = "mytemplate.txt"
 
