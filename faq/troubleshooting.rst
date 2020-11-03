@@ -208,11 +208,12 @@ When installing a package which is already installed, but using a different case
 
         [...]
         ERROR: Failed requirement 'openssl/1.0.2t' from 'poco/1.10.1@'
-        ERROR: Requested 'openssl/1.0.2t' but found case incompatible 'OpenSSL'
+        ERROR: Requested 'openssl/1.0.2t', but found case incompatible recipe with name 'OpenSSL' in the cache.
         Case insensitive filesystem can not manage this
 
-The package ``OpenSSL/x.y.z@conan/stable`` is already installed. To solve this problem the different package with the same name
-must be removed:
+You can find and use recipes with upper and lower case names (we encourage lowercase variants), but some OSs like
+Windows are case insensitive by default, they cannot store at the same time both variants in the Conan cache. To
+solve this problem you need to remove existing upper case variant ``OpenSSL``:
 
 .. code-block:: bash
 
