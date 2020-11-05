@@ -62,12 +62,9 @@ node('Linux') {
         linkcheck: {
             image.inside {
                 int output = sh(script: 'make -C src linkcheck', returnStatus: true)
-                if (output != 0) {
-                    echo "Linkcheck failed!"
-                    if (isMaster) {
-                        currentBuild.result = 'FAILURE'
-                        error('Stopping here, linkcheck in "master" failed!')
-                    }
+                if (output != 0 && isMaster) {
+                    currentBuild.result = 'FAILURE'
+                    error('Stop here, linkcheck in "master" failed!')
                 }
             }
         }
@@ -127,7 +124,7 @@ node('Linux') {
             sh 'ls -la'
             sh 'ls -la en'
             sh "cp -R en/${versions['master']} en/latest"
-            sh 'cp src/versions.json versions.json'
+            // sh 'cp src/versions.json versions.json'
             sh 'cp en/latest/404.html 404.html'
 
             String content = readFile('404.html')
