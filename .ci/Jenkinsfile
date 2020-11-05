@@ -1,3 +1,4 @@
+#!groovy​
 
 Map<String, String> versions = [
         'master': '1.31',
@@ -32,7 +33,7 @@ Map<String, String> versions = [
         ]
 
 node('Linux') {
-    echo "Building $env.BRANCH_NAME, change $env.CHANGE_ID"
+    echo "Building ${env.BRANCH_NAME}, change ${env.CHANGE_ID}"
     boolean isMaster = env.BRANCH_NAME == 'master'
 
     stage('Clone sources') {
@@ -74,8 +75,8 @@ node('Linux') {
     stage('Create worktrees') {
         dir('src') {
             versions.each { branchName, folderName ->
-                sh "git fetch origin $branchName:$branchName"
-                sh "git worktree add ../$folderName $branchName"
+                sh "git fetch origin ${branchName}:${branchName}"
+                sh "git worktree add ../${folderName} ${branchName}"
             }
         }
     }
@@ -85,19 +86,21 @@ node('Linux') {
         String branchName = key
         String folderName = value
         parallelJobs[folderName] = {
-            echo "Run parallel job for $branchName inside $folderName"
+            echo "Run parallel job for ${branchName} inside ${folderName}"
             image.inside {
                 stage('Prepare sources') {
-                    sh "cp src/versions.json $folderName/versions.json"
-                    sh "cp -R src/_themes $folderName/_themes"
+                    sh "cp src/versions.json ${folderName}/versions.json"
+                    sh "cp -R src/_themes ${folderName}/_themes"
                 }
 
                 stage('Generate pages') {
-                    sh "sphinx-build -W -b html -d _doctrees/$folderName $folderName/ _gh-pages/en/$folderName"
+                    sh "sphinx-build -W -b html -d _doctrees/${folderName} ${folderName}/ gh-pages/en/${folderName}"
                 }
 
                 stage('Generate latex') {
-                    sh "sphinx-build -W -b latex -d _doctrees/$folderName $folderName/ _gh-pages/en/$folderName"
+                    sh "sphinx-build -W -b latex -d _doctrees/${folderName} ${folderName}/ ${folderName}/_build/latex"
+                    sh "make -C ${folderName}/_build/latex all-pdf"
+                    sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
                 }
             }
         }
@@ -119,11 +122,11 @@ node('Linux') {
             sh 'cp -R ../_gh-pages/en en'
             sh "cp -R en/${versions['master']} en/latest"
 
-            sh 'cp ../_gh-pages/en/latest/versions.json versions.json'
-            sh 'cp ../_gh-pages/en/latest/404.html 404.html'
+            sh 'cp en/latest/versions.json versions.json'
+            sh 'cp en/latest/404.html 404.html'
 
             String content = readFile('404.html')
-            String prefix = 'https://docs.conan.io/en/latext'
+            String prefix = 'https://docs.conan.io/en/latest'
             content = content.replaceAll('href="_', "href=\"${prefix}/_")
             content = content.replaceAll('src="_', "src=\"${prefix}/_")
             content = content.replaceAll('alt="_', "alt=\"${prefix}/_")
