@@ -140,6 +140,10 @@ node('Linux') {
         }
     }
 
+    stage('Archive generated folder') {
+        archiveArtifacts artifacts: 'gh-pages/**/*.*'
+    }
+
     stage('Publish to gh-pages') {
         dir('gh-pages') {
             sh 'git init .'
