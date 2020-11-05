@@ -345,6 +345,8 @@ options that can take any value.
             "shared": [True, False],
             "option1": ["value1", "value2"],
             "option2": "ANY",
+            "option3": [None, "value1", "value2"],
+            "option4": [True, False, "value"],
         }
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The 
