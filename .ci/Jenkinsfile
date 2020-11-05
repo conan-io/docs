@@ -105,11 +105,11 @@ node('Linux') {
                 }
 
                 stage('HTML') {
-                    sh "sphinx-build -W -b html -d _doctrees/${folderName} ${folderName}/ gh-pages/en/${folderName}"
+                    sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/en/${folderName}"
                 }
 
                 stage('PDF') {
-                    sh "sphinx-build -W -b latex -d _doctrees/${folderName} ${folderName}/ ${folderName}/_build/latex"
+                    sh "sphinx-build -W -b latex -d ${folderName}/_build/.doctrees ${folderName}/ ${folderName}/_build/latex"
                     sh "make -C ${folderName}/_build/latex all-pdf"
                     sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
                 }
