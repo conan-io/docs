@@ -162,12 +162,4 @@ node('Linux') {
             //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
         }
     }
-
-    stage('Check') {
-        sh 'ls -la'
-        sh 'ls -la gh-pages'
-        sh 'ls -la gh-pages/en'
-        sh 'ls -la gh-pages/latest'
-        sh 'cat gh-pages/404.html'
-    }
 }
