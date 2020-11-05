@@ -1099,6 +1099,12 @@ The ``deploy()`` method is designed to work on a package that is installed direc
 All other packages and dependencies, even transitive dependencies of ``pkg/0.1@user/testing`` will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
 
+
+.. seealso::
+
+    For a different approach to deploy package files in the user space folders, check the :ref:`deploy generator<deploy_generator>`.
+
+
 .. _method_init:
 
 init()

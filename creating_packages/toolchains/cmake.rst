@@ -1,3 +1,6 @@
+
+.. _conan-cmake-toolchain:
+
 CMakeToolchain
 ==============
 
@@ -238,3 +241,13 @@ Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
   can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
   type must be specified at configure time, not build type.
 - ``target``: name of the build target to run, by default ``RUN_TESTS`` or ``test``.
+
+
+Examples
+--------
+
+Conan is able to generate a toolchain file for some configurations. In the
+following sections you can find more information about them:
+
+ * :ref:`Android <conan-cmake-toolchain-android>`.
+ * :ref:`iOS <conan-cmake-toolchain-ios>`.
