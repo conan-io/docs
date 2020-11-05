@@ -504,6 +504,9 @@ This will be executed before the actual assignment of ``options`` (then, such ``
 the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
+These methods can also be used to assign values to options as seen in :ref:`conanfile_options`. Values assigned
+in the ``configure()`` method cannot be overriden, while values assigned in ``config_options()`` can.
+
 .. _invalid_configuration:
 
 Invalid configuration

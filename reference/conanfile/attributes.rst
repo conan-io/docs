@@ -349,7 +349,7 @@ options that can take any value.
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The 
 consumer can define options using different methods: command line, profile or consumer
-recipes; **an uninitialized option will get the value** ``None`` **and it will be a valid value if its contained
+recipes; **an uninitialized option will get the value** ``None`` **and it will be a valid value if it is contained
 in the list of valid values**. Invalid values will produce an error. See attribute :ref:`conanfile_default_options`
 for a way to declare a default value for options in a recipe.
 
@@ -373,7 +373,10 @@ go over all of them for the example recipe ``mypkg`` defined above:
 
   + Using the attribute ``default_options`` in the recipe itself.
 
-  + In the ``configure()`` method of the recipe itself (**this one has the highest precedence**)
+  + In the ``config_options()`` method of the recipe.
+
+  + In the ``configure()`` method of the recipe itself (**this one has the highest precedence**, this
+    value can't be overriden)
 
     .. code-block:: python
 
@@ -439,7 +442,7 @@ go over all of them for the example recipe ``mypkg`` defined above:
 
     $ conan install . -o mypkg:shared=True
 
-Regarding the precedence of all these ways of assigning a value to an option, it works like any othe configuration element in Conan:
+Regarding the precedence of all these ways of assigning a value to an option, it works like any other configuration element in Conan:
 the closer to the consumer and the command line the higher the precedence. The list above is ordered from the less priority to the
 highest one (with the exceptional assignment in ``configure()`` method which cannot be overridden).
 
