@@ -112,6 +112,7 @@ node('Linux') {
     }
 
     stage('Generate all releases') {
+        parallelJobs.failFast = true
         parallel parallelJobs
     }
 
