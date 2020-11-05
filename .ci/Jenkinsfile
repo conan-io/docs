@@ -54,6 +54,11 @@ node('Linux') {
                 sh 'make -C src html'
             }
         },
+        pdf: {
+            image.inside {
+                sh 'make -C src latex'
+            }
+        },
         spelling: {
             image.inside {
                 sh 'make -C src spelling'
