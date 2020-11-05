@@ -51,17 +51,17 @@ node('Linux') {
     stage('Test build') {
         parallel html: {
             image.inside {
-                sh 'sphinx-build -W -b html src/ _build/html'
+                sh 'make -C src html'
             }
         },
         spelling: {
             image.inside {
-                sh 'sphinx-build -b spelling . _build/spelling'
+                sh 'make -C src spelling'
             }
         },
         linkcheck: {
             image.inside {
-                int output = sh(script: 'sphinx-build -b linkcheck . _build/linkcheck', returnStatus: true)
+                int output = sh(script: 'make -C src linkcheck', returnStatus: true)
                 if (output != 0) {
                     echo "Linkcheck failed!"
                     if (isMaster) {
