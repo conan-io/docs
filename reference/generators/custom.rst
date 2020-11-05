@@ -52,7 +52,7 @@ filenames and contents in the ``content`` property, like this:
             pass
     
     class MyCustomGeneratorPackage(ConanFile):
-        name = "MultiGeneratorPkg"
+        name = "multi_generator_package"
         version = "0.1"
         url = "https://github.com/..."
         license = "MIT"

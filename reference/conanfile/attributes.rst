@@ -334,7 +334,7 @@ option name and the value is the list of different values that the option can ta
 A very common one is the option ``shared`` with allowed values of ``[True, False]`` that many recipes declare and use to configure the
 build system and link static or dynamically the dependencies.
 
-Values for each option can be typed or plain strings, and there is a special value, ``ANY``, for
+Values for each option can be typed or plain strings (``"value"``, ``True``, ``None``, ``42``,...) and there is a special value, ``"ANY"``, for
 options that can take any value.
 
 .. code-block:: python
@@ -345,6 +345,8 @@ options that can take any value.
             "shared": [True, False],
             "option1": ["value1", "value2"],
             "option2": "ANY",
+            "option3": [None, "value1", "value2"],
+            "option4": [True, False, "value"],
         }
 
 Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The 

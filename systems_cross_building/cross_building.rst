@@ -664,31 +664,8 @@ A **bin/enough** for Android ARM platform has been built.
 Examples using build requires
 +++++++++++++++++++++++++++++
 
-.. _darwin_toolchain:
-
-Example: Darwin Toolchain
-.........................
-
-Check the `Darwin Toolchain <https://github.com/theodelrieu/conan-darwin-toolchain>`_  package in conan-center.
-You can use a profile like the following to cross-build your packages for ``iOS``,  ``watchOS`` and ``tvOS``:
-
-.. code-block:: text
-    :caption: ios_profile
-
-    include(default)
-
-    [settings]
-    os=iOS
-    os.version=9.0
-    arch=armv7
-
-    [build_requires]
-    darwin-toolchain/1.0@theodelrieu/stable
-
-
-.. code-block:: bash
-
-    $ conan install . --profile ios_profile
+You can find one example on how to use build requires for cross-compiling to iOS in the :ref:`iOS
+integration section<darwin_toolchain>` in the documentation.
 
 .. seealso::
 

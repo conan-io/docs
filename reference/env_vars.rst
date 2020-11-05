@@ -296,6 +296,23 @@ For example: For a remote named "conan-center":
 
     See the :ref:`conan_user` command documentation for more information about login to remotes
 
+
+.. _env_vars_conan_login_encryption_key:
+
+CONAN_LOGIN_ENCRYPTION_KEY
+--------------------------
+
+**Defaulted to**: Not defined
+
+This variable is used to obfuscate the credential token when it is stored in the database after
+a successful :command:`conan user` command. The encryption algorithm is a basic Vigenere cypher
+which is **not ok for security at all**.
+
+This variable, however, is useful for shared CI servers where the stored value can be compromised:
+assign a random generated string to this value for each of the builds and configure your server to expire
+tokens, this will make the value stored in the database harder to crack.
+
+
 .. _env_vars_conan_make_program:
 
 CONAN_MAKE_PROGRAM
@@ -619,7 +636,7 @@ When an error is raised in a recipe or even in the Conan code base, if set to ``
 CONAN_ERROR_ON_OVERRIDE
 -----------------------
 
-** Defaulted to**: ``False``
+**Defaulted to**: ``False``
 
 When a consumer overrides one transitive requirement without using explicitly the keyword ``override``
 Conan will raise an error if this environmente variable is set to ``True``.

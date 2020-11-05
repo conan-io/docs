@@ -1812,10 +1812,10 @@ Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
 
 
-.. _tools_compilervars_command:
+.. _tools_intel_compilervars_command:
 
-tools.compilervars_command()
-----------------------------
+tools.intel_compilervars_command()
+----------------------------------
 
 .. warning::
 
@@ -1823,7 +1823,7 @@ tools.compilervars_command()
 
 .. code-block:: python
 
-    def compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
+    def intel_compilervars_command(conanfile, arch=None, compiler_version=None, force=False)
 
 Returns, for given settings of the given ``conanfile``, the command that should be called to load the Intel C++ environment variables for a certain Intel C++
 version. It wraps the functionality of `compilervars <https://software.intel.com/content/www/us/en/develop/documentation/intel-system-studio-cplusplus-compiler-user-and-reference-guide/top/target-platform-build-instructions/using-compilervars-file.html>`_
@@ -1835,7 +1835,7 @@ the same subprocess. It will be typically used in the ``build()`` method, like t
     from conans import tools
 
     def build(self):
-        cvars_command = tools.compilervars_command(self)
+        cvars_command = tools.intel_compilervars_command(self)
         build_command = ...
         self.run("%s && configure %s" % (cvars_command, " ".join(args)))
         self.run("%s && %s %s" % (cvars, build_command, " ".join(build_args)))
@@ -1855,10 +1855,10 @@ Parameters:
     - **force** (Optional, Defaulted to ``False``): Will ignore if the environment is already set for a different Intel C++ version.
 
 
-.. _tools_compilervars_dict:
+.. _tools_intel_compilervars_dict:
 
-tools.compilervars_dict()
--------------------------
+tools.intel_compilervars_dict()
+-------------------------------
 
 .. warning::
 
@@ -1866,9 +1866,9 @@ tools.compilervars_dict()
 
 .. code-block:: python
 
-    def compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
+    def intel_compilervars_dict(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
 
-Returns a dictionary with the variables set by the :ref:`tools_compilervars_command` that can be directly applied to
+Returns a dictionary with the variables set by the :ref:`tools_intel_compilervars_command` that can be directly applied to
 :ref:`tools_environment_append`.
 
 The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will be returned as a list. When used with
@@ -1879,21 +1879,21 @@ The values of the variables ``INCLUDE``, ``LIB``, ``LIBPATH`` and ``PATH`` will 
     from conans import tools
 
     def build(self):
-        env_vars = tools.compilervars_dict(self.settings)
+        env_vars = tools.intel_compilervars_dict(self.settings)
         with tools.environment_append(env_vars):
             # Do something
 
 Parameters:
-    - Same as :ref:`tools_compilervars_command`.
-    - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by ``compilervars`` and not
-      the whole environment. If `compilervars` modifies an environment variable by appending values to the old value (separated by ``;``), only
+    - Same as :ref:`tools_intel_compilervars_command`.
+    - **only_diff** (Optional, Defaulted to ``True``): When True, the command will return only the variables set by ``intel_compilervars`` and not
+      the whole environment. If `intel_compilervars` modifies an environment variable by appending values to the old value (separated by ``;``), only
       the new values will be returned, as a list.
 
 
-.. _tools_compilervars:
+.. _tools_intel_compilervars:
 
-tools.compilervars()
---------------------
+tools.intel_compilervars()
+--------------------------
 
 .. warning::
 
@@ -1901,17 +1901,17 @@ tools.compilervars()
 
 .. code-block:: python
 
-    def compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
+    def intel_compilervars(conanfile, arch=None, compiler_version=None, force=False, only_diff=True)
 
-This is a context manager that allows to append to the environment all the variables set by the :ref:`tools_compilervars_dict`. You can replace
-:ref:`tools_compilervars_dict` and use this context manager to get a cleaner way to activate the Intel C++ environment:
+This is a context manager that allows to append to the environment all the variables set by the :ref:`tools_intel_compilervars_dict`. You can replace
+:ref:`tools_intel_compilervars_dict` and use this context manager to get a cleaner way to activate the Intel C++ environment:
 
 .. code-block:: python
 
     from conans import tools
 
     def build(self):
-        with tools.compilervars(self.settings):
+        with tools.intel_compilervars(self.settings):
             do_something()
 
 .. tools_intel_installation_path:

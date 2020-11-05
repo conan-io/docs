@@ -36,6 +36,10 @@ perform changes in remote packages.
                             current credentials are valid or not
 
 
+After a successful login the auth token is stored in the local database (see :ref:`env_vars_conan_login_encryption_key`
+to add a basic level of security).
+
+
 **Examples**:
 
 - List my user for each remote:
