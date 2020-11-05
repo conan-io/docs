@@ -127,7 +127,7 @@ node('Linux') {
             sh 'ls -la'
             sh 'ls -la en'
             sh "cp -R en/${versions['master']} en/latest"
-            sh 'cp en/latest/versions.json versions.json'
+            sh 'cp src/versions.json versions.json'
             sh 'cp en/latest/404.html 404.html'
 
             String content = readFile('404.html')
