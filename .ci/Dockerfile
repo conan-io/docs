@@ -3,6 +3,6 @@ FROM python:slim
 COPY src/requirements.txt /tmp/
 
 RUN apt-get update \
-    && apt-get install -y enchant git make latexmk \
+    && apt-get install -y enchant git make latexmk texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra \
     && pip3 install --requirement /tmp/requirements.txt
 

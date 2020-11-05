@@ -56,13 +56,19 @@ node('Linux') {
         },
         spelling: {
             image.inside {
-                //sh 'sphinx-build -b spelling . _build/spelling'
+                sh 'sphinx-build -b spelling . _build/spelling'
             }
         },
         linkcheck: {
             image.inside {
-                // sh 'sphinx-build -b linkcheck . _build/linkcheck'
-                // TODO: Check return value, fail only if 'isMaster'
+                int output = sh(script: 'sphinx-build -b linkcheck . _build/linkcheck', returnStatus: true)
+                if (output != 0) {
+                    echo "Linkcheck failed!"
+                    if (isMaster) {
+                        currentBuild.result = 'FAILURE'
+                        error('Stopping here, linkcheck in "master" failed!')
+                    }
+                }
             }
         }
     }
@@ -72,7 +78,7 @@ node('Linux') {
         //return // TODO: Return here, remove comment
     }
 
-    stage('Create worktrees') {
+    stage('Create worktrees') { // Do this sequentially
         dir('src') {
             versions.each { branchName, folderName ->
                 sh "git fetch origin ${branchName}:${branchName}"
@@ -135,15 +141,18 @@ node('Linux') {
     }
 
     stage('Publish to gh-pages') {
-        /*
-        call('git init .')
-        call('git add .')
-        call('git checkout -b gh-pages')
-        call('git commit -m "Cleared web"')
-        call('git remote add origin-pages https://{}@github.com/conan-io/docs.git '
-            '> /dev/null 2>&1'.format(os.getenv("GITHUB_API_KEY")))
-        call('git push origin-pages gh-pages --force')
-        */
+        dir('gh-pages') {
+            sh 'git init .'
+            sh 'git checkout -b gh-pages'
+            sh 'git add .'
+            sh 'git config user.email "conanci@jfrog.com"'
+            sh 'git config user.name "ConanCI bot"'
+            sh 'git commit -m "Automatic deploy"'
+            //withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_API_KEY')]) {
+            //    sh "git remote add origin-pages https://${GITHUB_API_KEY}@github.com/conan-io/docs.git"
+            //}
+            //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
+        }
     }
 
     stage('Check') {
