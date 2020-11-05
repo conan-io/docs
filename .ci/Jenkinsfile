@@ -45,12 +45,7 @@ node('Linux') {
 
     def image = null
     stage('Build docker image') {
-        String image_id = sh (script: "docker images -q whatever/whatever:99", returnStdout: true).trim()
-        echo "image_id: $image_id"
-        image = docker.build('conan-docs', '-f src/.ci/Dockerfile .')  // TODO: push, publish?
-        String imageTag = new Date().format("yyyyMM")
-        echo "imageTag: $imageTag"
-        image.push(imageTag)
+        image = docker.build('conan-docs', '-f src/.ci/Dockerfile .')  // It should cache the image
     }
 
     stage('Test build') {
@@ -129,6 +124,8 @@ node('Linux') {
 
     stage('Prepare gh-branch') {
         dir('gh-pages') {
+            sh 'ls -la'
+            sh 'ls -la en'
             sh "cp -R en/${versions['master']} en/latest"
             sh 'cp en/latest/versions.json versions.json'
             sh 'cp en/latest/404.html 404.html'
