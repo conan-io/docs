@@ -78,7 +78,12 @@ node('Linux') {
                 sh "git fetch origin ${branchName}:${branchName}"
                 sh "git worktree add ../${folderName} ${branchName}"
             }
+            // Prepare the worktree for gh-pages too
+            sh 'git fetch origin gh-pages:gh-pages'
+            sh 'git worktree add ../gh-pages gh-pages'
         }
+        sh 'rm -fr gh-pages/.git'
+        sh 'rm -fr gh-pages/en'
     }
 
     Map parallelJobs = [:]
@@ -93,11 +98,11 @@ node('Linux') {
                     sh "cp -R src/_themes ${folderName}/_themes"
                 }
 
-                stage('Generate pages') {
+                stage('HTML') {
                     sh "sphinx-build -W -b html -d _doctrees/${folderName} ${folderName}/ gh-pages/en/${folderName}"
                 }
 
-                stage('Generate latex') {
+                stage('PDF') {
                     sh "sphinx-build -W -b latex -d _doctrees/${folderName} ${folderName}/ ${folderName}/_build/latex"
                     sh "make -C ${folderName}/_build/latex all-pdf"
                     sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
@@ -111,17 +116,8 @@ node('Linux') {
     }
 
     stage('Prepare gh-branch') {
-        dir('src') {
-            sh 'git fetch origin gh-pages:gh-pages'
-            sh 'git worktree add ../gh-pages gh-pages'
-        }
         dir('gh-pages') {
-            sh 'rm -fr .git'
-            sh 'rm -fr en'
-
-            sh 'cp -R ../_gh-pages/en en'
             sh "cp -R en/${versions['master']} en/latest"
-
             sh 'cp en/latest/versions.json versions.json'
             sh 'cp en/latest/404.html 404.html'
 
@@ -151,11 +147,8 @@ node('Linux') {
 
     stage('Check') {
         sh 'ls -la'
-        sh 'ls -la _gh-pages'
-        sh 'ls -la _gh-pages/en'
-        sh 'ls -la _gh-pages/en/1.30'
-
         sh 'ls -la gh-pages'
         sh 'ls -la gh-pages/en'
+        sh 'ls -la gh-pages/latest'
     }
 }
