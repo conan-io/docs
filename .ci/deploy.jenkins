@@ -48,9 +48,8 @@ node('Linux') {
     stage('Clone sources') {
         checkout([$class: 'GitSCM',
             branches: [[name: params.latest ]],
-            userRemoteConfigs: [[url: 'https://github.com/conan-io/docs']],
-            extensions       : [[$class          : 'RelativeTargetDirectory',
-                                relativeTargetDir: 'src']],
+            userRemoteConfigs: [[credentialsId: 'conanci-gh-token', url: 'https://github.com/conan-io/docs']],
+            extensions       : [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']],
         ])
 
         versions[params.latest] = 'latest'
