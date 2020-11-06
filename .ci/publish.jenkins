@@ -37,14 +37,17 @@ Map<String, String> versions = [
 node('Linux') {
 
     stage('Check params') {
+        String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
         assert params.latest, 'Provide a name to the "latest" branch'
-        assert params.prefix, 'Provide the prefix (base URL)'
+        if (params.publish) {
+            assert params.prefix, 'Provide the prefix (base URL) if you are going to publish'
+        }
 
         echo """
             Generate Conan docs webpage
              - params.latest: ${params.latest}
              - params.publish: ${params.publish}
-             - params.prefix: ${params.prefix}
+             - prefix: ${prefix}
              - versions: latest, ${versions.collect({key, value -> value }).join(', ')}
         """
         versions[params.latest] = 'latest'
@@ -115,13 +118,13 @@ node('Linux') {
             sh 'cp en/latest/404.html 404.html'
 
             String content = readFile('404.html')
-            String prefix = "${params.prefix}en/latest"
-            content = content.replaceAll('href="_', "href=\"${prefix}/_")
-            content = content.replaceAll('src="_', "src=\"${prefix}/_")
-            content = content.replaceAll('alt="_', "alt=\"${prefix}/_")
-            content = content.replaceAll('internal" href="', "internal\" href=\"${prefix}/")
-            content = content.replaceAll('"search.html"', "\"${prefix}/search.html\"")
-            content = content.replaceAll('"genindex.html"', "\"${prefix}/genindex.html\"")
+            String prefixLatest = "${prefix}en/latest"
+            content = content.replaceAll('href="_', "href=\"${prefixLatest}/_")
+            content = content.replaceAll('src="_', "src=\"${prefixLatest}/_")
+            content = content.replaceAll('alt="_', "alt=\"${prefixLatest}/_")
+            content = content.replaceAll('internal" href="', "internal\" href=\"${prefixLatest}/")
+            content = content.replaceAll('"search.html"', "\"${prefixLatest}/search.html\"")
+            content = content.replaceAll('"genindex.html"', "\"${prefixLatest}/genindex.html\"")
             writeFile(file: '404.html', text: content)
         }
     }
