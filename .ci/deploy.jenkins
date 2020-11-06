@@ -43,20 +43,22 @@ node('Linux') {
              - params.publish: ${params.publish}
              - params.prefix: ${params.prefix}
         """
-    }
-
-    stage('Clone sources') {
-        checkout([$class: 'GitSCM',
-            branches: [[name: params.latest ]],
-            userRemoteConfigs: [[credentialsId: 'conanci-gh-token', url: 'https://github.com/conan-io/docs']],
-            extensions       : [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'src']],
-        ])
-
         versions[params.latest] = 'latest'
-        writeJSON json: versions, file: 'src/versions.json'
     }
 
     def image = null
+    stage('Build docker image') {
+
+    }
+
+    stage('Clone sources') {
+        dir('src') {
+            sh 'git clone https://github.com/conan-io/docs .'            
+            writeJSON json: versions, file: 'versions.json'
+        }
+    }
+
+    
     stage('Build docker image') {
         dir('src') {
             image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image

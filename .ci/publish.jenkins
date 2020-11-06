@@ -33,6 +33,7 @@ Map<String, String> versions = [
         ]
 
 node('Linux') {
+
     stage('Check params') {
         assert params.latest, 'Provide a name to the "latest" branch'
         assert params.prefix, 'Provide the prefix (base URL)'
@@ -45,29 +46,32 @@ node('Linux') {
         """
     }
 
-    stage('Clone sources') {
-        dir('src') {
+    def image = null
+    stage('Build docker image') {
+        // Build the docker image using the same commit as the current 'publish.jenkins' file
+        dir('tmp') {
             checkout scm
-            versions[params.latest] = 'latest'
-            writeJSON json: versions, file: 'versions.json'
+            image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
+            deleteDir()
         }
     }
 
-    def image = null
-    stage('Build docker image') {
+    stage('Clone sources') {
         dir('src') {
-            image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
+            sh 'git clone https://github.com/conan-io/docs.git .'
+            sh "git checkout ${params.latest}"
+            writeJSON json: versions, file: 'versions.json'
         }
     }
 
     stage('Create worktrees') { // Do this sequentially
         dir('src') {
             versions.each { branchName, folderName ->
-                sh "git fetch origin ${branchName}:${branchName}"
+                //sh "git fetch origin ${branchName}:${branchName}"
                 sh "git worktree add ../${folderName} ${branchName}"
             }
             // Prepare the worktree for gh-pages too
-            sh 'git fetch origin gh-pages:gh-pages'
+            // sh 'git fetch origin gh-pages:gh-pages'
             sh 'git worktree add ../gh-pages gh-pages'
         }
         sh 'rm -fr gh-pages/.git'
