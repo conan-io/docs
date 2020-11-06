@@ -67,11 +67,11 @@ node('Linux') {
     stage('Create worktrees') { // Do this sequentially
         dir('src') {
             versions.each { branchName, folderName ->
-                //sh "git fetch origin ${branchName}:${branchName}"
+                sh "git fetch origin ${branchName}:${branchName}"
                 sh "git worktree add ../${folderName} ${branchName}"
             }
             // Prepare the worktree for gh-pages too
-            // sh 'git fetch origin gh-pages:gh-pages'
+            sh 'git fetch origin gh-pages:gh-pages'
             sh 'git worktree add ../gh-pages gh-pages'
         }
         sh 'rm -fr gh-pages/.git'
