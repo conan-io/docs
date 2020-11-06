@@ -45,7 +45,7 @@ node('Linux') {
              - params.latest: ${params.latest}
              - params.publish: ${params.publish}
              - params.prefix: ${params.prefix}
-             - versions: ${versions.collect({key, value -> value }).join(', ')}
+             - versions: latest, ${versions.collect({key, value -> value }).join(', ')}
         """
         versions[params.latest] = 'latest'
     }
@@ -68,7 +68,7 @@ node('Linux') {
                 sh "git worktree add ../${folderName} ${branchName}"
             }
             // Prepare the worktree for gh-pages too
-            sh 'git fetch origin gh-pages:gh-pages'
+            sh 'git fetch origin gh-pages:gh-pages'  // TODO: This is a very bad idea, we are retrieving something (100s Mb) we are going to remove
             sh 'git worktree add ../gh-pages gh-pages'
         }
         sh 'rm -fr gh-pages/.git'
@@ -128,6 +128,7 @@ node('Linux') {
 
     stage('Archive generated folder') {
         archiveArtifacts artifacts: 'gh-pages/**/*.*'
+        echo "Inspect generated webpage at ${BUILD_URL}artifact/gh-pages/index.html"
     }
 
     if (params.publish) {
