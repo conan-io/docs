@@ -59,15 +59,8 @@ node('Linux') {
         }
     }
 
-    stage('Clone sources') {
-        dir('src') {
-            sh 'git clone https://github.com/conan-io/docs.git .'
-            sh "git checkout ${params.latest}"
-            writeJSON json: versions, file: 'versions.json'
-        }
-    }
-
-    stage('Create worktrees') { // Do this sequentially
+    stage('Prepare sources as worktrees') { // Do this sequentially
+        sh 'git clone --bare https://github.com/conan-io/docs.git src'
         dir('src') {
             versions.each { branchName, folderName ->
                 sh "git fetch origin ${branchName}:${branchName}"
@@ -89,8 +82,8 @@ node('Linux') {
             echo "Run parallel job for ${branchName} inside ${folderName}"
             image.inside {
                 stage('Prepare sources') {
-                    sh "cp src/versions.json ${folderName}/versions.json"
-                    sh "cp -R src/_themes ${folderName}/_themes"
+                    writeJSON json: versions, file: "${folderName}/versions.json"
+                    sh "cp -R latest/_themes ${folderName}/_themes"
                 }
 
                 stage('HTML') {
