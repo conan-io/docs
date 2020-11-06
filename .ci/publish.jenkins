@@ -84,7 +84,9 @@ node('Linux') {
             image.inside {
                 stage('Prepare sources') {
                     writeJSON json: versions, file: "${folderName}/versions.json"
-                    sh "cp -R latest/_themes/ ${folderName}/_themes/"
+                    if (folderName != 'latest') { 
+                        sh "cp -R latest/_themes ${folderName}/_themes"
+                    }
                 }
 
                 stage('HTML') {
