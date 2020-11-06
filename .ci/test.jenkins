@@ -41,7 +41,7 @@ node('Linux') {
     }
 
     // 'master' branch is published to GH pages
-    if (isMaster) {
+    if (true || isMaster) {
         build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
             [$class: 'StringParameterValue', name: 'latest', value: masterBranch],
             [$class: 'StringParameterValue', name: 'prefix', value: 'https://docs.conan.io/'],
