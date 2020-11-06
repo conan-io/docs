@@ -119,7 +119,7 @@ node('Linux') {
             sh 'cp en/latest/404.html 404.html'
 
             String content = readFile('404.html')
-            String prefix = 'https://docs.conan.io/en/latest'
+            String prefix = "${params.prefix}en/latest"
             content = content.replaceAll('href="_', "href=\"${prefix}/_")
             content = content.replaceAll('src="_', "src=\"${prefix}/_")
             content = content.replaceAll('alt="_', "alt=\"${prefix}/_")
