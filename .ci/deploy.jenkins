@@ -1,7 +1,7 @@
 #!groovy​
 
+// TODO: Move to a file and avoid modifying CI script
 Map<String, String> versions = [
-        'master': '1.31',
         'release/1.30.2': '1.30',
         'release/1.29.2': '1.29',
         'release/1.28.2': '1.28',
@@ -33,51 +33,31 @@ Map<String, String> versions = [
         ]
 
 node('Linux') {
-    echo "Building ${env.BRANCH_NAME}, change ${env.CHANGE_ID}"
-    boolean isMaster = env.BRANCH_NAME == 'master'
+    stage('Check params') {
+        assert params.latest, 'Provide a name to the "latest" branch'
+        assert params.prefix, 'Provide the prefix (base URL)'
+
+        echo """
+            Generate Conan docs webpage
+             - params.latest: ${params.latest}
+             - params.publish: ${params.publish}
+             - params.prefix: ${params.prefix}
+        """
+    }
 
     stage('Clone sources') {
         dir('src') {
             checkout scm
+            versions[params.latest] = 'latest'
             writeJSON json: versions, file: 'versions.json'
         }
     }
 
     def image = null
     stage('Build docker image') {
-        image = docker.build('conan-docs', '-f src/.ci/Dockerfile .')  // It should cache the image
-    }
-
-    stage('Test build') {
-        parallel html: {
-            image.inside {
-                sh 'make -C src html'
-            }
-        },
-        pdf: {
-            image.inside {
-                sh 'make -C src latex'
-            }
-        },
-        spelling: {
-            image.inside {
-                sh 'make -C src spelling'
-            }
-        },
-        linkcheck: {
-            image.inside {
-                int output = sh(script: 'make -C src linkcheck', returnStatus: true)
-                if (output != 0 && isMaster) {
-                    currentBuild.result = 'FAILURE'
-                    error('Stop here, linkcheck in "master" failed!')
-                }
-            }
+        dir('src') {
+            image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
         }
-    }
-
-    if (!isMaster) {
-        echo 'Stop here, do not run anything else for branches other than master'
-        //return // TODO: Return here, remove comment
     }
 
     stage('Create worktrees') { // Do this sequentially
@@ -128,8 +108,7 @@ node('Linux') {
         dir('gh-pages') {
             sh 'ls -la'
             sh 'ls -la en'
-            sh "cp -R en/${versions['master']} en/latest"
-            // sh 'cp src/versions.json versions.json'
+            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
             sh 'cp en/latest/404.html 404.html'
 
             String content = readFile('404.html')
@@ -148,18 +127,20 @@ node('Linux') {
         archiveArtifacts artifacts: 'gh-pages/**/*.*'
     }
 
-    stage('Publish to gh-pages') {
-        dir('gh-pages') {
-            sh 'git init .'
-            sh 'git checkout -b gh-pages'
-            sh 'git add .'
-            sh 'git config user.email "conanci@jfrog.com"'
-            sh 'git config user.name "ConanCI bot"'
-            sh 'git commit -m "Automatic deploy"'
-            //withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_API_KEY')]) {
-            //    sh "git remote add origin-pages https://${GITHUB_API_KEY}@github.com/conan-io/docs.git"
-            //}
-            //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
+    if (params.publish) {
+        stage('Publish to gh-pages') {
+            dir('gh-pages') {
+                sh 'git init .'
+                sh 'git checkout -b gh-pages'
+                sh 'git add .'
+                sh 'git config user.email "conanci@jfrog.com"'
+                sh 'git config user.name "ConanCI bot"'
+                sh 'git commit -m "Automatic deploy"'
+                //withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_API_KEY')]) {
+                //    sh "git remote add origin-pages https://${GITHUB_API_KEY}@github.com/conan-io/docs.git"
+                //}
+                //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
+            }
         }
     }
 }

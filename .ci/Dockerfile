@@ -1,6 +1,6 @@
 FROM python:slim
 
-COPY src/requirements.txt /tmp/
+COPY requirements.txt /tmp/
 
 RUN apt-get update \
     && apt-get install -y enchant git make latexmk texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra \
