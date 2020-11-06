@@ -36,8 +36,8 @@ Map<String, String> versions = [
 
 node('Linux') {
 
+    String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
     stage('Check params') {
-        String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
         assert params.latest, 'Provide a name to the "latest" branch'
         if (params.publish) {
             assert params.prefix, 'Provide the prefix (base URL) if you are going to publish'
