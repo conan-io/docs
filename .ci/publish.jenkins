@@ -48,7 +48,7 @@ node('Linux') {
              - params.latest: ${params.latest}
              - params.publish: ${params.publish}
              - prefix: ${prefix}
-             - versions: latest, ${versions.collect({key, value -> value }).join(', ')}
+             - versions: latest (${params.latest}), ${versions.collect({key, value -> value }).join(', ')}
         """
         versions[params.latest] = 'latest'
     }
