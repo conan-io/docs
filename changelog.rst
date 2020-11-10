@@ -24,7 +24,8 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.31.1 (10-Nov-2020)
 ---------------------
 
-- Bugfix: fix a problem with the ``init()`` function not being called when the recipe loader uses some cached data, which can happen when using lockfiles and with ``python_requires``. `#8018 <https://github.com/conan-io/conan/pull/8018>`_
+- Fix: Bump _cryptography_ dependency in MacOS to equal or later than 3.2. `#7962 <https://github.com/conan-io/conan/pull/7962>`_
+- Bugfix: Fix a problem with the ``init()`` function not being called when the recipe loader uses some cached data, which can happen when using lockfiles and with ``python_requires``. `#8018 <https://github.com/conan-io/conan/pull/8018>`_
 - Bugfix: Fixed ``self.copy()`` incorrectly handling ``ignore_case``. `#8009 <https://github.com/conan-io/conan/pull/8009>`_
 - Bugfix: Fixed wrong ``ignore_case`` default in ``[imports]`` section of *conanfile.txt*. `#8009 <https://github.com/conan-io/conan/pull/8009>`_
 - Bugfix: Do not try to encrypt a `None` value when using `CONAN_LOGIN_ENCRYPTION_KEY` environment variable. `#8004 <https://github.com/conan-io/conan/pull/8004>`_
