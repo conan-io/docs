@@ -21,6 +21,11 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.31 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.31.2 (11-Nov-2020)
+---------------------
+
+- Bugfix: Recent ``liburl3`` 1.26 library updates is breaking the constraints in Conan ``requirements.txt``  as ``requests`` 2.24 has a limitation for ``liburl3``. This PR constrains ``liburl3`` version to be less than 1.26, so it does not break with requests 2.24. `#8042 <https://github.com/conan-io/conan/pull/8042>`_
+
 1.31.1 (10-Nov-2020)
 ---------------------
 
