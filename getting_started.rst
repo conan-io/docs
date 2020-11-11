@@ -60,7 +60,7 @@ An MD5 hash calculator using the Poco Libraries
     The Conan client contains a command to search in remote repositories, and we could
     try :command:`$ conan search poco --remote=conan-center`. You can perfectly use this command to search in your
     own repositories, but note that at the moment this might timeout in ConanCenter. The infrastructure is being
-    improved to support this command too, but meanwhile using the `ConanCenter UI <https://conan.io/center>`_
+    improved to support this command too, but meanwhile using the `ConanCenter UI <https://conan.io/center/>`_
     is recommended.
 
 3. We got some interesting references for Poco. Let's inspect the metadata of the 1.9.4 version:
@@ -373,7 +373,7 @@ Searching Packages
 The remote repository where packages are installed from is configured by default in Conan. It is called Conan Center
 (configured as `conan-center` remote).
 
-If we search for something like ``open`` in `ConanCenter <https://conan.io/center>`_ we could find different packages like:
+If we search for something like ``open`` in `ConanCenter <https://conan.io/center/>`_ we could find different packages like:
 
 .. code-block:: bash
 

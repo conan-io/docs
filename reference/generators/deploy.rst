@@ -61,3 +61,7 @@ If any symbolic is present in the package folder, it will be preserved as well, 
 
     You can use the parameter :command:`--install-folder` in the :command:`conan install` to output the contents of the packages to a
     specific folder.
+
+.. seealso::
+
+    For a different approach to deploy package files in the user space folders, check the :ref:`deploy() <method_deploy>` method.

@@ -445,8 +445,6 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
             git = tools.Git(folder=self.recipe_folder)
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
-The ``self.recipe_folder`` attribute is only defined in these two methods.
-
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
@@ -1097,6 +1095,12 @@ The ``deploy()`` method is designed to work on a package that is installed direc
 
 All other packages and dependencies, even transitive dependencies of ``pkg/0.1@user/testing`` will not be deployed, it is the responsibility
 of the installed package to deploy what it needs from its dependencies.
+
+
+.. seealso::
+
+    For a different approach to deploy package files in the user space folders, check the :ref:`deploy generator<deploy_generator>`.
+
 
 .. _method_init:
 

@@ -18,8 +18,50 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.30 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.31 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.31.1 (10-Nov-2020)
+---------------------
+
+- Fix: Bump _cryptography_ dependency in MacOS to equal or later than 3.2. `#7962 <https://github.com/conan-io/conan/pull/7962>`_
+- Bugfix: Fix a problem with the ``init()`` function not being called when the recipe loader uses some cached data, which can happen when using lockfiles and with ``python_requires``. `#8018 <https://github.com/conan-io/conan/pull/8018>`_
+- Bugfix: Fixed ``self.copy()`` incorrectly handling ``ignore_case``. `#8009 <https://github.com/conan-io/conan/pull/8009>`_
+- Bugfix: Fixed wrong ``ignore_case`` default in ``[imports]`` section of *conanfile.txt*. `#8009 <https://github.com/conan-io/conan/pull/8009>`_
+- Bugfix: Do not try to encrypt a `None` value when using `CONAN_LOGIN_ENCRYPTION_KEY` environment variable. `#8004 <https://github.com/conan-io/conan/pull/8004>`_
+
+1.31.0 (30-Oct-2020)
+---------------------
+
+- Feature: Add argument `conanfile` to `pre_download_package` and `post_download_package` hook functions. `#7968 <https://github.com/conan-io/conan/pull/7968>`_ . Docs `here <https://github.com/conan-io/docs/pull/1905>`__
+- Feature: Add `CONAN_LOGIN_ENCRYPTION_KEY` environment variable to obfuscate stored auth token. `#7958 <https://github.com/conan-io/conan/pull/7958>`_ . Docs `here <https://github.com/conan-io/docs/pull/1903>`__
+- Feature: Use profile to filter results in the :command:`conan search` HTML output. `#7956 <https://github.com/conan-io/conan/pull/7956>`_
+- Feature: Changed recommended way to launch test suite, with pytest over nosetests. `#7952 <https://github.com/conan-io/conan/pull/7952>`_
+- Feature: Provide a ``MSBuildCmd`` helper class that encapsulates calling MSBuild. `#7941 <https://github.com/conan-io/conan/pull/7941>`_ . Docs `here <https://github.com/conan-io/docs/pull/1907>`__
+- Feature: Download and keep the ``conan_export.tgz`` and ``conan_source.tgz`` in the cache, so they are not affected by different Operating Systems compression and de-compression and uploading is way more efficient. `#7938 <https://github.com/conan-io/conan/pull/7938>`_
+- Feature: Add `provides` and `deprecated` fields to :command:`conan info` output `#7916 <https://github.com/conan-io/conan/pull/7916>`_
+- Feature: Including package revision information in output from :command:`conan info` (when revisions are enabled). `#7890 <https://github.com/conan-io/conan/pull/7890>`_
+- Feature: Download and keep the conan_package.tgz in the cache, so they are not affected by different Operating Systems compression and de-compression and uploading is way more efficient. `#7886 <https://github.com/conan-io/conan/pull/7886>`_
+- Feature: Add POC on a toolchain for iOS (using CMake XCode generator). `#7855 <https://github.com/conan-io/conan/pull/7855>`_ . Docs `here <https://github.com/conan-io/docs/pull/1906>`__
+- Feature: Add POC on a toolchain for Android (using CMake provided modules). `#7843 <https://github.com/conan-io/conan/pull/7843>`_ . Docs `here <https://github.com/conan-io/docs/pull/1902>`__
+- Feature: Allow ``conan config install`` of a single file `#7840 <https://github.com/conan-io/conan/pull/7840>`_ . Docs `here <https://github.com/conan-io/docs/pull/1908>`__
+- Feature: Use Python loggers for Conan output in cli 2.0. `#7502 <https://github.com/conan-io/conan/pull/7502>`_
+- Fix: Improve permission error message when migrating cache folder. `#7966 <https://github.com/conan-io/conan/pull/7966>`_
+- Fix: Make per-package settings definition complete the existing settings values, not requiring a complete redefinition. `#7953 <https://github.com/conan-io/conan/pull/7953>`_
+- Fix: Avoid unnecessary extra loading of *conan.conf* file in the version migrations check. `#7949 <https://github.com/conan-io/conan/pull/7949>`_
+- Fix: Simplified MakeToolchain to remove things that were not checked by tests or unused. `#7942 <https://github.com/conan-io/conan/pull/7942>`_
+- Fix: displayed message when settings of the recipe are constrained. `#7930 <https://github.com/conan-io/conan/pull/7930>`_ . Docs `here <https://github.com/conan-io/docs/pull/1890>`__
+- Fix: Set `CMAKE_SYSTEM_NAME` set to `iOS`, `tvOS` or `watchOS` or `Darwin` depending on the CMake version. `#7924 <https://github.com/conan-io/conan/pull/7924>`_
+- Fix: Remove duplicate entries while modifying PATH-like environment variables internally. Especially important for Windows where system PATH size is limited by 8192 charachers (when using cmd.exe). `#7891 <https://github.com/conan-io/conan/pull/7891>`_
+- Fix: Make default behaviour explicit in search help output. `#7877 <https://github.com/conan-io/conan/pull/7877>`_ . Docs `here <https://github.com/conan-io/docs/pull/1884>`__
+- Fix: Automatically add OSX deployment flags in ``AutootoolsBuildEnvironment`` with the value of ``os_version``, unless the values are already defined in environment variables `CFLAGS` or `CXXFLAGS`. `#7862 <https://github.com/conan-io/conan/pull/7862>`_
+- Fix: Remove toolset variability from the ``msbuild`` generator and ``MSBuildToolchain``. `#7825 <https://github.com/conan-io/conan/pull/7825>`_
+- Fix: Component requirement checking now properly handles private and override requirements. `#7585 <https://github.com/conan-io/conan/pull/7585>`_
+- Bugfix: Set default storage_folder to .conan/data in case if storage_path entry fails to be defined by conan.conf. `#7910 <https://github.com/conan-io/conan/pull/7910>`_
+- Bugfix: Fix regression in self.run(output=xxxx) that have a write() method but do not wrap a stream. `#7905 <https://github.com/conan-io/conan/pull/7905>`_
+- Bugfix: Fix local flow (conan install + build) support for ``cpp_info.names`` and ``cpp_info.filenames``. `#7867 <https://github.com/conan-io/conan/pull/7867>`_
+- Bugfix: Fix ``inspect --remote`` forcing to retrieve the remote for evaluation, overwriting what is in the local cache. `#7749 <https://github.com/conan-io/conan/pull/7749>`_
+- Bugfix: Copy symbolic links to directory with deploy generator. `#7655 <https://github.com/conan-io/conan/pull/7655>`_ . Docs `here <https://github.com/conan-io/docs/pull/1830>`__
 
 1.30.2 (15-Oct-2020)
 ---------------------
