@@ -144,8 +144,8 @@ Without **cmake_paths**, adjusting the variables manually:
 
     cmake_minimum_required(VERSION 3.0)
     project(helloworld)
-    list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
-    list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}")
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+    list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
 
     add_executable(helloworld hello.c)
     find_package(ZLIB)
