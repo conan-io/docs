@@ -18,6 +18,14 @@ In short:
 - Some of them might not even be taken into account when a package like zlib is created, such as cross-compiling it to Android (in which
   the Android toolchain would be a build requirement too).
 
+
+.. important::
+
+    ``build_requires`` are designed for packaging tools, utilities that only run at build-time, but are no part of the final binary code.
+    Anything that is linked into consumer packages like all type of libraries (header only, static, shared) most likely are not ``build_requires``
+    but regular ``requires``. The only exception would be testing libraries and frameworks, as long as the tests are not included in the final
+    package.
+
 To address these needs Conan implements ``build_requires``.
 
 
@@ -228,10 +236,35 @@ then the install command will retrieve the ``cmake_turbo`` and use it:
 
 
 Although the previous line would work it is preferred to use the feature from Conan v1.24 and provide
-two profiles to the command line, that way the build requirements in the ``build`` context won't 
+two profiles to the command line, that way the build requirements in the ``build`` context won't
 interfer with the ``host`` graph if they share common requirements (see :ref:`section about dev tools <create_installer_packages>`).
 It can also be needed if cross compiling (see :ref:`section about cross compiling <cross_building_build_requires>`).
 
 .. code-block:: bash
 
     $ conan install . --profile:host=use_cmake_turbo_profile --profile:build=build_machine
+
+
+Making build_requires affect the consumers package-ID
+-----------------------------------------------------
+
+.. warning::
+
+    This subsection should be considered a workaround, not a feature, and it might have other side effects, that will not be fixed
+    as this is not recommended production code.
+
+As discussed above, the ``build_requires`` do not affect at all the package ID. As they will not be present at all when the ``package_id``
+is computed, it cannot be part of it. It is possible that this might change in the future in Conan 2.0, but at the moment it is not.
+In the meantime, there is a possible workaround that might be used if this is very needed: using ``python_requires`` to point to the
+same ``build_requires`` package. Something like:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    class Pkg(ConanFile):
+        python_requires ="tool/[>=0.0]"
+        build_requires ="tool/[>=0.0]"
+
+By using this mechanism, ``tool`` dependency will always be used (the recipe will be fetched from servers), and the version of ``tool`` will
+be used to compute the ``package_id`` following the ``default_python_requires_id_mode`` in *conan.conf*, or the specific
+``self.info.python_requires.xxxx_mode()`` in recipes.
