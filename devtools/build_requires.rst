@@ -21,7 +21,7 @@ In short:
 
 .. important::
 
-    ``build_requires`` are designed for packaging tools, utilities that only run at build-time, but are no part of the final binary code.
+    ``build_requires`` are designed for packaging tools, utilities that only run at build-time, but are not part of the final binary code.
     Anything that is linked into consumer packages like all type of libraries (header only, static, shared) most likely are not ``build_requires``
     but regular ``requires``. The only exception would be testing libraries and frameworks, as long as the tests are not included in the final
     package.
