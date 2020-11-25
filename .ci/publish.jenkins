@@ -87,7 +87,7 @@ node('Linux') {
                 stage('Prepare sources') {
                     writeJSON json: versions, file: "${folderName}/versions.json"
                     if (folderName != 'latest') { 
-                        sh "cp -R latest/_themes ${folderName}/_themes"
+                        sh "cp -R latest/_themes/ ${folderName}/_themes"
                     }
                 }
 
