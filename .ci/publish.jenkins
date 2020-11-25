@@ -140,10 +140,10 @@ node('Linux') {
                 sh 'git config user.email "conanci@jfrog.com"'
                 sh 'git config user.name "ConanCI bot"'
                 sh 'git commit -m "Automatic deploy"'
-                //withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_API_KEY')]) {
-                //    sh "git remote add origin-pages https://${GITHUB_API_KEY}@github.com/conan-io/docs.git"
-                //}
-                //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
+                withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
+                    sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
+                }
+                sh 'git push --quiet --force --set-upstream origin-pages gh-pages-try'
             }
         }
     }
