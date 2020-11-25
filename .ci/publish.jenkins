@@ -1,0 +1,150 @@
+#!groovy​
+
+// TODO: Move to a file and avoid modifying CI script
+Map<String, String> versions = [
+        'release/1.31.4': '1.31',
+        'release/1.30.2': '1.30',
+        'release/1.29.2': '1.29',
+        'release/1.28.2': '1.28',
+        'release/1.27.1': '1.27',
+        'release/1.26.1': '1.26',
+        'release/1.25.2': '1.25',
+        'release/1.24.1': '1.24',
+        'release/1.23.0': '1.23',
+        'release/1.22.3': '1.22',
+        'release/1.21.3': '1.21',
+        'release/1.20.5': '1.20',
+        'release/1.19.3': '1.19',
+        'release/1.18.5': '1.18',
+        'release/1.17.2': '1.17',
+        'release/1.16.1': '1.16',
+        'release/1.15.2': '1.15',
+        'release/1.14.5': '1.14',
+        'release/1.13.3': '1.13',
+        'release/1.12.3': '1.12',
+        'release/1.11.2': '1.11',
+        'release/1.10.2': '1.10',
+        'release/1.9.4': '1.9',
+        'release/1.8.4': '1.8',
+        'release/1.7.4': '1.7',
+        'release/1.6.1': '1.6',
+        'release/1.5.2': '1.5',
+        'release/1.4.5': '1.4',
+        'release/1.3.3': '1.3'
+        ]
+
+node('Linux') {
+
+    String prefix = params.prefix ?: "${BUILD_URL}artifact/gh-pages/"
+    stage('Check params') {
+        assert params.latest, 'Provide a name to the "latest" branch'
+        if (params.publish) {
+            assert params.prefix, 'Provide the prefix (base URL) if you are going to publish'
+        }
+
+        echo """
+            Generate Conan docs webpage
+             - params.latest: ${params.latest}
+             - params.publish: ${params.publish}
+             - prefix: ${prefix}
+             - versions: latest (${params.latest}), ${versions.collect({key, value -> value }).join(', ')}
+        """
+        versions[params.latest] = 'latest'
+    }
+
+    def image = null
+    stage('Build docker image') {
+        // Build the docker image using the same commit as the current 'publish.jenkins' file
+        dir('tmp') {
+            checkout scm
+            image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
+            deleteDir()
+        }
+    }
+
+    stage('Prepare sources as worktrees') { // Do this sequentially
+        sh 'git clone --bare https://github.com/conan-io/docs.git src'
+        dir('src') {
+            versions.each { branchName, folderName ->
+                sh "git fetch origin ${branchName}:${branchName}"
+                sh "git worktree add ../${folderName} ${branchName}"
+            }
+            // Prepare the worktree for gh-pages too
+            sh 'git fetch origin gh-pages:gh-pages'  // TODO: This is a very bad idea, we are retrieving something (100s Mb) we are going to remove
+            sh 'git worktree add ../gh-pages gh-pages'
+        }
+        sh 'rm -fr gh-pages/.git'
+        sh 'rm -fr gh-pages/en'
+    }
+
+    Map parallelJobs = [:]
+    versions.each { key, value ->
+        String branchName = key
+        String folderName = value
+        parallelJobs[folderName] = {
+            echo "Run parallel job for ${branchName} inside ${folderName}"
+            image.inside {
+                stage('Prepare sources') {
+                    writeJSON json: versions, file: "${folderName}/versions.json"
+                    if (folderName != 'latest') { 
+                        sh "cp -R latest/_themes ${folderName}/_themes"
+                    }
+                }
+
+                stage('HTML') {
+                    sh "sphinx-build -W -b html -d ${folderName}/_build/.doctrees ${folderName}/ gh-pages/en/${folderName}"
+                }
+
+                stage('PDF') {
+                    sh "sphinx-build -W -b latex -d ${folderName}/_build/.doctrees ${folderName}/ ${folderName}/_build/latex"
+                    sh "make -C ${folderName}/_build/latex all-pdf"
+                    sh "cp ${folderName}/_build/latex/conan.pdf gh-pages/en/${folderName}/conan.pdf"
+                }
+            }
+        }
+    }
+
+    stage('Generate all releases') {
+        parallelJobs.failFast = true
+        parallel parallelJobs
+    }
+
+    stage('Prepare gh-branch') {
+        dir('gh-pages') {
+            // sh 'cp src/versions.json versions.json'  // TODO: File is not used, remove from 'gh-pages' branch
+            sh 'cp en/latest/404.html 404.html'
+
+            String content = readFile('404.html')
+            String prefixLatest = "${prefix}en/latest"
+            content = content.replaceAll('href="_', "href=\"${prefixLatest}/_")
+            content = content.replaceAll('src="_', "src=\"${prefixLatest}/_")
+            content = content.replaceAll('alt="_', "alt=\"${prefixLatest}/_")
+            content = content.replaceAll('internal" href="', "internal\" href=\"${prefixLatest}/")
+            content = content.replaceAll('"search.html"', "\"${prefixLatest}/search.html\"")
+            content = content.replaceAll('"genindex.html"', "\"${prefixLatest}/genindex.html\"")
+            writeFile(file: '404.html', text: content)
+        }
+    }
+
+    stage('Archive generated folder') {
+        archiveArtifacts artifacts: 'gh-pages/**/*.*'
+        echo "Inspect generated webpage at ${BUILD_URL}artifact/gh-pages/index.html"
+    }
+
+    if (params.publish) {
+        stage('Publish to gh-pages') {
+            dir('gh-pages') {
+                sh 'git init .'
+                sh 'git checkout -b gh-pages'
+                sh 'git add .'
+                sh 'git config user.email "conanci@jfrog.com"'
+                sh 'git config user.name "ConanCI bot"'
+                sh 'git commit -m "Automatic deploy"'
+                //withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_API_KEY')]) {
+                //    sh "git remote add origin-pages https://${GITHUB_API_KEY}@github.com/conan-io/docs.git"
+                //}
+                //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
+            }
+        }
+    }
+}
