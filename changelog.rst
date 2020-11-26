@@ -21,6 +21,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.31 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.31.4 (25-Nov-2020)
+---------------------
+
+- Feature: Add new `CONAN_CMAKE_SYSROOT` environment variable to enable the definition of sysroot from environment, without abusing `CONAN_CMAKE_FIND_ROOT_PATH`. `#8097 <https://github.com/conan-io/conan/pull/8097>`_ . Docs `here <https://github.com/conan-io/docs/pull/1926>`__
+- Bugfix: remove definition of sysroot from `CONAN_CMAKE_FIND_ROOT_PATH`. `#8097 <https://github.com/conan-io/conan/pull/8097>`_ . Docs `here <https://github.com/conan-io/docs/pull/1926>`__
+- Bugfix: Bugfix: Solve os.rename crash when using short_paths with a short path storage located in another Windows drive unit. Ported from: `#8103 <https://github.com/conan-io/conan/pull/8103>`_
+
 1.31.3 (17-Nov-2020)
 ---------------------
 
