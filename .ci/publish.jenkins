@@ -87,7 +87,8 @@ node('Linux') {
                 stage('Prepare sources') {
                     writeJSON json: versions, file: "${folderName}/versions.json"
                     if (folderName != 'latest') { 
-                        sh "cp -R latest/_themes ${folderName}/_themes"
+                        sh "rm -fr ${folderName}/_themes/conan"
+                        sh "cp -a latest/_themes/. ${folderName}/_themes/"
                     }
                 }
 
@@ -139,11 +140,11 @@ node('Linux') {
                 sh 'git add .'
                 sh 'git config user.email "conanci@jfrog.com"'
                 sh 'git config user.name "ConanCI bot"'
-                sh 'git commit -m "Automatic deploy"'
-                //withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_API_KEY')]) {
-                //    sh "git remote add origin-pages https://${GITHUB_API_KEY}@github.com/conan-io/docs.git"
-                //}
-                //sh 'git push --quiet --force --set-upstream origin-pages gh-pages'
+                sh "git commit -m \"Automatic deploy (build number ${BUILD_NUMBER})\""
+                withCredentials([usernamePassword(credentialsId: 'conanci-gh-token', usernameVariable: 'GH_USER', passwordVariable: 'GH_PASS')]) {
+                    sh "git remote add origin-pages https://$GH_USER:$GH_PASS@github.com/conan-io/docs.git"
+                    sh 'git push --quiet --force origin-pages gh-pages'
+                }
             }
         }
     }
