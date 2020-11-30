@@ -47,8 +47,8 @@ Here is an example of a configuration that a profile file may contain:
     build_type=Release
 
     [env]
-    CC=/usr/bin/clang
-    CXX=/usr/bin/clang++
+    CC=/usr/bin/clang-3.5
+    CXX=/usr/bin/clang++-3.5
 
 A profile file can be stored in the default profile folder, or anywhere else in your project file structure. To use the configuration specified in a profile file, pass in the file as a command line argument as shown in the example below:
 
