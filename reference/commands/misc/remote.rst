@@ -135,6 +135,31 @@ the command will insert the remote in the specified position
       Boost/1.60.0@lasote/stable: conan.io
       zlib/1.2.8@lasote/stable: conan.io
 
+- In some cases you want to list the packages that are not associated with any remote:
+
+  .. code-block:: bash
+
+      $ conan remote list_ref --no-remote 
+      spdlog/1.8.0: None
+      restinio/0.6.10: None
+      opencv/2.4.13.7: None
+
+- Also, you can list the remote association for different binaries of the same Conan package:
+
+  .. code-block:: bash
+
+      $ conan remote list_pref zlib/1.2.8@
+      zlib/1.2.8:f83037eff23ab3a94190d7f3f7b37a2d6d522241: conan.io
+      zlib/1.2.8:e46341e9b52d3e4c66657dc8fb13ab6cdd5831c6: conan-local-dev
+      zlib/1.2.8:9de3196f2439d69299f168e3088bbefafe212f38: conan-local-prod
+
+- If you want to know if any binaries of a Conan package have no remote association:
+
+  .. code-block:: bash
+
+      $ conan remote list_pref zlib/1.2.8@  --no-remote
+      zlib/1.2.8:a7480322bf53ca215dbba4db77ee500c7c51ee33: None
+
 - Associate a recipe's reference to a remote:
 
   .. code-block:: bash
