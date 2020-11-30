@@ -135,7 +135,7 @@ the command will insert the remote in the specified position
       Boost/1.60.0@lasote/stable: conan.io
       zlib/1.2.8@lasote/stable: conan.io
 
-- In some cases you want to list the packages that are not associated with any remote:
+- In some cases you may want to list the packages that are not associated with any remote:
 
   .. code-block:: bash
 
