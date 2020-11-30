@@ -108,13 +108,14 @@ the dependencies of ``libb``:
       --lockfile-out=../locks/libb_deps_base.lock --base
 
 This will capture the *libb_deps_base.lock* file with the versions of ``libb`` dependencies, in this case
-``liba/0.1@user/testing``. Now that we have this file, new versions of ``liba`` could be created, but they
-will not be used:
+``liba/0.1@user/testing``. Now that we have this file, even if new versions of ``liba`` were created:
 
 .. code:: bash
 
     $ cd ..
     $ conan create liba liba/0.2@user/testing
+
+they would not be used.
 
 We want to test the changes for several different configurations, so the first step would be to derive a new
 lockfile for each configuration/profile from the *libb_deps_base.lock*:
