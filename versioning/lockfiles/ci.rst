@@ -158,7 +158,7 @@ revision doing an export, creating a new *libb_base.lock* lockfile:
 Products pipeline
 -----------------
 There is an important question to be addressed: **when a package changes, what other packages
-consuming it should be rebuild to account for this change?**. The problem might be harder than
+consuming it should be rebuilt to account for this change?**. The problem might be harder than
 it seems at first sight, or from the observation of the graph above. It shows that ``libd/0.1``
 has a dependency to ``libb/0.1``, does it means that a new ``libb/0.2`` should produce a re-build
 of ``libd/0.1`` to link with the new version? Not always, if ``libd`` had a pinned dependency
