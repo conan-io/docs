@@ -44,7 +44,7 @@ Let's illustrate these scenarios with some examples:
   to generate binaries for Android (the ``host`` platform).
 * The Android NDK was once compiled, during that compilation a different compiler was used running in
   a ``build`` platform (maybe Windows) to generate the actual Android NDK that will run in the ``host``
-  platform Linux, and as we saw before, that Android NDK cross compiler will generate binaries for 
+  platform Linux, and as we saw before, that Android NDK cross compiler will generate binaries for
   a ``target`` platform which is Android.
 
 **The values of the** ``build`` **,** ``host`` **and** ``target`` **platforms are not absolute, and
@@ -101,7 +101,8 @@ needed to use an installed toolchain:
     cxx_compiler=g++
 
     [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+    CONAN_CMAKE_FIND_ROOT_PATH=$toolchain  # Optional, for CMake to find things in that folder
+    CONAN_CMAKE_SYSROOT=$toolchain  # Optional, if we want to define sysroot
     CHOST=$target_host
     AR=$target_host-ar
     AS=$target_host-as
@@ -211,9 +212,9 @@ attributes:
   run in the ``build`` machine too.
 * ``self.settings_target``: for recipes in the ``host`` context this attribute will be equal to ``None``, for those
   in the ``build`` context, if will depend on the level of anidation:
-  
+
   + for recipes that are build requirements of packages in the ``host`` context, this attribute will contain
-    the settins from the profile ``profile_host``, while 
+    the settings from the profile ``profile_host``, while
   + for recipes that are build requirements of other build requirements the ``self.settings_target``
     will contain the values of the ``profile_build``.
 
@@ -223,7 +224,7 @@ With previous attributes, a draft for a recipe that packages a cross compiler co
 
     class CrossCompiler(ConanFile):
         name = "my_compiler"
-    
+
         settings = "os", "arch", "compiler", "build_type"
         options = {"target": "ANY"}
         default_options = {"shared": False, "target": None}
@@ -388,7 +389,8 @@ Linux to Windows
       cxx_compiler=g++
 
       [env]
-      CONAN_CMAKE_FIND_ROOT_PATH=$toolchain
+      CONAN_CMAKE_FIND_ROOT_PATH=$toolchain  # Optional, for CMake to find things in that folder
+      CONAN_CMAKE_SYSROOT=$toolchain  # Optional, if we want to define sysroot
       CHOST=$target_host
       AR=$target_host-ar
       AS=$target_host-as
@@ -452,7 +454,8 @@ Windows to Raspberry Pi (Linux/ARM)
       build_type=Release
 
       [env]
-      CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host/sysroot
+      CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/$target_host
+      CONAN_CMAKE_SYSROOT=$standalone_toolchain/$target_host/sysroot
       PATH=[$standalone_toolchain/bin]
       CHOST=$target_host
       AR=$target_host-ar
@@ -585,7 +588,8 @@ RPI one:
     build_type=Release
 
     [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/sysroot
+    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain
+    CONAN_CMAKE_SYSROOT=$standalone_toolchain/sysroot
     PATH=[$standalone_toolchain/bin]
     CHOST=$target_host
     AR=$target_host-ar
@@ -622,7 +626,8 @@ match the gcc toolchain compiler:
     build_type=Release
 
     [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain/sysroot
+    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain
+    CONAN_CMAKE_SYSROOT=$standalone_toolchain/sysroot
     PATH=[$standalone_toolchain/bin]
     CHOST=$target_host
     AR=$target_host-ar

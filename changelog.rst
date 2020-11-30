@@ -18,8 +18,34 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.30 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.31 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.31.4 (25-Nov-2020)
+---------------------
+
+- Feature: Add new `CONAN_CMAKE_SYSROOT` environment variable to enable the definition of sysroot from environment, without abusing `CONAN_CMAKE_FIND_ROOT_PATH`. `#8097 <https://github.com/conan-io/conan/pull/8097>`_ . Docs `here <https://github.com/conan-io/docs/pull/1926>`__
+- Bugfix: remove definition of sysroot from `CONAN_CMAKE_FIND_ROOT_PATH`. `#8097 <https://github.com/conan-io/conan/pull/8097>`_ . Docs `here <https://github.com/conan-io/docs/pull/1926>`__
+- Bugfix: Bugfix: Solve os.rename crash when using short_paths with a short path storage located in another Windows drive unit. Ported from: `#8103 <https://github.com/conan-io/conan/pull/8103>`_
+
+1.31.3 (17-Nov-2020)
+---------------------
+
+- Bugfix: Fix addition of CMAKE_SYSTEM_NAME for SunOS and AIX 64->32 bits builds `#8059 <https://github.com/conan-io/conan/pull/8059>`_
+
+1.31.2 (11-Nov-2020)
+---------------------
+
+- Bugfix: Recent ``liburl3`` 1.26 library updates is breaking the constraints in Conan ``requirements.txt``  as ``requests`` 2.24 has a limitation for ``liburl3``. This PR constrains ``liburl3`` version to be less than 1.26, so it does not break with requests 2.24. `#8042 <https://github.com/conan-io/conan/pull/8042>`_
+
+1.31.1 (10-Nov-2020)
+---------------------
+
+- Fix: Bump _cryptography_ dependency in MacOS to equal or later than 3.2. `#7962 <https://github.com/conan-io/conan/pull/7962>`_
+- Bugfix: Fix a problem with the ``init()`` function not being called when the recipe loader uses some cached data, which can happen when using lockfiles and with ``python_requires``. `#8018 <https://github.com/conan-io/conan/pull/8018>`_
+- Bugfix: Fixed ``self.copy()`` incorrectly handling ``ignore_case``. `#8009 <https://github.com/conan-io/conan/pull/8009>`_
+- Bugfix: Fixed wrong ``ignore_case`` default in ``[imports]`` section of *conanfile.txt*. `#8009 <https://github.com/conan-io/conan/pull/8009>`_
+- Bugfix: Do not try to encrypt a `None` value when using `CONAN_LOGIN_ENCRYPTION_KEY` environment variable. `#8004 <https://github.com/conan-io/conan/pull/8004>`_
 
 1.31.0 (30-Oct-2020)
 ---------------------

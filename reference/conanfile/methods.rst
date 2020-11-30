@@ -443,8 +443,6 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
             git = tools.Git(folder=self.recipe_folder)
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
-The ``self.recipe_folder`` attribute is only defined in these two methods.
-
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
