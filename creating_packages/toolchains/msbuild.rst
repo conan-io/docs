@@ -5,13 +5,20 @@ MSBuildToolchain
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+.. warning:
+
+    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
+    deprecated and moved. They will be removed in Conan 1.33, please use ``generate()`` instead of
+    ``write_toolchain_files()`` and ``generate`` or ``generators = "ToolChainClassName"`` instead of
+    ``toolchain`` attribute instead.
 
 The ``MSBuildToolchain`` can be used in the ``generate()`` method:
 
 
 .. code:: python
 
-    from conans import ConanFile, MSBuildToolchain
+    from conans import ConanFile
+    from conan.tools.microsoft import MSBuildToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"

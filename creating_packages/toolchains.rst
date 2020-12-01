@@ -13,7 +13,7 @@ Toolchains
 .. warning:
 
     Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
-    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
+    deprecated and moved. They will be removed in Conan 1.33, please use ``generate()`` instead of
     ``write_toolchain_files()`` and ``generate`` or ``generators = "ToolChainClassName"`` instead of
     ``toolchain`` attribute instead.
 
@@ -49,7 +49,7 @@ one:
 
 .. code:: python
 
-    from conans import CMakeToolchain
+    from conan.tools.cmake import CMakeToolchain
 
     def generate(self):
         tc = CMakeToolchain(self)
@@ -62,7 +62,7 @@ deduced from the current configuration of ``self.settings`` and ``self.options``
 
 .. code:: python
 
-    from conans import CMakeToolchain
+    from conan.tools.cmake import CMakeToolchain
     from conans.tools import save
 
     def generate(self):
@@ -94,7 +94,7 @@ the documentation of each toolchain to check the associated build helper availab
 
 .. code:: python
 
-    from conans import CMakeToolchain, CMake
+    from conan.tools.cmake import CMakeToolchain, CMake
 
     def generate(self):
         tc = CMakeToolchain(self)

@@ -82,7 +82,8 @@ workflow.
 .. code-block:: python
    :caption: *conanfile.py*
           
-    from conans import ConanFile, MakeToolchain
+    from conans import ConanFile
+    from conan.tools.gnu import MakeToolchain
     
     class MyConan(ConanFile):
         name = "myconan"
