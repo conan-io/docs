@@ -97,3 +97,8 @@ If a recipe uses :ref:`components <package_information_components>`, the targets
 Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
 
 - ``INTERFACE_LINK_LIBRARIES``: Containing the list of targets for all the components in the package.
+
+.. important::
+
+    If there is a global target shared by different packages, then the global target will be linked to all the components targets **across
+    the different packages**. This means that the global target will include different components targets across different packages.

@@ -82,3 +82,8 @@ If a recipe uses components, the targets generated will be ``<PKG-NAME>::<COMP-N
 Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
 
 - ``INTERFACE_LINK_LIBRARIES``: Containing all the component targets to link the global target to (includes package's components only).
+
+.. important::
+
+    If there is a global target shared by different packages, then the global target will be linked to all the components targets **across
+    the different packages**. This means that the global target will include different components targets across different packages.
