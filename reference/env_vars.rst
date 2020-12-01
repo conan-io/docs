@@ -702,7 +702,7 @@ any inconsistency found in the recipe will break the process during linter analy
 .. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
 
 CONAN_KEEP_PYTHON_FILES
------------------
+-----------------------
 
 **Defaulted to**: ``False``
 
