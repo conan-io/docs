@@ -51,6 +51,39 @@ compute from it the configuration specific profiles.
 These partial lockfiles will be smaller than the original app lockfiles, not containing information at all about
 ``app`` and ``libc``.
 
+Unlocking packages with --build
++++++++++++++++++++++++++++++++
+
+It is also possible to derive a partial lockfile for `libb/1.0`` without cloning the ``libb`` repository, directly with:
+
+.. code:: bash
+
+    $ conan lock create --reference=libb/1.0 --lockfile=app_release.lock --lockfile-out=libb_release.lock
+    $ conan lock create --reference=libb/1.0 --lockfile=app_debug.lock --lockfile-out=libb_debug.lock
+
+These new lockfiles could be used to install the ``libb/1.0`` package, without building it, but if we tried to
+build it from sources, it will fail:
+
+.. code:: bash
+
+    $ conan install libb/1.0@ --lockfile=libb_release.lock # Works
+    $ conan install libb/1.0@ --build=libb --lockfile=libb_release.lock # Fails, libb is locked
+
+The second scenario fails, because when we captured *app_release.lock* lockfile, it was completely locking all the
+information, including the package revision of ``libb/1.0``. If we try to build a new binary, the lock protection will
+raise. If we want to "unlock" the binary package revision, we need to tell the lockfile when we are capturing such
+lockfile, that we plan to build it, with the ``--build`` argument:
+
+.. code:: bash
+
+    # Note the --build=libb argument
+    $ conan lock create --reference=libb/1.0 --build=libb --lockfile=app_release.lock --lockfile-out=libb_release.lock
+    # This will work, building a new binary
+    $ conan install libb/1.0@ --build=libb --lockfile=libb_release.lock --lockfile-out=libb_release2.lock
+
+As usual, if you are building a new binary, it is desired to provide a --lockfile-out=libb_release2.lock`` to capture such
+a new binary package revision in the new lockfile.
+
 
 Integrating a partial lockfile
 ------------------------------
