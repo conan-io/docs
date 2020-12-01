@@ -30,7 +30,7 @@ toolchain class to use.
 
 .. code:: python
 
-    generators = "ToolChainClassName"
+    generators = "<ToolChainClassName>"
 
 For example, for using the CMake toolchain this should be declared in the recipe:
 
