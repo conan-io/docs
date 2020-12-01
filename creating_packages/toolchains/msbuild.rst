@@ -6,7 +6,7 @@ MSBuildToolchain
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-The ``MSBuildToolchain`` can be used in the ``toolchain()`` method:
+The ``MSBuildToolchain`` can be used in the ``generate()`` method:
 
 
 .. code:: python
@@ -20,9 +20,9 @@ The ``MSBuildToolchain`` can be used in the ``toolchain()`` method:
         options = {"shared": [True, False]}
         default_options = {"shared": False}
 
-        def toolchain(self):
+        def generate(self):
             tc = MSBuildToolchain(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 
 The ``MSBuildToolchain`` will generate two files after a ``conan install`` command or
@@ -91,7 +91,7 @@ The ``MSBuild`` helper can be used like:
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
-        def toolchain(self):
+        def generate(self):
             ...
 
         def build(self):

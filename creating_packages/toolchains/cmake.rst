@@ -9,7 +9,7 @@ CMakeToolchain
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
+The ``CMakeToolchain`` can be used in the ``generate()`` method:
 
 
 .. code:: python
@@ -23,9 +23,9 @@ The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
-        def toolchain(self):
+        def generate(self):
             tc = CMakeToolchain(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 
 The ``CMakeToolchain`` will generate 2 files, after a ``conan install`` command (or
@@ -70,12 +70,12 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 
 .. code:: python
 
-    def toolchain(self):
+    def generate(self):
         tc = CMakeToolchain(self)
         tc.preprocessor_definitions["MYVAR"] = "MyValue"
         tc.preprocessor_definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
         tc.preprocessor_definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
-        tc.write_toolchain_files()
+        tc.generate()
 
 This will be translated to:
 
