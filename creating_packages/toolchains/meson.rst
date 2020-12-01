@@ -13,7 +13,8 @@ The ``MesonToolchain`` can be used in the ``toolchain()`` method:
 
 .. code:: python
 
-    from conans import ConanFile, MesonToolchain
+    from conans import ConanFile
+    from conan.tools.meson import MesonToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -23,7 +24,7 @@ The ``MesonToolchain`` can be used in the ``toolchain()`` method:
 
         def toolchain(self):
             tc = MesonToolchain(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 
 The ``MesonToolchain`` will generate the following file during ``conan install``
