@@ -22,7 +22,7 @@ The ``MesonToolchain`` can be used in the ``toolchain()`` method:
         options = {"shared": [True, False]}
         default_options = {"shared": False}
 
-        def toolchain(self):
+        def generate(self):
             tc = MesonToolchain(self)
             tc.generate()
 
