@@ -5,16 +5,24 @@
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+.. warning:
+
+    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
+    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
+    ``write_toolchain_files()`` and ``generate`` or ``generators = "MakeToolchain"`` instead of the
+    ``toolchain`` attribute.
+
 MakeToolchain
 ==============
 
-The `MakeToolchain` can be used in the ``toolchain()`` method of
+The `MakeToolchain` can be used in the ``generate()`` method of
 ``conanfile.py``:
 
 
 .. code:: python
 
-    from conans import ConanFile, MakeToolchain
+    from conans import ConanFile
+    from conan.tools.gnu import MakeToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -22,9 +30,9 @@ The `MakeToolchain` can be used in the ``toolchain()`` method of
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
-        def toolchain(self):
+        def generate(self):
             tc = Make(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 
 The ``MakeToolchain`` will generate the following file during ``conan install``
@@ -136,10 +144,10 @@ This attribute allows defining preprocessor definitions the same way that build 
 
 .. code:: python
 
-    def toolchain(self):
+    def generate(self):
         tc = MakeToolchain(self)
         tc.definitions["MYVAR"] = "MyValue"
-        tc.write_toolchain_files()
+        tc.generate()
 
 This will be translated to:
 
