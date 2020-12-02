@@ -43,7 +43,7 @@ etc. This includes but is not limited to the following:
 
 * Definition of the C++ standard as necessary
 
-- The Visual Studio runtime (``b_vscrt ``), obtained from Conan input settings
+* The Visual Studio runtime (``b_vscrt``), obtained from Conan input settings
 
 Generators
 ----------
