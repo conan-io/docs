@@ -28,10 +28,10 @@ The ``MSBuildToolchain`` can be used in the ``toolchain()`` method:
 The ``MSBuildToolchain`` will generate two files after a ``conan install`` command or
 before calling the ``build()`` method when the package is building in the cache:
 
-- The main *conan_toolchain.props* file, that can be used in the command line.
-- A *conan_toolchain_<config>.props* file, that will be conditionally included from the previous
-  *conan_toolchain.props* file based on the configuration, platform and toolset, e.g.:
-  *conan_toolchain_Release_x86_v140.props*
+- The main *conantoolchain.props* file, that can be used in the command line.
+- A *conantoolchain_<config>.props* file, that will be conditionally included from the previous
+  *conantoolchain.props* file based on the configuration, platform and toolset, e.g.:
+  *conantoolchain_Release_x86_v140.props*
 
 Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
 file, that will also be conditionally included. This allows to install different sets of dependencies,
@@ -65,7 +65,7 @@ With the ``MSBuildToolchain`` it is possible to do:
     # Install both debug and release deps and create the toolchain
     $ conan install ..
     $ conan install .. -s build_type=Debug
-    # Add ``conan_toolchain.props`` in your IDE to the project properties
+    # Add ``conantoolchain.props`` in your IDE to the project properties
     # No need to add the configuration .props files. This needs to be done only once
     # If you have dependencies, you will need to add the .props files of the dependencies
     # too, check the "msbuild" generator
