@@ -81,7 +81,7 @@ lockfile, that we plan to build it, with the ``--build`` argument:
     # This will work, building a new binary
     $ conan install libb/1.0@ --build=libb --lockfile=libb_release.lock --lockfile-out=libb_release2.lock
 
-As usual, if you are building a new binary, it is desired to provide a --lockfile-out=libb_release2.lock`` to capture such
+As usual, if you are building a new binary, it is desired to provide a :command:`--lockfile-out=libb_release2.lock` to capture such
 a new binary package revision in the new lockfile.
 
 
