@@ -12,7 +12,7 @@ Toolchains
 
 .. warning:
 
-    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
+    Starting in Conan 1.32 ``toolchain()`` method and ``toolchain`` attribute have been
     deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
     ``write_toolchain_files()`` and ``generate`` or ``generators = "ToolChainClassName"`` instead of
     ``toolchain`` attribute.
