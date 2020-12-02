@@ -227,6 +227,9 @@ according to the required version or its range, Conan raises an exception before
 This configuration is useful when a company wants to align the Conan client version used by all teams. This can be also specified at
 :ref:`recipe level<conanfile_required_version>` if you need adding this information just for certain recipes.
 
+The ``keep_python_files`` variable will allow Python *.pyc* files to be packaged. If set to ``True``,
+the generated *.pyc* files will can be added in the package step, otherwise they will be filtered.
+
 Storage
 +++++++
 
