@@ -69,8 +69,8 @@ build it from sources, it will fail:
     $ conan install libb/1.0@ --lockfile=libb_release.lock # Works
     $ conan install libb/1.0@ --build=libb --lockfile=libb_release.lock # Fails, libb is locked
 
-The second scenario fails, because when we captured *app_release.lock* lockfile, it was completely locking all the
-information, including the package revision of ``libb/1.0``. If we try to build a new binary, the lock protection will
+The second scenario fails. This is because when the *app_release.lock* lockfile was captured, it completely locked all the
+information (including ``libb/1.0``'s package revision). If we try to build a new binary, the lock protection will
 raise. If we want to "unlock" the binary package revision, we need to tell the lockfile when we are capturing such
 lockfile, that we plan to build it, with the ``--build`` argument:
 
