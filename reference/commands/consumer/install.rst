@@ -321,7 +321,7 @@ they should match, otherwise, an error will be raised.
 lockfiles
 ---------
 
-The ``install`` command accepts several arguments related to lockfiles:
+The ``install`` command accepts several arguments related to :ref:`lockfiles<versioning_lockfiles>`:
 
 - ``--lockfile=<path-to-lockfile>``: The ``conan install ... --lockfile=path/to/file.lock`` command will provide an input
   lockfile to the command. Versions, revisions, and other data contained in that lockfile will be respected. If something has
