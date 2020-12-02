@@ -54,7 +54,7 @@ These partial lockfiles will be smaller than the original app lockfiles, not con
 Unlocking packages with --build
 +++++++++++++++++++++++++++++++
 
-It is also possible to derive a partial lockfile for `libb/1.0`` without cloning the ``libb`` repository, directly with:
+It is also possible to derive a partial lockfile for ``libb/1.0`` without cloning the ``libb`` repository, directly with:
 
 .. code:: bash
 
