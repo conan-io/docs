@@ -100,5 +100,6 @@ Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the f
 
 .. important::
 
-    If there is a global target shared by different packages, then the global target will be linked to all the components targets **across
-    the different packages**. This means that the global target will include different components targets across different packages.
+    **Name conflicts**: If the name of the global target is the same for different packages, Conan will aggregate into this global target
+    all the components from all those different packages. This means that this global target will contain information coming from different
+    packages. For the components themselves, a name conflict will result in one of them being inaccessible without further notice.
