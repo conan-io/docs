@@ -99,3 +99,9 @@ If a recipe uses :ref:`components <package_information_components>`, the targets
 Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
 
 - ``INTERFACE_LINK_LIBRARIES``: Containing the list of targets for all the components in the package.
+
+.. important::
+
+    **Name conflicts**: If the name of the global target is the same for different packages, Conan will aggregate into this global target
+    all the components from all those different packages. This means that this global target will contain information coming from different
+    packages. For the components themselves, a name conflict will result in one of them being inaccessible without further notice.
