@@ -67,6 +67,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # config_install_interval = 1h
     # required_conan_version = >=1.26
 
+    # keep_python_files = False           # environment CONAN_KEEP_PYTHON_FILES
+
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
