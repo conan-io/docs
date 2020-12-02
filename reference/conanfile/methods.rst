@@ -728,12 +728,13 @@ To install more than one package at once:
 
 ..  code-block:: python
 
+        def system_requirements(self):
             packages = [("vim", "nano", "emacs"), "firefox", "chromium"]
             installer = SystemPackageTool()
             installer.install_packages(packages)
             # e.g. apt-get install -y --no-recommends vim firefox chromium
 
-The ``install_packages`` will install one of text editors (first available), because it's a nested tuple, and it will install both web browsers.
+The ``install_packages`` will install the first text editor available (only one) following the tupple order, while it will install both web browsers.
 
 
 .. _method_imports:
