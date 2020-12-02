@@ -72,7 +72,7 @@ build it from sources, it will fail:
 The second scenario fails. This is because when the *app_release.lock* lockfile was captured, it completely locked all the
 information (including ``libb/1.0``'s package revision). If we try to build a new binary, the lock protection will
 raise. If we want to "unlock" the binary package revision, we need to tell the lockfile when we are capturing such
-lockfile, that we plan to build it, with the ``--build`` argument:
+lockfile, that we plan to build it, with the :command:`--build` argument:
 
 .. code:: bash
 
