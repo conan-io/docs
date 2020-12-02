@@ -35,6 +35,15 @@ built in the cache): ``conan_meson_native.ini``
 related to the Conan options and settings for the current package, platform,
 etc. This includes but is not limited to the following:
 
+* Detection of ``default_library`` from Conan settings
+
+  * Based on existance/value of a option named ``shared``
+
+* Detection of ``buildtype`` from Conan settings
+
+* Definition of the C++ standard as necessary
+
+- The Visual Studio runtime (``b_vscrt ``), obtained from Conan input settings
 
 Generators
 ----------
