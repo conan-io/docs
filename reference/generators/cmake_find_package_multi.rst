@@ -20,23 +20,25 @@ For each conan package in your graph, it will generate 2 files and 1 more per di
 Being ``<PKG-NAME>`` the package name used in the reference (by default) or the one declared in ``cpp_info.name`` or in 
 ``cpp_info.names["cmake_find_package_multi"]`` if specified:
 
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| NAME                                   | CONTENTS                                                                             |
-+========================================+======================================================================================+
-| <PKG-NAME>Config.cmake                 | It includes the <PKG-NAME>Targets.cmake and call find_dependency for each dep        |
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>ConfigVersion.cmake          | Package version file for each dep                                                    |
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>Targets.cmake                | It includes the files *<PKG-NAME>Targets-<BUILD-TYPE>.cmake*                         |
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>Targets-debug.cmake          | Specific information for the Debug configuration                                     |
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>Targets-release.cmake        | Specific information for the Release configuration                                   |
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>Targets-relwithdebinfo.cmake | Specific information for the RelWithDebInfo configuration                            |
-+----------------------------------------+--------------------------------------------------------------------------------------+
-| <PKG-NAME>Targets-minsizerel.cmake     | Specific information for the MinSizeRel configuration                                |
-+----------------------------------------+--------------------------------------------------------------------------------------+
++------------------------------------------+--------------------------------------------------------------------------------------+
+| NAME                                     | CONTENTS                                                                             |
++==========================================+======================================================================================+
+| | <PKG-NAME>Config.cmake /               | It includes the <PKG-NAME>Targets.cmake and call find_dependency for each dep        |
+| | <PKG-NAME>-config.cmake                |                                                                                      |
++------------------------------------------+--------------------------------------------------------------------------------------+
+| | <PKG-NAME>ConfigVersion.cmake /        | Package version file for each dep                                                    |
+| | <PKG-NAME>-config-version.cmake        |                                                                                      |
++------------------------------------------+--------------------------------------------------------------------------------------+
+| | <PKG-NAME>Targets.cmake                | It includes the files *<PKG-NAME>Targets-<BUILD-TYPE>.cmake*                         |
++------------------------------------------+--------------------------------------------------------------------------------------+
+| | <PKG-NAME>Targets-debug.cmake          | Specific information for the Debug configuration                                     |
++------------------------------------------+--------------------------------------------------------------------------------------+
+| | <PKG-NAME>Targets-release.cmake        | Specific information for the Release configuration                                   |
++------------------------------------------+--------------------------------------------------------------------------------------+
+| | <PKG-NAME>Targets-relwithdebinfo.cmake | Specific information for the RelWithDebInfo configuration                            |
++------------------------------------------+--------------------------------------------------------------------------------------+
+| | <PKG-NAME>Targets-minsizerel.cmake     | Specific information for the MinSizeRel configuration                                |
++------------------------------------------+--------------------------------------------------------------------------------------+
 
 Targets
 -------
@@ -72,8 +74,8 @@ in your `CMakeLists.txt` file you only need to ``find_package(A CONFIG)`` and ``
 
 You also need to adjust `CMAKE_PREFIX_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_PREFIX_PATH.html>`_ and
 `CMAKE_MODULE_PATH <https://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html>`_ so CMake can locate all
-the ``<PKG-NAME>Config.cmake`` files: The ``CMAKE_PREFIX_PATH`` is used by the ``find_package`` and the ``CMAKE_MODULE_PATH`` is used by the
-``find_dependency`` calls that locates the transitive dependencies.
+the ``<PKG-NAME>Config.cmake``/``<PKG-NAME>-config.cmake`` files: The ``CMAKE_PREFIX_PATH`` is used by the ``find_package`` and the
+``CMAKE_MODULE_PATH`` is used by the ``find_dependency`` calls that locates the transitive dependencies.
 
 The *<PKG-NAME>Targets-.cmake* files use `<PKG-NAME>_BUILD_MODULES_<BUILD-TYPE>` values to include the files using the `include(...)` CMake
 directive. This makes functions or utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in
