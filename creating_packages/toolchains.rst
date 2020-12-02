@@ -14,7 +14,7 @@ Toolchains
 
     Starting in Conan 1.32 ``toolchain()`` method and ``toolchain`` attribute have been
     deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
-    ``write_toolchain_files()`` and ``generate`` or ``generators = "ToolChainClassName"`` instead of
+    ``toolchain()`` and ``generators = "ToolChainClassName"`` instead of
     ``toolchain`` attribute.
 
 Toolchains are the new, experimental way to integrate with build systems in Conan.
