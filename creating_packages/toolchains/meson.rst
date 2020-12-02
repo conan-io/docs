@@ -8,7 +8,7 @@ MesonToolchain
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-The ``MesonToolchain`` can be used in the ``toolchain()`` method:
+The ``MesonToolchain`` can be used in the ``generate()`` method:
 
 
 .. code:: python
