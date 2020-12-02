@@ -228,7 +228,7 @@ This configuration is useful when a company wants to align the Conan client vers
 :ref:`recipe level<conanfile_required_version>` if you need adding this information just for certain recipes.
 
 The ``keep_python_files`` variable will allow Python *.pyc* files to be packaged. If set to ``True``,
-the generated *.pyc* files will can be added in the package step, otherwise they will be filtered.
+*.pyc* files will be added to the Conan package, otherwise they will be filtered.
 
 Storage
 +++++++
