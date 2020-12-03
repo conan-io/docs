@@ -519,6 +519,106 @@ it is an example of a recipe for a library that doesn't support Windows operatin
 
 This exception will be propagated and Conan application will finish with a :ref:`special return code <invalid_configuration_return_code>`.
 
+.. note::
+
+    For managing invalid configurations, please check the new experimental ``validate()`` method (:ref:`method_validate`).
+
+
+.. _method_validate:
+
+validate()
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+The ``validate()`` method can be used to mark a binary as "impossible" or invalid for a given configuration. For example,
+if a given library does not build or work at all in Windows it can be defined as:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conans.errors import ConanInvalidConfiguration
+
+    class Pkg(ConanFile):
+        settings = "os"
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("Windows not supported")
+
+If you try to use, consume or build such a package, it will raise an error, returning exit code :ref:`exit code <invalid_configuration_return_code>`:
+
+.. code-block:: bash
+
+    $ conan create . pkg/0.1@ -s os=Windows
+    ...
+    Packages
+        pkg/0.1:INVALID - Invalid
+    ...
+    > ERROR: There are invalid packages (packages that cannot exist for this configuration):
+    > pkg/0.1: Invalid ID: Windows not supported
+
+A major difference with ``configure()`` is that this information can be queried with the ``conan info`` command, for example this
+is possible without getting an error:
+
+.. code-block:: bash
+
+    $ conan export . test/0.1@user/testing
+    ...
+    > test/0.1@user/testing: Exported revision: ...
+
+    $ conan info test/0.1@user/testing
+    >test/0.1@user/testing
+        ID: INVALID
+        BuildID: None
+        Remote: None
+        ...
+
+Another important difference with the ``configure()`` method, is that ``validate()`` is evaluated after the graph has been computed and
+the information has been propagated downstream. So the values used in ``validate()`` are guaranteed to be final real values,
+while values at ``configure()`` time are not. This might be important, for example when checking values of options of dependencies:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conans.errors import ConanInvalidConfiguration
+
+    class Pkg(ConanFile):
+        requires = "dep/0.1"
+
+        def validate(self):
+            if self.options["dep"].myoption == 2:
+                raise ConanInvalidConfiguration("Option 2 of 'dep' not supported")
+
+
+If a package uses ``compatible_packages`` feature, it should not add to those compatible packages configurations that will not be valid,
+for example:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conans.errors import ConanInvalidConfiguration
+
+    class Pkg(ConanFile):
+        settings = "os", "build_type"
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("Windows not supported")
+
+        def package_id(self):
+            if self.settings.build_type == "Debug" and self.settings.os != "Windows":
+                compatible_pkg = self.info.clone()
+                compatible_pkg.settings.build_type = "Release"
+                self.compatible_packages.append(compatible_pkg)
+
+Note the ``self.settings.os != "Windows"`` in the ``package_id()``. If this is not provided, the ``validate()`` might still work and
+raise an error, but in the best case it will be wasted resources (compatible packages do more API calls to check them), so it is
+strongly recommended to properly define the ``package_id()`` method to no include incompatible configurations.
+
+
 .. _method_requirements:
 
 requirements()
