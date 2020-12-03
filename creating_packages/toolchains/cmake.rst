@@ -8,13 +8,20 @@ CMakeToolchain
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+.. warning:
 
-The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
+    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
+    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
+    ``write_toolchain_files()`` and ``generate`` or ``generators = "CMakeToolchain"`` instead of the
+    ``toolchain`` attribute.
+
+The ``CMakeToolchain`` can be used in the ``generate()`` method:
 
 
 .. code:: python
 
-    from conans import ConanFile, CMake, CMakeToolchain
+    from conans import ConanFile
+    from conan.tools.cmake import CMake, CMakeToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -23,9 +30,9 @@ The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
-        def toolchain(self):
+        def generate(self):
             tc = CMakeToolchain(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 
 The ``CMakeToolchain`` will generate 2 files, after a ``conan install`` command (or
@@ -70,12 +77,12 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 
 .. code:: python
 
-    def toolchain(self):
+    def generate(self):
         tc = CMakeToolchain(self)
         tc.preprocessor_definitions["MYVAR"] = "MyValue"
         tc.preprocessor_definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
         tc.preprocessor_definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
-        tc.write_toolchain_files()
+        tc.generate()
 
 This will be translated to:
 

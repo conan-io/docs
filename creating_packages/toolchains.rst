@@ -10,25 +10,38 @@ Toolchains
 
     Please try it and provide feedback at: https://github.com/conan-io/conan/issues
 
+.. warning:
+
+    Starting in Conan 1.32 ``toolchain()`` method and ``toolchain`` attribute have been
+    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
+    ``toolchain()`` and ``generators = "ToolChainClassName"`` instead of
+    ``toolchain`` attribute.
 
 Toolchains are the new, experimental way to integrate with build systems in Conan.
-Recipes can define a ``toolchain()`` method that will return an object which
+Recipes can define a ``generate()`` method that will return an object which
 can generate files from the current configuration that can be used by the build systems.
 Conan *generators* provide information about dependencies, while toolchains provide a
 "translation" from the Conan settings and options, and the recipe defined configuration
 to something that the build system can understand. A recipe that does not have dependencies
 does not need a generator, but can still use a toolchain.
 
-A toolchain can be defined, among the built-ins toolchains, with an attribute:
+A toolchain can be defined, among the built-ins toolchains, with an attribute with the name of the
+toolchain class to use.
 
 .. code:: python
 
-    toolchain = "cmake"
+    generators = "<ToolChainClassName>"
+
+For example, for using the CMake toolchain this should be declared in the recipe:
+
+.. code:: python
+
+    generators = "CMakeToolchain"
 
 .. note::
 
-    At the moment (Conan 1.26), the only available built-in toolchain is the CMake one.
-
+    At the moment (Conan 1.32), the available built-in toolchains are ``CMakeToolchain``, ``MakeToolchain``,
+    ``MSBuildToolchain`` and ``MesonToolchain``.
 
 But in the more general case, and if it needs any specific configuration beyond the default
 one:
@@ -36,23 +49,23 @@ one:
 
 .. code:: python
 
-    from conans import CMakeToolchain
+    from conan.tools.cmake import CMakeToolchain
 
-    def toolchain(self):
+    def generate(self):
         tc = CMakeToolchain(self)
         # customize toolchain "tc"
-        tc.write_toolchain_files()
+        tc.generate()
 
 
-It is possible to use the ``toolchain()`` method to create your own files, which will typically be
+It is possible to use the ``generate()`` method to create your own files, which will typically be
 deduced from the current configuration of ``self.settings`` and ``self.options``.
 
 .. code:: python
 
-    from conans import CMakeToolchain
+    from conan.tools.cmake import CMakeToolchain
     from conans.tools import save
 
-    def toolchain(self):
+    def generate(self):
         # Based on the self.settings, self.options, the user
         # can generate their own files:
         save("mytoolchain.tool", "my own toolchain contents, deduced from the settings and options")
@@ -81,12 +94,12 @@ the documentation of each toolchain to check the associated build helper availab
 
 .. code:: python
 
-    from conans import CMakeToolchain, CMake
+    from conan.tools.cmake import CMakeToolchain, CMake
 
-    def toolchain(self):
+    def generate(self):
         tc = CMakeToolchain(self)
         # customize toolchain "tc"
-        tc.write_toolchain_files()
+        tc.generate()
 
     def build(self):
         # NOTE: This is a simplified helper
@@ -102,4 +115,5 @@ Built-in toolchains
 
    toolchains/cmake
    toolchains/make
+   toolchains/meson
    toolchains/msbuild

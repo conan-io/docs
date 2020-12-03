@@ -67,6 +67,8 @@ The typical location of the **conan.conf** file is the directory ``~/.conan/``:
     # config_install_interval = 1h
     # required_conan_version = >=1.26
 
+    # keep_python_files = False           # environment CONAN_KEEP_PYTHON_FILES
+
     [storage]
     # This is the default path, but you can write your own. It must be an absolute path or a
     # path beginning with "~" (if the environment var CONAN_USER_HOME is specified, this directory, even
@@ -226,6 +228,9 @@ The ``required_conan_version`` variable validates if the current Conan client ve
 according to the required version or its range, Conan raises an exception before running any command. It accepts SemVer format, including version range.
 This configuration is useful when a company wants to align the Conan client version used by all teams. This can be also specified at
 :ref:`recipe level<conanfile_required_version>` if you need adding this information just for certain recipes.
+
+The ``keep_python_files`` variable will allow Python *.pyc* files to be packaged. If set to ``True``,
+*.pyc* files will be added to the Conan package, otherwise they will be filtered.
 
 Storage
 +++++++

@@ -82,3 +82,9 @@ If a recipe uses components, the targets generated will be ``<PKG-NAME>::<COMP-N
 Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
 
 - ``INTERFACE_LINK_LIBRARIES``: Containing all the component targets to link the global target to (includes package's components only).
+
+.. important::
+
+    **Name conflicts**: If the name of the global target is the same for different packages, Conan will aggregate into this global target
+    all the components from all those different packages. This means that this global target will contain information coming from different
+    packages. For the components themselves, a name conflict will result in one of them being inaccessible without further notice.

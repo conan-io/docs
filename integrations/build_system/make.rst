@@ -41,9 +41,9 @@ To use the toolchain, add the following function to your ``conanfile``:
 
     class MyConan(ConanFile):
         ...
-        def toolchain(self):
+        def generate(self):
             tc = Make(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 **NOTE**: This can only be used in a ``conanfile.py`` and not ``conanfile.txt``.
 
@@ -82,7 +82,8 @@ workflow.
 .. code-block:: python
    :caption: *conanfile.py*
           
-    from conans import ConanFile, MakeToolchain
+    from conans import ConanFile
+    from conan.tools.gnu import MakeToolchain
     
     class MyConan(ConanFile):
         name = "myconan"
@@ -91,9 +92,9 @@ workflow.
         generators = "make"
         exports_sources = "*"
 
-        def toolchain(self):
+        def generate(self):
             tc = Make(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
         def build(self):
             pass

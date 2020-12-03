@@ -286,9 +286,9 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
   package may have: libraries, executables... Read more about this feature at :ref:`package_information_components`.
 - **requires**: **[Experimental]** List of components from the requirements this package (and its consumers) should link with. It will
   be used by generators that add support for components features (:ref:`package_information_components`).
-   
 
-If your recipe has requirements, you can access to the information stored in the ``cpp_info`` of your requirements 
+
+If your recipe has requirements, you can access to the information stored in the ``cpp_info`` of your requirements
 using the ``deps_cpp_info`` object:
 
 .. code-block:: python
@@ -519,6 +519,106 @@ it is an example of a recipe for a library that doesn't support Windows operatin
 
 This exception will be propagated and Conan application will finish with a :ref:`special return code <invalid_configuration_return_code>`.
 
+.. note::
+
+    For managing invalid configurations, please check the new experimental ``validate()`` method (:ref:`method_validate`).
+
+
+.. _method_validate:
+
+validate()
+----------
+
+.. warning::
+
+    This is an **experimental** feature subject to breaking changes in future releases.
+
+The ``validate()`` method can be used to mark a binary as "impossible" or invalid for a given configuration. For example,
+if a given library does not build or work at all in Windows it can be defined as:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conans.errors import ConanInvalidConfiguration
+
+    class Pkg(ConanFile):
+        settings = "os"
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("Windows not supported")
+
+If you try to use, consume or build such a package, it will raise an error, returning exit code :ref:`exit code <invalid_configuration_return_code>`:
+
+.. code-block:: bash
+
+    $ conan create . pkg/0.1@ -s os=Windows
+    ...
+    Packages
+        pkg/0.1:INVALID - Invalid
+    ...
+    > ERROR: There are invalid packages (packages that cannot exist for this configuration):
+    > pkg/0.1: Invalid ID: Windows not supported
+
+A major difference with ``configure()`` is that this information can be queried with the ``conan info`` command, for example this
+is possible without getting an error:
+
+.. code-block:: bash
+
+    $ conan export . test/0.1@user/testing
+    ...
+    > test/0.1@user/testing: Exported revision: ...
+
+    $ conan info test/0.1@user/testing
+    >test/0.1@user/testing
+        ID: INVALID
+        BuildID: None
+        Remote: None
+        ...
+
+Another important difference with the ``configure()`` method, is that ``validate()`` is evaluated after the graph has been computed and
+the information has been propagated downstream. So the values used in ``validate()`` are guaranteed to be final real values,
+while values at ``configure()`` time are not. This might be important, for example when checking values of options of dependencies:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conans.errors import ConanInvalidConfiguration
+
+    class Pkg(ConanFile):
+        requires = "dep/0.1"
+
+        def validate(self):
+            if self.options["dep"].myoption == 2:
+                raise ConanInvalidConfiguration("Option 2 of 'dep' not supported")
+
+
+If a package uses ``compatible_packages`` feature, it should not add to those compatible packages configurations that will not be valid,
+for example:
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conans.errors import ConanInvalidConfiguration
+
+    class Pkg(ConanFile):
+        settings = "os", "build_type"
+
+        def validate(self):
+            if self.settings.os == "Windows":
+                raise ConanInvalidConfiguration("Windows not supported")
+
+        def package_id(self):
+            if self.settings.build_type == "Debug" and self.settings.os != "Windows":
+                compatible_pkg = self.info.clone()
+                compatible_pkg.settings.build_type = "Release"
+                self.compatible_packages.append(compatible_pkg)
+
+Note the ``self.settings.os != "Windows"`` in the ``package_id()``. If this is not provided, the ``validate()`` might still work and
+raise an error, but in the best case it will be wasted resources (compatible packages do more API calls to check them), so it is
+strongly recommended to properly define the ``package_id()`` method to no include incompatible configurations.
+
+
 .. _method_requirements:
 
 requirements()
@@ -669,6 +769,10 @@ Methods:
       parameter is set to True. If ``packages`` is a list the first available package will be picked (short-circuit like logical **or**).
       **Note**: This list of packages is intended for providing **alternative** names for the same package, to account for small variations
       of the name for the same package in different distros. To install different packages, one call to ``install()`` per package is necessary.
+    - **install_packages(packages, update=True, force=False, arch_names=None)**: Installs all ``packages`` (could be a list or a string).
+      If ``update`` is True it will execute ``update()`` first if it's needed. The packages won't be installed if they are already installed
+      at least of ``force`` parameter is set to True. If ``packages`` has a nested list or tuple, the first available package will be picked
+      (short-circuit like logical **or**).
     - **installed(package_name)**: Verify if ``package_name`` is actually installed. It returns ``True`` if it is installed, otherwise ``False``.
 
 The use of ``sudo`` in the internals of the ``install()`` and ``update()`` methods is controlled by the ``CONAN_SYSREQUIRES_SUDO``
@@ -719,6 +823,19 @@ The ``SystemPackageTool`` is adapted to support possible prefixes and suffixes, 
 instance of the package manager. It validates whether your current settings are configured for
 cross-building, and if so, it will update the package name to be installed according to
 ``self.settings.arch``.
+
+To install more than one package at once:
+
+..  code-block:: python
+
+        def system_requirements(self):
+            packages = [("vim", "nano", "emacs"), "firefox", "chromium"]
+            installer = SystemPackageTool()
+            installer.install_packages(packages)
+            # e.g. apt-get install -y --no-recommends vim firefox chromium
+
+The ``install_packages`` will install the first text editor available (only one) following the tupple order, while it will install both web browsers.
+
 
 .. _method_imports:
 
