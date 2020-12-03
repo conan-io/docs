@@ -83,6 +83,11 @@ There are two approaches for this situation:
           if self.settings.os == "Windows":
               del self.options.fPIC
 
+.. note::
+
+    For managing invalid configurations, please check the new experimental ``validate()`` method (:ref:`method_validate`).
+
+
 - **Constrain settings inside a recipe**:
 
   This approach constrains the settings inside a recipe to a subset of them, and it is normally used in recipes that are never supposed to

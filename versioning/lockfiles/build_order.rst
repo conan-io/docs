@@ -111,13 +111,22 @@ item in the first level, the second level can start, and it can build both ``lib
 that both of them finish their build to be able to continue to the third level, that contains
 ``libd/0.1@user/testing``, because this package depends on them.
 
-Every item in each level has 4 elements: ``[ref, package_id, context, id]``. At the moment the only
+Every item in each level has 4 elements: ``[ref, package_id, context, node-id]``. At the moment the only
 necessary one is the first one. The ``ref`` value is the one that can be used for example in a :command:`conan install`
 command like:
 
 .. code-block:: bash
 
     $ conan install <ref> --build=<ref> --lockfile=mylock.lock
+
+
+The last value, the ``node-id`` could be used in cases where the ``ref`` is not enough to address a given package in the graph,
+for example when the same package can be found in the graph multiple times. In this case, explicitly adding the ``--lockfile-node-id``
+argument can resolve the ambiguity (this is an **experimental feature**, subject to breaking changes):
+
+.. code-block:: bash
+
+    $ conan install <ref> --build=<ref> --lockfile=mylock.lock --lockfile-node-id=<node-id>
 
 
 Defining builds

@@ -5,13 +5,20 @@ MSBuildToolchain
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+.. warning:
 
-The ``MSBuildToolchain`` can be used in the ``toolchain()`` method:
+    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
+    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
+    ``write_toolchain_files()`` and ``generate`` or ``generators = "MSBuildToolchain"`` instead of the
+    ``toolchain`` attribute.
+
+The ``MSBuildToolchain`` can be used in the ``generate()`` method:
 
 
 .. code:: python
 
-    from conans import ConanFile, MSBuildToolchain
+    from conans import ConanFile
+    from conan.tools.microsoft import MSBuildToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -20,18 +27,18 @@ The ``MSBuildToolchain`` can be used in the ``toolchain()`` method:
         options = {"shared": [True, False]}
         default_options = {"shared": False}
 
-        def toolchain(self):
+        def generate(self):
             tc = MSBuildToolchain(self)
-            tc.write_toolchain_files()
+            tc.generate()
 
 
 The ``MSBuildToolchain`` will generate two files after a ``conan install`` command or
 before calling the ``build()`` method when the package is building in the cache:
 
-- The main *conan_toolchain.props* file, that can be used in the command line.
-- A *conan_toolchain_<config>.props* file, that will be conditionally included from the previous
-  *conan_toolchain.props* file based on the configuration, platform and toolset, e.g.:
-  *conan_toolchain_Release_x86_v140.props*
+- The main *conantoolchain.props* file, that can be used in the command line.
+- A *conantoolchain_<config>.props* file, that will be conditionally included from the previous
+  *conantoolchain.props* file based on the configuration, platform and toolset, e.g.:
+  *conantoolchain_Release_x86_v140.props*
 
 Every invocation to ``conan install`` with different configuration will create a new properties ``.props``
 file, that will also be conditionally included. This allows to install different sets of dependencies,
@@ -65,7 +72,7 @@ With the ``MSBuildToolchain`` it is possible to do:
     # Install both debug and release deps and create the toolchain
     $ conan install ..
     $ conan install .. -s build_type=Debug
-    # Add ``conan_toolchain.props`` in your IDE to the project properties
+    # Add ``conantoolchain.props`` in your IDE to the project properties
     # No need to add the configuration .props files. This needs to be done only once
     # If you have dependencies, you will need to add the .props files of the dependencies
     # too, check the "msbuild" generator
@@ -91,7 +98,7 @@ The ``MSBuild`` helper can be used like:
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
-        def toolchain(self):
+        def generate(self):
             ...
 
         def build(self):
