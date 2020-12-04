@@ -125,10 +125,10 @@ lockfile for each configuration/profile from the *libb_deps_base.lock*:
 
     # Derive one lockfile per profile/configuration
     $ conan lock create conanfile.py --name=libb --version=0.2
-      --user=user --channel=testing --lockfile=../locks/libb_base.lock
+      --user=user --channel=testing --lockfile=../locks/libb_deps_base.lock
       --lockfile-out=../locks/libb_deps_debug.lock -s build_type=Debug
     $ conan lock create conanfile.py --name=libb --version=0.2
-      --user=user --channel=testing --lockfile=../locks/libb_base.lock
+      --user=user --channel=testing --lockfile=../locks/libb_deps_base.lock
       --lockfile-out=../locks/libb_deps_release.lock
 
     # Create the package binaries, one with each lockfile
