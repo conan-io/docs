@@ -1997,3 +1997,54 @@ This tool is intended to be used inside the ``package()`` method after all files
 Parameters:
     - **conanfile** (Required): ConanFile instance. Usually ``self``.
     - **raise_if_error** (Optional, Defaulted to ``False``): Indicates whether to raise or to remove invalid symlinks.
+
+
+.. _tools.flatten_directory:
+
+tools.flatten_directory():
+--------------------------
+
+.. code-block:: python
+
+    def flatten_directory(base_path='.', pattern='*'):
+
+Function mainly used in ``source()``. Useful when dealing with source tarballs downloaded from code hosting services.
+
+This method will move all files from directory selected by ``pattern``, one file system level up. Selected directory is
+deleted after files are moved.
+
+.. code-block:: python
+
+    from conans import tools
+
+    tools.get("http://url/something-1.2.3.tar.gz")
+    tools.flatten_directory()
+    # or if multiple directories are present, then single one must be selected
+    tools.flatten_directory(pattern='something-*')
+
+If the pattern is not found or pattern matches multiple directories then exception will be raised.
+
+Sample folder tree before flattening:
+
+.. code-block:: text
+
+    .
+    └── something-1.2.3
+        ├── file.txt
+        └── includes
+            └── include.h
+
+And after:
+
+.. code-block:: text
+
+    .
+    ├── file.txt
+    └── includes
+        └── include.h
+
+Parameters:
+    - **base_path** (Optional, Defaulted to ``"."``): Location where flatten operation will happen.
+    - **pattern** (Optional, Defaulted to ``"*"``): Pattern that matches signle directory name. Selected directory will be flattened.
+      This should be a Unix shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for
+      more details.
