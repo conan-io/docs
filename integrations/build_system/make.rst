@@ -93,7 +93,7 @@ workflow.
         exports_sources = "*"
 
         def generate(self):
-            tc = Make(self)
+            tc = MakeToolchain(self)
             tc.generate()
 
         def build(self):
