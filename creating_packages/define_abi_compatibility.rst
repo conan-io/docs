@@ -486,6 +486,14 @@ All the modes can be applied to all dependencies, or to individual ones:
   ``my_lib/1.4.5`` will still produce ``my_lib/1.Y.Z`` and thus the same package-id.
   The indirect, transitive dependency doesn't affect the package-id at all.
 
+.. important::
+
+   **Known-bug**: Package ID mode ``semver_direct_mode`` takes into account the options of transitive requirements.
+   It means that modifying the options of any transitive requirement will modify the computed package ID, and also
+   adding/removing a transitive requirement will modify the computed package ID (this happens even if the added/removed
+   requirement doesn't have any option).
+
+
 - ``semver_mode()``: In this mode, only a major release version (starting from **1.0.0**) changes the package ID.
   Every version change prior to 1.0.0 changes the package ID, but only major changes after 1.0.0 will be applied.
 
