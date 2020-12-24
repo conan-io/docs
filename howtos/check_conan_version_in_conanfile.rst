@@ -11,8 +11,7 @@ Let's have a look at a basic example of this:
 .. code-block:: python
    :caption: conanfile.py
 
-    from conans import ConanFile, CMake, __version__ as conan_version
-    from conans.model.version import Version
+    from conans.tools import Version
 
 
     class MyLibraryConan(ConanFile):
@@ -35,8 +34,7 @@ example:
 
 .. code-block:: python
 
-    from conans import ConanFile, tools, __version__ as conan_version
-    from conans.model.version import Version
+    from conans.tools import Version
 
     class MyPackage(ConanFile):
         name = "package"
