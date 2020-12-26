@@ -11,6 +11,7 @@ Let's have a look at a basic example of this:
 .. code-block:: python
    :caption: conanfile.py
 
+    from conans import ConanFile, CMake
     from conans.tools import Version
 
 
@@ -34,6 +35,7 @@ example:
 
 .. code-block:: python
 
+    from conans import ConanFile, tools
     from conans.tools import Version
 
     class MyPackage(ConanFile):
