@@ -30,6 +30,23 @@ Parameters:
     - **conanfile** (Required): Use ``self`` inside a ``conanfile.py``.
     - **project_file** (Optional, Defaulted to ``None``): Path to the root project file.
 
+Attributes
+----------
+
+use_toolchain_profile
++++++++++++++++++++++
+
+**Defaulted to**: ``conan_toolchain_profile``
+
+Specifies the qbs profile to build the project for.
+
+jobs
+++++
+
+**Defaulted to**: ``tools.cpu_count()``
+
+Specifies the number of concurrent build jobs.
+
 Methods
 -------
 
