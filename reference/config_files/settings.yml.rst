@@ -197,7 +197,7 @@ Here you can find a brief explanation of each of the architectures defined as ``
 
 - **e2k-v5**: The Elbrus 2000 v5 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 8C2 (aka Elbrus 8CB) CPU) originally developed by MCST (Moscow Center of SPARC Technologies).
 
-- **e2k-v6**: The Elbrus 2000 v6 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2C3, Elbrus 12C, Elbrus 16C CPUs) originally developed by MCST (Moscow Center of SPARC Technologies).
+- **e2k-v6**: The Elbrus 2000 v6 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 2C3, Elbrus 12C and Elbrus 16C CPUs) originally developed by MCST (Moscow Center of SPARC Technologies).
 
 - **e2k-v7**: The Elbrus 2000 v7 512 bit VLIW (Very Long Instruction Word) architecture (Elbrus 32C CPU) originally developed by MCST (Moscow Center of SPARC Technologies).
 
