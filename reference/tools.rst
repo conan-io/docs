@@ -1595,6 +1595,8 @@ tools.apple_sdk_name()
     def apple_sdk_name(settings)
 
 Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
+If ``self.settings.os.sdk`` setting is defined, it is used, otherwise the function tries to auto-detect based on 
+``self.settings.os`` and ``self.settings.arch``.
 
 Parameters:
     - **settings** (Required): Conanfile settings.
@@ -1623,13 +1625,15 @@ tools.apple_deployment_target_flag()
 
 .. code-block:: python
 
-    def apple_deployment_target_flag(os_, os_version)
+    def apple_deployment_target_flag(os_, os_version, os_sdk=None, arch=None)
 
 Compiler flag name which controls deployment target. For example: ``-mappletvos-version-min=9.0``
 
 Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
-    - **os_version** (Required): OS version.
+    - **os_version** (Required): OS version. Usually ``self.settings.os.version``.
+    - **os_sdk** (Optional, Defaulted to ``None``): OS SDK. Usually ``self.settings.os.sdk``. Otherwise, check :command:`xcodebuild -sdk -version`. for available SDKs.
+    - **arch** (Optional, Defaulted to ``None``): Architecture of the settings. Usually ``self.settings.arch``.
 
 .. _tools_xcrun:
 
