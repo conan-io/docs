@@ -399,7 +399,7 @@ Retrieves a file from a given URL into a file with a given filename. It uses cer
 downloads, but this can be optionally disabled.
 
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked.
-If any of them doesn't match, it will raise a ``ConanException``.
+If any of them doesn't match, the downloaded file will be removed and it will raise a ``ConanException``.
 
 .. code-block:: python
 
