@@ -59,7 +59,7 @@ etc. This includes the following:
 
 * Detection of ``build_type`` from Conan settings.
 
-* Detection of ``arch`` from Conan settings
+* Detection of ``arch`` from Conan settings.
 
 * Detection of ``compiler.cxxstd`` from Conan settings.
 
