@@ -33,7 +33,7 @@ built in the cache): *conan_toolchain.qbs*. This file will contain a qbs profile
 named ``conan_toolchain_profile``.
 
 
-``conan_toolchain.qbs`` will contain the definitions of all the Qbs properties
+*conan_toolchain.qbs* will contain the definitions of all the Qbs properties
 related to the Conan options and settings for the current package, platform,
 etc. This includes the following:
 
