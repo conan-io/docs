@@ -14,7 +14,7 @@ The ``QbsToolchain`` can be used in the ``generate()`` method:
 .. code:: python
 
     from conans import ConanFile
-    from conan.tools.meson import QbsToolchain
+    from conan.tools.qbs import QbsToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
