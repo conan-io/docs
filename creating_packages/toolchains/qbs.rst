@@ -39,7 +39,7 @@ etc. This includes the following:
 
   * Detection of compiler.
 
-  * Based on the compiler set in environment variable ``CC``
+  * Based on the compiler set in environment variable ``CC``.
 
   * Uses detected system compiler based on Conan setting ``compiler`` if environment variable ``CC`` is not set.
 
