@@ -51,7 +51,7 @@ Methods
 -------
 
 add_configuration()
-+++++++++++
++++++++++++++++++++
 
 .. code-block:: python
 
