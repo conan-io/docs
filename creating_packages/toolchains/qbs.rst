@@ -55,7 +55,7 @@ etc. This includes the following:
 
   * ``LDFLAGS``
 
-* Detection of sysroot from environment
+* Detection of sysroot from environment.
 
 * Detection of ``build_type`` from Conan settings.
 
