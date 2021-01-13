@@ -43,7 +43,7 @@ etc. This includes the following:
 
   * Uses detected system compiler based on Conan setting ``compiler`` if environment variable ``CC`` is not set
 
-* Detection of compiler flags from environment (as defined at https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html)
+* Detection of compiler flags from environment (as defined at https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html):
 
   * ``ASFLAGS``
 
