@@ -41,7 +41,7 @@ etc. This includes the following:
 
   * Based on the compiler set in environment variable ``CC``
 
-  * Uses detected system compiler based on Conan setting ``compiler`` if environment variable ``CC`` is not set
+  * Uses detected system compiler based on Conan setting ``compiler`` if environment variable ``CC`` is not set.
 
 * Detection of compiler flags from environment (as defined at https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html):
 
