@@ -27,23 +27,23 @@ The ``QbsToolchain`` can be used in the ``generate()`` method:
             tc.generate()
 
 
-The ``QbsToolchain`` will generate the following file during ``conan install``
+The ``QbsToolchain`` will generate the following file during :command:`conan install`
 command (or before calling the ``build()`` method when the package is being
-built in the cache): ``conan_toolchain.qbs``. This file will contain a qbs profile
-named ``conan_toolchain_profile``.
+built in the cache): *conan_toolchain.qbs*. This file will contain a qbs profile
+named *conan_toolchain_profile*.
 
 
-``conan_toolchain.qbs`` will contain the definitions of all the Qbs properties
+*conan_toolchain.qbs* will contain the definitions of all the Qbs properties
 related to the Conan options and settings for the current package, platform,
 etc. This includes the following:
 
-* Detection of compiler
+  * Detection of compiler.
 
-  * Based on the compiler set in environment variable ``CC``
+  * Based on the compiler set in environment variable ``CC``.
 
-  * Uses detected system compiler based on Conan setting ``compiler`` if environment variable ``CC`` is not set
+  * Uses detected system compiler based on Conan setting ``compiler`` if environment variable ``CC`` is not set.
 
-* Detection of compiler flags from environment (as defined at https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html)
+* Detection of compiler flags from environment (as defined at https://www.gnu.org/software/make/manual/html_node/Implicit-Variables.html):
 
   * ``ASFLAGS``
 
@@ -55,14 +55,12 @@ etc. This includes the following:
 
   * ``LDFLAGS``
 
-* Detection of sysroot from environment
+* Detection of sysroot from environment.
 
-* Detection of ``build_type`` from Conan settings
+* Detection of ``build_type`` from Conan settings.
 
-* Detection of ``arch`` from Conan settings
+* Detection of ``arch`` from Conan settings.
 
-* Detection of ``compiler.cxxstd`` from Conan settings
+* Detection of ``compiler.cxxstd`` from Conan settings.
 
-* Detection of ``fPIC``
-
-  * Based on existance/value of a option named ``fPIC``
+* Detection of ``fPIC`` based on the existence of such option in the recipe.

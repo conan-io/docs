@@ -51,7 +51,7 @@ Methods
 -------
 
 add_configuration()
-+++++++++++
++++++++++++++++++++
 
 .. code-block:: python
 
@@ -78,7 +78,7 @@ Parameters:
 
 
 build_all()
-++++++
++++++++++++
 
 .. code-block:: python
 
