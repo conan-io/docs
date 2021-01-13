@@ -57,7 +57,7 @@ etc. This includes the following:
 
 * Detection of sysroot from environment
 
-* Detection of ``build_type`` from Conan settings
+* Detection of ``build_type`` from Conan settings.
 
 * Detection of ``arch`` from Conan settings
 
