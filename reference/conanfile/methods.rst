@@ -217,7 +217,7 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
     self.cpp_info.resdirs = ['res']  # Directories where resources, data, etc. can be found
     self.cpp_info.bindirs = ['bin']  # Directories where executables and shared libs can be found
     self.cpp_info.srcdirs = []  # Directories where sources can be found (debugging, reusing sources)
-    self.cpp_info.build_modules = []  # Build system utility module files
+    self.cpp_info.build_modules = {}  # Build system utility module files
     self.cpp_info.defines = []  # preprocessor definitions
     self.cpp_info.cflags = []  # pure C flags
     self.cpp_info.cxxflags = []  # C++ compilation flags
@@ -249,8 +249,8 @@ The :ref:`cpp_info_attributes_reference` attribute has the following properties 
 - **srcdirs**: List of relative paths (starting from the package root) of directories in which to find sources (like
   .c, .cpp). By default it is empty. It might be used to store sources (for later debugging of packages, or to reuse those sources building
   them in other packages too).
-- **build_modules**: List of relative paths to build system related utility module files created by the package. Used by CMake generators to
-  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules.append("cmake/myfunctions.cmake")``. Those files
+- **build_modules**: Dictionary of lists per generator containing relative paths to build system related utility module files created by the package. Used by CMake generators to
+  include *.cmake* files with functions for consumers. e.g: ``self.cpp_info.build_modules["cmake_find_package"].append("cmake/myfunctions.cmake")``. Those files
   will be included automatically in `cmake`/`cmake_multi` generators when using `conan_basic_setup()` and will be automatically added in
   `cmake_find_package`/`cmake_find_package_multi` generators when `find_package()` is used.
 - **defines**: Ordered list of preprocessor directives. It is common that the consumers have to specify some sort of defines in some cases,
