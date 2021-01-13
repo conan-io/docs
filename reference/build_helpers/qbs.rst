@@ -119,7 +119,7 @@ library locally (in your user folder, not in the local cache), could be:
         def build(self):
             qbs = Qbs(self)
             qbs.add_configuration("default", {
-                "project.Hello.conanBuildInfo", self.build_folder + "/conanbuildinfo.qbs"
+                "project.conanBuildInfo", self.build_folder + "/conanbuildinfo.qbs"
             })
             qbs.build()
 
