@@ -37,7 +37,7 @@ named *conan_toolchain_profile*.
 related to the Conan options and settings for the current package, platform,
 etc. This includes the following:
 
-* Detection of compiler
+  * Detection of compiler.
 
   * Based on the compiler set in environment variable ``CC``
 
