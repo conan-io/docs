@@ -117,3 +117,4 @@ Built-in toolchains
    toolchains/make
    toolchains/meson
    toolchains/msbuild
+   toolchains/qbs
