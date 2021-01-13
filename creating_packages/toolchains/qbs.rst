@@ -63,6 +63,4 @@ etc. This includes the following:
 
 * Detection of ``compiler.cxxstd`` from Conan settings
 
-* Detection of ``fPIC``
-
-  * Based on existance/value of a option named ``fPIC``
+* Detection of ``fPIC`` based on the existence of such option in the recipe.
