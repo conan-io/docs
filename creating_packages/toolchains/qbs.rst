@@ -27,7 +27,7 @@ The ``QbsToolchain`` can be used in the ``generate()`` method:
             tc.generate()
 
 
-The ``QbsToolchain`` will generate the following file during ``conan install``
+The ``QbsToolchain`` will generate the following file during :command:`conan install`
 command (or before calling the ``build()`` method when the package is being
 built in the cache): ``conan_toolchain.qbs``. This file will contain a qbs profile
 named ``conan_toolchain_profile``.
