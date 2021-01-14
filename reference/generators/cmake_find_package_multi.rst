@@ -78,8 +78,8 @@ the ``<PKG-NAME>Config.cmake``/``<PKG-NAME>-config.cmake`` files: The ``CMAKE_PR
 ``CMAKE_MODULE_PATH`` is used by the ``find_dependency`` calls that locates the transitive dependencies.
 
 The *<PKG-NAME>Targets-.cmake* files use `<PKG-NAME>_BUILD_MODULES_<BUILD-TYPE>` values to include the files using the `include(...)` CMake
-directive. This makes functions or utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in
-the *CMakeLists.txt*.
+directive after the targets are created. This makes functions or utilities exported by the package available for consumers just by setting
+`find_package(<PKG-NAME>)` in the *CMakeLists.txt*.
 
 Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
 modules in those directories can be found.
