@@ -31,12 +31,8 @@ are possible. These are the **default** values, but it is possible to customize 
         Linux:
         Macos:
             version: [None, "10.6", "10.7", "10.8", "10.9", "10.10", "10.11", "10.12", "10.13", "10.14", "10.15", "11.0"]
-<<<<<<< HEAD
             sdk: [None, "macosx"]
-=======
-            sdk: [None, "MacOSX"]
             subsystem: [None, "Catalyst"]
->>>>>>> 145c153cf... - add Apple Catalyst
         Android:
             api_level: ANY
         iOS:
