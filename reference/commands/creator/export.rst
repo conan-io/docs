@@ -6,7 +6,8 @@ conan export
 
 .. code-block:: bash
 
-    $ conan export [-h] [-k] [-l [LOCKFILE]] [--ignore-dirty]
+    $ conan export [-h] [-k] [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
+                   [--ignore-dirty]
                    path [reference]
 
 Copies the recipe (conanfile.py & associated files) to your local cache.
@@ -21,7 +22,7 @@ to any remote with the 'conan upload' command.
       path                  Path to a folder containing a conanfile.py or to a
                             recipe file e.g., my_folder/conanfile.py
       reference             user/channel, Pkg/version@user/channel (if name and
-                            version are not declared in the conanfile.py) or
+                            version are not declared in the conanfile.py)
                             Pkg/version@ if user/channel is not relevant.
 
     optional arguments:
@@ -30,10 +31,10 @@ to any remote with the 'conan upload' command.
                             Do not remove the source folder in the local cache,
                             even if the recipe changed. Use this for testing
                             purposes only
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile will be updated with the exported
-                            package
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile file.
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       --ignore-dirty        When using the "scm" feature with "auto" values,
                             capture the revision and url even if there are
                             uncommitted changes

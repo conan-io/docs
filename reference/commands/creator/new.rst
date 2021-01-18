@@ -34,8 +34,7 @@ Creates a new package recipe template with a 'conanfile.py' and optionally,
                             method. Useful in combination with "export-pkg"
                             command
       -m TEMPLATE, --template TEMPLATE
-                            Use the given template from the local cache for
-                            conanfile.py
+                            Use the given template to generate a conan project
       -cis, --ci-shared     Package will have a "shared" option to be used in CI
       -cilg, --ci-travis-gcc
                             Generate travis-ci files for linux gcc
