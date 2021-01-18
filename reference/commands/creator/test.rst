@@ -7,11 +7,12 @@ conan test
 .. code-block:: bash
 
     $ conan test [-h] [-tbf TEST_BUILD_FOLDER] [-b [BUILD]] [-r REMOTE] [-u]
-                 [-l [LOCKFILE]] [-e ENV_HOST] [-e:b ENV_BUILD]
-                 [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
-                 [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                 [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                 [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                 [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
+                 [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                 [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                 [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
+                 [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
+                 [-s:h SETTINGS_HOST]
                  path reference
 
 Tests a package consuming it from a conanfile.py with a test() method.
@@ -26,7 +27,7 @@ to be tested must exist in the local cache or any configured remote.
 
     positional arguments:
       path                  Path to the "testing" folder containing a conanfile.py
-                            or to a recipe file with test() methode.g. conan
+                            or to a recipe file with test() method e.g. conan
                             test_package/conanfile.py pkg/version@user/channel
       reference             pkg/version@user/channel of the package to be tested
 
@@ -66,9 +67,10 @@ to be tested must exist in the local cache or any configured remote.
                             that satisfies the range. Also, if using revisions, it
                             will update to the latest revision for the resolved
                             version range.
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       -e ENV_HOST, --env ENV_HOST
                             Environment variables that will be set during the
                             package build (host machine). e.g.: -e
