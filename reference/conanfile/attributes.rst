@@ -939,8 +939,9 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.build_modules          | | List of relative paths to build system related utility module files created by the package. Used by   |
-|                                      | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
+| self.cpp_info.build_modules          | | Dictionary of lists per generator containing relative paths to build system related utility module    |
+|                                      | | files created by the package. Used by CMake generators to export *.cmake* files with functions for    |
+|                                      | | consumers. Defaulted to ``{}`` (empty)                                                                |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
 |                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |

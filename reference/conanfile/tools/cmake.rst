@@ -1,9 +1,12 @@
+.. _conan_tools_cmake:
+
 conan.tools.cmake
 =================
 
 .. warning::
 
     These tools are **experimental** and subject to breaking changes.
+
 
 CMakeDeps
 ---------
@@ -114,3 +117,12 @@ calls like ``cmake --build . --config Release`` into Python method calls. It wil
             cmake = CMake(self)
             cmake.configure()
             cmake.build()
+
+
+conf
+++++
+
+- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+  to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
+  an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
+
