@@ -46,9 +46,9 @@ etc. This includes but is not limited to the following:
 
 * The Visual Studio runtime (``b_vscrt``), obtained from Conan input settings
 
-``conan_meson_cross.ini`` contains the same information as ``conan_meson_native.ini```,
-but additionally it includes information to desribe host, target and build machines (such
-as processor architecture).
+*conan_meson_cross.ini* contains the same information as *conan_meson_native.ini*,
+but with additional information to describe host, target, and build machines (such
+as the processor architecture).
 
 Check out the meson documentation for more details on native and cross files:
 
