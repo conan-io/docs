@@ -149,8 +149,8 @@ configure()
 
     def configure(self, source_folder=None):
 
-Calls ``meson``, with the given generator and passing either ``--native-file conan_meson_native.ini``
- (native builds) or ``--cross-file conan_meson_cross.ini`` (cross builds).
+Calls :command:`meson`, with the given generator and passing either :command:`--native-file conan_meson_native.ini`
+(native builds) or :command:`--cross-file conan_meson_cross.ini` (cross builds).
 
 - ``source_folder``: Relative path to the folder containing the root *meson.build*
 
