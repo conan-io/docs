@@ -118,4 +118,3 @@ Built-in toolchains
 
    toolchains/cmake
    toolchains/make
-   toolchains/meson
