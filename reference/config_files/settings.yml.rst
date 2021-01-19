@@ -74,6 +74,13 @@ are possible. These are the **default** values, but it is possible to customize 
                       LLVM-vs2017, LLVM-vs2017_xp, v141, v141_xp, v141_clang_c2, v142,
                       llvm, ClangCL]
             cppstd: [None, 14, 17, 20]
+         msvc:
+            version: ["19.0",
+                      "19.1", "19.10", "19.11", "19.12", "19.13", "19.14", "19.15", "19.16",
+                      "19.2", "19.20", "19.21", "19.22", "19.23", "19.24", "19.25", "19.26", "19.27", "19.28"]
+            runtime: [static, dynamic]
+            runtime_type: [Debug, Release]
+            cppstd: [14, 17, 20]
         clang:
             version: ["3.3", "3.4", "3.5", "3.6", "3.7", "3.8", "3.9", "4.0",
                       "5.0", "6.0", "7.0", "7.1",
@@ -118,6 +125,22 @@ to distribute a unified *settings.yml* file you can use the :ref:`conan config i
     with any missing settings and values that could make sense for other users.
 
     To force the creation of the *settings.yml* the command ``conan config init`` is available.
+
+Compilers
+---------
+
+Some notes about different compilers:
+
+msvc
+++++
+
+The new ``msvc`` compiler is a new, **experimental** one, that is intended to deprecate the ``Visual Studio`` one in Conan 2.0:
+
+- It uses the compiler version, that is 19.0, 19.1, etc, instead of the Visual Studio IDE (15, 16, etc).
+- It is only used by the new build integrations in :ref:`conan_tools_cmake` and :ref:`conan_tools_microsoft`, but not the previous ones.
+- At the moment it implements a ``compatible_packages`` fallback to Visual Studio compiled packages, that is, previous existing binaries
+  compiled with ``settings.compiler="Visual Studio"`` can be used for the ``msvc`` compiler if no binaries exist for it yet.
+- It is not detected by the profile auto-detect, it needs to explicitly be defined in profiles.
 
 
 Architectures
