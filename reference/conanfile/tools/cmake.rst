@@ -24,3 +24,13 @@ CMake
 -----
 The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
 calls like ``cmake --build . --config Release`` into Python method calls.
+
+
+
+
+conf
+++++
+
+- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+  to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
+  an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``

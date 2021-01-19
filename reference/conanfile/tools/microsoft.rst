@@ -204,4 +204,11 @@ Where:
 - ``conf`` is the configuration, typically Release, Debug, which will be obtained from ``settings.build_type``
   but this will be configurable. Please open a `Github issue <https://github.com/conan-io/conan/issues>`_ if you want to define custom configurations.
 - ``platform`` is the architecture, a mapping from the ``settings.arch`` to the common 'x86', 'x64', 'ARM', 'ARM64'.
-  If your platform is unsupported, please report in `Github issues <https://github.com/conan-io/conan/issues>`_ as well:
+  If your platform is unsupported, please report in `Github issues <https://github.com/conan-io/conan/issues>`_ as well.
+
+
+conf
+++++
+
+- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+  to the ``MSBuild.build()`` call as ``msbuild .... /verbosity:XXX``
