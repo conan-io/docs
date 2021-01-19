@@ -4,7 +4,7 @@
 |visual_logo| MSBuild (Visual Studio)
 =====================================
 
-If you are using CMake to generate your Visual Studio projects, this is not the right section, go to :ref:`cmake_integration` instead.
+If you are using CMake to generate your Visual Studio projects, this is not the right section, go to :ref:`cmake` instead.
 This section is about native integration with Microsoft MSBuild, using properties files.
 
 Conan can be integrated with **MSBuild** natively, the build system of Visual Studio in different ways:
@@ -12,8 +12,9 @@ Conan can be integrated with **MSBuild** natively, the build system of Visual St
 
 - Using the ``conan.tools.microsoft`` tools: ``MSBuildDeps``, ``MSBuildToolchain`` and ``MSBuild`` helpers to generate properties
   files for your project, containing information about the project dependencies and toolchain. This is the new integration that is
-  experimental but will become the standard one in Conan 2.0. Go to :ref:`conan.tools.microsoft` for more information.
+  experimental but will become the standard one in Conan 2.0. Go to :ref:`conan_tools_microsoft` for more information.
 - Using the ``visual_studio`` or ``visual_studio_multi`` generators to create a MSBuild properties *conanbuildinfo.props* file.
+  This is the older integration, it is more stable now, but it wil be deprecated and removed in Conan 2.0. Keep reading this page for more information.
 
 
 With *visual_studio* generator
@@ -62,14 +63,6 @@ Build your project as usual.
 .. seealso::
 
     Check :ref:`visualstudio_generator` for the complete reference.
-
-Calling Visual Studio compiler
-------------------------------
-
-You can call the Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment`` and the
-:ref:`tools_vcvars_command`.
-
-Check the :ref:`msbuild` section for more info.
 
 .. _building_visual_project:
 

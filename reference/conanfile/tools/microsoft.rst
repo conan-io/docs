@@ -1,3 +1,6 @@
+.. _conan_tools_microsoft:
+
+
 conan.tools.microsoft
 =====================
 
