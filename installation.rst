@@ -132,29 +132,16 @@ Install from source
 You can run Conan directly from source code. First, you need to install Python and
 pip.
 
-Clone (or download and unzip) the git repository and install its requirements:
+Clone (or download and unzip) the git repository and install it with:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/conan-io/conan.git
-    $ cd conan
-    $ pip install -r conans/requirements.txt
+    # clone folder name matters, to avoid imports issues
+    $ git clone https://github.com/conan-io/conan.git conan_src
+    $ cd conan_src
+    $ python -m pip install -e .
 
-Create a script to run Conan and add it to your ``PATH``.
-
-.. code-block:: text
-
-    #!/usr/bin/env python
-
-    import sys
-
-    conan_repo_path = "/home/your_user/conan" # ABSOLUTE PATH TO CONAN REPOSITORY FOLDER
-
-    sys.path.append(conan_repo_path)
-    from conans.client.command import main
-    main(sys.argv[1:])
-
-Test your ``conan`` script.
+Test your ``conan`` installation.
 
 .. code-block:: bash
 
