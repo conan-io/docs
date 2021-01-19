@@ -139,7 +139,7 @@ Clone (or download and unzip) the git repository and install it with:
     # clone folder name matters, to avoid imports issues
     $ git clone https://github.com/conan-io/conan.git conan_src
     $ cd conan_src
-    $ pip install -e .
+    $ python -m pip install -e .
 
 Test your ``conan`` installation.
 
