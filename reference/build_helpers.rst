@@ -16,6 +16,7 @@ Contents:
    build_helpers/visual_studio
    build_helpers/meson
    build_helpers/run_environment
+   build_helpers/qbs
 
 .. important::
 
