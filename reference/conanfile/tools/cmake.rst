@@ -48,6 +48,7 @@ As it can be seen, it allows to define custom user CMake configurations besides 
 If the **settings.yml** file is customized to add new configurations to the ``settings.build_type``, then, adding it
 explicitly to ``.configurations`` is not necessary.
 
+.. _conan-cmake-toolchain:
 
 CMakeToolchain
 --------------
