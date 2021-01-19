@@ -121,7 +121,7 @@ when a package is being built directly by Conan (create, install)
 
 .. code:: python
 
-    from conans import Meson
+    from conan.tools.meson import Meson
 
     def build(self):
         meson = Meson(self)
