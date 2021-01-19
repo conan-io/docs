@@ -128,7 +128,7 @@ Parameters:
 
 
 build()
-*********************
+*******
 
 .. code-block:: python
 
@@ -141,7 +141,7 @@ Parameters:
 
 
 build_all()
-*********************
+***********
 
 .. code-block:: python
 
@@ -151,7 +151,7 @@ Build all products of Qbs project, even products which set the qbs property ``bu
 
 
 install()
-*********************
+*********
 
 .. code-block:: python
 
@@ -161,7 +161,7 @@ Install products.
 
 
 Example
-*********************
+*******
 
 A typical usage of the Qbs build helper, if you want to be able to both execute :command:`conan create` and also build your package for a
 library locally (in your user folder, not in the local cache), could be:
