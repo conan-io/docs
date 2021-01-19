@@ -1,6 +1,3 @@
-
-.. _conan-cmake-toolchain:
-
 CMakeToolchain
 ==============
 
@@ -8,12 +5,6 @@ CMakeToolchain
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-.. warning:
-
-    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
-    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
-    ``write_toolchain_files()`` and ``generate`` or ``generators = "CMakeToolchain"`` instead of the
-    ``toolchain`` attribute.
 
 The ``CMakeToolchain`` can be used in the ``generate()`` method:
 
@@ -63,7 +54,7 @@ constructor
 .. code:: python
 
     def __init__(self, conanfile, generator=None, generator_platform=None, build_type=None,
-                 cmake_system_name=True, toolset=None, parallel=True, make_program=None):
+                 cmake_system_name=True, toolset=None):
 
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not

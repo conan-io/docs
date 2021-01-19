@@ -106,15 +106,4 @@ the documentation of each toolchain to check the associated build helper availab
         cmake = CMake(self)
 
 
-Built-in toolchains
--------------------
-
-.. warning::
-
-    Toolchain reference is moving to :ref:`conan_tools`
-
-.. toctree::
-   :maxdepth: 2
-
-   toolchains/cmake
-   toolchains/make
+To learn more about existing built-in toolchains, read the reference in :ref:`conan_tools`.

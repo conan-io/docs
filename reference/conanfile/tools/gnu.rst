@@ -5,19 +5,10 @@
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-.. warning:
-
-    Starting in Conan 1.32 ``write_toolchain_files()`` method and ``toolchain`` attribute have been
-    deprecated. They will be removed in Conan 1.33, please use ``generate()`` instead of
-    ``write_toolchain_files()`` and ``generate`` or ``generators = "MakeToolchain"`` instead of the
-    ``toolchain`` attribute.
-
 MakeToolchain
 ==============
 
-The `MakeToolchain` can be used in the ``generate()`` method of
-``conanfile.py``:
-
+The `MakeToolchain` can be used in the ``generate()`` method of ``conanfile.py``:
 
 .. code:: python
 
@@ -195,16 +186,3 @@ it simply requires passing a few more parameters to **GnuMake**.
 
     $ conan install ..
     $ make -E='include build/conan_toolchain.mak' -E='$(call CONAN_TC_SETUP)'
-
-
-Autotools Build Helper
-----------------------
-
-This toolchain should not be used together with the existing
-``AutoToolsBuildEnvironment`` build helper in Conan at this time. They perform a
-number of similar and probably conflicting operations on the standard
-**GnuMake** variables. There is a goal to continue adding features to this
-toolchain until is achieves feature parity with ``AutoToolsBuildEnvironment``
-which will take some time. During that process, we'll be trying to determine if
-it's desirable and feasible to make the two co-exist and/or even work together.
-At this time, it's unclear.
