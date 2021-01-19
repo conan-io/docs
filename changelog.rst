@@ -21,6 +21,15 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.32 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.32.1 (15-Dec-2020)
+--------------------
+
+- Bugfix: Avoid conflict of user custom generators names with new generators. `#8183 <https://github.com/conan-io/conan/pull/8183>`_
+- Bugfix: Fix errors when using ``conan info --paths`` and ``short_paths=True`` in Windows, due to creation of empty folders in the short-paths storage. `#8181 <https://github.com/conan-io/conan/pull/8181>`_
+- Bugfix: ``conan new <pkg-name>/version -t`` wrong include when not using ``-s`` (using the hardcoded git repo). `#8175 <https://github.com/conan-io/conan/pull/8175>`_
+- Bugfix: Fix ``excludes`` pattern case-insensitive in non Windows platforms. `#8155 <https://github.com/conan-io/conan/pull/8155>`_
+- Bugfix: Enabling set_name, set_version for lockfile roo not location. `#8151 <https://github.com/conan-io/conan/pull/8151>`_
+
 1.32.0 (03-Dec-2020)
 --------------------
 

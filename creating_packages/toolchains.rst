@@ -3,8 +3,8 @@ Toolchains
 
 .. warning:
 
-    This is a very **EXPERIMENTAL** feature, introduced in Conan 1.26, only supporting CMake
-    and with limited functionality, and subject to breaking changes in the future.
+    This is a very **EXPERIMENTAL** feature, introduced in Conan 1.26, with limited functionality,
+    and subject to breaking changes in the future.
     The current goal is to gather experience and feedback
     to evolve it, while adding more build systems.
 
@@ -62,7 +62,6 @@ deduced from the current configuration of ``self.settings`` and ``self.options``
 
 .. code:: python
 
-    from conan.tools.cmake import CMakeToolchain
     from conans.tools import save
 
     def generate(self):
@@ -110,11 +109,13 @@ the documentation of each toolchain to check the associated build helper availab
 Built-in toolchains
 -------------------
 
+.. warning::
+
+    Toolchain reference is moving to :ref:`conan_tools`
+
 .. toctree::
    :maxdepth: 2
 
    toolchains/cmake
    toolchains/make
    toolchains/meson
-   toolchains/msbuild
-   toolchains/qbs

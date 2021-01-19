@@ -271,7 +271,7 @@ ones:
         def build(self):
             cmake = CMake(self)
             cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
-            cmake.definitions["MY_CUSTOM_DEFINITION"] = True
+            cmake.definitions["MY_CUSTOM_DEFINITION"] = "OFF"
             cmake.configure()
             cmake.build()
             cmake.install()  # Build --target=install
