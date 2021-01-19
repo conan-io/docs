@@ -1,9 +1,12 @@
+.. _conan_tools_cmake:
+
 conan.tools.cmake
 =================
 
 .. warning::
 
     These tools are **experimental** and subject to breaking changes.
+
 
 CMakeDeps
 ---------
