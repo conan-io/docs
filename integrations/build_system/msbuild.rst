@@ -4,24 +4,18 @@
 |visual_logo| MSBuild (Visual Studio)
 =====================================
 
-Conan can be integrated with **MSBuild**, the build system of Visual Studio in two different ways:
+If you are using CMake to generate your Visual Studio projects, this is not the right section, go to :ref:`cmake` instead.
+This section is about native integration with Microsoft MSBuild, using properties files.
 
-- Using the ``cmake`` generator to create a *conanbuildinfo.cmake* file.
-- Using the ``visual_studio`` generator to create a *conanbuildinfo.props* file.
+Conan can be integrated with **MSBuild** natively, the build system of Visual Studio in different ways:
 
-With CMake
-----------
 
-Use the ``cmake`` generator or ``cmake_multi`` if you are using CMake to machine-generate your Visual Studio projects.
+- Using the ``conan.tools.microsoft`` tools: ``MSBuildDeps``, ``MSBuildToolchain`` and ``MSBuild`` helpers to generate properties
+  files for your project, containing information about the project dependencies and toolchain. This is the new integration that is
+  experimental but will become the standard one in Conan 2.0. Go to :ref:`conan_tools_microsoft` for more information.
+- Using the ``visual_studio`` or ``visual_studio_multi`` generators to create a MSBuild properties *conanbuildinfo.props* file.
+  This is the older integration, it is more stable now, but it wil be deprecated and removed in Conan 2.0. Keep reading this page for more information.
 
-Check the :ref:`generators` section to read about the ``cmake`` generator.
-Check the official `CMake docs`_ to find out more about generating Visual Studio projects with CMake.
-
-However, beware of some current CMake limitations, such as not dealing well with find-packages, because CMake doesn't know how to handle finding both debug and release packages.
-
-.. note::
-
-    If you want to use the Visual Studio 2017 + CMake integration, :ref:`check this how-to<visual2017_cmake_howto>`
 
 With *visual_studio* generator
 ------------------------------
@@ -69,14 +63,6 @@ Build your project as usual.
 .. seealso::
 
     Check :ref:`visualstudio_generator` for the complete reference.
-
-Calling Visual Studio compiler
-------------------------------
-
-You can call the Visual Studio compiler from your ``build()`` method using the ``VisualStudioBuildEnvironment`` and the
-:ref:`tools_vcvars_command`.
-
-Check the :ref:`msbuild` section for more info.
 
 .. _building_visual_project:
 
