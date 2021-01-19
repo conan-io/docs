@@ -37,4 +37,5 @@ Contents:
 
    tools/cmake
    tools/microsoft
+   tools/qbs
 
