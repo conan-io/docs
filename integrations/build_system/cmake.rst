@@ -1,9 +1,15 @@
-.. _cmake:
+.. _cmake_integration:
 
 |cmake_logo| CMake
 ==================
 
 Conan can be integrated with CMake using generators, build helpers and custom *findXXX.cmake* files:
+
+However, beware of some current CMake limitations, such as not dealing well with find-packages, because CMake doesn't know how to handle finding both debug and release packages.
+
+.. note::
+
+    If you want to use the Visual Studio 2017 + CMake integration, :ref:`check this how-to<visual2017_cmake_howto>`
 
 
 .. toctree::
