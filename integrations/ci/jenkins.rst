@@ -84,13 +84,15 @@ Example: Build a Conan package and upload it to Artifactory
 In this example we will call Conan :ref:`test package<creating_and_testing_packages>` command to create a binary packages
 and then upload it to Artifactory. We also upload the `build information`_:
 
- 
+
 .. code-block:: groovy
 
     def artifactory_name = "artifactory"
     def artifactory_repo = "conan-local"
-    def repo_url = 'https://github.com/conan-community/conan-zlib.git'
-    def repo_branch = "release/1.2.11"
+    def repo_url = 'https://github.com/conan-io/conan-center-index.git'
+    def repo_branch = "master"
+    def recipe_folder = "recipes/zlib/1.2.11"
+    def recipe_version = "1.2.11"
 
     node {
         def server = Artifactory.server artifactory_name
@@ -102,7 +104,9 @@ and then upload it to Artifactory. We also upload the `build information`_:
         }
 
         stage("Test recipe"){
-            client.run(command: "create")
+            dir (recipe_folder) {
+              client.run(command: "create . ${recipe_version}@")
+            }
         }
 
         stage("Upload packages"){
