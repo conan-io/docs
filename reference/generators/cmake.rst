@@ -205,7 +205,7 @@ on your build environment (eg Linux vs Windows).
 conan_set_find_library_paths()
 ++++++++++++++++++++++++++++++
 
-Sets ``CMAKE_INCLUDE_PATH`` and ``CMAKE_INCLUDE_PATH``.
+Sets ``CMAKE_INCLUDE_PATH`` and ``CMAKE_LIBRARY_PATH``.
 
 conan_global_flags()
 ++++++++++++++++++++

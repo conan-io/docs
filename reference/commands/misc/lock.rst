@@ -1,7 +1,7 @@
 .. _conan_lock:
 
 conan lock
-===========
+==========
 
 .. code-block:: bash
 
@@ -12,16 +12,20 @@ Generates and manipulates lock files.
 .. code-block:: text
 
     positional arguments:
-        {update,build-order,clean-modified,create}
+      {update,build-order,clean-modified,create}
                             sub-command help
-        update              Complete missing information in the first lockfile with information defined in the second lockfile. Both lockfiles must represent the same graph,
-                            and have the same topology with the same identifiers, i.e. the second lockfile must be an evolution based on the first one
+        update              Complete missing information in the first lockfile
+                            with information defined in the second lockfile. Both
+                            lockfiles must represent the same graph, and have the
+                            same topology with the same identifiers, i.e. the
+                            second lockfile must be an evolution based on the
+                            first one
         build-order         Returns build-order
         clean-modified      Clean modified flags
         create              Create a lockfile from a conanfile or a reference
 
     optional arguments:
-        -h, --help            show this help message and exit
+      -h, --help            show this help message and exit
 
 
 

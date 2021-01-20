@@ -36,5 +36,7 @@ Contents:
    :maxdepth: 2
 
    tools/cmake
+   tools/gnu
+   tools/meson
    tools/microsoft
-
+   tools/qbs
