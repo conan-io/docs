@@ -979,7 +979,6 @@ When a shared library links with a static library, the binary code of the later 
 That means that any change in the static library basically requires a new binary re-build of the shared one to integrate those changes.
 Note that this doesn't happen in the static-static and shared-shared library dependencies.
 
-
 Use this ``shared_library_package_id()`` helper in the ``package_id()`` method:
 
 .. code-block:: python
@@ -998,12 +997,6 @@ option in command line or profiles, but can also be defined in recipes like:
     def configure(self):
         if self.options.shared:
             self.options["*"].shared = True
-
-Using both ``shared_library_package_id()`` and this ``configure()`` method is necessary for
-`Conan-center packages <https://github.com/conan-io/conan-center-index>`_ that have dependencies
-to compiled libraries and have the ``shared`` option.
-
-
 
 self.info.vs_toolset_compatible() / self.info.vs_toolset_incompatible()
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
