@@ -85,15 +85,6 @@ Bincrafters
 
         $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 
-Conan Community
-+++++++++++++++
-
-.. warning::
-
-    The conan community repository is deprecated and no longer maintained. Packages in this repository
-    have been moved or are in the process of being added to `conan-center-index <https://github.com/conan-io/conan-center-index>`_
-    and served in `ConanCenter <https://conan.io/center>`_.
-
 .. note::
 
     If you are working in a team, you probably want to use the same remotes everywhere: developer machines, CI. The ``conan config install``
