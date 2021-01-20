@@ -591,13 +591,13 @@ RPI one:
 
 .. code-block:: bash
 
-    git clone https://github.com/conan-community/conan-zlib.git
+    git clone https://github.com/conan-io/conan-center-index.git
 
 - Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
-    $ cd conan-zlib && conan create . -pr:h ../android_21_arm_clang -pr:b default
+    $ cd conan-center-index/recipes/zlib/1.2.11 && conan create . 1.2.11@ -pr:h ../android_21_arm_clang -pr:b default
 
     ...
     -- Build files have been written to: /tmp/conan-zlib/test_package/build/ba0b9dbae0576b9a23ce7005180b00e4fdef1198
@@ -623,7 +623,7 @@ integration section<darwin_toolchain>` in the documentation.
     - Check the :ref:`Creating conan packages to install dev tools<create_installer_packages>` to learn
       more about how to create Conan packages for tools.
 
-    - Check the `mingw-installer <https://github.com/conan-community/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
+    - Check the `msys2 <https://github.com/conan-io/conan-center-index/blob/master/recipes/msys2/all/conanfile.py>`_ build require recipe as an example of packaging a compiler.
 
 
 
