@@ -21,7 +21,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.33 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
-1.33.0 (19-Jan-2021)
+1.33.0 (20-Jan-2021)
 --------------------
 
 - Feature: Introducing a new ``[conf]`` section in profiles that allows a more systematic configuration management for recipes and helpers (build helpers, toolchains). Introducing a new ``conan_conf.txt`` cache configuration file that contains configuration definition with the same syntax as in profiles. `#8266 <https://github.com/conan-io/conan/pull/8266>`_ . Docs `here <https://github.com/conan-io/docs/pull/1993>`__
