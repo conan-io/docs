@@ -236,4 +236,3 @@ If you are interested in knowing more, we have a complete `blog post`_ about Bui
 .. _`Buildroot Project`: https://buildroot.org/
 .. _`GPL-2.0-or-later`: https://spdx.org/licenses/GPL-2.0-or-later.html
 .. _`blog post`: https://blog.conan.io/2019/08/27/Creating-small-Linux-images-with-Buildroot.html
-.. _`pkg-conan.mk`: https://github.com/conan-io/examples/blob/features/buildroot/package/pkg-conan.mk
