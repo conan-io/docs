@@ -1,12 +1,14 @@
 .. _make_toolchain:
 
+conan.tools.gnu
+===============
 
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
 MakeToolchain
-==============
+-------------
 
 The `MakeToolchain` can be used in the ``generate()`` method of ``conanfile.py``:
 
@@ -129,7 +131,7 @@ items, please provide feedback at: https://github.com/conan-io/conan/issues
 
 
 definitions
------------
++++++++++++
 
 This attribute allows defining preprocessor definitions the same way that build helpers do:
 
@@ -146,7 +148,7 @@ This will be translated to:
 
 
 generators
-----------
+++++++++++
 
 The ``MakeGenerator`` is being developed in-tandem with this toolchain because
 ideally they would be used in the same recipes and workflows. They have
@@ -156,7 +158,7 @@ independent from each other. Thus, you can use this toolchain without using the
 
 
 Using the toolchain in developer flow
--------------------------------------
++++++++++++++++++++++++++++++++++++++
 
 One of the advantages of using Conan toolchains is that it provides
 exact same "toolchain-related" variables that Conan will have within a recipe's
