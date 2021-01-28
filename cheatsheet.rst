@@ -19,114 +19,52 @@ as both a PDF and PNG.
 
 .. cheatsheet:
 
-Cheatsheet
-==========
+Conan Cheatsheet
+================
 
-Consuming Packages
-------------------
+.. contents::
+    :local:
 
-'conan install' installs the requirements specified in a recipe (`conanfile.py` or `conanfile.txt`).
+Setup and configuration
+-----------------------
 
-conanfile.txt
+Configurations
+++++++++++++++
 
-.. code-block:: text
+Configurations contain hooks_, profiles_, `remote repositories`_ and settings_, making them available for builds once installed. They are installed from a folder, zip, URL or git repo, and the installed items are recorded in ~/.conan/conan.conf.
 
-    [requires]
-    booost/1.72.0
-    poco/1.9.4
-
-    [generators]
-    cmake
-
-    [options]
-    boost:shared=False
-    poco:shared=False
-
-Release build:
+Install configurations:
 
 .. code-block:: bash
 
-    $ mkdir build
-    $ cd    build
-    $ conan install ..
-    $ cmake .. -DCMAKE_BUILD_TYPE=Release
+    $ conan config install <item>  # Copies the relevant contents from <item> to the user's ~/.conan directory.
 
-Debug build:
+Alternatively, copying files and editing conan.conf can be done manually.
 
-.. code-block:: bash
-
-    $ conan install .. -s build_type=Debug
-    $ cmake .. -DCMAKE_BUILD_TYPE=Debug
-
-    conan search
-    conan search zlib/1.2.11@ --table=file.html -r=conan-center
-
-Visualizing Dependencies
-++++++++++++++++++++++++
+View configurations:
 
 .. code-block:: bash
 
-    # In a directory with conanfile.txt or conanfile.py, create image of dependencies:
-    $ conan info . --graph=file.html
+    $ conan config get  # Shows the conan.conf file
 
-Searching Packages
-++++++++++++++++++
-
-'conan search' searches package recipes and binaries in the local cache or a remote.
+Set configuration values:
 
 .. code-block:: bash
 
-    $ conan search              # lists names of packages
-    $ conan search zlib/1.2.11@ # shows recipe's Package_ID, [options] and [settings]
-    $ conan search zlib/1.2.11@ --table=file.html -r=conan-center
-
-Inspecting Packages
-+++++++++++++++++++
-
-'conan get'
-
-.. code-block:: bash
-
-    $ conan get     zlib/1.2.11@    # prints out the Python recipe of the package
-    $ conan inspect zlib/1.2.11@    # prints details of the package
-
-Creating Packages
------------------
-
-.. code-block:: bash
-
-    # in a directory that has a conanfile.py representing a package:
-    $ conan create . user/testing                     # Creates a release package
-    $ conan create . user/testing -s build_type=Debug # Creates a debug package
-    $ conan search hello/0.1@user/testing
-
-Notes:
-
-- ConanCenter does not use user/channel
-- Custom packages you create should use user/channel
-
-Options
-+++++++
-
-.. code-block:: bash
-
-    $ conan create . user/testing -s build_type=Debug -o hello:shared=True
+    $ conan config set <section>.<config>=<value>
 
 Profiles
 ++++++++
 
-.. code-block:: bash
+Profiles allow users to set aspects of the build environment. This includes settings_, options_, environment variables and build requirements. They can be installed into ~/.conan/profiles. They can also be stored in project directories, which can be useful for specific compilation cases, for example cross-compiling.
 
-    $ conan profile list
-    $ conan profile show default
-    $ conan install . -pr=windows -pr=vs2017 # composable, last -pr wins
-
-Cross-Compiling
-+++++++++++++++
-
-File rpi_armv7:
+Profiles are stored in text files with no file extension. An example profile:
 
 .. code-block:: text
+
+    CROSS_GCC=arm-linux-gnueabihf
+
+    include(default)              # Can include other configurations, for example the default configuration
 
     [settings]
     os=Linux
@@ -137,39 +75,441 @@ File rpi_armv7:
     arch=armv7
     os_build=Linus
     arch_build=x86_64
+    OpenSSL:compiler.version=4.8  # Dependency-specific value
 
-    [env]
-    CC=arm-linux-gnueabihf-gcc
-    CXX=arm-linux-gnueabihf-g++
+    [options]
+    shared=True
 
-.. code-block:: bash
+    [env]                         # Environment variables
+    CC=$CROSS_GCC-gcc             # Strings can be defined and substituted
+    CXX=$CROSS_GCC-g++
 
-    $ conan create . user/testing -pr=rpi_armv7 # Use a different profile
-    $ conan search hello/0.1@user/testing
+    [build_requires]              # Requirements for package builds only
+    cmake/3.16.3                  # Specifying build requirements here rather than in the recipe makes them less binding
 
-
-Publishing Packages
--------------------
-
-Uploading Packages to Artifactory
-+++++++++++++++++++++++++++++++++
+List profiles:
 
 .. code-block:: bash
 
-    $ conan remote add artifactory http://35.223.57.164:8081/artifactory/api/conan/myconanrepo
+    $ conan profile list
+
+Show a profile:
+
+.. code-block:: bash
+
+    $ conan profile show <profile>
+
+Use profile while executing command (e.g., ``conan install`` or ``conan create``):
+
+.. code-block:: bash
+
+    $ conan <command> . -pr=<profile1> -pr=<profile2>  # Use installed profile name, or file path
+                                                       # Composable, last -pr wins for conflicts
+                                                       
+Remote repositories
++++++++++++++++++++
+
+Conan Center is configured by default.
+
+List configured remotes:
+
+.. code-block:: bash
+
     $ conan remote list
-    $ conan upload "hello*" -r artifactory --all
-    $ conan search "*" -r=artifactory
-    $ conan search hello/0.1@user/testing -r=artifactory
-    $ conan upload "*" -r artifactory --all --confirm
+   
+Add remote:
 
+.. code-block:: bash
 
-Other Information
------------------
+    $ conan remote add <remote ID> <URL of remote repo>
 
-Local Cache
-+++++++++++
+Consuming packages
+------------------
+
+Using packages in an application
+++++++++++++++++++++++++++++++++
+
+1. Write a Conanfile.txt. This captures the project configuration:
 
 .. code-block:: text
 
-    ~/.conan/
+    [requires]                     # The Conan packages which are used in the application
+    boost/1.72.0                   # Versions override versions upstream in the dependency graph
+    poco/1.9.4
+
+    [build_requires]               # The Conan packages which are used to build the application
+    7zip/16.00
+
+    [generators]                   # Generators create build system files that capture the dependency information
+    cmake
+
+    [options]                      # Options here override options upstream in the dependency graph
+    boost:shared=True              # Options can be specified on a per-package basis for dependencies
+    poco:shared=True
+
+    [imports]                      # Copies files from the cache to the application directory
+    bin, *.dll -> ./bin            # Copies all .dll files from the packages' bin/ folder to the local bin/ folder
+
+2. Get dependencies and generate build system files via ``conan install``
+
+.. code-block:: bash
+
+    $ conan install .
+                    [-o <package>:<option>=<value>]  # Specify options, e.g. shared=True
+                    [-s <package>:<setting>=<value>] # Specify settings, e.g. build_type=Debug
+                                                     # <package> is optional: if not specified, the option/setting applies to all dependencies
+                    [-r=<remote ID>]                 # Download dependencies from only the specified remote
+                    [-g=<generator>]                 # Specify generators at the command line
+
+3. #include interface files to the Conan packages in the source code
+4. Modify the build system to use the files output from the Generator
+5. Build the application using the build system
+
+Downloading packages
+++++++++++++++++++++
+
+Download a package, if it isn't already in `the local cache`_:
+
+.. code-block:: bash
+
+    $ conan install <package>/<version>@[<user>/<channel>#<revision>]
+                    [-r=<remote ID>]                                   # Download dependencies from only the specified remote
+
+The local cache
++++++++++++++++
+
+The local package cache is located at ~/.conan/data.
+
+Clear packages from cache:
+
+.. code-block:: bash
+
+    $ conan remove "<package>" -f  # <package> can include wildcards
+
+Using packages as standalone applications
++++++++++++++++++++++++++++++++++++++++++
+
+Packages can either be copied to the local project folder and run from there, or run directly from the local cache.
+
+In the `Conanfile.txt`__, this can be done in the [imports] or [generators] section. See below for the relevant generators. In `the package recipe`_, this can be done using the ``imports()`` or ``deploy()`` methods.
+
+__ #using-conan-packages-in-an-application
+
+Prepare packages for use via the command line:
+
+.. code-block:: bash
+
+    $ conan install . -g=deploy         # Copy dependencies to current folder
+    $ conan install . -g=virtualrunenv  # create shell scripts to activate and deactivate environments where you can run dependencies from the local cache
+
+Searching and introspecting packages
+------------------------------------
+
+Searching packages
+++++++++++++++++++
+
+Recipes and binaries can be searched in the local cache or remotes.
+
+List names of packages in local cache:
+
+.. code-block:: bash
+
+    $ conan search              # lists names of packages in local cache
+
+Show package recipes or builds of a package:
+
+.. code-block:: bash
+
+    $ conan search <package>/<revision>@<user>/<channel>  # Output depends on how much of a package reference is given. Wildcards are supported
+                   [--table=file.html]                    # Save output in an HTML file
+                   [-r=<remote>]                          # Look in a remote repository (default is the local cache)
+
+Show revisions of a package:
+
+.. code-block:: bash
+
+    $ conan search <package>/<revision>@<user>/<channel> --revisions
+
+Inspecting packages
++++++++++++++++++++
+
+Print the package recipe in full:
+
+.. code-block:: bash
+
+    $ conan get <package>/<revision>@<user>/<channel>
+
+Print attributes of the package recipe:
+
+.. code-block:: bash
+
+    $ conan inspect <package>/<revision>@<user>/<channel>
+
+Visualizing dependencies
+++++++++++++++++++++++++
+
+Create a dependency graph for the package or application:
+
+.. code-block:: bash
+
+    $ conan info .
+                 [--graph=file.html]  # Save output in an HTML file
+
+Creating packages
+-----------------
+
+Package terminology
++++++++++++++++++++
+
+Each package recipe relates to a single package. However, a package can be built in different ways and result in multiple binaries, each with its own package ID.
+
+A recipe reference is used to identify a certain version/revision of a package and its recipe:
+
+.. code-block:: text
+
+    <package>/<version>@<user>/<channel>  # Identifies a package version/revision
+
+A package ID is a SHA-1 hash, calculated from the build options_ and settings_ and from dependencies (according to certain modes__):
+
+__ #package-id-calculation-modes
+
+.. code-block:: text
+
+   09512ff863f37e98ed748e                 # Identifies a build of a package
+
+Creating a basic package
+++++++++++++++++++++++++
+
+Create a template package:
+
+.. code-block:: bash
+
+    $ conan new <package>/<version>@[<user>/<channel>]  # <user>/<channel> is not specified in Conan Centre, but otherwise they should be
+                [-t]                                    # Create a recipe for a basic test to verify the package was created successfully
+                [-s]                                    # Create a recipe/source template for a package with local source code
+
+Build a package into the local cache:
+
+.. code-block:: bash
+
+    $ conan create . <user>/<channel>
+                   [-o <package>:<option>=<value>]   # Specify options, for example shared=True.
+                   [-s <package>:<setting>=<value>]  # Specify settings, for example build_type=Debug.
+                                                     # If <package> is not specified, the option and setting applies to all dependencies.
+                   [-pr=<profile name>]              # If -pr is not specified, the default profile is used
+                   [--build=missing]                 # Builds all dependencies if they can't be downloaded
+
+The package recipe
+++++++++++++++++++
+
+A package recipe is a Python class, defined in a file called conanfile.py in the package directory:
+
+.. code-block:: python
+
+    class <Package>Conan(ConanFile):
+        ...                                                # Various package metadata 
+        settings = "os", "compiler", "build_type", "arch"  # Defines available settings
+        options = {"shared": [True, False]}                # Defines available options and defaults. "shared" is a common option which specifies whether a library is static or shared
+        default_options = {"shared": False}
+        requires = "RequiredLib/0.1@user/stable"           # Defines package requirements
+        build_requires = "tool_a/0.2@user/testing"         # Defines requirements that are only used when the package is built. These should be build and test tools only.
+        generators = "cmake"                               # Generator for the package: specifies which build system type will be generated
+
+        def source(self):                                                # Obtains the source code for the project
+            self.run("git clone https://github.com/conan-io/hello.git")  # self.run() executes any command in the native shell
+            ...
+
+        def build(self):                                                 # Responsible for invoking the build system
+            cmake = CMake(self)                                          # Helper classes are available for several build systems
+            ...
+            if self.options.myoption1:                                   # Specify a conditional build requirement
+                self.build_requires("zlib/1.2@user/testing")
+            self.run("bin/unittests")                                    # Run unit tests compiled earlier in the build() method
+
+        def package(self):                                               # Responsible for capturing build artifacts
+            self.copy("\*.h", dst="include", src="hello")                # self.copy() copies files from the cache to the project folder
+            ...
+
+        def package_info(self):                                          # Responsible for defining variables that are passed to package consumers, for example library or include directories
+            self.cpp_info.libs = ["hello"]                               # The cpp_info dictionary contains these variables
+            ...
+
+        def requirements(self):                                          # Responsible for specifying non-trivial requirements logic
+            if self.options.myoption2:                                   # Specify a conditional requirement
+                self.requires("RequiredLib2/0.3@user/stable")
+
+        def package_id(self):                                            # Responsible for changing the way the package ID is calculated from the default
+            default_package_id_mode = full_version_mode
+            if self.settings.compiler.version == "4.9":                  # Make compiler versions 4.8 and 4.7 compatible with version4.9: i.e., they all result in the same package ID
+                for version in ("4.8", "4.7"):
+                    compatible_pkg = self.info.clone()
+                    compatible_pkg.settings.compiler.version = version
+                    self.compatible_packages.append(compatible_pkg)      # The compatible_packages property is used to define this behaviour 
+
+        def imports(self):                                               # Copies dependency files from the local cache to the project directory
+            ...
+
+        def deploy(self):                                                # Installs the project, which can include copying build artifacts
+            ...
+
+Python requires
+###############
+
+Python requires allow the re-use of python methods across multiple recipes. Complex dependency graphs can be produced, and the `same concepts`__ apply with python requires as with normal package requirements. 
+
+__ #managing-dependencies
+
+Export a conanfile.py:
+
+.. code-block:: bash
+
+    $ conan export . <user>/<channel>
+
+Use the exported conanfile.py:
+
+.. code-block:: python
+
+   class ConsumerConan(ConanFile):
+       python_requires = "<package>/<version>@<user>/<channel>"  # To use functions and variables from the exported conanfile.py
+       python_requires_extend = "<package>.<base class name>"    # To inherit from a full class in the exported conanfile.py
+
+           ...
+           self.python_requires["<package>"].module.func()           # To call the method func() from the exported conanfile.py
+
+Hooks
+#####
+
+Hooks are recipe methods which are defined globally. They should not affect the built binary. There are ``pre`` and ``post`` hooks for many methods in the recipe. Hooks reside in ~/.conan/hooks, and are include in ~/.conan/conan.conf under the [hooks] section. 
+
+Install a hook:
+
+.. code-block:: bash
+
+    $ conan config install  # In the directory containing the python script with the hook
+
+Specifying build configuration items
+++++++++++++++++++++++++++++++++++++
+
+Settings
+########
+
+Settings are configuration items which generally apply to all builds of all packages in the dependency tree, for example compiler, OS, and release or debug builds.
+
+Available settings are defined in a global settings file: ~/.conan/settings.yml. The settings for a given package are defined in `the package recipe`_.
+
+Settings can then be set via profiles_ or via arguments to `conan install`__ or `conan create`__.
+
+__ #using-conan-packages-in-an-application
+__ #creating-a-basic-package
+
+Options
+#######
+
+Options are configuration items which are generally package-specific.
+
+The available options for a package are defined in `the package recipe`_.
+
+Options can then be set via profiles_, an application's `Conanfile.txt`__, or via arguments to `conan install`__ or `conan create`__.
+
+__ #using-conan-packages-in-an-application
+__ #using-conan-packages-in-an-application
+__ #creating-a-basic-package
+
+Versioning
+++++++++++
+
+Versions
+########
+
+Packages are specified whenever a package is created, and whenever a recipe is consumed via a recipe reference.
+
+Specify ranges:
+
+.. code-block:: text
+
+    [>min_ver <max_ver] - specify a version range
+    [*]                 - specify any version
+    [~maj.min]          - specify any patch in v[maj].[min]
+
+The version taken is otherwise the maximum available.
+
+Revisions
+#########
+
+Revisions allow changes to a package without increasing the version number or overwriting the existing version number. They are disabled by default.
+
+Conan only holds one revision in the local cache. Many revisions can be stored in remote repositories. Revisions can be specified wherever a recipe is consumed. If a revision is not specified, the latest revision is used.
+
+Revisions are an extension to the recipe reference which consist by default of a hash generated from the recipe contents:
+
+.. code-block:: text
+
+    <package>/<version>@<user>/<channel>#<revision>
+
+Enable revisions:
+
+.. code-block:: bash
+
+    $ conan config set general.revisions_enabled=True
+
+Managing dependencies
++++++++++++++++++++++
+
+Specifying dependencies
+#######################
+
+Main application dependencies are set in the [requires] section of `Conanfile.txt`__.
+
+__ #using-conan-packages-in-an-application
+
+Package dependencies - normal requirements, build requirements, conditional requirements - are set in `the package recipe`_. 
+
+Package ID calculation modes
+############################
+
+Conan performs dependency resolution via the calculation of package IDs. A package ID is calculated for a desired dependency, and then Conan searches for that package ID.
+
+The package ID calculation, and therefore the dependency resolution, is affected by the default_package_id_mode and the default_python_requires_id_mode. They determine what exactly affects the calculation: which parts of version numbers; package revisions; immediate or transitive dependencies. This relates to both normal requirements and `Python requires`_. By default, only the main version number of direct dependencies are taken into account when calculating the package ID.
+
+These modes can be set in the [general] section of configurations_, and in `the package recipe`_.
+
+Resolving dependency conflicts
+##############################
+
+Versions defined in the `Conanfile.txt`__ take precedence over versions specified by dependencies. This can be used to resolve conflicts by dictating the use of only one version throughout the whole dependency graph.
+
+__ #using-conan-packages-in-an-application
+
+Lockfiles
+#########
+
+Lockfiles allow a snapshot of a dependency graph used for a build to be taken, and the build to be reproduced exactly at a later time.
+
+Create a lockfile:
+
+.. code-block:: bash
+
+    $ conan lock create <package>/conanfile.py --user=<user> --channel=<channel>
+
+Use lockfile during ``conan create`` or ``conan install``:
+
+.. code-block:: bash
+
+    $ conan <command> --lockfile conan.lock
+
+Uploading packages to a remote repository
++++++++++++++++++++++++++++++++++++++++++
+
+Packages are not uploaded to a remote repository automatically. This needs to be done manually.
+
+.. code-block:: bash
+
+    $ conan upload "<package>" -r <remote ID>  # Wildcards can be specified to upload multiple packages
+                   [--all]                     # Upload all binaries and their recipes (recipes only uploaded by default)
+                   [--confirm]                 # Auto-confirm
+
+Important points for enterprises
+--------------------------------
+
+Versioning, revisioning and dependency resolution should be consistent across a company. Configurations_ should be synchronised across all developers, in particular `package id calculation modes`_.
+In a CI/CD system, use lockfiles_ throughout, so that builds are reproducible.
