@@ -139,7 +139,7 @@ This attribute allows defining preprocessor definitions the same way that build 
 
     def generate(self):
         tc = MakeToolchain(self)
-        tc.definitions["MYVAR"] = "MyValue"
+        tc.preprocessor_definitions["MYVAR"] = "MyValue"
         tc.generate()
 
 This will be translated to:
