@@ -1,7 +1,7 @@
 .. _global_conf:
 
 global.conf
-=========
+===========
 
 .. warning::
 
