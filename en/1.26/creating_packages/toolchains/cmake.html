@@ -1,0 +1,670 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CMakeToolchain &mdash; conan 1.26.1 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.26.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Toolchains" href="../toolchains.html"/>
+        <link rel="next" title="Inspecting Packages" href="../inspecting_packages.html"/>
+        <link rel="prev" title="Toolchains" href="../toolchains.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../external_repo.html">Recipe and Sources in a Different Repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package_repo.html">Recipe and Sources in the Same Repo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../existing_binaries.html">Packaging Existing Binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../understand_packaging.html">Understanding Packaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../define_abi_compatibility.html">Defining Package ABI Compatibility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package_information.html">Define the package information</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../toolchains.html">Toolchains</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../toolchains.html#built-in-toolchains">Built-in toolchains</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CMakeToolchain</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../inspecting_packages.html">Inspecting Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package_approaches.html">Packaging Approaches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../package_tools.html">Package Creator Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../versioning.html">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../creating_packages.html">Creating Packages</a> &raquo;</li>
+        
+          <li><a href="../toolchains.html">Toolchains</a> &raquo;</li>
+        
+      <li>CMakeToolchain</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/creating_packages/toolchains/cmake.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+          <!--<div class="admonition important"> Join the <a href=https://blog.conan.io/2020/07/28/Launching-Conan-2.0-Tribe.html>Conan 2.0 Tribe</a> and contribute to define the next Conan 2.0 major version</div>-->
+          <div class="admonition important">
+            <p class="admonition-title">Announcement</p>
+            <p>Check out the new free <a
+            href=https://blog.conan.io/2020/09/24/New-conan-training-series.html>Conan
+            training courses on JFrog Academy</a>!
+          </div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cmaketoolchain">
+<h1>CMakeToolchain<a class="headerlink" href="#cmaketoolchain" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> can be used in the <code class="docutils literal notranslate"><span class="pre">toolchain()</span></code> method:</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">ConanFile</span><span class="p">,</span> <span class="n">CMake</span><span class="p">,</span> <span class="n">CMakeToolchain</span>
+
+<span class="k">class</span> <span class="nc">App</span><span class="p">(</span><span class="n">ConanFile</span><span class="p">):</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="s2">&quot;os&quot;</span><span class="p">,</span> <span class="s2">&quot;arch&quot;</span><span class="p">,</span> <span class="s2">&quot;compiler&quot;</span><span class="p">,</span> <span class="s2">&quot;build_type&quot;</span>
+    <span class="n">requires</span> <span class="o">=</span> <span class="s2">&quot;hello/0.1&quot;</span>
+    <span class="n">generators</span> <span class="o">=</span> <span class="s2">&quot;cmake_find_package_multi&quot;</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
+    <span class="n">default_options</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;shared&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;fPIC&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">toolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">tc</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> will generate 2 files, after a <code class="docutils literal notranslate"><span class="pre">conan</span> <span class="pre">install</span></code> command (or
+before calling the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method when the package is being built in the cache):</p>
+<ul class="simple">
+<li>The main <em>conan_toolchain.cmake</em> file, that can be used in the command line.</li>
+<li>A <em>conan_project_include.cmake</em> file, that will automatically be called right after the
+<code class="docutils literal notranslate"><span class="pre">project()</span></code> call for cmake&gt;=3.15, containing definitions that only take effect after such
+call. For older cmake versions you should explicitly call <code class="docutils literal notranslate"><span class="pre">include(.../conan_project_include.cmake)</span></code>
+in your <em>CMakeLists.txt</em>.</li>
+</ul>
+<p>These file will automatically manage the definition of cmake values according to current Conan
+settings:</p>
+<ul class="simple">
+<li>Definition of the CMake generator platform and generator toolset</li>
+<li>Definition of the CMake <code class="docutils literal notranslate"><span class="pre">build_type</span></code></li>
+<li>Definition of the <code class="docutils literal notranslate"><span class="pre">CMAKE_POSITION_INDEPENDENT_CODE</span></code>, based on <code class="docutils literal notranslate"><span class="pre">fPIC</span></code> option.</li>
+<li>Definition of the C++ standard as necessary</li>
+<li>Definition of the standard library used for C++</li>
+<li>Deactivation of rpaths in OSX</li>
+</ul>
+<p>Most of these things will be configurable, please provide feedback at: <a class="reference external" href="https://github.com/conan-io/conan/issues">https://github.com/conan-io/conan/issues</a></p>
+<div class="section" id="constructor">
+<h2>constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">generator_platform</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">cmake_system_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">toolset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">make_program</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Most of the arguments are optional and will be deduced from the current <code class="docutils literal notranslate"><span class="pre">settings</span></code>, and not
+necessary to define them.</p>
+</div>
+<div class="section" id="definitions">
+<h2>definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
+<p>This attribute allows defining CMake variables, for multiple configurations (Debug, Release, etc).</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">toolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">tc</span> <span class="o">=</span> <span class="n">CMakeToolchain</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">definitions</span><span class="p">[</span><span class="s2">&quot;MYVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">definitions</span><span class="o">.</span><span class="n">debug</span><span class="p">[</span><span class="s2">&quot;MYCONFIGVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyDebugValue&quot;</span>
+    <span class="n">tc</span><span class="o">.</span><span class="n">definitions</span><span class="o">.</span><span class="n">release</span><span class="p">[</span><span class="s2">&quot;MYCONFIGVAR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;MyReleaseValue&quot;</span>
+    <span class="k">return</span> <span class="n">tc</span>
+</pre></div>
+</div>
+<p>This will be translated to:</p>
+<ul class="simple">
+<li>One <code class="docutils literal notranslate"><span class="pre">set()</span></code> definition for <code class="docutils literal notranslate"><span class="pre">MYVAR</span></code> in <code class="docutils literal notranslate"><span class="pre">conan_toolchain.cmake</span></code> file.</li>
+<li>One <code class="docutils literal notranslate"><span class="pre">set()</span></code> definition, using a cmake generator expression in <code class="docutils literal notranslate"><span class="pre">conan_project_include.cmake</span></code> file,
+using the different values for different configurations. It is important to recall that things
+that depend on the build type cannot be directly set in the toolchain.</li>
+</ul>
+<div class="section" id="generators">
+<h3>generators<a class="headerlink" href="#generators" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> only works with the <code class="docutils literal notranslate"><span class="pre">cmake_find_package</span></code> and <code class="docutils literal notranslate"><span class="pre">cmake_find_package_multi</span></code>
+generators. Using others will raise, as they can have overlapping definitions that can conflict.</p>
+</div>
+<div class="section" id="using-the-toolchain-in-developer-flow">
+<h3>Using the toolchain in developer flow<a class="headerlink" href="#using-the-toolchain-in-developer-flow" title="Permalink to this headline">¶</a></h3>
+<p>One of the advantages of using Conan toolchains is that they can help to achieve the exact same build
+with local development flows, than when the package is created in the cache.</p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> it is possible to do, for multi-configuration systems like Visual Studio
+(assuming we are using the <code class="docutils literal notranslate"><span class="pre">cmake_find_package_multi</span></code> generator):</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span># Lets start in the folder containing the conanfile.py
+$ mkdir build &amp;&amp; cd build
+# Install both debug and release deps and create the toolchain
+$ conan install ..
+$ conan install .. -s build_type=Debug
+# the conan_toolchain.cmake is common for both configurations
+# Need to pass the generator WITHOUT the platform, that matches your default settings
+$ cmake .. -G &quot;Visual Studio 15&quot; -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+# Now you can open the IDE, select Debug or Release config and build
+# or, in the command line
+$ cmake --build . --config Release
+$ cmake --build . --config Debug
+</pre></div>
+</div>
+<p><strong>NOTE</strong>: The platform (Win64), is already encoded in the toolchain. The command line shouldn’t pass it, so using
+<code class="docutils literal notranslate"><span class="pre">-G</span> <span class="pre">&quot;Visual</span> <span class="pre">Studio</span> <span class="pre">15&quot;</span></code> instead of the <code class="docutils literal notranslate"><span class="pre">-G</span> <span class="pre">&quot;Visual</span> <span class="pre">Studio</span> <span class="pre">15</span> <span class="pre">Win64&quot;</span></code></p>
+<p>For single-configuration build systems:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span># Lets start in the folder containing the conanfile.py
+$ mkdir build_release &amp;&amp; cd build_release
+$ conan install ..
+# the build type Release is encoded in the toolchain already.
+# This conan_toolchain.cmake is specific for release
+$ cmake .. -G &quot;Unix Makefiles&quot; -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+$ cmake --build .  # or just &quot;make&quot;
+
+# debug build requires its own folder
+$ cd .. &amp;&amp; mkdir build_debug &amp;&amp; cd build_debug
+$ conan install .. -s build_type=Debug
+# the build type Debug is encoded in the toolchain already.
+# This conan_toolchain.cmake is specific for debug
+$ cmake .. -G &quot;Unix Makefiles&quot; -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
+$ cmake --build .  # or just &quot;make&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="cmake-build-helper">
+<h3>CMake build helper<a class="headerlink" href="#cmake-build-helper" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">CMake()</span></code> build helper that works with the <code class="docutils literal notranslate"><span class="pre">CMakeToolchain</span></code> is also experimental,
+and subject to breaking change in the future. It will evolve to adapt and complement the
+toolchain functionality.</p>
+<p>The helper is intended to be used in the <code class="docutils literal notranslate"><span class="pre">build()</span></code> method, to call CMake commands automatically
+when a package is being built directly by Conan (create, install)</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">conans</span> <span class="kn">import</span> <span class="n">CMake</span>
+
+<span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">cmake</span> <span class="o">=</span> <span class="n">CMake</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">source_folder</span><span class="o">=</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+    <span class="n">cmake</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It supports the following methods:</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>constructor<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">conanfile</span><span class="p">,</span> <span class="n">generator</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">build_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parallel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+             <span class="n">msbuild_verbosity</span><span class="o">=</span><span class="s2">&quot;minimal&quot;</span><span class="p">):</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">conanfile</span></code>: the current recipe object. Always use <code class="docutils literal notranslate"><span class="pre">self</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">generator</span></code>: CMake generator. Define it only to override the default one (like <code class="docutils literal notranslate"><span class="pre">Visual</span> <span class="pre">Studio</span> <span class="pre">15</span></code>).
+Note that as the platform (x64, Win32…) is now defined in the toolchain it is not necessary to specify it here.</li>
+<li><code class="docutils literal notranslate"><span class="pre">build_folder</span></code>: Relative path to a folder to contain the temporary build files</li>
+<li><code class="docutils literal notranslate"><span class="pre">parallel</span></code>: Set it to <code class="docutils literal notranslate"><span class="pre">False</span></code> to deactivate using parallel builds. If activated, it will use
+<code class="docutils literal notranslate"><span class="pre">cpu_count</span></code> configuration as the number of parallel jobs to use.</li>
+<li><code class="docutils literal notranslate"><span class="pre">msbuild_verbosity</span></code>: Used to define the output of MSBuild builds.</li>
+</ul>
+</div>
+<div class="section" id="configure">
+<h2>configure()<a class="headerlink" href="#configure" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">configure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_folder</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Calls <code class="docutils literal notranslate"><span class="pre">cmake</span></code>, with the given generator and passing <code class="docutils literal notranslate"><span class="pre">-DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake</span></code>.
+It will also provide the CMake generator in the command like, like <code class="docutils literal notranslate"><span class="pre">-G</span> <span class="pre">&quot;Visual</span> <span class="pre">Studio</span> <span class="pre">15&quot;</span></code>. Note
+that it is not necessary to specify the platform, like <code class="docutils literal notranslate"><span class="pre">-G</span> <span class="pre">&quot;Visual</span> <span class="pre">Studio</span> <span class="pre">15</span> <span class="pre">Win64&quot;</span></code>, as the
+platform is already defined in the toolchain file.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">source_folder</span></code>: Relative path to the folder containing the root <em>CMakeLists.txt</em></li>
+</ul>
+</div>
+<div class="section" id="build">
+<h2>build()<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Calls the build system. Equivalent to <strong class="command">cmake --build .</strong> in the build folder.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">build_type</span></code>: Use it only to override the value defined in the <code class="docutils literal notranslate"><span class="pre">settings.build_type</span></code> for a multi-configuration generator (e.g. Visual Studio, XCode).
+This value will be ignored for single-configuration generators, they will use the one defined in the toolchain file during the install step.</li>
+<li><code class="docutils literal notranslate"><span class="pre">target</span></code>: name of the build target to run.</li>
+</ul>
+</div>
+<div class="section" id="install">
+<h2>install()<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Equivalent to run <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">--build</span> <span class="pre">.</span> <span class="pre">--target=install</span></code></p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">build_type</span></code>: Use it only to override the value defined in the <code class="docutils literal notranslate"><span class="pre">settings.build_type</span></code>. It
+can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
+type must be specified at configure time, not build type.</li>
+</ul>
+</div>
+<div class="section" id="test">
+<h2>test()<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">build_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output_on_failure</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Equivalent to running <strong class="command">cmake --build . --target=RUN_TESTS</strong>.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">build_type</span></code>: Use it only to override the value defined in the <code class="docutils literal notranslate"><span class="pre">settings.build_type</span></code>. It
+can fail if the build is single configuration (e.g. Unix Makefiles), as in that case the build
+type must be specified at configure time, not build type.</li>
+<li><code class="docutils literal notranslate"><span class="pre">target</span></code>: name of the build target to run, by default <code class="docutils literal notranslate"><span class="pre">RUN_TESTS</span></code> or <code class="docutils literal notranslate"><span class="pre">test</span></code>.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../inspecting_packages.html" class="btn btn-neutral float-right" title="Inspecting Packages" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../toolchains.html" class="btn btn-neutral" title="Toolchains" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+      <span><a href="#" class="ot-sdk-show-settings">Cookies Settings</a></span>
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.26
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+          
+            <dd><a href="/en/latest/index.html">latest</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.26/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.26.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.26");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

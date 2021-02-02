@@ -1,0 +1,640 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Build order in lockfiles &mdash; conan 1.28.2 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.28.2 documentation" href="../../index.html"/>
+        <link rel="up" title="Lockfiles" href="../lockfiles.html"/>
+        <link rel="next" title="Lockfiles in Continuous Integration" href="ci.html"/>
+        <link rel="prev" title="Multiple configurations" href="configurations.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction to versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../revisions.html">Package Revisions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lockfiles.html">Lockfiles</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configurations.html">Multiple configurations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Build order in lockfiles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#defining-builds">Defining builds</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ci.html">Lockfiles in Continuous Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../versioning.html">Versioning</a> &raquo;</li>
+        
+          <li><a href="../lockfiles.html">Lockfiles</a> &raquo;</li>
+        
+      <li>Build order in lockfiles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/versioning/lockfiles/build_order.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+          <!--<div class="admonition important"> Join the <a href=https://blog.conan.io/2020/07/28/Launching-Conan-2.0-Tribe.html>Conan 2.0 Tribe</a> and contribute to define the next Conan 2.0 major version</div>-->
+          <div class="admonition important">
+            <p class="admonition-title">Announcement</p>
+            <p>Check out the new free <a
+            href=https://blog.conan.io/2020/09/24/New-conan-training-series.html>Conan
+            training courses on JFrog Academy</a>!
+          </div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="build-order-in-lockfiles">
+<span id="versioning-lockfiles-build-order"></span><h1>Build order in lockfiles<a class="headerlink" href="#build-order-in-lockfiles" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>In this section we are going to use the following packages, defining this dependency graph.</p>
+<a class="reference internal image-reference" href="../../_images/conan_lock_build_order.png"><img alt="../../_images/conan_lock_build_order.png" class="align-center" src="../../_images/conan_lock_build_order.png" style="width: 400px; height: 200px;" /></a>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The code used in this section, including a <em>build.py</em> script to reproduce it, is in the
+examples repository: <a class="reference external" href="https://github.com/conan-io/examples">https://github.com/conan-io/examples</a>. You can go step by step
+reproducing this example while reading the below documentation.</p>
+<div class="code bash last highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/conan-io/examples.git
+$ cd features/lockfiles/build_order
+# $ python build.py only to run the full example, but better go step by step
+</pre></div>
+</div>
+</div>
+<p>The example in this section uses <code class="docutils literal notranslate"><span class="pre">full_version_mode</span></code>, that is, if a package changes any part of its version, its consumers will
+need to build a new binary because a new <code class="docutils literal notranslate"><span class="pre">package_id</span></code> will be computed. This example will use version ranges, and
+it is not necessary to have revisions enabled. It also do not require a server, everything can be reproduced locally.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan config <span class="nb">set</span> general.default_package_id_mode<span class="o">=</span>full_version_mode
+</pre></div>
+</div>
+<p>Let’s start by creating the initial dependency graph, without binaries (just the exported recipes), in our local cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan <span class="nb">export</span> liba liba/0.1@user/testing
+$ conan <span class="nb">export</span> libb libb/0.1@user/testing
+$ conan <span class="nb">export</span> libc libc/0.1@user/testing
+$ conan <span class="nb">export</span> libd libd/0.1@user/testing
+$ conan <span class="nb">export</span> app1 app1/0.1@user/testing
+$ conan <span class="nb">export</span> app2 app2/0.1@user/testing
+</pre></div>
+</div>
+<p>Now we will create a lockfile that captures the dependency graph for <code class="docutils literal notranslate"><span class="pre">app1/0.1&#64;user/testing</span></code>.
+In the same way we created lockfiles for a local <em>conanfile.py</em> in a user folder, we can also
+create a lockfile for a recipe in the Conan cache, with the <strong class="command">--reference</strong> argument:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan lock create --reference<span class="o">=</span>app1/0.1@user/testing --lockfile-out<span class="o">=</span>app1.lock
+</pre></div>
+</div>
+<p>The resulting <em>app1.lock</em> lockfile will not be able to completely lock the binaries because such
+binaries do not exist at all. This can be checked in the <em>app1.lock</em> file, the packages do not
+contain a package revision (<code class="docutils literal notranslate"><span class="pre">prev</span></code>) field at all:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{
+   ...
+   &quot;4&quot;: {
+   &quot;ref&quot;: &quot;liba/0.1@user/testing&quot;,
+   &quot;options&quot;: &quot;&quot;,
+   &quot;package_id&quot;: &quot;5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9&quot;,
+   &quot;context&quot;: &quot;host&quot;
+   }
+   ...
+}
+</pre></div>
+</div>
+<p>We can now compute the “build-order” of the dependency graph. The “build-order” lists
+in order all the packages that needs to be built from sources. The logic is the following:</p>
+<ul class="simple">
+<li>If a package is fully locked (it contains a package revision field <code class="docutils literal notranslate"><span class="pre">prev</span></code> in the lockfile),
+it will not be built from sources and will <strong>never</strong> appear in the build-order list.</li>
+<li>If a package is not fully locked (it does <strong>not</strong> contain a package revision <code class="docutils literal notranslate"><span class="pre">prev</span></code> in the lockfile),
+it will appear in the build-order list. This situation happens both when the package binary doesn’t exist yet,
+or when the <code class="docutils literal notranslate"><span class="pre">--build</span></code> argument was used while creating the lockfile.</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan lock build-order app1.lock --json<span class="o">=</span>build_order.json
+</pre></div>
+</div>
+<p>The resulting <em>build_order.json</em> file is a list of lists, structured by levels of possible parallel builds:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[
+  # First level liba
+  [[&quot;liba/0.1@user/testing&quot;, &quot;5ab8...1ac9&quot;, &quot;host&quot;, &quot;4&quot;]],
+  # Second level libb and libc
+  [[&quot;libb/0.1@user/testing&quot;, &quot;cfd1...ec23&quot;, &quot;host&quot;, &quot;3&quot;],
+   [&quot;libc/0.1@user/testing&quot;, &quot;cfd1...ec23&quot;, &quot;host&quot;, &quot;5&quot;]],
+  # Third level libd
+  [[&quot;libd/0.1@user/testing&quot;, &quot;d075...5b9d&quot;, &quot;host&quot;, &quot;2&quot;]],
+  # Fourth level libd
+  [[&quot;app1/0.1@user/testing&quot;, &quot;3bf2...5188&quot;, &quot;host&quot;, &quot;1&quot;]]
+]
+</pre></div>
+</div>
+<p>Every item in the outer list is a “level” in the graph, a set of packages that needs to be built, and
+are independent of every other package in the level, so they can be built in parallel. Levels in the
+build order must be respected, as the second level cannot be built until all the packages in the first level are built
+and so on. In this example, once the build of <code class="docutils literal notranslate"><span class="pre">liba/0.1&#64;user/testing</span></code> finishes, as it is the only
+item in the first level, the second level can start, and it can build both <code class="docutils literal notranslate"><span class="pre">libb/0.1&#64;user/testing</span></code> and <code class="docutils literal notranslate"><span class="pre">libc/0.1&#64;user/testing</span></code> in parallel. It is necessary
+that both of them finish their build to be able to continue to the third level, that contains
+<code class="docutils literal notranslate"><span class="pre">libd/0.1&#64;user/testing</span></code>, because this package depends on them.</p>
+<p>Every item in each level has 4 elements: <code class="docutils literal notranslate"><span class="pre">[ref,</span> <span class="pre">package_id,</span> <span class="pre">context,</span> <span class="pre">id]</span></code>. At the moment the only
+necessary one is the first one. The <code class="docutils literal notranslate"><span class="pre">ref</span></code> value is the one that can be used for example in a <strong class="command">conan install</strong>
+command like:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan install &lt;ref&gt; --build<span class="o">=</span>&lt;ref&gt; --lockfile<span class="o">=</span>mylock.lock
+</pre></div>
+</div>
+<div class="section" id="defining-builds">
+<h2>Defining builds<a class="headerlink" href="#defining-builds" title="Permalink to this headline">¶</a></h2>
+<p>The definition of what needs to be built comes from the existing binaries plus the <strong class="command">--build</strong>
+argument in the <strong class="command">conan lock create</strong>.</p>
+<p>Let’s build all the binaries for the exported packages first:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build app1 and dependencies</span>
+$ conan install app1/0.1@user/testing --build<span class="o">=</span>missing
+</pre></div>
+</div>
+<p>Now that there are binaries for all packages in the cache, let’s capture the in a new lockfile and compute the build order:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new lockfile now with all the package binaries</span>
+$ conan lock create --reference<span class="o">=</span>app1/0.1@user/testing --lockfile-out<span class="o">=</span>app1.lock
+<span class="c1"># And check which one needs to be built</span>
+$ conan lock build-order app1.lock --json<span class="o">=</span>build_order.json
+<span class="c1"># The build order is emtpy, nothing to build</span>
+<span class="o">[]</span>
+</pre></div>
+</div>
+<p>The result of this build order is empty. As the <strong class="command">conan lock create</strong> found existing binaries,
+everything is fully locked, nothing needs to be built.</p>
+<p>If we specify the <strong class="command">--build</strong> flag, then the behavior is different:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan lock create --reference<span class="o">=</span>app1/0.1@user/testing --lockfile-out<span class="o">=</span>app1.lock --build
+<span class="c1"># the lockfile will not lock the binaries</span>
+<span class="c1"># And check which one needs to be built</span>
+$ conan lock build-order app1.lock --json<span class="o">=</span>build_order.json
+<span class="o">[[[</span><span class="s2">&quot;liba/0.1@user/testing&quot;</span>, <span class="s2">&quot;5ab8...1ac9&quot;</span>, <span class="s2">&quot;host&quot;</span>, <span class="s2">&quot;4&quot;</span><span class="o">]]</span>, ...
+</pre></div>
+</div>
+<p>This feature is powerful when combined with <code class="docutils literal notranslate"><span class="pre">package_id_modes</span></code>, because it can
+automatically define the minimum set of packages that needs to be built for any
+change in the dependency graph.</p>
+<p>Let’s say that a new version <code class="docutils literal notranslate"><span class="pre">libb/1.1&#64;user/testing</span></code> is created. But if we
+check the <code class="docutils literal notranslate"><span class="pre">libd</span></code> <em>conanfile.py</em> requirement <code class="docutils literal notranslate"><span class="pre">libb/[&gt;0.0</span> <span class="pre">&lt;1.0]&#64;user/testing</span></code>,
+we can see that this 1.1 version falls outside of the valid version range.
+Then, it does not affect <code class="docutils literal notranslate"><span class="pre">libd</span></code> or <code class="docutils literal notranslate"><span class="pre">app1</span></code> and nothing needs to be built:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create libb libb/1.1@user/testing
+$ conan lock create --reference<span class="o">=</span>app1/0.1@user/testing --lockfile-out<span class="o">=</span>app1.lock
+$ conan lock build-order app1.lock --json<span class="o">=</span>build_order.json
+<span class="o">[]</span> <span class="c1"># Empty, nothing to build, libb/1.1 does not become part of app1</span>
+</pre></div>
+</div>
+<p>If on the contrary, a new <code class="docutils literal notranslate"><span class="pre">libb/0.2&#64;user/testing</span></code> is created, and we capture a
+new lockfile, it will contain such new version. Other packages, like <code class="docutils literal notranslate"><span class="pre">liba</span></code> and
+<code class="docutils literal notranslate"><span class="pre">libc</span></code> are not affected by this new version, and will be fully locked in the lockfile,
+but the dependents of <code class="docutils literal notranslate"><span class="pre">libb</span></code> now won’t be locked and it will be necessary to build them:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan create libb libb/0.2@user/testing
+$ conan lock create --reference<span class="o">=</span>app1/0.1@user/testing --lockfile-out<span class="o">=</span>app1.lock
+$ conan lock build-order app1.lock --json<span class="o">=</span>build_order.json
+<span class="o">[[[</span><span class="s1">&#39;libd/0.1@user/testing&#39;</span>, <span class="s1">&#39;97e9...b7f4&#39;</span>, <span class="s1">&#39;host&#39;</span>, <span class="s1">&#39;2&#39;</span><span class="o">]]</span>,
+ <span class="o">[[</span><span class="s1">&#39;app1/0.1@user/testing&#39;</span>, <span class="s1">&#39;2bf1...e405&#39;</span>, <span class="s1">&#39;host&#39;</span>, <span class="s1">&#39;1&#39;</span><span class="o">]]]</span>
+</pre></div>
+</div>
+<p>So in this case the <em>app1.lock</em> is doing these things:</p>
+<ul class="simple">
+<li>Fully locking the non-affected packages (<code class="docutils literal notranslate"><span class="pre">liba/0.1</span></code>, <code class="docutils literal notranslate"><span class="pre">libc/0.1</span></code>)</li>
+<li>Fully locking the <code class="docutils literal notranslate"><span class="pre">libb/0.2</span></code>, as the binary that was just created is valid for our <code class="docutils literal notranslate"><span class="pre">app1</span></code>
+(Note that this might not always be true, and <code class="docutils literal notranslate"><span class="pre">app1</span></code> build could require a different <code class="docutils literal notranslate"><span class="pre">libb/0.2</span></code>
+binary).</li>
+<li>Partial locking (the version and package-id) of the affected packages that need to be
+built (<code class="docutils literal notranslate"><span class="pre">libd/0.1</span></code> and <code class="docutils literal notranslate"><span class="pre">app1/0.1</span></code>).</li>
+<li>Retrieving via <code class="docutils literal notranslate"><span class="pre">build-order</span></code> the right order in which the affected packages need to be built.</li>
+</ul>
+<p>Recall that a package in a lockfile is fully locked if it contains a <code class="docutils literal notranslate"><span class="pre">prev</span></code> (package revision) field defined.
+Fully locked packages cannot be built from sources. Partially locked packages do not contain a <code class="docutils literal notranslate"><span class="pre">prev</span></code>
+defined. They lock the reference and the package-id, and they can be built from sources.</p>
+<p>If we want to check if the new <code class="docutils literal notranslate"><span class="pre">libb/0.2</span></code> version affects to the <code class="docutils literal notranslate"><span class="pre">app2</span></code> and something needs to
+be rebuild, the process is identical:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ conan lock create --reference<span class="o">=</span>app2/0.1@user/testing --lockfile-out<span class="o">=</span>app2.lock
+$ conan lock build-order app2.lock --json<span class="o">=</span>build_order2.json
+<span class="o">[]</span>
+</pre></div>
+</div>
+<p>As expected, nothing to build, as <code class="docutils literal notranslate"><span class="pre">app2</span></code> does not depend on <code class="docutils literal notranslate"><span class="pre">libb</span></code> at all.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ci.html" class="btn btn-neutral float-right" title="Lockfiles in Continuous Integration" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configurations.html" class="btn btn-neutral" title="Multiple configurations" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2019, JFrog.
+      <span><a href="#" class="ot-sdk-show-settings">Cookies Settings</a></span>
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.28
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+          
+            <dd><a href="/en/latest/index.html">latest</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.28/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.28.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.28");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>

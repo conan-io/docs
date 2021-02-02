@@ -1,0 +1,546 @@
+
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Evolving lockfiles &mdash; conan 1.31.4 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../_static/conan-favicon.png"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+
+  
+    <link rel="stylesheet" href="../../_static/css/signup.css" type="text/css" />
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../_static/css/search.css" type="text/css" />
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="conan 1.31.4 documentation" href="../../index.html"/>
+        <link rel="up" title="Lockfiles" href="../lockfiles.html"/>
+        <link rel="next" title="Build order in lockfiles" href="build_order.html"/>
+        <link rel="prev" title="Multiple configurations" href="configurations.html"/>
+
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WK44ZFM');</script>
+<!-- End Google Tag Manager -->
+ 
+
+
+
+</script>
+
+
+  
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://conan.io">
+          
+
+          
+            
+            <img src="../../_static/conan-logo.png" class="logo" />
+          
+          </a>
+
+            
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../training_courses.html">Training Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../using_packages.html">Using packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../creating_packages.html">Creating Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../uploading_packages.html">Uploading Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developing_packages.html">Developing packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../devtools.html">Package apps and devtools</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../versioning.html">Versioning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../introduction.html">Introduction to versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../version_ranges.html">Version ranges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../revisions.html">Package Revisions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../lockfiles.html">Lockfiles</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configurations.html">Multiple configurations</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Evolving lockfiles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#deriving-a-partial-lockfile">Deriving a partial lockfile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integrating-a-partial-lockfile">Integrating a partial lockfile</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="build_order.html">Build order in lockfiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ci.html">Lockfiles in Continuous Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../mastering.html">Mastering Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systems_cross_building.html">Systems and cross building</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../extending.html">Extending Conan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../integrations.html">Integrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../howtos.html">Howtos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../videos.html">Videos and links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conan_v2.html">Road to Conan 2.0</a></li>
+</ul>
+
+            
+          
+          <div class="dark_newsletter-div">
+             <p>Sign up for release updates:</p>
+              <script src="https://app-lon04.marketo.com/js/forms2/js/forms2.min.js"></script>
+              <form id="mktoForm_1479"></form>
+              <script>MktoForms2.loadForm("https://app-lon04.marketo.com", "256-FNZ-187", 1479);</script>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">conan</a>
+        
+      </nav>
+
+
+      
+      <script>
+        var reldir = "../../index.html".replace("index.html","").replace("#", "");
+      </script>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation" id="breadcrumbs">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../versioning.html">Versioning</a> &raquo;</li>
+        
+          <li><a href="../lockfiles.html">Lockfiles</a> &raquo;</li>
+        
+      <li>Evolving lockfiles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/conan-io/docs/blob/master/versioning/lockfiles/evolving.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+</div>
+          <!--<select id="search" name="state" multiple="true" onchange="window.location = reldir + this.value;" style="width:90%"></select>
+          <hr/>-->
+          <!--<div class="admonition important"> Join the <a href=https://blog.conan.io/2020/07/28/Launching-Conan-2.0-Tribe.html>Conan 2.0 Tribe</a> and contribute to define the next Conan 2.0 major version</div>-->
+          <div class="admonition important">
+            <p class="admonition-title">Announcement</p>
+            <p>Check out the new free <a
+            href=https://blog.conan.io/2020/09/24/New-conan-training-series.html>Conan
+            training courses on JFrog Academy</a>!
+          </div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="evolving-lockfiles">
+<span id="versioning-lockfiles-evolving"></span><h1>Evolving lockfiles<a class="headerlink" href="#evolving-lockfiles" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an <strong>experimental</strong> feature subject to breaking changes in future releases.</p>
+</div>
+<p>As described before, lockfiles are immutable, they cannot change the information they contain.
+If some install or create command tries to change some data in a lockfile, it will error. This
+doesn’t mean that operations on lockfiles cannot be done, as it is possible to create a new
+lockfile from an existing one. We have already done this, obtaining a full lockfile for a
+specific configuration from an initial “base” lockfile.</p>
+<p>There are several scenarios you might want to create a new lockfile from an existing one.</p>
+<div class="section" id="deriving-a-partial-lockfile">
+<h2>Deriving a partial lockfile<a class="headerlink" href="#deriving-a-partial-lockfile" title="Permalink to this headline">¶</a></h2>
+<p>Lets say that we have an application <code class="docutils literal notranslate"><span class="pre">app/1.0</span></code> that depends on <code class="docutils literal notranslate"><span class="pre">libc/1.0</span></code> that depends on <code class="docutils literal notranslate"><span class="pre">libb/1.0</span></code>
+that finally depends on <code class="docutils literal notranslate"><span class="pre">liba/1.0</span></code>. We could capture a “base” lockfile from it, and then several full
+lockfiles, one per configuration:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan lock create --reference=app/1.0@ --base --lockfile-out=app_base.lock
+$ conan lock create --reference=app/1.0@ --lockfile=app_base.lock -s build_type=Release --lockfile-out=app_release.lock
+$ conan lock create --reference=app/1.0@ --lockfile=app_base.lock -s build_type=Debug --lockfile-out=app_debug.lock
+</pre></div>
+</div>
+<p>Now a developer wants to start testing some changes in <code class="docutils literal notranslate"><span class="pre">libb</span></code>, using the same dependencies versions defined
+in the lockfile. As <code class="docutils literal notranslate"><span class="pre">libb</span></code> is locked, it will not be possible to create a new version <code class="docutils literal notranslate"><span class="pre">libb/1.1</span></code> or build
+a new binary for it with the existing lockfiles. But we can create a new lockfile for it in different ways.
+For example, we could derive directly from the <em>app_release.lock</em> and <em>app_debug.lock</em> lockfiles:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone &lt;libb-repo&gt; &amp;&amp; cd libb
+$ conan lock create conanfile.py --lockfile=app_release.lock --lockfile-out=libb_deps_release.lock
+$ conan lock create conanfile.py --lockfile=app_debug.lock --lockfile-out=libb_deps_debug.lock
+</pre></div>
+</div>
+<p>This will create partial lockfiles, only for <code class="docutils literal notranslate"><span class="pre">libb</span></code> dependencies, i.e. locking <code class="docutils literal notranslate"><span class="pre">liba/1.0</span></code>, that can be used
+while installing, building and testing <code class="docutils literal notranslate"><span class="pre">libb</span></code>.</p>
+<p>But it is also possible to derive a new “base” profile from <em>app_base.lock</em> only for libb dependencies, and then
+compute from it the configuration specific profiles.</p>
+<p>These partial lockfiles will be smaller than the original app lockfiles, not containing information at all about
+<code class="docutils literal notranslate"><span class="pre">app</span></code> and <code class="docutils literal notranslate"><span class="pre">libc</span></code>.</p>
+</div>
+<div class="section" id="integrating-a-partial-lockfile">
+<h2>Integrating a partial lockfile<a class="headerlink" href="#integrating-a-partial-lockfile" title="Permalink to this headline">¶</a></h2>
+<p>This would be the opposite flow. Lets take the previous <em>libb_deps_release.lock</em> and <em>libb_deps_debug.lock</em>
+lockfiles and create new <code class="docutils literal notranslate"><span class="pre">libb/1.1</span></code> packages with it, and obtaining new lockfiles:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span># in the libb source folder
+$ conan  create . --lockfile=libb_deps_release.lock --lockfile-out=libb_release.lock
+$ conan  create . --lockfile=libb_deps_debug.lock --lockfile-out=libb_debug.lock
+</pre></div>
+</div>
+<p>These lockfiles will be containing locked information to <code class="docutils literal notranslate"><span class="pre">liba/1.0</span></code> and a new <code class="docutils literal notranslate"><span class="pre">libb/1.1</span></code> version.
+Now we would like to check if <code class="docutils literal notranslate"><span class="pre">app/1.0</span></code> will pick this new version, and in case it is used, we would
+like to rebuild whatever is necessary (that is part of the next CI section).</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">It is not possible to pick the old <em>app_base.lock</em>, <em>app_release.lock</em> or <em>app_debug.lock</em>
+lockfiles and inject the new <code class="docutils literal notranslate"><span class="pre">libb/1.1</span></code> version, as this would be violating the integrity of the lockfile.
+Nothing guarantees that the downstream packages will effectively use the new version, as it might fall outside
+the valid range defined in <code class="docutils literal notranslate"><span class="pre">libc/1.0</span></code>, for example. Also, downstream consumers <code class="docutils literal notranslate"><span class="pre">app/1.0</span></code> and <code class="docutils literal notranslate"><span class="pre">libc/1.0</span></code>
+could result in different package-ids as a result of having a new dependency, and this goes against the
+immutability of the lockfile data, as the package-ids for them would be already locked.</p>
+</div>
+<p>Let’s create new lockfiles that will use the existing <code class="docutils literal notranslate"><span class="pre">libb_debug.lock</span></code> and <code class="docutils literal notranslate"><span class="pre">libb_release.lock</span></code> information if possible:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span>$ conan lock create --reference=app/1.0@ --lockfile=libb_release.lock --lockfile-out=app_release.lock
+$ conan lock create --reference=app/1.0@ --lockfile=libb_debug.lock --lockfile-out=app_debug.lock
+</pre></div>
+</div>
+<p>This will create new <em>app_release.lock</em> and <em>app_debug.lock</em> that will have both <code class="docutils literal notranslate"><span class="pre">libb/1.1</span></code> and <code class="docutils literal notranslate"><span class="pre">liba/1.0</span></code>
+locked. If for some reason, <code class="docutils literal notranslate"><span class="pre">libc/1.0</span></code> had fixed a <code class="docutils literal notranslate"><span class="pre">requires</span> <span class="pre">=</span> <span class="pre">&quot;libb/1.0&quot;</span></code>, then the resulting lockfile
+would resolve and lock <code class="docutils literal notranslate"><span class="pre">libb/1.0</span></code> instead. The <code class="docutils literal notranslate"><span class="pre">build-order</span></code> command (see next section) will tell us that there
+is nothing to build, as it is effectively computing the same lockfile that existed before. It is also
+possible, and a CI pipeline could do it, to directly check that <code class="docutils literal notranslate"><span class="pre">libb/1.1</span></code> is defined inside the new lockfiles.
+If it is not there, it means that it didn’t integrate, and nothing needs to be done downstream.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="build_order.html" class="btn btn-neutral float-right" title="Build order in lockfiles" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configurations.html" class="btn btn-neutral" title="Multiple configurations" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016-2020, JFrog.
+      Last updated on Feb 02, 2021.
+      <span><a href="#" class="ot-sdk-show-settings">Cookies Settings</a></span>
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <!--<span class="fa fa-pencil-square-o"> Other versions:</span> -->
+      Version: 1.31
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          
+            <dd><a href="/en/1.33/index.html">1.33</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.32/index.html">1.32</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.31/index.html">1.31</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.30/index.html">1.30</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.29/index.html">1.29</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.28/index.html">1.28</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.27/index.html">1.27</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.26/index.html">1.26</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.25/index.html">1.25</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.24/index.html">1.24</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.23/index.html">1.23</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.22/index.html">1.22</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.21/index.html">1.21</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.20/index.html">1.20</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.19/index.html">1.19</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.18/index.html">1.18</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.17/index.html">1.17</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.16/index.html">1.16</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.15/index.html">1.15</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.14/index.html">1.14</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.13/index.html">1.13</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.12/index.html">1.12</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.11/index.html">1.11</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.10/index.html">1.10</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.9/index.html">1.9</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.8/index.html">1.8</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.7/index.html">1.7</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.6/index.html">1.6</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.5/index.html">1.5</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.4/index.html">1.4</a></dd>
+          
+        
+          
+            <dd><a href="/en/1.3/index.html">1.3</a></dd>
+          
+        
+          
+            <dd><a href="/en/latest/index.html">latest</a></dd>
+          
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="/en/1.31/conan.pdf">PDF</a></dd>
+        
+      </dl>
+    </div>
+  </div>
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.31.4',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <!-- <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="../../_static/js/modernizr.min.js"></script>
+  <script src="../../_static/js/search.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+-->
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+
+
+  <script>
+    // initSearch("1.31");
+  </script>
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK44ZFM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+
+ 
+
+
+</body>
+</html>
