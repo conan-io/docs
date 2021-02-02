@@ -1,14 +1,14 @@
-.. _conan_cfg:
+.. _global_conf:
 
-conan.cfg
-=========
+global.conf
+===========
 
 .. warning::
 
     This new configuration mechanism is an **experimental** feature subject to breaking changes in future releases.
 
 
-The **conan.cfg** file is located in the Conan user home directory.
+The **global.conf** file is located in the Conan user home directory.
 
 Global configuration
 --------------------
@@ -21,8 +21,8 @@ Global configuration
 Tools configurations
 --------------------
 
-Tools and user configurations allows them to be defined both in the *conan.cfg* file and in profile files. Profile values will
-have priority over globally defined ones in *conan.cfg*, and can be defined as:
+Tools and user configurations allows them to be defined both in the *global.conf* file and in profile files. Profile values will
+have priority over globally defined ones in *global.conf*, and can be defined as:
 
 .. code-block:: text
 
