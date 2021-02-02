@@ -15,7 +15,7 @@ You can just clone the following example repository:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/conan-community/conan-goserver-example
+    $ git clone https://github.com/conan-io/examples/tree/master/features/goserver
 
 Or, alternatively, manually create the folder and copy the following files inside:
 
@@ -53,12 +53,12 @@ Create a *conanfile.txt*, with the following content:
    :caption: *conanfile.txt*
 
     [requires]
-    go-martini/1.0@lasote/stable
+    go-martini/1.0@
 
     [imports]
     src, * -> ./deps/src
 
-Our project requires a package, **go-martini/1.0@lasote/stable**, and we indicate that all **src contents** from all our requirements have
+Our project requires a package, **go-martini/1.0@**, and we indicate that all **src contents** from all our requirements have
 to be copied to *./deps/src*.
 
 The package go-martini depends on go-inject, so Conan will handle automatically the go-inject dependency.
@@ -109,24 +109,32 @@ Let's take a look at the *conanfile.py* of the **go inject** library:
 .. code-block:: python
    :caption: *conanfile.py*
 
-    from conans import ConanFile
+    import os
+    from conans import ConanFile, tools
 
-    class InjectConan(ConanFile):
+
+    class GoInjectConan(ConanFile):
         name = "go-inject"
         version = "1.0"
+        license = "MIT"
+        homepage = "https://github.com/codegangsta/inject"
+        no_copy_source = True
 
         def source(self):
-            self.run("git clone https://github.com/codegangsta/inject.git")
-            self.run("cd inject && git checkout v1.0-rc1")  # TAG v1.0-rc1
+            tools.get("https://github.com/codegangsta/inject/archive/v1.0-rc1.tar.gz",
+                    sha256="22b265ea391a19de6961aaa8811ecfcc5bbe7979594e30663c610821cdad6c7b")
 
         def package(self):
-            self.copy(pattern='*', dst='src/github.com/codegangsta/inject', src="inject", keep_path=True)
+            self.copy(pattern='*',
+                    dst=os.path.join("src", "github.com", "codegangsta", "inject"),
+                    src="inject-1.0-rc1", keep_path=True)
+
 
 If you have read the :ref:`Building a hello world package <packaging_getting_started>`, the previous code may look quite simple to you.
 
 We want to pack **version 1.0** of the **go inject** library, so the **version** variable is **"1.0"**. In the ``source()`` method, we
-declare how to obtain the source code of the library, in this case just by cloning the github repository and making a checkout of the
-**v1.0-rc1** tag. In the ``package()`` method, we are just copying all the sources to a folder named "src/github.com/codegangsta/inject".
+declare how to obtain the source code of the library, in this case just by downloading **v1.0-rc1** tag.
+In the ``package()`` method, we are just copying all the sources to a folder named "src/github.com/codegangsta/inject".
 
 This way, we can keep importing the library in the same way:
 
@@ -138,35 +146,42 @@ We can export and upload the package to a remote and we are done:
 
 .. code-block:: bash
 
-    $ conan export . lasote/stable  # Or any other user/channel
-    $ conan upload go-inject/1.0@lasote/stable --all
+    $ conan create . # Or any other user/channel
+    $ conan upload go-inject/1.0@ --all
 
 Now look at the **go martini** conanfile:
 
 .. code-block:: python
    :caption: *conanfile.py*
 
-    from conans import ConanFile
+    import os
+    from conans import ConanFile, tools
 
-    class InjectConan(ConanFile):
+
+    class GoMartiniConan(ConanFile):
         name = "go-martini"
         version = "1.0"
-        requires = 'go-inject/1.0@lasote/stable'
+        requires = "go-inject/1.0@"
+        license = "MIT"
+        homepage = "https://github.com/go-martini/martini"
+        no_copy_source = True
 
         def source(self):
-            self.run("git clone https://github.com/go-martini/martini.git")
-            self.run("cd martini && git checkout v1.0")  # TAG v1.0
+            tools.get("https://github.com/go-martini/martini/archive/v1.0.tar.gz",
+                    sha256="3db135845d076d611f4420e0500e91625543a6b00dc9431cbe45d3571741281b")
 
         def package(self):
-            self.copy(pattern='*', dst='src/github.com/go-martini/martini', src="martini", keep_path=True)
+            self.copy(pattern="*", dst=os.path.join("src", "github.com", "go-martini", "martini"),
+                    src="martini-1.0", keep_path=True)
 
-It is very similar. The only difference is the ``requires`` variable. It defines the **go-inject/1.0@lasote/stable** library, as a
+
+It is very similar. The only difference is the ``requires`` variable. It defines the **go-inject/1.0@** library, as a
 requirement.
 
 .. code-block:: bash
 
-    $ conan export . lasote/stable  # Or any other user/channel
-    $ conan upload go-martini/1.0@lasote/stable  --all
+    $ conan create . # Or any other user/channel
+    $ conan upload go-martini/1.0@ --all
 
 Now we are able to use them easily and without the problems of versioning with github checkouts.
 

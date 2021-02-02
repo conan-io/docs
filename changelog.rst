@@ -21,6 +21,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.33 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.33.1 (02-Feb-2021)
+--------------------
+
+- Fix: Rename _conan.cfg_ to _global.conf_. `#8422 <https://github.com/conan-io/conan/pull/8422>`_ . Docs `here <https://github.com/conan-io/docs/pull/2008>`__
+- Fix: Make CMakeDeps generator available in declarative mode ``generators = "CMakeDeps"`` `#8416 <https://github.com/conan-io/conan/pull/8416>`_
+- Fix: Make the new Macos subsystem Catalyst lowercase to be consistent with existing subsystems. `#8389 <https://github.com/conan-io/conan/pull/8389>`_ . Docs `here <https://github.com/conan-io/docs/pull/2009>`__
+- BugFix: Fix Apple Catalyst flags. `#8389 <https://github.com/conan-io/conan/pull/8389>`_ . Docs `here <https://github.com/conan-io/docs/pull/2009>`__
+
 1.33.0 (20-Jan-2021)
 --------------------
 

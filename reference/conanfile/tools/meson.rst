@@ -1,7 +1,10 @@
 .. _conan-meson-toolchain:
 
+conan.tools.meson
+=================
+
 MesonToolchain
-==============
+--------------
 
 .. warning::
 
@@ -84,14 +87,14 @@ This attribute allows defining Meson project options:
 - One project options definition for ``MYVAR`` in ``conan_meson_native.init`` or ``conan_meson_cross.ini`` file.
 
 Generators
-----------
+++++++++++
 
 The ``MesonToolchain`` only works with the ``pkg_config`` generator.
 Please, do not use other generators, as they can have overlapping definitions that can conflict.
 
 
 Using the toolchain in developer flow
--------------------------------------
++++++++++++++++++++++++++++++++++++++
 
 One of the advantages of using Conan toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
@@ -109,8 +112,8 @@ With the ``MesonToolchain`` it is possible to do:
     $ meson setup --native-file conan_meson_native.ini build .
     $ meson compile -C build
 
-Meson build helper
-------------------
+Meson
+-----
 
 The ``Meson()`` build helper that works with the ``MesonToolchain`` is also experimental,
 and subject to breaking change in the future. It will evolve to adapt and complement the
