@@ -159,9 +159,12 @@ build()
 
 .. code:: python
 
-    def build(self):
+    def build(self, target=None):
 
 Calls the build system. Equivalent to :command:`meson compile -C .` in the build folder.
+
+Parameters:
+    - **target** (Optional, Defaulted to ``None``): Specifies the target to execute. The default *all* target will be built if ``None`` is specified.
 
 install()
 +++++++++
