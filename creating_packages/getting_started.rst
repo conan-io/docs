@@ -136,7 +136,7 @@ basics:
   .. seealso:: Check the :ref:`existing build helpers <build_helpers>`.
 
 - The ``package()`` method copies artifacts (headers, libs) from the build folder to the final
-  package folder. 
+  package folder.
 
 - Finally, the ``package_info()`` method defines that the consumer must link with the "hello" library
   when using this package. Other information as include or lib paths can be defined as well. This
@@ -360,9 +360,9 @@ There are some exceptions to the above. For example, settings can be defined per
 
 .. code-block:: bash
 
-    $ conan install . -s MyPkg:compiler=gcc -s compiler=clang ..
+    $ conan install . -s mypkg:compiler=gcc -s compiler=clang ..
 
-This will use ``gcc`` for MyPkg and ``clang`` for the rest of the dependencies (extremely rare case).
+This will use ``gcc`` for "mypkg" and ``clang`` for the rest of the dependencies (extremely rare case).
 
 There are situations whereby many packages use the same option, thereby allowing you to set its value once using patterns, like:
 
