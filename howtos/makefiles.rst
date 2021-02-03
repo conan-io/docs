@@ -14,7 +14,7 @@ but could be extended to shared libraries too. The Makefiles surely can be impro
 Creating packages
 -----------------
 
-Sources for this example can be found in our `examples repository <https://github.com/conan-io/examples>`_ 
+Sources for this example can be found in our `examples repository <https://github.com/conan-io/examples>`_
 in the *features/makefiles* folder:
 
 .. code-block:: bash
@@ -112,7 +112,7 @@ There you can also see a *src* folder with a *Makefile* creating an executable:
         $(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
     $(OUT): $(OBJ)
-        $(CXX) -o $(OUT)  $(OBJ)  $(LDFLAGS)  $(LIBS) 
+        $(CXX) -o $(OUT)  $(OBJ)  $(LDFLAGS)  $(LIBS)
 
 
 And also a *conanfile.py* very similar to the previous one. In this case adding a ``requires`` and a ``deploy()`` method:
@@ -124,7 +124,7 @@ And also a *conanfile.py* very similar to the previous one. In this case adding 
     from conans import tools
 
     class AppConan(ConanFile):
-        name = "App"
+        name = "app"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         exports_sources = "src/*"

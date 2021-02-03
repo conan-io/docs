@@ -31,7 +31,7 @@ If you want to override an environment variable that a package has inherited fro
 
 .. code-block:: bash
 
-    conan install . -e MyPackage:PATH=/other/path
+    conan install . -e mypkg:PATH=/other/path
 
 If you want to define an environment variable, but you want to append the variables declared in your requirements, you can use the ``[]``
 syntax:
