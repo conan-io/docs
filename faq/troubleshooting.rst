@@ -218,3 +218,50 @@ solve this problem you need to remove existing upper case variant ``OpenSSL``:
 .. code-block:: bash
 
     $ conan remove "OpenSSL/*"
+
+
+ERROR: Incompatible requirements obtained in different evaluations of 'requirements'
+------------------------------------------------------------------------------------
+
+When two different packages require a same package as dependency, but with different versions, will result on the follow error:
+
+.. code-block:: bash
+
+    $ cat conanfile.txt
+
+    [requires]
+    baz/1.0.0
+    foobar/1.0.0
+
+    $ conan install conanfile.txt
+
+        [...]
+        WARN: foobar/1.0.0: requirement foo/1.3.0 overridden by baz/1.0.0 to foo/1.0.0
+        ERROR: baz/1.0.0: Incompatible requirements obtained in different evaluations of 'requirements'
+            Previous requirements: [foo/1.0.0]
+            New requirements: [foo/1.3.0]
+
+As we can see the follow situation: our ``conanfile.txt`` wants 2 packages (``baz/1.0.0`` and ``foobar/1.0.0``) which
+both require the package named ``foo``. However, ``baz`` requires ``foo/1.0.0``, but ``foobar`` requires ``foo/1.3.0``.
+As the required versions are different, it's considered a conflict and Conan will not solve it.
+
+To solve this kind of collision, you have to choose a version for ``foo`` and add into ``conanfile.txt`` as explicit
+requirement:
+
+.. code-block:: text
+
+    [requires]
+    foo/1.3.0
+    baz/1.0.0
+    foobar/1.0.0
+
+Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
+
+.. code-block:: bash
+
+    $ conan install conanfile.txt
+
+        [...]
+        WARN: baz/1.0.0: requirement foo/1.0.0 overridden by foobar/1.0.0 to foo/1.3.0
+
+Conan still warns us about the conflict, but as we overridden ``foo`` version, it's no longer an error.
