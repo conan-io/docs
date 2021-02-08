@@ -8,7 +8,7 @@ Multiple configurations
     This is an **experimental** feature subject to breaking changes in future releases.
 
 In the previous section we managed just 1 configuration, for the default profile. In many applications,
-packages needs to be built with several different configurations, typically managed by different profile
+packages need to be built with several different configurations, typically managed by different profile
 files.
 
 .. note::
