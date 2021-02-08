@@ -4,7 +4,7 @@
 Virtual Environments
 ====================
 
-Conan offer three special Conan generators to create virtual environments:
+Conan offers three special Conan generators to create virtual environments:
 
 - ``virtualenv``:  Declares the :ref:`self.env_info<method_package_info_env_info>` variables of the requirements.
 - ``virtualbuildenv``: Special build environment variables for autotools/visual studio.
