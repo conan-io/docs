@@ -11,7 +11,7 @@ different binary:
 
 .. code-block:: python
 
-    class MyLibConanPackage(ConanFile):	
+    class MyLibConanPackage(ConanFile):
         name = "mylib"
         version = "1.0"
         settings = "os", "arch", "compiler", "build_type"
@@ -54,8 +54,8 @@ The recipe for such a package will be to generate a single binary package, no mo
 
 .. code-block:: python
 
-    class MyLibConanPackage(ConanFile): 
-        name = "MyLib"
+    class MyLibConanPackage(ConanFile):
+        name = "mylib"
         version = "1.0"
         # no settings defined!
 
@@ -135,7 +135,7 @@ The required package has the same result again ``af04...46ad``. Now we can try u
 
 .. code-block:: bash
 
-    $ conan install Pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.4 ...
+    $ conan install pkg/1.0@myuser/mychannel -s compiler=gcc -s compiler.version=4.4 ...
 
     Requirements
         pkg/1.0@myuser/mychannel from local
@@ -144,7 +144,7 @@ The required package has the same result again ``af04...46ad``. Now we can try u
 
 The computed package ID is different which means that we need a different binary package for GCC 4.4.
 
-The same way we have adjusted the ``self.info.settings``, we could set the ``self.info.options`` values if needed. 
+The same way we have adjusted the ``self.info.settings``, we could set the ``self.info.options`` values if needed.
 If you want to make packages independent on ``build_type`` removing the ``build_type`` from the package settings in the ``package_id()`` will work for OSX and Linux. However when building with Visual studio the ``compiler.runtime`` field will change based on the ``build_type`` value so in that case you will also want to delete the compiler runtime field like so:
 
 .. code-block:: python
@@ -196,7 +196,7 @@ That can be defined as:
 
     class Pkg(ConanFile):
         settings = "os", "compiler", "arch", "build_type"
-        
+
         def package_id(self):
             if self.settings.compiler == "gcc" and self.settings.compiler.version == "4.9":
                 for version in ("4.8", "4.7"):
@@ -225,7 +225,7 @@ It is the responsibility of the developer to guarantee that such binaries are in
                 self.compatible_packages.append(compatible_pkg)
 
 This recipe defines that the binaries are compatible with binaries of itself built with a lower optimization value. It can
-have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary 
+have up to 3 different binaries, one for each different value of ``optimized`` option. The ``package_id()`` defines that a binary
 built with ``optimized=1`` can be perfectly linked and will run even if someone defines ``optimized=2``, or ``optimized=3``
 in their configuration. But a binary built with ``optimized=2`` will not be considered if the requested one is ``optimized=1``.
 
@@ -558,7 +558,7 @@ All the modes can be applied to all dependencies, or to individual ones:
 
   .. code-block:: text
 
-    my_other_lib/1.3.4-a4+b3@user/testing  => my_other_lib/1.3.4-a4+b3   
+    my_other_lib/1.3.4-a4+b3@user/testing  => my_other_lib/1.3.4-a4+b3
 
 - ``full_recipe_mode()``: Any change in the reference of the requirement (user & channel too) changes the package ID.
 
@@ -571,7 +571,7 @@ All the modes can be applied to all dependencies, or to individual ones:
 
   .. code-block:: text
 
-    my_other_lib/1.3.4-a4+b3@user/testing  => my_other_lib/1.3.4-a4+b3@user/testing   
+    my_other_lib/1.3.4-a4+b3@user/testing  => my_other_lib/1.3.4-a4+b3@user/testing
 
 - ``full_package_mode()``: Any change in the required version, user, channel or package ID changes the package ID.
 
@@ -585,7 +585,7 @@ All the modes can be applied to all dependencies, or to individual ones:
 
   .. code-block:: text
 
-    MyOtherLib/1.3.4-a4+b3@user/testing:73b..fa56  => MyOtherLib/1.3.4-a4+b3@user/testing:73b..fa56 
+    MyOtherLib/1.3.4-a4+b3@user/testing:73b..fa56  => MyOtherLib/1.3.4-a4+b3@user/testing:73b..fa56
 
 - ``unrelated_mode()``: Requirements do not change the package ID.
 
@@ -598,9 +598,9 @@ All the modes can be applied to all dependencies, or to individual ones:
   `pkg/version@user/channel#RREV:pkg_id` (including the recipe revision), will be taken
   into account to compute the consumer package ID
 
- .. code-block:: text
+  .. code-block:: text
 
-    mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4-a4+b3@user/testing#RREV1 
+    mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4-a4+b3@user/testing#RREV1
 
   .. code-block:: python
 
@@ -614,21 +614,21 @@ All the modes can be applied to all dependencies, or to individual ones:
   This is the most strict mode. Any change in the upstream will produce new consumers package IDs,
   becoming a fully deterministic binary model.
 
- .. code-block:: text
+  .. code-block:: text
 
     # The full reference of the dependency package binary will be used as-is
-    mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1 
+    mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1
 
   .. code-block:: python
 
       def package_id(self):
           self.info.requires["mypkg"].package_revision_mode()
 
-   Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
-   one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
-   built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
-   marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
-   for CI systems, in which a package creation/built is called for each package in the graph.
+  Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
+  one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
+  built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
+  marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
+  for CI systems, in which a package creation/built is called for each package in the graph.
 
 
 You can also adjust the individual properties manually:

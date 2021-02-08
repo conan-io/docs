@@ -6,15 +6,15 @@ Version ranges
 
 Version range expressions are supported, both in ``conanfile.txt`` and in ``conanfile.py`` requirements.
 
-The syntax uses brackets. The square brackets are the way to inform Conan that is a version range. Otherwise, versions are plain strings. They can be whatever you want them to be (up to limitations of length and allowed characters). 
+The syntax uses brackets. The square brackets are the way to inform Conan that is a version range. Otherwise, versions are plain strings. They can be whatever you want them to be (up to limitations of length and allowed characters).
 
 ..  code-block:: python
 
    class HelloConan(ConanFile):
-      requires = "Pkg/[>1.0 <1.8]@user/stable"
+      requires = "pkg/[>1.0 <1.8]@user/stable"
 
 
-So when specifying ``Pkg/[expression]@user/stable``, it means that ``expression`` will be evaluated as a version range. Otherwise, it will be understood as plain text, so ``requires = "Pkg/version@user/stable"`` always means to use the version ``version`` literally.
+So when specifying ``pkg/[expression]@user/stable``, it means that ``expression`` will be evaluated as a version range. Otherwise, it will be understood as plain text, so ``requires = "pkg/version@user/stable"`` always means to use the version ``version`` literally.
 
 There are some packages that do not follow semver. A popular one would be the OpenSSL package with versions as ``1.0.2n``. They cannot be used with version-ranges. To require such packages you always have to use explicit versions (without brackets).
 
@@ -41,8 +41,8 @@ There are two options for the version range:
 ..  code-block:: python
 
    [>1.1 <2.1, include_prerelease=True]            # Would e.g. accept "2.0.0-pre.1" as match
-   [~1.2.3, loose=False]                           # Would only accept correct Semantic Versioning strings. 
-                                                   # E.g. version "1.2.3.4" would not be accepted. 
+   [~1.2.3, loose=False]                           # Would only accept correct Semantic Versioning strings.
+                                                   # E.g. version "1.2.3.4" would not be accepted.
    [~1.2.3, loose=False, include_prerelease=True]  # Both options can be used for the same version range.
 
 Version range expressions are evaluated at the time of building the dependency graph, from

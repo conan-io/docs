@@ -296,10 +296,10 @@ using the ``deps_cpp_info`` object:
     class OtherConan(ConanFile):
         name = "OtherLib"
         version = "1.0"
-        requires = "MyLib/1.6.0@conan/stable"
+        requires = "mylib/1.6.0@conan/stable"
 
         def build(self):
-            self.output.warn(self.deps_cpp_info["MyLib"].libdirs)
+            self.output.warn(self.deps_cpp_info["mylib"].libdirs)
 
 .. note::
 
@@ -344,10 +344,10 @@ If your recipe has requirements, you can access to your requirements ``env_info`
     class OtherConan(ConanFile):
         name = "OtherLib"
         version = "1.0"
-        requires = "MyLib/1.6.0@conan/stable"
+        requires = "mylib/1.6.0@conan/stable"
 
         def build(self):
-            self.output.warn(self.deps_env_info["MyLib"].othervar)
+            self.output.warn(self.deps_env_info["mylib"].othervar)
 
 .. _method_package_info_user_info:
 
@@ -362,7 +362,7 @@ Currently only the ``cmake``, ``cmake_multi`` and ``txt`` generators supports ``
 .. code-block:: python
 
     class MyLibConan(ConanFile):
-        name = "MyLib"
+        name = "mylib"
         version = "1.6.0"
 
         # ...
@@ -376,12 +376,12 @@ recipe has requirements, you can access to your requirements ``user_info`` using
 .. code-block:: python
 
     class OtherConan(ConanFile):
-        name = "OtherLib"
+        name = "otherlib"
         version = "1.0"
-        requires = "MyLib/1.6.0@conan/stable"
+        requires = "mylib/1.6.0@conan/stable"
 
         def build(self):
-            self.out.warn(self.deps_user_info["MyLib"].var1)
+            self.out.warn(self.deps_user_info["mylib"].var1)
 
 .. important::
 
@@ -395,7 +395,7 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         ...
 
         # In the dependent conanfile
-        jars = self.deps_user_info["Pkg"].jars
+        jars = self.deps_user_info["pkg"].jars
         jar_list = jars.replace(" ", "").split(",")
 
 .. _method_configure_config_options:
@@ -498,7 +498,7 @@ can be done:
             del self.options.shared
 
 This will be executed before the actual assignment of ``options`` (then, such ``options`` values cannot be used inside this function), so
-the command :command:`conan install -o Pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
+the command :command:`conan install -o pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
 
 .. _invalid_configuration:
