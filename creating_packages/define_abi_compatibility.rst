@@ -598,7 +598,7 @@ All the modes can be applied to all dependencies, or to individual ones:
   `pkg/version@user/channel#RREV:pkg_id` (including the recipe revision), will be taken
   into account to compute the consumer package ID
 
- .. code-block:: text
+  .. code-block:: text
 
     mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4-a4+b3@user/testing#RREV1
 
@@ -614,7 +614,7 @@ All the modes can be applied to all dependencies, or to individual ones:
   This is the most strict mode. Any change in the upstream will produce new consumers package IDs,
   becoming a fully deterministic binary model.
 
- .. code-block:: text
+  .. code-block:: text
 
     # The full reference of the dependency package binary will be used as-is
     mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1  => mypkg/1.3.4@user/testing#RREV1:73b..fa56#PREV1
@@ -624,11 +624,11 @@ All the modes can be applied to all dependencies, or to individual ones:
       def package_id(self):
           self.info.requires["mypkg"].package_revision_mode()
 
-   Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
-   one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
-   built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
-   marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
-   for CI systems, in which a package creation/built is called for each package in the graph.
+  Given that the package ID of consumers depends on the package revision PREV of the dependencies, when
+  one of the upstream dependencies doesn't have a package revision yet (for example it is going to be
+  built from sources, so its PREV cannot be determined yet), the consumers package ID will be unknown and
+  marked as such. These dependency graphs cannot be built in a single invocation, because they are intended
+  for CI systems, in which a package creation/built is called for each package in the graph.
 
 
 You can also adjust the individual properties manually:
