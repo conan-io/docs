@@ -244,6 +244,13 @@ Possible values are:
    - e.g., :command:`--build=zlib` will match any package named ``zlib`` (same as ``zlib/*``).
    - e.g., :command:`--build=z*@conan/stable` will match any package starting with ``z`` with ``conan/stable`` as user/channel.
 
+* :command:`--build=![pattern]`: A fnmatch case-sensitive pattern of a package reference or only the package name.
+  Conan will exclude the build of the packages whose reference matches the given
+  **pattern**. Several patterns can be specified, chaining multiple options:
+
+   - e.g., :command:`--build=!zlib --build` Build all packages from source, except for zlib.
+   - e.g., :command:`--build=!z* --build` Build all packages from source, except for those starting with ``z``
+
 If you omit the :command:`--build` option, the ``build_policy`` attribute in `conanfile.py` will be
 looked up. If it is set to ``missing`` or ``always``, this build option will be used, otherwise the
 command will behave like :command:`--build=never` was set.
