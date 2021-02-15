@@ -442,7 +442,7 @@ The following example of ``conanfile.py`` shows you how to manage a project with
     from conans import ConanFile, CMake
 
     class SomePackage(ConanFile):
-        name = "SomePackage"
+        name = "somepkg"
         version = "1.0.0"
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"

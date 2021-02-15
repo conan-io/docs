@@ -38,9 +38,9 @@ It is always recommended to upgrade Conan from pip first:
 .. code-block:: bash
 
     $ sudo pip install conan --upgrade # We make sure we are running the latest Conan version
-    $ git clone https://github.com/conan-community/conan-openssl
-    $ cd conan-openssl
-    $ conan create . user/channel
+    $ git clone https://github.com/conan-io/conan-center-index
+    $ cd conan-center-index/recipes/openssl/1.x.x
+    $ conan create . 1.1.1i@
 
 
 Sharing a local folder with a Docker container
@@ -50,8 +50,8 @@ You can share a local folder with your container, for example a project:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/conan-community/conan-openssl
-    $ cd conan-openssl
+    $ git clone https://github.com/conan-io/conan-center-index
+    $ cd conan-center-index/recipes/openssl/1.x.x
     $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc7 /bin/bash
 
 
@@ -90,8 +90,8 @@ Building and uploading a package along with all its missing dependencies for ``L
 
 .. code-block:: bash
 
-    $ git clone https://github.com/conan-community/conan-openssl
-    $ cd conan-openssl
+    $ git clone https://github.com/conan-io/conan-center-index
+    $ cd conan-center-index/recipes/openssl/1.x.x
     $ docker run -it -v$(pwd):/home/conan/project --rm conanio/gcc49-armv7hf /bin/bash
 
     # Now we are running on the conangcc49-armv7hf container
