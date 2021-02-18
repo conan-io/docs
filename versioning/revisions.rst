@@ -93,17 +93,22 @@ files with @CRLF character. The default line ending outside of Windows is @LF.
 
 **Problem**
 
-As a result, when Conan does export of an otherwise identical GIT repository and commit, the Conan revision will be different. 
-This has a very unfortunate consequence when the same recipe and package are uploaded from Windows and Non-Windows build machines in
-a continuous integration environment. The net consequence is that `conan install` on the "latest" revision will only see the binaries
-for one platform or the other. 
+As a result, when Conan does export of an otherwise identical GIT repository/commit on a Windows and a Non-Windows build machine,
+the Conan revisions will be different between the two. This has a very unfortunate consequence when two such packages are then 
+uploaded to a Conan repository (as is very common in continuous integration workflows). The net consequence of two such uploads, 
+is that the next time `conan install` is run for that package, the "latest" revision will only have the binaries for one platform
+or the other (whichever CI job finished and uploaded last). If `conan install` is run for the other platform, it will receive
+the following error:
+    
+    ERROR: Missing prebuilt package for <package_ref>
 
 **Workaround**
 
-The problem is unfortunately something that is external to Conan, so we cannot provide a general-purpose fix. The most 
-straightforward and reasonable solution is to prevent GIT for windows from replacing the line-endings on the Windows build
-machines. This avoids the problem completely by ensuring that the Conan Revisions are the same on Windows and Non-Windows 
-machines. There are several ways to achieve the goal. 
+The problem is unfortunately something that is external to Conan, so we cannot provide a general-purpose fix. We
+can only explain the situation as we have done here and suggest a few ways to address the problem.  The most 
+straightforward and reasonable solution is to prevent GIT for windows from replacing the line-endings on the Windows 
+build machines. This avoids the problem completely by ensuring that the Conan Revisions are the same on Windows and 
+Non-Windows machines. There are several ways to achieve the goal. 
 
 For users who can add files at the repository level, a file named `.gitconfig` can be added which contains the following:
 
@@ -112,12 +117,13 @@ For users who can add files at the repository level, a file named `.gitconfig` c
 
 This will solve the problem on the single repository. 
 
-For users who can add steps to the Windows build server environment setup, the following commands can be run before the clone step:
+Alternatively, for users who can add steps to the Windows build server environment setup, the following commands 
+can be run before the clone of the GIT repository:
 
         git config --global core.autocrlf false   
         git config --global core.eol lf  
 
-This will solve the problem for all Conan packages which are built on servers that have run these commands. 
+This will solve the problem for all Conan packages which are built on servers that run these commands. 
 
 There are other ways to address the problem as well, but these are the most general options we can suggest. 
 
