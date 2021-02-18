@@ -76,6 +76,52 @@ Take into account that it changes the default Conan behavior. e.g:
     - If you generate and upload N binary packages for a recipe with a given revision, then if you modify the recipe, and thus the recipe
       revision, you need to build and upload N new binaries matching that new recipe revision.
 
+
+GIT and Line Endings on Windows
+-----------------------------
+
+There is one very common problem that users encounter after enabling revisions which all users should be aware of. 
+This issue occurs when all of the following conditions are true:
+
+ - Using GIT to retrieve sources with default settings
+ - Using Continuous Integration services
+ - Building on multiple platforms
+ - One of the target platforms is Windows
+
+When cloning a repository on a Windows machine, the GIT client will replace all of the line endings on all of the 
+files with @CRLF character. The default line ending outside of Windows is @LF.  
+
+**Problem**
+
+As a result, when Conan does export of an otherwise identical GIT repository and commit, the Conan revision will be different. 
+This has a very unfortunate consequence when the same recipe and package are uploaded from Windows and Non-Windows build machines in
+a continuous integration environment. The net consequence is that `conan install` on the "latest" revision will only see the binaries
+for one platform or the other. 
+
+**Workaround**
+
+The problem is unfortunately something that is external to Conan, so we cannot provide a general-purpose fix. The most 
+straightforward and reasonable solution is to prevent GIT for windows from replacing the line-endings on the Windows build
+machines. This avoids the problem completely by ensuring that the Conan Revisions are the same on Windows and Non-Windows 
+machines. There are several ways to achieve the goal. 
+
+For users who can add files at the repository level, a file named `.gitconfig` can be added which contains the following:
+
+        [auto]
+          crlf = false
+
+This will solve the problem on the single repository. 
+
+For users who can add steps to the Windows build server environment setup, the following commands can be run before the clone step:
+
+        git config --global core.autocrlf false   
+        git config --global core.eol lf  
+
+This will solve the problem for all Conan packages which are built on servers that have run these commands. 
+
+There are other ways to address the problem as well, but these are the most general options we can suggest. 
+
+          
 Server support
 --------------
 
