@@ -240,7 +240,7 @@ When two different packages require the same package as a dependency, but with d
             Previous requirements: [foo/1.0.0]
             New requirements: [foo/1.3.0]
 
-As we can see the follow situation: our ``conanfile.txt`` wants 2 packages (``baz/1.0.0`` and ``foobar/1.0.0``) which
+As we can see in the following situation: the ``conanfile.txt`` requires 2 packages (``baz/1.0.0`` and ``foobar/1.0.0``) which
 both require the package named ``foo``. However, ``baz`` requires ``foo/1.0.0``, but ``foobar`` requires ``foo/1.3.0``.
 As the required versions are different, it's considered a conflict and Conan will not solve it.
 
