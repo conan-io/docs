@@ -244,7 +244,7 @@ As we can see the follow situation: our ``conanfile.txt`` wants 2 packages (``ba
 both require the package named ``foo``. However, ``baz`` requires ``foo/1.0.0``, but ``foobar`` requires ``foo/1.3.0``.
 As the required versions are different, it's considered a conflict and Conan will not solve it.
 
-To solve this kind of collision, you have to choose a version for ``foo`` and add into ``conanfile.txt`` as explicit
+To solve this kind of collision, you have to choose a version for ``foo`` and add it to the ``conanfile.txt`` as an explicit
 requirement:
 
 .. code-block:: text
