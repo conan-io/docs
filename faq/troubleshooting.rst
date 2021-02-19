@@ -223,8 +223,7 @@ solve this problem you need to remove existing upper case variant ``OpenSSL``:
 ERROR: Incompatible requirements obtained in different evaluations of 'requirements'
 ------------------------------------------------------------------------------------
 
-When two different packages require a same package as dependency, but with different versions, will result on the follow error:
-
+When two different packages require the same package as a dependency, but with different versions, will result in the following error:
 .. code-block:: bash
 
     $ cat conanfile.txt
