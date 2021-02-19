@@ -62,7 +62,7 @@ There are 2 different types of packages right now in Conan-center:
 To contribute packages to Conan-center, read the :ref:`conan-center guide <conan_center_flow>` for more information.
 
 
-Bintray Community Repositories
+Conan Community Repositories
 ------------------------------
 
 There are a number of popular community repositories that may be of interest for Conan users for retrieving
@@ -71,11 +71,11 @@ open source packages. These repositories are not affiliated with the Conan team.
 Bincrafters
 +++++++++++
 
-**bincrafters** : https://bintray.com/bincrafters/public-conan
+**bincrafters** : https://github.com/bincrafters/community
 
 .. pull-quote::
 
-    The `Bincrafters <https://bincrafters.github.io>`_ team builds binary software packages for the
+    The Bincrafters team builds binary software packages for the
     OSS community. This repository contains a wide and growing variety of Conan packages from
     contributors.
 
@@ -83,7 +83,7 @@ Bincrafters
 
     .. code-block:: bash
 
-        $ conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+        $ conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
 
 .. note::
 
