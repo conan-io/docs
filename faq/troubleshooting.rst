@@ -263,4 +263,4 @@ Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
         [...]
         WARN: baz/1.0.0: requirement foo/1.0.0 overridden by foobar/1.0.0 to foo/1.3.0
 
-Conan still warns us about the conflict, but as we overridden ``foo`` version, it's no longer an error.
+Conan still warns us about the conflict, but as we have overridden the ``foo`` version, it's no longer an error.
