@@ -3,7 +3,7 @@
 conan.tools.qbs
 ===============
 
-QbsToolchain
+QbsProfile
 ------------
 
 .. warning::
@@ -11,13 +11,13 @@ QbsToolchain
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-The ``QbsToolchain`` can be used in the ``generate()`` method:
+The ``QbsProfile`` can be used in the ``generate()`` method:
 
 
 .. code:: python
 
     from conans import ConanFile
-    from conan.tools.qbs import QbsToolchain
+    from conan.tools.qbs import QbsProfile
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -26,17 +26,17 @@ The ``QbsToolchain`` can be used in the ``generate()`` method:
         default_options = {"shared": False}
 
         def generate(self):
-            tc = QbsToolchain(self)
+            tc = QbsProfile(self)
             tc.generate()
 
 
-The ``QbsToolchain`` will generate the following file during :command:`conan install`
+The ``QbsProfile`` will generate the following file during :command:`conan install`
 command (or before calling the ``build()`` method when the package is being
-built in the cache): *conan_toolchain.qbs*. This file will contain a qbs profile
+built in the cache): *conan_toolchain_profile.qbs*. This file will contain a qbs profile
 named *conan_toolchain_profile*.
 
 
-*conan_toolchain.qbs* will contain the definitions of all the Qbs properties
+*conan_toolchain_profile.qbs* will contain the definitions of all the Qbs properties
 related to the Conan options and settings for the current package, platform,
 etc. This includes the following:
 
@@ -102,7 +102,7 @@ Parameters:
 Attributes
 ++++++++++
 
-use_toolchain_profile
+use_profile
 *********************
 
 **Defaulted to**: ``conan_toolchain_profile``
