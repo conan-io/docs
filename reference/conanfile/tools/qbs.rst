@@ -102,7 +102,7 @@ Parameters:
 Attributes
 ++++++++++
 
-use_profile
+profile
 *********************
 
 **Defaulted to**: ``conan_toolchain_profile``
