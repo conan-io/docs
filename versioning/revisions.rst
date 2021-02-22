@@ -78,7 +78,7 @@ Take into account that it changes the default Conan behavior. e.g:
 
 
 GIT and Line Endings on Windows
------------------------------
+-------------------------------
 
 There is one very common problem that users encounter after enabling revisions which all users should be aware of. 
 This issue occurs when all of the following conditions are true:
