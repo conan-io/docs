@@ -28,6 +28,17 @@ Conan Cheatsheet
 Setup and configuration
 -----------------------
 
+Installation
+++++++++++++
+
+.. code-block:: bash
+
+    $ pip install conan
+    $ pip install conan --upgrade
+
+See `Install docs
+<https://docs.conan.io/en/latest/installation.html>`_.
+
 Configurations
 ++++++++++++++
 
@@ -41,17 +52,27 @@ Install configurations:
 
 Alternatively, copying files and editing conan.conf can be done manually.
 
+Set up configurations:
+
+.. code-block:: bash
+
+    $ conan config init     # Initializes Conan configuration files
+    $ conan config home     # See the Conan home directory
+
 View configurations:
 
 .. code-block:: bash
 
-    $ conan config get  # Shows the conan.conf file
+    $ conan config get      # Shows some or all configuration items
+    $ conan config get log.level
 
 Set configuration values:
 
 .. code-block:: bash
 
     $ conan config set <section>.<config>=<value>
+    $ conan config set log.level=10
+    $ conan config set log.print_run_commands=False # Make conan less verbose
 
 Profiles
 ++++++++
@@ -98,6 +119,7 @@ Show a profile:
 .. code-block:: bash
 
     $ conan profile show <profile>
+    $ conan profile show default
 
 Use profile while executing command (e.g., ``conan install`` or ``conan create``):
 
@@ -175,6 +197,16 @@ Download a package, if it isn't already in `the local cache`_:
     $ conan install <package>/<version>@[<user>/<channel>#<revision>]
                     [-r=<remote ID>]                                   # Download dependencies from only the specified remote
 
+    # Install a package requirement from a Conanfile.txt, saved in your current directory,
+    # with all options and settings coming from your default profile
+    $ conan install .
+
+    # As above, but override one option and one setting:
+    $ conan install . -o pkg_name:use_debug_mode=on -s compiler=clang
+
+See `'conan install' reference
+<https://docs.conan.io/en/latest/reference/commands/consumer/install.html>`_.
+
 The local cache
 +++++++++++++++
 
@@ -184,7 +216,12 @@ Clear packages from cache:
 
 .. code-block:: bash
 
-    $ conan remove "<package>" -f  # <package> can include wildcards
+    $ conan remove "<package>" --force  # <package> can include wildcards
+    $ conan remove 'boost/*'
+    $ conan remove 'MyPackage/1.2@user/channel'
+
+See `'conan remove' docs
+<https://docs.conan.io/en/latest/reference/commands/misc/remove.html>`_.
 
 Using packages as standalone applications
 +++++++++++++++++++++++++++++++++++++++++
@@ -238,12 +275,14 @@ Print the package recipe in full:
 .. code-block:: bash
 
     $ conan get <package>/<revision>@<user>/<channel>
+    $ conan get boost/1.74.0
 
 Print attributes of the package recipe:
 
 .. code-block:: bash
 
     $ conan inspect <package>/<revision>@<user>/<channel>
+    $ conan inspect boost/1.74.0
 
 Visualizing dependencies
 ++++++++++++++++++++++++
