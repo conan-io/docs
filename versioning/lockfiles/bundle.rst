@@ -23,7 +23,7 @@ and we want to do it as efficiently and fast (in parallel) as possible. We could
 
 
 In this diagram we see that we are building and releasing 2 different products in our team: ``app1/1.1`` and
-``app2/2.3``. ``app1`` depends on ``pkgb/0.1`` (ommiting ``user/channel`` for brevity, but please use it) and
+``app2/2.3``. ``app1`` depends on ``pkgb/0.1`` (omitting ``user/channel`` for brevity, but please use it) and
 ``app2`` depends on ``pkgb/0.2``. In turn, both versions of ``pkgb`` depend on the same ``pkga/0.1`` version.
 
 If we are building both products for 2 different configurations each (lets say Windows and Linux), we could capture 4
