@@ -90,7 +90,7 @@ The bundle groups items per "recipe reference", include the recipe revision, lik
 For each one, it will list all different binaries, identified by their ``package_id`` that are involved in the different
 lockfiles, listing all lockfiles for each ``package_id``. In this case, as ``app1`` only belongs to app1 lockfiles, only
 one lockfile ``app1_windows.lock``, ``app1_linux.lock`` is in each ``package_id``. Also, the package revision ``prev`` is listed,
-in this case being null, because there is no locked binary in the lockfiles, but is going to be built.
+in this case being ``null``, because there is no locked binary in the lockfiles, but is going to be built.
 
 .. note::
 
