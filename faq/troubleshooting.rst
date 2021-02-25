@@ -8,7 +8,7 @@ When you install or create a package you might have error like the following one
 
 .. code-block:: text
 
-    ERROR: The recipe is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
+    ERROR: The recipe wtl/10.0.9163 is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
     Possible values are ['Windows']
     Read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-the-recipe-is-contraining-settings"
 
