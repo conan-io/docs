@@ -8,8 +8,8 @@ Lockfile bundles
     This is an **experimental** feature subject to breaking changes in future releases.
 
 
-Every package build using lockfiles requires a given configuration specific lockfile, and after the build, that lockfile is
-updated to included the built package revision. If we have different configurations for different variants as different architectures,
+Every package build using lockfiles requires a given configuration-specific lockfile, and after the build, that lockfile is
+updated to include the built package revision. If we have different configurations for different variants as different architectures,
 compiler versions or Debug/Release, a build will be typically necessary for each one.
 
 In real life, it is also likely that we might want to build together different applications or products, that could be even disconnected,
