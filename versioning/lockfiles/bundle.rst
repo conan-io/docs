@@ -89,7 +89,7 @@ Inspecting the resulting lockfile bundle file, we can see it is a json file with
 The bundle groups items per "recipe reference", include the recipe revision, like ``app1/0.1@#584778f98ba1d0eb7c80a5ae1fe12fe2``.
 For each one, it will list all different binaries, identified by their ``package_id`` that are involved in the different
 lockfiles, listing all lockfiles for each ``package_id``. In this case, as ``app1`` only belongs to app1 lockfiles, only
-one lockfile ``app1_windows.lock``, ``app1_linux.lock`` is in each ``package_id``. Also the package revision ``prev`` is listed,
+one lockfile ``app1_windows.lock``, ``app1_linux.lock`` is in each ``package_id``. Also, the package revision ``prev`` is listed,
 in this case being null, because there is no locked binary in the lockfiles, but is going to be built.
 
 .. note::
