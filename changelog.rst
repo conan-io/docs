@@ -18,8 +18,36 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.33 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.34 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
+
+1.34.0 (26-Feb-2021)
+--------------------
+
+- Feature: Add `path` and `repository` properties to _conan_build_info --v2_. `#8436 <https://github.com/conan-io/conan/pull/8436>`_
+- Feature: Setting _conan_ as name for `buildAgent` in `conan_build_info`. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
+- Feature: Using actual conan version in version for `buildAgent` in `conan_build_info` instead of 1.X. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
+- Feature: Add `type` _conan_ to Conan build info modules. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
+- Feature: Add ``scm`` output in :command:`conan info` command. `#8380 <https://github.com/conan-io/conan/pull/8380>`_
+- Feature: Forked ``cmake_find_package_multi`` into ``CMakeDeps``, to allow evolution without breaking. `#8371 <https://github.com/conan-io/conan/pull/8371>`_
+- Feature: Use built-in retries in requests lib to retry http requests with _5xx_ response code. `#8352 <https://github.com/conan-io/conan/pull/8352>`_
+- Feature: New lockfile "bundle" feature that can integrate different lockfiles for different configurations and different graphs into a single lockfile bundle that can be used to vastly optimize CI (specially for multiple products), implementing bundle build-order and bundle update operations. `#8344 <https://github.com/conan-io/conan/pull/8344>`_ . Docs `here <https://github.com/conan-io/docs/pull/2030>`__
+- Fix: Renamed generator `QbsToolchain` to `QbsProfile`. `#8537 <https://github.com/conan-io/conan/pull/8537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2027>`__
+- Fix: Renamed default filename of _QbsProfile_ generated file to _conan_toolchain_profile_.qbs. `#8537 <https://github.com/conan-io/conan/pull/8537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2027>`__
+- Fix: Renamed Qbs attribute `use_toolchain_profile` to `profile`. `#8537 <https://github.com/conan-io/conan/pull/8537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2027>`__
+- Fix: Remove extra spaces in flags and colons in path variables. `#8496 <https://github.com/conan-io/conan/pull/8496>`_
+- Fix: `conan_v2_error` if `scm_to_conandata` is not enabled. `#8447 <https://github.com/conan-io/conan/pull/8447>`_
+- Fix: `CONAN_V2_MODE` env-var does not longer alter behavior, only raises errors for Conan 2.0 incompatibilities `#8399 <https://github.com/conan-io/conan/pull/8399>`_ . Docs `here <https://github.com/conan-io/docs/pull/2031>`__
+- Fix: meson : Add target and jobs arguments. `#8384 <https://github.com/conan-io/conan/pull/8384>`_ . Docs `here <https://github.com/conan-io/docs/pull/2011>`__
+- Fix: Set `qbs.targetPlatform` with qbs toolchain. `#8372 <https://github.com/conan-io/conan/pull/8372>`_
+- Fix: Remove warnings for old toolchains imports and ``generate_toolchain_files()`` calls (use new imports and ``generate()`` calls. `#8361 <https://github.com/conan-io/conan/pull/8361>`_
+- BugFix: Improve `tools.unix_path` for Cygwin. `#8509 <https://github.com/conan-io/conan/pull/8509>`_
+- BugFix: Allow `run_in_windows_bash` in MSYS/Cygwin. `#8506 <https://github.com/conan-io/conan/pull/8506>`_
+- BugFix: Add some sanity check to avoid a vague error for custom architectures. `#8502 <https://github.com/conan-io/conan/pull/8502>`_
+- BugFix: Fix Apple M1 detection. `#8501 <https://github.com/conan-io/conan/pull/8501>`_
+- Bugfix: Fix repeated ``build_requires``, including conflicting versions in profile composition or inclusion that repeats ``[build_requires]`` values. `#8463 <https://github.com/conan-io/conan/pull/8463>`_
+- Bugfix: Fixing a `CMakeDeps` bug with components, not finding the _conan_macros.cmake_ file. `#8445 <https://github.com/conan-io/conan/pull/8445>`_
+- Bugfix: Fix exit code for `conan_build_info`. `#8408 <https://github.com/conan-io/conan/pull/8408>`_
 
 1.33.1 (02-Feb-2021)
 --------------------
