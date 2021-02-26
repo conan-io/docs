@@ -24,7 +24,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 1.34.0 (26-Feb-2021)
 --------------------
 
-- Feature: Add `path` and `repository` properties to _conan_build_info --v2_. `#8436 <https://github.com/conan-io/conan/pull/8436>`_
+- Feature: Add `path` and `repository` properties to conan_build_info v2. `#8436 <https://github.com/conan-io/conan/pull/8436>`_
 - Feature: Setting _conan_ as name for `buildAgent` in `conan_build_info`. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
 - Feature: Using actual conan version in version for `buildAgent` in `conan_build_info` instead of 1.X. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
 - Feature: Add `type` _conan_ to Conan build info modules. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
