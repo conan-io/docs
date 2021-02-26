@@ -13,7 +13,7 @@ case. It doesn't aim to present a complete solution or the only possible one, de
 project, the team, the requirements, the constraints, etc., other approaches might be recommended.
 
 In this section we are going to use the same packages than in the previous one, defining this
- dependency graph.
+dependency graph.
 
 .. image:: conan_lock_build_order.png
    :height: 200 px
@@ -48,7 +48,7 @@ need to build a new binary because a new ``package_id`` will be computed.
 
     $ conan config set general.default_package_id_mode=full_version_mode
 
-This example will use version ranges, and it is not necessary to have revisions enabled. It also do not require
+This example will use version ranges, and it is not necessary to have revisions enabled. It also does not require
 a server, everything can be reproduced locally, although the usage of different repositories will be introduced.
 
 
@@ -157,9 +157,9 @@ revision doing an export, creating a new *libb_base.lock* lockfile:
 Products pipeline
 -----------------
 There is an important question to be addressed: **when a package changes, what other packages
-consuming it should be rebuild to account for this change?**. The problem might be harder than
+consuming it should be rebuilt to account for this change?**. The problem might be harder than
 it seems at first sight, or from the observation of the graph above. It shows that ``libd/0.1``
-has a dependency to ``libb/0.1``, does it means that a new ``libb/0.2`` should produce a re-build
+has a dependency to ``libb/0.1``, does it mean that a new ``libb/0.2`` should produce a re-build
 of ``libd/0.1`` to link with the new version? Not always, if ``libd`` had a pinned dependency
 and not a version range, it will never resolve to the new version, and then it doesn't and it
 cannot be rebuilt unless some developer makes some changes to ``libd`` and bumps the requirement.
