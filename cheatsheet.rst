@@ -275,7 +275,7 @@ __ #package-id-calculation-modes
 
 .. code-block:: text
 
-   09512ff863f37e98ed748e                 # Identifies a build of a package
+   09512ff863f37e98ed748e                 # Identifies a unique build configuration of a package
 
 Creating a basic package
 ++++++++++++++++++++++++
@@ -438,13 +438,19 @@ Revisions
 
 Revisions allow changes to a package without increasing the version number or overwriting the existing version number. They are disabled by default.
 
-Conan only holds one revision in the local cache. Many revisions can be stored in remote repositories. Revisions can be specified wherever a recipe is consumed. If a revision is not specified, the latest revision is used.
+There are two types of revisions:
+- "Recipe Revisions" (aka RREV) - Revision of the recipe and sources
+- "Package Revisions" (aka PREV) - Revision of a binary package
 
-Revisions are an extension to the recipe reference which consist by default of a hash generated from the recipe contents:
+Conan only holds one recipe revision in the local cache. Many recipe revisions can be stored in remote repositories. Recipe revisions can be specified wherever a recipe is consumed. If a recipe revision is not specified, the latest revision is used.
+
+Recipe revisions are an extension to the recipe reference which consist by default of a hash generated from the recipe contents:
 
 .. code-block:: text
 
-    <package>/<version>@<user>/<channel>#<revision>
+    <package>/<version>@<user>/<channel>#<recipe_revision>
+    
+Package revisions are very rarely used directly by users in commands or configurations, because it's fairly impactical to do so.  Instead, they are generally managed by the use of "Lockfiles". 
 
 Enable revisions:
 
