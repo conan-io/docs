@@ -36,7 +36,7 @@ debugger and test the application.
        :width: 600 px
        :align: center
 
-3. Once the cross-built packages are available in Artifactory, the application can be directly deployed to the Yocto image. This step can also be automated also in a CI.
+3. Once the cross-built packages are available in Artifactory, the application can be directly deployed to the Yocto image without building
    it from sources again.
 
    .. image:: /images/yocto/conan-yocto_deploy.png
@@ -206,9 +206,6 @@ You would also have to activate the layers in the *bblayers.conf* file of your b
     "
 
 .. note::
-
-    Currently there is no support for ``CONAN_REVISIONS_ENABLED``, so remote and virtual Artifactory repositories will not work in this
-    case. We will continue working on this layer to support more features.
 
     Please report any question, feature request or issue related to the ``meta-conan`` layer in its
     `GitHub issue tracker <https://github.com/conan-io/meta-conan/issues>`_.
