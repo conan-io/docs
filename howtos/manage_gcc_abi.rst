@@ -15,6 +15,13 @@ You can choose which ABI to use in your Conan packages by adjusting the ``compil
 
 When Conan creates the default profile the first time it runs, it adjusts the ``compiler.libcxx`` setting to ``libstdc++`` for backwards
 compatibility. However, if you are using GCC >= 5 your compiler is likely to be using the new CXX11 ABI by default (libstdc++11).
+This can be checked with the following command:
+
+.. code-block:: bash
+
+  $ gcc -v 2>&1 | sed -n 's/.*\(--with-default-libstdcxx-abi=new\).*/\1/p'
+  --with-default-libstdcxx-abi=new
+
 
 If you want Conan to use the new ABI, edit the default profile at ``~/.conan/profiles/default`` adjusting ``compiler.libcxx=libstdc++11``
 or override this setting in the profile you are using.

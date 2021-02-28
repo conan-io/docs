@@ -119,7 +119,9 @@ An MD5 hash calculator using the Poco Libraries
     .. important::
 
         If you are using **GCC compiler >= 5.1**, Conan will set the ``compiler.libcxx`` to the old
-        ABI for backwards compatibility. You can change this with the following commands:
+        ABI for backwards compatibility. In the context of this getting started example, this is a bad choice though:
+        Recent gcc versions will compile the example by default with the new ABI and linking will fail without further
+        customization of your cmake configuration. You can avoid this with the following commands:
 
         .. code-block:: bash
 
