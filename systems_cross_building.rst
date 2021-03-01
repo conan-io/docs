@@ -3,7 +3,7 @@
 Systems and cross building
 ==========================
 
-This section explains how to approach a cross building scenario with Conan and how the use the Windows subsystems (Cygwin, MSYS2).
+This section explains how to approach a cross building scenario with Conan and how to use the Windows subsystems (Cygwin, MSYS2).
 
 .. todo::
 

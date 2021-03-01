@@ -8,12 +8,13 @@ conan export-pkg
 
     $ conan export-pkg [-h] [-bf BUILD_FOLDER] [-f] [-if INSTALL_FOLDER]
                        [-pf PACKAGE_FOLDER] [-sf SOURCE_FOLDER] [-j JSON]
-                       [-l [LOCKFILE]] [--ignore-dirty] [-e ENV_HOST]
-                       [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                       [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
-                       [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
-                       [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
-                       [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                       [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT]
+                       [--ignore-dirty] [-e ENV_HOST] [-e:b ENV_BUILD]
+                       [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
+                       [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
+                       [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
+                       [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
+                       [-s:h SETTINGS_HOST]
                        path [reference]
 
 Exports a recipe, then creates a package from local source and build folders.
@@ -54,10 +55,10 @@ the binary package.
                             directory can also be specified
       -j JSON, --json JSON  Path to a json file where the install information will
                             be written
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile will be updated with the exported
-                            package
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile.
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       --ignore-dirty        When using the "scm" feature with "auto" values,
                             capture the revision and url even if there are
                             uncommitted changes

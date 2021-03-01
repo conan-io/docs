@@ -1,20 +1,76 @@
+.. _conan_tools_cmake:
+
+conan.tools.cmake
+=================
+
+.. warning::
+
+    These tools are **experimental** and subject to breaking changes.
+
+
+CMakeDeps
+---------
+
+The ``CMakeDeps`` helper will generate one **xxxx-config.cmake** file per dependency, together with other necessary .cmake files
+like version, or configuration. It can be used like:
+
+
+.. code-block:: python
+
+    from conans import ConanFile
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "hello/0.1"
+        generators = "CMakeDeps"
+
+
+The full instantiation, that allows custom configuration can be done in the ``generate()`` method:
+
+
+.. code-block:: python
+
+    from conans import ConanFile
+    from conan.tools.cmake import CMakeDeps
+
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "hello/0.1"
+
+        def generate(self):
+            cmake = CMakeDeps(self)
+            cmake.configurations.append("ReleaseShared")
+            if self.options["hello"].shared:
+                cmake.configuration = "ReleaseShared"
+            cmake.generate()
+
+As it can be seen, it allows to define custom user CMake configurations besides the standard Release, Debug, etc ones.
+If the **settings.yml** file is customized to add new configurations to the ``settings.build_type``, then, adding it
+explicitly to ``.configurations`` is not necessary.
 
 .. _conan-cmake-toolchain:
 
 CMakeToolchain
-==============
+--------------
+The ``CMakeToolchain`` is the toolchain generator for CMake. It will generate toolchain files that can be used in the
+command line invocation of CMake with the ``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake``. This generator translates
+the current package configuration, settings, and options, into CMake toolchain syntax.
 
-.. warning::
+It can be declared as:
 
-    This is an **experimental** feature subject to breaking changes in future releases.
+.. code-block:: python
 
+    from conans import ConanFile
 
-The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
+    class Pkg(ConanFile):
+        generators = "CMakeToolchain"
 
+Or fully instantiated in the ``generate()`` method:
 
-.. code:: python
+.. code-block:: python
 
-    from conans import ConanFile, CMake, CMakeToolchain
+    from conans import ConanFile
+    from conan.tools.cmake import CMakeToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -23,20 +79,16 @@ The ``CMakeToolchain`` can be used in the ``toolchain()`` method:
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
-        def toolchain(self):
+        def generate(self):
             tc = CMakeToolchain(self)
-            tc.write_toolchain_files()
+            tc.variables["MYVAR"] = "MYVAR_VALUE"
+            tc.preprocessor_definitions["MYDEFINE"] = "MYDEF_VALUE"
+            tc.generate()
 
 
-The ``CMakeToolchain`` will generate 2 files, after a ``conan install`` command (or
-before calling the ``build()`` method when the package is being built in the cache):
-
-- The main *conan_toolchain.cmake* file, that can be used in the command line.
-- A *conan_project_include.cmake* file, that will automatically be called right after the
-  ``project()`` call for cmake>=3.15, containing definitions that only take effect after such
-  call. For older cmake versions you should explicitly call ``include(.../conan_project_include.cmake)``
-  in your *CMakeLists.txt*.
-
+This will generate a *conan_toolchain.cmake* file after a ``conan install`` (or when building the package
+in the cache) with the information provided in the ``generate()`` method as well as information
+translated from the current ``settings``.
 
 These file will automatically manage the definition of cmake values according to current Conan
 settings:
@@ -56,7 +108,7 @@ constructor
 .. code:: python
 
     def __init__(self, conanfile, generator=None, generator_platform=None, build_type=None,
-                 cmake_system_name=True, toolset=None, parallel=True, make_program=None):
+                 cmake_system_name=True, toolset=None):
 
 
 Most of the arguments are optional and will be deduced from the current ``settings``, and not
@@ -70,12 +122,12 @@ This attribute allows defining CMake variables, for multiple configurations (Deb
 
 .. code:: python
 
-    def toolchain(self):
+    def generate(self):
         tc = CMakeToolchain(self)
         tc.preprocessor_definitions["MYVAR"] = "MyValue"
         tc.preprocessor_definitions.debug["MYCONFIGVAR"] = "MyDebugValue"
         tc.preprocessor_definitions.release["MYCONFIGVAR"] = "MyReleaseValue"
-        tc.write_toolchain_files()
+        tc.generate()
 
 This will be translated to:
 
@@ -84,15 +136,12 @@ This will be translated to:
   using the different values for different configurations. It is important to recall that things
   that depend on the build type cannot be directly set in the toolchain.
 
-generators
-----------
 
-The ``CMakeToolchain`` only works with the ``cmake_find_package`` and ``cmake_find_package_multi``
-generators. Using others will raise, as they can have overlapping definitions that can conflict.
-
+The ``CMakeToolchain`` is intended to run with the ``CMakeDeps`` dependencies generator. It might temporarily
+work with others like ``cmake_find_package`` and ``cmake_find_package_multi``, but this will be removed soon.
 
 Using the toolchain in developer flow
--------------------------------------
++++++++++++++++++++++++++++++++++++++
 
 One of the advantages of using Conan toolchains is that they can help to achieve the exact same build
 with local development flows, than when the package is created in the cache.
@@ -141,26 +190,44 @@ For single-configuration build systems:
     $ cmake --build .  # or just "make"
 
 
+Conan is able to generate a toolchain file for different systems. In the
+following sections you can find more information about them:
 
-CMake build helper
-------------------
+ * :ref:`Android <conan-cmake-toolchain-android>`.
+ * :ref:`iOS <conan-cmake-toolchain-ios>`.
 
-The ``CMake()`` build helper that works with the ``CMakeToolchain`` is also experimental,
-and subject to breaking change in the future. It will evolve to adapt and complement the
-toolchain functionality.
+
+CMake
+-----
+The ``CMake`` build helper is a wrapper around the command line invocation of cmake. It will abstract the
+calls like ``cmake --build . --config Release`` into Python method calls. It will also add the argument
+``-DCMAKE_TOOLCHAIN_FILE=conantoolchain.cmake`` to the ``configure()`` call.
 
 The helper is intended to be used in the ``build()`` method, to call CMake commands automatically
 when a package is being built directly by Conan (create, install)
 
-.. code:: python
 
-    from conans import CMake
+.. code-block:: python
 
-    def build(self):
-        cmake = CMake(self)
-        cmake.configure(source_folder="src")
-        cmake.build()
+    from conans import ConanFile
+    from conan.tools.cmake import CMake, CMakeToolchain, CMakeDeps
 
+    class App(ConanFile):
+        settings = "os", "arch", "compiler", "build_type"
+        requires = "hello/0.1"
+        options = {"shared": [True, False], "fPIC": [True, False]}
+        default_options = {"shared": False, "fPIC": True}
+
+        def generate(self):
+            tc = CMakeToolchain(self)
+            tc.generate()
+            deps = CMakeDeps(self)
+            deps.generate()
+
+        def build(self):
+            cmake = CMake(self)
+            cmake.configure()
+            cmake.build()
 
 It supports the following methods:
 
@@ -169,16 +236,12 @@ constructor
 
 .. code:: python
 
-    def __init__(self, conanfile, generator=None, build_folder=None, parallel=True,
-                 msbuild_verbosity="minimal"):
+    def __init__(self, conanfile, generator=None, build_folder=None):
 
 - ``conanfile``: the current recipe object. Always use ``self``.
 - ``generator``: CMake generator. Define it only to override the default one (like ``Visual Studio 15``).
   Note that as the platform (x64, Win32...) is now defined in the toolchain it is not necessary to specify it here.
 - ``build_folder``: Relative path to a folder to contain the temporary build files
-- ``parallel``: Set it to ``False`` to deactivate using parallel builds. If activated, it will use
-  ``cpu_count`` configuration as the number of parallel jobs to use.
-- ``msbuild_verbosity``: Used to define the output of MSBuild builds.
 
 
 configure()
@@ -243,11 +306,10 @@ Equivalent to running :command:`cmake --build . --target=RUN_TESTS`.
 - ``target``: name of the build target to run, by default ``RUN_TESTS`` or ``test``.
 
 
-Examples
---------
+conf
+++++
 
-Conan is able to generate a toolchain file for some configurations. In the
-following sections you can find more information about them:
+- ``tools.microsoft:msbuild_verbosity`` will accept one of ``"Quiet", "Minimal", "Normal", "Detailed", "Diagnostic"`` to be passed
+  to the ``CMake.build()`` command, when a Visual Studio generator (MSBuild build system) is being used for CMake. It is passed as
+  an argument to the underlying build system via the call ``cmake --build . --config Release -- /verbosity:Diagnostic``
 
- * :ref:`Android <conan-cmake-toolchain-android>`.
- * :ref:`iOS <conan-cmake-toolchain-ios>`.

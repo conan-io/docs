@@ -221,12 +221,12 @@ generator to simplify the task for your build system.
             print(self.env)
 
             print("--------- FROM MyLib -------------")
-            print(self.deps_env_info["MyLib"].some_env_var)
+            print(self.deps_env_info["mylib"].some_env_var)
 
             # User declared variables (from requirements self.user_info objects)
             # are available in the self.deps_user_info object
             print("--------- FROM MyLib -------------")
-            print(self.deps_user_info["MyLib"].some_user_var)
+            print(self.deps_user_info["mylib"].some_user_var)
 
 Create your own generator
 -------------------------

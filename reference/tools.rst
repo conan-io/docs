@@ -218,7 +218,7 @@ tools.unzip()
 
 .. code-block:: python
 
-    def unzip(filename, destination=".", keep_permissions=False, pattern=None)
+    def unzip(filename, destination=".", keep_permissions=False, pattern=None, strip_root=False)
 
 Function mainly used in ``source()``, but could be used in ``build()`` in special cases, as when retrieving pre-built binaries from the
 Internet.
@@ -264,6 +264,9 @@ Parameters:
       the zip was created correctly.
     - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the ZIP file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
 
 .. _tools_untargz:
 
@@ -272,7 +275,7 @@ tools.untargz()
 
 .. code-block:: python
 
-    def untargz(filename, destination=".", pattern=None)
+    def untargz(filename, destination=".", pattern=None, strip_root=False)
 
 Extract *.tar.gz* files (or in the family). This is the function called by the previous ``unzip()`` for the matching extensions, so
 generally not needed to be called directly, call ``unzip()`` instead unless the file had a different extension.
@@ -292,6 +295,10 @@ Parameters:
     - **destination** (Optional, Defaulted to ``"."``): Destination folder for *untargzed* files.
     - **pattern** (Optional, Defaulted to ``None``): Extract from the archive only paths matching the pattern. This should be a Unix
       shell-style wildcard. See `fnmatch <https://docs.python.org/3/library/fnmatch.html>`_ documentation for more details.
+    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the ``tar.gz`` file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
+
 
 .. _tools_get:
 
@@ -302,7 +309,7 @@ tools.get()
 
     def get(url, md5='', sha1='', sha256='', destination=".", filename="", keep_permissions=False,
             pattern=None, requester=None, output=None, verify=True, retry=None, retry_wait=None,
-            overwrite=False, auth=None, headers=None)
+            overwrite=False, auth=None, headers=None, strip_root=False)
 
 Just a high level wrapper for download, unzip, and remove the temporary zip file once unzipped. You can pass hash checking parameters:
 ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked. If any of them doesn't match, it will raise a
@@ -338,6 +345,9 @@ Parameters:
       directly to the ``requests`` Python library. Check here other uses of the **auth** parameter:
       https://requests.readthedocs.io/en/master/user/authentication/#basic-authentication
     - **headers** (Optional, Defaulted to ``None``): A dictionary with additional headers.
+    - **strip_root** (Optional, Defaulted to ``False``): When ``True`` and the compressed file contains one folder containing all the contents,
+      it will strip the root folder moving all its contents to the root. E.g: *mylib-1.2.8/main.c* will be extracted as *main.c*. If the compressed
+      file contains more than one folder or only a file it will raise a ``ConanException``.
 
 .. _tools_get_env:
 
@@ -389,7 +399,7 @@ Retrieves a file from a given URL into a file with a given filename. It uses cer
 downloads, but this can be optionally disabled.
 
 You can pass hash checking parameters: ``md5``, ``sha1``, ``sha256``. All the specified algorithms will be checked.
-If any of them doesn't match, it will raise a ``ConanException``.
+If any of them doesn't match, the downloaded file will be removed and it will raise a ``ConanException``.
 
 .. code-block:: python
 
@@ -1585,6 +1595,8 @@ tools.apple_sdk_name()
     def apple_sdk_name(settings)
 
 Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
+If ``self.settings.os.sdk`` setting is defined, it is used, otherwise the function tries to auto-detect based on 
+``self.settings.os`` and ``self.settings.arch``.
 
 Parameters:
     - **settings** (Required): Conanfile settings.
@@ -1613,13 +1625,16 @@ tools.apple_deployment_target_flag()
 
 .. code-block:: python
 
-    def apple_deployment_target_flag(os_, os_version)
+    def apple_deployment_target_flag(os_, os_version, os_sdk=None, os_subsystem=None, arch=None)
 
 Compiler flag name which controls deployment target. For example: ``-mappletvos-version-min=9.0``
 
 Parameters:
     - **os_** (Required): OS of the settings. Usually ``self.settings.os``.
-    - **os_version** (Required): OS version.
+    - **os_version** (Required): OS version. Usually ``self.settings.os.version``.
+    - **os_sdk** (Optional, Defaulted to ``None``): OS SDK. Usually ``self.settings.os.sdk``. Otherwise, check :command:`xcodebuild -sdk -version`. for available SDKs.
+    - **os_subsystem** Optional, Defaulted to ``None``): OS sybsystem. Usually ``self.settings.os.subsystem``. The only subsystem supported right now is Catalyst.
+    - **arch** (Optional, Defaulted to ``None``): Architecture of the settings. Usually ``self.settings.arch``.
 
 .. _tools_xcrun:
 

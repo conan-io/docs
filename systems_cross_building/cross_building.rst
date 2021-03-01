@@ -33,7 +33,7 @@ Depending on the values of these platforms, there are different scenarios:
   a cross compiler running in the build platform that generates binaries for the host platform.
 
 
-The ``target`` platform plays and important role when compiling a cross compiler, in that scenario
+The ``target`` platform plays an important role when compiling a cross compiler, in that scenario
 the ``target`` is the platform the compiler will generate binaries for: in order to be a cross compiler
 the ``host`` platform (where the cross compiler will run) has to be different from the ``target`` platform.
 If the ``build`` platform is also different, it is called **Canadian Cross**.
@@ -551,107 +551,53 @@ Download the Android NDK `here <https://developer.android.com/ndk/downloads>`_ a
 
     If you are in Windows the process will be almost the same, but unzip the file in the root folder of your hard disk (``C:\``) to avoid issues with path lengths.
 
-Now you have to build a `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_.
-We are going to target the "arm" architecture and the Android API level 21. Change the ``--install-dir`` to any other place that works
-for you:
-
-.. code-block:: bash
-
-   $ cd build/tools
-   $ python make_standalone_toolchain.py --arch=arm --api=21 --stl=libc++ --install-dir=/myfolder/arm_21_toolchain
-
-
 .. note::
 
-    You can generate the standalone toolchain with several different options to target different architectures, API levels etc.
-
-    Check the Android docs: `standalone toolchain <https://developer.android.com/ndk/guides/standalone_toolchain>`_
-
+    If you are using `Android Studio <https://developer.android.com/studio>`_, you may use already available Android NDK
 
 To use the ``clang`` compiler, create a profile ``android_21_arm_clang``. Once again, the profile is very similar to the
 RPI one:
 
 .. code-block:: text
 
-    standalone_toolchain=/myfolder/arm_21_toolchain # Adjust this path
-    target_host=arm-linux-androideabi
-    cc_compiler=clang
-    cxx_compiler=clang++
-
+    include(default)
+    target_host=aarch64-linux-android
+    android_ndk=/Users/sse4/Library/Android/sdk/ndk-bundle  # Adjust this path
+    api_level=21
     [settings]
+    arch=armv8
+    build_type=Release
     compiler=clang
-    compiler.version=5.0
     compiler.libcxx=libc++
+    compiler.version=9
     os=Android
-    os.api_level=21
-    arch=armv7
-    build_type=Release
-
+    os.api_level=$api_level
+    [build_requires]
+    [options]
     [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain
-    CONAN_CMAKE_SYSROOT=$standalone_toolchain/sysroot
-    PATH=[$standalone_toolchain/bin]
+    PATH=[$android_ndk/toolchains/llvm/prebuilt/darwin-x86_64/bin]  # Adjust this path
     CHOST=$target_host
     AR=$target_host-ar
     AS=$target_host-as
     RANLIB=$target_host-ranlib
-    CC=$target_host-$cc_compiler
-    CXX=$target_host-$cxx_compiler
+    CC=$target_host$api_level-clang
+    CXX=$target_host$api_level-clang++
     LD=$target_host-ld
     STRIP=$target_host-strip
-    CFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
-    CXXFLAGS= -fPIE -fPIC -I$standalone_toolchain/include/c++/4.9.x
-    LDFLAGS= -pie
+    CONAN_CMAKE_TOOLCHAIN_FILE=$android_ndk/build/cmake/android.toolchain.cmake
 
-
-You could also use ``gcc`` using this profile ``arm_21_toolchain_gcc``, changing the ``cc_compiler`` and
-``cxx_compiler`` variables, removing ``-fPIE`` flag and, of course, changing the ``[settings]`` to
-match the gcc toolchain compiler:
-
-
-.. code-block:: text
-
-    standalone_toolchain=/myfolder/arm_21_toolchain
-    target_host=arm-linux-androideabi
-    cc_compiler=gcc
-    cxx_compiler=g++
-
-    [settings]
-    compiler=gcc
-    compiler.version=4.9
-    compiler.libcxx=libstdc++
-    os=Android
-    os.api_level=21
-    arch=armv7
-    build_type=Release
-
-    [env]
-    CONAN_CMAKE_FIND_ROOT_PATH=$standalone_toolchain
-    CONAN_CMAKE_SYSROOT=$standalone_toolchain/sysroot
-    PATH=[$standalone_toolchain/bin]
-    CHOST=$target_host
-    AR=$target_host-ar
-    AS=$target_host-as
-    RANLIB=$target_host-ranlib
-    CC=$target_host-$cc_compiler
-    CXX=$target_host-$cxx_compiler
-    LD=$target_host-ld
-    STRIP=$target_host-strip
-    CFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
-    CXXFLAGS= -fPIC -I$standalone_toolchain/include/c++/4.9.x
-    LDFLAGS=
 
 - Clone, for example, the zlib library to try to build it to Android
 
 .. code-block:: bash
 
-    git clone https://github.com/conan-community/conan-zlib.git
+    git clone https://github.com/conan-io/conan-center-index.git
 
 - Call :command:`conan create` using the created profile.
 
 .. code-block:: bash
 
-    $ cd conan-zlib && conan create . --profile=../android_21_arm_clang
+    $ cd conan-center-index/recipes/zlib/1.2.11 && conan create . 1.2.11@ -pr:h ../android_21_arm_clang -pr:b default
 
     ...
     -- Build files have been written to: /tmp/conan-zlib/test_package/build/ba0b9dbae0576b9a23ce7005180b00e4fdef1198
@@ -677,7 +623,7 @@ integration section<darwin_toolchain>` in the documentation.
     - Check the :ref:`Creating conan packages to install dev tools<create_installer_packages>` to learn
       more about how to create Conan packages for tools.
 
-    - Check the `mingw-installer <https://github.com/conan-community/conan-mingw-installer/blob/master/conanfile.py>`_ build require recipe as an example of packaging a compiler.
+    - Check the `msys2 <https://github.com/conan-io/conan-center-index/blob/master/recipes/msys2/all/conanfile.py>`_ build require recipe as an example of packaging a compiler.
 
 
 

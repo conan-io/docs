@@ -4,37 +4,37 @@ import subprocess
 import sys
 
 folder = {
+    "install": "consumer",
     "config": "consumer",
     "get": "consumer",
     "info": "consumer",
-    "install": "consumer",
     "search": "consumer",
 
-    "create": "creator",
-    "export-pkg": "creator",
-    "export": "creator",
     "new": "creator",
-    "test": "creator",
+    "create": "creator",
     "upload": "creator",
+    "export": "creator",
+    "export-pkg": "creator",
+    "test": "creator",
 
+    "source": "development",
     "build": "development",
     "package": "development",
-    "source": "development",
     "editable": "development",
     "workspace": "development",
 
 
-    "alias": "misc",
-    "copy": "misc",
-    "download": "misc",
-    "help": "misc",
-    "imports": "misc",
-    "inspect": "misc",
     "profile": "misc",
     "remote": "misc",
-    "remove": "misc",
     "user": "misc",
-    "graph": "misc",
+    "imports": "misc",
+    "copy": "misc",
+    "remove": "misc",
+    "alias": "misc",
+    "download": "misc",
+    "inspect": "misc",
+    "help": "misc",
+    "lock": "misc",
 }
 
 experimental = ["inspect"]

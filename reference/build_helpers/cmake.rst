@@ -271,7 +271,7 @@ ones:
         def build(self):
             cmake = CMake(self)
             cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
-            cmake.definitions["MY_CUSTOM_DEFINITION"] = True
+            cmake.definitions["MY_CUSTOM_DEFINITION"] = "OFF"
             cmake.configure()
             cmake.build()
             cmake.install()  # Build --target=install
@@ -442,34 +442,34 @@ The following example of ``conanfile.py`` shows you how to manage a project with
     from conans import ConanFile, CMake
 
     class SomePackage(ConanFile):
-        name = "SomePackage"
+        name = "somepkg"
         version = "1.0.0"
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
 
-    def configure_cmake(self):
-        cmake = CMake(self)
+        def configure_cmake(self):
+            cmake = CMake(self)
 
-        # put definitions here so that they are re-used in cmake between
-        # build() and package()
-        cmake.definitions["SOME_DEFINITION_NAME"] = "On"
+            # put definitions here so that they are re-used in cmake between
+            # build() and package()
+            cmake.definitions["SOME_DEFINITION_NAME"] = "On"
 
-        cmake.configure()
-        return cmake
+            cmake.configure()
+            return cmake
 
-    def build(self):
-        cmake = self.configure_cmake()
-        cmake.build()
+        def build(self):
+            cmake = self.configure_cmake()
+            cmake.build()
 
-        # run unit tests after the build
-        cmake.test()
+            # run unit tests after the build
+            cmake.test()
 
-        # run custom make command
-        self.run("make -j3 check)
+            # run custom make command
+            self.run("make -j3 check)
 
-    def package(self):
-        cmake = self.configure_cmake()
-        cmake.install()
+        def package(self):
+            cmake = self.configure_cmake()
+            cmake.install()
 
 Default used generators
 -----------------------
