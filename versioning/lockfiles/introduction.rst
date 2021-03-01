@@ -27,7 +27,7 @@ Locking dependencies
 
 This example uses ``full_version_mode``, that is, if a package changes any part of its version, its consumers will
 need to build a new binary because a new ``package_id`` will be computed. This example will use version ranges, and
-it is not necessary to have revisions enabled. It also do not require a server, everything can be reproduced locally.
+it is not necessary to have revisions enabled. It also does not require a server, everything can be reproduced locally.
 
 
 .. code-block:: bash
