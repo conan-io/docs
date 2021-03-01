@@ -90,6 +90,7 @@ conan_global_flags()
 ++++++++++++++++++++
 
 Set the corresponding variables to CMake's ``include_directories()`` and ``link_directories()``.
+You can enable the variable `CONAN_SYSTEM_INCLUDES` in order to get directories included with the `SYSTEM` option.
 
 conan_define_targets()
 ++++++++++++++++++++++
