@@ -398,8 +398,6 @@ recipe has requirements, you can access to your requirements ``user_info`` using
         jars = self.deps_user_info["pkg"].jars
         jar_list = jars.replace(" ", "").split(",")
 
-.. _method_configure_config_options:
-
 
 set_name(), set_version()
 --------------------------
@@ -448,6 +446,9 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
+
+
+.. _method_configure_config_options:
 
 
 configure(), config_options()
@@ -500,6 +501,9 @@ can be done:
 This will be executed before the actual assignment of ``options`` (then, such ``options`` values cannot be used inside this function), so
 the command :command:`conan install -o pkg:shared=True` will raise an exception in Windows saying that ``shared`` is not an option for such
 package.
+
+These methods can also be used to assign values to options as seen in :ref:`conanfile_options`. Values assigned
+in the ``configure()`` method cannot be overriden, while values assigned in ``config_options()`` can.
 
 .. _invalid_configuration:
 
