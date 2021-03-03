@@ -61,8 +61,8 @@ Inspecting the resulting lockfile bundle file, we can see it is a json file with
 
     "lock_bundle": {
         "app1/1.1@#584778f98ba1d0eb7c80a5ae1fe12fe2": {
-            "package_id": {
-                "3bcd6800847f779e0883ee91b411aad9ddd8e83c": {
+            "packages": [{
+                    "package_id": "3bcd6800847f779e0883ee91b411aad9ddd8e83c": ,
                     "lockfiles": {
                         "app1_windows.lock": [
                             "1"
@@ -70,8 +70,8 @@ Inspecting the resulting lockfile bundle file, we can see it is a json file with
                     },
                     "prev": null,
                     "modified": null
-                },
-                "60fbb0a22359b4888f7ecad69bcdfcd6e70e2784": {
+                }, {
+                    "package_id": "60fbb0a22359b4888f7ecad69bcdfcd6e70e2784",
                     "lockfiles": {
                         "app1_linux.lock": [
                             "1"
@@ -80,11 +80,12 @@ Inspecting the resulting lockfile bundle file, we can see it is a json file with
                     "prev": null,
                     "modified": null
                 }
-            },
+            ],
             "requires": [
                 "pkgb/0.1@#cd8f22d6f264f65398d8c534046e8e20"
             ]
-        },
+        }
+    }
 
 The bundle groups items per "recipe reference", included the recipe revision, like ``app1/1.1@#584778f98ba1d0eb7c80a5ae1fe12fe2``.
 For each one, it will list all different binaries, identified by their ``package_id`` that are involved in the different
@@ -104,8 +105,8 @@ The interesting part is in the ``pkga/0.1`` information in the bundle:
 .. code:: json
 
     "pkga/0.1@#f096d7d54098b7ad7012f9435d9c33f3": {
-        "package_id": {
-            "3475bd55b91ae904ac96fde0f106a136ab951a5e": {
+        "packages": [{
+                "package_id": "3475bd55b91ae904ac96fde0f106a136ab951a5e",
                 "lockfiles": {
                     "app1_windows.lock": [
                         "3"
@@ -116,7 +117,10 @@ The interesting part is in the ``pkga/0.1`` information in the bundle:
                 },
                 "prev": null,
                 "modified": null
-            },
+            }
+        ]
+    }
+
 
 Now we can see that for one ``package_id`` there are actually 2 different lockfiles that require it. Both ``app1`` and ``app2``
 depend in this case on ``pkga/0.1``.
