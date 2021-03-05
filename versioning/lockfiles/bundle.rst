@@ -62,7 +62,7 @@ Inspecting the resulting lockfile bundle file, we can see it is a json file with
     "lock_bundle": {
         "app1/1.1@#584778f98ba1d0eb7c80a5ae1fe12fe2": {
             "packages": [{
-                    "package_id": "3bcd6800847f779e0883ee91b411aad9ddd8e83c": ,
+                    "package_id": "3bcd6800847f779e0883ee91b411aad9ddd8e83c" ,
                     "lockfiles": {
                         "app1_windows.lock": [
                             "1"
