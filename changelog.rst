@@ -21,6 +21,13 @@ Check https://github.com/conan-io/conan for issues and more details about develo
     Conan 1.34 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.34.1 (10-Mar-2021)
+--------------------
+
+- Fix: Allow ``cmake_find_package_multi`` and ``CMakeDeps`` to be aliases for ``cpp_info.names`` and ``cpp_info.filenames`` to allow easy migration. `#8568 <https://github.com/conan-io/conan/pull/8568>`_
+- Bugfix: Restoring the behavior that `exports` and `exports_sources` were case sensitive by default. `#8621 <https://github.com/conan-io/conan/pull/8621>`_
+- BugFix: Solved issues with already existing packages appearing in ``conan lock bundle build-order``. `#8579 <https://github.com/conan-io/conan/pull/8579>`_
+
 1.34.0 (26-Feb-2021)
 --------------------
 
