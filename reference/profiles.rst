@@ -106,7 +106,8 @@ environment variables for some specific package:
 
 Your build tool will locate **clang** compiler only for the **zlib** package and **gcc** (default one) for the rest of your dependency tree.
 
-They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use clang 3.5 as compiler, and gcc otherwise:
+They accept patterns too, like ``-s *@myuser/*``, which means that packages that have the username "myuser" will use clang 3.5 as compiler, and gcc otherwise.
+The same is true for options, and environment variables:
 
 .. code-block:: text
 
@@ -117,7 +118,14 @@ They accept patterns too, like ``-s *@myuser/*``, which means that packages that
     compiler=gcc
     compiler.version=4.9
     compiler.libcxx=libstdc++11
-
+    [options]
+    *@myuser/*:shared=False
+    *:shared=True
+    [env]
+    *@myuser/*:CC=/usr/bin/clang
+    *@myuser/*:CXX=/usr/bin/clang++
+    CC=/usr/bin/gcc
+    CXX=/usr/bin/g++
 
 .. note::
 
