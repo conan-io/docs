@@ -443,6 +443,14 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
             git = tools.Git(folder=self.recipe_folder)
             self.version = "%s_%s" % (git.get_branch(), git.get_revision())
 
+
+.. warning::
+
+    The ``set_name()`` and ``set_version()`` methods are alternatives to the ``name`` and ``version`` attributes. It is
+    not advised or supported to define both a ``name`` attribute and a ``set_name()`` method.  Likewise, it is 
+    not advised or supported to define both a ``version`` attribute and a ``set_version()`` method. If you define both,
+    you may experience unexpected behavior.
+
 .. seealso::
 
     See more examples :ref:`in this howto <capture_version>`.
