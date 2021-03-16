@@ -448,7 +448,7 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
 
     The ``set_name()`` and ``set_version()`` methods are alternatives to the ``name`` and ``version`` attributes. It is
     not advised or supported to define both a ``name`` attribute and a ``set_name()`` method.  Likewise, it is 
-    not advised or supported to define both a ``version`` attribute and a ``set_setversion()`` method. If you define both,
+    not advised or supported to define both a ``version`` attribute and a ``set_version()`` method. If you define both,
     you may experience unexpected behavior.
 
 .. seealso::
