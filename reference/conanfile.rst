@@ -23,4 +23,5 @@ Contents:
 
    conanfile/attributes
    conanfile/methods
+   conanfile/tools
    conanfile/other

@@ -4,7 +4,7 @@ Creating conan packages to install dev tools
 ============================================
 
 One of the most useful features of Conan is to package executables like compilers or build tools and
-distribute them in a controlled way to the team of developers. This way Conan helps not only with the 
+distribute them in a controlled way to the team of developers. This way Conan helps not only with the
 graph of dependencies of the application itself, but also with all the ecosystem needed to generate the
 project, making it really easy to control everything involved in the deployed application.
 
@@ -38,7 +38,7 @@ the ``nasm`` tool for building assembler:
        name = "nasm"
        version = "2.13.02"
        license = "BSD-2-Clause"
-       url = "https://github.com/conan-community/conan-nasm-installer"
+       url = "https://github.com/conan-io/conan-center-index"
        settings = "os", "arch"
        description="Nasm for windows. Useful as a build_require."
 
@@ -91,9 +91,9 @@ Using the tool packages in other recipes
 These kind of tools are not usually part of the application graph itself, they are needed only to build the library, so
 you should usually declare them as :ref:`build requirements <build_requires>`, in the recipe itself or in a profile.
 
-For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like 
+For example, there are many recipes that can take advantage of the ``nasm`` package we've seen above, like
 `flac <https://conan.io/center/flac?tab=recipe>`_ or `libx264 <https://conan.io/center/libx264?tab=recipe>`_
-that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm`` 
+that are already available in `ConanCenter <https://conan.io/center/>`_. Those recipes will take advantage of ``nasm``
 being in the PATH to run some assembly optimizations.
 
 
@@ -107,7 +107,7 @@ being in the PATH to run some assembly optimizations.
 
         def build(self):
             ... # ``nasm.exe`` will be in the PATH here
-        
+
         def package_info(self):
             self.cpp_info.libs = [...]
 
@@ -126,7 +126,7 @@ of adding the required paths to the corresponding environment variables:
 
 Here we are telling Conan to create the package for the ``libx264`` for the ``host`` platform defined
 in the profile ``profile_host`` file and to use the profile ``windows`` for all the build requirements
-that are in the ``build`` context. In other words: in this example we are running a Windows machine 
+that are in the ``build`` context. In other words: in this example we are running a Windows machine
 and we need a version of ``nasm`` compatible with this machine, so we are providing a ``windows`` profile
 for the ``build`` context, and we are generating the library for the ``host`` platform which is declared
 in the ``profile_host`` profile (read more about :ref:`build requires context <build_requires_context>`).
@@ -195,7 +195,7 @@ For example: Working in Windows with the ``nasm`` package we've already defined:
 
        > NASM version 2.13.02 compiled on Dec 18 2019
 
-       
+
 #. You can deactivate the virtual environment with the *deactivate.bat* script
 
    .. code-block:: bash

@@ -8,7 +8,7 @@ When you install or create a package you might have error like the following one
 
 .. code-block:: text
 
-    ERROR: The recipe is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
+    ERROR: The recipe wtl/10.0.9163 is constraining settings. Invalid setting 'Linux' is not a valid 'settings.os' value.
     Possible values are ['Windows']
     Read "http://docs.conan.io/en/latest/faq/troubleshooting.html#error-the-recipe-is-contraining-settings"
 
@@ -208,12 +208,59 @@ When installing a package which is already installed, but using a different case
 
         [...]
         ERROR: Failed requirement 'openssl/1.0.2t' from 'poco/1.10.1@'
-        ERROR: Requested 'openssl/1.0.2t' but found case incompatible 'OpenSSL'
-        Case insensitive filesystem can not manage this
+        ERROR: Requested 'openssl/1.0.2t', but found case incompatible recipe with name 'OpenSSL' in the cache. Case insensitive filesystem can not manage this
+        Remove existing recipe 'OpenSSL' and try again.
 
-The package ``OpenSSL/x.y.z@conan/stable`` is already installed. To solve this problem the different package with the same name
-must be removed:
+You can find and use recipes with upper and lower case names (we encourage lowercase variants), but some OSs like
+Windows are case insensitive by default, they cannot store at the same time both variants in the Conan cache. To
+solve this problem you need to remove existing upper case variant ``OpenSSL``:
 
 .. code-block:: bash
 
     $ conan remove "OpenSSL/*"
+
+
+ERROR: Incompatible requirements obtained in different evaluations of 'requirements'
+------------------------------------------------------------------------------------
+
+When two different packages require the same package as a dependency, but with different versions, will result in the following error:
+.. code-block:: bash
+
+    $ cat conanfile.txt
+
+    [requires]
+    baz/1.0.0
+    foobar/1.0.0
+
+    $ conan install conanfile.txt
+
+        [...]
+        WARN: foobar/1.0.0: requirement foo/1.3.0 overridden by baz/1.0.0 to foo/1.0.0
+        ERROR: baz/1.0.0: Incompatible requirements obtained in different evaluations of 'requirements'
+        Previous requirements: [foo/1.0.0]
+        New requirements: [foo/1.3.0]
+
+As we can see in the following situation: the ``conanfile.txt`` requires 2 packages (``baz/1.0.0`` and ``foobar/1.0.0``) which
+both require the package named ``foo``. However, ``baz`` requires ``foo/1.0.0``, but ``foobar`` requires ``foo/1.3.0``.
+As the required versions are different, it's considered a conflict and Conan will not solve it.
+
+To solve this kind of collision, you have to choose a version for ``foo`` and add it to the ``conanfile.txt`` as an explicit
+requirement:
+
+.. code-block:: text
+
+    [requires]
+    foo/1.3.0
+    baz/1.0.0
+    foobar/1.0.0
+
+Here we choose ``foo/1.3.0`` because is newer. Now we can proceed:
+
+.. code-block:: bash
+
+    $ conan install conanfile.txt
+
+        [...]
+        WARN: baz/1.0.0: requirement foo/1.0.0 overridden by foobar/1.0.0 to foo/1.3.0
+
+Conan still warns us about the conflict, but as we have [overridden](docs.conan.io/en/latest/versioning/introduction.html?#dependencies-overriding) the ``foo`` version, it's no longer an error.

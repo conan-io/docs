@@ -123,13 +123,13 @@ Using the `deploy` generator
 The :ref:`deploy generator <deploy_generator>` is used to have all the dependencies of an application copied into a single place. Then all
 the files can be repackaged into the distribution format of choice.
 
-For instance, if the application depends on boost, we may not know that it also requires many other 3rt-party libraries, 
-such as 
-`zlib <https://zlib.net/>`_, 
-`bzip2 <https://sourceware.org/bzip2/>`_, 
-`lzma <https://tukaani.org/xz/>`_, 
-`zstd <https://facebook.github.io/zstd/>`_, 
-`iconv <https://www.gnu.org/software/libiconv/>`_, etc. 
+For instance, if the application depends on boost, we may not know that it also requires many other 3rt-party libraries,
+such as
+`zlib <https://zlib.net/>`_,
+`bzip2 <https://sourceware.org/bzip2/>`_,
+`lzma <https://tukaani.org/xz/>`_,
+`zstd <https://facebook.github.io/zstd/>`_,
+`iconv <https://www.gnu.org/software/libiconv/>`_, etc.
 
 .. code-block:: bash
 
@@ -180,7 +180,7 @@ appropriate format for distribution. The following code shows how to read the li
 While with the `deploy` generator, all the files were copied into a folder. The advantage with the `json` one is that you have fine-grained
 control over the files and those can be directly copied to the desired layout.
 
-In that sense, the script above could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries, 
+In that sense, the script above could be easily modified to apply some sort of filtering (e.g. to copy only shared libraries,
 and omit any static libraries or auxiliary files such as pkg-config .pc files).
 
 Additionally, you could also write a simple startup script for your application with the extracted information like this:
@@ -213,14 +213,14 @@ Running from packages
 
 If a dependency has an executable that we want to run in the conanfile, it can be done directly in code
 using the ``run_environment=True`` argument. It internally uses a ``RunEnvironment()`` helper.
-For example, if we want to execute the :command:`greet` app while building the ``Consumer`` package:
+For example, if we want to execute the :command:`greet` app while building the ``consumer`` package:
 
 .. code-block:: python
 
     from conans import ConanFile, tools, RunEnvironment
 
     class ConsumerConan(ConanFile):
-        name = "Consumer"
+        name = "consumer"
         version = "0.1"
         settings = "os", "compiler", "build_type", "arch"
         requires = "hello/0.1@user/testing"
@@ -242,10 +242,10 @@ Instead of using the environment, it is also possible to explicitly access the p
 .. code-block:: python
 
     def build(self):
-        path = os.path.join(self.deps_cpp_info["Hello"].rootpath, "bin")
+        path = os.path.join(self.deps_cpp_info["hello"].rootpath, "bin")
         self.run(["%s/greet" % path])
 
-Note that this might not be enough if shared libraries exist. Using the ``run_environment=True`` helper above 
+Note that this might not be enough if shared libraries exist. Using the ``run_environment=True`` helper above
 is a more complete solution.
 
 This example also demonstrates using a list to specify the command to run. This bypasses the system shell and
@@ -274,7 +274,7 @@ The consumer package is simple, as the ``PATH`` environment variable contains th
 
 
 Read the :ref:`next section <create_installer_packages>` for a more comprenhensive explanation about using
-packaged executables in your recipe methods. 
+packaged executables in your recipe methods.
 
 
 .. _repackage:
@@ -352,7 +352,7 @@ Glibc is not a just C standard library, as it provides:
 - BSD functions (like BSD sockets).
 - Wrappers for OS-specific APIs (like Linux system calls)
 
-Even if your application doesn't use directly any of these functions, they are often used by other libraries, 
+Even if your application doesn't use directly any of these functions, they are often used by other libraries,
 so, in practice, it's almost always in actual use.
 
 There are other implementations of the C standard library that present the same challenge, such as
@@ -400,7 +400,7 @@ Similarly to the standard C library `glibc`, running the application linked with
     /hello: /usr/lib64/libstdc++.so.6: version 'GLIBCXX_3.4.21' not found (required by /hello)
     /hello: /usr/lib64/libstdc++.so.6: version 'GLIBCXX_3.4.26' not found (required by /hello)
 
-Fortunately, this is much easier to address by just adding ``-static-libstdc++`` compiler flag. Unlike C runtime, C++ runtime can be 
+Fortunately, this is much easier to address by just adding ``-static-libstdc++`` compiler flag. Unlike C runtime, C++ runtime can be
 linked statically safely, because it doesn't use system calls directly, but instead relies on ``libc`` to provide required wrappers.
 
 Compiler runtime
@@ -415,9 +415,9 @@ referenced directly in code and are mostly implicitly inserted by the compiler i
     $ ldd ./a.out
     libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f6626aee000)
 
-you can avoid this kind of dependency by the using of the ``-static-libgcc`` compiler flag. However, it's not always sane thing to do, as 
-there are certain situations when applications should use shared runtime. The most common is when the application wishes to throw and catch 
-exceptions across different shared libraries. Check out the `GCC manual <https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html>`_ for the 
+you can avoid this kind of dependency by the using of the ``-static-libgcc`` compiler flag. However, it's not always sane thing to do, as
+there are certain situations when applications should use shared runtime. The most common is when the application wishes to throw and catch
+exceptions across different shared libraries. Check out the `GCC manual <https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html>`_ for the
 detailed information.
 
 System API (system calls)
@@ -430,5 +430,5 @@ provided by ``glibc``).
 As a result, if the application was compiled on a machine with a newer kernel and build system used to auto-detect available system calls,
 it may fail to execute properly on machines with older kernels.
 
-The solution is to either use a build machine with lowest supported kernel, or model supported operation system (just like in case of ``glibc``). 
+The solution is to either use a build machine with lowest supported kernel, or model supported operation system (just like in case of ``glibc``).
 Check out sections :ref:`add_new_settings` and :ref:`add_new_sub_settings` to get a piece of information on how to model distribution in conan settings.

@@ -13,7 +13,8 @@ conan create
     $ conan create [-h] [-j JSON] [-k] [-kb] [-ne] [-tbf TEST_BUILD_FOLDER]
                    [-tf TEST_FOLDER] [--ignore-dirty] [-m [MANIFESTS]]
                    [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]] [-b [BUILD]]
-                   [-r REMOTE] [-u] [-l [LOCKFILE]] [-e ENV_HOST]
+                   [-r REMOTE] [-u] [-l LOCKFILE]
+                   [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
                    [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
                    [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
                    [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
@@ -99,9 +100,10 @@ to know more about 'test_folder' project.
                             that satisfies the range. Also, if using revisions, it
                             will update to the latest revision for the resolved
                             version range.
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       -e ENV_HOST, --env ENV_HOST
                             Environment variables that will be set during the
                             package build (host machine). e.g.: -e

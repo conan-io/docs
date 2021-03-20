@@ -59,8 +59,8 @@ Parameters:
     - **cmake_system_name** (Optional, Defaulted to ``True``): Specify a custom value for ``CMAKE_SYSTEM_NAME`` instead of autodetect it.
     - **parallel** (Optional, Defaulted to ``True``): If ``True``, will append the `-jN` attribute for parallel building being N the :ref:`cpu_count()<tools_cpu_count>`.
       Also applies to parallel test execution (by defining ``CTEST_PARALLEL_LEVEL`` environment variable).
-    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings. 
-      Note that ``CMAKE_BUILD_TYPE`` will not be declared when using CMake multi-configuration generators such as 
+    - **build_type** (Optional, Defaulted to ``None``): Force the build type instead of taking the value from the settings.
+      Note that ``CMAKE_BUILD_TYPE`` will not be declared when using CMake multi-configuration generators such as
       Visual Studio or XCode as it will not have effect.
     - **toolset** (Optional, Defaulted to ``None``): Specify a toolset for Visual Studio.
     - **make_program** (Optional, Defaulted to ``None``): Indicate path to ``make``.
@@ -197,6 +197,8 @@ The CMake helper will automatically append some definitions based on your settin
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSTEM_NAME                         | Set to ``self.settings.os`` value if cross-building is detected                                                              |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
+| CMAKE_SYSROOT                             | Defined if CONAN_CMAKE_SYSROOT is defined as environment variable                                                            |
++-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CMAKE_SYSTEM_VERSION                      | Set to ``self.settings.os_version`` value if cross-building is detected                                                      |
 +-------------------------------------------+------------------------------------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_CXX_EXTENSIONS                | Set to ``ON`` or ``OFF`` value when GNU extensions for the given C++ standard are enabled                                    |
@@ -269,7 +271,7 @@ ones:
         def build(self):
             cmake = CMake(self)
             cmake.definitions["CMAKE_SYSTEM_NAME"] = "Generic"
-            cmake.definitions["MY_CUSTOM_DEFINITION"] = True
+            cmake.definitions["MY_CUSTOM_DEFINITION"] = "OFF"
             cmake.configure()
             cmake.build()
             cmake.install()  # Build --target=install
@@ -440,34 +442,34 @@ The following example of ``conanfile.py`` shows you how to manage a project with
     from conans import ConanFile, CMake
 
     class SomePackage(ConanFile):
-        name = "SomePackage"
+        name = "somepkg"
         version = "1.0.0"
         settings = "os", "compiler", "build_type", "arch"
         generators = "cmake"
 
-    def configure_cmake(self):
-        cmake = CMake(self)
+        def configure_cmake(self):
+            cmake = CMake(self)
 
-        # put definitions here so that they are re-used in cmake between
-        # build() and package()
-        cmake.definitions["SOME_DEFINITION_NAME"] = "On"
+            # put definitions here so that they are re-used in cmake between
+            # build() and package()
+            cmake.definitions["SOME_DEFINITION_NAME"] = "On"
 
-        cmake.configure()
-        return cmake
+            cmake.configure()
+            return cmake
 
-    def build(self):
-        cmake = self.configure_cmake()
-        cmake.build()
+        def build(self):
+            cmake = self.configure_cmake()
+            cmake.build()
 
-        # run unit tests after the build
-        cmake.test()
+            # run unit tests after the build
+            cmake.test()
 
-        # run custom make command
-        self.run("make -j3 check)
+            # run custom make command
+            self.run("make -j3 check)
 
-    def package(self):
-        cmake = self.configure_cmake()
-        cmake.install()
+        def package(self):
+            cmake = self.configure_cmake()
+            cmake.install()
 
 Default used generators
 -----------------------

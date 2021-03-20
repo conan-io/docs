@@ -9,12 +9,12 @@ conan info
     $ conan info [-h] [--paths] [-bo BUILD_ORDER] [-g GRAPH]
                  [-if INSTALL_FOLDER] [-j [JSON]] [-n ONLY]
                  [--package-filter [PACKAGE_FILTER]] [-db [DRY_BUILD]]
-                 [-b [BUILD]] [-r REMOTE] [-u] [-l [LOCKFILE]] [-e ENV_HOST]
-                 [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
-                 [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
-                 [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
-                 [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
-                 [-s:h SETTINGS_HOST]
+                 [-b [BUILD]] [-r REMOTE] [-u] [-l LOCKFILE]
+                 [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST] [-e:b ENV_BUILD]
+                 [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
+                 [-o:h OPTIONS_HOST] [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                 [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                 [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
                  path_or_reference
 
 Gets information about the dependency graph of a recipe.
@@ -53,8 +53,9 @@ your local cache.
                             written
       -n ONLY, --only ONLY  Show only the specified fields: "id", "build_id",
                             "remote", "url", "license", "requires", "update",
-                            "required", "date", "author", "description", "None". '
-                            --paths' information can also be filtered with options
+                            "required", "date", "author", "description",
+                            "provides", "deprecated", "None". '--paths'
+                            information can also be filtered with options
                             "export_folder", "build_folder", "package_folder",
                             "source_folder". Use '--only None' to show only
                             references.
@@ -75,9 +76,10 @@ your local cache.
                             remotes (a new version that satisfies a version range,
                             a new revision or a newer recipe if not using
                             revisions).
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       -e ENV_HOST, --env ENV_HOST
                             Environment variables that will be set during the
                             package build (host machine). e.g.: -e

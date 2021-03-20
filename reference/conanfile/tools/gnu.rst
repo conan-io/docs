@@ -1,20 +1,21 @@
 .. _make_toolchain:
 
+conan.tools.gnu
+===============
 
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
 MakeToolchain
-==============
+-------------
 
-The `MakeToolchain` can be used in the ``toolchain()`` method of
-``conanfile.py``:
-
+The `MakeToolchain` can be used in the ``generate()`` method of ``conanfile.py``:
 
 .. code:: python
 
-    from conans import ConanFile, MakeToolchain
+    from conans import ConanFile
+    from conan.tools.gnu import MakeToolchain
 
     class App(ConanFile):
         settings = "os", "arch", "compiler", "build_type"
@@ -22,9 +23,9 @@ The `MakeToolchain` can be used in the ``toolchain()`` method of
         options = {"shared": [True, False], "fPIC": [True, False]}
         default_options = {"shared": False, "fPIC": True}
 
-        def toolchain(self):
-            tc = Make(self)
-            tc.write_toolchain_files()
+        def generate(self):
+            tc = MakeToolchain(self)
+            tc.generate()
 
 
 The ``MakeToolchain`` will generate the following file during ``conan install``
@@ -49,22 +50,22 @@ related to the Conan options and settings for the current package, platform,
 etc. This includes but is not limited to the following:
 
 * Detection of target type: "executable", "shared" or "static"
-  
+
   * Based on existance/value of a option named ``shared``
-  
+
   * Based on result, defines ``-shared`` linker flag
 
 * Detection of ``fPIC``
 
-  * Based on existance/value of a option named ``fPIC``  
-  
-  * Combines with detection of target type above  
-  
-  * Sets ``-fPIC`` flag for compiler  
-  
-  * Sets ``-fPIC`` flag for linker when building shared library  
-  
-  * Sets ``-pie`` flag for linker when building executable  
+  * Based on existance/value of a option named ``fPIC``
+
+  * Combines with detection of target type above
+
+  * Sets ``-fPIC`` flag for compiler
+
+  * Sets ``-fPIC`` flag for linker when building shared library
+
+  * Sets ``-pie`` flag for linker when building executable
 
 * Detection of ``build_type`` from Conan settings
 
@@ -77,7 +78,7 @@ etc. This includes but is not limited to the following:
 * Definition of rpaths based on libpaths in conan cache
 
 **NOTE**: Simply including this file will have no effect on your ``Makefile``
-build. 
+build.
 
 All variables in this file are prefixed with ``CONAN_TC_`` and so existing
 makefiles will robably makes no references to variables with these names. Users
@@ -109,7 +110,7 @@ The relevant content from the GnuMake manual is provided here for convenience:
   linker, ‘ld’. LOADLIBES is a deprecated (but still supported) alternative to
   LDLIBS. Non-library linker flags, such as -L, should go in the LDFLAGS
   variable.
-  
+
 To have the ``CONAN_TC_`` variables appended to these standard GnuMake
 variables, simply add the following function call to your ``Makefile`` somewhere
 after the ``include`` statement:
@@ -130,16 +131,16 @@ items, please provide feedback at: https://github.com/conan-io/conan/issues
 
 
 definitions
------------
++++++++++++
 
 This attribute allows defining preprocessor definitions the same way that build helpers do:
 
 .. code:: python
 
-    def toolchain(self):
+    def generate(self):
         tc = MakeToolchain(self)
-        tc.definitions["MYVAR"] = "MyValue"
-        tc.write_toolchain_files()
+        tc.preprocessor_definitions["MYVAR"] = "MyValue"
+        tc.generate()
 
 This will be translated to:
 
@@ -147,7 +148,7 @@ This will be translated to:
 
 
 generators
-----------
+++++++++++
 
 The ``MakeGenerator`` is being developed in-tandem with this toolchain because
 ideally they would be used in the same recipes and workflows. They have
@@ -157,7 +158,7 @@ independent from each other. Thus, you can use this toolchain without using the
 
 
 Using the toolchain in developer flow
--------------------------------------
++++++++++++++++++++++++++++++++++++++
 
 One of the advantages of using Conan toolchains is that it provides
 exact same "toolchain-related" variables that Conan will have within a recipe's
@@ -172,31 +173,18 @@ feature. Here's an example:
     $ mkdir build && cd build
     # Install both debug and release deps and create the toolchain
     $ conan install ..
-    # Add the following lines to Makefile: 
-    #    -include build/conan_toolchain.mak 
-    #    $(call CONAN_TC_SETUP) 
+    # Add the following lines to Makefile:
+    #    -include build/conan_toolchain.mak
+    #    $(call CONAN_TC_SETUP)
     $ make
 
 **NOTE** As stated previously, this will only have the desired effect if the
-``Makefile`` makes conventional use of the standard variables. 
+``Makefile`` makes conventional use of the standard variables.
 
 We can actually achieve the same goal without modifying the ``Makefile`` at all,
-it simply requires passing a few more parameters to **GnuMake**. 
+it simply requires passing a few more parameters to **GnuMake**.
 
 .. code:: bash
 
     $ conan install ..
     $ make -E='include build/conan_toolchain.mak' -E='$(call CONAN_TC_SETUP)'
-
-
-Autotools Build Helper
-----------------------
-
-This toolchain should not be used together with the existing
-``AutoToolsBuildEnvironment`` build helper in Conan at this time. They perform a
-number of similar and probably conflicting operations on the standard
-**GnuMake** variables. There is a goal to continue adding features to this
-toolchain until is achieves feature parity with ``AutoToolsBuildEnvironment``
-which will take some time. During that process, we'll be trying to determine if
-it's desirable and feasible to make the two co-exist and/or even work together.
-At this time, it's unclear. 

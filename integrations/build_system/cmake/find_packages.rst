@@ -85,5 +85,5 @@ Then repeat for the library names with CONAN_LIBS_XXX and the paths where the li
            self.copy("FindXXX.cmake", ".", ".")
 
 
-.. _`conan's boost package`: https://github.com/conan-community/conan-boost.git
-.. _`conan's zlib package`: https://github.com/conan-community/conan-zlib.git
+.. _`conan's boost package`: https://github.com/conan-io/conan-center-index/tree/master/recipes/boost/all
+.. _`conan's zlib package`: https://github.com/conan-io/conan-center-index/tree/master/recipes/zlib/1.2.11

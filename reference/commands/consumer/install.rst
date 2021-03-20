@@ -9,12 +9,13 @@ conan install
     $ conan install [-h] [-g GENERATOR] [-if INSTALL_FOLDER] [-m [MANIFESTS]]
                     [-mi [MANIFESTS_INTERACTIVE]] [-v [VERIFY]]
                     [--no-imports] [-j JSON] [-b [BUILD]] [-r REMOTE] [-u]
-                    [-l [LOCKFILE]] [-e ENV_HOST] [-e:b ENV_BUILD]
-                    [-e:h ENV_HOST] [-o OPTIONS_HOST] [-o:b OPTIONS_BUILD]
-                    [-o:h OPTIONS_HOST] [-pr PROFILE_HOST]
-                    [-pr:b PROFILE_BUILD] [-pr:h PROFILE_HOST]
-                    [-s SETTINGS_HOST] [-s:b SETTINGS_BUILD]
-                    [-s:h SETTINGS_HOST]
+                    [-l LOCKFILE] [--lockfile-out LOCKFILE_OUT] [-e ENV_HOST]
+                    [-e:b ENV_BUILD] [-e:h ENV_HOST] [-o OPTIONS_HOST]
+                    [-o:b OPTIONS_BUILD] [-o:h OPTIONS_HOST]
+                    [-pr PROFILE_HOST] [-pr:b PROFILE_BUILD]
+                    [-pr:h PROFILE_HOST] [-s SETTINGS_HOST]
+                    [-s:b SETTINGS_BUILD] [-s:h SETTINGS_HOST]
+                    [--lockfile-node-id LOCKFILE_NODE_ID]
                     path_or_reference [reference]
 
 Installs the requirements specified in a recipe (conanfile.py or conanfile.txt).
@@ -93,9 +94,10 @@ generators.
                             that satisfies the range. Also, if using revisions, it
                             will update to the latest revision for the resolved
                             version range.
-      -l [LOCKFILE], --lockfile [LOCKFILE]
-                            Path to a lockfile or folder containing 'conan.lock'
-                            file. Lockfile can be updated if packages change
+      -l LOCKFILE, --lockfile LOCKFILE
+                            Path to a lockfile
+      --lockfile-out LOCKFILE_OUT
+                            Filename of the updated lockfile
       -e ENV_HOST, --env ENV_HOST
                             Environment variables that will be set during the
                             package build (host machine). e.g.: -e
@@ -132,6 +134,8 @@ generators.
       -s:h SETTINGS_HOST, --settings:host SETTINGS_HOST
                             Settings to build the package, overwriting the
                             defaults (host machine). e.g.: -s:h compiler=gcc
+      --lockfile-node-id LOCKFILE_NODE_ID
+                            NodeID of the referenced package in the lockfile
 
 
 :command:`conan install` executes methods of a *conanfile.py* in the following order:
@@ -177,7 +181,7 @@ executes the following:
   .. code-block:: python
 
       class Pkg(ConanFile):
-         name = "mypkg" 
+         name = "mypkg"
          # see, no version defined!
          def requirements(self):
              # this trick allow to depend on packages on your same user/channel
@@ -186,7 +190,7 @@ executes the following:
          def build(self):
              if self.version == "myversion":
                  # something specific for this version of the package.
-            
+
   .. code-block:: bash
 
       $ conan install . myversion@someuser/somechannel
@@ -313,6 +317,24 @@ they should match, otherwise, an error will be raised.
     $ conan install . version@user/testing # OK
     $ conan install . pkg/version@user/testing # OK
     $ conan install pkg/version@user/testing user/channel # Error, first arg is not a path
+
+
+lockfiles
+---------
+
+The ``install`` command accepts several arguments related to :ref:`lockfiles<versioning_lockfiles>`:
+
+- ``--lockfile=<path-to-lockfile>``: The ``conan install ... --lockfile=path/to/file.lock`` command will provide an input
+  lockfile to the command. Versions, revisions, and other data contained in that lockfile will be respected. If something has
+  changed locally that diverges with respect the locked information in the lockfile, the command will fail.
+- ``--lockfile-out=<path-to-lockfile>``: This argument will define the filename of the resulting ``install`` operation. If the
+  input lockfile has not completely locked something, and the install command can, for example, build some dependency from source
+  with the ``--build=<dep-name>`` argument, this will provide new data, like a new package revision. This new data can be captured
+  and locked in the output lockfile.
+- ``--lockfile-node-id=<node-id>``: **Experimental, subject to breaking changes**. In some cases, it is impossible to reference a package
+  in the dependency graph by name or reference, because there might be several instances of it with the same one. This could happen with
+  some special type of requirements, like build-requires or private requires. Providing the ``node-id``, as defined in the lockfile file,
+  can define without any ambiguity the package in the graph that the command is referencing.
 
 
 .. note::

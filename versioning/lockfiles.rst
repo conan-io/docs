@@ -31,6 +31,7 @@ limited to version and revision, must be replicated through :ref:`multiple confi
    lockfiles/configurations
    lockfiles/evolving
    lockfiles/build_order
+   lockfiles/bundle
    lockfiles/ci
 
 Minimal example

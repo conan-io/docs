@@ -117,8 +117,9 @@ Now let's go to the *conan-zlib.mk* that contains the Zlib data:
     CONAN_ZLIB_VERSION = 1.2.11
     CONAN_ZLIB_LICENSE = Zlib
     CONAN_ZLIB_LICENSE_FILES = licenses/LICENSE
-    CONAN_ZLIB_SITE = $(call github,conan-community,conan-zlib,92d34d0024d64a8f307237f211e43ab9952ef0a1)
+    CONAN_ZLIB_SITE = $(call github,conan-io,conan-center-index,134dd3b84d629d27ba3474e01b688e9c0f25b9c8)
     CONAN_ZLIB_REFERENCE = zlib/$(CONAN_ZLIB_VERSION)@
+    CONAN_ZLIB_SUBDIR = recipes/zlib/1.2.11
 
     $(eval $(conan-package))
 
@@ -151,7 +152,7 @@ At the end of the installation it will be copied to the output directory.
 Customizing Conan remote
 ========================
 
-Let's say we have an :ref:`Artifatory <artifactory_ce>` instance where all packages are available
+Let's say we have an :ref:`Artifactory <artifactory_ce>` instance where all packages are available
 for download. How could we customize the remote used by Buildroot? We need to introduce a new
 option, where we can write the remote name and Conan will be able to consume such variable. First
 we need to create a new configuration file to insert new options in Conan's menu:

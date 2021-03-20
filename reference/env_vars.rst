@@ -27,6 +27,8 @@ the :ref:`CMake build tool<cmake_reference>`:
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_SYSTEM_PROCESSOR            | CMAKE_SYSTEM_PROCESSOR                                                                         |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
+| CONAN_CMAKE_SYSROOT                     | CMAKE_SYSROOT                                                                                  |
++-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH              | CMAKE_FIND_ROOT_PATH                                                                           |
 +-----------------------------------------+------------------------------------------------------------------------------------------------+
 | CONAN_CMAKE_FIND_ROOT_PATH_MODE_PROGRAM | CMAKE_FIND_ROOT_PATH_MODE_PROGRAM                                                              |
@@ -698,3 +700,11 @@ This environment variable changes the PyLint behavior from *warning* level to *e
 any inconsistency found in the recipe will break the process during linter analysis.
 
 .. _`Python Logging Levels`: https://docs.python.org/3/library/logging.html#logging-levels
+
+CONAN_KEEP_PYTHON_FILES
+-----------------------
+
+**Defaulted to**: ``False``
+
+This environment variable will allow Python *.pyc* files to be packaged. If not set as ``True``/``1``,
+all the generated *.pyc* files will be filtered when packaging.

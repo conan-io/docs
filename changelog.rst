@@ -18,11 +18,161 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 
 .. important::
 
-    Conan 1.31 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
+    Conan 1.34 shouldn't break any existing 1.0 recipe or command line invocation. If it does, please
     submit a report on GitHub. Read more about the :ref:`Conan stability commitment<stability>`.
 
+1.34.0 (26-Feb-2021)
+--------------------
+
+- Feature: Add `path` and `repository` properties to conan_build_info v2. `#8436 <https://github.com/conan-io/conan/pull/8436>`_
+- Feature: Setting _conan_ as name for `buildAgent` in `conan_build_info`. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
+- Feature: Using actual conan version in version for `buildAgent` in `conan_build_info` instead of 1.X. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
+- Feature: Add `type` _conan_ to Conan build info modules. `#8433 <https://github.com/conan-io/conan/pull/8433>`_
+- Feature: Add ``scm`` output in :command:`conan info` command. `#8380 <https://github.com/conan-io/conan/pull/8380>`_
+- Feature: Forked ``cmake_find_package_multi`` into ``CMakeDeps``, to allow evolution without breaking. `#8371 <https://github.com/conan-io/conan/pull/8371>`_
+- Feature: Use built-in retries in requests lib to retry http requests with _5xx_ response code. `#8352 <https://github.com/conan-io/conan/pull/8352>`_
+- Feature: New lockfile "bundle" feature that can integrate different lockfiles for different configurations and different graphs into a single lockfile bundle that can be used to vastly optimize CI (specially for multiple products), implementing bundle build-order and bundle update operations. `#8344 <https://github.com/conan-io/conan/pull/8344>`_ . Docs `here <https://github.com/conan-io/docs/pull/2030>`__
+- Fix: Renamed generator `QbsToolchain` to `QbsProfile`. `#8537 <https://github.com/conan-io/conan/pull/8537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2027>`__
+- Fix: Renamed default filename of _QbsProfile_ generated file to _conan_toolchain_profile_.qbs. `#8537 <https://github.com/conan-io/conan/pull/8537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2027>`__
+- Fix: Renamed Qbs attribute `use_toolchain_profile` to `profile`. `#8537 <https://github.com/conan-io/conan/pull/8537>`_ . Docs `here <https://github.com/conan-io/docs/pull/2027>`__
+- Fix: Remove extra spaces in flags and colons in path variables. `#8496 <https://github.com/conan-io/conan/pull/8496>`_
+- Fix: `conan_v2_error` if `scm_to_conandata` is not enabled. `#8447 <https://github.com/conan-io/conan/pull/8447>`_
+- Fix: `CONAN_V2_MODE` env-var does not longer alter behavior, only raises errors for Conan 2.0 incompatibilities `#8399 <https://github.com/conan-io/conan/pull/8399>`_ . Docs `here <https://github.com/conan-io/docs/pull/2031>`__
+- Fix: meson : Add target and jobs arguments. `#8384 <https://github.com/conan-io/conan/pull/8384>`_ . Docs `here <https://github.com/conan-io/docs/pull/2011>`__
+- Fix: Set `qbs.targetPlatform` with qbs toolchain. `#8372 <https://github.com/conan-io/conan/pull/8372>`_
+- Fix: Remove warnings for old toolchains imports and ``generate_toolchain_files()`` calls (use new imports and ``generate()`` calls. `#8361 <https://github.com/conan-io/conan/pull/8361>`_
+- BugFix: Improve `tools.unix_path` for Cygwin. `#8509 <https://github.com/conan-io/conan/pull/8509>`_
+- BugFix: Allow `run_in_windows_bash` in MSYS/Cygwin. `#8506 <https://github.com/conan-io/conan/pull/8506>`_
+- BugFix: Add some sanity check to avoid a vague error for custom architectures. `#8502 <https://github.com/conan-io/conan/pull/8502>`_
+- BugFix: Fix Apple M1 detection. `#8501 <https://github.com/conan-io/conan/pull/8501>`_
+- Bugfix: Fix repeated ``build_requires``, including conflicting versions in profile composition or inclusion that repeats ``[build_requires]`` values. `#8463 <https://github.com/conan-io/conan/pull/8463>`_
+- Bugfix: Fixing a `CMakeDeps` bug with components, not finding the _conan_macros.cmake_ file. `#8445 <https://github.com/conan-io/conan/pull/8445>`_
+- Bugfix: Fix exit code for `conan_build_info`. `#8408 <https://github.com/conan-io/conan/pull/8408>`_
+
+1.33.1 (02-Feb-2021)
+--------------------
+
+- Fix: Rename _conan.cfg_ to _global.conf_. `#8422 <https://github.com/conan-io/conan/pull/8422>`_ . Docs `here <https://github.com/conan-io/docs/pull/2008>`__
+- Fix: Make CMakeDeps generator available in declarative mode ``generators = "CMakeDeps"`` `#8416 <https://github.com/conan-io/conan/pull/8416>`_
+- Fix: Make the new Macos subsystem Catalyst lowercase to be consistent with existing subsystems. `#8389 <https://github.com/conan-io/conan/pull/8389>`_ . Docs `here <https://github.com/conan-io/docs/pull/2009>`__
+- BugFix: Fix Apple Catalyst flags. `#8389 <https://github.com/conan-io/conan/pull/8389>`_ . Docs `here <https://github.com/conan-io/docs/pull/2009>`__
+
+1.33.0 (20-Jan-2021)
+--------------------
+
+- Feature: Introducing a new ``[conf]`` section in profiles that allows a more systematic configuration management for recipes and helpers (build helpers, toolchains). Introducing a new ``conan_conf.txt`` cache configuration file that contains configuration definition with the same syntax as in profiles. `#8266 <https://github.com/conan-io/conan/pull/8266>`_ . Docs `here <https://github.com/conan-io/docs/pull/1993>`__
+- Feature: Add Apple Catalyst support (as new os.subsystem) `#8264 <https://github.com/conan-io/conan/pull/8264>`_ . Docs `here <https://github.com/conan-io/docs/pull/1983>`__
+- Feature: Add os.sdk sub-settings for Apple `#8263 <https://github.com/conan-io/conan/pull/8263>`_ . Docs `here <https://github.com/conan-io/docs/pull/1981>`__
+- Feature: Provide support for ``msvc`` compiler in ``MSBuild`` tools `#8238 <https://github.com/conan-io/conan/pull/8238>`_ . Docs `here <https://github.com/conan-io/docs/pull/1991>`__
+- Feature: Specify build modules by the generator in `cpp_info`. Added backwards compatibility for `*.cmake` build modules added at global scope, but not for other file extensions. `#8232 <https://github.com/conan-io/conan/pull/8232>`_ . Docs `here <https://github.com/conan-io/docs/pull/1986>`__
+- Feature: The `tools.get`, `tools.unzip` and `tools.untargz` now accept a new argument `strip_root=True` to unzip moving all the files to the parent folder when all of them belongs to a single folder. `#8208 <https://github.com/conan-io/conan/pull/8208>`_ . Docs `here <https://github.com/conan-io/docs/pull/1967>`__
+- Feature: Add new ``msvc`` compiler setting and preliminary support in ``conan.tools.cmake`` generator and toolchain. `#8201 <https://github.com/conan-io/conan/pull/8201>`_ . Docs `here <https://github.com/conan-io/docs/pull/1991>`__
+- Feature: ``CMakeDeps`` now takes values for configurations from ``settings.yml``. `#8194 <https://github.com/conan-io/conan/pull/8194>`_ . Docs `here <https://github.com/conan-io/docs/pull/1992>`__
+- Feature: Implement ``ConanXXXRootFolder`` in ``MSBuildDeps`` generator. `#8177 <https://github.com/conan-io/conan/pull/8177>`_
+- Feature: Add _Meson_ build helper. `#8147 <https://github.com/conan-io/conan/pull/8147>`_ . Docs `here <https://github.com/conan-io/docs/pull/1980>`__
+- Feature: Add `QbsToolchain` and a Qbs build helper class (currently working for Mcus, not for Android or iOS). `#8125 <https://github.com/conan-io/conan/pull/8125>`_ . Docs `here <https://github.com/conan-io/docs/pull/1978>`__
+- Feature: Add e2k (elbrus) architectures and mcst-lcc compiler `#8032 <https://github.com/conan-io/conan/pull/8032>`_ . Docs `here <https://github.com/conan-io/docs/pull/1982>`__
+- Feature: New ``CMakeDeps`` generator (at the moment is the ``cmake_find_package_multi``, that allows custom configurations, like ``ReleaseShared``. `#8024 <https://github.com/conan-io/conan/pull/8024>`_ . Docs `here <https://github.com/conan-io/docs/pull/1992>`__
+- Feature: Allow ``MSBuildToolchain`` custom configurations in ``generate()`` method. `#7754 <https://github.com/conan-io/conan/pull/7754>`_ . Docs `here <https://github.com/conan-io/docs/pull/1957>`__
+- Fix: Fixed help message in command `conan remove --outdated` with reference or pattern `#8350 <https://github.com/conan-io/conan/pull/8350>`_ . Docs `here <https://github.com/conan-io/docs/pull/1988>`__
+- Fix: Do not define CMAKE_GENERATOR_PLATFORM and CMAKE_GENERATOR_TOOLSET in the ``CMakeToolchain`` file unless the CMake generator is "Visual Studio". Fix https://github.com/conan-io/conan/issues/7485 `#8333 <https://github.com/conan-io/conan/pull/8333>`_
+- Fix: Remove spurious '-find' argument to XCodes xcrun tool. `#8329 <https://github.com/conan-io/conan/pull/8329>`_
+- Fix: Update pylint plugin, some fields are now available in the base `ConanFile`. `#8320 <https://github.com/conan-io/conan/pull/8320>`_
+- Fix: Remove PyJWT deprecation warning by adding explicitly ``algorithms`` argument. `#8267 <https://github.com/conan-io/conan/pull/8267>`_
+- Fix: CMake's generator name for Visual Studio compiler uses only the major version. `#8257 <https://github.com/conan-io/conan/pull/8257>`_
+- Fix: Remove nosetests support, now using pytest for the test suite. `#8253 <https://github.com/conan-io/conan/pull/8253>`_
+- Fix: Remove `CMAKE_PROJECT_INCLUDE` in `CMakeToolchain`, no longer necessary as the MSVC runtime can be defined with a generator expression in the toolchain. `#8251 <https://github.com/conan-io/conan/pull/8251>`_
+- Fix: Temporarily allow ``cmake_paths`` generator for ``CMakeToolchain``, to allow start using the toolchain for users that depend on that generator. `#8230 <https://github.com/conan-io/conan/pull/8230>`_
+- Fix: Let CMake generator generate code for checking against "ClangCL" msvc toolset. `#8218 <https://github.com/conan-io/conan/pull/8218>`_
+- Fix: Include ``build_requires`` in the global ``conandeps.props`` file generated by MSBuildDeps. `#8186 <https://github.com/conan-io/conan/pull/8186>`_
+- Fix: Change `MSBuildDeps` file ``conan_deps.props`` to ``conandeps.props`` to avoid collision with a package named "deps". `#8186 <https://github.com/conan-io/conan/pull/8186>`_
+- Fix: Throw error when the recipe description is not a string. `#8143 <https://github.com/conan-io/conan/pull/8143>`_
+- Fix: Inject build modules after CMake targets are created `#8130 <https://github.com/conan-io/conan/pull/8130>`_ . Docs `here <https://github.com/conan-io/docs/pull/1944>`__
+- Fix: Define ``package_folder`` in the ``test_package`` folder (defaulting to "package"), so the test recipe can execute ``cmake.install()`` in its ``build()`` method. `#8117 <https://github.com/conan-io/conan/pull/8117>`_
+- Fix: Remove the downloaded file if it doesn't satisfy provided checksums (modifies `tools.download`). `#8116 <https://github.com/conan-io/conan/pull/8116>`_ . Docs `here <https://github.com/conan-io/docs/pull/1979>`__
+- Bugfix: Solved ``assert node.package_id != PACKAGE_ID_UNKNOWN`` assertion that happened when using ``build_requires`` that also exist in ``requires``, and using ``package_revision_mode`` and ``full_transitive_package_id=1`` `#8358 <https://github.com/conan-io/conan/pull/8358>`_
+- BugFix: Fix SCM user and password by making them url-encoded `#8355 <https://github.com/conan-io/conan/pull/8355>`_
+- Bugfix: Fix bug in definition of ``ROOT`` variables in ``MakeGenerator``. `#8301 <https://github.com/conan-io/conan/pull/8301>`_
+- BugFix: fix `-j` being passed to _NMake_ in `AutotoolsBuildEnvironment`. `#8285 <https://github.com/conan-io/conan/pull/8285>`_
+- BugFix: Fix per-package settings exact match for packages without user/channel. `#8281 <https://github.com/conan-io/conan/pull/8281>`_
+- BugFix: Fix detected_architecture() for Apple M1, mapping to ``armv8`` (from returned ``arm64``). `#8262 <https://github.com/conan-io/conan/pull/8262>`_
+- Bugfix: Make prompt names unique when using multiple virtualenv scripts in Powershell. `#8228 <https://github.com/conan-io/conan/pull/8228>`_
+- Bugfix: Fix when _conandata.yml_ is empty and `scm_to_conandata` is enabled `#8215 <https://github.com/conan-io/conan/pull/8215>`_
+- Bugfix: Removed a reference to deprecated `FlagsForFile` function in place of current `Settings` function. `#8167 <https://github.com/conan-io/conan/pull/8167>`_
+- Bugfix: Add test for AutoToolsBuildEnvironment on Apple platforms `#8118 <https://github.com/conan-io/conan/pull/8118>`_
+- Bugfix: Change the `rpath_flags` flag to always use the comma separator instead of "=", because the current behaviour causes linker error messages when attempting to cross-compile to Mac OS, and the comma separator is accepted everywhere. `#7716 <https://github.com/conan-io/conan/pull/7716>`_
+
+1.32.1 (15-Dec-2020)
+--------------------
+
+- Bugfix: Avoid conflict of user custom generators names with new generators. `#8183 <https://github.com/conan-io/conan/pull/8183>`_
+- Bugfix: Fix errors when using ``conan info --paths`` and ``short_paths=True`` in Windows, due to creation of empty folders in the short-paths storage. `#8181 <https://github.com/conan-io/conan/pull/8181>`_
+- Bugfix: ``conan new <pkg-name>/version -t`` wrong include when not using ``-s`` (using the hardcoded git repo). `#8175 <https://github.com/conan-io/conan/pull/8175>`_
+- Bugfix: Fix ``excludes`` pattern case-insensitive in non Windows platforms. `#8155 <https://github.com/conan-io/conan/pull/8155>`_
+- Bugfix: Enabling set_name, set_version for lockfile roo not location. `#8151 <https://github.com/conan-io/conan/pull/8151>`_
+
+1.32.0 (03-Dec-2020)
+--------------------
+
+- Feature: Generate `<pkgname>-config.cmake` files for lowercase packages to improve case compatibility. `#8129 <https://github.com/conan-io/conan/pull/8129>`_ . Docs `here <https://github.com/conan-io/docs/pull/1945>`__
+- Feature: Add meson cross-build toolchain. `#8111 <https://github.com/conan-io/conan/pull/8111>`_
+- Feature: Temporary acquire write permissions in `replace_in_file`. `#8107 <https://github.com/conan-io/conan/pull/8107>`_
+- Feature: Update :command:`conan new` to latest guidelines. `#8106 <https://github.com/conan-io/conan/pull/8106>`_
+- Feature: Deprecate experimental ``toolchain()`` in favor of more generic ``generate()`` method. Deprecate toolchains ``write_toolchain_files()`` to new ``generate()`` method. `#8101 <https://github.com/conan-io/conan/pull/8101>`_ . Docs `here <https://github.com/conan-io/docs/pull/1940>`__
+- Feature: Move the ``CMakeToolchain`` and new ``CMake`` experimental helpers to the new ``from conan.tools.cmake`` import. `#8096 <https://github.com/conan-io/conan/pull/8096>`_ . Docs `here <https://github.com/conan-io/docs/pull/1940>`__
+- Feature: Move the ``MSBuildToolchain`` and new ``MSBuild`` experimental helpers to the new ``from conan.tools.microsoft`` import. `#8096 <https://github.com/conan-io/conan/pull/8096>`_ . Docs `here <https://github.com/conan-io/docs/pull/1940>`__
+- Feature: Move the ``MakeToolchain`` experimental helper to the new ``from conan.tools.gnu`` import. `#8096 <https://github.com/conan-io/conan/pull/8096>`_ . Docs `here <https://github.com/conan-io/docs/pull/1940>`__
+- Feature: Add ``conan remote list_ref --no-remote`` to list recipes without a remote defined. `#8094 <https://github.com/conan-io/conan/pull/8094>`_ . Docs `here <https://github.com/conan-io/docs/pull/1936>`__
+- Feature: Add ``conan remote list_pref --no-remote`` to list packages without a remote defined. `#8094 <https://github.com/conan-io/conan/pull/8094>`_ . Docs `here <https://github.com/conan-io/docs/pull/1936>`__
+- Feature: Add ``--lockfile-node-id`` argument to ``conan install --lockfile`` so it can target different packages with same reference (different binary, this can happen with private requirements). `#8077 <https://github.com/conan-io/conan/pull/8077>`_ . Docs `here <https://github.com/conan-io/docs/pull/1938>`__
+- Feature: Proof that ``python_requires`` can be used (as a workaround) to affect the ``package_id`` of consumers of ``build_requires`` that otherwise will not be rebuilt based on changes. `#8076 <https://github.com/conan-io/conan/pull/8076>`_ . Docs `here <https://github.com/conan-io/docs/pull/1925>`__
+- Feature: Introduce configuration ``general.keep_python_files`` to allow packaging of Python .pyc files. `#8070 <https://github.com/conan-io/conan/pull/8070>`_ . Docs `here <https://github.com/conan-io/docs/pull/1942>`__
+- Feature: Tests for toolchains and Intel compiler. `#8062 <https://github.com/conan-io/conan/pull/8062>`_
+- Feature: Add recipe and package revision to show a complete Conan reference when generating the `build_info --v2` id fields. `#8055 <https://github.com/conan-io/conan/pull/8055>`_
+- Feature: Introduce a new `BINARY_INVALID` mode for more flexible definition and management of invalid configurations. `#8053 <https://github.com/conan-io/conan/pull/8053>`_ . Docs `here <https://github.com/conan-io/docs/pull/1947>`__
+- Feature: Add headers with settings and options to HTTP GET requests when searching for packages. `#8046 <https://github.com/conan-io/conan/pull/8046>`_
+- Feature: Preliminary experimental support for toolchains with CMake + Visual + Ninja. `#8034 <https://github.com/conan-io/conan/pull/8034>`_
+- Feature: Allow (experimental) custom configuration of the ``msbuild`` generator. `#8014 <https://github.com/conan-io/conan/pull/8014>`_
+- Feature: Rename ``msbuild`` generator to ``MSBuildDeps`` and use the new ``generate()`` method. `#8014 <https://github.com/conan-io/conan/pull/8014>`_
+- Feature: Make the ``conan new bye/0.1 -s -t`` to provide variable filenames and messages that include the package name and version, instead of a hardcoded "hello" one. `#7989 <https://github.com/conan-io/conan/pull/7989>`_
+- Feature: Tagged tests and created a `conftest.py` to run the tests with `pytest` skipping the tests using not available tools (cmake, visual studio...). `#7975 <https://github.com/conan-io/conan/pull/7975>`_
+- Feature: Provide correct `--pure_c` implementation to :command:`conan new`. `#7947 <https://github.com/conan-io/conan/pull/7947>`_
+- Feature: System package tools can install a list of different packages. `#7779 <https://github.com/conan-io/conan/pull/7779>`_ . Docs `here <https://github.com/conan-io/docs/pull/1937>`__
+- Feature: meson toolchain `#7662 <https://github.com/conan-io/conan/pull/7662>`_ . Docs `here <https://github.com/conan-io/docs/pull/1943>`__
+- Feature: Add Conan package name and version to Visual Studio generator properties file. `#7645 <https://github.com/conan-io/conan/pull/7645>`_
+- Fix: Remove ``__init__.py`` in the root of the repo, which was useless, without a purpose, but caused issues with other projects importing Conan Python code. `#8132 <https://github.com/conan-io/conan/pull/8132>`_
+- Fix: Make variables defined in ``CMakeToolchain`` cache variables, so they can define directly values defined in ``CMakeLists.txt``. `#8124 <https://github.com/conan-io/conan/pull/8124>`_
+- Fix: Remove cryptography, pyopenssl and idna from OSX requirements in Python. `#8075 <https://github.com/conan-io/conan/pull/8075>`_
+- Fix: Rename the generated file of ``MSBuildToolchain`` to ``conantoolchain.props`` so it doesn't collide with a potential ``toolchain`` package name and the ``msbuild`` generator. `#8073 <https://github.com/conan-io/conan/pull/8073>`_ . Docs `here <https://github.com/conan-io/docs/pull/1941>`__
+- Fix: Avoid warning in ``msbuild`` generator importing multiple times the same .props file due to transitive dependencies. `#8072 <https://github.com/conan-io/conan/pull/8072>`_
+- Fix: Set username or password individually in git SCM with ssh. `#8016 <https://github.com/conan-io/conan/pull/8016>`_
+- Fix: When using lockfiles, allow ``config_options`` and ``configure`` to compute different options as long as the final evaluated values match the locked ones. `#7993 <https://github.com/conan-io/conan/pull/7993>`_
+- Fix: Make the ``conan new --pure_c`` pure C template to remove both ``compiler.libcxx`` and ``compiler.cppstd`` settings, as described in the docs. `#7989 <https://github.com/conan-io/conan/pull/7989>`_
+- BugFix: Fix linkage to a same global target of different package components in `cmake_find_package/_multi` generators. `#8114 <https://github.com/conan-io/conan/pull/8114>`_ . Docs `here <https://github.com/conan-io/docs/pull/1946>`__
+- Bugfix: Solve ``os.rename`` crash when using ``short_paths`` with a short path storage located in another Windows drive unit. `#8103 <https://github.com/conan-io/conan/pull/8103>`_
+- BugFix: Allow lockfiles to be relaxed with the `--build` argument. `#8054 <https://github.com/conan-io/conan/pull/8054>`_ . Docs `here <https://github.com/conan-io/docs/pull/1939>`__
+- Bugfix: Append existing ``LocalDebuggerEnvironment`` in ``msbuild`` generator. `#8040 <https://github.com/conan-io/conan/pull/8040>`_
+- Bugfix: Remove correctly short-paths folders in Windows. `#7986 <https://github.com/conan-io/conan/pull/7986>`_
+
+1.31.4 (25-Nov-2020)
+--------------------
+
+- Feature: Add new `CONAN_CMAKE_SYSROOT` environment variable to enable the definition of sysroot from environment, without abusing `CONAN_CMAKE_FIND_ROOT_PATH`. `#8097 <https://github.com/conan-io/conan/pull/8097>`_ . Docs `here <https://github.com/conan-io/docs/pull/1926>`__
+- Bugfix: remove definition of sysroot from `CONAN_CMAKE_FIND_ROOT_PATH`. `#8097 <https://github.com/conan-io/conan/pull/8097>`_ . Docs `here <https://github.com/conan-io/docs/pull/1926>`__
+- Bugfix: Bugfix: Solve os.rename crash when using short_paths with a short path storage located in another Windows drive unit. Ported from: `#8103 <https://github.com/conan-io/conan/pull/8103>`_
+
+1.31.3 (17-Nov-2020)
+--------------------
+
+- Bugfix: Fix addition of CMAKE_SYSTEM_NAME for SunOS and AIX 64->32 bits builds `#8059 <https://github.com/conan-io/conan/pull/8059>`_
+
+1.31.2 (11-Nov-2020)
+--------------------
+
+- Bugfix: Recent ``liburl3`` 1.26 library updates is breaking the constraints in Conan ``requirements.txt``  as ``requests`` 2.24 has a limitation for ``liburl3``. This PR constrains ``liburl3`` version to be less than 1.26, so it does not break with requests 2.24. `#8042 <https://github.com/conan-io/conan/pull/8042>`_
+
 1.31.1 (10-Nov-2020)
----------------------
+--------------------
 
 - Fix: Bump _cryptography_ dependency in MacOS to equal or later than 3.2. `#7962 <https://github.com/conan-io/conan/pull/7962>`_
 - Bugfix: Fix a problem with the ``init()`` function not being called when the recipe loader uses some cached data, which can happen when using lockfiles and with ``python_requires``. `#8018 <https://github.com/conan-io/conan/pull/8018>`_
@@ -31,7 +181,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Do not try to encrypt a `None` value when using `CONAN_LOGIN_ENCRYPTION_KEY` environment variable. `#8004 <https://github.com/conan-io/conan/pull/8004>`_
 
 1.31.0 (30-Oct-2020)
----------------------
+--------------------
 
 - Feature: Add argument `conanfile` to `pre_download_package` and `post_download_package` hook functions. `#7968 <https://github.com/conan-io/conan/pull/7968>`_ . Docs `here <https://github.com/conan-io/docs/pull/1905>`__
 - Feature: Add `CONAN_LOGIN_ENCRYPTION_KEY` environment variable to obfuscate stored auth token. `#7958 <https://github.com/conan-io/conan/pull/7958>`_ . Docs `here <https://github.com/conan-io/docs/pull/1903>`__
@@ -64,14 +214,14 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Copy symbolic links to directory with deploy generator. `#7655 <https://github.com/conan-io/conan/pull/7655>`_ . Docs `here <https://github.com/conan-io/docs/pull/1830>`__
 
 1.30.2 (15-Oct-2020)
----------------------
+--------------------
 
 - Feature: Supports Clang 11. `#7871 <https://github.com/conan-io/conan/pull/7871>`_ . Docs `here <https://github.com/conan-io/docs/pull/1883>`__
 - Bugfix: Fix regression https://github.com/conan-io/conan/issues/7856, ``imports`` failing to match subfolders in Windows due to backslash differences. `#7861 <https://github.com/conan-io/conan/pull/7861>`_
 - Bugfix: Allow defining new options values when creating a new lockfile from an existing base lockfile. `#7859 <https://github.com/conan-io/conan/pull/7859>`_
 
 1.30.1 (09-Oct-2020)
----------------------
+--------------------
 
 - Fix: Use quotes around the install path, it can contain spaces. `#7842 <https://github.com/conan-io/conan/pull/7842>`_
 - Fix: prefix intel functions with ``intel_`` because they are now exposed via tools. Fixes https://github.com/conan-io/conan/issues/7820. `#7821 <https://github.com/conan-io/conan/pull/7821>`_ . Docs `here <https://github.com/conan-io/docs/pull/1875>`__
@@ -80,7 +230,7 @@ Check https://github.com/conan-io/conan for issues and more details about develo
 - Bugfix: Check comparing the host and the build architecture to decide if cross building and set `CMAKE_SYSTEM_NAME` in the ``CMake`` build helper. `#7827 <https://github.com/conan-io/conan/pull/7827>`_
 
 1.30.0 (05-Oct-2020)
----------------------
+--------------------
 
 - Feature: Implement real detection of ``compiler.libcxx`` value for ``gcc`` compiler. Only enabled in `CONAN_V2_MODE`, otherwise it would be breaking. `#7776 <https://github.com/conan-io/conan/pull/7776>`_
 - Feature: Added [Depends](https://doc.qt.io/qbs/qml-qbslanguageitems-depends.html) items for every public dependency of conanfiles requires/dependencies. `#7729 <https://github.com/conan-io/conan/pull/7729>`_ . Docs `here <https://github.com/conan-io/docs/pull/1847>`__

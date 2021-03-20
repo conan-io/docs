@@ -10,7 +10,7 @@ Attributes
 
 name
 ----
-This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<PkgName>/version@user/channel`` of the package reference.
+This is a string, with a minimum of 2 and a maximum of 50 characters (though shorter names are recommended), that defines the package name. It will be the ``<pkgName>/version@user/channel`` of the package reference.
 It should match the following regex ``^[a-zA-Z0-9_][a-zA-Z0-9_\+\.-]{1,50}$``, so start with alphanumeric or underscore, then alphanumeric, underscore, +, ., - characters.
 
 The name is only necessary for ``export``-ing the recipe into the local cache (``export`` and ``create`` commands), if they are not defined in the command line.
@@ -20,7 +20,7 @@ However, the most common and suggested approach would be to define it in plain t
 
 version
 -------
-The version attribute will define the version part of the package reference: ``PkgName/<version>@user/channel``
+The version attribute will define the version part of the package reference: ``pkgName/<version>@user/channel``
 It is a string, and can take any value, matching the same constraints as the ``name`` attribute.
 In case the version follows semantic versioning in the form ``X.Y.Z-pre1+build2``, that value might be used for requiring this package through version ranges instead of exact versions.
 
@@ -411,14 +411,14 @@ go over all of them for the example recipe ``mypkg`` defined above:
       setting=value
 
       [options]
-      MyPkg:shared=False
+      mypkg:shared=False
 
 - Last way of defining values for options, with the highest priority over them all, is to pass
   these values using the command argument :command:`-o` in the command line:
 
   .. code-block:: bash
 
-    $ conan install . -o MyPkg:shared=True -o OtherPkg:option=value
+    $ conan install . -o mypkg:shared=True -o otherpkg:option=value
 
 Values for options can be also conditionally assigned (or even deleted) in the methods
 ``configure()`` and ``config_options()``, the
@@ -939,8 +939,9 @@ This object should be filled in ``package_info()`` method.
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.system_libs            | Ordered list with the system library names. Defaulted to ``[]`` (empty)                                 |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
-| self.cpp_info.build_modules          | | List of relative paths to build system related utility module files created by the package. Used by   |
-|                                      | | CMake generators to export *.cmake* files with functions for consumers. Defaulted to ``[]`` (empty)   |
+| self.cpp_info.build_modules          | | Dictionary of lists per generator containing relative paths to build system related utility module    |
+|                                      | | files created by the package. Used by CMake generators to export *.cmake* files with functions for    |
+|                                      | | consumers. Defaulted to ``{}`` (empty)                                                                |
 +--------------------------------------+---------------------------------------------------------------------------------------------------------+
 | self.cpp_info.components             | | **[Experimental]** Dictionary with different components a package may have: libraries, executables... |
 |                                      | | **Warning**: Using components with other ``cpp_info`` non-default values or configs is not supported  |
@@ -1538,7 +1539,7 @@ provides
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
-This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more 
+This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more
 libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
 
 Some examples are:
@@ -1580,5 +1581,5 @@ To declare that a recipe provides the functionality of several different recipes
         version = "1.0"
         provides = "cblas", "lapack"
 
-If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for 
+If the attribute is omitted, the value of the attribute is assumed to be equal to the current package name. Thus, it's redundant for
 ``libjpeg`` recipe to declare that it provides ``libjpeg``, it's already implicitly assumed by Conan.

@@ -49,8 +49,9 @@ Being ``<PKG-NAME>`` the package name used in the reference (by default) or the 
 | <PKG-NAME>_FRAMEWORK_DIRS          | Framework directories to perform the `find_library()` of <PKG-NAME>_FRAMEWORKS                      |
 +------------------------------------+-----------------------------------------------------------------------------------------------------+
 
-This file uses `<PKG-NAME>_BUILD_MODULES` values to include the files using the `include(...)` CMake directive. This makes functions or
-utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in the *CMakeLists.txt*.
+This file uses `<PKG-NAME>_BUILD_MODULES` values to include the files using the `include(...)` CMake directive after the targets are
+created. This makes functions or utilities exported by the package available for consumers just by setting `find_package(<PKG-NAME>)` in the
+*CMakeLists.txt*.
 
 Moreover, this also adjusts `CMAKE_MODULE_PATH` and `CMAKE_PREFIX_PATH` to the values declared by the package in ``cpp_info.buildirs``, so
 modules in those directories can be found.
@@ -82,3 +83,9 @@ If a recipe uses components, the targets generated will be ``<PKG-NAME>::<COMP-N
 Moreover, a global target ``<PKG-NAME>::<PKG-NAME>`` will be declared with the following properties adjusted:
 
 - ``INTERFACE_LINK_LIBRARIES``: Containing all the component targets to link the global target to (includes package's components only).
+
+.. important::
+
+    **Name conflicts**: If the name of the global target is the same for different packages, Conan will aggregate into this global target
+    all the components from all those different packages. This means that this global target will contain information coming from different
+    packages. For the components themselves, a name conflict will result in one of them being inaccessible without further notice.

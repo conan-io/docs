@@ -1,0 +1,51 @@
+#!groovy​
+
+node('Linux') {
+    String masterBranch = 'master'
+    boolean isMaster = env.BRANCH_NAME == masterBranch
+
+    stage('Clone sources') {
+        checkout scm
+    }
+
+    def image = null
+    stage('Build docker image') {
+        image = docker.build('conan-docs', '-f .ci/Dockerfile .')  // It should cache the image
+    }
+
+    stage('Test build') {
+        parallel html: {
+            image.inside {
+                sh 'make html'
+            }
+        },
+        pdf: {
+            image.inside {
+                sh 'make latex'
+            }
+        },
+        spelling: {
+            image.inside {
+                sh 'make spelling'
+            }
+        },
+        linkcheck: {
+            image.inside {
+                int output = sh(script: 'make linkcheck', returnStatus: true)
+                if (output != 0) {
+                    currentBuild.result = 'FAILURE'
+                    error('Stop here, linkcheck failed!')
+                }
+            }
+        }
+    }
+
+    // 'master' branch is published to GH pages
+    if (isMaster) {
+        build(job: 'Conan-Docs-Publish', propagate: true, wait: true, parameters: [
+            [$class: 'StringParameterValue', name: 'latest', value: masterBranch],
+            [$class: 'StringParameterValue', name: 'prefix', value: 'https://docs.conan.io/'],
+            [$class: 'BooleanParameterValue', name: 'publish', value: true]
+        ])
+    }
+}
