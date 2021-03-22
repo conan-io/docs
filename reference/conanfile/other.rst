@@ -95,6 +95,8 @@ Optional parameters:
 Requiring a Conan version for the recipe
 ----------------------------------------
 
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
+
 A required Conan version can be declared in the `conanfile.py` using ``required_conan_version`` to
 throw an error when the Conan version installed does not meet the criteria established by the
 variable. To add ``required_conan_version`` to a `conanfile.py` just declare it before the recipe
@@ -102,7 +104,7 @@ class definition:
 
   ..  code-block:: python
       :emphasize-lines: 3
-      
+
       from conans import ConanFile
 
       required_conan_version = ">=1.27.1"

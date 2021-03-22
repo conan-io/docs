@@ -447,7 +447,7 @@ To define a relative path to the *conanfile.py*, irrespective of the current wor
 .. warning::
 
     The ``set_name()`` and ``set_version()`` methods are alternatives to the ``name`` and ``version`` attributes. It is
-    not advised or supported to define both a ``name`` attribute and a ``set_name()`` method.  Likewise, it is 
+    not advised or supported to define both a ``name`` attribute and a ``set_name()`` method.  Likewise, it is
     not advised or supported to define both a ``version`` attribute and a ``set_version()`` method. If you define both,
     you may experience unexpected behavior.
 
@@ -544,6 +544,8 @@ validate()
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.32.0 <https://github.com/conan-io/conan/releases/tag/1.32.0>`_
 
 The ``validate()`` method can be used to mark a binary as "impossible" or invalid for a given configuration. For example,
 if a given library does not build or work at all in Windows it can be defined as:

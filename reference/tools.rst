@@ -855,7 +855,7 @@ different sources:
   use settings in that profile (read more about :ref:`build_requires_context`).
 * otherwise, the values for the ``build`` context will come from (in this order of precedence):
   ``self_os`` and ``self_arch`` if they are given to the function, the values for ``os_build``
-  and ``arch_build`` from ``conanfile.settings`` or auto-detected. 
+  and ``arch_build`` from ``conanfile.settings`` or auto-detected.
 
 This tool can be used to run special actions depending on its return value:
 
@@ -1189,11 +1189,13 @@ Parameters:
 tools.rename()
 ----------------------------
 
+Available since: `1.29.0 <https://github.com/conan-io/conan/releases/tag/1.29.0>`_
+
 .. code-block:: python
 
     def rename(src, dst)
 
-Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on windows. This function renames file or folder using robocopy to avoid the exception on windows. 
+Utility functions to rename a file or folder *src* to *dst* with retrying. ``os.rename()`` frequently raises "Access is denied" exception on windows. This function renames file or folder using robocopy to avoid the exception on windows.
 
 .. code-block:: python
 
@@ -1595,7 +1597,7 @@ tools.apple_sdk_name()
     def apple_sdk_name(settings)
 
 Returns proper SDK name suitable for OS and architecture you are building for (considering simulators).
-If ``self.settings.os.sdk`` setting is defined, it is used, otherwise the function tries to auto-detect based on 
+If ``self.settings.os.sdk`` setting is defined, it is used, otherwise the function tries to auto-detect based on
 ``self.settings.os`` and ``self.settings.arch``.
 
 Parameters:
@@ -1803,7 +1805,7 @@ tools.cppstd_flag():
 
     def cppstd_flag(settings)
 
-Returns the corresponding C++ standard flag based on the settings. For instance, it may return ``-std=c++17`` 
+Returns the corresponding C++ standard flag based on the settings. For instance, it may return ``-std=c++17``
 for ``compiler.cppstd=17``, and so on.
 
 Parameters:
