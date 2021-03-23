@@ -10,6 +10,7 @@ QbsProfile
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+Available since: `1.33.0 <https://github.com/conan-io/conan/releases/tag/1.33.0>`_
 
 The ``QbsProfile`` can be used in the ``generate()`` method:
 

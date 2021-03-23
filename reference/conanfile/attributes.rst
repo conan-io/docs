@@ -321,11 +321,11 @@ options
 -------
 
 Conan provides this attribute to declare traits which will affect only one reference, unlike the settings that are typically the
-same for all the recipes in a Conan graph. Options are declared per recipe, this attribute consist on a dictionary where the key is the 
+same for all the recipes in a Conan graph. Options are declared per recipe, this attribute consist on a dictionary where the key is the
 option name and the value is the list of different values that the option can take.
 
 .. important::
-   
+
     All the options with their values are encoded into the package ID, as everything that affects the generated binary.
     See :ref:`method_configure_config_options` and :ref:`method_package_id` methods for information about removing certain
     options for some configurations.
@@ -349,7 +349,7 @@ options that can take any value.
             "option4": [True, False, "value"],
         }
 
-Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The 
+Every option in a recipe needs to be assigned a value from the ones declared in the ``options`` attribute. The
 consumer can define options using different methods: command line, profile or consumer
 recipes; **an uninitialized option will get the value** ``None`` **and it will be a valid value if it is contained
 in the list of valid values**. Invalid values will produce an error. See attribute :ref:`conanfile_default_options`
@@ -482,7 +482,7 @@ The ``get_safe()`` method will return ``None`` if that option doesn't exist and 
 **Evaluate options**
 
 It is very important to know how the options are evaluated in conditional expressions and how the
-comparaison operator works with them: 
+comparison operator works with them:
 
 - Evaluation for the typed value and the string one is the same, so all these inputs would
   behave the same:
@@ -910,6 +910,8 @@ specified in the command line.
 
 recipe_folder
 -------------
+
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
 
 The folder where the recipe *conanfile.py* is stored, either in the local folder or in the cache. This is useful in order to access files
 that are exported along with the recipe.
@@ -1531,6 +1533,7 @@ deprecated
 
     This is an **experimental** feature subject to breaking changes in future releases.
 
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
 
 This attribute declares that the recipe is deprecated, causing a user-friendly warning message to be emitted whenever it is used.
 For example, the following code:
@@ -1576,6 +1579,8 @@ provides
 .. warning::
 
     This is an **experimental** feature subject to breaking changes in future releases.
+
+Available since: `1.28.0 <https://github.com/conan-io/conan/releases/tag/1.28.0>`_
 
 This attribute declares that the recipe provides the same functionality as other recipe(s). The attribute is usually needed if two or more
 libraries implement the same API to prevent link-time and run-time conflicts (ODR violations). One typical situation is forked libraries.
