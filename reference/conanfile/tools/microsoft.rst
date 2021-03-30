@@ -116,9 +116,10 @@ Included dependencies
 
 ``MSBuildDeps`` uses the new experimental ``self.dependencies`` access to dependencies. The following
 dependencies will be translated to properties files:
+
 - All direct dependencies, that is, the ones declared by the current ``conanfile``, that lives in the
-  host context: all regular ``requires``, plus the ``build_requires`` that are in the host
-  context, for example test frameworks as ``gtest`` or ``catch``.
+  host context: all regular ``requires``, plus the ``build_requires`` that are in the host context,
+  for example test frameworks as ``gtest`` or ``catch``.
 - All transitive ``requires`` of those direct dependencies (all in the host context)
 
 Then, the ``build_requires`` of build context (like ``cmake`` packages as build_requires), plus the
